@@ -13,7 +13,9 @@ clod-squad is a Claude Code channel plugin that enables bidirectional messaging 
 
 ## Identity
 
-Each Claude instance is identified by its project directory basename (e.g. `/home/jes/my-cool-app` becomes `my-cool-app`). On registration, the full path is stored to detect collisions — if two directories share a basename, the second registrant gets an error and must be disambiguated (e.g. by renaming the directory or using a symlink).
+Each Claude instance is identified by its project directory basename (e.g. `/home/jes/my-cool-app` becomes `my-cool-app`). The project directory is read from the `CLAUDE_PROJECT_DIR` environment variable (set by Claude Code when spawning channel plugins), not from `process.cwd()` (which points to the plugin root due to `--cwd`). On registration, the full path is stored to detect collisions — if two directories share a basename, the second registrant gets an error and must be disambiguated (e.g. by renaming the directory or using a symlink).
+
+Identities that have not been seen for 7 days are automatically pruned from the `identities` table during startup. This prevents stale entries from accumulating after project directories are renamed or deleted.
 
 ## Transport
 
@@ -66,7 +68,7 @@ Hub-and-spoke by convention, mesh by capability. Boss typically coordinates, but
 ### Startup
 
 1. Open/create SQLite DB, enable WAL mode, run migrations
-2. Derive identity from `process.cwd()` basename
+2. Derive identity from `CLAUDE_PROJECT_DIR` env var basename (fall back to `process.cwd()` for local testing)
 3. Check for basename collision against `full_path` in `identities` table
 4. Register or update identity, set `last_seen_at`
 5. Begin polling loop
@@ -74,9 +76,10 @@ Hub-and-spoke by convention, mesh by capability. Boss typically coordinates, but
 ### Polling Loop (every 2 seconds)
 
 1. `SELECT * FROM messages WHERE to_id = ? AND delivered_at IS NULL ORDER BY id`
-2. For each message, emit `notifications/claude/channel` notification
-3. Set `delivered_at = now` on delivered messages
-4. Update `last_seen_at` on own identity
+2. For each message, set `delivered_at = now` first, then emit `notifications/claude/channel` notification
+3. Update `last_seen_at` on own identity
+
+Delivery guarantee is at-most-once: marking delivered before emitting prevents duplicate notifications if the process crashes mid-loop. A missed notification is acceptable — the message remains in the DB and `read_history` can recover it.
 
 ### Shutdown
 
@@ -112,7 +115,7 @@ Send a message to another instance.
 | `text` | string | yes | Message body |
 | `metadata` | object | no | Optional structured fields (priority, tags, etc.) |
 
-Returns confirmation with recipient's online/offline status.
+Returns confirmation with recipient's online/offline status. Returns an error if the recipient identity does not exist.
 
 ### `list_peers`
 
@@ -129,7 +132,7 @@ Read past messages between this instance and a peer.
 | `peer` | string | yes | Peer identity name |
 | `limit` | number | no | Max messages to return (default 20) |
 
-Returns messages in both directions, ordered chronologically.
+Returns messages in both directions, ordered chronologically. This includes messages created by `broadcast` (which are stored as individual per-peer rows).
 
 ### `broadcast`
 
@@ -140,7 +143,7 @@ Send a message to all registered peers.
 | `text` | string | yes | Message body |
 | `metadata` | object | no | Optional structured fields |
 
-Writes one message row per peer. Returns delivery summary with online/offline counts.
+Writes one message row per peer, excluding the sender. Returns delivery summary with online/offline counts.
 
 ## Offline Handling
 
@@ -193,8 +196,7 @@ clod-squad/
     "start": "bun install --no-summary && bun server.ts"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.0.0",
-    "better-sqlite3": "^11.0.0"
+    "@modelcontextprotocol/sdk": "^1.0.0"
   }
 }
 ```
@@ -208,7 +210,7 @@ Messages from other Claude instances arrive as <channel source="clod-squad" from
 ## Runtime
 
 - **Runtime**: Bun (consistent with existing Claude Code plugins)
-- **SQLite driver**: better-sqlite3 (synchronous, WAL-friendly)
+- **SQLite driver**: `bun:sqlite` (Bun's built-in synchronous SQLite driver, WAL-compatible, no native addon compilation needed)
 - **MCP SDK**: @modelcontextprotocol/sdk (standard Claude Code plugin SDK)
 - **Transport**: stdio (spawned by Claude Code as subprocess)
 
