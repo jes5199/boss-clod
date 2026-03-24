@@ -69,3 +69,60 @@ export function pruneStaleIdentities(db: Database): void {
   const cutoff = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()
   db.run('DELETE FROM identities WHERE last_seen_at < ?', [cutoff])
 }
+
+export interface Message {
+  id: number
+  from_id: string
+  to_id: string
+  body: string
+  metadata: string | null
+  created_at: string
+  delivered_at: string | null
+}
+
+export function insertMessage(
+  db: Database,
+  fromId: string,
+  toId: string,
+  body: string,
+  metadata?: Record<string, unknown>,
+): number {
+  const recipient = db.query('SELECT name FROM identities WHERE name = ?').get(toId)
+  if (!recipient) {
+    throw new Error(`Recipient "${toId}" not found. Use list_peers to see registered identities.`)
+  }
+
+  const result = db.run(
+    `INSERT INTO messages (from_id, to_id, body, metadata, created_at)
+     VALUES (?, ?, ?, ?, ?)`,
+    [fromId, toId, body, metadata ? JSON.stringify(metadata) : null, new Date().toISOString()]
+  )
+  return Number(result.lastInsertRowid)
+}
+
+export function getUndelivered(db: Database, toId: string): Message[] {
+  return db.query(
+    'SELECT * FROM messages WHERE to_id = ? AND delivered_at IS NULL ORDER BY id'
+  ).all(toId) as Message[]
+}
+
+export function markDelivered(db: Database, messageId: number): void {
+  db.run('UPDATE messages SET delivered_at = ? WHERE id = ?', [new Date().toISOString(), messageId])
+}
+
+export function getHistory(db: Database, peer1: string, peer2: string, limit: number): Message[] {
+  return db.query(
+    `SELECT * FROM (
+       SELECT * FROM messages
+       WHERE (from_id = ?1 AND to_id = ?2) OR (from_id = ?2 AND to_id = ?1)
+       ORDER BY id DESC
+       LIMIT ?3
+     ) sub ORDER BY id ASC`,
+  ).all(peer1, peer2, limit) as Message[]
+}
+
+export function isOnline(identity: Identity): boolean {
+  if (!identity.last_seen_at) return false
+  const lastSeen = new Date(identity.last_seen_at).getTime()
+  return Date.now() - lastSeen < 30_000
+}

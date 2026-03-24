@@ -1,6 +1,6 @@
 import { describe, test, expect } from 'bun:test'
 import { Database } from 'bun:sqlite'
-import { initDb, registerIdentity, listIdentities, pruneStaleIdentities } from './db'
+import { initDb, registerIdentity, listIdentities, pruneStaleIdentities, insertMessage, getUndelivered, markDelivered, getHistory } from './db'
 
 describe('initDb', () => {
   test('creates identities and messages tables', () => {
@@ -65,5 +65,116 @@ describe('pruneStaleIdentities', () => {
     const rows = listIdentities(db)
     expect(rows).toHaveLength(1)
     expect(rows[0].name).toBe('new-app')
+  })
+})
+
+describe('insertMessage', () => {
+  test('inserts a message and returns its id', () => {
+    const db = new Database(':memory:')
+    initDb(db)
+    registerIdentity(db, 'boss', '/home/jes/boss')
+    registerIdentity(db, 'worker', '/home/jes/worker')
+
+    const id = insertMessage(db, 'boss', 'worker', 'do the thing')
+    expect(id).toBeGreaterThan(0)
+  })
+
+  test('inserts with metadata', () => {
+    const db = new Database(':memory:')
+    initDb(db)
+    registerIdentity(db, 'boss', '/home/jes/boss')
+    registerIdentity(db, 'worker', '/home/jes/worker')
+
+    const id = insertMessage(db, 'boss', 'worker', 'urgent task', { priority: 'high' })
+    const msgs = getHistory(db, 'boss', 'worker', 20)
+    expect(msgs[0].metadata).toBe(JSON.stringify({ priority: 'high' }))
+  })
+
+  test('throws on nonexistent recipient', () => {
+    const db = new Database(':memory:')
+    initDb(db)
+    registerIdentity(db, 'boss', '/home/jes/boss')
+
+    expect(() => insertMessage(db, 'boss', 'nobody', 'hello')).toThrow(/not found/)
+  })
+})
+
+describe('getUndelivered', () => {
+  test('returns only undelivered messages for recipient', () => {
+    const db = new Database(':memory:')
+    initDb(db)
+    registerIdentity(db, 'boss', '/home/jes/boss')
+    registerIdentity(db, 'worker', '/home/jes/worker')
+
+    insertMessage(db, 'boss', 'worker', 'msg1')
+    insertMessage(db, 'boss', 'worker', 'msg2')
+
+    const msgs = getUndelivered(db, 'worker')
+    expect(msgs).toHaveLength(2)
+    expect(msgs[0].body).toBe('msg1')
+    expect(msgs[1].body).toBe('msg2')
+  })
+
+  test('does not return messages for other recipients', () => {
+    const db = new Database(':memory:')
+    initDb(db)
+    registerIdentity(db, 'boss', '/home/jes/boss')
+    registerIdentity(db, 'w1', '/home/jes/w1')
+    registerIdentity(db, 'w2', '/home/jes/w2')
+
+    insertMessage(db, 'boss', 'w1', 'for w1')
+    insertMessage(db, 'boss', 'w2', 'for w2')
+
+    const msgs = getUndelivered(db, 'w1')
+    expect(msgs).toHaveLength(1)
+    expect(msgs[0].body).toBe('for w1')
+  })
+})
+
+describe('markDelivered', () => {
+  test('marks a message as delivered', () => {
+    const db = new Database(':memory:')
+    initDb(db)
+    registerIdentity(db, 'boss', '/home/jes/boss')
+    registerIdentity(db, 'worker', '/home/jes/worker')
+
+    insertMessage(db, 'boss', 'worker', 'msg')
+    const before = getUndelivered(db, 'worker')
+    expect(before).toHaveLength(1)
+
+    markDelivered(db, before[0].id)
+    const after = getUndelivered(db, 'worker')
+    expect(after).toHaveLength(0)
+  })
+})
+
+describe('getHistory', () => {
+  test('returns messages in both directions', () => {
+    const db = new Database(':memory:')
+    initDb(db)
+    registerIdentity(db, 'boss', '/home/jes/boss')
+    registerIdentity(db, 'worker', '/home/jes/worker')
+
+    insertMessage(db, 'boss', 'worker', 'task for you')
+    insertMessage(db, 'worker', 'boss', 'done')
+
+    const history = getHistory(db, 'boss', 'worker', 20)
+    expect(history).toHaveLength(2)
+    expect(history[0].body).toBe('task for you')
+    expect(history[1].body).toBe('done')
+  })
+
+  test('respects limit', () => {
+    const db = new Database(':memory:')
+    initDb(db)
+    registerIdentity(db, 'a', '/home/jes/a')
+    registerIdentity(db, 'b', '/home/jes/b')
+
+    for (let i = 0; i < 5; i++) insertMessage(db, 'a', 'b', `msg${i}`)
+
+    const history = getHistory(db, 'a', 'b', 3)
+    expect(history).toHaveLength(3)
+    // Should return the 3 most recent
+    expect(history[0].body).toBe('msg2')
   })
 })
