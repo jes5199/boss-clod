@@ -1,0 +1,6 @@
+{
+  "name": "clod-squad",
+  "description": "Channel plugin for inter-Claude communication via shared SQLite queue",
+  "version": "0.0.1",
+  "keywords": ["channel", "coordination", "messaging", "mcp"]
+}
