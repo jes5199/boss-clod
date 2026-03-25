@@ -72,9 +72,9 @@ The `--dangerously-load-development-channels` flag prompts for confirmation (Ent
 
 On session start, set up these recurring jobs:
 
-1. **Worker health check** — every 1 hour: Check all worker tmux panes for crashes (bash instead of claude), stuck generations (30+ min), and queued messages needing Enter. Fix any issues found and report to telegram.
+1. **Worker health check** — every 1 hour: Check all worker tmux panes for crashes (bash instead of claude), stuck generations (30+ min), and queued messages needing Enter. Fix any issues found. Also note what each busy agent is currently working on. Send a telegram summary with fixes and active work (skip idle agents unless there's an issue).
    ```
-   /loop 1h check all worker agents: list_peers for online/offline, check each tmux pane for bash instead of claude (restart with workerclaude), check for stuck generations over 30 min (cancel with Ctrl-C), check for "Press up to edit queued messages" (send Enter). Report any fixes to telegram.
+   /loop 1h check all worker agents: list_peers for online/offline, check each tmux pane for bash instead of claude (restart with workerclaude), check for stuck generations over 30 min (cancel with Ctrl-C), check for "Press up to edit queued messages" (send Enter). For each worker, note what they're doing (idle, generating, running tools). Send telegram summary with any fixes and what busy agents are working on.
    ```
 
 2. **Usage report** — every 3 hours: Run `/usage-report` to send quota burn rate comparison to telegram.
