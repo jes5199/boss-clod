@@ -59,12 +59,28 @@ The `--dangerously-load-development-channels` flag prompts for confirmation (Ent
 | Name | Directory | Role |
 |------|-----------|------|
 | boss-clod | ~/boss-clod | Orchestrator, telegram bridge |
-| wimble | ~/wimble | Worker |
-| dirigible | ~/dirigible | Worker |
-| commonplace | ~/commonplace | Worker |
-| commonplace-plan | ~/commonplace-plan | Worker |
-| awakening | ~/awakening | Worker |
-| claude-chat | ~/claude-chat | IRC relay / chat |
+| wimble | ~/wimble | Rust ephemeris API (astrological events) |
+| dirigible | ~/dirigible | Rails app (astrolab.ist domains) |
+| commonplace | ~/commonplace | Elixir CRDT document store |
+| commonplace-plan | ~/commonplace-plan | Architecture docs for commonplace |
+| awakening | ~/awakening | LaTeX novel ("The Big Stupid at Awakening Peak") |
+| claude-chat | ~/claude-chat | IRC relay for #loom |
+| tarot | ~/tarot | LaTeX tarot deck (Star Taker Tarot) |
+| hermes | ~/hermes | Elixir options trading automation (E*TRADE) |
+
+## Startup Loops
+
+On session start, set up these recurring jobs:
+
+1. **Worker health check** — every 1 hour: Check all worker tmux panes for crashes (bash instead of claude), stuck generations (30+ min), and queued messages needing Enter. Fix any issues found and report to telegram.
+   ```
+   /loop 1h check all worker agents: list_peers for online/offline, check each tmux pane for bash instead of claude (restart with workerclaude), check for stuck generations over 30 min (cancel with Ctrl-C), check for "Press up to edit queued messages" (send Enter). Report any fixes to telegram.
+   ```
+
+2. **Usage report** — every 3 hours: Run `/usage-report` to send quota burn rate comparison to telegram.
+   ```
+   /loop 3h /usage-report
+   ```
 
 ## Key Files
 
