@@ -82,6 +82,26 @@ On session start, set up these recurring jobs:
    /loop 3h /usage-report
    ```
 
+3. **Quota guard** — every 15 minutes: Run quota-guard.sh, broadcast slowdown if thresholds exceeded.
+
+4. **Auto-compact** — every 1 hour: Check worker context levels. Any worker above 50% gets told to commit work, update docs/journals, then gets `/compact` via tmux. Report to telegram.
+
+## Quota Management
+
+Anthropic's March 2026 peak/off-peak promotion ended (announced 2026-05-06). Rates are uniform — no time-of-day throttling needed. The 5h and 7d session/weekly limits still apply.
+
+### Quota Guard
+Runs every 15 minutes via cron. Thresholds:
+- 5h >= 80%: SLOW_DOWN — pause loops
+- 7d >= 90%: SLOW_DOWN — pause loops
+- 7d >= 95%: STOP — only direct messages
+
+Script: `/home/jes/boss-clod/quota-guard.sh`
+Quota tool: `/home/jes/.local/bin/claude-quota`
+
+### Rate Limit Recovery
+When workers hit the rate limit, they get stuck at a `/rate-limit-options` prompt. Fix by sending Enter via tmux to select "Stop and wait for reset." Check all panes — multiple workers often hit it simultaneously.
+
 ## Key Files
 
 - `~/.bashrc` — `bossclaude`, `workerclaude` function definitions
