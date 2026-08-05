@@ -87,9 +87,10 @@ for key, hours in (("five_hour", 5), ("seven_day", 168)):
     r = datetime.fromisoformat(w["resets_at"]).timestamp()
     el = (now - (r - hours * 3600)) / (hours * 3600) * 100
     use = w["utilization"]
-    # Guard the divide: a just-rolled window has elapsed ~0 and any
-    # usage divides to a huge ratio. Treat <2% elapsed as "too early
-    # to judge" rather than emitting a meaningless number.
+    # A just-rolled window is OPEN BY DEFINITION (jes, 2026-08-05):
+    # treat it as full headroom, not as unknown. The <2% guard exists
+    # only to avoid dividing by a near-zero denominator; ratio 0.0 =
+    # headroom, which is the correct reading, not a refusal to judge.
     ratio = (use / el) if el >= 2 else 0.0
     out.append(f"{key}:{use:.1f}:{el:.1f}:{ratio:.2f}")
 print(" ".join(out) if out else "ERR")
