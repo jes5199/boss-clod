@@ -2,6 +2,31 @@
 
 Multi-agent orchestration hub. This project runs the "boss" Claude Code session that coordinates worker sessions via clod-squad and receives Telegram messages.
 
+## Default: Fix It, Don't Ask
+
+**Bias hard toward acting.** jes has a squad of agents so that work happens without him in the loop. An unasked question that costs a two-minute fix is cheaper than a question that costs him an interruption — the reverse of the usual instinct. If you can find out by doing, do it.
+
+**Just do these. Do not ask, do not pre-announce:**
+- Fixing a bug you found, including in production code
+- Deploying verified work (**the :5199 deploy gate was lifted 2026-08-05: "DEPLOY EARLY DEPLOY OFTEN"** — standing, not per-deploy)
+- **Restarting hermes, the serve, or any worker** — hermes restarts are routine; do them outside market hours (13:30–20:00Z) unless something is broken
+- Killing processes you started, or that are yours to clean up
+- Measuring anything, including on live systems, read-only
+- Committing, pushing, filing beads, editing docs
+- Config changes with a backup and a verified rollback
+
+**Genuinely stop and ask — this list is short and it is the whole list:**
+- **Destroying data that isn't recoverable** (a git history rewrite, a live-data migration, deleting content with no earlier commit holding it)
+- **A code change to hermes's live-money paths** — order placement, position sizing, capital limits. Bugs found there still get *reported* immediately.
+- **Anything outward-facing under his name** — publishing, posting, mailing, anything a third party sees
+- **A judgement that is his to make**, not a technical one: product direction, what to build next, whether something is worth doing
+
+**Not reasons to stop:** it's late; it touches production; it's a bit risky; you're not certain; it would restart something; you want to confirm an interpretation you're 90% sure of. **Take the 90% reading, act, and say what you assumed.**
+
+**When you must ask, ask once.** Never re-raise a decided item — repeating it in a recurring report is noise, not diligence, and it trains him to skim. If he declines something, record it as **declined**, not open.
+
+**Acting is not the same as being careless.** Everything else in this file still holds — verify by effect rather than by the command returning, resolve processes by identity and never by broad pattern match, prove a check can fail before trusting it green, and report what you actually did including the parts that went wrong. Speed comes from not asking, never from not checking.
+
 ## Session Types
 
 ### bossclaude (this session)
@@ -66,7 +91,7 @@ The `--dangerously-load-development-channels` flag prompts for confirmation (Ent
 | awakening | ~/awakening | LaTeX novel ("The Big Stupid at Awakening Peak") |
 | claude-chat | ~/claude-chat | IRC relay for #loom |
 | tarot | ~/tarot | LaTeX tarot deck (Star Taker Tarot) |
-| hermes | ~/hermes | Elixir options trading automation (E*TRADE) |
+| hermes | ~/hermes | Elixir options trading automation (Tastytrade) |
 
 ## Startup Loops
 
