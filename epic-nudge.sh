@@ -17,7 +17,7 @@
 set -uo pipefail
 
 WORKER="${WORKER:-commonplace}"
-RATIO_MAX="${RATIO_MAX:-0.9}"        # jes's standing burn target
+RATIO_MAX="${RATIO_MAX:-0.85}"       # jes 2026-08-06: lowered 0.9 → 0.85
 COOLDOWN_MIN="${COOLDOWN_MIN:-60}"   # don't re-nudge inside this window
 IDLE_MARKER="/home/jes/boss-clod/.epic-nudge-last"
 
