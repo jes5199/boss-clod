@@ -32,6 +32,14 @@ MASK=(
   --tmpfs /home/jes/.ssh
   --tmpfs /home/jes/.config/gh
   --tmpfs /home/jes/.claude/channels
+  # 2026-08-07: the live store's own credentials. Sol needs commits/ to
+  # investigate the 450x gap (jes: "if Claude can do it, then Sol can do it")
+  # but it does NOT need the node's signing identity or the secrets store.
+  # These were readable from the moment egress was opened -- workspace-write
+  # restricts WRITES; READS were always broad. Masking them keeps exactly the
+  # access jes asked for and removes the part nobody intended.
+  --ro-bind /dev/null /home/jes/commonplace/workspace/.commonplace/node_signing_key
+  --tmpfs /home/jes/commonplace/workspace/.commonplace/secrets
 )
 
 exec env -u LETTA_API_KEY -u SQUAD_ALERTS_PUBLISHER_TOKEN \
