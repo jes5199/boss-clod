@@ -1,56 +1,63 @@
-# ⚠️ THE LIVE SERVE IS RUNNING CODE THAT IS NOT ON MAIN
+# ⚠️ THE LIVE SERVE IS RUNNING CODE THAT IS **OLDER** THAN MAIN
 
-**Opened 2026-08-07 ~19:45Z by boss-clod. Delete this file when it stops being true.**
+**Opened 2026-08-07 ~19:45Z. REVERSED 2026-08-07 ~23:10Z — read the direction carefully, it changed.
+Delete this file when it stops being true.**
 
 If you are debugging the commonplace serve and its behaviour does not match
-`main`, **read this before anything else** — you are probably looking at the
-reason.
+`main`, **read this before anything else**.
 
-## What diverges
+## The direction reversed at the merge
 
-Three modules were **hot-loaded** into the live serve (pid `887503` at the time
-of writing) from the **unmerged** branch `sol/cx-mchn-scanner` @`7a46773` +
-unstaged work, in the worktree `/home/jes/sol-scanner/wt`:
+- **Before ~23:05Z:** the serve ran code `main` did not have (hot-loaded from an
+  unmerged branch).
+- **Now:** `sol/cx-mchn-scanner` merged as **`7dd1b5a`**, and BRIEF-4 + BRIEF-6
+  changed `mixed_plane_history.ex` **after** the hot-load. So the serve holds a
+  module that `main` has since **superseded**. The merge did not clear the
+  divergence — **it inverted it.**
 
-| module | on-node md5 after load | note |
+## What the running node holds
+
+| module | serve-resident md5 | status |
 |---|---|---|
-| `Commonplace.Projection` | `5C8E00468EAC209D88B1952B77226B4B` | ⚠️ **a live core module, REPLACED** (was `48774E51C0427CD354DAC3B7EC5604C7`) |
-| `Commonplace.Projection.MixedPlaneHistory` | `4A96FEC1DF428D926C501E48A9324529` | new scanner |
-| `Commonplace.Projection.MixedPlaneHistoryFixture` | `EB5B4AA0F6D4E8191CFC4D0681736240` | unchanged by the last load — was already resident |
+| `Commonplace.Projection` | `5C8E00468EAC209D88B1952B77226B4B` | hot-loaded 19:40Z; semantically additive (`project_history/3` + helpers) |
+| `…Projection.MixedPlaneHistory` | `4A96FEC1DF428D926C501E48A9324529` | ⚠️ **STALE — pre-dates the default flip** |
+| `…Projection.MixedPlaneHistoryFixture` | `EB5B4AA0F6D4E8191CFC4D0681736240` | unchanged throughout |
 
-The `Projection` change was verified **semantically additive** line by line
-before loading: a new `project_history/3` plus private helpers, and the diff's
-only three removed lines are an extended `alias`, one re-wrapped `raise`, and
-one space of indentation. **Zero `- def` / `- defp` lines** — no existing
-function was removed or altered. `project_at/3`, `project_doc_at/3`,
-`fetch_commit`, `verify_chain_integrity` are behaviourally untouched. Two
-independent line-by-line readings (boss + commonplace) agreed.
+⚠️ **THE CONCRETE HAZARD:** the serve-resident `MixedPlaneHistory` still defaults
+to **`:incremental`** — the strategy measured **1.43× slower** on this corpus, whose
+fix is exactly what `7dd1b5a` merged. `main` now defaults to `:oracle`
+(`mixed_plane_history.ex:268`). **A sweep launched against the running node today
+silently takes the slow path, with no signal in its output.**
+
+**Stakes are low but not zero:** nothing on the serve calls `MixedPlaneHistory`
+except a sweep someone chooses to launch, so the stale copy is **inert until then**.
 
 ## How to clear it
 
-**Restart the serve.** Hot-loaded code does not survive a restart, so a restart
-reverts all three to whatever `main` has. **Nothing on disk in `~/commonplace`
-was changed** — this divergence exists only in the running BEAM.
+**Restart the serve.** Hot-loaded code does not survive a restart, so the node
+reloads from `_build/dev`. ⚠️ **Verify `_build/dev` actually reflects `7dd1b5a`
+first** — it will not until something compiles main, so a restart before a rebuild
+reverts to whatever was last built there, which may be neither version.
 
-The alternative is that `sol/cx-mchn-scanner` merges, at which point the serve
-is merely *ahead of its restart*, not diverged from main.
+**Nothing on disk in `~/commonplace` was ever changed by this** — the divergence
+has only ever existed in the running BEAM.
 
 ## Why it was done
 
-To run the CX-mchn mixed-plane sweep against the live store. The sweep's design
-runs **inside** the serve via one erpc, so the module has to exist there; an
-unmerged module cannot be erpc'd into a running node. See
-`project_mixed_plane_scanner` in boss-clod memory for the full state.
+To run the CX-mchn mixed-plane sweep against the live store: the sweep runs
+**inside** the serve via one erpc, so the module must exist there, and an unmerged
+module cannot be erpc'd into a running node. See `project_mixed_plane_scanner` in
+boss-clod memory for the full state.
 
-## Live-state notes taken at the time
+## Live-state notes
 
-- Serve stable for 2h+ under real traffic after the load.
-- Live store **byte-identical** across the first full sweep (the scan path does
-  not write): `23.cub` unchanged in size, mtime, and `commits/` listing md5.
-- `:global` names 0 before and after; no `/tmp/commonplace-mixed-plane-control-*`
-  leaked.
-- `/tmp/mixed-plane-live` holds **25 oracle-scanned docs** — the real resumable
-  checkpoint, **KEEP**. `/tmp/mixed-plane-ab` (32 docs) is a disposable A/B artifact.
+- Live store **byte-identical** across a full sweep — the scan path does not write.
+- `:global` names 0 before and after; no `/tmp/commonplace-mixed-plane-control-*` leaked.
+- `/tmp/mixed-plane-live` = **25 oracle-scanned docs, KEEP** (the real resumable checkpoint).
+  `/tmp/mixed-plane-ab` (32 docs) is a disposable A/B artifact.
 - `/home/jes/sol-storecopy` is a consistent `CubDB.back_up` of the live store
   (542,723,092 bytes, 71,042 entries), taken **by the serve itself** — never a
-  second opener. Safe to delete once the profiling work is done.
+  second opener. Safe to delete once profiling work is done.
+- ⚠️ The commonplace test suite has **shared generated state** (`tmp/test_data`)
+  that **overlapping runs can corrupt** — one was quarantined at
+  `/tmp/commonplace_test_data_quarantine_20260807_2156`. Serialise suite runs.
