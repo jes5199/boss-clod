@@ -7,6 +7,13 @@ import {
 import { Database } from 'bun:sqlite'
 import { homedir } from 'os'
 import { join, basename } from 'path'
+
+// A message older than this at DELIVERY time is labelled stale. Chosen
+// against how this fleet actually behaves: workers restart, crash and
+// compact regularly, and a message that waited out one of those describes
+// a world that has moved on. Not a hard expiry — the recipient still gets
+// it, and still decides. The point is that it cannot arrive looking fresh.
+const STALE_AFTER_MINUTES = 30
 import { mkdirSync } from 'fs'
 import {
   initDb,
@@ -205,10 +212,26 @@ const pollInterval = setInterval(() => {
     for (const msg of messages) {
       markDelivered(db, msg.id)
 
+      // jes 2026-08-07: "durable mail is actually kinda risky, old messages
+      // pile up in a way that confused workers." A queued message is written
+      // at one time and read at another; `ts` is the SENDER's stamp, and a
+      // reader has to notice it is old. That is the failure we keep paying
+      // for elsewhere — so compute the age HERE, at delivery, against the
+      // reader's own clock, and label it rather than leaving it to be
+      // inferred. A recipient that was offline for hours now sees
+      // stale="true" instead of a timestamp it has to do arithmetic on.
+      const ageMinutes = Math.max(
+        0,
+        Math.round((Date.now() - new Date(msg.created_at).getTime()) / 60000),
+      )
       const meta: Record<string, string> = {
         from: msg.from_id,
         message_id: String(msg.id),
         ts: msg.created_at,
+        age_minutes: String(ageMinutes),
+      }
+      if (ageMinutes >= STALE_AFTER_MINUTES) {
+        meta.stale = 'true'
       }
 
       // Spread metadata fields into meta attributes
