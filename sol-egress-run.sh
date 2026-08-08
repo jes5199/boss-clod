@@ -48,6 +48,17 @@ MASK=(
   # credentials while leaving the key to remote code execution on its owner was
   # the hole. Egress changed the fence and nobody re-tested distribution.
   --ro-bind /dev/null /home/jes/.erlang.cookie
+  # 2026-08-08: SHADOW `bd` WITH A GUARD, SANDBOX-ONLY. bd is the frozen
+  # archive for commonplace (2026-08-05 cutover) and answers "no issue found"
+  # for every ticket filed since -- accurately, and about the wrong world.
+  # Sol typed `bd ready` on CX-3mj2 and reached the real binary; it only
+  # failed because a fresh worktree has no Dolt DB. LUCK STOOD IN FOR A GUARD,
+  # and luck reads exactly like coverage. commonplace's PreToolUse hook covers
+  # Claude Code agents in that repo; it cannot cover Sol, who runs under codex.
+  # The host binary is NOT touched -- hermes/wimble/gastown/turingtest/
+  # starloom26/paravel all have LIVE beads stores and must keep working.
+  --ro-bind /home/jes/.local/bin/bd /home/jes/.local/bin/bd.real
+  --ro-bind /home/jes/boss-clod/sol-bd-guard.sh /home/jes/.local/bin/bd
 )
 
 exec env -u LETTA_API_KEY -u SQUAD_ALERTS_PUBLISHER_TOKEN \
