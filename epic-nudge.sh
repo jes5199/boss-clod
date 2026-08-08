@@ -17,7 +17,11 @@
 set -uo pipefail
 
 WORKER="${WORKER:-commonplace}"
-RATIO_MAX="${RATIO_MAX:-0.85}"       # jes 2026-08-06: lowered 0.9 → 0.85
+RATIO_MAX="${RATIO_MAX:-0.95}"       # jes 2026-08-08: 0.85 → 0.95. At 0.85 the loop
+                                     # was closed all mid-week: a 7d window spent
+                                     # evenly SITS near 1.0, so 0.85 only opened when
+                                     # underspending. quota-guard's absolute 80/95 lines
+                                     # are the real backstop. (was 0.9 → 0.85 on 08-06)
 COOLDOWN_MIN="${COOLDOWN_MIN:-60}"   # don't re-nudge inside this window
 IDLE_MARKER="/home/jes/boss-clod/.epic-nudge-last"
 
