@@ -40,6 +40,14 @@ MASK=(
   # access jes asked for and removes the part nobody intended.
   --ro-bind /dev/null /home/jes/commonplace/workspace/.commonplace/node_signing_key
   --tmpfs /home/jes/commonplace/workspace/.commonplace/secrets
+  # 2026-08-08: THE ERLANG COOKIE. Opening egress (network_access=true) also
+  # enabled BEAM distribution, which the sandbox had previously blocked with
+  # :eperm -- so Sol could see epmd AND net_adm:ping the live serve (verified:
+  # ping=pong). Cookie + distribution = erpc into the node that OWNS the store,
+  # which routes around every store-path mask above. Masking the store's own
+  # credentials while leaving the key to remote code execution on its owner was
+  # the hole. Egress changed the fence and nobody re-tested distribution.
+  --ro-bind /dev/null /home/jes/.erlang.cookie
 )
 
 exec env -u LETTA_API_KEY -u SQUAD_ALERTS_PUBLISHER_TOKEN \
