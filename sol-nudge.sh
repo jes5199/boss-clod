@@ -27,7 +27,12 @@ set -uo pipefail
 WORKER="${WORKER:-commonplace}"
 RATIO_MAX="${RATIO_MAX:-1.60}"        # floor for brief+review only — see note above
 SEVEN_DAY_STOP="${SEVEN_DAY_STOP:-95}" # absolute: matches quota-guard's STOP
-COOLDOWN_MIN="${COOLDOWN_MIN:-60}"
+COOLDOWN_MIN="${COOLDOWN_MIN:-30}"   # jes 2026-08-08: 60 -> 30. The cron alone
+                                     # cannot set the cadence — a 30m cron under a
+                                     # 60m cooldown still fires hourly. Safe because
+                                     # the busy-check declines while commonplace is
+                                     # briefing, which is the case the cooldown was
+                                     # really covering.
 MARKER="/home/jes/boss-clod/.sol-nudge-last"
 CREDIT_SENTINEL="/home/jes/boss-clod/.sol-codex-exhausted"
 
