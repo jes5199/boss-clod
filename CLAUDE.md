@@ -95,6 +95,11 @@ The `--dangerously-load-development-channels` flag prompts for confirmation (Ent
 
 ## Startup Loops
 
+⚠️ **The loops actually running are in [LOOPS.md](LOOPS.md), with their exact prompts.**
+`CronCreate` jobs are session-only and are NOT persisted by the harness — a restart
+loses them, so LOOPS.md is the only durable copy. The list below is the 2026-08-05
+set and is HISTORICAL; it is not what has been running.
+
 On session start, set up these recurring jobs:
 
 1. **Worker health check** — every 1 hour: Check all worker tmux panes for crashes (bash instead of claude), stuck generations (30+ min), and queued messages needing Enter. Fix any issues found. Also note what each busy agent is currently working on. Send a telegram summary with fixes and active work (skip idle agents unless there's an issue).
