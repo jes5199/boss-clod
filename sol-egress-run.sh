@@ -191,14 +191,26 @@ MASK=(
   --ro-bind /home/jes/boss-clod/sol-bd-guard.sh /home/jes/.local/bin/bd
 )
 
-# ⛔⛔ `< /dev/null` IS LOAD-BEARING (2026-08-09). Backgrounded without it,
-# codex blocks forever on "Reading additional input from stdin..." — and
-# ⭐ A BLOCKED SOL AND A THINKING SOL ARE INDISTINGUISHABLE FROM OUTSIDE:
-# live codex + bwrap processes, rc=0 from the launcher, a log file that
-# exists. Every liveness signal reads healthy. The only tell is a log that
-# stops at one line, and "Sol is working on a hard brief" produces that too.
-# ⚠️ It fails in the direction that looks like PATIENCE, which is why nobody
-# investigates it.
+# ⚠️ `< /dev/null` IS HARDENING, NOT A CONFIRMED FIX (2026-08-09) — and the
+# distinction is recorded because the original justification was WRONG.
+#
+# ⛔ WHAT I FIRST WROTE HERE: "backgrounded without this, codex blocks forever
+# on 'Reading additional input from stdin...'". ⇒ RETRACTED. commonplace
+# measured that same line in a run that was PROCEEDING NORMALLY — it is
+# INFORMATIONAL, not a block indicator, so it was never evidence of the thing
+# it was cited for. And the run that seemed to prove the fix had the redirect
+# passed at the call site too, so the two changes are CONFOUNDED.
+# ⚠️ The honest evidence is only: one launch made no progress in 55s, later
+# ones did — on a box at load ~10, which is thin for "hung" in the first place.
+#
+# ⭐ THE REDIRECT STAYS, on its own terms rather than on that story: `codex
+# exec` takes its prompt as an argument and is non-interactive by design, so
+# closing stdin removes a hazard without removing a capability. A backgrounded
+# process inheriting a terminal's stdin is a real hazard whether or not it
+# caused this particular slow launch.
+# ⛔ RECORDED THIS WAY DELIBERATELY: a fix whose justification is a misreading
+# teaches the next person that a slow launch is already solved. The change is
+# cheap and correct; the CLAIM was not.
 # ⇒ The redirect lives HERE rather than at each call site, because a tool
 # must not depend on how its caller invoked it — the same lesson that broke
 # psgrep and loops-health when they went on PATH. `codex exec` takes its
