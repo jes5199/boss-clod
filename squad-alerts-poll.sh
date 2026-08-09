@@ -31,6 +31,16 @@ MARK=/home/jes/boss-clod/.squad-alerts-last-relayed
 LAST=$(cat "$MARK" 2>/dev/null || echo 0)
 case "$LAST" in ''|*[!0-9]*) LAST=0 ;; esac
 
+# ⛔⛔ 2026-08-09: THIS SCRIPT USED TO END IN A BARE `exit 0` WITH THE PYTHON
+# EXIT CODE UNCHECKED. A locked DB, a schema change, or any sqlite error would
+# print nothing to stdout, exit 0, and be read by boss as "nothing undelivered"
+# — which is reported to jes in exactly those words, every few minutes.
+# ⚠️ THE ALERT PATH'S WHOLE PURPOSE IS THAT A WORKING DETECTOR MUST REACH
+# SOMEONE WHO ACTS. A silent failure here does not merely lose an alert: it
+# manufactures the reassurance that there was none.
+# ⇒ "No new alerts" and "the poll broke" MUST NOT share an exit code or an
+# empty stdout. A broken poll now SHOUTS ON STDOUT (so it gets relayed like
+# an alert) and exits 3.
 python3 - "$DB" "$LAST" "$MARK" <<'PY'
 import sqlite3, sys
 db, last, mark = sys.argv[1], int(sys.argv[2]), sys.argv[3]
@@ -54,4 +64,11 @@ for r in rows:
 open(mark, 'w').write(str(rows[-1]['id']))
 print(f"({len(rows)} new; marker -> {rows[-1]['id']})")
 PY
+rc=$?   # captured immediately; the rc you act on never comes through a pipe
+if [ "$rc" -ne 0 ]; then
+  echo "POLL_FAILED rc=$rc — squad-alerts poll did NOT run to completion."
+  echo "  This is NOT 'no new alerts'. Alerts may be undelivered and unseen."
+  echo "  DB: $DB   marker: $MARK (last relayed: $LAST)"
+  exit 3
+fi
 exit 0
