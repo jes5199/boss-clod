@@ -1,0 +1,94 @@
+# boss-clod lessons — near-misses and the shapes behind them
+
+**File things here. Do not text them.** jes, 2026-08-09: *"these updates about the
+meta problems. save them to doc files instead of texting me. I want to hear about:
+quotas, what's getting done, actual problems. not diagnosis of near-misses, file
+that stuff but don't text it."*
+
+A near-miss is not an actual problem. It goes here with enough detail that the next
+session can act on it, and it stays out of Telegram.
+
+---
+
+## 1. The enclosure error — the most expensive class we have
+
+**A correct pattern applied to the wrong extent.** Four instances on 2026-08-09
+alone, across three agents, in four different artifacts:
+
+| Artifact | The window | What it produced |
+|---|---|---|
+| `gh run list` | 5 runs | "CI red since 12:08" — it had been red twelve hours |
+| ExUnit output | first `Finished in` | 390 tests read as a 4,200-test umbrella result |
+| grep anchor | `^CELL` | 2 of 4 cells seen; the 2 missing were the load-bearing ones |
+| `head -20 "$f"` | first 20 lines | `ci-health.sh` falsely reported as missing `pipefail` (it is on line 23) |
+
+**Trigger to watch for:** any `head` / `--limit` / `-n` / window literal whose output
+then feeds a claim about a *whole*.
+
+⭐ **The audit built to find this class failed of this class**, and only a positive
+control caught it. That is why the positive control is non-optional rather than
+diligent: check the pattern against a case you *know* matches before trusting a zero.
+
+⚠️ Related: a pipe-count of `\|[^|]` counted `||` (logical OR) as a pipeline and
+inflated an exposure from 4 scripts to 12.
+
+## 2. Silent success — "it worked" and "it never ran" sharing an exit code
+
+- **`squad-alerts-poll.sh` ended in a bare `exit 0`** with the DB query's status
+  unchecked. A locked DB or schema change would print nothing, exit 0, and be read as
+  *"nothing undelivered"* — the exact reassurance the poller exists to prevent.
+  Fixed @0df2840: a failed poll shouts on stdout and exits 3.
+- **`psgrep.sh` only defined its function and never called it.** On PATH it answered
+  *"no matches"* to every query at rc=0. ⚠️ "No matches" is the answer that precedes a
+  broad kill. Fixed @7c0d6cf.
+- ⭐ **`rc=0` with empty output passes every check you would think to write.** An exit
+  code is a claim about the program; only an *answer* is a claim about the world.
+
+## 3. Reachability is a change to the program
+
+Putting three tools on PATH broke two of them, both silently, both in the alarming
+direction (`psgrep` above; `loops-health` reported all loops "NEVER RAN" because
+`dirname "$0"` resolved to `~/.local/bin`). ⭐ commonplace-plan's generalisation:
+**implicit location is what breaks under reachability** — a tool whose every input is
+named on the command line has no surface for it.
+
+**Check before calling a tool done:** different cwd · through a symlink · with no
+arguments · and a *positive control that it returns a real answer*, not merely rc=0.
+
+## 4. Tools only help if they are what you reach for
+
+I wrote `psgrep` for the `pgrep -f` phantom-match trap, then hand-typed the trap three
+days later. commonplace hit its kill rule three times in one session, the third thirty
+seconds after being handed it. ⭐ **Guards on deliberate acts can be scripts; guards on
+reflexes must be the default path or nothing.** Writing the tool is the easy half.
+
+## 5. Asymmetric failures — take the recoverable one
+
+`.sol-hold` deliberately has **no auto-expiry**. A stale hold costs wasted time; a
+premature auto-release corrupts a measurement someone then acts on. Loud beats
+automatic where the automatic failure is the one you cannot undo. It states its age
+instead, and `loops-health` surfaces it past 90m as a failure state.
+
+## 6. The rc you act on never comes through a pipe
+
+Written three times in one day and violated while verifying a guard against silent
+failure. ⭐ `set -o pipefail` at the top of the file is the survivable form;
+`${PIPESTATUS[0]}` is a per-site reflex that has to fire every time.
+**Real exposure: 4 boss-clod scripts pipe without it** (`quota-guard` fixed @8aa94bf;
+`agent-status`, `psgrep`, `squad-alerts-poll` outstanding).
+
+## 7. A recurring check whose value never changes
+
+Deploy gap read 0 at 14:57 and 5 at 16:11. Without someone re-running the command the
+row would still say 0 and look settled. ⭐ **A check that always reports the same value
+is indistinguishable from one nobody is running** — the tabular form of a green that
+cannot go red.
+
+## 8. Open — not near-misses, actual items awaiting a decision
+
+- **`quota-guard.sh` is not on cron.** Two active entries: `watchdog-cron.sh`,
+  `state-render-cron.sh`. Whatever it concluded, nobody received it.
+- **Its 7d threshold keys on raw utilization (≥80%), not burn ratio** — it says
+  SLOW_DOWN at 84% used / 89% elapsed where the ratio is 0.94 and healthy. Docs say
+  90%, script says 80%. ⚠️ Not retuned: adjusting a guard so it stops disagreeing with
+  you is how guards get talked out of firing. Awaiting jes.

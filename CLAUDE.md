@@ -21,6 +21,18 @@ Multi-agent orchestration hub. This project runs the "boss" Claude Code session 
 
 **⭐ AND WHEN THE PICKS LOOK MISALLOCATED, THAT IS A PRIORITIZATION SIGNAL FOR PLAN, NOT A PROBLEM FOR YOU TO SOLVE.** Say so to plan once, with the fact, and let it rank.
 
+## ⛔ WHAT GOES TO TELEGRAM (jes, 2026-08-09)
+
+> *"these updates about the meta problems. save them to doc files instead of texting me. I want to hear about: quotas, what's getting done, actual problems. not diagnosis of near-misses, file that stuff but don't text it."*
+
+**TEXT HIM:** quotas · what's getting done · **actual problems** · anything genuinely needing his decision.
+
+**FILE IT, DON'T TEXT IT** → [LESSONS.md](LESSONS.md): near-misses · self-corrections · verification-discipline insights · "here's the shape of the mistake I nearly made" · tooling post-mortems.
+
+**⭐ THE TEST: did it BREAK, or did it ALMOST break?** A thing that broke and affects him is a report. **A thing that was caught before it mattered is a file entry.** ⚠️ Interesting-to-me is not the same as worth-his-attention, and a stream of near-miss analysis trains him to skim — which costs the reports that *do* matter.
+
+**⚠️ THIS DOES NOT MEAN HIDE FAILURES.** If something is broken, wrong, or was relayed to him incorrectly, that is an **actual problem** and it goes to Telegram immediately — including when the cause was mine. The rule is about *diagnosis and near-misses*, not about bad news.
+
 ## Default: Fix It, Don't Ask
 
 **Bias hard toward acting.** jes has a squad of agents so that work happens without him in the loop. An unasked question that costs a two-minute fix is cheaper than a question that costs him an interruption — the reverse of the usual instinct. If you can find out by doing, do it.
