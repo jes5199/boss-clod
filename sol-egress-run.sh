@@ -38,6 +38,20 @@ MASK=(
   # These were readable from the moment egress was opened -- workspace-write
   # restricts WRITES; READS were always broad. Masking them keeps exactly the
   # access jes asked for and removes the part nobody intended.
+  # ⚠️ CX-cj59 (2026-08-09): THIS MASK SILENTLY EMPTIES THE TRUST ANCHOR SET.
+  # Trust.config/0 ends in with_local_node_trust/1, which is BEST-EFFORT
+  # (`else _ -> cfg`) and supplies the ONLY anchor on this workspace --
+  # trust.json's trusted_identities is {}. Masked here, the key reads as
+  # 0 bytes but READABLE (not an error), so public_key() fails, the fold is
+  # skipped, anchors become the empty set, and check_root rejects EVERY
+  # chain with :untrusted_root -- because MapSet.member?(empty, _) is false.
+  # ⚠️ node_id is NOT masked and still resolves, so identity() SUCCEEDS while
+  # public_key() fails: the two halves disagree and nothing says why.
+  # ⇒ A Sol run that exercises trust will see a wave of :untrusted_root and
+  # it will look like a CHAIN defect rather than a masked local key. If a
+  # brief sends Sol near trust/capability code, SAY THIS IN THE BRIEF.
+  # The mask itself is correct and stays: Sol must not hold the node's
+  # signing key. This is a legibility hazard, not a fence bug.
   --ro-bind /dev/null /home/jes/commonplace/workspace/.commonplace/node_signing_key
   --tmpfs /home/jes/commonplace/workspace/.commonplace/secrets
   # 2026-08-08: THE ERLANG COOKIE. Opening egress (network_access=true) also
