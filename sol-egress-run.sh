@@ -191,10 +191,23 @@ MASK=(
   --ro-bind /home/jes/boss-clod/sol-bd-guard.sh /home/jes/.local/bin/bd
 )
 
+# ⛔⛔ `< /dev/null` IS LOAD-BEARING (2026-08-09). Backgrounded without it,
+# codex blocks forever on "Reading additional input from stdin..." — and
+# ⭐ A BLOCKED SOL AND A THINKING SOL ARE INDISTINGUISHABLE FROM OUTSIDE:
+# live codex + bwrap processes, rc=0 from the launcher, a log file that
+# exists. Every liveness signal reads healthy. The only tell is a log that
+# stops at one line, and "Sol is working on a hard brief" produces that too.
+# ⚠️ It fails in the direction that looks like PATIENCE, which is why nobody
+# investigates it.
+# ⇒ The redirect lives HERE rather than at each call site, because a tool
+# must not depend on how its caller invoked it — the same lesson that broke
+# psgrep and loops-health when they went on PATH. `codex exec` takes its
+# prompt as an argument and is non-interactive by design, so closing stdin
+# removes a hazard without removing a capability.
 exec env -u LETTA_API_KEY -u SQUAD_ALERTS_PUBLISHER_TOKEN \
   bwrap --dev-bind / / "${MASK[@]}" -- \
   codex exec -m gpt-5.6-sol \
     --sandbox workspace-write \
     -c 'sandbox_workspace_write.network_access=true' \
     -C "$WORKDIR" \
-    "$@"
+    "$@" < /dev/null
