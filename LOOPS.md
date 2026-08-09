@@ -45,9 +45,13 @@ If it prints nothing on stdout, do nothing and stay silent.
 
 If it prints a line starting with NUDGE|, send commonplace this via clod-squad:
 
-Ask commonplace-plan what the highest-value work in the tix/chit/EC2-worker/sub-agent-identity
-epic is right now, pick something, and do it autonomously — no need to check back with jes or
-me first.
+Take the top unblocked item from commonplace-plan's docs/plans/QUEUE.md and do it autonomously —
+no need to check back with jes or me first. If you believe the ranking is wrong, say why and
+propose a re-rank; do not silently choose something else, and do not default to whatever is
+freshest in your context (jes, 2026-08-09: "I want commonplace-plan to be in charge of queue
+priority, not just whatever we thought of most recently"). You own the REVIEW, not the ORDER.
+Anything not in QUEUE.md is UNRANKED, not deprioritised — publish it to plan rather than assuming
+it was considered.
 
 Working shape jes wants (2026-08-05): FABLE AT TOP LEVEL, OPUS IMPLEMENTERS. Reserve your own
 turns for judgment, design, review and deciding what is worth doing; delegate the mechanical
@@ -75,9 +79,11 @@ If it prints nothing on stdout, do nothing and stay silent.
 
 If it prints a line starting with SOL_NUDGE|, send commonplace this via clod-squad:
 
-Sol is free and there is headroom — pick the next ticket and dispatch it. You choose which; you
-own the review. Prefer correctness and performance work, and prefer tickets whose acceptance can
-be checked from an artifact rather than from a report.
+Sol is free and there is headroom — dispatch the next ticket. TAKE THE TOP UNBLOCKED ITEM FROM
+commonplace-plan's docs/plans/QUEUE.md; if you believe it is wrong, say why and propose a re-rank
+rather than silently choosing something else. You own the REVIEW, not the ORDER (jes, 2026-08-09:
+"I want commonplace-plan to be in charge of queue priority, not just whatever we thought of most
+recently"). Prefer tickets whose acceptance can be checked from an artifact rather than a report.
 
 Use /home/jes/boss-clod/sol-egress-run.sh (set SOL_WORKDIR to an isolated worktree — it
 hard-refuses /home/jes/commonplace). Sol has network access now, so deps fetch instead of failing.
