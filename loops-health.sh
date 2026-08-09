@@ -15,7 +15,13 @@
 # Exit 0 = all alive, 1 = at least one stale/missing (i.e. re-arm it).
 
 set -uo pipefail
-cd "$(dirname "$0")"
+# ⛔ 2026-08-09: WAS `cd "$(dirname "$0")"`, WHICH BROKE THE MOMENT I PUT THIS
+# ON PATH AS A SYMLINK. Through ~/.local/bin/loops-health, dirname resolves to
+# ~/.local/bin, the .heartbeat-* files aren't there, and every loop reports
+# ⛔ NEVER RAN — a false alarm that would have had me re-arming healthy crons.
+# ⭐ Making the tool reachable introduced the failure the tool exists to detect.
+# readlink -f follows the symlink to the real script location.
+cd "$(dirname "$(readlink -f "$0")")"
 
 # name : max minutes between runs before we call it dead (2x its interval)
 LOOPS=(
