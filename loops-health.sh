@@ -54,6 +54,19 @@ for entry in "${LOOPS[@]}"; do
   fi
 done
 
+# ⛔ SURFACE ACTIVE HOLDS. A hold makes forgetting-to-hold impossible and
+# forgetting-to-RELEASE easy, and the second failure's symptom is SILENCE:
+# dispatch stops, nothing reports it, and a stalled queue is indistinguishable
+# from an empty one. So the hold has to appear where someone is already
+# looking (commonplace-plan, 2026-08-09).
+for h in .sol-hold .epic-hold; do
+  [ -f "$h" ] || continue
+  age=$(( (NOW - $(stat -c %Y "$h")) / 60 ))
+  state="⏸ HELD — $(head -c 90 "$h" 2>/dev/null)"
+  [ "$age" -gt 90 ] && { state="⛔ HELD ${age}m — STALE? condition still true?"; fail=1; }
+  printf '%-22s %-10s %s\n' "${h#.}" "${age}m" "$state"
+done
+
 if [ "$fail" -ne 0 ]; then
   echo
   echo "⇒ Re-arm with CronCreate. The exact prompts are in LOOPS.md — that file is"

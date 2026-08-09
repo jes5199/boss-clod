@@ -79,9 +79,20 @@ fi
 # contamination-sensitive measurement, dispatching Sol contaminates it.
 # ⭐ A hold I have to REMEMBER is not installed (today's own lesson), so it
 # is a file. Write it with a reason; delete it to resume.
+# ⛔ AND IT MUST ANNOUNCE ITS OWN AGE (commonplace-plan, 2026-08-09): making
+# forgetting-to-HOLD impossible does not make forgetting-to-RELEASE
+# impossible, and the second failure is worse shaped because ITS SYMPTOM IS
+# SILENCE — Sol stays held, nothing reports it, and a stalled queue looks
+# exactly like "nothing was ready". A hold that cannot state its age is an
+# rc=0 with empty output: correct, silent, and indistinguishable from fine.
 HOLD="/home/jes/boss-clod/.sol-hold"
 if [ -f "$HOLD" ]; then
-  say "DECLINED: measurement hold set — $(cat "$HOLD" 2>/dev/null || echo 'no reason given')"
+  held_min=$(( ( $(date +%s) - $(stat -c %Y "$HOLD") ) / 60 ))
+  say "DECLINED: measurement hold, HELD ${held_min}m — $(cat "$HOLD" 2>/dev/null || echo 'NO REASON GIVEN')"
+  if [ "$held_min" -gt 90 ]; then
+    say "  ⛔ HELD OVER 90m. Is that release condition still true? A stale hold"
+    say "     stops dispatch silently and looks like an empty queue."
+  fi
   say "  (clear with: rm $HOLD)"
   exit 0
 fi
