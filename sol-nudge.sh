@@ -71,6 +71,21 @@ if [ -f "$CREDIT_SENTINEL" ]; then
   exit 0
 fi
 
+# --- 1b. measurement hold -----------------------------------------------
+# 2026-08-09: a Sol run is a LOAD EVENT, not just a token spend. commonplace
+# took a wrong diagnosis today from exactly this — CommitHoistTest read as a
+# regression when it was a 10s budget inside a 9.9-13.9s variance, and the
+# load was boss's own Sol dispatch. When someone is running a timing- or
+# contamination-sensitive measurement, dispatching Sol contaminates it.
+# ⭐ A hold I have to REMEMBER is not installed (today's own lesson), so it
+# is a file. Write it with a reason; delete it to resume.
+HOLD="/home/jes/boss-clod/.sol-hold"
+if [ -f "$HOLD" ]; then
+  say "DECLINED: measurement hold set — $(cat "$HOLD" 2>/dev/null || echo 'no reason given')"
+  say "  (clear with: rm $HOLD)"
+  exit 0
+fi
+
 # --- 2. is a Sol run already in flight? -------------------------------
 # Don't stack runs. Exact-match the codex binary; never a broad pattern —
 # hermes runs a live-money BEAM on this box.
