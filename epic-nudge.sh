@@ -50,6 +50,22 @@ RATIO_MAX="${RATIO_MAX:-0.95}"       # jes 2026-08-08: 0.85 → 0.95. At 0.85 th
 # ⇒ 50 keeps the 60 min intent with 10 min of slack for dispatch delay, and
 # still cannot fire twice off one tick pair (ticks are 30 min apart).
 COOLDOWN_MIN="${COOLDOWN_MIN:-50}"   # don't re-nudge inside this window
+
+# ⛔ HOLD, added 2026-08-09 — sol-nudge had one and this did not, which is
+# backwards: THIS nudge asks commonplace to do the work ITSELF, so it spends
+# more of the attention a stand-down is protecting, not less.
+# Found by inconsistency rather than by failure: I told commonplace to stop for
+# the night and then noticed my own loops would keep waking it.
+# ⭐ A hold I have to remember is not installed. It states its own age, because
+# forgetting to RELEASE fails silently — a stalled queue looks like an empty one.
+EPIC_HOLD="/home/jes/boss-clod/.epic-hold"
+if [ -f "$EPIC_HOLD" ]; then
+  held_min=$(( ( $(date +%s) - $(stat -c %Y "$EPIC_HOLD") ) / 60 ))
+  echo "DECLINED: epic hold, HELD ${held_min}m — $(cat "$EPIC_HOLD" 2>/dev/null || echo 'NO REASON GIVEN')" >&2
+  [ "$held_min" -gt 90 ] && echo "  ⛔ HELD OVER 90m. Is that release condition still true?" >&2
+  echo "  (clear with: rm $EPIC_HOLD)" >&2
+  exit 0
+fi
 IDLE_MARKER="/home/jes/boss-clod/.epic-nudge-last"
 
 say() { echo "$*" >&2; }
