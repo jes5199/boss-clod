@@ -33,6 +33,8 @@ Multi-agent orchestration hub. This project runs the "boss" Claude Code session 
 
 **⚠️ THIS DOES NOT MEAN HIDE FAILURES.** If something is broken, wrong, or was relayed to him incorrectly, that is an **actual problem** and it goes to Telegram immediately — including when the cause was mine. The rule is about *diagnosis and near-misses*, not about bad news.
 
+**⛔ BUT A CORRECTION ONLY GOES TO HIM IF HIS PICTURE CHANGES (jes, 2026-08-09: *"this text does not meet the bar"*).** ⇒ I sent a detailed correction about which CI cluster was the real offender. **CI was unusable before that message and unusable after it — nothing he could act on moved.** ⭐ **The test is not "was I wrong", it is "is what he believes now different".** ⚠️ Bookkeeping about which of my numbers was wrong is **mine to hold**, and it belongs in [LESSONS.md](LESSONS.md). **Correct the file; text him only the changed conclusion.**
+
 ## Default: Fix It, Don't Ask
 
 **Bias hard toward acting.** jes has a squad of agents so that work happens without him in the loop. An unasked question that costs a two-minute fix is cheaper than a question that costs him an interruption — the reverse of the usual instinct. If you can find out by doing, do it.
