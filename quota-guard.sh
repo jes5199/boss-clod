@@ -4,8 +4,8 @@
 #
 # Exit codes:
 #   0 = OK
-#   1 = SLOW DOWN (5h window burning too fast)
-#   2 = STOP (7d window critically high)
+#   1 = SLOW DOWN (any window projected to exhaust EARLY: burn ratio >= 1.05)
+#   2 = STOP (7d >= 99%, hard backstop)
 
 # ⛔ 2026-08-09: pipefail added. This script has SEVEN pipelines and its exit
 # code IS its output — 0/1/2 decide whether boss broadcasts a throttle. Without
@@ -25,7 +25,7 @@ FIVE_UTIL=$(echo "$JSON" | python3 -c "import sys,json; d=json.load(sys.stdin); 
 # resets_at goes null right after the 5h window rolls over, while five_hour
 # itself stays a (truthy) dict — so guard on the timestamp, not the dict, or
 # fromisoformat(None) raises. Only the informational burn ratio depends on this;
-# the 80%/95% decision below reads utilization directly and is unaffected.
+# the decision below is burn-ratio based and computes its own elapsed time.
 FIVE_RESET=$(echo "$JSON" | python3 -c "
 import sys, json
 from datetime import datetime
@@ -57,37 +57,58 @@ else
   BURN="0.00"
 fi
 
-# Find the highest-utilization window across ALL non-null windows.
-# Rule (jes 2026-05-28): pause if ANY window passes 80%.
-read MAX_UTIL MAX_LABEL <<<"$(echo "$JSON" | python3 -c "
-import sys, json
+# ⛔ 2026-08-09, jes: "it competes with my keep-working threshold."
+# THAT WAS THE REAL DEFECT, not the number. A guard keyed to HOW MUCH YOU HAVE
+# USED will always fight "keep working", because late in a window high usage is
+# the GOAL, not a warning. At 84% used / 89% elapsed the fleet is landing just
+# under the ceiling exactly at reset — optimal — and the old rule had been
+# firing since ~80%.
+# ⇒ NEW RULE: fire on PROJECTED EXHAUSTION, i.e. sustained BURN RATIO
+# (utilization / time-elapsed), not raw percentage. jes set the number: 1.05.
+#   ratio >= 1.05  => SLOW_DOWN  (we would hit the wall EARLY and stop mid-work)
+#   7d >= 99%      => STOP       (jes 2026-08-09: "no hard stop under 99%")
+# ⭐ Finishing a window AT the limit is success. Only finishing it EARLY is a
+# problem — that is the one this is allowed to interrupt work for.
+BURN_LIMIT=1.05
+STOP_PCT=99
+
+# Highest-BURN window across all non-null windows (was: highest utilization).
+read MAX_RATIO MAX_LABEL MAX_UTIL <<<"$(echo "$JSON" | python3 -c "
+import sys, json, datetime as dt
 d = json.load(sys.stdin)
-windows = {
-    '5h': 'five_hour',
-    '7d': 'seven_day',
-    '7d-opus': 'seven_day_opus',
-    '7d-sonnet': 'seven_day_sonnet',
-}
-best_u, best_l = 0.0, 'none'
-for label, key in windows.items():
+now = dt.datetime.now(dt.timezone.utc)
+windows = {'5h': ('five_hour', 5), '7d': ('seven_day', 168),
+           '7d-opus': ('seven_day_opus', 168), '7d-sonnet': ('seven_day_sonnet', 168)}
+best = (0.0, 'none', 0.0)
+for label, (key, hours) in windows.items():
     w = d.get(key)
-    if w and w.get('utilization') is not None:
-        u = float(w['utilization'])
-        if u > best_u:
-            best_u, best_l = u, label
-print(f'{best_u:.0f} {best_l}')
+    # A window can be PRESENT with resets_at NULL, right after it rolls.
+    if not w or w.get('utilization') is None or not w.get('resets_at'):
+        continue
+    reset = dt.datetime.fromisoformat(w['resets_at'])
+    elapsed_pct = 100.0 * (now - (reset - dt.timedelta(hours=hours))).total_seconds() / (hours * 3600)
+    if elapsed_pct <= 1:      # too early to be meaningful; a tiny denominator
+        continue              # makes any usage look like a runaway burn
+    u = float(w['utilization'])
+    ratio = u / elapsed_pct
+    if ratio > best[0]:
+        best = (ratio, label, u)
+print(f'{best[0]:.2f} {best[1]} {best[2]:.0f}')
 ")"
+
 
 # Decision logic
 SEVEN_INT=$(python3 -c "print(int($SEVEN_UTIL))")
 
-if [ "$SEVEN_INT" -ge 95 ]; then
-  echo "STOP|7d at ${SEVEN_UTIL}% — critically high"
+OVER=$(python3 -c "print(1 if $MAX_RATIO >= $BURN_LIMIT else 0)")
+
+if [ "$SEVEN_INT" -ge "$STOP_PCT" ]; then
+  echo "STOP|7d at ${SEVEN_UTIL}% — over ${STOP_PCT}%, hard backstop"
   exit 2
-elif [ "$MAX_UTIL" -ge 80 ]; then
-  echo "SLOW_DOWN|${MAX_LABEL} at ${MAX_UTIL}% — over 80% (burn ${BURN}x on 5h) — pause"
+elif [ "$OVER" = "1" ]; then
+  echo "SLOW_DOWN|${MAX_LABEL} burning ${MAX_RATIO}x (>= ${BURN_LIMIT}) at ${MAX_UTIL}% used — would exhaust EARLY"
   exit 1
 else
-  echo "OK|5h=${FIVE_UTIL}% (${BURN}x) 7d=${SEVEN_UTIL}% max=${MAX_LABEL}:${MAX_UTIL}%"
+  echo "OK|worst ${MAX_LABEL} ${MAX_RATIO}x (limit ${BURN_LIMIT}) — 5h=${FIVE_UTIL}% 7d=${SEVEN_UTIL}%"
   exit 0
 fi
