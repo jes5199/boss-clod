@@ -86,7 +86,12 @@ now = datetime.now(timezone.utc).timestamp()
 out = []
 for key, hours in (("five_hour", 5), ("seven_day", 168)):
     w = d.get(key)
-    if not w:
+    # A window can be PRESENT with resets_at NULL -- observed 2026-08-09
+    # 00:20Z, right after the 5h window rolled. fromisoformat(None) then
+    # raises, the whole read prints nothing, and the guard returns
+    # CANNOT DETERMINE -- so the loop STALLED every time a window turned
+    # over. Skip such a window; the other one still gates.
+    if not w or not w.get("resets_at"):
         continue
     r = datetime.fromisoformat(w["resets_at"]).timestamp()
     el = (now - (r - hours * 3600)) / (hours * 3600) * 100
