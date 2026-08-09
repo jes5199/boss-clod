@@ -50,6 +50,17 @@ MASK=(
   # ⇒ A Sol run that exercises trust will see a wave of :untrusted_root and
   # it will look like a CHAIN defect rather than a masked local key. If a
   # brief sends Sol near trust/capability code, SAY THIS IN THE BRIEF.
+  # ⛔ STRONGER CONSEQUENCE (commonplace-plan, 2026-08-09): masking the key
+  # does not only stop Sol SIGNING -- it disables VERIFICATION. With the
+  # node fold as the only anchor source, any commonplace process inside
+  # this sandbox silently cannot verify ANY chain. ⇒ CHAIN-VERIFICATION
+  # WORK IS STRUCTURALLY IMPOSSIBLE BEHIND THIS FENCE, not merely awkward:
+  # do not brief Sol to verify, audit or test capability chains here --
+  # it can only ever measure the empty-anchor artefact.
+  # ⭐ This is an independent argument for a delegation root DISTINCT from
+  # the node signing identity: with one key doing both jobs, masking-it-for-
+  # safety and needing-it-to-verify collide. With a separate root, Sol could
+  # hold the PUBLIC half to verify while the node's PRIVATE key stays masked.
   # The mask itself is correct and stays: Sol must not hold the node's
   # signing key. This is a legibility hazard, not a fence bug.
   --ro-bind /dev/null /home/jes/commonplace/workspace/.commonplace/node_signing_key
