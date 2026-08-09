@@ -31,7 +31,15 @@ RATIO_MAX="${RATIO_MAX:-0.95}"       # jes 2026-08-08: 0.85 → 0.95. At 0.85 th
                                      # evenly SITS near 1.0, so 0.85 only opened when
                                      # underspending. quota-guard's absolute 80/95 lines
                                      # are the real backstop. (was 0.9 → 0.85 on 08-06)
-COOLDOWN_MIN="${COOLDOWN_MIN:-60}"   # don't re-nudge inside this window
+# ⛔ 2026-08-09: 60 -> 50. Same defect as sol-nudge.sh, worse here.
+# Cron ticks :07,:37 (30 min apart); intended cadence is 60 min. The marker is
+# touched at DISPATCH, later than the tick: measured tick 12:37, marker 12:41.
+# So the 13:37 tick sees age 56m, declines against 60 (observed: "57m ago"),
+# and the next eligible tick is 14:07 => 86m. ⇒ EFFECTIVE CADENCE ~90 MIN, NOT 60.
+# ⚠️ Individually every decline is correct; the loss is only visible across runs.
+# ⇒ 50 keeps the 60 min intent with 10 min of slack for dispatch delay, and
+# still cannot fire twice off one tick pair (ticks are 30 min apart).
+COOLDOWN_MIN="${COOLDOWN_MIN:-50}"   # don't re-nudge inside this window
 IDLE_MARKER="/home/jes/boss-clod/.epic-nudge-last"
 
 say() { echo "$*" >&2; }

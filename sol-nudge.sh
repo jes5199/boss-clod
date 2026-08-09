@@ -36,7 +36,20 @@ touch /home/jes/boss-clod/.heartbeat-sol-nudge 2>/dev/null || true
 WORKER="${WORKER:-commonplace}"
 RATIO_MAX="${RATIO_MAX:-1.60}"        # floor for brief+review only — see note above
 SEVEN_DAY_STOP="${SEVEN_DAY_STOP:-95}" # absolute: matches quota-guard's STOP
-COOLDOWN_MIN="${COOLDOWN_MIN:-30}"   # jes 2026-08-08: 60 -> 30. The cron alone
+# ⛔ 2026-08-09: 30 -> 15, AND THE REASON IS THE WHOLE POINT — A COOLDOWN EQUAL
+# TO THE CRON INTERVAL SILENTLY HALVES THE CADENCE.
+# The marker is touched when the DISPATCH happens, which is always LATER than
+# the tick that triggered it (script runtime + my turn). Measured: tick 13:13,
+# marker 13:23 = 10 min late. So the next tick at 13:43 sees age = 30 - 10 = 20m,
+# reads it as "dispatched 29m ago" against a 30m cooldown, and DECLINES.
+# ⇒ Every other tick lost. jes asked for 30 minutes on 2026-08-08 and was
+# getting 60 — observed declining at 29m TWICE today before anyone noticed.
+# ⚠️ It never looks broken: each decline is individually correct and prints a
+# sensible reason. The defect is only visible ACROSS runs, which is why a
+# per-run log could never show it.
+# ⇒ RULE: cooldown must be STRICTLY LESS than (cron interval − worst dispatch
+# delay). 15 leaves 15 min of slack against a 30 min interval.
+COOLDOWN_MIN="${COOLDOWN_MIN:-15}"   # jes 2026-08-08: 60 -> 30. The cron alone
                                      # cannot set the cadence — a 30m cron under a
                                      # 60m cooldown still fires hourly. Safe because
                                      # the busy-check declines while commonplace is
