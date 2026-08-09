@@ -127,10 +127,25 @@ if [ "$CMD" != "claude" ]; then
 fi
 
 # --- 4. busy? use the SPINNER line, not "esc to interrupt" ------------
+# ⛔⛔ 2026-08-09: THE "GENERATING" GATE NO LONGER BLOCKS A SOL DISPATCH, AND
+# THE REASON IS THE PARALLEL SHAPE JES ASKED FOR.
+# Under the old serial working shape, "commonplace is generating" meant "don't
+# interrupt". Under Sol-and-Opus-in-parallel it means "commonplace is reviewing
+# the OTHER builder" — which is the NORMAL state, not a busy signal. Declining
+# on it starves Sol exactly when the fleet is working hardest, and Sol's
+# credits are a separate pool that idling saves nothing.
+# ⭐ A clod-squad message QUEUES; it does not interrupt a turn. commonplace
+# reads it when it finishes reviewing, which is precisely when it can act.
+# ⚠️ Duplicate dispatch is prevented by the COOLDOWN (marker touched at send)
+# and the IN-FLIGHT check, not by this gate — so removing it costs no safety.
+# ⛔ Still declined below: queued messages awaiting Enter, which IS a real
+# stuck state rather than a working one.
+# ⚠️ epic-nudge KEEPS its generating gate on purpose: that one asks commonplace
+# to do work ITSELF, so stacking those up is noise. This one asks it to hand
+# work to a different pool.
 BUSY=$(printf '%s\n' "$PANE" | grep -oE '^[✻✽✢·✶*] [A-Za-z]+…* \([0-9]+[ms]' | tail -1)
 if [ -n "$BUSY" ]; then
-  say "DECLINED: $WORKER is generating ($BUSY)"
-  exit 0
+  say "NOTE: $WORKER is generating ($BUSY) — dispatching anyway; the message queues"
 fi
 
 if printf '%s\n' "$PANE" | grep -q 'Press up to edit queued'; then
