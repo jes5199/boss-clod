@@ -14,6 +14,31 @@
 # What this does NOT change: the live store and the CLI escript stay unreachable. This
 # wrapper only removes secrets and grants network; it never widens write access.
 
+# ⛔⛔ BRIEFING RULE FOR EVERYTHING RUN THROUGH THIS WRAPPER
+# (commonplace-plan, 2026-08-09):
+#
+#   ANYTHING MEASURED INSIDE THE FENCE INHERITS THE FENCE AS A FACT.
+#
+# Masked paths, denied egress, read-only mounts, absent credentials -- NONE
+# of them announce themselves in the result. They surface as ordinary
+# negative findings with plausible mechanisms attached. The trust-anchor
+# collision below is the instance we happened to CATCH, and only because the
+# mask and the anchor source collided somewhere legible. Most collisions
+# will not be.
+#
+#   1. Before briefing sandboxed work, ask: COULD THE FENCE PRODUCE THIS
+#      RESULT? If yes, the task is not awkward here -- it is UNASSIGNABLE
+#      here.
+#   2. NAME WHAT IS MASKED IN THE BRIEF, so a negative result can be READ
+#      rather than believed.
+#   3. Where it matters, require a CONTROL TAKEN OUTSIDE THE FENCE -- the
+#      same discipline as a positive control on an absence check.
+#
+# ⚠️ Why this is hard to hold: the artefact is most dangerous when the
+# sandbox exists for a GOOD reason. Nobody re-examines a mask that is
+# correct -- which is exactly how a correct mask goes on quietly generating
+# findings.
+
 set -euo pipefail
 
 WORKDIR="${SOL_WORKDIR:?set SOL_WORKDIR to the isolated worktree -- never /home/jes/commonplace}"
@@ -61,6 +86,20 @@ MASK=(
   # the node signing identity: with one key doing both jobs, masking-it-for-
   # safety and needing-it-to-verify collide. With a separate root, Sol could
   # hold the PUBLIC half to verify while the node's PRIVATE key stays masked.
+  #
+  # ⛔⛔ DO NOT REPLACE THIS BIND WITH A --tmpfs OR ANYTHING MAKING THE PATH
+  # ABSENT. node_identity.ex:77-82 branches on File.read:
+  #     {:ok, contents}   -> decode_keypair(contents)   <- /dev/null lands HERE
+  #     {:error, :enoent} -> mint_keypair(data_dir,path) <- ABSENCE lands HERE
+  # and mint_keypair (:100-113) does File.write + chmod 0600 + rename.
+  # ⇒ An ABSENT key file makes a sandboxed process MINT A BRAND-NEW NODE
+  # KEYPAIR AND PERSIST IT -- a fresh identity that does not match the real
+  # node, minted silently, and able to overwrite the node's actual key if
+  # workspace-write ever reached the real data_dir. STRICTLY WORSE than no
+  # anchor. `--ro-bind /dev/null` is load-bearing: it forces the
+  # read-succeeds-then-parse-fails branch instead of the mint branch.
+  # (Found by commonplace 2026-08-09; this property was accidental, not
+  # designed -- which is exactly why it needs writing down.)
   # The mask itself is correct and stays: Sol must not hold the node's
   # signing key. This is a legibility hazard, not a fence bug.
   --ro-bind /dev/null /home/jes/commonplace/workspace/.commonplace/node_signing_key
