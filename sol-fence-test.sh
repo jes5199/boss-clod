@@ -26,8 +26,17 @@ bad()  { printf '  \033[31mFAIL\033[0m %s\n' "$1"; fail=$((fail+1)); }
 
 # Extract the live MASK from the wrapper rather than duplicating it, so this
 # test cannot drift from the thing it tests.
+# ⚠️ STRIP COMMENT LINES FIRST. 2026-08-09: a hazard note added INSIDE the
+# MASK array contained the literal strings "--ro-bind /dev/null" and
+# "--tmpfs OR ANYTHING" as prose, and this parser turned them into bwrap
+# arguments -- 4 of 11 assertions failed on a wrapper that was completely
+# fine. The DOCUMENTATION of a hazard broke the CHECKER for that hazard.
+# (Same shape as a boundary comment quoting the pattern it forbids, so the
+# checker matches its own commentary.) A parser that reads a file must
+# ignore the parts of that file written for humans.
 mapfile -t MASK < <(
   sed -n '/^MASK=(/,/^)/p' sol-egress-run.sh |
+  grep -vE '^[[:space:]]*#' |
   grep -oE '\-\-(tmpfs|ro-bind) [^ ]+( [^ ]+)?' |
   tr ' ' '\n' | grep -v '^$'
 )
