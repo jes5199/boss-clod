@@ -16,6 +16,15 @@
 
 set -uo pipefail
 
+# LIVENESS HEARTBEAT -- touched on EVERY run, including declines and errors.
+# The three loops are CronCreate jobs: session-only, gone on restart. On
+# 2026-08-08 only 1 of 3 was actually registered and nobody noticed for
+# THREE DAYS, because a declining loop and an absent loop are both silent.
+# LOOPS.md documented them, which did not help -- a file only works if
+# someone reads it after a restart. This makes absence OBSERVABLE FROM DISK.
+touch /home/jes/boss-clod/.heartbeat-epic-nudge 2>/dev/null || true
+
+
 WORKER="${WORKER:-commonplace}"
 RATIO_MAX="${RATIO_MAX:-0.95}"       # jes 2026-08-08: 0.85 → 0.95. At 0.85 the loop
                                      # was closed all mid-week: a 7d window spent

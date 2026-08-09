@@ -1,0 +1,4 @@
+
+# Loop liveness heartbeats — runtime state, not source. Touched on every
+# invocation so loops-health.sh can tell a DECLINING loop from an ABSENT one.
+.heartbeat-*
