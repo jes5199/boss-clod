@@ -38,6 +38,26 @@
 # sandbox exists for a GOOD reason. Nobody re-examines a mask that is
 # correct -- which is exactly how a correct mask goes on quietly generating
 # findings.
+#
+# ⛔⛔ THE ONE INSTANCE THAT KEEPS RECURRING -- IN HERE, RED IS THE EXPECTED
+# RESULT AND A GREEN IS THE THING TO DISBELIEVE:
+#
+#   node_signing_key is masked => NodeIdentity.signing_context/0 fails
+#   => the anchor set is EMPTY. NO node-signed write and NO real chain
+#   verification can succeed in here.
+#
+#   * A REFUSAL IS THE FENCE, NOT A DEFECT.
+#   * A SUCCESS is evidence about the harness, not about the code -- it
+#     means the mask is not applying, and that is the finding.
+#   * Test signing paths against a fixture `opts[:signing_context]`. The
+#     codebase ALREADY threads opts at Bursar and Frontier.Server -- reuse
+#     that seam rather than declaring the success path unverifiable.
+#
+# ⚠️ Forgetting this does not produce a stuck run. It produces a CONFIDENT
+# WRONG DIAGNOSIS -- "signing is broken" -- which is the kind that ships.
+# Two briefs in a row carried this as a per-brief note; it belongs here,
+# where the fence is defined, so the next brief inherits it without anyone
+# having to remember.
 
 set -euo pipefail
 
