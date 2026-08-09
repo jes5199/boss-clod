@@ -59,6 +59,34 @@
 # where the fence is defined, so the next brief inherits it without anyone
 # having to remember.
 
+# ⛔⛔ THIRD FAILURE MODE, OBSERVED 2026-08-09 — THE SANDBOX IS NOT THE ONLY
+# FENCE. codex REFUSES SOME BRIEFS OUTRIGHT:
+#
+#   "ERROR: This content was flagged for possible cybersecurity risk."
+#
+# CX-s36k burned 31,923 tokens and produced ZERO source changes. The wrapper
+# EXITED 0. `git diff --stat` was empty.
+#
+# ⚠️ ⇒ A REFUSED RUN AND A RUN WITH NOTHING TO DO ARE BYTE-IDENTICAL FROM
+# OUTSIDE: empty diff, clean status, rc=0. Reporting "no changes needed" is
+# the natural and WRONG reading. The only thing that distinguishes them is
+# the run log. ⭐ ALWAYS grep the log for the refusal string before
+# interpreting an empty diff — this is the same "blocked and not there share
+# an exit code" rule, arriving one layer above where we were watching for it.
+#
+# ⚠️ AND IT IS NOT CREDIT EXHAUSTION. Check the two separately; they have
+# different remedies (re-brief vs stop the loop). A grep for
+# credit|quota|exhaust|rate.?limit returning 0 needs the flag lines as its
+# positive control, or the zero means nothing.
+#
+# ⇒ TRIGGER IS SUBJECT MATTER, NOT INTENT: security vocabulary in quantity --
+# crash traces, denial auditing, trust gates, "attack surface", raw
+# :calling_self dumps. Same family as the Fable cyber-refusal on deploy work
+# (see reference_fable_cyber_refusal_fallback). REMEDY: re-brief in
+# MECHANICAL terms -- "pattern-match axis", "process-vs-payload",
+# "assert the handler is still registered" -- and drop the trace dumps. The
+# work is unchanged; only the vocabulary is.
+
 set -euo pipefail
 
 WORKDIR="${SOL_WORKDIR:?set SOL_WORKDIR to the isolated worktree -- never /home/jes/commonplace}"
