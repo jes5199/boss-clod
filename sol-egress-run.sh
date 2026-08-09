@@ -87,6 +87,24 @@ MASK=(
   # safety and needing-it-to-verify collide. With a separate root, Sol could
   # hold the PUBLIC half to verify while the node's PRIVATE key stays masked.
   #
+  # ⛔ THIRD CONSEQUENCE (CX-cj59, 2026-08-09) -- AND IT IS A FORWARD RISK TO
+  # THIS FENCE, NOT JUST TO THE SUBJECT. The chain is:
+  #   key unreadable -> signing_context() fails -> node_ctx nil
+  #   -> sign_opts/1 returns [] -> write unsigned -> REFUSED under enforce
+  #   -> the component's ERROR PATH RUNS.
+  # A patch that nearly landed made that path `exit(...)` inside init/1 on a
+  # `restart: :permanent` child -- i.e. a refused write became a BOOT CRASH
+  # LOOP for the custody manager. ⇒ THE SET OF COMPONENTS WHOSE ERROR PATH
+  # DIES ON A REFUSED WRITE IS CURRENTLY UNENUMERATED.
+  # ⚠️ Sol runs `mix test`, which STARTS THE APPLICATION. So the moment any
+  # started component has a refusal-fatal write path, SOL'S TEST RUNS BREAK
+  # HERE AND ONLY HERE -- and the failure will look like a test defect, not a
+  # fence artifact. That is this file's own rule turned on itself: anything
+  # measured inside the fence inherits the fence as a fact.
+  # ⭐ And note the fence is harmless TODAY only because no such component
+  # happens to start -- an accident of what is wired up, NOT a property
+  # anyone arranged. Do not rely on it as a boundary.
+  #
   # ⛔⛔ DO NOT REPLACE THIS BIND WITH A --tmpfs OR ANYTHING MAKING THE PATH
   # ABSENT. node_identity.ex:77-82 branches on File.read:
   #     {:ok, contents}   -> decode_keypair(contents)   <- /dev/null lands HERE
