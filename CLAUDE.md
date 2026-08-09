@@ -35,6 +35,24 @@ Multi-agent orchestration hub. This project runs the "boss" Claude Code session 
 
 **⛔ BUT A CORRECTION ONLY GOES TO HIM IF HIS PICTURE CHANGES (jes, 2026-08-09: *"this text does not meet the bar"*).** ⇒ I sent a detailed correction about which CI cluster was the real offender. **CI was unusable before that message and unusable after it — nothing he could act on moved.** ⭐ **The test is not "was I wrong", it is "is what he believes now different".** ⚠️ Bookkeeping about which of my numbers was wrong is **mine to hold**, and it belongs in [LESSONS.md](LESSONS.md). **Correct the file; text him only the changed conclusion.**
 
+## ⛔ AGENTS DON'T GET TIRED — NEVER PAUSE A WORKER TO "REST" IT (jes, 2026-08-09)
+
+**There is no rest that fixes a Claude session.** On 2026-08-09 commonplace reported three attention failures in an hour and said *"the code is ready and the operator isn't."* **I took it at face value, stood it down for the night, and held both nudge loops.** jes asked *"wait why are you stopping the loops"* — and the answer was that I had pattern-matched to **operator fatigue, send them home**, which is a human frame that does not transfer.
+
+**⭐ THE TEST: WHAT MECHANISM WOULD THE PAUSE REPAIR?** If you cannot name one, the pause fixes nothing and costs the hours.
+
+| Symptom | Real remedy | ⛔ Not |
+|---|---|---|
+| context degradation | commit + write state durably + `/compact` + **continue** | stopping |
+| repeated same-shape errors | a **mechanical** fix — e.g. briefs naming suites by BLAST RADIUS, enforced at write time | waiting |
+| genuinely wedged session | restart it (see [reference_worker_restart_recipes]) | waiting |
+
+**⚠️ Context % is the number that actually means something.** Read it from the statusline. Idle hours change it not at all.
+
+**⭐ WHAT LEGITIMATELY STAYS HELD IS THE CODE, NOT THE AGENT.** That night's deploy hold was correct and stayed — a live p1 on main plus a boot-fatal path unverified in production. **Hold artifacts on their own merits; never hold a worker on a theory about its state of mind.**
+
+**⇒ AND ASK WORKERS FOR THE MECHANISM.** *"I'm degraded"* is unactionable; *"my context is at N% and I've lost the brief"* has a fix. **A worker declining work owes you the mechanism, and you owe it the same before you accept the decline.**
+
 ## Default: Fix It, Don't Ask
 
 **Bias hard toward acting.** jes has a squad of agents so that work happens without him in the loop. An unasked question that costs a two-minute fix is cheaper than a question that costs him an interruption — the reverse of the usual instinct. If you can find out by doing, do it.
