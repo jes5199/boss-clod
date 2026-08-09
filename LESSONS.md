@@ -80,6 +80,39 @@ named on the command line has no surface for it.
 **Check before calling a tool done:** different cwd · through a symlink · with no
 arguments · and a *positive control that it returns a real answer*, not merely rc=0.
 
+## 3a. ⭐ Failures that mimic *working* — the appearance of patience
+
+Three separate defects on 2026-08-09, different causes, **identical signature**:
+
+| Defect | What it looked like |
+|---|---|
+| waiter matching its own `pgrep` pattern | "the job is still running" |
+| cron outcomes truncated by their own payload | "the cron is fine" |
+| `codex` backgrounded without `< /dev/null` | "Sol is thinking about a hard brief" |
+
+⭐ **Each fails into the appearance of patience — and patience is the one state nobody
+investigates, because investigating it feels like impatience.** That is why all three
+survived: not because they were subtle, but because the correct-looking response to
+each was to *wait*.
+
+⇒ **A failure mode that mimics "working" needs an AFFIRMATIVE LIVENESS SIGNAL, not a
+longer timeout.** The fixes: outcome logs that record rc *and* the effect (`STATE.md`'s
+mtime), holds that state their own age, and a redirect that makes the hang impossible
+rather than detectable. Commits @7c0d6cf, @f882029, @f8a9536.
+
+## 3b. ⛔ OPEN — no working pattern for guarding a REFLEX
+
+`cp-kill` worked on its first real use; `psgrep` didn't. **The difference was not
+quality — killing is a deliberate act you must invoke, and looking something up is a
+reflex.** Every lookup guard either agent wrote got bypassed by someone typing the
+short thing instead.
+
+⇒ **Guards on deliberate acts can be scripts. Guards on reflexes must be the default
+path or nothing** — and we do not have a working shape for that yet. Making `psgrep`
+the thing my scripts call helps *scripts*; it does nothing for a hand-typed command.
+⚠️ **Recorded as unsolved on purpose**, because three neighbouring things got fixed the
+same day and this one is at risk of being filed as done by association.
+
 ## 4. Tools only help if they are what you reach for
 
 I wrote `psgrep` for the `pgrep -f` phantom-match trap, then hand-typed the trap three
