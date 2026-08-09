@@ -25,6 +25,31 @@ alone, across three agents, in four different artifacts:
 **Trigger to watch for:** any `head` / `--limit` / `-n` / window literal whose output
 then feeds a claim about a *whole*.
 
+### 1a. The window that spans a fix — a count over a repaired period measures HISTORY, not STATE
+
+**The most expensive instance of the day, because it reached jes twice and moved a queue.**
+CI failures were counted over 40 runs. `289894c` (03:47, *"Stage B's index left the
+mixed-plane fixture blind"*) sits **inside** that window, so the count summed a
+pre-fix world and a post-fix one.
+
+Consequences, all wrong, all confidently stated:
+- *"The positive control is failing, 11 of 31 runs"* — **fixed thirteen hours before
+  I said it.** The 11 failures were contiguous in time (2026-08-08 23:34 → 03:39),
+  not scattered across seeds. Last red 03:39, fix 03:47, **zero after**.
+- *"The centre of mass is a mixed-plane cluster, not `ViewActionDispatch`"* — this
+  **overturned a correct belief.** Post-fix only: `ViewActionDispatch` 15 of 20,
+  mixed-plane **zero**.
+- The `isolate-vs-full` proof ("green isolated, red in umbrella") was run against the
+  **already-fixed** projection suite, so *"contamination, not broken code"* is
+  currently an inference about the wrong cluster.
+
+⭐ **CONTIGUOUS-IN-TIME vs SCATTERED is the discriminator, and a rate cannot see it** —
+identical to the audit-capture 0.003%, which was 100% for one second then 0% for 25
+hours. **Twice in one day, opposite domains: a ratio erased a step function.**
+⇒ **Before counting anything over a time window, ask what LANDED inside it.**
+⚠️ What survived: CI is still not a signal — **20 red / 8 green post-fix (71%)** — and
+that conclusion rests on its own numbers, not on the mixed-plane story.
+
 ⭐ **The audit built to find this class failed of this class**, and only a positive
 control caught it. That is why the positive control is non-optional rather than
 diligent: check the pattern against a case you *know* matches before trusting a zero.
