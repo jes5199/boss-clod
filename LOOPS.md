@@ -37,7 +37,8 @@ Ignore alerts that are obviously hermes test fixtures (e.g. fake "bot COMPROMISE
 dropping them, and mention it if test noise is still reaching the live channel.
 ```
 
-### 2. epic-nudge — every 29 min
+### 2. epic-nudge — every 10 min at :8,:18,:28,:38,:48,:58 (job df9e3aca)
+**Polls often; the 50 min COOLDOWN does the pacing.** Changed 2026-08-09 from :7,:37.
 ```
 Run /home/jes/boss-clod/epic-nudge.sh (capture stderr too — it explains every declined check).
 
@@ -71,7 +72,8 @@ message him if the script exits 2 (could not determine) twice in a row, or if co
 something that needs him.
 ```
 
-### 3. sol-nudge — hourly at :23
+### 3. sol-nudge — every 10 min at :1,:11,:21,:31,:41,:51 (job 4104154e)
+**Polls often; the 15 min COOLDOWN does the pacing.** Changed 2026-08-09 from :13,:43.
 ```
 Run /home/jes/boss-clod/sol-nudge.sh (capture stderr too — it explains every declined check).
 
@@ -135,3 +137,25 @@ explain every declined check on stderr** — so a silent no-op and a broken scri
 never look alike. That property is deliberate; preserve it in anything new.
 
 ⚠️ `.sol-codex-exhausted` stops the Sol loop and **fails closed**. Delete it to resume.
+
+## ⭐ WHY THE NUDGES POLL EVERY 10 MINUTES (changed 2026-08-09)
+
+jes: *"do we need to stagger the Claude crons more or do them more frequently so they don't
+bump into reviewing Sol code?"* — **more frequently, and the cooldown is what paces them.**
+
+⛔ **THE OLD FAILURE: a 30-minute schedule meant a decline COST 30 MINUTES.** commonplace is
+busy reviewing a Sol artifact when the nudge fires → DECLINED → the next opportunity is a
+full interval away, even if it went idle 30 seconds later. **A busy moment pushed work back
+by a whole cycle.** Same shape as the cooldown-equals-interval bug: fixed schedules lose
+whole ticks to transient state.
+
+⇒ **Poll often, gate on state.** The scripts already decline on: commonplace generating ·
+a run in flight · cooldown not elapsed · headroom exceeded · a measurement hold. **Polling
+more often does NOT dispatch more** — the cooldowns (sol 15 min, epic 50 min) still set the
+rate. It only shortens the gap between *"commonplace becomes free"* and *"the next dispatch"*.
+
+⭐ **STAGGERED so no two land together:** alerts :4,:14,… · sol :1,:11,… · epic :8,:18,…
+**Three minutes apart, never simultaneous.**
+
+⚠️ **Cost:** ~18 turns/hour instead of ~10, and almost all of them are a script run plus
+silence. Cheap against a 7d window sitting at 0.93x.
