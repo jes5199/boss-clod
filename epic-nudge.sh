@@ -26,6 +26,16 @@ touch /home/jes/boss-clod/.heartbeat-epic-nudge 2>/dev/null || true
 
 
 WORKER="${WORKER:-commonplace}"
+# ⛔ DO NOT "ALIGN" THIS WITH quota-guard.sh's 1.05. They are DIFFERENT
+# QUESTIONS and jes ratified the difference on 2026-08-09 ("no this is
+# correct") when this gate fired at 0.95 while the guard still read OK:
+#   this file      → may we START NEW WORK?        stricter (0.95)
+#   quota-guard.sh → tell the fleet to SLOW DOWN?  looser  (1.05 burn, 99% stop)
+# ⭐ Being conservative about STARTING while permissive about CONTINUING is
+# deliberate: in-flight work is unaffected by this gate, so a decline costs a
+# delay, never a half-finished ticket. A future session seeing "two thresholds
+# for quota" and unifying them would silently make the fleet start work it
+# cannot finish before a reset.
 RATIO_MAX="${RATIO_MAX:-0.95}"       # jes 2026-08-08: 0.85 → 0.95. At 0.85 the loop
                                      # was closed all mid-week: a 7d window spent
                                      # evenly SITS near 1.0, so 0.85 only opened when
