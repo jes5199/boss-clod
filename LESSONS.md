@@ -57,6 +57,28 @@ diligent: check the pattern against a case you *know* matches before trusting a 
 ⚠️ Related: a pipe-count of `\|[^|]` counted `||` (logical OR) as a pipeline and
 inflated an exposure from 4 scripts to 12.
 
+## 1b. ⭐⭐ You cannot infer an internal cadence from an external artifact
+
+**Three independent instances on 2026-08-09, in unrelated subsystems:**
+
+| Question | The external proxy reached for | Why it lied | What it actually needs |
+|---|---|---|---|
+| Where do audit denials get lost? | 148,647 log lines in / 5 records out | the middle was **inferred**, never measured | per-stage counters (CX-rp33) |
+| How far behind is the deploy? | beam mtimes as a merged-commit proxy | moves when Sol compiles into shared `_build` | key on **serve age**, one writer, no contention |
+| How long is the unpublished-key window? | store flush times as a sign-rate proxy | CubDB flush ≠ node signing; **n=2 compaction artifacts** | instrument `signing_context/0` |
+
+⛔ **Each proxy was REAL, MEASURABLE, and ABOUT SOMETHING ELSE.** ⇒ That is far more dangerous
+than a missing measurement, because **it yields a confident number instead of an error**. In all
+three the wrong number was available immediately and the right one required instrumenting the
+thing itself.
+
+⚠️ I nearly shipped the third: `median=18,844s` from two CubDB compaction files, which would have
+survived being quoted. **Reporting that the method didn't answer the question was worth more than
+the number would have been.**
+⭐ **Test before quoting a proxy: is the thing I measured written by the same actor, at the same
+moment, for the same reason as the thing I'm asking about?** If any of the three differ, it is a
+different population.
+
 ## 2. Silent success — "it worked" and "it never ran" sharing an exit code
 
 - **`squad-alerts-poll.sh` ended in a bare `exit 0`** with the DB query's status
