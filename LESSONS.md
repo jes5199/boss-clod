@@ -252,6 +252,18 @@ the source. ⇒ When you meet a guard, **ask what property it asserts, not what 
 wraps** — and note this is the same rule as *bind the check to the property, not the story of
 how it broke*, arriving from the reader's side instead of the author's.
 
+⭐⭐ **THE SHAPE THAT WORKS — AND WHY IT DOESN'T REACH `pkill`.** Later the same day, an agent
+that had violated *"run umbrella suites one at a time"* three times fixed it for good by
+putting a **`:4002` pre-flight INSIDE every run**, so a violation **refuses** instead of
+producing an empty summary that reads as data. ⇒ **THE CONSTRAINT HAS TO LIVE WHERE THE ACTION
+HAPPENS, NOT IN A DOCUMENT ABOUT THE ACTION** — same shape as the denominator clause living in
+the brief's acceptance rather than its prose.
+⚠️ **But that is exactly why `pkill` resists it: there is no "thing you run" to put the check
+inside.** A suite run goes through a script somebody owns; an ad-hoc `pkill -f` typed under
+time pressure passes through nothing but the shell. ⇒ **The pattern generalises to every
+action that flows through an artifact you control, and to none that don't** — which is a
+sharper statement of why 3b stays open than "guards on reflexes are hard."
+
 ⚠️ **NO REMEDY EXISTS AT THE SHELL LAYER**, so this stays a discipline with a tool
 (`cp-kill`, which resolves by identity) — **which means it can fail again.** Carried honestly
 rather than closed with a placebo: two mechanisms that *look* like fixes and guard nobody
@@ -751,6 +763,12 @@ the pool as handled.*
 mechanism"* cannot return "three"; it can only return a wrong single answer or nothing.
 ⇒ **Ask "how many, and of what kinds?" — the enumerating form — whenever a set has been
 given one label.**
+
+⛔⛔ **AND THE LABEL DOES NOT HAVE TO BE WRONG TO DO THE DAMAGE — "flaky" was TRUE of four of
+the six members.** ⭐ **A mostly-accurate label is the most dangerous kind, because the
+counterexamples sit inside the very set the label tells you not to open.** A label that were
+simply false would be challenged; one that fits most of its members earns the trust that
+protects the rest from inspection.
 
 ⚠️ **AND THE PRE-COMMITMENT IS WHAT MADE CLASS 2 VISIBLE.** Two members came back **GREEN
 alone**, which under the lazy reading is exoneration. Because *isolated-pass = "needs
