@@ -558,6 +558,26 @@ hardest** — it cuts against the outcome its author probably wants. Tonight the
 correction did exactly that, and following it produced the p50 measurement that **held the
 merge**. *A correction that only ever loosens the gate is the one to distrust.*
 
+## 7l. ⚠️ A FAILURE COUNT IS PER TEST *NAME*, NOT PER ASSERTION (CX-dsqc)
+
+A test file is a **container for independent assertions with different reliabilities**, and
+**every tool keys on the container** — CI, `bin/cp-ci-failures`, and every summary I wrote
+tonight. ⇒ *"AuditChokePerfTest failed 3 times"* cannot distinguish a **systematic
+4.941-vs-3.0 regression** from a **2.995-vs-3.0 coin flip** living in the same file. ⭐ **No
+ranking discipline downstream can recover what the container threw away.** Quote such counts
+with the caveat attached, or don't quote them.
+
+⛔ **AND THE ACCEPTANCE ON THE FIX FORBIDS THE OBVIOUS REPAIR, correctly: do not recalibrate
+the degrading arm's budget.** That arm is currently reporting a possibly-real invariant
+degradation, and "recalibrating" it would **erase an alarm while claiming to fix a flake** —
+which is exactly how a correct alarm gets dismissed a *third* time. Load-bearing acceptance is
+**"each arm reported under its own identity, demonstrated by a run where ONE arm fails and the
+report names WHICH"**; calibration can follow.
+
+⚠️ *Filed after I nearly edited a `cp-ci-failures` line into the wrong file — the reference I
+"remembered" was in a message I had sent, not in this document. One `grep` cost nothing and
+caught it. **Check that the thing you are about to correct exists where you think it does.***
+
 ## 8. Open — not near-misses, actual items awaiting a decision
 
 - **`quota-guard.sh` is not on cron.** Two active entries: `watchdog-cron.sh`,
