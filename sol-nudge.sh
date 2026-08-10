@@ -33,6 +33,31 @@ set -uo pipefail
 touch /home/jes/boss-clod/.heartbeat-sol-nudge 2>/dev/null || true
 
 
+# ⛔ EXPIRED-BOUND SURFACER, 2026-08-10 — placed HERE, above every early exit,
+# on purpose: a decline must not hide it. This loop is the only thing that runs
+# every 10 min and whose stderr I actually read, which makes it the READER'S
+# CLOCK — and today's lesson is that a freshness check belongs with the reader,
+# never with the writer's promise.
+# ⭐ WHY A FILE AND NOT A TIMER: commonplace armed a detached `sleep` for this
+# same 03:00Z bound tonight and it was ALIVE BY ps AND USELESS — it fired into a
+# log nobody reads, so the release would have expired in silence, which is the
+# exact failure the bound exists to prevent. A timer also dies with its session.
+# ⇒ The durable form is a file with a deadline, re-read by something that
+# already runs. Verified by EFFECT (does the notice reach me?), not by existence.
+BOUND="/home/jes/boss-clod/.deploy-bound"
+if [ -f "$BOUND" ]; then
+  DL=$(grep -oE '[0-9]{2}:[0-9]{2}Z REGARDLESS|RUNNING AT [0-9]{2}:[0-9]{2}Z' "$BOUND" 2>/dev/null | head -1)
+  NOWHM=$(date -u +%H%M)
+  # deadline is 03:00Z; compare as HHMM ints, and only inside the 03:00-11:00Z
+  # band so this cannot scream all day about a bound someone forgot to delete.
+  if [ "$NOWHM" -ge 0300 ] 2>/dev/null && [ "$NOWHM" -lt 1100 ] 2>/dev/null; then
+    age_min=$(( ( $(date +%s) - $(stat -c %Y "$BOUND") ) / 60 ))
+    echo "⛔ DEPLOY BOUND PAST ITS 03:00Z RELEASE — file written ${age_min}m ago ($DL)" >&2
+    echo "   The hold was pre-authorised to release at 03:00Z. Check bin/cp-deploy-gap" >&2
+    echo "   DIRECTLY — do not assume a restart happened. Delete $BOUND once confirmed." >&2
+  fi
+fi
+
 WORKER="${WORKER:-commonplace}"
 RATIO_MAX="${RATIO_MAX:-1.60}"        # floor for brief+review only — see note above
 SEVEN_DAY_STOP="${SEVEN_DAY_STOP:-95}" # absolute: matches quota-guard's STOP
