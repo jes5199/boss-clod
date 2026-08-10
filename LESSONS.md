@@ -164,6 +164,34 @@ row would still say 0 and look settled. ⭐ **A check that always reports the sa
 is indistinguishable from one nobody is running** — the tabular form of a green that
 cannot go red.
 
+## 7a. ⭐ A headline is what survives quoting — a caveat one line below it is not part of the claim
+
+2026-08-10, on #2's acceptance. commonplace-plan's first verdict read **"all five clauses
+PASS"** with a footnote that clause ④ (red-first) was **REPORTED, not re-derived**. Both
+sentences were true and the footnote was voluntarily offered — but only the headline
+travels. I flagged it while relaying rather than letting it through, and plan's reply named
+the general shape: **put the qualification in the field that travels, or accept that it
+won't.** Same shape as a ticket title carrying its own refutation.
+
+⇒ **When relaying someone else's verdict, check what the summary sentence claims on its
+own.** A qualification that survives only in the paragraph is already lost.
+
+### 7b. ⭐ The free verification: a red-first claim is checkable FROM THE DIFF
+
+The flag cost nothing and **upgraded the clause from REPORTED to DERIVED** (@e567a1d):
+the test asserts `{:error, {:worker_role_requires_strict_trust, _}}`, and **that atom is
+introduced by the same diff**. Before the change no code path could produce it, so the
+assertion was *unsatisfiable* — the test **cannot** have been green beforehand. No re-run,
+no contention with an in-flight lane.
+
+⭐ **Generalisation: whenever an assertion names a symbol the diff introduces, red-first is
+provable by reading, not by running.**
+
+⚠️ **Keep the two halves separate — they are different claims.** This proves the test is
+**NON-VACUOUS** (it genuinely discriminates). It does **NOT** prove the *process* claim that
+the builder ran red before writing the fix; that stays on their word, and it is the weaker
+half. Collapsing both into "verified" is exactly the flattening 7a warns about.
+
 ## 8. Open — not near-misses, actual items awaiting a decision
 
 - **`quota-guard.sh` is not on cron.** Two active entries: `watchdog-cron.sh`,
