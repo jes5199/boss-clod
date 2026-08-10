@@ -1185,3 +1185,66 @@ numeric pids. **Two different traps; this fixes one of them completely.**
   SLOW_DOWN at 84% used / 89% elapsed where the ratio is 0.94 and healthy. Docs say
   90%, script says 80%. ⚠️ Not retuned: adjusting a guard so it stops disagreeing with
   you is how guards get talked out of firing. Awaiting jes.
+
+## 7y. A STATE READING IS A CLAIM WITH A TIMESTAMP — AND MINE WENT STALE IN FOUR MINUTES
+
+**2026-08-10, ~18:45Z.** Sol's CX-5gkw run exited. Its final report said *"exactly four
+unstaged files, 39 insertions/1 deletion."* I measured the worktree: **0 dirty.** I was one
+step from relaying that to jes as a **discrepancy between Sol's report and the repository** —
+which would have put a fabrication accusation on a run that had done its job correctly.
+
+**The actual explanation:** commonplace had reviewed and merged it in the intervening minutes
+(`5ca502c` → merge `2b673e7`). The tree was clean *because the work had graduated from
+unstaged to committed.* Sol's report was true when written. My measurement was true when
+taken. **Both true, four minutes apart, and the difference read as a contradiction.**
+
+⭐ **THIS IS 7w AT A FOUR-MINUTE TIMESCALE.** 7w was about a queue row's readiness ageing
+overnight. I filed it, and then re-met the same law inside a single turn. **The timescale is
+not the lesson — the lesson is that "dirty file count" is not a property of the work, it is a
+property of the work AT AN INSTANT, and the instants were different.**
+
+⇒ **THE MOVE THAT SAVED IT: when two sources disagree, look for the transition that makes
+both true before you look for the liar.** The cheap query — `git log --oneline -3` — costs
+one command and distinguishes *"Sol lied"* from *"Sol finished and someone merged it."*
+⚠️ Note the asymmetry in cost: relaying a false discrepancy damages a working agent's
+credibility, and credibility does not come back when the correction lands.
+
+⭐ **THE GENERAL SHAPE — A DIFFERENCE BETWEEN TWO READINGS HAS THREE CANDIDATE CAUSES, AND
+"SOMEONE IS WRONG" IS THE LEAST LIKELY:**
+1. **The world moved between the readings** ← check this FIRST; it is the common case in a
+   fleet where other agents are acting concurrently
+2. **The two readings measure different things** (his `git status` vs my `git status` in a
+   different path — I also had to confirm I was in the right worktree)
+3. **One reading is actually wrong** ← the interesting case, and the rarest
+
+⇒ **AND THE FIX IS NOT "MEASURE FASTER."** In a fleet with concurrent actors there is no
+reading fresh enough to be safe. **The fix is to record WHEN, and to treat any cross-source
+comparison as a question about an interval rather than a moment.**
+
+## 7z. THE GATE CLOSED ON ME AND THE FLEET ROUTED AROUND IT — WHICH IS THE DESIGN WORKING
+
+Same cycle. sol-nudge began declining with a reason I had not seen before: **7d burn ratio
+1.93 ≥ the 1.60 brief+review floor.** My read: *the relief valve has closed — Sol dispatch is
+now gated too, the fleet has no remaining lane, and that is a genuine change worth surfacing
+to jes.* **I had the message half-composed.**
+
+**Then commonplace reported it had dispatched CX-8wh1 to Sol itself** — freed lane, plan's
+standing rule, pid verified. **The lane was never closed. The gate is on MY dispatch path,
+and commonplace's own path does not pass through it.**
+
+⚠️ **I nearly reported a fleet-wide stop from a boss-shaped instrument.** My nudge script is
+the only dispatcher I can see, so its decline felt like *the* decline. ⭐ **A gate reports on
+the path it sits in, and I generalised from the one path I happen to instrument.**
+
+⇒ **THE TEST BEFORE ESCALATING ANY "EVERYTHING IS BLOCKED": name the paths that exist, not the
+paths I monitor.** Ask *"who else can dispatch, and does their route pass through this gate?"*
+Here the answer was one `list_peers`-shaped question away, and the workers answered it by
+acting before I asked.
+
+⭐ **AND THIS IS THE BOARD-NOT-INSTRUCTION CHANGE PAYING OUT** (see
+`feedback_dispatch_board_not_instruction`). Under the old handoff, a gated boss **was** a
+stopped fleet, because dispatch flowed through me. Having moved to *"here is the board"*,
+**commonplace self-selected into the freed lane while my dispatcher was declining** — the
+system kept working precisely because I was no longer the scheduler. ⇒ **Decentralising the
+handoff didn't just fix an invariant violation; it removed me as a single point of failure,
+and the first proof of that arrived as a gate closing with no consequence.**
