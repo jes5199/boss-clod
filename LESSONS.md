@@ -25,6 +25,24 @@ alone, across three agents, in four different artifacts:
 **Trigger to watch for:** any `head` / `--limit` / `-n` / window literal whose output
 then feeds a claim about a *whole*.
 
+### 1c. ⛔ THE FIFTH INSTANCE WAS HIDING INSIDE THE ARTIFACT BUILT TO FIX THE FOURTH
+
+2026-08-10, CX-q9sa. **"41 offenders" was quoted for a day — by the brief, by the revert
+commit, by the queue row, and by me — and the measured number is 58** (mcp 21, web 20,
+**CLI 17**, others zero). ⭐ **41 was never the umbrella's count: it was "fires in the two
+suites someone happened to run after the merge."** CLI was never measured at all.
+
+⇒ **The count was not wrong by arithmetic. It was SCOPED, and it travelled without its
+scope** — which is 7a's "a headline is what survives quoting" and §1's enclosure error
+turning out to be *the same defect seen from two sides*. ⚠️ It survived a revert, a brief,
+and a queue ranking, all written by people actively hunting this exact class.
+
+⭐ **What made the new number trustworthy rather than merely different:** the brief said
+*"41 is a PRIOR, not a target; the measured number WINS; do not reconcile toward 41"* — and
+an independent second instrument agreed exactly where the two overlapped (both measured mcp
+21, from the same two files). **Pre-registering that the measurement beats the prior is what
+lets a builder report 58 instead of quietly finding 41.**
+
 ### 1a. The window that spans a fix — a count over a repaired period measures HISTORY, not STATE
 
 **The most expensive instance of the day, because it reached jes twice and moved a queue.**
