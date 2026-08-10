@@ -57,6 +57,21 @@ document, written in one sitting, by someone enforcing that exact rule on others
 against it mechanically** — a count, an expansion, anything but re-reading your own prose and
 agreeing with it.
 
+⭐⭐ **FINAL NUMBER: 153.** The sequence ran **41 → 58 → 153** — the prior, then an honest
+enumeration of the *named* suites, then the whole app once the scope error was fixed. **3.7×
+the number everyone quoted for a day.**
+⇒ **THE REUSABLE FORM, better than "check your scope": A GUARD'S FIRST FIRING IS A LOWER BOUND
+ON ITS OFFENDERS, NEVER A CENSUS.** It reports **where the guard was looking**, not how much
+there is. ⚠️ Never size work from an initial firing.
+
+⭐⭐ **AND THE SAME DISEASE TWICE IN ONE ARTIFACT: A CONTROL THAT ENCODES AN ENVIRONMENTAL
+ACCIDENT PASSES EXACTLY WHERE IT CANNOT MATTER.** The guard's own child-delete control assumed
+CubDB's file is `0.cub` — true on a fresh checkout, **false after any compaction** — so it
+**passed on clean trees and failed on every tree that had done real work.** Its sibling defect
+was verifying an umbrella-wide guard against three suites in **one app**. ⇒ **Name the
+environmental facts your control depends on — filenames, fresh state, empty dirs, one app, one
+seed — then ask which of them production violates.**
+
 ⭐ What made the new number trustworthy rather than merely different: the brief said
 *"41 is a PRIOR, not a target; the measured number WINS; do not reconcile toward 41"* — and
 an independent second instrument agreed exactly where the two overlapped (both measured mcp
