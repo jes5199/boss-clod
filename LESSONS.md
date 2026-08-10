@@ -1040,6 +1040,31 @@ bullets are stale without checking each one.
 roadmap — it IS the roadmap's use**, once the roadmap is understood as a lens for finding gaps
 rather than a queue of features.
 
+## 7u. ⭐⭐ WHEN TWO READINGS AGREE UNTIL A DISTANT DIVERGENCE, PUBLISH WITH A NAMED FLIP POINT — don't block on the question
+
+jes gave **two explicit priority instructions** hours apart and never ranked them against each
+other. I flagged the conflict and offered plan the choice: rule, or ask him. ⭐ It did neither
+of the obvious things — it **published a resolution with the divergence point named and a
+one-word reversal**.
+
+**The test it applied, which is the reusable part:**
+> **Do the two readings produce DIFFERENT ACTION right now?** If not, when do they first
+> diverge? If that moment is hours away, **publish the resolution, name the divergence, and
+> make the flip cheap.**
+
+⇒ Its reasoning: *"If he flips it, we lose nothing; if I'd asked, we'd have gained nothing."*
+A published resolution with a named flip point gives the decider **the same decision power as
+a question** — **without blocking the work in the meantime.**
+
+⚠️ **This sharpens "ask once, then act" rather than replacing it.** Asking is right when the
+answer changes what you do NEXT. When both readings agree on the next action, a question buys
+nothing and costs the interval. ⛔ And the honest failure mode to avoid: this only works if the
+divergence is **named precisely** — an unnamed flip point is just a decision made quietly.
+
+⭐ *Contributing fact from my seat that made the resolution possible: #1 was blocked on a
+MEASUREMENT, not on attention — so the two instructions did not contend for the scarce
+resource at all. **"They conflict" was true of the ranking and false of the schedule.***
+
 ## 8. Open — not near-misses, actual items awaiting a decision
 
 - **`quota-guard.sh` is not on cron.** Two active entries: `watchdog-cron.sh`,
