@@ -1375,3 +1375,55 @@ The cost of one more check is seconds; the cost of "your work doesn't exist" lan
 agent that did the work is its willingness to report at all. **I have now had two near-misses
 in one evening in this exact direction** (7y's phantom discrepancy, this one) — ⇒ **treat
 "the other party is wrong" as the hypothesis that requires the MOST evidence, not the least.**
+
+## 7ad. THE QUOTA GUARD SAID **OK** BECAUSE IT COULD NOT MEASURE — FOUND BY LOOKING AT ITS LOG FOR AN UNRELATED REASON
+
+**2026-08-10, 20:22Z.** I opened `logs/quota-guard*.log` to read the burn slope and found, as
+its most recent line:
+
+```
+OK|worst  x (limit 1.05) — 5h=% 7d=%
+```
+
+**Empty fields, verdict OK, exit 0.** `claude-quota --json` had returned unparseable output;
+`json.load` raised; the `read` got an empty line; `MAX_RATIO` was empty; the generated
+`print(1 if  >= 1.05 else 0)` was a **SyntaxError**; `OVER` was empty; `[ "$OVER" = "1" ]` was
+false — and **control fell through to the else branch, which is the healthy one.**
+
+⭐ **EVERY LINK FAILED TOWARD "FINE".** Not one of the four failures produced a nonzero exit.
+⇒ **This is the silent-success family in its purest form: the instrument reported the state of
+the world when what had actually failed was the instrument.**
+
+⚠️ **AND THE LOG LINE IS ITS OWN CAMOUFLAGE.** The cron records `rc=0 OK|...`, byte-comparable
+to a healthy run. **The only tell is the empty `5h=% 7d=%` — inside a line that says OK, which
+is exactly the line nobody reads.** ⇒ *A failure that renders as the reassuring answer is not
+merely undetected; it is anti-detected, because it recruits the reader's own triage against
+noticing.*
+
+**FIXED @3ccb2b3** — `GUARD_BROKEN`, **rc=3**, distinct from OK(0)/SLOW_DOWN(1)/STOP(2), so any
+caller treating nonzero as "do not dispatch" now fails safe. **Three controls, run both
+directions:** real data still yields SLOW_DOWN rc=1 (**the healthy path is not broken**);
+502-HTML yields rc=3; empty output yields rc=3. ⭐ **And the step that makes it evidence rather
+than hope: I ran the SAME broken input through the pre-fix backup and reproduced `OK` / rc=0.**
+*Proving the new code passes is half a proof; proving the old code failed is the other half.*
+
+## ⇒ THE FINDING METHOD IS THE TRANSFERABLE PART
+
+**I was not auditing the guard.** I was reading its log to extract a burn slope for jes, and the
+broken line was simply *in the way*. ⚠️ **This bug had no other route to me:** the guard is
+unattended, its output is consumed by a cron redirect, and its failure mode is the word OK.
+⇒ **The audit that found it was a side effect of USING the data for something else** — which is
+the same law as *state legibility is a correctness property*: **an artifact that gets read for
+real work gets checked; one that is only ever written is unfalsifiable in practice.**
+
+⭐ **THE CHECK THIS REPO NOW OWES ITSELF, and it is small:** this is the **third** instance of
+the family in five days — squad-alerts' bare `exit 0` (fixed 8/09), the alert poller's
+unprovable emptiness (controlled 7ab, today), and now this. ⇒ **Every unattended script that can
+emit a reassuring verdict needs one line asserting its own inputs were real**, and the cheapest
+version is: **refuse to print the good news with an empty field in it.**
+
+⚠️ **Consequence check before reporting it: none.** The bad verdict was emitted once and read by
+nobody; both nudge loops compute burn independently and were declining throughout. **So this is
+a near-miss and goes here, not to jes** — though I mentioned it to him in one line alongside the
+quota numbers, because it is the instrument those very numbers come from and he was owed the
+provenance.
