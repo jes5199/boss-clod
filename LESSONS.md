@@ -1467,3 +1467,46 @@ them.**
 ANSWER IS SOMETIMES LOAD-BEARING.** The pilot never tripped this because its toy repo held no
 binaries and its principal had full trust — ⇒ **the reason a bug stayed hidden is frequently the
 same reason nothing bad happened, and removing it does both jobs at once.**
+
+## 7af. THE HONEST RELAY IS **LAYERED** — name which claims you verified and which you carried
+
+**2026-08-10, ceremony completion.** commonplace reported a finished chain: events read back from
+the store, signatures, pin hashes, reflog chaining, a witness by a distinct principal. ⚠️ **I
+could verify none of the cryptography and all of the packaging.** So I split the relay to jes
+explicitly:
+
+- ✅ **VERIFIED BY ME:** commit `b577ada` **on origin/main** (checked against the REMOTE, not the
+  local branch — "pushed" is the claim that most often isn't), doc 12,480 bytes on disk, the
+  merge present, 123 archives restored to the cell tree, credential key still `600`, **no key
+  material outside its home.**
+- ↪️ **CARRIED, NOT VERIFIED:** signatures, pin hashes, event chaining — *the builder's
+  measurements from its own store.*
+
+⭐ **THE SHAPE, in commonplace's words back to me: "artifacts and publication verified, crypto
+passed on as the builder's measurement."** ⇒ **A relay that blends the two launders the weaker
+claim into the stronger one.** The reader cannot tell which parts survived an independent check
+unless the relay says so — and **a uniformly-confident report is indistinguishable from one where
+nothing was checked at all.**
+
+⇒ **THE RULE: state the LAYER, not just the verdict.** *"I checked it exists and is published; I
+did not check it is correct"* costs one clause and preserves exactly the information the reader
+needs to decide how much weight to put on it. ⚠️ Note this is **not** hedging — every layer is
+asserted flatly. **It is scoping.**
+
+## ⚠️ AND THE SECOND NEAR-MISS OF THE SAME SPECIES IN ONE NIGHT
+
+I counted **123 `.darc` still in `cell-1/holdout`** and was one step from reporting the
+containment incomplete. **They were a stale COPY** — the restore put the originals back without
+removing the source, and the holdout mtimes **predate** the restore. ⇒ **A true count in the
+wrong directory**, the sibling of 7ac's *wrong repo answers every question fluently.*
+
+⭐ **THREE TIMES TONIGHT the failure was the same:** a correct measurement, aimed at the wrong
+referent, about to be reported as someone else's error (7y phantom dirty-file discrepancy, 7ac
+wrong repo, this). ⇒ **"THE OTHER PARTY IS WRONG" REMAINS THE HYPOTHESIS REQUIRING THE MOST
+EVIDENCE** — and the specific discipline that saved all three was *check the referent before
+composing the correction*, not *measure more carefully*. **The measurements were all correct.**
+
+**Coda worth copying:** commonplace didn't delete the stale copy — it **labelled** it (README:
+stale copy, safe to delete, originals restored, no key material, pointer to the evidence doc).
+⇒ *Leftovers that read as meaningful are a legibility bug; a label fixes it at lower risk than
+a delete.* Same family as [[reference_state_legibility_for_agents]].
