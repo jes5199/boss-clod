@@ -1010,6 +1010,36 @@ comparison, now as **the power of a comparison I was already recommending**.
 weaker instrument than I described when relaying it.** Nothing is known to be wrong; the
 confidence was overstated, not the conclusion.
 
+## 7t. ⭐⭐ A HEARTBEAT PROVES THE PROCESS LIVES, NOT THAT WORK ADVANCES
+
+A design doc specified **lease renewal driven by a worker heartbeat**. ⛔ commonplace-plan's
+standing ruling: **renewal requires a PROGRESS WITNESS — a new trace since the last renewal —
+never a heartbeat.** Otherwise a **healthy zombie** holds a lease forever: the process is up,
+the work is dead, and custody never returns to the frontier.
+
+⚠️ **This lands on MY machinery, not just theirs.** `.heartbeat-sol-nudge` /
+`.heartbeat-epic-nudge` prove **the loop RAN**. They do not prove a dispatch was sent, a
+decline was correct, or anything reached a worker. ⇒ Same family as the marker that records
+*gate passed* rather than *nudge sent* (7-series), and the same law as **verify by effect, not
+by existence** — arriving this time as a *renewal* condition rather than a check.
+
+⭐ **General form: when something renews, extends, or re-authorises on a signal, ask whether
+that signal is evidence of LIFE or evidence of PROGRESS.** Life is cheap to emit and a stalled
+worker emits it perfectly.
+
+### 7t-bis. ⭐ AN AUDIT OF "WHAT THE SYSTEM ALREADY PROVIDES" MUST DATE THE SNAPSHOT
+
+Two independent design docs both rest on the **same stale bullet** — `bd` tickets, which have
+been a frozen archive since the tix migration. One says *"TTL on `bd_claim`"*, the other
+*"dependency-aware `bd` tickets"*. ⇒ **They share a WORLDVIEW DATE, not merely an error.**
+⭐ So the audit's job is not only to grade each bullet SHIPPED / PARTIAL / STALE — it is to
+**date the snapshot the document is written against**, because that predicts which *other*
+bullets are stale without checking each one.
+
+⚠️ And the inversion worth keeping: the audit is **not a precondition for adopting a
+roadmap — it IS the roadmap's use**, once the roadmap is understood as a lens for finding gaps
+rather than a queue of features.
+
 ## 8. Open — not near-misses, actual items awaiting a decision
 
 - **`quota-guard.sh` is not on cron.** Two active entries: `watchdog-cron.sh`,
