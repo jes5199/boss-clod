@@ -1427,3 +1427,43 @@ nobody; both nudge loops compute burn independently and were declining throughou
 a near-miss and goes here, not to jes** — though I mentioned it to him in one line alongside the
 quota numbers, because it is the instrument those very numbers come from and he was owed the
 provenance.
+
+## 7ae. THE ONLY THING BETWEEN 123 CREDENTIAL ARCHIVES AND THE STORE WAS A CRASH
+
+**2026-08-10, 20:59Z.** The 2b ceremony's first real import found that proto-chit's sync scope is
+**everything-minus-four-names**. In the real repo that includes `.beads`, which holds
+`.beads-credential-key`. **123 `.darc` archives were headed into the cell store, and the only
+thing that stopped them was an unrelated crash** — CX-g8r1, the importer dying on binary files —
+**firing first.**
+
+✅ **VERIFIED, because a credential claim that passes through me gets checked and not repeated:**
+key still mode 0600 at its original path; **no credential-shaped file in any `.commonplace`
+store** (the only key material present is ordinary node signing identity); the `.darc` files
+outside their home are in the **declared** `cell-1/holdout` plus hermes's unrelated beads.
+⇒ **Near-miss, no exposure** — so it is filed here rather than sent to jes.
+
+## ⭐ THE PART WORTH KEEPING: PROTECTION BY ACCIDENT HAS AN EXPIRY DATE
+
+Two p1 tickets now exist: **CX-g8r1** (crash on binary files) and **CX-fm7x** (scope policy).
+⚠️ **CX-g8r1 reads like an easy, obviously-good p1** — a crash, with a full stack trace, in a
+code path with no defenders. **Fixing it first removes the only thing that stopped the
+archives.** ⇒ *The guard here is not a guard; it is a bug that happens to fail in the safe
+direction, and repairing the bug disarms it.*
+
+⭐ **SO THE TWO TICKETS HAVE AN ORDER, and the order is invisible from either ticket alone.**
+Neither says "do not fix me first." ⇒ **When a near-miss was averted by something that is not a
+control — a crash, a timeout, a quota, an unrelated outage — the finding is not "we were lucky";
+it is "there is now a SEQUENCING CONSTRAINT that must be written on the tickets themselves,"
+because the next reader picks up the appealing one in isolation.**
+
+⚠️ **AND NOTE WHERE THE INFORMATION LIVED:** the danger was legible only to whoever held BOTH
+tickets at once — the ceremony operator, for about ten minutes. **A day later it is two
+unrelated p1s in a queue.** ⇒ **Cross-ticket constraints decay to nothing unless they are
+written down at the moment both are in one head.** Same family as *a dilemma recorded without
+its resolution* (7aa): the queue preserves items faithfully and **loses the relations between
+them.**
+
+⭐ **THE GENERAL FORM — "WHY DIDN'T THIS BITE US ALREADY?" IS A QUESTION WITH AN ANSWER, AND THE
+ANSWER IS SOMETIMES LOAD-BEARING.** The pilot never tripped this because its toy repo held no
+binaries and its principal had full trust — ⇒ **the reason a bug stayed hidden is frequently the
+same reason nothing bad happened, and removing it does both jobs at once.**
