@@ -357,6 +357,15 @@ a quiet re-run precisely because the run is quiet.
 ⇒ **Match the variable the failure is conditioned on.** Order-dependent ⇒ multi-seed.
 Load-conditioned ⇒ **matched load**, which a repeat run at the same seed does not provide.
 
+⛔⛔ **AND THE THIRD POSSIBILITY BOTH READINGS MISSED: THE CHANGE ITSELF CAN BE THE LOAD.**
+Sol's fix **adds real teardown work** — stop + restart the `CommitStore` in 13 more files — so
+the suite legitimately does more work than before. ⇒ A timing-sensitive ratio guard noticing
+that is **not the guard being buggy, and not ambient flakiness**: it is a known-fragile guard
+surfacing under a **genuinely heavier suite the change caused**. That is a **causal path, and
+it is testable** — which is why *"flaky"* was the wrong label to reach for.
+⭐ **"Flaky" is a terminal label that ends inquiry; "load-conditioned, and here is what added
+the load" is a hypothesis with a next step.** Prefer the one that can be run.
+
 ⭐⭐ **CONFIRMED BY THE RUN THAT FOLLOWED, AND THE ORDER MATTERS: the correction was issued
 BEFORE the data landed.** Main re-run at seed 202 → **3 failures, NEITHER disputed name
 present.** Under the original pre-commitment that reads as *"they're Sol's"* — **which would
