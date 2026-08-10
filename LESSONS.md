@@ -806,19 +806,42 @@ warned against compacting mid-flight. They were **Sol's process tree** — nothi
 running, so the safe window was NOW, not later. I inferred a fact that was one command away
 from being checked.*
 
-## 7p. ⭐⭐ CONFIRMED — "SAME SEED" IS ONLY A CONTROLLED VARIABLE *WITHIN* ONE INVOCATION FORM
+## 7p. ⛔⛔ RETRACTED — "INVOCATION FORM MATTERS" WAS ONE DRAW PER ARM
 
-✅ **Status: RE-DERIVED AND CONFIRMED (CX-96t5 p1), not asserted.** Same tree, same seed 303,
-same 3,283 tests:
+⛔ **Status: NOT SUPPORTED. I marked this CONFIRMED and I was wrong to.** Retracted within the
+hour, on a third measurement.
 
-| Invocation | Failures |
-|---|---|
-| `mix test <directory>` | **5** (both Bursar tests, BotPresenceCert, bounded-walk, TrustConfigFailClosed) |
-| explicit 370-file list | **1** (TrustConfigFailClosed only) |
+| Invocation | Seed | Result |
+|---|---|---|
+| `mix test <directory>` | 303 | **5 failures** |
+| explicit 370-file list | 303 | **1 failure** |
+| ⭐ `mix test <directory>` **again** | 303 | **victim GREEN** |
 
-⇒ **Five versus one, with the invocation form as the only difference.** The falsifying branch
-was named in advance — *"if dir-form comes back green, this collapses into branch 3"* — and it
-did not.
+⇒ **TWO DIR-FORM DRAWS, DIFFERENT OUTCOMES.** The directory arm is *itself* a wide
+distribution, so one sample per arm cannot distinguish *"invocation form matters"* from
+*"both arms are noisy and I drew high once and low once."*
+
+⛔⛔ **MY FAILURE, PLAINLY: I DID NOT ASK HOW MANY DRAWS PER ARM.** That is the same question
+7g records me failing to ask — *"across how many seeds?"* — and the same shape as 7d-bis's
+retracted two-point trend. **Third time in one day, and this time I had already written both
+rules down.** ⇒ A rule filed is not a rule applied; I applied it to claims I was *suspicious*
+of and not to one I *liked*.
+
+⚠️ **AND THE FALSIFIER WAS AIMED AT THE WRONG HYPOTHESIS**, which is the subtlest part: the
+pre-committed branch tested *"does dir-form reproduce at all?"* — not *"does invocation form
+EXPLAIN the difference?"* ⭐ **A falsifier aimed at the wrong claim is worse than none, because
+it produces the FEELING of having tested.** *(I cited that pre-commitment as what made the
+confirmation "worth anything." It was worth nothing to the claim I was making.)*
+
+⚠️ **IT PROPAGATED, which is the cost of my part:** I upgraded my entry to CONFIRMED, and the
+next round's brief opened with 5-vs-1 as established fact — so a builder executed against an
+unearned premise. **It refused for an unrelated and correct reason; that is luck, not a
+control.**
+
+✅ **What still stands on its own merits:** the *no-regret* clause — **same seed AND same
+invocation form on both arms** — costs nothing and is correct regardless, which is exactly why
+adopting it before confirmation was right. **The clause survives; the finding that motivated
+it does not.**
 
 A bisection returned a **fifth** outcome nobody had pre-registered: the failure **reproduces
 under one INVOCATION FORM and not another** — `mix test <directory>` reproduces at seed 303,
