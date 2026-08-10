@@ -751,9 +751,21 @@ least THREE, and the word "flaky" was carrying all of them.**
 
 | Class | Evidence | What it needs |
 |---|---|---|
-| **STABLE RED** — not flaky at all | `TrustConfigFailClosed` fails in **0.4s** alone; `BotPresenceCert` times out identically on both branches | a fix |
+| **STABLE RED** — not flaky at all | `TrustConfigFailClosed` fails in **0.4s** alone | a fix |
 | **INTERACTION-DEPENDENT** — green alone, red together | `DocBuilder` 22/0 isolated, `Green.Bursar` 44/0 isolated | an **attribution METHOD**, before any fix |
 | **INSTRUMENT NOISE** | `AuditChokePerf` passes alone; spread 2.815–4.941 vs limit 3.0 | a quieter measurement, *never* a looser threshold |
+
+⛔⛔ **SUPERSEDED — CLASSES 2 AND 3 ARE ONE MECHANISM, and I had a member in the wrong class.**
+An exhaustive read of the failure MODE of every failure instance across all 8 round-3 logs:
+**all 16 non-constant failures are TIME-BUDGET crossings** — 14× the inherited ExUnit 60s
+default, 1× a `Task.await` 10s, 1× the ratio guard. **Zero behavioural assertions failed.**
+⇒ *Tests whose wall-clock cost sits near a fixed budget, crossed stochastically with load.*
+**The "neighbour" that reddens a victim is not a test — it is the LOAD any neighbour set
+generates**, which is why set, population and order bisections could never converge.
+⚠️ **And my table above was wrong about `BotPresenceCert`:** filed as class-1 stable red, it
+actually failed **4 of 8 runs, always by timeout**. Two members are worse than flaky-looking —
+one dies in FIXTURE BUILD before reaching its assertion, and `BotPresenceCert`'s race
+assertion **has never been observed firing at all**; its loop simply exceeds 60s.
 
 ⇒ **THREE PIECES OF WORK WITH THREE DIFFERENT ACCEPTANCES.** ⛔ *A fix for one is not progress
 on the others, and any plan treating them as one queue item will fix the cheapest and report
@@ -1064,6 +1076,35 @@ divergence is **named precisely** — an unnamed flip point is just a decision m
 ⭐ *Contributing fact from my seat that made the resolution possible: #1 was blocked on a
 MEASUREMENT, not on attention — so the two instructions did not contend for the scarce
 resource at all. **"They conflict" was true of the ranking and false of the schedule.***
+
+## 7v. ⛔⛔ THE MOST EXPENSIVE INSTANCE OF "A RULE FILED IS NOT A RULE APPLIED"
+
+**Three dispatched Sol rounds — file-set bisection, population bisection, a 2h40m
+concurrency measurement — were settled in MINUTES by reading the failure MODE of failures
+already sitting in logs we already had.**
+
+⭐ **The answer: all 16 non-constant failures were TIME-BUDGET crossings** (14× an inherited
+60s ExUnit default, 1× a `Task.await`, 1× a ratio guard). **Zero behavioural assertions
+failed.** Classes 2 and 3 collapse into one mechanism: *wall-clock cost sitting near a fixed
+budget, crossed stochastically under load.* ⇒ The "neighbour" reddening a victim was never a
+test — **it was the LOAD any neighbour set generates**, which is exactly why set, population
+and order bisections could not converge.
+
+⛔ **AND THE RULE WAS ALREADY ON FILE THE WHOLE TIME.** An existing discriminator said
+*"check for fixed time budgets first."* It sat unapplied while three mechanism hunts ran.
+⇒ **Fourth instance today of the same law** — and the most expensive, measured in hours of
+dispatched compute rather than a wrong sentence.
+
+⭐ **THE OPERATIONAL FORM, which is cheap enough that there is no excuse: BEFORE DESIGNING AN
+EXPERIMENT, READ THE FAILURE MODE OF THE DATA YOU ALREADY HOLD.** Not the counts — the
+**mode**: what kind of failure is each one? A timeout and an assertion failure are different
+phenomena that a failure COUNT renders identical. *(Cf. the container law: a count erases the
+distinction that would have answered the question.)*
+
+⚠️ **Two members were worse than "flaky-looking", and only the mode-read revealed it:** one
+dies in FIXTURE BUILD before reaching its assertion, and another's race assertion **has never
+been observed firing** — its loop merely exceeds 60s. **Both had been reasoned about for hours
+as if their assertions were the thing failing.**
 
 ## 8. Open — not near-misses, actual items awaiting a decision
 
