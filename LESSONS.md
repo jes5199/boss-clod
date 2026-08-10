@@ -340,6 +340,27 @@ seeds, counts reported PER SEED**, never "all green."
 `Process.whereis(CommitStore)` alive again with the ORIGINAL data_dir. **A green suite is
 circumstantial; the property is not.**
 
+### 7g-bis. ⭐ A FAIR SAMPLE FOR A LOAD-MARGINAL TEST MEANS MATCHED LOAD, NOT MATCHED SEED
+
+2026-08-10, extending 7g rather than repeating it. Two only-in-Sol failures appeared at one
+seed. **Both names had independent same-night priors as load-marginal**, each with isolation
+evidence: one had already been read as *"pre-existing, EARNED rather than asserted"* in a
+different ticket's blast radius; the other is a ratio guard that is **load-sensitive by
+construction**.
+
+⛔ **The trap in the pre-commitment's second branch:** if a re-run of the baseline shows
+neither name, that is **NOT** evidence the failures belong to the change. **It is evidence the
+sample was too small for a test whose failure is LOAD-CONDITIONED.** Seed-matching controls
+for *order*; it does not control for *saturation*, and a load-marginal test passes cleanly in
+a quiet re-run precisely because the run is quiet.
+
+⇒ **Match the variable the failure is conditioned on.** Order-dependent ⇒ multi-seed.
+Load-conditioned ⇒ **matched load**, which a repeat run at the same seed does not provide.
+⚠️ And plan's own caveat on its own priors, which is the discipline worth copying: **two
+priors agreeing is weaker evidence than one measurement**, and converging on "both are flaky"
+because it *fits* is the primed-plausible error. A prior raises probability; the discriminator
+decides.
+
 ⚠️ **My own failure here was relaying "settled" without asking how many runs it rested on.**
 7d said green-isolated is not "not mine"; this is its twin — **green-once is not "fixed."**
 When someone reports a worry as *measured false*, the follow-up question is **"across how
