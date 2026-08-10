@@ -356,6 +356,12 @@ a quiet re-run precisely because the run is quiet.
 
 ⇒ **Match the variable the failure is conditioned on.** Order-dependent ⇒ multi-seed.
 Load-conditioned ⇒ **matched load**, which a repeat run at the same seed does not provide.
+
+⭐⭐ **CONFIRMED BY THE RUN THAT FOLLOWED, AND THE ORDER MATTERS: the correction was issued
+BEFORE the data landed.** Main re-run at seed 202 → **3 failures, NEITHER disputed name
+present.** Under the original pre-commitment that reads as *"they're Sol's"* — **which would
+have been wrong.** ⇒ This is a **pre-registered prediction that paid**, not a rule fitted to
+an outcome afterwards, which is the only version of this evidence worth anything.
 ⚠️ And plan's own caveat on its own priors, which is the discipline worth copying: **two
 priors agreeing is weaker evidence than one measurement**, and converging on "both are flaky"
 because it *fits* is the primed-plausible error. A prior raises probability; the discriminator
