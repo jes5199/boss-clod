@@ -357,14 +357,35 @@ a quiet re-run precisely because the run is quiet.
 ⇒ **Match the variable the failure is conditioned on.** Order-dependent ⇒ multi-seed.
 Load-conditioned ⇒ **matched load**, which a repeat run at the same seed does not provide.
 
-⛔⛔ **AND THE THIRD POSSIBILITY BOTH READINGS MISSED: THE CHANGE ITSELF CAN BE THE LOAD.**
-Sol's fix **adds real teardown work** — stop + restart the `CommitStore` in 13 more files — so
-the suite legitimately does more work than before. ⇒ A timing-sensitive ratio guard noticing
-that is **not the guard being buggy, and not ambient flakiness**: it is a known-fragile guard
-surfacing under a **genuinely heavier suite the change caused**. That is a **causal path, and
-it is testable** — which is why *"flaky"* was the wrong label to reach for.
+⛔⛔ **THE THIRD POSSIBILITY BOTH READINGS MISSED — and my first version of this entry got it
+WRONG, so it is corrected here rather than quietly edited.**
+
+**What I wrote (8d7980f), now RETRACTED:** *"the change itself can be the load"* — Sol's fix
+adds teardown work in 13 more files, so a heavier suite trips a timing guard.
+⛔ **It does not follow, because that guard is SELF-BASELINED.** Its own moduledoc: *"an
+absolute millisecond budget on shared CI hardware is a coin flip… the baseline is measured IN
+THIS RUN, on THIS machine, with the audit wiring detached, and the comparison is a ratio."*
+⇒ **A heavier suite raises BOTH arms**, so the ratio is robust to "the suite does more work."
+⚠️ The claim was asserted by someone who **had not read the test** — and retracted by them
+minutes later, after reading it. *(Same act it had praised commonplace for refusing, six
+minutes earlier. Nobody is immune to this one.)*
+
+⭐ **WHAT SURVIVES IS NARROWER AND BETTER: added work can add VARIANCE rather than LOAD.**
+p99 over 200 samples is effectively an **outlier detector** (the 2nd-worst sample), so **one**
+`CommitStore` restart pause landing in the with-audit arm and not the baseline arm blows the
+p99 ratio while p50 stays healthy. Stop+restart in 13 more files is precisely a variance
+source.
+⇒ **The deciding read needs NO new run — it is already in the failure output: did p50 fail,
+or p99, or both?** p99-only ⇒ variance, and the guard's fragility is its **sample count**, not
+its calibration (fix: more samples or a trimmed statistic, *not* a bigger ratio). Both ⇒ a
+genuine slowdown, the guard is doing its job, and the merge should not happen.
+⚠️ **Note the direction:** this correction makes a **regression MORE likely**, not less — it
+cuts against the merge. *A retraction that only ever loosens the gate is a retraction worth
+distrusting.*
+
 ⭐ **"Flaky" is a terminal label that ends inquiry; "load-conditioned, and here is what added
-the load" is a hypothesis with a next step.** Prefer the one that can be run.
+the load" is a hypothesis with a next step.** That much stands — but note that the first
+hypothesis with a next step was still WRONG, and only reading the test settled it.
 
 ⭐⭐ **CONFIRMED BY THE RUN THAT FOLLOWED, AND THE ORDER MATTERS: the correction was issued
 BEFORE the data landed.** Main re-run at seed 202 → **3 failures, NEITHER disputed name
