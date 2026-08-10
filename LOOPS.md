@@ -39,6 +39,25 @@ dropping them, and mention it if test noise is still reaching the live channel.
 
 ### 2. epic-nudge — every 10 min at :8,:18,:28,:38,:48,:58 (job df9e3aca)
 **Polls often; the 50 min COOLDOWN does the pacing.** Changed 2026-08-09 from :7,:37.
+
+> ⛔⛔ **HANDOFF CHANGE ADOPTED 2026-08-10 — SAY "HERE IS THE BOARD", NOT "TAKE THIS ITEM".**
+> The stigmergy doc's **invariant 9** is *"the wake mechanism proposes attention; it does not
+> secretly become a central scheduler."* I read that as indicting these loops;
+> commonplace-plan corrected me, and the correction is sharper than my self-criticism:
+> **a timer that fires and says "look at the board" is the invariant's own COMPLIANT case.**
+> The ranked queue survives too, because it is a **public challengeable trace** — it was
+> challenged four times on 2026-08-09/10 and **lost three**, which is self-selection against a
+> published affordance rather than assignment.
+> ⇒ **THE ACTUAL VIOLATION IS THE DISPATCH STEP: converting a ranking into an INSTRUCTION on
+> the way to a worker.** That is a handoff change, not an architecture change, and it costs
+> nothing to try.
+> ⇒ **So when composing the clod-squad message, point at the board and let the worker
+> self-select.** Prefer *"the queue's top unblocked row is X; Sol is free; here is what
+> changed"* over *"take X"*. Keep everything that is a CONSTRAINT (brief discipline, safety
+> rules, quota facts) — those are properties of the world, not instructions about what to pick.
+> ⚠️ The cron prompt text below is UNCHANGED on purpose: rewriting the CronCreate jobs risks
+> losing session-only loops, and the phrasing that actually reaches a worker is the message I
+> compose, not the prompt that wakes me. **Change the handoff, not the plumbing.**
 ```
 Run /home/jes/boss-clod/epic-nudge.sh (capture stderr too — it explains every declined check).
 
