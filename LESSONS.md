@@ -462,6 +462,30 @@ behaviour: the message queuing is still right, because **commonplace chooses whe
 and can sequence. But **when a review is puzzling over timeouts, ask what else was running**
 before anyone theorises about the code.
 
+## 7k. ⭐⭐ HAVING THE ANSWER AND FILING IT AS A SYMPTOM
+
+**Twice in one night, same shape, different people.** Not a failure to *find* evidence — a
+failure to *read what was already written* as an answer.
+
+| Instance | What was recorded | What it actually was |
+|---|---|---|
+| CX-8wh1 fixtures | a revert message describing the breakage: *"a workspace that has been through init but has no identity — **a state real nodes never occupy**"* | **the ruling itself** — there is no context in which the modelled state is real, so the fixtures are entrenchment, not intent |
+| CX-q9sa round 2 | *"one unrelated trust failure, load-sensitive"* — `AuditChokePerfTest`, **p50 ratio 3.213** | **the same signature, one round earlier.** Round 3 measured p50 **4.941** (baseline p50 798µs vs with-audit 3943µs). A systematic slowdown, seen twice and joined once. |
+
+⇒ **The remedy in both cases was a SECOND READER, not a new measurement.** The author wrote
+the decisive sentence and moved past it; someone else read the same words as a verdict.
+⚠️ **A dismissive label is what closes the file** — *"unrelated"*, *"load-sensitive"*,
+*"flaky"*, *"symptom"*. ⭐ **Before filing a finding under a label that ends inquiry, ask
+whether the sentence you just wrote answers an open question elsewhere.**
+
+### 7k-bis. ⛔ CHASE THE RETRACTION THAT TIGHTENS THE GATE
+
+commonplace's own admission, and it generalises: *"I had been reading retractions as noise to
+route around."* ⇒ **A retraction that makes a REGRESSION MORE LIKELY is the one to chase
+hardest** — it cuts against the outcome its author probably wants. Tonight the self-baselined
+correction did exactly that, and following it produced the p50 measurement that **held the
+merge**. *A correction that only ever loosens the gate is the one to distrust.*
+
 ## 8. Open — not near-misses, actual items awaiting a decision
 
 - **`quota-guard.sh` is not on cron.** Two active entries: `watchdog-cron.sh`,
