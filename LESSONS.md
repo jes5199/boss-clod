@@ -1129,6 +1129,18 @@ cat-file -e`, `merge-base --is-ancestor`. Seconds. ⚠️ The row is a **cached*
 is the world. *A dispatcher relaying cached readiness is exactly the "confirm, don't inherit"
 failure with a queue in the middle.*
 
+⛔⛔ **AND THE THIRD INSTANCE FAILED A CHECK THAT WAS ACTUALLY PERFORMED — because it was the
+WRONG SEARCH.** The owed row said *"gated on commonplace producing the schema; not yet
+produced"*, and the check behind it was **"ask commonplace / grep the chat"**. ⇒ But the
+schema had landed **in the REPO**, with the merge. **A repo artifact is found by `ls
+docs/plans/`, not by asking its author.** The check ran, returned nothing, and **discriminated
+nothing** — it searched where the artifact wasn't.
+
+⭐ **So the rule needs its sharper half: THE CHECK MUST NAME THE SEARCH THAT WOULD ACTUALLY
+FIND THE DELIVERABLE.** *"Did I check?"* is the wrong question; *"would my check have found it
+if it existed?"* is the right one — which is the **positive control** demand, applied to a
+readiness query instead of a grep pattern.
+
 ⭐ **AND IT FAILS IN BOTH DIRECTIONS, which is why "check before dispatch" is not enough:**
 work that has LANDED makes a blocked row falsely blocked (wasted ranking), and work that has
 landed also makes a ready row falsely ready (wasted build). ⚠️ **The optimistic direction is
