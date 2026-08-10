@@ -1147,6 +1147,36 @@ landed also makes a ready row falsely ready (wasted build). ⚠️ **The optimis
 the dangerous one** — a falsely-blocked row wastes thought, a falsely-ready row spends a
 worker.
 
+## 7x. ⭐⭐ THE SELF-MATCH TRAP HAS A STRUCTURAL FIX: PUT THE PATTERN IN A FILE
+
+**An agent hit `pgrep -f` matching its own shell TWICE in one day** — the pattern sat in its
+own command line, so the search found the searcher. Exit 144, its own command killed
+mid-flight. Both times it re-derived the same remedy: *be careful, use `comm` + numeric pids.*
+**Discipline. Which failed twice.**
+
+⭐ **MY OWN LOOP RUNS THE SAME `pgrep -f` AND HAS NEVER SELF-MATCHED. The difference is not
+care — it is LOCATION:**
+
+| Form | Where the pattern lives | Self-match |
+|---|---|---|
+| `pgrep -f "codex exec"` typed inline | **in the shell's own argv** | ⛔ always possible |
+| `pgrep -f '…'` inside a script file | **in a file; no process argv contains it** | ✅ impossible |
+
+**Verified by effect, with a real run live:** my check returned exactly the codex wrapper and
+child (`2887560 2887573`); my own shell (`2889271`) was **not** in the results, and my argv
+contains no trace of the pattern.
+
+⇒ ⭐⭐ **THIS IS THE FIRST REAL ANSWER TO 3b** — *"guards on reflexes must be the default path
+or nothing."* **Moving a pattern from a command line into a file converts a discipline into a
+structural impossibility**, because the trap's precondition (pattern present in a live argv)
+is destroyed rather than avoided. ⚠️ It is the same shape as the `:4002` pre-flight that
+worked: **the constraint lives where the action happens**, not beside it — and here the file
+*is* the action.
+
+⚠️ **Scope honestly: this removes SELF-match only.** A file-borne pattern can still match
+someone else's process — hermes remains the reason `cp-kill` resolves by identity and signals
+numeric pids. **Two different traps; this fixes one of them completely.**
+
 ## 8. Open — not near-misses, actual items awaiting a decision
 
 - **`quota-guard.sh` is not on cron.** Two active entries: `watchdog-cron.sh`,
