@@ -22,7 +22,7 @@ set -uo pipefail
 # THREE DAYS, because a declining loop and an absent loop are both silent.
 # LOOPS.md documented them, which did not help -- a file only works if
 # someone reads it after a restart. This makes absence OBSERVABLE FROM DISK.
-touch /home/jes/boss-clod/.heartbeat-epic-nudge 2>/dev/null || true
+touch "${HEARTBEAT:-/home/jes/boss-clod/.heartbeat-epic-nudge}" 2>/dev/null || true
 
 
 WORKER="${WORKER:-commonplace}"
@@ -58,7 +58,7 @@ COOLDOWN_MIN="${COOLDOWN_MIN:-50}"   # don't re-nudge inside this window
 # the night and then noticed my own loops would keep waking it.
 # ⭐ A hold I have to remember is not installed. It states its own age, because
 # forgetting to RELEASE fails silently — a stalled queue looks like an empty one.
-EPIC_HOLD="/home/jes/boss-clod/.epic-hold"
+EPIC_HOLD="${EPIC_HOLD:-/home/jes/boss-clod/.epic-hold}"
 if [ -f "$EPIC_HOLD" ]; then
   held_min=$(( ( $(date +%s) - $(stat -c %Y "$EPIC_HOLD") ) / 60 ))
   echo "DECLINED: epic hold, HELD ${held_min}m — $(cat "$EPIC_HOLD" 2>/dev/null || echo 'NO REASON GIVEN')" >&2
@@ -66,7 +66,7 @@ if [ -f "$EPIC_HOLD" ]; then
   echo "  (clear with: rm $EPIC_HOLD)" >&2
   exit 0
 fi
-IDLE_MARKER="/home/jes/boss-clod/.epic-nudge-last"
+IDLE_MARKER="${IDLE_MARKER:-/home/jes/boss-clod/.epic-nudge-last}"
 
 say() { echo "$*" >&2; }
 

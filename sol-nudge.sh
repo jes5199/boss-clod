@@ -30,7 +30,7 @@ set -uo pipefail
 # THREE DAYS, because a declining loop and an absent loop are both silent.
 # LOOPS.md documented them, which did not help -- a file only works if
 # someone reads it after a restart. This makes absence OBSERVABLE FROM DISK.
-touch /home/jes/boss-clod/.heartbeat-sol-nudge 2>/dev/null || true
+touch "${HEARTBEAT:-/home/jes/boss-clod/.heartbeat-sol-nudge}" 2>/dev/null || true
 
 
 # ⛔ EXPIRED-BOUND SURFACER, 2026-08-10 — placed HERE, above every early exit,
@@ -113,8 +113,8 @@ COOLDOWN_MIN="${COOLDOWN_MIN:-15}"   # jes 2026-08-08: 60 -> 30. The cron alone
                                      # the busy-check declines while commonplace is
                                      # briefing, which is the case the cooldown was
                                      # really covering.
-MARKER="/home/jes/boss-clod/.sol-nudge-last"
-CREDIT_SENTINEL="/home/jes/boss-clod/.sol-codex-exhausted"
+MARKER="${MARKER:-/home/jes/boss-clod/.sol-nudge-last}"
+CREDIT_SENTINEL="${CREDIT_SENTINEL:-/home/jes/boss-clod/.sol-codex-exhausted}"
 
 say() { echo "$*" >&2; }
 
@@ -143,7 +143,7 @@ fi
 # SILENCE — Sol stays held, nothing reports it, and a stalled queue looks
 # exactly like "nothing was ready". A hold that cannot state its age is an
 # rc=0 with empty output: correct, silent, and indistinguishable from fine.
-HOLD="/home/jes/boss-clod/.sol-hold"
+HOLD="${HOLD:-/home/jes/boss-clod/.sol-hold}"
 if [ -f "$HOLD" ]; then
   held_min=$(( ( $(date +%s) - $(stat -c %Y "$HOLD") ) / 60 ))
   say "DECLINED: measurement hold, HELD ${held_min}m — $(cat "$HOLD" 2>/dev/null || echo 'NO REASON GIVEN')"
