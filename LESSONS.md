@@ -238,6 +238,41 @@ recursive walk to hit an entry appearing mid-walk. **A change to how long a file
 change to TIMING**, and reaches every recursive walk over that directory — teardown, sync
 scan, compaction. **Nothing on a diff's surface says "timing."**
 
+## 7e. ⭐ A brief can name the SYMPTOM correctly and still prescribe the WRONG REMEDY
+
+2026-08-10, CX-q9sa. The brief got the offender list right, the count right (21 fires
+reproduced exactly), and the two dangerous fixes forbidden by name. **The one line saying
+what to actually DO was wrong.** §4 said *"each offender should delete only what it owns;
+the normal fix is an isolated per-test directory"* — **unachievable, because the directory
+was ALREADY isolated and unique.** The test had replaced the production-named `CommitStore`
+child *inside* its own tmp dir and never stopped it before `rm_rf`, so the singleton was left
+alive holding a deleted directory. The real fix is **teardown ORDERING**, not isolation.
+
+⇒ **The remedy is the part the builder acts on.** Symptom-correct + remedy-wrong is more
+dangerous than a vague brief, because everything checkable about it checks out.
+⭐ The escape hatch is what saved it: the brief also said *"if an offender is legitimately
+pointed at the real store, that is a FINDING."* **Always leave the builder a way to report
+that the prescribed remedy doesn't fit** — it is the only clause that survives an author
+who is wrong.
+
+⚠️ Related and healthy: the author was suspicious of the premise, re-derived it
+independently, and it **CONFIRMED the claim it doubted**. Report that outcome as loudly as a
+refutation; a check that only gets mentioned when it overturns something is a biased
+instrument.
+
+### 7f. ⛔ OPEN — a dispatched Sol run CANNOT BE CORRECTED MID-FLIGHT
+
+Sol is a `codex` process behind a shell script, not an agent with a mailbox. When the author
+discovered §4 was wrong at ~52 min into the run, **there was no way to tell it.** The only
+available move was to convert the correction into a **REVIEW CRITERION** ("did it fix by
+ordering, or chase the bad hint?").
+
+⇒ That downgrade is currently forced, and it is a real limit of the dispatch machinery rather
+than a workflow preference. **Every brief therefore has to carry its own escape hatches up
+front**, because there is no second chance to add one. Worth solving properly (a drop-file
+the wrapper polls? a mid-run addendum channel?) — recorded here so it is not mistaken for
+a thing nobody noticed.
+
 ## 8. Open — not near-misses, actual items awaiting a decision
 
 - **`quota-guard.sh` is not on cron.** Two active entries: `watchdog-cron.sh`,
