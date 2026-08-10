@@ -827,6 +827,12 @@ retracted two-point trend. **Third time in one day, and this time I had already 
 rules down.** ⇒ A rule filed is not a rule applied; I applied it to claims I was *suspicious*
 of and not to one I *liked*.
 
+⭐⭐ **THE SHARPEST FORM OF THAT, and it is the line to keep: A RULE APPLIED ASYMMETRICALLY IS
+NOT A RULE — IT IS A PREFERENCE WITH A CITATION.** The rule was about the **shape of the
+evidence**, and shape does not care which direction you hope the answer points. ⚠️ Both of us
+committed it on the same problem within hours, each while writing the rule *into a brief for
+someone else*.
+
 ⚠️ **AND THE FALSIFIER WAS AIMED AT THE WRONG HYPOTHESIS**, which is the subtlest part: the
 pre-committed branch tested *"does dir-form reproduce at all?"* — not *"does invocation form
 EXPLAIN the difference?"* ⭐ **A falsifier aimed at the wrong claim is worse than none, because
