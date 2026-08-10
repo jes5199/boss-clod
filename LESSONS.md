@@ -241,7 +241,21 @@ pattern with `pgrep` and **refuses only if it matches `$CLAUDE_PID`, the CLI pro
 agent's own shell, not another agent's processes, and NOT hermes.**
 ⚠️ *"There is a pkill guard"* is true and was read as broader protection than it provides —
 **the same headline-versus-caveat failure as everything else tonight, this time about a
-safety mechanism.** ⇒ **Read the guard before relying on the guard.**
+safety mechanism.** ⛔ **Which is the worst place for it: a guard you believe covers you stops
+you looking for the one that does.** ⇒ **Read the guard before relying on the guard.**
+
+⭐⭐ **THE TELL, and it generalises to every guard on this box: A GUARD NAMED FOR A COMMAND
+(`pkill`) RATHER THAN FOR THE PROPERTY IT PROTECTS (`$CLAUDE_PID` surviving) WILL BE READ AS
+COVERING THAT COMMAND'S WHOLE BLAST RADIUS.** The name advertises the surface it intercepts,
+not the invariant it defends, and the gap between those two is invisible until someone reads
+the source. ⇒ When you meet a guard, **ask what property it asserts, not what command it
+wraps** — and note this is the same rule as *bind the check to the property, not the story of
+how it broke*, arriving from the reader's side instead of the author's.
+
+⚠️ **NO REMEDY EXISTS AT THE SHELL LAYER**, so this stays a discipline with a tool
+(`cp-kill`, which resolves by identity) — **which means it can fail again.** Carried honestly
+rather than closed with a placebo: two mechanisms that *look* like fixes and guard nobody
+would make the next incident **more** likely by supplying false confidence.
 
 ## 4. Tools only help if they are what you reach for
 
