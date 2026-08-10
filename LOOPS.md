@@ -15,7 +15,8 @@ Three loops, via `CronCreate`. Suggested schedules avoid `:00`/`:30`.
 
 ### 1. squad-alerts poll — every ~10 min
 Closes the delivery gap found 2026-07-31: the squad-alerts MCP server runs
-standalone in tmux window 15 and binds `:5777`, so boss-clod's own copy never
+standalone in the tmux window **named `squad-alerts`** (index 12 after the 2026-08-10
+renumber — resolve it by NAME, indices shift) and binds `:5777`, so boss-clod's own copy never
 starts and the channel delivers nothing into the session. The store marks
 alerts delivered regardless.
 
