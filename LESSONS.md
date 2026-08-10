@@ -377,8 +377,29 @@ p99 ratio while p50 stays healthy. Stop+restart in 13 more files is precisely a 
 source.
 ⇒ **The deciding read needs NO new run — it is already in the failure output: did p50 fail,
 or p99, or both?** p99-only ⇒ variance, and the guard's fragility is its **sample count**, not
-its calibration (fix: more samples or a trimmed statistic, *not* a bigger ratio). Both ⇒ a
-genuine slowdown, the guard is doing its job, and the merge should not happen.
+its calibration (fix: more samples or a trimmed statistic, *not* a bigger ratio).
+
+**MEASURED:** baseline p50 798µs / p99 3729µs · with-audit p50 3943µs / p99 49082µs ·
+**ratios p50 4.941, p99 13.162** against a limit of 3.0. **p50 failed**, so it is not the
+variance reading.
+
+⛔⛔ **AND THAT DICHOTOMY WAS ALSO INCOMPLETE — a third branch, and it is the likeliest:
+SELF-BASELINING CANCELS A CONSTANT OFFSET, NOT A TREND.** The two arms are measured
+**sequentially** — baseline first, with-audit second — so **if machine load RISES DURING THE
+RUN, the second arm is systematically penalised and BOTH ratios inflate with no regression
+anywhere.** ⚠️ And the added teardown makes precisely that more likely: 13 more store
+stop/restarts changes the suite's load profile **over** the run rather than holding it
+constant, which is the one thing an in-run baseline cannot subtract.
+⇒ **Both-failing is consistent with a real regression AND with a trend confound.**
+
+⭐ **THE SEPARATING TEST IS CHEAP AND STRUCTURAL: MEASURE THE BASELINE TWICE**, once before
+the with-audit arm and once after. `baseline_after ≈ baseline_before` ⇒ the machine was
+stable and the ratio means what it says. `baseline_after > baseline_before` ⇒ load trended,
+the comparison is confounded, and the guard needs **interleaved or alternating arms** rather
+than sequential ones.
+⚠️ That is a change to the **TEST**, not to the branch under review — and it is the guard law
+again: **bind the check to the property** (does the audit wiring cost more?) rather than to an
+arrangement a moving machine can fake.
 ⚠️ **Note the direction:** this correction makes a **regression MORE likely**, not less — it
 cuts against the merge. *A retraction that only ever loosens the gate is a retraction worth
 distrusting.*
