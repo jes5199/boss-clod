@@ -270,6 +270,30 @@ now-green ⇒ load), which is true as far as it goes but **does not license read
 green-isolated as "not mine" once the suite REPRODUCES at a fixed seed.** Reproduction has
 already excluded load; isolated-green then means only **"needs the neighbours."**
 
+### 7d-bis. ⭐ TWO DISCRIMINATORS THAT SEPARATE A REAL ALARM FROM NOISE
+
+**① NOISE SCATTERS; A MONOTONIC CLIMB TRACKS SOMETHING.** The same test measured **3.213** in
+round 2 and **4.941** in round 3 — *with more teardown work added in between*. ⇒ Load noise
+does not increase with the independent variable. **A number that climbs with the thing you
+changed is measuring it.** Both halves were in hand; the missing step was the **join**, not
+the data. *(Round 2's was filed as "one unrelated trust failure, load-sensitive" — see 7k.)*
+
+**② "IT PASSES ISOLATED" IS NOT AN EXONERATION WHEN PRODUCTION HAS THE CONDITION.** The
+standard move on a full-suite-only failure is to run it alone, see green, and close. ⛔ Here
+that is backwards: full-suite-only means the regression is **conditional on store churn** —
+**and production HAS store churn** (compaction, restarts, concurrent workers). ⇒ Isolated-pass
+reads as *"conditional on concurrent store pressure"*, **not** as *"not real."*
+⭐ **Ask whether the condition you removed to get a clean run is a condition production also
+lacks.** If production has it, isolation deleted the test, not the doubt.
+
+⚠️ **And what the failing test NAME meant, which reframed the whole thing:** *"the DENY path's
+OFFERED work is bounded"* is not a performance nicety — it is the **bounded-work invariant on
+the deny path**, i.e. the property that stops a denial from becoming a DoS surface. **A guard
+whose name states an invariant is not reporting slowness; it is reporting the invariant
+degrading.** ⇒ Read the assertion's name before classifying its failure.
+⚠️ Still open at time of writing: whether this is a genuine regression or the sequential-arm
+**trend confound** above. Both readings remain live, and the baseline-twice test separates them.
+
 ⭐ The mechanism, invisible in the diff: swapping `rename` for a hard link left the temp as a
 **second directory entry** for the whole read-back, widening the window for a concurrent
 recursive walk to hit an entry appearing mid-walk. **A change to how long a file EXISTS is a
@@ -397,6 +421,25 @@ the with-audit arm and once after. `baseline_after ≈ baseline_before` ⇒ the 
 stable and the ratio means what it says. `baseline_after > baseline_before` ⇒ load trended,
 the comparison is confounded, and the guard needs **interleaved or alternating arms** rather
 than sequential ones.
+
+⭐⭐ **RESOLVED — AND THE CONTROL WAS ALREADY IN THE OUTPUT. NOBODY LOOKED BEFORE THEORISING.**
+The same test, same run, same sequential structure, **ALLOW path**: baseline p50 18638µs →
+with-audit p50 **16096µs**, **ratio 0.864**. ⇒ **The second-measured arm was FASTER.** A
+rising-load trend penalises *every* second-measured arm; this one it **rewarded**. So a
+machine trend cannot produce 0.864 in one arm and 4.941 in another **within one run**, and the
+DENY-offered regression is **path-specific**. ⇒ The baseline-twice test was unnecessary here:
+**the ALLOW arm already IS the second baseline, embedded and free.**
+
+⛔ **THE LESSON IS BIGGER THAN THE RESULT: before designing a new experiment, check whether
+the output you already hold contains a control.** Three of us proposed mechanisms and a new
+run; the discriminating datum was sitting in the same failure block the whole time. *(A third
+arm in that block: ratio p50 2.009 / p99 2.995 — passing, but pressed right against the 3.0
+limit. Its own quiet finding.)*
+
+⚠️ **What remains open, stated honestly:** the DENY-offered path is 5× its own in-run baseline
+**on that branch**. That is *not* the same claim as *"the branch's changes caused it"* — there
+is **no matched observation on main**, and the mechanism is not obvious, since test-file
+teardowns should not touch that path at all.
 ⚠️ That is a change to the **TEST**, not to the branch under review — and it is the guard law
 again: **bind the check to the property** (does the audit wiring cost more?) rather than to an
 arrangement a moving machine can fake.
