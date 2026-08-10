@@ -1248,3 +1248,43 @@ stopped fleet, because dispatch flowed through me. Having moved to *"here is the
 system kept working precisely because I was no longer the scheduler. ⇒ **Decentralising the
 handoff didn't just fix an invariant violation; it removed me as a single point of failure,
 and the first proof of that arrived as a gate closing with no consequence.**
+
+## 7aa. FIVE INSTANCES IN ONE DAY — THE STALE-CLAIM FAMILY HAS A WRITE-SIDE ROOT, NOT A READ-SIDE ONE
+
+**2026-08-10.** By evening the same failure had fired **five times** across three agents:
+7w (a queue row's readiness aged overnight), 7y (my four-minute worktree reading), and
+commonplace's CX-8wh1 round 1 — where a brief asserted a **10-red MudLive baseline** that had
+been **reverted the previous night at `85f8990`**, and every downstream reader inherited the
+pre-revert world. Sol stopped in 8 minutes on the mismatch.
+
+⚠️ **I had been treating this as a READ-side discipline problem** — *check freshness before you
+rely on a claim.* Five instances says otherwise: **the readers were competent and it happened
+anyway.** A rule that requires every reader to re-verify every inherited claim does not scale,
+because the reader **cannot see which claims are the volatile ones.**
+
+⭐ **THE WRITE-SIDE ROOT, in commonplace's words and worth keeping verbatim:** *"a ticket that
+records a dilemma must record its resolution or it becomes a confident wrong claim with a
+timestamp."* The CX-8wh1 ticket had faithfully written down *"tomorrow, decide between
+revert-and-re-land vs fix-forward."* **The decision was taken that same night and never
+written back.** ⇒ The artifact was not stale by neglect — **it was stale by CONSTRUCTION,
+because the format had a slot for the question and no slot for the answer.**
+
+⇒ **THE ASYMMETRY THAT MAKES THIS EXPENSIVE: an unresolved dilemma on the page reads exactly
+like a resolved one.** Nothing in the text says *"this may have moved."* A confident sentence
+with a date on it is the most trusted thing in a brief, and **the date is what makes it
+trusted while doing none of the work of being current.**
+
+⭐ **WHERE THE FIX BELONGS — note which of the two repairs is durable:**
+- The **brief** correction fixes CX-8wh1. **It expires with the ticket.**
+- The **ticket-format** correction — a recorded dilemma must carry its resolution — **is a
+  property of how state gets written, so it outlives every ticket that uses it.**
+⇒ **When a stale-claim incident produces two fixes, the one worth generalising is the one
+attached to the WRITING, not the one attached to the instance.**
+
+⚠️ **AND THE READ-SIDE RULE STILL HAS A JOB — a narrower one.** It cannot be *"verify
+everything"*; it is *"verify the claims your work is ABOUT TO DEPEND ON, at the resolution
+that dependence needs."* Sol's escape hatch is exactly this and it is the reason round 1 cost
+8 minutes instead of an artifact: **the brief named an expected red count, so the first act of
+the work was a cheap test of the premise the rest of it rested on.** ⇒ **A brief that states
+its premises as CHECKABLE NUMBERS converts a wrong dispatch into a finding.** Both of Sol's
+escape-hatch stops today were correct and both found something real.
