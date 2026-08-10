@@ -288,7 +288,27 @@ accepted **a two-point trend** without noticing it was the same error wearing a 
 costume. ⚠️ **A trend claim needs enough points that scatter COULD have contradicted it.**
 ⇒ And note which way this cuts: the escalation argument was the strongest evidence for a real
 regression, and it is gone. *(The dismissal in 7k was still a real miss — a signature seen
-twice and not joined. **Wrong to dismiss it, and wrong to promote it to a trend.**)*
+twice and not joined. **Wrong to dismiss it, and wrong to promote it to a trend.** And with
+the trend dead, the original "load-sensitive" label may have been right on the merits, even
+though it was a label standing in for a mechanism.)*
+
+### ⭐⭐ WHAT THE THREE POINTS ACTUALLY SAY — a stronger finding than either story
+
+**The deny-offered ratio spans 2.815 → 4.941 on the SAME tree at the SAME seed, against a
+limit of 3.0.** ⇒ **The statistic's own run-to-run spread STRADDLES its threshold.**
+
+⛔ **A GATE WHOSE MEASUREMENT NOISE IS WIDER THAN ITS MARGIN CANNOT DECIDE ANYTHING, IN EITHER
+DIRECTION.** It will **fire on good trees and pass on bad ones**, and *every one of those
+results is unattributable.* That is the same disease as the third arm sitting at 2.995 vs
+3.0 — one arm merely closer to the line. **The whole file has one illness: arms whose variance
+exceeds their budget.**
+
+⇒ **CONSEQUENCE THAT INVALIDATES THE CHEAP TEST:** a single matched run on the other branch
+answers nothing — *a pass does not clear, a fail does not convict*. **Compare DISTRIBUTIONS,
+not draws:** ~5 runs of the file alone per branch, compare medians *and* spreads. Still
+minutes; unlike one draw, it can actually answer.
+⭐ **And "cannot decide" is not "cleared"** — the hold stands on the absence of a verdict,
+not on a verdict against.
 
 **② "IT PASSES ISOLATED" IS NOT AN EXONERATION WHEN PRODUCTION HAS THE CONDITION.** The
 standard move on a full-suite-only failure is to run it alone, see green, and close. ⛔ Here
