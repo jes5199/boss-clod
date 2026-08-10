@@ -76,6 +76,16 @@ whole class**, and it costs less than the third accident did.
 investigations mean nobody has asked the population question — so **enumerate the callers
 BEFORE fixing the instances**, or the fourth site is found by the next accident.
 
+⭐⭐ **AND IT CLOSED THE CLASS RATHER THAN OPENING IT — which is the half people avoid
+enumeration expecting NOT to get.** Run within minutes of being proposed: **four** non-test
+callers of `public_keys/0`, and **three were already correct** (boot-publish distinguishes
+`{:ok,keys}` / `:absent` / `{:error,_}`; `public_key/0` distinguishes all four including
+`{:ok,[]}`; `anchor_keys/1` fixed earlier the same day). **Exactly one is the known defect.**
+⇒ The enumeration converted *"how many more of these are there?"* — an unbounded worry that
+would have shadowed every future fix in the subsystem — into a **bounded fact with a
+denominator**. ⭐ **A population check that finds nothing new is not wasted; it is the only
+thing that can retire the fear**, and it is cheaper than carrying the doubt.
+
 ⭐⭐ **AND THE SAME DISEASE TWICE IN ONE ARTIFACT: A CONTROL THAT ENCODES AN ENVIRONMENTAL
 ACCIDENT PASSES EXACTLY WHERE IT CANNOT MATTER.** The guard's own child-delete control assumed
 CubDB's file is `0.cub` — true on a fresh checkout, **false after any compaction** — so it
