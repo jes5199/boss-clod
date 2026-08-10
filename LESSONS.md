@@ -291,6 +291,40 @@ front**, because there is no second chance to add one. Worth solving properly (a
 the wrapper polls? a mid-run addendum channel?) — recorded here so it is not mistaken for
 a thing nobody noticed.
 
+## 7g. ⛔⛔ ONE GREEN RUN IS NOT A VERDICT FOR AN ORDER-DEPENDENT DEFECT
+
+2026-08-10, CX-q9sa round 1. **Two agents independently made the same error and neither
+caught it, because they made it the same way.** Sol reported mcp 156/0; commonplace
+replicated the fix in its own tree, also got 156/0, and reported to me in writing that the
+open question was **"settled"** and its worry **"measured false."** I relayed that as settled.
+
+Measured properly across seeds:
+
+| seed | result |
+|---|---|
+| 839791 | **156/9** — deterministic, re-ran and got 9 again |
+| 111111 | 156/0 ⚠️ **the lucky one** |
+| 222222 | **156/9** |
+
+⭐ **The failure is ORDER-DEPENDENT** — `CatTest` only dies when it runs after the bd tests —
+**which is the same class as the bug the ticket is about.** The teardown's
+`terminate_child` + `delete_child` correctly stops the store before deleting (so the guard
+stops firing) but `delete_child` **removes the child spec permanently**, leaving no
+production-named `CommitStore` for the rest of the run. *The teardown stops the world and
+never puts it back.*
+
+⇒ **A single green is not evidence when the seed decides the order and the order decides the
+outcome.** Acceptance now requires a **five-seed sweep per suite including the known-red
+seeds, counts reported PER SEED**, never "all green."
+⭐ And better than any suite result: **assert the PROPERTY directly** — show
+`Process.whereis(CommitStore)` alive again with the ORIGINAL data_dir. **A green suite is
+circumstantial; the property is not.**
+
+⚠️ **My own failure here was relaying "settled" without asking how many runs it rested on.**
+7d said green-isolated is not "not mine"; this is its twin — **green-once is not "fixed."**
+When someone reports a worry as *measured false*, the follow-up question is **"across how
+many seeds?"**, and it costs one sentence.
+
 ## 8. Open — not near-misses, actual items awaiting a decision
 
 - **`quota-guard.sh` is not on cron.** Two active entries: `watchdog-cron.sh`,
