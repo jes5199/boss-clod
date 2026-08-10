@@ -1288,3 +1288,43 @@ that dependence needs."* Sol's escape hatch is exactly this and it is the reason
 the work was a cheap test of the premise the rest of it rested on.** ⇒ **A brief that states
 its premises as CHECKABLE NUMBERS converts a wrong dispatch into a finding.** Both of Sol's
 escape-hatch stops today were correct and both found something real.
+
+## 7ab. I PROVED THE ALERT POLLER CAN FIRE — AFTER RELAYING ITS SILENCE ALL DAY
+
+**2026-08-10.** `squad-alerts-poll.sh` had returned empty on every cycle for hours and I had
+reported "no alerts" each time. ⚠️ **I had never established that a non-empty result was
+reachable.** The script is well hardened against *breaking* silently — a failed poll shouts on
+stdout and exits 3, added after the bare-`exit 0` bug — but **nothing in it distinguishes
+"the filter correctly matched nothing" from "the filter can never match anything."**
+
+**THE POSITIVE CONTROL** (read-only, three counts against the same DB):
+
+| query | rows | proves |
+|---|---|---|
+| poller's exact filter above marker 484 | **0** | what the poller saw |
+| same, severity floor relaxed | **9** | **the id-filter and DB read WORK** |
+| `severity='critical'` ever | **145** | **the severity term CAN match** |
+
+⇒ **Silence is the filter working, not a dead query.** Marker-advance also checks out: it moves
+to the last *relayed* row, so skipped info rows cannot carry it past a future critical.
+
+⭐ **AND THE BASE RATE IS THE PART THAT CHANGES HOW I READ THIS FEED.** 1–3 alerts/day, **zero
+criticals on most days**; the 7/30–7/31 spike (36 + 44, 32 critical) was the bot-compromise and
+pnl-bug incident. ⇒ **Quiet is this feed's NORMAL state**, so quiet can never be evidence the
+path is healthy — the two are indistinguishable without exactly this control. **Any detector
+whose null result is also its usual result must be probed on a schedule, or its reassurance is
+unearned by construction.**
+
+⚠️ **AND I ALMOST MANUFACTURED A FINDING OUT OF THE GAP.** Newest row was Aug 8, nothing since
+— which looked like a dead writer. **The base rate killed it:** gaps of 2–3 days are ordinary
+here (07-22, 07-27→29, 08-02, 08-06→07 are all absent), Aug 9 was a Sunday, and the daily
+summary fires at 22:00 — **hours after I looked.** ⇒ *The same table that would have shown a
+real outage also explains the apparent one; I only got to tell them apart by asking for the
+distribution rather than the latest row.*
+
+**One dead branch, deliberately not "fixed":** the filter is `severity in ('critical','error')`
+and **`error` has never once occurred** — the vocabulary is critical/info/warn. It costs
+nothing (no row is ever labelled `error`, so none is missed) and `warn` sits below the floor by
+design — theta-hang warns self-recover within a minute. ⚠️ **Recording it rather than deleting
+it: a term that matches nothing is indistinguishable from a term whose traffic stopped**, and
+the next reader deserves to know which one this is.
