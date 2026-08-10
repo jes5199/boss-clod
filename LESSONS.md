@@ -210,6 +210,34 @@ expensive or contended — never a substitute chosen on principle.** Measure the
 real check first; "the cheap check will do" is itself a claim requiring evidence.
 ⚠️ Neither replaces the other. Reach for the derivation when a lane is truly in flight.
 
+## 7d. ⭐ GREEN-ISOLATED IS NOT "NOT MINE" — the four-arm attribution table
+
+2026-08-10. A worker's post-change run came back **trust 213/1**, a teardown failure in an
+out-of-scope guard. Every incentive said *load-marginal, out of scope, move on* — the
+"pre-existing / unrelated" label this fleet is told to CHECK rather than disbelieve. It
+attributed instead:
+
+| Arm | Result |
+|---|---|
+| full suite @ seed 422078, WITH change | rc=2, 1 failure — **reproducible** |
+| that file ISOLATED @ 422078, WITH change | rc=0 GREEN |
+| ⭐ full suite @ 422078 on **UNMODIFIED** code | rc=0, **213/0** |
+
+⇒ **The unmodified-code arm at the same seed is the only one that separates "my change
+caused this" from "this was here already."** Green-isolated is the classic contamination /
+load signature — and here it was **WRONG**.
+
+⛔ **This SHARPENS the rule written 40 minutes earlier** (same-population + same-seed +
+now-green ⇒ load), which is true as far as it goes but **does not license reading
+green-isolated as "not mine" once the suite REPRODUCES at a fixed seed.** Reproduction has
+already excluded load; isolated-green then means only **"needs the neighbours."**
+
+⭐ The mechanism, invisible in the diff: swapping `rename` for a hard link left the temp as a
+**second directory entry** for the whole read-back, widening the window for a concurrent
+recursive walk to hit an entry appearing mid-walk. **A change to how long a file EXISTS is a
+change to TIMING**, and reaches every recursive walk over that directory — teardown, sync
+scan, compaction. **Nothing on a diff's surface says "timing."**
+
 ## 8. Open — not near-misses, actual items awaiting a decision
 
 - **`quota-guard.sh` is not on cron.** Two active entries: `watchdog-cron.sh`,
