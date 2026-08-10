@@ -272,11 +272,23 @@ already excluded load; isolated-green then means only **"needs the neighbours."*
 
 ### 7d-bis. ⭐ TWO DISCRIMINATORS THAT SEPARATE A REAL ALARM FROM NOISE
 
-**① NOISE SCATTERS; A MONOTONIC CLIMB TRACKS SOMETHING.** The same test measured **3.213** in
-round 2 and **4.941** in round 3 — *with more teardown work added in between*. ⇒ Load noise
-does not increase with the independent variable. **A number that climbs with the thing you
-changed is measuring it.** Both halves were in hand; the missing step was the **join**, not
-the data. *(Round 2's was filed as "one unrelated trust failure, load-sensitive" — see 7k.)*
+**① ⛔ RETRACTED BY THE THIRD DATA POINT — AND THE RETRACTION IS THE BETTER LESSON.**
+
+**What I filed:** *"noise scatters; a monotonic climb tracks something"* — the same test read
+**3.213** (round 2) then **4.941** (round 3), with more teardown work added in between, so the
+climb was measuring the change.
+⛔ **A rerun of the SAME tree at the SAME seed then returned 2.815** (all three arms passing,
+zero guard fires). Sol's tree reads **3.213 → 4.941 → 2.815**. ⇒ **That is SCATTER, not
+escalation.**
+
+⭐⭐ **THE REAL LESSON: TWO POINTS ALWAYS LOOK MONOTONIC.** Any two distinct numbers form a
+monotonic sequence — so *"it climbed"* from **n=2** is not evidence of a trend, it is a
+restatement of *"they differ."* I had just filed **"one seed is not a sample"** and then
+accepted **a two-point trend** without noticing it was the same error wearing a different
+costume. ⚠️ **A trend claim needs enough points that scatter COULD have contradicted it.**
+⇒ And note which way this cuts: the escalation argument was the strongest evidence for a real
+regression, and it is gone. *(The dismissal in 7k was still a real miss — a signature seen
+twice and not joined. **Wrong to dismiss it, and wrong to promote it to a trend.**)*
 
 **② "IT PASSES ISOLATED" IS NOT AN EXONERATION WHEN PRODUCTION HAS THE CONDITION.** The
 standard move on a full-suite-only failure is to run it alone, see green, and close. ⛔ Here
