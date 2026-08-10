@@ -97,6 +97,40 @@ print(f'{best[0]:.2f} {best[1]} {best[2]:.0f}')
 ")"
 
 
+# ⛔⛔ 2026-08-10: FAIL CLOSED, NOT OPEN — observed once, live, at 20:22Z.
+# `claude-quota --json` returned unparseable output. json.load raised, so the
+# read got an empty line, so MAX_RATIO/MAX_LABEL/MAX_UTIL were all EMPTY, so
+# `print(1 if  >= 1.05 else 0)` was a SyntaxError, so OVER was empty, so the
+# `[ "$OVER" = "1" ]` test was false — and control fell through to the else
+# branch, which printed:
+#     OK|worst  x (limit 1.05) — 5h=% 7d=%
+# and exited 0. ⚠️ THE GUARD REPORTED *OK* BECAUSE IT COULD NOT MEASURE. The
+# cron log records `rc=0 OK|...`, which is byte-comparable to a healthy run, so
+# an API outage would read as "burn is fine" for as long as it lasted — and the
+# empty fields are the ONLY tell, in a line nobody reads when it says OK.
+# ⭐ Same family as this repo's squad-alerts bare-`exit 0`, fixed 2026-08-09:
+# A BROKEN CHECK MUST NOT BE ABLE TO EMIT THE REASSURING ANSWER. "I measured and
+# you are fine" and "I could not measure" must never share an exit code.
+# ⇒ rc=3 GUARD_BROKEN is neither OK(0), SLOW_DOWN(1) nor STOP(2): callers that
+# treat nonzero as "do not dispatch" now fail safe by default.
+case "$MAX_RATIO" in
+  ''|*[!0-9.]*)
+    echo "GUARD_BROKEN|quota JSON unparseable — ratio='$MAX_RATIO' label='$MAX_LABEL' util='$MAX_UTIL'"
+    echo "  This is NOT 'OK'. No throttle decision was made this run."
+    exit 3 ;;
+esac
+if [ "$MAX_LABEL" = "none" ]; then
+  echo "GUARD_BROKEN|no usable window (all null, or every window <1% elapsed)"
+  echo "  This is NOT 'OK'. No throttle decision was made this run."
+  exit 3
+fi
+case "$SEVEN_UTIL" in
+  ''|*[!0-9.]*)
+    echo "GUARD_BROKEN|7d utilization unparseable: '$SEVEN_UTIL'"
+    echo "  This is NOT 'OK'. No throttle decision was made this run."
+    exit 3 ;;
+esac
+
 # Decision logic
 SEVEN_INT=$(python3 -c "print(int($SEVEN_UTIL))")
 
