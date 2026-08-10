@@ -777,6 +777,35 @@ neighbours", not "not real"* was written down **before** the runs, a green resul
 appearing in 4/4 samples; these were 2/4, so the signature was weaker and the pass branch was
 doing all the work.)*
 
+## 7o. ⭐⭐ A COMPACTION DESTROYS COMMITMENTS, NOT KNOWLEDGE
+
+The best statement of why durable state matters, and it is not the obvious one:
+
+> **Facts survive in tickets because they can be RE-DERIVED. A pre-registered reading CANNOT
+> be re-derived after the result exists — because by then you know the answer, and any
+> reconstruction is contaminated by it.**
+
+⇒ So the thing to write down before a context boundary is **not what you know** (recoverable)
+but **what you have COMMITTED TO** — what each possible outcome will mean, decided while the
+answer is still unknown.
+
+⚠️ **The specific gap:** a brief holds the **ACCEPTANCE** (what the builder must produce); the
+**READING** (what each outcome means for what *I* do next) is a different document, and only
+the second one is unrecoverable. A dispatch-then-compact sequence loses exactly the reading.
+⭐ Closed here by writing the four outcomes down **while the run was still in flight**,
+including what **no** outcome licenses.
+
+⛔ **The branch that most needs writing is the one a tired reader converts into progress:**
+*"it didn't reproduce"* reads as *"the problem went away"* and licenses bisecting anyway.
+**A bisection run on an unreproducible failure produces a CONFIDENT WRONG ANSWER DRESSED IN
+METHOD** — the tidiest possible artifact and entirely false. Same shape as every dead theory
+today, except it would arrive wearing a procedure.
+
+⚠️ *And my own miss in the same exchange: I read "3 shells running" as its measurements and
+warned against compacting mid-flight. They were **Sol's process tree** — nothing of its own was
+running, so the safe window was NOW, not later. I inferred a fact that was one command away
+from being checked.*
+
 ## 8. Open — not near-misses, actual items awaiting a decision
 
 - **`quota-guard.sh` is not on cron.** Two active entries: `watchdog-cron.sh`,
