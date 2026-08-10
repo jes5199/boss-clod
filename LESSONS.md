@@ -731,6 +731,34 @@ does not have is evidence of INTENT, and intent is a better lead than a symptom*
 you what someone meant to build. *(Second fixture of this exact class; treat as a population,
 not an instance.)*
 
+## 7n. ⭐⭐ THE QUESTION WAS MALFORMED — "is there a SECOND mechanism?" presupposed ONE
+
+The row asked whether a **second** mechanism existed behind an unstable failure set. Isolating
+every member answered something better: **there is no single second mechanism. There are at
+least THREE, and the word "flaky" was carrying all of them.**
+
+| Class | Evidence | What it needs |
+|---|---|---|
+| **STABLE RED** — not flaky at all | `TrustConfigFailClosed` fails in **0.4s** alone; `BotPresenceCert` times out identically on both branches | a fix |
+| **INTERACTION-DEPENDENT** — green alone, red together | `DocBuilder` 22/0 isolated, `Green.Bursar` 44/0 isolated | an **attribution METHOD**, before any fix |
+| **INSTRUMENT NOISE** | `AuditChokePerf` passes alone; spread 2.815–4.941 vs limit 3.0 | a quieter measurement, *never* a looser threshold |
+
+⇒ **THREE PIECES OF WORK WITH THREE DIFFERENT ACCEPTANCES.** ⛔ *A fix for one is not progress
+on the others, and any plan treating them as one queue item will fix the cheapest and report
+the pool as handled.*
+
+⭐ **A QUESTION THAT NAMES A CARDINALITY SMUGGLES IN AN ASSUMPTION.** *"What is the second
+mechanism"* cannot return "three"; it can only return a wrong single answer or nothing.
+⇒ **Ask "how many, and of what kinds?" — the enumerating form — whenever a set has been
+given one label.**
+
+⚠️ **AND THE PRE-COMMITMENT IS WHAT MADE CLASS 2 VISIBLE.** Two members came back **GREEN
+alone**, which under the lazy reading is exoneration. Because *isolated-pass = "needs
+neighbours", not "not real"* was written down **before** the runs, a green result became a
+**finding** instead of an absence. *(The first success of the pool rule rested on a member
+appearing in 4/4 samples; these were 2/4, so the signature was weaker and the pass branch was
+doing all the work.)*
+
 ## 8. Open — not near-misses, actual items awaiting a decision
 
 - **`quota-guard.sh` is not on cron.** Two active entries: `watchdog-cron.sh`,
