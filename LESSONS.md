@@ -961,6 +961,20 @@ shown** to change outcomes. It is the weaker, sturdier statement that **an uncon
 variable should not be left uncontrolled in an attribution** — which needs no measurement at
 all, and therefore cannot be taken down by one.
 
+⭐⭐ **AND THE EMPIRICAL JUSTIFICATION WAS NOT MERELY WEAKER — IT WAS CIRCULAR.** To establish
+*"invocation form matters"* you need a multi-draw comparison, **and the uncontrolled variable
+is what confounds that very comparison.** ⇒ You would have needed **the control in place to
+earn the fact that justifies the control.** So the structural argument is not the better of
+two available arguments; it is **the only non-circular one**.
+
+⇒ **GENERALISES: a control justified by a MEASUREMENT inherits that measurement's fragility
+AND its confounds; a control justified by the STRUCTURE of the situation costs nothing to
+defend and survives every finding.**
+
+⇒ **PRACTICAL FORM: when a control and a finding are adopted together, FILE THE CONTROL
+SEPARATELY WITH ITS OWN BASIS** — otherwise whoever tidies up the retracted finding takes the
+control with it.
+
 ⇒ **General form: adopt a no-regret change BEFORE its motivating finding is confirmed, and
 when the finding falls, check separately whether the change stands on its own.** Adopting it
 early was the right *order*, not luck.
