@@ -219,6 +219,30 @@ the thing my scripts call helps *scripts*; it does nothing for a hand-typed comm
 ⚠️ **Recorded as unsolved on purpose**, because three neighbouring things got fixed the
 same day and this one is at risk of being filed as done by association.
 
+### 3b-bis. ⭐ FOURTH INSTANCE — and the guard that EXISTS covers less than everyone assumed
+
+2026-08-10: an agent killed a contaminated test run with `pkill -f "mix test … --seed 404"`.
+**It matched its own shell** — exit 144, its command died mid-way. Its own diagnosis:
+*"I reached past my own tool for the raw pattern,"* and *"the remedy that would work is making
+the raw form UNAVAILABLE, not making the safe form available."*
+
+⛔ **I went to build that and found the mechanism doesn't reach — twice over.** Recorded
+because both failures are the kind that get installed and believed:
+
+| Attempt | Why it fails |
+|---|---|
+| guard function in `~/.bashrc` | **Agent Bash-tool shells do NOT source it.** `$-` had no `i`, and `type bossclaude` (defined in bashrc) returned nothing. Installing it would have looked like a fix and guarded nobody. |
+| shim at `~/.local/bin/pkill` | **A shell FUNCTION shadows any PATH lookup**, and the harness injects one per shell. The shim would never run. |
+
+⭐⭐ **AND THE REAL FINDING: A `pkill` GUARD ALREADY EXISTS — it just covers something
+narrower than its name suggests.** The harness injects a `pkill` function that probes the
+pattern with `pgrep` and **refuses only if it matches `$CLAUDE_PID`, the CLI process itself.**
+⇒ It did not fire because it was **never meant to**: it protects the agent process, **not the
+agent's own shell, not another agent's processes, and NOT hermes.**
+⚠️ *"There is a pkill guard"* is true and was read as broader protection than it provides —
+**the same headline-versus-caveat failure as everything else tonight, this time about a
+safety mechanism.** ⇒ **Read the guard before relying on the guard.**
+
 ## 4. Tools only help if they are what you reach for
 
 I wrote `psgrep` for the `pgrep -f` phantom-match trap, then hand-typed the trap three
