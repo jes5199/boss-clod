@@ -1106,6 +1106,35 @@ dies in FIXTURE BUILD before reaching its assertion, and another's race assertio
 been observed firing** — its loop merely exceeds 60s. **Both had been reasoned about for hours
 as if their assertions were the thing failing.**
 
+## 7w. ⛔⛔ A QUEUE ROW'S READINESS IS A CLAIM ABOUT THE WORLD, AND IT AGES
+
+**Three instances on 2026-08-10, two of them within three minutes of each other, in OPPOSITE
+directions:**
+
+| Row said | Reality | Cost |
+|---|---|---|
+| a trio "ranked, blocked" | **2 of 3 already merged** | an hour of ranking on a 12-hour-old description |
+| **"2a proto-chit — DISPATCHABLE NOW"** | **built and merged the night before** (`a66fd9b`) | a Sol dispatch was **minutes** from rebuilding merged work |
+| "CX-vvbh decision owed, ruling next" | **already discharged that morning** | a decision about to be re-derived when it was moot |
+
+⛔⛔ **THE SECOND ONE IS MINE AND I HELD THE CONTRADICTING FACT.** I relayed *"2a is
+dispatchable now"* **twice** — to the builder and to jes — while my own session state recorded
+*"proto-chit step 1a MERGED"* from the previous night. ⇒ **Fifth instance today of a fact
+filed and not applied.** What caught it was the builder running `grep` on the log **before
+briefing**, not anything of mine.
+
+⭐ **THE OPERATIONAL FORM, cheap enough to be unconditional: BEFORE RELAYING THAT ANYTHING IS
+READY, DISPATCHABLE, OWED OR BLOCKED — ASK THE REPOSITORY, NOT THE ROW.** `git log`, `git
+cat-file -e`, `merge-base --is-ancestor`. Seconds. ⚠️ The row is a **cached** claim; the repo
+is the world. *A dispatcher relaying cached readiness is exactly the "confirm, don't inherit"
+failure with a queue in the middle.*
+
+⭐ **AND IT FAILS IN BOTH DIRECTIONS, which is why "check before dispatch" is not enough:**
+work that has LANDED makes a blocked row falsely blocked (wasted ranking), and work that has
+landed also makes a ready row falsely ready (wasted build). ⚠️ **The optimistic direction is
+the dangerous one** — a falsely-blocked row wastes thought, a falsely-ready row spends a
+worker.
+
 ## 8. Open — not near-misses, actual items awaiting a decision
 
 - **`quota-guard.sh` is not on cron.** Two active entries: `watchdog-cron.sh`,
