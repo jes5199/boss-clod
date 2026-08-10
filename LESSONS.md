@@ -979,6 +979,37 @@ control with it.
 when the finding falls, check separately whether the change stands on its own.** Adopting it
 early was the right *order*, not luck.
 
+## 7s. ⛔⛔ THE SET COMPARISON IS UNDERPOWERED — and the class was named after an unestablished mechanism
+
+**The distribution finally got measured.** Same tree, same seed 303, **same invocation form**,
+repeated: **5 · 3 · 4 · 1 failures** (plus a fifth run with the victim green).
+
+⇒ ⛔ **SEED + INVOCATION FORM FIX THE TEST ORDER, AND THE OUTCOME STILL VARIES. THE VARIABLE
+IS NOT ORDER.**
+
+**① The invocation claim is now POSITIVELY DEAD, not merely unsupported.** The file-list run's
+1 failure sits **inside** the dir-form distribution — one dir-form run also gave exactly 1.
+Nothing requires an invocation explanation at all.
+
+**② ⛔ THE CLASS NAME WAS A MECHANISM CLAIM IN DISGUISE.** *"Class 2 = interaction/
+order-dependent"* was named after a mechanism nobody had established — **and the name then
+shaped two rounds of method**, file-set bisection and then population bisection, *both
+structurally incapable of finding a variable that is neither the set nor the order.*
+⭐ **Naming a class after a suspected cause spends the next two rounds inside that cause.**
+Name classes after the OBSERVATION (*"green alone, red together"*), never the explanation.
+
+**③ ⚠️ AND IT DOWNGRADES AN INSTRUMENT I HAVE BEEN PUTTING IN BRIEFS ALL DAY.** A
+**single-run same-seed SET COMPARISON is weaker than I thought**: a 1-vs-4 difference between
+two arms sits **inside the noise**, so it **can miss a real regression**.
+⇒ It remains the best available instrument and the merges that used it used it correctly —
+but it needs **REPEATED RUNS PER ARM to have power**. ⭐ That is the *how many draws per arm*
+trigger (7r) arriving from a **third** direction: first as a trend, then as a factor
+comparison, now as **the power of a comparison I was already recommending**.
+
+⚠️ **Consequence I must carry honestly: every merge verified this way tonight rests on a
+weaker instrument than I described when relaying it.** Nothing is known to be wrong; the
+confidence was overstated, not the conclusion.
+
 ## 8. Open — not near-misses, actual items awaiting a decision
 
 - **`quota-guard.sh` is not on cron.** Two active entries: `watchdog-cron.sh`,
