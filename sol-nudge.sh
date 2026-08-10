@@ -275,6 +275,19 @@ if awk -v r="$WORST" -v m="$RATIO_MAX" 'BEGIN{exit !(r>=m)}'; then
 fi
 
 # --- 7. all checks passed --------------------------------------------
-touch "$MARKER"
+# ⛔ SAME DEFECT AS epic-nudge's, FIXED THE SAME WAY (2026-08-10). The marker
+# records "GATE PASSED", not "DISPATCH SENT", and those diverge every time boss
+# reads the output and decides not to send — including when boss runs this
+# script purely to VERIFY it (e.g. confirming a hold actually blocks dispatch).
+# ⚠️ Measured today: a post-hold verification run touched this marker and then
+# suppressed the next 15 minutes on the strength of a dispatch that never
+# happened. Checking a thing changed the thing.
+# ⇒ DRY=1 evaluates every gate and commits no claim, so verification stops
+# costing a slot and the file keeps saying something true.
+if [ "${DRY:-0}" = "1" ]; then
+  echo "(DRY=1: gate passed, marker NOT touched — nothing has been claimed)" >&2
+else
+  touch "$MARKER"
+fi
 echo "SOL_NUDGE|idle, no run in flight, codex credits presumed ok | worst ratio ${WORST} < ${RATIO_MAX} | ${READ}"
 exit 0
