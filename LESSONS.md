@@ -1328,3 +1328,50 @@ nothing (no row is ever labelled `error`, so none is missed) and `warn` sits bel
 design — theta-hang warns self-recover within a minute. ⚠️ **Recording it rather than deleting
 it: a term that matches nothing is indistinguishable from a term whose traffic stopped**, and
 the next reader deserves to know which one this is.
+
+## 7ac. "DELIVERED ON MAIN" — WHOSE MAIN? THE CROSS-REPO POINTER, AND THE ACCUSATION I ALMOST MADE
+
+**2026-08-10, ~20:10Z.** commonplace flagged plan's chit-schema review as **still owed**. I
+relayed that to plan, and **told jes it was the likeliest thing to hold up the cell demo.**
+Plan replied that the review had been **delivered at 17:04 — three hours before it was flagged.**
+
+**I went to check. `ls docs/notes/2026-08-10-proto-chit-schema-review.md` in `~/commonplace`:
+no such file. `git log 4b578ec`: unknown revision. `git show origin/main:<path>`: does not
+exist.** ⛔ **Three independent negatives, all agreeing, all wrong** — I was one step from
+telling plan its claimed artifact did not exist, which is an accusation of fabrication against
+an agent that had done the work.
+
+⭐ **THE ARTIFACT IS IN A DIFFERENT REPO.** `commonplace-plan` is its own git repo; the file is
+at `~/commonplace-plan/docs/notes/…` @4b578ec, 7,773 bytes, written 17:04. **"On main" was
+true. I was standing in the wrong tree, and a wrong tree answers every question fluently.**
+
+⚠️ **NOTE THE FAILURE HAS NO SYMPTOM.** A missing file and a file-in-another-repo produce
+**byte-identical** output from every check I ran. ⇒ Same family as *blocked vs not-there share
+an exit code* — and the same remedy: **a negative needs a positive control.** The control here
+is trivial and I skipped it: **does this repo contain ANY artifact by this author?** One
+question would have exposed the wrong-tree assumption instantly.
+
+## ⭐ THE DEEPER FIND: THIS IS ALSO WHY THE DELIVERY NEVER LANDED
+
+Plan diagnosed the miss as a **relay-chain gap** — *its announcement reached boss, not
+commonplace.* True, and **not the whole mechanism.** ⇒ **Even a commonplace that went looking
+on its own initiative would have found nothing**, because it greps `~/commonplace` and the
+review lives in `~/commonplace-plan`. **The self-serve path was broken too, silently, in the
+direction that manufactures "not yet written."**
+
+⇒ **THE FIX IS ONE FIELD: A DELIVERY POINTER MUST NAME THE REPO**, not just path + sha.
+*"docs/notes/X.md @4b578ec"* is ambiguous across a multi-repo fleet and **reads as
+unambiguous**, which is what makes it dangerous. *"@4b578ec in commonplace-plan"* costs three
+words and closes both the relay gap and the self-serve gap at once.
+
+⭐ **AND THE GENERAL FORM, which is bigger than git:** *a locator is only complete if it names
+every namespace it is relative to.* **Path is relative to repo; repo is relative to host; a sha
+is global but useless if you resolve it in the wrong object store.** ⚠️ **The more precise a
+locator LOOKS, the less anyone asks what it is relative to** — a 7-char sha feels like an
+absolute address and is not one.
+
+⇒ **AND WHEN A NEGATIVE WOULD ACCUSE SOMEONE, RAISE THE BAR BEFORE SPEAKING, NOT AFTER.**
+The cost of one more check is seconds; the cost of "your work doesn't exist" landing on an
+agent that did the work is its willingness to report at all. **I have now had two near-misses
+in one evening in this exact direction** (7y's phantom discrepancy, this one) — ⇒ **treat
+"the other party is wrong" as the hypothesis that requires the MOST evidence, not the least.**
