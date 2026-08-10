@@ -854,6 +854,36 @@ axis**, because the variable is not a member of any file set. ⇒ **A bisection 
 find a variable that is not in a set**, so bisecting anyway would have converged on an innocent
 file *with a clean halving trace* — the wrong artifact, arriving wearing a method.
 
+## 7q. ⭐⭐ PROTECT THE BEHAVIOUR YOU NEED TO SURVIVE — say so in the brief
+
+A builder was asked to bisect, **discovered the method could not work**, and returned
+**UNKNOWN with the reason** instead of a halving trace. That refusal was the most valuable
+output of the day.
+
+⇒ So round 2's brief **opens by stating round 1 was a SUCCESS**, and that is not politeness —
+it is load-bearing:
+
+> ⛔ **If a third round reads as "you failed twice", the next agent facing an impossible
+> method produces a bisection instead of a refusal** — and hands back a clean halving trace
+> pointing at an innocent file.
+
+⭐ **A refusal is a behaviour with an incentive attached, and repeated dispatch on the same
+ticket reads as dissatisfaction whether or not you mean it.** ⇒ **Name the behaviour you are
+protecting, in the artifact, or the next iteration quietly trains it out.** This is the
+dispatcher's version of *the constraint has to live where the action happens*.
+
+### 7q-bis. ⭐ A KNOWN-CONSTANT FAILURE IS A FREE CONTROL FOR POPULATION DRIFT
+
+The same brief reframes an **out-of-scope, always-red test** as an instrument: it must stay
+red for the whole run, and **if it ever goes green, the population changed in a way the
+operator did not intend.**
+
+⇒ **Turning a nuisance failure into a drift detector is the cheapest control available** — it
+costs nothing, it is already running, and it catches the exact failure mode (a selection
+silently collapsing) that a per-step count catches only numerically. ⚠️ Pairs with: report the
+**test count at every step**, since a population shrinking toward zero yields a **vacuous
+green**.
+
 ## 8. Open — not near-misses, actual items awaiting a decision
 
 - **`quota-guard.sh` is not on cron.** Two active entries: `watchdog-cron.sh`,
