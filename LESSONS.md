@@ -69,9 +69,18 @@ One commit (`a4e708d`, making `public_keys/0` artifact-only) produced **three si
 sites in one subsystem, found by three different investigations across twelve hours, every one
 of them BY ACCIDENT**: nothing published the artifact at boot; two consumers collapsed
 `:absent` and `{:error,_}` into `[]`; self-trust dropped through a silent `else`.
-⇒ **Three found by accident is not three bugs — it is a CLASS the review missed**, here
-*"consumers of `public_keys/0` that treat absence as empty."* **One grep answers it for the
-whole class**, and it costs less than the third accident did.
+⇒ **Three found by accident is not three bugs — it is a CLASS**, here *"consumers of
+`public_keys/0` that treat absence as empty."* **One grep answers it for the whole class**,
+and it costs less than the third accident did.
+
+⛔ **NARROWED BY THE ENUMERATION ITSELF — my first wording said "a class the review MISSED",
+and that is wrong.** At **3 of 4 already correct**, it was never systematically missed. ⭐ The
+accurate statement: **the class has four members, and INCIDENTS WERE FIXING THEM ONE AT A
+TIME** — the originating commit covered two, another ticket covered a third the same night.
+**The enumeration found THE LAST ONE instead of waiting for a third accident to surface it.**
+⚠️ That distinction matters for what you conclude about the reviewers: *"nobody was looking"*
+and *"attrition was working, slowly, one incident at a time"* are different diagnoses with
+different remedies, and only the census tells them apart.
 ⚠️ **The tell is the MODE of discovery, not the count.** Bugs arriving through unrelated
 investigations mean nobody has asked the population question — so **enumerate the callers
 BEFORE fixing the instances**, or the fourth site is found by the next accident.
