@@ -64,6 +64,18 @@ the number everyone quoted for a day.**
 ON ITS OFFENDERS, NEVER A CENSUS.** It reports **where the guard was looking**, not how much
 there is. ⚠️ Never size work from an initial firing.
 
+⭐⭐ **THE SIBLING TELL — REPEATED ACCIDENTAL DISCOVERY MEANS THE CLASS WAS NEVER ENUMERATED.**
+One commit (`a4e708d`, making `public_keys/0` artifact-only) produced **three silent-degradation
+sites in one subsystem, found by three different investigations across twelve hours, every one
+of them BY ACCIDENT**: nothing published the artifact at boot; two consumers collapsed
+`:absent` and `{:error,_}` into `[]`; self-trust dropped through a silent `else`.
+⇒ **Three found by accident is not three bugs — it is a CLASS the review missed**, here
+*"consumers of `public_keys/0` that treat absence as empty."* **One grep answers it for the
+whole class**, and it costs less than the third accident did.
+⚠️ **The tell is the MODE of discovery, not the count.** Bugs arriving through unrelated
+investigations mean nobody has asked the population question — so **enumerate the callers
+BEFORE fixing the instances**, or the fourth site is found by the next accident.
+
 ⭐⭐ **AND THE SAME DISEASE TWICE IN ONE ARTIFACT: A CONTROL THAT ENCODES AN ENVIRONMENTAL
 ACCIDENT PASSES EXACTLY WHERE IT CANNOT MATTER.** The guard's own child-delete control assumed
 CubDB's file is `0.cub` — true on a fresh checkout, **false after any compaction** — so it
