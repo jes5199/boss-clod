@@ -951,6 +951,16 @@ it produces the feeling of having tested while leaving the real claim untouched.
 **costs nothing and removes a variable** — it never depended on the invocation-form finding
 being true, and that finding is retracted while this stands.
 
+⭐⭐ **AND THE BASIS IS A PRIORI, NOT EMPIRICAL, which is what makes it sturdy:** *a seed does
+not define an order — it SHUFFLES A STARTING ORDER, and a directory glob and an explicit file
+list are different inputs, so there is no reason to expect the same permutation.* ⇒ **Two arms
+differing in invocation form differ in an UNCONTROLLED VARIABLE, whether or not that variable
+turns out to matter.**
+⛔ **Note what it is NOT:** it is *not* the retracted claim that invocation form **has been
+shown** to change outcomes. It is the weaker, sturdier statement that **an uncontrolled
+variable should not be left uncontrolled in an attribution** — which needs no measurement at
+all, and therefore cannot be taken down by one.
+
 ⇒ **General form: adopt a no-regret change BEFORE its motivating finding is confirmed, and
 when the finding falls, check separately whether the change stands on its own.** Adopting it
 early was the right *order*, not luck.
