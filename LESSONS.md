@@ -806,6 +806,33 @@ warned against compacting mid-flight. They were **Sol's process tree** — nothi
 running, so the safe window was NOW, not later. I inferred a fact that was one command away
 from being checked.*
 
+## 7p. ⚠️ PENDING — "SAME SEED" MAY ONLY BE A CONTROLLED VARIABLE *WITHIN* AN INVOCATION FORM
+
+⛔ **Status: HYPOTHESIS, being re-derived at time of writing. Do not cite as established.**
+
+A bisection returned a **fifth** outcome nobody had pre-registered: the failure **reproduces
+under one INVOCATION FORM and not another** — `mix test <directory>` reproduces at seed 303,
+while a **count-equivalent explicit 370-file list** at the same seed does not.
+
+⭐ **The proposed mechanism (untested):** a seed shuffles a *starting order*, and a directory
+glob and `find | sort` do not produce the same starting order. ⇒ **`--seed 303` is not one
+order; it is one order PER INVOCATION FORM.**
+
+⚠️ **Why this lands on ME:** *"same-seed set comparison"* is a standing clause I put in
+briefs. If the hypothesis holds, that clause is **under-specified** — two arms can share a
+seed and still differ in order.
+⭐ **NO-REGRET SHARPENING, adopted now regardless of the outcome:** require **SAME SEED AND
+SAME INVOCATION FORM** on both arms. It costs nothing, removes a variable, and is correct
+either way. *(The comparisons run so far happen to satisfy it — both arms used the dir form —
+but by habit, not by design, which is luck rather than method.)*
+
+⛔ **AND THE DISTINCTION THAT DECIDES WHAT HAPPENS NEXT**, which is why filing this under the
+nearest label would have been costly: branch 3 ("no reproducer") says **the phenomenon is
+gone** — go re-measure. This says **the phenomenon is real and the instrument is blind on this
+axis**, because the variable is not a member of any file set. ⇒ **A bisection over sets cannot
+find a variable that is not in a set**, so bisecting anyway would have converged on an innocent
+file *with a clean halving trace* — the wrong artifact, arriving wearing a method.
+
 ## 8. Open — not near-misses, actual items awaiting a decision
 
 - **`quota-guard.sh` is not on cron.** Two active entries: `watchdog-cron.sh`,
