@@ -526,6 +526,14 @@ behaviour: the message queuing is still right, because **commonplace chooses whe
 and can sequence. But **when a review is puzzling over timeouts, ask what else was running**
 before anyone theorises about the code.
 
+⭐ **CONFIRMED INSTANCE, and it makes this concrete rather than hypothetical:** one arm of
+`AuditChokePerfTest` **passes at p99 = 2.995 against a limit of 3.0** — 0.005 from red, one
+busy machine from failing on any given run, and **green every other time**. That is the exact
+profile of something that never gets attributed. ⇒ **A run I cause can flip it**, so some
+fraction of the "non-deterministic main" set is *load I introduced*. ⚠️ It is currently
+invisible **because it passes** — correct-and-unread, the same law as a gate that declines
+150k times and is never read.
+
 ## 7k. ⭐⭐ HAVING THE ANSWER AND FILING IT AS A SYMPTOM
 
 **Twice in one night, same shape, different people.** Not a failure to *find* evidence — a
