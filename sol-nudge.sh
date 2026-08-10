@@ -58,6 +58,39 @@ if [ -f "$BOUND" ]; then
   fi
 fi
 
+# ⛔⛔ LISTENER AUDIT ON THE LIVE SERVE (CX-vvn4 / queue row B1, 2026-08-10).
+# A serve relaunch dropped ELIXIR_ERL_OPTIONS and Erlang distribution came up
+# on 0.0.0.0 — an RCE surface with a shared cookie, live ~90 seconds. It was
+# invisible to every liveness check: HTTP 200 five for five, launch rc=0.
+#
+# ⭐ WHY IT LIVES HERE AND NOT IN THE DEPLOY SCRIPT: a gate in the deploy path
+# only fires if whoever deploys runs it — a guard on a DELIBERATE ACT, which
+# depends on memory. This loop runs every 10 min regardless of who deployed,
+# whether they used the recipe, or whether they skipped the gate. ⇒ Worst case
+# the exposure is caught within 10 minutes instead of never. It is DETECTION,
+# not prevention, and is deliberately not a substitute for the recipe refusal
+# (row B1's other half) — defence in depth, because the deploy path has more
+# than one entrance.
+#
+# ⛔ SERVE RESOLVED BY IDENTITY (comm + cwd), NEVER BY BROAD PATTERN — hermes
+# runs a live-money BEAM on this box and matches any naive beam.smp pattern.
+SERVE_PID=$(for p in $(pgrep -x beam.smp 2>/dev/null); do
+  [ "$(readlink "/proc/$p/cwd" 2>/dev/null)" = "/home/jes/commonplace" ] && echo "$p"
+done | head -1)
+if [ -n "${SERVE_PID:-}" ] && [ -x /home/jes/boss-clod/verify-serve-listen.sh ]; then
+  AUDIT=$(/home/jes/boss-clod/verify-serve-listen.sh "$SERVE_PID" 5199 2>&1)
+  ARC=$?
+  # Silent when clean — this loop must not become noise. Loud on a finding,
+  # AND loud on rc=2, because "could not look" is where this class hides.
+  if [ "$ARC" != 0 ]; then
+    echo "⛔⛔ LIVE SERVE LISTENER AUDIT FAILED (pid $SERVE_PID, rc=$ARC):" >&2
+    printf '%s\n' "$AUDIT" >&2
+    echo "   ⇒ If distribution is off-host this is an RCE surface. Kill by NUMERIC" >&2
+    echo "     pid and relaunch with the FULL environ diffed against a clean" >&2
+    echo "     baseline — never a curated grep (that is what caused CX-vvn4)." >&2
+  fi
+fi
+
 WORKER="${WORKER:-commonplace}"
 RATIO_MAX="${RATIO_MAX:-1.60}"        # floor for brief+review only — see note above
 SEVEN_DAY_STOP="${SEVEN_DAY_STOP:-95}" # absolute: matches quota-guard's STOP
