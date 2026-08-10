@@ -398,7 +398,16 @@ runs, so no false green. But it landed correctly **by luck**, not because the pr
 covered the case.
 
 ⇒ **When pre-registering a reading, ask what OTHER axis could carry the answer** — and leave
-an explicit *"neither branch fits"* arm. A binary with no escape hatch is the same defect as
+an explicit *"neither branch fits"* arm.
+
+⭐ **AND ASK WHICH WAY IT FAILS, BEFORE USING IT.** A second pre-commitment tonight was
+mis-specified but failed toward the **recoverable** branch — an extra round trip rather than a
+shipped regression. ⚠️ Its author refused the credit, correctly: *"I didn't DESIGN it that
+way, I just happened to write the conservative branch."* **"Wrong in the safe direction" is a
+weaker defence than it sounds when the safety was accidental.**
+⇒ **A pre-commitment should be checked for which way it fails BEFORE it is used, not after** —
+which is the same question as *"what states does this rule fail to distinguish"*, asked about
+**consequences** instead of **inputs**. A binary with no escape hatch is the same defect as
 a brief with no "the remedy doesn't fit is a FINDING" clause: it forces an arriving result
 into one of two boxes it may not belong in.
 
