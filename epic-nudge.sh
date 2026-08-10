@@ -165,6 +165,21 @@ if awk -v r="$WORST" -v m="$RATIO_MAX" 'BEGIN{exit !(r>=m)}'; then
 fi
 
 # --- 7. all checks passed --------------------------------------------
-touch "$IDLE_MARKER"
+# ⛔ THE MARKER RECORDS "GATE PASSED", NOT "NUDGE SENT" — and those diverge
+# whenever boss reads the output and decides NOT to dispatch (2026-08-10: the
+# gate opened while commonplace had two background suite runs in flight, so
+# sending would have queued work onto an agent mid-measurement). The touch then
+# suppresses the next 50 minutes on the strength of a nudge that never happened.
+# ⭐ Same defect class as everything else tonight: a name that does not match
+# what it measures. DRY=1 lets the check be evaluated WITHOUT committing the
+# claim, so the file keeps saying something true.
+# ⚠️ Deliberately NOT solved by moving the touch to the caller: a guard that
+# depends on boss remembering to touch a file is a guard on memory, which this
+# workspace has repeatedly established does not hold.
+if [ "${DRY:-0}" = "1" ]; then
+  echo "(DRY=1: gate passed, marker NOT touched — nothing has been claimed)" >&2
+else
+  touch "$IDLE_MARKER"
+fi
 echo "NUDGE|idle, headroom ok (worst ratio ${WORST} < ${RATIO_MAX}) | ${READ}"
 exit 0
