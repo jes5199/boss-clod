@@ -913,6 +913,48 @@ silently collapsing) that a per-step count catches only numerically. ⚠️ Pair
 **test count at every step**, since a population shrinking toward zero yields a **vacuous
 green**.
 
+## 7r. ⭐⭐ ONE LAW, THREE DISGUISES — consolidated, because filing by symptom is the same container error
+
+**This file committed tonight's own container error.** The same law is written up three times
+under three symptom-names, so no reader recognises them as one thing:
+
+| Filed as | Disguise | Entry |
+|---|---|---|
+| *"two points are always monotone"* | a **trend** | 7d-bis |
+| *"one seed is not a sample"* | a **subset comparison** | 7g |
+| *"one draw per arm"* | a **factor comparison** | 7p |
+
+⇒ **ONE TRIGGER COVERS ALL THREE, and it keys on the ACT rather than the symptom:**
+
+> ⭐ **BEFORE ATTRIBUTING A DIFFERENCE BETWEEN TWO CONDITIONS, ASK HOW MANY DRAWS PER ARM.
+> One draw means you have a HYPOTHESIS, not a finding.**
+
+⚠️ **Rules filed by symptom do not fire** — you only recognise the symptom you already met.
+Three of us hit this law in one day *with the rules already written in our own files*.
+
+### 7r-bis. ⛔ PRE-REGISTRATION PROTECTS THE TIMING, NOT THE TARGETING
+
+We spent the night treating *pre-registered* as *trustworthy*. It only rules out **post-hoc
+rationalisation**; it says nothing about whether the falsifier is **aimed at the claim you are
+actually making**. ⇒ **A falsifier pointed at the wrong hypothesis is worse than none, because
+it produces the feeling of having tested while leaving the real claim untouched.**
+
+⭐ **THE MECHANICAL TEST:** read your falsifier and ask —
+
+> **"If this comes out the other way, WHICH SENTENCE DO I HAVE TO DELETE?"**
+> **If you cannot name the sentence, it is not aimed at your claim.**
+
+### 7r-ter. ✅ THE NO-REGRET CLAUSE SURVIVED ITS OWN MOTIVATING FINDING
+
+⚠️ **Restated standalone so nobody later removes it as "part of the retracted thing":**
+**run both arms with the SAME SEED AND THE SAME INVOCATION FORM.** Its basis is that it
+**costs nothing and removes a variable** — it never depended on the invocation-form finding
+being true, and that finding is retracted while this stands.
+
+⇒ **General form: adopt a no-regret change BEFORE its motivating finding is confirmed, and
+when the finding falls, check separately whether the change stands on its own.** Adopting it
+early was the right *order*, not luck.
+
 ## 8. Open — not near-misses, actual items awaiting a decision
 
 - **`quota-guard.sh` is not on cron.** Two active entries: `watchdog-cron.sh`,
