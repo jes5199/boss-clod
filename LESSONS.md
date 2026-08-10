@@ -806,9 +806,19 @@ warned against compacting mid-flight. They were **Sol's process tree** — nothi
 running, so the safe window was NOW, not later. I inferred a fact that was one command away
 from being checked.*
 
-## 7p. ⚠️ PENDING — "SAME SEED" MAY ONLY BE A CONTROLLED VARIABLE *WITHIN* AN INVOCATION FORM
+## 7p. ⭐⭐ CONFIRMED — "SAME SEED" IS ONLY A CONTROLLED VARIABLE *WITHIN* ONE INVOCATION FORM
 
-⛔ **Status: HYPOTHESIS, being re-derived at time of writing. Do not cite as established.**
+✅ **Status: RE-DERIVED AND CONFIRMED (CX-96t5 p1), not asserted.** Same tree, same seed 303,
+same 3,283 tests:
+
+| Invocation | Failures |
+|---|---|
+| `mix test <directory>` | **5** (both Bursar tests, BotPresenceCert, bounded-walk, TrustConfigFailClosed) |
+| explicit 370-file list | **1** (TrustConfigFailClosed only) |
+
+⇒ **Five versus one, with the invocation form as the only difference.** The falsifying branch
+was named in advance — *"if dir-form comes back green, this collapses into branch 3"* — and it
+did not.
 
 A bisection returned a **fifth** outcome nobody had pre-registered: the failure **reproduces
 under one INVOCATION FORM and not another** — `mix test <directory>` reproduces at seed 303,
@@ -821,10 +831,21 @@ order; it is one order PER INVOCATION FORM.**
 ⚠️ **Why this lands on ME:** *"same-seed set comparison"* is a standing clause I put in
 briefs. If the hypothesis holds, that clause is **under-specified** — two arms can share a
 seed and still differ in order.
-⭐ **NO-REGRET SHARPENING, adopted now regardless of the outcome:** require **SAME SEED AND
-SAME INVOCATION FORM** on both arms. It costs nothing, removes a variable, and is correct
-either way. *(The comparisons run so far happen to satisfy it — both arms used the dir form —
-but by habit, not by design, which is luck rather than method.)*
+⭐ **SHARPENING, adopted before the confirmation and now vindicated:** require **SAME SEED AND
+SAME INVOCATION FORM** on both arms. *(The comparisons run so far happen to satisfy it — both
+arms used the dir form — but by **habit, not design**. Nobody reasoned about it, and the next
+person inherits no habit, which is exactly why it had to be written down.)*
+
+⭐⭐ **AND THE VALID METHOD FALLS OUT OF THE FINDING: shrink the population while PRESERVING
+the invocation form** — temporarily MOVE files out of the directory and keep running
+`mix test <directory> --seed N`. **Invocation constant, set variable, bisection valid again.**
+⚠️ With two guards: **restore the moved files via a trap**, and **report the TEST COUNT per
+step** so a silently-empty selection cannot masquerade as green — the same denominator trap
+that voided a whole round earlier the same day.
+
+⛔ **What was deliberately NOT decided: whether the difference is purely ORDER or also
+concurrency grouping** (async batching / `max_cases`). Recorded as **UNKNOWN and not guessed** —
+several plausible-and-wrong mechanisms died on this exact problem within twelve hours.
 
 ⛔ **AND THE DISTINCTION THAT DECIDES WHAT HAPPENS NEXT**, which is why filing this under the
 nearest label would have been costly: branch 3 ("no reproducer") says **the phenomenon is
