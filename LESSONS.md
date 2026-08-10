@@ -526,6 +526,16 @@ behaviour: the message queuing is still right, because **commonplace chooses whe
 and can sequence. But **when a review is puzzling over timeouts, ask what else was running**
 before anyone theorises about the code.
 
+⭐⭐ **SERIALIZATION CONVERTS ORDERING FROM A PREFERENCE INTO A SCHEDULE — and my dispatches
+insert into that schedule.** When runs can overlap, order barely matters and choosing wrong
+costs nothing. When a shared resource forces one at a time, **order IS the plan**, and a
+suboptimal choice stops being suboptimal and becomes *expensive*. Observed: four umbrella runs
+stacked behind :4002 with the **decisive one-minute matched datum LAST**, behind runs whose
+interpretation depended on it — two of which it might have made unnecessary.
+⇒ **Rank a stacked set the way a queue is ranked: highest information per unit cost first.**
+⇒ **My consequence:** a Sol dispatch does not merely add load, it **takes a slot** in a
+serialized queue someone is waiting on. Two distinct costs — *corruption* (below) and *delay*.
+
 ⭐ **CONFIRMED INSTANCE, and it makes this concrete rather than hypothetical:** one arm of
 `AuditChokePerfTest` **passes at p99 = 2.995 against a limit of 3.0** — 0.005 from red, one
 busy machine from failing on any given run, and **green every other time**. That is the exact
