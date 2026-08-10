@@ -37,7 +37,27 @@ scope** — which is 7a's "a headline is what survives quoting" and §1's enclos
 turning out to be *the same defect seen from two sides*. ⚠️ It survived a revert, a brief,
 and a queue ranking, all written by people actively hunting this exact class.
 
-⭐ **What made the new number trustworthy rather than merely different:** the brief said
+### 1d. ⛔⛔ THE SAME DEFECT THREE TIMES IN ONE NIGHT — a hand-built list treated as complete
+
+| # | The curated list | What it missed | Cost |
+|---|---|---|---|
+| 1 | `grep -c FileRmRfGuard test_helper.exs` | module name lives in the REQUIRED file | a misleading **0** that read as "guard never installed" |
+| 2 | env allowlist `^(PHX_SERVER\|PORT\|MIX_ENV\|COMMONPLACE_\|ERL_)` | `ELIXIR_ERL_OPTIONS` starts `ELIXIR_`, not `ERL_` | **Erlang distribution on 0.0.0.0** — an RCE surface, live ~90s |
+| 3 | suite list naming `.../test/commonplace/process` + `/trust` | those are **SUBTREES**: 70+213 of the app's **3278** tests | **95 guard fires shipped red to main** |
+
+⭐ **Each was hand-built, looked complete, and wasn't.** ⇒ **A pattern-built list is a
+HYPOTHESIS; only an enumeration of the whole is a measurement.**
+
+⛔ **#3 is the sharpest, because the brief CONTAINED ITS OWN CORRECT RULE.** Its §6 header
+read *"NAMED BY BLAST RADIUS = ALL SIX APPS … believing otherwise is exactly what caused the
+revert"* — and **the table one line beneath it named two subtrees.** ⇒ **Prose stating the
+rule does not constrain the table implementing it.** The contradiction was inside a single
+document, written in one sitting, by someone enforcing that exact rule on others all night.
+⚠️ ⇒ **When a doc states a scope rule, the artifact that USES the scope must be checked
+against it mechanically** — a count, an expansion, anything but re-reading your own prose and
+agreeing with it.
+
+⭐ What made the new number trustworthy rather than merely different: the brief said
 *"41 is a PRIOR, not a target; the measured number WINS; do not reconcile toward 41"* — and
 an independent second instrument agreed exactly where the two overlapped (both measured mcp
 21, from the same two files). **Pre-registering that the measurement beats the prior is what
