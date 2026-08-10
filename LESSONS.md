@@ -345,6 +345,37 @@ circumstantial; the property is not.**
 When someone reports a worry as *measured false*, the follow-up question is **"across how
 many seeds?"**, and it costs one sentence.
 
+## 7h. ⭐ A PRE-COMMITMENT THAT NAMES THE WRONG AXIS ONLY ROUTES CORRECTLY BY LUCK
+
+2026-08-10. Pre-registering the reading before the number lands is the technique that stops a
+result being absorbed on arrival, and it worked twice tonight. But commonplace-plan recorded
+a failure of it **against itself**, and the failure is more instructive than the successes.
+
+It pre-committed a **binary** on the yelixer coverage question:
+*"≈390 real ⇒ proceed to CI"* vs *"thousands genuinely not running ⇒ CI waits."*
+⇒ **Reality had a third state:** the tests all run **AND** 5,220 of them parse their expected
+map/array and **discard it**. ⭐ The pre-commitment named **TEST COUNT**; the live axis was
+**ASSERTION DEPTH**.
+
+⚠️ **The routing still came out right — and that is the point.** CI would honestly report what
+runs, so no false green. But it landed correctly **by luck**, not because the pre-commitment
+covered the case.
+
+⇒ **When pre-registering a reading, ask what OTHER axis could carry the answer** — and leave
+an explicit *"neither branch fits"* arm. A binary with no escape hatch is the same defect as
+a brief with no "the remedy doesn't fit is a FINDING" clause: it forces an arriving result
+into one of two boxes it may not belong in.
+
+### 7i. ⛔ EXCLUDING AN UNMEASURED SUITE TO OBTAIN GREEN IS THE FALSE-GREEN CLASS WITH A RATIONALE ATTACHED
+
+Same ruling, and it generalises past CI. Faced with a suite that is rc=2 in a fresh tree, the
+options were *run the oracle* or *exclude it deliberately*. ⭐ **plan's ordering IS the
+ruling: never choose exclusion before MEASURING whether the excluded thing passes.**
+If it passes ⇒ assert on it, since the oracle is already installed and already paid for.
+If it fails ⇒ **that is a finding**, and any exclusion is loud and ticketed, never silent.
+⚠️ A deliberate exclusion and a convenient one look identical in the config; only the
+measurement that preceded it tells them apart.
+
 ## 8. Open — not near-misses, actual items awaiting a decision
 
 - **`quota-guard.sh` is not on cron.** Two active entries: `watchdog-cron.sh`,
