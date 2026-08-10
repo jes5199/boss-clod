@@ -376,6 +376,26 @@ If it fails ⇒ **that is a finding**, and any exclusion is loud and ticketed, n
 ⚠️ A deliberate exclusion and a convenient one look identical in the config; only the
 measurement that preceded it tells them apart.
 
+## 7j. ⚠️ OPERATIONAL — UMBRELLA TEST RUNS ARE MUTUALLY EXCLUSIVE ON THIS BOX
+
+`commonplace_web`'s endpoint binds **:4002**, so two concurrent `mix test` runs collide. ⛔ The
+loser dies with `:eaddrinuse`, **rc=1, EMPTY summary, ZERO failure names** — which looks like
+a catastrophic failure and is a port conflict. ⇒ *"Blocked" and "not there" share an exit
+code*, in the instrument this fleet uses most.
+
+**Rules adopted:** run umbrella suites **sequentially, never in parallel**; treat
+**rc=1-with-no-summary as ENVIRONMENT** until proven otherwise.
+
+⭐ **WHY THIS IS A DISPATCH CONCERN AND NOT ONLY A TEST CONCERN — it is mine.** A Sol run and a
+commonplace suite run are two umbrella test runs on one box. On 2026-08-10 a yelixer
+measurement overlapped Sol's round 3, and **two of the four failures Sol reported as blocking
+were TIMEOUTS — which is exactly what contention produces.** ⇒ Sol dispatch timing can
+manufacture the failures the review then has to explain.
+⚠️ Note this interacts with sol-nudge's deliberate *"dispatch anyway, the message queues"*
+behaviour: the message queuing is still right, because **commonplace chooses when to launch**
+and can sequence. But **when a review is puzzling over timeouts, ask what else was running**
+before anyone theorises about the code.
+
 ## 8. Open — not near-misses, actual items awaiting a decision
 
 - **`quota-guard.sh` is not on cron.** Two active entries: `watchdog-cron.sh`,
