@@ -192,6 +192,24 @@ provable by reading, not by running.**
 the builder ran red before writing the fix; that stays on their word, and it is the weaker
 half. Collapsing both into "verified" is exactly the flattening 7a warns about.
 
+### 7c. ⛔ PRICE THE RE-RUN BEFORE SETTLING FOR THE DERIVATION
+
+**Same night, and it corrects 7b rather than extending it.** commonplace then re-derived the
+red *by measurement* — restored the pre-fix orchestrator from `fa8a13d`, kept the test file,
+ran it, got `left: {:error, {:worker_role_requires_strict_trust, message}}` vs
+`right: {:ok, #PID<0.744.0>}`, 4 tests / 1 failure. **Cost: 40 seconds.** That closes the
+process half a derivation *structurally cannot reach*, so #2 went to **five clauses verified,
+zero on report**.
+
+⛔ **plan's correction on itself: it reached for the free check on an UNMEASURED ASSUMPTION
+that re-running would contend with two in-flight lanes — and never checked what the run
+actually cost.** ⇒ The fence-fact shape one level up: **a constraint inherited, never measured.**
+
+⭐ **The rule 7b needs: the diff argument is what you use when re-running is genuinely
+expensive or contended — never a substitute chosen on principle.** Measure the cost of the
+real check first; "the cheap check will do" is itself a claim requiring evidence.
+⚠️ Neither replaces the other. Reach for the derivation when a lane is truly in flight.
+
 ## 8. Open — not near-misses, actual items awaiting a decision
 
 - **`quota-guard.sh` is not on cron.** Two active entries: `watchdog-cron.sh`,
