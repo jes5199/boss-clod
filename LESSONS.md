@@ -635,6 +635,33 @@ report names WHICH"**; calibration can follow.
 "remembered" was in a message I had sent, not in this document. One `grep` cost nothing and
 caught it. **Check that the thing you are about to correct exists where you think it does.***
 
+## 7m. ⭐⭐ BEFORE TREATING FAILURES AS A POOL, RUN THE TOP MEMBER ALONE
+
+**The single cheapest check of the night, available the entire time, and none of the three of
+us suggested it.** After a night of statistical reasoning about a "flaky pool" of ≥8 tests —
+seeds, distributions, matched methods, variance-vs-load — the answer was:
+
+> `TrustConfigFailClosedTest` — present in **all three** seeds while the rest of the set
+> churned; `cp-ci-failures` ranks it **#1 with 12 occurrences**. Isolated: **1 failure,
+> deterministically, in 0.4 SECONDS.**
+
+⛔ **THE POOL WAS NEVER UNIFORMLY FLAKY.** It contained a **stable red** hiding inside a
+population everyone had agreed was noise. ⇒ **A heterogeneous set given a homogeneous label is
+worse than an unlabelled one, because the label licenses not looking.**
+
+⇒ **PROCEDURE, not insight: before treating a set of failures as a pool, RUN ITS MOST FREQUENT
+MEMBER ALONE.** Seconds. It either falls out of the pool or earns its place in it.
+⚠️ Note what made it invisible: the members that *were* flaky validated the label, and a label
+that is right about most of its members is the hardest kind to doubt.
+
+⭐ **And the finding under it was a production defect, not a test bug:** the node's self-trust
+fold sits in a `with` whose `else` is **silent**, so a node that cannot source its own public
+key **silently stops trusting its own commits** under strict mode. ⚠️ **The function's comment
+says the degraded case is "visible, not silent."** ⇒ **A comment asserting a property the code
+does not have is evidence of INTENT, and intent is a better lead than a symptom** — it tells
+you what someone meant to build. *(Second fixture of this exact class; treat as a population,
+not an instance.)*
+
 ## 8. Open — not near-misses, actual items awaiting a decision
 
 - **`quota-guard.sh` is not on cron.** Two active entries: `watchdog-cron.sh`,
