@@ -1641,3 +1641,44 @@ change was inside a continuation. ⇒ *Good placement advice does not suspend th
 placement.* **A doc edit to an executable file is a CODE CHANGE** — same class as
 [[feedback_hermes_hot_reload]]'s "writing a source file IS deploying," arriving where I least
 expected it: in a comment.
+
+## 7aj. WRITTEN LESSONS DO NOT PREVENT — RECOVERY PATTERNS DO. (Both of us proved it inside 30 minutes.)
+
+**2026-08-11, ~04:50.** Two independent instances, same night, same shape:
+
+- **commonplace** repeated its own from-inside-the-worktree merge fumble (branch into itself, silent
+  no-op) — **the exact mistake its own memory note from three hours earlier warns about.** Its
+  words: *"A written lesson didn't stop the 05:00 hands; the recovery pattern did."*
+- **I** broke the Sol wrapper by placing a comment inside a line-continuation — **while acting on
+  7ah, the lesson I had written ninety minutes before, whose conclusion was "put the reason at the
+  site of the change."**
+
+⇒ **THE UNCOMFORTABLE GENERALISATION: a lesson in a file is not a control.** It is *retrieval-
+dependent*, and retrieval is exactly what degrades under load, at 05:00, mid-flow, or — worse —
+**when you are busy applying a DIFFERENT lesson.** ⭐ *Both failures happened during competent,
+lesson-following work.* Neither was carelessness.
+
+## ⭐ WHAT ACTUALLY CAUGHT THEM, in both cases: A CHECK ON THE EFFECT, NOT A MEMORY OF THE RULE
+
+| | The rule that failed to prevent | The thing that caught it |
+|---|---|---|
+| commonplace | "don't merge from inside the worktree" | **reading the PUSH OUTPUT rather than trusting rc** |
+| me | "verify the invocation is intact" | **commonplace's echo-shim showing argv ended at `-m gpt-5.6-sol`** |
+
+⇒ **Both catches are observations of the WORLD AFTER the act.** Neither is a stronger version of
+the rule, a bigger warning, or a better-placed comment.
+
+## ⇒ SO WHERE SHOULD EFFORT GO
+
+1. ⭐ **Prefer a mechanism that makes the error impossible or loud** over a note that makes it
+   known. The wrapper's real fix is not my comment — it is the **argv trace as a standing check**.
+   The launcher's `[ -n "$AK" ] || REFUSE` is worth more than the paragraph above it explaining why
+   the key matters.
+2. **When you cannot mechanise, mechanise the RECOVERY** — cheap, fast detection plus a known
+   restoration. commonplace's fumble cost nothing because the detection was routine.
+3. ⚠️ **Keep writing the lessons anyway** — they are how a *cold* reader (or a future session with
+   no context) learns the shape, and how a mechanism gets its rationale. **But do not count a
+   filed lesson as a fix, and never close an incident on "documented."**
+
+⭐ **THE TEST: after filing a lesson, ask "what would catch this if nobody remembers this file?"**
+If the answer is nothing, the incident is still open.
