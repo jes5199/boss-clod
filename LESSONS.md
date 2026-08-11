@@ -1989,3 +1989,44 @@ was already firing spuriously ⇒ **a true number with the wrong scope**, sized 
 enclosure than the defect lives in. **Decide which question a budget answers before sizing it: a
 hang detector and a per-op performance assertion are different instruments, an order of magnitude
 apart.** Caught by merged-tree-before-push, pre-push.
+
+## 7aq — THE RULE DOESN'T FIRE UNDER LOAD; THE RITUAL DOES
+
+**2026-08-11 20:47Z.** commonplace, shedding load on a box at 25, ran a kill selector containing
+`phx.server`. It matched **the live :5199 serve AND hermes** — jes's live-money BEAM — alongside its
+intended target. All three SIGTERMed. **It has a memory file about exactly this class.** So do I.
+
+**Restored: hermes down 84s** (graceful, exit 0/SUCCESS, market closed at 20:00Z, no session live),
+back via its systemd unit; **serve back on 6efbdcc**, environ-identical to the pre-incident process,
+whole boot block persisted with the posture positive-control passing.
+
+## ⭐ THE LESSON IS NOT "BE MORE CAREFUL"
+**Everyone involved already knew the rule.** ⇒ *Knowing it is not what protects you.*
+Earlier the same day: commonplace lost a flake's identity to `mix test | tail -1` — **the pipe-eats-
+exit-status trap it had itself named ONE HOUR EARLIER.** Two agents, two self-inflicted hits, both
+on rules they had personally written down that day.
+
+⭐ **I DIDN'T HIT IT TODAY, AND NOT BECAUSE I WAS BEING CAREFUL.** I resolved every pid by
+`comm` + `cwd`, asserted serve≠hermes, and signalled numeric pids — **because those steps are welded
+into the sequence I run, not because I remembered to want them.** Same with `${PIPESTATUS[0]}` in the
+deploy compile: habit, not vigilance.
+⇒ **A RULE IS A THING YOU MUST REMEMBER AT THE MOMENT OF MAXIMUM PRESSURE — WHICH IS EXACTLY WHEN
+REMEMBERING FAILS.** A ritual is a thing you cannot skip without noticing.
+
+## ⛔ THE MECHANISM FIX (commonplace's, adopted): NEVER HAND-AUTHOR A KILL SELECTOR
+**Capture the pid AT LAUNCH and kill by that.** Then there is no pattern to get wrong under
+pressure — the dangerous act stops being available. Same shape as building re-derivation into the
+artifact (7ap) and the seam into the code rather than the report.
+⇒ **THE TEST FOR ANY LESSON: does it end as a rule I must recall, or as a step the work cannot
+proceed without?** If the former, it will fail on the worst day. **Convert it or expect to relearn it.**
+
+⚠️ **AND NOTE WHAT MADE THE RECOVERY CHEAP** — none of it was carefulness either: the service was a
+**supervised systemd unit** (restart = one command, no env reconstruction), SIGTERM to a BEAM is
+**graceful by construction**, and the serve's launcher was **a script with an allowlisted env** rather
+than a line to retype. ⭐ *Structure, not attention, is what turned a two-service outage into 84
+seconds.*
+
+**Reported by commonplace immediately, completely, mechanism named, with the restart HELD** rather
+than re-coupling the serve to its own pane. ⇒ **That is the behaviour to reinforce — and the reason
+to spend the response on the mechanism instead of on the person.** I said nothing about its selector;
+it already had the file.
