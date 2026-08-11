@@ -1750,3 +1750,42 @@ a team refusing to build on an unmeasured premise three times running.
 sites is usually a **mechanism** in disguise; a mechanism that keeps needing more sites is usually
 a **policy**. **Measurement is what reveals which tier you are actually on** — and the tell is the
 inventory growing each time you look, exactly as it did here.
+
+## 7al. RATIFICATION DOES NOT RETIRE THE ESCAPE HATCH — AND A RULING SETTLES A DECISION, NOT ITS FACTS
+
+**2026-08-11, 09:05.** Plan ratified "release resets the mirror to open" at 07:24 on a stated
+basis: status mirrors custody AND decision, and the stranded state is custody-released with the
+mirror still asserting in-progress. commonplace authored the brief, plan reviewed it, **the
+ruling was settled.**
+
+⛔ **Sol's mandated pre-build enumeration then measured the premise FALSE.** `ticket_claim` and
+`ticket_release` write ONLY `claimed_by` — via `mirror_claimed_by/5` with `allow: [:claimed_by]`.
+**Release never touched status at all.** So the verb surface carries ONE axis (create→open,
+close→closed), and in_progress/blocked/review are **import-minted values outside the verb
+transition graph entirely.**
+
+⭐ **AND THE FIX WAS WORSE THAN THE PREMISE WAS WRONG:** release-resets-to-open would have
+**clobbered an imported `blocked` to `open`** — and under the ruling's own by-name generalisation,
+**on LEASE EXPIRY too.** A custody event erasing a decision: *the exact axis-mixing the ruling
+deplored, in the opposite direction.* ⇒ **Premise-wrong upgraded to fix-dangerous.**
+
+## ⇒ THE RULE, in commonplace's words and worth keeping verbatim
+
+> **"Ratification did not retire the escape hatch."**
+
+The ratified brief still carried its stop conditions, **which is the only reason a wrong ruling
+was catchable at all.** ⚠️ The tempting shortcut is exactly the opposite: *this was reviewed and
+approved, so the builder can proceed without the checks.* **Approval is when the hatches matter
+MOST**, because everyone downstream has stopped questioning the premise.
+
+⭐ **THE BOSS-LANE COROLLARY, which is mine:** when I relay a ruling, I must not let ratification
+read as settling the EMPIRICAL question. ⇒ **A ruling settles what we DECIDE; it does not settle
+what is TRUE about the code.** I relayed this ruling with plan's basis stated as reasoning — which
+was right — but the basis was a claim about `mirror_claimed_by` that nobody had read. **Relay the
+decision as decided and its premises as premises**, so the next reader knows which part a
+measurement could still overturn.
+
+⚠️ **Note the escalation across one night:** the hatch caught a wrong *mechanism* in a ticket
+(tj6b), a fix that wanted to be a *policy* (S2), and now a wrong *premise in a ruling* (S5).
+⇒ **Same protocol, ascending targets — and the highest-value catch was the one furthest from the
+code**, where the most confidence had accumulated and the fewest people were still checking.
