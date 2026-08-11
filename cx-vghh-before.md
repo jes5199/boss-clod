@@ -49,3 +49,43 @@ which is precisely why it is the better criterion.
 **Timing:** commonplace says the word once the push lands (gated on a merged-tree full core run —
 S13-fix's base predates S15's landing). **No restart is needed before the next natural deploy**
 unless we want the acceptance early. My part is read-only and outside their sandbox.
+
+---
+
+# ⛔ THE AFTER — MEASURED 2026-08-11 16:22Z. **BOTH BRANCHES FAIL.**
+
+**Deploy: serve pid 3671069, sha bba7d56, `merge-base --is-ancestor 0741fd9 bba7d56` = TRUE**
+(reverse check returns false, so the ancestry test is not vacuous). **S13-fix IS in the running
+tree** — this is not a "the fix wasn't deployed" result.
+
+**Capture: `boot-bba7d56-t75.log`, whole block to a FILE, 57 lines, taken at listener-up+4s and
+again at +75s (identical).** ✅ **POSITIVE CONTROL PASSES** — the posture block is present in the
+capture, so the absence claims below are meaningful. *This is the control that failed on 13:13 and
+made that boot's zero vacuous.*
+
+| branch | required | measured | |
+|---|---|---|---|
+| A — custody present | signed landing + **zero** denials | **3 denials** | ⛔ FAIL |
+| B — custody absent | named skip line **exactly once** | **0 occurrences** (3 spellings grepped) | ⛔ FAIL |
+
+## ⭐ THE SHAPE CHANGED — the part worth having
+| | denials | distinct uuids | distribution |
+|---|---|---|---|
+| BEFORE 11:52 (3f1dd52, pre-fix) | 3 | 2 | 967027b6 ×2, 6fd72a7f ×1 |
+| AFTER 16:22 (bba7d56, post-fix) | 3 | **1** | **6fd72a7f ×3**, all `reason=:unsigned` |
+
+⇒ **The 967027b6 denials are GONE; 6fd72a7f went 1 → 3.** Same total, different distribution.
+**NEW line, not in the before-state, interleaved one-per-denial** (lines 37/40/43, each immediately
+after a denial): `[info] Presence reaper removed 1 stale entries: __git-bridge.bot`.
+Also `[info] Bursar started for 6fd72a7f…, 48 active tokens` at line 4, *before* the posture block.
+
+⚠️ **A BARE "3 DENIALS BEFORE, 3 DENIALS AFTER" WOULD HAVE READ AS "NOTHING CHANGED" AND IT IS
+FALSE.** The count is identical and the *composition* is not. ⇒ **This is why the before-doc records
+uuids and not just a total** — a count alone would have hidden the entire result in a coincidence.
+
+**Reported to commonplace as a measurement (msg #11277). Diagnosis is theirs; I proposed no
+mechanism.** CX-vghh stays OPEN. Deploy itself verified clean: HTTP 200 ×3, no dist on 0.0.0.0,
+hermes untouched, whole-environ diff old→new dropped only `SCDIR` (a scratchpad var, not Mode-B).
+
+⚠️ **Also corrected to commonplace:** `d8769fa..bba7d56` was described as docs-only briefs; it in
+fact contains **S16 code** (7887187 + merge 9d60445), so this deploy shipped S16 too.
