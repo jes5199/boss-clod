@@ -1590,3 +1590,54 @@ because *the next person to consider loosening this reads the flag, not LESSONS.
 lessons file is a rule that will be rediscovered the expensive way. Same law as
 [[reference_state_legibility_for_agents]] — **make the cheap path and the true path the same
 act.**
+
+## 7ai. I BROKE THE SOL WRAPPER WITH A COMMENT — AND BOTH OF MY CHECKS WERE BLIND TO IT BY CONSTRUCTION
+
+**2026-08-11 04:27.** I added the `.git`-fence rationale to `sol-egress-run.sh` — good content, right
+placement instinct (at the line someone would edit). ⛔ **I inserted it BETWEEN the backslash-
+continuation lines of the `codex exec` invocation.**
+
+A trailing `\` joins the next line. **A comment on the joined line comments out EVERYTHING AFTER
+IT.** So the real command became `codex exec -m gpt-5.6-sol` — **no sandbox flag, no workdir, and
+no prompt.** commonplace's next two dispatch attempts died. ⭐ **The ONLY reason nothing ran with
+the wrong flags is that codex fail-fasts on a missing prompt. That is luck, not design** — the
+same invocation with the prompt surviving would have run **unsandboxed-flag work with egress
+open**, which is the exact hazard this wrapper exists to prevent.
+
+## ⛔ THE PART WORTH THE ENTRY: MY TWO VERIFICATIONS WERE *STRUCTURALLY* INCAPABLE OF FAILING
+
+1. **`bash -n` — PASSED, and always would.** A comment inside a continuation is **syntactically
+   perfect.** The file is valid bash; it just means something else. ⇒ *A syntax checker cannot
+   catch a semantic change that is syntactically legal, and "it parses" reassures exactly as much
+   as it should: nothing.*
+2. ⭐⭐ **My "invocation still intact?" check FILTERED OUT COMMENTS** — `sed -n '/codex exec/,/dev
+   null/p' | grep -vE '^\s*#'`. **I stripped the very thing that caused the bug and then looked at
+   what remained.** The broken file and the working file are **byte-identical under that filter.**
+   ⇒ *I did not verify the command; I verified my mental model of the command, rendered from the
+   file by deleting the evidence.*
+
+⚠️ **THE GENERAL FORM, and it is nastier than "test better": A FILTER APPLIED WHILE VERIFYING CAN
+REMOVE THE DEFECT CLASS BEING VERIFIED.** Grep-to-clean-up-output is a *reading* habit; inside a
+check it becomes a **blindfold sized precisely to the bug.** ⇒ **When verifying that X is intact,
+never view X through a transform** — `cat -A` it, or better, don't read it at all.
+
+## ⇒ THE CHECK THAT ACTUALLY WORKS: TRACE THE ARGV
+
+commonplace diagnosed it with an **echo-shim** (argv ended at `-m gpt-5.6-sol`). I re-verified the
+fix the same way — a `codex` shim first on PATH, a sentinel prompt, and three assertions:
+
+```
+SOL_WORKDIR=<scratch> PATH=<shim>:$PATH bash sol-egress-run.sh "TEST_PROMPT_SENTINEL"
+  → ARGV_REACHING_CODEX: exec -m gpt-5.6-sol --sandbox workspace-write -c … -C <wd> TEST_PROMPT_SENTINEL
+  ✅ --sandbox workspace-write   ✅ -C   ✅ TEST_PROMPT_SENTINEL
+```
+⭐ **This is verify-by-effect for a COMMAND: don't read what you think you built — make the thing
+you are launching TELL YOU what it received.** Costs one shim and ten seconds, and it is immune to
+every transform I might apply while reading.
+
+⭐ **AND THE LESSON I HAD JUST WRITTEN, TURNED ON ITSELF:** 7ah's own conclusion was *"put the
+reason at the site of the change."* **Acting on that is what broke the file** — the site of the
+change was inside a continuation. ⇒ *Good placement advice does not suspend the need to verify the
+placement.* **A doc edit to an executable file is a CODE CHANGE** — same class as
+[[feedback_hermes_hot_reload]]'s "writing a source file IS deploying," arriving where I least
+expected it: in a comment.
