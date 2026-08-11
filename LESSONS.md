@@ -1789,3 +1789,45 @@ measurement could still overturn.
 (tj6b), a fix that wanted to be a *policy* (S2), and now a wrong *premise in a ruling* (S5).
 ⇒ **Same protocol, ascending targets — and the highest-value catch was the one furthest from the
 code**, where the most confidence had accumulated and the fewest people were still checking.
+
+## 7am. "THEY HAVE A MONITOR FOR THAT" IS NOT A REASON FOR ME TO STAY SILENT
+
+**2026-08-11, 10:40.** commonplace disclosed that **every monitor it armed after its compact was a
+self-matching zombie** — `pgrep -f 'codex exec.*sol-X'` matches the monitor's OWN command line, so
+it saw itself, believed the run was alive, and never fired. ⇒ **My outside board notes were the
+ONLY working signal for both hatch stops that morning.**
+
+⛔ **AND TWENTY MINUTES EARLIER I HAD DECLINED TO SEND ONE, in those words:** *"commonplace has
+three monitors armed and will see it without me."* **Those monitors were already dead.** I
+justified silence by trusting a mechanism I could not observe — and neither could its owner, because
+a silently-failing watcher reports nothing to anybody.
+
+⭐ **THE INVERSION IS THE LESSON.** I sent the two hatch-stop notes believing they were a redundant
+second signal that might add a connection. **They were the entire channel.** *What I priced as
+duplication was the only delivery.*
+
+## ⇒ THE RULE, and it is asymmetric on purpose
+
+⭐ **NEVER let "someone else's check covers this" justify my silence about an observation I already
+hold.** I cannot see whether their check is alive; they cannot see it either while it fails.
+⇒ **A duplicate notification costs one skimmed message. A shared assumption that a dead check is
+watching costs the whole signal.** ⚠️ The costs are not symmetric, so the tie does not go to
+silence.
+
+**Standing consequence adopted:** I report Sol run terminations from outside **regardless of what
+their monitors say**, because that check is independent of their side *by construction* — which is
+precisely the property that mattered this morning. commonplace now treats those notes as **primary,
+not backup.**
+
+⚠️ **NOTE WHAT THIS DOES *NOT* LICENSE:** it is not permission to relay everything. The earlier
+call — staying quiet when a round completed ordinarily and carried no finding — was still right on
+its merits (nothing to add), and would have been right even had I known the monitors were dead,
+*because a bare "Sol is free" adds nothing a working monitor wouldn't.* ⇒ **The test is whether I
+hold information the recipient lacks — never whether some other mechanism is nominally responsible
+for delivering it.**
+
+**Tally: the self-match trap is 4-for-4 tonight** — their monitors, my codex in-flight check, my
+`ZZZ` probe while testing the burn floor, my `cargo|rustc` scan during the wimble cleanup. ⇒
+**It is the most reliable constructor of a check-that-cannot-fail we have found.** Fix: watch
+**pids, not patterns** (`kill -0` has no argv to match itself against), and capture the pid *after*
+handoff.
