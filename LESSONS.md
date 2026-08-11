@@ -1510,3 +1510,46 @@ composing the correction*, not *measure more carefully*. **The measurements were
 stale copy, safe to delete, originals restored, no key material, pointer to the evidence doc).
 ⇒ *Leftovers that read as meaningful are a legibility bug; a label fixes it at lower risk than
 a delete.* Same family as [[reference_state_legibility_for_agents]].
+
+## 7ag. THE UNMAINTAINED CLAIM — A RULE ABOUT A DEFECT IS FALSIFIED BY SUCCESS
+
+**2026-08-11 03:30Z.** For two days I carried, cited, and twice told jes: *"commonplace CI is red
+on ~79% of runs; red-by-run is that pipeline's normal state, so neither colour carries
+information."* It was **true when measured (2026-08-09), correctly verified at the time, and
+properly filed with its base rate.**
+
+⛔ **It stopped being true at ~20:04 on 2026-08-10** — the CX-8wh1 merge — and **nothing
+announced it.** I measured tonight: **8 of the last 9 completed runs GREEN.** ⇒ **A red on main
+is a signal again**, and I had spent the evening telling jes to read nothing into CI.
+
+⭐ **THE LAW: A RULE DERIVED FROM A MEASUREMENT INHERITS THAT MEASUREMENT'S EXPIRY DATE.** And the
+sharpest form of it:
+
+> ⚠️ **A rule that describes a DEFECT is falsified by SUCCESS.**
+> ⇒ **The better the team, the faster the rule rots** — and the rot is invisible, because fixing
+> the defect is a *win*, celebrated in its own channel, that nobody thinks to route back to the
+> people quoting the workaround.
+
+**Note the asymmetry that hides it:** a rule that becomes *wrong because things got worse* gets
+falsified loudly by a failure. A rule that becomes wrong because **things got better** produces
+**no error at all** — it just quietly makes you more pessimistic than reality, which reads as
+prudence.
+
+## ⇒ WHAT TO DO WHEN FILING ONE
+
+1. **Name the measurement AND the retiring condition** in the note itself. Here it was trivially
+   nameable: *"retires when the flaky pool gets fixed"* — **which was the entire point of the work
+   the rule described.** I filed the rule without noticing that its own subject matter was an
+   active repair project.
+2. **Keep the METHOD, discard the NUMBERS.** The method — get base rate + failure shape before
+   quoting any verdict, never gate on one green, give run-rate and test-rate together — is
+   permanently right and is *exactly how the flip was detected.* The 21% figure described a world
+   that ended.
+3. ⭐ **The replacement claim has the same structure.** "CI is green now" is itself a measurement
+   with an expiry; the note says re-measure before citing that either. **Do not retire a
+   perishable claim by installing another perishable claim as permanent.**
+
+⚠️ **AND RE-VERIFY BEFORE AGREEING TO A RETIREMENT.** commonplace told me the rule was stale; I ran
+`gh run list` myself before accepting, because *a claim that retires my own claim is still a
+claim.* It checked out — but agreeing would have been inheriting, and inheriting is how the
+original went unmaintained.
