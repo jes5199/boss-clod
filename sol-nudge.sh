@@ -92,7 +92,23 @@ if [ -n "${SERVE_PID:-}" ] && [ -x /home/jes/boss-clod/verify-serve-listen.sh ];
 fi
 
 WORKER="${WORKER:-commonplace}"
-RATIO_MAX="${RATIO_MAX:-1.60}"        # floor for brief+review only — see note above
+# ⭐⭐ 2026-08-11, jes: "I'm willing to burn extra Claude tokens to keep Sol warm."
+# THIS RETIRES THE RATIO FLOOR FOR THE SOL LANE. The 1.60 floor existed for one
+# reason: dispatching Sol costs ANTHROPIC tokens at the ends (commonplace writes
+# the brief, reviews the artifact) even though the RUN itself spends codex
+# credits from a SEPARATE pool. jes has now priced that trade explicitly — the
+# brief+review spend is worth it to keep the Sol lane busy.
+# ⚠️ Measured cost of the old floor, 2026-08-10: Sol sat IDLE ~5h (20:30→01:30)
+# while this loop declined every cycle at 2.1–2.6x. The gate never touched Sol's
+# capacity — commonplace's own dispatch bypasses it — so the floor slowed only
+# the PROMPTING, which is exactly the part jes wants faster.
+# ⛔ NOT REMOVED, RETIRED-IN-PLACE: SEVEN_DAY_STOP below is the real backstop and
+# is untouched, so a nearly-spent week still halts Sol dispatch. Set RATIO_MAX in
+# the environment to restore a ratio floor without editing this file.
+# ⇒ Rollback: .sol-nudge.sh.bak-20260811T020441Z (RATIO_MAX=1.60).
+# ⚠️ THIS DOES NOT TOUCH epic-nudge's 0.95 gate — jes ruled that one a thermostat
+# working as designed on 2026-08-10 and it stays. Sol is the exception, by name.
+RATIO_MAX="${RATIO_MAX:-99}"          # effectively off; SEVEN_DAY_STOP still guards
 SEVEN_DAY_STOP="${SEVEN_DAY_STOP:-95}" # absolute: matches quota-guard's STOP
 # ⛔ 2026-08-09: 30 -> 15, AND THE REASON IS THE WHOLE POINT — A COOLDOWN EQUAL
 # TO THE CRON INTERVAL SILENTLY HALVES THE CADENCE.
