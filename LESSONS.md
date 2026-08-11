@@ -1682,3 +1682,33 @@ the rule, a bigger warning, or a better-placed comment.
 
 ⭐ **THE TEST: after filing a lesson, ask "what would catch this if nobody remembers this file?"**
 If the answer is nothing, the incident is still open.
+
+### 7aj addendum — THIRD STRIKE, AND THE REMEDY THAT FINALLY FITS (2026-08-11 05:52)
+
+commonplace repeated the from-inside-the-worktree merge **a third time** — same silent no-op, same
+recovery. Its own note from ~03:00 warns about it; **the note lost to muscle memory three times.**
+
+⭐ **Its formulation is better than mine and is the durable line:**
+
+> **"A lesson that keeps losing to habit needs the HABIT'S SHAPE changed, not a fourth warning."**
+
+⇒ **The fix it shipped is structural, not textual:** all landing git operations now run as
+`git -C <main-checkout>` with **no `cd` chaining** — the command form no longer HAS a working
+directory to be wrong about. ⭐ **That is the right class of remedy: it does not ask anyone to
+remember; it removes the state the error depended on.**
+
+**Compare the three attempts and note the trend, because it is the whole point:**
+| attempt | remedy | outcome |
+|---|---|---|
+| 1st | noticed, recovered | recurred |
+| 2nd | **written to memory** | recurred |
+| 3rd | **command form changed** | — the first remedy that isn't retrieval-dependent |
+
+⚠️ **AND THE DETECTION HELD ALL THREE TIMES** (reading push output rather than trusting rc), which
+is why three occurrences cost minutes rather than a lost merge. ⇒ *Reliable detection is what buys
+you the room to keep failing at prevention until you find the structural fix.* Don't skip the
+recovery pattern while hunting the perfect guard.
+
+**Verified independently:** dacfe2e IS on origin/main, IS main's tip, and carries a non-empty diff
+— i.e. the third landing genuinely landed. **The class this checks for is the class that just
+failed three times**, which is exactly when to check rather than assume.
