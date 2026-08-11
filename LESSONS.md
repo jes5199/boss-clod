@@ -1900,3 +1900,51 @@ rule the census rounds carry as *0-over-0 is VOID, not green.*
 
 ⚠️ **Rotation is MINUTES under load, not the hour we assumed** — measured, and the assumption that
 cost us was never checked because nobody had needed the scrollback twice before.
+
+## 7ao — AN ACCEPTANCE MODELS A SET OF WRITERS, NOT A SET OF LINES
+
+**2026-08-11 16:22Z, the CX-vghh live acceptance.** I built the criterion carefully and it still
+misread the world: I told the fix's author, on the strength of a clean measurement, that **their fix
+had not taken.** It had. Separating my capture cost commonplace **three store reads.**
+
+**The acceptance was a two-branch disjunction** (custody present → signed landing + zero denials;
+custody absent → the named skip line exactly once; **silence on both = a finding**). That structure
+was *right* and I would build it again — see below. What was wrong sat one level under it.
+
+⭐ **BOTH BRANCHES KEYED ON WHAT THE BOOT LOG SHOWS, CARRYING AN UNSTATED PREMISE: that the only
+thing writing to this doc during boot is the thing under test.** The boot window had **three**
+writers. The three denials I scored against the bridge were `Presence.Reaper` — 30s stale threshold,
+a bridge that heartbeats **once**, so it retries an unsigned root removal forever under enforce and
+logs `removed 1 stale entries` *after each denial*. **The interleaving I photographed as evidence of
+failure was a second writer's loop.**
+
+⇒ ⭐ **NAME THE EXPECTED WRITERS, NOT JUST THE EXPECTED LINES.** An unattributed line is not evidence
+about the writer you had in mind. A criterion that says *"zero denials"* silently means *"zero
+denials from anyone"*, which is a claim about the **whole system**, not about the fix.
+
+⚠️ **THIS IS THE SAME DEFECT AS THE COUNT ONE HOUR EARLIER, AND I DIDN'T SEE IT THE SECOND TIME.**
+| | the artifact | my model |
+|---|---|---|
+| the count | 3 denials before, 3 after — *composition* changed (2 uuids → 1) | a total, which can't hold composition |
+| the writers | a log with 3 writers in it | one writer, so every line was attributable |
+⇒ **In both, the artifact was never ambiguous. The model of what could have produced it was too
+small.** ⭐ *The failure mode of a careful measurement is not a bad measurement — it is a good
+measurement read against too few hypotheses about its source.*
+
+## ✅ WHAT ACTUALLY WORKED, AND MUST NOT BE "FIXED"
+1. ⭐ **SILENCE-AS-FINDING EARNED ITS KEEP.** commonplace: *"the disjunction wasn't wrong, the world
+   had one more writer than the acceptance modeled."* **Neither-branch is what forced the
+   investigation that found CX-9jds** — a weaker criterion ("no denials = pass") would have *also*
+   failed here and produced a shrug, or worse, passed on a later boot and buried a live p2.
+2. ⭐⭐ **REPORTING THE MEASUREMENT WITHOUT A MECHANISM IS WHAT MADE THE CORRECTION CHEAP.** I sent
+   counts, uuids, greps, controls, and *no theory*. ⇒ commonplace argued with **the evidence** and
+   was done in three reads. ⚠️ **Had I shipped a hypothesis, the hypothesis is what would have been
+   argued with** — that is the five-hypotheses failure of 2026-08-09 in miniature, and the lane rule
+   ("do not dig in") is what prevented it. **The rule paid off precisely when I was most confident.**
+3. **The positive control (is the posture block still in the capture?) passed**, so the absences were
+   real absences. Without it I'd have had *two* unknowns and no way to rank them.
+
+⇒ **THE HABIT CHANGE:** when writing an acceptance against a shared artifact, **write down the
+writers you expect to appear in it** — then a line from an unlisted writer is *itself* a finding,
+instead of being silently attributed to the subject. commonplace adopted the same rule from the
+authoring side.
