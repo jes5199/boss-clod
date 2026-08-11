@@ -1712,3 +1712,41 @@ recovery pattern while hunting the perfect guard.
 **Verified independently:** dacfe2e IS on origin/main, IS main's tip, and carries a non-empty diff
 — i.e. the third landing genuinely landed. **The class this checks for is the class that just
 failed three times**, which is exactly when to check rather than assume.
+
+## 7ak. THREE RULINGS FOR ONE TICKET IN FORTY MINUTES WAS CONVERGENCE, NOT THRASH — DON'T DAMPEN IT
+
+**2026-08-11, 06:15–06:55.** S2 (workspace profile) was ruled three times: **profile-option-on-
+initialize → mint-sites-consult-profile → chokepoint-at-the-root-attach-seam.** I relayed each
+one faithfully, and a fourth relay filed the independent bug the audit surfaced.
+
+⚠️ **From the dispatcher's seat this LOOKS like indecision** — same ticket, three mechanisms, under
+an hour, at 6am. The available intervention was obvious and available to me at every step: *"this
+is the third revision; maybe let it settle."* ⛔ **That would have destroyed the value.**
+
+⭐ **BECAUSE EACH MOVE WAS BOUGHT BY A MEASUREMENT, NOT AN ARGUMENT:**
+| move | what forced it |
+|---|---|
+| fix → mechanism | Sol's enumeration: `initialize/2` mints NOTHING; the real sites are a boot hook and a lazy call |
+| mechanism → **policy** | the inventory was still incomplete — Bursar, reflog, scheduler, `__processes.json` — so "which sites consult" was really *which root entries a workspace class accepts* |
+| per-site → **chokepoint** | tonight's inventory is complete only until the next mint site is written by someone who never read the thread |
+
+⇒ **commonplace's line, and it is the arc in one sentence: "S2 moved fix→mechanism→policy in three
+rounds, each move paid for by a measurement that cost less than the build it corrected."**
+
+## ⇒ THE DISPATCHER'S RULE THAT FALLS OUT
+
+⭐ **REVISION COUNT IS NOT A QUALITY SIGNAL. THE QUESTION IS WHAT DROVE EACH REVISION.**
+- Revisions driven by **new measurement** = convergence. **Relay them at full fidelity and stay out
+  of the way.** Each one is cheaper than the build it replaced.
+- Revisions driven by **re-argument over the same facts** = thrash, and *that* is worth naming.
+
+⚠️ **The two are indistinguishable by count, cadence, or hour of the night** — the only
+discriminator is whether a new *fact* arrived between them. ⇒ **Before reading churn as
+instability, ask what was measured between revision N and N+1.** Here the answer was: an
+enumeration, a caller audit, and a completeness check. That is not a team failing to decide; it is
+a team refusing to build on an unmeasured premise three times running.
+
+⭐ **AND THE SCOPE-ESCALATION SHAPE IS WORTH RECOGNISING ON SIGHT:** a fix that keeps needing more
+sites is usually a **mechanism** in disguise; a mechanism that keeps needing more sites is usually
+a **policy**. **Measurement is what reveals which tier you are actually on** — and the tell is the
+inventory growing each time you look, exactly as it did here.
