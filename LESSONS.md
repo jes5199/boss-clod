@@ -1870,3 +1870,33 @@ just mechanisms.
 caught it before landing, because a chokepoint invariant is exactly the property a reviewer can
 check *structurally* — "is there now a write that skips it?" is a question with a mechanical
 answer, unlike "is this fix correct?"
+
+### 7ai addendum — FILTERED CAPTURE IS ITS OWN DEFECT CLASS: PERSIST RAW, FILTER ON READ
+
+**2026-08-11 13:15, third instance in one day.** commonplace asked whether a boot had fired three
+trust-gate denials. I grepped the pane: **zero**. That reads as a finding — *the writer stopped.*
+⇒ **Positive control: is the posture block, which I KNOW is in that boot because I pasted it
+fifteen minutes earlier, still in my window?** Not at 400 lines, not 1200, not 3000. **The pane had
+rotated the whole boot away.** The zero was **vacuous** — an absence from a window that no longer
+held the event either way, and it would have been a false negative injected into a live p2 trust
+attribution.
+
+⭐ **THE THREE INSTANCES ARE ONE LAW:**
+| when | what was filtered | what it cost |
+|---|---|---|
+| 2026-07 | `/proc/environ` captured through a guessed grep | dropped `PHX_SERVER`; manufactured a fake Bursar incident and a needless rollback |
+| 2026-08-11 04:27 | wrapper check piped through `grep -v '^\s*#'` | broken and working files byte-identical under my own verification |
+| 2026-08-11 13:15 | boot output captured *by grepping for* the posture block | could not answer a question asked 15 min later; near-false-negative |
+
+⇒ **A FILTER AT CAPTURE TIME DESTROYS WHAT YOU DIDN'T THINK TO ASK FOR. A FILTER AT QUESTION TIME
+DESTROYS NOTHING.** ⭐ **So: PERSIST RAW, FILTER ON READ.** The cost is a file; the alternative is
+that every future question about that moment is unanswerable, and *you find out only when someone
+asks one.*
+
+⚠️ **AND THE TELL IS ALWAYS THE SAME:** the filtered artifact looks complete. Nothing in `0 DENIED`
+announces that the search space was empty. ⇒ **Any absence measured against a captured artifact
+needs the control "is something I KNOW was there still here?"** — which is the same non-vacuity
+rule the census rounds carry as *0-over-0 is VOID, not green.*
+
+⚠️ **Rotation is MINUTES under load, not the hour we assumed** — measured, and the assumption that
+cost us was never checked because nobody had needed the scrollback twice before.
