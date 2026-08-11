@@ -219,6 +219,25 @@ MASK=(
 exec env -u LETTA_API_KEY -u SQUAD_ALERTS_PUBLISHER_TOKEN \
   bwrap --dev-bind / / "${MASK[@]}" -- \
   codex exec -m gpt-5.6-sol \
+    # ⛔⛔ DO NOT LOOSEN THIS TO MAKE `.git` WRITABLE. Asked and answered
+    # 2026-08-11 04:27 (commonplace's ruling, and its reasoning is the durable
+    # part). codex's workspace-write policy mounts `.git` READ-ONLY, so Sol
+    # cannot `git add`/commit — three runs in a row produced good work that had
+    # to be landed by hand (CX-sa5r, the phase-a measurement, CX-7smx).
+    # ⚠️ THAT FRICTION IS REAL AND THE FENCE STILL STAYS, because:
+    #   ⭐ A WRITABLE `.git` IS A WRITE→EXECUTE CHANNEL OUT OF THE SANDBOX.
+    #   `.git/hooks/*` execute on the REVIEWER'S machine the moment they land or
+    #   merge the branch. An agent that can write .git can arrange code that
+    #   runs OUTSIDE the sandbox at review time — the same laundering shape the
+    #   trust belt closes one layer down (see CX-b38c: write must never imply
+    #   arrange-future-execution).
+    # ⇒ Cost of the fence: ONE `git commit` per round, by a reviewer who is
+    #   reading the diff anyway. Cost of removing it: a whole channel.
+    # ⚠️ REFUTED, so don't retry it: dispatching into a full local CLONE instead
+    # of a linked worktree does NOT help. Verified 2026-08-11 on CX-7smx — the
+    # clone's .git was a real writable directory with no alternates, and Sol
+    # still reported it mounted read-only. The fence is on the PATH INSIDE THE
+    # SANDBOX, not on where the metadata lives. Back to worktrees.
     --sandbox workspace-write \
     -c 'sandbox_workspace_write.network_access=true' \
     -C "$WORKDIR" \
