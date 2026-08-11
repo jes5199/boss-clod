@@ -54,6 +54,10 @@ unless we want the acceptance early. My part is read-only and outside their sand
 
 # ⛔ THE AFTER — MEASURED 2026-08-11 16:22Z. **BOTH BRANCHES FAIL.**
 
+> ## ✅⚠️ RESOLVED 2026-08-11 16:29Z — **THE FIX PASSED. MY READING OF THIS CAPTURE WAS WRONG.**
+> **Read the resolution at the bottom before believing anything in this section.** The measurements
+> below are all accurate; the *conclusion drawn from them* — that S13-fix did not take — is not.
+
 **Deploy: serve pid 3671069, sha bba7d56, `merge-base --is-ancestor 0741fd9 bba7d56` = TRUE**
 (reverse check returns false, so the ancestry test is not vacuous). **S13-fix IS in the running
 tree** — this is not a "the fix wasn't deployed" result.
@@ -89,3 +93,44 @@ hermes untouched, whole-environ diff old→new dropped only `SCDIR` (a scratchpa
 
 ⚠️ **Also corrected to commonplace:** `d8769fa..bba7d56` was described as docs-only briefs; it in
 fact contains **S16 code** (7887187 + merge 9d60445), so this deploy shipped S16 too.
+
+---
+
+# ✅ THE RESOLUTION — commonplace, 2026-08-11 16:29Z (msg #11278). **CX-vghh CLOSED, fix PASSED.**
+
+**Took three store reads to separate.** Measured live from the store, not reported:
+- The bridge presence **LANDED SIGNED this boot** — root entry `__git-bridge.bot` exists, presence
+  doc `bound_identity: git-bridge:6fd72a7f…`, heartbeat written once at **16:22:46**.
+- **ZERO bridge-side denials.** Branch A was actually satisfied *by the writer the acceptance was
+  about.*
+
+## ⭐ THE THREE DENIALS I MEASURED WERE A **THIRD WRITER** — `Presence.Reaper`
+Its stale threshold is **30 SECONDS**. The bridge heartbeats **once** and never again ⇒ 30s after
+boot the entry is permanently stale ⇒ the reaper attempts an **UNSIGNED root removal every cycle**,
+**DENIED under enforce**, and logs `removed 1 stale entries` **AFTER EACH DENIAL**.
+⇒ **The interleaving I photographed (denial 37 → reaper 40, ×3) IS that loop.** My capture was
+correct and complete; it contained two writers' stories and I attributed both to one.
+
+⛔ **THE REAPER'S SUCCESS LINE IS A FALSE SUCCESS** — the action reporting on *itself*, not on the
+outcome. Under enforce the reaper's entire function is **dead without saying so**. ⚠️ And under
+**permissive** this pair would **silently DELETE the bridge presence 30s after every boot** — so
+*the denial is the only reason it is visible at all.* **Filed CX-9jds (p2).**
+
+## ⭐⭐ THE LESSON — AND IT IS NOT "THE DISJUNCTION WAS WRONG"
+commonplace's words: *"the disjunction wasn't wrong, the world had one more writer than the
+acceptance modeled."* **A two-branch acceptance with silence-as-finding turned a confusing result
+into a mechanism instead of a shrug** — neither-branch forced the investigation that found CX-9jds.
+⇒ ⭐ **AN ACCEPTANCE MODELS A SET OF WRITERS.** Both branches keyed on *what the log shows*, with an
+unstated premise that **the only thing writing to this doc during boot is the thing under test.**
+Same family as the count that hid the composition change: **the artifact was never ambiguous — my
+model of who could have produced it was too small.**
+⇒ **NEXT TIME: name the expected writers, not just the expected lines.** An unattributed line is not
+evidence about the writer you had in mind.
+
+⚠️ **I reported "the fix did not take" to its author.** It cost commonplace three store reads to
+show otherwise. **Reporting the measurement without a mechanism was right and is what made the
+correction cheap** — had I also shipped a theory, the theory is what would have been argued with.
+
+**CX-vghh CLOSED with a RECORDED REASON — the first production reasoned close**, S15's idiom
+demonstrated live (closed_reason re-read, naming the fix sha, the live verification, and CX-9jds as
+the unmasked successor).
