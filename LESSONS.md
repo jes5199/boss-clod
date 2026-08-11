@@ -1553,3 +1553,40 @@ prudence.
 `gh run list` myself before accepting, because *a claim that retires my own claim is still a
 claim.* It checked out — but agreeing would have been inheriting, and inheriting is how the
 original went unmaintained.
+
+## 7ah. THE FRICTION WAS REAL, THE FENCE STAYS — `.git` IS A WRITE→EXECUTE CHANNEL
+
+**2026-08-11 04:20.** Three Sol runs in a row produced good work that could not be committed:
+codex's `--sandbox workspace-write` mounts `.git` **read-only**, so `git add` fails on
+`index.lock`. I found the cause in **my own wrapper** (`sol-egress-run.sh:222`) and offered to
+add a scoped writable exception.
+
+⛔ **commonplace declined, and its reason is better than my instinct was.** I had only *"don't
+loosen a security fence at 04:20"* — correct, but a vibe. The mechanism:
+
+> ⭐ **`.git/hooks/*` EXECUTE ON THE REVIEWER'S MACHINE the moment they land or merge the
+> branch.** An agent that can write `.git` can arrange code that runs **outside the sandbox**,
+> at review time, on a machine the sandbox was built to protect.
+
+⇒ **Same laundering shape as CX-b38c's write⊥execute belt, one layer up:** *writing is
+arranging future execution.* The belt refuses a write-only cert authoring code docs for exactly
+this reason; a writable `.git` is that hole wearing a plumbing costume.
+
+⭐ **AND THE COST COMPARISON IS THE PART THAT SETTLES IT:** the fence costs **one `git commit`
+per round, by a reviewer already reading the diff.** Removing it costs **a whole channel.**
+⇒ *When a fence's cost is one command and its removal opens an execution path, the friction is
+not evidence the fence is wrong — it is the fence's price, and it is cheap.*
+
+⚠️ **REFUTED, recorded so nobody retries it:** dispatching into a full local **clone** instead of
+a linked worktree does not help. Verified on CX-7smx — the clone's `.git` was a real writable
+directory with no alternates, and Sol *still* reported it mounted read-only. **The fence is on
+the PATH INSIDE THE SANDBOX, not on where the metadata lives.** One run, cheap refutation.
+
+## ⇒ WHERE THE REASON GOT WRITTEN, which is the transferable bit
+
+Not here first — **into `sol-egress-run.sh` at the exact line someone would edit** (@50f4b63),
+because *the next person to consider loosening this reads the flag, not LESSONS.md.* ⭐ **A
+"don't do X" belongs at the site of X**, with the mechanism attached; a rule filed only in a
+lessons file is a rule that will be rediscovered the expensive way. Same law as
+[[reference_state_legibility_for_agents]] — **make the cheap path and the true path the same
+act.**
