@@ -74,6 +74,22 @@
 # interpreting an empty diff — this is the same "blocked and not there share
 # an exit code" rule, arriving one layer above where we were watching for it.
 #
+# ⛔⛔ 2026-08-11: THE RUN LOG IS NOT GUARANTEED TO SURVIVE. On S15, Sol
+# DELETED it as tidying -- its own transcript says "Its generated sol-run.log
+# was removed." So the artifact the rule above depends on can be absent for a
+# reason that has nothing to do with refusal.
+# ⭐ DURABLE FALLBACK, use it whenever sol-run.log is missing:
+#     ~/.codex/sessions/<YYYY>/<MM>/<DD>/rollout-*.jsonl
+# That is codex's own session transcript. It carries the COMPLETE final report
+# including any refusal sentinel, and Sol cannot tidy it away -- it is outside
+# the worktree. ⇒ Missing log is NOT "cannot determine"; it is "look one layer
+# down." Treat absence as ambiguous ONLY after the rollout file is also checked.
+# ⚠️ AND WATCH WHOSE ARTIFACT YOU ARE READING: the worktree you inspect after a
+# run may already be the REVIEWER'S cleaned state, not Sol's raw output. On S15
+# the 2-file footprint I read as "exactly right" was post-cleanup; Sol had also
+# left formatter churn across 17 web files, discarded before I looked. The
+# inference held, but it was a claim about a mutated artifact.
+#
 # ⚠️ AND IT IS NOT CREDIT EXHAUSTION. Check the two separately; they have
 # different remedies (re-brief vs stop the loop). A grep for
 # credit|quota|exhaust|rate.?limit returning 0 needs the flag lines as its
@@ -216,28 +232,34 @@ MASK=(
 # psgrep and loops-health when they went on PATH. `codex exec` takes its
 # prompt as an argument and is non-interactive by design, so closing stdin
 # removes a hazard without removing a capability.
+# ⛔⛔ DO NOT LOOSEN `--sandbox workspace-write` TO MAKE `.git` WRITABLE. Asked
+# and answered 2026-08-11 04:27 (commonplace's ruling, and its reasoning is the
+# durable part). codex's workspace-write policy mounts `.git` READ-ONLY, so Sol
+# cannot `git add`/commit — three runs in a row produced good work that had
+# to be landed by hand (CX-sa5r, the phase-a measurement, CX-7smx).
+# ⚠️ THAT FRICTION IS REAL AND THE FENCE STILL STAYS, because:
+#   ⭐ A WRITABLE `.git` IS A WRITE→EXECUTE CHANNEL OUT OF THE SANDBOX.
+#   `.git/hooks/*` execute on the REVIEWER'S machine the moment they land or
+#   merge the branch. An agent that can write .git can arrange code that
+#   runs OUTSIDE the sandbox at review time — the same laundering shape the
+#   trust belt closes one layer down (see CX-b38c: write must never imply
+#   arrange-future-execution).
+# ⇒ Cost of the fence: ONE `git commit` per round, by a reviewer who is
+#   reading the diff anyway. Cost of removing it: a whole channel.
+# ⚠️ REFUTED, so don't retry it: dispatching into a full local CLONE instead
+# of a linked worktree does NOT help. Verified 2026-08-11 on CX-7smx — the
+# clone's .git was a real writable directory with no alternates, and Sol
+# still reported it mounted read-only. The fence is on the PATH INSIDE THE
+# SANDBOX, not on where the metadata lives. Back to worktrees.
+#
+# ⛔ COMMENTS NEVER GO BETWEEN CONTINUATION LINES: a `\`-continued line joins
+# the NEXT line, so a comment inserted mid-invocation comments out every flag
+# after it — measured 2026-08-11 04:44: codex ran with ONLY `-m gpt-5.6-sol`
+# (no sandbox flag, no workdir, no prompt); only the no-prompt fail-fast kept
+# those runs harmless. This block therefore lives ABOVE the exec, not inside it.
 exec env -u LETTA_API_KEY -u SQUAD_ALERTS_PUBLISHER_TOKEN \
   bwrap --dev-bind / / "${MASK[@]}" -- \
   codex exec -m gpt-5.6-sol \
-    # ⛔⛔ DO NOT LOOSEN THIS TO MAKE `.git` WRITABLE. Asked and answered
-    # 2026-08-11 04:27 (commonplace's ruling, and its reasoning is the durable
-    # part). codex's workspace-write policy mounts `.git` READ-ONLY, so Sol
-    # cannot `git add`/commit — three runs in a row produced good work that had
-    # to be landed by hand (CX-sa5r, the phase-a measurement, CX-7smx).
-    # ⚠️ THAT FRICTION IS REAL AND THE FENCE STILL STAYS, because:
-    #   ⭐ A WRITABLE `.git` IS A WRITE→EXECUTE CHANNEL OUT OF THE SANDBOX.
-    #   `.git/hooks/*` execute on the REVIEWER'S machine the moment they land or
-    #   merge the branch. An agent that can write .git can arrange code that
-    #   runs OUTSIDE the sandbox at review time — the same laundering shape the
-    #   trust belt closes one layer down (see CX-b38c: write must never imply
-    #   arrange-future-execution).
-    # ⇒ Cost of the fence: ONE `git commit` per round, by a reviewer who is
-    #   reading the diff anyway. Cost of removing it: a whole channel.
-    # ⚠️ REFUTED, so don't retry it: dispatching into a full local CLONE instead
-    # of a linked worktree does NOT help. Verified 2026-08-11 on CX-7smx — the
-    # clone's .git was a real writable directory with no alternates, and Sol
-    # still reported it mounted read-only. The fence is on the PATH INSIDE THE
-    # SANDBOX, not on where the metadata lives. Back to worktrees.
     --sandbox workspace-write \
     -c 'sandbox_workspace_write.network_access=true' \
     -C "$WORKDIR" \
