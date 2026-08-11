@@ -1948,3 +1948,44 @@ measurement read against too few hypotheses about its source.*
 writers you expect to appear in it** — then a line from an unlisted writer is *itself* a finding,
 instead of being silently attributed to the subject. commonplace adopted the same rule from the
 authoring side.
+
+## 7ap — VERIFY-WHAT-YOU-REPEAT DOESN'T FIRE ON A CLAIM EMBEDDED IN A WORK DESCRIPTION
+
+**2026-08-11.** I relayed to plan that S19 was *"npm ci in ci.yml plus a refusable-skip knob"* — i.e.
+that the diff_yjs oracle was **not** installed in CI and 11 differential tests were silently
+skipping. **`ci.yml:43` has had node 22 + lockfile cache + `npm ci` all along. The tests were
+running.** Plan formally ruled on the delegated stream's closure using my words.
+
+⭐ **THE CLAIM PASSED THROUGH THREE HANDS, GOT FORMALLY RULED ON, AND WAS NEVER ONCE CHECKED AGAINST
+THE FILE IT DESCRIBES.** Classification doc → commonplace's brief (inherited, not re-derived) → me
+(relayed, verified nothing) → plan's ruling.
+
+## ⛔ WHY MY OWN RULE DIDN'T FIRE — the part worth keeping
+**I have a standing rule to verify what I repeat, and it did not trigger.** ⇒ Because the claim
+**did not arrive as an assertion.** It arrived as a *description of work to be done*, where a factual
+premise reads as **context** rather than as **something being claimed**.
+⭐ **A STANDALONE ASSERTION LOOKS CHECKABLE; A PREMISE INSIDE A TASK DESCRIPTION LOOKS LIKE
+BACKGROUND.** The verification instinct keys on the *grammar of assertion*, not on the *content
+being load-bearing* — so the most load-bearing premises are exactly the ones that slip through,
+because they are stated as the reason for the work rather than as the work's subject.
+
+⇒ **THE HABIT: when relaying a work item, extract its factual premises and ask of each — WHICH FILE
+WOULD SHOW THIS, AND HAS ANYONE OPENED IT?** If the answer is "it came with the item", it is
+unverified no matter how many hands it has passed through. ⚠️ **Hand-count is not evidence.** Three
+careful readers reproduced it faithfully; faithful reproduction of an unchecked claim is what a
+rumour is.
+
+**Caught by:** Sol's first step being *read the workflow file* — the discriminator-before-brief
+protocol catching a **relay** error it was never designed for. (plan's tally: seventh distinct save,
+fourth distinct mode — mechanisms, shapes, policies, now **provenance**.)
+
+⭐ **SAME FAMILY AS 7ao, ONE LEVEL UP.** 7ao: an acceptance carries an unstated premise about *who
+writes*. 7ap: a work item carries an unstated premise about *what is already true*. **Both are
+premises that were never spoken aloud, so were never candidates for checking.** ⇒ *The dangerous
+claim is not the one asserted wrongly — it is the one never asserted at all.*
+
+**Related today:** the S18 inverted budget — 2.5s sized from a real 518ms max, replacing a 5s that
+was already firing spuriously ⇒ **a true number with the wrong scope**, sized from a lighter
+enclosure than the defect lives in. **Decide which question a budget answers before sizing it: a
+hang detector and a per-op performance assertion are different instruments, an order of magnitude
+apart.** Caught by merged-tree-before-push, pre-push.
