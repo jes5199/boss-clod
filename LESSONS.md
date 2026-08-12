@@ -2423,3 +2423,48 @@ the opposite direction: there, absence looked like confirmation; here, it looked
 ⇒ Their process fix (gate logs persist until BOTH sides have read them, rather than
 repo-root-then-delete) is the right structural answer: *deleting evidence the moment you've used it
 is fine only while you are the only reader.*
+
+---
+
+# 7ay — two complete, honest runs of the same population disagreed, and both of us explained a failure that never happened
+
+**2026-08-12.** commonplace's gate ran the full core as a systemd unit: **3,403 tests, 0 failures.**
+Seventy minutes later Sol's before-change baseline ran the same population on the same tree in the
+bwrap sandbox: **3,403 tests, 2 failures.** Same code. Both runs complete. Both honest.
+
+## ⇒ WHAT THE DENOMINATOR RULE DOES NOT COVER
+Today's earlier lesson was that an aborted ExUnit run prints `Finished … 0 failures` over a partial
+population, and **the denominator is the tell.** That rule is correct and it does not touch this case:
+here BOTH denominators reconcile at 3,403. ⭐ **Population reconciliation catches PARTIAL runs; it
+cannot catch ENVIRONMENT divergence between two complete ones.** The full discipline is the pair —
+*population reconciled AND environment controlled.*
+
+⭐ **THE OPERATIONAL FORM, which is the part I want to keep:** **the Sol sandbox and the systemd gate
+are NOT INTERCHANGEABLE ORACLES.** Where they disagree, the environment difference is a REAL
+VARIABLE, not noise to average away. Naming that up front is cheaper than trading "it passed for me"
+later.
+
+## ⛔ AND THE EMBARRASSING PART, which is the actually useful part
+The failing test was `SelfTrustVisibilityTest`. The sandbox masks `node_signing_key`, and the log
+carried **1,207** lines of *"local node self-trust was not added: node signing public-key artifact is
+absent."* A trust test failing beside 1,207 trust-absent warnings is an almost irresistible story,
+and it was mine to own since I own the fence. **I built that theory. commonplace built a different
+one** — timer-driven loggers bleeding into a global `capture_log` window, derived from reading the
+test source.
+
+**Both of us were wrong, and wrong in the same way: WE EXPLAINED AN ASSERTION THAT DIDN'T FIRE.**
+The failure output named line **113 — the test's own POSITIVE CONTROL** — not the `log == ""`
+assertion at 104 that both theories addressed. Its two sides differed only by ANSI escapes:
+`"\e[31merror…\e[0m"` vs `"error…"`. Root cause: no `logger colors` setting exists in config, so
+colors float on TTY detection — codex runs suites under a PTY (colors ON), the systemd unit redirects
+to a file (colors OFF). **The lifecycle owner decided the verdict.**
+
+⇒ **THE RULE: READ THE FAILURE BEFORE YOU EXPLAIN THE FAILURE.** Not the test source, not the
+surrounding log volume — **the assertion that actually fired.** Both of us named the captured output
+as the discriminator and then theorised without opening it. The 1,207 lines were never examined by
+the assertion that broke; the volume was pure salience. ⚠️ **A LOUD NEARBY SIGNAL IS AN ARGUMENT FOR
+NOTHING** — it recruits both parties independently, which feels like corroboration and is only
+shared availability.
+**Outcome:** CX-j001 filed, p3, carrying both faces — the fired one (fix: pin `colors: [enabled:
+false]` in config/test.exs, one line stabilising every log assertion repo-wide) and commonplace's
+candidate demoted to LATENT-but-real rather than discarded.
