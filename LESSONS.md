@@ -2349,3 +2349,41 @@ Deploy verification now: 4 proven pre-flight refusals · a **field-anchored** wa
 directions · **capture-time redaction** · whole-boot capture · posture positive control · tree token
 read from the **compiled beam artifact**, not the repo. **Outage cost: one extra restart cycle,
 ~90 seconds, inside a window that was already an outage.**
+
+---
+
+# 7ax — I fixed a leak twice, and both fixes were the same mistake wearing different clothes
+
+**2026-08-12, following 7aw.** The standing rule "capture the WHOLE environ, never grep-filter it"
+collides with secret hygiene. I resolved that collision three times; only the third one holds.
+
+| | where the protection lived | how it fails |
+|---|---|---|
+| **v1** | the DISPLAY path — a diff only shows changes | one side read from a dead pid ⇒ diff degrades to a **DUMP** (7aw) |
+| **v2** | CAPTURE time, redact by KEY NAME | misses secrets in **names you didn't anticipate** — `MY_WEIRD_TOKEN` sails through |
+| **v3** ⭐ | CAPTURE time, `name=sha256(value)` for **every** var | — no list to be incomplete |
+
+⭐ **THE THING I COULDN'T SEE FROM INSIDE MY OWN FIX** (commonplace-plan caught it): v2 has the
+**same blind spot as the value-sniffing it replaced, rotated 90°.** Value-heuristics miss shapes you
+didn't anticipate; name-lists miss names you didn't anticipate. **I had swapped one curated list for
+another and experienced it as a fix**, because the new list covered the specific case that had just
+burned me. ⚠️ **A fix built from the incident you just had is shaped like that incident.**
+
+## ⇒ THE SHAPE THAT ENDS IT: dissolve the tension, don't manage it
+Hash every value. Names stay plaintext, so add/remove still diffs. A changed value changes its hash,
+so drift detection loses **nothing** — verified by mutating one value and one name and watching both
+appear. What a value changed *to* is recoverable **at need-time**, as a named exception, by reading
+that one var live. **There is no list, so there is nothing to be incomplete.**
+⚠️ Honest limit, stated in the script: sha256 of a LOW-entropy value is brute-forceable (`PORT=5199`
+falls in one guess). That is fine — low-entropy values aren't the secrets. The guarantee is *"no
+plaintext secret is written"*, not *"the file is opaque"*. **A guarantee you can state exactly is
+worth more than one that sounds stronger.**
+
+## ⭐ THE GENERAL FORM
+**A fix that requires a maintained list of what to protect will fail on the first item nobody
+listed** — and it will fail silently, because an absent entry looks exactly like a safe one.
+Prefer a fix whose safety is **structural** (applies to everything, needs no enumeration) over one
+that is **enumerative** (applies to what you remembered). ⇒ Same family as: the tree token true at
+both shas · `is-active` on a nonexistent unit · every negative table needing a positive control.
+**Ask of any new guard: what does it do about the case I have not thought of yet?** v1 and v2 both
+answered "nothing", and I shipped them both anyway.
