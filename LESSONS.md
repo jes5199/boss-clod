@@ -2511,3 +2511,36 @@ construction — `is_loaded` cannot load, and `module_info` on an already-loaded
 but I had never stated it, which means I had been relying on a property I had not checked. ⇒ Stated
 now, and the probe file carries it as a comment. **A safety property you have not articulated is one
 you cannot notice losing.**
+
+## 7ay addendum — I enumerated the whole population and still reported it absent, because I searched by NAME instead of by ROLE
+
+**2026-08-12 17:05Z.** Musk-pair's first live evaluation was 2h45m out, so I checked hermes's DB
+read-only for its arming. **No `musk`-prefixed key in `settings`.** I ran a positive control (26 rows,
+keys enumerate fine), so the absence was *real* — the query worked, the key genuinely wasn't there.
+I was one message from telling jes there might be a gap before a live-money run.
+
+⛔ **THE KEYS WERE IN THE LIST I HAD ALREADY PRINTED.** Musk-pair's system name is **`rotation`**.
+`rotation_enabled` and `rotation_auto_trade_enabled` were sitting in my own enumerated output, set the
+night before. hermes verified live: enabled, auto_trade on, not halted, the 19:50Z cron registered in
+the running Oban.
+
+## ⭐ WHY THIS ONE IS DIFFERENT FROM THE DAY'S OTHER ABSENCE TRAPS — and worse
+Every earlier one was a **broken instrument**: a wrong path, an unanchored pattern, `strings` blind to
+a LitT chunk, `is-active` on a nonexistent unit. The fix each time was a positive control, and a
+positive control would have *caught* them.
+⚠️ **HERE THE INSTRUMENT WAS PERFECT AND THE CONTROL PASSED.** I read the complete population, printed
+it, and still concluded absent — because **I was matching against the name I expected rather than the
+role I was asking about.** A positive control proves the query can see; it CANNOT tell you that the
+thing you want is in the output under another name.
+⇒ **THE RULE: when you search a small enumerable population, ENUMERATE IT AND READ IT — do not
+pattern-match it.** `SELECT * ` beats `WHERE key LIKE '%musk%'` on 26 rows, because a 26-row table is
+cheaper to *read* than to *guess the vocabulary of*. My grep encoded an assumption about naming that I
+never had grounds for and never checked.
+⇒ **AND ASK THE OWNER BEFORE REPORTING A NEGATIVE ABOUT THEIR DOMAIN.** hermes answered in 90 seconds
+with the system name, the live rpc verification, and the cron registration. **The only reason this
+didn't reach jes as a false alarm about a live-money system is that I asked instead of concluded** —
+the same instinct that killed the fence theory and the timer-bleed theory earlier today.
+
+**Bonus, and it argues the same way:** the ~$3.30 funding gap I was still carrying as open had already
+resolved — option BP $1,336 vs $329, broker margin release. **Two stale beliefs in one check**, both
+about live money, both fixed by asking the system that owns them.
