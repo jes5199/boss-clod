@@ -55,8 +55,15 @@ Confirm `:5199` has 0 listeners and hermes `ActiveState=active` before continuin
 ## 4. Standing per-bundle checks
 - ⭐ **`Runner.Provisioner` has ZERO production callers** — re-verify each ceremony while that holds.
   It mutates node-global Application env during birth; harmless while unreachable, and **lazy-load
-  makes it reachable the moment anything names it.** Positive control: the same grep must find
-  `PodProfile.` calls.
+  makes it reachable the moment anything names it.**
+  ```bash
+  git ls-tree -r --name-only origin/main -- 'apps/**/lib/**' | wc -l   # must be ~434, NOT 0
+  git grep -l 'PodProfile\.'   origin/main -- 'apps/**/lib/**'        # control: must find >=1
+  git grep -l 'Provisioner\.'  origin/main -- 'apps/**/lib/**'        # the check: must find 0
+  ```
+  ⛔ **The pathspec `apps/*/lib` MATCHES ZERO FILES** — git's `*` does not cross `/`. On 2026-08-12
+  that made both the check AND its control return 0, so a safety check read as PASSED while reading
+  nothing. **Count the files the pathspec matches before trusting what it found in them.**
 - ⭐ **`Runner.Provisioner` also puts pod stores in the GLOBAL name registry during birth**
   (`{:global, {Module, :role, make_ref()}}` — unique per call, supervisor stopped in an `after`, so no
   singleton hazard today). Together with the node-global env mutation, that is **two independent
