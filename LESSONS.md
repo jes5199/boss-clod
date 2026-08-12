@@ -2205,3 +2205,50 @@ codex pid 95907 ns=mnt:[4026532359]  hits=1    <- the fence lives here
 ```
 Plus the non-vacuity line that was already there and did its job: **6 masked of 31 total mounts** —
 if the grep matched everything, the check would prove nothing.
+
+---
+
+# 7au — `is-active` on a unit that does not exist says "inactive", and I nearly relayed that as hermes being down
+
+**2026-08-12 13:07Z, routine health spot-check.** My check printed `hermes: inactive`. hermes is the
+**live-money trading BEAM**, and Musk-pair's first evaluation is scheduled for 19:50Z *today* — so
+"hermes is down" is a report jes would act on immediately, and it is exactly the class of thing the
+alert path exists to carry. **It was false.**
+
+hermes was up the whole time: pid 3985426, `-name hermes@127.0.0.1`, uptime 15h10m unbroken,
+cgroup `/user.slice/…/hermes.service`, and its DB written 30 seconds before I looked — **working,
+not merely running.**
+
+## ⇒ TWO BUGS IN ONE CHECK, and I only saw the first at first
+1. **WRONG SCOPE.** hermes is a **user** unit. I ran system-scope `systemctl is-active hermes`;
+   systemd answered about a system unit that does not exist. `systemctl status` said it plainly —
+   *"Unit hermes.service could not be found"* — but `is-active` had already flattened that to a word
+   that names a completely different world-state.
+2. ⭐ **AND FIXING THE SCOPE DID NOT FIX THE CHECK.** `systemctl --user is-active totally-fake-unit`
+   **also** prints `inactive`. **A nonexistent unit and a stopped unit are byte-identical through
+   `is-active`, in either scope.** I had a green-looking fix that still could not tell "hermes is
+   dead" from "I am asking about the wrong thing."
+
+## ⇒ THE REAL DISCRIMINATOR — `LoadState`, which `is-active` structurally cannot carry
+```
+hermes:            LoadState=loaded     ActiveState=active    MainPID=3985426
+totally-fake-unit: LoadState=not-found  ActiveState=inactive  MainPID=0
+```
+**Health checks on units assert `LoadState=loaded` FIRST, then `ActiveState`, and cross-check
+`MainPID` against the actually-running process.** A unit check that never asserts existence is
+answering a question about a unit it has not established exists.
+
+## ⭐ THE GENERAL FORM — this is 7at again, one hour later, in a different costume
+7at: a namespaced property read outside the namespace reads as **absent**.
+7au: a unit property read in the wrong scope reads as **absent**.
+⇒ **"NOT THERE" IS THE DEFAULT ANSWER TO A QUESTION ASKED IN THE WRONG PLACE**, and it is
+indistinguishable from the genuine bad news the check was built to catch. **Every absence-shaped
+result must survive a positive control before it becomes a report** — here, asking `is-active` about
+an invented unit name, which took four seconds and killed the alarm outright.
+⚠️ Same family, stated once more: `bd show` returning "no issue found" for every post-cutover ticket ·
+"blocked" and "not there" sharing an exit code · the tree token true at both shas.
+
+**Direction of the error, and why I got lucky twice today:** both 7at and 7au were **false alarms**,
+which are self-correcting — they make you look harder. The mirror is silent: a check that reads
+`active`/`present` from the wrong scope or namespace yields a **false ALL-CLEAR on a real outage**.
+⇒ **Nothing reached jes.** The 4-second control is what kept a live-money false alarm off his phone.
