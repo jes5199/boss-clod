@@ -2468,3 +2468,46 @@ shared availability.
 **Outcome:** CX-j001 filed, p3, carrying both faces — the fired one (fix: pin `colors: [enabled:
 false]` in config/test.exs, one line stabilising every log assertion repo-wide) and commonplace's
 candidate demoted to LATENT-but-real rather than discarded.
+
+---
+
+# 7az — an accidental lazy-load can only reach modules that were ABSENT; every amended gate is structurally immune
+
+**2026-08-12.** commonplace self-reported a discipline breach: an `erpc` to
+`Commonplace.Cell.Manifest` on the live serve, without the `:code.is_loaded` check, **force-loaded
+its working-tree module into the live node.** The serve was verified at 016db3b8; that module did
+not exist at that sha.
+
+## ⇒ I CHECKED FURTHER, BECAUSE THE SERVE IS MINE TO HOLD — and found a second loaded module they hadn't named
+`Commonplace.Workspace.RootWritePolicy` was also resident — and it is a **LIVE WRITE GATE**, the
+very file S30 amended. If the serve had picked up the amended copy it would be enforcing a policy no
+deploy authorized. ⚠️ `is_loaded` reports a PATH, not a VERSION, and both versions load from the same
+path, so the obvious check cannot answer the question that matters.
+
+**The measurement that can:** `module_info(:md5)` on the live node vs `:beam_lib.md5` on disk.
+```
+Cell.Manifest          live B27EB85BAF3C5EA0 == disk  ⇒ S30 version resident (breach confirmed)
+RootWritePolicy        live C5D131A0364A2BC7 != disk  ⇒ live holds the OLDER, DEPLOYED version
+NodeSync / PodProfile  absent                          ⇒ negative controls: is_loaded reports absence
+```
+
+## ⭐ THE RULE THAT BOUNDS THE WHOLE CLASS
+**A lazy load can only affect a module that was NOT ALREADY RESIDENT. An already-loaded module keeps
+its version — the BEAM does not swap it because the file on disk changed.**
+⇒ The blast radius of an accidental `erpc` force-load is confined to modules **absent at deploy
+time** — i.e. exactly the NEW-module case, and **never** the amended-existing-module case.
+⇒ So the consequence assessment holds for a stronger reason than "the module is pure and the call was
+read-only": *the only thing the call COULD have touched is a module that did not exist at the
+deployed sha.* **Structure, not luck.**
+⇒ **Recorded as an EXPECTED presence in the deploy ceremony, with the md5 pair as evidence** — so the
+next "serve on <sha>" verification reads it as explained-and-bounded rather than as an anomaly
+rediscovered at speed mid-ceremony. *An unaccounted module found during a deploy is exactly when I'd
+alarm wrongly.*
+
+## ⚠️ AND THE PART THAT WAS MINE
+I could run this check only because `is_loaded` and `module_info` are safe on a live node. **I did not
+know whether my probe scripts were safe BY CONSTRUCTION or safe BY LUCK.** They are safe by
+construction — `is_loaded` cannot load, and `module_info` on an already-loaded module cannot either —
+but I had never stated it, which means I had been relying on a property I had not checked. ⇒ Stated
+now, and the probe file carries it as a comment. **A safety property you have not articulated is one
+you cannot notice losing.**
