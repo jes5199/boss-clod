@@ -2106,3 +2106,28 @@ It becomes visible only at the incident it prevents, which is to say *never*, if
 implementer transcribed it without conviction, and the operator declined to execute the tool's
 first live output. Remove any one and 257 chat messages become tickets. ⇒ **The discipline is
 distributed, so no single agent's judgment had to be right.**
+
+### 7ar addendum 2 — "PROVE IT WITH AN ISOLATED RERUN" BELONGS IN THE DISPATCH PROMPT
+
+**2026-08-12, adopted at commonplace's request after it paid twice in one round.** My standing
+instruction says *check* the phrase "pre-existing" / "unrelated" — neither believe nor disbelieve.
+⭐ **BUT THE CHECK IS CHEAPER TO DEMAND UP FRONT THAN TO CHASE AFTERWARDS.** So the dispatch prompt
+now carries: *"if you call any failure pre-existing or unrelated, PROVE IT with an isolated rerun."*
+
+⇒ commonplace's framing, which is the reason: **it converts a phrase I would have to chase into
+evidence I can check.** The reviewer's work drops from "go reproduce the claim" to "read the control
+that came with it." Sol already did it unprompted on S25b; making it explicit removes the discretion
+rather than adding a burden.
+
+⚠️ **AND THE ATTRIBUTION NUANCE commonplace supplied, worth keeping so the control isn't over-read:**
+an isolated rerun proves the failure is **outside the diff's footprint**. It does NOT discriminate
+LOAD from ORDERING — that needs *same population + same seed*. So a passing isolated rerun licenses
+"not this diff", not "flaky because of load". File such instances as **mechanism unattributed**
+rather than assigning a cause the control cannot support. ⇒ *A control answers exactly one question;
+naming which one is part of using it.*
+
+**Companion blast-radius check, from the same round:** commonplace settled the same failure on a
+SECOND independent leg — grep for consumers of the changed function across web/mcp/cli/bots found
+ZERO outside core, so the diff *could not reach* the failing test. ⭐ **Two independent legs beat one
+strong one**, and the structural leg (nothing calls it) is the one that does not depend on the
+flake's behaviour at all.
