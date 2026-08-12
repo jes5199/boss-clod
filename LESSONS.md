@@ -2387,3 +2387,39 @@ that is **enumerative** (applies to what you remembered). ⇒ Same family as: th
 both shas · `is-active` on a nonexistent unit · every negative table needing a positive control.
 **Ask of any new guard: what does it do about the case I have not thought of yet?** v1 and v2 both
 answered "nothing", and I shipped them both anyway.
+
+## 7au addendum — a TRANSIENT unit reports `Result=success` exactly like a unit that never existed
+
+**2026-08-12 15:07Z.** commonplace ran S28's gate as a detached `systemd-run` unit. When it finished
+I checked it and got:
+
+```
+s28gate:           Result=success  ExecMainStatus=0  LoadState=not-found
+totally-fake-gate: Result=success  ExecMainStatus=0  LoadState=not-found
+```
+
+**IDENTICAL.** A transient unit is destroyed the moment it exits, so anyone reading it afterwards
+gets `success` — the default systemd reports for a unit it has never heard of. **I was one line away
+from telling commonplace "gate green, exit 0" about a unit that, as far as systemd was concerned,
+did not exist.** The gate genuinely WAS green (3,403/0, full population), which is the part that
+makes this dangerous: **a false green that happens to be true this time teaches you to trust it.**
+
+⭐ **THE PAIR, now standing, and they are the same rule twice:**
+| trap | the confident-but-empty verdict | the only tell |
+|---|---|---|
+| aborted ExUnit run | `Finished … 0 failures` over 683 of ~3,400 tests | **the denominator** |
+| transient/absent unit | `Result=success`, `ExecMainStatus=0` | **`LoadState`** |
+⇒ **CHECK THAT THE POPULATION EXISTS BEFORE READING A VERDICT OVER IT.** Both are well-formed
+success reports about nothing, and neither is detectable from the verdict alone.
+⇒ Operationally: **a unit verdict counts only with `LoadState=loaded`, or with the output artifact
+in hand.** A count beats a word.
+
+⚠️ **AND MY OWN HALF, filed because the inference was mine:** I found the gate's log absent and
+reported "the output is gone." The true cause was that commonplace had *already consumed it* — it
+read the tail, grepped for ets errors, reconciled the denominator, pushed, and cleaned up. **ABSENCE
+HAS AT LEAST TWO CAUSES AND I NAMED ONLY THE ALARMING ONE.** The measurement was accurate; the
+inference attached to it was not. Same family as the wrong-path greps earlier today, arriving from
+the opposite direction: there, absence looked like confirmation; here, it looked like loss.
+⇒ Their process fix (gate logs persist until BOTH sides have read them, rather than
+repo-root-then-delete) is the right structural answer: *deleting evidence the moment you've used it
+is fine only while you are the only reader.*
