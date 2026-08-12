@@ -2289,3 +2289,63 @@ on every invocation.**
 filed **artifact** does.* 7aq said the ritual beats the rule under load — this is the receipt. The
 remedy for a trap I keep re-entering is not another entry in this file, it is **moving the check into
 a script and calling the script.**
+
+---
+
+# 7aw — two failures in one ceremony: a gate that fired on correct state, and a diff that became a dump
+
+**2026-08-12 deploy ceremony** (S25b+S26+S27 onto main @016db3b8). Both of these were MINE, both
+were caught inside the ceremony, and the second is the more interesting one.
+
+## ⛔ FAILURE 1 — I wrote a safety gate that KILLED A HEALTHY SERVE
+I paid off the B1b debt by wiring the CX-vvn4 listener audit into the launcher as an automatic
+watchdog instead of a check I remember to run. Sixty seconds after boot it fired:
+
+> ⛔ WATCHDOG REFUSAL: serve pid 120847 opened a NON-5199 socket on a wildcard address.
+> `LISTEN 0 128 127.0.0.1:38597 0.0.0.0:*` … KILLING pid 120847
+
+**The socket was loopback-bound and completely correct.** `0.0.0.0:*` is the **PEER** column, which
+is *always* that for a LISTEN row. My grep scanned the whole line instead of the local-address
+field, so **it matched every listening socket in existence, including the ones it was built to
+bless.** The gate then killed the serve I had just deployed.
+
+⭐ **A GATE THAT FIRES ON CORRECT STATE IS STRICTLY WORSE THAN NO GATE.** No gate leaves you where
+you were. This one took a healthy production process down *with a confident security message
+attached* — and the message was persuasive enough that my first instinct was to look for the
+exposure, not for the bug in my own detector.
+⇒ **THE FIX IS FIELD-ANCHORED PARSING** (`awk '{print $4}'`, the local-address column) — and,
+before trusting it, running it against **real data in BOTH directions**: against hermes it now flags
+`0.0.0.0:9876` (genuinely wildcard) while leaving hermes's loopback dist ports alone. **That
+discrimination is the whole content of the check, and the broken version had none of it** — it
+would have "passed" a truly exposed port for the same reason it failed a safe one.
+⚠️ I had proven the three PRE-FLIGHT refusals could fire (empty key, missing inetrc, unpinned
+inetrc, port-in-use — four distinct exit codes, all demonstrated). **I never proved the watchdog
+could NOT fire.** Testing that a check CAN fail is half the job; the other half is testing that it
+**declines to fail on known-good input**, and I skipped it on the one check that could kill things.
+
+## ⛔ FAILURE 2 — the whole-environ diff printed a live API key, because ONE SIDE WAS EMPTY
+Standing rule: **capture the WHOLE environ, never grep-filter it** — filtering misses what you
+didn't think to grep for. I follow it, and the launcher goes out of its way never to *paste*
+`ANTHROPIC_API_KEY`, sourcing it instead so it stays out of transcripts.
+
+Then my diff printed it in cleartext anyway. Mechanism: I read `/proc/<pid>/environ` for a pid that
+**had already exited** (I recorded a transient parent pid, not the BEAM). The "after" side came back
+**empty**, so every one of the 49 "before" lines rendered as a removal — **and a diff with one empty
+side is not a diff, it is a DUMP.**
+
+⭐ **THE GENERAL FORM:** *a differential display degrades to a full display when one side fails to
+load.* Whatever safety you were getting from "only the changes are shown" evaporates at exactly the
+moment something goes wrong — which is also the moment you are most likely to be looking. **If the
+content is secret-bearing, an unrelated failure (wrong pid) becomes a disclosure.**
+⇒ **REDACT AT CAPTURE TIME, NOT AT DISPLAY TIME.** The capture writes `ANTHROPIC_API_KEY=<REDACTED>`
+to the file; the diff then cannot leak it no matter how it degrades. Redaction that lives in the
+display path is one failed read away from being bypassed.
+**Contained:** same box, same trust boundary, no third party; scratchpad captures scrubbed, key
+unchanged and still valid. It is in this session's local transcript, which is why the fix is
+capture-time and permanent rather than a promise to be careful.
+
+## ⇒ WHAT THE CEREMONY GAINED, since both bugs were mine and both are now closed
+Deploy verification now: 4 proven pre-flight refusals · a **field-anchored** watchdog tested in both
+directions · **capture-time redaction** · whole-boot capture · posture positive control · tree token
+read from the **compiled beam artifact**, not the repo. **Outage cost: one extra restart cycle,
+~90 seconds, inside a window that was already an outage.**
