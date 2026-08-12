@@ -2166,3 +2166,42 @@ answer to some question the prompt didn't ask.**
 reviewer patches (telemetry payload gains the adopted commit's KIND — zero subscribers today makes
 it additive-safe; a 16-line CommitStoreClient wrapper so the differ keeps its remote-serve
 capability; one cosmetic fold-in). Focused re-run 32/0 with patches in.
+
+---
+
+# 7at — a namespaced property read on the wrong pid returns "absent", and absent is the alarming answer
+
+**2026-08-12, S27 dispatch.** I verified the Sol sandbox fence on the running process rather than on
+the script — the right instinct, the standing rule is *verify by effect, ask the running process*.
+I read `/proc/95903/mountinfo` for the `node_signing_key` mask and got **0 hits**.
+
+**0 hits is what a MISSING FENCE looks like.** The signing-key mask is load-bearing: it is the thing
+that stops a sandboxed agent signing commits as this node. Had I stopped there and believed my own
+measurement, the correct next move would have been to kill the run as unfenced.
+
+**The mask was fine.** Pid 95903 is `bwrap` ITSELF, which lives in **my** mount namespace
+(`mnt:[4026531841]`, identical to my shell's). The namespace it constructs belongs to its **child**,
+pid 95907 (`mnt:[4026532359]`) — where all six masks are present, 6 entries out of 31 mounts.
+
+## ⭐ THE GENERAL FORM
+**A namespaced property is not a property of a pid — it is a property of a (pid, namespace) pair.**
+Naming the running process is NOT sufficient when the thing you are asking about is namespaced;
+you must name the process *on the far side of the boundary that creates it*. The launcher never
+observes the fence it installs.
+
+⚠️ **AND THE DANGEROUS DIRECTION IS THE MIRROR OF WHAT I HIT.** I got a *false alarm*, which is
+self-correcting — it makes you look harder. The same error with the polarity flipped is silent:
+read a masked path on a process that ISN'T the sandboxed one but happens to show the mask
+(a sibling, a re-exec, an earlier run's pid) and you get a **false all-clear on a real leak**.
+⇒ Same family as the tree token present at both shas and the boot log with two writers:
+**the measurement is real, the referent is wrong.** Here the referent is a namespace, not a file.
+
+## ⇒ THE FIX, adopted into the dispatch ceremony
+Fence checks name the **sandboxed** pid, and prove it by printing the namespace ids side by side —
+launcher vs sandboxee — so a same-namespace reading is visible as the error it is:
+```
+bwrap pid 95903 ns=mnt:[4026531841]  hits=0    <- shares MY namespace; cannot see the fence
+codex pid 95907 ns=mnt:[4026532359]  hits=1    <- the fence lives here
+```
+Plus the non-vacuity line that was already there and did its job: **6 masked of 31 total mounts** —
+if the grep matched everything, the check would prove nothing.
