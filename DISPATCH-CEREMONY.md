@@ -1,0 +1,78 @@
+# Sol dispatch ceremony
+
+How to put a round in front of Sol. Written down for the same reason as `DEPLOY-CEREMONY.md`:
+**a filed artifact fires where a remembered rule does not** (LESSONS 7av). Nine dispatches on
+2026-08-12 ran entirely out of context; every step below is one that cost something.
+
+Wrapper: `sol-egress-run.sh` (refuses `SOL_WORKDIR=/home/jes/commonplace`, exit 64)
+
+---
+
+## 1. Verify the brief before building a prompt on it
+- Brief present at its sha, and **ABSENT at the prior sha** — a token true at both shas discriminates
+  nothing.
+- **Re-derive the brief's load-bearing cites at HEAD.** Twice a peer's message carried a path with a
+  plausible-but-wrong directory prefix (`store/…`, `chit/…`). ⛔ **A grep against a nonexistent path
+  returns 0 hits, which looks exactly like the confirmed absence you were asked to verify.** Use a
+  known-member positive control every time.
+- If an instruction in the brief is **underdetermined** (the registry that had two naming
+  conventions), say so before dispatch. *An omitted warning costs TIME; a contradictory one costs
+  JUDGMENT.*
+
+## 2. Branch naming
+```bash
+git worktree add /home/jes/sol-<round>/wt -b sol/cx-<ticket>-<round> <sha>
+```
+⛔ **NEVER name a branch from the ticket id alone.** Ticket ids are STABLE, so a name derived from one
+is stable too — it **will** collide the second time that ticket is worked. On 2026-08-12
+`sol/cx-1mn4` already existed from an earlier round; `worktree add -b` refused loudly.
+⚠️ **The loud failure was luck.** Had the branch existed but been checked out nowhere, a `worktree
+add` *without* `-b` would have silently put Sol on the old round's commits.
+⇒ A name carrying the **round** is unique per attempt. A ticket id can never be.
+
+## 3. Ticket ids in the prompt
+- **State the work's id and say "AND NO OTHER ID."**
+- **Label every other id by its ROLE**, because they are not interchangeable decoys:
+  | shape | example | risk |
+  |---|---|---|
+  | preamble/setup id | CX-z5rm | became the artifact's citation when it was the only id supplied |
+  | precedent | CX-5983 | reads as the work if unlabelled |
+  | sibling round | CX-brxx / CX-3shs | active in the work, still not its citation |
+  | **closed BY this round** | CX-37d9 / CX-kmtq | pattern-imitated and defect-fixed — *roles*, not citations |
+  | **a different ticket that NEEDS this one** | CX-fbah vs CX-1mn4 | ⛔ working the wrong one licenses what this round forbids |
+  | **a commit sha where an id is expected** | e2a6e0e | not a ticket at all |
+- ⭐ **Give Sol an escape hatch pointed at yourself**: *if you need an id and only have those, that is
+  a bug in my prompt — use \<work id\> and say I under-specified.*
+
+## 4. Launch + fence, verified on the RUNNING process
+```bash
+SOL_WORKDIR=… nohup sol-egress-run.sh "$(cat prompt.txt)" > run.log 2>&1 &
+```
+- **Prompt reached argv**, not just the flags: `tr '\0' '\n' < /proc/<codex-pid>/cmdline | grep -c <id>`
+- `-C` points at the worktree.
+- ⛔ **Masks are verified in the SANDBOX'S namespace, not bwrap's.** bwrap shares the launcher's
+  namespace and shows **0** masks — which looks exactly like an unfenced run (LESSONS 7at). Read
+  `/proc/<child-pid>/mountinfo`; expect 6 masked of ~31 mounts.
+
+## 5. While it runs
+- **codex at 0% CPU with a busy beam is a healthy WAIT, not a stall.** Check the subprocess before
+  calling anything wedged.
+- ⛔ **`pgrep -f 'codex exec'` typed inline MATCHES YOUR OWN SHELL.** The nudge scripts anchor
+  (`(^|/)codex (exec|resume)`) and are right when they disagree with an inline check (LESSONS 7av).
+- Turn markers advancing ⇒ progress. A distinct-line ratio is a **bad** oracle for diff-heavy output.
+
+## 6. On completion
+- **Anchored refusal check** over codex's own output region — an unanchored grep matches your own
+  prompt text *and* the suite's log lines (`refusing to pick one`).
+- ⛔ **`git diff` does not contain new files.** An empty result for a property that lives in an
+  untracked test file is a method artifact, not a missing property.
+- Verify the round's **weighted** properties directly, and prefer proof over shape — see
+  `DEPLOY-CEREMONY.md`'s appendix: *a forgery satisfies every equality check.*
+- **Before trusting any zero, assert the corpus was non-empty.** `apps/*/lib` matches **0** files
+  (git's `*` does not cross `/`); use `apps/**/lib/**` and count the matches first.
+
+## 7. A failed dispatch is not a no-op
+⭐ **"It didn't start" is a claim about the WRAPPER, not about what the shell already did.** A failed
+`worktree add` still ran git. **Check the round's own fences before retrying, not after** — for S35
+that meant confirming `git -C /home/jes/yelixer log origin/main -1` was unchanged and no remote refs
+existed, since the round forbids pushing anything.
