@@ -2544,3 +2544,42 @@ the same instinct that killed the fence theory and the timer-bleed theory earlie
 **Bonus, and it argues the same way:** the ~$3.30 funding gap I was still carrying as open had already
 resolved — option BP $1,336 vs $329, broker margin release. **Two stale beliefs in one check**, both
 about live money, both fixed by asking the system that owns them.
+
+---
+
+# 7b0 — I nearly reported the live serve leaking two secrets, from my own session's environment
+
+**2026-08-12, third deploy of the day** (S31+S34 onto b95bb53e). Post-deploy environ capture returned
+**47 vars instead of 49**, and the diff showed:
+- `LETTA_API_KEY` **PRESENT** · `SQUAD_ALERTS_PUBLISHER_TOKEN` **PRESENT** · `AI_AGENT` **PRESENT**
+- `PHX_SERVER`, `PORT`, `ERL_INETRC`, `COMMONPLACE_*` **ABSENT**
+
+**That is exactly the shape of the leak the launcher exists to prevent** — both scrubbed secrets back
+in the serve's environment — and it is the deploy check's whole reason for existing. I was one
+message from raising it as a live-system security finding.
+
+## ⛔ I HAD CAPTURED THE WRONG PROCESS
+`pgrep -f commonplace_dev` returned **279829**, a **Claude Code process** — obvious in hindsight from
+`CLAUDECODE`, `CLAUDE_CODE_SESSION_ID`, `CLAUDE_PID` sitting in the same environ. The real serve was
+**279851**. The "leaked secrets" were **MY OWN SESSION'S**, which legitimately holds both.
+
+⇒ **THE FIX: IDENTIFY THE SERVE BY THE PORT IT OWNS, NOT BY A NAME PATTERN.**
+`ss -ltnp | grep :5199` names exactly one process **by effect** — and "the process serving :5199" is
+precisely the thing every deploy claim is about. A pattern match answers *"what is NAMED like a
+serve"*; the port answers *"what IS the serve."* The correct capture came back 49 vars, identical to
+pre-deploy, zero leaks, `PHX_SERVER=1` as control.
+
+## ⭐ THE TELL I WALKED PAST, and it is the transferable part
+**A MANDATORY VARIABLE WAS MISSING.** `PHX_SERVER` is set unconditionally by the launcher — it cannot
+be absent from a serve. Its absence proved the referent was wrong **before** the presence of a
+forbidden variable suggested a leak.
+⇒ **CHECK YOUR POSITIVE CONTROLS BEFORE YOU BELIEVE YOUR ALARMS.** I had the control in the same
+output and read the alarming half first. An alarm and a broken referent are indistinguishable from the
+alarming half alone; **only the control tells them apart, and the control was already on my screen.**
+⚠️ Direction matters: this would have been a **FALSE SECURITY ALARM ABOUT ANOTHER AGENT'S LIVE
+SYSTEM**, sourced from my own process. Same pgrep-referent family as 7at/7av, but the first one where
+the wrong answer would have been *actively damaging* rather than merely wasteful — a leak report gets
+acted on.
+
+**Ceremony updated:** post-deploy capture takes its pid from `ss -ltnp` port ownership, and the
+verification asserts `PHX_SERVER` present as a precondition **before** reading anything else.
