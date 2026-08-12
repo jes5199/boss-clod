@@ -57,6 +57,11 @@ Confirm `:5199` has 0 listeners and hermes `ActiveState=active` before continuin
   It mutates node-global Application env during birth; harmless while unreachable, and **lazy-load
   makes it reachable the moment anything names it.** Positive control: the same grep must find
   `PodProfile.` calls.
+- ⭐ **`Runner.Provisioner` also puts pod stores in the GLOBAL name registry during birth**
+  (`{:global, {Module, :role, make_ref()}}` — unique per call, supervisor stopped in an `after`, so no
+  singleton hazard today). Together with the node-global env mutation, that is **two independent
+  reasons the worker-launch round's seam replacement is load-bearing** — both harmless while
+  unreachable, both reachable the moment that round names them.
 - **CX-2h03** (GitBridge.InboundTest pin 9, teardown `:noproc`) is load-sensitive. If a gate hits it,
   the isolated-rerun license is already established — **do not let it stall the deploy.**
 
@@ -70,3 +75,23 @@ Confirm `:5199` has 0 listeners and hermes `ActiveState=active` before continuin
   log at +2s). Gate units need `systemd-run -E PATH="$PATH"` or `mix` is not found.
 - ⭐ Sandbox runs and systemd-unit runs are **NOT interchangeable oracles** — same tree, same
   reconciling population, different verdicts, neither dishonest (LESSONS 7ay).
+
+
+---
+
+## Appendix — what a check actually proves
+
+⭐ **ASSERTING SHAPE IS NOT ASSERTING VALIDITY, and shape is what is easy to assert.**
+commonplace's S33 patch is the case that names it: two tests asserted a certificate's audience,
+verbs, scope and caveats — every field correct — on an artifact that need not have been a
+certificate at all. **Shape equality cannot distinguish a real certificate from a well-formed
+record.** The fix was to make the artifact prove itself: `verify_id/1` (the id matches its own
+bytes) and `verify_sig/1` (the signature verifies against the issuer key).
+⇒ Most checks in this file are shape checks — a token present at one sha and absent at another, a
+mask named in a list, a refusal naming its field. **A forgery would satisfy all of them.** Where an
+artifact can prove itself cryptographically or by reconstruction, prefer that over equality.
+
+⭐ **AND A CONTROL SHOULD PROVE THE NEEDLE IS FINDABLE, not merely that the haystack is non-empty.**
+Checking "0 `get_env` added against 437 added lines" proves the diff isn't empty. Checking that
+**the touched files already contain 4 such calls** proves the grep can find that pattern *in this
+exact haystack* and still found none added. The second is strictly stronger and costs the same.
