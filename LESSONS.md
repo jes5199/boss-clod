@@ -2611,3 +2611,48 @@ reading any verdict from it. "The file exists" is not enough — a 1-line file e
 ⚠️ Same family as the denominator rule, one level out: there, a partial run's *count* betrayed it;
 here, a failed run's *artifact size* betrays it. **Both are cases where the thing reporting success
 has no idea how much of the work it did.**
+
+---
+
+# 7b1 — I copied a SQLite database without its WAL and nearly contradicted a live-money fill
+
+**2026-08-12 19:51Z.** hermes reported Musk-pair's first live trade: BUY 1 TSLA @ $327.43, order
+493807264, 19:50:05Z. Standing rule says verify a trading-stack claim from the DB before relaying, so
+I did:
+```
+rotation_state:  held=NONE  qty=0  stake_cash=0  updated_at=2026-08-11 19:48:18   ← YESTERDAY
+rotation_evals:  1 row, eval_date 2026-08-11, action=preview, reason=keys_off
+```
+**No fill. No order. No eval for today.** That reads as *hermes is reporting a trade that did not
+happen* — a false alarm about live money, contradicting the agent that owns it.
+
+## ⛔ I HAD COPIED `hermes_dev.db` AND NOT ITS WAL
+`cp hermes_dev.db /tmp/…` — and `hermes_dev.db-wal` was **4.1 MB**. SQLite commits land in the
+write-ahead log first; a copy of the main file alone is a **coherent, readable, entirely plausible
+database that is simply stale.** Reading the live file with `?mode=ro` (safe — no writes) includes the
+WAL and shows exactly what hermes said:
+```
+held=TSLA  qty=1  stake_cash=72.8315  updated_at=2026-08-12T19:50:05
+eval_date=2026-08-12  ratio=2.2392  sma10=2.6800  action=buy_entry  buy_order_id=493807264
+```
+**Every number matched.**
+
+## ⭐ WHY THIS IS THE SHARPEST INSTANCE OF THE DAY'S FAMILY
+Today's other referent failures announced themselves: a missing file, a 0 count, a missing mandatory
+variable, a `not-found` LoadState. **This one had no tell at all.** The stale copy is internally
+consistent, answers every query, and contains a *correct* row from yesterday — there is nothing
+anomalous to notice. ⚠️ Worse, it fails **conservatively-looking**: it shows LESS state than reality,
+so it reads as "the thing you were told about didn't happen" rather than as an error.
+⇒ **A SNAPSHOT IS ONLY A SNAPSHOT OF WHAT YOU COPIED.** For SQLite in WAL mode the database is
+`.db` + `-wal` + `-shm`, and copying one of three yields a plausible past.
+⇒ **THE RULE: read the live file with `?mode=ro` rather than copying it.** Read-only URI mode takes no
+locks that matter, includes the WAL by construction, and cannot be stale. If a copy is genuinely
+needed, take all three files or use `VACUUM INTO`/`.backup`, never `cp` of the `.db` alone.
+⇒ **AND THE POSITIVE CONTROL THAT WOULD HAVE CAUGHT IT INSTANTLY:** the freshest row's timestamp. A
+snapshot whose newest row is ~24h old, taken to verify an event from 90 seconds ago, is answering
+about the wrong moment. **Ask any store "what is the newest thing you know?" before asking it whether
+a specific recent thing exists.**
+
+**Outcome:** verified and relayed correctly, and I told jes about the near-miss because the correction
+would otherwise have been invisible to him — the version of this where I stay quiet is the one where a
+false contradiction of a live-money report looks like diligence.
