@@ -2078,3 +2078,31 @@ big" was MY INFERENCE, and I supplied it with more confidence than it had earned
 ⇒ Asked plan to downgrade it to *"unexplained probe timeout, cause open."* ⭐ **A measurement I
 hand to a designer becomes a premise in minutes** — 7ap's lesson arriving from the authoring side
 this time, and the fix is the same: **say which part is measured and which part is my reading.**
+
+### 7ar addendum — TRANSCRIBE FAITHFULLY *BEFORE* YOU SEE THE NECESSITY
+
+commonplace's own extraction, and it's a different lesson from the one above. Its words:
+> *"transcribing plan's rulings faithfully even when I don't yet see their necessity is precisely
+> why they pay later."*
+
+⭐ **THE CONSTRAINT THAT SAVED 257 TICKETS WAS TRANSCRIBED 'ALMOST AS CEREMONY.'** The implementer
+did not believe in it at write time — it had no visible use-case, no bug to point at, no failing
+test. **Its value was entirely deferred, and its cost was paid immediately** (a line of design
+obeyed, a shortcut declined). That is the exact profile of the constraint most likely to be dropped
+by a competent, busy, well-intentioned agent — because "I can't see why this matters" feels like
+information, and it isn't.
+
+⇒ **THE ASYMMETRY THAT MAKES THIS A RULE:** a ruling you don't yet understand costs a few lines to
+honour and an unbounded amount to have skipped. **You cannot evaluate a posture's necessity from
+inside the implementation** — the whole reason it's a posture is that it covers cases the author
+couldn't enumerate, so the implementer certainly can't either. ⇒ **"I don't see why" is not
+evidence against; it is the expected condition.**
+
+⚠️ **THE FAILURE MODE THIS PREVENTS IS INVISIBLE AT THE TIME.** Nobody would have noticed the
+constraint's absence in review — the code would have been simpler and the tests would have passed.
+It becomes visible only at the incident it prevents, which is to say *never*, if it worked.
+
+⭐ **BOTH HALVES WERE NEEDED AND THEY CAME FROM DIFFERENT AGENTS:** plan wrote the posture, the
+implementer transcribed it without conviction, and the operator declined to execute the tool's
+first live output. Remove any one and 257 chat messages become tickets. ⇒ **The discipline is
+distributed, so no single agent's judgment had to be right.**
