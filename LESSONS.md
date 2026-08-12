@@ -2583,3 +2583,31 @@ acted on.
 
 **Ceremony updated:** post-deploy capture takes its pid from `ss -ltnp` port ownership, and the
 verification asserts `PHX_SERVER` present as a precondition **before** reading anything else.
+
+## 7b0 addendum — a transient unit that died in 2 SECONDS looks identical to one that finished hours ago
+
+**2026-08-12, commonplace's ops finding, extending the transient-unit trap.** Its first S32 gate unit
+**died after 2 seconds**: `mix` is not in the systemd *user-unit* PATH, so the command failed
+immediately. Fix: `systemd-run -E PATH="$PATH"`.
+
+⭐ **THE PART THAT EXTENDS 7au/7b0:** I had established that a finished transient unit reports
+`Result=success` / `LoadState=not-found` identically to a unit that never existed. **This is the same
+observable from a THIRD state — a unit that failed instantly.** All three converge:
+| actual state | Result | LoadState |
+|---|---|---|
+| finished successfully hours ago | success | not-found |
+| never existed | success | not-found |
+| **died in 2 seconds** | success | not-found |
+⇒ So `LoadState` distinguishes *never-existed* from *currently-loaded*, but it does **NOT** separate
+*succeeded* from *failed-instantly* once the unit is gone. **The verdict fields are exhausted.**
+
+⇒ **THE DISCRIMINATOR IS THE ARTIFACT'S SIZE AND TIMING, NOT ANY UNIT FIELD.** commonplace's tell was
+*"LoadState=not-found at +2s plus a ONE-LINE log"* — a real full-core run produces a ~570KB log over
+~12 minutes. **An output artifact that is implausibly small or implausibly fast is the only signal
+that survives the unit's disappearance.**
+⇒ Operationally, for any gate I launch: record the launch timestamp, and on completion assert BOTH
+that the artifact exists AND that its size/duration are in the right order of magnitude before
+reading any verdict from it. "The file exists" is not enough — a 1-line file exists too.
+⚠️ Same family as the denominator rule, one level out: there, a partial run's *count* betrayed it;
+here, a failed run's *artifact size* betrays it. **Both are cases where the thing reporting success
+has no idea how much of the work it did.**
