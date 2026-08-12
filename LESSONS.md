@@ -2252,3 +2252,40 @@ an invented unit name, which took four seconds and killed the alarm outright.
 which are self-correcting — they make you look harder. The mirror is silent: a check that reads
 `active`/`present` from the wrong scope or namespace yields a **false ALL-CLEAR on a real outage**.
 ⇒ **Nothing reached jes.** The 4-second control is what kept a live-money false alarm off his phone.
+
+---
+
+# 7av — addendum to the self-match entry: knowing it is filed did not stop me hitting it three more times
+
+**2026-08-12.** The `pgrep -f` self-match is already in this file, twice, with the mechanism stated
+exactly right: *a pattern typed inline lives in the shell's own argv; the same pattern inside a
+script file does not.* **I hit it three more times today anyway** — checking for a Sol run in flight,
+checking for a hermes BEAM, and checking whether S27 was still alive. The third one produced a
+**false "S27 RUNNING"** while the run had already exited, which is the direction that wastes a review
+cycle rather than the direction that loses work.
+
+## ⭐ THE PART THAT IS ACTUALLY NEW, and it is not about pgrep
+**`sol-nudge.sh` got it right every single time, while I got it wrong every single time, on the same
+question in the same minutes.** The script's pattern is `(^|/)codex (exec|resume)` — anchored to a
+path boundary, so a quoted mention inside `bash -c '…codex exec…'` cannot satisfy it. My inline
+version had no anchor.
+⇒ **The script is not smarter than me. It is OLDER than me** — it carries a fix someone already paid
+for, in a file, where it fires every time without being remembered. **My shell line starts from zero
+on every invocation.**
+
+## ⇒ SO THE FIX IS NOT "REMEMBER THE TRAP" — I demonstrably do remember it, and it filed itself
+1. ⭐ **DON'T HAND-TYPE A LIVENESS CHECK THAT A SCRIPT ALREADY IMPLEMENTS.** When `sol-nudge.sh`
+   and my shell disagree about whether a run is in flight, **the script wins** — it is the artifact
+   with the fix baked in. Today I treated its "idle" as the thing needing reconciliation against my
+   pgrep, when the correct prior was the reverse.
+2. **If a check must be inline, ANCHOR IT** (`(^|/)cmd`) or exclude `$$` — and treat an unanchored
+   `-f` match as unreviewed.
+3. ⚠️ **THE SAME SHAPE BIT THE REFUSAL GREP** an hour later: my content-filter check matched *my own
+   prompt text* echoed into the log, and later matched commonplace's *suite output*
+   (`refusing to pick one`, `denial auditing is DEGRADED`). **Three different instruments, one
+   defect: the pattern matched the observer or the noise, never the thing asked about.**
+
+**THE GENERAL FORM, which is now earned rather than restated:** *a filed lesson does not fire; a
+filed **artifact** does.* 7aq said the ritual beats the rule under load — this is the receipt. The
+remedy for a trap I keep re-entering is not another entry in this file, it is **moving the check into
+a script and calling the script.**
