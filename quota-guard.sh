@@ -72,6 +72,45 @@ fi
 BURN_LIMIT=1.05
 STOP_PCT=99
 
+# ─────────────────────────────────────────────────────────────────────────────
+# ⛔ SCOPED / ACTIVE LIMITS — added 2026-08-12 after this guard missed a
+#    Fable-scoped weekly cap sitting at 90% CRITICAL while the two windows it
+#    DID read showed 8% and 56%. The cap was in the same JSON response all day,
+#    in a `limits` array this script never parsed.
+#
+# ⭐ THE LESSON (LESSONS 7ax, arriving in the quota reader): a check that reads
+#    a MAINTAINED LIST OF NAMED FIELDS fails on the first field nobody listed —
+#    silently, because an unparsed limit looks exactly like an absent one.
+#    ⇒ So do NOT add 'seven_day_fable' to the window list. Read the API's OWN
+#      severity/active flags, which cover limits that do not exist yet.
+SCOPED=$(echo "$JSON" | python3 -c "
+import sys, json
+d = json.load(sys.stdin)
+out = []
+for l in (d.get('limits') or []):
+    pct = l.get('percent')
+    if pct is None:
+        continue
+    sev    = (l.get('severity') or 'normal').lower()
+    active = bool(l.get('is_active'))
+    if sev in ('critical', 'warning') or active:
+        sc = l.get('scope') or {}
+        m  = ((sc.get('model') or {}).get('display_name')) or l.get('kind') or 'unknown'
+        out.append('%s=%s%%:%s%s' % (m, pct, sev, ':ACTIVE' if active else ''))
+print(' '.join(out))
+" 2>/dev/null)
+
+# Anything the API itself calls critical, or names as the binding limit, is a
+# throttle signal regardless of which window it belongs to.
+SCOPED_CRIT=$(echo "$JSON" | python3 -c "
+import sys, json
+d = json.load(sys.stdin)
+bad = [l for l in (d.get('limits') or [])
+       if (l.get('percent') or 0) >= 90
+       and ((l.get('severity') or '').lower() == 'critical' or l.get('is_active'))]
+print(1 if bad else 0)
+" 2>/dev/null)
+
 # Highest-BURN window across all non-null windows (was: highest utilization).
 read MAX_RATIO MAX_LABEL MAX_UTIL <<<"$(echo "$JSON" | python3 -c "
 import sys, json, datetime as dt
@@ -136,13 +175,27 @@ SEVEN_INT=$(python3 -c "print(int($SEVEN_UTIL))")
 
 OVER=$(python3 -c "print(1 if $MAX_RATIO >= $BURN_LIMIT else 0)")
 
-if [ "$SEVEN_INT" -ge "$STOP_PCT" ]; then
+# ⛔ A scoped cap only THROTTLES if the fleet actually runs that model.
+# Fable sat at 92% critical/ACTIVE after every agent moved to Opus — firing on
+# that would have paused the loops for 4.5 days over a model nobody uses.
+# ⇒ The API knows the cap; only .fleet-models knows whether it BINDS US.
+SCOPED_BINDS=0
+if [ "$SCOPED_CRIT" = "1" ] && [ -s /home/jes/boss-clod/.fleet-models ]; then
+  for m in $(echo "$SCOPED" | tr ' ' '\n' | cut -d= -f1); do
+    grep -qiFx "$m" /home/jes/boss-clod/.fleet-models && SCOPED_BINDS=1
+  done
+fi
+
+if [ "$SCOPED_BINDS" = "1" ]; then
+  echo "SLOW_DOWN|scoped limit critical AND IN USE by the fleet: ${SCOPED} — binding cap is not the all-models weekly"
+  exit 1
+elif [ "$SEVEN_INT" -ge "$STOP_PCT" ]; then
   echo "STOP|7d at ${SEVEN_UTIL}% — over ${STOP_PCT}%, hard backstop"
   exit 2
 elif [ "$OVER" = "1" ]; then
   echo "SLOW_DOWN|${MAX_LABEL} burning ${MAX_RATIO}x (>= ${BURN_LIMIT}) at ${MAX_UTIL}% used — would exhaust EARLY"
   exit 1
 else
-  echo "OK|worst ${MAX_LABEL} ${MAX_RATIO}x (limit ${BURN_LIMIT}) — 5h=${FIVE_UTIL}% 7d=${SEVEN_UTIL}%"
+  echo "OK|worst ${MAX_LABEL} ${MAX_RATIO}x (limit ${BURN_LIMIT}) — 5h=${FIVE_UTIL}% 7d=${SEVEN_UTIL}%${SCOPED:+ | scoped: $SCOPED}"
   exit 0
 fi
