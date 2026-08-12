@@ -2131,3 +2131,38 @@ SECOND independent leg — grep for consumers of the changed function across web
 ZERO outside core, so the diff *could not reach* the failing test. ⭐ **Two independent legs beat one
 strong one**, and the structural leg (nothing calls it) is the one that does not depend on the
 flake's behaviour at all.
+
+## 7as — A PROMPT'S BOILERPLATE TICKET-ID BECOMES THE ARTIFACT'S CITATION
+
+**2026-08-12, S26 round 2, my error and commonplace caught it in review.** Sol's new node_sync
+moduledoc cited **CX-z5rm** — a ticket that EXISTS, but is about *Sol dispatch brief preambles*,
+nothing to do with adoption. Correct ref: CX-5983.
+
+⭐ **THE CAUSE IS IN MY PROMPT, MEASURED NOT GUESSED:** all three dispatch prompts I wrote carry
+`SANDBOX PREAMBLE (CX-z5rm)` as standing boilerplate — and contain **ZERO occurrences of CX-5983**,
+the ticket the work is about. ⇒ **Sol had exactly one ticket id available and used it.** It did not
+hallucinate a reference; it inherited the only one I supplied.
+
+## ⛔ THE FAILURE SHAPE — worse than a fabricated id
+commonplace's words: *"a real-but-wrong reference is worse than a fabricated one: an existence check
+passes while the pointer misleads."* ⇒ **Correct-tool-wrong-referent, in a doc line.** A reviewer
+who validates ticket refs by checking they resolve gets a green. The id is real, the subject is
+wrong, and the doc now points a future reader at an unrelated ticket.
+⚠️ Same family as: the probe against a serve lacking the verb · the tree token present at BOTH shas ·
+the boot log with two writers · "idle by choice". **The artifact is fine; the REFERENT is wrong.**
+
+## ⇒ TWO FIXES, both mine
+1. ⭐ **THE WORK'S OWN TICKET ID GOES IN THE PROMPT, EXPLICITLY, EVERY TIME** — and if a doc line
+   should cite it, say which id. A prompt that names no ticket but carries boilerplate ids has
+   *chosen* the citation by omission.
+2. **TICKET IDS IN DOCS NEED SUBJECT VERIFICATION, NOT EXISTENCE VERIFICATION** (commonplace's line,
+   adopted). "It resolves" is not "it is about this."
+⚠️ **AND THE GENERAL FORM, which is the part worth carrying:** *boilerplate is not inert.* Standing
+preamble text — ticket ids, paths, example names — is available to the model as material, and it
+will be used when nothing better is supplied. **Every constant in a prompt template is a default
+answer to some question the prompt didn't ask.**
+
+**Round outcome unaffected:** commonplace patched it to CX-5983 at review, along with three other
+reviewer patches (telemetry payload gains the adopted commit's KIND — zero subscribers today makes
+it additive-safe; a 16-line CommitStoreClient wrapper so the differ keeps its remote-serve
+capability; one cosmetic fold-in). Focused re-run 32/0 with patches in.
