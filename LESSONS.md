@@ -2030,3 +2030,51 @@ seconds.*
 than re-coupling the serve to its own pane. ⇒ **That is the behaviour to reinforce — and the reason
 to spend the response on the mechanism instead of on the person.** I said nothing about its selector;
 it already had the file.
+
+## 7ar — THE CONSTRAINT WRITTEN AS PRINCIPLE CAUGHT THE BUG NOBODY PREDICTED
+
+**2026-08-12 08:17Z.** S24's backfill ran live: walked 5855 docs, indexed 1187, 0 refused. Then the
+torn-create scan returned **258 results — exactly ONE real ticket (CX-7cpf) and 257 FALSE
+POSITIVES.** The backfill's `issue_doc?/2` accepts anything decoding issue-shaped with a non-empty
+id + created_at, which swallows **comment docs and chat messages**. One flagged doc was
+`{"author":"Jes Wolfe!","body":"DIRECTION GIVEN..."}` — a chat message, classified as a torn ticket.
+
+⭐⭐ **IF RECOVERY HAD AUTO-COMPLETED, IT WOULD HAVE MINTED 257 FAKE TICKETS FROM CHAT MESSAGES
+INTO THE ISSUES DIRECTORY.** It did not, because plan had ruled — as constraint 5 of five, written
+*before anyone knew there was a bug* — that **recovery NEVER auto-completes silently; completion is
+a visible act, manual or verb-gated until the mechanism has earned trust.** commonplace transcribed
+it "almost as ceremony." It paid within six hours of landing.
+
+## ⭐ WHY THIS ONE IS DIFFERENT FROM THE REST OF THE WEEK'S CATCHES
+Most catches here are **checks aimed at a suspected failure** — a positive control against a
+vacuous zero, an ancestry test with its reverse, a tree token against an empty merge. Each was
+built by someone who could name what they feared.
+⇒ **THIS ONE WAS NOT AIMED AT ANYTHING.** No one suspected `issue_doc?/2`. The constraint was
+derived from a POSTURE — *a mechanism that has not earned trust does not get to act unsupervised* —
+and postures cover cases their author cannot enumerate. ⭐ **A CHECK CATCHES THE FAILURE YOU
+IMAGINED; A POSTURE CATCHES THE ONE YOU DIDN'T.** Both are needed and they are not substitutes.
+
+⚠️ **AND THE FAILURE WOULD HAVE BEEN INVISIBLE-BY-CONSTRUCTION.** Auto-linking 257 comment docs
+produces *well-formed tickets in the directory* — no error, no denial, no crash. It would have
+looked like the repair working, at scale. **The blast radius of an auto-completing recovery is the
+size of its own false-positive rate, and nobody measures that before shipping a recovery.**
+
+## ⭐ MEASURE-BEFORE-ACTING, AT THE OPERATOR LAYER
+commonplace **triaged the 258 instead of linking them, and stopped.** The mechanism made the
+finding possible; the operator declining to trust its own new tool made it safe. ⇒ *A tool's first
+live output is a measurement to be checked, not an instruction to be executed* — which is the
+same law as never reading a report as a result.
+
+**Scope, so this isn't over-read:** the going-forward create-time index is FINE (only real
+`Issue.create` sets the marker). This is purely the backfill heuristic. The 257 spurious index rows
+are harmless — append-only, VISIBLE untouched — but poison the scan until the discriminator is
+fixed and re-run.
+
+## ⚠️ AND MY OWN ERROR IN THE SAME HOUR, CORRECTED AT THE SOURCE
+At 07:31 I routed plan a CubDB integrity-probe timeout as **"a second independent signal of store
+size,"** and it went into the storage note within minutes. **The backfill then walked 5855 heads
+FAST.** ⇒ The store is not obviously large; the probe timing out is a FACT, "therefore the store is
+big" was MY INFERENCE, and I supplied it with more confidence than it had earned.
+⇒ Asked plan to downgrade it to *"unexplained probe timeout, cause open."* ⭐ **A measurement I
+hand to a designer becomes a premise in minutes** — 7ap's lesson arriving from the authoring side
+this time, and the fix is the same: **say which part is measured and which part is my reading.**
