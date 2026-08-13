@@ -4917,3 +4917,36 @@ false doc claim is the silent-wrong-answer shape in prose, surviving because not
 for truth.**
 ■ ⚠️ **My telegram quoted "closed at six." His conclusion — stop re-reading — is unchanged, so I
 corrected the FILE and not his phone.**
+
+### 7g51 — ⛔ I NEARLY REASONED FROM THE PRECEDENT INSTEAD OF MEASURING
+On the leaked `ANTHROPIC_API_KEY` I was about to argue *"it's in his shell profile anyway, so the
+serve added no marginal exposure"* — **the `LETTA_API_KEY` precedent made that the obvious story.**
+⇒ **Measured instead:** **NOT in `.bashrc`/`.profile`/`.bash_profile`/`.env`** (positive control:
+grep found `bossclaude`, 1 hit) · **0 of 77 readable live process environs carry it now.**
+⭐⭐ **IT IS NOT AMBIENT — it came from whatever session launched the serve on Aug 12, and exists in no
+live process today.** ⇒ **Same MECHANISM (inheritance), DIFFERENT SOURCE — so the "recurrence" is
+narrower than I claimed, and the argument I nearly made was FALSE.**
+⚠️ **A precedent supplies a ready-made explanation that fits, which is exactly when it stops being
+evidence.** ⭐ **The measurement was three commands.**
+■ ⭐ **And commonplace's separation is what made it a decision rather than a note: *"the leak is
+closed" and "the exposed credential is still valid" are DIFFERENT STATES, and only one of them is
+fixed.*** ⇒ **Asked jes once, with the scope measured so he can decide cheaply; dropping it after.**
+
+### 7g52 — ⭐⭐ SAFETY BY ACCIDENT, THIRD INSTANCE
+Sol could not have read the serve's environ — `--unshare-pid` gives the sandbox a `/proc` with only
+its own 4 processes (**positive control: readable from outside the fence**).
+⛔ **But that flag was added for `CX-vtaa` to stop a round seeing SIBLING PROCESSES, not to protect
+another process's secrets.** ⇒ ⭐ ***"Happens to cover" is the property that disappears the day
+someone drops a flag for an unrelated reason*** — **and nothing would announce it.**
+■ **The three known instances, none of which has a test:** `Commonplace.Trust` un-hot-swappable only
+because it was already loaded · `bin/bd` safe on Sol only because a fresh worktree lacks a Dolt DB ·
+**the PID fence protecting a credential it was never aimed at.**
+
+### 7g53 — ⛔ A GUARD THAT LANDS FIRST CAN FORECLOSE THE BETTER FIX
+I recommended building the enumeration guard (`CX-3vgy`). commonplace reframed its brief to open with
+a prior question: ***is there a version where the unchecked variant simply STOPS EXISTING?***
+⇒ ⭐ **A remedy you must REMEMBER to call can only ever be unreached-safe, never bound-safe.**
+⚠️⚠️ **And the clause I missed entirely: A GUARD THAT LANDS FIRST REMOVES THE SYMPTOM THAT WOULD HAVE
+MOTIVATED THE BETTER FIX.** ⭐ **Same species as the change that would have erased S55's finding — a
+correct change whose effect is to retire the question.** ⇒ **Ask the deletion question BEFORE building
+the guard; I was wrong to frame the guard as the obvious next step.**
