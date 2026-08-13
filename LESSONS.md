@@ -4490,3 +4490,23 @@ third pass's green** (same seed, same code, still non-deterministic) **before an
 as a clean baseline.**
 ⛔ **So it gets filed under whichever answer arrives. A run that is only written up when it confirms
 is a FILTER, not a measurement.**
+
+### 7g16 — ⭐⭐ THE REPEAT DIDN'T CONFIRM OR REFUTE — IT SPLIT ONE FINDING INTO TWO KINDS
+Re-firing seed 16421 at `db0505a7` twice (`3472 / 2 / rc 2` both times) **separated two failures that
+one run had made look alike:**
+- **DETERMINISTIC:** `MUD.RoomVisibilityTest:372`, identical both runs — same test, same line, same
+  assertion. ⇒ **A real reproducer**, the thing the suite-reliability arc has never had.
+- **NON-DETERMINISTIC, AND THE NON-DETERMINISM IS THE FINDING:** same seed, same error shape,
+  **DIFFERENT VICTIM** — `read_test.exs:105` in run A, `:147` in run B, both `(File.Error) …
+  file already exists` from `rm_rf!` in an `on_exit` teardown.
+  ⇒ ⭐ **THE SEED PINS WHICH TEST LOSES THE RACE, NOT WHETHER ONE DOES** — a real concurrency defect
+  in the fixture, not an ordering artifact.
+⇒ ⭐⭐ **I ARGUED "BOTH OUTCOMES ARE WORTH THE RUN" AND BOTH OUTCOMES WAS THE WRONG FRAME: THERE WAS A
+THIRD.** ⚠️ **One run says "2 failures" and the natural reading is "two flakes."** **Only the repeat
+distinguishes them** — and filing after run A would have called both seed-reproducible and **sent a
+fixer hunting an ordering bug that does not exist.**
+⭐ **A REPEATED RUN IS NOT REDUNDANCY. IT IS THE ONLY THING THAT SEPARATES *DETERMINISTIC* FROM MERELY
+*FREQUENT*.** ⛔ And the wrong fix was fenced: **retrying `rm_rf` hides a writer still active after
+its test finished, which IS the defect.**
+■ ⭐ Third acceptance arm worth stealing: **the fix must leave the suite ABLE to go red for another
+reason** — *do not make the suite unable to fail.*
