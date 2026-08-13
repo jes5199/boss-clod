@@ -260,10 +260,27 @@ MASK=(
 #   the roots you hand it.
 # ⇒ So this derives, at every launch, over the SYSTEM runtime dir, and masks
 #   only what is actually REACHABLE as this uid (mode/group decide, not name).
-#   Measured 2026-08-13: 16 sockets under /run; 5 reachable as jes —
-#   docker.sock (via the `docker` group), snapd.socket + snapd-snap.socket
-#   (mode 666), dbus system_bus_socket (666), postgresql (777), uuidd (666).
-#   lxd/systemd-private/initctl/udev were present but NOT reachable.
+# ⚠️ THE NUMBERS BELOW ARE A DATED MEASUREMENT, NOT A LIST THIS SCRIPT RELIES ON.
+#   The code derives at every launch; these are only what the derivation FOUND
+#   on a given day, recorded so a reader can sanity-check the mechanism.
+#   ⛔ DO NOT turn them back into a list — that is the recall defect this
+#   block exists to prevent, and a note beside a derivation is exactly the
+#   thing that ages while the mechanism stays correct.
+#   • 2026-08-13 ~09:47Z — 5 reachable: docker.sock (via the `docker` group),
+#     snapd.socket + snapd-snap.socket (666), dbus system_bus_socket (666),
+#     postgresql (777). lxd/systemd-private/initctl/udev present, NOT reachable.
+#   • 2026-08-13 ~15:00Z — 8 reachable: the same five plus
+#     systemd/io.systemd.ManagedOOM, systemd/notify, uuidd/request.
+#   ⭐ THE DELTA IS THE POINT: three appeared within six hours and the
+#     derivation picked them up WITHOUT BEING TOLD. The mechanism was fine;
+#     the earlier note was what aged. (commonplace found this by running the
+#     red-capability control below, 2026-08-13.)
+# ⭐ RED-CAPABILITY CONTROL: `sol-sockmask-control.sh` proves this mask can
+#   FAIL — arm B runs the same bwrap with the mask array deliberately EMPTIED
+#   and docker answers `Server 29.3.1` from inside the fence. ⇒ Without arm B,
+#   "not reachable" is also what a missing CLI, a typo'd path, or an empty
+#   derived list reports. A pre-flight arm exits 2 if the hole is absent on the
+#   HOST, so a green cannot be theatre.
 # ⛔ `--tmpfs /run` IS TOO BROAD AND WAS TESTED: it breaks DNS resolution and
 #   codex cannot reach its endpoint. Mask the socket FILES, keep the dirs.
 # ⚠️ /run/user/<uid> is excluded here because it is already tmpfs'd above;

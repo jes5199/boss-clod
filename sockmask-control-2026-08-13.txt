@@ -1,0 +1,30 @@
+
+=== PRE-FLIGHT: the socket exists and is reachable ON THE HOST ===
+srw-rw---- 1 root docker 0 Mar 27 22:13 /run/docker.sock
+host reachable as jes: YES (r+w)
+
+=== ARM A — DERIVATION (the exact loop from sol-egress-run.sh:271-277) ===
+derived entries: 24 array elements (8 sockets)
+  --bind	  /dev/null	  /run/dbus/system_bus_socket
+  --bind	  /dev/null	  /run/docker.sock
+  --bind	  /dev/null	  /run/postgresql/.s.PGSQL.5432
+  --bind	  /dev/null	  /run/snapd-snap.socket
+  --bind	  /dev/null	  /run/snapd.socket
+  --bind	  /dev/null	  /run/systemd/io.systemd.ManagedOOM
+  --bind	  /dev/null	  /run/systemd/notify
+  --bind	  /dev/null	  /run/uuidd/request
+ARM A: GREEN — non-empty AND contains /run/docker.sock
+
+=== ARM B — MUST-FAIL CONTROL (mask array EMPTY, same bwrap) ===
+SOCKET-SHAPE: present and writable
+DOCKER-ANSWERS: YES server=29.3.1
+ARM B: GREEN (as required) — the probe CAN see a reachable socket; arm C is therefore meaningful
+
+=== ARM C — MASKED (the fence's derived mask applied) ===
+SOCKET-SHAPE: absent or not a writable socket
+DOCKER-ANSWERS: NO ()
+ARM C: GREEN — not reachable with the mask applied
+
+=== VERDICT ===
+PASS — mask demonstrated RED-CAPABLE (arm B) and EFFECTIVE (arm C).
+       'not reachable' now distinguishes a working mask from a blind probe.
