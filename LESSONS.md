@@ -4733,3 +4733,46 @@ too long costs him nothing; stopping one site early costs data.**
 `--is-ancestor` → yes; **the three router sites now open `case CommitStoreClient.create_chained_commit(`
 at `:443`/`:475`/`:534`**; `issue.ex` uses `create_text_doc_checked` at `:370`/`:376`; **the sixth is
 visible as the still-unchecked `Schemas.create_text_doc` at `:336`/`:337`.**
+
+### 7g38 — ⛔ I NEARLY CONTRADICTED A TRUE CLAIM WITH A GREP AGAINST A PATH THAT DOESN'T EXIST
+Checking commonplace's central S55 fact (*"`create_text_doc_checked/3` already exists at
+`schemas.ex:553`"*) I ran
+`git show d0a66e29:apps/commonplace/lib/commonplace/schemas.ex | grep 'def create_text_doc_checked'`
+→ **nothing.** ⇒ **The exact shape of "your claim is false."**
+⭐ **Positive control caught it: the "file" came back as ONE LINE — a `git show` error, not source.**
+**The path was wrong; it is `bd/schemas.ex`.** `git grep` finds it **exactly where it was said to be:
+`bd/schemas.ex:553`.** ⇒ **Confirmed, not contradicted.**
+⚠️⚠️ **THIS IS THE FIRST ENTRY IN MY OWN GLOBAL INSTRUCTIONS — "a grep against a path that does not
+exist returns 0 hits and looks exactly like a confirmed absence" — AND IT STILL NEARLY GOT ME**, on
+the day I have filed nine variants of it. ⭐ **The rule being known is not the same as the rule
+running. Only the control ran.**
+
+### 7g39 — ⭐⭐ A NEW SPECIES: A REMEDY THAT EXISTS, IS DOCUMENTED, AND IS PARTIALLY ADOPTED
+`create_text_doc_checked/3`'s **own docstring states the ticket verbatim** — *"every caller that
+reports success to someone else must use this one instead"* — **and five callers don't, two of them
+in the same file as two that do.**
+⇒ ⭐⭐ **THE REMEDY'S EXISTENCE IS EVIDENCE FOR SAFETY THAT THE UNCHECKED CALLSITES MAKE FALSE.**
+Sample `issue.ex:370`, conclude the codebase handles this, stop looking. **Worse than no remedy,
+which at least prompts the question.**
+⭐ **THE LAW: A WRITTEN RULE WITH AN UNENUMERATED CALLER LIST IS A RULE NOBODY CAN BE FOUND TO HAVE
+BROKEN.** ⇒ **The fix is not more discipline — it is an enumeration that can go red.**
+■ ⭐ **And re-deriving at authoring time SHRANK the round for the third time today**: plan ranked it as
+*"the sixth site"*, which would have briefed changing a shared function and all its callers; **what is
+actually there is "route five callsites through a sibling that already exists."**
+
+### 7g40 — the THIRD path today by which a denied write corrupts the RANKING instrument
+`frontier/server.ex:203` writes **the frontier doc — the ready/blocked computation every ranking
+reads.** ⇒ Today's three: **a lost close reads as an OPEN ROW · a lost create as WORK NOBODY FILED ·
+a lost frontier write as A DIFFERENT SET OF WORK BEING READY.**
+⚠️ **All silent, all in the tool that decides what happens next** — and **the ranking layer is the one
+place a wrong answer does not announce itself by breaking anything.** ⭐ Recorded as a fact about
+**ranking inputs**, which is my surface; **nothing proposed about it.**
+■ ⭐ **`label.ex:85` is the same two-step and can mint an EMPTY LABEL DIRECTORY.**
+■ ⭐ **`cell/manifest.ex:153` reported as a FALSE POSITIVE rather than dropped**: it calls that
+module's own private `create_text_doc/3` and already matches `{:ok, doc_uuid} <-`. ⇒ **COUNTING BY
+NAME AND COUNTING BY CALLEE ARE DIFFERENT QUESTIONS, and the surplus looks exactly like the real
+thing** — an inflated entry would then have "resisted" fixing, reading as a hard case rather than a
+wrong list.
+■ ⭐ Acceptance arms worth stealing: **per-row verdicts, never a group** (*the day a sixth caller
+answers differently, a group verdict is what hides it*) and ⛔ ***do not delete a limit you did not
+remove.***
