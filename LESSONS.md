@@ -3437,3 +3437,24 @@ remains an argument to `read/1`, not schema data."***
 approached and held* is different information from *the fence was never approached* — and it locates
 exactly where the design is under tension: **the recipe's own location.** ⚠️ The next person will feel
 the same pull and may not resist it. ⇒ **Ask for the near-miss, not only the outcome.**
+
+### Addendum — a design fence migrating from prose into the suite
+⭐⭐ **2026-08-13, S47.** S39's design constraint — *"a second file or a new subsystem = the fence
+breached and the design wrong"* — had lived in **briefs**, which means it binds only for as long as
+someone remembers to write it into the next one. ⇒ The round wrote
+**`"an unknown seventh field is refused with the field named"`** into the test file. **A seventh field
+now fails a test.**
+⭐ **THE FALSIFIER STOPPED DEPENDING ON THE REVIEWER AND STARTED DEPENDING ON THE BUILD** — the same
+transformation as every durable fix this week (*a filed artifact fires where a remembered rule does
+not*), applied to a **design** constraint rather than a process one.
+⚠️ **And what makes it honest rather than over-reach: it enforces the SIX, it does not decide whether
+six is right.** If the design ever needs a seventh, the test fails loudly and someone changes it
+**deliberately** — which is the *STOP AND REPORT* behaviour we wanted, now enforced by the thing that
+runs instead of the thing that's read.
+⭐ **It is only meaningful because `@fields` is ONE list driving `@enforce_keys`, the struct and both
+serialisation paths** — six values in five places would disagree eventually, and a test refusing a
+seventh would be incidental rather than load-bearing. ⇒ **A constraint enforced at a single point of
+truth is a fence; the same constraint enforced at five is a coincidence waiting to lapse.**
+⚠️ Note the sequence, because it is the whole argument for asking: **the round before REPORTED the
+temptation; this round TESTED it.** Neither of us asked for either. **The near-miss request produced
+the finding, and the finding produced the fence.**
