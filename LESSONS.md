@@ -4838,3 +4838,31 @@ only because it did exactly that for `CX-0hbs`.**
 UNCHECKED CALLER AND WATCHING IT FAIL.** ⚠️ **A source-scan that passes on today's tree passes
 identically whether it scans correctly or scans nothing** — my `find`-is-`bfs` and both orphan-sweep
 keyings were that same failure.
+
+### 7g46 — ⛔ THE BRIEF DEMANDED A FALSE VALUE, AND A COMPLIANT BUILDER WOULD HAVE SUPPLIED IT
+S55's brief required the red to show *"document, index entry, AND parent link all absent."* ⇒ **Measured:
+`new_docs` lacks the doc ✅ · `issue_doc_index_delta=[]` ✅ · but `parent_schema_linked=TRUE`** — because
+**denying only the DOCUMENT write leaves the later directory and parent writes free to land.**
+**S54's phrasing about a BROADER denial was carried into a brief about a NARROWER one.**
+⭐⭐ **Sol reported what it measured and flagged the mismatch. A COMPLIANT BUILDER WRITES
+`parent_schema_linked=false` BECAUSE THE BRIEF SAYS SO — AND THE ARTIFACT THEN "CONFIRMS" THE
+AUTHOR'S ERROR.** ⚠️ **Sixth wrong brief-fact this week, all six caught by the builder.**
+⇒ ⭐ **A brief that PRE-STATES the expected measurement is an instruction to produce it.** State the
+expectation as a *claim to be checked*, never as the required output — **which is exactly what
+*"THIS BRIEF IS A CLAIM, NOT AN INSTRUCTION"* is for, and it worked.**
+
+### 7g47 — ⭐⭐ THE FIX DIDN'T RESTORE THE DETECTOR — IT REMOVED WHAT THE DETECTOR WAS FOR
+The promoted arm asked whether `torn_create_detected` would fire once the site was bound. **Answer:
+`false` — because there is nothing left to detect.** *"No document, index marker, or orphan is created
+for the scanner to find."* ⇒ **A document-denied create is now caught IMMEDIATELY, through its
+RETURNED ERROR.**
+⇒ ⭐ **The moduledoc note is now stale in an unusual direction: the index still cannot see
+document-denied orphans, and there are no longer any to see.** ⚠️ **STILL TRUE, NO LONGER
+LOAD-BEARING** — which is a different repair from a false statement, and deleting it would discard a
+real limit that simply has no current victims.
+■ ⭐⭐ **AND SOL DID NOT TOUCH IT, because `issue_doc_index.ex` was outside the permitted file list.**
+⇒ ***It obeyed "do not delete a limit you did not remove" AND the file fence, and REPORTED the
+staleness instead of resolving it.*** **The fence working twice in one decision.**
+■ ⭐ **Two follow-up rows, not one — and the moduledoc row exists because THE FIX CHANGED WHAT IS
+TRUE, not because anyone was wrong.** **Those need different close reasons and a reader can only tell
+them apart if the row says which it is.**
