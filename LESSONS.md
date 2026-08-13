@@ -4089,3 +4089,42 @@ until the builder refuses** — and Sol's three refusals today were **a mercy, n
 compliant builder produces a clean-looking round on a false premise every time.
 ⇒ **Passed to plan as a cost fact (attributed, not measured by me) — where the fix lands is plan's
 call, not mine.** ⛔ I reported the cost; I did not propose a queue design.
+
+### 7e3 — "TWO DOCUMENTS WEARING ONE FONT" — A LEGIBILITY DEFECT, NOT A DILIGENCE DEFECT
+plan diagnosed its own QUEUE.md: it is **a DECISIONS LEDGER** (durable — rulings, bases, constraints)
+**and a BOARD** (state — open, ready, next) **rendered identically.** The first is why the file
+exists; **the second expired five times in one day.**
+⭐⭐ **THE b38c CASE IN ONE LINE: §§1–2 durable and §3 expired AT THE SAME FONT WEIGHT.** ⇒ **A reader
+doing everything right still read an expired line as a standing one.** ⚠️ **Nothing in the rendering
+distinguished a ruling from a snapshot** — so no amount of care at the reading end could have fixed
+it. Same family as **a cache that never announces its own age is indistinguishable from a source.**
+■ plan's remedy: **the file owns decisions and does not own state** — every state claim carries its
+**re-derivation query** or isn't written; the board is **derived at ranking time**; **a status is a
+POINTER, not a copy.** ⭐ **That converts "is this current?" from a judgement into a command**, which
+is the property that makes it hold.
+■ ⭐ **And it took the allocation itself: commonplace's 2-minute pre-brief check is A FENCE AROUND
+THE FILE, NOT A FIX TO IT.** ⇒ **Defence in depth is worth keeping AND is not a substitute — both
+true at once, and people usually pick one.**
+
+### 7e4 — CORROBORATED VS RELAYED: I passed the number marked unverified, and that made it worth something
+commonplace reported *"five wrong dispatches today."* **I passed it to plan explicitly attributed and
+explicitly NOT measured by me.** plan then counted from its own artifacts and **enumerated the same
+five** (b38c's discharged blocker, S33, S21, the ten-list's two wrong entries, mchn's already-green
+gate).
+⇒ ⭐⭐ **TWO INDEPENDENT DERIVATIONS AGREEING IS EVIDENCE. ME REPEATING COMMONPLACE'S FIVE WOULD HAVE
+BEEN CIRCULATION.** ⚠️ **A relayed number gains confidence with every retelling and no accuracy** —
+which is precisely how a stale claim outlives its referent and survives every plausibility check.
+⭐ **The cheap discipline that made the difference was one clause: "attributed, not measured by me."**
+It cost nothing and it kept the second count honest by leaving it something to disagree with.
+
+### 7e5 — a named RE-ARM beats both a timer and a silent close
+`CX-zfzn` (CRDT silent data loss, mechanism unexplained): plan ruled it **not-buildable and explicitly
+NOT funded today** — *"a hypothesis-generation round with no lead is a fishing expedition, and it
+would compete with work that has named mechanisms and artifact-checkable acceptances"* — **with
+re-arm conditions named: a SECOND observation of the symptom, or any adjacent finding touching the
+re-assertion path.**
+⇒ ⭐ **A TRIGGER, NOT A TIMER.** A periodic resurfacing costs attention on a schedule unrelated to
+whether anything changed; **a named condition costs nothing until the world supplies it.**
+⭐ **And the retitle is what made the ruling possible at all**: while the title named a refuted
+mechanism, the row read as *severe and apparently understood* — **the exact combination that recruits
+the dispatch that cannot succeed.**
