@@ -3651,3 +3651,36 @@ nothing for an hour.
 ⚠️ **AND THE OPERATIONAL COROLLARY IS WORTH STATING BECAUSE IT AFFECTS HOW I READ SILENCE FROM A
 PEER: if an agent goes quiet mid-round, the likeliest cause is its watcher died, NOT that its round
 did.** ⇒ **Check the round's artifact before concluding anything about the agent.**
+
+---
+
+# 7c3 — a stated blockage grows, and a stated openness grows too
+
+**2026-08-13.** Two errors an hour apart, opposite in direction, identical in mechanism.
+| | claim | truth | how it grew |
+|---|---|---|---|
+| mine | *"CX-v14m blocks the runner arc's next rung"* | it blocks **execution** (bwrap vs docker) — the **cert** rung was free | I generalised one gate into a general one |
+| plan's | S33 *"has been waiting for exactly this re-arm"* | **closed 18 hours earlier**, shipped and merged | a live-sounding row nobody re-derived |
+⭐⭐ **BOTH ARE CLAIMS THAT WERE TRUE ONCE AND GET REPEATED WITHOUT RE-DERIVATION.** ⇒ **A stated
+blockage grows if nobody re-examines its edges; a stated openness grows the same way.** ⚠️ **Neither
+looks stale** — plan's conditions were specific and correctly quoted, which is exactly what a live
+item sounds like. ⭐ ***A ranking is a claim about the world at ranking time, and the world moves.***
+⇒ **Re-derive status FROM THE STORE before briefing, never from the queue document.** ⛔ **And not via
+`bd`** — frozen at the 2026-08-05 cutover, it returns **a confident, well-formed answer about the
+wrong world.**
+
+## ⭐ THE CITATION CHECK ANSWERS A QUESTION IT WASN'T AIMED AT
+My precondition list said: *verify the cited precedents resolve on main.* ⇒ **`File.ln/2` resolved at
+`node_identity.ex:277` AND `workspace.ex:234` — because the round had ALREADY LANDED IT.**
+⭐ **A check aimed at *"does the precedent exist?"* answers *"has this work already happened?"* for
+free** — a brief citing a shape **already fully present in the production path** is describing a
+completed round. ⇒ **Two independent detectors, pointed at different questions, catching one thing.**
+⚠️ Worth generalising: **when a brief's citations are all already satisfied, ask whether the brief is
+describing the past.**
+
+## AND THE ATOMICITY POINT SURVIVES ITS OWN ROUND
+⭐ **"The atomicity is a SAFETY property, not a bookkeeping preference — a builder optimising for
+reviewable increments would split it, and the split is exactly what makes the silent-identity-split
+failure reachable."** Same shape as the yelixer delete+flip, where both intermediate states were
+broken. ⇒ **Whenever a pair must land together, the brief must say WHY**, or **the most conscientious
+possible builder breaks it for good reasons.**
