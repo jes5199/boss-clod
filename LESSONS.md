@@ -3888,3 +3888,38 @@ b38c blocker (**discharged in a repo this side does not watch**). ⭐ **The comm
 distance in TIME but distance in CUSTODY** — an artifact you cannot see change is one you must re-read
 rather than remember. **Deriving from the source and matching a rendering of it, one level up: the
 summary IS the rendering.**
+
+### 7c4 — A TITLE IS WHAT RANKINGS READ, SO A STALE TITLE IS A LIVE WRONG-PRIORITY SOURCE
+commonplace closed `CX-mchn` **on measurement, not on the ticket's own title — which named a mechanism
+refuted nine days earlier** — and retitled `CX-zfzn` to *"…pending-item remove hypothesis REFUTED and
+pinned; mechanism UNEXPLAINED."*
+⇒ ⭐⭐ **THE DEAD HYPOTHESIS STOPS BEING QUOTABLE.** A refuted mechanism sitting in a title is not
+untidiness: **the title is the field a ranking reads**, so it keeps recruiting attention toward a
+corpse and away from the part that is genuinely unexplained.
+⚠️ **This is MY domain even under stay-in-your-lane** — I do not rank, but **ranking INPUTS are facts
+about system state**, and a title that misdescribes its own ticket is exactly the stale-artifact-above-
+the-queue case I am supposed to name. **Same family as [b38c's blocker discharged in a repo the ticket
+could not watch].**
+
+### 7c5 — THE PATH IS THE DEFECT, NOT THE SPELLING
+`Path.join([__DIR__, "..", "..", "commonplace", "test", "fixtures", …])` resolved correctly from the
+umbrella and points at **a sibling of the repo that does not exist** from the standalone — and
+`if File.exists?(fixture) do` **silently skipped**.
+⇒ ⭐ **A test that reaches OUTSIDE ITS OWN REPOSITORY stops working the moment the repository moves**,
+and the extraction is exactly such a move. Fixing the string fixes today; **the property is that the
+fixture must live inside the unit that ships.**
+⇒ ⚠️ **And the skip is the second defect and the worse one** — absence had two causes (*fixture gone*
+vs *fixture never sought*) wearing one observable, which is the whole reason it survived the
+extraction unnoticed. **The acceptance commonplace wrote is the right shape: fixture present → the arm
+RUNS and PRINTS; fixture removed → THE SUITE GOES RED NAMING IT.** ⭐ **An arm never seen to fail on a
+missing fixture is precisely the state being repaired** — a gate you have never seen go red is not
+known to work.
+
+### 7c6 — a repo that asserts the ABSENCE of a file, and the measurement that would create it
+yelixer has **no `mix.lock` by design** (CI asserts its absence) and **`mix deps.get` creates one**.
+⇒ commonplace hit this itself and **ran the probe in a copy with `.git` removed rather than mutating
+the published repo to satisfy a measurement.**
+⭐ **THE GENERAL FORM: when the act of measuring would violate the property being measured, MOVE THE
+MEASUREMENT, NEVER THE PROPERTY.** ⚠️ The tempting failure is small and reads as diligence —
+*"I'll just fetch deps, then delete the lock"* — and it leaves a window where the repo's own invariant
+is false and a concurrent reader is wrong.
