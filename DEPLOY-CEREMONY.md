@@ -102,3 +102,31 @@ artifact can prove itself cryptographically or by reconstruction, prefer that ov
 Checking "0 `get_env` added against 437 added lines" proves the diff isn't empty. Checking that
 **the touched files already contain 4 such calls** proves the grep can find that pattern *in this
 exact haystack* and still found none added. The second is strictly stronger and costs the same.
+
+
+---
+
+## Appendix — gate strength should match reversibility
+
+**commonplace-plan, 2026-08-13, after commonplace found a hole nobody had seen:**
+⭐ **A GATE'S STRENGTH SHOULD MATCH THE REVERSIBILITY OF WHAT IT RELEASES.**
+
+The yelixer arc had four rows carrying roughly equal gates. Three were undoable-if-wrong — a dep flip
+reverts, a publish is append-only, CI re-runs. **One deletes `apps/yelixer` and is not.** It had been
+gated no more heavily than its reversible neighbours.
+⚠️ **AND THE REASON THE HOLE STAYED INVISIBLE IS THE PART WORTH KEEPING: *nothing looked under-gated
+because everything looked equally gated.*** Uniform gating hides the mismatch — you can only see it
+by asking, per row, *what does this release, and can it be taken back?*
+
+⇒ **THE LADDER I ALREADY USE BY INSTINCT, now with the rule that says when:**
+| act | reversibility | gate |
+|---|---|---|
+| docs commit | trivially | none |
+| serve deploy | restart onto the old sha | 4 proven pre-flight refusals + watchdog + post-verify |
+| push to a public remote | append-only, but public | three-party split: builder ≠ verifier ≠ pusher |
+| **deleting the only other copy** | **none** | **its own gate row, proving the survivor is usable** |
+
+⇒ And note what the consumability gate (S37b) had to exclude to be worth anything: **no local path,
+no cached build, no umbrella.** A gate that reaches for the artifact it is testing against supplies
+its own answer — the same self-fulfilling shape as cloning from the repo that holds your unpushed
+work. **The exclusions are the gate.**
