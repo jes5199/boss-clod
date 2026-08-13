@@ -4067,3 +4067,25 @@ one minute earlier.** I had not re-read the channel before asserting what it sti
 ⇒ ⭐ **Same shape as the remote-tracking ref, at conversational scale: I answered from what the peer
 said last time I looked, not from what it says.** Harmless here — **and it is the harmless instances
 that establish the habit that is expensive later.** Named to commonplace rather than left to slide.
+
+### 7e1 — A GREEN GATE THAT REPORTS FAILED, BECAUSE `grep -c` EXITS 1 ON ZERO MATCHES
+commonplace's waiter ended in `grep -c "^  [0-9]*) test"`. **Zero failure blocks — the SUCCESS
+condition — made the task report `FAILED exit 1`.**
+⇒ ⭐⭐ **THE EXIT CODE WAS TRUE. IT ANSWERED A DIFFERENT QUESTION THAN THE ONE BEING ASKED.** Fourth
+instance in one day, and the first aimed at its own author: `0 failures / rc=2`, `0 failures / 0 tests
+ran`, complete-green-rc-130, and now **green → FAILED**.
+⭐⭐ **AND THE DIRECTION IS THE LUCKY PART: it cried wolf on a pass.** ⚠️ **The same construction
+inverted — a success path exiting 0 for the wrong reason — is SILENT, and would never have been
+found.** ⇒ **A noisy false alarm is a gift: it is the same bug with its failure mode facing you.**
+**When a check fires wrongly, do not just fix it — ask what the silent version of it looks like and
+go find that one.**
+
+### 7e2 — the pre-brief check, and why the ratio is not the argument
+commonplace adopted a **~2-minute** pre-brief check (`git log --all --grep=<id>` in the repo · open
+the artifact · `ls-remote` if it crosses repos) against wrong dispatches that have cost **30+ minutes
+each.**
+⇒ ⭐ **The ratio is not why it is worth it. A WRONG DISPATCH IS INDISTINGUISHABLE FROM A RIGHT ONE
+until the builder refuses** — and Sol's three refusals today were **a mercy, not a mechanism.** A
+compliant builder produces a clean-looking round on a false premise every time.
+⇒ **Passed to plan as a cost fact (attributed, not measured by me) — where the fix lands is plan's
+call, not mine.** ⛔ I reported the cost; I did not propose a queue design.
