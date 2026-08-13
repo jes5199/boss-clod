@@ -4262,3 +4262,46 @@ pattern that matched itself) · ③ **`if File.exists?`** (a repository move →
 useless — **remembering the QUESTION is the transferable part: *could this observation have been
 produced by the instrument rather than the world?*** ⭐ **A positive control is the only general
 answer, and in ⑤ it did not confirm the result — it exposed the instrument.**
+
+### 7f8 — ⭐⭐ A TRUE-SHAPED CLAIM ABOUT THE WRONG OBJECT SURVIVES EVERY PLAUSIBILITY CHECK
+S53's report said *"a load-sensitive MUD rendering failure."* **The actual failure was
+`Commonplace.Bd.TicketCreateDeadlineTest:117`** — and commonplace enumerated **every failure block in
+the 5.7 MB log: exactly 2, both that same Bd test. No MUD failure anywhere.**
+⇒ ⭐ **The VERDICT was right (load-sensitive) and the SUBJECT was wrong.** ⚠️ That sentence *could*
+be true in this codebase, *sounds* like this codebase, and **would have sent the reviewer into a
+subsystem with nothing wrong with it.** **Nothing about its shape invites a check** — which is why
+this is the day's signature failure rather than an ordinary error.
+■ ⭐ **Caught by ENUMERATING THE CORPUS, not by reading the summary** — the same bulk-sweep that
+caught the unexecuted `CX-b38c` ruling. **Both times the summary lied and the corpus did not.**
+
+### 7f9 — AN INTERNAL NEGATIVE CONTROL NOBODY ASKED FOR IS WORTH MORE THAN A SPECIFIED ONE
+S53's two-writer artifact: writer `AuditCanary.provoke` vs `RedLog.commit`, **firing process
+byte-identical** (`#PID<0.390.0>` / `acn_store_632089692`).
+⇒ ⭐⭐ **ONE OBSERVATION DOING TWO JOBS: it proves the field is TRANSPORTED rather than hardcoded,
+AND it exhibits precisely why part 1 was insufficient** — *same firing process, two different
+writers*, the exact distinction part 1 could never make.
+⭐ **A control the builder volunteered cannot have been constructed to satisfy the request** — that is
+what makes it stronger evidence than one the brief specified.
+■ ⭐ **And the four-valued absence beat the three required, with `not_provided` as the load-bearing
+value**: without it, **142 unconverted callsites would read as 142 writers who declined to identify
+themselves.** ⚠️ **An undeclared majority is not a smaller result, it is a WRONG one** — presence of
+the field would have been read as coverage.
+
+### 7g0 — a budget nobody chose, in both directions
+S52: **180 s inside a 60 s ExUnit default** — a number written around an undiagnosed hang.
+S53: a bare `assert_receive` **inheriting ExUnit's 100 ms default** on an assertion requiring store
+work.
+⇒ ⭐ **Same defect, opposite signs: AN INHERITED BUDGET IS NOT A SIZED ONE.** Both look deliberate in
+the source and neither was measured. ⚠️ **And an isolated pass is NOT a verdict** — passing alone is
+equally consistent with *load* and with *ordering*; **only the full-suite run discriminates**, and
+that is the step people skip because the isolated green feels like an answer.
+
+### 7g1 — the write-side silent success, one layer up
+Sol surfaced that **`CommandRouter.write` can report SUCCESS while an underlying DENIED write leaves
+the head unchanged** — and **removed that path from its own acceptance rather than building on it.**
+⇒ ⭐ **Refusing to stand on an unverified foundation is what makes the rest of a report
+trustworthy.**
+⚠️ **The shape: the gate REFUSES, and the caller is told it WORKED.** ⭐ **This is the write-side
+silent-success family — the one that costs DATA rather than time** — and it is the writer-attribution
+defect's cousin one layer up. **Flagged to commonplace as a genuine problem class, not a near-miss:
+if it is reachable from a live path, that goes to jes.**
