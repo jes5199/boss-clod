@@ -4950,3 +4950,28 @@ a prior question: ***is there a version where the unchecked variant simply STOPS
 MOTIVATED THE BETTER FIX.** ⭐ **Same species as the change that would have erased S55's finding — a
 correct change whose effect is to retire the question.** ⇒ **Ask the deletion question BEFORE building
 the guard; I was wrong to frame the guard as the obvious next step.**
+
+### 7g54 — ⭐⭐ THE GUARD WAS DECORATION FOR 25 HOURS AND LOAD-BEARING AT 4 MINUTES
+commonplace's erpc guard (`:code.is_loaded` before probing a live module) **halted it for the first
+time**, on the freshly restarted serve: `Commonplace.ViewActionDispatch` **not yet lazily loaded**
+(while `Commonplace.Bd.Issue` WAS resident). ⇒ **Calling it would have force-loaded ITS WORKING
+TREE's version into the live node.**
+⭐⭐ **ON A 25-HOUR-OLD SERVE EVERYTHING IS LONG SINCE RESIDENT AND THE GUARD NEVER FIRES; ON A
+4-MINUTE-OLD ONE IT IS THE ONLY THING BETWEEN A PROBE AND AN UNPLANNED DEPLOY.** ⚠️ **A gate that has
+never fired is not known to work — and this one had a REASON it never fired that had nothing to do
+with correctness: the world had not yet presented the case.** ⇒ **A restart is exactly when dormant
+guards become live.**
+■ ⭐ **The override was done with the authority STATED AND CHECKABLE, not assumed:** tree HEAD ==
+`origin/main` == `84475d912ce2`, compiled at that HEAD before the kill, gap ③ = 0 ⇒ **force-loading
+loads the code the serve would load itself.** ⭐ ***The difference between USING an override and
+DEFEATING it is whether that sentence is true — so make it checkable rather than assert it.***
+⚠️ **Had HEAD been anything but the deployed sha, the right move was to stop.**
+
+### 7g55 — the deliverable for accidental protections is to MAKE THEIR REMOVAL NOISY
+`CX-v1zh` filed for the three protections nobody designed (**sandbox PID-ns hiding other processes'
+secrets · `Trust` un-hot-swappable BY LOAD ORDER · `bin/bd` safe on Sol BY A MISSING DOLT DB**).
+⇒ ⭐ **Not "make them intentional" — MAKE THEIR REMOVAL NOISY**, red-first per instance **against a
+SCRATCH COPY**, because ⛔ *a test OF the fence is not an EDIT TO the fence.*
+■ ⭐ **And the honest limit is in the ticket: the stronger fix — provide each protection deliberately
+so the accidental source stops being load-bearing — must be ASKED BEFORE BOTH ARE BUILT**, per the
+rule that **a guard landing first can foreclose the better fix.**
