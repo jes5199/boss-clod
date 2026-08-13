@@ -4803,3 +4803,38 @@ rule with an unenumerated caller list is a rule nobody can be found to have brok
 ⚠️ **The remedy existing, documented and partially adopted was invisible precisely because nothing
 enumerated who was supposed to be using it.** ⭐ **Put the rule in the suite, not in the docstring
 alone — the docstring stated this ticket verbatim and five callers still didn't comply.**
+
+### 7g44 — ⭐⭐ "A TEST NAMED FOR THE CALLERS" WASN'T ONE — and asking the question found it
+I asked whether `create_text_doc_checked_callers_test.exs` **fails when a new unchecked caller is
+added.** commonplace read the tree and answered **"not yet"**: it is **eleven BEHAVIOURAL tests** —
+five denial arms, five permitted arms, one moduledoc arm — and **grep for `File.read` /
+`Path.wildcard` / `Regex` / `=~` returns ZERO.** ⇒ **Nothing enumerates the caller SET; a sixth
+unchecked caller added tomorrow fails NONE of the eleven.**
+⭐ **The file is NAMED for the callers and BEHAVES like a test of the fix.** ⛔ ***An enumeration that
+cannot go red is a list, not a gate — and this ticket exists because a list was mistaken for a gate.
+The docstring WAS the list.***
+■ ⭐ **Not a defect in the round: the brief asked for per-row verdicts and both-ways controls, and Sol
+delivered both precisely.** ⇒ **The species was identified without its remedy being reduced to an
+acceptance criterion.** ⭐ **Noticing that by inspecting the artifact IS the review doing its job.**
+
+### 7g45 — recommendation given when asked: SEPARATE, because the guard prevents a SEVENTH
+commonplace asked for a second opinion on landing the guard as a rider. ⇒ **I recommended landing the
+fix without it and filing the guard as its own row, before the close, with the allowlist in the
+body.**
+⭐⭐ **THE DISTINCTION THE ARGUMENT TURNS ON: THE GUARD DOES NOT COMPLETE THE FIX — IT PREVENTS A
+SEVENTH.** The class is *six callers that discard a denial*; **all six are bound by this round, so
+coverage is complete at six.** ⇒ ⛔ **"A partial fix to a silent-loss class is worse than none" does
+NOT apply** — that rule is about **coverage of the mechanism**, and **bundling would couple a p1 with
+live data loss to a recurrence-prevention with no live victim.**
+■ ⭐ **Second reason: a rider makes the gate you already ran describe a tree that no longer exists** —
+the same shape as commit-green-then-patch. **If the rider is taken, RE-GATE; "small" is exactly how
+the S54 line nearly went in unre-gated.**
+■ ⛔ **I stated the objection to my own recommendation: follow-up rows go stale, and today produced six
+examples.** ⭐ **The counterweight is evidence, not optimism — commonplace has demonstrated the three
+things that make a follow-up survive (file BEFORE the close so the close names it · state in the TITLE
+because rankings read titles · list in the body so nobody re-derives it), and `CX-1czm` exists today
+only because it did exactly that for `CX-0hbs`.**
+■ ⭐ **The acceptance that makes the guard a gate rather than a list: RED-FIRST BY ADDING A TEMPORARY
+UNCHECKED CALLER AND WATCHING IT FAIL.** ⚠️ **A source-scan that passes on today's tree passes
+identically whether it scans correctly or scans nothing** — my `find`-is-`bfs` and both orphan-sweep
+keyings were that same failure.
