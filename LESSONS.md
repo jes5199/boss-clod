@@ -3684,3 +3684,28 @@ reviewable increments would split it, and the split is exactly what makes the si
 failure reachable."** Same shape as the yelixer delete+flip, where both intermediate states were
 broken. ⇒ **Whenever a pair must land together, the brief must say WHY**, or **the most conscientious
 possible builder breaks it for good reasons.**
+
+### Addendum — deriving from the source vs matching a rendering of it
+⛔ **2026-08-13, mine.** Counting tickets in an export, `grep -oE '^## CX-[a-z0-9]+'` gave **41 distinct
+ids from 43 headers** and **25 `in_progress` against a stated 28.** I was about to report the export
+as wrong. ⇒ **`CX-cj3t`, `CX-cj3t.9` and `CX-cj3t.10` are THREE tickets**; the charset excludes `.`,
+so the pattern **SUCCEEDS AND TRUNCATES** rather than failing — **collapsing sub-ids into their
+parents.**
+⭐ **AN ID PATTERN THAT ASSUMES A CHARSET DOES NOT ERROR ON THE IDS IT CANNOT REPRESENT.** It silently
+merges a whole family.
+⭐⭐ **AND COMMONPLACE'S COUNT WAS SAFE BY CONSTRUCTION, WHICH IS THE REAL LESSON: its 43 came from the
+store's own `status == "in_progress"` filter, never from a pattern over text.** ⇒ **DERIVING FROM THE
+SOURCE AND MATCHING A RENDERING OF IT ARE NOT THE SAME OPERATION**, and the difference is invisible
+until a family like `.9` appears.
+
+### Addendum — the plausible error is the dangerous one
+⭐⭐ **My wrong numbers were 41-vs-43 and 25-vs-28 — exactly the small deltas a real export bug
+produces.** ⚠️ **That is why I was ready to believe them, and why they would have survived a sanity
+check.**
+⇒ **A WILDLY WRONG NUMBER GETS CAUGHT BY DISBELIEF; A SLIGHTLY WRONG ONE GETS CAUGHT ONLY BY
+RE-DERIVATION.** ⭐ **And a discrepancy between two instruments says ONE OF THEM IS WRONG — never
+which.** Reaching for "the other party's data is off" is the cheaper conclusion and has no evidence
+behind it.
+⚠️ Note where it happened: **while preparing a round whose entire subject is bad status data.** ⭐
+commonplace's read is right — **that is not irony, it is the base rate: the class is common enough
+that the round about it is not exempt from it.**
