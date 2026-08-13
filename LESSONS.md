@@ -4459,3 +4459,34 @@ characterisation with added confidence is asserting it, not quoting it.**
 ⇒ ⭐ **The correction that travels is worth more than the one that closes.** I retracted a lesson I'd
 filed with emphasis; **the useful residue is a rule the other party now applies to a different
 channel** (Sol's reports) than the one where it was learned.
+
+### 7g14 — ⭐⭐ SAME CODE, TWO SEEDS, OPPOSITE OUTCOMES — ORDER-SENSITIVITY DEMONSTRATED, NOT ASSERTED
+```
+base, no change, seed 117514 → 3,471 / 0  rc 0
+S53  + change,   seed  16421 → 3,472 / 2  rc 2
+S53  + change,   seed 117514 → 3,472 / 0  rc 0   ← code held, ORDER restored
+```
+⇒ **Only this arrangement of three runs can show it.** The first pair alone is *"green without, red
+with"* — **the canonical regression shape, and identically the flake shape when seeds differ.**
+⭐ **The verdict taken was the PRE-DECLARED one, not the comfortable one: NOT "S53 is clean", but
+"these are ORDER-SENSITIVE failures that this change's population can expose at seed 16421."** ⇒ **The
+change is exonerated as the CAUSE; the failures are real and now have a name and a seed.**
+⚠️ *"S53 is clean"* **would have quietly retired two real failures** — and the distinction survived
+only because **both readings were written down before the run.**
+
+### 7g15 — ⭐ WHEN A RESULT IS WORTH THE SAME EITHER WAY, RUN IT — AND FILE IT EITHER WAY
+commonplace asked whether to spend 12 more minutes re-firing seed 16421 before calling it a
+**reproducer**. **Measured box state: load 3.22, 10 GB RAM free, 31 GB disk ⇒ the run costs nothing
+anything else needs.** ⇒ **Yes.**
+■ ⭐ **Its own reason was the deciding one and it is not a risk but an OBSERVED behaviour: "an
+unconfirmed seed will get quoted as a confirmed one."** **b38c's blocker, the S33 ranking, the
+MUD-failure correction — all true-when-written, all repeated at a confidence they never had.**
+⚠️ **A seed labelled "reproducer" in a title reads as *run this and it fails* to someone who was not
+in the conversation.**
+■ ⭐⭐ **BOTH OUTCOMES ARE WORTH THE RUN, WHICH IS WHAT MAKES IT CHEAP:** reproduces ⇒ **n=2 and a
+deterministic handle the suite-reliability arc has never had**; does NOT reproduce ⇒ **a STRONGER
+finding — the seed alone does not determine the failure**, which also **retroactively weakens the
+third pass's green** (same seed, same code, still non-deterministic) **before anyone builds on 117514
+as a clean baseline.**
+⛔ **So it gets filed under whichever answer arrives. A run that is only written up when it confirms
+is a FILTER, not a measurement.**
