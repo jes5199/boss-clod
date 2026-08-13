@@ -360,3 +360,24 @@ DIRECTION** (commonplace's framing):
 - this one is **"I know this causes that, so they will"** — a causal mapping I hold and they don't
 ⇒ **BOTH ARE SPECIFYING AGAINST MY OWN MODEL OF THE WORLD RATHER THAN THE ACTOR'S.** The pre-flight
 question generalizes: **not just *can they do it*, but *can they TELL whether they have done it*.**
+
+### A self-corrected violation is not a free one
+⚠️ **S45 reversed its own formatter churn before reporting — final scope 2 files, exactly the target.**
+So did S38. ⇒ **It is tempting to read self-correction as "the instruction worked."** It didn't: the
+instruction was violated and then repaired.
+⭐ **THE COST IS VISIBLE IN THE ARTIFACT: a 161 MB run log — the churn AND its reversal, both
+rendered.** 33 files rewritten, re-displayed, reverted, re-displayed. **~2 MB/s for several minutes of
+a round that changed two files.**
+⇒ **A fix that depends on the builder remembering to self-correct is not a fix** (commonplace's line).
+**Name the tool, not the outcome** — and note that the self-correcting rounds are exactly the ones
+that make the problem look solved.
+
+### A round in progress is not a round's result
+⭐ Mid-flight I observed **34 files modified, 33 of them formatter churn**, and reported it explicitly
+as **not a verdict**, without touching the tree. **The churn then reversed itself.**
+⇒ **Acting on that observation would have destroyed a round that was about to be fine** — the same
+mid-flight impulse that cost `provisioner.ex` six hours earlier.
+⭐ **Same shape as *the artifact is the verdict, not the process's absence*, applied to a diff:** an
+in-progress working tree is a snapshot of a process, **not a statement of intent and not a result.**
+⇒ **Report what you see, label it in-flight, and wait for the exit.** The observation was worth
+making — it gave the reviewer warning — **and it was worth NOT acting on.**
