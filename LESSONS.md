@@ -3158,3 +3158,39 @@ help.** ⭐ **The cure was replacing RECALL with a COMMAND.**
 changes is a FEATURE.** Masking directories fails loudly the day a new agent adds a socket dir; a
 named-path assertion silently keeps passing while the fence stops covering. ⇒ **Prefer the check that
 can go stale LOUDLY over the one that goes stale SILENTLY.**
+
+---
+
+# 7b9 — the derivation is blind inside the fence it is deriving
+
+**2026-08-13, S42.** After three parties produced three wrong channel lists, the ruling was **derive,
+don't recall**. The repaired `provisioner.ex` then masked **`/tmp/claude-1000`** — which exists, holds
+**0 sockets**, and is the **Claude Code scratchpad tree** — instead of **`/tmp/claude-chat`**, which
+holds `relay.sock`. Same defect as `cc-daemon` one round earlier.
+
+## ⭐⭐ THE CAUSE IS MECHANICAL, NOT CARELESS — AND MY OWN FIX CREATED IT
+```
+HOST     find /run/user/1000 /tmp -maxdepth 3 \( -type s -o -type p \)  → 9 dirs, 23 channels
+SANDBOX  the identical command                                          → COUNT=0
+```
+⇒ **`/tmp/claude-chat` is masked BY MY WRAPPER**, so from inside it is an empty tmpfs and the `find`
+cannot see it. The builder ran the derivation in the only environment it has, got **nothing**, and
+reconstructed a plausible name by pattern-matching the neighbouring `-#{uid}` paths.
+⭐ **THE DERIVATION AND THE ACCEPTANCE TEST ARE THE SAME COMMAND — AND THAT IS THE TRAP: inside the
+pod it MUST return 0 for the test to pass.** So the identical command, run by the builder,
+**necessarily returns nothing to build from.** ⇒ ***"Derive, don't recall" is correct and the builder
+is structurally incapable of obeying it.***
+⚠️ **A REMEDY CAN DESTROY THE EVIDENCE THE REMEDY IS BUILT FROM.** The fence hid exactly the facts
+needed to construct the fence — and it does so **silently**, returning an empty list rather than an
+error, which is indistinguishable from "there are no channels."
+
+## ⇒ THE FIX IS THE SPLIT, ARRIVING IN A THIRD PLACE
+**THE ACTOR CANNOT OBSERVE WHAT IT NEEDS, SO THE OBSERVATION COMES FROM OUTSIDE.** Same shape as the
+hermes control (the killer cannot verify its own blast radius) and as commonplace's context
+percentage (it cannot read its own). ⇒ **I supply the host-derived list as a brief INPUT, measured at
+dispatch time**, rather than asking the builder to derive it.
+⚠️ And carry **the measurement's timestamp**, because the list is stale the moment my wrapper changes.
+⭐ **THE GENERAL TEST: before requiring someone to measure something, ask whether their vantage point
+can see it.** A correct instruction issued to a party who cannot execute it produces a *confident
+fabrication*, not a refusal — Sol did not report "I cannot see any channels", it produced a
+plausible path.
