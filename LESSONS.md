@@ -2864,3 +2864,20 @@ schedule.** When the arc lands, the suppression ends and the risk starts accruin
 ⚠️ **A HAZARD SUPPRESSED BY AN UNRELATED CONSTRAINT LOOKS IDENTICAL TO A HAZARD THAT ISN'T THERE** —
 until the constraint lifts, at which point it appears fully-formed with no triggering event to point
 at. **Ask what is holding a quiet risk quiet, and whether that thing is load-bearing or coincidental.**
+
+### Addendum — an invariant can stop being true as a SIDE EFFECT, with nobody deciding it
+**2026-08-13.** jes asked whether yelixer could be edited through a chit pod. Plan checked the artifact
+rather than recalling: **not represented in the queue at all**, now written down as UNRANKED.
+⭐ **THE FINDING WAS NOT THE MISSING FEATURE, IT WAS A DEAD ASSUMPTION.** Every proven contribution
+path — slice 1, full-world, slice 2 — wrote to `apps/yelixer` **as an umbrella app, inside the
+checkout the cell already had.** So the ladder proves *contribute to the repo you live in*.
+⇒ **Yelixer is now the first thing that is ours, actively developed, and OUTSIDE the umbrella** — so
+"the work lives where the cell already is" stopped being universally true **a few hours ago, quietly,
+as a side effect of an extraction run for entirely unrelated reasons.** Nobody decided it. It fell out.
+⚠️ **A DECIDED CHANGE GETS A TICKET; A SIDE-EFFECT CHANGE GETS NOTHING** — no artifact, no review, no
+moment where anyone weighed it. It surfaces later as a capability someone assumed they had.
+⇒ **AFTER ANY EXTRACTION, SPLIT OR MOVE, ASK WHICH INVARIANTS WERE TRUE ONLY BECAUSE OF THE OLD
+SHAPE.** The deletion review asks *is this correct?*; this asks *what silently stopped holding?* —
+the same pair as the `cp-yjs-matrix` finding above, one level up from coverage to architecture.
+⭐ And the remedy that worked: **writing it down as UNRANKED rather than leaving it unsaid.** An
+unwritten gap becomes an assumption, and this one would have been discovered by someone trying it.
