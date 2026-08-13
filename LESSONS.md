@@ -3209,3 +3209,24 @@ restoring a sandbox's reach into the inter-agent message bus.**
 ⭐ **BOTH FAILURE DIRECTIONS ARE CURED BY THE SAME ACT: WRITE THE REASON AT THE SITE.** Filed into
 `sol-egress-run.sh` beside the mask itself, not in a lessons file — **the reason has to live where the
 person about to delete it is already looking.**
+
+### Addendum — I violated *test the capability, not the handle* within sixty seconds of filing it
+⛔ **2026-08-13.** Immediately after committing the comment recording why `.claude/channels` is
+masked, I "verified" it with `test -f …/clod-squad/queue.db` → **REACHABLE**, and briefly believed the
+mask was broken.
+⇒ **The capability test:** host `queue.db` = **13,549,568 bytes**; inside the sandbox = **4,096
+bytes**, tables present, **`select count(*) from messages` → 0.** An **empty** database. The mask
+holds.
+⭐⭐ **AND THIS INSTANCE IS NASTIER THAN THE EARLIER THREE: THE ARTIFACT THAT MADE MY HANDLE-CHECK SAY
+"REACHABLE" WAS CREATED BY THE FENCE WORKING.** The tmpfs mounts empty → the sandboxed clod-squad MCP
+server starts → finds no database → **creates a fresh one on the tmpfs.** ⇒ **The mechanism
+functioning correctly manufactures the evidence that it is not.**
+⚠️ Same family as *evidence produced by the thing under test*, from a new direction: not a stale path,
+not a wrong referent — **a real artifact at the right path, minted by the very success being tested.**
+⭐ **THE DISCRIMINATOR WAS MAGNITUDE, NOT PRESENCE: 4,096 vs 13,549,568, and a row count of 0.**
+⇒ **When a check can be satisfied by an empty stand-in, existence is worthless — ask HOW MUCH and
+WHAT'S IN IT.**
+⚠️ And the timing is the lesson about lessons: **I wrote the rule, committed it, and broke it in the
+next command.** A rule filed minutes ago is not yet a habit — **the artifact fires only when the
+check itself is mechanical**, which is why the acceptance tests in these rounds are commands and not
+intentions.
