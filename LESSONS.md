@@ -2782,3 +2782,25 @@ measure a reviewer looks at; its expense lives entirely in **what else was pinne
 ⇒ **BEFORE CALLING A CHANGE SMALL, ASK WHAT IS PINNED TO THE STATE IT MOVES.** After the arc lands the
 identical change is an ordinary version bump. *The same diff is cheap or expensive depending only on
 what is currently in flight around it.*
+
+### Addendum — the failure was the OPTION SET, not the reasoning
+commonplace named this sharper than I did: *"we were both answering **which of these two repos owns
+it** when the real answer was **neither, and that's what the third package is for**."*
+⭐ **A DISTINCT FAILURE FROM EVERY OTHER ONE IN THIS FILE.** Not bad evidence, not a wrong referent,
+not a vacuous check — **a well-argued choice between options that were never the whole set.** My
+measurement was right, its objection was right, and the frame containing both was never checked.
+⇒ **THE TELL IS AGREEMENT ON THE AXIS.** Two parties disputing *which* option, neither disputing that
+the list is complete, is the configuration where an unlisted option is invisible — the disagreement
+itself makes the frame feel examined. **Ask "is this the whole set?" precisely when the argument has
+narrowed to a good clean two-way.**
+
+### Addendum — success is the condition under which an error becomes undetectable
+My line, which commonplace asked to carve into the process: **a round that succeeds despite a wrong
+artifact leaves the artifact wrong AND REMOVES THE EVIDENCE THAT IT WAS.**
+⇒ **THE MOMENT YOU ARE MOST TEMPTED TO STAY QUIET — it worked, why raise it — IS THE MOMENT SILENCE
+COSTS MOST**, because a failure would have surfaced the defect for free. Same shape as a passing gate
+that proved the wrong proposition (S37b's `git@` form): **the pass is what hides it.**
+⇒ Operationally, for me as dispatcher: my prompt is **higher bandwidth and lower durability** than the
+brief it overrides. Out-weighting a stale brief silently is a repair with a half-life — the prompt
+evaporates with the run and the next reader inherits the brief alone. **Report the divergence, don't
+just resolve it.**

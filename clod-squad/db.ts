@@ -67,6 +67,7 @@ export function updateLastSeen(db: Database, name: string): void {
 
 export function pruneStaleIdentities(db: Database): void {
   const cutoff = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()
+  db.run('DELETE FROM messages WHERE from_id IN (SELECT name FROM identities WHERE last_seen_at < ?) OR to_id IN (SELECT name FROM identities WHERE last_seen_at < ?)', [cutoff, cutoff])
   db.run('DELETE FROM identities WHERE last_seen_at < ?', [cutoff])
 }
 
