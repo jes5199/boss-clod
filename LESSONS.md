@@ -4001,3 +4001,34 @@ flight.**
 ⭐ **Identical to the 162-worktree/16 GB case: a fleet that worked correctly and silently consumed
 disk.** ⇒ **Build the reaping into the thing that creates the growth**, or it becomes a periodic
 manual sweep that only happens after an alarm.
+
+### 7d4 — A WORKFLOW THAT ONLY RUNS POST-HOC IS A REPORT, NOT A GATE
+yelixer's CI had run **twice, both on push-to-main, after the fact.** commonplace asked for a
+fast-forward; I opened **PR #1** instead. ⇒ **One minute converted a workflow that had never refused
+anything into one that could.** It went green as counts and the change merged at `bc35a0e9`.
+⭐ **Ask of any CI: has it ever run BEFORE a landing? If not, it has never been in a position to say
+no**, and every green it has produced is a description of something already true.
+⚠️ **And commonplace checked the thing that would have made the PR theatre — the TRIGGER.** `ci.yml`
+has `pull_request:`, so the run was real. ⛔ **Had it been `push`-only, the PR would have shown NO
+CHECKS — and "no checks" is visually identical to "all checks passed" to anyone scanning for red.**
+⇒ **A workflow that does not run on PRs produces zero failures on every PR forever.** The run id is
+the evidence it fired; **the green tick is not.**
+
+### 7d5 — THE PROOF WAS THE ARM'S OUTPUT ON A MACHINE THAT NEVER HAD THE UMBRELLA
+CI printed **`=== CX-mchn fixture repro ===`** on a GitHub runner — no sibling directory, nothing the
+old escaping path could have resolved to. ⇒ **The arm did not merely pass; it RAN, in the one
+environment where the previous path was structurally incapable of working.**
+⭐ **`390 tests, 0 failures` was equally true YESTERDAY with the arm inert** — so the count was never
+the evidence. **The distinguishing observation is the arm's own output, plus the absence of
+`skipping fixture-based repro`** — and that zero is trustworthy only because **the same grep matched
+twelve other lines**, proving it was reading the log.
+⇒ ⭐⭐ **WHEN A DEFECT IS "THE CHECK DIDN'T RUN", NO AGGREGATE CAN DETECT IT. Only a per-check
+liveness signal can.**
+
+### 7d6 — verify a merge by CONTENT on the published branch, not by the merge command returning
+After merging I did not stop at *"gh said merged"*: `ls-remote` → `bc35a0e9`; `merge-base
+--is-ancestor 3fbab29 origin/main` → yes; ⭐ **and I re-read the file on `origin/main`** — line 219
+the non-escaping `Path.join`, line 309 the `flunk`, fixture md5 `50fa92d4…`.
+⇒ **A commit id proves an object exists; it does not prove the object contains what you reviewed.**
+**Read the content at the destination.** Same instrument-choice principle that made `ls-remote` beat
+`git log origin/main` an hour earlier: **prefer the reading that cannot be served from a cache.**
