@@ -4436,3 +4436,26 @@ only with the change → S53 has a real defect and does not land.**
 ⭐⭐ **THE GENERAL FORM: WHEN A KNOWN BUG WOULD PRODUCE THE EXACT SYMPTOM IN FRONT OF YOU, THE
 INNOCENT EXPLANATION NEEDS MORE EVIDENCE THAN USUAL, NOT LESS.** ⚠️ **"Flaky under load" is the
 reading that costs nothing to accept and everything if wrong.**
+
+### 7g12 — ⛔ "GREEN WITHOUT, RED WITH" IS n=1 vs n=1, AND THE SEEDS DIFFERED
+Base ran green (`3,471 / 0`, seed **117514**); the S53 tree ran red (`3,472 / 2`, seed **16421**).
+⇒ ⭐⭐ **TWO VARIABLES MOVED AT ONCE: THE CODE AND THE EXECUTION ORDER.** ⚠️ *"Green without, red
+with"* is **exactly what a genuine regression looks like — and ALSO what an order-sensitive flake
+looks like when the seeds happen to differ.** ⛔ **Concluding from that pair is attribution by
+coincidence**, and it is the version that feels most like evidence.
+⭐ **The fix is to re-run the changed tree at the BASE'S EXACT SEED**, making the change the only
+variable. Readings: **red at 117514 ⇒ the change causes it, order held constant** · **green at
+117514 ⇒ order-sensitive, and the honest verdict is "a flake this change's population can expose",
+NOT "the change is clean."**
+■ ⭐⭐ **AND THE RESIDUAL THAT WAS DECLARED RATHER THAN HIDDEN: the populations still differ by ONE
+test (3,472 vs 3,471) because the change ADDS one, so a fixed seed does NOT give a byte-identical
+schedule.** ⇒ **This is the closest controlled comparison available short of deleting the new test.**
+⭐ **Pretending the seed pins everything would be the FALSE-PRECISION version of the check** — a
+control that overstates what it controls is worse than a looser one honestly described.
+
+### 7g13 — amplification, carried onward
+commonplace took *"amplification is an assertion"* into its own relaying: **repeating a builder's
+characterisation with added confidence is asserting it, not quoting it.**
+⇒ ⭐ **The correction that travels is worth more than the one that closes.** I retracted a lesson I'd
+filed with emphasis; **the useful residue is a rule the other party now applies to a different
+channel** (Sol's reports) than the one where it was learned.
