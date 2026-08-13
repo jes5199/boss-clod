@@ -2937,3 +2937,15 @@ survives in `.git` regardless, so only uncommitted changes are ever at risk. ⇒
 ⭐ **THE DECISION ABOUT WHAT WAS PRECIOUS WAS MADE BY A TOOL THAT CANNOT BE PERSUADED, NOT BY MY
 READING OF 162 DIRECTORIES.** Where a structural gate exists, prefer it to your own per-item
 judgement — it does not get tired, does not round, and its refusals are auditable after the fact.
+
+### Addendum — doing it the hard way first is what makes the easy way's advantage MEASURABLE
+⭐ **plan, ruling docker as the arc's second rung rather than the first:** *"once we've shown
+killability the hard way, we can tell whether docker's version is genuinely better or merely more
+comfortable. Ruling docker in first would have skipped the measurement that justifies it."*
+⇒ **A CONVENIENCE ADOPTED BEFORE THE BASELINE EXISTS CAN NEVER BE EVALUATED** — there is nothing to
+compare it against, so its benefit becomes an article of faith at exactly the moment it looks obvious.
+⚠️ And note the asymmetry that makes this non-obvious: **the hard way is cheap ONCE and the faith is
+permanent.** Constructing a cgroup per pod and demonstrating the kill is a single round; "docker is
+safer" unmeasured is a claim every future decision inherits.
+⭐ Same shape as the pre-delete test count: **the control run is what converts the after-number into
+evidence.** Here the "before" is a whole implementation, and the principle is identical.
