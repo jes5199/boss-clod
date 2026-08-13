@@ -258,7 +258,7 @@ MASK=(
 # (no sandbox flag, no workdir, no prompt); only the no-prompt fail-fast kept
 # those runs harmless. This block therefore lives ABOVE the exec, not inside it.
 exec env -u LETTA_API_KEY -u SQUAD_ALERTS_PUBLISHER_TOKEN \
-  bwrap --dev-bind / / "${MASK[@]}" -- \
+  bwrap --dev-bind / / --unshare-pid --proc /proc "${MASK[@]}" -- \
   codex exec -m gpt-5.6-sol \
     --sandbox workspace-write \
     -c 'sandbox_workspace_write.network_access=true' \

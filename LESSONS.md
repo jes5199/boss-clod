@@ -2963,3 +2963,44 @@ label at write time, or write the label as a date-stamped observation rather tha
 ⚠️ And note who catches it: not the author, and not a reviewer of the same document — **a party
 holding the independently measured state.** That is a reason for the dispatcher to keep verifying
 what passes through it even when nobody asked.
+
+---
+
+# 7b7 — the fence masked CREDENTIALS thoroughly and isolated PROCESSES not at all
+
+**2026-08-13, CX-vtaa (commonplace found it; I verified, measured the fix, and applied it).**
+
+⛔ **`sol-egress-run.sh:261` was `bwrap --dev-bind / / "${MASK[@]}"` — and MASK is ONLY credential
+tmpfs mounts.** No `--unshare-pid`, no `--unshare-all`. ⇒ **Sol shared the host PID namespace and
+could signal every process on this box, including hermes — a live-money BEAM holding a real
+position.** Demonstrated, not inferred: inside Sol's exact flags, `kill -0 <hermes-pid>` **succeeded**
+and 229 host pids were visible.
+
+⭐ **THE DISTINCTION NOBODY HAD STATED: a fence can be thorough along one axis and absent along
+another, and the thorough axis is what you look at.** Every review of this wrapper — including
+several of mine tonight — checked *which secrets are masked*. **Nobody asked what else a namespace
+is for.** The masks were genuinely good, which is exactly what made the gap invisible.
+⚠️ **And the tell that should have fired: the PODS ARE MORE ISOLATED THAN THE AGENT BUILDING THEM.**
+`provisioner.ex:99–101` emits `--die-with-parent --new-session --unshare-all`. **When a thing you are
+constructing is better protected than the thing constructing it, that asymmetry is a finding.**
+
+## ⭐ THE OBVIOUS FIX WAS WRONG, AND ONLY MEASUREMENT SHOWED IT
+`--unshare-pid` alone **does not close it visibly**: `/proc` is still the host's via `--dev-bind / /`,
+so 230 host pids remain readable. ⇒ **The working form is `--unshare-pid --proc /proc`** — a fresh
+procfs for the new namespace. Signalling is blocked either way (pid numbers don't resolve in the new
+namespace), but **the readable host `/proc` makes the sandbox LOOK unfenced and leaks the process
+table.**
+⇒ Measured ladder, `kill -0` (sends nothing) as the probe:
+| flags | pids visible | can signal hermes |
+|---|---|---|
+| current | 229 | ⛔ **YES** |
+| `+ --unshare-pid` | 230 | ✅ no |
+| `+ --unshare-pid --proc /proc` | **5** | ✅ no |
+
+## AND THE SURVIVABILITY WAS A MEASUREMENT, NOT A DECISION
+Whether codex tolerates a PID namespace at all was an open question — it manages subprocesses.
+⇒ **Tested before applying**: codex ran clean under `--unshare-pid --proc /proc` and returned its
+sentinel. **Applied, backed up, then verified END-TO-END through the real wrapper** — `CANNOT_SIGNAL_
+HERMES`, 4 pids visible — **plus a regression pass proving the credential masks still hold** (`.ssh`
+empty, signing key denied, `LETTA_API_KEY` empty). A tightening that broke the existing fence would
+have been a worse outcome than the gap.
