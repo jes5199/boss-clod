@@ -192,3 +192,21 @@ DEPLOY-CEREMONY's *gate strength should match reversibility*).
 ⚠️ Note what made the independence *visible rather than claimed*: **distinct fixed client IDs.** A
 report that says "I used a separate document" is an assertion; one that shows non-overlapping IDs is
 an artifact.
+
+### A mask check that can only ever return zero
+⚠️ **2026-08-13, S38 launch.** My fence check grepped `/proc/<pid>/mountinfo` for the literal string
+`/dev/null` and returned **0 masks** — indistinguishable from an unfenced run. The masks were real.
+**mountinfo renders a `/dev/null` bind as `0:5 /null` on devtmpfs**, so the string I searched for is
+never present *no matter how well-fenced the sandbox is*.
+⛔ **A CHECK THAT CANNOT RETURN NON-ZERO IS NOT A CHECK.** It is the false-zero family again, and here
+the false zero pointed at a SECURITY property — the loudest possible place to be quietly wrong.
+⇒ **PRINT THE LINES, DON'T COUNT THEM.** The correct form is `grep -E 'node_signing_key|\.ssh|cookie'
+/proc/<pid>/mountinfo` and *read* the result:
+```
+0:5 /null  …/.commonplace/node_signing_key   ro  devtmpfs   ← masked
+0:5 /null  /home/jes/.erlang.cookie          ro  devtmpfs   ← masked
+0:47 /     /home/jes/.ssh                    rw  tmpfs      ← empty tmpfs, push impossible
+```
+⭐ The general rule this instance earns: **when you grep for a rendering rather than for a fact, you
+are testing your own assumption about the format.** A control here is cheap — one known-masked path
+whose line you have actually read once.
