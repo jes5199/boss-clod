@@ -2881,3 +2881,34 @@ SHAPE.** The deletion review asks *is this correct?*; this asks *what silently s
 the same pair as the `cp-yjs-matrix` finding above, one level up from coverage to architecture.
 ⭐ And the remedy that worked: **writing it down as UNRANKED rather than leaving it unsaid.** An
 unwritten gap becomes an assumption, and this one would have been discovered by someone trying it.
+
+---
+
+# 7b6 — the pod-fleet killability requirement, stated before the fleet exists
+
+**2026-08-13.** plan ratified my disk constraint as binding on the first pod round and added the
+co-tenancy one: *"a runaway pod must be killable without touching hermes, and that property should be
+ASSERTED, not assumed."* ⇒ Host/process safety is my lane, so the mechanism is mine to state.
+
+⛔ **THE HAZARD IS THE ONE ALREADY IN MY STANDING ORDERS, ARRIVING IN A NEW CARRIER.** hermes is a
+live-money BEAM, and `pkill -f 'beam.smp'|'mix'|'elixir'|'phx.server'` **all match it**. A test-pod
+fleet running Elixir builds means **dozens of processes whose command lines are indistinguishable
+from hermes's by pattern.** ⇒ The existing rule (*resolve by identity, signal by numeric pid*) holds,
+but at fleet scale **"kill all the pods" becomes a routine operation**, and a routine operation
+performed by pattern is the exact shape that eventually hits hermes.
+
+⭐ **SO THE REQUIREMENT IS STRUCTURAL, NOT DISCIPLINARY: EACH POD MUST BE KILLABLE AS A UNIT WITHOUT
+NAMING A PATTERN.** A cgroup/slice per pod (or per fleet) gives *"kill this scope"* with no string
+matching anywhere — and hermes already lives in its own unit, so the isolation is one-sided today and
+needs to be two-sided.
+⚠️ **AND IT MUST BE DEMONSTRATED, NOT ARGUED** — the standing rule is that *a gate you have never seen
+fail is not known to work*. The first pod round should show: **kill the pod scope → pod dies, hermes
+`ActiveState=active` unchanged**, with hermes's liveness read *after* as a positive control.
+⚠️ Note the second-order hazard already filed: **`OOMPolicy=stop` kills the WHOLE tmux scope**, and
+services inherit the launcher's scope. **A pod fleet launched from a tmux pane inherits that blast
+radius** — so where the pods are launched FROM is a safety property, not a convenience.
+
+⇒ **THE GENERAL FORM: a safety property that currently holds BY SCARCITY stops holding at fleet
+scale.** Today there is one BEAM worth protecting and few processes to confuse it with; that is what
+makes today's discipline sufficient. **State the structural requirement while the fleet is still
+hypothetical — after it exists, the same requirement is a migration.**
