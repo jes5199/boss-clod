@@ -4866,3 +4866,54 @@ staleness instead of resolving it.*** **The fence working twice in one decision.
 ■ ⭐ **Two follow-up rows, not one — and the moduledoc row exists because THE FIX CHANGED WHAT IS
 TRUE, not because anyone was wrong.** **Those need different close reasons and a reader can only tell
 them apart if the row says which it is.**
+
+### 7g48 — ⭐⭐ THE GAUGE WENT RED: 0 → 1 → 0 UNDER A DELIBERATE PERTURBATION
+Deploy of `84475d91`, all four numbers:
+```
+① measure at the moment of restart (re-measured, not reused)   91 beams
+② SIGTERM 347040 → down in 2s → new pid 1153034 @21:26:39
+③ re-measure                                                    0 beams
+④ TOUCH ONE BEAM (Elixir.Commonplace.Trust.beam)                1 beam ← RED
+   restore captured mtime (2026-08-13 10:04:37)                 0 beams
+```
+⇒ ⭐⭐ **③ ALONE WOULD LOOK IDENTICAL IF THE TOOL WERE BROKEN** — the gauge counts beams newer than
+the serve's start, and **a restart moves the start past every beam**, so *a gauge that always printed
+0 produces the same reading.* **Only ④ can fail.** ⭐ **`CX-y4bq`'s open arm is now demonstrated
+rather than argued** — and the mtime was **captured before touching and restored after**, so the
+demonstration left no residue.
+■ The tool's own thesis measured a fifth time: **52 → 76 → 80 → 91 in one day, every increment ours.**
+
+### 7g49 — ⛔ THE OLD SERVE CARRIED `ANTHROPIC_API_KEY`; THE ALLOWLIST LAUNCH REMOVED IT
+The whole-environ capture (**unfiltered, 49 vars**) showed `ANTHROPIC_API_KEY` in the live serve's
+environment, inherited from the launching shell since Aug 12 20:14.
+⇒ **Relaunched via `env -i` + a NAMED ALLOWLIST** (8 launch vars + HOME/USER/LOGNAME/SHELL/LANG/TERM/
+PATH/ASDF_*/MIX_*): **49 → 26 vars, diff shows removals only, none of the eight dropped.**
+⭐ **Positive control that the new environ was readable: `PHX_SERVER=true` present.**
+⚠️ **Same species as the 2026-08-09 `LETTA_API_KEY` leak — RECURRED because the launch INHERITS by
+default.** ⛔ **Denylist-from-observation misses what wasn't there to see; the allowlist is the durable
+form.** ■ **Filed, not texted — jes has an asked-once open item on moving `LETTA_API_KEY` out of
+`.bashrc`, and this is the same family.**
+■ ✅ **Boot verified from a WHOLE captured log (2,105 bytes, not a grep):** posture
+`local_write_gate: :enforce (env-set)` · `mud_full_citizenship: true (env-set)` ·
+**`Bursar started … 48 active tokens`** ⇒ **`PHX_SERVER` took and Mode-B is alive** — the var whose
+silent loss once faked a Bursar incident. **hermes 3985426 `comm=beam.smp` before AND after; numeric
+pids throughout, no pattern kill.**
+■ ⚠️ **Stated as INFERENCE, not measurement: "the serve runs `84475d91`'s code" rests on HEAD +
+compile-before-kill + gap 0.** **Gap 0 is about MTIME, not CONTENT** — no module-md5 probe was run.
+⚠️ **And "the MUD plays" is NOT verified; HTTP 200 is not proof.**
+
+### 7g50 — BOUND vs UNREACHED: commonplace corrected its own headline downward
+*"The class is closed at six"* was imprecise: **`Schemas.create_text_doc/3` still discards its return
+at `schemas.ex:536`.** ⇒ **The sixth site was closed by ROUTING ITS CALLERS AWAY, not by binding it —
+deliberate and correct, since changing a shared function was the larger round we replaced.**
+⭐ **FIVE ARE BOUND; THE SIXTH IS UNREACHED, AND THOSE ARE DIFFERENT PROPERTIES: an unreached discard
+is one careless call away from live; a bound one cannot be.** ⇒ **That is `CX-3vgy`'s whole
+justification, not a footnote — *"zero callers" is a fact about today's tree with no mechanism keeping
+it true tomorrow.***
+■ ⭐ **It corrected itself because hermes corrected ITSELF downward first** (adoption 4-of-6 → 4-of-5),
+saying *"I'd be manufacturing the pattern you're trying to test if I let the inflated number stand"* —
+and **named the cause: a stale COMMENT asserting a data dependency the script doesn't have.** ⭐ **A
+false doc claim is the silent-wrong-answer shape in prose, surviving because nothing reads comments
+for truth.**
+■ ⚠️ **My telegram quoted "closed at six." His conclusion — stop re-reading — is unchanged, so I
+corrected the FILE and not his phone.**
