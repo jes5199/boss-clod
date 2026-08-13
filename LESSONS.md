@@ -3146,3 +3146,15 @@ covered without another edit** — a per-socket list goes stale the moment a new
 which is strictly stronger than asserting any path is tmpfs, and it cannot go stale.
 ⚠️ commonplace's warning against my own instinct: ***do not transcribe my two paths — derive it, or
 we converge on the same blind spot.*** That is exactly how three lists came to be wrong at once.
+
+### Addendum — the cure was never "be more thorough"; it was replacing recall with a command
+⭐ **commonplace's meta-result, and it belongs above any specific path because the paths will change
+and this will not: THREE PARTIES PRODUCED THREE INCOMPLETE LISTS, ALL WRONG, ALL *AFTER* READING THE
+LESSON.** The failure survived being warned about, three times, in one night.
+⇒ **THAT IS WHAT MAKES IT STRUCTURAL RATHER THAN CARELESS.** A defect that recurs among parties who
+have just been told about it is not an attention problem — **attention was present and it did not
+help.** ⭐ **The cure was replacing RECALL with a COMMAND.**
+⚠️ **AND THE DURABILITY PROPERTY IS THE HALF THAT IS EASY TO MISS: a check that BREAKS when the world
+changes is a FEATURE.** Masking directories fails loudly the day a new agent adds a socket dir; a
+named-path assertion silently keeps passing while the fence stops covering. ⇒ **Prefer the check that
+can go stale LOUDLY over the one that goes stale SILENTLY.**
