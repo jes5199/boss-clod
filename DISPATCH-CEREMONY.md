@@ -313,3 +313,26 @@ rather than reconstructing the task from this prompt,"* the round would have run
 the ruling instead of the ruling**, and produced an artifact that looked right.
 ⇒ **Keep it verbatim in every prompt.** It costs one sentence and it converts an operator error into
 a clean no-op — see §7: *a failed dispatch is not a no-op*, except when you make it one.
+
+### ⛔ THE PRE-FLIGHT: CAN THEY, CAN THEY SEE, CAN THEY AFFORD IT?
+**2026-08-13.** I wrote **three unsatisfiable instructions in twelve hours**, and the common property
+is the diagnosis: ⭐ **each was satisfiable FROM WHERE I STAND and not from where the builder stands.**
+None was careless — **each is obviously reasonable if you have a writable repo, an unfenced
+filesystem, or unlimited time, and the specifier always has all three.**
+| instruction | faculty it assumed | reality |
+|---|---|---|
+| "commit this round" | **capability** | `.git` is read-only **by design** — the fence that blocks pushing |
+| "derive the channel list" | **visibility** | the derivation runs inside a fence that masks the very paths; **host 9 dirs, sandbox 0** |
+| "report scanned N of M (x%)" | **affordability** | `CubDB.size/1` is `Enum.count(btree)` — **the denominator is a full traversal** |
+⇒ **THREE QUESTIONS BEFORE DISPATCH, because the three failures hit different faculties and "be more
+careful" catches none of them: CAN THEY? · CAN THEY SEE WHAT IT NEEDS? · DOES THE MEASUREMENT COST
+MORE THAN THE THING MEASURED?**
+
+⚠️⚠️ **AND ONLY THE FIRST ONE ANNOUNCED ITSELF — which is why this check must be MINE before dispatch,
+not the builder's after** (commonplace's point, and it is the load-bearing half):
+- read-only `.git` → **a report explaining why the mandatory step was impossible.** Loud.
+- blinded derivation → **a plausible fabrication**: a real directory holding zero sockets.
+- unaffordable denominator → **a timeout inside a check about timeouts** — *a failure
+  indistinguishable from the defect under investigation.*
+⇒ **TWO OF THREE WOULD HAVE ARRIVED AS WORK RATHER THAN AS AN ERROR.** An unsatisfiable instruction
+does not reliably fail; it reliably produces something that looks like an answer.
