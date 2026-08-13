@@ -131,3 +131,32 @@ plausible justification for churn (`the formatter wants it`) has to be tested, n
 were touched; only reading them says whether that was wiring or churn. **Flag the width, hand the
 judgement to the reviewer** — both times that split produced the right answer, and the two answers
 were opposite.
+
+
+---
+
+## Appendix — does the gate exercise the string that ships?
+
+**2026-08-13, S37b.** The consumability gate would have fetched over `git@github.com:…` while the
+shipped dep uses HTTPS. Everything inside the gate would have passed — **real fetch, real compile,
+real convergence — against the wrong string.**
+
+⚠️ **THIS IS A DISTINCT FAILURE FROM THE OTHERS IN THIS FILE.** Not a vacuous check (the corpus was
+real), not a wrong referent (the repo was right), but **a completely valid proof of the wrong
+proposition.** No amount of rigour *inside* the gate surfaces it, because every step genuinely passes.
+⇒ **BEFORE TRUSTING A GATE, ASK WHETHER IT EXERCISES THE EXACT CONFIGURATION THAT SHIPS** — the same
+URL string, the same ref, the same credentials posture, the same environment. A gate that proves a
+neighbouring configuration certifies nothing about the real one.
+⭐ The measurement that settled it was not an argument about which form was better: **CI has no SSH
+setup at all**, so only one form ships. *A preference became a constraint the moment someone measured.*
+
+### The pin travels with the proof
+The gate proved HTTPS **at a pinned SHA**. ⇒ **The round it guards must use that URL AND that SHA**,
+or it inherits none of the assurance. **If the published tip moves, the gate is stale and re-runs.**
+⛔ **CHECK TIP-EQUALITY IMMEDIATELY BEFORE DISPATCHING THE GUARDED ROUND, AND REFUSE IF IT MOVED** —
+assuming a newer tip is equally consumable is assuming the property survives a change nobody tested.
+For the yelixer atomic round that means: `git ls-remote https://github.com/commonplace-systems/yelixer`
+must still be `691a4f44…`.
+
+⭐ **AND THE POSTURE THAT MAKES A GATE REAL** (commonplace's line): *a gate whose author wants it to
+pass isn't a gate.* Its sibling: a guard nobody has seen fail is the defect wearing a fix's clothes.
