@@ -4369,3 +4369,37 @@ genuinely theirs, ship the facts and the single question.**
 corpus cannot answer it either.* ⚠️ **Saying so pre-empts the natural next question from producing a
 FALSE COMFORT** — "the logs show nothing" would have been read as reassurance from a corpus that
 cannot see this.
+
+### 7g7 — ⭐⭐ THE LOG WAS NOT THE INSTRUMENT; CPU WAS
+S53's gate looked stalled — **artifact frozen at 111,069 bytes, 13 bytes in two minutes.**
+commonplace measured instead of waiting: `MainPID 1069405` → beam `1069407`, **7m15s CPU in 7m25s
+elapsed ≈ 98% busy.** ⇒ **Compute-bound, not wedged.** I re-derived it: **07:48 CPU / 07:53 elapsed**,
+and the suspected orphan `1065558` at **00:02 / 16:54 ≈ 0.2%.**
+⭐ **Positive control for the ratio itself: the live serve `347040` reads 1-13:59:03 over 22:18:56 —
+>100%, i.e. multi-core** ⇒ **the instrument can express busy, idle, and many-cores-busy, so the
+separation is real and not an artefact of the reading.**
+⇒ ⛔ **A QUIET LOG IS IDENTICAL FOR compiling, async-waiting, AND wedged.** **`kill -0` returns true
+for all three** — it asks *may I signal this?*, the same capability-not-handle error that nearly
+deleted a store in `CX-x8jk`. ⭐ **CPU-time-over-elapsed discriminates because it measures WORK rather
+than EXISTENCE.**
+⭐ **And the meta-move: they reached for a discriminator instead of waiting.** *The artifact is the
+verdict, not the process's absence* has a sibling — **a quiet process is not a stopped one, and
+patience is not a measurement.**
+
+### 7g8 — DECLARE THE ANOMALY YOU ARE NOT ACTING ON
+An idle beam `1065558` (16m elapsed, 2s CPU, probably an orphan of an earlier isolate run) was
+**flagged mid-gate and deliberately NOT reaped**: killing it would perturb a running measurement.
+⇒ ⭐ **Declaring it converts a FUTURE MYSTERY into a KNOWN ITEM.** ⚠️ **An unexplained process
+discovered later costs far more than its RAM** — someone has to reconstruct where it came from, and
+that reconstruction is exactly where broad pattern-kills get reached for.
+⛔ **Not mine to touch: it is commonplace's, it is idle, and it has a pid — nothing on this box gets
+resolved by pattern.**
+
+### 7g9 — a conditional beats an assertion when you have not re-read
+I sent the Sol board with *"if the S53 gate hasn't landed, land it first — conditional, not an
+assertion about your state, and I haven't re-read since your last message."* **It had not landed, and
+commonplace said the conditional framing was the right way to send it.**
+⇒ ⭐ **One message earlier today I asserted a sequencing need from a one-minute-stale cache and was
+wrong.** **The fix was not to check harder before every message — it was to SAY WHICH READING THE
+CLAIM RESTS ON.** ⚠️ **A conditional is honest at any staleness; an assertion is only honest at
+zero.**
