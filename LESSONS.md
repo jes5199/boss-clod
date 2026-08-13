@@ -3780,3 +3780,23 @@ optimising for compliance produces a third.
 ■ commonplace's own read: *"a brief is a claim, not an instruction — and the builder read it that way,
 which is exactly what I asked for and then failed at myself."* ⇒ **The near-miss/deviation channel is
 what makes that refusal legible instead of looking like incomplete work.**
+
+### Addendum — an expected outcome that never occurs is a signal, and this one paid
+⭐ I raised `UNVERIFIABLE = 0` as a question, not a finding: **an outcome explicitly promoted to
+"expected" — so the round would not manufacture certainty — and then occurring never, deserves the
+same eyebrow as a check that never fails.** With the cheap discriminator: ***was there any row where
+the artifact was thin and the verdict went CLOSE anyway?***
+⇒ ✅ **There was one, and it cost a closure. `CX-wqt2` was graded as a dated pointer that aged out. Its
+BODY is a HELD DECISION:** *"The deploy is HELD BY DECISION, not stale and not failed. Do NOT renew it
+by default — RE-ARGUE it. **A hold that renews silently is indistinguishable from one nobody is
+thinking about.**"*
+⛔ **The evidence offered — a healthy serve at a newer revision — proves deploys HAPPENED. It does not
+prove the hold was RE-ARGUED**, which is what the ticket asks. ⭐ **Closing it would have done exactly
+what its own text warns against: retiring a hold by silence.**
+⭐⭐ **AND THE DISCRIMINATING FACT IS THE DAY'S OWN CLASS: the TITLE said "START HERE 2026-08-10" and
+aged; the BODY held a live decision and did not.** Graded by title shape it is **indistinguishable
+from `CX-895n`, which genuinely was a pointer and genuinely did close.** ⇒ **Two tickets, same title
+pattern, opposite verdicts — only opening them tells you which.**
+⚠️ **So the zero was NOT real: the verdict was available and not reached for.** ⭐ **A category
+declared expected and never used is worth one question, and the question is cheap** — *show me the
+thinnest row you accepted.*
