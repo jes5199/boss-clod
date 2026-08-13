@@ -4263,16 +4263,13 @@ useless — **remembering the QUESTION is the transferable part: *could this obs
 produced by the instrument rather than the world?*** ⭐ **A positive control is the only general
 answer, and in ⑤ it did not confirm the result — it exposed the instrument.**
 
-### 7f8 — ⭐⭐ A TRUE-SHAPED CLAIM ABOUT THE WRONG OBJECT SURVIVES EVERY PLAUSIBILITY CHECK
-S53's report said *"a load-sensitive MUD rendering failure."* **The actual failure was
-`Commonplace.Bd.TicketCreateDeadlineTest:117`** — and commonplace enumerated **every failure block in
-the 5.7 MB log: exactly 2, both that same Bd test. No MUD failure anywhere.**
-⇒ ⭐ **The VERDICT was right (load-sensitive) and the SUBJECT was wrong.** ⚠️ That sentence *could*
-be true in this codebase, *sounds* like this codebase, and **would have sent the reviewer into a
-subsystem with nothing wrong with it.** **Nothing about its shape invites a check** — which is why
-this is the day's signature failure rather than an ordinary error.
-■ ⭐ **Caught by ENUMERATING THE CORPUS, not by reading the summary** — the same bulk-sweep that
-caught the unexecuted `CX-b38c` ruling. **Both times the summary lied and the corpus did not.**
+### 7f8 — ⛔ RETRACTED AND REPLACED BY 7g10. The example was backwards; see below.
+~~S53's report said "a load-sensitive MUD rendering failure"; the actual failure was the Bd
+deadline test; the verdict was right and the subject was wrong.~~
+⚠️ **THIS WAS WRONG, AND I REPEATED IT AS "THE DAY'S SIGNATURE" BEFORE IT WAS CHECKED.** **Sol's
+characterisation was accurate.** The correction of it was not. **Kept struck rather than deleted so
+the retraction is visible to anyone who read the original.** ⇒ **See 7g10 for what actually
+happened, which is the better lesson.**
 
 ### 7f9 — AN INTERNAL NEGATIVE CONTROL NOBODY ASKED FOR IS WORTH MORE THAN A SPECIFIED ONE
 S53's two-writer artifact: writer `AuditCanary.provoke` vs `RedLog.commit`, **firing process
@@ -4403,3 +4400,39 @@ commonplace said the conditional framing was the right way to send it.**
 wrong.** **The fix was not to check harder before every message — it was to SAY WHICH READING THE
 CLAIM RESTS ON.** ⚠️ **A conditional is honest at any staleness; an assertion is only honest at
 zero.**
+
+### 7g10 — ⭐⭐ ENUMERATING A CORPUS AND THEN GENERALISING PAST ITS BOUNDARY
+**The corrected record.** Sol reported *"three complete core runs, each with one load-sensitive MUD
+rendering failure."* commonplace enumerated **every failure block in the 5.7 MB log** — found 2, both
+the Bd deadline test — and concluded *"there is no MUD failure anywhere in it."* **I amplified that
+to commonplace as the day's signature failure.**
+⛔ **BOTH OF US WERE WRONG. The gate landed red with `3,472 tests, 2 failures` and one of them is
+`Commonplace.MUD.RoomVisibilityTest:372` — EXACTLY what Sol described and we said didn't exist.**
+⇒ ⭐⭐ **THE LOG FILE HELD ONLY THE FINAL RUN. THE CORPUS WAS ONE RUN; THE CLAIM WAS ABOUT THREE.**
+**The enumeration was correct and complete — over a boundary narrower than the assertion built on
+it.**
+⚠️ **This is the day's shape one level up: not "I trusted a summary" but "I VERIFIED, and then
+over-read what the verification covered."** ⭐ **A corpus check licences a claim about THAT CORPUS
+ONLY.** **Before generalising, state the corpus's boundary out loud and check the claim fits inside
+it** — *3 runs vs 1 log* was visible in Sol's own sentence and neither of us read it as a scope.
+■ ⭐ **And my part specifically: I did not verify before repeating it, and I repeated it with
+emphasis.** ⚠️ **Amplification is an assertion.** *"That's the day's signature"* is not a neutral
+relay — **it added confidence the claim had not earned**, and it came from me, whose job on this box
+is to check what passes through. **Filed here rather than texted; jes was never told, so nothing he
+believes has to change.**
+■ ⭐ **Correct handling by commonplace, worth copying: it did NOT quietly fold the correction into a
+new report — it said "I owe Sol a correction; Sol's characterisation was accurate and mine was
+not."** ⇒ **The party who was doubted gets told, by name.**
+
+### 7g11 — ⛔ "PROBABLY LOAD" IS THE COMFORTABLE READING, AND THERE IS A REASON TO DISTRUST IT HERE
+Both failures pass in isolation (`24 tests, 0 failures`). ⚠️ **Not a verdict — and this time with a
+specific reason beyond the usual:** S53 touched `command_router.ex` and `commit_store*.ex`, and **the
+MUD failure is a MISSING DESCRIPTION** — *"(this place has no description)"*. ⇒ **A room description
+whose write silently failed would render EXACTLY like that** — and **`CX-0hbs` says this codebase
+currently reports DENIED WRITES AS SUCCESSES on those very paths.**
+⇒ ⭐ **The discriminator being run: stash S53's eight files and re-run the same two suites under the
+same full-suite conditions.** **Fails on the base too → the pre-existing flake Sol described. Fails
+only with the change → S53 has a real defect and does not land.**
+⭐⭐ **THE GENERAL FORM: WHEN A KNOWN BUG WOULD PRODUCE THE EXACT SYMPTOM IN FRONT OF YOU, THE
+INNOCENT EXPLANATION NEEDS MORE EVIDENCE THAN USUAL, NOT LESS.** ⚠️ **"Flaky under load" is the
+reading that costs nothing to accept and everything if wrong.**
