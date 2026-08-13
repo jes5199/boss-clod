@@ -4610,3 +4610,29 @@ the INDEX WRITE ITSELF UNBOUND?**
 the same condition** — **a gate that fails in the exact scenario it exists for.** ⚠️ The generalisation:
 **a monitor built on the same primitive as the thing it monitors inherits its failure mode**, and does
 so silently, because both go quiet together.
+
+### 7g26 — ⭐⭐ ONE CONTROL CAUGHT A BLIND INSTRUMENT TWICE, IN OPPOSITE DIRECTIONS
+commonplace's orphan sweep produced **two confident, opposite, equally wrong answers:**
+- **Attempt 1 → "0 orphans."** ⚠️ **The most reassuring possible answer on the exact question of
+  silent loss.** ⛔ Vacuous: `IssueDocIndex.entries/1` returns **DOC uuids**, not ticket ids — **two
+  sets that can never intersect.**
+- **Attempt 2 → "962 orphans."** ⚠️ Alarming, equally wrong. ⛔ The two 962-element sets are
+  **DISJOINT** — same size, zero overlap: `list/2`'s uuid is the **`.iss` DIRECTORY**; the index
+  records the **`__issue.json` DOCUMENT inside it.** **Different objects.**
+⇒ **Both caught by one control: `known-good CX-9wy4 must appear in BOTH corpora`** (plus
+`corpus non-empty`).
+⭐⭐ **A CONTROL THAT CAN CATCH A FALSE ZERO *AND* A FALSE ALARM IS TESTING THE INSTRUMENT, NOT THE
+ANSWER.** ⚠️ **And note which one would have shipped: THE ZERO — because it agreed with what was
+wanted.** **A wrong number that alarms gets re-checked; a wrong number that reassures gets
+published.**
+■ ⭐ **And it STOPPED rather than trying a third keying, with the mechanism named**: *"a sweep for
+silent loss whose own join I got wrong twice is not something I should hand anyone as a count."*
+⇒ ⭐ **"Unverifiable from where I stand" is a real result and it beats a third confident number.**
+
+### 7g27 — A DETECTOR'S KEY SEMANTICS BEING ILLEGIBLE IS A SAFETY PROPERTY, NOT A STYLE ISSUE
+The two failures were both **join errors**: the correct path is **`.iss` directory → its
+`__issue.json` entry → that doc's uuid**, which `issue_doc_index.ex:71` exists to perform.
+⇒ ⭐⭐ **A DETECTOR BUILT TO CATCH INVISIBLE TICKETS COULD NOT BE CHECKED AGAINST THE LISTING BY
+SOMEONE WITH THE SOURCE OPEN.** ⚠️ **That is a usability property of a safety mechanism — and it is
+exactly the kind that makes a detector GO UNCONSULTED.** ⭐ **Unexpected supporting evidence for
+S54's required arm, supplied by failing to use the thing.**
