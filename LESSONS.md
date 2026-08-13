@@ -3004,3 +3004,35 @@ sentinel. **Applied, backed up, then verified END-TO-END through the real wrappe
 HERMES`, 4 pids visible — **plus a regression pass proving the credential masks still hold** (`.ssh`
 empty, signing key denied, `LETTA_API_KEY` empty). A tightening that broke the existing fence would
 have been a worse outcome than the gap.
+
+### Addendum — a probe whose referent changes across the boundary tests nothing
+⚠️ **commonplace, verifying my fence fix, nearly filed a false alarm:** its first probe was
+`kill -0 1`, which **SUCCEEDED** inside the tightened sandbox — because **pid 1 in a new PID namespace
+is the sandbox's OWN init**, not the host's. ⇒ **A SIGNAL TEST AGAINST A PID WHOSE MEANING CHANGES
+ACROSS THE BOUNDARY TESTS NOTHING** — the number is valid on both sides and denotes different
+processes. It caught this before reporting; re-running against the **real hermes pid (3985426)**
+gave `No such process` and an absent `/proc/3985426`.
+⭐ Same family as the wrong-pid secret-leak scare (7b0) and the correct-tool-wrong-referent entries:
+**the identifier survived the context change and the thing it named did not.** ⇒ **Probe with an
+identifier that is meaningless on the other side if the fence works** — a specific host pid — never
+with one that exists in both worlds.
+
+### Addendum — a two-property fence certified by a one-property test
+⭐ I proposed measuring the fix by `kill`; commonplace proposed `--unshare-pid`. **Both were half
+right, and the halves were different.** `--unshare-pid` blocks the ACTION (signalling) while leaving
+the OBSERVATION (a host-backed `/proc`, 230 pids readable). ⇒ **It would have PASSED the kill test and
+FAILED an `ls /proc` test** — and the kill test is the one anyone would run.
+⛔ **WHEN A FENCE HAS TWO PROPERTIES, A SINGLE-PROPERTY TEST CERTIFIES THE WRONG ONE** — and the
+partial fix is more dangerous than none, because it now *looks* verified. **Enumerate what a boundary
+is FOR before choosing what to measure**: this one exists to stop acting *and* to stop seeing.
+
+### Addendum — the actor cannot verify its own blast radius
+⭐ A consequence of the fix that improved the S32 gate rather than breaking it: **`systemctl --user`
+fails inside the tightened fence**, so Sol can no longer read hermes' `ActiveState`. The ratified
+gate — *kill the pod scope, then read hermes as a positive control* — **is no longer performable by
+the agent doing the killing.**
+⇒ **THAT IS THE GATE BECOMING HONEST.** It was weak precisely because **the killer could falsify its
+own control.** ⭐ **THE PARTY PERFORMING A DESTRUCTIVE ACT CANNOT VERIFY ITS OWN BLAST RADIUS —
+verification belongs outside the actor.** Same three-party shape as the public-repo pushes. The
+split is now written into S32: Sol kills and reports; **boss reads hermes from outside and states
+before/after.**
