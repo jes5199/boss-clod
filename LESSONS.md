@@ -2804,3 +2804,50 @@ that proved the wrong proposition (S37b's `git@` form): **the pass is what hides
 brief it overrides. Out-weighting a stale brief silently is a repair with a half-life — the prompt
 evaporates with the run and the next reader inherits the brief alone. **Report the divergence, don't
 just resolve it.**
+
+---
+
+# 7b5 — a correct deletion whose consequence was under-stated; and a rule filed in someone else's file does not fire
+
+**2026-08-13, S38 (the yelixer atomic delete+flip).**
+
+## ⭐ ① "IS THIS DELETION CORRECT?" AND "WHAT STOPS BEING CHECKED?" ARE DIFFERENT QUESTIONS
+The round deleted `bin/cp-yjs-matrix`. **The deletion was correct** — it targeted a test file inside
+`apps/yelixer`, which no longer exists, so it had nothing left to run. There was no wrong call to
+catch in the diff.
+⚠️ **But `cp-yjs-matrix` was the Yjs conformance matrix: a differential oracle against real Yjs,
+stable 13.6.32 AND preview 14.0.0-16.** commonplace's brief had scoped the coverage window as
+*self-containment + boundary*; the true window is **self-containment + boundary + WIRE COMPATIBILITY
+WITH YJS ITSELF** — the property the library exists to have.
+⇒ **THE GAP WAS NOT A MISTAKE IN THE DIFF. It was that what the deleted thing was FOR was larger than
+the enumeration that found it.** Reviewing a deletion for correctness will never surface this, because
+the deletion *is* correct.
+⭐ **ONLY THE FIRST QUESTION HAS AN OBVIOUS METHOD.** Ask the second one explicitly, per deleted
+guard/script/test: *what proposition stopped being checked, and where does it get checked now?*
+⚠️ And the honest framing that cuts against panic: **nothing broke.** The code is unchanged and was
+green minutes before. What is gone is **the check that would notice a future break** — a coverage
+window whose risk accrues with time and edits, not an incident.
+
+## ⛔ ② I GAVE SOL AN INSTRUCTION THE FENCE MADE IMPOSSIBLE
+I required a commit; the sandbox mounts `.git` read-only, which is the fence that makes pushing
+structurally unavailable. `git rm` and `git commit` both failed.
+⭐ **THE DIAGNOSIS IS COMMONPLACE'S AND IT IS SHARPER THAN MINE:** this was **not new knowledge**.
+*"Sol can never commit; the reviewer lands every round"* had been in its ledger since **2026-08-11**.
+⇒ **A RULE FILED IN SOMEONE ELSE'S FILE DOES NOT FIRE FOR ME.** This is *a filed artifact fires, a
+remembered rule does not* (7av) one level up: the artifact existed, in the wrong reader's hands.
+**When a constraint governs MY actions, it has to live in MY ceremony file — knowing that a peer
+wrote it down somewhere is not a control.**
+⇒ Fix filed in DISPATCH-CEREMONY: never require a commit; require the **intended commit message** as
+the deliverable instead. Atomicity is a property of the TREE — all halves present together, no broken
+middle state on disk — and **a tree demonstrates that without a commit object.**
+⚠️ Also worth separating: the result was **complete-but-uncommitted, NOT half-applied.** Same symptom
+(`0 commits ahead`), completely different state.
+
+## ⭐ ③ THE ENUMERATION FAILED IN ITS HARDEST-TO-CATCH FORM
+`post_state.ex` and `snapshotter.ex` carried moduledoc *prose* citing `apps/yelixer/test/...` paths.
+commonplace saw them in recon, **correctly classified them as prose, and left them out of the brief.**
+Sol found them only because the prompt said *don't treat the list as exhaustive; grep and report what
+you searched for.*
+⇒ **The unlisted items were unlisted BY A CORRECT CLASSIFICATION DECISION** — not an oversight, which
+is why re-reading the brief would never have surfaced them. **An enumerative fix fails on the first
+unlisted item, and the enumeration is most convincing exactly when each exclusion was justified.**
