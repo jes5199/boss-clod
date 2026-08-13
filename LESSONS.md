@@ -3481,3 +3481,17 @@ reader already looks · and now a design fence living in a test file.**
 ⇒ **Four different subsystems, one shape.** ⭐ **A rule that depends on being remembered binds only
 until the next person doesn't** — and every durable fix this week converted a rule into something that
 executes, fails, or blocks on its own.
+
+### Addendum — checking one object and consuming another
+⚠️ **commonplace, reviewing S48:** the env pre-check runs `Provisioner.sandbox_spec(profile,
+state.pods_root)` — **the pods ROOT** — while the actual resolve does `Map.take` on the **real pod's**
+spec. ⇒ **The check and the use are on two different objects.** It is correct today **only because the
+env key set is a fixed literal independent of `pod_home`.**
+⛔ **AND THE FAILURE MODE IS SILENT BECAUSE `Map.take` CANNOT FAIL**: if that invariant ever lapses, a
+declared variable goes **missing instead of refused**. ⭐ **A validation that runs against a stand-in
+proves a property of the stand-in.** Same family as *measuring a proxy* and as *the gate that
+exercised a neighbouring configuration* — **the check passes, the artifact differs, and nothing
+anywhere says so.**
+⇒ **ASK WHAT OBJECT THE CHECK RAN AGAINST AND WHAT OBJECT THE CODE THEN USES.** If they are not the
+same one, the check is only as good as an invariant nobody restated — **and invariants that hold "by
+construction today" are exactly the ones that lapse without an error.**
