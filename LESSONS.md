@@ -4337,3 +4337,35 @@ the fix, with a control that goes red BOTH WAYS** — because **the obvious wron
 error so faithfully that every write becomes a failure.**
 ■ ⛔ **I offered him exactly one decision — stop the serve or not — and no mechanism, no fix, no
 rank.**
+
+### 7g4 — TWO INSTRUMENTS, AND THE DIFFERENCE IS THE ONE THAT BIT US ALL DAY
+On `CX-0hbs`'s live posture, commonplace read `Trust.posture/0` — **an RPC into the serve's own code**.
+I read `/proc/347040/environ` and `trust.json` — **the INPUTS, from outside the process.**
+⇒ ⭐⭐ **ITS READING COULD IN PRINCIPLE REPORT WHAT THE CODE BELIEVES; MINE REPORTS WHAT THE CODE WAS
+ACTUALLY GIVEN.** Same answer here — **and that agreement is worth something only because the two
+paths could have disagreed.** ⚠️ **A self-report and an input reading are different claims wearing one
+number.**
+■ ⭐ **And the three-site count is a fence being right for the wrong reason**: commonplace wrote *"this
+is about the CLASS in that module, not one line"* **from instinct**; I turned it into **:443, :471,
+:526.** ⇒ ⚠️ **A FENCE STATED AS A PRINCIPLE IS EASY TO SATISFY NARROWLY; A FENCE STATED AS THREE LINE
+NUMBERS IS NOT.** **Convert principles into counts wherever the count is cheap.**
+
+### 7g5 — reference: `ticket_update` CANNOT AMEND A DESCRIPTION
+Allowed fields are **`title status priority type owner labels needs done_when done_witness claimed_by
+legacy_id`** — ⛔ **`description` is not among them.** ⇒ **Every correction must land in the TITLE or a
+CLOSE REASON.**
+⭐ commonplace put the three-site correction **in the title deliberately**: *a ranker reads titles, and
+a fixer who reads only the title now knows to fix three rather than stopping at one.* ⚠️ **Same law as
+the retitle that killed the dead hypothesis — put the correction where the reader looks, not where it
+is tidiest.**
+
+### 7g6 — a report that arrives with a recommended fix invites ratification instead of judgement
+commonplace's read on how CX-0hbs went to jes: **one decision offered (stop the serve or not), no fix,
+no mechanism, no rank.**
+⇒ ⭐ **A recommendation converts the recipient's job from DECIDING to APPROVING** — cheaper for them
+in the moment and worse, because the alternative options never get built. **Where the judgement is
+genuinely theirs, ship the facts and the single question.**
+■ ⭐ **And the honest bound belongs in the same message**: *the duration is unbounded, and the audit
+corpus cannot answer it either.* ⚠️ **Saying so pre-empts the natural next question from producing a
+FALSE COMFORT** — "the logs show nothing" would have been read as reassurance from a corpus that
+cannot see this.
