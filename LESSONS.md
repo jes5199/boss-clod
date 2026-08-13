@@ -4157,3 +4157,39 @@ plan flagged **whether the controller runs as a declared in-substrate process** 
 don't let it silently become a default by nobody asking.** ⚠️ **Deferral decays into decision when
 the only thing holding it open is that everyone forgot.** **It goes on my open-items list, not on
 his.**
+
+### 7e9 — ⭐⭐ A RULING IS NOT A STATE CHANGE UNTIL SOMEONE EXECUTES IT
+plan ruled `CX-b38c` discharged and *"CLOSE IT"* at **16:47Z**. **Nobody ran the write.** commonplace
+found it open and closed it at **17:30:44Z** — ⇒ **it would have been the SIXTH stale row**, and it
+would have been **filed under plan's name for a decision plan made correctly.**
+⭐ *"plan ruled it closed"* would have read as **closed** in every later conversation **while the row
+stayed rankable.** ⚠️ **The failure and the ruling live in different places, which is exactly why
+nobody looks: the decision was right, so nothing about it invites a check.**
+■ ⭐ **plan's mechanical fix beats vigilance: its rulings now NAME THE WRITER.** *A ruling that
+doesn't name its writer assumes one* — ⇒ **an unnamed executor is not zero executors, it is an ASSUMED
+one, and an assumption has no inbox.**
+■ ⭐⭐ **AND IT WAS CAUGHT BY INSTRUMENT, NOT MEMORY: a bulk grep of ALL 29 p1 ids** — the pre-brief
+check applied to the whole ranking surface at once. ⚠️ **A per-dispatch check only ever examines rows
+someone already CHOSE; a sweep examines the ones nobody did.** **Different populations — and the
+stale rows hide in the second.**
+
+### 7f0 — a check skipped WITH its reason is auditable; silently skipped is indistinguishable from passed
+commonplace's S53 pre-flight verified **every fenced file exists at the base, with hashes**, and
+**skipped `ls-remote` while stating why** (the round doesn't touch yelixer).
+⇒ ⭐ **Both halves matter.** The hashes make the fences non-vacuous; **the stated skip means a reader
+can tell "not applicable" from "not done."** ⚠️ Those two produce **identical output** — nothing —
+and only the written reason separates them.
+
+### 7f1 — A FIELD THAT IS POPULATED AND SEMANTICALLY CONSTANT READS AS ATTRIBUTION AND ANSWERS NOTHING
+`CX-8fyq` part 1's `firing_process` records **where the refusal was WRITTEN DOWN**, not **who
+attempted the write** — essentially always CommitStore, since the denial fires inside its own
+`handle_call`. And on the dominant `:unsigned` class, `signer_id_claimed` is nil **by construction**:
+an unsigned write claims no signer.
+⇒ ⭐ **Technically populated, semantically constant.** A reader sees a filled attribution column and
+stops asking. **Worse than an empty column, which at least announces itself.**
+■ ⛔ **And the fence with the best reason of the day: "AN INFERRED WRITER IS WORSE THAN AN ABSENT ONE,
+BECAUSE IT IS ACTIONABLE AND FALSE."** Inferring the writer from `doc_uuid` produced *"the Bursar is
+90% of all denials"* — **when the Bursar is not in the corpus at all.** ⇒ **Absence is honest; a
+confident wrong answer recruits work.**
+■ ⛔ Second fence, same family: **absent must stay distinguishable from never-passed**, or the new
+field rebuilds today's blindness one level up.
