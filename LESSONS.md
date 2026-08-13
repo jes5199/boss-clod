@@ -4193,3 +4193,47 @@ BECAUSE IT IS ACTIONABLE AND FALSE."** Inferring the writer from `doc_uuid` prod
 confident wrong answer recruits work.**
 ■ ⛔ Second fence, same family: **absent must stay distinguishable from never-passed**, or the new
 field rebuilds today's blindness one level up.
+
+### 7f2 — ⛔ MY OWN INSTRUMENT FAILURE: `find` HERE IS `bfs`, AND ITS ERROR PRINTED AS `0`
+Checking non-perturbation after the CX-x8jk run I used `find .commonplace -newermt '-3 minutes'
+2>/dev/null | wc -l` → **0**, and nearly reported it as "nothing was touched."
+⛔ **The positive control at 30 days ALSO returned 0** — which is how I learned `find` on this box is
+**`bfs`, not GNU findutils**, and it **rejected the timestamp outright**: *"Invalid timestamp.
+Supported formats are ISO 8601-like."* **I had sent that error to `/dev/null`.**
+⇒ ⭐⭐ **AN ERRORING CHECK AND A CHECK THAT FOUND NOTHING PRINTED THE IDENTICAL `0`.** The day's whole
+shape, in my own hands, **caught only by the control I nearly skipped because the answer looked
+clean.**
+⚠️ **`2>/dev/null` is where this bug lives.** Suppressing stderr on a *measurement* deletes the one
+channel that distinguishes *the instrument failed* from *the world is empty*. **Suppress stderr on
+noisy commands you are not measuring; never on the check itself.**
+
+### 7f3 — ⭐⭐ LET THE WORLD REPEAT THE EVENT WITH YOUR HANDS OFF IT
+After the CLI refusal, `node_signing_public_keys.json` and `commits/25.cub` carried mtimes **inside
+the same minute as my run.** I could argue *"a refusing CLI cannot write the public-keys file"* — and
+that argument was **true and still only plausible.**
+⇒ **Instead I watched both files with nothing of mine running: the public-keys file rewrote again at
+17:40:08 on the serve's own ~30s cadence, and `25.cub` never moved.** ⇒ **Attribution settled by
+observation.**
+⭐ **A SECOND OCCURRENCE UNDER A CHANGED CONDITION BEATS ANY AMOUNT OF CORRECT REASONING ABOUT THE
+FIRST.** ⚠️ And note the trap avoided: **the plausible story was also the true one** — which is
+exactly when reasoning gets accepted as measurement and the habit quietly dies.
+■ **And I corrected the prior claim visibly**: I had told commonplace *"I cannot yet cleanly assert
+non-perturbation."* That hedge was right when written and is superseded — **said so explicitly rather
+than letting the new claim silently overwrite it.**
+
+### 7f4 — `kill -0` MEASURES SIGNAL PERMISSION, NOT LIVENESS
+From CX-x8jk's red-first work: **`kill -0` on pid 1 reports "dead"** — it is asking *may I signal
+this?*, not *is this alive?* ⇒ **In a lock-takeover path that mistake DELETES A STORE.**
+⭐ **Capability-not-handle, in the one place where being wrong is unrecoverable.** The fixed CLI
+instead **refuses or routes, names the holder as a HINT NOT PROOF, and says which knobs to check** —
+⭐ **a refusal that teaches is worth more than a retry that guesses.**
+
+### 7f5 — ⛔ 76 BEAMS IS A DEPLOY, NOT A RESTART
+`cp-deploy-gap` measured **76** (32 commonplace · 19 yelixer · 11 mcp · 8 bots · 4 web · 2 cli) —
+independently derived by me, matching commonplace. **The ticket said 52; the hazard GREW while the
+row sat**, and **the 19 yelixer beams are today's own pin move.**
+⇒ **Restarting the serve is normally in my just-do-it list. This one is not** — *a restart deploys all
+76 at once*, so the act is a deploy and **its sequencing belongs to commonplace.** ⭐ **Offered, not
+performed.**
+⚠️ **And the gauge's unfinished half is the control that can go RED**: touch a beam → count rises;
+restart → falls to 0. **52→76 shows it moves upward; nobody has ever seen it return to zero.**
