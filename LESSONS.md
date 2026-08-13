@@ -2851,3 +2851,16 @@ you searched for.*
 ⇒ **The unlisted items were unlisted BY A CORRECT CLASSIFICATION DECISION** — not an oversight, which
 is why re-reading the brief would never have surfaced them. **An enumerative fix fails on the first
 unlisted item, and the enumeration is most convincing exactly when each exclusion was justified.**
+
+### Addendum — a risk can look quiet because an UNRELATED constraint is suppressing its accrual
+commonplace-plan, ruling on the `cp-yjs-matrix` coverage window: **rank unchanged, characterization
+changed** — bx59 was already next, so nothing moved; what the fact changed is **what the brief must
+cover**. A brief written to the old description would have shipped CI watching **one of three
+properties** (wire-conformance, self-containment, boundary) and **read as complete**.
+⭐ **AND THE OBSERVATION WORTH KEEPING IS PLAN'S:** the window's risk accrues *with edits to yelixer* —
+and **edits to yelixer are currently forbidden by the arc's own no-commits-mid-arc rule.** ⇒ So the
+gap looks quiet, **but the thing keeping it quiet is unrelated to the gap and expires on its own
+schedule.** When the arc lands, the suppression ends and the risk starts accruing for the first time.
+⚠️ **A HAZARD SUPPRESSED BY AN UNRELATED CONSTRAINT LOOKS IDENTICAL TO A HAZARD THAT ISN'T THERE** —
+until the constraint lifts, at which point it appears fully-formed with no triggering event to point
+at. **Ask what is holding a quiet risk quiet, and whether that thing is load-bearing or coincidental.**
