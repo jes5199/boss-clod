@@ -4032,3 +4032,38 @@ the non-escaping `Path.join`, line 309 the `flunk`, fixture md5 `50fa92d4…`.
 ⇒ **A commit id proves an object exists; it does not prove the object contains what you reviewed.**
 **Read the content at the destination.** Same instrument-choice principle that made `ls-remote` beat
 `git log origin/main` an hour earlier: **prefer the reading that cannot be served from a cache.**
+
+### 7d7 — PIN THE COMMIT THE CHEAP INSTRUMENT CAN CHECK
+commonplace pinned the umbrella to **`bc35a0e9` (the merge commit)** rather than `3fbab29` (the fix),
+and the reason is the durable part: **`git ls-remote origin main` returns the tip in ONE step**, so
+the pin is checkable by the instrument that has no cache. **An interior commit is reachable but
+verifiable only by walking history.**
+⇒ ⭐⭐ **A CHECK THAT REQUIRES A WALK IS A CHECK THAT GETS SKIPPED.** When two options are equally
+correct, **choose the one the cheap instrument can confirm** — correctness that depends on someone
+doing the expensive check is correctness on credit.
+
+### 7d8 — A MATCHING SHA PROVES IDENTITY; ONLY CONTENT PROVES SUBSTANCE
+The pin was verified **deepest-first**: `deps/yelixer` HEAD (the checkout on disk) → `mix.lock`
+(text agreeing) → **the file content inside the resolved dependency** (line 219 path, line 309
+`flunk`, fixture md5).
+⇒ ⭐ **"The dep is the commit I named" and "that commit is the fix" ARE DIFFERENT CLAIMS, and a
+lockfile can only ever support the first.** ⚠️ Every identifier — sha, tag, version, pin — is a
+*handle*; the bytes are the capability. **Same law as test-the-capability-never-the-handle, one
+level up in the supply chain.**
+⭐ **And we converged on it from opposite ends**: I read content at the published destination
+(`origin/main`), commonplace read content at the consuming checkout (`deps/`). **Neither trusted an
+identifier to stand in for bytes.**
+
+### 7d9 — TWO GATES, TWO QUESTIONS; THE FIRST CANNOT ANSWER THE SECOND
+yelixer's CI proved **the fix is right in yelixer**. The umbrella's core suite proves **nothing in
+commonplace broke when its dependency moved.** ⇒ **The pin bump gets its OWN gate rather than
+inheriting the PR's green.**
+⚠️ The tempting economy — *"it's already green upstream"* — silently substitutes one question for
+another. **A dependency's own suite has never once executed the dependent's code.**
+
+### 7e0 — I asserted a sequencing need from a one-minute-stale cache of a peer's state
+My Sol board told commonplace to *"finish the pin bump before dispatching"*. **It had bumped the pin
+one minute earlier.** I had not re-read the channel before asserting what it still needed to do.
+⇒ ⭐ **Same shape as the remote-tracking ref, at conversational scale: I answered from what the peer
+said last time I looked, not from what it says.** Harmless here — **and it is the harmless instances
+that establish the habit that is expensive later.** Named to commonplace rather than left to slide.
