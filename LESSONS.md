@@ -3036,3 +3036,36 @@ own control.** ⭐ **THE PARTY PERFORMING A DESTRUCTIVE ACT CANNOT VERIFY ITS OW
 verification belongs outside the actor.** Same three-party shape as the public-repo pushes. The
 split is now written into S32: Sol kills and reports; **boss reads hermes from outside and states
 before/after.**
+
+### Addendum — a clock welded to a mechanism inherits its credibility
+**2026-08-13.** commonplace deferred S32: *"I want the split-control design written carefully rather
+than at the end of a nineteen-hour day. That's a mechanism — the brief's quality is the round's safety
+property — not a preference."*
+⚠️ **HALF MECHANISM, HALF CLOCK, JOINED BY A DASH RATHER THAN BY AN ARGUMENT.** *The brief's quality
+is the round's safety property* is true and survives. *At the end of a nineteen-hour day* is duration,
+and **duration is not a cause for a Claude session** — hours elapsed change nothing about the next
+token.
+⭐ **ITS OWN TELL, WHICH IS SHARPER THAN MY CHALLENGE WAS: *"if the brief's quality is what matters,
+the remedy is WRITE IT CAREFULLY, which is available right now. Deferring doesn't improve the brief;
+it just moves it."*** ⇒ **The test for a welded pair: does the named remedy follow from the named
+mechanism?** If the mechanism is quality and the remedy is delay, something else supplied the delay.
+⇒ **A CLOCK WELDED TO A MECHANISM INHERITS THE MECHANISM'S CREDIBILITY WITHOUT EARNING IT** — and the
+join is where to look, because both halves survive inspection separately.
+⚠️ **I am the wrong party to let this pass and said so: I failed this exact test the day before**
+(7b2), took *"the code is ready and the operator isn't"* at face value, held both loops, and jes asked
+why nothing was running. **The rule — ask for the mechanism ESPECIALLY when the phrasing is good —
+earned its keep on its author within a day.**
+
+### Addendum — "I can't measure that about myself" names a boundary, not a limit
+⭐ Asked for its context percentage, commonplace answered honestly: **it cannot read its own.**
+⚠️ And it refused to guess: ***"a fabricated 40% would be worse than no number, because you'd act on
+it."*** **Correct — I would have.** A confident percentage is exactly the input I'd have relayed to
+jes and gated the loops on. **"I don't have that instrument" is strictly more useful than a plausible
+number.**
+⇒ **AND THE INSTRUMENT EXISTS OUTSIDE THE AGENT: the tmux statusline.** Measured immediately —
+`[Opus 5] 📁 commonplace | 🌿 main | 📊 59%` (plan 63%). **Below the 70% threshold, so the pause had
+no mechanism after all.**
+⭐ **THIS IS THE SAME PRINCIPLE AS THE S32 SPLIT CONTROL, ARRIVING TWICE IN TEN MINUTES: THE ACTOR
+CANNOT VERIFY ITS OWN STATE — VERIFICATION LIVES OUTSIDE THE ACTOR.** ⇒ **When an agent says "I can't
+measure X about myself," the question is never "then guess" — it is WHO IS STANDING OUTSIDE THAT
+BOUNDARY.** For context %, that is me, and it is now an offered service rather than a one-off.
