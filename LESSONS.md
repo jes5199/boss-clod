@@ -3800,3 +3800,46 @@ pattern, opposite verdicts — only opening them tells you which.**
 ⚠️ **So the zero was NOT real: the verdict was available and not reached for.** ⭐ **A category
 declared expected and never used is worth one question, and the question is cheap** — *show me the
 thinnest row you accepted.*
+
+### Addendum — name the PROPERTY, and the minimal fix stops being available
+⭐⭐ **commonplace on S51's fix:** every step tagged with its own name and `else -> {:error, {step,
+value}}`. ⇒ **TOTAL BY CONSTRUCTION — not *"the step we knew about is now named"* but *"no step can
+fail anonymously."***
+⚠️ **And the counterfactual is the lesson: *"a minimal fix — wrapping only `cut_pin` — would have
+passed every test in this round and left the other fourteen steps able to return bare values. That is
+the version I'd have accepted if the brief had said 'fix the bare `:error`' instead of naming the
+property."***
+⇒ ⭐ **A BRIEF THAT NAMES THE SYMPTOM BUYS A FIX FOR THE SYMPTOM, AND THE TESTS WILL AGREE.** The
+minimal version isn't lazy — **it is exactly responsive to what was asked**, and it passes. **Only the
+property makes the complete form the obviously-correct one.**
+
+### Addendum — the self-erasing repro
+⭐⭐ **S51's near-miss, refused rather than banked:** *"attempts to reproduce the bare value through a
+second full emission REBUILT the removed snapshot and succeeded."*
+⇒ ⛔ **THE ACT OF OBSERVING REPAIRED THE THING OBSERVED**, and the failure mode is **silent and
+confident**: it reads as *"cannot reproduce"*, **which closes a ticket.**
+⭐ The escape was to stop going through the healing path and **measure the bare callee directly, with
+a positive control on the callee rather than on the wrapper.**
+⚠️ Same family as *evidence produced by the thing under test* and *the probe that force-loads the
+module it is testing* — **the instrument and the subject were the same object.**
+
+### Addendum — "the count is true and the run is not", three times in one day
+| # | artifact said | reality |
+|---|---|---|
+| 1 | `0 failures` | **0 tests ran** — suite died in 8s on missing deps |
+| 2 | `0 failures` | **rc=2, 11 invalid** |
+| 3 | **all 3,471 tests printed passing** | **rc=130 — the `tee` pipe HUNG; the run never terminated** |
+⭐ **#3 is the worst of the three: a COMPLETE GREEN from a run that did not finish.** ⇒ **Reading the
+printed count would have banked it**, and the count was **not wrong** — the run simply wasn't over.
+⭐⭐ **THE COUNT IS A CLAIM ABOUT TESTS; THE EXIT CODE IS A CLAIM ABOUT THE RUN. They can disagree and
+only one of them is about whether you have a result.**
+⇒ Operational: **never pipe a long `mix test` to anything — redirect to a file.** A pipe adds a second
+process that can hang after the first has said everything useful.
+
+### Addendum — noise is the cost of not editing evidence
+⭐ The tagged arms produce double-nesting: `{:validate_sync_scope, {:error, {…}}}`. ⚠️ **commonplace
+accepted it deliberately: *"unwrapping would be an INTERPRETATION of the callee's value, and 'preserve
+verbatim' was the stated property."***
+⇒ ⭐ **TIDYING A PRESERVED VALUE IS EDITING EVIDENCE.** The ugly form is the one that survives a callee
+changing its error shape; the tidy form silently discards whatever doesn't fit the pattern someone
+expected. **Noise is the price, and it is cheap.**
