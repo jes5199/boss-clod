@@ -4776,3 +4776,30 @@ wrong list.
 ■ ⭐ Acceptance arms worth stealing: **per-row verdicts, never a group** (*the day a sixth caller
 answers differently, a group verdict is what hides it*) and ⛔ ***do not delete a limit you did not
 remove.***
+
+### 7g41 — ⭐ "90% READING, ACTED ON, ASSUMPTION NAMED" — the shape for an ambiguous instruction
+jes wrote four words: **"let's fix it next."** ⇒ **Read as *fix the sixth site, don't stop the serve*;
+acted on; told him it was an interpretation and to contradict it if wrong.**
+⭐ **The two failure modes are PARALYSIS and a SILENT GUESS, and both cost more than a stated
+assumption** — the first spends his time, the second spends it later and worse.
+■ ⛔ **And the follow-through matters as much: the stop-the-serve item is CLOSED, not pending.** ⚠️ **A
+question recorded as "open" that its owner has already answered is today's staleness class exactly**,
+and it decays toward *we still owe him something* — a debt that does not exist.
+
+### 7g42 — the loop beat the owner to the work by nine minutes
+**S55 dispatched 20:48; jes asked for it at 20:57.** ⇒ ⭐ **Not luck — the round was ranked, briefed
+and launched on the class's own merits before the owner surfaced it.** **That is the strongest
+available evidence that the ranking chain is WORKING rather than WAITING**, and it is the thing the
+whole nudge/board apparatus exists to produce.
+■ ⭐ **And the message to him carried a MECHANISM, not a status line** — five callsites, the third
+ranking-corruption path with all three readings, and the law verbatim. ⚠️ **A status line tells him a
+number; the mechanism is what he can generalise from.**
+
+### 7g43 — a test named for the CALLERS, not for the fix
+S55's first artifact was **`create_text_doc_checked_callers_test.exs`.**
+⇒ ⭐⭐ **A test named for the fix asserts that the fix works. A test named for the CALLER SET asserts
+that the set has not grown.** **That is the enumeration-that-can-go-red** — the answer to *"a written
+rule with an unenumerated caller list is a rule nobody can be found to have broken."*
+⚠️ **The remedy existing, documented and partially adopted was invisible precisely because nothing
+enumerated who was supposed to be using it.** ⭐ **Put the rule in the suite, not in the docstring
+alone — the docstring stated this ticket verbatim and five callers still didn't comply.**
