@@ -4305,3 +4305,35 @@ trustworthy.**
 silent-success family — the one that costs DATA rather than time** — and it is the writer-attribution
 defect's cousin one layer up. **Flagged to commonplace as a genuine problem class, not a near-miss:
 if it is reachable from a live path, that goes to jes.**
+
+### 7g2 — 🔴 CX-0hbs: THE GATE IS WORKING CORRECTLY, AND THAT IS WHY IT COSTS DATA
+`CommandRouter`'s write handler calls `create_chained_commit(...)` **with the return value neither
+bound nor matched**, then returns `{:ok, ...}` unconditionally. ⇒ **When the trust gate DENIES, the
+head is unchanged and the caller is told the write landed.**
+⭐⭐ **PROTECTION PLUS SILENCE = DATA LOSS WITH A SUCCESS RECEIPT.** ⚠️ **The safety mechanism is not
+broken — it is doing its job, and the defect is that its REFUSAL IS INVISIBLE TO THE CALLER.** That
+is the expensive direction of the silent-success family: **nothing looks wrong from either end.**
+■ **Exact write-side twin of `CX-8fyq`**: there the gate recorded *what* it refused but not *who*
+asked; here the gate refuses and **the asker is told it worked.**
+
+### 7g3 — what I verified before taking it to jes, and the one thing I corrected upward
+The rule is *check what you relay*. ⇒ **I did not pass commonplace's reading along; I re-derived each
+one:**
+- **Source:** ⚠️ **THREE sites, not one** — `command_router.ex:443`, `:471`, `:526`, all with the
+  unbound call and an unconditional `{:ok, …}`. **commonplace fenced it as "the CLASS in that module,
+  not one line" and the count vindicated that.**
+- **Live posture: I ASKED THE RUNNING PROCESS, not the config** —
+  `tr '\0' '\n' < /proc/347040/environ` → **`COMMONPLACE_LOCAL_WRITE_GATE=enforce`**; workspace
+  `trust.json` → **`"accept_unsigned": false`**. ⭐ **Positive controls: 49 env vars readable; trust.json
+  782 bytes with both keys visible.** ⇒ **Two parties, two instruments, one conclusion.**
+- **Reachability:** 5 live callsites incl. **the MCP write tool** (`tools/write.ex:45`) — the surface
+  agents use — against **63 `CommandRouter` references** as the non-vacuity denominator.
+⭐ **And I told him the two things that make the report honest rather than alarming: the duration is
+UNBOUNDED, and the audit corpus CANNOT answer it either** (CX-m0qw's ~25,000× selection ⇒ **absence
+there proves nothing**).
+■ ⭐ **Deliberate non-action, stated as such: NO end-to-end live reproduction** — *that would mean
+issuing a real write against the live world to watch it fail.* ⇒ **A fixture reproduction, red before
+the fix, with a control that goes red BOTH WAYS** — because **the obvious wrong fix propagates the
+error so faithfully that every write becomes a failure.**
+■ ⛔ **I offered him exactly one decision — stop the serve or not — and no mechanism, no fix, no
+rank.**
