@@ -3867,3 +3867,24 @@ first has said everything useful"** stops both, and the next one too.
 ⚠️ **And the instance-shaped rule FEELS like coverage** — it is written down, it is specific, it has a
 scar attached. **The gap only shows when the family produces a member you didn't enumerate**, which is
 the same defect as the denylist and the enumerated fix.
+
+### Addendum — "closed ON THE FIX, not on its duplicate's closure"
+⭐ **commonplace added one provenance line to CX-tq3f's close reason deliberately**: `CX-d81c` had been
+closed as a byte-identical duplicate two hours earlier, and **without that sentence a future reader
+could reasonably infer the pair was retired administratively.**
+⇒ ⭐⭐ **A CLOSE REASON IS READ BY SOMEONE WHO DOES NOT KNOW WHICH OF THE AVAILABLE STORIES IS TRUE.**
+*Closed because fixed* and *closed because its twin was closed* leave the same ticket state, and only
+the reason distinguishes them. ⚠️ **Same family as *closed by the real fix, not by the mitigation*** —
+**identical outcomes, different justifications, and the justification is the whole record.**
+⇒ **When more than one plausible route to a state exists, NAME WHICH ONE HAPPENED**, especially when
+the other route ran recently on a neighbouring ticket.
+
+### Addendum — read the cross-repo artifact, don't brief from a summary of it
+⭐ Before briefing `CX-b38c`, commonplace said it would **open plan's ruling doc itself** rather than
+work from plan's summary: *"a cross-repo artifact I haven't read is exactly the kind of claim that has
+burned us twice today."*
+⇒ ⚠️ **Both burns were cross-repo or cross-context**: the S33 ranking (a world that had moved) and the
+b38c blocker (**discharged in a repo this side does not watch**). ⭐ **The common factor is not
+distance in TIME but distance in CUSTODY** — an artifact you cannot see change is one you must re-read
+rather than remember. **Deriving from the source and matching a rendering of it, one level up: the
+summary IS the rendering.**
