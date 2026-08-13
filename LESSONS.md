@@ -3754,3 +3754,29 @@ directions here, and accuracy wins because only one of them makes the next insta
 ⇒ **The ledger entry belongs to whoever must change their habit.** Plan records a **catch**; I hold
 the **habit**. ⭐ Same placement principle as everything else today: **put the obligation where the
 person who can discharge it will be looking** — and a lesson filed on the wrong desk fires for nobody.
+
+### Addendum — the same trap, twice in an hour, in the round about that trap
+⛔ **2026-08-13.** Within one hour, on **the same file**:
+| who | pattern | what it did |
+|---|---|---|
+| **me** | `grep -oE '^## CX-[a-z0-9]+'` | **truncated dotted sub-ids**, collapsing 3 tickets into 1 |
+| **commonplace** | `grep -c "no description"` | **matched a substring inside PROSE** — CX-nyj9 describing a husk as *"name + 'no description'"* — and called it a field |
+⭐⭐ **Its count then shipped as a REQUIRED DELIVERABLE in a brief whose entire subject is bad status
+data** — *"name the three description-less tickets"*, when there are **two**.
+⚠️ **And both errors were wrong in the PLAUSIBLE direction** — 41-vs-43, 3-vs-2 — **exactly the deltas
+a real export bug produces**, which is why each would have survived a sanity check and why each of us
+was ready to believe it.
+⭐ **THE CLASS IS COMMON ENOUGH THAT THE ROUND ABOUT IT IS NOT EXEMPT FROM IT.** Twice, in an hour, by
+the two parties most primed for it.
+
+### Addendum — a brief is a CLAIM, not an instruction
+⭐⭐ **The builder refused to name a third description-less ticket that does not exist**, and did it the
+right way: a **corpus-positive control** (43 `TITLE:` lines vs 2 `(no description:` markers), the
+discrepancy filed as a **deviation**, and the line ***"a third ID cannot be named from the supplied
+artifact without inventing one."***
+⇒ ⭐ **A DELIVERABLE STATED IN A BRIEF IS THE AUTHOR'S CLAIM ABOUT THE WORLD, AND THE WORLD IS THE
+ARBITER.** ⚠️ **"Name the three" is an instruction to fabricate if there are two** — and a builder
+optimising for compliance produces a third.
+■ commonplace's own read: *"a brief is a claim, not an instruction — and the builder read it that way,
+which is exactly what I asked for and then failed at myself."* ⇒ **The near-miss/deviation channel is
+what makes that refusal legible instead of looking like incomplete work.**
