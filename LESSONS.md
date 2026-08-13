@@ -4659,3 +4659,41 @@ alone) **and labelled them as read FROM THE TAIL ONLY.**
 ⇒ ⭐ **A run's closing summary is written by the thing being judged, about itself, at the moment it
 most wants to look finished.** ⚠️ **It is evidence of what the builder CLAIMS, never of what the diff
 CONTAINS.** **Relay it as a checklist for the reviewer, not as findings.**
+
+### 7g30 — ⭐⭐ THE ROUND'S BEST MOMENT WAS ONE IT DIDN'T TAKE
+S54's required arm returned **the bad answer**: the create-time index **detects
+registration-denied orphans and is BLIND to document-denied ones**
+(`parent_schema_linked=false, torn_create_detected=true` **caught** vs `new_docs=[],
+issue_doc_index_delta=[]` **blind**). ⇒ **Fixing `Schemas.create_text_doc/3` would have made that
+finding STOP MATTERING.** **It measured it and left it alone.**
+⭐ **THE TEMPTATION WAS TO FIX THE THING THAT MAKES THE FINDING MATTER** — the hardest version of the
+fence test, because the fix is *correct*, in scope-adjacent code, and its effect is to erase the
+evidence that a class is still open.
+
+### 7g31 — put a DETECTOR'S BLIND SPOT IN THE DETECTOR'S OWN MODULEDOC
+plan's ruling landed as a line in the index's **moduledoc**, not only in a ticket:
+*"THE INDEX DETECTS REGISTRATION-DENIED ORPHANS AND CANNOT SEE DOCUMENT-DENIED ONES."*
+⇒ ⭐ **The reader who needs it is whoever next asks "did the index catch it?" — and that reader is
+already in the module.** ⚠️ **A ticket relies on being FOUND; a moduledoc is where the question gets
+asked.** Same law as *put the correction where the reader looks*, applied to **a safety mechanism's
+own limits.**
+
+### 7g32 — ⛔ THE HEADLINE IS "FIVE OF SIX", NOT "FIXED"
+plan turned its own rule on the announcement: **a partial fix to a silent-loss class is worse than
+none BECAUSE THE FIRST FIX'S SUCCESS MAKES EVERYONE BELIEVE THE CLASS IS CLOSED.** ⇒ **So "the class
+is not closed" must BE the headline** — commit subject, close reasons and advisory update all say
+**five-of-six.**
+⭐ **A caveat in a follow-up row is read by nobody who formed their belief from the headline.**
+
+### 7g33 — a reproducer whose population changes between runs is a LEAD, not a HANDLE
+`CX-g9ea` is being retitled: at seed 16421 it now shows **four failures and the teardown race is
+absent.** ⇒ ⭐ **The thing called a "reproducer" two hours ago does not reproduce the same
+population.** ⚠️ **Calling it a handle would have sent a fixer to a fixed target that moves** —
+**exactly what "an unconfirmed seed gets quoted as a confirmed one" was about, one level along.**
+
+### 7g34 — brief facts are STATE CLAIMS and get re-derived at authoring time
+Sol corrected commonplace twice more (**a stale base sha, and a leftover "count of three"**) —
+**fourth and fifth this week, both caught by the builder.**
+⇒ ⭐ **plan's fix is structural rather than an apology: ANY SHA, COUNT OR SITE-LIST IN A BRIEF IS A
+STATE CLAIM, re-derived at authoring time, never carried forward from the round that discovered it.**
+⚠️ **A number that was true when the investigation found it is the most convincing kind of wrong.**
