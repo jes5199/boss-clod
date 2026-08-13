@@ -76,3 +76,32 @@ SOL_WORKDIR=… nohup sol-egress-run.sh "$(cat prompt.txt)" > run.log 2>&1 &
 `worktree add` still ran git. **Check the round's own fences before retrying, not after** — for S35
 that meant confirming `git -C /home/jes/yelixer log origin/main -1` was unchanged and no remote refs
 existed, since the round forbids pushing anything.
+
+---
+
+## Appendix — the pgrep self-match, six occurrences in one day
+
+**2026-08-12.** The trap in §5 fired **six times across three agents**, and five of them were by
+parties who already knew about it. Knowing it is demonstrably not enough; only the anchored form in a
+FILE prevents it.
+
+| # | who | shape |
+|---|---|---|
+| 1–3 | me, inline | `pgrep -f 'codex exec…'` matched my own shell three times: a Sol-in-flight check, a hermes BEAM check, and an S27-alive check that reported RUNNING after the run had exited |
+| 4 | commonplace | ⭐ `until ! pgrep -f "mix test apps/yelixer"` — **the waiter's own argv contained the pattern, so it waited for itself and slept 1h52m** |
+| 5 | commonplace | `pkill -f "until ! pgrep -f …"` matched its own shell for the same reason and **killed the command running the fix**, rc=144 |
+| 6 | — | `sol-nudge.sh` did NOT self-match, every time, because its pattern is anchored `(^|/)codex (exec\|resume)` and lives in a file |
+
+⭐ **THE VARIANT WORTH RECORDING SEPARATELY IS #4: THE SELF-WAITING POLLER.** When the pattern sits in
+the argv of the shell *doing the waiting*, the loop is **structurally unable to terminate** — it is
+not a flaky check, it is a guaranteed hang. And it fails silently: the poller looks busy, the pane
+reports shells running, and the work it gates never starts.
+⇒ **KILL AND WAIT BY CAPTURED PID. Never pattern-match a process whose pattern is in your own argv.**
+⇒ And #5 is the same defect with teeth: a `pkill -f` whose pattern includes the earlier command
+string will kill the shell issuing it.
+
+⚠️ **THE DIAGNOSTIC THAT ACTUALLY RESOLVED IT** was not process inspection — it was reading the
+ARTIFACT. Both output files were **empty**, which distinguishes *never ran* from *finished* and
+*died*; process absence cannot. Same collapse as the transient systemd unit (LESSONS 7b0 addendum),
+now observed in three carriers: a systemd unit, a backgrounded shell, and a poll loop.
+**Absence of the process is not the verdict. The artifact is.**
