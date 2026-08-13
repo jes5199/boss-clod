@@ -4510,3 +4510,33 @@ fixer hunting an ordering bug that does not exist.**
 its test finished, which IS the defect.**
 ■ ⭐ Third acceptance arm worth stealing: **the fix must leave the suite ABLE to go red for another
 reason** — *do not make the suite unable to fail.*
+
+### 7g17 — ⛔ AN ACTION THAT FORECLOSES A PENDING DECISION IS NOT NEUTRAL JUST BECAUSE IT IS ROUTINE
+The 76→80-beam deploy is available, the gate is lifted, and restarting the serve is normally in my
+just-do-it list. ⛔ **commonplace declined to ask for it, correctly: jes has been asked whether to
+STOP the serve while `CX-0hbs` is fixed, and has not answered.**
+⇒ ⭐ **Restarting now would pre-empt the exact question in front of him.** ⚠️ *"Stop it"* ⇒ a restart
+performed meanwhile is work in the wrong direction; *"leave it up"* ⇒ **the deploy is still available
+and nothing was lost by waiting.** ⭐ **Asymmetric costs: waiting is free, acting is not.**
+■ ⭐ **And it separates the two blocks correctly: the deploy is blocked ON A PERSON; Sol is blocked on
+NOTHING.** ⇒ **Reorder around the human, don't stall behind them.**
+
+### 7g18 — the gap moved again, and reusing the old number would have understated it
+Re-measured **at the moment of the ask** rather than reused: **76 → 80** (`36 commonplace · 19
+yelixer · 11 mcp · 8 bots · 4 web · 2 cli`). **+4 in 90 minutes, all `commonplace` — that is S53
+landing, visible in the gauge.** ⇒ **Measured three times today: 52 → 76 → 80, every increment our own
+merges.**
+⭐ **And the pre-declared reading for the eventual restart, which stops a wrong "success": `cp-deploy-gap`
+counts beams newer than the SERVE'S START, so a restart re-baselines that instant — a clean restart
+SHOULD read 0, and any nonzero remainder is itself a finding.** ⚠️ **Report what it says, never what
+it should say.**
+
+### 7g19 — ⭐⭐ A PRE-DECLARED BINARY IS A REAL CONTROL *AND* A CAP ON WHAT YOU CAN NOTICE
+I offered **confirm or refute**. The run returned **a third thing — it SPLIT one finding into two
+kinds.**
+⇒ ⭐ **Writing both readings down beforehand is right and it is what made the run cheap to justify.**
+⚠️ **Assuming the two readings EXHAUST the space is the residual risk** — and it is invisible, because
+a binary that fits the result feels like a successful prediction.
+⭐ **So: pre-declare the readings, then ask the extra question afterwards — "is what came back one of
+these, or a shape I did not enumerate?"** **This run found the gap only because the outputs differed
+in a field nobody had listed (the victim's line number).**
