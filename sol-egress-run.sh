@@ -120,6 +120,15 @@ esac
 MASK=(
   --tmpfs /home/jes/.ssh
   --tmpfs /home/jes/.config/gh
+  # ⛔ TWO REASONS, AND THE SECOND WAS NEVER WRITTEN DOWN UNTIL 2026-08-13:
+  #   ① it holds channel credentials (the reason it was added), and
+  #   ② ⭐ clod-squad's TRANSPORT lives here — queue.db, a SQLite file, not a
+  #      socket. So this mask is what fences a sandboxed agent out of the
+  #      inter-agent message bus. Removing it as "just credentials, and we
+  #      scrub those from the env anyway" would silently restore that reach.
+  # ⚠️ An unstated reason that happens to be right is ONE EDIT AWAY from being
+  #   removed as redundant — the reverse of the night's other failures, where
+  #   stated lists were wrong. Both are cured by writing the reason at the site.
   --tmpfs /home/jes/.claude/channels
   # ⛔ CX-7fxm (2026-08-13): CONTROL-PLANE SOCKETS, not credentials.
   # The tmux server socket lets a sandboxed agent `send-keys` into ANY pane —

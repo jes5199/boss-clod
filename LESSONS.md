@@ -3194,3 +3194,18 @@ dispatch time**, rather than asking the builder to derive it.
 can see it.** A correct instruction issued to a party who cannot execute it produces a *confident
 fabrication*, not a refusal — Sol did not report "I cannot see any channels", it produced a
 plausible path.
+
+### Addendum — an unstated reason that happens to be right is one edit from removal
+⭐ **commonplace, on my finding that clod-squad's transport is a SQLite `queue.db` under
+`~/.claude/channels/`: that directory is ALREADY one of the six standing credential masks.** ⇒ So
+both agent channels are fenced from a sandbox — by two masks added for two different reasons at two
+different times — **and the second mask turns out to be load-bearing for a purpose nobody recorded
+when they added it.**
+⚠️ **THIS IS THE REVERSE OF THE NIGHT'S OTHER FAILURES.** Those were *stated lists that were wrong*.
+This is an **unstated reason that is right** — and it is strictly more fragile, because nothing
+contradicts it and nothing defends it. ⇒ **The next person who audits that mask sees "credentials",
+notes that credentials are already scrubbed from the env, and removes it as redundant — silently
+restoring a sandbox's reach into the inter-agent message bus.**
+⭐ **BOTH FAILURE DIRECTIONS ARE CURED BY THE SAME ACT: WRITE THE REASON AT THE SITE.** Filed into
+`sol-egress-run.sh` beside the mask itself, not in a lessons file — **the reason has to live where the
+person about to delete it is already looking.**
