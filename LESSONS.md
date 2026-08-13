@@ -2949,3 +2949,17 @@ permanent.** Constructing a cgroup per pod and demonstrating the kill is a singl
 safer" unmeasured is a claim every future decision inherits.
 ⭐ Same shape as the pre-delete test count: **the control run is what converts the after-number into
 evidence.** Here the "before" is a whole implementation, and the principle is identical.
+
+### Addendum — writing a durable file from a running picture
+⚠️ **plan's own diagnosis after its fourth readiness-staleness this week** (a queue row saying *"S37b
+next"* about work finished an hour earlier): *"I write from my running picture instead of
+re-deriving, and **the file outlives the picture**."*
+⭐ **THE TELL IS THE ONE THAT MAKES THIS CLASS SURVIVE REVIEW: the same message contained the correct
+state AND the stale label, two clauses apart.** The author isn't wrong — the author's *file* is. So
+re-reading catches nothing, because the sentence beside it is right.
+⇒ **A STATUS LABEL IS A CLAIM WITH A TIMESTAMP, AND THE ARTIFACT DOESN'T CARRY ONE.** "Next",
+"pending", "in flight" are true-at-writing and read as true-at-reading. **Re-derive every readiness
+label at write time, or write the label as a date-stamped observation rather than a state.**
+⚠️ And note who catches it: not the author, and not a reviewer of the same document — **a party
+holding the independently measured state.** That is a reason for the dispatcher to keep verifying
+what passes through it even when nobody asked.
