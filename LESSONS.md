@@ -3399,3 +3399,41 @@ attractive because the idea was aired, invisible because nobody is looking for a
 cancelled.
 ⭐ **SO WHEN AN INSTRUCTION IS WITHDRAWN MID-ARC, ADD ITS ARTIFACT TO THE REVIEW CHECKLIST.** Verify
 against the instruction you gave **and** against the one you took back.
+
+---
+
+# 7c2 — a test must EXIST *and* EXECUTE, and each half alone makes a review pass
+
+**2026-08-13, S46.** The round produced the schema file and no test file. Its report showed both
+matcher arms exercised — `REQUIRES SATISFY: :ok`, `REQUIRES REFUSE: {:refused, …}`, *"schema harness:
+4 tests, 0 failures"* — but `test/commonplace/runner/` held only the three pre-existing files and
+**nothing anywhere referenced `RunRecipe`.** The harness was a throwaway.
+
+⭐⭐ **THIS IS THE EXACT MIRROR OF THE ARC'S CENTRAL FINDING, AND THE PAIR IS THE LESSON:**
+| | | review artifact |
+|---|---|---|
+| earlier tonight | a test that **EXISTED** and had **never EXECUTED** (4 rounds) | *"the property was verified"* |
+| S46 | a test that **EXECUTED** and does **not EXIST** | *"the property was verified"* |
+⇒ **BOTH PRODUCE THE SAME REVIEW ARTIFACT FROM OPPOSITE CAUSES.** In the first, the file is there, so
+**reading the diff passes it.** In the second, the run happened, so **reading the report passes it.**
+⛔ **NEITHER IS A TEST.**
+⭐ **A TEST MUST EXIST AND EXECUTE. EACH HALF CAN BE PRESENT WITHOUT THE OTHER, AND EACH HALF ALONE IS
+ENOUGH TO MAKE A REVIEW PASS.** ⇒ So neither the diff-read nor the report-read is sufficient, and the
+only check that catches both is: ***a test file lands AND its own count is reported.***
+
+## AND THE SPECIFICATION DEFECT IS THE VANTAGE ONE AGAIN, THIS TIME NOT MINE
+commonplace: *"my brief has a Tests section listing required arms and says `requires` must be
+demonstrably consumed in both directions — but I never wrote that the tests must LAND AS A FILE."*
+⇒ ⭐ ***EXERCISE THESE* AND *LAND THESE* ARE DIFFERENT INSTRUCTIONS**, and the first is what a brief
+reads as if you are looking for the smallest satisfying action. **Obvious to the specifier,
+genuinely ambiguous to the actor** — the same defect as my three unsatisfiable instructions, from a
+third direction. **Sol did what the brief said and reported honestly.**
+
+## ⭐ AND THE NEAR-MISS REQUIREMENT EARNED ITSELF ON FIRST USE
+I had added: *"state anything that made you want a seventh field, even if you did not add it."*
+⇒ It answered: ***"the unspecified canonical recipe pathname could have tempted a `path` field; it
+remains an argument to `read/1`, not schema data."***
+⭐ **THAT IS A DESIGN FINDING A SILENT CLEAN ROUND WOULD NOT HAVE PRODUCED.** *The fence was
+approached and held* is different information from *the fence was never approached* — and it locates
+exactly where the design is under tension: **the recipe's own location.** ⚠️ The next person will feel
+the same pull and may not resist it. ⇒ **Ask for the near-miss, not only the outcome.**
