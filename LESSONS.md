@@ -3334,3 +3334,42 @@ LEGITIMATELY NEEDS.** `/run/user` holds only channels → mask the directory. `/
 ⭐ And note how the limit was found: **by asking what the tightening now PREVENTS, before shipping it**
 — the same question that surfaced the blind derivation, applied early instead of late. **A `DNS=ok`
 line in the acceptance is what stops a fence change from silently becoming an outage.**
+
+---
+
+# 7c1 — a time-bounded check that reports healthy on timeout degrades to a no-op as the thing it guards grows
+
+**2026-08-13, CX-rvbr.** commonplace asked me to measure a production health probe from outside the
+fence. **Measured on a frozen copy:** store **4.0 GB on disk**, **150,779 entries**, **1.37 GB of
+decoded value bytes**; the probe's exact operation — `CubDB.select() |> Enum.each` — takes
+**13,862 ms against its 5,000 ms budget**, i.e. **2.8× over on an idle host with no serve
+contention.** On timeout it logs "partial scan" and **returns `:ok` anyway**, by design
+(availability over paranoia).
+
+⭐⭐ **THE FINDING IS NOT THE WRONG BUDGET — IT IS THE FAILURE MODE (commonplace's framing, and it is
+the sharpest thing said about it): A TIME-BOUNDED SCAN THAT REPORTS HEALTHY ON TIMEOUT STOPS CHECKING
+WHILE CONTINUING TO PASS.** Today it walks ~a third and says healthy. At 12 GB it walks a ninth and
+says healthy. ⇒ **At every coverage level, including zero, THE REPORTED RESULT IS IDENTICAL** — and
+**coverage trends monotonically toward zero as the guarded thing grows.** It has presumably been
+degrading for months with no signal.
+⭐ **This is the night's whole class — a check that cannot fail — with a BUILT-IN GROWTH TREND.** Most
+vacuous checks are static; this one *becomes* vacuous on a schedule set by success.
+
+## ⭐ THE DISTRIBUTION KILLED THE TWO OBVIOUS FIXES, WHICH IS WHY ④ WAS WORTH MEASURING
+`MIN 7 · MEDIAN 38 · P99 436,699 · MAX 987,248` bytes — an **~11,500× spread** — and the **ten largest
+values are 0.71% of all bytes.**
+⛔ **No head to special-case**: the mass is a long fat tail, not a few whales.
+⛔ **Sampling is actively misleading**: a random sample is dominated by 38-byte entries and reports a
+tiny store. commonplace: *"I'd have reached for sampling first, and your distribution is the only
+reason I won't."*
+⇒ **A cost distribution is not a summary statistic. The median said 38 bytes; the total said 1.37 GB.
+Both are true and only one predicts the runtime.**
+
+## AND THE PROCESS NOTE
+⭐ commonplace **named "the budget is correct and the store is simply large" as an admissible verdict
+IN ADVANCE**, then had it ruled out by measurement. Its own words: *"I'm glad I named it, because
+it's the answer I'd have been most tempted to accept."* ⇒ **Pre-declaring the outcome you'd be
+tempted by is what stops you accepting it un-measured.**
+⚠️ I reported ③ (keys-only traversal) as **ABSENT rather than estimated** — CubDB on this version
+exposes no such path through the same call. **A missing number is data; an estimated one is a
+fabrication wearing data's clothes.**
