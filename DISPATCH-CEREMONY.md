@@ -160,3 +160,12 @@ must still be `691a4f44…`.
 
 ⭐ **AND THE POSTURE THAT MAKES A GATE REAL** (commonplace's line): *a gate whose author wants it to
 pass isn't a gate.* Its sibling: a guard nobody has seen fail is the defect wearing a fix's clothes.
+
+### A pin is invalidated by ANY commit, not just a deliberate one
+⚠️ The tip-equality rule above reads as a check against *someone re-cutting the release*. It is wider
+than that: **any commit to the gated repo moves the tip**, including a change that has nothing to do
+with the round. On 2026-08-13 the tempting one was moving a single 124-line file into yelixer — a
+small diff by every measure a reviewer looks at, and it would have re-opened S37b's closed gate.
+⇒ **WHILE A GATE'S PIN IS LIVE, THE GATED REPO IS FROZEN TO EVERYONE, not just to the round.** Say so
+out loud when the arc starts, because the person who breaks it will be making an obviously-harmless
+change. **Ask what is pinned to the state a change moves before calling that change small.**

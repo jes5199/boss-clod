@@ -2737,3 +2737,48 @@ published) and deletion strictly reduced risk — but commonplace's point stands
 ⭐ **DELETING THE EVIDENCE BEFORE READING IT CONVERTS AN OPEN QUESTION INTO AN UNANSWERABLE ONE**, and
 the cost is invisible precisely when the answer would have been benign. **The step I skipped was the
 one that RECORDS the answer.** Read first, even when deletion is obviously correct.
+
+---
+
+# 7b4 — "it compiles there" is not "it belongs there": the measurable answer gets promoted to the answer
+
+**2026-08-13.** jes asked where the Yjs epoch-translation feature lives. I answered with measurement
+rather than recall, which was right: **all 10 files in commonplace, 0 in published yelixer** (control:
+yelixer has 19 lib files, 0 mentioning epochs), and the dependency split is clean —
+`late_edit_translator.ex` (124 lines) imports **only** `Yelixer.{Encoding, ID, Item}` and nothing from
+commonplace, while `translator.ex` (346) and `cross_epoch_merge.ex` (421) both need
+`Commonplace.Store`.
+
+⚠️ **THE MEASUREMENT WAS CORRECT AND IT WAS STILL NOT THE QUESTION.** The dependency graph proves
+`late_edit_translator` **could** compile inside yelixer. Whether it **should** live there is a
+different proposition entirely — commonplace's line: *epoch translation is about our commit/namespace
+model, so a Yjs library that carries it inherits a concept from its consumer.* No dependency graph
+answers that; it isn't a graph property.
+
+⭐ **THE GENERAL SHAPE, AND IT IS THE SAME ONE AS THE REST OF THIS FILE ROTATED ONTO DESIGN:
+A MEASUREMENT ADJACENT TO THE QUESTION GETS PROMOTED TO THE ANSWER BECAUSE IT IS THE THING THAT
+RETURNS A NUMBER.** Siblings already filed:
+- shape equality standing in for validity (S33 certificates — every field correct on an artifact that
+  need not have been a certificate)
+- a control proving the haystack non-empty instead of the needle findable
+- a valid proof of the *neighbouring* proposition (S37b's `git@` gate)
+⇒ **ASK WHAT PROPOSITION THE NUMBER LICENSES.** "Compiles without commonplace" licenses *portable*.
+It does not license *belongs*, *is cohesive*, or *is a package*.
+
+⇒ **THE RESOLUTION CAME FROM OUTSIDE BOTH ANSWERS.** jes ruled a **third** package — "yepochal" —
+after the external-yelixer move completes. Both of my candidate answers were uncomfortable for the
+same reason, and **when two options are uncomfortable for one shared reason, that reason is usually a
+false constraint** — here, the assumption that the code had to live in one of the two repos already
+in play.
+⚠️ And the honest residual, which the same measurement does answer: **124 lines move, 767 stay.**
+Whether that is a package or a module is open, and is not mine to rank.
+
+## The sequencing mechanism — a gate invalidation wearing the costume of a small refactor
+⛔ **MOVING ANY FILE INTO yelixer RIGHT NOW WOULD INVALIDATE A GATE THAT IS ALREADY CLOSED.** S37b
+proves consumability of **691a4f44 specifically**. A new yelixer commit moves the tip ⇒ the atomic
+delete+flip must pin a SHA nobody proved consumable ⇒ the gate re-runs.
+⭐ **THE COST IS INVISIBLE FROM THE CHANGE ITSELF.** Adding one 124-line file is a small diff by every
+measure a reviewer looks at; its expense lives entirely in **what else was pinned to the old tip.**
+⇒ **BEFORE CALLING A CHANGE SMALL, ASK WHAT IS PINNED TO THE STATE IT MOVES.** After the arc lands the
+identical change is an ordinary version bump. *The same diff is cheap or expensive depending only on
+what is currently in flight around it.*
