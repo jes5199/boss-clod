@@ -210,3 +210,33 @@ the false zero pointed at a SECURITY property — the loudest possible place to 
 ⭐ The general rule this instance earns: **when you grep for a rendering rather than for a fact, you
 are testing your own assumption about the format.** A control here is cheap — one known-masked path
 whose line you have actually read once.
+
+### ⛔ NEVER REQUIRE A COMMIT — THE SANDBOX MOUNTS `.git` READ-ONLY
+**2026-08-13, S38.** I wrote *"This round is ONE COMMIT — commit it, because the atomicity IS the
+deliverable."* **The fence makes that impossible**: `.git` is read-only by design, which is what makes
+pushing structurally unavailable. `git rm` and `git commit` both failed; Sol adapted (deleted through
+patches, unlinked binary fixtures) and reported the deviation correctly.
+⭐ **THE FENCE WAS RIGHT AND MY INSTRUCTION WAS WRONG.** The read-only `.git` is load-bearing security;
+the commit requirement was a convenience I invented. ⛔ **Never loosen a fence to satisfy a prompt.**
+⇒ **THE STANDING RULE IS ALREADY IN §1 — I VIOLATED IT: *never give Sol an instruction it cannot
+satisfy.* An omitted warning costs TIME; a contradictory one costs JUDGMENT.** Here it cost a round's
+worth of framing: Sol spent its report explaining why the mandatory step was impossible.
+⇒ **THE RIGHT ASK FOR AN ATOMIC ROUND: leave the work uncommitted as usual, and require the INTENDED
+COMMIT MESSAGE as a deliverable.** Atomicity is a property of the tree — all halves present together,
+no broken middle state on disk — and **a tree can demonstrate that without a commit object.** The
+commit is made outside the sandbox by whoever lands it.
+⚠️ Note the failure mode this *didn't* have: the tree was **complete-but-uncommitted**, not
+half-applied. Worth checking explicitly, because those are different states with the same symptom
+(`0 commits ahead`).
+
+### The wrong baseline is caught by the instruction, not by the reviewer
+⭐ **MY BRIEF STATED 4,263 TESTS ACROSS 6 APPS. THE MEASURED NUMBER WAS 4,527.** I also predicted
+≈3,873 post-delete; the real figure is **4,137 = 4,527 − 390**. ⇒ Sol reported the measurement and
+flagged the discrepancy **because the prompt said *report what you measure, not the arithmetic I gave
+you***. Without that line, reconciling against my number would have required fudging 264 tests, and
+the likeliest outcome is a report that quietly matches the expectation.
+⭐ **AGREEMENT WITH THE DISPATCHER'S NUMBER IS WHEN EVERYONE STOPS LOOKING** — so the number you most
+want independently measured is the one you already believe. **Always hand over baselines as
+falsifiable claims, never as targets.**
+⇒ And note what made the post-delete count meaningful: **it measured the PRE-delete scope too**
+(3,449/0/12-excluded/1-skip, identical both sides). A single post-change number has no control.
