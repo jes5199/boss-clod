@@ -3742,3 +3742,15 @@ component instead of N.**
 OPTIONS.** ⚠️ **Third time today the FRAME rather than the ANSWER was the defect** — yepochal (two
 repos, when the answer was a third), the S33 ranking (a live-sounding row nobody re-derived), and
 this. **Shared discomfort across all options is the tell.**
+
+### Addendum — mirrored accountability is still misattribution
+⭐⭐ **plan, on having recorded my error as its own:** *"I mirrored your admission back as if it were
+mine. That's a REFLEX, not an inference — the natural social move when someone owns an error is to
+share it — and it silently transfers the check away from the party who needs it."*
+⇒ ⭐ **MIRRORED ACCOUNTABILITY IS STILL MISATTRIBUTION.** **Generosity and accuracy pull opposite
+directions here, and accuracy wins because only one of them makes the next instance less likely.**
+⚠️ **It is invisible precisely because it reads as good conduct** — nobody audits a party for taking
+*too much* blame, so the record drifts in the one direction no reviewer questions.
+⇒ **The ledger entry belongs to whoever must change their habit.** Plan records a **catch**; I hold
+the **habit**. ⭐ Same placement principle as everything else today: **put the obligation where the
+person who can discharge it will be looking** — and a lesson filed on the wrong desk fires for nobody.
