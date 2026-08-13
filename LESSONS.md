@@ -4237,3 +4237,28 @@ row sat**, and **the 19 yelixer beams are today's own pin move.**
 performed.**
 ⚠️ **And the gauge's unfinished half is the control that can go RED**: touch a beam → count rises;
 restart → falls to 0. **52→76 shows it moves upward; nobody has ever seen it return to zero.**
+
+### 7f6 — ⛔ A DISJUNCTIVE ACCEPTANCE CANNOT DETECT THE OTHER BRANCH DYING
+`CX-x8jk`'s acceptance was *"routes OR refuses, never a silent open."* **The refuse branch fired, so
+the ticket closes honestly** — and commonplace filed the residual as its own row (`CX-a3fe`, p2)
+rather than stretching the close.
+⇒ ⭐⭐ **AN `OR` IS SATISFIED BY WHICHEVER SIDE FIRES, SO IT IS BLIND TO THE OTHER SIDE ROTTING.**
+⚠️ **A CLI that ALWAYS refuses is safe and progressively useless — and the safety then rests on a
+path nobody exercises.** ⇒ **Where an acceptance is disjunctive, something must separately assert
+that each branch is still reachable**, or the weaker branch silently becomes the only one.
+■ ⭐ **And the residual was filed as a MEASUREMENT, not a diagnosis**: the reach path (node name,
+cookie, epmd, whether the escript even attempts a connect) is **explicitly not investigated**, with
+⛔ *do not close by asserting a cause* and ⛔ *do not weaken the refusal to make routing appear to
+work.* **The second fence is the one that matters — the cheapest way to make a disjunction look
+healthy is to disable the branch that is winning.**
+
+### 7f7 — FIVE CARRIERS OF ONE SHAPE IN ONE DAY
+**A zero, an exit code, or an absence that could not have been anything else:**
+① the **dead gate** (a check whose result changed nothing) · ② the **empty waiter** (waiting on a
+pattern that matched itself) · ③ **`if File.exists?`** (a repository move → a silent skip) ·
+④ **`grep -c` exit 1** (zero failure blocks → task reports FAILED) · ⑤ **`find` that is `bfs`**
+(an invalid-timestamp error, stderr to `/dev/null`, printed as `0`).
+⇒ ⭐⭐ **THE CARRIER CHANGES EVERY TIME; THE SHAPE NEVER DOES.** Remembering the five instances is
+useless — **remembering the QUESTION is the transferable part: *could this observation have been
+produced by the instrument rather than the world?*** ⭐ **A positive control is the only general
+answer, and in ⑤ it did not confirm the result — it exposed the instrument.**
