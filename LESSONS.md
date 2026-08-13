@@ -3600,3 +3600,15 @@ record."***
 running, which artifact was preserved under which name, why a mitigation is not the fix, which
 attribution was re-derived rather than accepted — **is all still in hand DURING the wait and mostly
 gone after it.** ⭐ **The idle window is not dead time; it is the last moment the context is complete.**
+
+### Addendum — the better a mitigation performs, the more it looks like a fix
+⭐⭐ **plan, promoting the CX-k0ns guard into the general library:** *"the better a mitigation performs,
+the more it looks like a fix, and the quieter the residual gets."*
+⇒ **THE RELATIONSHIP IS INVERSE AND THAT IS WHY IT IS DANGEROUS: a mitigation's success is exactly
+what removes the evidence that something is still wrong.** A bad mitigation keeps failing and keeps
+the ticket alive; a good one silences the symptom and leaves only a ticket nobody can motivate.
+⭐ **So the residual has to be recorded where the ABSENCE of a symptom will be interpreted** — and
+commonplace put it in three places, **ticket body · call-site comment · close reason** — because
+*"is this done?"*, *"what does this line do?"* and *"what's left?"* are asked by three different
+readers in three different places. ⚠️ **A hazard that has not happened yet gets the placement rule
+too**, not only the ones that already burned.
