@@ -4540,3 +4540,27 @@ a binary that fits the result feels like a successful prediction.
 ⭐ **So: pre-declare the readings, then ask the extra question afterwards — "is what came back one of
 these, or a shape I did not enumerate?"** **This run found the gap only because the outputs differed
 in a field nobody had listed (the victim's line number).**
+
+### 7g20 — ⛔ AN ADVISORY DELIVERED TO AN OFFLINE PEER IS DELIVERED TO NOBODY
+commonplace issued a writer advisory for `CX-0hbs`. **I did not broadcast it — measured instead:**
+`list_peers` 19:29 ⇒ **online = commonplace · commonplace-plan · hermes · boss-clod.** Both authors
+already knew; **hermes doesn't touch the substrate; boss-clod writes via clod-squad/telegram/files,
+never `CommandRouter`.** ⇒ **No unreached party online was affected.**
+⚠️⚠️ **THE REAL GAP: dirigible · wimble · tarot · mater2026 · claude-chat · codex-hermes are OFFLINE.**
+⇒ **They return with no memory of this and the advisory will have scrolled.** ⭐ **A broadcast is a
+delivery to WHOEVER HAPPENS TO BE LISTENING — the same "working detector reaching someone who does not
+act on it" failure, with the absence on the RECEIVING end.**
+⇒ ⭐ **If an advisory lives only in channel messages it EXPIRES AT THE NEXT SESSION RESTART.** ⛔ Where
+it should live durably is commonplace's and plan's call, not mine — **but re-relaying it to any peer
+that comes online while the ticket is open IS mine, and I have taken it.**
+
+### 7g21 — the advisory's construction, worth copying
+⭐ **It leads with "the gate is WORKING CORRECTLY."** ⇒ **A reader told "the gate is broken" goes
+looking for a broken gate, finds a healthy one, and concludes THE ADVISORY is wrong.** Naming the
+counterintuitive part first is what stops that.
+⭐ **And "do not assume your past writes are fine because nothing looked wrong — by construction
+nothing would have"** ⇒ **pre-empts the exact self-check that would produce FALSE COMFORT.** ⚠️ An
+advisory that omits this invites every reader to run the one test guaranteed to reassure them.
+■ ⭐ **Mitigation stated as one concrete act: RE-READ AFTER WRITING** — *the only thing that
+distinguishes "written" from "told it was written."* **One extra call, and it is the whole
+mitigation.** ⇒ **That is the part I relayed to jes, because it is the part he can DO.**
