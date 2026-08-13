@@ -3509,3 +3509,29 @@ a reconciling denominator are the three cheap tells; **the failure count is the 
 ⭐ And the structural point: **a Sol worktree cannot host a suite run at all** — no deps, no build. So
 any gate on Sol's output has to run **in a tree that has them**, which also removes the wrong-working-
 directory confound. **Re-gating in the main repo re-derives an attribution instead of accepting it.**
+
+### Addendum — `Map.take` cannot fail, and that is the whole defect surface
+⭐ **The silent-drop in S48 lives in one line:** `defp resolve_environment(names, environment), do:
+Map.take(environment, names)`. ⇒ **`Map.take` returns whatever it finds and never complains about what
+it doesn't** — so a declared variable missing from the real pod's spec goes **absent instead of
+refused.** ⭐ **THIS IS *A CHECK THAT CANNOT FAIL* IN THE SHAPE OF A DATA OPERATION**, and it is
+invisible because nothing about the call site looks like a check at all.
+⇒ `Map.fetch!` over the same names makes the lapse **loud instead of silent**, with **no change to
+behaviour while the invariant holds.**
+⚠️ **AND COMMONPLACE STATED THE LIMIT, WHICH IS THE HONEST HALF: this does not make the check run
+against the right object — it makes the DISAGREEMENT OBSERVABLE.** The real fix is one check against
+one object, and that is a provisioning-order design question. ⭐ **Converting a silent divergence into
+a loud one is not the same as removing it, and saying so is what stops the ticket being closed by the
+mitigation.**
+⭐ Note also why the refusal stays **before** provisioning: that is what makes `pod_homes == []`
+assertable on the refusal arms. **Moving it after would mint a pod only to tear it down** — new
+cleanup semantics bought for nothing.
+
+### Addendum — never commit-green-then-patch
+⛔ **commonplace's sequencing, and it is a rule: gate finishes → apply the fix → RE-RUN THE FULL GATE →
+commit once.** ⇒ **Committing the green and then adding the one-liner would put a line on main that no
+full-suite run ever saw.**
+⭐ **THAT IS THE SAME DEFECT ONE LAYER UP — a claim ("the suite passed on this tree") that is true of a
+tree nobody shipped.** Same family as the gate that exercised a neighbouring configuration, and as the
+pin that travels with its proof. ⇒ **THE GREEN MUST CORRESPOND TO THE TREE YOU COMMIT**, or it
+certifies something adjacent to what shipped. **Cost here: ~10 minutes of wall clock.**
