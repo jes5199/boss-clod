@@ -3310,3 +3310,27 @@ plan ruled Docker the runner arc's **next rung** *because a container is a killa
 about killability. ⇒ **A rung chosen for ISOLATION would have introduced the largest isolation hole on
 the box, arriving as the solution to the pattern-kill hazard we spent the night eliminating.**
 **Ask what a new dependency can REACH, not only what it can DO for you.**
+
+### Addendum — three false alarms, three mechanisms, one rule that never mentions mechanism
+⚠️ **In one night I caught myself mid-false-alarm on a handle check three times, and each had a
+DIFFERENT cause:**
+| # | handle check | why it lied |
+|---|---|---|
+| 1 | `ls /tmp/cc-daemon-1000` succeeded | **a real directory in the wrong place** — the sockets were one tree over |
+| 2 | `test -f …/queue.db` → REACHABLE | **an empty file minted by the fence working** — the sandboxed MCP server created it on the tmpfs |
+| 3 | `test -w /run/snapd.socket` → RW | **an attribute inherited from the mask itself** — `/dev/null` is writable, so the check passes by construction |
+⭐ **THE RULE SURVIVES ALL THREE BECAUSE IT NEVER MENTIONS THE MECHANISM: *ask what it can still DO.***
+⇒ A rule phrased against a specific failure ("watch for stale paths") would have caught #1 and missed
+#2 and #3. **Phrase the check against the PROPERTY YOU WANT, not against the failure you last saw** —
+mechanisms are inexhaustible and the property is one.
+
+### Addendum — the containing-directory rule has a boundary, and DNS is where it is
+⭐ I filed *mask containing directories, not individual files* as the durable form — sockets that do
+not exist yet are covered without an edit. ⛔ **`--tmpfs /run` was the test that found its limit: it
+breaks DNS resolution and codex cannot reach its endpoint.**
+⇒ **WIDER IS BETTER ONLY UP TO THE BOUNDARY WHERE THE CONTAINER HOLDS SOMETHING THE PROCESS
+LEGITIMATELY NEEDS.** `/run/user` holds only channels → mask the directory. `/run` holds channels
+**and** resolver state → mask the **files**, keep the directory.
+⭐ And note how the limit was found: **by asking what the tightening now PREVENTS, before shipping it**
+— the same question that surfaced the blind derivation, applied early instead of late. **A `DNS=ok`
+line in the acceptance is what stops a fence change from silently becoming an outage.**
