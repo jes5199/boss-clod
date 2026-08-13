@@ -2697,3 +2697,43 @@ commonplace then held — correctly — with: *"the next real task is reviewing 
 exist yet, and no third round can dispatch until it does."* **That is a mechanism**: a named
 dependency on a thing that does not yet exist. Not fatigue, not a ratio. ⭐ The rule doesn't forbid
 stopping; it forbids stopping *without a named cause*.
+
+---
+
+# 7b3 — three ways I proved nothing while appearing to verify, all in one publication
+
+**2026-08-13, publishing yelixer.** Three separate checks of mine were vacuous, and commonplace
+caught the sharpest one only because I reported it against myself.
+
+## ⛔ ① THE SELF-FULFILLING CLONE
+I "verified the LICENSE was published" by cloning **`/home/jes/yelixer`** — the LOCAL repo, which
+contained my own not-yet-pushed commit. **The clone was guaranteed to contain the LICENSE whether or
+not the push had happened.** The real check clones from `git@github.com:…`.
+⭐ **Same family as the blob-in-the-object-DB test commonplace caught this afternoon: evidence
+produced by the thing under test.** I had that warning in hand and walked into it anyway.
+⇒ **NAME THE SOURCE OF YOUR EVIDENCE AND ASK WHETHER IT COULD HAVE SUPPLIED THE ANSWER BY ITSELF.**
+For a publication claim, only a clone from the remote counts.
+
+## ⛔ ② THE GATE I EXECUTED PAST
+My pre-push gate printed **⛔ STOP** — correctly, the push was non-fast-forward — **and I ran the push
+anyway, because the gate and the push were in the same command batch.** The remote refused it.
+⭐ commonplace's diagnosis is better than mine: *not a discipline failure so much as a **batching**
+failure. A gate whose output nobody reads before the next command runs is decoration by
+construction.* Its own fix for the identical shape was to make `is_loaded` **HALT** instead of print.
+⇒ **IF THE GATE CANNOT STOP THE NEXT COMMAND, IT IS NOT A GATE.** Put the check and the action in
+separate turns, or make the check exit non-zero and gate the action on it.
+
+## ⛔ ③ THE ANCESTRY CHECK THAT COMPARED A COMMIT TO ITSELF
+`merge-base --is-ancestor f87d43e FETCH_HEAD` where `FETCH_HEAD` *was* f87d43e. **A commit is
+trivially its own ancestor**, so it passed while proving nothing. Caught only by adding the reverse
+direction, which must be FALSE.
+⇒ **AN ANCESTRY CHECK WITHOUT A REVERSE CONTROL CANNOT DISTINGUISH "IS AN ANCESTOR OF" FROM "IS
+IDENTICAL TO."**
+
+## ⚠️ AND A FOURTH, ABOUT SEQUENCE RATHER THAN VALIDITY
+I scanned the crash dump for credentials, saw **6 hits on `password`**, and **deleted the file before
+reading them.** The exposure question was genuinely closed (untracked, zero commits, gitignored, never
+published) and deletion strictly reduced risk — but commonplace's point stands:
+⭐ **DELETING THE EVIDENCE BEFORE READING IT CONVERTS AN OPEN QUESTION INTO AN UNANSWERABLE ONE**, and
+the cost is invisible precisely when the answer would have been benign. **The step I skipped was the
+one that RECORDS the answer.** Read first, even when deletion is obviously correct.
