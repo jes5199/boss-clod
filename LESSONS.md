@@ -3579,3 +3579,24 @@ about it.**
 ⭐ Pairs with *never commit-green-then-patch*: **each green belongs to exactly one tree, so each needs
 its own filename.** ⚠️ Overwriting is the cheap default and it silently converts two measurements into
 one, with no error and no gap where the loss would show.
+
+### Addendum — make the script structurally incapable of the lie
+⭐⭐ **commonplace, drafting its close script WHILE the gate ran:** the script takes the commit SHA and
+the new ticket id **from the environment (`S48_COMMIT`, `S48_NEWID`) and RAISES if either is unset.**
+⇒ **So it cannot run before the commit exists and the ticket is minted.**
+⚠️ **A close reason naming a SHA nobody had made yet would be a TRUE-SOUNDING CLAIM ABOUT AN OBJECT
+THAT DOES NOT EXIST** — same shape as a green certifying a tree nobody shipped, and as a verification
+run against a rebuilt merge nobody pushes.
+⭐ ***"The script is structurally incapable of telling that lie, which beats my remembering not to."***
+⇒ **THE STRONGEST FORM OF A RULE IS A PRECONDITION THAT REFUSES**, not a habit that holds. Same family
+as the launcher's four proven refusals and the fail-fast on a missing brief — **and note it aims the
+week's own defect at its author rather than at a builder.**
+
+### Addendum — draft the filing while the gate runs, not after the verdict
+⭐ Both filing scripts were written **during** the gate, as were three memory rules earlier. ⇒
+***"Waiting for a verdict to start writing is how the surrounding facts get compressed out of the
+record."***
+⚠️ **After a green, the write-up is about the green.** The environmental detail — what else was
+running, which artifact was preserved under which name, why a mitigation is not the fix, which
+attribution was re-derived rather than accepted — **is all still in hand DURING the wait and mostly
+gone after it.** ⭐ **The idle window is not dead time; it is the last moment the context is complete.**
