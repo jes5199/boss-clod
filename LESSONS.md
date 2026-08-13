@@ -3966,3 +3966,38 @@ commonplace, the work in yelixer.
 brief copied, **first three lines read back AT THE PATH SOL WILL SEE, then diffed byte-identical.**
 ⇒ ⭐ **A check that only pays off in the unusual case must be run in the usual case too, or it will
 not be there on the day the case turns unusual** — and nobody announces that day in advance.
+
+### 7d1 — TWO CORRECT MEASUREMENTS OF DIFFERENT THINGS, BOTH CALLED `main`
+commonplace cut the S52 worktree from `691a4f44` while `origin` was actually at `fe7bd20`. Its own
+check *"is `origin/main` ahead?"* came back **AGREEING with HEAD** — because **a remote-tracking ref is
+a CACHE that only moves on fetch.**
+⇒ ⛔⛔ **`git log origin/main` ANSWERS "WHAT DID ORIGIN SAY LAST TIME I ASKED", NOT "WHAT DOES ORIGIN
+SAY."** Same sentence as `bd` answering confidently about a frozen world. ⭐ **A cache that never
+announces its own age is indistinguishable from a source.** **`git ls-remote origin main` has no local
+cache to be stale — use it before cutting a worktree.**
+⭐⭐ **AND THE DANGEROUS PART IS NOT THAT SOMEONE WAS WRONG — NOBODY WAS.** My "CI is green" was about
+the **remote** and was true. Its base was about the **local clone** and was true. ⚠️ **Two referents
+wearing one name**, so both parties can verify their own claim, disagree, and have each one's evidence
+survive the other's challenge. ⇒ **This is worse than a plainly-stale number, which at least loses the
+argument.** **The remedy is an instrument without a cache, not more care.**
+
+### 7d2 — A FENCE AROUND FILES THAT AREN'T THERE IS INVISIBLE FROM OUTSIDE
+The stale base was found **only because Sol refused**: *"the brief claims this tree contains the CI
+workflow and count-guard paths, but neither exists at this base. I did not reconstruct or weaken
+them."* **Third time today a wrong brief-fact was caught by the builder's refusal.**
+⇒ ⭐⭐ **A ⛔-fence naming absent files is VACUOUSLY SATISFIED, and a compliant builder says nothing** —
+the round then looks clean from every angle a reviewer has. **The protection and its absence produce
+identical artifacts.**
+⇒ ⭐ **The reason the refusals keep arriving is that the briefs are SPECIFIC ENOUGH TO BE CONTRADICTED.**
+A brief that says *"don't weaken the guards"* cannot be refuted by a tree that has no guards; one that
+names the paths can. **Specificity is not politeness to the builder — it is what makes the brief
+falsifiable.**
+
+### 7d3 — /tmp reaping is the worktree gate wearing different clothes
+Measured 17:06Z: `/tmp` **8.0 GB** — 4.9 GB session scratch, ~1.1 GB **old Sol round leftovers**
+(s12, s19, s23, s24 + eight baseline copies), each legitimately created by a round that has long
+since landed. Disk 74%, 31 GB free, so **not urgent — and NOT to be touched while a round is in
+flight.**
+⭐ **Identical to the 162-worktree/16 GB case: a fleet that worked correctly and silently consumed
+disk.** ⇒ **Build the reaping into the thing that creates the growth**, or it becomes a periodic
+manual sweep that only happens after an alarm.
