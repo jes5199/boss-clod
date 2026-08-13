@@ -105,3 +105,29 @@ ARTIFACT. Both output files were **empty**, which distinguishes *never ran* from
 *died*; process absence cannot. Same collapse as the transient systemd unit (LESSONS 7b0 addendum),
 now observed in three carriers: a systemd unit, a backgrounded shell, and a poll loop.
 **Absence of the process is not the verdict. The artifact is.**
+
+
+---
+
+## Appendix — the scope test: when is an out-of-brief change legitimate?
+
+Three rounds in a row raised "the diff touches more than the brief described," and they resolved
+**differently**, which is what makes the test worth stating.
+
+| round | out-of-brief change | verdict |
+|---|---|---|
+| CX-1wt1 | moved the boundary checker into the app, repointed the test at `@app_root` | ✅ **REQUIRED** — a standalone checkout has no `scripts/` dir, so leaving it would have shipped a self-containment fix that isn't self-contained |
+| CX-d71s | 15 files of line-rewrapping + a HEEx `<%= %>` → `{}` migration across wiki/outline/mud/tree LiveViews | ⛔ **CHURN** — ~200 lines, not one substantive change; stripped |
+
+⛔ **"DID THE BRIEF LICENSE IT?" IS NOT THE TEST** — the first change wasn't licensed either, and was
+correct.
+⭐ **THE TEST IS: IS THE ROUND'S GOAL UNACHIEVABLE WITHOUT IT?** Required-by-the-goal survives;
+everything else is blast radius bought for free.
+⚠️ And check the cheap disconfirmer before stripping: **reverting formatting would be wrong if CI
+enforced it.** commonplace checked — CI runs no format check — so the churn bought nothing. *A
+plausible justification for churn (`the formatter wants it`) has to be tested, not assumed either way.*
+
+⇒ **AS THE DISPATCHER I CAN SEE THE BLAST RADIUS BUT NOT THE INTENT.** Filenames tell me 22 files
+were touched; only reading them says whether that was wiring or churn. **Flag the width, hand the
+judgement to the reviewer** — both times that split produced the right answer, and the two answers
+were opposite.
