@@ -4128,3 +4128,32 @@ whether anything changed; **a named condition costs nothing until the world supp
 ⭐ **And the retitle is what made the ruling possible at all**: while the title named a refuted
 mechanism, the row read as *severe and apparently understood* — **the exact combination that recruits
 the dispatch that cannot succeed.**
+
+### 7e6 — THE CONTROLLER OWNING THE KILL REMOVES THE ONLY PARTY THAT NEEDED A PATTERN
+`CX-j7zv` (plan's admit-set design) moves the kill from a pattern to **the controller that issued the
+id**. ⇒ ⭐ Every `pkill -f` selector matching an Elixir process on this box **also matches hermes**
+(`beam.smp`, `mix`, `elixir`, `phx.server`) — a shape that has already taken down the live serve and
+hermes once, plus three self-matching incidents in a day. **A party that issued the id can address
+the id; nobody else has to guess.**
+⛔ **The requirement does not relax because the owner improved: the kill must still be DEMONSTRATED
+red and green, never argued.** ⭐ **And the control stays split — the pod kills and reports what it
+addressed; I read hermes from outside.** **A pod cannot verify its own blast radius and must not
+claim to**; the split is what makes the claim mean anything.
+
+### 7e7 — `list_pods` IS THE REAPER'S ENUMERATION
+⭐⭐ **A FLEET WHOSE CREATOR CANNOT ENUMERATE IT HAS NO REAPER THAT CAN.** That is the
+162-worktrees/16 GB incident restated as a **design property** instead of a cleanup story — and the
+reason the reaping constraint must ship **with** the round that starts the growth, not after it.
+■ Current scale, measured 17:06Z: `/tmp` **8.0 GB**, ~1.1 GB dead round scratch, **every directory
+legitimately created and none ever removed.**
+⇒ ⚠️ **GROWTH THAT IS INDIVIDUALLY CORRECT IS EXACTLY THE GROWTH NOBODY STOPS** — there is no wrong
+action to catch, so only an owner with an enumeration can catch it.
+
+### 7e8 — a real decision that isn't urgent is not an interruption
+plan flagged **whether the controller runs as a declared in-substrate process** as genuinely open
+(*"a controller declared in-substrate is one a compromised writer could redeclare"*) and said it
+**may want jes eventually, not tonight.**
+⇒ ⭐ **Accepted as stated, and BOTH halves are commitments: I don't raise it until it's ripe, AND I
+don't let it silently become a default by nobody asking.** ⚠️ **Deferral decays into decision when
+the only thing holding it open is that everyone forgot.** **It goes on my open-items list, not on
+his.**
