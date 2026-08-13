@@ -3069,3 +3069,41 @@ no mechanism after all.**
 CANNOT VERIFY ITS OWN STATE — VERIFICATION LIVES OUTSIDE THE ACTOR.** ⇒ **When an agent says "I can't
 measure X about myself," the question is never "then guess" — it is WHO IS STANDING OUTSIDE THAT
 BOUNDARY.** For context %, that is me, and it is now an offered service rather than a one-off.
+
+---
+
+# 7b8 — the fence leaked CONTROL-PLANE SOCKETS, and clearing the env var only LOOKED like a fix
+
+**2026-08-13, CX-7fxm's neighbour.** commonplace found pods inherit the launching BEAM's environment
+and named my wrapper as the precedent (*"you already strip secrets before bwrap"*). ⚠️ **That
+precedent was a DENYLIST — `env -u LETTA_API_KEY -u SQUAD_ALERTS_PUBLISHER_TOKEN` — which is the
+enumerative defect we have hit all week.** So I enumerated what Sol actually inherited: **57 variables.**
+
+⛔ **NO SECRETS AMONG THEM — AND THAT WAS NOT THE PROBLEM. TWO WERE LIVE CONTROL CHANNELS:**
+`TMUX` / `TMUX_PANE`, and `CLAUDE_CODE_MESSAGING_SOCKET`. ⇒ Measured, not reasoned: inside the fence,
+**`tmux list-panes -a` listed every pane on the box.** ⭐ **That is `send-keys` into hermes (live
+money), boss, and every worker — command injection into other sessions, STRICTLY WORSE than the
+PID-namespace hole closed four hours earlier, because TYPING BEATS SIGNALLING.**
+⇒ **A denylist protects against the variables you thought of. The hazard here was a class I had never
+classified as a secret at all** — a handle to a live control plane, which no amount of careful
+secret-listing would ever have caught.
+
+## ⭐⭐ AND THE ENV FIX ALONE PASSED ITS OWN TEST WHILE CHANGING NOTHING
+Switching to an allowlist (`env -i` + 9 explicit vars, 57 → 23) made `echo $TMUX` print **`TMUX=[]`**.
+⛔ **`tmux list-panes -a` STILL WORKED** — tmux falls back to the **default socket path** when the
+variable is unset. ⇒ **The env handle and the filesystem socket are TWO PROPERTIES, and I had closed
+one while the capability lived in the other.**
+⚠️ **THE TELL I ALMOST ACCEPTED: an empty variable is exactly what a successful fix looks like.** Had
+I stopped at the obvious check, I would have committed a fix, reported it verified, and left the
+capability fully intact.
+⭐ **THIS IS THE THIRD INSTANCE OF ONE SHAPE IN FOUR HOURS**: `--unshare-pid` blocking signalling while
+`/proc` stayed host-backed · a fix that would have passed a `kill` test and failed an `ls` test ·
+now an env fix that passes an `echo` test and fails a `list-panes` test. ⇒ **ALWAYS TEST THE
+CAPABILITY, NEVER THE HANDLE.** *Can it still do the thing?* — not *is the pointer gone?*
+
+## THE APPLIED FIX AND ITS VERIFICATION
+`--tmpfs /tmp/tmux-1000` and `--tmpfs /run/user/1000/cc-socks` added to MASK, plus the allowlist env.
+⇒ Measured end-to-end through the real wrapper, every property at once:
+`PANES=0 · CCSOCKS=0 · SSH=2 (empty) · HERMES=blocked · PIDS=5 · ENVCOUNT=24 · SIGNKEY=(masked)`
+⭐ **Backup taken; codex survivability tested BEFORE applying; the pre-existing credential masks
+re-verified after.** A tightening that broke the existing fence would have been worse than the gap.

@@ -121,6 +121,19 @@ MASK=(
   --tmpfs /home/jes/.ssh
   --tmpfs /home/jes/.config/gh
   --tmpfs /home/jes/.claude/channels
+  # ⛔ CX-7fxm (2026-08-13): CONTROL-PLANE SOCKETS, not credentials.
+  # The tmux server socket lets a sandboxed agent `send-keys` into ANY pane —
+  # hermes (live money), boss, every worker. That is command injection into
+  # other sessions, strictly worse than the PID-namespace hole closed hours
+  # earlier, because typing beats signalling.
+  # ⚠️ CLEARING $TMUX IS NOT ENOUGH AND LOOKS LIKE IT IS: tmux falls back to
+  # the DEFAULT socket path when the variable is unset, so `tmux list-panes -a`
+  # still worked with TMUX=[] — measured. The env handle and the filesystem
+  # channel are two properties; closing one certifies nothing about the other.
+  --tmpfs /tmp/tmux-1000
+  # The Claude Code messaging socket dir — same class: a live control channel
+  # to this session, not a secret at rest.
+  --tmpfs /run/user/1000/cc-socks
   # 2026-08-07: the live store's own credentials. Sol needs commits/ to
   # investigate the 450x gap (jes: "if Claude can do it, then Sol can do it")
   # but it does NOT need the node's signing identity or the secrets store.
@@ -257,7 +270,10 @@ MASK=(
 # after it — measured 2026-08-11 04:44: codex ran with ONLY `-m gpt-5.6-sol`
 # (no sandbox flag, no workdir, no prompt); only the no-prompt fail-fast kept
 # those runs harmless. This block therefore lives ABOVE the exec, not inside it.
-exec env -u LETTA_API_KEY -u SQUAD_ALERTS_PUBLISHER_TOKEN \
+exec env -i \
+  HOME="$HOME" PATH="$PATH" USER="$USER" LOGNAME="$LOGNAME" SHELL="$SHELL" \
+  TERM=xterm-256color LANG="${LANG:-C.UTF-8}" LC_ALL="${LC_ALL:-C.UTF-8}" \
+  ASDF_DIR="${ASDF_DIR:-}" SOL_WORKDIR="$WORKDIR" \
   bwrap --dev-bind / / --unshare-pid --proc /proc "${MASK[@]}" -- \
   codex exec -m gpt-5.6-sol \
     --sandbox workspace-write \
