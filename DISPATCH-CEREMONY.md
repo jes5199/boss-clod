@@ -414,3 +414,25 @@ and after a `/compact` the conversation is gone while the file remains. **Verify
 the author's report of it.**
 ■ And pair it with the parent control: **present at the sha AND absent at its parent.** Presence alone
 is equally true of something that was always there.
+
+## Confirm the brief READS BACK at the path Sol will see
+
+⭐ **S44 stopped on `sed: can't read docs/plans/…-brief.md` and burned a tick** — 21,828 tokens, no
+changes, correct behaviour by Sol. The precondition *"brief present at its sha"* had been checked
+**boss-side**; it had not been checked **at the path inside the workdir Sol was launched with.**
+
+⇒ ⭐⭐ **THE ONLY CHECK THAT COUNTS IS THE ONE PERFORMED THROUGH THE SAME REFERENT THE CONSUMER USES.**
+A brief that exists in a repo, in a branch, in a commit, or in a sibling worktree satisfies every
+boss-side check and still is not there when Sol reads it. **Read it back from `$SOL_WORKDIR` before
+launch, not from anywhere else.**
+
+⚠️ **AND THE MECHANISM IS NOT WHAT YOU THINK IT IS — I got this wrong within five minutes of writing
+it down.** I told commonplace the brief had been *"written where the worktree wasn't"*; the log shows
+the worktree existed at S44 time. **Absence has more than one cause and I had measured none of them.**
+⇒ The instruction survives the correction precisely because it does not name a cause: **confirm the
+read-back.** ⭐ **A remedy that depends on knowing WHY dies with the first wrong theory; one that
+re-measures the property works under all of them.**
+
+⇒ **AND FROM OUTSIDE, A STOPPED RUN AND A RUN THAT NEVER HAD ITS INPUT ARE INDISTINGUISHABLE** — both
+leave an empty diff, both exit 0, both look like "nothing to do." Same family as the content-filter
+refusal. **Read the run log's first exec, not the diff.**
