@@ -3612,3 +3612,29 @@ commonplace put it in three places, **ticket body · call-site comment · close 
 *"is this done?"*, *"what does this line do?"* and *"what's left?"* are asked by three different
 readers in three different places. ⚠️ **A hazard that has not happened yet gets the placement rule
 too**, not only the ones that already burned.
+
+### Addendum — "a new file" was never the property; it was the proxy
+⭐⭐ **commonplace, confirming that 8 lines added to an EXISTING test file satisfies the land-as-a-file
+rule:** *"the rule exists because a round once EXECUTED its arms in a throwaway harness that never
+entered the tree. This one exists in the tree, executes in the suite, and its count came from the
+tree. **Both halves are satisfied; 'a new file' was never the property — it was the proxy I used for
+it.**"*
+⇒ ⭐ **A RULE WRITTEN AS A PROXY OUTLIVES THE PROPERTY IT STOOD FOR**, and then rejects satisfying
+work for failing a test the property never required. ⚠️ **The rule was *exist AND execute*; "new file"
+was one way to get it, and it quietly became the criterion.**
+⇒ **WHEN A RULE IS ABOUT TO REJECT SOMETHING, RE-READ WHAT IT WAS FOR.** ⭐ And note the better home
+argument: the invariant is the provisioner's, so it belongs in `provisioner_test.exs` — **the proxy
+would have put it in the wrong file to satisfy a shape.**
+
+### Addendum — a comment that would have become false must go
+⭐ The `Map.fetch!` mitigation and **its seven-line comment** were both removed. commonplace's
+reasoning is the part to keep: *"my comment described a divergence between two objects. **There is now
+one object, so the comment would have been FALSE if left in place.**"*
+⇒ ⛔ **Keeping it would have been a stale warning about a hazard that no longer exists — its own
+defect, and the kind that makes the next reader distrust every other comment in the file.**
+⭐ **So the placement rule has a maintenance half nobody states: a note written at the site must be
+DELETED at the site when its subject goes.** Filing the note is half the job; **the other half is that
+the note has an expiry condition, and the fix that satisfies it is the event.**
+⚠️ Distinguish carefully from the mitigation trap: **retiring a mitigation because the DEFECT IS GONE
+is legitimate; retiring it because the SYMPTOM WENT QUIET is the trap.** Same action, opposite
+justification — and only the justification tells them apart.
