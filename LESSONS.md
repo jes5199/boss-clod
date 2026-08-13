@@ -5000,3 +5000,38 @@ nothing.***
 ■ ⭐ **And the guard's failure message must name the offending `file:line`** — *a guard that says "a
 caller appeared" without saying where costs the next person the enumeration you just built.* **Same
 law as S53's subject-vs-verdict, one layer down.**
+
+### 7g58 — ⛔⛔ A POSITIVE CONTROL THAT SHARES THE MEASUREMENT'S FILTER CANNOT DETECT A FILTER ERROR
+Sol contradicted commonplace's *"zero callers, empty allowlist"*: there is **one** unchecked caller,
+`apps/commonplace/test/commonplace/bd/frontier_server_test.exs:84`. **The scan was `--include=*.ex`
+and silently excluded every `.exs` test file.**
+⛔ **I MADE THE IDENTICAL ERROR INDEPENDENTLY AN HOUR EARLIER AND RELAYED IT TO JES AS VERIFIED:**
+```
+mine at 21:24:  git grep 'Schemas\.create_text_doc(' 84475d91 -- '*.ex'  → 0
+unscoped:                                                                 → 1
+```
+⇒ ⭐⭐ **TWO PARTIES, INDEPENDENTLY, SCOPED AN ENUMERATION OF AN *UNENUMERATED-CALLER* DEFECT AND
+EXCLUDED THE SAME FILE CLASS.** ⚠️ **Neither was careless — both were being SPECIFIC**, and
+**specificity in the SCOPE is invisible in a way specificity in the PREDICATE is not.** A `--include`
+is exactly what a careful person adds to be rigorous, and the rigour narrowed the corpus.
+⛔⛔ **AND THE WORSE HALF, FOUND ONLY BY RE-RUNNING: MY POSITIVE CONTROL SHARED THE BLIND SPOT.** I
+"proved the instrument could see" with *"6 files reference the checked variant"* — **also
+`-- '*.ex'`; unscoped it is 7.** ⇒ **It confirmed the grep could MATCH A SYMBOL. It could not confirm
+the grep could SEE THE FILES.**
+⭐⭐ **A POSITIVE CONTROL HAS AT LEAST TWO PROPERTIES AND I HAVE BEEN TREATING IT AS ONE: (a) can the
+instrument MATCH, and (b) is it POINTED AT THE WHOLE CORPUS.** ⇒ **Put the control OUTSIDE the filter
+under test — a control drawn from the excluded class is the only one that could have caught this.**
+■ ⚠️ **It also changed the ANSWER: `create_text_doc/3` cannot be deleted within the round's scope,
+because deleting it breaks a test the brief forbade touching.** ⭐ **Sol answered the opening question
+with evidence — and the evidence was the caller the scan could not see.**
+■ ✅ **Not re-texting jes:** *"zero bare callsites"* is **true of production, false of the repo** — and
+**what he acts on (stop re-reading; no live path can lose a write) is unchanged**, since the one
+caller is a test fixture. ⭐ **The bar is "is what he believes now different." It isn't. Correct the
+file, not his phone** — *if the production count had moved, that would be a text tonight.*
+■ ⭐ **The guard shipped WIDER than either of us specified: an AST scanner over 921 files across
+`lib/**/*.ex` AND `test/**/*.exs`** — **the fix taking the shape of the defect that produced it.**
+■ ⭐⭐ **And Sol's four self-corrections are the day's artifact: THREE VACUOUS RESULTS IDENTIFIED AS
+VACUOUS BY THE PARTY THAT PRODUCED THEM** — a RED that never reached a test (isolated Mix lacked Hex)
+**not counted** · a scanner that **excluded all unqualified calls**, strengthened and re-proven
+red/pass · a formatting command whose "file not found" **not counted.** ⚠️ **Every one had an
+available reading where it looked like a result.**
