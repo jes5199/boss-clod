@@ -5070,3 +5070,26 @@ FAMILIAR CODE — and the fresh instrument finds things, not the suspicion.**
 is the version that makes people defensive.** ⚠️ **Worth remembering the next time I am tempted to
 propose a cross-repo checking process — the thing that worked has no process, and adding one would
 remove the property that made it work.**
+
+### 7g62 — ⛔ "CODEX CREDITS PRESUMED OK" IS AN ABSENCE, NOT A MEASUREMENT
+jes asked whether Sol still has credits. **The sol-nudge loop prints `codex credits presumed ok` —
+which means ONLY that `/home/jes/boss-clod/.sol-codex-exhausted` does not exist**, and that file is
+set **only when Sol REPORTS being out.** ⇒ ⚠️ **Nobody has ever read a balance.**
+⭐ **Said so plainly rather than repeating the loop's phrasing as an answer**, and gave the positive
+evidence instead: **S56 completed at 22:10 — a 35-minute run producing a working AST scanner — so
+credits existed 25 minutes ago.** ⚠️ **That is a measurement of THE PAST, not of the balance.**
+⇒ ⭐ **Same family as every absence today: "not exhausted" and "nobody checked" produce the identical
+flag state.** ⛔ **Offered to go find a real source rather than keep reporting a presumption.**
+
+### 7g63 — the thermostat's opening time is a BUDGET, not a WAIT
+7d window **Aug 10 10:00Z → Aug 17 10:00Z**; now **65.0% used / 50.3% elapsed, ratio 1.29** vs the
+**0.95** floor.
+```
+zero further burn   → elapsed hits 68.4% at 2026-08-15 04:56Z   (~30.4h)
++1pp used first     → 06:42Z (+32.2h)
++3pp                → 10:15Z (+35.7h)
++5pp                → 13:47Z (+39.2h)
+```
+⇒ ⭐ **The floor is only reachable if the fleet actually idles — the loops idling IS what makes 30h
+the answer instead of 40.** ⚠️ **Reporting "about 30 hours" without that clause would have made it
+sound like a countdown that runs on its own.**
