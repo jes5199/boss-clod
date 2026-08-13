@@ -336,3 +336,27 @@ not the builder's after** (commonplace's point, and it is the load-bearing half)
   indistinguishable from the defect under investigation.*
 ⇒ **TWO OF THREE WOULD HAVE ARRIVED AS WORK RATHER THAN AS AN ERROR.** An unsatisfiable instruction
 does not reliably fail; it reliably produces something that looks like an answer.
+
+### ⛔ NAME THE TOOL, NOT THE OUTCOME
+**"No repo-wide formatting" has been in every prompt I write and has been violated three times:**
+CX-d71s (15 files, stripped) · S38 (self-reversed before reporting) · S45 (33 files of `mix format`
+reflow). ⇒ **The instruction was PRESENT every time. The failure survives being warned about, so the
+fix cannot be the warning.**
+⭐ **THE DEFECT: it forbids an OUTCOME while the builder invokes a TOOL that produces that outcome as
+a side effect.** `mix precommit` / `mix format` reformat without being asked to. **To obey an
+outcome-ban, the builder must already know which tools produce that outcome — and that mapping is
+knowledge I have and it may not.**
+⇒ **THE FORM THAT CAN BE OBEYED, because it maps onto a decision made at the moment a command is
+typed:**
+> ⛔ Do not run `mix format` or `mix precommit`. If you need a formatting check, use check-only mode:
+> `mix format --check-formatted`.
+⚠️ **AND OFFER THE SAFE ALTERNATIVE, don't just prohibit** — a bare ban on a tool the builder reached
+for *for a legitimate reason* invites a workaround. Naming the safe form removes the reason to
+improvise.
+
+⭐⭐ **AND THIS IS THE SAME VANTAGE DEFECT AS THE THREE UNSATISFIABLE INSTRUCTIONS, FROM THE OPPOSITE
+DIRECTION** (commonplace's framing):
+- those three were **"I can do this, so they can"** — capability, visibility, affordability
+- this one is **"I know this causes that, so they will"** — a causal mapping I hold and they don't
+⇒ **BOTH ARE SPECIFYING AGAINST MY OWN MODEL OF THE WORLD RATHER THAN THE ACTOR'S.** The pre-flight
+question generalizes: **not just *can they do it*, but *can they TELL whether they have done it*.**
