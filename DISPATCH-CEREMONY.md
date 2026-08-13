@@ -240,3 +240,22 @@ want independently measured is the one you already believe. **Always hand over b
 falsifiable claims, never as targets.**
 ⇒ And note what made the post-delete count meaningful: **it measured the PRE-delete scope too**
 (3,449/0/12-excluded/1-skip, identical both sides). A single post-change number has no control.
+
+### A deliberate pin looks exactly like a stale one
+⚠️ **commonplace, 2026-08-13, carrying into the atomic landing:** once the dep is pinned at
+`691a4f44`, CX-bx59 will move the published tip — expected and harmless, because our tree consumes the
+pin, not the tip. ⛔ **But a pin that trails the remote's HEAD reads as neglect**, and the natural
+tidy-up is to bump the ref to match. ⇒ **Re-pointing it silently swaps in a SHA the consumability gate
+never proved**, discarding the assurance without anyone noticing they discarded anything.
+⭐ **SO THE COMMIT MESSAGE MUST SAY THE PIN IS DELIBERATE AND STABLE.** A pin's *justification* has to
+travel with it, or the next reader sees only a lagging number.
+⇒ General form: **when correct state is indistinguishable from neglected state, the difference has to
+be written down at the site**, because the tidier will not have your context.
+
+### Distinguish "blocked by an un-landed commit" from "blocked by a standing conflict"
+⭐ I framed bx59's timing problem as a conflict with the pin. commonplace's refinement: **it expires the
+moment the atomic round lands** — once the pin is in the tree, the published tip can move freely.
+⇒ **A block with an expiry is different from a constraint**, and saying which one it is stops people
+planning around something about to evaporate. The capability leg (Sol's fence cannot push) *is*
+permanent; the timing leg is not. **Two blockers on one ticket can have completely different
+lifetimes — name each.**
