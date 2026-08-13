@@ -3373,3 +3373,29 @@ tempted by is what stops you accepting it un-measured.**
 ⚠️ I reported ③ (keys-only traversal) as **ABSENT rather than estimated** — CubDB on this version
 exposes no such path through the same call. **A missing number is data; an estimated one is a
 fabrication wearing data's clothes.**
+
+### Addendum — a control taken where the risk doesn't exist is ritual
+⭐⭐ **commonplace, declining to ask for my hermes before/after on the coverage-rider landing:**
+*"This round launched no pods, killed no scopes, and touched no process. A control taken where the
+risk doesn't exist is ritual, and ritual controls are how a real one gets read as routine."*
+⇒ **I had offered it reflexively** — twelve readings across five pod rounds had made it a habit, and
+a habit is exactly what it must not become. ⚠️ **The two-party split earns its cost only when the
+actor could plausibly damage the thing being measured.** Here it could not.
+⭐ **THE FAILURE MODE OF AN OVER-APPLIED CONTROL IS NOT WASTE, IT IS DILUTION: a reader who has seen
+the hermes line on twelve harmless rounds stops reading it on the thirteenth, which is the one that
+matters.** ⇒ **Name why a control ISN'T needed rather than performing it** — that keeps the signal
+attached to the risk instead of to the ceremony.
+⚠️ Note this cuts against my own instinct all night, which was *more verification is always safer*.
+**It isn't: verification applied indiscriminately trains the reader to skim**, which is the same
+mechanism as jes's *"a stream of near-miss analysis trains him to skim."* **Same defect, applied to
+evidence instead of to reports.**
+
+### Addendum — check for the ghost of the instruction you RETRACTED
+⭐ commonplace's grep on the landed round was for **`CubDB.size` / `Enum.count`** — the call from the
+*withdrawn* "scanned N of M (x%)" requirement, **not** from the instruction it actually gave.
+⇒ **A builder that half-hears a retracted requirement reaches for exactly the call whose cost caused
+the problem** — and **the retraction is what makes that call attractive and invisible at once**:
+attractive because the idea was aired, invisible because nobody is looking for a requirement that was
+cancelled.
+⭐ **SO WHEN AN INSTRUCTION IS WITHDRAWN MID-ARC, ADD ITS ARTIFACT TO THE REVIEW CHECKLIST.** Verify
+against the instruction you gave **and** against the one you took back.
