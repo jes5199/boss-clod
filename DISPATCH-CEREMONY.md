@@ -169,3 +169,26 @@ small diff by every measure a reviewer looks at, and it would have re-opened S37
 ⇒ **WHILE A GATE'S PIN IS LIVE, THE GATED REPO IS FROZEN TO EVERYONE, not just to the round.** Say so
 out loud when the arc starts, because the person who breaks it will be making an obviously-harmless
 change. **Ask what is pinned to the state a change moves before calling that change small.**
+
+### The run log is the ONLY substrate for the refusal check
+⛔ **A ROUND THAT PRODUCES NO `sol-run.log` SILENTLY LOSES THE CONTENT-FILTER-REFUSAL CHECK**, and
+nothing in the artifact can stand in for it. S37b (2026-08-13) finished with a 242-line report and no
+run log anywhere under `$HOME` maxdepth 3. A large artifact argues strongly against a refusal — but
+*argues against* is not *rules out*, and those are different evidentiary claims.
+⇒ **CONFIRM THE LOG PATH EXISTS BEFORE THE ROUND STARTS, not after.** After is too late: the substrate
+is gone and the check is unrecoverable no matter how good the result looks.
+⭐ **AND REPORT THE GAP EVEN WHEN THE OUTCOME IS GREEN** — a good result is exactly the condition under
+which a missing check goes unnoticed (LESSONS 7b4: *success is the condition under which an error
+becomes undetectable*). commonplace recorded it in both the commit and the close rather than letting
+the verdict paper over it.
+
+### Reproduce, don't read, when the gate guards something irreversible
+⭐ **S37b's verdict rested on TWO INDEPENDENT EXECUTIONS, not one agent's account.** commonplace
+re-ran the consumability proof itself — different project, different text, **different client IDs
+(7/99 vs Sol's 101/202)**, fresh `/tmp` dir, empty build path, fetched over HTTPS at the pin — and
+converged. ⇒ **FOR A GATE GUARDING AN ACT WITH NO ABORT PATH BEHIND IT, READING THE REPORT IS NOT
+ENOUGH.** Match the verification's independence to the irreversibility of what it releases (see
+DEPLOY-CEREMONY's *gate strength should match reversibility*).
+⚠️ Note what made the independence *visible rather than claimed*: **distinct fixed client IDs.** A
+report that says "I used a separate document" is an assertion; one that shows non-overlapping IDs is
+an artifact.
