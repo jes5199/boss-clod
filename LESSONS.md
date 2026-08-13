@@ -2912,3 +2912,28 @@ radius** — so where the pods are launched FROM is a safety property, not a con
 scale.** Today there is one BEAM worth protecting and few processes to confuse it with; that is what
 makes today's discipline sufficient. **State the structural requirement while the fleet is still
 hypothetical — after it exists, the same requirement is a migration.**
+
+### Addendum — `git diff A..B` measures DIVERGENCE, not the work on B
+**2026-08-13, hermes worktree cleanup.** To decide whether 162 agent worktrees held unique work, I ran
+`git diff --name-only origin/main..$branch | wc -l` and got **1,473 files** on several. I reported
+them as *"REAL unique content"*. ⛔ **Wrong measure.** A two-dot diff shows every difference in either
+direction, and those branches are **old** — so the number was overwhelmingly *main moving on without
+them*, not work they contained.
+⇒ **The real unique work was ONE commit each, ~600 lines**, and spot-checking the files it added
+showed them **byte-identical in main already**. ⚠️ **Had I trusted the first number I would have
+concluded 83 worktrees each held 1,473 files of irreplaceable work** — and refused a cleanup jes had
+asked for, on the strength of a statistic that measured the wrong thing.
+⭐ **THE TELL WAS PLAUSIBILITY, NOT IMPLAUSIBILITY**: 1,473 is a *believable* number for a busy agent
+worktree, which is exactly why it didn't trigger a re-check. **A wrong measure that returns an absurd
+value gets caught for free; one that returns a reasonable value is load-bearing until someone asks
+what it measures.**
+⇒ **The right questions: `git log origin/main..branch` for the commits that exist only there, and
+"does main already contain this file's exact bytes" for whether the content landed.**
+
+### The structural gate beat the judgement call
+⭐ `git worktree remove` **deletes the working copy but leaves the branch** — all *committed* work
+survives in `.git` regardless, so only uncommitted changes are ever at risk. ⇒ Running it **without
+`--force`** makes **git itself refuse every dirty tree**: 125 removed, **37 refused and kept**.
+⭐ **THE DECISION ABOUT WHAT WAS PRECIOUS WAS MADE BY A TOOL THAT CANNOT BE PERSUADED, NOT BY MY
+READING OF 162 DIRECTORIES.** Where a structural gate exists, prefer it to your own per-item
+judgement — it does not get tired, does not round, and its refusals are auditable after the fact.
