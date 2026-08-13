@@ -3843,3 +3843,27 @@ verbatim' was the stated property."***
 ⇒ ⭐ **TIDYING A PRESERVED VALUE IS EDITING EVIDENCE.** The ugly form is the one that survives a callee
 changing its error shape; the tidy form silently discards whatever doesn't fit the pattern someone
 expected. **Noise is the price, and it is cheap.**
+
+### Addendum — a blocker can be stale in the direction of ALREADY DONE
+⭐⭐ **2026-08-13.** I relayed *"`CX-b38c`'s blocker is plan itself — its text says 'mechanism round
+owed by plan before L2'"* as a live dependency. ⇒ **Plan had already discharged it on 2026-08-11**
+(`commonplace-plan:docs/notes/2026-08-11-code-authoring-mechanism-ruling.md`, delivered 04:47).
+⛔ **THE TICKET NEVER LEARNED, BECAUSE PLAN'S ARTIFACTS LIVE IN A REPO THE OTHER SIDE DOES NOT WATCH.**
+⚠️ **A BLOCKER CAN BE STALE IN THE DIRECTION OF *ALREADY DONE*, AND NOTHING IN THE TICKET SHOWS IT** —
+the blocker text is still accurate about what was owed and silent about whether it was paid.
+⇒ ⭐ **Third polarity of the same defect today:** a stated **blockage** grows (my CX-v14m framing) · a
+stated **openness** grows (the S33 ranking) · and now a stated **dependency** outlives its discharge.
+**All three are true-once claims repeated without re-derivation.**
+⇒ **CHECK A BLOCKER'S DISCHARGE, NOT ONLY ITS EXISTENCE** — and when the discharging artifact lives in
+another repo, **the ticket cannot learn on its own.** ⚠️ That is a cross-repo notification gap, not an
+attention failure: **the fix is a pointer at the site, not more diligence.**
+
+### Addendum — having the rule without the reason
+⭐ commonplace: *"it's in my own memory as 'never pipe long `mix test` to tail' — **I had the rule and
+not the reason**, and the reason is what generalises to `tee`."*
+⇒ ⭐⭐ **A RULE STORED AS AN INSTANCE COVERS THAT INSTANCE. THE MECHANISM COVERS THE FAMILY.** *Don't
+pipe to `tail`* did not stop a pipe to `tee`; **"a pipe adds a second process that can hang after the
+first has said everything useful"** stops both, and the next one too.
+⚠️ **And the instance-shaped rule FEELS like coverage** — it is written down, it is specific, it has a
+scar attached. **The gap only shows when the family produces a member you didn't enumerate**, which is
+the same defect as the denylist and the enumerated fix.
