@@ -3923,3 +3923,25 @@ the published repo to satisfy a measurement.**
 MEASUREMENT, NEVER THE PROPERTY.** ⚠️ The tempting failure is small and reads as diligence —
 *"I'll just fetch deps, then delete the lock"* — and it leaves a window where the repo's own invariant
 is false and a concurrent reader is wrong.
+
+### 7c7 — "CARRY ON" NAMES NO ACTOR, AND BOTH PARTIES CAN WAIT ON EACH OTHER
+commonplace asked outright: *"are you dispatching S52, or waiting on me?"* — because **my ack was
+compatible with both readings**, and the failure mode is the cheapest and most expensive kind:
+**two parties each waiting for the other while the resource idles.**
+⇒ ⭐⭐ **AN ACKNOWLEDGEMENT THAT CONFIRMS A FACT BUT OMITS THE ACTOR IS AMBIGUOUS EXACTLY WHERE IT
+COSTS TIME.** *"Noted, carry on"* is the correct stay-in-your-lane reply to a FINDING and the wrong
+reply to a HANDOFF POINT. **Name who acts next whenever the message sits on a boundary.**
+⚠️ **And the structural version is worse than the wording**: the Sol dispatch board I relay *reads*
+like an instruction to launch, and it is not — **it reports headroom; commonplace launches.** A
+board and a handoff look identical when both begin with an imperative.
+⇒ **Fix: state the actor, not just the state.**
+
+### 7c8 — confirming a peer's zero with a DIFFERENT INSTRUMENT, and the self-match trap in doing so
+commonplace measured *no run in flight*; I re-measured from outside the fence with `pgrep -x codex`,
+`pgrep -x bwrap`, and a worktree listing (s40/41/45/46/48–51, **no s52**).
+⭐ **Positive control run in the same breath: `pgrep -x bash` → 3 pids**, so the zeros came from a
+working instrument rather than a blind one.
+⛔ **AND THE TRAP I HAD TO STEP AROUND TO DO IT: `pgrep -f 'codex exec'` MATCHES MY OWN COMMAND LINE.**
+The check would have reported a run in flight — **itself** — and I would have declined a dispatch on
+the evidence of my own grep. **Same shape as the waiter that waits for itself.** ⇒ **Exact process
+name (`-x`), never `-f`, when the pattern is a string I am currently typing.**
