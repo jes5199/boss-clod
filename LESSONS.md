@@ -3107,3 +3107,18 @@ CAPABILITY, NEVER THE HANDLE.** *Can it still do the thing?* — not *is the poi
 `PANES=0 · CCSOCKS=0 · SSH=2 (empty) · HERMES=blocked · PIDS=5 · ENVCOUNT=24 · SIGNKEY=(masked)`
 ⭐ **Backup taken; codex survivability tested BEFORE applying; the pre-existing credential masks
 re-verified after.** A tightening that broke the existing fence would have been worse than the gap.
+
+### Addendum — inventory the LIVE CHANNELS, not the secrets
+⭐ **commonplace's extension of the tmux finding, and it is the rule that generalizes:** its own
+CX-7fxm prescription already said *allowlist not denylist* — **and it would still have missed this**,
+because it would have allowlisted an **environment** and never asked about **sockets**.
+⇒ **THE QUESTION A CREDENTIAL AUDIT NEVER ASKS IS: *what can reach another running process from
+here?*** Sockets · multiplexer handles · IPC paths · agent message buses · dbus. **"Is it a
+credential?" does not reach any of them**, which is why the tmux socket survived every previous
+review of that wrapper — including several of mine the same night.
+⚠️ **AND IT EXPLAINS WHY DENYLISTS FAIL IN A DEEPER WAY THAN "SOMEONE FORGOT ONE": the items nobody
+lists are the items nobody CATEGORISED as belonging to the list.** The gap is taxonomic, not
+clerical — so "be more thorough" is not a fix.
+⇒ **Two halves, and each is useless alone:** explicit env construction (allowlist) **and** a channel
+inventory (masks). ⭐ **Acceptance test shape: attempt the capability from inside and require it to
+FAIL** — `tmux list-panes` returning 0 panes, not `$TMUX` being empty.
