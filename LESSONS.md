@@ -4564,3 +4564,49 @@ advisory that omits this invites every reader to run the one test guaranteed to 
 ■ ⭐ **Mitigation stated as one concrete act: RE-READ AFTER WRITING** — *the only thing that
 distinguishes "written" from "told it was written."* **One extra call, and it is the whole
 mitigation.** ⇒ **That is the part I relayed to jes, because it is the part he can DO.**
+
+### 7g22 — ⛔ THE INVISIBLE-TICKET CLASS, IN THE INSTRUMENT EVERY RANKING READS
+`CX-0hbs` grew from three sites to **five across two modules**: `bd/issue.ex:347` and **`:422`**
+discard their returns too. ⇒ ⭐ **`:422` REGISTERS A NEW ISSUE'S DIRECTORY IN THE PARENT SCHEMA — a
+denied write there mints a ticket that EXISTS, REPORTS CREATED, AND APPEARS IN NO LISTING.**
+⚠️⚠️ **MY OWN EXPOSURE, RECORDED NOT RETRACTED: the ticket counts I have relayed to jes and to plan
+all day rest on a listing that can omit silently.** The "43 = 15 + 28"-shaped reconciliations were
+checked **for arithmetic, never for COMPLETENESS OF THE CORPUS THEY WERE DRAWN FROM.** ⇒ **No evidence
+any was wrong; the point is that the check performed could not have detected it.** ⭐ **Same shape as
+an audit corpus that cannot answer its own coverage question.**
+⛔ **Did NOT re-text jes** — same class, same round, same mitigation he already has. **The bar is "is
+what he believes now different", and it isn't.**
+
+### 7g23 — ⭐⭐ "I FENCED AGAINST MECHANISM CREEP, NOT AGAINST COVERAGE OF THE SAME MECHANISM"
+plan corrected its own one-round fence to allow all five sites. ⇒ ⭐⭐ **A PARTIAL FIX TO A
+SILENT-LOSS CLASS IS WORSE THAN NO FIX, BECAUSE THE FIRST FIX'S SUCCESS MAKES EVERYONE BELIEVE THE
+CLASS IS CLOSED.**
+⚠️ **Three sites fixed and two left would have produced a green round, a closed p1, and a live
+defect — and nothing would have looked wrong**, which is precisely this ticket's signature.
+⭐ **The distinction to keep: fence SCOPE CREEP (new mechanisms), never COVERAGE (the same mechanism
+elsewhere).** They look identical when the fence is written as a word count of files.
+
+### 7g24 — A REFUTED HYPOTHESIS THAT REDIRECTS THE SEARCH BEATS A CONFIRMED ONE THAT DOESN'T
+hermes asked whether clod-squad routes through `chat/rooms.ex` — *"the advisory warning about silent
+write loss would itself be travelling over the lossy channel."* ⇒ **Answered NO, measured** (squad
+transport is `queue.db`/SQLite). ⭐ **But the question sent commonplace looking for the shape
+elsewhere, and that is how `issue.ex:422` surfaced.**
+⇒ ⭐ **An agent OUTSIDE the round asked a question INSIDE it and found the biggest thing in it.**
+**Bank as an argument for advisories reaching WIDER, not narrower.**
+■ ⭐⭐ **And hermes's own first check reproduced the bug's exact signature — doc exists, list omits it —
+BECAUSE IT WAS `--limit=50`.** What caught it: **a POSITIVE CONTROL — a known-good ticket was ALSO
+missing, and both corpus counts came back at exactly 50.** ⇒ ⛔ **A TRUNCATED LISTING MANUFACTURES
+FALSE ORPHANS INDISTINGUISHABLE FROM REAL ONES.** ⭐ **And "asking the proxy whether the proxy is
+broken" is the circularity** — reconstruct from the parent schema's registered directories, which
+answers *is this doc registered?* rather than a proxy for it.
+■ ⭐ **It also audited commonplace's denominator control: `956 → 962 = +6` holds ONLY while one writer
+is active.** ⚠️ ***"Seven filed with one orphaned also reads as +6 and passes."*** ⇒ **A conservation
+test needs a quiet window it can ASSERT, or a per-ID check.**
+
+### 7g25 — the detector may be generating the thing it detects
+Promoted acceptance arm: **does the S24/S25 create-time index DETECT a ticket orphaned this way, or is
+the INDEX WRITE ITSELF UNBOUND?**
+⇒ ⭐⭐ **If unbound, the detector built to catch invisible tickets is INVISIBLE-TICKET-GENERATING under
+the same condition** — **a gate that fails in the exact scenario it exists for.** ⚠️ The generalisation:
+**a monitor built on the same primitive as the thing it monitors inherits its failure mode**, and does
+so silently, because both go quiet together.
