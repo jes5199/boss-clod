@@ -284,3 +284,32 @@ produced three wrong lists that night, every one after reading the lesson.
 clean checkout would have discarded good work to repair one file. **Name the survivors individually
 as untouchable, and say plainly that the previous output was accepted** — otherwise the builder reads
 a re-dispatch as a rejection and "improves" what was already right.
+
+### ⛔ THE FAMILY: ANY COMMAND THAT RECONCILES A SOL WORKTREE WITH A COMMIT IS DESTRUCTIVE
+Two incidents in one hour, from opposite directions, same cause: **Sol's work is uncommitted BY
+DESIGN** (`.git` is read-only in the fence), so **every git operation that makes the tree match a
+commit discards the round.**
+| | trigger | what it would have destroyed |
+|---|---|---|
+| 1 | `git checkout -- <file>` to undo a botched edit | one file of a finished round (**it did**) |
+| 2 | `git checkout <sha>` / rebase / merge, to put a newer BRIEF into the worktree | **eleven files, three rounds of accepted work** (caught) |
+⛔ **THE FAMILY: `checkout`, `restore`, `reset`, `rebase`, `merge`, a conflicted `stash pop`.** Each is
+safe in every normal repo and unsafe here, because the property it relies on — *work worth keeping is
+committed* — is **false in a Sol worktree by construction.**
+⭐ **THE SAFE MOVE IS THE ONE THAT DOESN'T CONSULT GIT AT ALL.** To get a newer brief into an
+older-based worktree: **copy the file in, then `diff` it against `<sha>:<path>` to prove it
+byte-identical.** No index, no HEAD, no reconciliation. **Verify the working-tree file count before
+and after** (11 → 12 here).
+⚠️ And the tell for incident 2: *"I just need the worktree at the newer base"* — **you do not.** You
+need one file from it, and wanting the base is what reaches for the destructive verb.
+
+### The fail-fast on a missing brief is load-bearing
+✅ Dispatched against a brief that wasn't in the worktree (based at `3a94242f`, brief added at
+`0eaac932`). **Sol read the brief FIRST, found nothing, and STOPPED:** *"I made no changes and
+performed no further inspection."*
+⭐ **THAT INSTRUCTION IS WHAT STOOD BETWEEN A TYPO AND A FABRICATED ROUND.** The prompt alone carries
+enough detail to invent a plausible task — so without *"if you cannot find the brief, STOP AND SAY SO
+rather than reconstructing the task from this prompt,"* the round would have run **off a summary of
+the ruling instead of the ruling**, and produced an artifact that looked right.
+⇒ **Keep it verbatim in every prompt.** It costs one sentence and it converts an operator error into
+a clean no-op — see §7: *a failed dispatch is not a no-op*, except when you make it one.
