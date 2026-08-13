@@ -3709,3 +3709,36 @@ behind it.
 ⚠️ Note where it happened: **while preparing a round whose entire subject is bad status data.** ⭐
 commonplace's read is right — **that is not irony, it is the base rate: the class is common enough
 that the round about it is not exempt from it.**
+
+### Addendum — a ticket with two faces needs two verdicts
+⛔ **CX-v14m was carried all day as *"jes's decision, not work"* — TRUE of its runtime face and
+SILENTLY WRONG about the live hole sharing the same ticket.** ⇒ Two rules, and the second is the one
+neither of us had:
+- ⛔ **A BLOCKED DECISION MUST NOT SHELTER A LIVE DEFECT THAT MERELY SHARES ITS TICKET.**
+- ⛔ **A FIXED DEFECT MUST NOT KEEP ADVERTISING ITSELF AS OPEN** — harder to detect, because nothing
+  fails and the record simply lags.
+⭐ **Both were caught only by reading the FENCE instead of the RECORD.** ⇒ **A ticket with two faces
+gets described by whichever face the reader happens to know**, and the other one is invisible from
+inside that description. **Give each face its own verdict.**
+
+### Addendum — close rather than transform
+⭐ **commonplace closed CX-v14m and filed the controller work as a NEW ticket rather than repurposing
+the old one:** *"a ticket that stays open to hold a NEW question stops being a record of the OLD
+one."*
+⇒ **Repurposing is the tempting move — the context is right there — and it destroys the record.** The
+new question has a different shape and **deserves a row that can be ranked, blocked and closed on its
+own terms.** ⚠️ **Folding it in would have re-created the exact defect that cost the day: one ticket,
+two faces.**
+⭐ And the successor carries **jes's ruling VERBATIM**, because ***a ruling paraphrased is a ruling
+re-decided*** — especially one that dissolved a trilemma instead of picking from it, where a
+paraphrase would silently restore the menu.
+
+### Addendum — when every option is bad the same way, suspect the enumeration
+⭐⭐ **plan, on jes's ruling:** *"a choice between fenced options was the wrong shape of question."*
+⇒ All three options I offered presupposed **the population of pods**; he moved the privilege **out of
+the population**, keeping the property we wanted containers for while concentrating it in **one named
+component instead of N.**
+⭐ **WHEN EVERY AVAILABLE OPTION IS BAD IN THE SAME WAY, SUSPECT THE ENUMERATION RATHER THAN THE
+OPTIONS.** ⚠️ **Third time today the FRAME rather than the ANSWER was the defect** — yepochal (two
+repos, when the answer was a third), the S33 ranking (a live-sounding row nobody re-derived), and
+this. **Shared discomfort across all options is the tell.**
