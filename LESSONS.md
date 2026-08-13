@@ -3458,3 +3458,26 @@ truth is a fence; the same constraint enforced at five is a coincidence waiting 
 ⚠️ Note the sequence, because it is the whole argument for asking: **the round before REPORTED the
 temptation; this round TESTED it.** Neither of us asked for either. **The near-miss request produced
 the finding, and the finding produced the fence.**
+
+### Addendum — "a recipe format nothing consumes is a document, not a capability"
+⭐ **plan, ruling CX-7men open:** the `+` in *"instance-declaration schema **+** orchestrator
+recipe-profile"* was **CONJUNCTIVE, not a menu** — *"the schema is the contract, the orchestrator half
+is what makes it load-bearing, and **a recipe format nothing consumes is a document, not a
+capability**."* ⇒ **THE ROW SATISFIES WHEN A RECIPE BOOTS SOMETHING.**
+⭐ **THAT IS AN ACCEPTANCE CRITERION IN ONE SENTENCE, AND IT IS AN EFFECT RATHER THAN AN ARTIFACT** —
+not *"the schema exists"*, not *"the tests pass"*, but **something ran because of it.** Same family as
+*test the capability, never the handle*, one level up: **a format is verified by a consumer, exactly
+as a fence is verified by an attempt.**
+⚠️ And note the routing that produced it: **I declined to rule on whether the row was satisfied**,
+because that is a question about **what the row meant**, and the row is plan's artifact. ⇒ **The
+technical facts were mine to supply and the reading was not** — I'd have guessed "schema landed, close
+it," which would have been wrong, and wrong in the direction of tidiness.
+
+### Addendum — one finding, four carriers, in one week
+⭐ plan's observation, connecting the week: **the constraint moved from the thing that is READ to the
+thing that RUNS** now has four instances —
+**blocks in the DAG rather than prose · torn closes leaving markers · obligations filed where the
+reader already looks · and now a design fence living in a test file.**
+⇒ **Four different subsystems, one shape.** ⭐ **A rule that depends on being remembered binds only
+until the next person doesn't** — and every durable fix this week converted a rule into something that
+executes, fails, or blocks on its own.
