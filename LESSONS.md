@@ -3535,3 +3535,26 @@ full-suite run ever saw.**
 tree nobody shipped.** Same family as the gate that exercised a neighbouring configuration, and as the
 pin that travels with its proof. ⇒ **THE GREEN MUST CORRESPOND TO THE TREE YOU COMMIT**, or it
 certifies something adjacent to what shipped. **Cost here: ~10 minutes of wall clock.**
+
+### Addendum — any TOTAL function standing where a PARTIAL one belongs
+⭐⭐ **commonplace's generalization of the `Map.take` finding, which is better than the finding: the
+class's DISGUISE is the lesson, not the line.** *"I'd been scanning for things SHAPED like assertions,
+and this one is shaped like a map operation."*
+⇒ **`Map.take` · `Enum.filter` · `String.trim` · a default argument — ANY TOTAL FUNCTION STANDING
+WHERE A PARTIAL ONE BELONGS IS THIS.** A total function **always succeeds**, so wherever the code
+*needed* to reject something, it instead returns a smaller, quieter, still-plausible result.
+⚠️ **AND THAT IS WHY A REVIEW HUNTING "checks that cannot fail" ALL DAY WALKED PAST IT: nothing at the
+call site looks like a check.** ⭐ **The search has to be for the OBLIGATION, not for the syntax** —
+*where must this reject?* — and then ask whether the function there is capable of rejecting.
+⇒ Pair with: **a validation that runs against a stand-in proves a property of the stand-in.** Both are
+places where the code is doing something adjacent to what the design requires.
+
+### Addendum — the failure mode of a good mitigation is that it retires the ticket it only softened
+⭐ `Map.fetch!` converts a **silent** divergence into a **loud** one. It does **not** make the check
+run against the right object. ⇒ **"Converts silent to loud" is not "removes"**, and the real fix — one
+check against one object — stays an open provisioning-order question.
+⚠️ **A MITIGATION THAT WORKS IS THE MOST LIKELY THING TO CLOSE A TICKET IT ONLY SOFTENED**, because
+after it lands nothing is visibly wrong any more. ⇒ **Record what the mitigation did NOT do, in the
+same place the mitigation is recorded.**
+⭐ Same shape one level up: **a green gate closes THIS ROUND and leaves THE RECURRENCE open** — two
+different closures, and it is easy to spend one on both.
