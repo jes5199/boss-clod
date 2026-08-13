@@ -259,3 +259,28 @@ moment the atomic round lands** — once the pin is in the tree, the published t
 planning around something about to evaporate. The capability leg (Sol's fence cannot push) *is*
 permanent; the timing leg is not. **Two blockers on one ticket can have completely different
 lifetimes — name each.**
+
+### ⛔ IN A SOL WORKTREE, `git checkout --` DISCARDS THE ROUND
+**2026-08-13, after S41.** A reviewer removed a mask line to prove the acceptance test could go red,
+botched the reinsertion, and "cleanly fixed" the broken file with `git checkout -- provisioner.ex`.
+⇒ **Sol's work on that file was uncommitted — BY DESIGN, because `.git` is read-only in the fence —
+so checkout reverted it to base and discarded the entire round's contribution to it.**
+⭐ **THIS IS A PROPERTY OF OUR ARRANGEMENT, NOT OF ANYONE'S ATTENTION.** `git checkout --` is safe in
+every repo where work gets committed. **This is the one workflow where it never does.** ⇒ So the
+whole family of *undo-my-edit* commands is **load-bearing-unsafe here and nowhere else**, and the
+fence I built is what creates that.
+⛔ **IN A SOL WORKTREE THE ONLY SAFE UNDO IS ONE THAT PRESERVES UNCOMMITTED WORK**: `git stash`, or
+copy the file aside first. **Never `git checkout --`, never `git restore`, never `git reset --hard`.**
+⚠️ And the tell that should fire: *"my edit is the only thing in this file"* is the assumption that
+makes checkout look safe — **it is false in every Sol worktree by construction.**
+
+### Recovery choice: re-dispatch beats reconstruction, and not because it is cheaper
+⭐ The run log held 736 matching lines, so rebuilding the lost mask list from it was *possible*.
+⛔ **It was the wrong kind of possible: reconstructing a security-critical list from log fragments is
+RECALL, in the very round whose thesis is that hand-built lists fail** — three parties had already
+produced three wrong lists that night, every one after reading the lesson.
+⇒ **RE-DISPATCH IS NOT THE CHEAP OPTION, IT IS THE ONLY ONE CONSISTENT WITH THE ROUND'S OWN LAW.**
+⭐ And dispatch **into the surviving worktree**, not a fresh one: ten reviewed files survived, and a
+clean checkout would have discarded good work to repair one file. **Name the survivors individually
+as untouchable, and say plainly that the previous output was accepted** — otherwise the builder reads
+a re-dispatch as a rejection and "improves" what was already right.
