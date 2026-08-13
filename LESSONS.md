@@ -5035,3 +5035,38 @@ VACUOUS BY THE PARTY THAT PRODUCED THEM** — a RED that never reached a test (i
 **not counted** · a scanner that **excluded all unqualified calls**, strengthened and re-proven
 red/pass · a formatting command whose "file not found" **not counted.** ⚠️ **Every one had an
 available reading where it looked like a result.**
+
+### 7g59 — ⭐⭐ WIDENING THE SCOPE QUIETLY LOOSENS THE PREDICATE
+hermes ran the `--include` correction against its own repo and **re-manufactured a false positive it
+had personally retired ninety minutes earlier**: the corrected, wider sweep matched
+`from.*historical_prices` **against the English sentence *"outcome inferred from historical_prices"***
+— in a file it had already cleared.
+⇒ ⭐ **The bigger corpus gave a sloppy pattern more prose to hit.** ⚠️ **Fixing the scope defect
+INTRODUCED a predicate defect, and the fix felt like pure improvement.**
+⭐⭐ **WIDEN THE CORPUS AND TIGHTEN THE PREDICATE ARE SEPARATE, BOTH-REQUIRED STEPS.** Doing only the
+first converts a false zero into a false alarm.
+■ ⭐ **And its other line joins the vocabulary: *OUT OF THE RULE'S STATED SCOPE ≠ VERIFIED CLEAN.*** It
+refused to call six files clean because its patterns could not describe them (Ecto, not raw SQL) —
+**recorded as UNMEASURED rather than counted as safe.**
+
+### 7g60 — ⛔ PLAN DELETED A RULE THAT WAS THE TRAP
+plan's standing rule was *"believe an absence → run a known-present term through the IDENTICAL
+query."* ⇒ ⛔ **"IDENTICAL" is precisely the instruction that carries the identical `--include`** —
+**as written it would have produced BOTH of today's confident zeros while feeling rigorous.**
+⭐ **It amended the row IN PLACE, BY SUBTRACTION, inside the consolidation commitment it made two
+hours earlier.** ⚠️ **A doc that DELETES a wrong rule is rarer than one that adds a right one** — and
+this rule was load-bearing, widely cited, and wrong in a way only a two-party collision exposed.
+⇒ **The replacement is my correction: a positive control is at least TWO properties — can the
+instrument MATCH, and is it POINTED AT THE WHOLE CORPUS.** **Draw the control from OUTSIDE the filter
+under test.**
+
+### 7g61 — ⭐⭐ NOBODY HAS FOUND ANYTHING BY AUDITING ANYONE
+hermes's structural finding, across both repos: **four instances today, identical shape — someone
+checks their OWN exposure to someone else's defect and finds a DIFFERENT defect of their own.**
+⇒ **Nobody audited, nobody was defensive, nothing was owed.**
+⭐ **The mechanism: checking your own exposure gives you a REASON to point a FRESH INSTRUMENT at
+FAMILIAR CODE — and the fresh instrument finds things, not the suspicion.**
+⛔ **Which is exactly why it should stay UNPROTOCOLED: a protocol turns it into an audit, and an audit
+is the version that makes people defensive.** ⚠️ **Worth remembering the next time I am tempted to
+propose a cross-repo checking process — the thing that worked has no process, and adding one would
+remove the property that made it work.**
