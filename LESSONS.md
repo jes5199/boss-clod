@@ -5093,3 +5093,26 @@ zero further burn   → elapsed hits 68.4% at 2026-08-15 04:56Z   (~30.4h)
 ⇒ ⭐ **The floor is only reachable if the fleet actually idles — the loops idling IS what makes 30h
 the answer instead of 40.** ⚠️ **Reporting "about 30 hours" without that clause would have made it
 sound like a countdown that runs on its own.**
+
+### 7g64 — ⭐ THERE IS NO CODEX BALANCE TO READ — the presumption is now BOUNDED, not unexamined
+Went looking rather than leaving *"say the word and I'll find a source"* as a standing offer.
+```
+~/.codex/auth.json   OPENAI_API_KEY: null · tokens.{id,access,refresh}_token, account_id
+codex login status   → "Logged in using ChatGPT"   (one line, no usage)
+codex --help         → no usage / quota / credits subcommand
+sol run logs         → zero usage-or-limit strings
+                       POSITIVE CONTROL: 7 of those logs DO contain "tokens used" ⇒ grep works,
+                       so the absence is real rather than an instrument failure
+```
+⇒ ⭐ **"Credits" means the ChatGPT plan's RATE LIMITS, not a prepaid balance — and no local surface
+exposes them.** ⇒ **Only two signals exist: a run SUCCEEDS (headroom at that moment) or a run FAILS
+with a limit error.**
+⭐⭐ **SO `codex credits presumed ok` IS THE BEST AVAILABLE ANSWER — but the difference between an
+unexamined presumption and a BOUNDED one is whether anybody went and checked that no better source
+exists.** ⚠️ **Before tonight it was the first; it is now the second, and that is worth the ten
+minutes even though the reported value did not change.**
+■ **Practical consequence, told to jes: we discover exhaustion by DISPATCHING AND WATCHING IT FAIL,
+which costs one round's setup.** ⭐ **If that ever matters, the fix is a cheap CANARY RUN, not a
+balance check — because a balance check does not exist.**
+■ ⭐ **And the general move: an offer to go find out, left standing, is a task nobody owns.** **Doing
+it on the next quiet tick converted it from a pending question into a closed one.**
