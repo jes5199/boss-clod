@@ -3495,3 +3495,17 @@ anywhere says so.**
 ⇒ **ASK WHAT OBJECT THE CHECK RAN AGAINST AND WHAT OBJECT THE CODE THEN USES.** If they are not the
 same one, the check is only as good as an invariant nobody restated — **and invariants that hold "by
 construction today" are exactly the ones that lapse without an error.**
+
+### Addendum — "zero failures" from a gate that never ran
+⚠️ **2026-08-13, S48 review.** commonplace ran the core suite **in the Sol worktree**; it died in
+**8 seconds** on *"the dependency is not available, run `mix deps.get`"* — **worktrees carry no `deps/`
+or `_build/`**, which is exactly why Sol compiles through writable `/tmp` copies.
+⛔ **AND THE FAILURE-COUNT GREP RETURNED `0`.** ⇒ **Zero failures because ZERO TESTS RAN.**
+⭐ **A 2 KB artifact and a 0-failure grep are indistinguishable from a clean green IF YOU ONLY READ THE
+NUMBER.** What caught it was **the SIZE and the TAIL** — the same discriminator as the empty waiter
+logs: *the artifact is the verdict, and its size is part of the artifact.*
+⇒ **A gate must be checked for having RUN before it is read for what it SAYS.** Duration, byte size and
+a reconciling denominator are the three cheap tells; **the failure count is the one that lies.**
+⭐ And the structural point: **a Sol worktree cannot host a suite run at all** — no deps, no build. So
+any gate on Sol's output has to run **in a tree that has them**, which also removes the wrong-working-
+directory confound. **Re-gating in the main repo re-derives an attribution instead of accepting it.**
