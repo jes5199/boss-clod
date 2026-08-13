@@ -4636,3 +4636,26 @@ The two failures were both **join errors**: the correct path is **`.iss` directo
 SOMEONE WITH THE SOURCE OPEN.** ⚠️ **That is a usability property of a safety mechanism — and it is
 exactly the kind that makes a detector GO UNCONSULTED.** ⭐ **Unexpected supporting evidence for
 S54's required arm, supplied by failing to use the thing.**
+
+### 7g28 — ⛔ MY REFUSAL-DETECTOR MATCHED THE BRIEF, NOT A REFUSAL
+Checking whether S54 hit a content filter, I grepped the run log for `refus|cannot help|content
+filter`. **It matched** — on **the brief's own text**: *"the gate is working correctly… the refusal is
+the safety mechanism doing its job."*
+⇒ ⭐⭐ **THE CORPUS CONTAINED THE NEEDLE BY CONSTRUCTION.** The run log holds the prompt, so **any
+detector keyed on a word the BRIEF uses is unusable on that round** — and this ticket is *about*
+refusals, so the collision was guaranteed. ⚠️ **I nearly reported a content-filter refusal on a run
+that completed normally** — the inverse of the failure the check exists to prevent.
+⭐ **What actually established completion: the log TERMINATES IN A FULL REPORT with an intended commit
+message, at 2,420,382 bytes.** ⇒ **Structural evidence, not a keyword.** **Said so to commonplace and
+marked my "no refusal" as unverified for this round rather than letting it stand.**
+⭐ **General form: a keyword detector run over a corpus that INCLUDES THE INSTRUCTIONS inherits every
+word the instructions use.** **Anchor to the model's output region, or to structure, never to
+vocabulary the prompt shares.**
+
+### 7g29 — the tail is the part most likely to flatter the run
+I relayed three self-declared items from S54's tail (refused a fixture lock without bypassing it ·
+measured-and-reported instead of expanding scope into `Schemas` · left pre-existing unformatted lines
+alone) **and labelled them as read FROM THE TAIL ONLY.**
+⇒ ⭐ **A run's closing summary is written by the thing being judged, about itself, at the moment it
+most wants to look finished.** ⚠️ **It is evidence of what the builder CLAIMS, never of what the diff
+CONTAINS.** **Relay it as a checklist for the reviewer, not as findings.**
