@@ -1,0 +1,461 @@
+# superseded worktree /home/jes/sol-s40/wt captured 2026-08-13T09:36:59Z
+# base: 9a3ba918b911ed8e36c9b7740c7d5f57706a4613
+### FILE: apps/commonplace/lib/commonplace/crypto/node_identity.ex
+### FILE: apps/commonplace/lib/commonplace/runner/provisioner.ex
+--- /dev/fd/63	2026-08-13 09:36:59.045588248 +0000
++++ /home/jes/sol-s40/wt/apps/commonplace/lib/commonplace/runner/provisioner.ex	2026-08-13 06:20:12.022959165 +0000
+@@ -7,9 +7,8 @@
+   local clone at the requested SHA; `workspace/.commonplace/`, the pod-local
+   store; and `home/`, the home directory represented in the sandbox spec.
+ 
+-  This module constructs a bwrap invocation as data. The standing credential
+-  and live-process channel masks are owned by `sandbox_spec/2`; callers cannot
+-  omit or replace them.
++  The standing credential and live-channel masks are owned by
++  `sandbox_spec/2`; callers cannot omit or replace them.
+ 
+   Provision-time service matching is deliberately names-only:
+   `environments.requires_allowed` must be a subset of the pod profile's
+@@ -21,8 +20,8 @@
+   the actual stored CID into the born manifest. Birth certs deliberately have
+   no expiry in this round.
+ 
+-  Birth passes the pod-local store and trust posture explicitly. Provisioning
+-  therefore does not repoint node-global application configuration.
++  Birth threads the pod data directory, signing context, and enforcing write
++  gate explicitly. It never repoints node-global application configuration.
+   """
+ 
+   alias Commonplace.CertMint
+@@ -69,6 +68,7 @@
+   @spec sandbox_spec(PodProfile.t(), Path.t()) :: map()
+   def sandbox_spec(%PodProfile{} = profile, pod_home) when is_binary(pod_home) do
+     checkout_dir = Path.join(pod_home, "checkout")
++    build_dir = Path.join(checkout_dir, "_build")
+     data_dir = Path.join([pod_home, "workspace", ".commonplace"])
+     home_dir = Path.join(pod_home, "home")
+     uid = File.stat!("/proc/self").uid
+@@ -78,7 +78,7 @@
+       "HOME" => home_dir,
+       "LANG" => "C.UTF-8",
+       "LC_ALL" => "C.UTF-8",
+-      "PATH" => "/usr/local/bin:/usr/bin:/bin"
++      "PATH" => "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+     }
+ 
+     masks = [
+@@ -95,8 +95,13 @@
+       },
+       %{name: :ssh, operation: :tmpfs, path: Path.join(home_dir, ".ssh")},
+       %{name: :github_cli, operation: :tmpfs, path: Path.join(home_dir, ".config/gh")},
+-      %{name: :claude_channels, operation: :tmpfs, path: Path.join(home_dir, ".claude/channels")},
++      %{
++        name: :claude_channels,
++        operation: :tmpfs,
++        path: Path.join(home_dir, ".claude/channels")
++      },
+       %{name: :tmux_socket_dir, operation: :tmpfs, path: "/tmp/tmux-#{uid}"},
++      %{name: :claude_messaging_socket_dir, operation: :tmpfs, path: "/tmp/cc-daemon-#{uid}"},
+       %{name: :claude_chat_socket_dir, operation: :tmpfs, path: "/tmp/claude-chat"},
+       %{name: :tsx_socket_dir, operation: :tmpfs, path: "/tmp/tsx-#{uid}"},
+       %{name: :user_runtime_ipc, operation: :tmpfs, path: "/run/user/#{uid}"}
+@@ -107,33 +112,48 @@
+         "--die-with-parent",
+         "--new-session",
+         "--unshare-all",
+-        "--clearenv",
+-        "--ro-bind",
+-        "/",
+-        "/",
+-        "--dev",
+-        "/dev",
+-        "--proc",
+-        "/proc",
+-        "--bind",
+-        checkout_dir,
+-        checkout_dir,
+-        "--bind",
+-        data_dir,
+-        data_dir,
+-        "--bind",
+-        home_dir,
+-        home_dir
++        "--clearenv"
+       ] ++
+-        Enum.flat_map(masks, &mask_argv/1) ++
+-        Enum.flat_map(environment, fn {name, value} -> ["--setenv", name, value] end) ++
+-        ["--chdir", checkout_dir]
++        Enum.flat_map(Enum.sort(environment), fn {name, value} ->
++          ["--setenv", name, value]
++        end) ++
++        [
++          "--proc",
++          "/proc",
++          "--dev",
++          "/dev",
++          "--ro-bind",
++          "/usr",
++          "/usr",
++          "--ro-bind",
++          "/bin",
++          "/bin",
++          "--ro-bind",
++          "/lib",
++          "/lib",
++          "--ro-bind",
++          "/lib64",
++          "/lib64",
++          "--ro-bind",
++          checkout_dir,
++          checkout_dir,
++          "--bind",
++          build_dir,
++          build_dir,
++          "--bind",
++          data_dir,
++          data_dir,
++          "--bind",
++          home_dir,
++          home_dir
++        ] ++ Enum.flat_map(masks, &mask_argv/1) ++ ["--chdir", checkout_dir]
+ 
+     %{
+       executable: "bwrap",
+       argv: argv,
+       binds: [
+-        %{source: checkout_dir, target: checkout_dir, mode: :read_write},
++        %{source: checkout_dir, target: checkout_dir, mode: :read_only},
++        %{source: build_dir, target: build_dir, mode: :read_write},
+         %{source: data_dir, target: data_dir, mode: :read_write},
+         %{source: home_dir, target: home_dir, mode: :read_write}
+       ],
+@@ -202,6 +222,7 @@
+     with :ok <- mkdir_p(paths.data_dir, "workspace"),
+          :ok <- mkdir_p(paths.home_dir, "sandbox.home"),
+          :ok <- checkout(paths.repo, paths.sha, paths.checkout_dir),
++         :ok <- mkdir_p(Path.join(paths.checkout_dir, "_build"), "sandbox.build"),
+          :ok <- write_birth_declarations(paths.data_dir, manifest),
+          {:ok, born} <- birth_workspace(paths, manifest, principal_pubkey),
+          {:ok, declarations} <- read_declarations(paths.data_dir),
+@@ -222,7 +243,8 @@
+   defp birth_workspace(paths, manifest, principal_pubkey) do
+     names = store_names()
+ 
+-    with {:ok, supervisor} <-
++    with {:ok, signing_context} <- NodeIdentity.signing_context(paths.data_dir),
++         {:ok, supervisor} <-
+            StoreSupervisor.start_link(
+              data_dir: paths.data_dir,
+              name: names.supervisor,
+@@ -232,56 +254,55 @@
+              local_write_gate: :enforce
+            ) do
+       try do
+-        initialize_and_verify(names.store, paths, manifest, principal_pubkey)
++        initialize_and_verify(names.store, paths, manifest, principal_pubkey, signing_context)
+       after
+         Supervisor.stop(supervisor)
+       end
+     end
+   end
+ 
+-  defp initialize_and_verify(store, paths, manifest, principal_pubkey) do
++  defp initialize_and_verify(store, paths, manifest, principal_pubkey, signing_context) do
+     profile = workspace_profile(manifest.workspace_class)
+ 
+-    with {:ok, signing_context} <- NodeIdentity.signing_context(paths.data_dir),
+-         {:ok, initialized} <-
+-           Workspace.initialize(paths.data_dir,
+-             store: store,
+-             checkout_dir: paths.checkout_dir,
+-             profile: profile,
+-             signing_context: signing_context
+-           ) do
+-      try do
+-        with :ok <- assert_enforcing_posture(resolved_posture(paths.data_dir)),
+-             :ok <-
+-               amend_root_entries(
+-                 initialized.root_uuid,
+-                 manifest,
+-                 store,
+-                 paths.data_dir,
+-                 signing_context
+-               ),
+-             {:ok, born_manifest} <-
+-               mint_birth_authority(
+-                 initialized.root_uuid,
+-                 manifest,
+-                 principal_pubkey,
+-                 store,
+-                 signing_context
+-               ),
+-             {:ok, _stored} <-
+-               Manifest.create(initialized.root_uuid, born_manifest, store,
+-                 signing_context: signing_context
+-               ),
+-             {:ok, %{case: :stored}} <- Manifest.read(initialized.root_uuid, store) do
+-          {:ok, %{root_uuid: initialized.root_uuid}}
+-        else
+-          {:error, {:invalid_manifest, _field, _reason}} = error -> error
+-          {:error, reason} -> invalid("manifest", "workspace birth failed: #{inspect(reason)}")
++    case Workspace.initialize(paths.data_dir,
++           store: store,
++           checkout_dir: paths.checkout_dir,
++           profile: profile,
++           signing_context: signing_context
++         ) do
++      {:ok, initialized} ->
++        try do
++          with :ok <- assert_enforcing_posture(resolved_posture(paths.data_dir)),
++               :ok <-
++                 amend_root_entries(
++                   initialized.root_uuid,
++                   manifest,
++                   store,
++                   paths.data_dir,
++                   signing_context
++                 ),
++               {:ok, born_manifest} <-
++                 mint_birth_authority(
++                   initialized.root_uuid,
++                   manifest,
++                   principal_pubkey,
++                   store,
++                   signing_context
++                 ),
++               {:ok, _stored} <-
++                 Manifest.create(initialized.root_uuid, born_manifest, store,
++                   signing_context: signing_context
++                 ),
++               {:ok, %{case: :stored}} <- Manifest.read(initialized.root_uuid, store) do
++            {:ok, %{root_uuid: initialized.root_uuid}}
++          else
++            {:error, {:invalid_manifest, _field, _reason}} = error -> error
++            {:error, reason} -> invalid("manifest", "workspace birth failed: #{inspect(reason)}")
++          end
++        after
++          GenServer.stop(initialized.checkout_registry)
+         end
+-      after
+-        GenServer.stop(initialized.checkout_registry)
+-      end
+-    else
++
+       {:error, reason} ->
+         invalid("workspace_class", "workspace initialization failed: #{inspect(reason)}")
+     end
+### FILE: apps/commonplace/lib/commonplace/store/commit_store.ex
+### FILE: apps/commonplace/lib/commonplace/store/supervisor.ex
+### FILE: apps/commonplace/lib/commonplace/trust.ex
+### FILE: apps/commonplace/lib/commonplace/workspace.ex
+### FILE: apps/commonplace/test/commonplace/runner/provisioner_test.exs
+--- /dev/fd/63	2026-08-13 09:36:59.117587968 +0000
++++ /home/jes/sol-s40/wt/apps/commonplace/test/commonplace/runner/provisioner_test.exs	2026-08-13 06:20:12.215957905 +0000
+@@ -168,6 +168,7 @@
+              :github_cli,
+              :claude_channels,
+              :tmux_socket_dir,
++             :claude_messaging_socket_dir,
+              :claude_chat_socket_dir,
+              :tsx_socket_dir,
+              :user_runtime_ipc
+### FILE: apps/commonplace/test/commonplace/store/local_write_gate_test.exs
+### FILE: apps/commonplace/lib/commonplace/runner/launcher.ex
+### FILE: apps/commonplace/lib/commonplace/runner/pod_handle.ex
+### FILE: apps/commonplace/test/commonplace/runner/launcher_test.exs
+--- /dev/fd/63	2026-08-13 09:36:59.164587784 +0000
++++ /home/jes/sol-s40/wt/apps/commonplace/test/commonplace/runner/launcher_test.exs	2026-08-13 06:36:59.545442008 +0000
+@@ -9,7 +9,7 @@
+ 
+   setup do
+     fixture_root =
+-      Path.join(System.tmp_dir!(), "cp_launcher_#{UUID.uuid4()}")
++      Path.join(System.tmp_dir!(), "cp_launcher_#{System.unique_integer([:positive])}")
+ 
+     source_repo = Path.join(fixture_root, "source")
+     pods_root = Path.join(fixture_root, "pods")
+@@ -27,33 +27,16 @@
+       for entry in /proc/[0-9]*; do count=$((count + 1)); done
+       printf '%s\n' "$count" > "$COMMONPLACE_DATA_DIR/process-count"
+       printf '%s\n' "$HOME" > "$COMMONPLACE_DATA_DIR/worker-effect"
+-      env > "$COMMONPLACE_DATA_DIR/environment.tmp"
+-      mv "$COMMONPLACE_DATA_DIR/environment.tmp" "$COMMONPLACE_DATA_DIR/environment"
++      env | wc -l > "$COMMONPLACE_DATA_DIR/environment-count"
++      env | cut -d= -f1 | sort > "$COMMONPLACE_DATA_DIR/environment-names"
+       printf '%s\n' "${#{@canary_name}-absent}" > "$COMMONPLACE_DATA_DIR/environment-canary"
+-      sleep 300 &
+-      wait
+-      """
+-    )
+-
+-    File.write!(
+-      Path.join(source_repo, "channel-worker.sh"),
+-      """
+-      #!/bin/sh
+-      # Capture find's OWN output first. Writing "$?" after a pipeline records
+-      # the status of `sort -u`, which succeeds even when find matched nothing
+-      # and even when its search roots do not exist -- an assertion on that
+-      # value passes whether 0 or 23 channels were reachable.
+-      find /run/user/#{uid} /tmp -maxdepth 3 \\( -type s -o -type p \\) \
+-        > "$COMMONPLACE_DATA_DIR/reachable-channels-raw" 2>/dev/null
+-      xargs -r -n1 dirname < "$COMMONPLACE_DATA_DIR/reachable-channels-raw" \
+-        | sort -u > "$COMMONPLACE_DATA_DIR/reachable-channel-dirs"
+       tmux list-panes -a > "$COMMONPLACE_DATA_DIR/tmux-output" 2> "$COMMONPLACE_DATA_DIR/tmux-error"
+-      # Publish the COUNT last and atomically so it is also the completion
+-      # marker for every artifact asserted below.
+-      wc -l < "$COMMONPLACE_DATA_DIR/reachable-channels-raw" \
+-        | tr -d ' ' > "$COMMONPLACE_DATA_DIR/reachable-channel-status.tmp"
+-      mv "$COMMONPLACE_DATA_DIR/reachable-channel-status.tmp" \
+-        "$COMMONPLACE_DATA_DIR/reachable-channel-status"
++      printf '%s\n' "$?" > "$COMMONPLACE_DATA_DIR/tmux-status"
++      python3 -c 'import socket,sys;s=socket.socket(socket.AF_UNIX);s.connect(sys.argv[1]);print("connected")' \
++        "/tmp/cc-daemon-#{uid}/pod-channel-canary.sock" \
++        > "$COMMONPLACE_DATA_DIR/messaging-output" \
++        2> "$COMMONPLACE_DATA_DIR/messaging-error"
++      printf '%s\n' "$?" > "$COMMONPLACE_DATA_DIR/messaging-status"
+       sleep 300 &
+       wait
+       """
+@@ -62,7 +45,7 @@
+     git!(source_repo, ["init", "--quiet"])
+     git!(source_repo, ["config", "user.email", "launcher@example.invalid"])
+     git!(source_repo, ["config", "user.name", "Launcher Fixture"])
+-    git!(source_repo, ["add", "worker.sh", "channel-worker.sh"])
++    git!(source_repo, ["add", "worker.sh"])
+     git!(source_repo, ["commit", "--quiet", "-m", "fixture"])
+ 
+     {principal_pubkey, _principal_private_key} = Signing.generate_keypair()
+@@ -103,16 +86,12 @@
+     assert {:ok, home} = await_file(Path.join(data_dir, "worker-effect"))
+     assert String.trim(home) == Path.join(handle.pod_home, "home")
+     assert File.read!(Path.join(handle.pod_home, "checkout/_build/runner/artifact")) == "built\n"
+-    assert {:ok, environment} = await_file(Path.join(data_dir, "environment"))
++    assert File.read!(Path.join(data_dir, "environment-count")) |> String.trim() == "6"
+ 
+-    environment_names =
+-      environment
+-      |> String.split("\n", trim: true)
+-      |> Enum.map(&(&1 |> String.split("=", parts: 2) |> hd()))
+-      |> Enum.sort()
++    assert {:ok, environment_names} = await_file(Path.join(data_dir, "environment-names"))
+ 
+-    assert length(environment_names) == 6
+-    assert environment_names == ~w(COMMONPLACE_DATA_DIR HOME LANG LC_ALL PATH PWD)
++    assert environment_names ==
++             "COMMONPLACE_DATA_DIR\nHOME\nLANG\nLC_ALL\nPATH\nPWD\n"
+ 
+     assert {:ok, process_count} = File.read(Path.join(data_dir, "process-count"))
+     assert String.to_integer(String.trim(process_count)) in 1..4
+@@ -120,62 +99,49 @@
+     assert :ok = Launcher.reap(handle)
+   end
+ 
+-  test "live-process channels are unreachable behind containing-directory masks", ctx do
+-    runtime_dir = "/run/user/#{ctx.uid}"
+-    socket_dir = "/tmp/claude-chat"
+-    socket_path = Path.join(socket_dir, "launcher-test-#{UUID.uuid4()}.sock")
+-    File.mkdir_p!(socket_dir)
+-    {:ok, socket} = :gen_udp.open(0, [:binary, {:ifaddr, {:local, socket_path}}])
+-
+-    on_exit(fn ->
+-      :ok = :gen_udp.close(socket)
+-      _ = File.rm(socket_path)
+-    end)
++  test "tmux and messaging socket capabilities fail behind constructed masks", ctx do
++    tmux_session = "pod-channel-control-#{System.unique_integer([:positive])}"
++    tmux_dir = "/tmp/tmux-#{ctx.uid}"
++    prior_tmux_mode = File.stat!(tmux_dir).mode
++    File.chmod!(tmux_dir, 0o700)
++    {_, 0} = System.cmd("tmux", ["new-session", "-d", "-s", tmux_session])
+ 
+-    assert Bitwise.band(File.lstat!(socket_path).mode, 0o170000) == 0o140000
++    socket_dir = "/tmp/cc-daemon-#{ctx.uid}"
++    socket_path = Path.join(socket_dir, "pod-channel-canary.sock")
++    File.mkdir_p!(socket_dir)
++    File.rm(socket_path)
+ 
+-    {host_channels_output, _host_find_status} =
+-      System.cmd("find", [
+-        socket_dir,
+-        "-maxdepth",
+-        "1",
+-        "(",
+-        "-type",
+-        "s",
+-        "-o",
+-        "-type",
+-        "p",
+-        ")"
+-      ])
+-
+-    host_channels = String.split(host_channels_output, "\n", trim: true)
+-    assert host_channels != []
+-    assert socket_path in host_channels
++    {:ok, listener} =
++      :gen_tcp.listen(0, [:binary, active: false, ifaddr: {:local, socket_path}])
+ 
+-    spec = Commonplace.Runner.Provisioner.sandbox_spec(profile(), ctx.pods_root)
++    assert {tmux_control, 0} = System.cmd("tmux", ["list-panes", "-a"])
++    assert String.trim(tmux_control) != ""
++    assert {:ok, client} = :gen_tcp.connect({:local, socket_path}, 0, [:binary, active: false])
++    :gen_tcp.close(client)
+ 
+-    assert %{operation: :tmpfs, path: ^runtime_dir} =
+-             Enum.find(spec.masks, &(&1.name == :user_runtime_ipc))
++    on_exit(fn ->
++      :gen_tcp.close(listener)
++      File.rm(socket_path)
++      _ = System.cmd("tmux", ["kill-server"], stderr_to_stdout: true)
++      File.chmod(tmux_dir, prior_tmux_mode)
++    end)
+ 
+     launcher = start_supervised!({Launcher, pods_root: ctx.pods_root})
+-    handle = launch!(launcher, ctx, "channel-worker.sh")
++    handle = launch!(launcher, ctx)
+     data_dir = data_dir(handle)
+ 
+-    assert {:ok, channel_status} =
+-             await_file(
+-               Path.join(data_dir, "reachable-channel-status"),
+-               System.monotonic_time(:millisecond) + 5_000
+-             )
+-
+-    assert String.trim(channel_status) == "0"
+-
+-    assert {:ok, pod_channels_output} =
+-             File.read(Path.join(data_dir, "reachable-channels-raw"))
+-
+-    refute socket_path in String.split(pod_channels_output, "\n", trim: true)
+-    assert File.read!(Path.join(data_dir, "reachable-channel-dirs")) == ""
+-
++    assert {:ok, tmux_status} = await_file(Path.join(data_dir, "tmux-status"))
++    assert String.trim(tmux_status) != "0"
++    assert {:ok, tmux_error} = File.read(Path.join(data_dir, "tmux-error"))
++    assert tmux_error =~ "unsafe permissions"
+     assert File.read!(Path.join(data_dir, "tmux-output")) == ""
++
++    assert {:ok, messaging_status} = await_file(Path.join(data_dir, "messaging-status"))
++    assert String.trim(messaging_status) != "0"
++    assert {:ok, messaging_error} = File.read(Path.join(data_dir, "messaging-error"))
++    assert messaging_error =~ "FileNotFoundError"
++    assert messaging_error =~ "[Errno 2]"
++    assert File.read!(Path.join(data_dir, "messaging-output")) == ""
+     assert :ok = Launcher.reap(handle)
+   end
+ 
+@@ -227,13 +193,13 @@
+     assert Regex.match?(prohibited, positive_control)
+   end
+ 
+-  defp launch!(launcher, ctx, worker \\ "worker.sh") do
++  defp launch!(launcher, ctx) do
+     assert {:ok, handle} =
+              Launcher.launch(launcher, manifest(ctx), profile(),
+                repo: ctx.source_repo,
+                sha: ctx.sha,
+                principal_pubkey: ctx.principal_pubkey,
+-               invocation: ["/bin/sh", worker]
++               invocation: ["/bin/sh", "worker.sh"]
+              )
+ 
+     handle

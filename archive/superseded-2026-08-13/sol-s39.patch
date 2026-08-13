@@ -1,0 +1,531 @@
+# superseded worktree /home/jes/sol-s39/wt captured 2026-08-13T09:36:58Z
+# base: be155ffd4e2590e53d8cd504de4e22675c21d989
+### FILE: apps/commonplace/lib/commonplace/crypto/node_identity.ex
+### FILE: apps/commonplace/lib/commonplace/store/commit_store.ex
+--- /dev/fd/63	2026-08-13 09:36:58.925588716 +0000
++++ /home/jes/sol-s39/wt/apps/commonplace/lib/commonplace/store/commit_store.ex	2026-08-13 04:54:02.103271617 +0000
+@@ -2637,7 +2637,8 @@
+ 
+   defp resolved_trust_config(%{local_write_gate: :ambient}), do: Commonplace.Trust.config()
+ 
+-  defp resolved_trust_config(%{data_dir: data_dir}), do: Commonplace.Trust.config(data_dir)
++  defp resolved_trust_config(%{data_dir: data_dir}),
++    do: Commonplace.Trust.config(data_dir)
+ 
+   defp handle_local_write_denial(:dry_run, commit, reason) do
+     Logger.warning(
+### FILE: apps/commonplace/lib/commonplace/store/supervisor.ex
+### FILE: apps/commonplace/lib/commonplace/trust.ex
+### FILE: apps/commonplace/lib/commonplace/workspace.ex
+### FILE: apps/commonplace/test/commonplace/runner/provisioner_test.exs
+--- /dev/fd/63	2026-08-13 09:36:58.965588560 +0000
++++ /home/jes/sol-s39/wt/apps/commonplace/test/commonplace/runner/provisioner_test.exs	2026-08-13 04:17:19.919659536 +0000
+@@ -156,9 +156,7 @@
+     assert spec.profile_sandbox == "beam-isolate"
+     assert spec.workdir == Path.join(pod_home, "checkout")
+     assert "--unshare-all" in spec.argv
+-    assert "--clearenv" in spec.argv
+-    assert ["--proc", "/proc"] in Enum.chunk_every(spec.argv, 2, 1, :discard)
+-    assert map_size(spec.environment) == 5
++    assert ["--proc", "/proc"] == Enum.slice(spec.argv, 3, 2)
+ 
+     assert Enum.map(spec.masks, & &1.name) == [
+              :node_signing_key,
+@@ -166,11 +164,7 @@
+              :erlang_cookie,
+              :ssh,
+              :github_cli,
+-             :claude_channels,
+-             :tmux_socket_dir,
+-             :claude_chat_socket_dir,
+-             :tsx_socket_dir,
+-             :user_runtime_ipc
++             :claude_channels
+            ]
+ 
+     for mask <- spec.masks do
+### FILE: apps/commonplace/test/commonplace/store/local_write_gate_test.exs
+--- /dev/fd/63	2026-08-13 09:36:58.971588537 +0000
++++ /home/jes/sol-s39/wt/apps/commonplace/test/commonplace/store/local_write_gate_test.exs	2026-08-13 04:54:35.149125789 +0000
+@@ -107,7 +107,7 @@
+   # ── Pin 2: strict + unsigned → rejected, red event, nothing persisted,
+   #    no CAS retry ────────────────────────────────────────────────────
+   describe "pin 2: strict + unsigned browser write is rejected in enforce mode" do
+-    test "store-local gate and trust path override permissive ambient config" do
++    test "CX-n6zc store-local gate and trust path override permissive ambient config" do
+       old_trust = Application.get_env(:commonplace, :trust)
+       old_gate = Application.get_env(:commonplace, :local_write_gate)
+       Application.put_env(:commonplace, :trust, %{accept_unsigned: true})
+### FILE: apps/commonplace/lib/commonplace/runner/launcher.ex
+--- /dev/fd/63	2026-08-13 09:36:58.977588513 +0000
++++ /home/jes/sol-s39/wt/apps/commonplace/lib/commonplace/runner/launcher.ex	2026-08-13 04:16:40.545847812 +0000
+@@ -31,21 +31,28 @@
+   @lock_file ".runner.lock"
+ 
+   @spec start_link(keyword()) :: GenServer.on_start()
+-  def start_link(opts) when is_list(opts),
+-    do: GenServer.start_link(__MODULE__, opts, Keyword.take(opts, [:name]))
++  def start_link(opts) when is_list(opts) do
++    GenServer.start_link(__MODULE__, opts, Keyword.take(opts, [:name]))
++  end
+ 
++  @doc "Provision and execute one pod worker invocation."
+   @spec launch(GenServer.server(), map(), map(), keyword()) ::
+           {:ok, PodHandle.t()} | {:error, term()}
+-  def launch(server, manifest, profile, opts) when is_list(opts),
+-    do: GenServer.call(server, {:launch, manifest, profile, opts}, :infinity)
++  def launch(server, manifest, profile, opts) when is_list(opts) do
++    GenServer.call(server, {:launch, manifest, profile, opts}, :infinity)
++  end
+ 
++  @doc "Reap exactly the pod represented by the captured handle."
+   @spec reap(PodHandle.t()) :: :ok | {:error, :unknown_pod_handle}
+-  def reap(%PodHandle{launcher: launcher} = handle),
+-    do: GenServer.call(launcher, {:reap, handle}, :infinity)
++  def reap(%PodHandle{launcher: launcher} = handle) do
++    GenServer.call(launcher, {:reap, handle}, :infinity)
++  end
+ 
++  @doc "Report whether the captured bubblewrap port is still live."
+   @spec alive?(PodHandle.t()) :: boolean()
+-  def alive?(%PodHandle{launcher: launcher} = handle),
+-    do: GenServer.call(launcher, {:alive?, handle})
++  def alive?(%PodHandle{launcher: launcher} = handle) do
++    GenServer.call(launcher, {:alive?, handle})
++  end
+ 
+   @impl true
+   def init(opts) do
+@@ -145,13 +152,7 @@
+       port =
+         Port.open(
+           {:spawn_executable, executable},
+-          [
+-            :binary,
+-            :exit_status,
+-            :stderr_to_stdout,
+-            {:args, spec.argv ++ invocation},
+-            {:env, port_environment(spec.environment)}
+-          ]
++          [:binary, :exit_status, :stderr_to_stdout, {:args, spec.argv ++ invocation}]
+         )
+ 
+       case Port.info(port, :os_pid) do
+@@ -162,7 +163,8 @@
+       nil -> {:error, {:launch_failed, Path.dirname(spec.workdir), :bubblewrap_not_found}}
+     end
+   rescue
+-    error -> {:error, {:launch_failed, Path.dirname(spec.workdir), Exception.message(error)}}
++    error ->
++      {:error, {:launch_failed, Path.dirname(spec.workdir), Exception.message(error)}}
+   end
+ 
+   defp stop_namespace(port, os_pid) do
+@@ -187,12 +189,6 @@
+     end
+   end
+ 
+-  defp port_environment(environment) do
+-    environment
+-    |> Enum.sort()
+-    |> Enum.map(fn {name, value} -> {String.to_charlist(name), String.to_charlist(value)} end)
+-  end
+-
+   defp signal(os_pid, signal) do
+     _ = System.cmd("kill", [signal, Integer.to_string(os_pid)], stderr_to_stdout: true)
+     :ok
+### FILE: apps/commonplace/lib/commonplace/runner/pod_handle.ex
+--- /dev/fd/63	2026-08-13 09:36:58.983588490 +0000
++++ /home/jes/sol-s39/wt/apps/commonplace/lib/commonplace/runner/pod_handle.ex	2026-08-13 04:16:40.371848644 +0000
+@@ -4,8 +4,8 @@
+ 
+   Reaping presents the unforgeable `ref` to the launcher that captured the
+   bubblewrap port. `scope_pid` is the captured outer bubblewrap PID and is
+-  diagnostic evidence only; callers never rediscover a pod by a process name,
+-  argv substring, or pid scan.
++  diagnostic evidence only; callers
++  never rediscover a pod by a process name, argv substring, or pid scan.
+   """
+ 
+   @enforce_keys [:launcher, :ref, :scope_pid, :pod_home]
+### FILE: apps/commonplace/test/commonplace/runner/launcher_test.exs
+--- /dev/fd/63	2026-08-13 09:36:58.993588451 +0000
++++ /home/jes/sol-s39/wt/apps/commonplace/test/commonplace/runner/launcher_test.exs	2026-08-13 05:19:59.637425877 +0000
+@@ -1,59 +1,32 @@
+ defmodule Commonplace.Runner.LauncherTest do
++  @moduledoc """
++  Effect, isolation, and handle-reaping demonstrations for CX-n6zc.
++  """
++
+   use ExUnit.Case, async: false
+ 
+   alias Commonplace.Crypto.Signing
+   alias Commonplace.Runner.{Launcher, PodHandle, PodProfile}
+ 
+-  @canary_name "CX_POD_ENV_CANARY"
+-  @canary_value "pod-must-not-inherit-this-value"
+-
+   setup do
+     fixture_root =
+-      Path.join(System.tmp_dir!(), "cp_launcher_#{UUID.uuid4()}")
++      Path.join(System.tmp_dir!(), "cp_launcher_#{System.unique_integer([:positive])}")
+ 
+     source_repo = Path.join(fixture_root, "source")
+     pods_root = Path.join(fixture_root, "pods")
+     File.mkdir_p!(source_repo)
+     File.mkdir_p!(pods_root)
+-    uid = File.stat!("/proc/self").uid
+ 
+     File.write!(
+       Path.join(source_repo, "worker.sh"),
+       """
+       #!/bin/sh
+-      mkdir -p _build/runner
+-      printf 'built\n' > _build/runner/artifact
++      mkdir -p _build/cx-n6zc
++      printf 'built\n' > _build/cx-n6zc/artifact
+       count=0
+       for entry in /proc/[0-9]*; do count=$((count + 1)); done
+       printf '%s\n' "$count" > "$COMMONPLACE_DATA_DIR/process-count"
+       printf '%s\n' "$HOME" > "$COMMONPLACE_DATA_DIR/worker-effect"
+-      env > "$COMMONPLACE_DATA_DIR/environment.tmp"
+-      mv "$COMMONPLACE_DATA_DIR/environment.tmp" "$COMMONPLACE_DATA_DIR/environment"
+-      printf '%s\n' "${#{@canary_name}-absent}" > "$COMMONPLACE_DATA_DIR/environment-canary"
+-      sleep 300 &
+-      wait
+-      """
+-    )
+-
+-    File.write!(
+-      Path.join(source_repo, "channel-worker.sh"),
+-      """
+-      #!/bin/sh
+-      # Capture find's OWN output first. Writing "$?" after a pipeline records
+-      # the status of `sort -u`, which succeeds even when find matched nothing
+-      # and even when its search roots do not exist -- an assertion on that
+-      # value passes whether 0 or 23 channels were reachable.
+-      find /run/user/#{uid} /tmp -maxdepth 3 \\( -type s -o -type p \\) \
+-        > "$COMMONPLACE_DATA_DIR/reachable-channels-raw" 2>/dev/null
+-      xargs -r -n1 dirname < "$COMMONPLACE_DATA_DIR/reachable-channels-raw" \
+-        | sort -u > "$COMMONPLACE_DATA_DIR/reachable-channel-dirs"
+-      tmux list-panes -a > "$COMMONPLACE_DATA_DIR/tmux-output" 2> "$COMMONPLACE_DATA_DIR/tmux-error"
+-      # Publish the COUNT last and atomically so it is also the completion
+-      # marker for every artifact asserted below.
+-      wc -l < "$COMMONPLACE_DATA_DIR/reachable-channels-raw" \
+-        | tr -d ' ' > "$COMMONPLACE_DATA_DIR/reachable-channel-status.tmp"
+-      mv "$COMMONPLACE_DATA_DIR/reachable-channel-status.tmp" \
+-        "$COMMONPLACE_DATA_DIR/reachable-channel-status"
+       sleep 300 &
+       wait
+       """
+@@ -62,131 +35,55 @@
+     git!(source_repo, ["init", "--quiet"])
+     git!(source_repo, ["config", "user.email", "launcher@example.invalid"])
+     git!(source_repo, ["config", "user.name", "Launcher Fixture"])
+-    git!(source_repo, ["add", "worker.sh", "channel-worker.sh"])
++    git!(source_repo, ["add", "worker.sh"])
+     git!(source_repo, ["commit", "--quiet", "-m", "fixture"])
+ 
+     {principal_pubkey, _principal_private_key} = Signing.generate_keypair()
+-    prior_canary = System.get_env(@canary_name)
+ 
+-    on_exit(fn ->
+-      restore_system_env(@canary_name, prior_canary)
+-      File.rm_rf!(fixture_root)
+-    end)
++    on_exit(fn -> File.rm_rf!(fixture_root) end)
+ 
+     %{
++      fixture_root: fixture_root,
+       source_repo: source_repo,
+       pods_root: pods_root,
+       sha: git!(source_repo, ["rev-parse", "HEAD"]),
+       principal_uuid: UUID.uuid4(),
+-      principal_pubkey: principal_pubkey,
+-      uid: uid
++      principal_pubkey: principal_pubkey
+     }
+   end
+ 
+-  test "pod cannot read a canary injected by its launching BEAM", ctx do
+-    System.put_env(@canary_name, @canary_value)
+-    launcher = start_supervised!({Launcher, pods_root: ctx.pods_root})
+-    handle = launch!(launcher, ctx)
+-    data_dir = data_dir(handle)
+-
+-    assert {:ok, canary_result} = await_file(Path.join(data_dir, "environment-canary"))
+-    assert String.trim(canary_result) == "absent"
+-    refute canary_result =~ @canary_value
+-    assert :ok = Launcher.reap(handle)
+-  end
+-
+-  test "executes by effect with its five-variable constructed environment", ctx do
++  test "executes the provisioned invocation by effect inside the isolated process table", ctx do
+     launcher = start_supervised!({Launcher, pods_root: ctx.pods_root})
+     handle = launch!(launcher, ctx)
+-    data_dir = data_dir(handle)
++    data_dir = Path.join([handle.pod_home, "workspace", ".commonplace"])
+ 
+     assert {:ok, home} = await_file(Path.join(data_dir, "worker-effect"))
+     assert String.trim(home) == Path.join(handle.pod_home, "home")
+-    assert File.read!(Path.join(handle.pod_home, "checkout/_build/runner/artifact")) == "built\n"
+-    assert {:ok, environment} = await_file(Path.join(data_dir, "environment"))
+-
+-    environment_names =
+-      environment
+-      |> String.split("\n", trim: true)
+-      |> Enum.map(&(&1 |> String.split("=", parts: 2) |> hd()))
+-      |> Enum.sort()
+-
+-    assert length(environment_names) == 6
+-    assert environment_names == ~w(COMMONPLACE_DATA_DIR HOME LANG LC_ALL PATH PWD)
++    assert File.read!(Path.join(handle.pod_home, "checkout/_build/cx-n6zc/artifact")) == "built\n"
+ 
+     assert {:ok, process_count} = File.read(Path.join(data_dir, "process-count"))
+     assert String.to_integer(String.trim(process_count)) in 1..4
+     assert Launcher.alive?(handle)
+-    assert :ok = Launcher.reap(handle)
+-  end
+-
+-  test "live-process channels are unreachable behind containing-directory masks", ctx do
+-    runtime_dir = "/run/user/#{ctx.uid}"
+-    socket_dir = "/tmp/claude-chat"
+-    socket_path = Path.join(socket_dir, "launcher-test-#{UUID.uuid4()}.sock")
+-    File.mkdir_p!(socket_dir)
+-    {:ok, socket} = :gen_udp.open(0, [:binary, {:ifaddr, {:local, socket_path}}])
+-
+-    on_exit(fn ->
+-      :ok = :gen_udp.close(socket)
+-      _ = File.rm(socket_path)
+-    end)
+-
+-    assert Bitwise.band(File.lstat!(socket_path).mode, 0o170000) == 0o140000
+-
+-    {host_channels_output, _host_find_status} =
+-      System.cmd("find", [
+-        socket_dir,
+-        "-maxdepth",
+-        "1",
+-        "(",
+-        "-type",
+-        "s",
+-        "-o",
+-        "-type",
+-        "p",
+-        ")"
+-      ])
+-
+-    host_channels = String.split(host_channels_output, "\n", trim: true)
+-    assert host_channels != []
+-    assert socket_path in host_channels
+-
+-    spec = Commonplace.Runner.Provisioner.sandbox_spec(profile(), ctx.pods_root)
+-
+-    assert %{operation: :tmpfs, path: ^runtime_dir} =
+-             Enum.find(spec.masks, &(&1.name == :user_runtime_ipc))
+-
+-    launcher = start_supervised!({Launcher, pods_root: ctx.pods_root})
+-    handle = launch!(launcher, ctx, "channel-worker.sh")
+-    data_dir = data_dir(handle)
+-
+-    assert {:ok, channel_status} =
+-             await_file(
+-               Path.join(data_dir, "reachable-channel-status"),
+-               System.monotonic_time(:millisecond) + 5_000
+-             )
+-
+-    assert String.trim(channel_status) == "0"
+ 
+-    assert {:ok, pod_channels_output} =
+-             File.read(Path.join(data_dir, "reachable-channels-raw"))
+-
+-    refute socket_path in String.split(pod_channels_output, "\n", trim: true)
+-    assert File.read!(Path.join(data_dir, "reachable-channel-dirs")) == ""
+-
+-    assert File.read!(Path.join(data_dir, "tmux-output")) == ""
+     assert :ok = Launcher.reap(handle)
+   end
+ 
+-  test "wrong handle fails while captured handle reaps the process unit", ctx do
++  test "wrong handle fails while the live control remains; captured handle reaps the unit", ctx do
+     launcher = start_supervised!({Launcher, pods_root: ctx.pods_root})
+     handle = launch!(launcher, ctx)
+-    assert {:ok, _effect} = await_file(Path.join(data_dir(handle), "worker-effect"))
++    data_dir = Path.join([handle.pod_home, "workspace", ".commonplace"])
++
++    assert {:ok, _effect} = await_file(Path.join(data_dir, "worker-effect"))
+     assert Launcher.alive?(handle)
++    assert File.dir?(Path.join("/proc", Integer.to_string(handle.scope_pid)))
+ 
+     children = descendants_from_handle(handle.scope_pid)
+     assert children != [], "the live-pod control must observe a non-empty descendant corpus"
++    assert Enum.all?(children, &File.dir?(Path.join("/proc", Integer.to_string(&1))))
++
++    IO.puts(
++      "MEASURED CX-n6zc captured_scope_pid=#{handle.scope_pid} live_descendants=#{inspect(children)}"
++    )
+ 
+     wrong_handle = %PodHandle{handle | ref: make_ref()}
+     assert {:error, :unknown_pod_handle} = Launcher.reap(wrong_handle)
+@@ -196,23 +93,66 @@
+     refute Launcher.alive?(handle)
+     refute File.exists?(handle.pod_home)
+ 
+-    assert eventually(fn ->
+-             not File.dir?(Path.join("/proc", Integer.to_string(handle.scope_pid))) and
+-               Enum.all?(children, fn pid ->
+-                 not File.dir?(Path.join("/proc", Integer.to_string(pid)))
+-               end)
+-           end)
++    gone? = fn ->
++      not File.dir?(Path.join("/proc", Integer.to_string(handle.scope_pid))) and
++        Enum.all?(children, fn pid ->
++          not File.dir?(Path.join("/proc", Integer.to_string(pid)))
++        end)
++    end
++
++    unless eventually(gone?) do
++      remaining =
++        [handle.scope_pid | children]
++        |> Enum.filter(&File.dir?(Path.join("/proc", Integer.to_string(&1))))
++        |> Enum.map(&{&1, File.read(Path.join(["/proc", Integer.to_string(&1), "stat"]))})
++
++      flunk("captured process handles remained after reap: #{inspect(remaining)}")
++    end
++
++    IO.puts(
++      "MEASURED CX-n6zc reaped_scope_pid=#{handle.scope_pid} descendants_gone=#{inspect(children)}"
++    )
++  end
++
++  test "startup and normal reap bound pod-home growth", ctx do
++    stale_homes =
++      for name <- ["stale-a", "stale-b"] do
++        path = Path.join(ctx.pods_root, Path.join(name, "checkout/_build"))
++        File.mkdir_p!(path)
++        File.write!(Path.join(path, "artifact"), String.duplicate("x", 1024))
++        Path.join(ctx.pods_root, name)
++      end
++
++    assert length(stale_homes) == 2
++    assert Enum.all?(stale_homes, &File.dir?/1)
++
++    launcher = start_supervised!({Launcher, pods_root: ctx.pods_root})
++    assert Enum.all?(stale_homes, &(not File.exists?(&1)))
++
++    handle = launch!(launcher, ctx)
++    data_dir = Path.join([handle.pod_home, "workspace", ".commonplace"])
++    assert {:ok, _effect} = await_file(Path.join(data_dir, "worker-effect"))
++    assert File.dir?(Path.join(handle.pod_home, "checkout/_build"))
++
++    assert :ok = Launcher.reap(handle)
++    assert {:ok, [".runner.lock"]} = File.ls(ctx.pods_root)
+   end
+ 
+   test "kill path has no process-name or argv-pattern selector, with positive control" do
++    # ⭐ Scan EVERY runner module, not just launcher.ex. The property is "no
++    # kill path anywhere in the runner selects by name"; binding the scan to
++    # one filename guards where the kill path lives today rather than the
++    # property, and a future reap helper in a sibling module would be
++    # invisible to it.
+     source_paths =
+       Path.expand("../../../lib/commonplace/runner", __DIR__)
+       |> Path.join("*.ex")
+       |> Path.wildcard()
+ 
+-    assert length(source_paths) >= 4
++    assert length(source_paths) >= 2,
++           "the scanned corpus must contain the runner modules; got #{inspect(source_paths)}"
++
+     source = Enum.map_join(source_paths, "\n", &File.read!/1)
+-    assert String.length(source) > 0
+     pattern_tools = ["p" <> "kill", "kill" <> "all"]
+ 
+     prohibited =
+@@ -222,18 +162,22 @@
+           ~S/)"|System\.cmd\(\s*"kill"[^\n]*"-f"/
+       )
+ 
++    assert String.length(source) > 0, "the scanned implementation corpus must be non-empty"
+     refute Regex.match?(prohibited, source)
+-    positive_control = ~S|System.cmd("| <> hd(pattern_tools) <> ~S|", ["-f", process_name])|
++
++    positive_control =
++      ~S|System.cmd("| <> hd(pattern_tools) <> ~S|", ["-f", process_name])|
++
+     assert Regex.match?(prohibited, positive_control)
+   end
+ 
+-  defp launch!(launcher, ctx, worker \\ "worker.sh") do
++  defp launch!(launcher, ctx) do
+     assert {:ok, handle} =
+              Launcher.launch(launcher, manifest(ctx), profile(),
+                repo: ctx.source_repo,
+                sha: ctx.sha,
+                principal_pubkey: ctx.principal_pubkey,
+-               invocation: ["/bin/sh", worker]
++               invocation: ["/bin/sh", "worker.sh"]
+              )
+ 
+     handle
+@@ -248,7 +192,11 @@
+       workspace_class: "minimal",
+       root_entries: [],
+       authority: %{certs: [], authors_code: false, scope_note: nil},
+-      sync_scope: %{rule: "git-tracked-set", excludes: [".beads"], binary_extensions: [".png"]},
++      sync_scope: %{
++        rule: "git-tracked-set",
++        excludes: [".beads"],
++        binary_extensions: [".png"]
++      },
+       sla: %{tier: "durable", retention: "indefinite", note: "pod-local"},
+       environments: %{may_declare: false, requires_allowed: ["postgres"]},
+       stewards: [ctx.principal_uuid],
+@@ -268,8 +216,6 @@
+     }
+   end
+ 
+-  defp data_dir(handle), do: Path.join([handle.pod_home, "workspace", ".commonplace"])
+-
+   defp descendants_from_handle(root_pid) do
+     do_descendants([root_pid], MapSet.new())
+     |> MapSet.delete(root_pid)
+@@ -287,15 +233,25 @@
+ 
+       children =
+         case File.read(children_path) do
+-          {:ok, contents} -> contents |> String.split() |> Enum.map(&String.to_integer/1)
+-          {:error, _reason} -> []
++          {:ok, contents} ->
++            contents
++            |> String.split()
++            |> Enum.map(&String.to_integer/1)
++
++          {:error, _reason} ->
++            []
+         end
+ 
+       do_descendants(rest ++ children, MapSet.put(found, pid))
+     end
+   end
+ 
+-  defp await_file(path), do: await_file(path, System.monotonic_time(:millisecond) + 60_000)
++  defp await_file(path) do
++    t0 = System.monotonic_time(:millisecond)
++    r = await_file(path, t0 + 60_000)
++    IO.puts("MARGIN-PROBE: #{Path.basename(path)} took #{System.monotonic_time(:millisecond) - t0}ms (budget was 5000ms)")
++    r
++  end
+ 
+   defp await_file(path, deadline) do
+     case File.read(path) do
+@@ -334,9 +290,6 @@
+     end
+   end
+ 
+-  defp restore_system_env(name, nil), do: System.delete_env(name)
+-  defp restore_system_env(name, value), do: System.put_env(name, value)
+-
+   defp git!(repo, args) do
+     {output, 0} = System.cmd("git", args, cd: repo, stderr_to_stdout: true)
+     String.trim(output)
