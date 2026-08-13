@@ -3945,3 +3945,24 @@ working instrument rather than a blind one.
 The check would have reported a run in flight — **itself** — and I would have declined a dispatch on
 the evidence of my own grep. **Same shape as the waiter that waits for itself.** ⇒ **Exact process
 name (`-x`), never `-f`, when the pattern is a string I am currently typing.**
+
+### 7c9 — A HASH REPORTED ONLY ON ARRIVAL IS NOT A COMPARISON
+Before launching S52, commonplace pinned the fixture that had to **travel between repos** —
+`50fa92d45c7978d5097b983ae20ac7d5` — and required the checksum **reported on both sides.**
+⇒ ⭐⭐ **THE PIN TAKEN BEFORE THE MOVE IS WHAT GIVES "BYTE-IDENTICAL" A *BEFORE*.** ⚠️ A checksum
+computed only at the destination proves the file is **self-consistent** and nothing else: it cannot
+tell *the right file arrived* from *a file arrived*. **Two sides or it is not a comparison** — the
+same defect as a diff against a tree you never recorded, and the same defect as shape-equality
+standing in for validity.
+⇒ **Applies to every artifact crossing a boundary**: a binary fixture between repos, a brief copied
+into a worktree, a schema pinned before a Sol round. **Record the source value while you still have
+the source.**
+
+### 7d0 — the check that made an ordering-luck round safe
+S52 is **the first round whose repo is not commonplace** (worktree of `/home/jes/yelixer`), and it is
+also the first round where *"the brief is in the repo"* is the WRONG intuition — the brief lives in
+commonplace, the work in yelixer.
+⭐ **That those coincided is luck. The read-back is what makes the luck not matter**: dir created,
+brief copied, **first three lines read back AT THE PATH SOL WILL SEE, then diffed byte-identical.**
+⇒ ⭐ **A check that only pays off in the unusual case must be run in the usual case too, or it will
+not be there on the day the case turns unusual** — and nobody announces that day in advance.
