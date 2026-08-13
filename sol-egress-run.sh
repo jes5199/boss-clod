@@ -131,9 +131,26 @@ MASK=(
   # still worked with TMUX=[] — measured. The env handle and the filesystem
   # channel are two properties; closing one certifies nothing about the other.
   --tmpfs /tmp/tmux-1000
-  # The Claude Code messaging socket dir — same class: a live control channel
-  # to this session, not a secret at rest.
-  --tmpfs /run/user/1000/cc-socks
+  # ⛔ CX-vc0q (2026-08-13): THIS LIST WAS DERIVED BY MEASUREMENT, NOT RECALLED.
+  # Three parties produced three incomplete channel lists in one night — Sol
+  # found two I had missed (claude-chat relay, the tsx pipe); I had missed
+  # cc-socks and the dbus bus; commonplace's brief asked for an inventory
+  # without saying how to derive one. ⭐ A HAND-MAINTAINED LIST OF CHANNELS IS
+  # THE SAME DEFECT AS A DENYLIST OF SECRETS, ONE LEVEL UP, and "be more
+  # thorough" failed three times in a row.
+  # ⇒ REGENERATE with, and mask the CONTAINING DIRECTORIES so future sockets
+  #   appearing inside them are covered without another edit:
+  #     find /run/user/$(id -u) /tmp -maxdepth 3 \( -type s -o -type p \) |
+  #       xargs -n1 dirname | sort -u
+  #   Last derived 2026-08-13: 23 channels — 6 live Claude Code session sockets,
+  #   6 gnupg agent sockets (incl. S.gpg-agent.ssh), the dbus session bus,
+  #   systemd's private/notify sockets, a weechat fifo, tmux, claude-chat, tsx.
+  # ⚠️ /tmp/cc-daemon-1000 EXISTS AND HOLDS NO SOCKETS — masking it passes an
+  #   `ls` check and protects nothing. The live sockets are one tree over. That
+  #   is why acceptance is AN ATTEMPTED CONNECTION, never a path's tmpfs-ness.
+  --tmpfs /run/user/1000
+  --tmpfs /tmp/claude-chat
+  --tmpfs /tmp/tsx-1000
   # 2026-08-07: the live store's own credentials. Sol needs commits/ to
   # investigate the 450x gap (jes: "if Claude can do it, then Sol can do it")
   # but it does NOT need the node's signing identity or the secrets store.

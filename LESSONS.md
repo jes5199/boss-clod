@@ -3122,3 +3122,27 @@ clerical — so "be more thorough" is not a fix.
 ⇒ **Two halves, and each is useless alone:** explicit env construction (allowlist) **and** a channel
 inventory (masks). ⭐ **Acceptance test shape: attempt the capability from inside and require it to
 FAIL** — `tmux list-panes` returning 0 panes, not `$TMUX` being empty.
+
+### Addendum — three parties, three incomplete lists, one night
+⛔ **CX-vc0q.** After the tmux fix, the pod round's channel inventory masked **`/tmp/cc-daemon-1000`
+— which EXISTS and holds ZERO sockets** — and missed **`/run/user/1000/cc-socks`, which holds SIX
+live Claude Code session sockets**, plus the dbus bus and six gnupg agent sockets.
+⭐ **THE ROUND'S OWN LAW, VIOLATED BY THE ROUND: `ls /tmp/cc-daemon-1000` SUCCEEDS.** It is not a
+typo'd path — it is a **real directory that is not where the sockets live**, so a handle check passes
+and only *"can it reach a live session?"* finds the six one tree over.
+⚠️ **AND THE SCORE IS WHAT MAKES IT STRUCTURAL, NOT CARELESS:** Sol found two channels I had missed
+(claude-chat relay, the tsx pipe) · **my wrapper had missed cc-socks and the dbus bus** ·
+commonplace's brief asked for an inventory without specifying how to derive one. ⇒ **A
+HAND-MAINTAINED LIST OF CHANNELS IS THE SAME DEFECT AS A DENYLIST OF SECRETS, ONE LEVEL UP** — and
+*"be more thorough"* failed **three times in one night, by three parties who had all just read the
+lesson.**
+⇒ **THE FIX IS DERIVATION, NOT A LONGER LIST:**
+```
+find /run/user/$(id -u) /tmp -maxdepth 3 \( -type s -o -type p \) | xargs -n1 dirname | sort -u
+```
+**23 channels** on this host. ⭐ **Mask the CONTAINING DIRECTORIES so sockets that appear later are
+covered without another edit** — a per-socket list goes stale the moment a new agent starts.
+⭐ **ACCEPTANCE IS THE SAME MEASUREMENT RUN FROM INSIDE**: `find … -type s -o -type p | wc -l` → **0**,
+which is strictly stronger than asserting any path is tmpfs, and it cannot go stale.
+⚠️ commonplace's warning against my own instinct: ***do not transcribe my two paths — derive it, or
+we converge on the same blind spot.*** That is exactly how three lists came to be wrong at once.
