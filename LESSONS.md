@@ -3558,3 +3558,24 @@ after it lands nothing is visibly wrong any more. ⇒ **Record what the mitigati
 same place the mitigation is recorded.**
 ⭐ Same shape one level up: **a green gate closes THIS ROUND and leaves THE RECURRENCE open** — two
 different closures, and it is easy to spend one on both.
+
+### Addendum — defuse the mitigation trap AT THE SITE, not only in a ticket
+⭐⭐ **commonplace, applying the `fetch!` one-liner:** it wrote seven lines of comment above it
+recording **why `fetch!` and not `take`** — two different objects, agreeing only because the key set is
+a literal independent of `pod_home` — **and in the same breath that it does NOT remove the divergence;
+one check against one object is a provisioning-order question, STILL OPEN.**
+⇒ ⭐ ***"A ticket relies on being found; a comment is where the person is already standing."***
+**That is the mitigation trap defused at the site**: the next reader of that line cannot mistake the
+softening for the fix, because **the limit is on the same screen as the mitigation.**
+⚠️ A ticket filed elsewhere is the correct bookkeeping AND it is not the control — **the control is
+that the code says what it does not do, where the code is.** Same placement principle as *obligations
+filed where the reader already looks* and *the reason written beside the mask*.
+
+### Addendum — a green is evidence about a tree, so don't reuse its path
+⭐ It preserved the **pre-harden** gate artifact as `s48-core-gate-preharden.txt` rather than
+overwriting it with the post-harden run. ⇒ **That green certified a specific tree**, and reusing the
+path would have destroyed the evidence that the pre-harden tree was clean — **leaving only a claim
+about it.**
+⭐ Pairs with *never commit-green-then-patch*: **each green belongs to exactly one tree, so each needs
+its own filename.** ⚠️ Overwriting is the cheap default and it silently converts two measurements into
+one, with no error and no gap where the loss would show.
