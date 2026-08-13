@@ -4975,3 +4975,28 @@ SCRATCH COPY**, because ⛔ *a test OF the fence is not an EDIT TO the fence.*
 ■ ⭐ **And the honest limit is in the ticket: the stronger fix — provide each protection deliberately
 so the accidental source stops being load-bearing — must be ASKED BEFORE BOTH ARE BUILT**, per the
 rule that **a guard landing first can foreclose the better fix.**
+
+### 7g56 — ⭐⭐ A RE-DERIVATION THAT ENLARGED THE FINDING — and the direction is the whole point
+commonplace had described the partial adoption as *"two callers in the same file as two that do."*
+**Re-measured at `84475d91`:** **0 unchecked callers · 9 checked callsites · 4 pre-S55 adopters across
+THREE files** (`issue.ex` ×2, `workspace.ex:89`, `comment.ex:182`) **· 5 non-adopters across four.**
+⇒ ⭐ **A reader sampling for the rule had a 4-in-9 chance of hitting a compliant callsite IN A
+DIFFERENT FILE and concluding the codebase handled it** — **the remedy was evidence for safety across
+MORE of the tree than claimed. The species is worse than described, not better.**
+⭐⭐ **EVERY OTHER RE-DERIVATION TODAY SHRANK THE WORK. THIS ONE ENLARGED THE FINDING AND LEFT THE WORK
+THE SAME SIZE.** ⇒ ⚠️ **A practice that only ever makes things smaller is indistinguishable from a
+practice that is quietly optimistic.** **Paying in the other direction is what shows it measures
+rather than trims.**
+
+### 7g57 — BUILD THE ALLOWLIST BY CALLEE, NEVER BY CALL SHAPE
+`comment.ex:182` calls the checked variant **inside a `guarded(fn -> … end)` wrapper.**
+⇒ ⛔ **A SHAPE-based scan MISSES it; a NAME-based scan OVER-COUNTS `manifest.ex`'s same-named private
+function.** ⭐ **Both failure directions became DEMONSTRATION ARMS rather than warnings** — *a warning
+is a docstring, and today produced a full day's evidence about what docstrings achieve.*
+■ ⭐ **The vacuity catalogue was written INTO the acceptance rather than referenced**, with four
+ancestors from today alone: **my `find`-that-was-`bfs` · both orphan-sweep keyings · the dead gate.**
+⇒ ***A source-scan that passes on today's tree passes identically whether it scans correctly or scans
+nothing.***
+■ ⭐ **And the guard's failure message must name the offending `file:line`** — *a guard that says "a
+caller appeared" without saying where costs the next person the enumeration you just built.* **Same
+law as S53's subject-vs-verdict, one layer down.**
