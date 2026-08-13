@@ -3259,3 +3259,54 @@ byte-identical; `launcher_test.exs` **required** to move, and it did (`e777793b7
 exactly when work is happening** — the moment it is most needed. **Naming the permitted file keeps
 the check live through the change**, and it is the same check that would catch a helpful fix landing
 in `provisioner.ex`.
+
+---
+
+# 7c0 — the docker socket: root-equivalence reached through a fence that fenced everything else
+
+**2026-08-13, CX-v14m.** commonplace checked whether the *next rung* was dispatchable and found
+`/var/run/docker.sock` **reachable from inside the build fence with every mask of tonight's arc
+already applied** — `docker version` answered **Server 29.3.1**.
+
+⛔ **THE DOCKER SOCKET IS ROOT-EQUIVALENT.** The daemon runs as root and honours `-v /:/host` and
+`--privileged`. ⇒ **Anything reaching it bypasses every fence built tonight AT ONCE** — the `.ssh`
+tmpfs, the PID namespace, the environment allowlist, all ten channel masks.
+⭐ **THE MASKS FENCE THE PROCESS; THE SOCKET DELEGATES TO SOMETHING THE PROCESS DOES NOT CONTAIN.**
+A sandbox can only constrain what it contains, and a request to a root daemon is executed *outside*
+the sandbox by something that never agreed to the sandbox's rules.
+
+## ⭐ DERIVE-DON'T-RECALL FIXED THE RECALL PROBLEM AND INHERITED A SCOPE PROBLEM
+The channel derivation searched **`/run/user/<uid>` and `/tmp`**. `docker.sock` lives at **`/run`**.
+⇒ **A DERIVED LIST IS ONLY AS WIDE AS THE ROOTS YOU HAND IT** — better than a recalled list, and still
+carrying a horizon that is invisible from inside the result. **The derivation looked rigorous and was
+scoped by an assumption nobody stated.**
+⇒ Widened derivation found **16 sockets under `/run`**, of which **5 reachable as this uid**:
+docker.sock (via the `docker` group), snapd.socket + snapd-snap.socket (mode 666), dbus
+`system_bus_socket` (666), postgresql (777). lxd / systemd-private / initctl / udev were present and
+**not** reachable — **mode and group decide reachability, not the name.**
+
+## ⛔ AND I TESTED THE HANDLE AGAIN — THIRD TIME TONIGHT
+After masking with `--bind /dev/null <socket>`, my check `test -w /run/snapd.socket` returned **RW**
+and I briefly read the fence as failing. ⚠️ **`/dev/null` IS ITSELF WRITABLE**, so a permission test
+on a masked path passes by construction.
+⇒ The capability test: `curl --unix-socket /run/snapd.socket` → **empty** · `dbus-send --system` →
+**"Failed to open connection to system message bus"** · `psql -h /run/postgresql` → **connection
+error** · `test -S` → **not-a-socket**. **All five closed.**
+⭐ **A MASK THAT REPLACES A FILE MAKES EVERY ATTRIBUTE TEST REPORT ON THE REPLACEMENT.** Ask whether
+the *service answers*, never whether the *path looks right*.
+
+## THE FIX IS DERIVED AT LAUNCH, NOT LISTED
+`SYS_SOCKET_MASK` is built at every run: `find /run -maxdepth 2 -type s`, filtered to
+**reachable-as-this-uid**, each masked with `--bind /dev/null`. ⇒ Sockets that appear later are
+covered without an edit.
+⛔ **`--tmpfs /run` was tested and is TOO BROAD: it breaks DNS and codex cannot reach its endpoint.**
+Mask the socket FILES; keep the directories.
+✅ Verified together: `DOCKER=Cannot connect` · snapd/dbus/postgres all refuse · `HERMES=blocked` ·
+user channels **0** · `.ssh` empty · **`DNS=ok`** — the last one being the check that stops a
+tightening from silently breaking the sandbox.
+
+## ⚠️ AND THE TIMING IS THE FINDING'S SHARPEST EDGE
+plan ruled Docker the runner arc's **next rung** *because a container is a killable unit* — correct
+about killability. ⇒ **A rung chosen for ISOLATION would have introduced the largest isolation hole on
+the box, arriving as the solution to the pattern-kill hazard we spent the night eliminating.**
+**Ask what a new dependency can REACH, not only what it can DO for you.**
