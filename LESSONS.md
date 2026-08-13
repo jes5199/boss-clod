@@ -3230,3 +3230,32 @@ WHAT'S IN IT.**
 next command.** A rule filed minutes ago is not yet a habit — **the artifact fires only when the
 check itself is mechanical**, which is why the acceptance tests in these rounds are commands and not
 intentions.
+
+### Addendum — nothing was ever slow, and every accommodation made the next diagnosis harder
+✅ **RESOLVED 2026-08-13.** The pod channel acceptance test that had **never once passed across four
+rounds** now runs: **`mix test .../runner/` → 35 tests, 0 failures, 2.8 SECONDS**; the channel test
+itself 0.9s, executed not skipped.
+⛔ **THE CAUSE WAS A SHELL SYNTAX ERROR IN A GENERATED FIXTURE**: the heredoc writing
+`channel-worker.sh` ate the backslashes before `\(` `\)`, so `/bin/sh` exited **2** with
+`Syntax error: "(" unexpected` and produced **no files at all.**
+⭐⭐ **THE WHOLE SUITE TAKES 2.8s. THE SINGLE TEST CARRIED A 180s BUDGET AND DIED AT EXUNIT'S 60s.**
+⇒ **NOTHING WAS EVER SLOW.** A script that fails to parse exits in **milliseconds** — and from
+outside, *instant failure to produce output* is indistinguishable from *a worker still working*.
+⚠️ **AND EACH ACCOMMODATION MADE THE NEXT DIAGNOSIS HARDER, WHICH IS THE PART TO KEEP:**
+| accommodation | what it hid |
+|---|---|
+| 180s internal budget | that the file never appears at all |
+| that budget exceeding ExUnit's 60s | the inner failure — it surfaced as `TimeoutError`, reading as a *hang* rather than a *wait* |
+| "it's load" (2 passes at 3.58, 3 fails at 6.26) | a real correlation with no causal link |
+⇒ **A TIMEOUT RAISED WITHOUT A DIAGNOSIS BUYS TIME FOR A THING THAT WAS NEVER GOING TO HAPPEN**, and
+each raise moves the observable further from the cause. ⭐ **The fix direction is almost always DOWN:
+size the budget to a measurement and let it fail fast.** Here 0.135s measured → 5,000ms budget (37×)
+→ **defect ① dissolved instead of being accommodated**, and no `@tag timeout:` was needed at all.
+
+### Addendum — assert WHICH file may change, not that none may
+⭐ **Proven by the one round where a change was intended.** Nine files hash-pinned and verified
+byte-identical; `launcher_test.exs` **required** to move, and it did (`e777793b72ff` →
+`b21a50fe5a03`). ⇒ **A "none changed" assertion cannot license an intended edit, so it gets dropped
+exactly when work is happening** — the moment it is most needed. **Naming the permitted file keeps
+the check live through the change**, and it is the same check that would catch a helpful fix landing
+in `provisioner.ex`.
