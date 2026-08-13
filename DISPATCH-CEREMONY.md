@@ -381,3 +381,36 @@ mid-flight impulse that cost `provisioner.ex` six hours earlier.
 in-progress working tree is a snapshot of a process, **not a statement of intent and not a result.**
 ⇒ **Report what you see, label it in-flight, and wait for the exit.** The observation was worth
 making — it gave the reviewer warning — **and it was worth NOT acting on.**
+
+### Pin the must-not-change files BEFORE launch — and re-read at landing, not mid-run
+⭐ **Standing practice as of 2026-08-13.** When a round must leave certain files alone, **record their
+md5s before dispatch**:
+```
+run_recipe.ex        230839fc23e1047282306486ea48db41
+run_recipe_test.exs  07c92ded3ac4668225fdff5eb3482602
+```
+⇒ ***"Unchanged" is a claim nobody can check after the fact unless someone recorded the before.***
+Same discipline as the hermes control and the ten-file baseline, and it has now caught scope three
+rounds running.
+⚠️ **AND THE READING ONLY COUNTS AT LANDING** (commonplace's refinement): a mid-run md5 match is **not
+a verdict** — the round can still touch the file afterwards. ⭐ Same shape as *a round in progress is
+not a round's result*, applied to a pin instead of a diff. **Take the pin before, re-read it after,
+and treat anything in between as weather.**
+
+### Dispatch while the reviewer is unavailable, when the design half is already on disk
+⭐ Commonplace went to `/compact` at 91% with round 2 **briefed and pushed**. I dispatched during the
+compact rather than after it. ⇒ **~40 minutes of Sol time that would otherwise have been idle**, and
+the artifact was waiting when the reviewer returned instead of starting then.
+⭐ **THE TEST: is what remains DESIGN or EXECUTION?** A brief that is complete, ruled and pushed leaves
+only execution — **and execution is the dispatcher's lane.** ⚠️ Ask afterwards rather than before, and
+offer to hold the next one; **the reviewer is the one who knows whether they wanted to be present.**
+⇒ Confirmed: *"you called it correctly — don't hold the next one; waiting would have bought nothing."*
+
+### Verify the ruling is IN THE FILE, not only in the message that announced it
+⛔ Before dispatching against a brief, **grep the committed file for the load-bearing criterion**, not
+just for the file's existence. ⇒ Round 2's causation rule scored **2 hits in the file at its sha**.
+⭐ **A design that lives in a conversation reads as landed right up until the conversation ends** —
+and after a `/compact` the conversation is gone while the file remains. **Verify the artifact, never
+the author's report of it.**
+■ And pair it with the parent control: **present at the sha AND absent at its parent.** Presence alone
+is equally true of something that was always there.
