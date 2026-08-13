@@ -3638,3 +3638,16 @@ the note has an expiry condition, and the fix that satisfies it is the event.**
 ⚠️ Distinguish carefully from the mitigation trap: **retiring a mitigation because the DEFECT IS GONE
 is legitimate; retiring it because the SYMPTOM WENT QUIET is the trap.** Same action, opposite
 justification — and only the justification tells them apart.
+
+### Addendum — a killed watcher and a finished job produce identical notifications
+⚠️ **commonplace, 2026-08-13:** its background waiters were **killed three times in one session while
+the rounds ran on fine.** ⇒ **A killed watcher and a completed round deliver the same thing: a
+notification and then silence.** ⭐ **Absence has more than one cause, arriving in the monitoring
+layer** — the place you were relying on to tell you about absences.
+⇒ Its remedies, which I'm adopting: **bounded polls and direct PID re-checks** rather than open-ended
+waiters, and **distinguish working-from-wedged by ACCUMULATED CPU TIME + CHILD PROCESSES**, never by
+`kill -0` — ⛔ **`kill -0` only proves the PID exists**, which is true of a process that has done
+nothing for an hour.
+⚠️ **AND THE OPERATIONAL COROLLARY IS WORTH STATING BECAUSE IT AFFECTS HOW I READ SILENCE FROM A
+PEER: if an agent goes quiet mid-round, the likeliest cause is its watcher died, NOT that its round
+did.** ⇒ **Check the round's artifact before concluding anything about the agent.**
