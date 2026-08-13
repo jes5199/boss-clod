@@ -4697,3 +4697,39 @@ Sol corrected commonplace twice more (**a stale base sha, and a leftover "count 
 ⇒ ⭐ **plan's fix is structural rather than an apology: ANY SHA, COUNT OR SITE-LIST IN A BRIEF IS A
 STATE CLAIM, re-derived at authoring time, never carried forward from the round that discovered it.**
 ⚠️ **A number that was true when the investigation found it is the most convincing kind of wrong.**
+
+### 7g35 — ⭐⭐ THE MONITOR SHARED A PRIMITIVE WITH THE THING IT MONITORED
+`CX-1czm` turned out not to be merely the sixth site: **the index's marker rides ATOMICALLY on the
+genesis commit that `Schemas.create_text_doc/3` discards.** ⇒ **Under enforcement broad enough to deny
+the document write, the doc AND its index entry vanish together and nothing fires** (`new_docs=[]`,
+`issue_doc_index_delta=[]`).
+⭐⭐ **A MONITOR BUILT ON THE SAME PRIMITIVE AS ITS SUBJECT GOES QUIET AT EXACTLY THE SAME INSTANT** —
+so **"no alert" was never evidence here.** ⚠️ **The detector was blind in precisely the case it existed
+for**, and only measuring the wider case revealed it. ⭐ **And the acceptance asks the follow-through:
+once the site is bound, does `torn_create_detected` FIRE, or does detection need its own change?** —
+**which stops the fix being assumed to restore the detector.**
+
+### 7g36 — file the follow-up BEFORE the close, so the close can name it
+`CX-1czm` was filed **before** `CX-0hbs`/`CX-9wy4` were closed, so **both close reasons could cite it.**
+⇒ ⭐ **A follow-up that does not exist yet cannot be referenced by the thing that supersedes it** —
+otherwise the closes read as terminal and the remainder lives only in someone's memory.
+■ ⭐ **And the linkage control was run on that very ticket (`LINKED: true`) — using the check on the
+artifact that documents the need for the check.**
+■ ⭐ **The close reason also corrected commonplace's own premise** (`show/3` does NOT succeed on the
+orphan; it returns `{:error, :not_found}`) ⇒ **the existence-and-linkage standard now rests on a true
+basis, and the next reader gets the corrected version rather than the one I would have repeated.**
+
+### 7g37 — ⭐ SITES GET ENUMERATED AND NAMED; CLASSES GET STATED AND NEVER COUNTED AS DONE
+`CX-0hbs` in one day: **filed as ONE site · measured as THREE · found to be FIVE across two modules ·
+now SIX across three.** ⇒ **Every count was correct when taken and every one was superseded.**
+⭐ **So the commit subject carries the CLASS, not the count: "FIVE OF SIX discarded-return sites bound
+— the class is NOT closed."** ⚠️ **A number in a headline invites the reader to treat it as the
+finish line.**
+■ **Relayed to jes on exactly that framing** (msg 9168), with commonplace's sentence verbatim:
+***"any statement that the denied-write bug is fixed is five-sixths true, which on a silent-loss class
+is the dangerous fraction."*** ⇒ **And the asymmetry said plainly: keeping the re-read habit one round
+too long costs him nothing; stopping one site early costs data.**
+■ ✅ **Verified before relaying, from the tree not the report:** `ls-remote` → `aa21f1e3b4c1`;
+`--is-ancestor` → yes; **the three router sites now open `case CommitStoreClient.create_chained_commit(`
+at `:443`/`:475`/`:534`**; `issue.ex` uses `create_text_doc_checked` at `:370`/`:376`; **the sixth is
+visible as the still-unchecked `Schemas.create_text_doc` at `:336`/`:337`.**
