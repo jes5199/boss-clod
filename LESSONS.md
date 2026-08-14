@@ -5901,3 +5901,33 @@ the memory it was written to replace.**
 ■ ⭐ **Corollary for me specifically: LESSONS.md is now 5,700+ lines. Its value is NOT in being read
 end-to-end — it cannot be. Every entry whose remedy is "remember this" is decoration; the entries
 that work are the ones that got MOVED into a script, a wrapper, or a comment at the point of use.**
+
+---
+
+## 7l5 — I CHECKED TWO OF THREE FIELDS AND REPORTED "RESTORED"
+*(2026-08-14, `CX-hzad` fixture — found by commonplace hours after it declared the restore good)*
+
+```
+original          36 bytes, NO trailing newline, mtime 2026-04-27 06:05:41.538904213
+after "restore"   37 bytes  ← a printf …\n in a cleanup path appended 0a
+                  content ✓   mtime ✓   SIZE ✗
+```
+⇒ ⭐⭐ ***EVERY FIELD YOU ASSERT BY EQUALITY IS A FIELD A WRONG VALUE CAN ALSO SATISFY.*** **Content
+matched. Mtime matched — and mtime was the field everyone was watching, because the April date is
+the whole signal.** ⛔ **Two of three agreeing was reported as restoration.**
+■ ⚠️ **AND THE REASON IT SURVIVED HOURS IS THE GENERAL ONE: the difference was FUNCTIONALLY INERT
+(`root_uuid` trims).** ⇒ ***An inert difference produces no symptom, so nothing prompts the check
+that would find it.*** **Corruption that changes behaviour announces itself; corruption that does
+not is what persists.**
+■ ✅ **Prefer a whole-object comparison to a field-by-field one where the object permits it** — a
+hash, a byte count alongside the digest, `cmp`, a round-trip. ⭐ **A restore is exactly the place to
+use it: you already HAVE the original reading, so the cheap complete check is available.**
+■ ⭐ **Related and separate: this is the third time today the phrase *"measured the existence, not
+the contents"* applied** — and the same party then caught it a fourth time in its own claim that a
+ticket was "not Sol-shaped", where it had conflated CONSTRUCTION with INSTALLATION.
+
+■ ⭐ **ALSO LOGGED, because it is stronger evidence than the finding it supports: the host-CLEAN run
+printed a BEFORE line and NO drift warning — the suite did NOT recreate `root` that time.**
+⇒ **Same suite, same seed, different self-mutation.** ⚠️ ***That is better evidence for the
+oscillation than the original observation was***, and it arrived only because the tool now prints
+the BEFORE reading unprompted.
