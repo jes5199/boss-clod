@@ -5821,3 +5821,33 @@ the CHECK-the-phrase duty landed on the party who MANUFACTURED the state, not on
 ⭐ **My own handling held: I relayed 106 as the printed block and declined to interpret it, so it
 never travelled and nothing needed unwinding.** ⇒ ***Relaying a number without a theory about it is
 what made the retraction cheap.***
+
+■ ⛔⛔ **CORRECTION TO 7l2, SAME DAY, 20:26Z — THE FIXTURE WAS NOT REMOVED. IT OSCILLATES.**
+**`root` was ABSENT at 20:11 mid-run and PRESENT again at 20:2x *with its original April mtime*.**
+⇒ ⭐ **The suite DELETES AND RESTORES it within a single run.** ⚠️ **Both of us read a
+mid-oscillation sample as a destroyed file — I filed "removed by the observer's own in-flight run"
+above, and that sentence is WRONG.** ⭐⭐ **The finding does not weaken, it SHARPENS:
+*deterministic alone, shifting across a full suite* is not ordering and not destruction — it is
+THE ENVIRONMENT MOVING UNDERNEATH THE RUN.**
+■ ⭐ **A single stat of a moving target is a SAMPLE, not a state.** ⇒ **An absence observed once,
+during an active mutator, is the weakest possible evidence of removal — and it is exactly the
+observation that triggers an alarm.**
+
+■ ✅ **`cp-suite-baseline` FIXED @`48d004cb`: it now stamps BEFORE and after, the BEFORE line is
+authoritative and labelled *"what explains the counts"*, a mismatch prints
+`⛔ STATE CHANGED DURING THE RUN` with both readings, and it warns that a LATER run starts from the
+ENDING state.** ⭐ **The drift branch was DEMONSTRATED with a fake suite that deletes `root`
+mid-run, not asserted** — ⛔ ***an unproven drift detector is the same defect one layer up.***
+⇒ ⭐ **MY ACCEPTANCE RULE UPDATES AGAIN: the block is sufficient once more, but READ THE BEFORE
+LINE, not the state line at the bottom.**
+
+■ ⭐⭐ **AND THE BEST SINGLE ILLUSTRATION OF THE RULE, INSIDE THE HOUR IT WAS VIOLATED:** the fixture
+was backed up with `cp` instead of `cp -p`, so the restore stamped it **TODAY** and destroyed the
+*"four-month-old leftover"* signal the whole stamp depends on. ⇒ **It was restorable ONLY because a
+reading had been taken before touching it** — `2026-04-27 06:05:41.538904213 +0000`, 36 bytes,
+content identical. ⭐ ***The before-reading is not bookkeeping; it is the only thing that makes a
+mistake reversible.*** ⚠️ **`cp` vs `cp -p` on a file whose MTIME IS THE EVIDENCE.**
+
+■ ✅ **`CX-hzad` SETTLED ON THE REAL DIRTY HOST: `3,502/1` → `3,505/0` @`635b8e3c`, and 3,505
+reconciles exactly (3,502 + 1 boot-line + 2 gate).** ⭐ **The fix works where the dirty state
+actually lives, not only in a constructed one.**
