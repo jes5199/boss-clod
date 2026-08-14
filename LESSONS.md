@@ -5737,3 +5737,46 @@ restore      → 0, md5 VERIFIED UNCHANGED (mtime moved, content never did)
 dist on `127.0.0.1` never `0.0.0.0`, stop by NUMERIC pid.** ⭐ **New: the live log moved from a
 session scratchpad to `/home/jes/boss-clod/logs/commonplace-serve.log`** — **the previous serve's
 log was one session-cleanup away from vanishing, which nobody had noticed because it was working.**
+
+---
+
+## 7l0 — A LEADING `cd` REDEFINES THE CONTEXT OF THE NEXT THING, AND CLEANUP IS WHERE IT LANDS
+*(2026-08-14, commonplace's `CX-hzad` fixture experiment — reported by the party who tripped it)*
+
+■ ⛔ **A mid-command `cd apps/commonplace` made a restore `mv` resolve against the wrong directory.**
+⇒ **The restore FAILED and the live checkout sat in the perturbed state until it was noticed.**
+⭐ **It was in that agent's own notes and it happened anyway** — ⚠️ **in the CLEANUP step, which is
+where attention has already been spent on the interesting part.**
+■ ⭐⭐ **THE REPORTABLE HALF IS WHY IT WAS CAUGHT: THE COMMAND ERRORED LOUDLY.** ⛔ **A wrong-path
+`mv` that silently SUCCEEDS leaves nobody to notice** — same family as a grep whose corpus was
+empty. ⇒ **The safety came from the failure mode being noisy, not from the operator being careful.**
+■ ✅ **Generalises past `cd`: any state-setting prefix in a compound command** (`cd`, `export`,
+`set -x`, a `pushd`) **silently changes what every later clause means.** ⭐ **Prefer ABSOLUTE PATHS
+in the destructive clause specifically, so the restore does not depend on where the shell drifted to.**
+
+---
+
+## 7l1 — "FALSE ON THE HOST" vs "FALSE ON ANY CHECKOUT OLD ENOUGH TO HAVE RUN TESTS"
+*(2026-08-14, `CX-hzad` — a framing I helped propagate before it was corrected)*
+
+■ **The `3,502/1` host failure read as sandbox-vs-host: a gate correct in the sandbox, false here.**
+⛔ **The real split is CLEAN vs DIRTY `tmp/test_data`** — a leftover **April** fixture makes
+`Workspace.root_uuid()` succeed, which starts a rehydrator that `application.ex` documents as
+*"no rehydrator on test runs"*. **A fresh worktree has no leftover; that is the only difference.**
+⇒ ⭐ **Proven in BOTH directions rather than correlated:** `mv` the fixture away → 5 tests 0
+failures; `mv` it back, same content and April mtime → 5 tests **1** failure.
+■ ⭐⭐ **WHY THE WORDING MATTERS RATHER THAN BEING PEDANTRY: *"false on the host"* implies the
+SANDBOX is the anomaly.** ⚠️ **It is the clean one.** ⇒ **The wrong framing points the next
+investigation at the environment instead of at accumulated local state — and every dev checkout on
+this box is "old enough to have run tests".**
+
+■ ⭐ **AND THE ORDERING THAT LIFTED MY SUITE FREEZE, which is the reusable part:** I asked *"does
+the host test run READ the live store?"* — **the tempting answer was an empirical fd sweep showing
+zero.** ⛔ ***"No corruption observed" is not "does not touch it."*** ✅ **What actually answered it
+was the MECHANISM — `root_uuid` is a LOOKUP KEY, not a path, and no code path names
+`workspace/.commonplace` — with the fd zero DEMOTED to corroboration.**
+■ ⭐ **The fd zero was reported with its corpus: 31 sightings, 17 samples, 2 distinct pids.** ⚠️ **A
+zero with no sighting count is the vacuous shape, and it was nearly reported that way.**
+■ ⛔ **`commits.lock` was correctly refused as an argument — the 08-06 incident established it
+excludes nobody.** ⭐ **Residual stated rather than buried: 0.2s sampling cannot exclude a
+sub-interval open-and-close.**
