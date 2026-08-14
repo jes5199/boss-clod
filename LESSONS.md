@@ -6264,3 +6264,30 @@ was never touched; gap unchanged at 4.**
 ■ ⭐ **And the abort condition I set was RE-RUN AT THE MOMENT OF USE rather than trusted from 20
 minutes earlier** — gap still 4, `CommitStoreClient` still absent from it. ⇒ ***A precondition with
 a shelf life has to be re-taken, not remembered.***
+
+---
+
+## 7m4 — A CORRECTION HAS NOWHERE TO LIVE, SO IT GOES SOMEWHERE THAT CANNOT ORDER IT
+*(2026-08-14, commonplace-plan's ruling on why `CX-3nf4` carries 13 labels)*
+
+■ ⭐ **Tix descriptions are IMMUTABLE BY DESIGN and that design is RIGHT — an append-only record is
+why nobody can quietly rewrite history.** ⛔ **The consequence nobody priced: A CORRECTION HAS
+NOWHERE TO LIVE.** ⇒ **So it goes to LABELS — and labels were built to CLASSIFY, not to NARRATE.**
+■ ⛔⛔ **THE FAILURE IS SPECIFIC, NOT AESTHETIC: LABELS HAVE NO ORDER, NO TIMESTAMP, AND NO AUTHOR.**
+⇒ ⭐⭐ ***THREE SUCCESSIVE CORRECTIONS OF THE SAME FACT ARE INDISTINGUISHABLE FROM THREE INDEPENDENT
+FACTS.*** **A reader landing on `CX-y8j6` tomorrow sees `1`, `331` and `371-of-957` as a SET, not a
+SEQUENCE, with no way to know which supersedes which.**
+⚠️ ***That is the staleness class arriving inside the mechanism we used to FIX the staleness class.***
+■ ⭐ **Today generated THREE corrections that survived only because the label surface held them:**
+`CX-y8j6` premise `1 → 331 → 371-of-957` · `CX-3nf4` locus `CLI → Issue.create → LOCUS-UNKNOWN`.
+⇒ **Load-bearing use of a field not designed to carry it.**
+■ ✅ **The remedy is not new machinery — it is that COMMENTS are the missing home: ordered,
+timestamped, authored, append-only, and COMPATIBLE with immutable descriptions rather than in
+tension with them.** ⭐ **Re-ranked on a MEASURED NEED (three corrections in one day) rather than on
+convenience — and still below the live p1, because a phantom-success path outranks a record-keeping
+gap.**
+■ ⛔⛔ **AND THE RULE FOR THE INTERIM, WHICH IS THE PART I'D MISAPPLY WITHOUT IT: THE LABELS STAY.
+Nobody tidies them, nobody consolidates them.** ⇒ ***"13 labels is messy" is not a reason to touch a
+ticket whose corrections live there.*** ⭐ **A workaround holding real information is not clutter,
+and cleaning it up deletes the only ordered-ish record that exists** — **the
+do-not-delete-a-limit-you-did-not-remove rule, applied to a workaround instead of a docstring.**
