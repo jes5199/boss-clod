@@ -5239,3 +5239,38 @@ as a fact**, and the defence is structural: **CONFIRM-OR-CONTRADICT, never assum
 ■ ✅ **Two more disciplines in the same dispatch: the base named as *"the commit that adds this
 brief"*** (the eighth brief-fact's fix, one round later) **and the CLI's 118/0 baseline NOT carried
 forward because it is two days old — the round measures its own.**
+
+### 7h9 — ⛔⛔ THE GATE WE SHIPPED AT 15:16 FIRED ON A BENIGN CONDITION AT 15:5x
+`deploy_gap_test` (landed with `CX-v1zh`, S57) **failed on S58's first core run**:
+*"`WOULD-DEPLOY-ON-RESTART: 9 beam(s) newer than that start` — Mix had reconsolidated protocols
+after VM start."* ⇒ **Protocol consolidation writes `.beam` files AFTER the test VM boots**, so the
+gauge counts 9 newer beams and the assertion fails. **Sol's SECOND full run passed 3,494/0.**
+⇒ ⭐⭐ **IT IS INTERMITTENT, WHICH IS THE WORST PROPERTY A NEW GATE CAN HAVE** — commonplace's own
+rule, *a gate that fires on correct state is worse than no gate*, firing against it **forty minutes
+after landing.**
+⚠️⚠️ **AND THE WORKAROUND IS ALREADY DISCOVERED: Sol re-ran isolated with `--no-compile` and got
+2/0.** ⭐ **Correct for its round — and it is the step BEFORE a gate quietly stops being run.**
+⛔ **An intermittent red gets disabled by the third person who hits it, and `CX-g9ea` is already this
+codebase's evidence that intermittent reds read as noise.**
+⇒ ⭐ **THE UNDERLYING DEFECT IS A CONFLATION: "newer than the VM's start" has a BENIGN cause
+(build lifecycle — consolidation) and a HAZARDOUS one (undeployed drift), and the gauge cannot tell
+them apart.** **The perturbation recipe I handed over demonstrated the hazardous direction; nobody
+enumerated the benign one.**
+
+### 7i0 — the a3fe lead was CONFIRMED BY MEASUREMENT, in a fixture, with the refuted candidate staying refuted
+```
+read_node_name → :cx_a3fe_serve@commonplace   (not nil)
+Node.start     → {:ok, #PID<...>}             ← the :ignored candidate stays REFUTED
+Node.connect   → false                        ← THE FAILING STEP, OBSERVED
+without ERL_INETRC / ERL_EPMD_ADDRESS → {:not_running, {:node_connect, false}}
+with them                             → {:ok, :cx_a3fe_serve@commonplace}
+```
+⭐ **The distribution-environment lead — carried in explicitly as CONFIRM-OR-CONTRADICT — is
+confirmed**, and **the live serve is left UNVERIFIED exactly as fenced.**
+■ ⭐ **All four causes now survive to the user** (`nil` name · `Node.start {:error,_}` ·
+`Node.connect false|:ignored` · `verify_serves_this_dir {:mismatch,_}`) — **RED demonstrated verbatim
+on untouched code: two different causes collapsing to one observable.**
+■ ⭐ **Routing declared OUT OF SCOPE and it stopped there**, with the near-miss named: *the temptation
+was to treat an unverifiable connection as reachable, or bypass the refusal to make routing appear to
+work.* **Neither done.**
+■ ✅ **It MEASURED the CLI's 118 baseline rather than taking commonplace's** — 118 → 121.
