@@ -5457,3 +5457,41 @@ TARGET IS ALSO UNREADABLE, and would otherwise have passed for the wrong reason.
 inside the sandbox and refused to report a capability failure it had not established.** ⇒ ⛔ **A ROUND
 FENCED INSIDE THE THING IT IS TESTING CANNOT PRODUCE THAT THING'S RED ARM** — *the brief should say
 where each arm has to run.*
+
+### 7j3 — ⭐⭐ THREE INSTANCES, THREE MISATTRIBUTIONS — the pattern outvalues all six findings
+`CX-v1zh` instance 3's premise check made it **three for three**, this time in the OPPOSITE direction:
+```
+bin/bd create --title=x → "⛔ bd is the FROZEN ARCHIVE … 'create' is a WRITE"  rc=1
+```
+⇒ ⛔ **THERE IS A REFUSAL AND IT PREDATES THE TICKET BY FIVE DAYS** (written 2026-08-08; refuses
+create|update|close|reopen|delete|dep|label|claim|release unconditionally, and refuses READS without
+`CP_BD_ARCHIVE=1`). ⚠️ **The ticket says the reflex is "blocked by the ABSENCE of a database, NOT by a
+refusal." The refusal was sitting there the whole time.**
+⭐⭐ **BUT THE INSTANCE SURVIVES IN A SHARPER FORM:**
+```
+command -v bd      → /home/jes/.local/bin/bd    ← the REAL binary
+repo bin/ on PATH  → NO
+```
+⇒ ⛔⛔ **A BARE `bd` NEVER CONSULTS THE WRAPPER.** ⭐⭐ ***THE GUARDRAIL BUILT TO CATCH THE REFLEX ONLY
+FIRES IF YOU ALREADY KNOW TO TYPE `bin/bd`*** — **it protects the people who did not need protecting
+and misses the reflex it exists for.** ⚠️ **And bare `bd` is what the stale plugin hooks still suggest
+at session start.**
+■ ⭐ **Wording refinement that would have produced a wrong check: `.beads/` ITSELF IS TRACKED AND
+PRESENT in a fresh worktree; what is absent is `.beads/dolt`, the DATABASE.** ⇒ ***"Lacks a Dolt DB"
+is right about the database and misleading about the directory — a check keyed on `.beads/` existing
+would be wrong.***
+
+### 7j4 — ⛔⛔ THE NAIVE TEST *IS* THE HARM: attempting the write may MINT the second archive
+The obvious way to test *"is the write blocked"* is **to attempt the write** — and in a directory with
+no Dolt DB the real `bd` **may create one.**
+⇒ ⭐⭐ **THE OBVIOUS IMPLEMENTATION PRODUCES THE EXACT DEFECT THE PROTECTION EXISTS TO PREVENT** — a
+second divergent archive. **The half-fix control's shape, at its worst: the test is the incident.**
+⭐ **Fenced: establish it by RESOLUTION ORDER and the wrapper's own arms, and IF A QUESTION CANNOT BE
+SETTLED WITHOUT A WRITE, LEAVE IT OPEN.**
+■ ⭐ **And the cheap-looking fix is named and FORBIDDEN rather than left to be proposed: putting repo
+`bin/` ahead of `~/.local/bin` would make the refusal actually intercept the reflex** — ⚠️ **that is an
+ENVIRONMENT change, not a round's work**, and the round is asked *whether it is as cheap as it looks
+and what it would break.*
+■ ✅ **"WHERE EACH ARM RUNS" landed as a required brief field, with the contrast stated: instance 2's
+arm was impossible from inside because the OUTER FENCE dominated the subject; instance 3's subject
+(`bd`, PATH, `.beads/dolt`) is INSIDE the fence with the round, so its arms run where it is.**
