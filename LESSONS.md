@@ -5374,3 +5374,43 @@ hatch, the round is instructed to manufacture one.**
 BECAUSE the arm was removed.** ⚠️ ***A number that moved for a good reason looks like a typo to
 whoever wasn't there*** — "helpfully" restoring it re-adds an expectation for a test that no longer
 exists.
+
+### 7i8 — ⛔ "NOTHING FIRED BECAUSE NOTHING IS WATCHING" ≠ "THE WATCHER STAYED QUIET"
+S59 landed `711f561d`. I asked whether the true negative was CONSTRUCTED or merely asserted;
+commonplace answered **"partly"** and split it rather than letting one word cover both:
+- ⭐ **CONSTRUCTED (good half): ONE corpus, ONE variable moved.** `two beams at 2020 vs a 2025
+  reference → "0 newer", exit 0` → `move ONE to 2030 → "1 newer", names it, exit 1`. **A genuine
+  before/after, not two unrelated fixtures.**
+- ⚠️ **WEAKER THAN IT READS: `mix test --force` → "Compiling 264 files" → 2 tests, 0 failures.**
+  ⛔ **That does not show the check STAYING QUIET under recompilation — it shows THERE IS NO LONGER A
+  CHECK ON THAT SUBJECT.** ⇒ **Correct outcome (the hatch working), and still a different fact.**
+⭐ ***Two sentences that read identically and are different evidence.*** **Refusing to let them share
+a sentence is the whole discipline.**
+
+### 7i9 — ⛔⛔ A PERTURBATION THAT HITS MORE THAN ITS TARGET PRODUCES A RED THAT LOOKS EXACTLY LIKE THE ONE YOU WANTED
+commonplace ran the reds itself rather than inheriting them (*a diff can only ever establish
+existence*). **Its FIRST red was its own instrument error: `--since` appears in BOTH tests, its `sed`
+hit both, and what went red was the POSITIVE arm — reporting 2 beams, not 1.**
+⇒ ⭐⭐ **A SHARED LITERAL GIVES A PERTURBATION A BLAST RADIUS.** **Same shape as a kill selector that
+matches more than its target** — ⚠️ **and the resulting red is indistinguishable from success unless
+you read which arm failed.** ⭐ **Re-done targeted, asserting EXACTLY ONE SITE CHANGED *before*
+running**, with `git diff --exit-code` proving the revert clean both times.
+■ ⭐ **Both reds worth keeping:** (a) reference moved so the planted beam IS newer → **quiet arm
+FAILS**; (b) **plant NO beam → the corpus guard FIRES** *"TRUE-NEGATIVE corpus is empty or pointed at
+the wrong build"* ⇒ **not a false green.** ⭐ *A scan pointed at an empty directory ALSO prints "0
+newer" and exits 0 — the false green wearing the true one's clothes, one layer up.*
+■ ⭐ **Lander fix worth noting: the quiet arm's failure message called itself a "positive-control
+corpus."** ***In a file whose entire subject is controls, a mislabelled control is how the next reader
+inherits the confusion.***
+
+### 7j0 — ⛔ `mix format --check-formatted` IS RED ON MAIN AND NOTHING RUNS IT (`CX-y8j6`, p3)
+Offender `chat_view_builder_test.exs`, unformatted since `5c59e59e` — **pre-existing.**
+⇒ ⭐⭐ **THE FINDING IS NOT THE FILE, IT IS THAT `ci.yml` HAS NO FORMAT STEP** — *corpus control run
+before trusting that zero: workflows dir exists, `ci.yml` 1,587 bytes, positive control `mix test`
+matches.* ⚠️ **Every brief we write prescribes the check-only form, and the thing we tell everyone to
+run is run by NOTHING.**
+⇒ ⭐ ***A PRE-EXISTING RED MAKES THE NEXT REAL RED UNREADABLE*** — commonplace could not tell its own
+violation from inherited drift without extracting the file at base. **Same mechanism that made
+`--no-compile` circulate: the workaround becomes the normal invocation.**
+⛔ **Filed with the cleanup FIRST and a repo-wide `mix format` explicitly FORBIDDEN** — a blanket
+reformat would bury the one line that matters under hundreds that don't.
