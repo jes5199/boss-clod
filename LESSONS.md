@@ -5343,3 +5343,34 @@ rounds Sol can finish today**, and first to be raised when the thermostat opens.
 and completely different information.** ■ Asked for after today's *"idle is correct"* turned out to be
 an untested assumption — **the same fix in both cases: state the reason, and the reason becomes
 checkable.**
+
+### 7i6 — ⛔⛔ REMOVING THE BAD ARM LEFT THE FILE EXACTLY AS BLIND — and I had endorsed the survivor by name
+S59's pre-brief re-derivation:
+```
+deploy_gap_test.exs  → EXACTLY ONE test remaining
+it asserts           → status == 1   (synthetic 2020/2030 tmp_dir — proves the gauge FIRES)
+arm asserting exit 0 → NONE
+```
+⇒ ⭐⭐ **BOTH HALVES OF THAT FILE PROVED THE GAUGE CAN FIRE; NEITHER PROVED IT STAYS QUIET WHEN IT
+SHOULD.** ⛔ **The true-negative gap was never in the arm that was removed — it was in the FILE.**
+⚠️ **And I had praised the survivor as *"red-capable BY CONSTRUCTION rather than by circumstance"* —
+which is TRUE and is HALF the property.** ⭐ **Endorsing the good half by name is how the missing half
+stays invisible.**
+■ ⭐⭐ **THIRD FORM OF THE SAME GAP IN 24 HOURS:** ① my `--include` positive control (*could it MATCH* /
+*was it POINTED AT THE WHOLE CORPUS*) · ② the perturbation recipe (*could it FIRE* / *does it fire ONLY
+when it should*) · ③ a whole test file of fire-proofs with no quiet-proof. ⇒ **Each time the missing
+half was the boring one, and each time the present half felt like rigour.**
+
+### 7i7 — write the control as A RECONSTRUCTION, not as a requirement — and give it an escape hatch
+Arm 2 of the re-land is phrased as the round itself: **CONSTRUCT THE EXACT CONDITION THAT BROKE IT —
+a reference, then a recompilation, then the check — AND SHOW IT STAYING GREEN.**
+⇒ ⭐ **A requirement can be satisfied by a plausible-looking arm; a reconstruction cannot.** **Same
+shape as the perturbation recipe that worked: hand over the SEQUENCE, not the goal.**
+■ ⭐⭐ **The escape hatch is load-bearing: IF THE TEST VM CANNOT BE GUARDED THIS WAY AT ALL, SAY SO.**
+⛔ ***Do not invent a reference to make a CI arm possible*** — **which is exactly the pressure that
+produced the defect.** ⇒ **"This subject cannot carry this check" is a publishable result; without the
+hatch, the round is instructed to manufacture one.**
+■ ⭐ **And the baseline is fenced against a plausible correction: 3,493 is one LOWER than 3,494
+BECAUSE the arm was removed.** ⚠️ ***A number that moved for a good reason looks like a typo to
+whoever wasn't there*** — "helpfully" restoring it re-adds an expectation for a test that no longer
+exists.
