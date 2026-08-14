@@ -5209,3 +5209,33 @@ BY BEING WRITTEN.** ⇒ ⭐ **Drift is fixed by RE-DERIVING. Self-falsification 
 THE POSSIBILITY.** **Two different remedies.**
 ⚠️ **The tally hid that distinction until the eighth arrived** — ⭐ **an argument against treating the
 count of a class as if the count were the finding.**
+
+### 7h7 — ⭐⭐ FOUR DISTINCT CAUSES SHARE ONE OBSERVABLE — the reason nobody diagnosed it in eight days
+`CX-a3fe`'s pre-brief reading produced something better than a cause:
+```
+read_node_name → nil                   → :not_running
+Node.start     → {:error, _}           → :not_running    ← epmd? already distributed?
+Node.connect   → false | :ignored      → :not_running    ← cookie? name resolution?
+verify_serves_this_dir → {:mismatch,_} → :not_running
+```
+⇒ ⭐ **All four print the SAME SENTENCE to the user.** ⚠️ ***That is why nobody diagnosed this in the
+eight days since `CX-x8jk` landed — not because it is hard, but because the output cannot tell you
+which one happened.*** ⛔ **"Blocked" and "not there" share an exit code; here FOUR causes share a
+message.** ⭐ **So the durable acceptance is DISTINGUISH THE FOUR IN THE OUTPUT — even if fixing the
+reach is out of scope, a user who hits this must be able to tell WHICH step failed.**
+■ ⭐ **This is the parent ticket's own defect one layer down**: `CX-x8jk` closed on *refuses OR
+routes*, and the refusal branch turns out to be four refusals wearing one face.
+
+### 7h8 — the read-found candidate was REFUTED BY ITS OWN AUTHOR, twenty lines further down
+commonplace's `:ignored` candidate (**`Node.connect` returns `:ignored` when the caller is not
+alive**) **was wrong: `connect_to_serve/1` calls `Node.start(cli_name, :shortnames)` FIRST**, so the
+CLI does make itself distributed and the `:ignored` branch is defensive, not the live path.
+⇒ ⭐ **It refuted its own candidate BEFORE briefing, and then carried the refutation INTO the brief on
+purpose** — so the round doesn't rediscover it, **and as a worked example of what a plausible
+mechanism costs when written in as fact.**
+⚠️ ***The comment naming `:ignored` sits one line above the check*** — **which is exactly what made it
+feel already-proven.** ⭐ **A candidate that reads as obvious is the one most likely to enter a brief
+as a fact**, and the defence is structural: **CONFIRM-OR-CONTRADICT, never assumed.**
+■ ✅ **Two more disciplines in the same dispatch: the base named as *"the commit that adds this
+brief"*** (the eighth brief-fact's fix, one round later) **and the CLI's 118/0 baseline NOT carried
+forward because it is two days old — the round measures its own.**
