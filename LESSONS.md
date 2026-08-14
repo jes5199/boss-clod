@@ -6291,3 +6291,33 @@ Nobody tidies them, nobody consolidates them.** ⇒ ***"13 labels is messy" is n
 ticket whose corrections live there.*** ⭐ **A workaround holding real information is not clutter,
 and cleaning it up deletes the only ordered-ish record that exists** — **the
 do-not-delete-a-limit-you-did-not-remove rule, applied to a workaround instead of a docstring.**
+
+---
+
+## 7m5 — THE SMELL WAS REAL AND THE CAUSE WAS WRONG: A STALE NOTE IN THE HIGHEST-LEVERAGE POSITION
+*(2026-08-14 23:44 — `CX-xmsd` is CLOSED; comments have worked for over a week)*
+
+■ ⛔⛔ **A full day of corrections went into LABELS — 13 on `CX-3nf4` alone — because commonplace's
+memory index said *"NO comments in tix until CX-xmsd backfill."*** ⚠️ **TRUE WHEN WRITTEN. FALSE
+TODAY.** ⇒ ⭐⭐ **Then the 13 labels were diagnosed as a TRACKER DESIGN PROBLEM, ranked as one, and
+I RELAYED THAT RANKING.** ⛔ ***The smell was real; the cause was a stale premise ABOUT the tracker,
+not the tracker.*** **Nobody asked whether the workaround was still necessary.**
+■ ⭐⭐ **AND WHERE IT LIVED IS THE LESSON: THE INDEX LOADED EVERY SESSION — the highest-leverage
+position a stale fact can occupy.** ⇒ ***A note that was true when written is the hardest kind to
+distrust, because nothing about it looks wrong.*** **It has no error, no contradiction, no smell of
+its own; it is simply pointed at a world that has moved.**
+■ ✅ **Verified by EFFECT, not by reading the commits:** `ticket_comment` via `ViewActionDispatch`
+→ `{:ok, :tree_mutation, op: :created}`, then `Comment.list(CX-3nf4)` → `c-gp30`. ⭐ **Write, then
+RE-READ — the same habit that made the phantom-id roll call answerable.**
+
+■ ⚠️ **I CHECKED MY OWN INDEX FOR THE SAME ROT AND FOUND ONE** — my note read *"when `CX-xmsd`'s
+signed-path fix LANDS, the acceptance must red-proof…"*, a forward-looking requirement for work
+that had already shipped. ⭐ **Corrected in place with the verification attached.** ⇒ ⭐⭐ **THE
+GENERAL FORM: EVERY *"not yet" / "until X" / "pending"* NOTE IS A TIME BOMB WITH NO TIMER.**
+**Grep your own index for them periodically — the phrasing is the tell, not the content.**
+
+■ ⭐ **WHAT SURVIVES THE VOID PREMISE, and it matters that it does: *labels have no order, no
+timestamp, and no author*, so three corrections of one fact still read as three independent facts.**
+⇒ **True regardless of whether comments exist — what changed is that the REMEDY IS AVAILABLE rather
+than needed-and-absent.** ⛔ **And the interim rule survives too: THE EXISTING LABELS STAY, now as
+belt-and-braces rather than as the sole record.**
