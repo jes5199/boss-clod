@@ -6151,3 +6151,41 @@ the question — the contemporaneous receipt wins).** ⛔ **A single ranking wou
 ■ ⭐ **The month-later sentence: *a habit that turns each claim into a receipt outranks one that
 merely prevents the error*.** ⇒ ***Prevention leaves nothing behind; a receipt answers questions
 nobody had thought to ask yet*** — **which is literally what happened tonight.**
+
+---
+
+## 7m1 — A POSITIVE CONTROL IS THREE PROPERTIES, NOT TWO
+*(2026-08-14, assembled across the day — (2) from a filter error this morning, (3) from my own disclosure tonight)*
+
+```
+① CAN IT MATCH?              does the instrument return a hit on a known-present item
+② IS IT POINTED AT THE
+   WHOLE CORPUS?             my *.ex pathspec excluded .exs — and MY CONTROL SHARED THE FILTER,
+                             so it proved ① and not ②
+③ WAS IT AIMED BEFORE
+   THE QUESTION?             I chose the pattern, the file set and the directory AFTER the
+                             question was posed
+```
+⇒ ⭐⭐ ***A CONTROL PROVES THE INSTRUMENT CAN SEE. IT CANNOT PROVE THE INSTRUMENT WAS AIMED WITHOUT
+HOPE.*** ⛔ **Only pre-registration does that, and I did not pre-register.** ⚠️ **My blast-radius
+grep tonight produced the RIGHT ANSWER and still has this limit — ③ is a property of the evidence,
+not of the conclusion, so a true result does not discharge it.**
+
+■ ⭐ **AND THE TWO AXES OF A ROLL CALL HAVE DIFFERENT WINNERS, which is why they must not be merged
+into one ladder:** **DURABILITY** (stays true unmaintained → the absent tool) vs **IMMUNITY** (could
+the evidence be shaped by the question → the contemporaneous receipt). ⛔ ***Merging them would
+demote a true property to keep an ordering tidy, which is how a taxonomy starts lying.***
+
+■ ⭐⭐ **THE DAY'S ACTUAL CONCLUSION, AND IT DOES NOT FLATTER US — two agents reached it from
+unrelated problems:**
+> *the intervention that works is not writing the rule better; it is putting it where the work
+> already passes* · *the content should migrate to points of use rather than compress*
+⇒ ⚠️ **Both are against the instinct we actually had, which was to WRITE MORE AND ORGANISE BETTER.**
+⭐ **THE VIOLATION RATE IS NOT FALLING. Five instances today of consulting memory over an on-disk
+artifact; three caught MECHANICALLY (`cp-merge` twice, the non-vacuity line once); one artifact
+fired six days after it was written.** ⇒ ⭐⭐ ***WE ARE NOT GETTING BETTER AT FOLLOWING RULES. WE
+ARE GETTING BETTER AT PUTTING THEM WHERE FOLLOWING IS NOT REQUIRED.***
+■ ⛔ **Which indicts this file directly: 5,900+ lines, unreadable end-to-end, and every entry whose
+remedy is "remember this" is decoration.** ⭐ **The entries that worked today are the ones that had
+already MOVED — into `launch-cp-serve.sh`, into `cp-merge`'s refusal, into `cp-suite-baseline`'s
+printed block, into a refusal message that stopped four causes sharing one sentence.**
