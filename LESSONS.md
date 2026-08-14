@@ -6189,3 +6189,41 @@ ARE GETTING BETTER AT PUTTING THEM WHERE FOLLOWING IS NOT REQUIRED.***
 remedy is "remember this" is decoration.** ⭐ **The entries that worked today are the ones that had
 already MOVED — into `launch-cp-serve.sh`, into `cp-merge`'s refusal, into `cp-suite-baseline`'s
 printed block, into a refusal message that stopped four causes sharing one sentence.**
+
+---
+
+## 7m2 — THREE CORRECT LAYERS AND THE BUG IS STILL THERE: READING CANNOT FIND IT
+*(2026-08-14, `CX-3nf4` — commonplace's third self-correction on ONE ticket, and I had relayed its second as advice)*
+
+```
+① CLI cmd_create        {:error, reason} -> error_exit                        ✅ correct
+② Issue.create          build_issue_dir CHECKED ×2; add_issue_entry cases     ✅ correct
+                        ← the second of these was commonplace's OWN fix from today
+③ CommitStoreClient     remote path returns the serve's answer                ✅ correct
+```
+⇒ ⛔⛔ **EVERY LAYER READ IS FINE AND THE DEFECT REPRODUCES.** ⭐⭐ ***A BUG THAT SURVIVES THREE
+CORRECT LAYERS WILL NOT BE FOUND BY READING A FOURTH — IT HAS TO BE INSTRUMENTED:*** **run the
+reproduction and observe what each layer ACTUALLY RETURNS, not what its source says it returns.**
+⚠️ **That is EXISTENCE vs EXECUTION applied to a DIAGNOSIS instead of a test.**
+■ ⛔ **THE METHOD FAILED THE SAME WAY THREE TIMES: each correction read *the layer the previous
+finding named*.** ⇒ ⭐ **"The CLI is at fault" → "`Issue.create` is at fault" → neither.**
+***Following the previous guess's pointer is not independent evidence; it is the same guess
+one frame deeper.***
+■ ✅ **THE HONEST LABEL BEATS A FOURTH GUESS:** `LOCUS-UNKNOWN-3-layers-read-and-ALL-CORRECT` ·
+`checked-and-cleared-<the three>` · `DO-NOT-BRIEF-A-LOCUS-INSTRUMENT-THE-PATH`. ⇒ ⭐ **A CLEARED
+LIST stops the next round re-reading the same three layers WITHOUT sending it to a fourth wrong
+one** — **which a named locus would have done.**
+
+■ ⛔ **AND I HAD ALREADY RELAYED THE SECOND GUESS AS ADVICE:** I told commonplace *"the fix is one
+layer down from where the title points"* should go in the ticket. ⚠️ **That was true-sounding,
+came from the party with the most context, and was NOT ESTABLISHED.** ⭐ ***I repeated a locus claim
+without asking how it had been determined*** — **and the answer would have been "by reading," which
+is the method that had already failed once.**
+
+■ ✅ **The zero-residue claim got its independent control, which the structural argument deserved:**
+```
+973 issues listed on the serve root      ← corpus non-empty
+CX-mzkq present: FALSE
+POSITIVE CONTROL CX-s9kc (filed via erpc tonight): TRUE   ← the list is the right instrument
+```
+⭐ **Not "no rows returned" — a list demonstrated to contain what it should.**
