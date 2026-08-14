@@ -4933,8 +4933,11 @@ closed" and "the exposed credential is still valid" are DIFFERENT STATES, and on
 fixed.*** ⇒ **Asked jes once, with the scope measured so he can decide cheaply; dropping it after.**
 
 ### 7g52 — ⭐⭐ SAFETY BY ACCIDENT, THIRD INSTANCE
-Sol could not have read the serve's environ — `--unshare-pid` gives the sandbox a `/proc` with only
-its own 4 processes (**positive control: readable from outside the fence**).
+~~Sol could not have read the serve's environ — `--unshare-pid` gives the sandbox a `/proc` with only
+its own 4 processes.~~ ⛔ **THE ATTRIBUTION IS WRONG — corrected 2026-08-14 17:43Z, see 7j1.** Sol
+could not read it, but **NOT because of the pid flags**: `environ` needs `PTRACE_MODE_READ`, which
+fails across a USER namespace that unprivileged bwrap always creates. **The conclusion held; the
+cause named here did not.**
 ⛔ **But that flag was added for `CX-vtaa` to stop a round seeing SIBLING PROCESSES, not to protect
 another process's secrets.** ⇒ ⭐ ***"Happens to cover" is the property that disappears the day
 someone drops a flag for an unrelated reason*** — **and nothing would announce it.**
@@ -5414,3 +5417,43 @@ violation from inherited drift without extracting the file at base. **Same mecha
 `--no-compile` circulate: the workaround becomes the normal invocation.**
 ⛔ **Filed with the cleanup FIRST and a repo-wide `mix format` explicitly FORBIDDEN** — a blanket
 reformat would bury the one line that matters under hundreds that don't.
+
+### 7j1 — ⛔⛔ THIRD ATTRIBUTION, AND THE FIRST TWO WERE BOTH WRITTEN DOWN CONFIDENTLY
+S60 measured the fence on the HOST, same uid both sides, `uid_map` identity-mapped 1000→1000:
+```
+no bwrap                          cmdline R  status R  environ R        → FAIL(1)
+bwrap --unshare-pid --proc /proc  target absent from procfs entirely    → PASS(0)
+bwrap, --unshare-pid DROPPED      cmdline R  status R  environ EACCES   → CANNOT VERIFY(2)
+bwrap, --proc /proc DROPPED       cmdline R  status R  environ EACCES   → CANNOT VERIFY(2)
+```
+⭐⭐ **THE DISCRIMINATOR: `cmdline`/`status` need only same-uid; `environ` needs `PTRACE_MODE_READ`,
+WHICH FAILS ACROSS A *USER* NAMESPACE — and unprivileged bwrap always creates one.**
+⇒ ⛔ **TWO INDEPENDENT PROTECTIONS ARE STACKED, AND THE ONE CARRYING THE CREDENTIAL BOUNDARY IS NAMED
+BY NO FLAG AT ALL** — it is implicit in *using bwrap*. **The pid flags are a real second layer (the
+target isn't even in procfs), which is why the intact arm passes for a DIFFERENT REASON than the
+degraded arms fail.**
+⚠️⚠️ **THE ATTRIBUTION HISTORY: ① "the PID fence protects it" (mine, filed 7g52) → ② "it's the two
+flags together, and you named only one" (commonplace, and I agreed and blamed myself) → ③ neither.**
+⇒ ⭐⭐ **MY 08-13 MEASUREMENT WAS TRUE AND DID NOT ESTABLISH WHAT IT WAS USED TO ESTABLISH: it
+measured PID VISIBILITY; the claim was about CREDENTIAL READABILITY.** ⛔ ***A TRUE MEASUREMENT
+ANSWERING A NEIGHBOURING QUESTION IS THE HARDEST KIND OF WRONG TO CATCH*** — **it arrives WITH
+evidence, which makes it more convincing than the thing it replaces.**
+■ ⭐ **`CX-v1zh`'s own class eating its tail: the ticket exists because protections that hold BY
+ACCIDENT expire quietly — and we could not correctly name the accident's cause in three tries.**
+
+### 7j2 — ⭐⭐ THE DELIVERABLE SURVIVED BOTH WRONG ATTRIBUTIONS BECAUSE IT ASSERTS THE CAPABILITY
+⇒ ***A flag grep would have been wrong TWICE.*** ⭐ **That is the strongest evidence for
+test-the-capability-never-the-handle this workspace has produced, because it was validated BY OUR OWN
+ERRORS rather than by an argument.**
+■ ⛔ **But the consequence is in the script header rather than lost: THE CHECK'S RED IS REACHABLE ONLY
+IF THE FENCE STOPS BEING A USER NAMESPACE — not if someone drops a pid flag.** ⇒ **It does NOT guard
+what the ticket wanted guarded. It guards something STRONGER AND NARROWER, and the gap is NAMED
+rather than assumed closed.** ⚠️ **Open in `CX-q8f1`: whether to assert the pid-visibility layer
+separately, since the two are independent and the check currently collapses their loss into one
+CANNOT VERIFY.**
+■ ⭐⭐ **CORPUS GUARD WORTH COPYING: kill the target, re-run the PASS arm → `rc=2`, NOT 0.** ***A DEAD
+TARGET IS ALSO UNREADABLE, and would otherwise have passed for the wrong reason.***
+■ ⭐ **And the round's stop was CORRECT AND POSITIONAL: it could not produce either true positive from
+inside the sandbox and refused to report a capability failure it had not established.** ⇒ ⛔ **A ROUND
+FENCED INSIDE THE THING IT IS TESTING CANNOT PRODUCE THAT THING'S RED ARM** — *the brief should say
+where each arm has to run.*
