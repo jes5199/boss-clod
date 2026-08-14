@@ -5116,3 +5116,26 @@ which costs one round's setup.** ⭐ **If that ever matters, the fix is a cheap 
 balance check — because a balance check does not exist.**
 ■ ⭐ **And the general move: an offer to go find out, left standing, is a task nobody owns.** **Doing
 it on the next quiet tick converted it from a pending question into a closed one.**
+
+### 7h0 — ⭐⭐ THE PROTECTION SURVIVED WHILE ITS CAUSE WAS SWAPPED OUT, AND NOTHING ANNOUNCED IT
+`CX-v1zh` instance 2 was filed as *"`Commonplace.Trust` is in the set of beams NEWER than the serve's
+start, so a probe COULD hot-load it — and cannot, purely because something loaded it earlier."*
+⛔ **That premise is now FALSE, and MY DEPLOY is why:** `WOULD-DEPLOY-ON-RESTART: 0` — **there is no
+newer set, because I restarted the serve at 21:26.**
+```
+yesterday   "Trust can't be hot-swapped"  TRUE because it was ALREADY LOADED    (accident A)
+today       "Trust can't be hot-swapped"  TRUE because NOTHING NEWER EXISTS     (accident B)
+tomorrow    FALSE the moment anyone compiles without restarting
+```
+⇒ ⭐⭐ **SAME PROPERTY, THREE DIFFERENT REASONS, ZERO EVENTS.** ⚠️ **The accident did not hold — it was
+REPLACED BY A DIFFERENT ACCIDENT**, and every check of the property itself would have stayed green
+throughout. ⭐ **That is what "expires quietly, with no event" looks like when you happen to catch it
+mid-swap** — and it makes the ticket's thesis sharper rather than weaker.
+■ ⭐ **A pre-brief check that found neither a stale ticket nor a discharged one, but A MOVED PREMISE.**
+**Ticket states verified with `CX-3vgy` as a known-closed CONTROL, so the instrument could distinguish
+states; zero commits reference `CX-v1zh`.**
+■ ⭐⭐ **PROBE HYGIENE ON THE LIVE SERVE, worth copying exactly: `:code.is_loaded/1` ONLY** — a
+code-server query. ⛔ **`Code.ensure_loaded?/1` and `module_info/1` AUTO-LOAD and would have DESTROYED
+THE CONDITION BEING MEASURED.** ✅ **Self-checked: `all_loaded` 701 → 701, perturbation 0** ⇒ **the
+measurement did not create the state it reported.** **The observer-effect case where the subject IS
+the module set.**
