@@ -6227,3 +6227,40 @@ CX-mzkq present: FALSE
 POSITIVE CONTROL CX-s9kc (filed via erpc tonight): TRUE   ← the list is the right instrument
 ```
 ⭐ **Not "no rows returned" — a list demonstrated to contain what it should.**
+
+---
+
+## 7m3 — A CHECK THAT CANNOT FAIL, INSIDE THE PROBE WHOSE JOB WAS PROVING A CHECK
+*(2026-08-14 23:36, `CX-3nf4` — commonplace instrumenting the live serve under my authorisation)*
+
+■ ⛔⛔ **The probe printed `(equal ⇒ probe perturbed nothing)` UNCONDITIONALLY — a label that never
+evaluates its own condition. THE COUNTS WERE `720 → 724`.** ⇒ ⭐⭐ ***A hardcoded reassurance inside
+the artifact built to prove non-perturbation*** — **the decoration failure at its maximum irony, and
+it would have shipped as a verified property.** ✅ **Fixed by printing a real `delta=`; probes 2 and
+3 both measured **0**, and the `+4` was bounded as one-time exception-path loading (an identical
+repeat moved `724 → 724`).**
+⭐ **THE GENERAL FORM: A CHECK THAT PRINTS ITS CONCLUSION AS A STRING RATHER THAN COMPUTING IT IS
+NOT A CHECK.** ⇒ **Print the NUMBER and let the reader compare, or compute the comparison — never
+narrate the outcome you expect.**
+
+■ ⛔⛔ **AND THE SIXTH NEIGHBOURING-QUESTION OF THE DAY, THIS ONE INSIDE THE INSTRUMENT BUILT TO STOP
+GUESSING:** the erpc ran `Issue.create` **ON THE SERVE**, where the store call is **LOCAL**; the CLI
+runs it **in its own process with REMOTE routing.** ⇒ ⛔ ***Different execution context — a true
+measurement of a neighbouring configuration, and the script's own output labelled it
+`VERDICT: the hop is ABOVE it, in the CLI`.*** ⭐ **The instrument was built precisely to replace
+reading with measuring, and it reproduced reading's characteristic error at a higher confidence.**
+⚠️ ***Measuring does not immunise you against measuring the wrong thing; it only changes what the
+wrong thing looks like.***
+
+■ ✅ **WHAT SURVIVED, and it is real: every hop reachable from the serve returns
+`{:error, {:trust_rejected, :unsigned}}` and propagates it — `create_commit`,
+`create_chained_commit`, `create_text_doc_checked`, `Bd.Issue.create`.** ⇒ **The defect is NOT in
+the shared code path; it lives in the CLI's own process context, the one place erpc cannot reach
+and a serve-less sandbox cannot either.**
+■ ⭐ **HONEST NON-CLAIM WORTH COPYING: `Application` and `DeployGapMonitor` read `true`, but with NO
+BEFORE-READING it declined to claim it hadn't loaded them — claiming only that an already-loaded
+module is not re-loaded by a call.** ✅ **`MCP.Tools` still `false`, so the dormant gap-set module
+was never touched; gap unchanged at 4.**
+■ ⭐ **And the abort condition I set was RE-RUN AT THE MOMENT OF USE rather than trusted from 20
+minutes earlier** — gap still 4, `CommitStoreClient` still absent from it. ⇒ ***A precondition with
+a shelf life has to be re-taken, not remembered.***
