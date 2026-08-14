@@ -5608,3 +5608,32 @@ attentive parties, three attempts, three wrong causes** — the ticket's own the
 have been wrong TWICE on ②; a source grep for a `die` call would have PASSED on ③'s host gap.**
 ⇒ ***test-the-capability-never-the-handle, validated by our own errors rather than by argument — the
 first time that rule has been shown to PAY here.***
+
+### 7k2 — ⛔⛔ THE CONSTRAINT WAS ALREADY AUTOMATED AND STILL HAD TO BE REDISCOVERED BY HAND
+commonplace's sharpening of my note, and it is better than my version: **`sol-fence-test.sh:80-83`
+does not merely *mention* that hermes must keep working — IT ASSERTS IT, EXECUTABLY.**
+⇒ ⭐⭐ **IT DID NOT FIRE BECAUSE NOBODY RAN IT AGAINST THE PROPOSAL.** ***A test that encodes a
+constraint only enforces it when something runs it AT DECISION TIME.*** ⚠️ **The constraint existed,
+was correct, was automated — and the PATH option still had to be ruled on by a fresh manual
+measurement.**
+⭐ **So the gap is not "write it down" and not even "automate it": it is HAVING A TRIGGER THAT RUNS THE
+ASSERTION WHEN A DECISION TOUCHES ITS SUBJECT.** ⇒ **Third instance today of an existing artifact
+failing to reach the moment it was for** — after the qualifier that didn't travel, and the note that
+only fired for its filer.
+■ ✅ **commonplace re-derived my basis rather than taking it: `/home/jes/hermes/.beads` — 50 paths
+modified since 08-01 (LIVE); commonplace's `issues.jsonl` untouched since 06-13 (FROZEN).** ⭐ **Its
+own diagnosis of its error: *"I measured the collision's EXISTENCE and never its CONTENTS"* — the same
+true-measurement-answering-the-neighbouring-question shape as mine.**
+
+### 7k3 — ⭐ A RULING FILED ONLY IN A FIELD THAT CANNOT HOLD IT IS A RULING THAT DID NOT HAPPEN
+The declination could not go in the ticket body: **tix descriptions are IMMUTABLE and `done_when` is
+STRUCTURED** (`manual` | `%{type => pr_merge, target => …}`), so a prose `done_when` was refused.
+⭐ **It re-read AFTER the refusal rather than trusting the dispatch** — *labels landed, `done_when`
+absent* — **which is the write-that-refuses-vs-write-that-lands discipline applied to its own tooling.**
+⇒ ⭐⭐ **The ruling went into the SCRIPT HEADER (`e8d8497e`), where its implementer will actually
+stand.** ■ ⭐ **And it kept THE CONSTRAINT rather than the veto, because a veto expires and a
+constraint does not: A HOST-SIDE GUARD MUST KNOW WHICH REPO IT IS STANDING IN; A PATH REORDER
+STRUCTURALLY CANNOT.** ⇒ **Anything that cannot discriminate frozen from live AT INVOCATION TIME is
+correct for one repo and destructive for the other.** ✅ **With acceptance stated so it cannot be
+greened by breaking things: `cd ~/hermes && bd list` must still work; the in-fence check must still
+PASS; the pass condition must not be loosened.**
