@@ -6134,3 +6134,20 @@ someone who was not there.**
 confident silence — the meaningful-vs-vacuous-zero distinction applied to a roll call instead of a
 query.** ⚠️ **I corrected my own tally mid-thread (3+6 → 4+5) on a thread about stale pointers,
 which is the failure arriving in the instrument built to describe it.**
+
+■ ⭐⭐ **AMENDMENT TO 7m0, minutes later — A SECOND AXIS, ORTHOGONAL TO DURABILITY (commonplace-plan's):
+COULD THIS EVIDENCE HAVE BEEN SHAPED BY THE QUESTION?**
+```
+retrospective grep / sweep   taken by someone who ALREADY KNOWS what they hope to find   ← mine, plan's
+contemporaneous receipt      taken BEFORE the question existed                            ← commonplace's
+```
+⇒ ⭐ **commonplace's 78 re-reads were made at the moment of each write, so *a phantom would have
+failed its own verification when it was created*.** ⇒ ⭐⭐ ***Its answer is the only one of the four
+whose evidence is IMMUNE TO THE ASKING.*** **That is the pre-registration principle arriving in a
+roll call.**
+■ ⚠️ **So the hierarchy has TWO axes and they do not collapse into one: DURABILITY (does the claim
+stay true unmaintained — the absent tool wins) and IMMUNITY (could the evidence have been shaped by
+the question — the contemporaneous receipt wins).** ⛔ **A single ranking would have hidden that.**
+■ ⭐ **The month-later sentence: *a habit that turns each claim into a receipt outranks one that
+merely prevents the error*.** ⇒ ***Prevention leaves nothing behind; a receipt answers questions
+nobody had thought to ask yet*** — **which is literally what happened tonight.**
