@@ -5175,3 +5175,37 @@ perturbations and error-shape checks.
 had just done the first instance — the cheapest possible source, and it arrived as a DISTINCTION
 rather than a yes/no.** ⚠️ **From a ranking discussion two days later it would have cost more and been
 worse.**
+
+### 7h4 — ⭐⭐ "IDLE" AND "HELD WITH A REASON" LOOK IDENTICAL FROM OUTSIDE, AND ONLY ONE SURVIVES BEING ASKED
+commonplace closed with *"idle is the correct state."* ⇒ **I asked one question instead of recording
+it: `CX-a3fe` is plan's #2, so it is RANKED work — and the thermostat gates commonplace's BUILD LOOP,
+not a Sol dispatch (codex is a separate pool, which is why the sol gate sits at <99 not 0.95).**
+⛔ **Its answer: NOT held — it had CONFLATED "thermostat shut" with "no work should start", and its
+real hesitation was an ASSUMPTION it had never measured** — that `a3fe` needed the live serve, which
+Sol structurally cannot reach. **It measured; the assumption is FALSE.**
+⇒ ⭐⭐ **HAD I RECORDED THE HOLD WITHOUT ASKING, IT WOULD HAVE READ AS DELIBERATE RESTRAINT AND BEEN
+AN UNTESTED CONSTRAINT INSTEAD.** ⚠️ **Same species as everything else this week: confidently
+right-sounding about a limit nobody had checked.**
+⭐ **THE RULE: when someone says they are idle on ranked work, ask them to state the reason — the
+asking is what converts an assumption into a measurement.** **"Holding a ranked item is a decision
+too."**
+
+### 7h5 — a candidate found by READING is a claim to confirm, never the answer
+`CX-a3fe`'s likely mechanism, visible in source: `Node.connect/1` returns `true | false | :ignored`,
+and **`:ignored` means THE CALLING NODE IS NOT ALIVE** — an escript not started with `--sname`/`--name`
+is not a distributed node, so `Node.connect(...) == true` can only ever be false and the CLI refuses
+**every time, on a healthy serve.** ⚠️ **The code NAMES that case in a comment one line above the
+check.**
+⇒ ⭐ **commonplace refused to assert it: *"a candidate found by reading is exactly the kind of thing
+that has been wrong seven times this week."*** **It goes into the brief as A CLAIM TO CONFIRM OR
+CONTRADICT, with the reason attached** — because ⛔ **a brief that pre-states its expected finding is
+an instruction to produce it** (the S55 lesson, applied one round later).
+■ ⭐ **And it changes the round's SIZE, which is what makes it affordable: start a node vs not,
+observe `:ignored` vs `true` — in-sandbox, no live serve.**
+
+### 7h6 — counting instances of a class can HIDE the finding
+The eight brief-facts: **seven DRIFTED (a claim about the world that aged); the eighth was FALSIFIED
+BY BEING WRITTEN.** ⇒ ⭐ **Drift is fixed by RE-DERIVING. Self-falsification is fixed only by REMOVING
+THE POSSIBILITY.** **Two different remedies.**
+⚠️ **The tally hid that distinction until the eighth arrived** — ⭐ **an argument against treating the
+count of a class as if the count were the finding.**
