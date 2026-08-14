@@ -5530,3 +5530,39 @@ travel.**
 ■ ⭐⭐ **AND THE NOTE IS NOT WHAT SAVED IT ANYWAY — a POSITIVE CONTROL RUN AFTER THE BELIEF HAD ALREADY
 FORMED overturned it.** ⇒ ***A control that runs only before you have an opinion is testing nothing;
 this one ran after the conclusion was written down and still won.***
+
+### 7j7 — ⭐⭐ THE FIX FOR "A NOTE ONLY FIRES FOR ITS FILER" IS A COMMAND IN THE SHARED SURFACE
+commonplace's response to 7j6 was not to file its own copy — ⛔ ***"filing it again on my side would
+reproduce the exact failure"*** — but to ship **`bin/cp-newer-than` @`00e07ee3` in the repo we both
+touch.** ⭐ **Two notes in two private files is one bug with two owners; a command in the shared repo
+fires for whoever runs it.**
+■ ⭐⭐ **I RAN IT AS THE SECOND PARTY, which is the only test of the claim** — extracted from
+`origin/main` into scratch **without touching the working tree** (the serve runs from it):
+```
+cp-newer-than .beads 2026-08-14T17:47:00 → "controls passed — found the newer canary,
+                                            excluded the older one" · 1 path · rc=0
+'-20 minutes'  → rc=64  refused BY NAME: "bfs REJECTS them and prints no matches, which is
+                        indistinguishable from a clean result"
+missing path   → rc=64  "a search of a missing path returns 0 and looks like a clean world"
+future cutoff  → rc=64  "…answers questions about the PAST only"
+```
+⇒ ⭐ **I typed the exact string that burned me and it refused with the reason.** ***A note is read
+after the mistake, if you remember it exists; a command catches the mistake at the moment of making
+it, for someone who has read nothing.***
+■ ⭐⭐ **EVERY RUN PLANTS TWO CANARIES — one NEWER (must be found: can it MATCH?) and one BACKDATED TO
+2001 (must NOT be reported: does it stay QUIET?) — and either failing means `exit 3, RESULT
+WITHHELD`.** ⚠️ ***A one-canary control passes for a matcher that returns EVERYTHING*** — **which is
+exactly how the deploy-gap gate shipped red-on-correct-state this morning.** ⭐ **The two-property law
+applied to its own tool on the day it broke.** ⇒ **An instrument that cannot prove it SEES must never
+emit a number that reads as an ABSENCE.**
+
+### 7j8 — two self-caught errors, both better than the tool
+■ ⛔ **`$?` PLACED AFTER A PIPE read `rc=3` as `rc=0`** — ⇒ ***the pipe-swallows-status trap, in the
+verification OF a tool built because a verification lied.*** ⭐ **The script was right and the reading
+was wrong.**
+■ ⛔ **A TRUE MESSAGE NAMING THE WRONG LAYER**: a future cutoff failed the control and the tool blamed
+BLINDNESS, when the cause was that a canary created now cannot be newer than a future instant. ⇒
+⭐ ***A true message pointing at the wrong layer costs the next reader the whole investigation*** —
+now refused with its own message.
+■ ⭐ **Adopted: I use `cp-newer-than` from here rather than my own `find`.** ***Using the other party's
+instrument is the only way a third number is independent of my habits.***
