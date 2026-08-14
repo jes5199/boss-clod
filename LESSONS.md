@@ -6061,3 +6061,40 @@ files", rc=0, VISIBLY`. ⇒ ⛔ ***A gate that checks zero files and reports suc
 ■ ⚠️ **Also logged: the check failed with *"Could not find an SCM for dependency :phoenix"* — rc=1
 and NO file list.** ⇒ ⭐ ***Never branch on rc alone when the tool can fail BEFORE it starts*** — the
 discriminator was the absent list, not the code.
+
+---
+
+## 7l9 — THREE AGREEING SIGNALS, ALL TRUE, ALL MEANINGLESS: `cmp` ON TWO EMPTY FILES PASSES FOREVER
+*(2026-08-14, my own acceptance run before installing the `bd` guard)*
+
+```
+① STDOUT: IDENTICAL ✅     ③ STDERR: IDENTICAL ✅     guard rc=1 == direct rc=1
+NON-VACUITY: stdout 0 bytes    ← the stub needed BD_STUB_CALL_LOG and I had not set it
+```
+■ ⛔⛔ **Both sides failed IDENTICALLY, so every signal agreed and none of them meant anything** —
+⭐ ***an equality between two EMPTY things, with a matching exit code to make it look deliberate.***
+⚠️ **Three independent-looking confirmations, and their agreement was CAUSED by the shared failure
+rather than by the property under test.**
+■ ✅ **Caught only by the non-vacuity line — the standing-list item I had added FOUR HOURS EARLIER
+(*read that the control came back non-zero*), firing in my own run.** ⭐ **Shortest gap all day
+between writing a rule and being saved by it.**
+■ ⭐ **THE MECHANICAL FORM, since "be careful" does not fire: whenever the assertion is an EQUALITY,
+assert the SIZE of the compared thing in the same breath.** `cmp a b && [ -s a ]`. ⇒ ***A comparison
+proves sameness; only a size proves there was something to compare.***
+
+■ ⭐⭐ **AND THE OTHER HALF OF THE SAME INSTALL — I WROTE AN ACCEPTANCE CHECK THAT WAS WRONG AND THE
+TOOL CORRECTED ME:** my check ⑤ said *"the 69-repo count reproduces from the installed copy."*
+⛔ **`bd --count-would-refuse` counts **TRAFFIC** — repos actually invoked in — not a filesystem walk.**
+⇒ ⭐ ***My 69 was the right number for "would this be red today" and the WRONG number for "is it safe
+to flip."*** **Same guard, two questions.** ✅ **Only a repo somebody actually runs `bd` in can be
+broken by enforce; counting untouched repos would delay the flip for no safety gain.**
+■ ⚠️ **I probed the semantics instead of filing a bug against my own expectation.** ⭐ **The reflex
+worth keeping: when an artifact disagrees with your acceptance criterion, FIND OUT WHAT IT MEASURES
+before deciding which of you is wrong.**
+
+■ ✅ **Install hygiene that made it a non-event: real binary HARDLINKED (same inode) so `bd` was never
+absent and no second 178 MB landed on a disk at 78%; guard written to a temp name and `mv`-ed in;
+`PATH` untouched.** ⭐⭐ **AND THE ROLLBACK WAS REHEARSED AFTER INSTALL, NOT ASSERTED** — restore →
+`cd ~/hermes && bd list` lists live tickets → reinstall → list again. ⇒ ***A guard whose escape hatch
+has never been used is not known to have one.*** ⭐ **That is `sol-fence-test.sh:80-83`, written
+08-08, executed for the first time at the moment it actually applied.**
