@@ -5695,3 +5695,45 @@ is no time to discover it is wrong.
 `config.exs`), **so an env override is a REAL kill switch rather than a rebuild — it just had to be
 added.** ⇒ **Folded into the safety fix: `COMMONPLACE_DEPLOY_GAP_MONITOR=0` ⇒ no child; unset ⇒ on,
 preserving the round's intent — demonstrated in BOTH positions before handover.**
+
+---
+
+## 7k9 — THE MONITOR'S FIRST LIVE FAULT WAS MINE, AND SILENCE-AT-ZERO IS AN AMBIGUOUS OBSERVATION
+*(2026-08-14, deploying `CX-beph` @`00368fb7` onto the :5199 serve)*
+
+■ ⛔ **I RECONSTRUCTED A LAUNCH LINE FROM MEMORY WHILE THE ARTIFACT WAS ON DISK.** The working
+launcher ended `elixir --sname commonplace_dev -S mix phx.server`; I wrote `mix phx.server`.
+⇒ **The serve came up FINE — :5199 bound, HTTP 200, log clean by eye.** ⚠️ **Nothing about a
+healthy-looking boot distinguishes it from a correct one.**
+```
+[error] DEPLOY GAP MONITOR FAILED — the serve's deploy gap is unknown (gauge exit 2).
+cp-deploy-gap: REFUSING — no running commonplace serve found.
+```
+⭐ **`bin/cp-deploy-gap` identifies the serve as `comm==beam.smp AND cmdline contains
+commonplace_dev`. No node name ⇒ the gauge cannot SEE the serve it is running inside.**
+⭐⭐ **THE NODE NAME WAS LOAD-BEARING FOR A REASON THAT APPEARS NOWHERE NEAR IT** — it reads as
+remsh convenience, and it is also the gauge's entire identification key. ⇒ **Fixed the way a rule
+survives: `--sname commonplace_dev` is now in `/home/jes/boss-clod/launch-cp-serve.sh` with a
+comment naming the consequence, because a remembered rule does not fire and a filed one does.**
+
+■ ⭐⭐ **THE MONITOR'S UNKNOWN BRANCH — BUILT HOURS EARLIER, ARGUED OVER ALL DAY — CAUGHT IT ON ITS
+FIRST PRODUCTION BOOT, ON A FAULT NOBODY DESIGNED IT FOR.** ⛔ **Note what it did NOT do: it did not
+crash the serve, and *it did not report 0*.** ⚠️ ***Reporting 0 is the failure mode that would have
+been indistinguishable from success*** — an unmeasurable serve reading as a serve with nothing
+pending. **That is why "child survives AND LOGS THE UNKNOWN" was worth insisting on over "child
+survives".**
+
+■ ⭐⭐⭐ **THE PROPERTY TO CARRY FORWARD: THE MONITOR IS SILENT AT GAP 0.** ⇒ ⛔ ***"gap is 0" and
+"the monitor is dead" are THE SAME OBSERVATION.*** **Absence of a line proves nothing.**
+⇒ **The only test that separates them is to CREATE the condition:**
+```
+gap 0        → silent            (agrees with an out-of-band gauge run: 0)
+touch 1 beam → unprompted [error] DEPLOY GAP DETECTED … 1 beam(s) newer than that start
+restore      → 0, md5 VERIFIED UNCHANGED (mtime moved, content never did)
+```
+⭐ **Whoever next asks "is the monitor working?" must touch a beam. Reading the log cannot answer it.**
+
+■ ✅ **Kept: allowlist environ (27 vars, `ANTHROPIC_API_KEY` 0 with `HOME` as positive control),
+dist on `127.0.0.1` never `0.0.0.0`, stop by NUMERIC pid.** ⭐ **New: the live log moved from a
+session scratchpad to `/home/jes/boss-clod/logs/commonplace-serve.log`** — **the previous serve's
+log was one session-cleanup away from vanishing, which nobody had noticed because it was working.**
