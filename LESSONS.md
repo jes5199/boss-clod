@@ -5242,9 +5242,9 @@ forward because it is two days old — the round measures its own.**
 
 ### 7h9 — ⛔⛔ THE GATE WE SHIPPED AT 15:16 FIRED ON A BENIGN CONDITION AT 15:5x
 `deploy_gap_test` (landed with `CX-v1zh`, S57) **failed on S58's first core run**:
-*"`WOULD-DEPLOY-ON-RESTART: 9 beam(s) newer than that start` — Mix had reconsolidated protocols
-after VM start."* ⇒ **Protocol consolidation writes `.beam` files AFTER the test VM boots**, so the
-gauge counts 9 newer beams and the assertion fails. **Sol's SECOND full run passed 3,494/0.**
+~~*"Mix had reconsolidated protocols after VM start"*~~ ⛔ **THAT MECHANISM WAS WRONG — superseded
+16:36Z by measurement, see below.** The reported symptom was
+*"`WOULD-DEPLOY-ON-RESTART: 9 beam(s) newer than that start`"* and the assertion failed. **Sol's SECOND full run passed 3,494/0.**
 ⇒ ⭐⭐ **IT IS INTERMITTENT, WHICH IS THE WORST PROPERTY A NEW GATE CAN HAVE** — commonplace's own
 rule, *a gate that fires on correct state is worse than no gate*, firing against it **forty minutes
 after landing.**
@@ -5274,3 +5274,37 @@ on untouched code: two different causes collapsing to one observable.**
 was to treat an unverifiable connection as reachable, or bypass the refusal to make routing appear to
 work.* **Neither done.**
 ■ ✅ **It MEASURED the CLI's 118 baseline rather than taking commonplace's** — 118 → 121.
+
+### 7i1 — ⛔⛔ THE MECHANISM WAS STRUCTURAL, NOT A RACE: `mix test` BOOTS THE VM AND *THEN* COMPILES
+Reproduced on commonplace's box: **`3,494 / 1 failure / rc 2`, 10 beams.**
+```
+gate VM booted ~16:22:0x
+Elixir.Commonplace.MUD.PlayerSession.beam  mtime 16:22:06   ← written AFTER the VM booted
+Elixir.Commonplace.Bd.Invariants.beam      mtime 16:22:06
+```
+⇒ ⭐⭐ **EVERY BEAM RECOMPILED DURING THE RUN IS NEWER THAN THE VM'S START BY CONSTRUCTION.** ⚠️ **It
+passed only when nothing needed recompiling** — ⛔ **which is why it LOOKED intermittent. Not a rare
+race: a WRONG REFERENCE that is invisible on a no-op build.**
+■ ⛔ **I amplified the protocol-consolidation explanation before it was measured. Struck in 7h9 above
+rather than deleted.** ⭐ **The corrected version is better: the benign cause is not one exotic build
+step, it is COMPILATION ITSELF.**
+
+### 7i2 — ⭐⭐ THE WARNING WAS IN WRITING, FROM THE BUILDER, AND WE SHIPPED THE THING IT WARNED ABOUT 40 MINUTES LATER
+Sol's S57 stop-and-report answer: ***"the exact-beam enumeration and nonzero assertion GENERALIZE;
+the VM-start/beam-mtime REFERENCE DOES NOT."***
+⇒ ⛔ **The CI arm WAS that reference, transferred to a different subject.** ⚠️ **We had the constraint,
+in writing, from the party who did the work — and filed it as a note about INSTANCES 2 AND 3 rather
+than reading it as a constraint on INSTANCE 1'S OWN ADAPTATION.**
+⭐ **A caveat scoped to "future work" is not read as applying to the work in hand.** ⇒ **When a builder
+says a component does not generalise, the first place to check is the round you are currently
+shipping.**
+■ ⭐ **Both of us had the same gap in the same shape: I proved the gate COULD fire and never that it
+fires ONLY when it should; commonplace wrote "red-first by perturbation" and got the true positive
+while never asking for the TRUE NEGATIVE.** ⇒ ⭐⭐ **The two-property lesson from last night's
+`--include` — can it MATCH, is it POINTED AT THE WHOLE CORPUS — recurring one day later in a GATE
+instead of a GREP.** **A positive control with no negative control beside it.**
+■ ⭐ **REMOVAL chosen over a quick re-reference, deliberately: *a fast fix to a gate that was itself a
+fast fix is how the second one ships wrong too*** — and the right test-env reference is not yet known.
+**The mechanism is KEPT** (`--assert-empty`, per-beam enumeration, and the synthetic 2020/2030 test
+that is red-capable by construction and does not depend on the real build). ⇒ **The gauge stays
+correct for the SERVE, which does not compile after it starts; only the test-VM adaptation was wrong.**
