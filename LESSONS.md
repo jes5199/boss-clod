@@ -5995,3 +5995,41 @@ heartbeat — the writes are discrete and 150s may be under the interval.** ⇒ 
 comparison is the evidence; the null test is not, and saying which one carries the claim is the
 difference between a verification and a story.*** **What I stand behind is the narrow thing: no
 ticket data moved, and nothing appeared that was not dolt's statistics subsystem.**
+
+---
+
+## 7l8 — DECIDED: THE `bd` GUARD IS NOT INSTALLED. THE ARTIFACT IS SOUND AND THE HOST IS NOT READY.
+*(2026-08-14, `CX-3zzx` @`316806ab` — installation was mine to call; recorded as DECIDED, not open)*
+
+■ ✅ **The guard does what the veto demanded, verified by me as second party rather than taken from
+the round:**
+```
+/home/jes/commonplace   rc=1  REFUSED    archive is frozen (declared by .bd-archive-policy)
+/home/jes/hermes        rc=0  PERMITTED  live-shaped .beads/dolt, no frozen declaration
+```
+⭐ **And `sol-s65/wt` refuses as FROZEN because the worktree carries the declaration — the declared
+fact travelling with the checkout, working.**
+
+■ ⛔⛔ **BUT THE BLAST-RADIUS MEASUREMENT IS THE DECISION, AND I TOOK IT BEFORE TOUCHING ANYTHING:**
+```
+repos on this box with a .beads dir        84
+the guard would REFUSE                     69
+   …of those, .beads is NON-EMPTY          69   ← every one is a repo that actually uses bd
+```
+⇒ ⭐⭐ ***INSTALLING WOULD HAVE BEEN RED ON CORRECT STATE IN 69 PLACES*** — **the inverted-gate class
+that this repo has been logging all day, and I would have been the one installing it.**
+■ ⚠️ **Not abandoned scratch:** `/home/jes/.beads` holds an **open** SQLite db (`beads.db` + `-wal` +
+`-shm`); three of wimble's four worktrees are unclassifiable while the fourth permits **only because
+it happens to have `.beads/dolt`** — ⛔ **same project, same tooling, opposite verdicts.**
+■ ⭐ **THE GAP IS NOT THE DESIGN — fail-closed is correct and was justified. THE DECLARED-FACT CORPUS
+DOES NOT EXIST YET: exactly one repo on this box declares a policy.** ⇒ ***A guard that decides by a
+declared fact needs the declarations to exist before it can be installed*** — **the design and its
+preconditions are separate deliverables, and shipping the first does not deliver the second.**
+
+■ ⭐⭐ **TWO VERDICTS, RECORDED SEPARATELY ON PURPOSE:** *the artifact is sound* · *the host is not
+ready*. ⚠️ ***"Not installed" must not decay into "the guard was wrong"*** — that decay is how a
+correct piece of work gets rebuilt from scratch six weeks later.
+■ ✅ **Nothing was installed, moved, or backed up — there was no state to roll back BECAUSE the
+measurement came first.** ⭐ **What would change the answer is a FACT (the unclassifiable set
+shrinking to repos where refusing is correct), not an argument — and how to get there is a ranking
+question for plan, not a boss-clod one.**
