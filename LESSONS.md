@@ -5931,3 +5931,36 @@ printed a BEFORE line and NO drift warning — the suite did NOT recreate `root`
 ⇒ **Same suite, same seed, different self-mutation.** ⚠️ ***That is better evidence for the
 oscillation than the original observation was***, and it arrived only because the tool now prints
 the BEFORE reading unprompted.
+
+---
+
+## 7l6 — A `head` IS A VIEW, NOT A COUNT — AND A FALSE ZERO SAT TEN SECONDS FROM A TRUE ONE
+*(2026-08-14, `CX-y8j6` premise corrected by its own author: not 1 unformatted file, **331**)*
+
+```
+tracked .ex/.exs        957
+UNFORMATTED             331   ← 35% of the codebase
+positive control        a known-clean file returns FORMATTED
+```
+■ ⛔ **`mix format --check-formatted | head -20` showed ONE filename followed by its diff, and THE
+HEAD OF A TRUNCATED LIST WAS REPORTED AS THE LIST.** ⇒ ⭐⭐ ***The output interleaves diffs, so the
+first screen LOOKS like a complete answer*** — **the truncation is invisible precisely because the
+per-item output is long.** ⭐ **Same family as the `--include` miss and the `apps/*/lib` pathspec:
+the instrument was pointed at a fraction and reported as if at the whole.**
+■ ⚠️⚠️ **AND THE RECOUNT PRODUCED A FALSE ZERO: `grep -cE '^/home'` returned `0` because the paths
+are ANSI COLOUR-CODED, so the line does not start with `/home`.** ⇒ ***A false zero and a true zero,
+in the same command, ten seconds apart.*** ✅ **Caught only by a positive control on a filename
+already known to be in the list.** ⛔ **Piping human-facing tool output through `grep '^…'` assumes
+a plain-text contract that colourised output does not honour.**
+
+■ ⭐⭐ **THE COUNT BEING WRONG CHANGED THE REMEDY, WHICH IS WHY IT OUTRANKS THE COUNT:** the ticket
+proposed *"format the one offending file as its own commit."* **At 331 files that is a REPO-WIDE
+FORMAT** — ⛔ **forbidden by standing rule, and a diff nobody can review.**
+⇒ ⭐ **The design that fits: GATE ONLY THE FILES A COMMIT TOUCHES, not the tree.** **Green today,
+catches new drift immediately, never demands a 331-file reformat.** ⚠️ **A tree-wide gate would be
+RED ON CORRECT STATE from the moment it lands — the inverted-gate class again, at 331× scale.**
+■ ⭐ **And 35% is not drift — it is A CODEBASE THAT HAS NEVER HAD A FORMAT GATE**, consistent with
+the verified absence of any format step in `ci.yml`. ⇒ ***A number that seems like a detail can be
+the difference between a one-file fix and a policy decision.***
+■ ✅ **Correction recorded in LABELS because the ticket description is immutable** — ⭐ **so the
+premise change is visible to the next reader instead of living only in a chat message.**
