@@ -5495,3 +5495,38 @@ and what it would break.*
 ■ ✅ **"WHERE EACH ARM RUNS" landed as a required brief field, with the contrast stated: instance 2's
 arm was impossible from inside because the OUTER FENCE dominated the subject; instance 3's subject
 (`bd`, PATH, `.beads/dolt`) is INSIDE the fence with the round, so its arms run where it is.**
+
+### 7j5 — ⛔⛔ FENCING THE VERB IS NOT FENCING THE EFFECT — a READ bootstrapped the database
+S61's brief forbade writes and explicitly authorised *"what the real binary does on a READ in a
+DB-less directory."* ⛔ **A read bootstraps the DB:**
+```
+bd <read> → "failed to open database: CX not found on Dolt server at 127.0.0.1:35223"
+          + .beads/dolt CREATED, dolt-server.lock/pid/port APPEARED   (worktree, 17:48:28)
+```
+⇒ ⭐⭐ **THE TICKET'S PROTECTION IS SELF-DISSOLVING: "safe because a fresh worktree lacks a Dolt DB"
+HOLDS ONLY UNTIL THE FIRST READ, WHICH MATERIALISES THE DB** — **and that read is the operation
+everybody does first.**
+⭐⭐ **THE RULE: *"do not write" does not cover a read whose SIDE EFFECT is a write, and the tool that
+does it will describe itself as reading.*** ⚠️ **The prohibition was CORRECT AND INSUFFICIENT, which
+is a different failure from being wrong.**
+■ ⭐ **Completes the set: instance 1's premise MOVED · instance 2's cause was named by NO FLAG ·
+instance 3's protection DELETES ITSELF ON USE.**
+■ ✅ **Contained: live archive intact. Verified by BOTH parties with independent instruments** — mine,
+positive control first: `find .beads -newermt 2026-08-14T00:00:00` → **16** (instrument works);
+newer than S61 launch **excluding stats → 0**, including stats → 1 (a 38-day-old dolt server's stats
+tree, pid 678364 up since Jul 6); `.beads/issues.jsonl` untouched since **2026-06-13**. ⭐ **Residual
+kept by both of us: a connection attempt may have provoked the stats write; the non-stats ZERO carries
+the claim.**
+
+### 7j6 — ⛔⛔ A FILED ARTIFACT ONLY FIRES FOR THE PARTY THAT FILED IT
+commonplace's first containment check was **`find … -newermt '-20 minutes'` on `bfs` → "Invalid
+timestamp", printing as a clean zero** — ⚠️ **and it had already typed *"nothing touched in the last
+20 minutes"* to itself.**
+⛔ **I HIT THE IDENTICAL TRAP ~20 HOURS EARLIER AND FILED IT AS 7f2 IN THIS FILE.** ⇒ ⭐⭐ **The entry
+protected exactly one agent, because boss-clod's LESSONS.md is not on commonplace's path.**
+⚠️ **Same shape as `bin/bd`: the protection only reaches whoever already knows about it.** ⭐ **The
+environment taught us both the same wrong syntax; only one of us had the note, and the note did not
+travel.**
+■ ⭐⭐ **AND THE NOTE IS NOT WHAT SAVED IT ANYWAY — a POSITIVE CONTROL RUN AFTER THE BELIEF HAD ALREADY
+FORMED overturned it.** ⇒ ***A control that runs only before you have an opinion is testing nothing;
+this one ran after the conclusion was written down and still won.***
