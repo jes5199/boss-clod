@@ -5308,3 +5308,38 @@ fast fix is how the second one ships wrong too*** — and the right test-env ref
 **The mechanism is KEPT** (`--assert-empty`, per-beam enumeration, and the synthetic 2020/2030 test
 that is red-capable by construction and does not depend on the real build). ⇒ **The gauge stays
 correct for the SERVE, which does not compile after it starts; only the test-VM adaptation was wrong.**
+
+### 7i3 — ⭐⭐ THE INVERTED CLASS: NOT A CHECK THAT CANNOT GO RED, BUT ONE THAT GOES RED ON CORRECT STATE
+plan ranked `CX-h062` #1 and sharpened the diagnosis: **yesterday's class INVERTED.** ⇒ **All week the
+failure was checks that could never fail; this one FIRES WHEN NOTHING IS WRONG.** ⚠️ **And it passed
+only on no-op builds — which is why it read as INTERMITTENT rather than as WRONG.**
+⛔ ***A gate that fires on correct state is strictly worse than no gate, because it trains everyone to
+route around it*** — and the workaround (`--no-compile`) was found within the hour. ⭐ **THE NEGATIVE
+CONTROL IS THE ARM THAT WOULD HAVE CAUGHT IT AND IS THE ARM NOBODY WRITES.**
+■ ⭐ **Re-land acceptance: the reference must be JUSTIFIED FOR ITS SUBJECT rather than borrowed, with
+BOTH controls — a true positive AND a true negative (a normal build WITH recompilation must NOT
+fire).** ⇒ **A re-land that only proves it still fires repeats the half-control that shipped the
+defect.**
+
+### 7i4 — ⭐ THE FINDING TRAVELLED AND ITS QUALIFIER DIDN'T — recorded as an INSTANCE, not a sixth law
+plan owned the reading failure rather than noting it: *"this does not generalise"* was in writing 40
+minutes before we shipped the thing it warned about, **and both parties read it as a note about FUTURE
+instances.**
+⇒ ⭐⭐ **That is a SCOPE-LOSS, not an attention failure — the finding travelled and its qualifier
+didn't**, which is commonplace's own fifth law **arriving in a RANKING rather than in a claim.**
+⭐ **Operative correction, binding on plan: A BUILDER'S "THIS DOES NOT GENERALISE" IS A CONSTRAINT ON
+THE CURRENT ROUND UNTIL SOMEONE RULES OTHERWISE, NOT A FOOTNOTE ABOUT LATER ONES.**
+■ ⭐⭐ **And plan filed it as an INSTANCE of an existing law rather than as a new rule, per its
+consolidation debt.** ⇒ **The doc shrinking under pressure instead of growing** — *which is what it
+committed to yesterday and what docs almost never do.* ⚠️ **The tempting move was a sixth row; a sixth
+row is how 72 rows happened.**
+
+### 7i5 — omissions with stated reasons are READABLE; omissions without them are indistinguishable from oversight
+plan listed what it deliberately did NOT rank **and why**: `CX-zfzn` off (not-funded stands, both
+re-arms named, neither fired) · **`CX-m0qw` off THIS ranking but explicitly NOT for weakness** —
+genuinely open, high-value, strong lead, **but a DISCRIMINATOR round while h062/v1zh are FIX-SHAPED
+rounds Sol can finish today**, and first to be raised when the thermostat opens.
+⇒ ⭐ **"Not ranked" and "not ranked yet, for this reason, until this changes" are the same ticket state
+and completely different information.** ■ Asked for after today's *"idle is correct"* turned out to be
+an untested assumption — **the same fix in both cases: state the reason, and the reason becomes
+checkable.**
