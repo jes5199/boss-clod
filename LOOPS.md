@@ -179,3 +179,61 @@ rate. It only shortens the gap between *"commonplace becomes free"* and *"the ne
 
 ⚠️ **Cost:** ~18 turns/hour instead of ~10, and almost all of them are a script run plus
 silence. Cheap against a 7d window sitting at 0.93x.
+
+
+## 4. Plan queue nudge — DAILY (added 2026-08-14, jes: "let's have a daily scheduled nudge for commonplace-plan to queue up more work")
+
+**Script:** `/home/jes/boss-clod/plan-nudge.sh` · **heartbeat:** `.heartbeat-plan-nudge` ·
+**marker:** `.plan-nudge-last` · **hold:** `.plan-hold` (states its own age; warns past 24h)
+
+```
+/loop 6h run /home/jes/boss-clod/plan-nudge.sh (capture stderr too — it explains every declined check).
+
+If it prints nothing on stdout, do nothing and stay silent.
+
+If it prints a line starting with PLAN_NUDGE|, send commonplace-plan this via clod-squad:
+
+Daily queue check — is there ranked, unblocked work available? If QUEUE.md's ranked
+set is empty or everything on it is blocked, that is the thing to fix: rank what is
+filed but unranked, and say explicitly if something is deliberately NOT being ranked
+so it reads as a decision rather than an oversight. You own the ORDER; commonplace owns
+the REVIEW (jes, 2026-08-09).
+
+State I can measure and will include: what is in flight, what is filed-and-unranked,
+current burn ratios and which POOL each governs. Anything I send is inventory, not a
+ranking — I do not attach priority.
+
+⭐ SOL IS NOT GATED BY THE THERMOSTAT — codex is a separate pool. A Sol-dispatchable
+item is worth more on a shut-thermostat day than one that waits for it.
+
+Do not tell jes about a routine plan nudge. Message him if the script exits 2 twice in
+a row, or if plan reports something that needs him.
+```
+
+### Why this loop is NOT gated at the epic thermostat's 0.95
+⛔ **epic-nudge asks commonplace to BUILD; this asks plan to RANK.** Ranking is cheap, and
+it is what unblocks **Sol — which runs on codex, a SEPARATE POOL** from the Anthropic quota
+the thermostat measures.
+⭐ **Gating ranking on the build threshold empties the queue exactly when Sol most needs
+ranked work.** Observed 2026-08-14: the thermostat sat shut ~18h while Sol was idle and
+unaffected, and the only missing input was a rank.
+⇒ It respects a **hard ceiling instead** (`UTIL_MAX=90`, 7d absolute utilisation) — *a ratio
+says "faster than sustainable", a ceiling says "nearly out"*, and they are different questions.
+
+### Cadence
+`COOLDOWN_MIN=1200` (20h), not 1440. ⚠️ **A 24h cooldown against a ~daily tick silently
+becomes every OTHER day** — the same off-by-one-tick defect that turned epic-nudge's
+intended 60 min into ~90. Run the loop more often than daily (6h is fine); the cooldown
+is what makes it daily.
+
+### Gate demonstrated RED and GREEN at install (2026-08-14)
+⭐ *A gate nobody has seen fail is not known to work, and one that fires on correct state is
+worse than no gate.* Both directions shown before first use:
+```
+DRY=1 UTIL_MAX=50   → DECLINED: 7d utilisation 66.0% >= 50% hard ceiling      (red)
+DRY=1 + .plan-hold  → DECLINED: plan hold, HELD 0m — <reason>                 (red)
+DRY=1 WORKER=nosuch → CANNOT DETERMINE: no tmux window named 'nosuchwindow'   rc=2
+DRY=1               → PLAN_NUDGE|plan idle, 7d utilisation 66.0% < 90%        (green)
+```
+⭐ `DRY=1` evaluates the gate **without touching the marker** — verified: `.plan-nudge-last`
+still absent after four dry runs. **The marker records "gate passed", not "nudge sent".**
