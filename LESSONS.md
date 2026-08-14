@@ -6033,3 +6033,31 @@ correct piece of work gets rebuilt from scratch six weeks later.
 measurement came first.** ⭐ **What would change the answer is a FACT (the unclassifiable set
 shrinking to repos where refusing is correct), not an argument — and how to get there is a ranking
 question for plan, not a boss-clod one.**
+
+■ ⛔⛔ **CORRECTION TO 7l6, SAME EVENING — `331` WAS ITSELF A NARROW CORPUS. THE TRACKED TRUTH IS `371` OF `957`.**
+```
+bare  mix format --check-formatted     → 331   ← THE FORMATTER'S CONFIGURED INPUTS
+all tracked .ex/.exs passed EXPLICITLY → 371
+root .formatter.exs covers mix.exs + config/*.exs, delegating to apps/*
+⇒ that union is 40 FILES SHORT OF WHAT GIT TRACKS
+```
+⇒ ⭐⭐ **AND THE TELL WAS IN MY OWN RELAY: `331` WAS PAIRED WITH A `957` DENOMINATOR — a numerator
+from the formatter's input set over a denominator from git.** ⚠️ ***Two corpora in one ratio, which
+made the mismatch LOOK like the answer.*** ⛔ **I repeated that ratio all evening.**
+■ ⭐⭐ **THIRD INSTANCE TODAY OF EXACTLY THIS, AND THE NUMBER WAS TRUE EVERY TIME:**
+```
+morning   `--include` missing        → 0 unchecked callers, truth 1
+evening   `head -20` on interleaved diffs → 1 unformatted file, truth 331
+tonight   the formatter's input set  → 331 unformatted, truth 371 of 957 tracked
+```
+⇒ ⭐ ***EACH TIME THE COUNT WAS CORRECT AND THE DENOMINATOR WAS BORROWED FROM SOMEWHERE ELSE.***
+⛔ **A ratio is two measurements, and nothing in its appearance says whether they share a corpus.**
+■ ✅ **The operative consequence, not the trivia: defining the gate on the formatter's default inputs
+would have SILENTLY OMITTED 40 TRACKED UNFORMATTED FILES.** ⭐ **The landed gate selects from the
+diff and passes paths EXPLICITLY, so it does not inherit the narrowing.**
+■ ⭐ **AND THE GATE TELLS TWO ZEROS APART, which is item ⑧ turning into design:**
+`empty/underivable comparison → rc=2 REFUSES` vs `genuine diff with no Elixir files → "checked 0
+files", rc=0, VISIBLY`. ⇒ ⛔ ***A gate that checks zero files and reports success cannot fail at all.***
+■ ⚠️ **Also logged: the check failed with *"Could not find an SCM for dependency :phoenix"* — rc=1
+and NO file list.** ⇒ ⭐ ***Never branch on rc alone when the tool can fail BEFORE it starts*** — the
+discriminator was the absent list, not the code.
