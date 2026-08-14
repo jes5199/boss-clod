@@ -12,6 +12,16 @@
 # instead of working. So the cd below is load-bearing, not tidiness.
 #
 # ABORT: relaunch with COMMONPLACE_DEPLOY_GAP_MONITOR=0 to drop the monitor.
+#
+# AFTER LAUNCH, CHECK FOR THE MONITOR'S BOOT LINE (added @e75273ef, so present
+# from the first restart after 2026-08-14 19:10Z):
+#   grep -i 'deploy gap monitor' logs/commonplace-serve.log   <- expect one [info]
+# It names the resolved gauge path and the interval, and says silence means an
+# EMPTY gap. ⇒ Its ABSENCE means the monitor never started -- which is the one
+# thing the per-check silence cannot tell you apart from "gap is 0".
+# And to answer "is the monitor WORKING?", nothing in the log suffices: touch a
+# beam, wait one interval, expect an unprompted DEPLOY GAP DETECTED, then
+# restore the mtime and md5-verify the content never changed.
 set -euo pipefail
 
 CP=/home/jes/commonplace
