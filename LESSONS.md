@@ -5566,3 +5566,45 @@ BLINDNESS, when the cause was that a canary created now cannot be newer than a f
 now refused with its own message.
 ■ ⭐ **Adopted: I use `cp-newer-than` from here rather than my own `find`.** ***Using the other party's
 instrument is the only way a third number is independent of my habits.***
+
+### 7j9 — ⛔⛔ INSTANCE 3 INVERTED: SOL IS THE PROTECTED PARTY, THE HOST IS EXPOSED — AND THE HOST IS US
+`CX-v1zh` closed at `c1928dc2`, all three instances built. **Same guard script, two positions:**
+**inside the fence → PASS(0); on the HOST → FAIL(1)**, run live.
+⇒ **Two deliberate refusals cover the sandbox — commonplace's repo `bin/bd` (since 08-08) and my
+`sol-bd-guard.sh` shadow — and NONE covers the host**, where bare `bd` is a 178 MB ELF and repo `bin/`
+is not on PATH. ✅ **Confirmed for myself: `command -v bd` → `/home/jes/.local/bin/bd`.**
+⚠️ ***The ticket worried about the sandbox and the exposure is outside it.***
+
+### 7k0 — ⛔ THE PATH FIX IS DECLINED, BY MEASUREMENT: IT WOULD BREAK HERMES'S LIVE TICKETS
+```
+/home/jes/hermes/.beads/dolt       EXISTS  ← hermes's beads archive is LIVE
+/home/jes/commonplace/.beads/dolt  EXISTS  ← the FROZEN one
+```
+⇒ ⭐⭐ **`bd` IS FROZEN FOR COMMONPLACE AND LIVE FOR HERMES — one command name, two archives, opposite
+policies.** ⛔ **A PATH reorder is GLOBAL: it would intercept `bd` in `~/hermes` and refuse writes to
+an archive that is supposed to take them.** ⚠️ **"`bd` is the only name collision" is true and is
+exactly the problem — the collision is with a LIVE tracker.**
+■ ⛔⛔ **THE EVIDENCE WAS IN MY OWN FILE IN PLAIN ENGLISH AND I DID NOT CONNECT IT:**
+`sol-fence-test.sh:80-83`, written by me on 08-08 — *"host bd untouched: hermes still lists its live
+tickets"* / *"HOST bd BROKEN -- the shadow leaked out of the sandbox onto live beads repos."*
+⇒ ⭐ **I had to go and measure to rediscover an assertion I had authored.** **Same shape as the
+qualifier that didn't travel.**
+■ ⭐ **Recorded as DECLINED, not open** — ***an open option nobody has ruled on gets re-proposed, and
+the next proposer will not have hermes in view either.*** ⇒ **Constraint for any future host-side
+guard: it must know WHICH REPO it is standing in, and a PATH reorder cannot, because PATH has no idea
+where you are.**
+
+### 7k1 — ⭐⭐⭐ THE ARC'S RESULT IS THE TABLE, NOT THE THREE FIXES
+```
+① load-order  "already loaded"          → the newer-set had gone EMPTY      (premise MOVED)
+② pid-ns      "--unshare-pid", then     → NEITHER: the USER namespace,
+              "+ --proc /proc" WITH evidence  named by no flag              (CX-q8f1)
+③ bd          "an absence, not a refusal" → THE OPPOSITE, and wrong about
+                                             WHICH PARTY is at risk        (CX-3zzx)
+```
+⇒ ⭐⭐ **A PROTECTION THAT HOLDS BY ACCIDENT CANNOT BE RELIABLY DESCRIBED, ONLY MEASURED.** **Two
+attentive parties, three attempts, three wrong causes** — the ticket's own thesis proven the hard way.
+■ ⭐⭐ **AND THE DELIVERABLES SURVIVED ALL OF IT BECAUSE THEY ASSERT CAPABILITIES: a flag grep would
+have been wrong TWICE on ②; a source grep for a `die` call would have PASSED on ③'s host gap.**
+⇒ ***test-the-capability-never-the-handle, validated by our own errors rather than by argument — the
+first time that rule has been shown to PAY here.***
