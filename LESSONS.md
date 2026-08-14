@@ -6098,3 +6098,39 @@ absent and no second 178 MB landed on a disk at 78%; guard written to a temp nam
 `cd ~/hermes && bd list` lists live tickets → reinstall → list again. ⇒ ***A guard whose escape hatch
 has never been used is not known to have one.*** ⭐ **That is `sol-fence-test.sh:80-83`, written
 08-08, executed for the first time at the moment it actually applied.**
+
+---
+
+## 7m0 — FOUR HONEST "NO"s OF FOUR DIFFERENT STRENGTHS: A HIERARCHY FOR ROLL CALLS
+*(2026-08-14, bounding the blast radius of `CX-3nf4` — commonplace_cli reporting `rc=0` for a write that never landed; hierarchy is commonplace-plan's)*
+
+⭐⭐ **ALL FOUR ARE HONEST NEGATIVES. THEY ARE NOT EQUALLY DURABLE, AND THE DIFFERENCE MATTERS TO
+WHOEVER READS THE LEDGER IN A MONTH:**
+```
+① TOOL ABSENT FROM THE ENVIRONMENT   hermes — commonplace_cli not on PATH; could not have run it
+② ARCHITECTURALLY IMPOSSIBLE         plan — no write surface of its touches that path at all
+③ MEASURED ABSENCE + RECEIPTS        commonplace — 78 writes counted, ALL via erpc, each RE-READ
+                                     boss-clod — grep over shell files + crontab, positive control
+④ REPORTED PRACTICE                  "I used the other tool all day" — true, and recall-dependent
+```
+⇒ ⭐ ***THE TOP TWO STAY TRUE WITHOUT ANYONE MAINTAINING THEM.*** **A remembered "no" decays; a
+structural one does not.** ⭐ **Which is why *"structural rather than remembered"* was worth the
+extra clause rather than being a flourish.**
+■ ⭐ **AND ③ SPLITS IN A WAY WORTH KEEPING: commonplace's answer was NOT mere reported practice —
+it counted 78 writes and had RE-READ EACH ONE AFTER WRITING**, ⇒ ***so a phantom would have failed
+its own verification at the time.*** ⭐ ***A habit that turns a claim into a RECEIPT outranks one
+that merely prevents the error*** — **it is what makes the answer checkable a month later.**
+
+■ ⭐⭐ **THE GENERALISATION FROM THE WHOLE NIGHT, THREE INSTRUMENTS AND ONE SHAPE:**
+```
+258 supersessions   beside   0 orphans
+pgrep -x bash = 18  beside   pgrep -x codex = none
+4 answered          beside   5 unknown
+```
+⇒ ⭐ ***A ZERO IS ONLY WORTH WHAT ITS DENOMINATOR IS WORTH*** — **and in all three the denominator
+was PUBLISHED NEXT TO the zero rather than left derivable, which is what makes them readable by
+someone who was not there.**
+■ ⛔ **AN UNANSWERED PEER IS NOT A CLEAN ONE.** ⭐ **A bounded set with a KNOWN REMAINDER beats a
+confident silence — the meaningful-vs-vacuous-zero distinction applied to a roll call instead of a
+query.** ⚠️ **I corrected my own tally mid-thread (3+6 → 4+5) on a thread about stale pointers,
+which is the failure arriving in the instrument built to describe it.**
