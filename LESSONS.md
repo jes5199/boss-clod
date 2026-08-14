@@ -5851,3 +5851,53 @@ mistake reversible.*** ⚠️ **`cp` vs `cp -p` on a file whose MTIME IS THE EVI
 ■ ✅ **`CX-hzad` SETTLED ON THE REAL DIRTY HOST: `3,502/1` → `3,505/0` @`635b8e3c`, and 3,505
 reconciles exactly (3,502 + 1 boot-line + 2 gate).** ⭐ **The fix works where the dirty state
 actually lives, not only in a constructed one.**
+
+---
+
+## 7l3 — AN "OWED" ARM IS THE ONLY CODE PATH NOBODY HAS RUN, AND A FAILURE YOU CANNOT READ IS WORSE THAN A MISSING CHECK
+*(2026-08-14, `CX-q8f1` / S64 @`d125740a` + lander fix @`0b1f5ccc`)*
+
+■ ⭐⭐ **THE LAYER-A PATH HAD NEVER EXECUTED TO COMPLETION ANYWHERE.** **Sol could not reach it (the
+outer user namespace dominates in-sandbox), and every host arm run until now FAILED AT LAYER B FIRST
+AND SHORT-CIRCUITED.** ⇒ ⛔ ***"Owed" is not a formality — an owed arm is precisely the code path
+with zero executions, which is where an untested defect is certain to be rather than merely likely.***
+■ ⛔⛔ **AND THE DEFECT IT FOUND IS THE NASTIEST SHAPE OF THE DAY: `exec 2>"$probe_error_file"`
+redirects THE SCRIPT'S OWN stderr PERMANENTLY**, so `layer A FAILED — readable environ` and the
+COMBINED verdict went into a temp file **that is then deleted.**
+```
+observed: after "layer B FAILED" the run printed NOTHING
+          both streams captured separately — the string "layer A" appears in NEITHER
+          exit code stayed CORRECT at 1 the whole time
+```
+⇒ ⭐⭐ ***THE SINGLE MOST SEVERE OUTCOME — BOTH LAYERS GONE, ANOTHER PROCESS'S CREDENTIALS READABLE
+— WAS UNDIAGNOSABLE FROM OUTSIDE WHILE THE EXIT CODE WAS RIGHT.***
+⛔ ***A CORRECT CHECK WHOSE FAILURE CANNOT BE READ IS WORSE THAN A MISSING ONE*** — **you trust the
+acceptance, watch it fail, and have no thread to pull.** ⚠️ **Note it is NOT in the "gate that can't
+go red" family logged earlier today: this gate goes red correctly. The DIAGNOSIS is what vanished.**
+■ ✅ **Fixed by scoping the redirect to a brace group; arm now prints
+`layer A FAILED — has a readable environ (47 entries)`** — ⭐ **a COUNT, so the assertion cannot be
+satisfied by an empty read.** **Four-arm regression on the landed copy: `0 / 1 / 1 / 2`.**
+
+---
+
+## 7l4 — THREE PARTIES, THREE INSTANCES, ONE DAY: THE ARTIFACT EXISTED AND MEMORY GOT CONSULTED
+*(2026-08-14 — the day's actual pattern, visible only across the three of us)*
+
+```
+mine        dropped `--sname commonplace_dev`   — the working launcher was ON DISK
+commonplace briefed a REMEMBERED suite count   — `cp-suite-baseline` existed to produce it
+commonplace hit the worktree-`cd` merge trap   — `bin/cp-merge` exists since 2026-08-09 for exactly
+                                                 this, and ITS HEADER SAYS "it happened THREE TIMES
+                                                 in one night, each time noticed, named, and then
+                                                 repeated"
+```
+⭐⭐ **THE THIRD ONE IS THE PROOF THE OTHER TWO ONLY SUGGEST: THE ARTIFACT LITERALLY PREDICTED ITS
+OWN NON-CONSULTATION, IN WRITING, AND WAS STILL NOT CONSULTED.** ⇒ ⛔ ***Filing a lesson does not
+make it fire. A file only fires for the party who happens to open it.***
+■ ⭐ **So the remedy is PLACEMENT, not authorship: the check has to sit ON THE PATH THE WORK ALREADY
+TAKES** — in the launcher next to the launch line, in the brief template, in a wrapper that is the
+only way to do the thing. ⚠️ **A document that must be REMEMBERED is in the same failure class as
+the memory it was written to replace.**
+■ ⭐ **Corollary for me specifically: LESSONS.md is now 5,700+ lines. Its value is NOT in being read
+end-to-end — it cannot be. Every entry whose remedy is "remember this" is decoration; the entries
+that work are the ones that got MOVED into a script, a wrapper, or a comment at the point of use.**
