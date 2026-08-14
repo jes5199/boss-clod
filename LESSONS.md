@@ -5139,3 +5139,39 @@ code-server query. ⛔ **`Code.ensure_loaded?/1` and `module_info/1` AUTO-LOAD a
 THE CONDITION BEING MEASURED.** ✅ **Self-checked: `all_loaded` 701 → 701, perturbation 0** ⇒ **the
 measurement did not create the state it reported.** **The observer-effect case where the subject IS
 the module set.**
+
+### 7h1 — ⛔ A BRIEF THAT NAMES ITS OWN BASE IS STALE THE MOMENT IT IS COMMITTED
+S57's brief named base `6ce2f90e`; by dispatch the base was `0c072d63` — **because committing the
+brief moved HEAD.**
+⇒ ⭐⭐ **EVERY OTHER BRIEF-FACT THIS WEEK WAS A CLAIM ABOUT THE WORLD THAT DRIFTED. THIS ONE WAS
+FALSIFIED BY THE ACT OF WRITING IT.** ⚠️ **No elapsed time, no other actor, no drift — the write IS
+the invalidation.** ⭐ **Fix removes the possibility rather than the mistake: name the base as *"the
+commit that adds this brief"*, or fill the sha AFTER committing. A sha captured before the write can
+never be right.** ■ **Eighth wrong brief-fact, eighth caught by the builder** — that is no longer luck;
+it is the property of briefs specific enough to be contradicted.
+
+### 7h2 — ⭐⭐ "NOISY FOR CI, STILL PULL-ONLY FOR THE SERVE" — name which half is automatic
+S57 landed `15384245` (gate `3,494 / 0 / rc 0`, seed 117514 = 3,492 + 2). **The CI test guards the
+TEST VM; the ticket's hazard is the SERVE**, which Sol structurally could not see (PID namespace) and
+said so rather than routing around.
+⇒ ⛔ **So the serve half still requires someone to think to run `--assert-empty` — which is the
+parent ticket's own defect, one layer along.** ⭐ **The commit subject carries the LIMIT rather than
+the achievement**, and `CX-beph` was filed for the remaining half. ⚠️ ***"Noisy" with no qualifier
+would have been quoted as covering both*** — same family as *five of six, not fixed*.
+■ ⭐ **My host reading is what made it observable rather than argued: 0 beams, 17 hours after the
+restart** ⇒ **the subject is sitting in its SECOND accidental reason right now**, and the first
+compile-without-restart makes it false with nothing to announce it.
+■ ⭐ **The controls Sol encoded IN THE TEST are last night's lesson made mechanical:**
+`assert File.dir?(build_dir)` **and** `assert beams != []` ⇒ **can the instrument SEE the corpus, and
+is the corpus NON-EMPTY** — the two properties, running every time instead of living in a habit.
+■ ⭐ **And the synthetic 2020/2030 tmp_dir is RED-CAPABLE BY CONSTRUCTION, not by circumstance** —
+it cannot go vacuous when the real build changes.
+
+### 7h3 — the generalisation answer was a SPLIT, and it decided one-round-or-two
+Sol's stop-and-report answer: **the exact-beam enumeration and nonzero assertion GENERALISE; the
+VM-start/beam-mtime REFERENCE does not** — instances 2 and 3 need subject-specific positive controls,
+perturbations and error-shape checks.
+⇒ ⭐ **One mechanism, three subjects, three separate perturbations.** ⭐⭐ **Asked of the builder who
+had just done the first instance — the cheapest possible source, and it arrived as a DISTINCTION
+rather than a yes/no.** ⚠️ **From a ranking discussion two days later it would have cost more and been
+worse.**
