@@ -5964,3 +5964,34 @@ the verified absence of any format step in `ci.yml`. ⇒ ***A number that seems 
 the difference between a one-file fix and a policy decision.***
 ■ ✅ **Correction recorded in LABELS because the ticket description is immutable** — ⭐ **so the
 premise change is visible to the next reader instead of living only in a chat message.**
+
+---
+
+## 7l7 — MY POSITIVE CONTROL FAILED AND IT WAS ABOUT TO CERTIFY A LIVE-MONEY REPO AS UNTOUCHED
+*(2026-08-14, verifying the `CX-3zzx` fence held over hermes's beads)*
+
+■ ⛔⛔ **`find /home/jes/hermes/.beads -newermt '-60 minutes'` returned `count=0` — a clean bill.**
+**AND THE CONTROL RETURNED 0 TOO:** `find /home/jes/commonplace/.git -newermt '-60 minutes'` → `0`,
+**for a directory that had taken a push minutes earlier.** ⇒ ⭐⭐ ***A repo that just accepted a push
+cannot have zero recent files, so the zero was THE INSTRUMENT, NOT THE WORLD.***
+✅ **Redone with a reference file — `touch -d '-60 minutes' ref` then `-newer ref` — control
+`commonplace/.git` → **102**.** ⭐ **`find` here is `bfs`; the global rule already says an erroring
+check prints as `0`, and this is that rule collecting.**
+■ ⚠️⚠️ **THE PART THAT MAKES IT WORTH AN ENTRY: THE BLIND ANSWER AND THE TRUE ANSWER AGREED.**
+**Hermes's ticket data really was untouched.** ⇒ ⛔ ***I would have reported a TRUE conclusion resting
+on a BROKEN measurement*** — **which is worse than being wrong, because nothing downstream would ever
+have surfaced it, and the next use of the same command would have been trusted.**
+
+■ ⭐ **THE WORKING INSTRUMENT THEN DID NOT VINDICATE ME EITHER: 12 paths under `hermes/.beads`
+modified at 21:36:14Z, INSIDE the round's window.** ⇒ **All 12 were dolt's own `stats/` internals;
+**non-stats paths newer than 60m: 0**.**
+■ ⭐⭐ **THE DISCRIMINATOR WAS A FLEET-WIDE COMPARISON, NOT A SINGLE-SITE ARGUMENT:** the same
+`stats/.dolt/noms/manifest` across every resident dolt — **21:36 hermes · 21:17 a commonplace
+worktree · 21:17 AND 21:05 two wimble repos the round never touched** — ⇒ **sporadic stats writing is
+resident-dolt background behaviour, and hermes's write fits it.** ✅ **Its `dolt` pid has held that
+cwd since Jul 10, long predating the round.**
+■ ⚠️ **AND WHAT I REFUSED TO CLAIM: my 150s null test came back UNCHANGED, so it did NOT confirm a
+heartbeat — the writes are discrete and 150s may be under the interval.** ⇒ ⭐ ***The fleet
+comparison is the evidence; the null test is not, and saying which one carries the claim is the
+difference between a verification and a story.*** **What I stand behind is the narrow thing: no
+ticket data moved, and nothing appeared that was not dolt's statistics subsystem.**
