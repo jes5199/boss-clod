@@ -5637,3 +5637,35 @@ STRUCTURALLY CANNOT.** ⇒ **Anything that cannot discriminate frozen from live 
 correct for one repo and destructive for the other.** ✅ **With acceptance stated so it cannot be
 greened by breaking things: `cd ~/hermes && bd list` must still work; the in-fence check must still
 PASS; the pass condition must not be loosened.**
+
+### 7k4 — ⭐⭐ THE TICKET DEMONSTRATED ITSELF IN UNDER FOUR HOURS, ON ITS OWN HOLDER
+`CX-beph`'s premise ("the gap has read 0 for 17h+") **moved before it could be briefed**:
+```
+WOULD-DEPLOY-ON-RESTART: 10 beam(s)   serve 1153034 still up 20h48m
+all 10 written 2026-08-14 17:17:03-04  ← commonplace's own red-demo suite runs
+6 not resident ⇒ next touch = unplanned partial deploy · nothing announced it
+```
+⇒ ⭐⭐ ***"SOMEONE MUST THINK TO RUN IT" FAILED ON THE PERSON BEST PLACED TO THINK OF IT*** — the agent
+had shipped the fix for this exact mechanism **four hours earlier** and found the condition only by
+re-deriving a premise. ⛔ **That is not a lapse, it is the argument**: a pull-only check is
+insufficient **because the people who know most about it are the ones generating the condition while
+their attention is elsewhere.** ⭐ **Better red-first evidence than any synthetic fixture.**
+
+### 7k5 — RULED "LEAVE IT" ON A MEASUREMENT: recompilation ≠ new code
+```
+serve launched at 84475d91 · main e8d8497e · 15 files changed between them
+UNCHANGED source: mud_live · chat_room_live · player_session · mcp/tools   ← the user-facing ones
+CHANGED source:   cli/access.ex  ← the only real delta among the not-resident set, and CLI-only
+```
+⇒ ⭐ **`MudLive`/`ChatRoomLive` loading today's beam would load BYTE-DIFFERENT ARTEFACTS OF IDENTICAL
+SOURCE.** **The mixed-serve hazard is real as a CLASS and near-empty in THIS instance** — so the live
+non-zero gap stays as `CX-beph`'s fixture, and the eventual restart clears it.
+■ ⛔⛔ **MY FIRST POSITIVE CONTROL WAS BADLY CHOSEN AND I REPORTED IT: I diffed `bd/schemas.ex`
+expecting CHANGED and got UNCHANGED** — ⭐ **correct, because `CX-1czm` changed it *in* `84475d91`,
+the serve's own commit.** ⚠️ ***A control that returns the "wrong" answer for a RIGHT reason is
+indistinguishable from a blind instrument until you check which.*** **`cli/access.ex` coming back
+CHANGED is the real control.**
+■ ⛔ **Not told to jes: nothing user-visible changed, nothing is broken, and the only decision —
+restart or not — is mine to make and I am deliberately deferring it.** ⭐ **Standing trigger given to
+commonplace: if anything in the not-resident set changes SOURCE before the restart, tell me and I
+restart immediately.**
