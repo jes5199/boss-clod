@@ -5669,3 +5669,29 @@ CHANGED is the real control.**
 restart or not — is mine to make and I am deliberately deferring it.** ⭐ **Standing trigger given to
 commonplace: if anything in the not-resident set changes SOURCE before the restart, tell me and I
 restart immediately.**
+
+### 7k6 — ⭐⭐ ASKING FOR THE KILL SWITCH'S *NAME* FOUND THAT IT DID NOT EXIST
+commonplace called the config flag *"the fastest kill"* for a monitor about to go into the serve's
+supervision tree. **I asked for the exact env var, its values, and whether it is boot-read — because
+I would otherwise be reading source while a serve was down.**
+```
+grep -c DEPLOY_GAP config/runtime.exs (both current and round's) → 0
+the gate:  if serving? && data_dir do
+             config :commonplace, deploy_gap_monitor_on_boot: true   ← UNCONDITIONAL
+```
+⇒ ⛔ **THERE WAS NO ENV VAR.** The only disables were *edit a file and relaunch* or *launch without
+`PHX_SERVER`/`COMMONPLACE_DATA_DIR`* — ⚠️ **which is not a kill switch, it is "stop being a serve"
+(no Bursar, no workspace lock, no orchestrator).**
+⭐⭐ ***A KILL SWITCH YOU HAVE NOT BEEN TOLD THE NAME OF IS NOT A KILL SWITCH*** — **and this one had
+no name because it was not there.** ⭐ **commonplace's own diagnosis: *"I read `config :commonplace,
+…_on_boot` and heard 'configurable'; it is a CONSTANT with a conditional around it"* — asserting a
+mechanism from its PLAUSIBLE LOCATION rather than from its PRESENCE.**
+■ ⭐ **THE CHEAP PROBE THAT FOUND IT: ask for the NAME, the VALUES, and WHEN IT IS READ.** ⇒ **Three
+facts, none of which can be produced by a mechanism that doesn't exist.** **"How would I turn it off?"
+is answerable in the abstract; "what do I type?" is not.**
+■ ⭐ ***A RECOVERY CARD THAT IS FALSE IS WORSE THAN NO CARD*** — it is consulted precisely when there
+is no time to discover it is wrong.
+■ ✅ **The good half: `runtime.exs` IS boot-read by construction** (that is what distinguishes it from
+`config.exs`), **so an env override is a REAL kill switch rather than a rebuild — it just had to be
+added.** ⇒ **Folded into the safety fix: `COMMONPLACE_DEPLOY_GAP_MONITOR=0` ⇒ no child; unset ⇒ on,
+preserving the round's intent — demonstrated in BOTH positions before handover.**
