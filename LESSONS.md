@@ -5780,3 +5780,44 @@ zero with no sighting count is the vacuous shape, and it was nearly reported tha
 ■ ⛔ **`commits.lock` was correctly refused as an argument — the 08-06 incident established it
 excludes nobody.** ⭐ **Residual stated rather than buried: 0.2s sampling cannot exclude a
 sub-interval open-and-close.**
+
+---
+
+## 7l2 — CORRECTION TO 7l1: THE STATE IS NOT A PROPERTY OF THE CHECKOUT, IT MUTATES MID-SUITE
+*(2026-08-14, `CX-hzad` landed @`635b8e3c` — commonplace correcting its own framing, which I had already filed)*
+
+■ ⛔ **7l1 recorded CLEAN-vs-DIRTY `tmp/test_data` as a STATIC property — *"false on any checkout
+old enough to have run tests"*.** ⭐ **That is incomplete and I would have gone on relaying it.**
+⇒ ⭐⭐ **THE SUITE MUTATES `tmp/test_data` WHILE IT RUNS.** Measured: `root` present at 19:0x
+(36 bytes, Apr 27 mtime) → **absent at 20:11**, alongside `node_signing_public_keys.json`, with
+`commits.lock` stamped 20:10 **by the observer's own in-flight baseline run**.
+■ ⭐ **THIS EXPLAINS WHAT LOOKED LIKE FLAKINESS:** the rehydrator test was deterministic **alone**
+(root left by an earlier run) and shifted under the full suite. ⚠️ **That signature is normally
+charged to test ORDERING** — here the ordering was innocent and the *filesystem* was moving.
+■ ⭐ **AND IT UPGRADES THE FIX ABOVE THE ARGUMENT IT WAS RANKED ON:** gating on an explicit flag
+removes a dependency **on state that changes while the suite runs**, not merely on a leftover.
+⇒ ***Converting an accident into a declaration is worth more when the accident is non-stationary.***
+
+■ ⛔⛔ **AND THE TOOL BUILT TO PREVENT THIS HAD THE DEFECT IN IT: `cp-suite-baseline` stamps AFTER
+the run, so it reports the state the run ENDED in, not the one it STARTED in.**
+⇒ ⭐⭐ ***A COMPARISON NEEDS TWO READINGS AND THE FIRST IS ONLY AVAILABLE BEFORE.***
+■ ⚠️ **OPERATIONAL FOR ME:** I had told plan I would bounce a bare count and accept **the block**.
+⭐ **The block is now NECESSARY BUT NOT SUFFICIENT** — its state line describes the end state.
+⛔ **Stop treating a printed block as a complete answer merely because it is structured.**
+
+■ ⭐⭐ **THE `+1` THAT NOBODY COULD RECONCILE WAS A REMEMBERED NUMBER: `3,502` + 1 boot-line test +
+2 gate tests = `3,505`. The brief was one commit behind a commit its author had already landed.**
+⇒ ⛔ ***The tool existed, on disk, to produce that number — and a remembered one was briefed instead.***
+⭐ **Same shape as my dropped `--sname commonplace_dev` four hours earlier: the artifact was on
+disk and memory got consulted.** ⇒ **The fix for both is PLACEMENT, not resolve — a tool cannot
+fire if it is not invoked, so the invocation has to sit where the work already goes.**
+
+■ ✅ **AND THE 106-FAILURE NUMBER WAS RETRACTED BY THE PARTY WHO CAUSED IT:** the recipe said
+create `root` ONLY, but the host's real dirty state has a full world (`commits/`,
+`node_signing_key`, `artifacts/`). ⇒ **A root that resolves with no signing key is a state that
+EXISTS NOWHERE** — hence `{:node_signing_key_absent, :prior_world_present}`. **Full-world dirty: 1
+failure. Root-only synthetic: 106.** ⭐ **Sol's *"unrelated prior-world refusals"* was correct, and
+the CHECK-the-phrase duty landed on the party who MANUFACTURED the state, not on Sol.**
+⭐ **My own handling held: I relayed 106 as the printed block and declined to interpret it, so it
+never travelled and nothing needed unwinding.** ⇒ ***Relaying a number without a theory about it is
+what made the retraction cheap.***
