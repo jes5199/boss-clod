@@ -6436,3 +6436,40 @@ fresh session can still spend turns thinking `bd` is authority before it tries a
 refused.** ⛔ **No repo-local fix for that exists and I did not invent one.** ⭐ **And note WHEN it
 fires: at every compaction — i.e. at the session's most context-poor moment, which is exactly when a
 confident wrong instruction is least likely to be questioned.**
+
+---
+
+## 7n0 — A CLEANUP THAT REPORTS ON ITSELF, AND THE DIFFERENCE BETWEEN CAUSED AND REVEALED
+*(2026-08-15, commonplace attributing `MUD.RoomVisibilityTest` across the identity slice)*
+
+■ ⛔⛔ **THE RESTORE `trap` PRINTED *"RESTORED: 0 files dirty (0 = clean)"* WHILE BOTH FILES WERE
+STILL WITHDRAWN.** **It ran with cwd `apps/commonplace`, so its relative paths resolved to
+`apps/commonplace/apps/commonplace/…`: `git checkout` failed, `git status` matched nothing AT THAT
+NON-PATH, `wc -l` gave 0.** ⇒ **An independent check from the repo root said `2`.**
+⭐⭐ **THE HALF THAT SAVED IT WAS NOT THE TRAP — IT WAS THE SEPARATE VERIFICATION.** ⇒ ⛔ ***A
+cleanup that reports on its own success is the same defect class as everything else this week***,
+**and it was written an hour after the class was described.** ⚠️ **Same `cd`-redefines-the-next-thing
+shape as 7l0, now inside the mechanism built to be safe.**
+✅ **Correct close: restore verified FROM THE ROOT, plus a POSITIVE CONTROL — a deliberate edit moved
+the dirty count `0→1→0`, so the checker is demonstrably not blind.**
+
+■ ⭐⭐⭐ **AND THE ATTRIBUTION DISTINCTION THAT DECIDES THE REMEDY RATHER THAN THE LABEL:**
+```
+pre-I1        3505 / 0     seed 117514
+HEAD          3510 / 1     seed 117514
+HEAD, identity TEST FILES withdrawn
+              3505 / 0     seed 117514   ← SAME PRODUCTION CODE, green
+```
+⇒ ⭐ **Green/red turns purely on POPULATION, with production byte-identical. `+1458` lines across 4
+files, ZERO lines of existing code modified — the diff was telling the truth.**
+■ ⛔⛔ **BUT *"our tests SURFACE it"* IS NOT *"our tests are the LEAKER."*** **The identity tests hold
+no `Application.put_env`; their gate is CHILD OPTS to a uniquely-named supervisor torn down by
+`start_supervised!`. Meanwhile 136 test files DO mutate `:commonplace` config GLOBALLY.**
+⇒ ⭐⭐ ***Adding 5 tests RESHUFFLES the whole suite at a fixed seed*** — **so the likelier story is
+our tests moved the deck and let SOMEONE ELSE'S leak land in front of the victim.**
+⇒ ⛔ ***If so, "fix the identity tests" restores green by moving the deck back, leaves the leak in
+place, and the ledger says fixed*** — **the revert-buries-it shape arriving as a live temptation,
+made tempting by being one edit that unblocks the next round.**
+■ ⭐ **The discriminator is seeds: green at other seeds ⇒ ORDER-DEPENDENT, ticket against the leaker;
+red at every seed ⇒ ours.** ⚠️ ***Two outcomes, two different tickets, two different owners*** —
+**which is why filing before the measurement would have been filing the wrong ticket.**
