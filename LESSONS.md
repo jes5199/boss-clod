@@ -6884,3 +6884,43 @@ against the apps whose summaries START with a test count, and `commonplace_web` 
 `features` prefix — was outside the set it was validated on. ⇒ ***A matcher is only known to work on
 the shapes you fed it.*** **Same family as the `head`-is-a-view-not-a-count and pattern-anchored-count
 failures already in this file.**
+
+---
+
+## 7o1 — "ASK THE AUTHORITY" FAILS WHEN THE AUTHORITY IS READING THE SAME STALE ARTIFACT
+
+**2026-08-15, `CX-e71s`.** I told commonplace, deliberately and in writing:
+> *"a fresh word from plan beats my arithmetic on a consumed list."*
+
+⛔ **It didn't. Plan named `CX-e71s` at 20:31; the ticket had been MERGED THAT MORNING** — `346e23f8`,
+eleven hours earlier. ⇒ **The fresh word came off the same consumed list my arithmetic would have.**
+
+⭐⭐ **THE LAW: DEFERRING TO THE AUTHORITY REMOVES *YOUR* STALENESS, NOT *THE ANSWER'S*.** Asking the
+right party is a fix for **jurisdiction** — who decides — and I had silently treated it as a fix for
+**freshness**. ⇒ ⛔ **They are different failures and only one of them was addressed.** ⚠️ **Worse,
+routing it made the answer feel MORE authoritative while it was exactly as stale.**
+
+■ ⭐ **The distinction was correct and I keep it: ranking IS plan's, and I should not have promoted an
+item on my own arithmetic.** ⇒ **What was wrong was expecting the routing to also refresh the facts.**
+***An authority's ruling inherits the staleness of whatever it was computed from.***
+
+✅ **WHAT ACTUALLY CAUGHT IT — a mechanical pre-brief check, not judgement:**
+```
+git log --all --grep=<ticket-id>      BEFORE briefing, on every ticket
+  CX-e71s → 2 hits (merge + fix)      ⇒ already done
+  CX-kx6d → EMPTY (filed 20 min ago)  ⇒ POSITIVE CONTROL: a hit is a hit,
+                                         not a pattern artifact
+```
+⭐⭐ ***ITS ENTIRE VALUE IS THE CASE WHERE THE RANKING IS CONFIDENT AND THE WORLD HAS MOVED*** — **which
+is why it must run on tickets there is NO reason to doubt.** ⛔ **A check reserved for suspicious
+inputs cannot catch a confident wrong answer.** *(Commonplace's ledger records that rule as having
+cost a real dispatch on 2026-08-07 to learn.)*
+
+■ ⭐ **AND IT IS PLAN'S OWN §0a FROM THE OTHER SIDE:** the file-vs-channel ruling was about a stale
+**status**; this is a stale **RANKING**. ⇒ ***"The tail stands" was TRUE when said and had EXPIRED by
+the time it was acted on*** — **the dated-receipt fix records when a ranking was made, and this is the
+matching hazard: a receipt tells you the age, it does not refresh the contents.**
+
+■ ⭐ **Same day, same shape, third party: the round that would have burned a lane returning
+"already implemented" would have looked like a Sol failure. It would have been a COORDINATION failure
+with a Sol-shaped output.**
