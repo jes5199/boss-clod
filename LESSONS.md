@@ -6595,3 +6595,41 @@ FOUR" — a real finding, reported as one rather than as a null.**
 `deps/`" ≠ "cannot run the suite"; S71's log shows a full 3506-test run inside a worktree.** ⇒
 ⭐ **plan would have ruled on a limitation that does not exist.** ***Verify the constraint, not just
 the claim*** — **a false LIMIT quietly shrinks what gets attempted, and nothing ever reports it.**
+
+---
+
+## 7n4 — TWO CONVENTIONS FOR A POSITIVE CONTROL, BOTH SOUND, FORCED INTO CONFLICT BY THE INSTRUMENT'S DESIGN
+*(2026-08-15, S74's leak detector — commonplace's review finding, three lines apart in the same file)*
+
+```
+CX-q9sa (existing):  ":rm_rf_guard_positive_control is deliberately NOT excluded.
+                      It is the rm_rf guard's ONLY PROOF-OF-LIFE."
+S74 (new, adjacent): "enabled only for its proof run so it cannot become the
+                      permanent first finding and mask leaks"
+```
+■ ⚠️ **BOTH REASONS ARE CORRECT.** ⇒ **The conflict is forced by the DESIGN: the detector records only
+`first_leak`, so an always-on deliberate leak WOULD mask every real one.**
+⇒ ⭐⭐ **THE FIX IS UPSTREAM OF THE CHOICE — REPORT ALL DIVERGENCES (or record the control
+separately), and then the control can stay enabled and the two conventions agree.**
+⛔ **As shipped, the instrument's PROOF-OF-LIFE IS OFF BY DEFAULT** — ⇒ ***a gate nobody will see
+fire, which is the exact class the detector exists to close.*** ⭐ **Filed as a rider rather than
+reopening the round.**
+■ ⭐ **THE GENERAL FORM: when two good conventions collide, the collision is usually a DESIGN
+CONSTRAINT wearing a style disagreement's clothes.** ⇒ **Fixing the constraint dissolves the choice;
+picking a side leaves the loser's reason intact and unaddressed.**
+
+■ ⭐⭐⭐ **AND THE ROUND CORRECTED ITS BRIEF'S CENTRAL JUSTIFICATION RATHER THAN QUIETLY SATISFYING
+IT: the brief claimed the detector "never perturbs"; S74 said that is OVERSTATED, because it
+configures `max_cases: 1` to attribute mutations reliably** — **then defended why it is still valid
+here (sequential reproduction already established; nothing deleted, sliced or reseeded).**
+⇒ ⭐ ***A round that repairs the argument it was given is worth more than one that passes the arms***
+— **the brief would otherwise have carried a false absolute into every future citation.**
+■ ✅ **Second volunteered near-miss: *"interpreting 0 failures as clean"* — the run was RED via the
+detector's own `rc=1`, not via the suite count.** ⚠️ **Two channels, one verdict; reading the wrong
+channel is a green.**
+
+■ ⛔ **AND THE REVIEWER'S OWN MECHANISM WAS REFUTED BY A FREE CHECK ON DATA ALREADY IN HAND:**
+`snapshot_reimport_test` **position 43 (LEAKER)** vs `room_visibility_test` **position 136 (VICTIM)**.
+⇒ **The artifact was CREATED BEFORE the victim, so it was PRESENT during the failure — the opposite
+of the "absent artifact" story.** ⭐ **The inverted hypothesis (wrong key → correctly-signed write
+fails to verify) is held as HYPOTHESIS, because S74 established the DIVERGENCE, not its CAUSALITY.**
