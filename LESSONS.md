@@ -7591,3 +7591,35 @@ CLOSED defect describes something already fixed — which is the correct thing t
 written on every run since 2026-08-08 SO THAT A DEAD LOOP WOULD BE OBSERVABLE — and nothing read them
 for eight days.** ⇒ **A working signal with no listener is the detector-stranded-on-a-branch shape in
 a different costume: the artifact existed, was correct, and changed nothing.**
+
+---
+
+## 7p5 — THREE UNRELATED FORCES POINTING AT ONE HABIT
+
+**2026-08-15.** Writing Sol briefs as **BUILD TASKS** rather than **ATTACK NARRATIVES** turns out to
+be required for three causally independent reasons, discovered hours apart and for different work:
+```
+① the content filter REFUSES the narrative        (S77 → S77b, cost a re-dispatch)
+② a PUBLIC repo should not carry the exploitation
+   sequence for an UNFIXED defect                 (CX-tadf, discovered via the push question)
+③ "ask for a MEASUREMENT, not a MECHANISM"        (the original 2026-08-09 rule)
+```
+⇒ ⭐⭐ ***Three unrelated forces pointing at one habit is usually a sign the habit is load-bearing***
+— **and it is much stronger evidence than any one of them, because the three could not have been
+selected for by the same bias.** ⚠️ **A practice justified once may be a local optimum; a practice
+that three independent constraints converge on is structural.**
+■ ⭐ **Concrete consequence: `CX-fmzk`'s brief described a CLOSED defect and was safe to push;
+`CX-tadf`'s must describe THE CHANGE TO MAKE — *position store-derived at both ends, no
+caller-supplied ordering oracle, active-anchor skip removed* — WITHOUT the backdating sequence.**
+⇒ ***A build task does not need the exploitation narrative.***
+
+## ⛔ AND MY OWN NEAR-MISS IN THE SAME MINUTE: I NEARLY REPORTED A FALSE DISCREPANCY
+**Verifying D1 on the remote, my grep for the load-bearing comment returned `0` where commonplace
+reported `1`.** ⇒ **The comment was there, at `capability.ex:231`. My pattern assumed no backticks;
+the source has `` `scope_set({:subtree, _})` ``.**
+⭐ **Caught only because of the standing rule — *when your grep returns 0, suspect the PATTERN
+first* — and because a positive control (`check_subtree_delegation` → 7 hits, matching their report
+exactly) proved the file was right and readable.**
+⛔ ***A false discrepancy costs more than a missed one: it sends a correct party back to re-verify
+work that was already right, and it spends the credibility that makes real corrections land.***
+⚠️ **Third time tonight a zero was mine and not the world's.**
