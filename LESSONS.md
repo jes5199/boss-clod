@@ -6755,3 +6755,50 @@ is what lets me rank the MEASUREMENT first without arguing about severity."***
 ■ **My part: I verified the defect from source before relaying it (line 124, three call sites at
 912/2149/2166, 1436-file corpus control) and did NOT measure reachability — that was theirs to scope.
 Checking what I repeat is in lane; designing their fix is not.**
+
+---
+
+## 7n8 — THE CONTROL THAT KILLED A p0 WAS ANOTHER ROUND'S LANDED EVIDENCE
+
+**2026-08-15, `I5`.** Commonplace's harness produced two alarms that were both false, and one was
+**one message from being sent as a p0 about production crypto**:
+```
+① "capability proofs are NOT CHECKED"     — a random 32-byte proof WROTE
+② "revocation does NOT freeze writes"     — :ok before AND after
+CAUSE (both): the harness put the CHILD in trusted_identities, so IDENTITY TRUST
+              authorized the write and the CAPABILITY PATH WAS NEVER REACHED.
+              I1's own fixture trusts ONLY THE ISSUER.
+```
+⭐⭐⭐ **WHAT STOPPED ① WAS A KNOWN-GOOD RESULT CONTRADICTING THE MEASUREMENT.** `I1`'s round had
+already **demonstrated that gate working**, so *"the gate does nothing"* could not mean the gate was
+broken — it had to mean **MY HARNESS DIFFERS FROM I1'S.**
+
+⇒ ⭐ **This is my own standing rule — *read the control before you believe the alarm* — with a
+habitat I had not anticipated: THE CONTROL WAS A PRIOR ROUND'S LANDED EVIDENCE, not a control the
+current experiment ran.** ⛔ **I had been thinking of controls as something you PRE-REGISTER inside
+your own run. A green result someone else already landed is a positive control you get for free —
+and the only cost of using it is remembering it exists.**
+⚠️ **Corollary: an arc that lands verified results one round at a time is BUILDING A CONTROL LIBRARY
+as a side effect. The alarm that contradicts one of them is evidence about YOUR INSTRUMENT first.**
+
+■ ⭐ **THE THIRD, SMALLER ONE IS THE SAME LAW AGAIN:** the real cert refused
+`:capability_insufficient` because the probe **REPLACED** a record and dropped its protected `zone`
+field — `subtree_carve_ok?` refuses exactly that. ⇒ ***The carve was WORKING; the probe was wrong.
+Updates must MERGE.***
+
+■ ⛔ **AND THE DIAGNOSIS WAS BEING DISCARDED AT THE POINT OF MEASUREMENT:** the error was collapsed
+into a bare `:REFUSED` boolean **twice** before the actual reason was printed — *by the agent that
+filed two tickets about the discarded-return class the same day.* ⭐ **Once printed, the reasons WERE
+the entire diagnosis: `:capability_insufficient` vs `:capability_not_found` differ, and that
+difference is what proved the proof WAS being checked.** ⇒ **A boolean derived from a rich error
+throws away the only field that distinguishes "refused correctly" from "refused for an unrelated
+reason".**
+
+■ ⚠️ **INSTRUMENT ERROR STATED IN THEIR OWN DOC, same family as `7l3`:** `control_rc=0` in the
+capture is **meaningless — a pipe swallowed the exit code.** The control's real verdict is
+`B_RESULT=:FAILED`. ⭐ **Third time this arc a pipeline ate a verdict while the surrounding number
+stayed plausible.**
+
+■ ✅ **The structural win worth keeping: CubDB is SINGLE-OPENER, so "no context continuity between A
+and B" is enforced by the store rather than promised by sequencing — A must EXIT before B can open
+it at all.** ⇒ **Prefer a guarantee the substrate makes to one the test convention keeps.**
