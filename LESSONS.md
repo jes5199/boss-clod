@@ -6844,3 +6844,43 @@ sides is that assertion made explicit.** ⛔ **Nothing in a run reports the vari
 *"Dormant, re-arm condition is the first production writer"* is a materially different world from
 *"gated"* — ⛔ **and the two look IDENTICAL at the call site. Only a tree-wide caller search
 separates them.**
+
+---
+
+## 7o0 — A GATE THAT WITHHOLDS **GREEN** IS WORSE THAN ONE THAT MISSES RED
+
+**2026-08-15, `bin/cp-suite-baseline`.** The tool whose entire purpose is *making briefs quote a real
+suite block instead of a remembered number* **withheld a GREEN result with exit 3**:
+```
+commonplace_web summary:  "12 features, 136 tests, 0 failures"
+                           ^^^^^^^^^^^^ every pattern alternative was anchored to a line
+                           STARTING with a doctest/test count — so this one matched nothing
+```
+⇒ ⚠️ **The round's near-miss was reading that exit 3 as A SUITE FAILURE.** ⛔ **A false RED, emitted by
+the instrument that exists to stop people trusting remembered numbers.**
+
+⭐⭐ **THE ASYMMETRY WORTH KEEPING: withholding GREEN is the WORSE direction.** A gate that misses a
+red fails once, on that change. ⇒ ***A gate that cries red on correct input teaches people to stop
+running it*** — **and then it fails on every change afterward, silently, because nobody is looking.**
+⚠️ **This is the same law as my own standing rule from the other side: *a gate you have never seen
+fail is not known to work* — and *a gate that fires on correct state is worse than no gate.*
+
+✅ **THE REPAIR WAS DEMONSTRATED IN BOTH DIRECTIONS, WHICH IS THE ONLY VERSION THAT COUNTS:**
+```
+old pattern vs web summary    → 0 matches   ← the bug, REPRODUCED before fixing
+old pattern vs core summary   → 1 match     ← no regression baseline
+new pattern vs web/core/cli   → all match   ← it can go green
+new pattern vs compile errors / empty input / progress text → STILL no match   ← it can still go RED
+```
+⭐⭐ **THAT LAST LINE IS THE ONE THAT MATTERED:** ***a fix which made the withholding UNFIREABLE would
+be worse than the defect it repaired.*** ⇒ **Repairing a false alarm by disabling the alarm is the
+same class of defect as the false alarm, wearing a fix's clothes.**
+⚠️ **Commonplace's own note, which is the honest version:** *"I have spent today filing tickets about
+gates that cannot go red; repairing one by disabling it would have been the same defect with my
+name on it."*
+
+■ ⭐ **AND THE PATTERN BUG ITSELF IS A CORPUS ERROR, not a logic error:** the pattern was written
+against the apps whose summaries START with a test count, and `commonplace_web` — the one app with a
+`features` prefix — was outside the set it was validated on. ⇒ ***A matcher is only known to work on
+the shapes you fed it.*** **Same family as the `head`-is-a-view-not-a-count and pattern-anchored-count
+failures already in this file.**
