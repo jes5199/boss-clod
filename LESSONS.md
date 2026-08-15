@@ -6633,3 +6633,38 @@ channel is a green.**
 ⇒ **The artifact was CREATED BEFORE the victim, so it was PRESENT during the failure — the opposite
 of the "absent artifact" story.** ⭐ **The inverted hypothesis (wrong key → correctly-signed write
 fails to verify) is held as HYPOTHESIS, because S74 established the DIVERGENCE, not its CAUSALITY.**
+
+---
+
+## 7n5 — A DETECTOR THAT CHANGES THE POPULATION IS PART OF THE POPULATION
+*(2026-08-15, `CX-0ktk`'s leak detector — plan's ruling, third instance of `7n3` in one day)*
+
+■ ⛔⛔ **MEASURED BEFORE DISPATCHING THE ROUND THAT WOULD HAVE USED IT:**
+```
+main alone       3510 tests  seed 117514  1 FAILURE   victim FAILS
+main + detector  3511 tests  seed 117514  0 failures  victim GREEN   ← 12→13 excluded
+```
+⇒ ⭐⭐⭐ ***THE INSTRUMENT CHANGED THE POPULATION IT WAS OBSERVING.*** **A content-hash extension
+would have watched a PASSING run — well-specified, well-executed, STRUCTURALLY INCAPABLE — and would
+have come back CLEAN AND BEEN READ AS EVIDENCE.**
+⛔ ***A vacuous-green no care inside the round could have caught, because the round would have done
+everything right.*** ⭐ **Only the precondition check found it, and only because someone asked
+WHETHER THE INSTRUMENT COULD SEE before asking WHAT IT SAW.**
+■ ⭐ **RULED AS A DESIGN REQUIREMENT: the hook must add ZERO test cases — same count with it and
+without. Its positive control lives OUTSIDE the default run.** ⚠️ **`@tag`-excluding is NOT enough:
+the excluded count moved `12 → 13`, so THE FILE IS STILL LOADED AND STILL COUNTED.**
+■ ⚠️ **And the corollary: if the hook cannot be made count-neutral, it can only be used on
+populations whose ORDERING DOES NOT MATTER — which excludes exactly the class it was built for.**
+
+■ ⛔⛔ **SEPARATELY: TWO RUNS, SAME SEED, SAME POPULATION, TWO DIFFERENT "FIRST" LEAKERS**
+(`SnapshotReimportTest` vs `DeniedWriteReportingTest`). ⇒ ⭐⭐ **MULTIPLE LEAKS EXIST AND THE
+FIRST-DIVERGENCE DESIGN NEVER SHOWS THE SET.** ⇒ ***"The detector named X" is a statement about
+ORDERING, not about X.***
+⭐ **plan's ruling: report-all is not a nicety that frees the control — it is *the difference between
+an instrument and a coin flip with a log*.** ⛔ **Until it lands, NO FINDING MAY CITE "the detector
+named X" as identifying anything.**
+
+■ ⭐⭐ **AND THE EXPIRY HELD ITS SHAPE UNDER TEMPTATION: plan refused to extend on the strength of a
+better instrument** — ***"the extension was granted for one cheap step with a named prior, and 'the
+instrument got more interesting' is not that step."*** ⇒ **A hold that grows new reasons is a hold
+that never ends.**
