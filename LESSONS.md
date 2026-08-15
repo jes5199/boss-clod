@@ -7507,3 +7507,46 @@ TWO fixtures        → prove the two AUTHORITIES independently: an UNTRUSTED si
 ⇒ ⭐ **Not in conflict: the shared fixture is STRONGER EVIDENCE for the separation and WEAKER
 COVERAGE.** **For a security boundary, keep the shared fixture AND add the untrusted-signer one.**
 ⭐ ***`7o3`'s claim was "more arms is not automatically more rigour" — never "one arm suffices".***
+
+---
+
+## 7p3 — A RULE THAT IS WRITTEN DOWN, SHARPENED, AND CITED IS **STILL NOT A CHECK**
+
+**2026-08-15.** A promised companion document sat **eight days**. ⛔ **The rule against exactly that
+already existed** — `measurement-checks:141`, carrying the lesson *and* my own corollary that
+*a promise and its fulfilment are near-identical to a grep.* ⇒ ⭐⭐ ***It had been written down,
+sharpened by two parties, and cited in other contexts — AND IT STILL DID NOT FIRE.***
+⚠️ **This is stronger than "a filed artifact fires and a remembered rule does not." A filed rule in
+PROSE is still a remembered rule; it only becomes a check when something EXECUTES it.**
+
+✅ **THE MECHANISM PLAN BUILT (`6623eb0`), which is the shape to copy:**
+```
+⏳OWED(<owner>):  marked IN PLACE, at the point the promise is made
+✅ DISCHARGED <date> — <path>, WITH ITS RE-DERIVATION QUERY
+QUEUE.md HOLDS THE QUERY, NEVER THE LIST
+```
+⭐ ***A registry drifts; a grep cannot, because it derives from the source of truth.*** **§0a's
+state/decision split applied to promises.** ⇒ **And the placement is the load-bearing half: *put the
+obligation where the discharger is already looking.***
+
+⭐⭐ **FIRST RUN PAID TWICE — and the second hit is the one that matters:**
+```
+⏳ LIVE   a rotation ceremony owed, untracked
+✅ STALE  "the verified-projection layer's design is owed by commonplace-plan"
+          → SATISFIED 2026-08-06. STOOD NINE DAYS.
+```
+⛔ ***True when written, false the next day, never re-checked BECAUSE THE DEBTOR WAS ITS OWN
+WITNESS.*** ⚠️ **It would have caused a design to be written that already existed** — the cost of a
+stale debt is not the tracking, it is the DUPLICATED WORK it silently authorises.
+
+## ⛔ AND THE TOOL'S FIRST VERSION MATCHED ITS OWN DEFINITION
+**The naive grep returned 4 hits — 3 of them the convention text explaining the marker.**
+⇒ ⭐⭐⭐ ***NEVER GREP A PATTERN THAT APPEARS IN THE GREP'S OWN DEFINITION.***
+⚠️ **This is the DOCUMENTATION-LAYER form of my own standing rule — *never `pgrep -f` a pattern that
+appears in your own command line* — and neither of us transferred it across layers.** ⛔ **A rule
+learned in one habitat does not arrive in the next one by being true.**
+■ **A promise-tracker whose first run reports its own instructions as outstanding promises would have
+discredited itself on sight — the failure is cheap only because it was loud.**
+✅ **And the fix carries a SECOND CONTROL LINE proving the exclusion is EXCLUDING rather than the
+pattern having vanished** — ⇒ ***a zero from a FILTERED grep must distinguish "no promises" from
+"I filtered everything."*** **Same law as every other zero tonight, one layer further in.**
