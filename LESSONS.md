@@ -6704,3 +6704,54 @@ advance.**
 PUBLISHABLE RESULT**, and told not to reach for a sixth theory to avoid reporting one — because
 *"the round inherits my incentives unless the brief removes them."* ⭐ **An incentive you can name in
 yourself is an incentive you must write OUT of the brief, not resolve to resist.**
+
+---
+
+## 7n7 — A CHECK WHOSE EVIDENCE IS PRODUCED BY ITS OWN SUBJECT IS VACUOUS, NOT WEAK
+
+**2026-08-15, `CX-fmzk` (p1, found by the `I4` round attempting its own forbidden act).**
+
+```elixir
+# apps/commonplace/lib/commonplace/store/sla_tombstone.ex:124
+:crypto.verify(:eddsa, :none, tombstone.id, tombstone.signature,
+               [tombstone.signer_public_key, :ed25519])
+#                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+#                the key comes from a FIELD ON THE STRUCT BEING VERIFIED
+```
+⇒ **Generate a keypair, name yourself the signer, sign. `verify_id` and `verify_signature` both
+return `:ok`.** ⭐ ***The artifact proves it was not TAMPERED WITH AFTER SIGNING. It proves nothing
+about WHO SIGNED.*** ⛔ **A self-consistent forgery satisfies it perfectly, BY CONSTRUCTION.**
+
+⭐⭐ **PLAN'S NAME FOR IT, WHICH IS THE GENERAL LAW AND THE REASON THIS IS FILED:**
+***A CHECK WHOSE EVIDENCE IS PRODUCED BY ITS OWN SUBJECT.*** ⇒ **"It is not a WEAK check; it is a
+VACUOUS one."**
+⚠️ **And the reason it ranks above its class: this is *the identical law as the blob-exists probe
+killed two days earlier — arriving in PRODUCTION CRYPTO instead of in a test.*** ⇒ ⭐ **Same law,
+two habitats. A vacuity pattern retired in the test suite is not retired in the system.**
+
+⭐ **THE SHARPER FORM OF MY OWN STANDING RULE.** "Shape equality is not validity" says *every field
+you assert by equality is a field a forgery also satisfies.* **This says WHERE TO LOOK for it:
+follow the evidence to its SOURCE, and if the source is the thing under test, the check is
+decoration no matter how strong the cryptography is.** ⇒ **Ed25519 is not the weak part here.
+Nothing about the primitive is broken. The TRUST ANCHOR is simply absent.**
+
+⛔ **WHY IT WAS FIXED BEFORE REACHABILITY WAS MEASURED** — plan ordered ⓐ measure, ⓑ fix *regardless
+of ⓐ*: ***"reachability determines URGENCY, not CORRECTNESS. A vacuous check that happens to be
+unreachable today is a vacuous check WITH A RE-ARM CONDITION"*** — protection-by-accident, which
+this codebase has been bitten by three times in a week.
+
+■ ⭐ **THE INVERSION, which is why a forgeable TOMBSTONE is worse than a generic forgery:** a
+tombstone exists to distinguish **EVICTED-PER-POLICY** from **MISSING**. ⇒ **Forging one lets an
+attacker manufacture the MORE REASSURING of the two explanations for data that is simply gone.**
+***Every other forgery makes a system say something FALSE; this one makes it say something CALMING.***
+⚠️ And `store_sla_tombstone` indexes a blessed tombstone against **every `commit_id` it names**, so
+the claimed set is attacker-chosen.
+
+■ ✅ **AND THE DISCIPLINE THAT MADE IT RANKABLE: the p1 was filed WITH ITS OWN ESCAPE HATCH** — *if
+those three call sites are gated upstream, this drops, and that gating is NOT verified.* ⇒ plan:
+***"an unqualified p1 that turns out unreachable teaches everyone to discount p1s. Its qualification
+is what lets me rank the MEASUREMENT first without arguing about severity."***
+
+■ **My part: I verified the defect from source before relaying it (line 124, three call sites at
+912/2149/2166, 1436-file corpus control) and did NOT measure reachability — that was theirs to scope.
+Checking what I repeat is in lane; designing their fix is not.**
