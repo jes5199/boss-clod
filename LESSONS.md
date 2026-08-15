@@ -7230,3 +7230,50 @@ attached."***
 ***running it more carefully, more often, or on more seeds makes it MORE convincing, not less.***
 ⇒ ⛔ **No amount of rigour applied to the artifact detects it. The only thing that catches it is A
 PARTY WHO DOES NOT ALREADY BELIEVE THE DESIGN.**
+
+---
+
+## 7o8 — A TRUE SENTENCE ABOUT **MECHANISM** ANSWERING A QUESTION ABOUT **CAPABILITY**
+
+**2026-08-15, four pushes on derived actors.** jes asked variants of *"would attenuated identity help
+with pods?"* four times. Plan answered *"that is not attenuated identity — we attenuate AUTHORITY"*
+each time. ⭐ **The sentence was TRUE every time.** ⛔ **And it was the wrong kind of answer.**
+
+⭐⭐⭐ **PLAN'S OWN DIAGNOSIS, WHICH IS THE ENTRY:** ⇒ ***"It is a true sentence about MECHANISM that
+keeps arriving as an answer to a question about CAPABILITY — and it reads as a naming convention
+precisely BECAUSE it declines the thing he is actually pointing at."***
+⇒ **He was describing something real: short lifetime, narrowed grant, a parent it derives from, a
+depth limit. All four real, all four needed.** ⛔ **The vocabulary was correct about WHERE those live
+and was being used to DEFLECT rather than to INFORM.**
+
+⭐⭐ **THE DETECTOR, and it is countable rather than a matter of taste:**
+```
+vocabulary defended:  4 times
+substance conceded:   2 times   ("ephemeral principals already cover pods"
+                                 → "the depth half is a PRECONDITION and does not exist")
+```
+⇒ ***A VOCABULARY THAT NEEDS DEFENDING FOUR TIMES WHILE THE SUBSTANCE CONCEDES TWICE IS A VOCABULARY
+DOING WORK IT SHOULD NOT BE DOING.*** ⚠️ **Watch the RATIO, not either number: repeated defence
+alongside repeated concession means the terminology is absorbing pressure meant for the design.**
+
+✅ **THE REPAIR IS TO STATE THE CAPABILITY AND LET THE WORD GO:** *"we attenuate the grant on four
+axes — verbs, scope, lifetime, depth — and THE DEPTH AXIS IS UNBUILT AND BLOCKING THE PODS PATH."*
+⇒ ⭐ ***"If he wants to call that attenuated identity, the WORD costs me nothing and the MECHANISM is
+unchanged; what would cost something is pretending the capability is already there."***
+
+## ⭐ AND THE GOOD HALF: HOW A DISTINCTION PROVES IT IS NOT A NAMING CONVENTION
+■ **MECHANICAL, not definitional — vary one, hold the other:** *hand the SAME keypair two certs with
+different depth limits; delegation capacity changes, the key is byte-identical.* ⇒ ***A capacity that
+varies while the self is unchanged was never a property of the self.*** **Converse: you cannot tell
+how attenuated a principal is BY EXAMINING THE PRINCIPAL — only the certs it presents say anything.**
+■ ⭐⭐ **FALSIFIABLE, and already tested in the discriminating direction:**
+```
+attenuated identity ⇒ revoking the parent WEAKENS THE CHILD; past signatures need
+                      re-evaluation ("which version of X signed this?")
+this model          ⇒ revoking the parent FREEZES AUTHORITY; identity, findings and
+                      history stay READABLE AND ATTRIBUTABLE      ← I5's acceptance, PASSED
+```
+⇒ ***The honest proof of a distinction is an experiment already run, not an argument.***
+■ **My discriminator, which plan ratified rather than corrected:** ***does any verifier ever have to
+ask "HOW MUCH OF X IS THIS?"*** If yes, identity is a spectrum. If it only asks *"may THIS principal
+do THIS"*, the self is whole and only the authority is narrow.
