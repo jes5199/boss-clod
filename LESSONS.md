@@ -6321,3 +6321,30 @@ timestamp, and no author*, so three corrections of one fact still read as three 
 ⇒ **True regardless of whether comments exist — what changed is that the REMEDY IS AVAILABLE rather
 than needed-and-absent.** ⛔ **And the interim rule survives too: THE EXISTING LABELS STAY, now as
 belt-and-braces rather than as the sole record.**
+
+---
+
+## 7m6 — THREE ARMS, THREE IDENTICAL OUTPUTS, ALL rc=0 — THE OVERRIDE WAS AN INVENTED ENV VAR
+*(2026-08-15, `CX-1f64` — on the ticket about checks that never fire)*
+
+■ ⛔ **The verifier invented `CP_CLI_ESCRIPT`; the script reads `CLI_CHECK_ESCRIPT`.** ⇒ **The override
+was silently ignored and THE SAME DEFAULT CHECK RAN THREE TIMES.** ⭐ **Three arms, three identical
+outputs, `rc=0` throughout — and it looked exactly like a passing suite.**
+■ ⭐⭐ **THE MECHANICAL DISCRIMINATOR, WHICH IS THE REUSABLE PART: RED AND CANNOT-DETERMINE BOTH
+RETURNED 0.** ⇒ ***If two arms are DEFINED to differ and their exit codes agree, the arms did not
+run — that is checkable without knowing anything about the subject.*** **Assert the arms DISAGREE
+before believing any of them.**
+■ ⚠️ **And the interface was documented IN THE SCRIPT'S OWN HEADER, four lines above the code that
+reads it.** ⇒ **Guessing an interface that is written down beside the code is the same
+memory-over-artifact class as the `--sname`, the remembered suite count, and the `cd` trap — now
+five parties, seven instances.**
+
+■ ✅ **What landed is the good half: `CX-1f64` HAS NOW BEEN SEEN TO FIRE ON THE REAL ARTIFACT** —
+`rc=1` "STALE — 44 modules differ (315 compared; 12 missing)" naming each, `rc=0` FRESH on the
+current escript, `rc=2` CANNOT VERIFY for **both** blind cases (missing escript, missing build dir),
+fixture intact afterwards. ⭐ ***A check never seen red is not known to work; this one is now known
+to work on the binary that caused the incident*** — **not a manufactured stand-in, which is why the
+perishable fixture was worth preserving at midnight.**
+■ ⛔ **REPORTED, NOT ACTED ON: `check-mcp-fresh`'s missing-escript path exits `1` while documenting a
+three-way contract** ⇒ **its "cannot determine" is indistinguishable from "stale"** — **the silent
+collapse `CX-q8f1` was about, living in the tool this one was modelled on.**
