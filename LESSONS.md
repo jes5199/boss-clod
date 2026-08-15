@@ -6512,3 +6512,40 @@ SERVER'S state.** ⛔ **Same family as *blocked and not-there share an exit code
 on a later HEAD sees green and concludes FIXED.** ⛔ ***The ticket warning about exactly that mistake
 contained an instruction to make it.*** ✅ **Now pinned to population 3510, with
 "failure-to-reproduce on a later HEAD is NOT evidence of a fix — check the population count first."**
+
+---
+
+## 7n2 — THE SELF-RETIRING EXCEPTION FIRED TEN MINUTES AFTER WE AGREED ON IT
+*(2026-08-15, S73 / `I3` — and a trap `CX-0ktk` wrote into itself)*
+
+■ ⭐⭐ **All three of us ratified: *if the expected red does NOT appear, that is ALSO reportable.***
+**Ten minutes later `I3`'s three new tests moved the deck and `CX-0ktk` STOPPED REPRODUCING at seed
+`117514`.** ⇒ ✅ **The round REPORTED the missing red rather than banking a quieter suite.**
+⛔ ***A static "3510/1 is fine" would have silently swallowed the disappearance of the thing we were
+protecting*** — **and the disappearance was the evidence that plan's perishability argument was
+right.** ⭐ **Predicted by argument at 15:46; confirmed by evidence at 16:27.**
+
+■ ⛔⛔ **AND THE TICKET CONTAINED AN UNSAFE INSTRUCTION ITS OWN AUTHOR CAUGHT: *"BISECT THE
+POPULATION."*** ⇒ ***YOU CANNOT BISECT AN ORDERING BUG BY DELETING TEST FILES, BECAUSE DELETING
+RESHUFFLES THE DECK — the exact mechanism under investigation.*** ⚠️ **A round following it would
+remove half the population, see green or red, and BOTH OUTCOMES WOULD BE ARTIFACTS.**
+⭐ **The way out: capture the EXECUTION ORDER at the seed and replay subsets with ordering FORCED, so
+a subset PRESERVES relative order instead of re-shuffling.** ⚠️ **Second time in two days a ticket's
+own text carried an instruction to make the mistake it warns about (`# at e8d9053c OR LATER` was the
+first).** ⇒ ⭐ ***A warning and a procedure in the same document can contradict each other, and the
+procedure is what gets followed.***
+■ ⭐ **AND THE CAPTURE IS BUILT TO TEST ITS OWN VALIDITY: `--trace` serialises to `max_cases 1` and
+MAY perturb the phenomenon, so the run reports whether the failure STILL REPRODUCES under trace.**
+⇒ ***A trace of a green run is useless, and knowing that BEFORE building a brief on it is the
+difference between an instrument and a decoration.***
+
+■ ⭐⭐⭐ **THE ROUND'S OWN BEST MOVE WAS UNASKED: it closed the `resolve/1` hazard BY CONSTRUCTION.**
+```elixir
+def read_pinned(%DocRef{cid: nil}, _store), do: {:error, :class_version_required}
+```
+⇒ **An UNPINNED ref is REFUSED; the floating mode is UNREACHABLE, so no later caller can forget.**
+⭐ ***Briefed "prove the pin by effect"; it delivered that AND made the failure mode
+unrepresentable*** — **the difference between passing an arm and answering the question behind it.**
+■ ✅ **And it kept the NAIVE resolver as a PERMANENT CONTROL rather than using it once for a
+transient red: both paths parse the same ref and differ ONLY in pinning, so the leak stays
+demonstrable forever.**
