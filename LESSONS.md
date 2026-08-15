@@ -6924,3 +6924,49 @@ matching hazard: a receipt tells you the age, it does not refresh the contents.*
 ■ ⭐ **Same day, same shape, third party: the round that would have burned a lane returning
 "already implemented" would have looked like a Sol failure. It would have been a COORDINATION failure
 with a Sol-shaped output.**
+
+---
+
+## 7o2 — AN EXEMPTION SCOPED TO A *MODULE* IS AN ABSORBING CATEGORY
+
+**2026-08-15, S79 / `CX-kx6d`.** Commonplace's brief declared a known-red like this:
+> *"`GitBridge.ServerTest` has a known teardown race, NOT yours."*
+
+⛔ **S79 then hit a DIFFERENT failure in that file — a `:already_registered` fixture collision in
+"push: failure to an unreachable remote", not the TOCTOU in "across two cycles" — and reported it as
+*"the brief's declared `CX-kx6d` race."*** ⇒ **Different test, different mechanism, silently excused.**
+
+⭐⭐⭐ **THE LAW: AN EXEMPTION SCOPED TO A CONTAINER (module, file, suite, service) EXCUSES EVERY
+FUTURE FAILURE IN THAT CONTAINER, INCLUDING ONES THAT DO NOT EXIST YET.** ⇒ ***KNOWN-REDS MUST BE
+NAMED BY SPECIFIC TEST **PLUS** MECHANISM.***
+⚠️ **This is plan's self-retiring-exception ruling in a second habitat:** ***an exception that cannot
+fail to apply is not an exception, it is a blindfold.***
+
+⭐ **AND THE DIRECTION OF DAMAGE IS THE OPPOSITE OF `7o0`, WHICH IS WHY BOTH ARE WORTH HAVING:**
+```
+7o0  a gate that cries red on correct input  → people STOP RUNNING IT   (loud, then abandoned)
+7o2  an exemption that absorbs new failures  → people MISS REAL ONES    (silent, compounds)
+```
+⇒ **The absorbing category is the more dangerous of the two because nothing ever announces it.**
+
+## ⛔ I THEN FOUND ONE IN MY OWN LOOP TEXT — `LOOPS.md:36`
+```
+"Ignore alerts that are obviously hermes test fixtures
+ (e.g. fake 'bot COMPROMISED' or 'SHARES entry placed: COIN' during a test run)"
+```
+⚠️ **That is scoped by SOURCE + vibe ("obviously"), not by mechanism** — and it sits on **the alert
+path jes built precisely because a working detector reaching someone who does not act on it was the
+failure**. ⇒ ⛔ **A REAL hermes compromise alert arriving during a test window is exactly the input
+this phrasing is worst at.**
+✅ **What saves it, and it is load-bearing rather than incidental:** the same instruction says
+***"but say so rather than silently dropping them."*** ⇒ **The exemption is ANNOUNCED, so it cannot
+absorb silently — which is the property `7o2` says an exemption must have.**
+⭐ **Kept as-is on that ground, and recorded here so the reasoning is inspectable rather than
+remembered. If that "say so" clause ever goes, the exemption becomes absorbing the same day.**
+
+■ ⭐ **`LOOPS.md:80` is the same subject pointed the right way and is the model to copy:** *"if a
+subagent reports a test failure as 'pre-existing' or 'unrelated', CHECK IT YOURSELF"* — ⇒ **an
+instruction to verify the category, not to trust it.**
+■ ✅ **Commonplace's re-brief fix is the correct shape: name BOTH known failures with their distinct
+mechanisms, then state *"any OTHER failure in that module IS yours."*** **The closing clause is what
+converts a container exemption into an enumerated one.**
