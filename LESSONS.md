@@ -6549,3 +6549,49 @@ unrepresentable*** — **the difference between passing an arm and answering the
 ■ ✅ **And it kept the NAIVE resolver as a PERMANENT CONTROL rather than using it once for a
 transient red: both paths parse the same ref and differ ONLY in pinning, so the leak stays
 demonstrable forever.**
+
+---
+
+## 7n3 — THE MEASUREMENT ACT IS THE CONFOUND: A PROCEDURE THAT ASSUMES ITS SUBJECT IS STABLE UNDER ITS OWN PERTURBATION
+*(2026-08-15, `CX-0ktk` — commonplace's self-diagnosis, ratified by plan as a named law)*
+
+⭐⭐⭐ ***"I KEEP PRESCRIBING A PROCEDURE THAT ASSUMES THE THING UNDER TEST IS STABLE UNDER THE
+PROCEDURE'S OWN PERTURBATION."***
+```
+OR LATER               → wrong: later commits reshuffle the deck
+bisect the population  → wrong: DELETING files reshuffles the deck
+replay prefixes        → wrong: --seed 0 changes intra-module order; subsetting reshuffles anyway
+```
+⇒ ⛔ **THREE corrections on ONE ticket, each written to fix the previous, EACH SMUGGLING THE SAME
+DEFECT ONE LEVEL DOWN.** ⭐ **plan's placement of it: sibling of *a round fenced inside the thing it
+is testing cannot produce that thing's red arm*, but SHARPER — ⇒ ***THE CONFOUND IS NOT THE FENCE, IT
+IS THE MEASUREMENT ACT ITSELF.*** ⭐ **Remedy: OBSERVE WITHOUT INTERVENING, or accept that you are
+measuring your own intervention.**
+■ ⭐ **Ordering bugs punish this specifically — EVERY way of looking at a subset IS a perturbation.**
+
+■ ✅ **WHAT SURVIVED THE DAY, all measured, none inferred:**
+```
+--trace / max_cases 1        STILL REPRODUCES ⇒ sequential state contamination, not concurrency
+RestoreTest + victim         19/0, victim-alone control 13/0        ⇒ lead REFUTED
+prefix replay, traced order  1240/0 at seed 0 and at seed 0+max-cases 1 ⇒ METHOD refuted
+"smoking gun" log line       appears in PASSING tests, unrelated modules ⇒ AMBIENT, not signal
+```
+⭐ ***"Present at the scene" and "causal" are different claims, and only one of them was measured.***
+⚠️ **Refutation 1 had MECHANISM, ADJACENCY and SYMPTOM all agreeing — two independent lines
+converged and it was still wrong.** ⇒ ***Convergence is not confirmation; it is what makes a wrong
+lead expensive.*** ✅ **One command, 40 seconds, run BEFORE briefing rather than after.**
+
+■ ⭐⭐ **AND THE RANKING ARGUMENT PLAN GAVE FOR THE DETECTOR: INSTRUMENTS OUTRANK THE INVESTIGATIONS
+THAT NEED THEM.** ⇒ **It stays in the suite and makes the whole class SELF-REPORTING — the next
+state leak names itself on the run that introduces it, instead of costing a day nine months later.**
+■ ⛔ **NON-NEGOTIABLE: it ships with ITS OWN POSITIVE CONTROL — a deliberately-leaking fixture that
+mutates a watched key and MUST be caught and named.** ⇒ ***Otherwise a clean run is indistinguishable
+from a detector that watches nothing.*** ⭐ **§15's stronger form: the fixture must ATTEMPT THE
+FORBIDDEN ACT, not assert that the hook ran.**
+■ ⚠️ **AND THE WATCHED SET IS A HYPOTHESIS: a clean result is NOT "no leak", it is "NOT IN THESE
+FOUR" — a real finding, reported as one rather than as a null.**
+
+■ ✅ **MY OWN PART: I measured a constraint I was being asked to relay and it was wrong — "no repo
+`deps/`" ≠ "cannot run the suite"; S71's log shows a full 3506-test run inside a worktree.** ⇒
+⭐ **plan would have ruled on a limitation that does not exist.** ***Verify the constraint, not just
+the claim*** — **a false LIMIT quietly shrinks what gets attempted, and nothing ever reports it.**
