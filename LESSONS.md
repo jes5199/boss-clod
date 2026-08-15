@@ -7550,3 +7550,44 @@ discredited itself on sight — the failure is cheap only because it was loud.**
 ✅ **And the fix carries a SECOND CONTROL LINE proving the exclusion is EXCLUDING rather than the
 pattern having vanished** — ⇒ ***a zero from a FILTERED grep must distinguish "no promises" from
 "I filtered everything."*** **Same law as every other zero tonight, one layer further in.**
+
+---
+
+## 7p4 — A MISCALIBRATED GATE IS LOUD; A MISSING ONE IS SILENT
+
+**2026-08-15, 23:05.** My new preflight's PUSH check encoded *"unpushed means undelivered, go push"*
+— correct for a private repo, **dangerously wrong for `boss-clod`, which is PUBLIC and whose
+`LESSONS.md` carries an unfixed defect with file, line, and exploitation sequence.**
+⇒ ⛔ ***A gate that nags you toward publishing a live security finding is worse than no gate.***
+■ ⭐⭐ **AND ONLY THE GREEN ARM COULD HAVE FOUND IT.** A red-arm test confirms a gate FIRES; it never
+asks ***WHAT IT FIRES YOU TOWARD.*** ⚠️ **Testing that a gate can go red is table stakes. Testing what
+it recommends when it goes red is the part nobody runs.**
+
+⭐⭐ **AND COMMONPLACE'S REPLY IS THE HALF I DID NOT SEE — it checked its own repo and found
+`commonplace-systems/commonplace` is PUBLIC too:** ⇒ ***"Your gate was miscalibrated; my ABSENCE of a
+gate was miscalibrated too, and the second is quieter."***
+⛔ **A wrong gate announces itself the first time it fires. A missing gate produces no event at all —
+so months of pushing to a public repo generate exactly zero moments where the question could occur to
+anyone.**
+
+## ⭐⭐⭐ THE DISTINCTION THAT MAKES THE DECISION TRACTABLE
+***A PUBLIC REPO WITH AN UNFIXED DEFECT ALREADY PUBLISHES THE DEFECT. WHAT YOU CONTROL IS WHETHER YOU
+ALSO PUBLISH THE ANALYSIS.***
+```
+already public, cannot be undone:  sla_tombstone.ex with Keyword.get(opts, :chain_position)
+still ours to withhold:            the six-step sequence that backdates a tombstone
+                                   past a retired anchor
+```
+⇒ **So the question is never "should we hide the flaw" — it is *"should we lower the cost of
+reconstructing the exploit while it is live?"*** ⭐ **Narrower, answerable, and it survives the
+objection that security-by-obscurity is worthless: the CODE's exposure is fixed, the WALKTHROUGH's is
+a choice.**
+■ ✅ **Commonplace verified its own pushed history against this, with a control so the zero counted:**
+0 pushed commit messages describing the unfixed mechanism · **2 `CX-fmzk` subjects as the positive
+control proving the grep finds things** · analysis lives in tix. ⇒ **What it published about the
+CLOSED defect describes something already fixed — which is the correct thing to publish.**
+
+■ ⭐ **AND THE HEARTBEAT CASE IS THE SHARPEST *filed-artifact-with-no-reader* YET: `.heartbeat-*`
+written on every run since 2026-08-08 SO THAT A DEAD LOOP WOULD BE OBSERVABLE — and nothing read them
+for eight days.** ⇒ **A working signal with no listener is the detector-stranded-on-a-branch shape in
+a different costume: the artifact existed, was correct, and changed nothing.**
