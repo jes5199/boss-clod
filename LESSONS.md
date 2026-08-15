@@ -7277,3 +7277,49 @@ this model          ⇒ revoking the parent FREEZES AUTHORITY; identity, finding
 ■ **My discriminator, which plan ratified rather than corrected:** ***does any verifier ever have to
 ask "HOW MUCH OF X IS THIS?"*** If yes, identity is a spectrum. If it only asks *"may THIS principal
 do THIS"*, the self is whole and only the authority is narrow.
+
+---
+
+## 7o9 — "THE REPRODUCER DIED" WAS A STATEMENT ABOUT ONE BRANCH, GENERALISED
+
+**2026-08-15, S80.** Tonight I told jes, and plan ruled on the basis, that `CX-0ktk`'s reproducer
+**died with the `I3` merge** — predicted before the measurement and confirmed after. ⛔ **It is not
+dead. It is PRESERVED on the S75 branch, at the exact population where it fires:**
+```
+MUD.RoomVisibilityTest "…renders normally (self-read)"   ← the ORIGINAL victim
+  "(this place has no description)"   at population 3510, seed 117514
+```
+⇒ ⭐ **The claim was TRUE OF MAIN and FALSE OF THE TREE.** ***I checked the thing I was looking at
+and concluded about everything.***
+
+⚠️ **THE SHAPE, which is the third instance in one evening:**
+```
+7o4  "the instrument is safe"     ← true of the worktree,  false of main
+7o7  "X is holding for Y"         ← true of my inbox,      false of the correspondence
+7o9  "the reproducer died"        ← true of main,          false of the tree
+```
+⇒ ⛔ ***A CLAIM ABOUT A REPO IS ALWAYS A CLAIM ABOUT A REF. Say which one, or the sentence acquires a
+scope it was never measured at.*** **"Gone", "safe", "landed", "dead" all silently quantify over
+every branch when they were only ever measured on one.**
+
+■ ⭐ **AND THE COST IS NOT BOOKKEEPING: a live reproducer is a research handle. Plan's expiry ruled
+"the reproducer dies" as an accepted COST of closing `CX-0ktk`** — ⇒ **that cost was not actually
+paid, so the ruling was correct but its price was overstated.** ✅ **Routed to plan, because whether
+that changes the closure is its call and not mine.**
+
+## ⛔ AND THE CONTRADICTORY-INSTRUCTION CLASS, SECOND TIME TODAY, DIFFERENT DRESS
+**Commonplace briefed S80: *"main is at 3519; the count WITH this instrument must still be 3519"* —
+then built its worktree from the S75 branch, whose merge base is NINE TESTS behind main.** ⇒ ⛔ **A
+target the base could not produce.**
+⭐ **S80 refused to report the number as satisfying the condition, and said why:**
+> ***"Landing based on the claimed 3519 count would have CONCEALED that this starting branch is stale
+> relative to main… That explains a nine-test population gap but DOES NOT ESTABLISH COUNT-NEUTRALITY
+> AGAINST MAIN."***
+⚠️ **A compliant round would have reported *"3510 with, 3510 without — neutral!"* — TRUE AND USELESS.**
+⭐ **Seventh round whose best contribution was correcting its brief.**
+
+■ ✅ **AND THE "PRINTED COMMAND" TRAP CAUGHT A REAL CASE, because the brief demanded the command be
+RUN rather than printed: the self-announcing control's printed command FAILS in a fresh checkout
+(no local `deps/`; needs `MIX_DEPS_PATH`).** ⇒ ***An instruction that only works in the author's
+environment is a printed command nobody has run, one level down.*** **The printed form must be the
+one that works from a normal checkout.**
