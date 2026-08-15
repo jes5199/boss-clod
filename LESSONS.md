@@ -7623,3 +7623,42 @@ exactly) proved the file was right and readable.**
 ⛔ ***A false discrepancy costs more than a missed one: it sends a correct party back to re-verify
 work that was already right, and it spends the credibility that makes real corrections land.***
 ⚠️ **Third time tonight a zero was mine and not the world's.**
+
+---
+
+## 7p6 — ON AN AUTHORITY SURFACE, REFUSE BY ALLOWLIST, NOT BY REMOVING THE KNOWN SEAMS
+
+**2026-08-15, `CX-tadf`.** The brief asked for **three known seams removed**. The round shipped an
+allowlist instead:
+```elixir
+case Keyword.keys(opts) -- [:store] do
+  [] -> :ok
+  unsupported -> {:error, {:unsupported_tombstone_verification_options, unsupported}}
+end
+```
+⇒ ⛔ ***Removing the three would have left THE NEXT ONE ADDABLE BY ACCIDENT.*** ⭐ **And that is not
+hypothetical: this ticket exists because a FOURTH seam (`:revocation_fetcher`) was found after the
+first three.** ⇒ **A denylist enumerates the failures you already know; an allowlist makes the
+unknown one refuse itself by name.**
+⚠️ **Generalises past options-parsing: wherever a surface accepts caller-supplied EVIDENCE, the
+question is not "which fields are dangerous?" but "which fields are PERMITTED?"**
+
+⭐⭐ **AND THE NEAR-MISS IS THE SHARPER HALF — IT REMOVED A SEAM THAT WAS ALREADY HARMLESS.**
+`Trust.retire_eviction_anchor/3` still took a caller-nominated coordinate; verification no longer
+consumed it, so **nothing could exploit it.** It went anyway, because leaving it *"would leave a
+public API claiming authority it did not have."*
+⇒ ⭐⭐⭐ ***A HARMLESS SEAM ON AN AUTHORITY SURFACE IS A PROMISE THE CODE NO LONGER KEEPS*** —
+⛔ **and "harmless because nothing reads it" is exactly how the NEXT reader learns it is supported.**
+**Dead parameters on a security boundary are documentation of a capability, whatever the
+implementation currently does with them.**
+
+■ ⭐ **AND THE DOCSTRING FIX CLOSES THE REVIEW-FAILURE PATH, NOT JUST THE CODE PATH:** the docstring
+asserted *"the store-supplied commit id"* while the code read `opts`. ⇒ ***That mismatch is WHY
+several readers — including the party that merged it — read the defect as closed.*** **A comment
+that describes the intended behaviour is a decoy with the author's credibility attached.**
+
+■ ✅ **PREDICTION CONFIRMED, cheaply: I warned the detector's sandbox count would differ from main's
+`118`. It read `149` — FIFTH population, FIFTH count.** ⭐ **Pre-registering the expectation cost one
+sentence and converted a would-be "regression" into a confirmation of the upper-bound caveat.**
+■ ✅ **Per-file counts as demanded, and the suite total MOVED (`3519 → 3520`) consistent with `+1` —
+which is the check that tonight's net-zero concealment made necessary.**
