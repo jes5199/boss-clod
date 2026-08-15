@@ -6990,3 +6990,43 @@ directions.**
 `LOOPS.md:36`:** ⇒ ***IF YOU CANNOT SCOPE AN EXEMPTION BY MECHANISM, AT MINIMUM MAKE IT SPEAK.***
 **An exemption that must declare itself cannot be a blindfold.** ⚠️ **Announcement is a weaker
 property than precision, but it is checkable by a reader who was not there.**
+
+---
+
+## 7o3 — ONE FIXTURE CARRYING TWO PROPERTIES CAN BEAT TWO ARMS
+
+**2026-08-15, S79b (eviction anchor).** Commonplace reviewed the round, saw
+`arm2_self_named == arm1_other == arm3_trusted_not_anchored` — **one measurement, three labels** —
+and went to file it as *arms that did not run*. ⛔ **The round's comment stopped it:**
+> *"The same signer is **deliberately trusted for ordinary commits**, which also proves the two
+> config sets are independent."*
+
+⭐⭐ **THE ASYMMETRY THAT MAKES IT STRONGER, NOT WEAKER:**
+```
+an UNTRUSTED signer refused    → explainable by "it isn't trusted at all"
+a signer TRUSTED FOR COMMITS refused → can ONLY be explained by the anchor separation
+```
+⇒ ***The brief split these into two arms. Splitting them would have made the arm WEAKER evidence.***
+⚠️ **The instinct that more arms = more rigour is wrong when one fixture can carry both properties:
+the SHARED fixture is what rules out the alternative explanation.**
+■ ⭐ **Sixth round in a row whose best contribution was CORRECTING ITS BRIEF, not satisfying it.**
+■ ⚠️ **Real cosmetic hazard kept: three printed lines with identical values LOOK like three
+measurements.** ⇒ ***The evidence is in the ASSERTIONS, not the print block*** — same family as
+"a string you wrote is not a measurement the run made".
+
+## ⛔ AND THE NEAR-MISS IS THE PRIMITIVE'S OWN PURPOSE, INVERTED BY ITS MAINTENANCE PATH
+Retirement verification **initially accepted an injected chain position the store did not persist**:
+⇒ **historical tombstones would have become unreadable after an anchor retirement.** ⇒ ⭐⭐⭐
+***ROTATION SILENTLY CONVERTING **EXPLAINED** ABSENCE BACK INTO **UNEXPLAINED** ABSENCE*** — **the
+exact inversion `CX-fmzk` exists to prevent, arriving through the housekeeping path rather than
+through an attacker.**
+⚠️ **GENERAL FORM: when a mechanism's job is to make a fact legible, ask what its own
+ROTATION / RETIREMENT / EXPIRY path does to facts already recorded.** ⛔ **A key rotation that
+orphans old signatures is the same defect as never having signed them.**
+✅ **Fix: persist the coordinate beside the record (`{:sla_tombstone_position, …}`) rather than
+reading it from the record — the same "evidence must not come from the subject" law as `7n7`, one
+layer further out.**
+
+■ ✅ **`7o2`'s repair got its first exercise: the known-red question was answered VERBATIM — no
+GitBridge failures occurred — rather than waved through.** ⭐ **An exemption that must declare itself
+did declare itself, and the declaration was clean.**
