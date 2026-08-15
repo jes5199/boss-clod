@@ -7391,3 +7391,32 @@ completely different subsystem.** ⇒ **Same absence-with-two-causes law, third 
 then a target its base could not produce):** ⇒ ***"A brief describes two things — WHAT TO DO and
 WHAT IS TRUE — and I keep verifying only the first."*** ⛔ **Acceptance criteria get checked; the
 world the round will run in does not.**
+
+### 7o9 CORRECTION — the price WAS paid, measured at 22:25
+
+⛔ **The entry above says: *"that cost was not actually paid, so the ruling was correct but its price
+was overstated."* THAT IS NOW FALSE, and I am correcting it rather than leaving it to be read.**
+```
+measured on current main at 3519, seed 117514:
+  MUD.RoomVisibilityTest "…renders normally (self-read)"   DID NOT FAIL
+⇒ the reproducer is dead ON MAIN. Plan's expiry STANDS, and its price WAS genuinely paid.
+```
+⭐ **What survives from `7o9` unchanged, and it is the actual lesson:** ***my claim was true of main and
+false of the tree, and I had not measured either.*** **Being accidentally right about main does not
+retire the error — I asserted a scope I had not tested, and the later measurement is what earned the
+claim, not my original confidence.**
+
+⭐⭐ **AND THE STATE `CX-0ktk` IS NOW IN IS BETTER THAN THE ONE IT WAS IN AN HOUR AGO, EVEN THOUGH THE
+OUTCOME IS IDENTICAL:** ⇒ ***"closed on a MEASURED premise" vs "closed and probably fine"*** — same
+ticket, same disposition, different epistemic standing. **Plan's rider is what converted one into the
+other, at zero extra rounds, by attaching a named consequence to a measurement already running.**
+■ ⚠️ **All three riders resolved to the BORING arm — count neutral, reproducer dead, the anchor-artifact
+failure was the stale base. ⭐ Plan asked for them to be reported precisely on the grounds that
+BORING ANSWERS EVAPORATE: nobody writes down "the thing we worried about didn't happen", and then
+nobody can tell later whether it was checked or merely assumed.**
+
+■ ✅ **AND THE ASSET RULE HELD ON ITS SECOND TEST: a POPULATION STATE cannot be merged, so what
+reached main is the RECONSTRUCTION PROCEDURE** — `docs/measurements/2026-08-15-cx-0ktk-reproducer-preservation.md`,
+carrying what is established, what is NOT, the four refuted elimination methods, and an explicit
+*do not delete `origin/sol/cx-0ktk-round2-s75`*. ⭐ **When the asset itself cannot be made reachable
+from main, MAKE ITS RECIPE REACHABLE — and name the fragile thing the recipe depends on.**
