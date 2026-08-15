@@ -6348,3 +6348,32 @@ perishable fixture was worth preserving at midnight.**
 ■ ⛔ **REPORTED, NOT ACTED ON: `check-mcp-fresh`'s missing-escript path exits `1` while documenting a
 three-way contract** ⇒ **its "cannot determine" is indistinguishable from "stale"** — **the silent
 collapse `CX-q8f1` was about, living in the tool this one was modelled on.**
+
+---
+
+## 7m7 — THE DEFECT PROPAGATED BY BEING MODELLED ON, AND NO DEPENDENCY GRAPH SHOWS IT
+*(2026-08-15, `CX-e71s` — commonplace-plan's framing; `check-cli-fresh` was copied from `check-mcp-fresh`)*
+
+■ ⭐⭐ **THE CHILD IS CORRECT AND THE PARENT STILL HAS THE DEFECT.** `check-cli-fresh` exits `2` for
+cannot-determine **only because its brief made the third exit an explicit acceptance arm**;
+`check-mcp-fresh` still collapses cannot-determine into stale. ⇒ ⛔ ***And the parent is what the
+NEXT copy gets made from.*** ⭐ **FIX THE TEMPLATE, NOT ONLY THE COPY.**
+■ ⭐⭐⭐ **THE AXIS THAT IS NEW: every other propagation we chased this week was duplication of DATA
+or POLICY. THIS IS DUPLICATION OF DESIGN — IT TRAVELS THROUGH PEOPLE.** ⇒ ⛔ ***No dependency graph
+shows it, no scan finds it, and nothing links parent to child in the repo.***
+⭐ **So the remedy is a QUESTION AT FIX-TIME, not a tool:**
+> ***What was this copied from, and what has been copied from this?***
+⚠️ **Ask it when fixing anything, because the answer exists only in the head of whoever copied it —
+and that head is a session that ends.**
+
+■ ⭐ **AND THE p3 REASONING IS WORTH MORE THAN THE RANK: the failure direction is the SAFE one.**
+`check-mcp-fresh` errs toward ALARMING, never toward passing. ⇒ ⛔ ***Loud-wrong, not silent-wrong —
+the INVERSE of `CX-q8f1`'s danger despite sharing its exact shape.*** ⚠️ **Its real cost is slower
+and still real: A GATE THAT CRIES WOLF GETS ROUTED AROUND** — the same erosion as one that fires on
+correct state, arriving from the opposite direction.
+■ ✅ **Weakness filed WITH the ticket rather than discovered later: NO RED FIXTURE EXISTS on the MCP
+side, so its stale-arm must be MANUFACTURED — strictly weaker evidence than `CX-1f64` had, and
+stated rather than implied.**
+■ ⚠️ **My own board carried it as "surfaced but UNRANKED" 20 minutes after it was filed and ranked.**
+⇒ ⭐ **I was relaying my last reading as current state** — **the same shelf-life error I warned about
+on the deploy-gap precondition, in my own status line.**
