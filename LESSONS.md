@@ -6668,3 +6668,39 @@ named X" as identifying anything.**
 better instrument** — ***"the extension was granted for one cheap step with a named prior, and 'the
 instrument got more interesting' is not that step."*** ⇒ **A hold that grows new reasons is a hold
 that never ends.**
+
+---
+
+## 7n6 — A GATE THAT CHANGES WHAT AN AGENT *SAYS*, BEFORE IT CHANGES WHAT ANYONE *BUILDS*
+
+**2026-08-15, `CX-0ktk` / `CX-721q`.** The citation gate — *no finding may cite "the detector named X"
+until report-all lands* — was written as a constraint on a FUTURE instrument. It paid out
+**immediately**, and not on code: on a sentence commonplace was about to lead with.
+
+⭐ **THE CONCRETE INSTANCE, which is the part worth keeping:**
+```
+two GREEN runs      → named leakers.   Tempting. Quotable. WRONG.
+the ACTUAL FAILING run → named a different one.  Categorically better evidence.
+```
+⇒ **The gate's cost fell exactly where its value was highest: on the naming that came off the
+failing run — the one an agent has the *most* reason to believe and the *least* reason to hedge.**
+
+⭐⭐ **THE GENERAL FORM (commonplace's phrasing, kept verbatim because it is a claim about gates and
+not about a person):** ***"A gate that changes what a careful agent SAYS, before it changes what
+anyone BUILDS, is doing the most valuable thing a gate can do."***
+
+⚠️ **Why this is not obvious:** a gate is normally judged by whether it BLOCKED a bad artifact. This
+one blocked nothing — no code changed, no run was cancelled. It only stopped a claim from entering
+the ledger. ⇒ **That is invisible in every after-the-fact accounting, because the correction it
+prevented never had to be written.** ⛔ **A gate whose only evidence of working is an absence of
+later corrections will always look unnecessary.**
+
+■ ⭐ **The scoping rule that made the grant clean, also worth reusing:** ***"I fence MECHANISM creep,
+not the PRECONDITIONS of the measurement."*** ⇒ The failure it prevents is precise — **a round that
+can SUCCEED AND PRODUCE NOTHING QUOTABLE. Unciteable by construction. A vacuous round designed in
+advance.**
+
+■ **And the brief-writing move underneath it:** the round was told explicitly that **A NULL IS A
+PUBLISHABLE RESULT**, and told not to reach for a sixth theory to avoid reporting one — because
+*"the round inherits my incentives unless the brief removes them."* ⭐ **An incentive you can name in
+yourself is an incentive you must write OUT of the brief, not resolve to resist.**
