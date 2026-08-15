@@ -6970,3 +6970,23 @@ instruction to verify the category, not to trust it.**
 ■ ✅ **Commonplace's re-brief fix is the correct shape: name BOTH known failures with their distinct
 mechanisms, then state *"any OTHER failure in that module IS yours."*** **The closing clause is what
 converts a container exemption into an enumerated one.**
+
+### 7o2 amendment — the shared root of `7o0` and `7o2`
+
+⭐⭐ **Commonplace's synthesis, and it is better than treating them as two separate lapses: BOTH were
+its own, in the SAME AFTERNOON, pointing OPPOSITE ways.**
+```
+7o0  a matcher drawn TOO TIGHT   → refused a correct input   (false red)
+7o2  an exemption drawn TOO LOOSE → absorbed a new failure   (false green)
+```
+⇒ ***"The shared root is not carelessness about reds but about the BOUNDARIES of a rule: one drawn
+too tight, one drawn too loose, NEITHER DRAWN AT THE MECHANISM."***
+⭐ **So the remedy is the same in both directions and it is not "be more careful": ANCHOR THE RULE TO
+THE MECHANISM IT IS ABOUT** — the suite-summary *shape* it must match, the specific test *and* its
+failure mode. **A boundary drawn anywhere else is arbitrary, and arbitrary boundaries fail in both
+directions.**
+
+⭐ **AND THE MINIMUM VIABLE REPAIR WHEN MECHANISM-SCOPING IS NOT AVAILABLE — generalised from my own
+`LOOPS.md:36`:** ⇒ ***IF YOU CANNOT SCOPE AN EXEMPTION BY MECHANISM, AT MINIMUM MAKE IT SPEAK.***
+**An exemption that must declare itself cannot be a blindfold.** ⚠️ **Announcement is a weaker
+property than precision, but it is checkable by a reader who was not there.**
