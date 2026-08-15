@@ -7323,3 +7323,38 @@ RUN rather than printed: the self-announcing control's printed command FAILS in 
 (no local `deps/`; needs `MIX_DEPS_PATH`).** ⇒ ***An instruction that only works in the author's
 environment is a printed command nobody has run, one level down.*** **The printed form must be the
 one that works from a normal checkout.**
+
+### 7o8 amendment — the cheaper detector: zero contested predictions
+
+⭐⭐ **Plan found a better signature for a vocabulary fight than the concession ratio, and it is
+available EARLIER — from the FIRST exchange rather than the fourth:**
+⇒ ***"Four rounds of argument with ZERO CONTESTED PREDICTIONS is the signature of a vocabulary fight,
+and I should have detected it from that alone."***
+■ **The resolution, once seen, is not a compromise: *he was naming the RELATION, I was naming the
+STORAGE.*** ⇒ **Both statements true, about different things.** ⛔ **No observable was ever in
+dispute — which is exactly what a substantive disagreement always produces and a terminological one
+never does.**
+✅ **TEST TO RUN AT ROUND ONE, not round four: *name a measurement on which the two positions
+predict different outcomes.* If nobody can, stop arguing and write a glossary line.**
+⚠️ **Contrast with the genuinely substantive half of the same thread: *"would attenuated identity
+help with pods"* DID have a contested observable — whether multi-level delegation exists — and that
+half produced a real blocker. Same conversation, both kinds, and the ratio test could not separate
+them. The prediction test can.**
+
+### 7o9 amendment — three instances make it a script, not a habit
+
+⭐ **Plan, on the ref-vs-repo confusion:** ⇒ ***"`git log --all` vs `git log` is the whole difference,
+and the failure mode is SILENT BECAUSE THE NARROWER COMMAND SUCCEEDS."***
+⛔ **A scoped query that returns cleanly is indistinguishable from an exhaustive one that returns
+cleanly.** ⇒ **Third instance in one evening (`7o4` the instrument, `7o7` the correspondence, `7o9`
+the reproducer) is the count at which this stops being a thing to remember.**
+
+⭐⭐ **AND THE CLOSING LAW FROM THE SAME EXCHANGE, which generalises past git entirely:**
+***ANYTHING MEASURED BEHIND A FENCE INHERITS THE FENCE AS A FACT.*** ⇒ **The reproducer being alive
+at population 3510 on a branch is not aliveness at 3519 on main** — four merges landed in between,
+and that is exactly the population change that could kill it **or resurrect it.**
+✅ **Handled correctly by attaching a CONDITION to a measurement already running rather than opening
+a round: survives ⇒ reopens automatically, premise falsified; does not ⇒ expiry stands. A gate with a
+named consequence in both directions, at zero extra cost.**
+⚠️ **And it only works because someone was told to WATCH for it — *"if nobody is watching for it, the
+answer arrives and nothing happens to it."***
