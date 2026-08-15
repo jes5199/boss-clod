@@ -6802,3 +6802,45 @@ stayed plausible.**
 ■ ✅ **The structural win worth keeping: CubDB is SINGLE-OPENER, so "no context continuity between A
 and B" is enforced by the store rather than promised by sequencing — A must EXIT before B can open
 it at all.** ⇒ **Prefer a guarantee the substrate makes to one the test convention keeps.**
+
+---
+
+## 7n9 — AN UNSTATED HOLD AND AN OVERLOOKED PUSH ARE INDISTINGUISHABLE FROM OUTSIDE
+
+**2026-08-15, `CX-fmzk`.** Commonplace reported *"delivered and merged — `7fcc3edd`"*. I was one
+message from telling jes the fix was **landed**. It was on **local `main` only**:
+```
+local main    7fcc3edd   ✅ merge present
+origin/main   6ffb128f   ⛔ still the brief commit
+origin/main:sla_tombstone.ex → single-arg verify, no anchor path  ⇒ OLD CODE
+```
+✅ **Caught by a standing rule, not by suspicion: *verify PUBLISHED before telling him something is
+published.*** ⇒ **The claim I was about to make was mine, not theirs — they said "merged" and that
+was true.**
+
+⭐⭐ **THE GENERAL LAW, and it is the day's law arriving in REPORTING rather than in a tool:**
+***an unstated hold and an overlooked push produce the identical observable.*** ⇒ The push was being
+**deliberately** held pending host verification — the right order — but the intent lived only in
+commonplace's head. ⛔ **From outside, "I am being careful" and "I forgot" are the same bytes.**
+✅ **Remedy is one clause at report time:** *"merged locally, push held pending host verification."*
+⇒ ***The reader should not have to distinguish your caution from your oversight by checking a remote.***
+
+■ ⭐ **THE CONTROLS ARE WHY THE NEGATIVE MEANT ANYTHING** — both pre-declared, and `git branch -a
+--contains` returning only `main` is exactly the shape that reads as "nothing to see" when the
+instrument is wrong:
+```
+fetch freshness   .git/FETCH_HEAD stamped 19:59:25   ⇒ not a stale view
+bogus-sha ancestor check  correctly REJECTED          ⇒ the query can say NO
+```
+⇒ **Absence proven, rather than assumed from a quiet command.**
+
+■ ⭐ **THE OTHER KEEPER, from the round's own near-miss — it used FRESH RANDOM KEYPAIRS on both
+sides of a before/after, which would have broken "same fixture" INVISIBLY because both runs still
+produce a plausible table.** ⇒ ***ASSERT THAT THE THING YOU ASSUMED WAS HELD CONSTANT ACTUALLY WAS.***
+⚠️ **`FIXTURE_KEYS_DIFFER=true` with identical `FIXTURE_SIGNER_ID`/`FIXTURE_TOMBSTONE_ID` across
+sides is that assertion made explicit.** ⛔ **Nothing in a run reports the variables you never varied.**
+
+■ ⭐ **AND ⓐ's ANSWER OUTRANKS THE FIX: severity was limited by an ABSENT WRITER, not by a GATE.**
+*"Dormant, re-arm condition is the first production writer"* is a materially different world from
+*"gated"* — ⛔ **and the two look IDENTICAL at the call site. Only a tree-wide caller search
+separates them.**
