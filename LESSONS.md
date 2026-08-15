@@ -7358,3 +7358,36 @@ a round: survives ⇒ reopens automatically, premise falsified; does not ⇒ exp
 named consequence in both directions, at zero extra cost.**
 ⚠️ **And it only works because someone was told to WATCH for it — *"if nobody is watching for it, the
 answer arrives and nothing happens to it."***
+
+---
+
+## 7p0 — A RANKING REVISED **SMALLER** AFTER READING IS WORTH MORE THAN ONE REVISED LARGER
+
+**2026-08-15, D1.** At 22:10 plan ranked *"multi-level subtree certs are unbuilt and BLOCKING the
+pods path"* — a strong claim it had just used to concede a four-round argument. ⇒ **Then it read the
+code and revised itself DOWN: *"one mint guard, and the depth counter I ranked is unnecessary."***
+
+⭐⭐ **THE ASYMMETRY, which is commonplace's and is about INCENTIVES rather than virtue:**
+***A ranking revised SMALLER after reading is worth more than one revised larger, BECAUSE THE
+INCENTIVE RUNS THE OTHER WAY.***
+⇒ **Revising UP is free: it makes the earlier concern look prescient, the work look important, and
+the author look careful.** ⛔ **Revising DOWN costs the author the significance of their own finding
+— and does it immediately after they spent credibility asserting it.**
+⚠️ **So the direction of a revision is evidence about the revision.** ⭐ **Treat a shrink as
+high-confidence and a growth as needing the same scrutiny as the original claim.**
+
+■ ⭐ **AND THE PRE-BRIEF CHECK RAN ON IT UNCONDITIONALLY — on the newest, most confident, most
+recently-argued item on the board, at the request of the party who ranked it.** ⇒ **That is the
+`7o1` law being honoured at the exact moment it is least comfortable: the ranking was FRESH, so
+nothing about it invited doubt.**
+
+■ ⭐ **A SECOND THING TO KEEP, on why the mechanism choice matters:** `CX-kacr` requires a **positive
+marker**, never an absence scan, because ⇒ ***a boot-time absence check cannot distinguish "not
+there" from "not there YET"*** — the serve may start AFTER the launcher. ⭐ **That is
+`LOST` vs `NEVER-WRITTEN` — the discriminator `I4` left owed — arriving in the supervision tree, a
+completely different subsystem.** ⇒ **Same absence-with-two-causes law, third habitat today.**
+
+■ ⭐ **AND COMMONPLACE'S OWN ROOT-CAUSE ON ITS TWO CONTRADICTORY BRIEFS TODAY (the ambiguous "STOP",
+then a target its base could not produce):** ⇒ ***"A brief describes two things — WHAT TO DO and
+WHAT IS TRUE — and I keep verifying only the first."*** ⛔ **Acceptance criteria get checked; the
+world the round will run in does not.**
