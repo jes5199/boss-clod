@@ -1,0 +1,5 @@
+boss-preflight-canary-do-not-remove
+
+This file exists ONLY so boss-preflight.sh can prove, every run, that it can
+still read a file and match a string. Its ABSENCE is an alarm about the
+INSTRUMENT, not about the system. Do not delete.
