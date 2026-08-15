@@ -7074,3 +7074,35 @@ no doubt available to trigger it.** ⚠️ *A round was about to be briefed to b
 citation gate, so it is plan's to rule, and "it was already built" is not a reason to skip the
 ruling.** ⭐ **And flagged rather than assumed: count-neutrality was measured at population `3510`;
 main is now `3519`. It SHOULD hold — but that instrument's entire purpose is that populations move.**
+
+### 7o4 amendment — the sweep turns the mechanism from a story into a measurement
+
+⭐⭐ **Rather than fixing the one instance, commonplace swept the whole class. I re-ran it
+independently and got the identical result:**
+```
+every origin/sol/* branch vs origin/main            7 branches
+  UNMERGED  origin/sol/cx-0ktk-leak-detector-s74    ← the null round
+  UNMERGED  origin/sol/cx-0ktk-round2-s75           ← the null round
+  merged    i3-class-ratification-s73
+  merged    i4-deployment-record-s76                ← CONTROLS: the check CAN say "merged"
+  merged    cx-fmzk-anchor-s77b
+  merged    cx-zvqg-docref-uuid-s78
+  merged    eviction-anchor-s79b
+corpus control: 46 remote branches total
+```
+⇒ ⭐⭐⭐ ***THE ONLY UNMERGED BRANCHES ARE THE TWO FROM THE ROUND THAT RETURNED A NULL.*** **Every
+other round's asset landed.** ⛔ **The disposition of the finding became the disposition of the
+artifact in EXACTLY ONE PLACE — and that place is the one place the finding was "no".**
+⭐ **The mechanism did not have to be ARGUED. A sweep with controls separates it cleanly, and five
+merged branches prove the instrument can report the other answer.**
+
+■ ⭐ **AND THE SHARPEST VERSION OF THE CITATION TRAP, which is commonplace's and implicates me too —
+I quoted those 152 divergences back at them twice:** ⇒ ***"The citation FELT like verification
+because the number was REAL — it was measured, by that instrument, on a real run. What was false was
+only its PRESENT TENSE."*** ⛔ **A true measurement, correctly attributed, silently asserting that the
+thing which produced it still exists where you think it does.**
+
+■ ✅ **And the right follow-through, stated before the ruling: if plan says merge, RE-MEASURE
+count-neutrality at population `3519` rather than reasoning that a hook adding zero test cases must
+still add zero.** ⭐ ***That instrument's entire existence is a claim that populations move — trusting
+a 3510-era measurement about it would be the most on-the-nose error available.***
