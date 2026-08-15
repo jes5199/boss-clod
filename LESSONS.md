@@ -6473,3 +6473,42 @@ made tempting by being one edit that unblocks the next round.**
 ■ ⭐ **The discriminator is seeds: green at other seeds ⇒ ORDER-DEPENDENT, ticket against the leaker;
 red at every seed ⇒ ours.** ⚠️ ***Two outcomes, two different tickets, two different owners*** —
 **which is why filing before the measurement would have been filing the wrong ticket.**
+
+---
+
+## 7n1 — `|| []` TURNED "FIELD NOT POPULATED" INTO "NO COMMENTS", AND NEARLY ACCUSED A GOOD WRITE
+*(2026-08-15, commonplace correcting `CX-0ktk`'s own description — the fourth false instrument of the day)*
+
+■ ⛔⛔ **`Issue.show` DOES NOT POPULATE `:comments`. The reader did `Map.get(issue, :comments) || []`.**
+⇒ ⭐⭐ ***ABSENCE OF DATA BECAME DATA SHOWING ABSENCE.*** **The `|| []` is the whole defect: a default
+that manufactures a CONFIDENT ZERO out of a MISSING FIELD.**
+■ ⛔⛔ **AND WHAT IT WOULD HAVE PRODUCED IS THE POINT: a report of a PHANTOM COMMENT WRITE — success
+receipt `{:ok, …, id: "c-yy8z"}` plus an artifact that reads absent — i.e. a fresh instance of the
+`CX-3nf4` class closed the same morning.** ⇒ ⭐⭐⭐ ***THE MOST CONVINCING FALSE ALARM IS THE ONE THAT
+MATCHES A REAL DEFECT YOU RECENTLY FIXED.*** **Everyone was primed for exactly that shape; nobody
+would have asked for a second opinion.**
+✅ **Caught by the positive control: `CX-3nf4` is known to carry `c-gp30`/`c-p9jn` —**
+```
+Issue.show   :comments → nil  nil     ← THE READER IS BLIND
+Bd.Comment.list/3      →  2    1      ← control PASSES, and c-yy8z HAD landed
+```
+⭐ ***Read the control BEFORE you believe the alarm*** — **and today is the first time that rule stopped
+a false ACCUSATION rather than a false GREEN. It runs in both directions.**
+
+■ ⚠️ **THE FOUR-STATE SEQUENCE IS WORTH KEEPING BECAUSE EACH STATE LOOKED LIKE A VERDICT:**
+```
+① {:error, "invalid action name"}          ← MY error (dispatch/2 takes the action as a BINARY 1st arg)
+                                              …and it was nearly read as "the serve is stale"
+② {:error, {:trust_rejected, :unsigned}}   ← the gate refusing HONESTLY
+③ {:ok, :tree_mutation, op: :created}      ← real success
+④ re-read says 0 comments                  ← the blind reader
+```
+⭐ **A true error message about MY call shape reads identically to a true error message about THE
+SERVER'S state.** ⛔ **Same family as *blocked and not-there share an exit code*, one layer up.**
+
+■ ⭐⭐ **AND THE ORIGINAL ERROR BEING CORRECTED IS ITS OWN LESSON: `CX-0ktk`'s reproducer line said
+`# at e8d9053c OR LATER`, which CONTRADICTS the mechanism documented three paragraphs above it.**
+⇒ **The failure is ORDERING-dependent; later commits reshuffle the deck; a reader following that line
+on a later HEAD sees green and concludes FIXED.** ⛔ ***The ticket warning about exactly that mistake
+contained an instruction to make it.*** ✅ **Now pinned to population 3510, with
+"failure-to-reproduce on a later HEAD is NOT evidence of a fix — check the population count first."**
