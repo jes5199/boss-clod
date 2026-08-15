@@ -6377,3 +6377,30 @@ stated rather than implied.**
 ■ ⚠️ **My own board carried it as "surfaced but UNRANKED" 20 minutes after it was filed and ranked.**
 ⇒ ⭐ **I was relaying my last reading as current state** — **the same shelf-life error I warned about
 on the deploy-gap precondition, in my own status line.**
+
+---
+
+## 7m8 — ACTION INVARIANTS vs STATE INVARIANTS: THE "ATTEMPT THE FORBIDDEN ACT" RULE HAS A DIFFERENT ANALOGUE FOR EACH
+*(2026-08-15 — commonplace correcting my over-broad claim; the standard itself is §15 of a doc neither of us wrote)*
+
+■ ⛔ **I SAID §15's stronger standard was *"a gap in everything we demonstrated tonight, `CX-1f64` included."*** ⇒ **TOO BROAD, and dangerous in the specific way that matters: a successor reading that line might "fix" a SOUND arm.**
+■ ⭐⭐ **THE DISTINCTION I FLATTENED:**
+```
+ACTION invariant  ("no widened grant", "no forbidden edit")
+    → the fixture must ATTEMPT the act; a red with nothing having tried is unproven
+STATE  invariant  ("the escript matches the build")
+    → the analogue is a fixture IN the forbidden state
+```
+⭐ **`CX-1f64` used THE REAL STALE BINARY — that IS the forbidden state, not a stand-in for it.**
+■ ⭐⭐ **AND THE PROPERTY §15 IS ACTUALLY AFTER — *did it fire FOR the invariant's reason or incidentally?* — IS ANSWERED BY THE OUTPUT'S SHAPE:** `44 module(s) differ`, **each NAMED, each with `escript=` and `build=` hashes.** ⇒ ***A RED THAT ENUMERATES THE SPECIFIC DIVERGENCE CANNOT BE AN INCIDENTAL RED.*** ✅ **That is a reusable test for whether a red is load-bearing: does it name what differs, or only that something does?**
+
+■ ⚠️⚠️ **WHERE THE GAP IS GENUINELY REAL — two arms, not all of them:**
+```
+① the deploy-gap "red" that was a COMPILE ERROR: a rescue was deleted to force red,
+   the file failed to PARSE, rc=1 arrived — a red that proved nothing, IN THE CONTROL FOR AN OUTAGE
+   (caught only because rc=1 came with NO test-count line; §15 catches it BY CONSTRUCTION)
+② CX-e71s: no natural fixture exists, so its stale-arm must be MANUFACTURED
+   ⇒ a manufactured fixture can encode THE AUTHOR'S MODEL OF THE FAILURE rather than the failure,
+     and the two are indistinguishable in a passing run
+```
+■ ⭐ **THE META-LESSON ABOUT MY OWN CORRECTION: over-broadening a true standard is not a safe error.** ⇒ ***"This applies to everything" invites re-work on things that already comply*** — **and the party best placed to catch it is the one whose work I mislabelled, which only happens if the claim is stated where they can see it.**
