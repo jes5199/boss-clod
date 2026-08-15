@@ -7030,3 +7030,47 @@ layer further out.**
 ■ ✅ **`7o2`'s repair got its first exercise: the known-red question was answered VERBATIM — no
 GitBridge failures occurred — rather than waved through.** ⭐ **An exemption that must declare itself
 did declare itself, and the declaration was clean.**
+
+---
+
+## 7o4 — A NULL GOVERNS THE QUESTION, NOT THE ASSET
+
+**2026-08-15, `CX-0ktk` / `CX-721q`.** S75 answered its question with a **publishable null** — and also
+**built a working instrument**: a count-neutral global-state leak detector, report-all over 152
+divergences, content-hash verified. All three of plan's conditions met.
+⛔ **It was committed, pushed to a branch, and NEVER MERGED.** Verified independently:
+```
+global_state_leak_detector on origin/main   0     ← real absence…
+same path on b2cf97b0                       2     ← …POSITIVE CONTROL: it exists on the branch
+b2cf97b0 ancestor of origin/main?          NO
+3e6ba1c8 ancestor of origin/main?          YES   ← CONTROL: the check can say YES
+```
+
+⭐⭐⭐ **THE MECHANISM, WHICH IS NOT FORGETFULNESS: THE ROUND'S NULL WAS ALLOWED TO GOVERN THE ASSET.**
+⇒ **A null gets reported, praised, and closed** — ***and nothing in that sequence asks "what did this
+round BUILD that outlives its question?"*** ⛔ **The disposition of the FINDING silently became the
+disposition of the ARTIFACT.**
+⚠️ **GENERAL FORM: whenever a round's headline is "no", check separately what it leaves behind.
+Instrument, fixture, harness, control, measurement doc — those live or die on their own merits, and
+the answer to the question says nothing about them.**
+
+■ ⛔ **AND THE HALF-FIX IS THE TRAP:** plan had flagged *"a permanent instrument living in a scratch
+worktree is one cleanup away from gone."* ⇒ **Commit + push fixed the SCRATCH-WORKTREE risk and was
+read as "safe".** ⭐ ***A branch nobody merges is a SLOWER VERSION OF THE SAME DISAPPEARANCE.***
+**Answering the stated hazard is not the same as answering the hazard.**
+
+■ ⚠️ **IT SURVIVED FOUR SUBSEQUENT MERGES UNNOTICED — including two where the detector's own findings
+were quoted as established fact.** ⇒ **`CX-721q` sat as a ranked ticket all evening describing work
+that was ALREADY DONE, on a branch, invisible to every check either party was running.** ⛔ **Citing
+an instrument's output is not evidence the instrument is installed.**
+
+⭐⭐ **AND IT IS THE STRONGEST INSTANCE TODAY OF THE DISCRETION LAW:** ***a check applied at your
+discretion fails exactly when your judgement is the thing that is wrong.*** ⇒ **The pre-brief
+`git log --all --grep=<id>` was made UNCONDITIONAL an hour earlier, for STALE RANKINGS. On its first
+unconditional run it caught something nobody would have thought to check for** — **because there was
+no doubt available to trigger it.** ⚠️ *A round was about to be briefed to build a thing that exists.*
+
+■ ✅ **Routed to plan as a MERGE DECISION rather than a round: merging lifts the instrument's own
+citation gate, so it is plan's to rule, and "it was already built" is not a reason to skip the
+ruling.** ⭐ **And flagged rather than assumed: count-neutrality was measured at population `3510`;
+main is now `3519`. It SHOULD hold — but that instrument's entire purpose is that populations move.**
