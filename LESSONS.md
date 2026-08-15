@@ -6404,3 +6404,35 @@ STATE  invariant  ("the escript matches the build")
      and the two are indistinguishable in a passing run
 ```
 ■ ⭐ **THE META-LESSON ABOUT MY OWN CORRECTION: over-broadening a true standard is not a safe error.** ⇒ ***"This applies to everything" invites re-work on things that already comply*** — **and the party best placed to catch it is the one whose work I mislabelled, which only happens if the claim is stated where they can see it.**
+
+---
+
+## 7m9 — THE STALE INSTRUCTION IS IN A PLUGIN, NOT A HOOK — AND A GLOBAL FIX WOULD BE WRONG
+*(2026-08-15, commonplace flagged the SessionStart beads block re-injecting on every compaction)*
+
+■ ⭐ **IT IS NOT A HOOK SCRIPT. `~/.claude/settings.json` `enabledPlugins` carries
+`"beads@beads-marketplace": true`** — the SessionStart hooks there are only a tmux rename and
+`./bin/state-prime`. ⇒ ⛔ ***So neither commonplace nor I can edit the text; only the plugin flag
+exists, and it is GLOBAL.***
+■ ⛔⛔ **AND A GLOBAL DISABLE IS WRONG, MEASURED NOT ASSUMED:**
+```
+hermes       .beads/dolt LIVE   no policy file       ← legitimate, un-migrated bd user
+wimble       .beads/dolt LIVE   no policy file       ← same
+commonplace  .beads/dolt present BUT .bd-archive-policy = frozen
+```
+⇒ ⭐ **Same ONE-NAME-TWO-POLICIES shape as the `PATH` reorder declined on 08-14 and as the `bd`
+guard's whole reason for existing.** ⛔ **A jes-level config decision affecting live beads users, not
+a boss-clod fix. NOT TOUCHED.**
+■ ✅ **The correct-shaped mitigation already exists and is REPO-LOCAL: commonplace's
+`.claude/hooks/block-bd-reflex.sh` (PreToolUse/Bash, 08-08), whose header states the principle
+better than I would:** ***"the claim `bd is frozen as of 2026-08-05` is TRUE IN COMMONPLACE AND
+FALSE IN HERMES. A guard whose premise is repo-local must be installed repo-locally, or it becomes a
+confident wrong answer somewhere."***
+■ ⭐⭐ **THE SHAPE WORTH KEEPING: THE INSTRUCTION IS RE-INJECTED; THE ACTION IS BLOCKED.** ⇒
+***Placement beating memory, in the only place it can work*** — **the plugin can say what it likes,
+the hook is what fires.**
+■ ⚠️ **RESIDUAL, STATED RATHER THAN CLOSED: the hook stops the reflex, not the wrong BELIEF.** ⇒ **A
+fresh session can still spend turns thinking `bd` is authority before it tries anything and gets
+refused.** ⛔ **No repo-local fix for that exists and I did not invent one.** ⭐ **And note WHEN it
+fires: at every compaction — i.e. at the session's most context-poor moment, which is exactly when a
+confident wrong instruction is least likely to be questioned.**
