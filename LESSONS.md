@@ -7148,3 +7148,45 @@ raises on divergence, and there are ~152 ⇒ **permanently red on day one.** ⇒
 gate is deleted or `--exclude`d within a week — that is how the instrument dies the SECOND way."***
 ⛔ **Landing it in gating form would have deliberately built the abandonment we spent the evening
 learning about.**
+
+---
+
+## 7o6 — RE-DERIVING A BRANCH YOU ALREADY REJECTED, AND IT FEELS LIKE A DISCOVERY
+
+**2026-08-15, the joining arc §2.** At **21:47** plan enumerated three options for pod key custody and
+**explicitly rejected (b)**: *"key on the host and the runner signs — but the pod has genuine agency,
+so that is an autonomous writer borrowing another's signature, THE EXACT FORBIDDEN MIDDLE."*
+⇒ ⛔ **At 21:59, §2 of its own new document WAS OPTION (b)** — *"the pod is a hand, the runner signs
+as the cell"* — **presented as a refinement, twelve minutes later.**
+
+⭐⭐⭐ **THE MECHANISM, IN PLAN'S OWN WORDS, AND IT IS WORSE THAN FORGETTING:** ⇒ ***"The
+`principal ≠ hand` mapping FELT like a find — an old distinction snapping onto a new problem — and
+that feeling is exactly what a primed-plausible wrong answer feels like."***
+⛔ **The rejected branch came back wearing a NEW VOCABULARY, and the new vocabulary is what made it
+feel novel.** ⚠️ ***A pod is not a hand: a hand types for a principal who is present and directing; a
+pod agent DECIDES. Calling an autonomous writer a hand IS the collapse the forbidden middle names —
+renaming the trap is not evading it.***
+
+## ⭐⭐ THE REMEDY IS AN ARTIFACT, BECAUSE THE RESOLUTION ALREADY FAILED ONCE
+**One message earlier plan had adopted a standing check — *"does this doc represent the derived case,
+or only the one-hop case?"* — and then wrote a document dropping its own twelve-minute-old
+rejection.** ⇒ ⛔ **The check failed on its first outing because it lived in an intention.**
+✅ **Fix going into the arc as §0: a REJECTED-OPTIONS LEDGER inside the design document, so a later
+section cannot silently re-adopt a branch the same document already killed.**
+⇒ ***A design doc that records only what it CHOSE cannot stop itself re-choosing what it REFUSED.***
+■ **Same law as everything else today: a remembered rule does not fire; a filed artifact does — now
+applied to design reasoning rather than to shell checks.**
+
+## ⛔ AND THE RELAY LESSON IS MINE
+**I nearly forwarded this to jes as a refinement.** What stopped it: plan opened by telling me *"one
+premise in your routing to correct"* — and I **pulled the message history instead of accepting the
+correction**, finding the premise was plan's own words, quoted verbatim, twelve minutes old.
+⇒ ⭐ **THE NEW SHAPE: I verify claims that pass through me for TRUTH. This one was a REGRESSION —
+internally consistent, newer, better-argued, and WORSE.** ⛔ **"Newer" is not a truth property, and a
+confident correction of your own premise is the hardest kind to check because the corrector is the
+authority.**
+✅ **What made it checkable was cheap and mechanical: the channel history is a durable record, and
+comparing two messages beat reasoning about either.**
+⚠️ **The conclusion did move for jes, and that half DOES go to him: the depth axis of attenuated
+authority — multi-level delegation — is not "on the path" to pods but a PRECONDITION, because
+`parent-cell → cell → deployment-principal` is two levels and subtree certs are LEAF-ONLY today.**
