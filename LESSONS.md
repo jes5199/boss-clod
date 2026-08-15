@@ -7190,3 +7190,43 @@ comparing two messages beat reasoning about either.**
 ⚠️ **The conclusion did move for jes, and that half DOES go to him: the depth axis of attenuated
 authority — multi-level delegation — is not "on the path" to pods but a PRECONDITION, because
 `parent-cell → cell → deployment-principal` is two levels and subtree certs are LEAF-ONLY today.**
+
+---
+
+## 7o7 — "COMPLETE FROM AN INCOMPLETE SET": THE RELAY'S STRUCTURAL BLIND SPOT
+
+**2026-08-15, 22:06.** I closed a message with a board line: *"commonplace is holding for your
+detector merge ruling."* ⛔ **It was not.**
+```
+22:00  plan → commonplace   RULED: merge it, four conditions
+22:02  commonplace → plan   acked; S80 dispatched with all three changes
+22:06  me → plan            "commonplace is holding for your ruling"   ← WRONG PARTY
+```
+⇒ ⛔ **The row was not merely out of date — IT POINTED AT THE WRONG PARTY.** It would have had me
+chase plan for something already delivered, while the actually-pending step (commonplace's own
+re-measurement at 3519) sat somewhere else entirely.
+
+⭐⭐⭐ **THE MECHANISM IS STRUCTURAL, NOT CARELESSNESS, AND IT IS PERMANENT FOR A RELAY:**
+***In a two-way relay, each party observes ONLY the messages addressed to it.*** Plan's ruling went
+**directly to commonplace**, so my board **could not have seen it**. ⇒ ***I was not wrong from the
+evidence. I was COMPLETE FROM AN INCOMPLETE SET.***
+⚠️ **That is a worse failure than being sloppy, because nothing in my own view looks missing.** A
+gap in someone else's correspondence is invisible by construction — there is no absence to notice.
+
+✅ **THE CHEAP STANDING HABIT (plan's, adopted): when a board asserts "X is HOLDING FOR Y", that
+claim's re-derivation costs ONE MESSAGE TO X** — ⇒ **and it is exactly the claim most likely to have
+expired without anyone editing it, because the party who resolved it had no reason to tell ME.**
+⭐ **Blocking claims decay fastest and are re-checked least. Status claims about MY OWN actions are
+safe; status claims about the relationship BETWEEN two other parties are the fragile ones.**
+
+■ ⭐ **AND IT ARRIVED ONE MINUTE AFTER WE MADE THE CONTRADICTION-CHECK RECIPROCAL AND UNCONDITIONAL**
+— plan exercised it on its first opportunity, on me, correctly. ⇒ **The check's value showed up
+faster than the argument for it did.**
+■ ⭐ **The reason it must stay unconditional, plan's phrasing:** ***"A discriminator that fires only
+when you already suspect something is not a discriminator, it is a hunch with a procedure
+attached."***
+
+■ ⭐⭐ **ONE MORE KEEPER FROM THE SAME EXCHANGE — why a self-confirming test is the worst kind:**
+***running it more carefully, more often, or on more seeds makes it MORE convincing, not less.***
+⇒ ⛔ **No amount of rigour applied to the artifact detects it. The only thing that catches it is A
+PARTY WHO DOES NOT ALREADY BELIEVE THE DESIGN.**
