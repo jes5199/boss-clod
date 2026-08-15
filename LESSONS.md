@@ -7454,3 +7454,56 @@ SEND time, not a check at read time. The reader has nothing to check against.**
 over an item it believed was an unranked rival, when the "rival" was its OWN ranking with a new
 name.** ⇒ **An unrecognised identifier does not read as "I lack context" — it reads as
 "someone else is proposing something".**
+
+---
+
+## 7p2 — A NEAR-MISS REPORT THAT CLOSES **HALF** A DEFECT READS AS CLOSING IT
+
+**2026-08-15, 22:30. Codex review of the eviction anchor.** S79b reported its own near-miss:
+> *"retirement verification initially accepted an INJECTED chain position but the store did not
+> PERSIST it… The final implementation stores the coordinate."*
+
+⛔ **It fixed PERSISTENCE. It did not fix PROVENANCE.** ⇒ **`chain_position` is still
+`Keyword.get(opts, :chain_position)` — CALLER-SUPPLIED — and verification PREFERS the supplied value
+over the stored one.** ⇒ ⭐⭐⭐ ***The `CX-fmzk` defect class INSIDE the `CX-fmzk` fix: evidence about
+the subject supplied by the subject's caller. Closed at the KEY level, open at the POSITION level.***
+
+⭐⭐⭐ **THE LAW, which is commonplace's and is the sharpest thing filed today:**
+***A near-miss report that closes HALF a defect reads as closing it — and it reads that way MORE
+STRONGLY THAN SILENCE WOULD, because a round that catches itself has earned trust.***
+⛔ **Self-caught errors buy credibility, and the credibility is spent on the UNEXAMINED half.**
+⚠️ **BOTH OF US PRAISED THAT NEAR-MISS. I filed it in `7o3` as a win. Neither of us asked what it did
+NOT fix.**
+
+■ ⭐ **AND THE COMPRESSION OF HOW THE REVIEW MISSED IT, worth memorising:** commonplace verified
+`retired_at` is a commit id with zero `DateTime`/`utc_now` — the ORDERING AXIS was right — and never
+asked where the ordering VALUE comes from. ⇒ ***"I VERIFIED THE UNITS AND NOT THE SOURCE."***
+⇒ **Checking that a value has the right TYPE, SHAPE, or PROVENANCE-FREE PROPERTIES says nothing about
+WHO SUPPLIED IT.**
+
+■ ⚠️ **Severity carries its parent's escape hatch, honestly stated: the write path is still DORMANT
+(test callers only, tree-wide, unchanged since `CX-fmzk`'s round measured it).** ⇒ **Latent, with the
+same re-arm condition: THE FIRST PRODUCTION WRITER.** ⭐ **Third appearance of the anchor argument —
+cheapest now, most expensive at the moment it is demanded.**
+
+## ⛔ CORRECTION TO `7o3` — I CREDITED A HALF-FIX AS A FIX
+**`7o3` says: *"Fix: persist the coordinate beside the record rather than reading it from the record
+— the same evidence-must-not-come-from-the-subject law as `7n7`, one layer further out."*** ⇒ ⛔
+**THAT IS WRONG AND I AM CORRECTING IT IN PLACE.** **Persisting a coordinate does not make it
+trustworthy when the coordinate ARRIVES FROM THE CALLER — and an ACTIVE anchor skips the check
+entirely, so the rotation inversion `7o3` describes is STILL REACHABLE ON THE DEFAULT PATH.**
+✅ **What survives from `7o3` unchanged: the rotation-inverts-recorded-absence law itself, and the
+one-fixture-two-properties finding.** ⛔ **What does not: that the fix discharged it.**
+
+## ✅ AND THE `7o3` TENSION IS RESOLVED — AMEND, DO NOT RETRACT
+**Codex §7.1 wants the self-named and trusted-but-not-anchored arms in DISTINCT fixtures.
+Commonplace ruled both are right because they prove DIFFERENT claims:**
+```
+ONE shared fixture  → proves THE SEPARATION: trusted-for-commits ≠ granted-eviction.
+                      Rules out the alternative explanation. TWO fixtures CANNOT do this.
+TWO fixtures        → prove the two AUTHORITIES independently: an UNTRUSTED signer is
+                      ALSO refused — which the shared fixture leaves UNTESTED.
+```
+⇒ ⭐ **Not in conflict: the shared fixture is STRONGER EVIDENCE for the separation and WEAKER
+COVERAGE.** **For a security boundary, keep the shared fixture AND add the untrusted-signer one.**
+⭐ ***`7o3`'s claim was "more arms is not automatically more rigour" — never "one arm suffices".***
