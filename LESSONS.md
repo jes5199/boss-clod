@@ -7106,3 +7106,45 @@ thing which produced it still exists where you think it does.**
 count-neutrality at population `3519` rather than reasoning that a hook adding zero test cases must
 still add zero.** ⭐ ***That instrument's entire existence is a claim that populations move — trusting
 a 3510-era measurement about it would be the most on-the-nose error available.***
+
+---
+
+## 7o5 — A WARNING THAT NAMES THE **VEHICLE** GETS SATISFIED BY CHANGING VEHICLES
+
+**2026-08-15, the leak detector.** Plan's original warning was:
+> *"a permanent instrument living in a SCRATCH WORKTREE is one cleanup away from gone."*
+
+⇒ **Commonplace committed and pushed. The scratch worktree was no longer the vehicle — and the
+instrument was still gone**, sitting unmerged on a branch through four subsequent merges.
+
+⭐⭐⭐ **PLAN'S OWN DIAGNOSIS, VOLUNTEERED:** ***"My flag named the VEHICLE rather than the OUTCOME, so
+a fix that changed the vehicle read as COMPLETE."*** ⇒ ⛔ **A hazard stated as a container
+("scratch worktree", "a branch", "that directory") is discharged by leaving the container. A hazard
+stated as an outcome ("not reachable from main") is discharged only by the outcome.**
+⚠️ **And commonplace took the other half rather than accepting the exoneration: *"I never asked what
+SAFE meant."*** ⭐ **Both halves are needed — the warner names an outcome, the actor asks what
+discharges it.**
+
+✅ **THE DEFINITION THEY LANDED, worth stealing wholesale:** ***SAFE MEANS REACHABLE FROM MAIN*** —
+now applied to **every asset a round leaves behind**, not just this one.
+■ ⭐ **Corollary already in force: "landed" ≠ "merged locally" ≠ "pushed to a branch". The citation
+gate stays DOWN until the instrument is reachable from main, and an author's own merge is not
+evidence — the remote is.**
+
+■ ⭐⭐ **AND `7o2`'s LAW GOT ITS FIRST *PRODUCTIVE* USE, resolving two conditions in DIRECT conflict:**
+```
+① count-neutral ⇒ positive control must be OUTSIDE the default path
+   (loaded: population 3511 and the victim went GREEN — the instrument BLINDED)
+② the control must RUN in the default suite ⇒ INSIDE it
+```
+⇒ ✅ **Resolved by making the exemption DECLARE ITSELF: the detector's own output, on every default
+run, states that its positive control did NOT run and prints the exact command that runs it.**
+⇒ ⭐ ***A silently-absent control is a blindfold; a LOUDLY-absent one is a to-do item.***
+⚠️ **With the necessary second half in the brief: the printed command must be RUN and its output
+shown — *a printed command nobody has executed is the same defect one level up.***
+
+■ ⭐ **AND `7o0` DECIDED PLAN'S CONDITION ③ — land it REPORT-ONLY, not gating:** `assert_clean!/1`
+raises on divergence, and there are ~152 ⇒ **permanently red on day one.** ⇒ ***"A permanently-red
+gate is deleted or `--exclude`d within a week — that is how the instrument dies the SECOND way."***
+⛔ **Landing it in gating form would have deliberately built the abandonment we spent the evening
+learning about.**
