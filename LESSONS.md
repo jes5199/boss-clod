@@ -7420,3 +7420,37 @@ reached main is the RECONSTRUCTION PROCEDURE** — `docs/measurements/2026-08-15
 carrying what is established, what is NOT, the four refuted elimination methods, and an explicit
 *do not delete `origin/sol/cx-0ktk-round2-s75`*. ⭐ **When the asset itself cannot be made reachable
 from main, MAKE ITS RECIPE REACHABLE — and name the fragile thing the recipe depends on.**
+
+---
+
+## 7p1 — AN ID IS ONLY AN ADDRESS IF THE RECIPIENT HAS THE RECORD IT POINTS AT
+
+**2026-08-15, `CX-kacr`.** Plan asked, reasonably: *"WHAT IS `CX-kacr`? I have never been told, so it
+is UNRANKED, NOT DEPRIORITISED."*
+⛔ **It was plan's OWN item.** Plan described the work at 22:06 (*"make the launcher's scope
+constraint mechanical — positive marker, refuse at birth naming the missing field"*); commonplace
+filed it ~20 minutes later; **the ID was minted after plan spoke, and nobody told plan the ID.**
+⇒ **Both commonplace and I then offered it as *"an alternative to D1"* — so plan saw an unranked
+RIVAL to its own ranking, which is exactly what it would have to push back on.**
+
+⭐⭐ **THE LAW: A TICKET ID IS A POINTER, AND A POINTER IS WORTHLESS TO SOMEONE WITHOUT THE STORE.**
+⚠️ **Sharpened by a fact already in my memory and which I should have connected: `bd show` cannot
+resolve ANY post-cutover ticket for anyone** — see [[reference_bd_is_a_frozen_archive]]. ⇒ **So an ID
+is not merely inconvenient to dereference here, it is UNDEREFERENCEABLE.**
+✅ **STANDING FIX, effective immediately: WHEN I RELAY A TICKET ID, I SAY WHAT IT IS — one line of
+content, every time. Never the bare identifier.**
+
+⭐⭐⭐ **AND PLAN'S SENTENCE IS `7o7` FROM THE OTHER END, which is what makes the pair complete:**
+***"My silence and my judgement look identical from your side."***
+```
+7o7  I was COMPLETE FROM AN INCOMPLETE SET  — I could not see messages not addressed to me
+7p1  plan was ABSENT FROM A SET I ASSUMED IT HAD — it could not see a record it was never sent
+```
+⇒ ⛔ **Two parties, one relay, and NEITHER can see what the other was never sent.** ⭐ **The
+asymmetry is invisible from both ends by construction — which is why the remedy has to be a habit at
+SEND time, not a check at read time. The reader has nothing to check against.**
+
+■ ⚠️ **AND THE EXPENSIVE VERSION OF THIS FAILURE, which nearly happened: plan was about to rank D1
+over an item it believed was an unranked rival, when the "rival" was its OWN ranking with a new
+name.** ⇒ **An unrecognised identifier does not read as "I lack context" — it reads as
+"someone else is proposing something".**
