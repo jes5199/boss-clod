@@ -8757,3 +8757,44 @@ denominator was doing the work, and a denominator moving on a clock looks exactl
 shape of one big Fable run — but the shape is consistent with his attribution, it does not establish
 it.** ⭐ **Told him which half is measured and which half is his read.** ⇒ ***A shape that fits a
 hypothesis is not the hypothesis confirmed, and saying so costs one sentence.***
+
+
+## 7s2 — TWO ITEMS LOOKED LIKE COMPETING PRIORITIES BECAUSE **NOBODY READ THE FAILING TEST NAMES AGAINST THE GOAL**
+
+**2026-08-16, 17:47.** jes: *"I want to move towards having pods. and we can scale them up."* I carried
+it to plan expecting a re-rank against the CI item. ⇒ ⭐⭐⭐ **Plan's answer: THEY ARE THE SAME ITEM.**
+```
+the 9 CI failures ARE the pod suites — Runner.Launcher*, TwoDeploymentPodProofTest
+⇒ CI-red never competed with pods. It MEANS: every pod landing since 08-13 has been
+  verified ON EXACTLY ONE MACHINE.
+⇒ and "scale them up" MEANS running pods on a machine that is not this one.
+  THE CI RUNNER IS THE ONLY OTHER MACHINE WE HAVE.
+⇒ so "does CI permit unprivileged userns / bwrap / /proc / mount namespaces"
+  IS LITERALLY THE QUESTION "CAN A POD RUN SOMEWHERE ELSE?"
+```
+⇒ ⭐ ***I HAD BOTH FACTS FOR AN HOUR — I extracted the nine test names MYSELF and I relayed the pod
+status MYSELF — and I still carried them to plan as two items needing reconciliation.***
+⚠️ **The connection was not hidden; it required reading the failing test names AGAINST THE GOAL rather
+than against the block. I filed those names into `KNOWN-REDS.md` as an exemption question — *whose
+failure is this?* — and never asked the other question the same list answers: *what capability just
+stopped being witnessed?***
+⇒ ⭐⭐ ***THE SAME EVIDENCE ANSWERS DIFFERENT QUESTIONS DEPENDING ON WHAT YOU BRING TO IT, AND I
+BROUGHT ONLY THE ONE MY ROLE HANDS ME.***
+
+## ✅ AND PLAN RETRACTED A CONSTRAINT IT HAD RATIFIED, ON MY MEASUREMENT
+**It had ratified *"review capacity gates scaling"*; the burn series `+23, +15, +8, +4, +6, +4` killed
+it — continuous Sol review sits inside the `+4`.** ⇒ ⛔ **Its own words: *I built a constraint out of a
+QUOTA READING instead of a BURN MEASUREMENT, and it cut against jes's instinct on a premise that did
+not hold.*** ⭐ ***A LEVEL is not a RATE, and a constraint derived from the wrong one is an argument
+that cannot be checked by the number it cites.***
+■ ⭐ **What survived, narrowed: the S95 review found two real defects a green suite did not show.**
+⇒ ***That argues for KEEPING review, not for RATIONING throughput — different claims, conflated.***
+
+## ⭐⭐ THE RULE JES GAVE, WHICH PLAN GENERALISED AND I AM ADOPTING
+> ⛔ ***A CAVEAT NOBODY ASKED FOR IS NOT RIGOUR; IT IS FRICTION ON A DECISION ALREADY MADE.***
+✅ **THE TEST: DOES THE CAVEAT CHANGE AN ACTION?** **Twice today mine did — killing the alarming
+*"the pod fence's own tests have been failing"* sentence, and correcting *"never hit a codex quota"*
+to a report chain rather than a gauge. Both were worth their friction.** ⛔ ***"Review might gate
+scaling" changed nothing except the confidence of a decision he had already taken.*** ⚠️ **He has now
+said this to me twice today in different words, which means it is not a preference — it is a
+correction I have not yet absorbed.**
