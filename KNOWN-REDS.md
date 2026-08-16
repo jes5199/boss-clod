@@ -31,19 +31,29 @@ exist yet. **Always name the failing assertion's SHAPE, and say that a different
 # ▼▼ THE BLOCK — paste from here to the end marker ▼▼
 
 ```
-KNOWN REDS ON main (as of a052133c, 2026-08-16 17:15Z) — NOT YOURS. Anything else IS.
+KNOWN REDS ON main (as of e397021c, 2026-08-16 18:08Z) — NOT YOURS. Anything else IS.
 
-① STANDING RED — MUD render defect. Main is RED.
+① STANDING — MUD render defect. ⚠️ CURRENTLY NOT FIRING. THE ENTRY STAYS.
    MUD.RoomVisibilityTest     — owner's own look on their gated room
    MUD.WebPlayIntegrationTest — citizen spawns in owned home
    Symptom: "(this place has no description)".
-   Full suite at seed 117514, CURRENT (a052133c): 5 doctests, 3548 tests, 1 failure,
-   12 excluded, 1 skipped — measured by commonplace, population predicted by hand
-   (3541 + 7) BEFORE measuring and matched exactly.
-   ⛔ DO NOT READ "1 FAILURE" AS "THE PAIR IS NOW ONE TEST." Observed 2 at 3541,
-      1 at 3546, 1 at 3548 — THE COUNT IS ARRANGEMENT-DEPENDENT, which is this
-      entry's whole claim. At any given population it may be 1 or 2 and NEITHER
-      IS A SIGNAL. Both tests below are in scope whichever number you see.
+   Full suite at seed 117514, CURRENT (e397021c): 5 doctests, 3553 tests,
+   0 FAILURES, 12 excluded, 1 skipped — measured by commonplace, population
+   predicted by hand (3548 + 5) BEFORE measuring and matched exactly.
+   ⛔⛔ THIS IS NOT FIXED, RESOLVED, OR CLOSED, AND THE ENTRY MUST NOT BE DELETED
+      FOR BEING GREEN. Observed sequence:
+          population 3541 → 2 failures
+          population 3546 → 1
+          population 3548 → 1
+          population 3553 → 0     ← a green that proves nothing
+      THE ENTRY'S CLAIM IS THAT THE COUNT IS ARRANGEMENT-DEPENDENT, SO A ZERO IS
+      EXACTLY AS UNINFORMATIVE AS A ONE. Neither a zero nor a nonzero is a signal.
+   ⛔ A KNOWN-RED DELETED WHILE GREEN IS A TRAP ARMED FOR WHOEVER ARRIVES NEXT:
+      the next round that adds tests and sees it red has no block to check, is
+      told by our own rule that unlisted failures are ITS, and hunts a defect
+      that is days old.
+   ✅ STILL DETERMINISTICALLY REPRODUCIBLE at seed 117514 / population 3541 via
+      the recipe (fc7d4bf6). The handle is intact; it is simply not firing here.
    MECHANISM: ARRANGEMENT, not count and not code — the same tests at seed 424242 are GREEN.
    Reproducer + eight dead leads: dba2e59e, d19361f7, deaa6464. Landed red at cf430433
    under commonplace-plan's escape condition; the red is the documented MUD mechanism,
@@ -57,7 +67,7 @@ KNOWN REDS ON main (as of a052133c, 2026-08-16 17:15Z) — NOT YOURS. Anything e
       No further round on this without a NEW FACT. A measurement is a fact; an idea is not.
    ⛔ A failure with a DIFFERENT symptom in these files IS yours.
    ⛔⛔ IF YOUR ROUND ADDS TESTS, THE POPULATION CHANGES AND SO DOES THE ARRANGEMENT.
-      At 3548 + N this pair MAY COME BACK RED OR GREEN, and NEITHER IS A SIGNAL ABOUT
+      At 3553 + N this pair MAY COME BACK RED OR GREEN, and NEITHER IS A SIGNAL ABOUT
       YOUR WORK. Do not report "I fixed the MUD red" and do not report "I caused it" —
       both are available, both are plausible, and both are false. Report your per-file
       counts and the suite total WITH ITS POPULATION, and say nothing about causation.
@@ -111,6 +121,14 @@ KNOWN REDS ON main (as of a052133c, 2026-08-16 17:15Z) — NOT YOURS. Anything e
   block.**
 
 ## Changelog
+
+- **2026-08-16 18:08Z** — ① main is **GREEN at 3553** (`e397021c`, S97 landed). ⛔ **Entry kept
+  STANDING and marked CURRENTLY NOT FIRING — not fixed, not closed, not deleted.** ⭐ **The danger
+  inverted: an hour ago the risk was a round CLAIMING CREDIT for the count dropping; now it is the
+  entry being DELETED FOR BEING GREEN.** ⇒ ***A known-red deleted while green is a trap armed for
+  whoever arrives next*** — the next round to add tests and see it red has no block to check and is
+  told by our own rule that the failure is its. ⚠️ **`3541→2, 3546→1, 3548→1, 3553→0`: the entry's
+  own claim makes a zero exactly as uninformative as a one.**
 
 - **2026-08-16 17:20Z** — ① population updated to **3548** at `a052133c` (S95 landed), measured by
   commonplace. ⛔ **The "1 failure" is NOT recorded as "the pair is now one test"** — that would be a
