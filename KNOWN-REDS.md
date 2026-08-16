@@ -31,13 +31,19 @@ exist yet. **Always name the failing assertion's SHAPE, and say that a different
 # ▼▼ THE BLOCK — paste from here to the end marker ▼▼
 
 ```
-KNOWN REDS ON main (as of cf430433, 2026-08-16 16:30Z) — NOT YOURS. Anything else IS.
+KNOWN REDS ON main (as of a052133c, 2026-08-16 17:15Z) — NOT YOURS. Anything else IS.
 
 ① STANDING RED — MUD render defect. Main is RED.
    MUD.RoomVisibilityTest     — owner's own look on their gated room
    MUD.WebPlayIntegrationTest — citizen spawns in owned home
-   Symptom: "(this place has no description)" ×2.
-   Full suite at seed 117514: 5 doctests, 3541 tests, 2 failures, 12 excluded, 1 skipped.
+   Symptom: "(this place has no description)".
+   Full suite at seed 117514, CURRENT (a052133c): 5 doctests, 3548 tests, 1 failure,
+   12 excluded, 1 skipped — measured by commonplace, population predicted by hand
+   (3541 + 7) BEFORE measuring and matched exactly.
+   ⛔ DO NOT READ "1 FAILURE" AS "THE PAIR IS NOW ONE TEST." Observed 2 at 3541,
+      1 at 3546, 1 at 3548 — THE COUNT IS ARRANGEMENT-DEPENDENT, which is this
+      entry's whole claim. At any given population it may be 1 or 2 and NEITHER
+      IS A SIGNAL. Both tests below are in scope whichever number you see.
    MECHANISM: ARRANGEMENT, not count and not code — the same tests at seed 424242 are GREEN.
    Reproducer + eight dead leads: dba2e59e, d19361f7, deaa6464. Landed red at cf430433
    under commonplace-plan's escape condition; the red is the documented MUD mechanism,
@@ -51,7 +57,7 @@ KNOWN REDS ON main (as of cf430433, 2026-08-16 16:30Z) — NOT YOURS. Anything e
       No further round on this without a NEW FACT. A measurement is a fact; an idea is not.
    ⛔ A failure with a DIFFERENT symptom in these files IS yours.
    ⛔⛔ IF YOUR ROUND ADDS TESTS, THE POPULATION CHANGES AND SO DOES THE ARRANGEMENT.
-      At 3541 + N this pair MAY COME BACK RED OR GREEN, and NEITHER IS A SIGNAL ABOUT
+      At 3548 + N this pair MAY COME BACK RED OR GREEN, and NEITHER IS A SIGNAL ABOUT
       YOUR WORK. Do not report "I fixed the MUD red" and do not report "I caused it" —
       both are available, both are plausible, and both are false. Report your per-file
       counts and the suite total WITH ITS POPULATION, and say nothing about causation.
@@ -105,6 +111,12 @@ KNOWN REDS ON main (as of cf430433, 2026-08-16 16:30Z) — NOT YOURS. Anything e
   block.**
 
 ## Changelog
+
+- **2026-08-16 17:20Z** — ① population updated to **3548** at `a052133c` (S95 landed), measured by
+  commonplace. ⛔ **The "1 failure" is NOT recorded as "the pair is now one test"** — that would be a
+  new standing claim built on three arrangements, and **the entry's whole point is that the count is
+  arrangement-dependent.** Observed **2 @ 3541 · 1 @ 3546 · 1 @ 3548.** ⭐ ***The caveat's own claim
+  arriving as data.***
 
 - **2026-08-16 17:15Z** — ③ ADDED, **UNATTRIBUTED**, at commonplace-plan's instruction (`63d6996`).
   ⛔ **The trap it disarms: 8 of the 9 CI failures were in NO block anywhere, so our own rule
