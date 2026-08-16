@@ -9372,3 +9372,47 @@ claims, and only the second needs outside knowledge to check.***
 ■ ⚠️ **Incidental worth keeping: the arg is `timestamp`, not `time`, and the existing clock only ever
 calls `day(...)` — so `moment()` was UNEXERCISED TERRITORY in that repo until tonight.** ⭐ *An
 unexercised API path in a working codebase is where the first caller pays for everyone.*
+
+
+## 7t6 — ⭐⭐⭐ A SUITE OF SINGLE-ELEMENT TESTS HAS A BLIND SPOT **WITH A SHAPE**, AND THE SHAPE IS *RELATIONSHIPS BETWEEN ELEMENTS*
+
+**2026-08-16, 22:2x.** jes, looking at the page: *"i think the ecliptic might be flipped, I'd expect
+the hour hand and the sun to touch."* ⇒ ⭐ **The paravel agent wrote his invariant as an assertion
+BEFORE fixing anything: it scored `0/8` while ALL 39 EXISTING ASSERTIONS STAYED GREEN.**
+⇒ ⛔⛔ **The 39 were not weak and not badly written. Each was CORRECT ABOUT ONE ELEMENT AGAINST ITS
+OWN INPUTS — and HANDEDNESS IS NOT EXPRESSIBLE IN THAT FORM.**
+⭐ ***A MISROTATED RETE IS INTERNALLY CONSISTENT: ticks at their computed spacings, bodies at their
+own longitudes, everything self-agreeing and wrong.***
+⇒ ⭐⭐⭐ **This is a THIRD category, past the weak-control finding (`7t5`): not a control that fails to
+discriminate, but ⛔ *A WHOLE CLASS OF TRUTH NO ASSERTION IN THE SUITE WAS SHAPED TO HOLD.***
+⚠️ **And the user found it in one glance, because a human looks at the WHOLE PICTURE and a unit test
+looks at one element by construction.**
+
+## ✅ AND THE TWO-TIME MEASUREMENT CHANGED WHICH BUG WAS BEING CHASED
+**I asked for the separation at two times before choosing a diagnosis — a mirror changes it as time
+moves, a constant offset does not.** ⇒ **Neither. It moved `−14.96°/hour`, EXACTLY THE HAND'S OWN
+RATE, while the Sun barely moved.**
+```
+solar noon  hand   0.01°  sun 146.36°  sep  146.36°
++6h         hand  90.01°  sun 146.60°  sep   56.59°
++12h        hand 180.01°  sun 146.84°  sep  -33.17°
+```
+⇒ ⭐ ***THAT SIGNATURE IS A MISSING ROTATION, NOT A SIGN ERROR*** — dial in hour angle, plate in fixed
+RA, two frames. **It says outright it would have chased the wrong thing without the two-time reading.**
+⚠️ ***A SYMPTOM'S RATE OF CHANGE IDENTIFIES THE MECHANISM WHEN ITS VALUE CANNOT.***
+■ ✅ **And the second symptom was real: the zodiac also ran clockwise. ⇒ ONE CAUSE, TWO OBSERVABLES —
+and fixing the Sun alone would have left the zodiac backwards and looking fixed.** ⭐ **The assertions
+are kept SEPARATE for exactly that reason.**
+
+## ⭐ AND THE FIX IS DERIVED, NOT TUNED
+**`bearing = LST − RA`, with LST derived from data already fetched: the Sun's hour angle IS what the
+hand shows, so `LST = H(sun) + RA(sun)`.** ⇒ ***THE SUN LANDS ON THE HAND BY CONSTRUCTION.***
+**No ephemeris, no new astronomy, no fudge factor** — and when the inputs are missing the rete falls
+back unrotated with the existing readouts explaining it.
+
+## ⚠️ AND MY OWN CONTROL FAILED WHILE VERIFYING THIS, IN THE OBVIOUS WAY
+**I asserted `hourAngle` MUST be 0 in the old clock module as my discriminator. It returned 4.**
+⇒ ⛔ **My control was wrong, not the file — the old clock has always had hour angles.** ✅ **Redone
+with markers actually unique to the fix (`sunHourAngle` 2/0, `rete` 4/0, corpus 523 and 1502 lines).**
+⇒ ⭐ ***I PICKED A DISCRIMINATOR BY REASONING ABOUT IT INSTEAD OF TESTING IT — the exact failure the
+agent measured a base rate for one hour earlier, committed by the person who filed it.***
