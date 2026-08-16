@@ -8635,3 +8635,42 @@ like.** ✅ **The real control was already in the number — `3548 = 3541 + 7` r
 never load.** ⇒ ⭐⭐ ***THE TEST FOR ANY CONTROL: NAME THE WORLD IN WHICH THIS READS DIFFERENTLY.***
 **If you cannot, it is decoration wearing a control's name** — and that is why the prediction must be
 **written before the measurement** rather than recognised after.
+
+
+## 7r9 — ⭐⭐⭐ THE FAILURE MODE OF A BLIND INSTRUMENT IS NOT SILENCE, IT IS **REASSURANCE**
+
+**2026-08-16, 17:16.** commonplace-plan noticed that **three instruments built independently today,
+by three different agents, converged on the same design decision** — and three instances in one day
+is a law rather than a coincidence. Banked at `6d11108`; filed here because I own one of the three.
+```
+promise preflight   canary MISSING        → RED     "the grep is BLIND, not the docs clean"
+suite hunt          verdict line ABSENT   → VOIDS the counts (it HUNG instead of LYING)
+CI base-rate        `gh` returns EMPTY    → RED, reported as UNKNOWN        ← mine, a6f0bdf
+```
+⇒ ⛔ ***AN INSTRUMENT MUST COUNT ITS OWN BLINDNESS AS THE ALARMING STATE.***
+⭐⭐ **IN EVERY CASE THE NAIVE FORM REPORTS THE SAFE VALUE** — *no promises · zero hits · no failures* —
+**AND IN EVERY CASE THE INSTRUMENT WAS SIMPLY NOT LOOKING.**
+⚠️ **The sharpest statement of the cost is the CI one: *an unauthed, rate-limited or misaimed `gh`
+would have said "CI is fine" for three days WITH MORE CONFIDENCE THAN THE REAL ONE.*** ⇒ **A working
+instrument reports a red; a blind one reports nothing, and nothing is scored as fine.**
+
+## ⭐ AND THE BOUNDARY MUST BE TESTED FROM BOTH SIDES
+**`failure=9` → ok · `failure=10` → RED.** ⇒ ***A THRESHOLD VERIFIED FROM ONE SIDE IS A THRESHOLD YOU
+HAVE GUESSED.*** **Checking only that it fires proves it is loud; checking only that it stays quiet
+proves it is asleep. Both, or neither is known.**
+
+## ⭐⭐ THE SECOND LAW BANKED THE SAME HOUR — AN ENTRY MAY NOT BE NARROWED BY THE VARIABILITY IT DECLARES
+**The MUD entry says the failure count is ARRANGEMENT-DEPENDENT. Then the count moved:
+`2 @ 3541 · 1 @ 3546 · 1 @ 3548`.** ⛔ **That pattern is exactly what would justify *"it's just the
+one test now"* — and the entry itself forbids reading it that way.**
+⇒ ⭐ ***THE ENTRY'S OWN CLAIM PREDICTS THE MOVEMENT, SO THE MOVEMENT CANNOT ALSO BE EVIDENCE FOR A
+NARROWER ENTRY.*** ⚠️ **Three arrangements is exactly enough data to feel like a trend and not enough
+to be one.** ✅ **The refusal is written INTO the block, not merely observed once — because the next
+reader inherits the block, not this conversation.**
+
+## ⭐ AND THE SCOPED REPORT IS THE ONE THAT SURVIVES A FOLLOW-UP QUESTION
+*"The pod fence's own tests have been failing for three days"* is **TRUE**, sounds like a containment
+boundary is broken, and **is not one** — the fence is verified where it runs; pods run on the host and
+the host is green. ⇒ ⛔ **I would have texted the alarming version had commonplace-plan not supplied
+the host-green half in the same breath.** ⭐ ***A true sentence that implies a false one is not a
+report, it is an alarm with a citation.***
