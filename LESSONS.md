@@ -7662,3 +7662,50 @@ that describes the intended behaviour is a decoy with the author's credibility a
 sentence and converted a would-be "regression" into a confirmation of the upper-bound caveat.**
 ■ ✅ **Per-file counts as demanded, and the suite total MOVED (`3519 → 3520`) consistent with `+1` —
 which is the check that tonight's net-zero concealment made necessary.**
+
+---
+
+## 7p7 — TWO INDEPENDENT READS THAT AGREE CAN BE INCOMPLETE IN THE SAME DIRECTION
+
+**2026-08-16, ceremony rehearsal arm 10.** Plan and commonplace both read the source, independently,
+and both concluded a protection was missing. **The rehearsal refuted both — and the refutation is the
+instructive shape: THE CALL-GRAPH READING WAS CORRECT AND THE CONCLUSION WAS WRONG.**
+```
+arm title says:   "pre-activation registrations are not RETROACTIVELY trusted"
+both parties checked:  the REGISTER path   (which the TITLE names)
+the substance lives on: the VERIFY path    → :eviction_anchor_activation_position_required
+                                             it fires. The protection exists.
+```
+
+⭐⭐⭐ **PLAN'S LAW, and it is about authorship:** ***A TEST'S NAME SELECTS WHICH MECHANISM YOU CHECK —
+AND IF YOU WROTE THE NAME, YOU HAVE PRIMED YOURSELF.*** *(plan wrote the title.)*
+⭐⭐ **COMMONPLACE'S HALF, which is the one that bears on me hardest:** ***two independent source
+reads, AGREEING, both incomplete IN THE SAME DIRECTION — and the AGREEMENT is what made it feel
+settled.***
+⇒ ⛔ **We already had a rule about two-agent cross-checks failing on a shared NAME. This is the same
+law failing on a shared FRAME.** ⚠️ **Independence of READERS is not independence of FRAMING. Two
+parties handed the same title will search the same subsystem, and their agreement measures the title,
+not the code.**
+✅ **The remedy that actually worked was neither reader: A REHEARSAL. Executing the arm answered in
+one run what two careful readings got wrong.**
+
+## ⭐⭐⭐ INCIDENTAL CORRECTNESS IS INDISTINGUISHABLE FROM ENFORCED CORRECTNESS UNTIL SOMETHING CHANGES
+**Plan still ruled that activation must be recorded at anchor-add time — NOT because the refusal is
+missing (the round proved it exists) but because *today's refusal is INCIDENTAL rather than STATED*.**
+⇒ ⛔ **Nothing declares it, no name carries it, and a change to activation TIMING would delete it
+silently for reasons having nothing to do with eviction.**
+■ ⭐⭐ **AND THE SAME ROUND PRODUCED A SECOND INSTANCE, unplanned: a temporary tmux socket created
+while handling a suite timeout TRIGGERED the launcher's channel-isolation test.** ⇒ **`CX-kacr`'s
+property FIRED BY ACCIDENT, on state nobody intended to create.**
+⇒ ⭐ ***Two real protections, both working, both UNENFORCED, observed inside one round*** — **which is
+EVIDENCE rather than reasoning for making `CX-kacr` a condition.** ⚠️ **Protection-by-accident is the
+same family as the guard that has never been seen to fire: you cannot tell a property that HOLDS from
+one that is HELD.**
+
+■ ✅ **And the near-miss under arm 9 is the fixture trap again: the first version assumed production
+commits were parentless — the store AUTO-WIRES a genesis — so it would have tested ONE history and
+PASSED while claiming two.** ⇒ ***A fixture that silently collapses into the trivial case reports
+success for the case it did not construct.***
+■ ✅ **Arm 12 DEMONSTRATED, not asserted: live commit population and live `trust.json` hash
+byte-identical before and after.** ⭐ **Non-perturbation proven by measurement on the live thing —
+which is the only version of that claim worth making.**
