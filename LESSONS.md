@@ -8963,3 +8963,56 @@ and Sol got it right in code without being told.** ✅ **It also fails closed: n
 TEMPLATE. A brief written by copying a brief inherits the TEXT but not the CORRECTION.***
 **Same root as my five grep failures today: the corrected THING and the corrected FORM are different
 objects, and only one of them was ever edited.**
+
+
+## 7s7 — ⭐⭐⭐ **NON-COLLAPSE WAS APPLIED WHERE WE HAD BEEN BURNED AND NOWHERE ELSE**
+
+**2026-08-16, 18:16.** jes's 535-line review of plan's topology proposal. **The praised choices and the
+single criticism are the same operation, applied unevenly:**
+```
+PRAISED (7, counted)   roles-vs-authority · READS-vs-RECEIVES-A-COPY · expected state explicit
+                       · report-before-arbitrate · refusing the pod-launcher merge · stable ids
+                       · preserving the host-agent path
+CRITICISED (1)         SIX concepts collapsed into one participant record — logical participants,
+                       durable identities, desired deployments, observed processes, host
+                       placement, authority
+```
+⇒ ⛔ ***EVERY NON-COLLAPSE WE MADE WAS ONE WE HAD BEEN BURNED BY THIS WEEK. THE SIX WE MISSED WERE THE
+ONES NOTHING HAD YET COST US.*** ⭐ ***A DISCIPLINE APPLIED FROM SCAR TISSUE COVERS EXACTLY THE
+HISTORY AND NONE OF THE DOMAIN.***
+
+## ⛔⛔ AND THE SHARPEST HIT WAS PLAN'S OWN RULE, INSIDE THE FIELD IT WAS PROUDEST OF
+**v1: *no claude + `expect: running` ⇒ A CRASH.*** ⇒ ⛔ **That is the absent-vs-not-yet conflation plan
+had ruled against FIVE TIMES THE SAME DAY.** ⇒ ⭐ **The comparison establishes only `desired-but-absent`.
+A CRASH REQUIRES EVIDENCE** — an abnormal exit record, an expired lease, a supervisor observation.
+**Absence might equally be a clean exit, a launch that never succeeded, a host reboot, or an
+observation system that cannot see the process.**
+■ ⚠️ **And the review's vocabulary supplies `observation-unavailable` — ⭐ THE INSTRUMENT DECLARING ITS
+OWN BLINDNESS, which is `7r9`, banked THAT MORNING, and also not applied here.**
+⇒ ⭐⭐ ***A RULE IS HARDEST TO APPLY INSIDE THE ARTIFACT YOU ARE PROUD OF, because pride is the
+feeling of having already checked.***
+
+## ⭐⭐⭐ THE STRUCTURE THAT ANSWERS TODAY'S AUTHORITY GAP, AND IT IS BETTER THAN WHAT IT REPLACED
+```
+CAPABILITIES  say who MAY act        permission:  boss may rank
+TOPOLOGY      says who SHOULD act    assignment:  plan should rank
+AUDIT         says who DID act       observation: boss ranked CX-123
+```
+⇒ ⭐ ***AN ACT MAY BE AUTHORIZED AND STILL VIOLATE THE OPERATING ARRANGEMENT.*** ⛔ **Exactly today's
+hole: I broke the ranking constraint twice and caught both BY NOTICING, because the three facts were
+one prose sentence and nothing could observe a divergence between them.**
+⚠️ **Note it does NOT make topology enforce anything — it makes the violation VISIBLE. Declaring
+without enforcing is the whole value.**
+
+## ⛔ AND A HOLE OPENED WHILE RULING AGAINST HOLES
+**`instantiate.recipe` in the topology turned *permission to EDIT TOPOLOGY* into *permission to
+EXECUTE ARBITRARY HOST CODE*.** ⇒ **Replaced by governed executor profiles.** ⭐ **And the profile now
+owns `oom_score_adj` — the setting that makes agents die before hermes' live-money BEAM.**
+⇒ ⚠️ ***COPIES DRIFT, AND THE COPY THAT DRIFTS MAKES HERMES THE KILL TARGET*** — a safety property
+must live in ONE governed place, not in a bash function every new launcher reimplements.
+
+## ✅ THE MECHANICAL FLAG THAT COST ONE LINE AND SAVED 535
+**I warned that the review cites blob `d36def8e`, so amending the file in place would silently
+invalidate every line-level citation.** ✅ **Verified after v2 landed: `cat-file -t` → `blob`, `-s` →
+`11985`, bogus blob id → fatal (control).** ⇒ ⭐ ***A REVIEW PINNED TO A BLOB IS A CLAIM ABOUT AN
+OBJECT; A REVIEW PINNED TO A PATH IS A CLAIM ABOUT WHATEVER IS THERE LATER.***
