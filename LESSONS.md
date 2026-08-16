@@ -8042,3 +8042,43 @@ its default answer.***
 ⭐⭐ ***A NEGATIVE FROM A REPRODUCER YOU HAVE NOT SHOWN CAN REPRODUCE IS THE "CHECK THAT CANNOT FAIL"
 SHAPE.*** **So the first thing it owes is a demonstration that it CAN go red at all** — the
 positive-control requirement, applied to a reproducer before its first real use.
+
+---
+
+## 7q5 — KILLING A HYPOTHESIS ON ONE INSTANCE IS THE SAME ERROR AS CONFIRMING ONE ON IT
+
+**2026-08-16, 03:18. ATTRIBUTION SETTLED: both reds reproduce on a CLEAN tree** (`git status` clean,
+0 modifications), found in **minutes** by the targeted reproducer rather than the hours the
+17-minutes-per-bit plan needed. ⇒ **Neither failure was caused by the change.**
+⭐ **And the reproducer's DEMONSTRATED RED was its own positive control — satisfied by the same event
+that settled the question, so the "prove it can fail" requirement cost nothing.**
+
+⛔⛔ **THE FINDING THAT INDICTS THE REASONING: THE HYPOTHESIS COMMONPLACE KILLED WAS CORRECT.**
+It proposed *"the write count changed"*, then discarded it because `assert landed_count == 4`
+**passed in run 1** — *"the count is the one thing that did not move."*
+⇒ ⭐⭐⭐ **THE COUNT DOES MOVE. It is 4 sometimes and 5 others.** ⚠️ ***The check was true of run 1's
+INSTANCE and false of the MECHANISM.***
+⇒ ⭐⭐ ***KILLING A HYPOTHESIS ON A SINGLE INSTANCE IS THE SAME ERROR AS CONFIRMING ONE ON A SINGLE
+INSTANCE — AND A NONDETERMINISTIC MECHANISM WILL EXONERATE ITSELF IN ANY GIVEN RUN.***
+■ ⚠️ **Symmetry worth holding: I have spent all night demanding n>1 before ACCEPTING a claim, and
+never once before REJECTING one. A refutation from a single run is exactly as weak as a confirmation
+from a single run, and it FEELS stronger because refuting is the skeptical move.**
+
+■ ⭐ **BOTH SHAPES, ONE ROOT (`CX-7rjn`): `count = 5` fails LOUDLY; `count = 4 with a shifted
+sequence` makes `Enum.at(landed_docs, 3)` select THE WRONG DOCUMENT, surfacing one line later.**
+⛔ **And the silent case is live: a shifted ordinal landing on a doc that satisfies the assertions
+goes GREEN WHILE TESTING SOMETHING ELSE.** ⇒ ***Ordinal selection converts a nondeterministic
+ordering into a test that sometimes passes for the wrong reason.***
+■ ⭐ **`GitBridge.ServerTest` has now shown the teardown `no process` mechanism in THREE distinct
+tests — filters, phantom-diff pin, pause/resume.** ⇒ **The mechanism is MODULE-WIDE, which is exactly
+why known-reds must be recorded by MECHANISM and not by test name** — `7o2` caught it twice tonight.
+
+## ⛔ AND MY OWN GREP WAS THE PROBLEM FOR THE THIRD TIME TONIGHT
+**Checking whether my file had banked the wrong kill, I grepped `'second tidy story'` and got 0 —
+because the text is UPPERCASE and I omitted `-i`.** ✅ **Caught by the standing rule (*when your grep
+returns 0, suspect the PATTERN first*) and by a control that showed the phrase exists.**
+⚠️ **Three pattern-caused zeros in one night: backticks, then `ANTHROPIC_API_KEY=` false-positive,
+now case.** ⇒ ***My greps fail more often than the things I grep for are absent*** — **which is the
+base rate that should govern how I read my own zeros.**
+✅ **Accuracy for the record: my file banked the `on_exit`/`restore_trust` kill, which was CORRECT.
+It never banked the count-hypothesis kill. The LAW stands regardless and is the reason to file it.**
