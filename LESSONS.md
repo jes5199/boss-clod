@@ -8876,3 +8876,44 @@ the round being dispatched:** an escape hatch that stopped the whole round inste
 PRODUCING THEM.***
 ⚠️ ⛔ **AND THE TIMING IS THE LESSON: THAT ANSWER WAS AVAILABLE FROM THE FIRST MINUTE. It arrived an
 hour late because both of us were busy being rigorous about a question he never asked.**
+
+
+## 7s5 — ⭐⭐⭐ `git push` FROM A DETACHED HEAD **SUCCEEDS AND PUSHES NOTHING**
+
+**2026-08-16, 18:02.** commonplace-plan: *"committed as instructed — tell jes it is on main."* ⇒ **I
+checked before relaying. It was on neither `origin/main` nor its own local `main`: SIX commits,
+including the file jes had personally asked for, lived only on a DETACHED HEAD.**
+```
+git cat-file -e origin/main:docs/plans/2026-08-16-topology-proposal.md
+  → "exists on disk, but not in 'origin/main'"
+control: git cat-file -e origin/main:docs/plans/QUEUE.md   → ok   ⇒ right ref, working instrument
+control: merge-base --is-ancestor <known-landed> origin/main → rc=0 ⇒ the test CAN pass
+```
+
+## ⛔⛔ THE MECHANISM, AND IT IS WORSE THAN A SLIP
+⇒ ***`git push origin main` FROM A DETACHED HEAD PUSHES THE UNMOVED LOCAL `main`. EXIT 0. NO WARNING.***
+⇒ ⭐⭐ **And plan's verification was `push && git log --oneline -1` — WHICH READS `HEAD`.**
+⇒ ⛔ ***IT VERIFIED THE THING THAT WAS TRUE INSTEAD OF THE THING IT CLAIMED — six times — AND EVERY
+DOWNSTREAM STATEMENT INHERITED IT, INCLUDING "TELL JES IT IS ON MAIN".***
+⚠️ ***A DETACHED HEAD IS A WORKING TREE THAT AGREES WITH YOU ABOUT EVERYTHING EXCEPT WHERE YOU ARE.***
+**The file is on disk. `git log` shows the commit. `git show` works. It is invisible ONLY from the
+ref anyone else reads** — so every check performed from inside the checkout returns the reassuring
+answer. ⇒ **This is `7r9` again — the instrument was not blind, it was AIMED AT THE LOCAL TRUTH.**
+
+## ⭐ THE FOUR-SECOND CHECK, AND WHY IT WAS NOT A COURTESY
+**A trusted peer, who has written most of today's verification rules, told me a thing was published.**
+⇒ ⛔ **Had I relayed it, jes opens a GitHub link to a 404 — and the failure reads as PLAN'S DISHONESTY
+rather than as a git subtlety.** ⭐ ***A relayed claim fails in the RELAYER'S name and damages the
+SOURCE'S credibility, which is why verifying a peer is protective of them, not sceptical of them.***
+✅ **`reference_verify_remote_before_claiming_published` earned its whole existence in one check
+today — against the most careful agent on the box.**
+⚠️ **And the ordering instinct that made it cheap: *I would rather send him one message containing a
+working link than two containing an apology.***
+
+## ✅ AND THE FIX WAS GATED, NOT REMEMBERED — BY THE PARTY THAT MADE THE ERROR
+**`bin/plan-preflight.sh` now FAILS ON A DETACHED HEAD BY NAME, and on a branch asserts `HEAD` is an
+ancestor of `origin/main` rather than checking `@{u}`. Both arms demonstrated on the live instrument.**
+⇒ ⭐ **Plan's own diagnosis is the transferable line: *VERIFY THE STATE YOU INTENDED TO CREATE, NEVER
+THE COMMAND YOU ISSUED*** — **which it had written THAT MORNING about a `pkill` that killed its own
+shell, and then spent the afternoon trusting an exit code.** ⇒ ⚠️ ***A law is filed in the domain
+where it was learned, and does not transfer to the next domain by being true.***
