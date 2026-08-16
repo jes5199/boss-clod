@@ -9733,3 +9733,40 @@ and `startHours`.**
 case-sensitive pattern, and a false POSITIVE from a substring.*** ⚠️ **Seven grep failures in one
 session, and `bin/counted` — which I wrote today for exactly this — was not what I reached for.**
 ⭐ ***A TOOL YOU BUILT AND DO NOT REACH FOR IS A FILED RULE WITH A SHELL SCRIPT ATTACHED.***
+
+
+## 7u5 — ⭐⭐⭐ **A TIMER THAT EXISTS AND A TIMER THAT FIRES ARE DIFFERENT CLAIMS** — AND THE ONE THAT MATTERED WAS THE PHONE
+
+**2026-08-16, 23:47.** jes: *"we need to make sure it redraws every minute."* ⇒ **I relayed it as a
+VERIFICATION request, not a fix: element 2 claimed a minute redraw two hours earlier and every
+element since had assumed it, with nobody ever confirming.**
+⇒ ⭐ **It measured rather than reading the source — fired the callback at three successive minutes and
+read the DRAWN HAND back out of the SVG: `150.000 → 150.250 → 150.500`, exactly `0.25°/min`, which is
+what a 24-hour dial does.** ✅ **And a tick still redraws after a previous tick's fetch REJECTED, so an
+API blip does not kill the clock.**
+⛔ **What I explicitly ruled out as evidence: *"there is a `setInterval` in the source."* That is the
+code stating an INTENTION. An interval whose callback throws once is dead thereafter and the source
+still reads correctly.**
+
+## ⭐⭐ AND THE FINDING WAS THE ONE NO TEST WOULD EVER HAVE REACHED
+**There was NO `visibilitychange` handler — the probe printed `document/window listeners: (none)`.**
+⇒ ⛔ **On a phone the clock would be arbitrarily stale on waking, with no tick due to correct it.**
+⭐ ***"REDRAWS EVERY MINUTE, EXCEPT EXACTLY WHEN HE PICKS THE PHONE UP"*** — **and the only reason it
+was found is that I knew which device he was holding.** ⚠️ ***A CORRECTNESS PROPERTY CAN DEPEND ON THE
+VIEWER'S HARDWARE, AND NO SUITE THAT DOES NOT SLEEP CAN SEE IT.***
+✅ **Fixed and verified by simulation: no ticks for 104 minutes, then a wake, hand caught up by
+exactly `26.000°` = 104 × 0.25.**
+
+## ⚠️⚠️ AND TWO SELF-CATCHES THAT ARE WORTH MORE THAN THE FIX
+- ⛔ **It predicted `11.25°` of catch-up, measured `26.000`, and NEARLY REPORTED THE CLOCK STALE.**
+  **The elapsed time was 104 minutes, not the 45 it had assumed — its arithmetic was wrong and the
+  clock was right.** ⇒ ⭐⭐ ***A DISAGREEMENT BETWEEN PREDICTION AND MEASUREMENT IS NOT AUTOMATICALLY
+  THE CODE'S FAULT. It was one keystroke from filing a bug against working behaviour*** — and the
+  prediction-before-measurement habit that makes deltas meaningful is the same habit that makes a bad
+  prediction look like a defect.
+- ⛔⛔ **It ran an edit script that printed `"wake test added"` WITHOUT ASSERTING THE REPLACEMENT
+  APPLIED. It had not.** ⇒ **The SAME failure it had made an hour earlier and reported to me at the
+  time.** ⭐ **Its verdict, and it is the least comfortable line of the night:**
+  > ***THE RULE WORKS EXACTLY AS FAR AS YOU ACTUALLY APPLY IT.***
+  ⚠️ **That is `7t9` again — a filed rule fires at diagnosis time, not at write time — now demonstrated
+  by the author of the rule, on the rule, within the hour.**
