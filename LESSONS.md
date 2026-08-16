@@ -8716,3 +8716,44 @@ the Anthropic side pinned at SLOW_DOWN for four days while the codex pool sat id
 it.** ⇒ ⭐ ***His instinct to double Sol was better founded than my agreement with it.*** **I agreed
 for a weak reason and nearly let a strong one go unstated.**
 ■ ⚠️ **Told him plainly that today is not representative and that I had answered from the good case.**
+
+
+## 7s1 — I READ A **CUMULATIVE** SERIES AS A **RATE**, AND MY GREP MISSED HALF THE FILE ON THE WAY
+
+**2026-08-16, 17:39.** Having just reported four days of `SLOW_DOWN` (`7s0`), jes gave the reading:
+*"we were way over ratio because of a Fable hermes run at the beginning of the week… quota fell such
+that the gates opened and stayed open AND IT KEPT FALLING."* ✅ **He was right and I was wrong in the
+half I had asserted.**
+
+## ⛔ FAILURE ①, AND IT IS THE ONE I KEEP MAKING: A PATTERN-ANCHORED COUNT THAT LOOKED COMPLETE
+**My first extraction pulled `7d=[0-9.]+%` and returned FOUR DAYS: 08-09, 08-10, 08-15, 08-16.**
+⇒ ⛔ **The four missing days are EXACTLY the throttled ones — because a `SLOW_DOWN` line has a
+DIFFERENT FORMAT (`at 70% used`), and the days I most needed were the only days written that way.**
+⚠️ ***THE GAP WAS NOT RANDOM. THE CONDITION I WAS MEASURING CHANGED THE FORMAT OF ITS OWN RECORD***
+— so the naive pattern is blind precisely where the phenomenon is.
+✅ **Caught by a DENOMINATOR CONTROL: 96 dated lines/day in the file vs 0 extracted for 08-11..14.**
+⭐ ***A count is not checkable without the size of the corpus it came from*** — and this is the fifth
+grep of mine to fail this way today, which is now the base rate rather than an anecdote.
+
+## ⛔⛔ FAILURE ②, THE SUBSTANTIVE ONE: A CUMULATIVE WINDOW CANNOT FALL
+```
+Aug 11  19% → 42%   +23 in one day
+Aug 12  42% → 57%   +15
+Aug 13  57% → 65%    +8
+Aug 14  65% → 69%    +4
+Aug 15  69% → 75%    +6
+Aug 16  75% → 79%    +4
+```
+⇒ ⭐⭐ ***USAGE NEVER FELL. WHAT FELL WAS THE RATIO — because ELAPSED TIME CAUGHT UP WITH A BURN THAT
+HAD ALREADY HAPPENED.*** **The gates opened by DECAY, not by anyone using less.**
+⛔ **And my earlier answer implied the four-day throttle was REVIEW LOAD. It was not.** ⇒ **It was ONE
+EXPENSIVE DAY at the head of the window; everything after — including continuous Sol review — ran at
+a FIFTH of that rate and simply waited out the arithmetic.**
+⚠️ ⭐ ***A RATIO HAS TWO MOVING PARTS AND I ATTRIBUTED ITS MOTION ENTIRELY TO THE NUMERATOR.*** **The
+denominator was doing the work, and a denominator moving on a clock looks exactly like restraint.**
+
+## ✅ THE BOUNDARY I STATED RATHER THAN CROSSED
+**`quota-guard` logs TOTALS, not per-project.** ⇒ **A +23 day against a +4–6 baseline is EXACTLY the
+shape of one big Fable run — but the shape is consistent with his attribution, it does not establish
+it.** ⭐ **Told him which half is measured and which half is his read.** ⇒ ***A shape that fits a
+hypothesis is not the hypothesis confirmed, and saying so costs one sentence.***
