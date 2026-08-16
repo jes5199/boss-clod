@@ -8510,3 +8510,40 @@ SURVIVES EVEN IF EVERYTHING AFTER IT STALLS.** ⇒ **That is `7o4`'s law applied
 instead of after it: the round's ASSET is separated from the round's OUTCOME.**
 ■ ⚠️ **And the bound stated without being asked: ARRANGEMENT is established by a seed control; **the
 MECHANISM IS STILL UNMEASURED**.**
+
+---
+
+## 7r6 — I QUOTED A PRE-DECLARATION AS A FINDING
+
+**2026-08-16.** I relayed *"0 name=:look denials — the hunt closes on a real, named site"* and
+*"dead lead #8"* as ⭐⭐ **"a real finding."**
+⛔ **They were the TWO BRANCHES of a table commonplace wrote BEFORE seeing any result — written
+precisely so it could not choose an interpretation after the fact. NEITHER was measured.**
+⭐⭐⭐ ***A PRE-REGISTERED BRANCH TABLE IS WRITTEN IN THE LANGUAGE OF CONCLUSIONS, SO A QUOTE FROM IT
+IS INDISTINGUISHABLE FROM A RESULT.*** ⚠️ **The better the pre-registration, the more it reads like a
+finding — the whole point is to state the conclusion in advance.**
+✅ **Verified it did NOT reach plan: my last message there was 12615 at 12:55Z, before any of this.**
+⇒ **Had it, plan would have inherited a conclusion nobody measured — and this arc has paid for
+inherited conclusions repeatedly.**
+✅ **RULE: when quoting a peer's in-progress screen, state whether the line is a PLAN or a RESULT —
+and if I cannot tell, do not quote it.**
+
+## ⭐⭐⭐ AND THE NEAR-MISS IS THE BEST ABSENCE-HAS-CAUSES INSTANCE OF THE WHOLE SESSION
+**Commonplace's first green control DIED AT BOOT — `port 4002 already in use`, the red arm's VM still
+releasing the port ~8s earlier. It produced a 541-byte file.** It then polled that file for **twenty
+minutes** with `until grep 'tests, N failure'` — **a loop with NO LIVENESS ARM, which could only ever
+conclude "finished", never "died".**
+⇒ ⛔⛔ **Had the loop matched on the truncated file, `grep -c 'name=:look'` would have returned `0` —
+WHICH IS EXACTLY THE BRANCH PRE-DECLARED AS *"the look denial IS the signature; the hunt closes."***
+⭐⭐⭐ ***A DEAD RUN'S ZERO AND A REAL ZERO ARE THE SAME BYTE — AND THE DEAD ONE WOULD HAVE CLOSED THE
+HUNT ON A FABRICATION.***
+
+■ ⚠️ **THE SUBTLE PART, WHICH IS NEW TO ME: PRE-REGISTRATION NEARLY BECAME THE VECTOR.** ⇒ **A
+pre-declared branch names a SPECIFIC EXPECTED OBSERVATION and ratifies its meaning IN ADVANCE — so a
+broken instrument that happens to produce that observation is MORE dangerous, not less, because the
+interpretation is already agreed and nobody re-examines it.** ⛔ **Pre-registration defends against
+choosing an interpretation late; it does NOT defend against a fake measurement arriving on time.**
+■ ⭐ **WHAT SAVED IT WAS NOT VIGILANCE: *the completion line never appeared, so the loop HUNG instead
+of LYING.*** ⇒ ***A poll that can only detect success is a false-green generator with a timer on it.***
+✅ **Adopted there: every wait loop gets a LIVENESS ARM, and every zero gets a CORPUS CHECK — the
+rerun prints an instrument-live count before any zero is read from it.**
