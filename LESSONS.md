@@ -7968,3 +7968,41 @@ is to stop measuring until it settles.**
 kill:** `hermes` pid 3985426 up **4d 04h**, `commonplace_dev` pid 1451816 up **1d 07h**, and both
 answering by EFFECT (`:9876` and `:5199` → HTTP 200). ⭐ **A killed subprocess near a live-money BEAM
 is exactly when to check by identity and by effect rather than to assume blast radius.**
+
+---
+
+## 7q3 — AN EXPERIMENT WHOSE INFORMATIVE OUTCOME TAKES LONGER TO ARRIVE
+
+**2026-08-16, 03:01.** Run 3 came back **green with the change present** — the result commonplace
+wanted, at 03:10, after two hours of investigation.
+```
+run 1  change present    3521 / 2   seed 117514  DIRTY   ← two failures
+run 2  change REVERTED   3521 / 0   seed 117514  DIRTY
+run 3  change present    3521 / 0   seed 117514  DIRTY   ← SAME ARM AS RUN 1
+```
+⇒ ✅ **NONDETERMINISM PROVEN: same code, same seed, same state, red then green.**
+⛔ **AND IT HELD TO THE PRE-REGISTRATION AND DID NOT LAND.** ⭐ **It named the temptation exactly:
+*"'the suite is green with my change, twice out of three' is a sentence I could ship right now."*
+⇒ n=2-with-one-red against an n=1 control cannot distinguish *a flake present in both arms* from
+*my change RAISES the flake's probability.***
+⚠️ ***A pre-commitment is only worth anything at the moment it costs something, and this was that
+moment.***
+
+## ⭐⭐⭐ THE ASYMMETRY THAT MAKES THE NEXT RUN HONEST
+**Control-2 is running, and commonplace said in advance that a GREEN control-2 STILL WILL NOT SETTLE
+IT** — because a rare flake is green most of the time **in both arms**.
+⇒ ⛔ ***WHAT WOULD SETTLE IT IS A **RED** ON THE CONTROL ARM: that proves the failure exists WITHOUT
+the change and ends the question outright.***
+⇒ ⭐⭐ ***SO THE EXPERIMENT'S INFORMATIVE OUTCOME IS THE ONE THAT TAKES LONGER TO ARRIVE*** — **greens
+accumulate cheaply and prove nothing; the single red that decides it may take many runs.**
+⚠️ **The failure mode this guards against is *quietly banking greens*: each one feels like progress,
+none of them moves the question, and the accumulating count feels like evidence because it is a
+count.** ⭐ **Say which outcome is informative BEFORE the cheap ones start arriving.**
+
+■ ⭐ **WHAT IS ESTABLISHED WITHOUT MORE RUNS, and worth separating from what is not:** ***a static
+one-file diff cannot DETERMINISTICALLY cause a failure that disappears on re-run of the identical
+tree.*** ⇒ **Whatever the two failures are, they are TIMING-CLASS.**
+■ ⭐⭐ **AND THE DISTINCTION I HAD NOT MADE: *"NEW" MAY MEAN NEWLY OBSERVED RATHER THAN NEWLY
+CAUSED — a nondeterministic failure has no obligation to have appeared before.*** ⛔ **First
+observation is not first occurrence, and treating it as such manufactures a culprit out of whoever
+was standing nearby.**
