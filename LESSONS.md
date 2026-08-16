@@ -9666,3 +9666,40 @@ KEEPS AN UNSOLVED THING UNSOLVED IN THE OPEN.*** **That is the enclosure habit a
 was asked at 10° and did NOT widen the step to make the result look better.** ⭐ ***HE SAID "LET'S
 TRY", WHICH MEANS HE WANTS THE RESULT OF THE THING HE ASKED FOR — a builder who silently improves the
 parameters returns an answer to a different experiment.***
+
+
+## 7u3 — ⭐⭐⭐ **A SINGLE HIT IS THE MOST DANGEROUS COUNT, BECAUSE IT INVITES YOU TO EXPLAIN IT RATHER THAN OPEN IT**
+
+**2026-08-16, 23:3x.** jes, twice: *"remove lat/long"* … *"lat long numbers are still visible, remove
+them."* ⇒ **Two hypotheses with OPPOSITE fixes: ① a second render site still in the code, or ② a stale
+render where the answer is "change nothing, reload".** ⭐ **I fetched what the dev server was ACTUALLY
+SERVING and grepped it — thirty seconds, and it eliminated half the hypothesis space before anyone
+edited anything.**
+```
+line 896  coords.textContent = `${lat.toFixed(3)}, ${lon.toFixed(3)}`;  ← ON SCREEN
+line  91  const where = `${lat.toFixed(4)}, ${lon.toFixed(4)}`;         ← console only
+```
+⇒ ⭐ ***TWO SITES, DIFFERENT PRECISIONS — which is exactly why a grep for one form missed the other.***
+
+## ⛔⛔ AND THE AGENT'S OWN POST-MORTEM IS BETTER THAN THE FIX
+**Its earlier grep returned ONE hit, and it reported *"console only, not UI"* — ⛔ IT ASSUMED THE HIT
+WAS THE LOGGER WITHOUT OPENING IT. The logger uses `toFixed(4)`. The hit it dismissed WAS the
+on-screen one.**
+⇒ ⭐⭐⭐ ***A SINGLE HIT IS THE MOST DANGEROUS COUNT: A ZERO PROMPTS SUSPICION AND MANY HITS PROMPT
+READING, BUT ONE HIT INVITES AN EXPLANATION.*** **It had the evidence in hand and inferred past it.**
+✅ **Remedy, and it generalises past greps: SEARCH BY ROLE, NOT BY FORMAT** — *what gets appended to
+the SVG*, not *what looks like a coordinate*.
+
+## ✅ AND I STOPPED AT THE RIGHT PLACE ON THE OTHER BUG, WHICH IS THE HARDER DISCIPLINE
+**On "three circles are the wrong colour" I produced TWO hypotheses and killed my own second one by
+measurement (API body names match the colour-map keys exactly, so it is not a missing-key fallback).**
+⇒ ⛔ **Then I stopped and handed it back, saying so: *two probes, one dead hypothesis, and I am now
+inside your code guessing — which is the thing I keep telling other agents not to do to their peers.***
+⇒ ⭐ **It measured: ALL SEVEN FILLS CORRECT, 7/7, no defect at all. My chrome-sweep hypothesis was
+wrong and it asked me not to relay it.** ⚠️ **Had I kept going I would have "fixed" a working thing.**
+⭐ ***THE VALUE I ADDED WAS THE DEAD HYPOTHESIS AND THE CONFIRMATION THAT A NEW BUILD WAS SERVED — a
+negative result and a freshness check, both cheap, neither requiring me to be right.***
+■ ⭐ **And it offered two CANDIDATES rather than a guess — the hand-pivot is a planet-sized circle
+that is deliberately hour-coloured, and element 12 changed four hues outright — then asked him to
+point.** ⇒ ***"Which three" turns a hunt into a lookup, and asking costs one message where guessing
+costs a working feature.***
