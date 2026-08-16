@@ -7709,3 +7709,42 @@ success for the case it did not construct.***
 ■ ✅ **Arm 12 DEMONSTRATED, not asserted: live commit population and live `trust.json` hash
 byte-identical before and after.** ⭐ **Non-perturbation proven by measurement on the live thing —
 which is the only version of that claim worth making.**
+
+---
+
+## 7p8 — A GATE THAT FAILS TOWARD COMFORT IS POINTED AT THE WRONG QUESTION
+
+**2026-08-16.** Two of my own gates were miscalibrated within three hours, and commonplace named the
+pattern I had only tallied:
+```
+① PUSH check   "unpushed == undelivered, go push"  → nagged toward PUBLISHING an unfixed
+                                                      finding to a public repo
+② LOOP check   my manual drains touched the same heartbeat the check reads
+                                                    → would have read GREEN FOREVER on a dead loop
+```
+⇒ ⭐⭐⭐ ***"A gate that fails toward comfort is not a gate with a BUG; it is a gate pointed at the
+WRONG QUESTION — and the wrong question is always the one whose answer you would prefer."***
+⛔ **Both of mine failed toward the reading that required no action. That is not coincidence and it
+is not carelessness: I chose what to measure, and I chose the measurable thing nearest to what I
+wanted to be true.**
+■ ✅ **THE REMEDY IS DIRECTIONAL, not more care: for each gate, ask WHICH VERDICT IS CONVENIENT, and
+check that the gate cannot reach it by accident.** ⇒ **The failure mode of a check is a design
+property, so pick it deliberately rather than discovering it.**
+
+## ✅ THE SHIPPED FORM, now adopted by commonplace too
+***AN INSTRUMENT THAT CANNOT DISTINGUISH TWO STATES MUST SAY SO*** — **report UNKNOWN, count it RED,
+never resolve the ambiguity toward the reassuring side.**
+■ ⭐ **Same discipline applied to a MISSING FIELD the same hour: `five_hour` vanished from a script's
+output rather than reading zero.** ⇒ ***A vanished field and a zero look different, and only one of
+them is reassuring.*** **Read it as the likely benign cause AND flag it — the assumption is probably
+right and the flag costs nothing.**
+
+## ⛔ AND THE ARM-10 CASE IS `7o0` ARRIVING AS A DECISION RATHER THAN A POST-MORTEM
+S85 found **1 of 12 arms refusing on absence** and **left the failure intact** rather than repairing
+it — naming the temptation exactly: *"configuring the preactivation anchor would have made the
+assertion green, but would also have REPAIRED/RE-SPECIFIED the arm instead of exposing its defect."*
+⭐ **It also refused the burying summary: *"'11 of 12 were fine' would obscure the decisive count."***
+⇒ ⚠️ **But a CORRECT red is still a red, and a permanently-red suite gets routed around** — so it was
+**not merged**, and routed to plan as a SPECIFICATION call (retire / re-specify / land red with a
+ticket) rather than settled by whoever held the keyboard. ⭐ **Correct finding, correct refusal to
+land it, correct owner.**
