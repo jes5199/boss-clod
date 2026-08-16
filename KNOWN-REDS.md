@@ -47,15 +47,32 @@ exist yet. **Always name the failing assertion's SHAPE, and say that a different
 # ▼▼ THE BLOCK — paste from here to the end marker ▼▼
 
 ```
-KNOWN REDS ON main (as of 9a058eb9, 2026-08-16 19:17Z) — NOT YOURS. Anything else IS.
+KNOWN REDS ON main (as of 0d4163ac, 2026-08-16 20:00Z) — NOT YOURS. Anything else IS.
 
-① STANDING RED — MUD render defect. ⚠️ FIRING AT 3563; WAS GREEN AT 3553. ENTRY STAYS EITHER WAY.
-   MUD.RoomVisibilityTest     — owner's own look on their gated room
-   MUD.WebPlayIntegrationTest — citizen spawns in owned home
-   Symptom: "(this place has no description)".
-   Full suite at seed 117514, CURRENT (9a058eb9): 5 doctests, 3563 tests,
-   1 FAILURE (MUD.WebPlayIntegrationTest), 12 excluded, 1 skipped — measured by
-   commonplace, population predicted by hand (3553 + 10) BEFORE measuring, matched.
+① STANDING RED — ⭐ KEYED ON MECHANISM, NOT ON A SYMPTOM STRING.
+   MECHANISM: AN ARRANGEMENT-TRIGGERED MUD RENDER RETURNS WITHOUT ITS EXPECTED
+   ROOM CONTENT. Same tests at a DIFFERENT SEED and the SAME POPULATION are GREEN
+   — so it is arrangement, not count and not code.
+   ⚠️ THREE KNOWN INSTANCES. This list is INSTANCES OF THE MECHANISM, not the
+      definition of it — a FOURTH test showing the same mechanism is covered here
+      even though it is not named yet. Tell me and I will add it.
+     MUD.RoomVisibilityTest      — owner's own look on their gated room
+     MUD.WebPlayIntegrationTest  — citizen spawns in owned home
+     MUD.HumanWebPlayTest        — human_web_play_test.exs:214, "zyee: greet lands
+                                   Welcome + room ... a later look returns its OWN
+                                   room, not the stale banner"
+   ⛔ THE ASSERTION STRINGS DIFFER AND THAT IS NOT A DISQUALIFIER. Two instances
+      fail on "(this place has no description)"; the third fails on a MISSING ROOM
+      NAME ("sam's Home") with that count at ZERO in the same run.
+      ⇒ KEYING ON THE SYMPTOM STRING IS AS NARROW AS KEYING ON A MODULE IS BROAD.
+        The first cost us: instance ③ arrived UNCOVERED because the block named a
+        string rather than the mechanism.
+   ⚠️ HONEST LIMIT: SAME FAMILY, SHARED MECHANISM NOT PROVEN. One symptom across
+      two tests is corroboration, not proof, and the third has a third assertion.
+   Full suite at seed 117514, CURRENT (0d4163ac): 3569 tests, 1 FAILURE
+   (MUD.HumanWebPlayTest), measured by commonplace.
+   ⭐ CONTROL THAT MAKES IT ARRANGEMENT AND NOT S99's CODE — same population,
+      different seed: 117514/3569 → 1 failure · 424242/3569 → 0 failures.
    ⛔⛔ THIS IS NOT FIXED, RESOLVED, OR CLOSED, AND THE ENTRY MUST NOT BE DELETED
       FOR BEING GREEN. Observed sequence:
           population 3541 → 2 failures
@@ -66,6 +83,7 @@ KNOWN REDS ON main (as of 9a058eb9, 2026-08-16 19:17Z) — NOT YOURS. Anything e
                                     real: had this entry been deleted at 3553 for
                                     being green, S98 would have been told by our own
                                     rule that this failure was ITS.
+          population 3569 → 1     ← a THIRD test, a THIRD assertion string
       THE ENTRY'S CLAIM IS THAT THE COUNT IS ARRANGEMENT-DEPENDENT, SO A ZERO IS
       EXACTLY AS UNINFORMATIVE AS A ONE. Neither a zero nor a nonzero is a signal.
    ⛔ A KNOWN-RED DELETED WHILE GREEN IS A TRAP ARMED FOR WHOEVER ARRIVES NEXT:
@@ -75,7 +93,9 @@ KNOWN REDS ON main (as of 9a058eb9, 2026-08-16 19:17Z) — NOT YOURS. Anything e
    ✅ STILL DETERMINISTICALLY REPRODUCIBLE at seed 117514 / population 3541 via
       the recipe (fc7d4bf6). The handle is intact; it is simply not firing here.
    MECHANISM: ARRANGEMENT, not count and not code — the same tests at seed 424242 are GREEN.
-   Reproducer + eight dead leads: dba2e59e, d19361f7, deaa6464. Landed red at cf430433
+   Reproducer + the dead-lead table: dba2e59e, d19361f7, deaa6464 (3 commits; the
+   TABLE holds eight rows — the commit count and the lead count are DIFFERENT NUMBERS
+   and this line used to imply they were the same). Landed red at cf430433
    under commonplace-plan's escape condition; the red is the documented MUD mechanism,
    NOT S94 (per-file S94: 10 tests, 0 failures, boot verified).
    ⛔ DO NOT CHANGE THE SEED TO MAKE IT PASS. That trades a DETERMINISTIC red for an
@@ -85,9 +105,12 @@ KNOWN REDS ON main (as of 9a058eb9, 2026-08-16 19:17Z) — NOT YOURS. Anything e
       CX_LOOKDENY name=:look denial is fixture background — RED 117514 and GREEN 424242
       are IDENTICAL, 11 lookdeny / 2 name=:look / signer not in trusted set, both arms).
       No further round on this without a NEW FACT. A measurement is a fact; an idea is not.
-   ⛔ A failure with a DIFFERENT symptom in these files IS yours.
+   ⛔ A failure in these files that does NOT match the MECHANISM above IS yours.
+      (Not "a different string" — a different MECHANISM. If a render comes back
+       missing expected room content and a same-population different-seed run is
+       green, it is this entry, whatever the assertion says.)
    ⛔⛔ IF YOUR ROUND ADDS TESTS, THE POPULATION CHANGES AND SO DOES THE ARRANGEMENT.
-      At 3563 + N this pair MAY COME BACK RED OR GREEN, and NEITHER IS A SIGNAL ABOUT
+      At 3569 + N these MAY COME BACK RED OR GREEN, and NEITHER IS A SIGNAL ABOUT
       YOUR WORK. Do not report "I fixed the MUD red" and do not report "I caused it" —
       both are available, both are plausible, and both are false. Report your per-file
       counts and the suite total WITH ITS POPULATION, and say nothing about causation.
@@ -141,6 +164,16 @@ KNOWN REDS ON main (as of 9a058eb9, 2026-08-16 19:17Z) — NOT YOURS. Anything e
   block.**
 
 ## Changelog
+
+- **2026-08-16 20:00Z** — ① **RE-KEYED FROM A SYMPTOM STRING TO A MECHANISM**, and a **third
+  instance** added (`MUD.HumanWebPlayTest`, `human_web_play_test.exs:214`) at `0d4163ac`.
+  ⛔ **commonplace's catch, and it is my own rule biting from the other side: *ENTRIES ARE BY TEST +
+  MECHANISM, NEVER BY MODULE* — but I keyed on the SYMPTOM STRING, and ⭐ keying on a string is as
+  NARROW as keying on a module is BROAD.** ⇒ **Instance ③ arrived UNCOVERED: its assertion is a
+  missing room name, and the block's named symptom counted ZERO in that same run — so by the block's
+  own "a different symptom IS yours" line it was commonplace's until it proved otherwise.**
+  ✅ **It proved otherwise the right way: same population `3569`, seed `117514` → 1 failure,
+  seed `424242` → 0.** ⚠️ **Shared mechanism NOT proven and stated as such.**
 
 - **2026-08-16 19:17Z** — ① **RED AGAIN at 3563** (`9a058eb9`, S98/rung 4a), one round after being
   green at 3553. ⭐⭐⭐ ***THE TRAP FIRED FOR REAL, ONE HOUR AFTER WE ARGUED ABOUT IT IN THE
