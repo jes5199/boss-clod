@@ -9703,3 +9703,33 @@ negative result and a freshness check, both cheap, neither requiring me to be ri
 that is deliberately hour-coloured, and element 12 changed four hues outright — then asked him to
 point.** ⇒ ***"Which three" turns a hunt into a lookup, and asking costs one message where guessing
 costs a working feature.***
+
+
+## 7u4 — ⭐⭐⭐ **MEASURING THE RIGHT THING BEATS MEASURING A THING PRECISELY**
+
+**2026-08-16, 23:4x.** jes: *"three of the circles are not planet color and are supposed to be."*
+⇒ **The paravel agent measured every body marker's fill out of the SVG: `7/7` correct, no defect.**
+⇒ **I produced two hypotheses; one I killed by measurement, one was simply wrong.**
+⛔⛔ **BOTH OF US READ "CIRCLES" AS "BODY MARKERS" — BECAUSE THAT IS WHAT WE HAD JUST BEEN EDITING.**
+⇒ ⭐ **He meant the big RINGS: the ecliptic, and the two tropics.** ✅ **The measurement that solved it
+was the one taken after he named his set — *every circle element in the SVG* — which found exactly
+three non-planet-coloured rings.**
+⇒ ⭐⭐⭐ ***A 7/7 GREEN MEASUREMENT, RUN CORRECTLY WITH CONTROLS, TOLD US NOTHING — BECAUSE IT WAS
+AIMED AT THE WRONG NOUN.*** **This is `7s2`'s family (rigorous machinery, wrong target) arriving in
+the smallest possible instance: a single ambiguous word, disambiguated by recency rather than by
+asking.**
+■ ✅ **What actually ended it: HE NAMED THE SET, and the agent then produced a COMPLETE INVENTORY of
+every drawn element and whether it was hour-coloured.** ⇒ ⭐ **He had named the set FOUR TIMES BY
+ADDITION — hand, ticks, three circles, ecliptic — each round him spotting one more thing we had not
+coloured.** ⚠️ ***A REQUIREMENT DISCOVERED ONE ITEM PER ROUND IS A LIST NOBODY HAS WRITTEN DOWN. The
+fix is not faster rounds — it is producing the enumeration so the next round can be the last.***
+
+## ⭐ AND MY SEVENTH PATTERN MISS OF THE NIGHT, IN THE VERIFICATION OF THIS VERY FIX
+**I grepped the served module for `VEGA`, `BETELGEUSE`, `PROCYON` — all `0`, which read as "stars not
+shipped".** ⛔ **They ship as `Vega`, `Betelgeuse`, `Procyon`.** ✅ **Case-insensitive: all six
+present.** ⇒ **And ten minutes earlier my grep for `star` returned NINE hits that were all `start`
+and `startHours`.**
+⇒ ⭐⭐ ***THE SAME EVENING PRODUCED BOTH DIRECTIONS OF THE SAME ERROR: a false ZERO from a
+case-sensitive pattern, and a false POSITIVE from a substring.*** ⚠️ **Seven grep failures in one
+session, and `bin/counted` — which I wrote today for exactly this — was not what I reached for.**
+⭐ ***A TOOL YOU BUILT AND DO NOT REACH FOR IS A FILED RULE WITH A SHELL SCRIPT ATTACHED.***
