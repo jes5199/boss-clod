@@ -8588,3 +8588,50 @@ plausible, both false.** ⭐ ***An entry that only says "not yours" is incomplet
 CHANGES THE POPULATION — it must also say "and a change in it is not yours either."***
 ⚠️ **`3546/1` is SOL'S number and is being carried as Sol's until commonplace re-runs it.** ⭐ **That
 attribution is the whole discipline: a measurement travels with WHO TOOK IT, not just with its scope.**
+
+
+## 7r8 — A RED CI IS NOT A DEFECT WITH A COST, IT IS **A BLIND INSTRUMENT THAT KEEPS ANSWERING**
+
+**2026-08-16, 17:15.** commonplace CI red **100/100 runs since 2026-08-13 08:54Z**. Nobody saw it —
+including me, and I have a **filed memory** (`feedback_check_ci_not_just_reported_greens`) that says
+in so many words *run `gh run list` before relaying any "green" to jes.*
+
+## ⛔⛔ WHY THE RULE HELD PERFECTLY AND STILL NEVER FIRED
+**My rule was *"check CI BEFORE RELAYING A GREEN."*** ⇒ ⭐ ***A CHECK BOUND TO A RELAY ONLY RUNS WHEN
+SOMEONE SPEAKS.*** **Nobody ever relayed a green about the pod suites, so the check had no occasion,
+and three days of red were invisible to a rule that was correct, filed, and remembered.**
+⛔ **This is not a rule that was forgotten. It is a rule whose TRIGGER was the wrong event.**
+✅ **Fixed at `a6f0bdf`: an unconditional CI base-rate read in `boss-preflight.sh`, on a CLOCK rather
+than on a claim, reporting the RATE (20 runs) rather than one run.** ⭐ **And the arm that matters:
+`gh` returning EMPTY counts **RED**, because an unauthed or misaimed `gh` returns a list with no
+failures in it — the same instrument that would have said *"CI is fine"* with more confidence than
+the real one.** ⇒ ***An empty corpus cannot report a failure.***
+
+## ⭐⭐⭐ AND THE CONSEQUENCE COMMONPLACE FOUND IS BIGGER THAN THE OUTAGE
+⇒ ***ONCE CI IS RED IT RETURNS THE SAME ANSWER FOR "YOUR CHANGE IS FINE" AND "YOUR CHANGE BROKE
+SOMETHING."*** **It does not stop reporting. It stops discriminating** — and a broken instrument that
+keeps producing output is read as a working one for exactly as long as nobody asks what it could
+have said differently.
+■ **Five landings (S91–S95, pod custody, the §5 proof) merged with no independent witness.** ⚠️ **And
+commonplace's own standing directive — *verify env-sensitive code under a stripped env AND CI-green
+before merge* — failed silently for the same structural reason mine did: ⛔ NOTHING IN ITS LOOP EVER
+READS CI, so the rule depended on someone choosing to look.**
+⇒ ⭐ ***A rule that depends on someone choosing to look is a remembered rule, and a remembered rule
+does not fire. A FILED ARTIFACT DOES.*** **Two agents, two correct rules, one shared defect: neither
+rule had an EXECUTOR.**
+
+## ✅ THE RETROACTIVE RELABEL, which is the honest part
+**Every *"suite green"* since 08-13 was TRUE AND HOST-ONLY** — the second half unsaid because nobody
+knew it. ⭐ **Not a retraction: the greens were real. But *green* and *green with one fewer witness
+than it appears to have* are different claims, and only one of them was made.**
+⇒ **commonplace now names the base's CI state IN the landing and marks the claim HOST-ONLY when CI is
+red.** ⭐ ***A qualifier that arrives with the claim costs nothing; the same qualifier three days later
+is an audit.***
+
+## ⭐ AND THE TEST THAT GENERALISES, from commonplace's own dead control
+**Its corpus control was `grep -c 'DeclarationReconciler' <output>` → `0`.** ⛔ **Worthless: `mix test`
+prints no module names for PASSING tests, so `0` is what SUCCESS looks like AND what NEVER-RAN looks
+like.** ✅ **The real control was already in the number — `3548 = 3541 + 7` reads `3541` if the seven
+never load.** ⇒ ⭐⭐ ***THE TEST FOR ANY CONTROL: NAME THE WORLD IN WHICH THIS READS DIFFERENTLY.***
+**If you cannot, it is decoration wearing a control's name** — and that is why the prediction must be
+**written before the measurement** rather than recognised after.
