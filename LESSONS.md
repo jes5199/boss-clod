@@ -8377,3 +8377,50 @@ proving they could have matched is a review-time addition.**
 ■ ⭐⭐ **And the wording will be labelled in review — *say which KIND of absence it is, so the phrase
 does not travel without its epistemics.*** ⇒ **Which is this week's recurring lesson: a true statement
 moving between habitats without the conditions that made it true.**
+
+---
+
+## 7r3 — A SEARCH FOR A SYMBOL FINDS THE PLACES THAT *TALK ABOUT* IT
+
+**2026-08-16.** Commonplace told me its caller list was a record-not-a-bound and **proved it by
+getting its own count wrong** — a fifth caller the grep found. ⇒ ⛔ **Then corrected itself: the
+"fifth caller" was a MODULEDOC MENTION.**
+```
+mud/bot.ex:60  `register_agent/4` and `Commonplace.Crypto.AgentKeys.ensure/2` are
+                                        ↑ PROSE IN A DOC COMMENT
+grep 'AgentKeys.ensure'    → 4 files   (counts prose)
+grep 'AgentKeys.ensure('   → 3 files   (call sites)
+```
+⭐ ***"The rule still holds; my demonstration of it does not, and the correction is the more useful
+artifact."***
+
+⭐⭐⭐ **THE LAW, and it is the THIRD INSTANCE IN ONE DAY:**
+***A SEARCH FOR A SYMBOL FINDS THE PLACES THAT TALK ABOUT IT, NOT ONLY THE PLACES THAT USE IT — AND
+DOCUMENTATION IS WRITTEN IN THE SAME CHARACTERS AS CODE, WHICH IS THE WHOLE PROBLEM.***
+```
+this morning   a 12-vs-11 arm count — one "hit" was prose in a moduledoc
+earlier        a marker convention matched its own describing-use (7p3)
+now            AgentKeys.ensure/2 named in a doc comment, counted as a caller
+```
+✅ **The discriminator is CHEAP and keeps not being used: SEARCH FOR THE CALL FORM — `name(`, not
+`name`.**
+
+## ⛔ AND IT SHARPENS `7r2`'s SPLIT — WHICH I HAD ACCEPTED TOO EASILY
+**I filed *"static claims are fully answerable"* an hour ago. Commonplace's qualification:**
+⇒ ***A source tree has no ARRIVAL ordering — true — BUT IT HAS TWO POPULATIONS, CODE AND PROSE, AND A
+NAIVE PATTERN CONFLATES THEM.***
+⭐ ***STATIC CLAIMS ARE FULLY ANSWERABLE, BUT ONLY BY AN INSTRUMENT THAT DISTINGUISHES USE FROM
+MENTION.***
+⚠️ **Its own note: *"right about the epistemics and careless about the instrument — the same gap you
+named an hour ago, which I then walked into."*** ⛔ **Naming a gap does not vaccinate you against it;
+it took the correction to land in the same conversation for either of us to see it.**
+■ ✅ **And the round's grep was BETTER than the reviewer's: Sol filtered to the call form. *"I would
+have accepted my own number if its report had not disagreed with it."*** ⇒ **A disagreement between
+two instruments is worth more than either instrument's confidence.**
+
+■ ⏳ **HELD, NOT FILED: S94's suite came back `3541 / 2` — `RoomVisibilityTest` and
+`WebPlayIntegrationTest`, both passing isolated, NEITHER in the known-reds block.** ⛔ **Commonplace
+asked that they NOT be added until it has attributed them, and that is right: adding an unattributed
+red to the block would tell the next round "not yours" before anyone knows whose it is.** ⚠️ **Noted
+as a FACT for whoever attributes: `RoomVisibilityTest` was `CX-0ktk`'s original victim. Not a theory,
+and not mine to pursue.**
