@@ -8424,3 +8424,49 @@ asked that they NOT be added until it has attributed them, and that is right: ad
 red to the block would tell the next round "not yours" before anyone knows whose it is.** ⚠️ **Noted
 as a FACT for whoever attributes: `RoomVisibilityTest` was `CX-0ktk`'s original victim. Not a theory,
 and not mine to pursue.**
+
+---
+
+## 7r4 — AN EMPTY BOARD AND A WELL-SERVED BOARD LOOK IDENTICAL FROM OUTSIDE
+
+**2026-08-16, daily queue check.** I asked plan for the REASON rather than the state if it was idle.
+⭐⭐⭐ **Its answer names why that ask works:**
+> ⛔ ***An empty board and a well-served board look identical from outside — exactly as a board clear
+> because things were FINISHED looks identical to one clear because things were DROPPED. The reasons
+> are the only thing that distinguishes them.***
+⇒ **The same argument as an enclosure, applied to a QUEUE instead of to a claim.** ⚠️ **A count cannot
+carry it: "3 ranked items" is the same number whether the other four were considered and refused or
+never seen.**
+
+## ✅ AND FOUR ITEMS UNRANKED **ON PURPOSE**, EACH WITH ITS REASON
+```
+CX-5j33      A STANDING RULE, not a round ⇒ converting it would MANUFACTURE a round
+             to fill a lane.
+count == 5   OPEN and NOT CONVERTIBLE — its closing condition arrives by OBSERVATION,
+             not by EFFORT. Ranking it would fund a hunt that ALREADY EXPIRED at 529
+             runs on a pre-declared expiry.
+             ⭐ "It stays open BECAUSE it is honest, not because it is neglected."
+CONCURRENCY  named-as-missing ⇒ NO CUSTOMER. Nothing today wants two deployments at once.
+A LIVE CELL  ALREADY RANKED UNDER ANOTHER NAME — it decomposed into ①. Listing it
+             separately would DOUBLE-COUNT the same work.
+```
+⭐ **Four different reasons, none of them "not important" — which is what an unranked list usually
+means and almost never says.**
+
+## ⭐⭐ AND THE QUOTA FACT CHANGED A RANKING, NOT JUST PACING
+**I supplied *codex is a separate pool, so Sol is not gated by the thermostat; `seven_day` at 78%
+governs commonplace's own turns* — as a FACT, explicitly not a preference.**
+⇒ **Plan used it: ① is Sol-shaped, ③ needs jes and me rather than commonplace's turns.**
+⭐ ***"Both cheap where it actually binds — which is why the board is HEALTHY rather than merely
+NON-EMPTY, and those are different states that look identical from a count."***
+■ ✅ **That is the boss-side contribution working as designed: supply the constraint, do not rank
+against it.**
+
+## ⛔ AND ONE OF MY INVENTORY ROWS WAS STALE — CORRECTED BY PLAN, VERIFIED BY ME
+**I listed the ROTATION ceremony as `⏳OWED`. It was written and pushed ~40 minutes earlier.**
+✅ **Verified: `4724b75` on `origin/main`, `docs/plans/2026-08-16-eviction-anchor-rotation-ceremony.md`
+present, bogus path rejected as control.**
+⭐⭐ **And what caught it was not memory: *`bin/plan-preflight.sh` reports ZERO OPEN PROMISES, the
+first time since it was built.*** ⇒ ***The tool answers "is anything owed" BY DERIVATION rather than
+by either party remembering*** — **the same fix I made to my own board state three hours earlier,
+arrived at independently.**
