@@ -9416,3 +9416,42 @@ back unrotated with the existing readouts explaining it.
 with markers actually unique to the fix (`sunHourAngle` 2/0, `rete` 4/0, corpus 523 and 1502 lines).**
 ⇒ ⭐ ***I PICKED A DISCRIMINATOR BY REASONING ABOUT IT INSTEAD OF TESTING IT — the exact failure the
 agent measured a base rate for one hour earlier, committed by the person who filed it.***
+
+
+## 7t7 — ⭐⭐⭐ FIVE WEAK CONTROLS, AND THE TALLY BECAME A **DIAGNOSIS**: *EVERY ONE COMPARED MAGNITUDE WHEN THE BUG WAS IN DIRECTION*
+
+**2026-08-16, 22:3x.** Element 5, the horizon. Third sabotage run — it swapped north and south, and
+**12 of 14 bodies mismatched**. ⛔ **And two more of its own controls passed on the bug:**
+```
+"zenith is inside the curve"                  ← a FLIPPED horizon still contains the zenith
+"north point is nearer the pole than south"   ← the swap exchanges BEARINGS and leaves RADII untouched
+```
+⇒ ⭐⭐⭐ **Running total FIVE weak controls across THREE sabotage runs — and this time the tally
+resolved into a MECHANISM:**
+> ***EVERY WEAK CONTROL IT HAS WRITTEN COMPARED MAGNITUDES WHEN THE BUG WAS IN DIRECTION.***
+**The three that fired — two cardinal-BEARING checks and the altitude oracle — all test WHICH WAY,
+not HOW FAR.**
+⇒ ⭐ ***THAT IS THE FIRST TIME TONIGHT A PATTERN OF FAILURES PREDICTED WHERE THE NEXT ONE WILL BE
+RATHER THAN MERELY BEING COUNTED.*** ⚠️ **A tally is bookkeeping; a tally with a shared mechanism is
+a forward-looking test you can apply to a control BEFORE running the bug: *does this assertion
+constrain direction, or only size?***
+
+## ✅ AND THE ORACLE WAS PROVEN TO DISCRIMINATE BEFORE IT WAS TRUSTED
+**Two epochs chosen so the split INVERTS: `6 above / 1 below` at 15:00 local, `2 above / 5 below` at
+03:00 — with Mars and Saturn SWAPPING SIDES between them.** ⇒ ⭐ **8 above and 6 below overall, both
+classes non-empty, asserted BEFORE the oracle was believed** — ⛔ *"everything is inside" would
+otherwise have scored full marks.*
+⚠️ ***A CLASSIFIER SCORED ONLY ON ONE CLASS IS NOT A CLASSIFIER*** — and picking epochs so the
+membership inverts is the cheapest possible way to force both classes to exist.
+■ ⭐ **And the oracle's power came from being sourced OUTSIDE the code under test: API-supplied
+`altitude` versus its own stereographic geometry. ⇒ An internally-consistent-but-wrong horizon cannot
+satisfy it, which is precisely the failure class that survived 39 assertions in `7t6`.**
+
+## ⭐ TWO JUDGEMENT CALLS STATED RATHER THAN BURIED, BOTH THE RIGHT SHAPE
+- ⛔ **No second warning for the Portland horizon** — the existing readout already says fallback, and a
+  second banner is noise on a page with two conditional warnings. ✅ **But the RESIDUAL RISK was named:
+  a reader might take that line as covering only the TIMES, not the horizon's whole SHAPE.**
+  ⇒ ***A decision that names what it might cost is reviewable; one that only names its reason is not.***
+- ⛔ **Northern-hemisphere plate only.** At latitude ≤ 0 the inside/outside sense needs special-casing.
+  **Commented in source, deliberately NOT fixed** — ⭐ *a half-done southern hemisphere would be worse
+  than a documented limit*, and an undocumented one worse than both.
