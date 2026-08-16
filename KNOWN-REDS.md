@@ -63,6 +63,32 @@ KNOWN REDS ON main (as of cf430433, 2026-08-16 16:30Z) — NOT YOURS. Anything e
    ⛔ DO NOT "FIX" BY LOOSENING THE ASSERTION. That test refuses to treat "" as "absent",
       which is exactly why it goes red instead of quietly passing.
    ⛔ A DIFFERENT error shape there is yours.
+
+③ STANDING RED IN GITHUB CI ONLY — UNATTRIBUTED. GREEN ON HOST.
+   ⚠️ SCOPE IS LOAD-BEARING: these fail in the GitHub Actions runner and PASS ON HOST.
+      If you see them fail ON HOST, that is NEW and it IS yours — say so.
+   GitHub CI on main: 100 of the last 100 runs failed. Last green 2026-08-13 08:54Z.
+   Newest run: 3541 tests, 9 failures, seed 172334 (CI does NOT pin a seed).
+     Commonplace.Runner.LauncherTest
+       · pod holds its own signing key and not the durable key, proven by effect
+       · wrong handle fails while captured handle reaps the process unit
+       · live-process channels are unreachable behind containing-directory masks
+       · executes by effect with its five-variable constructed environment
+       · pod cannot read a canary injected by its launching BEAM      (= ② above)
+     Commonplace.Runner.LauncherRecipeTest
+       · recipe requires gates placement before launch, with a satisfying control
+       · changing only recipe run changes the observed worker effect
+       · recipe env names resolve only from the constructed placement allowlist
+     Commonplace.Runner.TwoDeploymentPodProofTest
+       · two deployments in separate pods: B resolves A's yield, and cannot without it
+   ⛔ UNATTRIBUTED — NOBODY HAS EXPLAINED THESE. Recording them is NOT accepting them.
+      An unexplained red RECORDED as unexplained cannot mis-blame the next round.
+   ⛔ THE MUD PAIR (① above) IS ABSENT FROM CI — 0 occurrences, positive control:
+      the same grep hits LauncherTest 9×. CI rolls a fresh arrangement every run and
+      has never met ①. ⇒ FIXING ① WILL NOT TURN CI GREEN. They are different defects.
+   ⚠️ TODAY'S NINE ARE NOT THE ORIGINAL SET. The first red run (31687219046,
+      2026-08-13 09:34Z, seed 198228) was 3456 tests, 4 failures, ALL LauncherTest.
+      The other suites did not exist yet. Do not brief a fix against today's list.
 ```
 
 # ▲▲ END OF BLOCK ▲▲
@@ -79,6 +105,15 @@ KNOWN REDS ON main (as of cf430433, 2026-08-16 16:30Z) — NOT YOURS. Anything e
   block.**
 
 ## Changelog
+
+- **2026-08-16 17:15Z** — ③ ADDED, **UNATTRIBUTED**, at commonplace-plan's instruction (`63d6996`).
+  ⛔ **The trap it disarms: 8 of the 9 CI failures were in NO block anywhere, so our own rule
+  (*any other failure IS yours*) told the next round they were its. Armed for three days.**
+  ⭐ ***An unexplained red RECORDED as unexplained cannot mis-blame the next round — and recording
+  it is not accepting it.*** ⚠️ **Plan's own finding: this was an INTAKE GAP, not a decision — it
+  was never declined, it was never seen. It reached the queue only because someone measured and
+  asked.** ⚠️ **Its scope is load-bearing in the other direction too: these are GREEN ON HOST, so a
+  host-side failure in these files IS the round's.**
 
 - **2026-08-16 16:40Z** — ① gained its **arrangement caveat**, from commonplace's S95 brief (trap ③).
   ⭐ ***A standing red can be misread as a RESULT in both directions by the same run.*** An entry that
