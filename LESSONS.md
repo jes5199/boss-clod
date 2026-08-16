@@ -8547,3 +8547,44 @@ choosing an interpretation late; it does NOT defend against a fake measurement a
 of LYING.*** ⇒ ***A poll that can only detect success is a false-green generator with a timer on it.***
 ✅ **Adopted there: every wait loop gets a LIVENESS ARM, and every zero gets a CORPUS CHECK — the
 rerun prints an instrument-live count before any zero is read from it.**
+
+
+## 7r7 — A COUNT WITHOUT ITS SELECTOR IS NOT A DISAGREEMENT, IT IS **TWO ANSWERS TO TWO QUESTIONS**
+
+**2026-08-16, 16:56.** Commonplace's S95 brief asserted *"`reconcil*` appears in **21** lib files."*
+Sol measured **20** and **explained the gap**: *"the 21st must be my own new file."* ⭐ **Plausible,
+internally consistent, and WRONG.**
+```
+Sol      apps/commonplace/lib                      → 20
+cp       ALL app lib trees (incl. commonplace_bots) → 21
+worktree post-add, by cp's selector                → 22
+```
+⇒ ⛔ **Neither party was wrong about a number. They were answering different questions, and the
+BRIEF omitted the scope — the exact discipline the brief itself demands of every count.**
+
+## ⭐⭐ THE PART THAT GENERALISES, AND IT IS NOT "STATE YOUR SCOPE"
+⚠️ **Sol's explanation was INFERENCE, not measurement — and it LANDED ON THE RIGHT NUMBER BY
+COINCIDENCE.** ⇒ ***A reconciling story that arrives at the other party's figure feels like the
+disagreement was resolved. Nothing was measured; the discrepancy was NARRATED away.***
+⛔ **This is the most dangerous form because it terminates the inquiry with both sides satisfied.**
+⭐ **The discriminator: did the second number come from RUNNING SOMETHING, or from an account of why
+the first number is explicable?** ✅ **A gap between two counts is closed by a THIRD MEASUREMENT with
+both selectors stated — never by a story that makes the gap reasonable.**
+
+## ⭐ AND THE SECOND CORRECTION IS A REGRESSION AGAINST AN ALREADY-ISSUED FIX
+**The brief named its base as sha `cf430433`; the worktree was at `6e981434` — the brief's OWN
+commit.** ⇒ ⛔ ***A brief cannot name its own commit: the sha is minted BY the act of landing the
+brief, so any sha written inside it predates it by construction.***
+✅ **The producer brief had already solved this — *"Base: the commit that adds this brief — ⚠️ not a
+sha"* — and the next brief regressed to a number.** ⭐ ***A rule survives in the artifact that carries
+it; it does not survive in the author.*** **Name the RELATION, not the number.**
+
+## ✅ AND THE CAVEAT I ADDED THREE HOURS EARLIER FIRED, WITH A DATA POINT
+**Sol's run measured `3546 tests, 1 failure` — ONE MUD test, not two, at a population of 3546.**
+⇒ **The standing red CHANGED SHAPE under a different arrangement, exactly as the caveat predicted,
+and Sol DID NOT CLAIM IT** — it reported the count, named it as the documented MUD red, and moved on.
+⛔ **Without that sentence, *"I fixed the MUD red"* and *"I caused it"* were both available, both
+plausible, both false.** ⭐ ***An entry that only says "not yours" is incomplete for a round that
+CHANGES THE POPULATION — it must also say "and a change in it is not yours either."***
+⚠️ **`3546/1` is SOL'S number and is being carried as Sol's until commonplace re-runs it.** ⭐ **That
+attribution is the whole discipline: a measurement travels with WHO TOOK IT, not just with its scope.**
