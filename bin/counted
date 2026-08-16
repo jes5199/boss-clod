@@ -1,0 +1,81 @@
+#!/bin/bash
+# counted — a grep that cannot report a zero it has not earned.
+#
+# ⛔⛔ WHY THIS EXISTS. On 2026-08-16 I got FIVE grep results wrong in one day:
+# a pattern that matched a moduledoc mention in backticks · a case-sensitive
+# miss · a path that did not exist returning a confident 0 · a "positive
+# control" whose every hit was a test FILENAME · and an extraction whose
+# pattern matched only the NON-throttled log lines, so the four days I was
+# looking for returned nothing.
+#
+# ⭐ EACH TIME I FIXED THE GREP. NOT ONCE DID I FIX THE FORM.
+# commonplace hit the same shape with briefs — a correction landing in the
+# instance and never in the template — and shipped BRIEF-TEMPLATE.md. This is
+# my equivalent. A fix applied to an instance does not travel to the form.
+#
+# THE THREE THINGS A COUNT NEEDS, enforced rather than remembered:
+#   ① the COUNT
+#   ② the CORPUS SIZE — a zero against an empty corpus is not a finding
+#   ③ a POSITIVE CONTROL — a pattern KNOWN to be present. If it returns 0 the
+#     instrument is blind, and every other number here is meaningless.
+#
+# ⚠️ AND THE CONTROL MUST BE A KNOWN **INSTANCE OF THE TARGET CLASS**, never a
+# string that merely resembles one. I "proved" a codex-exhaustion detector
+# worked using hits that were all test filenames. That control certified the
+# instrument instead of testing it.
+#
+# usage: counted -c '<control-pattern>' '<pattern>' <file-or-dir>...
+#        counted -c 'defmodule' 'AgentKeys\.ensure\(' apps/*/lib
+#
+# exit 0 = count reported and the control fired
+# exit 3 = INSTRUMENT BLIND (control returned 0) — the count is NOT reported
+# exit 4 = EMPTY CORPUS (nothing to search) — a zero here means nothing
+set -uo pipefail
+
+CONTROL=""
+while getopts "c:" opt; do
+  case "$opt" in
+    c) CONTROL="$OPTARG" ;;
+    *) echo "usage: counted -c '<control-pattern>' '<pattern>' <path>..." >&2; exit 64 ;;
+  esac
+done
+shift $((OPTIND - 1))
+
+[ $# -ge 2 ] || { echo "usage: counted -c '<control>' '<pattern>' <path>..." >&2; exit 64; }
+[ -n "$CONTROL" ] || {
+  echo "REFUSED: no positive control given (-c)." >&2
+  echo "  A count without a control cannot distinguish 'absent' from 'not looking'." >&2
+  exit 64
+}
+
+PATTERN="$1"; shift
+PATHS=("$@")
+
+# ── ② CORPUS: prove there was something to search ────────────────────────────
+corpus=$(grep -rIl '' "${PATHS[@]}" 2>/dev/null | wc -l)
+if [ "$corpus" -eq 0 ]; then
+  echo "CORPUS   EMPTY   0 readable files under: ${PATHS[*]}"
+  echo "         ⇒ a zero against an empty corpus is NOT an absence. Check the path."
+  exit 4
+fi
+
+# ── ③ CONTROL: prove the instrument can find something ───────────────────────
+cn=$(grep -rEc "$CONTROL" "${PATHS[@]}" 2>/dev/null | awk -F: '{s+=$NF} END{print s+0}')
+if [ "$cn" -eq 0 ]; then
+  echo "CONTROL  BLIND   '$CONTROL' → 0 hits in $corpus files"
+  echo "         ⇒ THE INSTRUMENT IS BLIND, NOT THE TARGET ABSENT. Count NOT reported."
+  exit 3
+fi
+
+# ── ① THE COUNT, with its hits, so the caller must READ them ─────────────────
+n=$(grep -rEc "$PATTERN" "${PATHS[@]}" 2>/dev/null | awk -F: '{s+=$NF} END{print s+0}')
+echo "CORPUS   ok      $corpus files under: ${PATHS[*]}"
+echo "CONTROL  ok      '$CONTROL' → $cn hits ⇒ the instrument can find things"
+echo "COUNT            '$PATTERN' → $n"
+if [ "$n" -gt 0 ]; then
+  echo "FIRST HITS — ⛔ READ THEM. The call form narrows the haystack; it does not"
+  echo "             remove the obligation to read the hit. Backticked mentions,"
+  echo "             moduledocs, filenames and comments all match a correct pattern."
+  grep -rEn "$PATTERN" "${PATHS[@]}" 2>/dev/null | head -10 | sed 's/^/  /'
+fi
+exit 0
