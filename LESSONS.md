@@ -8674,3 +8674,45 @@ boundary is broken, and **is not one** — the fence is verified where it runs; 
 the host is green. ⇒ ⛔ **I would have texted the alarming version had commonplace-plan not supplied
 the host-green half in the same breath.** ⭐ ***A true sentence that implies a false one is not a
 report, it is an alarm with a citation.***
+
+
+## 7s0 — I ANSWERED A "HAVE WE BEEN THROTTLED?" QUESTION **FROM TODAY'S READING** WHEN THE ANSWER WAS A WEEK OF HISTORY
+
+**2026-08-16, 17:37.** jes: *"okay but have we been review throttled??"* — pushing on my claim that review
+is the bottleneck. ⛔ **I had just told him review is the constraint AS THOUGH IT WERE A DESIGN
+PROPERTY, on the strength of a 0.88 ratio and a fresh 5h window.** ⇒ **Then I read the log:**
+```
+Aug 10   31 SLOW_DOWN / 64 OK
+Aug 11   96 / 0     ← EVERY 15-minute check, all day
+Aug 12   96 / 0
+Aug 13   96 / 0
+Aug 14   96 / 0
+Aug 15    7 / 89    ← cleared 02:30Z
+Aug 16    0 / 71    ← today
+positive control: 422 SLOW_DOWNs in the file, so today's zero is a real zero
+```
+⇒ ⭐⭐ ***FOUR CONSECUTIVE DAYS WHERE EVERY CHECK SAID SLOW DOWN, ENDING 36 HOURS BEFORE I CALLED IT A
+DESIGN PROPERTY.***
+
+## ⛔⛔ THE DEFECT IS NOT THAT I WAS WRONG — IT IS THAT I ANSWERED A RATE QUESTION WITH AN INSTANT
+⭐ ***"IS X THE BOTTLENECK" IS A CLAIM ABOUT A DISTRIBUTION, AND I ANSWERED IT FROM THE SAMPLE I
+HAPPENED TO BE STANDING IN.*** **Today is the GOOD case — quota reset this morning, thermostat open
+all day, zero declines for quota. Every decline I had personally seen was *"commonplace is
+generating"* or *"a run is in flight."*** ⇒ ⛔ **So my lived experience of the day was PERFECTLY
+CONSISTENT with "we have never been throttled", and it was wrong by four days.**
+⚠️ **Same shape as the CI outage two hours earlier: the instrument was fine, the SAMPLING WINDOW was
+the defect.** ⇒ ⭐ ***A base rate cannot be inferred from the case you are inside.***
+
+## ✅ WHAT MADE IT ANSWERABLE AT ALL
+**`quota-guard.log` had been writing a verdict every 15 minutes for a week, unread.** ⇒ ⭐ **The
+answer cost one `uniq -c`. The data was never missing; nobody had ever asked the file a question
+about a WEEK.** ⚠️ **Third time today that a durable artifact held the answer and the habit of
+reading it did not exist** — heartbeat files nothing read, CI nobody checked, and now this.
+⇒ ⭐⭐ ***WRITING THE RECORD IS THE CHEAP HALF. THE EXPENSIVE HALF IS A QUESTION THAT ROUTINELY ASKS IT.***
+
+## ⭐ AND THE ANSWER REVERSED THE ADVICE'S STANDING, NOT ITS CONTENT
+**"Review is the bottleneck" survived — but it went from something I ASSERTED to something MEASURED:
+the Anthropic side pinned at SLOW_DOWN for four days while the codex pool sat idle through all of
+it.** ⇒ ⭐ ***His instinct to double Sol was better founded than my agreement with it.*** **I agreed
+for a weak reason and nearly let a strong one go unstated.**
+■ ⚠️ **Told him plainly that today is not representative and that I had answered from the good case.**
