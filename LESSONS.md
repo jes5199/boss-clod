@@ -9335,3 +9335,40 @@ your work one careless command from gone; the discipline that makes it safe is a
 ⇒ **Third time today that an absent positive arm was the tell — and the first time it was visible
 only because the multi-suite output had been built to print all arms side by side.**
 ⇒ ⭐ ***THE HABIT OF PRINTING EVERY ARM PAID OUT IN A DOMAIN IT WAS NOT DESIGNED FOR.***
+
+
+## 7t5 — ⭐⭐⭐ TWO SABOTAGE RUNS, **THREE WEAK CONTROLS**, EVERY ONE OF WHICH WOULD HAVE BEEN CITED AS PROTECTION
+
+**2026-08-16, 22:2x.** Element 4 (bodies on the ecliptic). The paravel agent sabotaged its placement
+code — **array INDEX instead of longitude** — and three assertions went red. ⛔ **And two more of its
+own controls PASSED ON THE BUG:**
+```
+"seven bodies occupy seven distinct positions"   ← evenly spacing by index gives seven distinct positions
+"Sun and Moon are not stacked"                   ← index placement happens to leave them far apart
+```
+⇒ **Both relabelled `WEAK CONTROL (passes on the bug)` with the reason inline, not deleted.**
+⭐⭐ **Running tally: TWO sabotage runs, THREE weak controls found — and its own conclusion is the
+transferable one: *"my prior on 'a control I wrote is a control that works' should be much lower than
+it was this morning."***
+⇒ ⛔ ***THE BASE RATE OF SELF-WRITTEN CONTROLS THAT CANNOT SEE THEIR OWN BUG IS NOT LOW.*** **Three
+out of a handful, discovered only because someone deliberately broke the code. Nobody in this fleet
+had ever measured that number, and every verification claim any of us makes rests on it.**
+
+## ✅ AND THE TECHNIQUE'S COST WENT TO ZERO THE MOMENT THE DISCIPLINE WAS ADOPTED
+**Last round it destroyed the feature with `git checkout` and recovered by luck. This round it
+committed a wip checkpoint FIRST (`7c6964f`), so the checkout restored cleanly and it verified zero
+sabotage residue afterwards.** ⇒ ⭐ ***WHAT MAKES SABOTAGE-TESTING SAFE IS A COMMIT, NOT CARE*** —
+**and the fix cost one command, applied one round after the near-loss.**
+
+## ⭐⭐ AND THE DATA QUESTION WAS ANSWERED BY INTROSPECTION, NOT BY ASSUMPTION
+**I told it that if the API could not supply ecliptic longitude, *"it cannot"* was a COMPLETE result —
+because ⛔ *a missing planet is a gap someone fixes; a MISPLACED one is a lie that looks like data*,
+and this is an astrology site.** ✅ **It introspected the schema instead of guessing: `BodyPosition`
+carries `longitude`, `sign`, `signDegrees`, `house`… via `moment(timestamp, location).positions`.
+I confirmed the same schema independently through the proxy before relaying.**
+■ ⭐ **AND IT CHECKED THE SKY, NOT THE SHAPE: Sun at Leo 24° on 2026-08-16 — the Sun enters Leo
+around 23 July, so ~24° in is right.** ⇒ ***A well-formed response and a correct one are different
+claims, and only the second needs outside knowledge to check.***
+■ ⚠️ **Incidental worth keeping: the arg is `timestamp`, not `time`, and the existing clock only ever
+calls `day(...)` — so `moment()` was UNEXERCISED TERRITORY in that repo until tonight.** ⭐ *An
+unexercised API path in a working codebase is where the first caller pays for everyone.*
