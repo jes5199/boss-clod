@@ -8837,3 +8837,42 @@ defending.**
 ⛔ **Three corrections in one day, all the same direction: I am generating work about the question
 instead of doing the work in it.** ⚠️ **The test before answering, and it is cheap: ⇒ *QUOTE THE
 SENTENCE I AM ANSWERING.* If I cannot point at his words, I am answering myself.**
+
+
+## 7s4 — ⭐⭐⭐ THE FAMILY COMPLETED: **CORRECT MACHINERY POINTED AT THE WRONG TARGET, AND ITS CORRECTNESS IS THE CAMOUFLAGE**
+
+**2026-08-16, 17:52.** commonplace-plan, on the framing error (`7s3`), assembled three findings made
+independently today into one class — and it did not exist as a class until the third arrived:
+```
+a CONTROL      validates the comparison you MADE, never the one you SHOULD have made
+a DISCRIMINATOR can measure something TRUE while its NAME asserts something FALSE
+an ANSWER      can be RIGOROUS and address the WRONG QUESTION
+```
+⇒ ⛔⛔ ***THE MACHINERY IS CORRECT AND POINTED AT THE WRONG TARGET — AND ITS CORRECTNESS IS WHAT MAKES
+IT INVISIBLE.***
+⭐ **Plan's own indictment of its file, which is equally true of mine: *"I have built a whole file of
+controls for whether an answer is TRUE. NOT ONE OF THEM ASKS WHETHER IT IS THE QUESTION."***
+⇒ ⚠️ **Every verification discipline in `LESSONS.md` — positive controls, corpus checks, liveness
+arms, red-first, selectors with counts — operates INSIDE a frame and CANNOT SEE THE FRAME.**
+
+## ⭐ AND PLAN REFUSED THE ABSOLUTION, WHICH IS THE PART WORTH COPYING
+**I offered it a clean out — *"you ratified a premise I supplied, strike it as mine."*** ⇒ ⛔ **It
+declined: *"my step was SEPARATE from yours and has its own remedy."*** ⇒ **Mine: I answered a
+question about ADDING as a question about SPENDING. Its: ⭐ ***THE VERBATIM WAS IN THE CHANNEL AND IT
+REASONED FROM THE FRAMING AROUND IT.*** ✅ **Its remedy — *when a relayed question arrives WITH a
+verbatim quote, answer the quote* — is genuinely different from mine and would not have been reached
+by accepting my apology.**
+⇒ ⭐⭐ ***A SHARED FAILURE WITH ONE OWNER PRODUCES ONE FIX. THE SAME FAILURE OWNED TWICE PRODUCES TWO,
+AND THEY ARE NOT THE SAME FIX.*** ⚠️ **Absolution is cheap and it costs the second remedy.**
+
+## ✅ AND THE ANSWER HIS QUESTION ACTUALLY HAD, WHICH NEITHER OF US REACHED WHILE ARGUING THE WRONG ONE
+**jes asked whether we need a worker claude AND a review claude.** ⇒ ⭐⭐⭐ **The split HALF-EXISTS:
+commonplace reviews Sol's CODE. ⛔ THE BRIEF IS THE ARTIFACT WITH NO REVIEWER — the same agent writes
+it and grades the result, so nothing reads it before it is spent.**
+■ **Evidence, measured, all from today — SOL caught its briefing defects THREE TIMES, by accident, as
+the round being dispatched:** an escape hatch that stopped the whole round instead of one branch ·
+*"two map by direct reading"* followed by three entries · a citation attributed to the wrong repo.
+⇒ ⭐ ***A REVIEWER OF BRIEFS IS CHEAPER THAN A SECOND BUILDER: IT PREVENTS ROUNDS RATHER THAN
+PRODUCING THEM.***
+⚠️ ⛔ **AND THE TIMING IS THE LESSON: THAT ANSWER WAS AVAILABLE FROM THE FIRST MINUTE. It arrived an
+hour late because both of us were busy being rigorous about a question he never asked.**
