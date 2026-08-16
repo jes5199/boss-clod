@@ -7748,3 +7748,32 @@ assertion green, but would also have REPAIRED/RE-SPECIFIED the arm instead of ex
 **not merged**, and routed to plan as a SPECIFICATION call (retire / re-specify / land red with a
 ticket) rather than settled by whoever held the keyboard. ⭐ **Correct finding, correct refusal to
 land it, correct owner.**
+
+### 7p8 CORRECTION — "1 of 12" WAS NEVER A COUNT
+
+⛔ **The entry above records S85 as finding *"1 of 12 arms refusing on absence."* THAT NUMBER WAS NOT
+A MEASUREMENT.** All twelve preconditions live in ONE test function, so **the first failure ABORTS
+and MASKS the rest.** ⇒ ⭐⭐⭐ ***THE INSTRUMENT COULD NOT HAVE REPORTED A NUMBER ABOVE 1.***
+■ **Proof by doing rather than by reasoning: retiring arm 10 made `ARM_12_PRECONDITION` appear — it
+had been failing invisibly the entire time.** ⇒ ⛔ **A FIRST-FAILURE WEARING A COUNT'S CLOTHES.**
+⚠️ **I relayed that `1` onward as a measurement. It passed through me unexamined because it was
+SHAPED like a count — "1 of 12" has a denominator, and a denominator reads as a survey.**
+
+⭐⭐ **AND IT IS `7p8`'s OWN LAW ONE LEVEL UP: the gate pointed at the wrong question was THE AUDIT,
+and the wrong question was *"WHICH ARM FAILS"* instead of *"WHICH ARMS FAIL."*** ⇒ **Singular-vs-plural
+in the question determines whether the answer can ever be a count.**
+■ ✅ **Test that would have caught it, cheap and pre-registrable: *can this instrument report a number
+greater than one?* If the answer is no, it is a FINDER, not a COUNTER, and its output must never be
+written with a denominator.**
+
+⭐⭐ **AND THE RETIREMENT ITSELF VINDICATED THE CAUTION I FLAGGED — twice, the second bigger:**
+⇒ **I asked that someone confirm S84's check REACHES the state arm 10 aimed at before retiring it,
+since "another test covers it" is how coverage silently drops.** ✅ **It does — verified at source AND
+at runtime.** ⭐ **The general form banked: *COVERAGE IS A PROPERTY OF STATES REACHED, NOT OF NAMES
+PRESENT.* Arm 10 NAMED a state; S84's check BUILDS one.**
+■ ⭐ **And arm 12's real defect is its own small law: its precondition re-read the tombstone AFTER a
+later arm revokes the anchor, while the read it guards runs BEFORE.** ⇒ ***A PRECONDITION MEASURING A
+LATER WORLD THAN THE ACT IT GUARDS.***
+■ ✅ **Flagged onward: a newly-authorised 16-arm sweep inherits this blindness unless its brief
+forbids abort-on-first-precondition.** ⭐ **Fixing the instance and inoculating the successor are
+different acts, and only the second one scales.**
