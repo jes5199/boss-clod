@@ -61,7 +61,28 @@ check_heartbeat() {
     say "LOOP     ok      $name -- ${age_min}m (max ${max_min}m)"
   fi
 }
-check_heartbeat squad-alerts-poll 45
+# ⛔⛔ THE SQUAD-ALERTS HEARTBEAT IS NO LONGER A LOOP-LIVENESS SIGNAL, BECAUSE I
+# BROKE IT: when the loop died at 23:47 I began draining the queue MANUALLY, and
+# squad-alerts-poll.sh touches the SAME heartbeat on every run. So a fresh
+# heartbeat now means "the loop fired OR boss ran it by hand" -- the observer
+# perturbing the instrument, which is the confound class this file is full of.
+# ⇒ Manual runs append to .manual-poll-runs. If any manual run is newer than
+#   45m, loop liveness is UNKNOWN and must be REPORTED AS UNKNOWN, never green:
+#   an instrument that cannot distinguish two states must say so.
+if [ -f .manual-poll-runs ]; then
+  last_manual=$(tail -1 .manual-poll-runs 2>/dev/null || echo 0)
+  case "$last_manual" in ''|*[!0-9]*) last_manual=0 ;; esac
+  manual_age=$(( (NOW - last_manual) / 60 ))
+else
+  manual_age=99999
+fi
+if [ "$manual_age" -le 45 ]; then
+  say "LOOP     UNKNOWN squad-alerts-poll -- heartbeat fresh but a MANUAL run ${manual_age}m ago"
+  say "                 ⇒ cannot distinguish loop-fired from boss-ran-it. NOT green."
+  RED=1
+else
+  check_heartbeat squad-alerts-poll 45
+fi
 check_heartbeat epic-nudge        60
 check_heartbeat sol-nudge         60
 check_heartbeat plan-nudge        600
