@@ -131,6 +131,40 @@ if git rev-parse --abbrev-ref HEAD >/dev/null 2>&1; then
   fi
 fi
 
+# ── 3b. CI BASE RATE, ON A CLOCK RATHER THAN ON A CLAIM ──────────────────────
+# ⛔⛔ WHY THIS EXISTS: commonplace CI was RED FOR THREE DAYS (100/100 runs,
+# last green 2026-08-13 08:54Z) and NOBODY SAW IT, including me. My rule was
+# "check CI before relaying a green" -- and it held perfectly. It just never
+# fired, because nobody ever relayed a green about the pod suites.
+# ⇒ ⭐ A CHECK BOUND TO A RELAY ONLY RUNS WHEN SOMEONE SPEAKS. A red that nobody
+#   mentions is invisible to it forever. The fix is not a better relay rule; it
+#   is an UNCONDITIONAL read on a clock.
+# ⚠️ Reports the RATE, not one run: a single red is noise, 20/20 is a state.
+if command -v gh >/dev/null 2>&1; then
+  ci=$(cd /home/jes/commonplace 2>/dev/null && timeout 45 gh run list --limit 20 \
+         --json conclusion -q '[.[]|.conclusion]|group_by(.)|map("\(.[0])=\(length)")|join(" ")' 2>/dev/null)
+  if [ -z "$ci" ]; then
+    # ⭐ An empty result is NOT green. Corpus unproven -- gh may be unauthed,
+    # rate-limited, or pointed at nothing. Absence has more than one cause.
+    say "CI       UNKNOWN commonplace -- gh returned nothing (auth? rate limit? no runs?)"
+    say "                 ⇒ NOT green. An empty corpus cannot report a failure."
+    RED=1
+  else
+    fails=$(printf '%s' "$ci" | grep -oE 'failure=[0-9]+' | cut -d= -f2)
+    fails=${fails:-0}
+    if [ "$fails" -ge 10 ]; then
+      say "CI       RED     commonplace last 20 runs: $ci"
+      say "                 ⇒ this is a STATE, not noise. Is it in KNOWN-REDS.md?"
+      RED=1
+    else
+      say "CI       ok      commonplace last 20 runs: $ci"
+    fi
+  fi
+else
+  say "CI       UNKNOWN gh not on PATH -- cannot read CI at all"
+  RED=1
+fi
+
 # ── 4. MEMORY.md link integrity — a [[link]] to nothing is a silent dead end ──
 MEMDIR=/home/jes/.claude/projects/-home-jes-boss-clod/memory
 if [ -d "$MEMDIR" ]; then
