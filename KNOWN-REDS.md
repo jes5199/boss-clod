@@ -50,6 +50,11 @@ KNOWN REDS ON main (as of cf430433, 2026-08-16 16:30Z) — NOT YOURS. Anything e
       are IDENTICAL, 11 lookdeny / 2 name=:look / signer not in trusted set, both arms).
       No further round on this without a NEW FACT. A measurement is a fact; an idea is not.
    ⛔ A failure with a DIFFERENT symptom in these files IS yours.
+   ⛔⛔ IF YOUR ROUND ADDS TESTS, THE POPULATION CHANGES AND SO DOES THE ARRANGEMENT.
+      At 3541 + N this pair MAY COME BACK RED OR GREEN, and NEITHER IS A SIGNAL ABOUT
+      YOUR WORK. Do not report "I fixed the MUD red" and do not report "I caused it" —
+      both are available, both are plausible, and both are false. Report your per-file
+      counts and the suite total WITH ITS POPULATION, and say nothing about causation.
 
 ② KNOWN TRIGGER — Runner.LauncherTest, "pod cannot read a canary injected by its
    launching BEAM". Environment-sensitive (CX-kacr); a stray tmux socket has triggered it.
@@ -75,6 +80,11 @@ KNOWN REDS ON main (as of cf430433, 2026-08-16 16:30Z) — NOT YOURS. Anything e
 
 ## Changelog
 
+- **2026-08-16 16:40Z** — ① gained its **arrangement caveat**, from commonplace's S95 brief (trap ③).
+  ⭐ ***A standing red can be misread as a RESULT in both directions by the same run.*** An entry that
+  only says *"not yours"* is **incomplete for a round that changes the population** — it must also say
+  ***"and a change in it is not yours either."*** Without that, a round does not stay silent: a changed
+  observation demands an explanation, and the only nearby cause is its own diff.
 - **2026-08-16 16:30Z** — ① INVERTED from KNOWN TRIGGER to **STANDING RED** on commonplace's word:
   S94 landed red at `cf430433` under plan's escape condition, as flagged in advance. Transition
   **announced, not discovered.** Population is now **3541**, not 3540 — the landing configuration
