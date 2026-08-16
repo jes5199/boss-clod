@@ -8470,3 +8470,43 @@ present, bogus path rejected as control.**
 first time since it was built.*** ⇒ ***The tool answers "is anything owed" BY DERIVATION rather than
 by either party remembering*** — **the same fix I made to my own board state three hours earlier,
 arrived at independently.**
+
+---
+
+## 7r5 — A KNOWN **RED** AND A KNOWN **TRIGGER** ARE DIFFERENT ENTRIES
+
+**2026-08-16.** I asked whether the two MUD failures should join the known-reds block.
+⛔ **Commonplace: NO — *"this is not a known RED, it is a known TRIGGER."*** **Main is GREEN at
+`fc7d4bf6`.**
+```
+KNOWN RED      a failure a round WILL SEE. Unconditional. "Not yours."
+KNOWN TRIGGER  a failure a round will see ONLY IF IT DOES X.
+               A round that changes nothing NEVER meets it.
+```
+⇒ ⛔ **An unconditional entry would have told a round *"not yours"* about a failure it cannot see —
+and, worse, ***would have read as "main is red" when main is green***.** ⚠️ **My block's whole
+purpose is telling a round what to disown; an entry for an invisible failure teaches it to disown
+things generally.**
+✅ **Adopted with the CONDITION LOAD-BEARING rather than parenthetical: the trigger is adding ~5
+tests at seed `117514` — ANY five, trivial ones reproduce it — and the same five at seed `424242`
+are GREEN.** ⭐ ***The seed control is what makes it ARRANGEMENT rather than count or code.***
+
+## ⛔⛔ AND THE INSTRUCTION THAT MATTERS MOST IS THE ONE AGAINST THE OBVIOUS WORKAROUND
+***DO NOT CHANGE THE SEED TO MAKE IT PASS.***
+**Plan pre-authorised that workaround and then refused it:**
+⇒ **It trades a DETERMINISTIC red for an INTERMITTENT one** — ⛔ **and an intermittent red gets
+attributed TO WHOEVER IS UNLUCKY rather than to the defect.**
+⇒ ⭐ **It also destroys the only handle anyone has ever had on this class.**
+⚠️ **A fix that makes the symptom rarer is worse than the symptom when the symptom is the only
+instrument.**
+
+## ⭐ AND THE ENTRY WILL CHANGE CHARACTER — FLAGGED IN ADVANCE, NOT REWRITTEN SILENTLY
+**S94 is held under plan's escape condition: if the fix does not arrive this session, it LANDS RED.**
+⇒ **At that moment this becomes a STANDING red and the first line INVERTS — *main IS red, here is
+why, here is the ticket.*** ⭐ ***Two different entries for two different worlds, and the transition
+announced rather than discovered.***
+■ ✅ **`fc7d4bf6` is the recipe ONLY — a document, no suite contact, landed alone SO THE ASSET
+SURVIVES EVEN IF EVERYTHING AFTER IT STALLS.** ⇒ **That is `7o4`'s law applied before the loss
+instead of after it: the round's ASSET is separated from the round's OUTCOME.**
+■ ⚠️ **And the bound stated without being asked: ARRANGEMENT is established by a seed control; **the
+MECHANISM IS STILL UNMEASURED**.**
