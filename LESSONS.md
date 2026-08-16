@@ -9540,3 +9540,45 @@ that runs — which is `bin/counted` and `cp-brief-known-reds`, not `LESSONS.md`
   `index` all errored.** ⭐ **Rulers come FROM THE API, not from a locally reimplemented Chaldean
   sequence — on an astrology site the ruler IS the meaning, and reimplementing it would be inventing
   data that looks authoritative.**
+
+
+## 7u0 — ⭐⭐⭐ THE PROBE-PLACEMENT LESSON APPLIED **BEFORE** THE BUG, AND IT PAID IMMEDIATELY
+
+**2026-08-16, 23:0x.** Element 9, the astrolabe's unequal-hour lines. I warned that a **straight fan
+of twelve radial lines** is a different construction from the real one — simpler, plausible-looking,
+and correct at exactly ONE declination — and asked for the invariant to be tested at **two dates with
+different solar declinations** rather than one. ⇒ **It sabotaged its own correct version into the fan
+and ran both:**
+```
+equinox   k=3 / 6 / 9   0.36° / 0.10° / 0.22° off    ALL PASS
+solstice  k=3 / 6 / 9   8.37° / 15.40° / 21.70° off  ALL FAIL
+```
+⇒ ⛔ ***THE WRONG CONSTRUCTION PASSES CLEANLY AT EQUINOX.*** ⭐ **Testing one date — the obvious,
+default, entirely reasonable thing — would have shipped it green.**
+⚠️ **The correct construction lands within `0.02–0.81°` at both.** At Portland the below-horizon arc
+is `232.39°` at the winter tropic against `127.61°` at the summer one: one twelfth is `19.37°` vs
+`10.63°`, **a factor of 1.82** — so the fan is not subtly wrong, it is wrong by nearly double, and
+still invisible at equinox.
+⇒ ⭐⭐ ***THIS IS THE FIRST TIME TONIGHT THE PROBE-PLACEMENT LESSON WAS APPLIED IN ADVANCE RATHER THAN
+IN HINDSIGHT*** (`7t8` was the hindsight version, against me). **The cost of applying it early was one
+extra date in a test; the cost of learning it late was a shipped defect with a green suite.**
+
+## ✅ AND MY OWN EARLIER ERROR, TURNED INTO A CORRECT WARNING ONE ELEMENT LATER
+**For the zoom I told it: the altitude oracle, sun-on-horizon and sun-on-hour-line checks are ALL
+SCALE-INVARIANT, so they will stay green whether the new scale is right or wrong** — they protect
+what must not break, they do NOT verify what was asked. ✅ **Confirmed: all stayed green through the
+zoom; two NEW suites did the actual verifying.**
+⇒ ⭐ ***THE SAME PROPERTY THAT MADE ME WRONG AT 22:40 MADE ME RIGHT AT 23:05.*** **`7t8` cost me a
+bad instruction; the lesson from it was worth more than the error, and it was cashed within the
+hour.**
+
+## ⚠️ AND TWO SELF-INTRODUCED DEFECTS, BOTH FIXED AT THE CAUSE
+- **Deriving the scale made `plateRadius()` SECRETLY READ THE CLOCK**, so the same point computed
+  twice within one frame could differ. ✅ **Fixed by fixing the scale once per draw — NOT by loosening
+  a tolerance.** ⇒ ⭐ ***A NON-DETERMINISTIC PURE-LOOKING FUNCTION IS A TOLERANCE BUG IN DISGUISE, AND
+  WIDENING THE TOLERANCE IS HOW IT BECOMES PERMANENT.***
+- ⛔⛔ **ITS ELEMENT-8 COMMENT WAS A LIE.** It said the shading was *"drawn first so the numerals sit
+  on top of it"*; it was appended AFTER the dial and was TINTING the numerals. ⇒ ⭐ **A comment
+  asserting a fact about ORDER, contradicted by the code two lines away — and it may well be what
+  prompted jes's numerals complaint.** ⚠️ ***A WRONG COMMENT IS WORSE THAN NO COMMENT: it is the
+  reader's model, and it survives the reading that would have caught the code.***
