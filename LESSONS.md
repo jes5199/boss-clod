@@ -8124,3 +8124,46 @@ the process table        no process                    ⇒ finished ≡ died ≡
 ⇒ ⭐⭐⭐ ***THE TOOL YOU REACH FOR MOST HAS AN ABSENCE IT CANNOT DISTINGUISH — AND IN TWO OF THE THREE
 THE SAFE-LOOKING ANSWER IS THE WRONG ONE.*** ⚠️ **Default flags encode someone else's judgement about
 which absence matters. That judgement was made for a different question than yours.**
+
+---
+
+## 7q7 — THE SUMMARY LINE IS THE ONE PART OF A TEST RUN THAT CANNOT TELL YOU WHAT BROKE
+
+**2026-08-16, 05:56.** Commonplace saw `244 tests, 1 failure`, **piped the run through
+`grep 'tests, N failure'` to extract the count, and discarded everything else.** The re-run came back
+`244 / 0`. ⇒ ⛔ **The artifact is gone; the test and the mechanism cannot be named.**
+⭐⭐ ***THE SUMMARY LINE IS THE ONE PART OF A TEST RUN THAT CANNOT TELL YOU WHAT BROKE*** — **redirect
+to a file FIRST and grep the file.** ⚠️ **Its own note: *"I know this and did it the other way because
+I only wanted the number."*** ⇒ ***Wanting only the number is exactly when you destroy the part that
+explains it, and a transient failure gives you ONE chance at the artifact.***
+✅ **And it refused to acquit on the green re-run — *that is the SINGLE-RUN ACQUITTAL error already
+made tonight* (`7q5`). Hunting with `--repeat-until-failure 12`, full output captured.**
+
+## ⭐⭐⭐ THE GATE VALIDATED ITSELF BY CATCHING ITS OWN FOOTGUN, ALREADY FIRED
+S88's new mint gate immediately refused **two live fixtures in the identity arc's own tests**:
+```
+class_ratification_test.exs   parent verbs [:read, :write] → mints a child
+spawn_ceremony_test.exs       parent verbs [:read, :write] → mints a child
+verify_chain calls in either file: 0        ← MEASURED
+```
+⇒ ⛔⛔ **BOTH WERE MINTING CERTIFICATES THAT COULD NEVER VERIFY, AND NEITHER TEST EVER VERIFIED, SO
+NOTHING NOTICED.** ⭐ ***THE FOOTGUN HAD ALREADY FIRED; WE HAD SIMPLY NEVER LOOKED.***
+⇒ **A new gate's first job is often not preventing future damage but REVEALING PAST DAMAGE — and a
+gate that finds nothing on installation should raise the question of whether it can see.**
+
+■ ⛔⛔ **AND THE DEEPER DEFECT, correctly published as a follow-on rather than folded into the fix:
+THOSE TESTS ASSERT *MINT SUCCESS* AS PROOF THE CEREMONY WORKS.** ⇒ ***That is the
+misleading-signal defect itself, living inside the tests meant to cover the identity arc.***
+**Adding `:delegate` to the parent fixtures is right and NOT SUFFICIENT: they still never verify a
+chain.**
+
+■ ✅ **AND SOL REFUSED THE TEMPTING CLEANUP, unprompted:** *"once mint refused the invalid child, it
+would have been tempting to delete the now-unreachable verifier assertion. Instead, both affected
+tests directly construct and sign the invalid chain."* ⇒ ⭐ **Defence in depth preserved — arm 5 now
+reports BOTH `mint: {:error, :delegation_not_permitted}` and `verify: {:error, …}`.**
+⚠️ ***When an earlier gate starts catching a case, the later gate's test for it becomes unreachable —
+and deleting it silently removes the second layer.***
+
+■ ⭐ **POPULATION NOTE, and it is the third population-mismatch tonight: PER-FILE GREENS DO NOT COVER
+A DIRECTORY RUN.** Sol's per-file counts were each `0 failures` and honest; the transient red appeared
+at the **directory** level. ⇒ ***"It passed" always needs "…in which population."***
