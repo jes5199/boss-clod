@@ -9211,3 +9211,47 @@ only way to know that is for the catcher to say how they actually caught it, whi
 ■ ✅ **It also filed the rule WITH ITS CONCRETE TRAP in the repo's own store, not just the law.**
 ⇒ ⭐ ***A LAW WITH ITS INSTANCE ATTACHED IS FINDABLE BY THE PERSON HAVING THE PROBLEM; A LAW ALONE IS
 FINDABLE ONLY BY SOMEONE ALREADY LOOKING FOR LAWS.***
+
+
+## 7t2 — ⭐⭐⭐ **A SHELL TEST CANNOT SEE CORS: BOTH REQUESTS RETURN 200 AND ONLY THE HEADERS DIFFER**
+
+**2026-08-16, 22:0x.** jes, watching the live page: *"that's showing Portland text now but it doesn't
+look rotated."* ⇒ ✅ **He was right, and the harness that had PROVEN the rotation was also right —
+they were about different things.**
+```
+POST wimble.fly.dev/graphql  Origin: http://157.245.183.206:4322 → 200, NO CORS header
+POST wimble.fly.dev/graphql  Origin: https://planets.at          → 200, allow-origin: planets.at
+```
+⇒ **The API allowlists `planets.at`; the browser BLOCKS the response; `fetchSolarNoon` throws; the
+`12.0` placeholder stands — and a placeholder of 12.0 draws A PERFECTLY ORDINARY UPRIGHT DIAL.**
+
+## ⛔⛔ THE FALSE REASSURANCE THAT WOULD HAVE COST THE EVENING
+⭐ ***BOTH REQUESTS RETURN HTTP 200. `curl` DOES NOT ENFORCE CORS.*** ⇒ ⛔ ***"I called the API from
+the shell and it works" is a TRUE STATEMENT that clears the API and sends you into the rotation
+math, which is exactly where the bug is not.***
+⚠️ **The difference is visible only in the HEADERS — not the status, not the body.** ⇒ ⭐ ***A CHECK
+RUN IN A DIFFERENT ENFORCEMENT CONTEXT THAN THE FAILURE IS NOT A WEAKER CHECK, IT IS A CHECK OF A
+DIFFERENT SYSTEM.*** **Same family as CI-vs-host: the runner permits what the host forbids, and the
+question is never "does it work" but "does it work WHERE IT RUNS".**
+
+## ⭐⭐ AND THE REAL DEFECT WAS THE SILENCE, NOT THE CORS
+**A failed solar-noon fetch was INDISTINGUISHABLE FROM A WORKING UPRIGHT DIAL.** ⇒ **Ten minutes went
+to a rotation bug that did not exist, and only jes's eyes on the rendered page caught it.**
+✅ **Now the page states it: *"solar noon unavailable — dial NOT rotated (placeholder 12:00)"*.**
+⇒ ⭐ ***A DEFAULT THAT RENDERS AS A PLAUSIBLE RESULT IS THE WORST KIND OF DEFAULT*** — `12.0` is not
+a null, not an error, not a blank; it is a legitimate-looking dial. **The silent-success family
+again, in a UI.**
+■ ⭐ **And the division that found it: MY harness proved the module rotates WHEN FED a solar noon;
+HIS eyes proved the page did not. Both true. ⇒ *A test's passing scope is not the user's screen, and
+the observation from the screen OUTRANKS the harness about the screen.***
+
+## ✅ AND A SELF-CATCH IN THE TEST HARNESS THAT IS ITS OWN LESSON
+**Its geolocation suite first came back 5/13 — ⛔ and the failures were the HARNESS's.** It saved
+`__clock2Debug.diagnosis` across seven cases, **but the getter handed out a LIVE REFERENCE to an
+object mutated in place, so all seven snapshots read as the last one.** ⇒ **Every branch had been
+correct in the log the whole time.**
+⭐ ***A SNAPSHOT THAT IS SECRETLY A POINTER MAKES EVERY EARLIER SAMPLE REPORT THE LATEST STATE*** —
+and the symptom is a suite that fails in a pattern suggesting the CODE is wrong.
+✅ **It fixed the EXPORT to return a copy rather than patching its own harness** — *"the next person
+to sample that getter would have hit the identical trap."* ⇒ **Fix the trap, not your encounter with
+it.**
