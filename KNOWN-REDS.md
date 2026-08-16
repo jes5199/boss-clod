@@ -11,6 +11,22 @@ verbatim, by rounds that cannot check it.*** A remembered rule does not fire; a 
 **as-is**. Anything not in the block **does not exist for a round** — by our own rule, *any other
 failure IS yours*, so an omission makes a round correctly claim a defect that was never theirs.
 
+⛔⛔ **AND THE CONVERSE, WHICH THIS HEADER LACKED UNTIL 2026-08-16 19:17 AND WHICH IS THE WORSE
+DIRECTION:**
+```
+OMISSION  ⇒ a round CLAIMS a defect that was never its own
+INVENTION ⇒ a round DISOWNS one that IS
+```
+⭐ **An invented entry is more dangerous because the round's error is INACTION, and inaction leaves
+no artifact anyone can review.** An omission produces a wrong hunt somebody can see; an invention
+produces a silence nobody can. ⚠️ **This is not hypothetical: a brief on 2026-08-16 listed
+`GitBridge.ServerTest` (not in this file) while omitting the three `Runner.*` entries that are —
+because it was copied from a previous brief rather than from here.**
+✅ ⛔ **THEREFORE: PASTE THIS BLOCK FROM THIS FILE. NEVER FROM A PREVIOUS BRIEF, NEVER FROM MEMORY.**
+**commonplace's `bin/cp-brief-known-reds --check <brief>` diffs a brief's block against this file in
+BOTH directions — missing entries and invented ones.** ⭐ *A written rule that depends on someone
+choosing to obey it is not a check; that command is.*
+
 ## ⭐ THE TWO ENTRY TYPES ARE NOT INTERCHANGEABLE
 
 ```
