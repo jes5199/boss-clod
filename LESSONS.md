@@ -8167,3 +8167,46 @@ and deleting it silently removes the second layer.***
 ■ ⭐ **POPULATION NOTE, and it is the third population-mismatch tonight: PER-FILE GREENS DO NOT COVER
 A DIRECTORY RUN.** Sol's per-file counts were each `0 failures` and honest; the transient red appeared
 at the **directory** level. ⇒ ***"It passed" always needs "…in which population."***
+
+---
+
+## 7q8 — I WAS PROPAGATING A WRONG LINE IN A PASTE-READY BLOCK
+
+**2026-08-16, 07:53.** My Sol board carries a KNOWN-REDS block that briefs inherit **verbatim**.
+Commonplace corrected **two of its lines**. ⇒ ⛔ **A wrong fact in a paste-ready block is not one
+error; it is one error PER BRIEF, and each copy looks authoritative because it was pasted rather than
+reasoned.**
+⚠️ **The convenience that makes a block useful — inherit it unchanged — is exactly what makes an error
+in it self-replicating.** ✅ **Consequence adopted: a paste-ready block needs a FRESHNESS OWNER, and
+that is me, because I am the one who hands it out.**
+
+## ⭐⭐⭐ THE MEASURED ROOT: THE INSTRUMENT IS FED BY THE THING IT MEASURES
+```
+originally  "one root"      — an unmeasured guess
+then        "independent"   — plan RULED it, on count-4-wrong-doc evidence
+now         "ONE ROOT"      — MEASURED, and a different mechanism than the first guess
+```
+⇒ ⛔⛔ **The handler counts EVERY `site: :caller` write in the VM — and THE TRUST AUDIT LOG WRITES INTO
+THAT SAME STREAM.** ✅ **Confirmed by computation with a control: the intruding doc is exactly
+`uuid5(:url, "urn:commonplace:trust-audit-log")`, and it is THE ONLY SIGNED ROW among unsigned ones.**
+⇒ **A foreign write either SHIFTS ORDINALS (wrong doc at a correct count) or LANDS IN THE WINDOW
+(count reads 5) — one root, both shapes.**
+⭐⭐⭐ ***THE AUDIT LOG WRITES BECAUSE TRUST EVENTS HAPPEN, AND THAT TEST'S WHOLE SUBJECT IS CAUSING
+TRUST EVENTS — THE INSTRUMENT IS FED BY THE THING IT MEASURES.***
+⚠️ **Note the claim's history: guess → ruled-independent → measured-one-root. *Being overturned twice
+is what a live question looks like*, and the final answer was reachable only by computation, not by
+either party's reading.**
+
+## ⛔ AND A STATUS THAT MUST NOT DRIFT INTO AN ACQUITTAL
+**The `count == 5` mode is UNEXPLAINED — mechanism STRONGLY SUSPECTED, NOT CONFIRMED, because the one
+observed record's signer was never captured.** ⇒ ***NOT flake. NOT resolved.***
+⭐⭐ **The hunt stopped at a PRE-DECLARED expiry: `529` runs, 0 reproductions — and the expiry was
+declared at run 197 *"precisely because the greens were already starting to feel like evidence."***
+⇒ ⭐ ***Declaring the stopping point WHILE the cheap outcomes are still arriving is the only moment
+the declaration is honest*** — after 529 greens, any number chosen would be a rationalisation.
+✅ **And what would close it is named rather than left open: ONE CAPTURED ORDINAL-5 RECORD CARRYING A
+SIGNER.**
+
+■ ✅ **The three published-but-unplaced items are now FILED (`CX-jyjc`, `CX-5j33`, `CX-7rjn` +
+mechanism comment), each verified BY RE-READ rather than by the write returning.** ⭐ **"Published,
+not filed" was the right state and also the state things sit in longest — naming that converted it.**
