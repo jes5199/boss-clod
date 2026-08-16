@@ -171,14 +171,30 @@ if [ -f "$HOLD" ]; then
   exit 0
 fi
 
-# --- 2. is a Sol run already in flight? -------------------------------
-# Don't stack runs. Exact-match the codex binary; never a broad pattern —
-# hermes runs a live-money BEAM on this box.
-INFLIGHT=$(pgrep -f '(^|/)codex (exec|resume)' 2>/dev/null | head -3)
-if [ -n "$INFLIGHT" ]; then
-  say "DECLINED: codex run already in flight (pids: $(echo $INFLIGHT | tr '\n' ' '))"
+# --- 2. how many Sol runs are in flight? ------------------------------
+# Exact-match the codex binary; never a broad pattern — hermes runs a
+# live-money BEAM on this box.
+#
+# ⭐ 2026-08-16: this was `if [ -n "$INFLIGHT" ]` — DECLINE ON ANY RUN.
+# jes: "we've been running Sol hourly for most of a week and never hit a
+# codex quota… maybe we should consider having two in parallel?" ⇒ The
+# serialization was MINE, one line, never a resource limit. Now a CAP.
+#
+# ⚠️ AND IT STAYS A WATCHED EXPERIMENT, NOT FREE CAPACITY: codex exposes no
+# credit meter, and the exhaustion detector HAS NEVER BEEN SEEN TO FIRE — I
+# grepped a week of logs for it and every hit was a test FILENAME. A gate
+# never seen to fail is not known to work, and here the cost of blindness is
+# discovering the ceiling by hitting it mid-round with a message neither
+# boss nor commonplace would recognise. Keep the cap low; raise it on
+# evidence, never on the absence of a complaint.
+SOL_MAX_PARALLEL="${SOL_MAX_PARALLEL:-2}"
+INFLIGHT=$(pgrep -f '(^|/)codex (exec|resume)' 2>/dev/null)
+N_INFLIGHT=$(printf '%s\n' "$INFLIGHT" | grep -c '[0-9]')
+if [ "$N_INFLIGHT" -ge "$SOL_MAX_PARALLEL" ]; then
+  say "DECLINED: $N_INFLIGHT codex run(s) in flight, cap is $SOL_MAX_PARALLEL (pids: $(echo $INFLIGHT | tr '\n' ' '))"
   exit 0
 fi
+[ "$N_INFLIGHT" -gt 0 ] && say "NOTE: $N_INFLIGHT codex run(s) already in flight, cap $SOL_MAX_PARALLEL — dispatching alongside"
 
 # --- 3. locate commonplace BY NAME, not by index ----------------------
 WIN=$(tmux list-windows -t 0 -F '#{window_index} #{window_name}' 2>/dev/null \
@@ -305,5 +321,9 @@ if [ "${DRY:-0}" = "1" ]; then
 else
   touch "$MARKER"
 fi
-echo "SOL_NUDGE|idle, no run in flight, codex credits presumed ok | worst ratio ${WORST} < ${RATIO_MAX} | ${READ}"
+# ⛔ This string used to say "no run in flight" UNCONDITIONALLY, which was true
+# only while the cap was 1. With a cap of 2 it would have asserted an absence
+# that the very same script had just measured to be false — a status line that
+# contradicts its own check is worse than no status line.
+echo "SOL_NUDGE|idle, ${N_INFLIGHT} run(s) in flight (cap ${SOL_MAX_PARALLEL}), codex credits presumed ok | worst ratio ${WORST} < ${RATIO_MAX} | ${READ}"
 exit 0
