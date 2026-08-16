@@ -9016,3 +9016,45 @@ must live in ONE governed place, not in a bash function every new launcher reimp
 invalidate every line-level citation.** ✅ **Verified after v2 landed: `cat-file -t` → `blob`, `-s` →
 `11985`, bogus blob id → fatal (control).** ⇒ ⭐ ***A REVIEW PINNED TO A BLOB IS A CLAIM ABOUT AN
 OBJECT; A REVIEW PINNED TO A PATH IS A CLAIM ABOUT WHATEVER IS THERE LATER.***
+
+
+## 7s8 — ⭐⭐⭐ A PARKED ARTIFACT CAN **DECAY WHILE SITTING STILL**, AND LOOK COMPLETE THE WHOLE TIME
+
+**2026-08-16, 19:03.** jes ratified eviction-anchor option B, then two minutes later: *"we'll get to it
+when we get to it."* ⇒ ✅ **Parked as HIS DECISION — not pending, not blocked-on-jes, not to be
+resurfaced.** ⭐ *His queue report had called it "the only item where nothing proceeds without you";
+that was correct to say ONCE, and it has now been said and answered.*
+
+## ⛔⛔ THE THING THAT WOULD HAVE ROTTED SILENTLY
+**I had generated the ceremony's challenge string — `"commonplace eviction anchor · <UTC> · <nonce>"` —
+and filed it.** ⇒ ⭐ **THE TIMESTAMP AND NONCE ARE THE ENTIRE REPLAY DEFENCE.** ⇒ ⛔ ***A RESUMED
+CEREMONY THAT REACHED FOR THE SAVED STRING WOULD BE ONE THAT QUIETLY DEGRADED WHILE SITTING STILL.***
+⚠️ **And the resumer would see a complete-looking artifact, tick the step, and inherit CONFIDENCE THEY
+DID NOT EARN.** ⇒ ⭐⭐ ***A PARKED ARTIFACT THAT LOOKS FINISHED AND HAS SILENTLY WEAKENED IS WORSE
+THAN AN OBVIOUSLY INCOMPLETE ONE.***
+✅ **Recorded as an instruction rather than trusted to memory: REGENERATE THE CHALLENGE AT EXECUTION
+TIME.** ⚠️ **Generalises past this ceremony: any artifact whose validity depends on FRESHNESS —
+nonces, challenges, capability leases, quota reads, board state — decays on the shelf while every
+visible property stays identical.**
+
+## ⭐⭐ AND A PARKED DOCUMENT IS A DENIAL COUNTER FOR ANYTHING FILED INSIDE IT
+**commonplace found there is NO project-level detached-signature verify entrypoint — only
+`verify_commit/1,2`, which takes a `%Commit{}`.** ⛔ **Filed inside the now-parked ceremony, that
+finding is correct, unread, and rediscovered expensively by whoever next needs it.**
+✅ **Plan moved it into the TOPOLOGY proposal's activation section — and the reason is the good one,
+not filing hygiene: ⇒ ⭐ *RATIFICATION MEANS SOMEONE SIGNS A REVISION AND SOMETHING VERIFIES THAT
+SIGNATURE, SO THE TOPOLOGY IMPLEMENTER IS THE NEXT PERSON WHO WILL TRIP OVER IT.***
+⇒ ⭐⭐⭐ ***PUT THE OBLIGATION WHERE THE DISCHARGER IS ALREADY LOOKING*** — **a finding's home is
+determined by WHO WILL NEED IT, never by WHERE IT WAS FOUND.**
+
+## ✅ AND THE PARK COSTS NOTHING BECAUSE THE INSTRUMENT WAS PROVEN FIRST
+```
+ARM 1  correct key + correct challenge   → true     MUST be true
+ARM 2  WRONG key   + correct challenge   → false    MUST be false
+ARM 3  correct key + TAMPERED challenge  → false    MUST be false
+throwaway private halves shredded — 0 remaining, verified BY COUNT not by intent
+```
+⇒ ⭐ **All three arms seen BEFORE anything real existed. A verify that has never returned false is not
+a check; this one has now returned false twice, FOR TWO DIFFERENT REASONS.** ⚠️ **And shredding the
+throwaways matters for a reason beyond secrecy: *a discarded private key sitting in a scratchpad
+beside a ceremony discussion is the artifact that gets MISTAKEN FOR THE REAL ONE later.***
