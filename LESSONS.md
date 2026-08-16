@@ -8917,3 +8917,49 @@ ancestor of `origin/main` rather than checking `@{u}`. Both arms demonstrated on
 THE COMMAND YOU ISSUED*** — **which it had written THAT MORNING about a `pkill` that killed its own
 shell, and then spent the afternoon trusting an exit code.** ⇒ ⚠️ ***A law is filed in the domain
 where it was learned, and does not transfer to the next domain by being true.***
+
+
+## 7s6 — THE SAME ENTRY DEFENDED AGAINST **OPPOSITE** ERRORS IN ONE DAY, AND A GREEN ONE IS THE MORE DANGEROUS
+
+**2026-08-16, 18:08.** S97 landed; main went **GREEN at 3553, 0 failures**, seed 117514.
+**commonplace's instruction before I touched the block: ⛔ *do not record it as fixed, resolved, or
+closed.*** ✅ **Done at `3d7f0f3` — entry kept STANDING, marked CURRENTLY NOT FIRING.**
+```
+population 3541 → 2 failures
+population 3546 → 1
+population 3548 → 1
+population 3553 → 0      ← a green that proves nothing
+```
+
+## ⭐⭐⭐ THE INVERSION IS THE FINDING
+**This morning the risk was a round CLAIMING CREDIT for the count dropping. This evening it is the
+entry BEING DELETED FOR BEING GREEN.** ⇒ ⭐ ***BOTH ARE THE SAME MISREADING — treating a movement in
+an arrangement-dependent count as information — AND THEY POINT IN OPPOSITE DIRECTIONS.***
+⛔ **A rule phrased as *"don't over-claim a drop"* would have caught the first and been useless
+against the second.** ✅ **The correct form is symmetric by construction and is the entry's own claim:
+⇒ *THE COUNT IS ARRANGEMENT-DEPENDENT, SO A ZERO IS EXACTLY AS UNINFORMATIVE AS A ONE.***
+
+## ⛔⛔ AND THE GREEN VERSION IS THE ONLY ONE THAT **ARMS** RATHER THAN MERELY MISINFORMS
+⇒ **A deleted entry does not just mislead the reader. ⭐ IT HANDS THE NEXT ROUND A FAILURE OUR OWN
+RULE TELLS IT TO OWN** — *anything not in the block IS yours* — **and sends it hunting a defect that
+is days old, with no block to check against.**
+⚠️ **The deletion is invisible at the moment it is made, because at that moment the suite is green and
+the entry looks like stale bookkeeping.** ⇒ ***A KNOWN-RED IS AT MAXIMUM RISK OF DELETION EXACTLY
+WHEN IT IS AT MINIMUM RISK OF FIRING, and those are the same moment.***
+✅ **The handle is intact and that is stated in the block: still deterministically reproducible at
+seed 117514 / population 3541 via `fc7d4bf6`.**
+
+## ⭐⭐ SOL MADE A JUDGMENT THE BRIEF DID NOT ASK FOR, AND IT IS THE DAY'S LESSON IN MINIATURE
+**A mixed case returns ONLY `{:inconclusive, ...}` and NEVER EVALUATES `public_key`.**
+⇒ ⭐ ***IF `child_uuid` DIFFERS, YOU COMPARED THE WRONG PAIR — so "these two keys conflict" is a claim
+about two different children and CANNOT BE MADE.***
+⛔ **That is not caution. It is the refusal to emit a WELL-FORMED ANSWER TO A QUESTION THAT WAS NEVER
+ASKED** — ⚠️ **which is precisely what I did to jes twice today at the conversational layer (`7s3`),
+and Sol got it right in code without being told.** ✅ **It also fails closed: no disposition at all.**
+
+## ⚠️ AND A THIRD INSTANCE OF THE COPY-DOESN'T-INHERIT-THE-FIX SHAPE
+**commonplace cited `031ee3f` with NO REPO NAMED — ONE BRIEF AFTER fixing exactly that by writing
+*"(9918ea1 in commonplace-plan)"*.** ⇒ ⭐ ***A FIX APPLIED TO AN INSTANCE DOES NOT TRAVEL TO THE
+TEMPLATE. A brief written by copying a brief inherits the TEXT but not the CORRECTION.***
+**Same root as my five grep failures today: the corrected THING and the corrected FORM are different
+objects, and only one of them was ever edited.**
