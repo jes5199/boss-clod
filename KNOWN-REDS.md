@@ -31,21 +31,25 @@ exist yet. **Always name the failing assertion's SHAPE, and say that a different
 # ▼▼ THE BLOCK — paste from here to the end marker ▼▼
 
 ```
-KNOWN REDS ON main (as of e397021c, 2026-08-16 18:08Z) — NOT YOURS. Anything else IS.
+KNOWN REDS ON main (as of 9a058eb9, 2026-08-16 19:17Z) — NOT YOURS. Anything else IS.
 
-① STANDING — MUD render defect. ⚠️ CURRENTLY NOT FIRING. THE ENTRY STAYS.
+① STANDING RED — MUD render defect. ⚠️ FIRING AT 3563; WAS GREEN AT 3553. ENTRY STAYS EITHER WAY.
    MUD.RoomVisibilityTest     — owner's own look on their gated room
    MUD.WebPlayIntegrationTest — citizen spawns in owned home
    Symptom: "(this place has no description)".
-   Full suite at seed 117514, CURRENT (e397021c): 5 doctests, 3553 tests,
-   0 FAILURES, 12 excluded, 1 skipped — measured by commonplace, population
-   predicted by hand (3548 + 5) BEFORE measuring and matched exactly.
+   Full suite at seed 117514, CURRENT (9a058eb9): 5 doctests, 3563 tests,
+   1 FAILURE (MUD.WebPlayIntegrationTest), 12 excluded, 1 skipped — measured by
+   commonplace, population predicted by hand (3553 + 10) BEFORE measuring, matched.
    ⛔⛔ THIS IS NOT FIXED, RESOLVED, OR CLOSED, AND THE ENTRY MUST NOT BE DELETED
       FOR BEING GREEN. Observed sequence:
           population 3541 → 2 failures
           population 3546 → 1
           population 3548 → 1
           population 3553 → 0     ← a green that proves nothing
+          population 3563 → 1     ← RED AGAIN, ONE ROUND LATER. The trap fired for
+                                    real: had this entry been deleted at 3553 for
+                                    being green, S98 would have been told by our own
+                                    rule that this failure was ITS.
       THE ENTRY'S CLAIM IS THAT THE COUNT IS ARRANGEMENT-DEPENDENT, SO A ZERO IS
       EXACTLY AS UNINFORMATIVE AS A ONE. Neither a zero nor a nonzero is a signal.
    ⛔ A KNOWN-RED DELETED WHILE GREEN IS A TRAP ARMED FOR WHOEVER ARRIVES NEXT:
@@ -67,7 +71,7 @@ KNOWN REDS ON main (as of e397021c, 2026-08-16 18:08Z) — NOT YOURS. Anything e
       No further round on this without a NEW FACT. A measurement is a fact; an idea is not.
    ⛔ A failure with a DIFFERENT symptom in these files IS yours.
    ⛔⛔ IF YOUR ROUND ADDS TESTS, THE POPULATION CHANGES AND SO DOES THE ARRANGEMENT.
-      At 3553 + N this pair MAY COME BACK RED OR GREEN, and NEITHER IS A SIGNAL ABOUT
+      At 3563 + N this pair MAY COME BACK RED OR GREEN, and NEITHER IS A SIGNAL ABOUT
       YOUR WORK. Do not report "I fixed the MUD red" and do not report "I caused it" —
       both are available, both are plausible, and both are false. Report your per-file
       counts and the suite total WITH ITS POPULATION, and say nothing about causation.
@@ -121,6 +125,13 @@ KNOWN REDS ON main (as of e397021c, 2026-08-16 18:08Z) — NOT YOURS. Anything e
   block.**
 
 ## Changelog
+
+- **2026-08-16 19:17Z** — ① **RED AGAIN at 3563** (`9a058eb9`, S98/rung 4a), one round after being
+  green at 3553. ⭐⭐⭐ ***THE TRAP FIRED FOR REAL, ONE HOUR AFTER WE ARGUED ABOUT IT IN THE
+  ABSTRACT.*** ⇒ **Had the entry been deleted at 3553 for being green, S98 would have been told by
+  our own rule that this failure was ITS, and would have hunted a defect that is days old.**
+  ⚠️ **Sequence now: `3541→2 · 3546→1 · 3548→1 · 3553→0 · 3563→1`. The block's claim is
+  DEMONSTRATED rather than argued.**
 
 - **2026-08-16 18:08Z** — ① main is **GREEN at 3553** (`e397021c`, S97 landed). ⛔ **Entry kept
   STANDING and marked CURRENTLY NOT FIRING — not fixed, not closed, not deleted.** ⭐ **The danger
