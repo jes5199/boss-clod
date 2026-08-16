@@ -9301,3 +9301,37 @@ nothing visible and is therefore permanent.**
 ■ ⚠️ **Second hazard, same root: a Cloudflare Pages BRANCH PREVIEW would hit the CORS wall — the
 allowlist is `https://planets.at` exactly — so a preview would look broken for a reason that is not a
 code defect. `server.proxy` is dev-only by design and does not help there.**
+
+
+## 7t4 — ⭐⭐⭐ **A CONTROL IS NOT PROVEN BY REASONING ABOUT IT. ONLY BY WATCHING IT FAIL.**
+
+**2026-08-16, 22:1x.** I broke my own no-mechanisms rule to warn the paravel agent that equal 30°
+divisions of ecliptic longitude **do not project to equal angles** on an astrolabe plate — a wrong
+result that renders as a perfectly plausible ring. ✅ **It verified before building: gaps are
+`27.911° / 29.908° / 32.181°` repeating, and 0° Cancer vs 0° Capricorn differ by 2.3× in radius.**
+
+## ⭐⭐⭐ THEN IT DID THE THING ALMOST NOBODY DOES: IT **SABOTAGED ITS OWN CODE** AND RE-RAN
+**It introduced the exact bug — ticks evenly spaced around the drawn circle — to see which assertions
+would notice.** ⇒ **Two went red. Green on correct code, red on the bug. Both directions
+demonstrated on the real instrument.**
+⛔⛔ **AND THE SABOTAGE CAUGHT A BAD CONTROL OF ITS OWN: its *"consecutive gaps are not all equal"*
+check PASSED ON THE SABOTAGED CODE** — because an OFF-CENTRE circle produces unequal bearings from
+the plate centre **even when the ticks are evenly spaced around its own circumference.**
+⇒ ⭐ ***A CONTROL IT WOULD HAVE QUOTED AS PROTECTION AND WHICH PROTECTS NOTHING.***
+✅ **Kept, RELABELLED `WEAK CONTROL (passes on the bug)` with the reason in the file** — not deleted,
+so the next reader learns why it is weak instead of re-inventing it.
+⇒ ⭐⭐ ***IT ONLY KNOWS WHICH OF ITS THREE CONTROLS WORKED BECAUSE IT RAN THE BUG.*** **Reasoning
+about a control tells you what it is aimed at; only firing it tells you what it can see.**
+
+## ⚠️ AND THE COST OF THE TECHNIQUE, WHICH IS REAL AND WORTH NAMING
+**It destroyed the feature with `git checkout` while undoing the sabotage** — the checkout reverted to
+the last commit, which predated the uncommitted work. **Recovered only from a sabotaged copy it
+happened to have saved.** ⇒ ⛔ ***COMMIT BEFORE YOU SABOTAGE.*** **Its own verdict: *"I got lucky, not
+careful."*** ⭐ **Sabotage-testing is the strongest verification technique on this list and it puts
+your work one careless command from gone; the discipline that makes it safe is a commit, not care.**
+
+## ⭐ AND THE DETECTOR, FOR THE THIRD TIME TODAY, WAS AN EMPTY POSITIVE ARM
+**It noticed the loss because the ecliptic suite PRINTED NOTHING while the other two printed passes.**
+⇒ **Third time today that an absent positive arm was the tell — and the first time it was visible
+only because the multi-suite output had been built to print all arms side by side.**
+⇒ ⭐ ***THE HABIT OF PRINTING EVERY ARM PAID OUT IN A DOMAIN IT WAS NOT DESIGNED FOR.***
