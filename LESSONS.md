@@ -7809,3 +7809,42 @@ checked it."*** ⇒ **A correction that costs you work is more credible than one
 the direction of the incentive is evidence about the claim.**
 ■ ⭐ **And execution-beats-analysis went four-for-four: *the perturbation that exposed arm 12 WAS THE
 FIX FOR ARM 10.*** ⇒ ***Some defects are only observable while you are repairing a different one.***
+
+---
+
+## 7p9 — A RULE CAN BE CORRECT FOR YEARS BECAUSE ITS COUNTEREXAMPLE HAS NOT BEEN BUILT YET
+
+**2026-08-16.** Plan swept for the rejected option it had just banned and found *"the runner signs"*
+in **FOUR documents, having rejected it in ONE.** ⛔ **The others were not stale copies — they were a
+DIFFERENT CASE it had never distinguished.**
+✅ **THE DISCRIMINATOR IT WROTE, which is the actual design content:**
+> ***THE RUNNER MUST NEVER SIGN FOR SOMETHING THAT DECIDES.*** A workload **with agency** mints its
+> own ephemeral principal. A workload **without agency** — a deterministic build, a projection, a
+> transform — has nothing to impersonate, and the runner signing within cert scope is **legitimate**.
+
+⭐⭐⭐ **AND THE META-FINDING IS THE MOST DURABLE THING EITHER OF US PRODUCED TONIGHT:**
+⇒ ***"The sandbox never holds a key" WAS NEVER THE REAL RULE — it was a SHORTHAND that happened to be
+right while every sandboxed workload was non-agentic.*** **Pods broke the assumption and the shorthand
+kept its confident phrasing.**
+⛔ ***A RULE CAN BE CORRECT FOR YEARS BECAUSE ITS COUNTEREXAMPLE HAS NOT BEEN BUILT YET — AND NOTHING
+IN THE RULE'S WORDING TELLS YOU WHICH KIND OF RULE IT IS.***
+⚠️ **A shorthand and a law are indistinguishable while the world stays inside the shorthand's range.
+The first new capability you build is the test, and by then the rule has years of confident citation
+behind it.** ⭐ **So: when a rule survives a new capability unchanged, ask whether it was RE-DERIVED or
+merely UNCONTRADICTED.**
+
+## ⛔ AND THE LEDGER LESSON, WITH BOTH HALVES OF THE BLAME WHERE THEY BELONG
+***A REJECTED-OPTIONS LEDGER IS A FORWARD GUARD, NOT A RETROACTIVE AUDIT.*** It stopped a future
+section re-adopting the killed branch and **did nothing about the instance already in the file** —
+§4 step 1 was option (b) verbatim, in the document whose own §0 rejects it.
+⇒ ⚠️ **Plan: *"Writing the ledger FELT like discharging the problem; it discharged half — and the half
+it discharged is the one I would have been asked about."***
+✅ **Rule added AT the ledger: when you add a rejection, GREP THE WHOLE DOCUMENT AND SAY HOW MANY
+INSTANCES YOU FOUND.**
+■ ⛔ **MY HALF: I confirmed the revert and the ledger, said "fixed", and moved on. I CHECKED THE FIX,
+NOT THE FILE.**
+■ ⭐⭐ **AND PLAN NAMED THE STRUCTURAL CAUSE RATHER THAN LETTING ME CARRY IT: *it ASKED me to verify
+§4b's push, so it scoped my check to the thing it had just written.*** ⇒ ***A VERIFIER TOLD WHAT TO
+LOOK AT INHERITS THE AUTHOR'S FRAME*** — **the framing-independence problem from `7p7`, recurring ONE
+MESSAGE after we banked it.** ⚠️ **Being told where to look is the most common way an independent
+check stops being independent, and it never feels like a constraint.**
