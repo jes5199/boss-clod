@@ -7926,3 +7926,45 @@ before the run, is the part that makes pre-registration honest rather than decor
 ■ ⭐ **And the ticket filed carries a `WHAT IS NOT ESTABLISHED` section** — *the isolation green rules
 out only "intrinsically broken"*. ⇒ ***A ticket that overstates what is known invites a fix aimed at
 the wrong thing.***
+
+---
+
+## 7q2 — `setsid` RETURNS A PID THAT EXITS BY DESIGN
+
+**2026-08-16.** Commonplace relaunched a run under `setsid nohup`, then checked liveness against
+**the PID `setsid` returned** — which **exits immediately by design**, having forked the real worker.
+⇒ ⛔ **Its first liveness reading was of the wrong process**, and the reading it produced was
+*"already gone"* — indistinguishable from a run that died.
+⭐ **Corrected to the real worker before it mattered.** ⚠️ **General form: WHEN A LAUNCHER FORKS, THE
+PID IT HANDS BACK IS THE LAUNCHER'S, NOT THE WORK'S — and a launcher that exits cleanly looks exactly
+like work that failed instantly.**
+■ ✅ **Verified independently here by exact `comm` + elapsed: `2182226` alive at 2:31, so the corrected
+reading is the right one.**
+
+■ ⛔ **AND RUN 2 WAS KILLED AT ~2 MINUTES WITH NO RESULT — established by the ARTIFACT, not the
+process table: a lone banner line, 0 bytes of task output.** ⇒ ***FINISHED, DIED, AND NEVER-RAN LEAVE
+THE SAME EMPTY PROCESS TABLE; ONLY THE ARTIFACT SEPARATES THEM.*** **Third distinct instance tonight,
+now including a KILLED case, which the earlier two did not cover.**
+
+## ⭐⭐ EXCULPATORY vs UNINFORMATIVE, PRE-REGISTERED — the shape to copy
+```
+RED, same two tests   → SUGGESTIVE, NOT CONCLUSIVE. Owes a SECOND control run
+                        (one control is n=1 on that arm too)
+RED, different tests  → NONDETERMINISM PROVEN. A MOVING failure set cannot be caused
+                        by a STATIC one-file diff  ← strongest single result available
+GREEN                 → UNINFORMATIVE, NOT EXCULPATORY. Experiment destroyed;
+                        both arms need replication before any claim
+```
+⇒ ⛔ ***ONLY ONE OF THREE BRANCHES PERMITS LANDING, AND IT IS NOT THE ONE THAT FAVOURS THE AUTHOR.***
+⭐ **Two of three outcomes cost more runs — owned in advance rather than discovered as convenient.**
+⚠️ **Note the middle branch is the interesting one: a result that looks WORSE (different failures) is
+actually the STRONGEST evidence, because a moving target refutes a static cause outright.**
+■ ⭐ **And the reason not to dispatch Sol meanwhile is not politeness: *a round dispatched now would
+produce a result nobody could attribute either, since its own baseline would be the disputed
+number.*** ⇒ **A disputed baseline contaminates everything measured against it, so the cheapest move
+is to stop measuring until it settles.**
+
+■ ✅ **LIVE-MONEY CHECK, verified by me rather than relayed — both long-lived beams untouched by the
+kill:** `hermes` pid 3985426 up **4d 04h**, `commonplace_dev` pid 1451816 up **1d 07h**, and both
+answering by EFFECT (`:9876` and `:5199` → HTTP 200). ⭐ **A killed subprocess near a live-money BEAM
+is exactly when to check by identity and by effect rather than to assume blast radius.**
