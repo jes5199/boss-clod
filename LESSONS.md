@@ -8289,3 +8289,51 @@ EVENT FOR THE BLOCK — not only every new red.**
 `0 lines`, which my control caught (0 lines = missing path, not empty file).** ⇒ **Real path had no
 `store/` segment.** ⚠️ ***The control is now catching my path errors faster than I make them, which is
 the only reason a false "the fix is not there" did not go out.***
+
+---
+
+## 7r1 — A TEST CAN BE WEAK FOR ONE JOB AND STRONG FOR ANOTHER
+
+**2026-08-16, pod custody.** I warned that the tempting weak form was *"proving a NAME IS ABSENT FROM
+A LIST"* — and that was **literally the pre-existing state**:
+`assert Enum.map(spec.masks, & &1.name) == [:node_signing_key, …]` — atom names on a **spec**,
+proving nothing about a **running pod**.
+⭐⭐ **BUT COMMONPLACE CORRECTED THE JUDGEMENT, AND THE CORRECTION IS THE ENTRY:** ⇒ ***"I had filed
+it as weak BECAUSE it tests names. It is weak as a CUSTODY proof and STRONG as a DRIFT DETECTOR — it
+would have caught my rename. Two different jobs, and I was judging it against the wrong one."***
+⇒ ⛔ **"This test is weak" is not a property of the test. It is a property of the CLAIM you are asking
+it to support.** ⭐ **Before deleting or replacing an assertion, name the job it *does* do — the
+replacement may not cover it.**
+
+## ⛔⛔ MY TAMPER DID NOTHING — "PROVE YOU DISABLED X" FAILING AGAIN
+**Commonplace's first tamper renamed the mask's `name:` label and got `7 tests, 0 failures`, and it
+nearly concluded the arm could not detect an unmasked key.** ⇒ **`path:` and `operation:` were
+untouched, so bwrap still bound `/dev/null` over the real path.** ⭐ ***A LABEL WAS CHANGED, NOT A
+BEHAVIOUR.***
+✅ **Re-tampered the PATH, with a control that the tamper reached the source:**
+```
+mask path repointed  ⇒  7 tests, 1 FAILURE, observed  left: "readable:…
+restored             ⇒  identical to base, 55 / 0
+```
+⇒ ⭐ ***A TAMPER TEST NEEDS ITS OWN POSITIVE CONTROL: prove the tamper CHANGED THE THING UNDER TEST,
+not merely that you edited a file.*** ⚠️ **Second time tonight "prove you disabled X" failed in the
+hands of the person doing the disabling.**
+
+## ⭐⭐⭐ AND THE PROOF-BY-VALUE STANDARD, MET IN FULL
+```elixir
+assert durable_private_key_encoded != ""            # the durable key GENUINELY EXISTS
+assert report["durable_key"] == "masked:eacces"
+refute String.starts_with?(report["durable_key"], "check_failed:")   # not "the check did not run"
+assert pod_public_key != durable_public_key         # BY VALUE
+assert :crypto.verify(…, [pod_public_key, …])       # verifies with the POD key
+refute :crypto.verify(…, [durable_public_key, …])   # REJECTS with the DURABLE key
+```
+⇒ ⭐ **That first line is *prove the corpus was non-empty* applied to THE THING BEING MASKED** —
+**without it, masking a key that DOES NOT EXIST would pass.**
+■ ⭐ **The pod mints, RE-READS FROM DISK, and signs with what actually PERSISTED — verify-by-re-read
+inside a sandbox.**
+■ ⭐⭐ **AND THE NEAR-MISS IS THE DISCIPLINE AT ITS BEST: the first run returned `check_failed::eacces`,
+DISPROVING its own expectation of an empty `/dev/null` read — and it created `masked:eacces` as
+SEPARATE VOCABULARY rather than folding access-denied into check-failed.** ⇒ ***The distinguishability
+requirement honoured exactly when the observation surprised it***, which is the only moment it costs
+anything.
