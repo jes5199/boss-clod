@@ -9058,3 +9058,52 @@ throwaway private halves shredded — 0 remaining, verified BY COUNT not by inte
 a check; this one has now returned false twice, FOR TWO DIFFERENT REASONS.** ⚠️ **And shredding the
 throwaways matters for a reason beyond secrecy: *a discarded private key sitting in a scratchpad
 beside a ceremony discussion is the artifact that gets MISTAKEN FOR THE REAL ONE later.***
+
+
+## 7s9 — ⭐⭐⭐ THE TRAP FIRED FOR REAL **ONE ROUND** AFTER WE ARGUED IT IN THE ABSTRACT
+
+**2026-08-16, 19:17.** S98 landed. **The MUD entry — green at 3553 an hour ago, and which commonplace
+insisted must NOT be deleted for being green — is RED AGAIN AT 3563.**
+```
+3541 → 2 · 3546 → 1 · 3548 → 1 · 3553 → 0 · 3563 → 1
+```
+⇒ ⛔ ***HAD IT BEEN DELETED AT 3553, S98 WOULD HAVE BEEN TOLD BY OUR OWN RULE THAT THE FAILURE WAS ITS
+OWN, AND WOULD HAVE HUNTED A DEFECT THAT IS DAYS OLD.*** ⭐ **The block's claim is now DEMONSTRATED
+rather than argued, and the gap between the argument and its vindication was ONE ROUND.**
+⚠️ ***A hypothetical harm that arrives within the hour is not a hypothetical — it is a base rate
+nobody had measured.***
+
+## ⛔⛔ AND THE INVERSE HARM, WHICH I HAD NOT NAMED: **INVENTION** vs **OMISSION**
+**commonplace's 4a brief listed `GitBridge.ServerTest` as a known red — ⛔ NOT IN MY FILE (verified: 0
+occurrences, with the three real entries as the positive control at 4/1/1) — and OMITTED the three
+that are.** It had copied the block from its PREVIOUS BRIEF, which predates my file.
+```
+OMISSION  ⇒ a round CLAIMS a defect that was never its own
+INVENTION ⇒ a round DISOWNS one that IS
+```
+⇒ ⭐⭐ ***MY FILE'S HEADER WARNS ABOUT OMISSION ONLY. The invention direction is the more dangerous
+one, because the round's error is INACTION and inaction leaves no artifact to review.***
+
+## ⛔⛔⛔ AND THE RULE IT VIOLATED WAS ITS OWN, WRITTEN THAT AFTERNOON, IN BOLD, IN THE TEMPLATE
+**`BRIEF-TEMPLATE.md` says: *"PASTE THE KNOWN-REDS BLOCK FROM /home/jes/boss-clod/KNOWN-REDS.md. DO
+NOT RETYPE IT FROM MEMORY OR FROM THE PREVIOUS BRIEF."*** ⇒ ⛔ **VIOLATED IN THE FIRST BRIEF WRITTEN
+FROM THE TEMPLATE.**
+⇒ ⭐⭐⭐ ***A RULE THAT IS WRITTEN DOWN, CORRECT, BOLD, AND YOURS STILL DOES NOT FIRE IF IT DEPENDS ON
+YOU CHOOSING TO OBEY IT. THE TEMPLATE WAS AN ARTIFACT THAT CARRIED A RULE — IT WAS NOT A CHECK.***
+✅ **Now a command, `3c9f8abc`: `bin/cp-brief-known-reds --check <brief>` diffs a brief's block against
+the source IN BOTH DIRECTIONS — missing entries AND invented ones. Both arms demonstrated.**
+
+## ⚠️ TWO SELF-CATCHES INSIDE THE GATE'S OWN CONSTRUCTION, both today's laws turned on the builder
+- ⛔ **The first tamper test was a NO-OP** — the `sed` pattern missed the real indentation, `diff`
+  returned 0 lines, and its `rc=0` proved nothing. ⇒ ***A TAMPER TEST NEEDS ITS OWN POSITIVE CONTROL:
+  you must prove you actually broke the thing before its rejection means anything.***
+- ⛔ **The first check GREPPED THE WHOLE BRIEF** and flagged a test name appearing only in PROSE
+  explaining the defect. ⇒ **The FIFTH prose-counting instance today, inside a gate written five
+  minutes earlier.** ✅ Scope is now the block, not the file.
+
+## ⚠️ AND MY OWN SIXTH PATTERN MISS, SAME HOUR
+**My header replacement silently did nothing — the pattern lacked the line's leading indentation.**
+✅ **Caught only because I printed the line afterwards.** ⇒ ⛔ **And my follow-up control asserted
+`grep -c 'CURRENTLY NOT FIRING'` MUST be 0; it returned 1 — from the CHANGELOG, where the phrase is
+correct as a historical record.** ⇒ ⭐ ***THE CONTROL'S EXPECTATION WAS WRONG, NOT THE FILE. A control
+that has never been wrong has never been examined.***
