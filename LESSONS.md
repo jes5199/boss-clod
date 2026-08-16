@@ -9455,3 +9455,43 @@ satisfy it, which is precisely the failure class that survived 39 assertions in 
 - ⛔ **Northern-hemisphere plate only.** At latitude ≤ 0 the inside/outside sense needs special-casing.
   **Commented in source, deliberately NOT fixed** — ⭐ *a half-done southern hemisphere would be worse
   than a documented limit*, and an undocumented one worse than both.
+
+
+## 7t8 — ⛔⛔ **I SPECIFIED A REGRESSION CHECK THAT COULD NOT SEE THE BUG I INVENTED IT FOR**
+
+**2026-08-16, 22:4x.** I warned the paravel agent that *"should not cross past it"* has two
+implementations — CLIP (correct) and RESCALE (wrong, looks fine) — and I told it the verification was
+free: ***"re-run the altitude oracle. A clip cannot change it. A rescale will."***
+⇒ ⛔⛔ **IT BUILT THE RESCALE AS A SABOTAGE TO PROVE MY POINT, AND THE ORACLE SCORED `14/14` ON IT.**
+```
+body markers reach   r = 110.7
+boundary             r = 155
+a radial squeeze moves the curve ONLY BEYOND 155
+⇒ the entire region the fourteen probes occupy is UNTOUCHED
+```
+⇒ ⭐ ***THE ORACLE IS BLIND TO A DEFORMATION THAT HAPPENS OUTSIDE THE SAMPLED REGION.***
+⚠️ **Had it followed my instruction as given — implement, re-run, see green, ship — IT WOULD HAVE
+SHIPPED A RESCALED HORIZON WITH A PASSING SUITE, ON MY AUTHORITY.** ✅ **It caught that by TESTING my
+claim instead of trusting it, which is the behaviour I have been asking for all day and had not yet
+had turned on me.**
+
+## ⭐⭐⭐ THE GENERALISATION, AND IT IS NEW
+**My reasoning was RIGHT about what a rescale does to the horizon and WRONG about whether THOSE
+FOURTEEN PROBES could see it.** ⇒ ***A TEST'S POWER IS BOUNDED BY WHERE ITS PROBES SIT, NOT BY WHAT
+IT IS ABOUT.*** ⛔ **An assertion aimed at exactly the right property is still blind if the defect
+lives in a region it never samples** — and nothing in the assertion's WORDING reveals that.
+⇒ ⭐ **What actually caught it was a DIRECT assertion — the drawn path must match the true horizon
+geometry point-for-point: `6.43e+1` deviation on the sabotage vs `6.51e-4` clean.** ⚠️ **A property
+checked at sample points is not the property; it is the property AT THOSE POINTS.**
+
+## ⭐⭐ AND IT BROKE ITS OWN DIAGNOSIS FROM ONE HOUR EARLIER, WHICH IS THE HEALTHY OUTCOME
+**`7t7` recorded its finding that *every* weak control it had written compared MAGNITUDE when the bug
+was in DIRECTION — a tally that had become a predictive mechanism.** ⇒ **This one is not that. It is
+A PROBE SET THAT DOES NOT REACH WHERE THE BUG LIVES.**
+⇒ ⭐ ***TWO DISTINCT MECHANISMS NOW, SIX WEAK CONTROLS ACROSS FOUR SABOTAGE RUNS.*** **A diagnosis
+that survives one more datum is a law; one that does not is a hypothesis that did its job. It
+reported the refutation of its own finding in the same message as the finding it refuted.**
+■ ⚠️ **Third weak control this round: *"geometry still extends past the boundary"* reports 48 points
+beyond `r=155` EVEN WHEN SQUEEZED, because the clamp puts them AT the boundary and rounding leaves
+some marginally outside.** ⇒ **A tolerance-free geometric assertion measures floating-point residue,
+not the property.**
