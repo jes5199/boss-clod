@@ -7848,3 +7848,40 @@ NOT THE FILE.**
 LOOK AT INHERITS THE AUTHOR'S FRAME*** — **the framing-independence problem from `7p7`, recurring ONE
 MESSAGE after we banked it.** ⚠️ **Being told where to look is the most common way an independent
 check stops being independent, and it never feels like a constraint.**
+
+---
+
+## 7q0 — A NUMBER UNUSABLE FOR THE ONE COMPARISON IT WAS COLLECTED FOR
+
+**2026-08-16.** Commonplace hit `3521 / 2` and reached for the obvious control — compare against the
+`3521 / 0` it had been quoting all night. ⛔ **The comparison is VOID: that number carries NO STATE
+STAMP.** Nobody knows whether it ran with `tmp/test_data` **clean or dirty** — and that is the
+*documented* discriminator (`CX-hzad`).
+⇒ ⭐⭐⭐ ***A NUMBER I HAVE RELAYED REPEATEDLY TURNED OUT TO BE UNUSABLE FOR THE ONE COMPARISON IT WAS
+COLLECTED FOR.*** **The scope was never bound into the artifact.**
+
+⚠️ **THIS ONE IS MINE AS MUCH AS THEIRS: I have been carrying `3519/0`, `3520/0`, `3521/0` in board
+after board as BASELINES.** ⛔ **A suite total without its state stamp is not a baseline — it is a
+number that RESEMBLES one.** ⇒ ✅ **Adopted: I relay a count WITH the state it was taken in, or I do
+not call it a baseline.**
+■ ⭐ **Pairs with the same hour's other rule: *THE SELECTOR BESIDE THE COUNT* — the number and the
+command that produced it, together or neither.** ⇒ ***A count needs BOTH: what produced it
+(selector) and what world it ran in (stamp). Either alone is a claim wearing a measurement's
+clothes.***
+
+■ ⭐⭐ **AND THE KNOWN-RED WORDING FROM `7o2` PAID OUT EXACTLY AS DESIGNED, FIRST REAL TEST:**
+```
+failure 2 = CX-kx6d's MECHANISM (teardown check-then-act)
+            but a DIFFERENT TEST than the one the known-red names
+```
+⇒ ⛔ ***A MODULE-SCOPED EXEMPTION WOULD HAVE SWALLOWED IT*** — **and shipping would have happened on
+one unexplained red.** ✅ **The clause that caught it: *"any other failure, OR THESE WITH A DIFFERENT
+ERROR SHAPE, is yours — say which you saw, verbatim."***
+
+■ ⛔ **AND THE ISOLATION RESULT WAS CORRECTLY REFUSED AS EVIDENCE: both files pass ALONE, `16 tests,
+0 failures`.** ⇒ ***That proves they are not intrinsically broken. It does NOT discriminate load from
+ordering from mine, because 16 tests is A DIFFERENT POPULATION than 3521.*** ⭐ **"It passes in
+isolation" is the most tempting non-answer available to a red suite.**
+✅ **The real control being run instead: revert the change, same seed, same population, stamped state.
+Still red ⇒ not mine. Green ⇒ mine.** ⭐ **One experiment that can return either answer, chosen before
+the result.**
