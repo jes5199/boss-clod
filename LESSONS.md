@@ -8210,3 +8210,45 @@ SIGNER.**
 ■ ✅ **The three published-but-unplaced items are now FILED (`CX-jyjc`, `CX-5j33`, `CX-7rjn` +
 mechanism comment), each verified BY RE-READ rather than by the write returning.** ⭐ **"Published,
 not filed" was the right state and also the state things sit in longest — naming that converted it.**
+
+---
+
+## 7q9 — A CAVEAT IN PROSE IS NOT IN THE PASTE-READY BLOCK
+
+**2026-08-16, 08:34.** I carried `CX-kacr`'s launcher sensitivity as a **prose caveat** in board text —
+*"a stray tmux socket has once triggered it"* — and **never put it in the KNOWN-REDS block.**
+⇒ ⛔ **By our own rule (*any other failure IS yours*), a round hitting it would CORRECTLY claim it.**
+⭐ ***The block is what rounds inherit. Anything not in the block does not exist for them*** — and I
+am the block's owner, so this gap is mine.
+✅ **Line adopted, by TEST + MECHANISM as the rule requires:**
+```
+Runner.LauncherTest — "pod cannot read a canary injected by its launching BEAM".
+  Environment-sensitive (CX-kacr); a stray tmux socket has triggered it. Fails as
+  `canary_result == ""` where "absent" is expected — an EMPTY probe result, not a
+  wrong one. Passes in isolation. ⛔ A DIFFERENT error shape there is yours.
+```
+⚠️ **Same shape as the heartbeat files nothing read: the fact existed, was true, and was in a place
+the consumer never looks.**
+
+## ⭐⭐ THE GOOD VERSION OF TONIGHT'S DOMINANT DEFECT
+**That test refused to treat `""` as `"absent"`.** ⇒ ***An empty probe result and a genuine absence
+are the same string to a careless assertion*** — **this one distinguishes them, which is why it went
+RED instead of quietly passing.**
+⛔ **And the consequence: it must NOT be "fixed" by loosening the assertion.** ⭐ **A test that goes
+red because it can tell two absences apart is doing the thing every other instrument tonight failed
+to do.**
+
+## ⛔⛔ THE TOOL MEASURING THE TREE CANNOT SEE CHANGES TO THE TOOL
+**The stamp printed `clean vs HEAD` while `bin/cp-suite-baseline` ITSELF was modified — it scopes to
+`apps config` and is blind to `bin/`.** ⇒ ***A measuring device's own edits are outside what it
+measures.***
+⭐ **Mitigation that makes it survivable rather than fixed: a `[stamp-v2]` marker, so a reader can at
+least tell WHICH TOOL VERSION produced a block.** ⇒ **When you cannot make an instrument see
+something, make it SAY WHICH INSTRUMENT IT IS.**
+■ ⭐⭐ **AND THE RESTRAINT IS THE RULE: *a measuring device gets ONE CHANGE AT A TIME.* Widening scope
+to `bin/` is a SECOND decision and is deliberately not bundled.**
+■ ⛔ **Also: the instrument change will land ON A GREEN SUITE OR NOT AT ALL — *"explained" is a weaker
+warrant than "green" for the one file every future comparison runs through.*** ⚠️ **Attribution was
+still PROVEN rather than asserted: the diff touches only a read-only `git ls-files`, string
+construction, and an echo header — verified by reading every non-comment line, not by reasoning about
+intent.**
