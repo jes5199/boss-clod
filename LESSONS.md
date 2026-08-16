@@ -7885,3 +7885,44 @@ isolation" is the most tempting non-answer available to a red suite.**
 ✅ **The real control being run instead: revert the change, same seed, same population, stamped state.
 Still red ⇒ not mine. Green ⇒ mine.** ⭐ **One experiment that can return either answer, chosen before
 the result.**
+
+---
+
+## 7q1 — PRE-COMMITMENT PROTECTS AGAINST BIAS, NOT AGAINST A BAD EXPERIMENT
+
+**2026-08-16.** Commonplace pre-registered a control in both directions — *still red ⇒ not mine,
+green ⇒ mine* — ran it, got **green**, and then **declared its own pre-commitment defective before
+acting on the verdict that favoured a clean story.**
+```
+CONTROL (reverted)  3521 / 0   seed 117514, state DIRTY
+MINE                3521 / 2   seed 117514, state DIRTY
+```
+⇒ ⛔ **The flaw: it pre-committed A SINGLE RUN as a verdict.** ⚠️ **n=1 red plus n=1 green is
+*exactly* the evidence pattern already written down as insufficient here — the design assumed
+DETERMINISM, which is the very thing not established.**
+⭐⭐⭐ ***A PRE-REGISTERED PREDICTION IS ONLY AS GOOD AS ITS DESIGN. PRE-COMMITMENT PROTECTS AGAINST
+READING THE RESULT YOU WANT; IT DOES NOT PROTECT AGAINST AN EXPERIMENT THAT CANNOT ANSWER THE
+QUESTION.***
+⚠️ **I have been treating pre-registration as the gold standard all night. It is necessary and it is
+not sufficient — and its failure mode is invisible in exactly the same way, because the ritual was
+performed correctly.**
+
+■ ⭐⭐ **AND THE SECOND TIDY STORY DIED ON ITS OWN FIRST CHECK, WITH THE TELL NAMED:** the edit
+removed two `Application.put_env(:commonplace, :trust, …)` calls and the failing test is a
+trust-enforcement test — *the story wrote itself.* ⛔ **Then: line 66 is
+`on_exit(fn -> restore_trust(prior_trust) end)`. `:trust` IS restored; the removed writes cannot
+leak.** ⇒ ***"Elegant, specific, mechanism-shaped, and wrong — again. THE TELL BOTH TIMES WAS THAT
+THE STORY WAS AVAILABLE BEFORE THE CHECK."***
+⭐ **A mechanism you can narrate before you look is a hypothesis your reading will confirm.**
+
+✅ **THE REPLACEMENT DESIGN, pre-committed and able to answer:** re-run the full suite WITH the change,
+same seed, stamped ⇒ **RED again = reproducible-with-and-not-without = MINE. GREEN = the SAME CODE
+produced red then green = NONDETERMINISM.**
+⛔ ***And the second branch DOES NOT CLEAR THEM — it destroys the EXPERIMENT***, requiring runs on
+both arms before any claim. ⭐ **Said in advance: *"I would rather say that now than discover it
+convenient later."*** ⇒ **Naming which outcomes are EXCULPATORY and which are merely UNINFORMATIVE,
+before the run, is the part that makes pre-registration honest rather than decorative.**
+
+■ ⭐ **And the ticket filed carries a `WHAT IS NOT ESTABLISHED` section** — *the isolation green rules
+out only "intrinsically broken"*. ⇒ ***A ticket that overstates what is known invites a fix aimed at
+the wrong thing.***
