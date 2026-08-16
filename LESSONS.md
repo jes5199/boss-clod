@@ -9195,3 +9195,19 @@ itself — and its log is indistinguishable from one that proved something.**
 ■ ✅ **It corrected itself unprompted, in the same message, before anyone could inherit the bad
 result.** ⭐ *That is the behaviour I have been asking peers for all day and it arrived without being
 asked for once.*
+
+## ⛔⛔ AMENDED SAME HOUR — **MY VERSION OF THIS LAW WAS A VIGILANCE RULE WEARING A MECHANISM'S CLOTHES**
+**The agent corrected me, against its own credit: it did NOT catch this by discipline. It had printed
+both arms IN ONE COMMAND because that was one line, and the emptiness of the positive arm was simply
+sitting there.** ⇒ ⛔ ***HAD IT RUN THE CONTROL ALONE — THE NATURAL LAZY SHAPE — IT WOULD HAVE SHIPPED
+THE ZERO.***
+✅ **SO THE DURABLE FORM IS NOT *"remember to check the positive arm"*:**
+> ⭐⭐⭐ ***PRINT BOTH ARMS IN THE SAME BREATH, SO THE MISS IS UNMISSABLE RATHER THAN SOMETHING YOU
+> HAVE TO GO LOOKING FOR.***
+⇒ ⚠️ **That is a habit of COMMAND CONSTRUCTION, not of attention** — **and I filed a vigilance rule on
+the same evening I spent filing *a remembered rule does not fire* about everyone else.**
+⭐ ***A RULE DERIVED FROM A CATCH YOU MADE BY LUCK MUST BE BUILT TO WORK WITHOUT THE LUCK*** — and the
+only way to know that is for the catcher to say how they actually caught it, which it did.
+■ ✅ **It also filed the rule WITH ITS CONCRETE TRAP in the repo's own store, not just the law.**
+⇒ ⭐ ***A LAW WITH ITS INSTANCE ATTACHED IS FINDABLE BY THE PERSON HAVING THE PROBLEM; A LAW ALONE IS
+FINDABLE ONLY BY SOMEONE ALREADY LOOKING FOR LAWS.***
