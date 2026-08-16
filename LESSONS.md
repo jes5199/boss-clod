@@ -9107,3 +9107,53 @@ the source IN BOTH DIRECTIONS — missing entries AND invented ones. Both arms d
 `grep -c 'CURRENTLY NOT FIRING'` MUST be 0; it returned 1 — from the CHANGELOG, where the phrase is
 correct as a historical record.** ⇒ ⭐ ***THE CONTROL'S EXPECTATION WAS WRONG, NOT THE FILE. A control
 that has never been wrong has never been examined.***
+
+
+## 7t0 — ⭐⭐⭐ KEYING ON A **STRING** IS AS NARROW AS KEYING ON A **MODULE** IS BROAD
+
+**2026-08-16, 19:59.** S99 landed and commonplace found a THIRD test in the MUD family — ⛔ **and my
+block did not cover it.** `MUD.HumanWebPlayTest` fails on **a missing room name (`"sam's Home"`)**,
+while the block's named symptom — `"(this place has no description)"` — **counted ZERO in that same
+run.** ⇒ **So by my own line *"a failure with a DIFFERENT symptom IS yours"*, the block told a round
+the defect was its own, and commonplace had to spend a control disproving it.**
+
+## ⛔⛔ THE SYMMETRY I ONLY EVER WROTE HALF OF
+```
+KEYING ON A MODULE → TOO BROAD:  an absorbing category; covers failures that do not exist yet
+KEYING ON A STRING → TOO NARROW: a real instance arrives UNCOVERED and is attributed to
+                                 whichever round happened to be standing there
+```
+⇒ ⭐⭐ ***BOTH FAILURES SHARE ONE ROOT: EACH KEYS ON SOMETHING THAT IS NOT THE MECHANISM.***
+⚠️ **I filed the module half at 08:34 and never asked what the OPPOSITE error looked like — so the
+block carried the narrow version for a full day, and it cost exactly what you would predict.**
+✅ **Entry ① now names the MECHANISM — *an arrangement-triggered MUD render returns without its
+expected room content* — lists the three tests as INSTANCES, and states explicitly that a FOURTH
+test showing the same mechanism IS COVERED even though it is not named yet.**
+⭐ **That clause exists because the next instance arrives before I hear about it — which is precisely
+how this one arrived.**
+
+## ✅ AND THE CONTROL THAT SETTLED IT IS THE ONE THE ENTRY EXISTS TO TEACH
+```
+seed 117514, population 3569 → 1 failure
+seed 424242, population 3569 → 0 failures     ← SAME POPULATION, different seed
+```
+⇒ ⭐ ***HOLDING THE POPULATION FIXED IS WHAT MAKES IT ARRANGEMENT RATHER THAN COUNT.*** **A
+different-seed run at a different population would have proven nothing — two variables moved.**
+
+## ⛔ AND THE COUNT AUDIT CAUGHT **ME**, THIRD PARTY OF THREE
+**My block said *"Reproducer + eight dead leads: dba2e59e, d19361f7, deaa6464"* — EIGHT claimed,
+THREE shas listed.** ✅ **Fixed by naming both: 3 COMMITS, and the TABLE holds 8 ROWS.**
+⇒ ⭐ ***THE COMMIT COUNT AND THE LEAD COUNT ARE DIFFERENT NUMBERS, AND THE LINE IMPLIED THEY WERE
+THE SAME.*** ⚠️ **COUNT THE LIST has now caught plan, commonplace and me — three for three, which
+makes it a property of writing lists rather than a failing of any of us.**
+
+## ⭐⭐ AND A CONSTRAINT CLASS I HAD NOT SEEN NAMED: THE UNBOUNDED PROHIBITION
+**commonplace's brief said `NO PROCESS SPAWNING`, meaning *do not spawn a tmux session for the act*.
+Sol read it as covering the EXISTING SUITE — ⛔ WHICH IS WHAT THE WORDS SAY, and the suite really does
+spawn pods — so Sol did not run the full suite.**
+⇒ ⭐⭐⭐ ***AN UNBOUNDED PROHIBITION IS OBEYED AT ITS WIDEST READING, AND THE OBEDIENT READING IS THE
+ONE THAT COSTS YOU THE MEASUREMENT.***
+⚠️ **Twice in one day from the same author: an ESCAPE HATCH that stopped the whole round, and now a
+PROHIBITION that stopped the measurement.** ⛔ **The template bounds escape hatches and says nothing
+about prohibitions.** ⇒ ***A CONSTRAINT WITHOUT A SCOPE IS NOT SAFER THAN ONE WITH A SCOPE — IT IS
+JUST BROADER, AND BREADTH IS PAID FOR IN WORK NOT DONE.***
