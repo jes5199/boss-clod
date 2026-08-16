@@ -9626,3 +9626,43 @@ bodies conjunct, which is a thing the sky does on its own schedule.**
 three tiers, DOCUMENTING IN SOURCE that size is a LEGIBILITY vocabulary and encodes nothing
 measurable.** ⇒ ***It declined to invent a meaning it would then have to defend for Venus*** — which
 is the enclosure habit applied to a visual channel.
+
+
+## 7u2 — ⭐⭐⭐ UPGRADING A CHECK FROM **BINARY** TO **GRADED** EXPOSED A DESIGN SIMPLIFICATION NOBODY WAS LOOKING FOR
+
+**2026-08-16, 23:2x.** Almucantars (equal-altitude rings every 10°) made the existing altitude oracle
+graded instead of binary. **I asked for that specifically: a body must now sit BETWEEN the two rings
+bracketing its API altitude, rather than merely inside or outside the horizon.**
+⇒ ⭐ **It found something real on the FIRST RUN — and not the bug it was aimed at:**
+```
+SUN     lat  0.000 -> error +0.005     VENUS   lat -1.585 -> +1.260
+MARS         0.313 -> -0.207           SATURN      -2.596 -> +1.959
+JUPITER      0.502 -> -0.449           MOON        -3.903 -> +3.751
+```
+⇒ ⛔ **Bodies are placed by ECLIPTIC LONGITUDE ONLY — a deliberate element-4 simplification, flagged
+at the time — so anything off the ecliptic draws at the wrong altitude BY ITS LATITUDE.**
+⭐ **The Sun, latitude exactly zero, lands within `0.005°`: the correlation is near-perfect.**
+⚠️ ***THE BINARY VERSION COULD NEVER SEE THIS. A ±4° altitude error almost never flips a body across
+a horizon*** — the check had to gain resolution before the class of error became visible at all.
+⇒ ⭐⭐ ***A TEST'S RESOLUTION IS A SEPARATE AXIS FROM ITS CORRECTNESS. The binary oracle was right,
+well-placed and green — and blind to a whole class of error purely by being coarse.***
+✅ **And the fix is sharper than a tolerance: each body's error is now held to THE LATITUDE THAT
+CAUSES IT, so scale, latitude or projection drift still goes red.**
+
+## ⭐⭐ AND THE UNEXPLAINED RESIDUE WAS REPORTED, NOT TUNED AWAY
+**At the night epoch the Moon's error is `4.839°` against a latitude of `4.276°`.** ⇒ ⛔ **Latitude
+CANNOT account for it — two points separated by angle B differ in altitude by at most B — so ~`0.56°`
+comes from elsewhere.** ⚠️ **Leading candidate: lunar parallax (~0.95° horizontal), the API perhaps
+reporting TOPOCENTRIC altitude alongside GEOCENTRIC longitude.**
+⇒ ⭐⭐⭐ ***IT SAID PLAINLY IT HAD NOT CONFIRMED THAT, AND THAT THE DAY EPOCH DOES NOT FIT ITS OWN
+MODEL — so it does not trust its own hypothesis yet.*** ✅ **And it gave the Moon an EXPLICIT EXTRA
+ALLOWANCE so the discrepancy stays VISIBLE IN THE CODE, rather than a rounder global tolerance that
+would have swallowed it.**
+⇒ ⭐ ***A TOLERANCE WIDE ENOUGH TO PASS IS ALSO WIDE ENOUGH TO HIDE. AN EXPLICIT PER-CASE ALLOWANCE
+KEEPS AN UNSOLVED THING UNSOLVED IN THE OPEN.*** **That is the enclosure habit applied to a number.**
+
+## ✅ AND IT REPORTED THE CLUTTER RATHER THAN QUIETLY THINNING
+**Ring spacing collapses from `29.7` units between 0°–10° to `1.1` between 70°–80°.** ⇒ **It drew what
+was asked at 10° and did NOT widen the step to make the result look better.** ⭐ ***HE SAID "LET'S
+TRY", WHICH MEANS HE WANTS THE RESULT OF THE THING HE ASKED FOR — a builder who silently improves the
+parameters returns an answer to a different experiment.***
