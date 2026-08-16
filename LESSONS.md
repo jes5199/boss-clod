@@ -9495,3 +9495,48 @@ reported the refutation of its own finding in the same message as the finding it
 beyond `r=155` EVEN WHEN SQUEEZED, because the clamp puts them AT the boundary and rounding leaves
 some marginally outside.** ⇒ **A tolerance-free geometric assertion measures floating-point residue,
 not the property.**
+
+
+## 7t9 — ⭐⭐ **"WE ALREADY HAVE ONE SOMEWHERE" IS A LEAD, NOT A FACT — AND THE OBVIOUS CANDIDATE WAS WRONG**
+
+**2026-08-16, 22:4x.** jes: *"I believe we already have a color scheme for that somewhere."* ⇒ **I told
+the paravel agent to treat that as a LEAD: go and find it, report the PATH so he can confirm it is the
+one he meant, and if it does not exist SAY SO rather than minting a palette and reporting "found it".**
+⇒ ✅ **It exists — `PLANETARY_HOUR_COLORS` in `src/chart/constants.ts`, already imported by the OLD
+clock at line 12.** ⛔ **AND THE OBVIOUS CANDIDATE WOULD HAVE BEEN WRONG.** It was ALREADY IMPORTING
+`PLANET_COLORS` for the bodies two elements earlier — the natural reach:
+```
+            PLANET_COLORS      PLANETARY_HOUR_COLORS
+VENUS       #FFB6C1 pink       #90EE90 light green
+MARS        #DC143C red        #FF6347 tomato
+JUPITER     #4169E1 blue       #9370DB purple
+SATURN      #191970 navy       #696969 gray
+SUN/MOON/MERCURY  identical
+```
+⇒ ⭐ **FOUR OF SEVEN DIFFER — and I verified both palettes out of the source myself rather than
+relaying the claim.** ⚠️ ***A WRONG PALETTE IS INVISIBLE: it renders, it is pretty, and nobody can see
+that these are the body colours rather than the hour colours.*** **Two objects with overlapping keys
+and a plausible name is the decoy shape that only reading catches.**
+
+## ⭐⭐ AND THE FILED-RULE FINDING, WHICH IS THE HONEST ONE
+**Its planetary-hours suite scored `7/12` on first run — five failures, ALL exact-equality assertions
+measuring `toFixed(6)` serialisation residue rather than arithmetic.** ⇒ ⛔ ***THAT IS PRECISELY THE
+THIRD BLINDNESS MECHANISM IT DOCUMENTED IN `tests/README.md` TWO ELEMENTS EARLIER, IN A FILE IT
+WROTE.***
+⇒ ⭐⭐⭐ **Its own verdict, and it is the sharpest thing said about artifacts all day:**
+> ***FILING A RULE DOES NOT STOP YOU TRIPPING THE TRAP; IT ONLY SHORTENS THE DIAGNOSIS.***
+✅ **It recognised the shape in seconds instead of hunting — real value — but ⛔ THE ARTIFACT PREVENTED
+NOTHING.** ⚠️ **I have spent today filing rules on the theory that a filed artifact FIRES. This is the
+correction: a filed rule fires at DIAGNOSIS time, not at WRITE time. To prevent, it has to be a CHECK
+that runs — which is `bin/counted` and `cp-brief-known-reds`, not `LESSONS.md`.**
+
+## ✅ AND TWO API FINDINGS REPORTED RATHER THAN PAPERED OVER
+- ⚠️ **wimble's daytime span ends `0.914 s` BEFORE its own Set event — same API, two endpoints,
+  disagreeing sub-second.** ✅ **It selects hours by MIDPOINT CONTAINMENT so the mismatch cannot drop
+  an hour at either end, rather than adjusting either source to match the other.** ⇒ ***When two
+  authorities disagree slightly, build so the disagreement cannot matter — do not pick a winner
+  silently.***
+- **`PlanetaryHour` is `{number, planet, start, end, isDaytime}`; first guesses at `ruler`/`kind`/
+  `index` all errored.** ⭐ **Rulers come FROM THE API, not from a locally reimplemented Chaldean
+  sequence — on an astrology site the ruler IS the meaning, and reimplementing it would be inventing
+  data that looks authoritative.**
