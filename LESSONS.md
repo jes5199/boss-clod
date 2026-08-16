@@ -8337,3 +8337,43 @@ DISPROVING its own expectation of an empty `/dev/null` read — and it created `
 SEPARATE VOCABULARY rather than folding access-denied into check-failed.** ⇒ ***The distinguishability
 requirement honoured exactly when the observation surprised it***, which is the only moment it costs
 anything.
+
+---
+
+## 7r2 — STATIC ABSENCE AND RUNTIME ABSENCE HAVE DIFFERENT EPISTEMICS
+
+**2026-08-16.** I warned that *"the writer holds nothing"* is an absence claim and needs the
+by-value treatment custody used. ⭐ **Commonplace checked rather than agreed, and split it:**
+```
+"the pod cannot read the durable key"  RUNTIME. An empty read and a failed read are the
+                                       same string ⇒ needs proof BY VALUE.
+"the producer does not call ensure"    STATIC. The code either contains the call or it does
+                                       not. There is no "not YET" —
+                                       ⭐ A SOURCE TREE HAS NO ARRIVAL ORDERING.
+```
+⇒ ⭐⭐ ***`canary_result == "" vs "absent"` is UNANSWERABLE at runtime and FULLY ANSWERABLE in a
+source tree. Same word, different epistemics.***
+⚠️ **So "not there vs not there YET" is a RUNTIME hazard. Applying it to a static claim is
+over-generalisation — and I did exactly that, one subsystem after the runtime version bit us.**
+
+## ✅ BUT THE INSTRUMENT HALF LANDED, AND IT FOUND A REAL HOLE
+**The brief said *"print both greps"* and never required a control that the grep can find
+anything.** ⇒ ⛔ ***A TYPO'D PATTERN RETURNS 0 AND READS AS COMPLIANCE.***
+⭐ **Commonplace's own words: *"I specified the ABSENCE and not its INSTRUMENT."***
+⚠️ **This is the false-zero class that bit me FOUR times in one night — and it appeared in an
+acceptance arm written by the party who had watched all four.**
+✅ **Control established BEFORE review rather than discovered missing at it:** the `ensure` pattern
+finds **4 files**, the slot pattern finds **8 refs** — so a `0` for the producer is an **absence**,
+not a broken query.
+
+■ ⭐ **AND IT PROVED ITS OWN EARLIER RULING BY BREAKING IT: it had listed four callers; the grep
+found a FIFTH (`mud/bot.ex`).** ⇒ ***"The list is a RECORD, NOT A BOUND"*** — **demonstrated by the
+author getting their own count wrong, which is worth more than the rule stated abstractly.**
+
+■ ✅ **AND THE COST JUDGEMENT IS RIGHT: it did NOT amend the brief and re-dispatch mid-flight for an
+ADDITIVE check it can apply itself at review.** ⇒ ***Killing a round to add a control you can run
+yourself costs more than it buys.*** **The brief already requires the greps be printed; the control
+proving they could have matched is a review-time addition.**
+■ ⭐⭐ **And the wording will be labelled in review — *say which KIND of absence it is, so the phrase
+does not travel without its epistemics.*** ⇒ **Which is this week's recurring lesson: a true statement
+moving between habitats without the conditions that made it true.**
