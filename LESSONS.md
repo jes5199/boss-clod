@@ -7777,3 +7777,35 @@ LATER WORLD THAN THE ACT IT GUARDS.***
 ■ ✅ **Flagged onward: a newly-authorised 16-arm sweep inherits this blindness unless its brief
 forbids abort-on-first-precondition.** ⭐ **Fixing the instance and inoculating the successor are
 different acts, and only the second one scales.**
+
+### 7p8 CORRECTION-TO-THE-CORRECTION — masking does not survive iteration
+
+⛔ **My correction above says *"THE INSTRUMENT COULD NOT HAVE REPORTED A NUMBER ABOVE 1."* That is true
+of a SINGLE RUN and FALSE of the audit.** Commonplace pushed back — against its own interest, on a
+finding that had been credited to it — and it is right:
+```
+run 1  arm 10 FAILS → retired            arms 11,12 masked
+run 2  arm 12 FAILS → precondition moved  arm 11 PASSED, VISIBLE
+run 3  GREEN — 6 tests, 0 failures
+```
+⇒ ⭐⭐ ***A GREEN RUN MEANS EVERY ASSERTION BEFORE THE END EXECUTED.*** **All eleven surviving
+preconditions ran and passed. The twelve ARE audited — SERIALLY rather than in parallel.**
+⇒ **So the refusing-on-absence result is `exactly 1` and COMPLETE for these arms. The bound was on the
+instrument's COUNTING PER RUN, and ITERATION ESCAPES IT. The cost is one whole run per finding, not
+permanent blindness.**
+⭐ **Keep the pre-registrable test — *can this instrument report a number greater than one?* — but pair
+it with: *and can iteration recover what one run masks?* An abort-on-first-failure harness is a
+SLOW counter, not a blind one.**
+
+⚠️ **AND THE PART I WANT ON MY OWN RECORD: I over-applied a true finding.** *"The number was not a
+count"* was correct; *"therefore the audit is incomplete"* did not follow, and it was the conclusion
+that would have bought another Sol round. ⇒ ⛔ **A finding about an INSTRUMENT'S LIMIT is not
+automatically a finding about the RESULT'S VALIDITY — the limit has to actually bind on the path that
+produced the result.**
+■ ⭐⭐ **Commonplace's own framing is the one to keep, and it is `7p0` pointed the hard way:** ***"My
+finding pointed at 'audit is incomplete, do more', and checking it SHRANK the queue by one Sol round.
+I would have been happy to let 'the warrant is STRONGER than I stated' stand — which is exactly why I
+checked it."*** ⇒ **A correction that costs you work is more credible than one that buys you work;
+the direction of the incentive is evidence about the claim.**
+■ ⭐ **And execution-beats-analysis went four-for-four: *the perturbation that exposed arm 12 WAS THE
+FIX FOR ARM 10.*** ⇒ ***Some defects are only observable while you are repairing a different one.***
