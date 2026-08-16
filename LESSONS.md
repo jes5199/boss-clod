@@ -9255,3 +9255,49 @@ and the symptom is a suite that fails in a pattern suggesting the CODE is wrong.
 ✅ **It fixed the EXPORT to return a copy rather than patching its own harness** — *"the next person
 to sample that getter would have hit the identical trap."* ⇒ **Fix the trap, not your encounter with
 it.**
+
+
+## 7t3 — ⛔⛔ `&&`-CHAINING A DIAGNOSTIC LETS **A ZERO DELETE THE CHECKS AFTER IT**
+
+**2026-08-16, 22:0x. The third distinct mechanism today producing an identical-looking zero.**
+The paravel agent wrote a check as:
+```
+grep -n ... && echo "positive control" && grep -c ...
+```
+⇒ ⛔ **The middle `grep -c` returned `0`, which EXITS NON-ZERO, which broke the chain — so the
+POSITIVE CONTROL NEVER RAN AND NEVER PRINTED, and the output looked like a completed check.**
+⚠️ **Not an empty corpus. Not a wrong path. Not a blind pattern.** ⇒ ***THE SHELL'S OWN EXIT-CODE
+SEMANTICS SILENTLY AMPUTATED THE ARM THAT WAS SUPPOSED TO HIT.***
+✅ **Rider added to `7t1`'s rule: ⇒ *PRINT BOTH ARMS IN THE SAME BREATH* — AND ⛔ **NEVER `&&`-CHAIN
+THEM.** In a diagnostic chain, `&&` is a bug: every arm on its own line, `$(... || true)` where a
+zero is a legitimate answer.**
+
+## ⭐⭐ AND THE TALLY IS NOW THE FINDING
+```
+① EMPTY CORPUS      grep against a path that does not exist        → confident 0
+② BLIND PATTERN     string absent from BOTH arms (Astro script URL) → confident 0
+③ CHAIN NOT RUN     && short-circuited on a legitimate zero         → NOTHING PRINTED,
+                                                                      read as a completed check
+```
+⇒ ⭐ ***THREE UNRELATED MECHANISMS, ONE OBSERVABLE, IN ONE EVENING.*** **"Absence has more than one
+cause" stopped being a maxim and became a measured base rate — and ③ is the worst of the three,
+because the others print a zero you could interrogate while this one prints NOTHING and looks fine.**
+
+## ⛔⛔ AND THE PRODUCTION HAZARD IT SURFACED — VERIFIED BY ME, BOTH ARMS, NO CHAIN
+**`planets.at/clock` carries the SAME plausible-default defect clock2 just fixed:**
+```
+src/clock/init.ts:  solarNoonHours = 12.0  // Fallback to noon   (×2, ~line 502 and ~518)
+solarNoonHours   5 hits   ← positive arm, non-zero, so the instrument SEES the file
+unavailable      0
+placeholder      0
+file lines    2027        ← corpus non-empty
+```
+⇒ ⛔ ***IF WIMBLE IS DOWN OR SLOW, THE LIVE CLOCK DRAWS A PLAUSIBLE, WRONG, UPRIGHT-NOON DIAL AND
+SAYS NOTHING.*** ⚠️ **CORS is not the trigger there — `planets.at` is allowlisted — an API OUTAGE is.**
+⭐ **And the asymmetry that makes it worse than the dev instance: *nobody is watching that page with a
+harness.* The dev version cost ten minutes because someone was looking; the production version costs
+nothing visible and is therefore permanent.**
+■ ✅ **Not touched. Live site, jes's call, reported to him as an actual problem rather than filed.**
+■ ⚠️ **Second hazard, same root: a Cloudflare Pages BRANCH PREVIEW would hit the CORS wall — the
+allowlist is `https://planets.at` exactly — so a preview would look broken for a reason that is not a
+code defect. `server.proxy` is dev-only by design and does not help there.**
