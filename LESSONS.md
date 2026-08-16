@@ -8252,3 +8252,40 @@ warrant than "green" for the one file every future comparison runs through.*** �
 still PROVEN rather than asserted: the diff touches only a read-only `git ls-files`, string
 construction, and an echo header — verified by reading every non-comment line, not by reasoning about
 intent.**
+
+---
+
+## 7r0 — A WRONG COMMENT DOES NOT MERELY FAIL TO HELP; IT REGENERATES THE DEFECT
+
+**2026-08-16, `CX-jyjc` landed.** `bin/cp-suite-baseline` carried the sentence:
+> *"only TRACKED modifications to compiled sources can change what a suite measures."*
+
+⇒ ⛔ **That sentence is WHY `--untracked-files=no` looked safe, and it is false — a new untracked test
+file moved the count `3521 → 3528` while the stamp said `clean`.**
+⭐⭐⭐ ***A WRONG COMMENT DOES NOT MERELY FAIL TO HELP — IT REGENERATES THE DEFECT, because the next
+reader RE-DERIVES it and undoes the fix.*** ✅ **Replaced with the measurement that refutes it, not
+with a softer claim.**
+⚠️ **This is the doc-drift family with a sharper edge: a stale comment near correct code is not
+inert, it is a SEED. Fixing the code and leaving the comment leaves the defect's instructions in
+place.**
+
+■ ✅ **AND THE FIX WAS NARROWED, NEVER REVERTED — the stamp now sees untracked files under
+`apps/*/test/` only, because reverting resurrects the scratch-file wolf-cry the flag was added to
+stop.** ⭐ **Plus `[stamp-v2]` on every block.** ⇒ ***Any v1 `clean vs HEAD` means "clean EXCEPT
+POSSIBLY FOR UNTRACKED TESTS" — which covers every stamped figure quoted through 2026-08-15/16,
+including all of mine.*** **A stamp that cannot be dated cannot be compared; now they can be dated.**
+
+## ⛔ MY BLOCK CARRIED AN ENTRY THAT WOULD HAVE MIS-ASSIGNED A REAL RED
+**`CX-7rjn`'s handler defect is FIXED at `2e693cd6`** — verified at source: the handler now filters on
+the emitting pid, described in-file as *"a principled filter, not a denylist of one known intruder."*
+⇒ ⛔ **My known-reds block still described it as ACTIVE. A round hitting that failure would have been
+told "⛔ Not yours" FOR SOMETHING THAT IS THEIRS.**
+⭐⭐ ***A known-red entry that outlives its fix is worse than a missing one: a missing entry causes a
+round to over-claim, a STALE one causes it to under-claim and ship.***
+✅ **Block corrected. And the general rule for the thing I own: EVERY FIX THAT LANDS IS A FRESHNESS
+EVENT FOR THE BLOCK — not only every new red.**
+
+■ ⭐ **AND MY OWN GREP FAILED AGAIN — 4th time: I checked the wrong path for the test file and got
+`0 lines`, which my control caught (0 lines = missing path, not empty file).** ⇒ **Real path had no
+`store/` segment.** ⚠️ ***The control is now catching my path errors faster than I make them, which is
+the only reason a false "the fix is not there" did not go out.***
