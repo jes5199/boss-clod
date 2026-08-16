@@ -9582,3 +9582,47 @@ hour.**
   asserting a fact about ORDER, contradicted by the code two lines away — and it may well be what
   prompted jes's numerals complaint.** ⚠️ ***A WRONG COMMENT IS WORSE THAN NO COMMENT: it is the
   reader's model, and it survives the reading that would have caught the code.***
+
+
+## 7u1 — ⛔⛔ `every()` ON AN EMPTY COLLECTION RETURNS **TRUE**: THE EMPTY-CORPUS BUG, INSIDE AN ASSERTION
+
+**2026-08-16, 23:1x.** The paravel agent's new marker-size checks read the SVG **after the final draw
+in the suite — which was the EMPTY-FETCH case.** ⇒ **`radii` was `{}`, and the assertion *"Mercury is
+the smallest marker"* scored PASS**, because `every()` over nothing is vacuously true.
+⇒ ⭐⭐⭐ ***THE FOURTH APPEARANCE OF THE EMPTY-CORPUS MECHANISM TONIGHT, AND THE FIRST INSIDE AN
+ASSERTION RATHER THAN A GREP.*** **Same defect, fourth costume:**
+```
+① a grep against a path that does not exist          → confident 0
+② a string absent from BOTH arms                     → confident 0
+③ an && chain that short-circuited on a zero         → nothing printed, read as complete
+④ every() over an empty object                       → GREEN TICK, read as verified
+```
+⚠️ **④ is the worst of the four: the others produce a zero or a silence you could interrogate. This
+one produces a PASS.**
+
+## ⭐⭐ AND THE ONLY REASON IT SURFACED IS AN ACCIDENT WORTH INSTITUTIONALISING
+**It was caught because two SIBLING checks printed `undefined` and failed loudly next to it.**
+⇒ ⭐ ***A VACUOUS PASS BESIDE A LOUD FAILURE IS SURVIVABLE; A VACUOUS PASS ALONE IS A GREEN TICK THAT
+MEANS NOTHING.*** ✅ **Fixed at the cause: re-draw with real positions, PLUS a corpus guard asserting
+seven radii were actually read — so an empty corpus can never score again.**
+⇒ ⚠️ **This is the same remedy as `bin/counted` and the same remedy as *print both arms in one
+breath*: ⭐ EVERY ASSERTION OVER A COLLECTION NEEDS A COMPANION ASSERTION ON THE COLLECTION'S SIZE.
+Not "check the corpus first" as a habit — a SECOND ASSERTION, in the same suite, that fails when the
+corpus is empty.**
+
+## ✅ AND THE GENERAL-RULE CALL, MEASURED RATHER THAN REASONED
+**I suggested paint-order-by-size instead of a hardcoded "Mercury after Jupiter", and asked what ELSE
+the general rule would change tonight.** ⇒ **It measured overlapping pairs by centre distance vs sum
+of radii:**
+```
+JUPITER & MERCURY  gap 3.4 < 9  -> ON TOP: MERCURY  (CHANGED)
+...and nothing else overlaps at all.
+```
+⭐ ***EXACTLY ONE PAIR OVERLAPS AND EXACTLY ONE APPEARANCE CHANGES — the one he asked about.***
+**So the general rule was free: it fixes tonight AND survives the next conjunction, with zero
+collateral.** ⚠️ **A hardcoded pair would have fixed tonight and failed silently the next time two
+bodies conjunct, which is a thing the sky does on its own schedule.**
+■ ⭐ **And on the size vocabulary: it already existed (luminaries 7, planets 5) and it extended it to
+three tiers, DOCUMENTING IN SOURCE that size is a LEGIBILITY vocabulary and encodes nothing
+measurable.** ⇒ ***It declined to invent a meaning it would then have to defend for Venus*** — which
+is the enclosure habit applied to a visual channel.
