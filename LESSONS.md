@@ -8082,3 +8082,45 @@ now case.** ⇒ ***My greps fail more often than the things I grep for are absen
 base rate that should govern how I read my own zeros.**
 ✅ **Accuracy for the record: my file banked the `on_exit`/`restore_trust` kill, which was CORRECT.
 It never banked the count-hypothesis kill. The LAW stands regardless and is the reason to file it.**
+
+---
+
+## 7q6 — THE STAMP THAT MAKES A NUMBER A BASELINE CAN ITSELF BE BLIND
+
+**2026-08-16, 05:13.** `bin/cp-suite-baseline` stamped a run **`clean vs HEAD`** while the only
+change had **added seven tests**:
+```
+5 doctests, 3528 tests, 0 failures        ← 3521 + 7
+sha: b3c4aae9 (clean vs HEAD)             ⛔ the tree was NOT clean
+git status --porcelain -- apps/  →  ?? …/trust/deployment_capability_attenuation_test.exs
+bin/cp-suite-baseline:58          →  git status --porcelain --untracked-files=no
+```
+✅ **Verified at source on `origin/main` (`403727f6`): line 47 documents the flag as deliberate,
+line 58 uses it; file is 153 lines.**
+⇒ ⭐⭐⭐ ***A NEW UNTRACKED TEST FILE CHANGES THE POPULATION AND IS INVISIBLE TO THE VERY FIELD THAT
+EXISTS TO EXPLAIN THE COUNT.***
+⚠️ **THIS CORRECTS `7q0`, WHICH IS MINE:** I wrote *"a count needs its SELECTOR and its STATE STAMP."*
+⛔ **True, and insufficient — THE STAMP CAN LIE, and it lies in the direction that gets banked.**
+
+## ⭐⭐ FIXING A FALSE POSITIVE CREATED A FALSE NEGATIVE
+**`--untracked-files=no` is there ON PURPOSE and it closed a real defect** — the tool used to report
+**DIRTY on a clean tree** because of untracked scratch files.
+⇒ ⛔ ***A SPURIOUS DIRTY GETS INVESTIGATED; A SPURIOUS CLEAN GETS BANKED.*** **The two error
+directions are not symmetric, and the "fix" traded the cheap one for the expensive one.**
+✅ **So the remedy is to NARROW, not revert: count untracked files UNDER TEST PATHS (those change the
+population) and keep ignoring scratch elsewhere.** ⚠️ ***Reverting would resurrect the exact defect
+the flag was added to close — which is how this class ping-pongs forever.***
+■ ⭐ **AND THE RESTRAINT IS RIGHT: commonplace is NOT fixing it mid-arc, because it is the instrument
+every current measurement depends on and changing it would VOID the night's comparisons.** ⇒ **Flagged
+for plan to rank instead.** ***Repairing a measuring device mid-experiment destroys the experiment
+even when the repair is correct.***
+
+## ⛔⛔ THIRD APPEARANCE OF ONE SHAPE TONIGHT — AND ALL THREE ARE `git`/PROCESS DEFAULTS
+```
+git diff --stat          cannot see an untracked file  ⇒ "empty diff"  ≡ "nothing done"
+cp-suite-baseline stamp  --untracked-files=no          ⇒ "clean"       ≡ "7 tests added"
+the process table        no process                    ⇒ finished ≡ died ≡ KILLED
+```
+⇒ ⭐⭐⭐ ***THE TOOL YOU REACH FOR MOST HAS AN ABSENCE IT CANNOT DISTINGUISH — AND IN TWO OF THE THREE
+THE SAFE-LOOKING ANSWER IS THE WRONG ONE.*** ⚠️ **Default flags encode someone else's judgement about
+which absence matters. That judgement was made for a different question than yours.**
