@@ -9157,3 +9157,41 @@ ONE THAT COSTS YOU THE MEASUREMENT.***
 PROHIBITION that stopped the measurement.** ⛔ **The template bounds escape hatches and says nothing
 about prohibitions.** ⇒ ***A CONSTRAINT WITHOUT A SCOPE IS NOT SAFER THAN ONE WITH A SCOPE — IT IS
 JUST BROADER, AND BREADTH IS PAID FOR IN WORK NOT DONE.***
+
+
+## 7t1 — ⭐⭐⭐ THE TELL FOR A WORTHLESS CONTROL: **THE POSITIVE SIDE CAME BACK EMPTY TOO**
+
+**2026-08-16, 22:0x.** The paravel agent checked that the live dev server was serving ITS branch and
+not a stale bundle. **Its first instrument:** grep `/clock2`'s HTML for `clock2/init`, with `/clock`
+as the control → **0 hits**.
+⇒ ⛔ **Worthless. The string is absent from BOTH pages, because Astro's dev HTML references a script
+URL rather than inlining the import.** ⇒ ***A 0 THAT WOULD HAVE BEEN 0 NO MATTER WHAT.***
+
+## ⭐⭐ AND THE DIAGNOSTIC IS THE PART I HAD NEVER WRITTEN DOWN
+**It caught this itself, and named how: *the POSITIVE side came back empty too, which is the tell.***
+⇒ ⭐ ***IF THE ARM THAT IS SUPPOSED TO HIT ALSO RETURNS ZERO, YOU HAVE MEASURED YOUR OWN BLINDNESS,
+NOT THE WORLD.*** ⛔ **And the failure is invisible when you only look at the control: a control
+returning 0 is exactly what a PASSING control looks like.** ⚠️ **This is the cheap, universal check —
+cheaper than designing a good control — and it costs one glance at the number you were expecting to
+be non-zero.**
+
+## ✅ THE REDONE INSTRUMENT, WHICH DISCRIMINATES
+```
+/clock2 HTML          → <script src="/src/pages/clock2.astro?astro&type=script…">
+that script           → import { initializeClock2Page } from "/src/clock2/init.ts"
+/src/clock2/init.ts   → 11 hits for solarNoonHours|angleForHour|fetchSolarNoon
+CONTROL, can go red:  same grep against /src/clock/init.ts → 0
+```
+⇒ ⭐ **The control now means *"this identifier lives in clock2 SPECIFICALLY"* rather than *"this
+server returns text containing words."*** **It followed the reference chain to the served bytes
+instead of asserting about a page that merely mentions a name.**
+
+## ⭐⭐ AND ITS OWN GENERALISATION IS BETTER THAN MINE
+> ***"'reads the output' and 'recomputes the input' look identical in a passing test log, and only
+> one of them can fail for the right reason."***
+⇒ **Same family as the tilt harness that read coordinates ACTUALLY WRITTEN INTO THE SVG rather than
+recomputing the angle formula.** ⛔ **A test that recomputes the formula proves the formula equals
+itself — and its log is indistinguishable from one that proved something.**
+■ ✅ **It corrected itself unprompted, in the same message, before anyone could inherit the bad
+result.** ⭐ *That is the behaviour I have been asking peers for all day and it arrived without being
+asked for once.*
