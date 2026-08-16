@@ -8006,3 +8006,39 @@ tree.*** ⇒ **Whatever the two failures are, they are TIMING-CLASS.**
 CAUSED — a nondeterministic failure has no obligation to have appeared before.*** ⛔ **First
 observation is not first occurrence, and treating it as such manufactures a culprit out of whoever
 was standing nearby.**
+
+---
+
+## 7q4 — TWO EXPERIMENTS SHARING A MACHINE (the confound law in a new costume)
+
+**2026-08-16, 03:02.** Commonplace nearly launched a targeted reproducer **while control-2 was still
+running.** ⇒ ⛔⛔ **The failure under investigation is LOAD-DEPENDENT. The reproducer adds load. So it
+could have INDUCED a red in the very control being used as the clean arm — and that red would have
+read as *"the flake occurs WITHOUT my change,"* which is the decisive outcome it had been waiting
+hours for.**
+⇒ ⭐⭐⭐ ***THE MEASUREMENT WOULD HAVE CAUSED THE OUTCOME IT WAS MEASURING, AND IT WOULD HAVE LOOKED
+EXACTLY LIKE THE RESULT THAT ENDS THE QUESTION.***
+⚠️ **This is the confound law in a costume I had not seen: not an instrument sharing state with its
+subject, but **TWO EXPERIMENTS SHARING A MACHINE**.** ✅ **Remedy: strictly serial — control-2 alone,
+then the reproducer alone.**
+⭐ **General form: when the phenomenon is resource-sensitive, CONCURRENCY BETWEEN EXPERIMENTS IS
+ITSELF A TREATMENT.** ⛔ **And the danger scales with how badly you want the result: the induced
+outcome is the one you would celebrate.**
+
+## ⭐⭐ CHANGING THE INSTRUMENT RATHER THAN THE QUESTION
+**Diagnosis: *each full run costs 17 MINUTES AND YIELDS ONE BIT, and the outcome I need is a RARE one
+on the control arm.*** ⇒ ***"Waiting for a rare red at 1 bit per 17 minutes is a plan with no end."***
+⚠️ **And the sharper half — `7q3`'s banked-greens failure is not avoided by INTENDING to avoid it:
+*it is what a long series of cheap greens DOES to whoever is reading them at 03:30.*** ⭐ **A
+discipline that depends on a tired reader resisting an accumulating count is not a discipline.**
+✅ **Replacement targets the DECISIVE branch directly: run the two failing files on the CONTROL arm
+under `--repeat-until-failure` with load. A red there ends attribution outright — same decisive
+outcome, minutes instead of hours, repeatable.**
+
+■ ⛔ **AND THE LIMIT WAS STATED BEFORE THE RUN, WHICH IS WHAT MAKES IT HONEST:** the two tests are
+`async: false` and may need the FULL POPULATION's interleaving rather than mere CPU pressure. ⇒
+***If the targeted reproducer stays green, THAT IS NOT EVIDENCE — it is a weaker instrument returning
+its default answer.***
+⭐⭐ ***A NEGATIVE FROM A REPRODUCER YOU HAVE NOT SHOWN CAN REPRODUCE IS THE "CHECK THAT CANNOT FAIL"
+SHAPE.*** **So the first thing it owes is a demonstration that it CAN go red at all** — the
+positive-control requirement, applied to a reproducer before its first real use.
