@@ -127,9 +127,11 @@ KNOWN REDS ON main (as of 0d4163ac, 2026-08-16 20:00Z) — NOT YOURS. Anything e
    ⚠️ SCOPE IS LOAD-BEARING: these fail in the GitHub Actions runner and PASS ON HOST.
       If you see them fail ON HOST, that is NEW and it IS yours — say so.
    GitHub CI on main: red since 2026-08-13 08:54Z. CI does NOT pin a seed.
-   ⛔⛔ THE COUNT IS TEN, NOT NINE. "9" is ONE SUITE'S verdict line, carried as the
-      whole for four days. There are FIVE verdict lines; a second app reports
-      "121 tests, 1 failure" entirely on its own.
+   ⛔ THE STANDING SET IS NINE, ALL {:error, :bubblewrap_not_found} — one missing
+      package, not nine defects. ubuntu-latest does not ship bwrap; the workflow
+      never installed it. Fixed at 80fe2215 (install + verify + jobs split).
+      ⚠️ A SECOND SUITE reports "121 tests, 1 failure" on its own verdict line and
+      was invisible for four days — but it is a FLAKE, see below.
    Enumerated from run 31993906260 (log 2,226,700 bytes, so the corpus is not empty):
      Commonplace.Runner.LauncherTest
        · pod holds its own signing key and not the durable key, proven by effect
@@ -143,9 +145,12 @@ KNOWN REDS ON main (as of 0d4163ac, 2026-08-16 20:00Z) — NOT YOURS. Anything e
        · recipe env names resolve only from the constructed placement allowlist
      Commonplace.Runner.TwoDeploymentPodProofTest
        · two deployments in separate pods: B resolves A's yield, and cannot without it
-     Commonplace.CLI.SnapshotTest                                  ← THE TENTH
-       ⚠️ A DIFFERENT APP, A DIFFERENT VERDICT LINE. Invisible for four days
-          because one suite's total was read as the run's total.
+   ⚠️ AND CLI.SnapshotTest IS **NOT** A TENTH STANDING FAILURE — IT IS A FLAKE.
+      Measured across seven completed runs whose logs actually contain the
+      121-test verdict line:  0 failures x5,  1 failure x2.
+      ⛔ IT BELONGS TO NOBODY. Do not assign it to the next round that touches
+         the CLI — it was already failing intermittently before they arrived.
+      ✅ But a run where it fails IS still red, and that is correct.
    ⛔ UNATTRIBUTED — NOBODY HAS EXPLAINED THESE. Recording them is NOT accepting them.
       An unexplained red RECORDED as unexplained cannot mis-blame the next round.
    ⛔ THE MUD PAIR (① above) IS ABSENT FROM CI — 0 occurrences, positive control:
@@ -170,6 +175,16 @@ KNOWN REDS ON main (as of 0d4163ac, 2026-08-16 20:00Z) — NOT YOURS. Anything e
   block.**
 
 ## Changelog
+
+- **2026-08-17 04:56Z** — ③ **CORRECTED TWICE IN TWELVE MINUTES.** ⛔ **First I wrote "TEN, not nine" —
+  commonplace corrected it: `CLI.SnapshotTest` is INTERMITTENT, not standing.** ✅ **Verified myself
+  across seven completed runs whose logs actually contain the 121-test verdict: `0 failures ×5,
+  1 failure ×2`.** ⚠️ **And my first check was itself vacuous — one of the two runs I sampled had a
+  4,340-byte log because the format gate aborted before the tests ran, so "SnapshotTest absent" meant
+  TESTS NEVER EXECUTED, not passed.** ⇒ ⭐ ***THE MASKING BUG BIT MY OWN VERIFICATION OF THE MASKING
+  BUG.***
+  ⭐ **And the standing nine have ONE cause: `{:error, :bubblewrap_not_found}` — `ubuntu-latest` does
+  not ship bwrap and the workflow never installed it. NOT nine defects.**
 
 - **2026-08-17 04:44Z** — ③ **THE COUNT WAS WRONG: TEN, NOT NINE.** ⛔ **`Commonplace.CLI.SnapshotTest`
   has been failing in a SECOND APP for four days, invisible, because *"9 failures"* was one suite's
