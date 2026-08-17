@@ -126,8 +126,11 @@ KNOWN REDS ON main (as of 0d4163ac, 2026-08-16 20:00Z) — NOT YOURS. Anything e
 ③ STANDING RED IN GITHUB CI ONLY — UNATTRIBUTED. GREEN ON HOST.
    ⚠️ SCOPE IS LOAD-BEARING: these fail in the GitHub Actions runner and PASS ON HOST.
       If you see them fail ON HOST, that is NEW and it IS yours — say so.
-   GitHub CI on main: 100 of the last 100 runs failed. Last green 2026-08-13 08:54Z.
-   Newest run: 3541 tests, 9 failures, seed 172334 (CI does NOT pin a seed).
+   GitHub CI on main: red since 2026-08-13 08:54Z. CI does NOT pin a seed.
+   ⛔⛔ THE COUNT IS TEN, NOT NINE. "9" is ONE SUITE'S verdict line, carried as the
+      whole for four days. There are FIVE verdict lines; a second app reports
+      "121 tests, 1 failure" entirely on its own.
+   Enumerated from run 31993906260 (log 2,226,700 bytes, so the corpus is not empty):
      Commonplace.Runner.LauncherTest
        · pod holds its own signing key and not the durable key, proven by effect
        · wrong handle fails while captured handle reaps the process unit
@@ -140,6 +143,9 @@ KNOWN REDS ON main (as of 0d4163ac, 2026-08-16 20:00Z) — NOT YOURS. Anything e
        · recipe env names resolve only from the constructed placement allowlist
      Commonplace.Runner.TwoDeploymentPodProofTest
        · two deployments in separate pods: B resolves A's yield, and cannot without it
+     Commonplace.CLI.SnapshotTest                                  ← THE TENTH
+       ⚠️ A DIFFERENT APP, A DIFFERENT VERDICT LINE. Invisible for four days
+          because one suite's total was read as the run's total.
    ⛔ UNATTRIBUTED — NOBODY HAS EXPLAINED THESE. Recording them is NOT accepting them.
       An unexplained red RECORDED as unexplained cannot mis-blame the next round.
    ⛔ THE MUD PAIR (① above) IS ABSENT FROM CI — 0 occurrences, positive control:
@@ -164,6 +170,13 @@ KNOWN REDS ON main (as of 0d4163ac, 2026-08-16 20:00Z) — NOT YOURS. Anything e
   block.**
 
 ## Changelog
+
+- **2026-08-17 04:44Z** — ③ **THE COUNT WAS WRONG: TEN, NOT NINE.** ⛔ **`Commonplace.CLI.SnapshotTest`
+  has been failing in a SECOND APP for four days, invisible, because *"9 failures"* was one suite's
+  VERDICT LINE read as the run's total.** ⇒ **Verified independently: five verdict lines in run
+  `31993906260`, ten named failures enumerated, log 2,226,700 bytes.**
+  ⭐ ***A MEASURED NUMBER IS STILL SCOPED BY THE INSTRUMENT THAT PRODUCED IT, AND A VERDICT LINE'S
+  SCOPE IS ONE SUITE.*** ⚠️ **The figure carried a MEASURED label in plan's queue and in this block.**
 
 - **2026-08-16 20:00Z** — ① **RE-KEYED FROM A SYMPTOM STRING TO A MECHANISM**, and a **third
   instance** added (`MUD.HumanWebPlayTest`, `human_web_play_test.exs:214`) at `0d4163ac`.
