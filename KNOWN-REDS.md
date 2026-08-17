@@ -123,42 +123,25 @@ KNOWN REDS ON main (as of 0d4163ac, 2026-08-16 20:00Z) — NOT YOURS. Anything e
       which is exactly why it goes red instead of quietly passing.
    ⛔ A DIFFERENT error shape there is yours.
 
-③ STANDING RED IN GITHUB CI ONLY — UNATTRIBUTED. GREEN ON HOST.
-   ⚠️ SCOPE IS LOAD-BEARING: these fail in the GitHub Actions runner and PASS ON HOST.
-      If you see them fail ON HOST, that is NEW and it IS yours — say so.
-   GitHub CI on main: red since 2026-08-13 08:54Z. CI does NOT pin a seed.
-   ⛔ THE STANDING SET IS NINE, ALL {:error, :bubblewrap_not_found} — one missing
-      package, not nine defects. ubuntu-latest does not ship bwrap; the workflow
-      never installed it. Fixed at 80fe2215 (install + verify + jobs split).
-      ⚠️ A SECOND SUITE reports "121 tests, 1 failure" on its own verdict line and
-      was invisible for four days — but it is a FLAKE, see below.
-   Enumerated from run 31993906260 (log 2,226,700 bytes, so the corpus is not empty):
-     Commonplace.Runner.LauncherTest
-       · pod holds its own signing key and not the durable key, proven by effect
-       · wrong handle fails while captured handle reaps the process unit
-       · live-process channels are unreachable behind containing-directory masks
-       · executes by effect with its five-variable constructed environment
-       · pod cannot read a canary injected by its launching BEAM      (= ② above)
-     Commonplace.Runner.LauncherRecipeTest
-       · recipe requires gates placement before launch, with a satisfying control
-       · changing only recipe run changes the observed worker effect
-       · recipe env names resolve only from the constructed placement allowlist
-     Commonplace.Runner.TwoDeploymentPodProofTest
-       · two deployments in separate pods: B resolves A's yield, and cannot without it
-   ⚠️ AND CLI.SnapshotTest IS **NOT** A TENTH STANDING FAILURE — IT IS A FLAKE.
-      Measured across seven completed runs whose logs actually contain the
-      121-test verdict line:  0 failures x5,  1 failure x2.
-      ⛔ IT BELONGS TO NOBODY. Do not assign it to the next round that touches
-         the CLI — it was already failing intermittently before they arrived.
-      ✅ But a run where it fails IS still red, and that is correct.
-   ⛔ UNATTRIBUTED — NOBODY HAS EXPLAINED THESE. Recording them is NOT accepting them.
-      An unexplained red RECORDED as unexplained cannot mis-blame the next round.
-   ⛔ THE MUD PAIR (① above) IS ABSENT FROM CI — 0 occurrences, positive control:
-      the same grep hits LauncherTest 9×. CI rolls a fresh arrangement every run and
-      has never met ①. ⇒ FIXING ① WILL NOT TURN CI GREEN. They are different defects.
-   ⚠️ TODAY'S NINE ARE NOT THE ORIGINAL SET. The first red run (31687219046,
-      2026-08-13 09:34Z, seed 198228) was 3456 tests, 4 failures, ALL LauncherTest.
-      The other suites did not exist yet. Do not brief a fix against today's list.
+③ ⭐ RESOLVED 2026-08-17 — THE FOUR-DAY CI RED IS CLEARED. Kept as a RETIRED entry
+   below the block so nobody re-derives it. THREE STACKED CAUSES, all measured:
+     ① bwrap NOT INSTALLED on ubuntu-latest   9 × {:error, :bubblewrap_not_found}
+        → installed, AND verified at the install step by name
+     ② unprivileged userns RESTRICTED          apparmor_restrict_unprivileged_userns=1
+        → granted via AppArmor's OWN mechanism: bwrap registered under a scoped
+          profile. THE DEFAULT IS UNTOUCHED. Approved by jes 2026-08-17 after he
+          declined the sysctl flip AND initially declined this, then reversed.
+        ⭐ RE-PROVEN EVERY RUN: the step copies bwrap to an unprofiled path and
+          asserts THE COPY IS DENIED — if the machine is ever open, CI goes red.
+     ③ THE FENCE'S OWN BUG: masks assumed their target dirs existed. They exist on
+        THIS host only because a tmux is running. ⇒ ONLY A SECOND MACHINE COULD
+        HAVE FOUND IT. The four-day red was the pod work's first portability test.
+   ⇒ POD/LAUNCHER/RUNNER FAILURES IN CI: ZERO, for the first time in the fence's
+     existence. Verified independently on run 32041543228 (log 2,220,484 bytes):
+     bubblewrap_not_found → 0.
+   ⚠️ THE EXIT CRITERION IS NOT MET. One green is one data point. Pre-fence baseline
+      was 47/66 = 71% green, so a ~29% instability PREDATES the fence, is UNOWNED,
+      and is now observable for the first time.
 ```
 
 # ▲▲ END OF BLOCK ▲▲
