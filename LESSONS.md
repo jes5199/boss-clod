@@ -9899,3 +9899,41 @@ tropics and southward — jes will never see it.**
 - **Five observer-centred assertions went RED on the switch and were UPDATED, not deleted.** ⇒ *The
   suite doing its job — and the opposite of the failure where a control is removed because the thing
   it checked changed.*
+
+
+## 7u9 — ⭐⭐⭐ **74/74 GREEN ON A DEGENERATE POLYGON WITH ZERO AREA — AND A HUMAN EYE CAUGHT IT IN ONE GLANCE**
+
+**2026-08-17, 01:0x.** jes: *"the terminator still isn't drawing correctly."* ⇒ **The suite was passing
+`74/74`, with the sub-solar bearing matching the Sun's dot to `0.0000°`.**
+⇒ ⛔ **Measured lit fraction: `0.0000` AT EVERY EPOCH.** ***Not a curve where a line belongs — a
+DEGENERATE POLYGON WITH NO AREA AT ALL***, the sampled great circle collapsed to a diameter traced
+out and back.
+⭐ ***A PERFECT SCORE ON A CHECK THAT CONSTRAINS WHERE THE TERMINATOR **POINTS** AND SAYS NOTHING
+ABOUT ITS **SHAPE** OR **AREA**.*** ⇒ **Second time tonight a human eye beat the suite (`7t6` was the
+mirrored rete). Both times the assertions were correct, well-built, and aimed one axis away.**
+
+## ✅ THE HYPOTHESIS THAT PAID, AND WHY IT WAS CHEAP
+**I predicted, with the mechanism: from the north ecliptic pole the Sun is ALWAYS 90° from the view
+axis — it lies in the ecliptic plane by definition — so the terminator great circle is seen EDGE-ON,
+ALWAYS.** ⇒ ***A STRAIGHT LINE THROUGH THE CENTRE, EXACTLY HALF THE DISC LIT, AT EVERY DATE AND
+TIME.***
+⭐ **And the revert-defect prediction was exact: *"the direction logic came back, the shape logic did
+not."*** **The observer-centred view genuinely needed a varying ellipse, so it was built by sampling
+and filling; the revert restored the frame and left the sampler.**
+⚠️ **What made it safe to send: THREE FALSIFIABLE NUMBERS (lit fraction, distance from centre,
+curvature) and an explicit instruction — *if the lit area is 0.500 and it still looks wrong, my
+hypothesis is dead; ask him what "not correctly" looks like.*** ⇒ ***A HYPOTHESIS SHIPPED WITH ITS OWN
+KILL CONDITION COSTS ONE MEASUREMENT WHETHER IT IS RIGHT OR WRONG.***
+
+## ⛔⛔ AND MY OWN TIMEZONE FAILURE, WHICH IS THE NIGHT'S SHARPEST INSTANCE OF A FILED RULE
+**I read UTC as jes's local clock repeatedly — told him twice it was *"past midnight where you are"*
+when it was `18:02 PDT`, and therefore told him the disc centre should be DARK when the Sun was at
+`+22.3°`.** ⇒ ⭐ **I HAVE THAT FACT FILED (`reference_jes_timezone_pacific`) AND USED IT CORRECTLY
+EARLIER THE SAME EVENING** — I told him the 7d quota resets Monday `03:00` his time.
+⇒ ⛔⛔ ***THEN STOPPED APPLYING IT ONCE I WAS DEEP IN THE WORK.***
+✅ **Audit came back clean: every epoch-specific expectation in the suite derives from the API's
+`altitude` field, never from an assumed clock, so none of my inverted expectations reached an
+assertion.** ⚠️ **That is luck plus good practice on the agent's side, not care on mine.**
+⭐ **The agent's framing, which is better than mine and matches its own confession two hours earlier:**
+> ***A FACT YOU HOLD AND A FACT YOU APPLY ARE DIFFERENT OBJECTS, AND THE GAP BETWEEN THEM WIDENS
+> EXACTLY WHEN YOU ARE DEEP IN THE WORK.***
