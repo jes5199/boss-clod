@@ -10174,3 +10174,50 @@ by TWO HOURS and produced a confident wrong sign.**
 CONSTANT FROM THAT ERA*** — the drifting quantity that made the GRS hard in the first place is
 exactly what makes a historical observation need its own value. ⚠️ **It caught that unprompted.**
 ■ ✅ **And it set no sign and changed no code: the unverified flag stands until an answer returns.**
+
+
+## 7v6 — ⭐⭐⭐ **SEVENTEEN GREEN ASSERTIONS WERE ALL MIRROR-SYMMETRIC, SO NONE OF THEM COULD SEE A LEFT-RIGHT FLIP**
+
+**2026-08-17, 02:4x.** The Great Red Spot's handedness — the one thing `/jupiter2` shipped knowingly
+unresolved. ⇒ ✅ **Resolved from the LITERATURE, not from an image, and the code turned out to be
+drawing it MIRRORED.**
+```
+① features EMERGE at the FOLLOWING limb, drift toward the PRECEDING   (Cidadão, quoted)
+② PRECEDING = celestial WEST                                          (BAA; Darling)
+③ north-up unmirrored ⇒ EAST is LEFT                                  (BAA "Which way is up?")
+④ CM2 increases ⇒ (GRS − CM2) > 0 is PRE-transit                      (Project Pluto)
+⇒ PRE-TRANSIT IS LEFT OF CENTRE. The code had it exactly backwards.
+```
+⭐ **I gave that chain as MY REASONING, explicitly flagged as not-fact, and told it not to adopt it on
+my say-so.** ⇒ **It verified every link against a published source and the chain survived — but the
+flagging is what made the verification happen instead of an adoption.**
+■ ⭐⭐ **AND IT CONFIRMED IN A SECOND, DIFFERENTLY-ORIENTED SOURCE: BBC Sky at Night describes the
+drift for SOUTH-UP with no diagonal; rotate 180° to north-up and it lands exactly on Cidadão's
+independent north-up statement.** ⇒ ***TWO AUTHORS, TWO DECLARED FRAMES, ONE PICTURE — which is a
+real cross-check, unlike the two GRS longitudes that both traced to Project Pluto (`7v4`).***
+
+## ⛔⛔ THE FINDING, PROVEN BY SABOTAGE RATHER THAN ASSERTED
+**It restored the wrong sign deliberately and re-ran:**
+```
+FAIL  pre-transit spot is LEFT of centre       ← only the 3 NEW checks
+FAIL  post-transit spot is RIGHT of centre
+PASS  drawn IFF on the near side
+PASS  near-side fraction ≈ half (12/24)
+PASS  foreshortened toward the limb
+PASS  drawn SOUTH of the equator
+PASS  stays on the disc
+```
+⇒ ⭐⭐⭐ ***PRESENCE, TIMING, FORESHORTENING, LATITUDE AND MERIDIAN DISTANCE ARE ALL MIRROR-SYMMETRIC
+QUANTITIES. SEVENTEEN GREEN ASSERTIONS COULD NOT SEE A LEFT-RIGHT FLIP AND NEVER WOULD HAVE.***
+⚠️ **This is `7t6` again — a suite blind to a whole class of truth by SHAPE rather than by weakness —
+and this time the blind axis was identified IN ADVANCE and shipped as a NAMED GAP rather than
+discovered later by a human eye.** ⭐ ***A KNOWN UNRESOLVED MIRROR IS A BETTER ARTIFACT THAN A SUITE
+THAT LOOKS COMPLETE, and the proof is that the gap is what got closed.***
+
+## ✅ AND THE SOURCING LIMITS IT VOLUNTEERED
+**No Sky & Telescope text (site 403s), no ALPO handbook, no Meeus ch.43 text, and the BAA *Jupiter
+Section* pages never use "preceding"/"following" — that evidence is a forum thread plus a general
+orientation article.** ⇒ **Nothing contradicted the conclusion.**
+⭐ ***AND THE ONLY APPARENT CONFLICTS IN THE LITERATURE ARE DECLARED FRAME CHANGES — south-up vs
+north-up, and body-fixed vs celestial east/west, WHICH ARE OPPOSITE HANDED.*** **Named in the code
+comment, because it is precisely what would bite the next person who checks this.**
