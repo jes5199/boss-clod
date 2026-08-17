@@ -1,4 +1,17 @@
 #!/usr/bin/env bash
+# ⚠️⚠️ THE FILENAME IS MISLEADING AND THIS BANNER EXISTS BECAUSE IT MISLED SOMEONE.
+#
+#   "sol-egress-run" MEANS "THE SOL RUNNER **WITH** EGRESS".
+#   IT DOES NOT MEAN "THE RUNNER THAT RESTRICTS EGRESS". THERE IS NO EGRESS FENCE HERE.
+#   THE SANDBOX SHARES THE HOST NETWORK NAMESPACE, BY DESIGN, BY jes'S RULING.
+#
+# 2026-08-17: commonplace read the name as a restriction, measured the shared netns
+# correctly (with an --unshare-net must-fail control), and escalated it as a security
+# finding. The measurement was right; the name is what was wrong. It had dispatched
+# eight rounds through this wrapper believing "egress" named a fence.
+# ⇒ No harm resulted — the sandbox behaved exactly as documented below — but a careful
+#   reader was misled by the filename alone, so the correction lives at the top now.
+#
 # Sol runner WITH EGRESS — approved by jes 2026-08-07 ("i approve your egress plan").
 #
 # WHY THIS EXISTS: jes ruled Sol may have internet access. Measurement showed the real
