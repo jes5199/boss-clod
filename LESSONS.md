@@ -9770,3 +9770,47 @@ exactly `26.000°` = 104 × 0.25.**
   > ***THE RULE WORKS EXACTLY AS FAR AS YOU ACTUALLY APPLY IT.***
   ⚠️ **That is `7t9` again — a filed rule fires at diagnosis time, not at write time — now demonstrated
   by the author of the rule, on the rule, within the hour.**
+
+
+## 7u6 — ⭐⭐⭐ A PEER PREDICTED A WEAK CONTROL **BEFORE IT WAS RUN**, AND THE TOLERANCE WAS LOOSE BY EXACTLY THE PREDICTED AMOUNT
+
+**2026-08-17, 00:0x.** jes specified the Moon's phase orientation *"pointed at the sun **as drawn**"*.
+⭐ **I flagged that as a SHARPENING rather than a repetition: because the Moon is now displaced
+radially by its latitude, "point at the Sun" is a vector between two DRAWN CENTRES, not a difference
+of longitudes** — ⇒ **and a longitude-only implementation is correct EXACTLY AT A NODE, which is the
+moment anyone would naturally test it.** ⛔ *"A node-only test passes on the wrong implementation."*
+⇒ ✅ **It sabotaged with precisely that scenario and measured:**
+```
+correct implementation      0.00°
+longitude-only (wrong)      2.58° at max latitude · 0.00° at a node
+its regression tolerance    6°     ⇒ THE WRONG VERSION SCORED 43/43
+```
+⭐⭐ ***THE TOLERANCE WAS TOO LOOSE BY A FACTOR OF TWO AND WOULD HAVE SIGNED OFF THE PREDICTED BUG.***
+✅ **Tightened to `0.5°` — set BY THE MEASUREMENT rather than by taste — and re-sabotaged to confirm
+it goes red.** ⇒ **Seventh weak control across five sabotage runs, and THE FIRST ONE A PEER NAMED IN
+ADVANCE.**
+⚠️ ***A TOLERANCE CHOSEN BEFORE THE FAILURE IS MEASURED IS A GUESS WEARING A NUMBER'S CLOTHES.***
+■ **And it had already fixed a real bug underneath: the lit limb was oriented along the Sun's RADIAL
+direction from the dial centre — up to `45°` wrong at quarter phase.** ⭐ *A plausible moon lit from
+the wrong side: the mirrored-rete family at twenty-pixel scale.*
+
+## ⭐⭐ AND THE PATTERN OF THE WHOLE NIGHT, NOW COUNTABLE
+```
+DIRECTION-vs-MAGNITUDE errors caught by sabotage or by jes's eye:
+  the mirrored rete (handedness)          · the flipped horizon (north/south)
+  the straight-fan hour lines (declination) · lit limb from the wrong reference
+  lunar latitude sign (predicted, asserted) · node symbols swapped (predicted)
+```
+⇒ ⭐ ***SIX INSTANCES, ONE FAMILY: THE MAGNITUDE WAS ALWAYS RIGHT AND THE DIRECTION WAS WRONG — AND
+IN EVERY CASE THE RESULT RENDERED BEAUTIFULLY.*** **Its own diagnosis from 22:3x, which it then
+refuted as incomplete at 22:4x, turns out to be the dominant family after all — not the only one, but
+the one that keeps recurring.**
+
+## ⚠️ AND A PROCESS FAILURE IT NAMED THAT I HAVE NOT SEEN ELSEWHERE
+**FOUR separate range-based edits tonight SILENTLY SWALLOWED ADJACENT CODE** — the Earth drawing once,
+a whole block of declarations another time. ⇒ **Every one was caught by the build or by an empty
+positive arm. NONE was caught by the edit itself.**
+✅ **It now asserts every drawing site still exists after each edit** — ⭐ *which is the same remedy as
+`bin/counted` and the corpus guard: **an edit is a measurement, and a measurement without a post-check
+is a claim.*** ⚠️ **A line-range edit is the only operation all night that could destroy work without
+producing an error, and it did so four times.**
