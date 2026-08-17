@@ -10299,3 +10299,47 @@ clock time), and a repeat six months later.** ⇒ ⭐ **The second is what turne
 mechanism.** ⛔ **Had I asked only "is his claim true", the answer would have been "no, it is
 sidereal" — TRUE, USELESS, AND IT WOULD HAVE THROWN AWAY A CORRECT OBSERVATION.**
 ⇒ ***ASK WHAT THE EXTREMES TRACK, NOT WHETHER THE HYPOTHESIS HOLDS.***
+
+
+## 7v9 — ⭐⭐⭐ **THE MILESTONE WAS NOT A NEW CAPABILITY. IT WAS A MERGE OF TWO THINGS THAT ALREADY WORK.**
+
+**2026-08-17, 04:0x.** jes asked whether today was progress or messing around. **I answered honestly
+and named the gap: *pods work and can be launched; what is missing is anything RUNNING IN A POD DOING
+REAL WORK.*** ⇒ **He adopted the sentence and made it the target.** ⚠️ **I flagged to plan that the
+framing was MINE, not his, and that it should say so if the next milestone was something else.**
+⇒ ⭐ **Plan did not correct it. It SHARPENED it, and the sharpened version is smaller:**
+```
+sol-egress-run.sh   its own bwrap invocation · DOES REAL WORK EVERY ROUND · ungoverned
+Runner.Launcher     constructs bwrap AS DATA · killable/reaped/custody-proven
+                    · HAS NEVER RUN AN AGENT
+⇒ "an agent doing real work in a pod" = A MERGE, not a new capability
+```
+⇒ ⭐⭐ ***AND THE HALF OF MY MILESTONE I THOUGHT WAS OPEN WAS ALREADY CLOSED: Sol's results are
+already visible outside the sandbox — THEY ARE COMMITS.*** **Only the vessel is wrong.**
+⚠️ ***I NAMED THE RIGHT THING AND SLIGHTLY TOO BIG*** — plan's phrase, and it is the good direction to
+be wrong in, because a too-big target gets cut down by someone who holds the facts while a too-small
+one just gets built.
+
+## ✅ AND THE FIRST STEP IS A MEASUREMENT, NOT A BUILD — FOR THE SEVENTH TIME TODAY
+> ***WHAT DOES `sol-egress-run.sh` PROVIDE THAT THE LAUNCHER'S PROFILE DOES NOT?***
+**Egress policy · model credentials · worktree binding · env passthrough · output paths · timeouts.**
+⇒ ⭐ **If the delta is short this is one or two rungs; IF IT IS LONG, THE LENGTH IS THE FINDING.**
+⛔ **Plan will not rank a build until the delta exists, and it did not guess the size — commonplace
+holds those facts.**
+
+## ⛔⛔ AND THE FAILURE MODE OF THIS MILESTONE, NAMED BEFORE ANYONE STARTS
+> ***A POD THAT RUNS AN AGENT BY RECEIVING A SHELL COMMAND IS NOT THE MILESTONE — IT IS
+> `instantiate.recipe` AGAIN.***
+⇒ **That is the hole plan opened in its OWN topology draft twelve hours earlier — *permission to edit
+topology becoming permission to execute arbitrary host code* — and this is exactly where it would
+reappear wearing *"just for Sol"*.** ⭐ **The workload must be selected through a GOVERNED EXECUTOR
+PROFILE, not handed a command.** ⚠️ ***A DEFECT YOU HAVE ALREADY FIXED ONCE RETURNS AT THE NEXT SEAM
+WEARING THE NAME OF A SPECIAL CASE.***
+
+## ⭐ AND IT CORRECTED MY CAPACITY FRAMING IN THE DIRECTION OF LESS
+**I relayed *"especially with the Fable reset"* as capacity for this target.** ⇒ ⛔ **Plan: the fresh
+7d and Fable windows are ITS turns and COMMONPLACE'S — DESIGN and REVIEW. Codex is a separate pool and
+SOL'S DISPATCH WAS NEVER GATED.** ⇒ ⭐ ***THE RESET BUYS DESIGN RULINGS AND REVIEW DEPTH, NOT MORE
+ROUNDS*** — **which happens to be exactly what this target needs, but it wanted jes told rather than
+left to infer throughput that does not exist.** ⚠️ **And the standing caveat held: *never gated* is
+still a REPORT CHAIN, since the codex exhaustion detector has never been seen to fire.**
