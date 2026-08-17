@@ -10017,3 +10017,37 @@ a projection artifact. ✅ **The instruction that saved it was one line: *measur
 widths before editing; two identical widths that look different is a real possibility.***
 ⚠️ **Third time tonight the obvious reading of a symptom named the wrong object** — after the three
 circles and the terminator.
+
+
+## 7v2 — ⭐⭐⭐ **THE STANDARD METRIC NAMED THE WRONG PLANET AND CLEARED THE RIGHT ONE**
+
+**2026-08-17, 01:3x.** Retrograde planets get a red outline. **I predicted before any measurement that
+MARS would be the problem — its fill is `#ff8f7b`, already warm red-orange, so a red ring on it may
+not read.** ⇒ **The agent measured with the obvious instrument first:**
+```
+WCAG LUMINANCE RATIO    worst = SATURN at 1.15:1        ← FALSE ALARM
+COLOUR DISTANCE         SATURN 171 (fine) · MARS 113    ← the real worst case
+                        black-outline reference vs the same fills: ~300
+```
+⇒ ⛔ **Saturn's fill is GREY, so red differs from it almost entirely in HUE — which luminance ignores
+BY CONSTRUCTION.** ⇒ ⭐⭐ ***THE METRIC WOULD HAVE SENT IT TO FIX A PLANET THAT WAS FINE AND DECLARED
+THE ACTUAL PROBLEM ACCEPTABLE.***
+⚠️ ***A MEASUREMENT THAT IS PRECISE, CORRECT ON ITS OWN TERMS, AND ABOUT THE WRONG QUANTITY*** — the
+same shape as the three-circles round (`7u4`) and the terminator's bearing check (`7u9`), now
+arriving in a third domain: colour.
+✅ **Assertion switched to colour distance, AND a control pins MARS as the worst — so the metric
+itself is checked rather than trusted.** ⭐ ***WHEN YOU SWITCH INSTRUMENTS BECAUSE THE FIRST ONE LIED,
+PIN THE ANSWER THE NEW ONE MUST GIVE.***
+
+## ✅ AND TWO CHEAP CHECKS THAT EXISTED ONLY BECAUSE SOMEONE ASKED FOR THEM
+- ⭐ **`retrograde` vs `speedLon < 0`: 0 disagreements across all TEN bodies at two epochs.** ⇒ **A
+  small fact about wimble that NOBODY HAD EVER VERIFIED, obtained for one line, on a field that had
+  been sitting fetched-but-unused since element 4.**
+- ⭐ **SUN AND MOON ARE NEVER RETROGRADE** ⇒ **if either draws red, the flag is read off the wrong body
+  index.** ⚠️ ***THE CHEAPEST POSSIBLE OFF-BY-ONE DETECTOR ON A SEVEN-ELEMENT LIST, and it exists only
+  because a domain fact was turned into an assertion.***
+- ✅ **Both retrograde classes non-empty at both epochs, with FOUR BODIES FLIPPING between
+  `2026-08-15` (Saturn alone) and `2027-02-15` (Mercury, Mars, Jupiter).** ⇒ *A state test that never
+  sees the state change is a constant wearing a predicate's clothes — fourth application tonight.*
+■ ⛔ **NOT TUNED: Mars keeps the same red.** ⇒ ***A PER-BODY RED WOULD MAKE THE OUTLINE ENCODE TWO
+THINGS*** — legibility and identity — **and the encoding is the whole legend on a page with no text.**
