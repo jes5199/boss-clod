@@ -10257,3 +10257,45 @@ hour lines, and as the `90.000°` vs `78.043°` contrast that killed the Asc = M
 illustration choice IN THE CODE.** ⇒ **The SEB has faded and revived within living memory, so belt
 colour is genuinely not a measured constant** — ⭐ **and presenting a chosen palette as sourced is the
 difference between the vendored coastlines and a hand-drawn Africa.**
+
+
+## 7v8 — ⭐⭐⭐ **"NOT A NO, BUT HERE IS WHAT YOU ARE ACTUALLY SEEING" — A HYPOTHESIS REFUTED AND EXPLAINED IN ONE MEASUREMENT**
+
+**2026-08-17, 02:5x.** jes: *"is it true that the Mc/Ic and Asc/Dsc axes are most tilty at
+sunrise/sunset and most perpendicular at solar noon/midnight?"*
+⇒ ⭐ **I gave a structural objection — THE RELATIONSHIP IS A FUNCTION OF SIDEREAL TIME, NOT OF THE
+SUN — and then explicitly told the agent NOT to adopt it without the six-month test.** ⇒ ✅ **The test
+confirmed it, and the discriminator is as clean as these get:**
+```
+PORTLAND Aug-17  MIN 61.049 deg at UT  8.00h, MC longitude 320.64
+PORTLAND Feb-17  MIN 61.072 deg at UT 20.00h, MC longitude 322.54
+                        CLOCK TIME shifts EXACTLY 12h.  MC LONGITUDE does not move.
+```
+⭐ **Positive control first: its formulas reproduce the wimble API to `0.000°` at three widely
+separated instants — so the sweep is not its own algebra marking its own homework.** ⚠️ **That is
+`7v7`'s lesson applied one round later, unprompted.**
+
+## ⭐⭐ AND THE TRUE VERSION IS EXACT, NOT APPROXIMATE — WHICH IS WHY THIS BEATS A "NO"
+```
+PERPENDICULAR — 90.000 deg EXACTLY — WHEN A SOLSTICE POINT CULMINATES.
+  At every latitude. Not a fit: the ecliptic is symmetric about the meridian
+  at that moment, so the tilt cancels.
+MOST-TILTED is at NO cardinal point and MOVES WITH LATITUDE.
+  range: Quito 4.66 deg · Portland 28.69 · Tromso 88.91 (min 0.003 — the axes COINCIDE)
+```
+⇒ ⭐⭐⭐ **AND HIS NUMBERS ARE REPRODUCED EXACTLY: mid-August Sun at ~145°, so noon culminates 145° →
+`78°`, six hours later 235° → `63.5°`. He had measured `78.043` and `63.471`.** ⇒ ***HE SAW A REAL
+PATTERN AND ATTRIBUTED IT TO THE RIGHT TIME OF DAY FOR THE WRONG REASON.***
+■ ⛔ **AND IT INVERTS — tested at noon vs sunrise every 30° of solar longitude: his rule holds in
+6 of 12 cases and is EXACTLY BACKWARDS in the other 6.** ⇒ **Right near the solstices; at the
+equinoxes the axes are perpendicular AT SUNRISE and most tilted at noon.**
+⭐ ***THE ANSWER THAT IS WORTH MORE THAN A VERDICT: "you are watching the solstice point culminate,
+and in February you will see the opposite."*** ⚠️ **A refutation that reproduces the observer's own
+numbers is not a correction — it is an explanation, and it survives being disagreed with.**
+
+## ✅ THE PROCESS POINT, WHICH IS THE TRANSFERABLE ONE
+**I asked for THREE things: the extremes, WHAT IS ON THE MERIDIAN at each (in ecliptic longitude, not
+clock time), and a repeat six months later.** ⇒ ⭐ **The second is what turned a yes/no into a
+mechanism.** ⛔ **Had I asked only "is his claim true", the answer would have been "no, it is
+sidereal" — TRUE, USELESS, AND IT WOULD HAVE THROWN AWAY A CORRECT OBSERVATION.**
+⇒ ***ASK WHAT THE EXTREMES TRACK, NOT WHETHER THE HYPOTHESIS HOLDS.***
