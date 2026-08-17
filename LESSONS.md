@@ -10390,3 +10390,48 @@ ruling.**
 ■ ✅ **WHAT SURVIVES: THE FILENAME IS AMBIGUOUS ENOUGH TO MISLEAD A CAREFUL READER WHO HAD DISPATCHED
 EIGHT ROUNDS THROUGH IT. The flag was right even though the finding was wrong — and that defect is
 MINE.**
+
+
+## 7w1 — ⭐⭐⭐ **THE ASSERTION I ASKED FOR WAS ITSELF THE EIGHTH WEAK CONTROL — IT RECOMPUTED THE CODE'S ARITHMETIC AND TESTED ITSELF**
+
+**2026-08-17, 04:2x.** I asked for a beach-ball check: *bands at equal latitude spacing must NOT
+project to equal spacing.* ⇒ **The agent wrote it, then sabotaged the renderer to a SPHERE and re-ran:**
+```
+FAIL  every band edge at the OBLATE projection   worst 1.41 units
+FAIL  the GRS at the oblate projection of 22.3S  off by 0.89
+PASS  BEACH BALL                                 ← STAYED GREEN
+```
+⇒ ⛔⛔ ***IT RECOMPUTED `latitudeY()` INSIDE THE TEST AND ASSERTED ON THAT. IT NEVER READ THE MODULE.
+IT WAS TESTING ITSELF.*** ⭐ **This is `7v7` one round later, in the assertion I personally requested —
+so the trap survives being named, and survives being named BY THE PERSON WHO THEN WALKS INTO IT.**
+✅ **Fixed to read the DRAWN band heights out of the SVG. Both directions demonstrated: `4.45×` on
+correct code, exactly `1.00×` on linear stripes.**
+⭐⭐ **AND THE COMMENT NOW STATES WHAT IT DOES *NOT* CATCH: it catches LINEAR stripes, but A SPHERE
+PASSES IT LEGITIMATELY, because `sin()` is nonlinear too.** ⇒ ***A CONTROL THAT NAMES ITS OWN BLIND
+SPOT IS WORTH MORE THAN ONE THAT LOOKS TOTAL*** — the oblate check is what catches the sphere, and
+now the file says so.
+
+## ⛔ AND MY CROSS-CHECK WAS WRONG: THE GRS IS IN THE **STrZ**, NOT THE SEB
+**Simon et al. 2018: centre at `−22.3°` planetographic. BAA 2007 lists it under "STropZ". The STrZ
+runs 19.5–26.5°S.** ⇒ ⭐ **My instinct was half right — it OVERFILLS the zone and hugs the SEB's
+southern boundary, and that boundary IS the −19.5° jet. So *"hard against the SEB"* is true and *"in
+the SEB"* is not.**
+✅ **Asserted BOTH ways: inside STrZ, AND a control that it is NOT inside the SEB** — ⇒ ***otherwise
+"it is inside a band" passes vacuously when every band contains it.***
+
+## ⭐⭐ AND THE COORDINATE TRAP THAT MADE "SOURCE THE LATITUDES" LOAD-BEARING
+**Amateur literature (BAA: *"all latitudes are zenographic"*) is PLANETOGRAPHIC. Professional
+literature (Fletcher et al.) is PLANETOCENTRIC and says so.** ⇒ ⛔ ***THE SAME STORM IS 22.3° IN ONE
+AND 19.5° IN THE OTHER. Mixing them silently puts every band ~2.9° out at mid-latitudes WITH NO
+VISIBLE SYMPTOM.***
+✅ **It cross-checked that the two agree rather than assuming: SEBs is `19.5` planetographic and `17.2`
+planetocentric, and converting gives `19.5` exactly — ⭐ A LABEL DIFFERENCE, NOT A DATA CONFLICT.**
+
+## ⚠️ TWO HONEST LIMITS IT RECORDED RATHER THAN LET SOMEONE LEAN ON
+- **THE GRS-INSIDE-STrZ CHECK SURVIVED THE SPHERE SABOTAGE**, because the Spot and the bands move
+  together under a shared systematic error. ⇒ ***IT IS A RELATIVE-CONSISTENCY CHECK, NOT AN ABSOLUTE
+  ONE***, and it is recorded as such.
+- ⭐ **The OLD GRS assertion went RED when the code was FIXED** — because its oracle WAS the buggy
+  spherical formula the code also computed. ⇒ ***A TEST THAT RECOMPUTES THE CODE'S ARITHMETIC
+  CERTIFIES WHATEVER THE CODE DOES, AND BREAKS WHEN THE CODE BECOMES CORRECT.*** ✅ **Its oracle is now
+  NASA/JPL radii and Simon et al. — neither from this repo.**
