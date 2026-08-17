@@ -10134,3 +10134,43 @@ image or an eyepiece. ⇒ ⭐ **Presence, timing, foreshortening and distance fr
 validated by the transit times; ONLY THE MIRROR IS OPEN, and it is flagged IN THE CODE rather than
 quietly assumed.** ⚠️ ***THE SIXTH DIRECTION-VS-MAGNITUDE ITEM TONIGHT — and the first one shipped
 KNOWINGLY UNRESOLVED with the gap named.***
+
+
+## 7v5 — ⭐⭐⭐ **THE CONTROL SELF-CALIBRATES: IF THE RECORDING IS MIRRORED, EVERYTHING IN IT IS MIRRORED TOGETHER**
+
+**2026-08-17, 02:2x.** The one thing `/jupiter2` shipped knowingly unresolved was the **left/right
+handedness of the Great Red Spot** — flagged in code, no oracle available from the sandbox. **jes
+supplied one: a Dec 22 2023 telescope recording with the Spot *"on the right side (my right, when
+looking towards it)"*.**
+
+■ **I raised two gaps that could each invert the answer: ① no time of day, and ② TELESCOPE OPTICS
+MIRROR — a star diagonal flips left/right, a Newtonian rotates 180°, so a real observation can still
+yield a confidently wrong sign.**
+⇒ ⭐⭐⭐ **AND THE AGENT DISSOLVED ② ENTIRELY WITH SOMETHING BETTER THAN AN ANSWER: THE MOONS AND THE
+SPOT SHARE THE SIGN CONVENTION, because both descend from the same rotation-and-orbit sense in the
+same Meeus series.** ⇒ ***SO THE OPTICS NEVER NEED TO BE KNOWN: if the recording's moon pattern
+matches the computed one, the Spot's side is trustworthy; if it is reversed, BOTH are reversed and
+the sign flips. THE RECORDING CALIBRATES ITSELF.***
+⚠️ ***A CONTROL DRAWN FROM THE SAME FRAME AS THE THING IT CHECKS IS USUALLY A WEAKNESS — HERE IT IS
+THE ENTIRE MECHANISM.*** **Shared provenance invalidated the two GRS "sources" an hour earlier
+(`7v4`); shared convention is exactly what makes this work. Same property, opposite verdict, and the
+difference is whether the shared thing is the ANSWER or the FRAME.**
+
+## ✅ AND THE PATTERN IS DISCRIMINATING RATHER THAN A COIN FLIP
+```
+Callisto ~24 Rj out ALONE on one side · Io close in on the SAME side
+Europa and Ganymede TOGETHER on the other
+⇒ two and two, wildly asymmetric, stable all evening
+```
+⭐ **A symmetric pattern would have been useless — its own mirror is indistinguishable from itself.**
+⇒ ***A CONTROL MUST BE CHIRAL TO SETTLE A CHIRALITY QUESTION, and it checked that its pattern was
+before relying on it.***
+
+## ⛔ AND THE ERA CORRECTION THAT WOULD HAVE POISONED EVERYTHING
+**The page uses GRS `79.5°` (Aug 2026). On 2023-12-22 the JUPOS-derived series gives `49.6°` — THIRTY
+DEGREES AWAY.** ⇒ **Using the current number against a 2023 recording would have shifted every window
+by TWO HOURS and produced a confident wrong sign.**
+⭐ ***A VALIDATED CONSTANT IS VALID AT ITS EPOCH, AND AN ORACLE FROM A DIFFERENT ERA NEEDS THE
+CONSTANT FROM THAT ERA*** — the drifting quantity that made the GRS hard in the first place is
+exactly what makes a historical observation need its own value. ⚠️ **It caught that unprompted.**
+■ ✅ **And it set no sign and changed no code: the unverified flag stands until an answer returns.**
