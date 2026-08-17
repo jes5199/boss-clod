@@ -9814,3 +9814,46 @@ positive arm. NONE was caught by the edit itself.**
 `bin/counted` and the corpus guard: **an edit is a measurement, and a measurement without a post-check
 is a claim.*** ⚠️ **A line-range edit is the only operation all night that could destroy work without
 producing an error, and it did so four times.**
+
+
+## 7u7 — ⭐⭐⭐ **THREE WRONG CONSTRUCTIONS BUILT CLEANLY, DREW PLAUSIBLE GLOBES, AND PASSED EVERY EXISTING ASSERTION**
+
+**2026-08-17, 00:3x.** The land fill on calendar2's Earth took **four constructions; three were wrong.**
+**Ground truth: uniform spherical sampling of the visible hemisphere. Drawn: shoelace area of the
+painted polygons.**
+```
+per-run chord closure           134–346% of the disc    (true: 33–43%)
+ring-order stitching            136–346%
+angle-linked stitching          136–146%
+far-side points CLAMPED to rim  0.8–9.0 points over     ✅
+```
+⇒ ⭐ **Every stitching approach must CHOOSE WHICH WAY ROUND THE LIMB TO TRAVEL, and a wrong choice
+sweeps most of the disc.** ✅ **Clamping REMOVES THE CHOICE** — a hidden point keeps its bearing and is
+pushed to the rim, so the boundary traces the limb automatically.
+⇒ ⛔⛔ ***THREE OF THE FOUR BUILT CLEANLY, DREW PLAUSIBLE GLOBES, AND PASSED EVERY EXISTING
+ASSERTION.*** ⭐ ***ONLY A QUANTITY NOBODY HAD THOUGHT TO MEASURE — THE PAINTED AREA — SEPARATED
+THEM.***
+⚠️ **This is the night's dominant shape at its most extreme: not one plausible-wrong result but THREE,
+each internally consistent, each surviving a suite of 249 assertions.**
+
+## ⛔ AND MY ANTIMERIDIAN HYPOTHESIS WAS WRONG, WITH THE REASON MEASURED
+**I predicted the Pacific + Russia artifacts were antimeridian polygons.** ⇒ ⛔ **Refuted: only `1` ring
+of `128` has a `>180°` longitude step, and the longest screen step between adjacent visible points is
+`0.069` radii.** ⭐ ***A 3D PROJECTION MAPS +179 AND −179 TO ADJACENT POINTS — THERE IS NO 2D SEAM TO
+CROSS.*** **It was limb clipping, which was my second hypothesis.**
+⇒ ⭐⭐ **What made that cheap: I gave TWO hypotheses AND THE DISCRIMINATOR** — *the globe turns, so if
+the artifact follows the geography it is the antimeridian; if it stays at the rim it is clipping.*
+⚠️ ***A WRONG HYPOTHESIS WITH A DISCRIMINATOR ATTACHED COSTS ONE MEASUREMENT. A WRONG HYPOTHESIS
+ALONE COSTS A HUNT.***
+
+## ⭐⭐ AND THE NODES: DIAGNOSING RATHER THAN FLIPPING WAS THE WHOLE VALUE
+**☊ and ☋ are 180° rotations of each other ⇒ AN INVERTED GLYPH IS PIXEL-IDENTICAL TO A SWAPPED PAIR.**
+⇒ ✅ **It measured the Moon either side of each crossing: outward through `329.832°`, inward through
+`149.813°` — matching the labels exactly.** ⇒ **Longitudes right, rotation wrong.**
+⛔ ***HAD THEY BEEN SWAPPED, ROTATING WOULD HAVE ENTRENCHED AN ERROR INVISIBLE IN ANY SCREENSHOT.***
+⚠️ **And the defect was MINE: I turned jes's *"north is out, south is in"* into a specific geometric
+claim about the horseshoe's OPENING and passed it on as the spec.** ⭐ **Its reply is the fair reading
+and I am recording it rather than my apology: *you labelled it as your reading, he corrected it in one
+message, and the measurement retired the dangerous hypothesis in two minutes — that is the loop
+working, not failing.*** ⇒ ***A CORRECTION THAT COSTS ONE ROUND IN A LOOP THAT CATCHES IT IS NOT A
+FAILURE OF THE LOOP.***
