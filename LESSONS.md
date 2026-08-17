@@ -9975,3 +9975,45 @@ twice: once a bearing/longitude column swap reading as `74.8°`, once 4-decimal 
 `4.85e-5` against a law of `8.8e-8`.*** ⭐ **Its rule, adopted: *when a check about precision
 disagrees, suspect the transcription before the theory* — and the files now say which number is the
 law and which is the paperwork.**
+
+
+## 7v1 — ⭐⭐⭐ **THREE ASSERTIONS THAT COULD ONLY PASS, OR COULD ONLY FAIL — AND NONE OF THEM WERE CHECKS**
+
+**2026-08-17, 01:2x.** In one round the paravel agent found **three of its own assertions were wrong
+before the code was:**
+```
+① a STRAIGHTNESS metric measured the chord joining the two poles — which IS the
+   ellipse's major axis, so it read 40 = R every time and said nothing
+② a radius-constant check used tolerance 1e-9 on a quantity whose obliquity drift
+   moves it 5e-8 within a day  ⇒ COULD ONLY FAIL
+③ a rim control counted ANY rim contact — but a visible arc legitimately ENDS on the
+   rim, and a near-tangent one grazes it  ⇒ COULD ONLY FAIL
+```
+⇒ ⭐⭐ ***AN ASSERTION THAT CANNOT DISCRIMINATE IS NOT A WEAK CHECK, IT IS NOT A CHECK.*** **① always
+passed, ②③ always failed, and all three LOOKED like verification.** ✅ **Replaced with a COUNT of
+points pinned to the rim — which separates clamping (~60) from grazing (a handful).** ⇒ ***A
+DISCRIMINATOR MUST HAVE A MIDDLE: if every real state maps to the same verdict, the verdict carries
+no information.***
+■ ⚠️ **This is the same family as the six weak controls, but one level further in: those FAILED TO
+SEE a specific bug. These could not see ANY.**
+
+## ✅ AND THE DEFECT UNDERNEATH THEM IS A GOOD ONE — A RIGHT TECHNIQUE IN THE WRONG CATEGORY
+**The meridians initially CLAMPED their hidden half to the rim.** ⇒ ⭐ **That is exactly the trick that
+FIXED the land fill two hours earlier — clamping removes the which-way-round-the-limb choice for a
+FILLED REGION.** ⛔ **For a LINE it is wrong: it draws a spurious arc along the disc edge.**
+⇒ ***A TECHNIQUE THAT SOLVED A PROBLEM IN ONE CATEGORY IS THE FIRST THING REACHED FOR IN THE NEXT,
+AND CATEGORY IS EXACTLY WHAT THE REACH DOES NOT CHECK.***
+✅ **Caught by a bound, not by looking: the measured semi-minor axis was `36–37` units when the true
+projected ellipse can never exceed `R·sin(ε) = 15.9`.** ⭐ *A physical impossibility check beats an
+eyeball every time.*
+
+## ⭐ AND "MEASURE BEFORE EDITING" SAVED AN IMAGINARY FIX
+**jes: *"the two meridians are different line weights?"*** ⇒ ⛔ **They were not — both `stroke-width
+0.4`, both `opacity 0.38`, identical.** **Only HIS OWN meridian differs, at `0.6` — a distinction I had
+suggested and he had not asked for.**
+⇒ ⭐⭐ ***A CURVE RUNNING NEARLY TANGENT TO THE VIEW READS HEAVIER. THE REPORT WAS TRUE AS AN
+OBSERVATION AND FALSE AS A DIAGNOSIS*** — and editing on it would have changed working code to chase
+a projection artifact. ✅ **The instruction that saved it was one line: *measure the actual stroke
+widths before editing; two identical widths that look different is a real possibility.***
+⚠️ **Third time tonight the obvious reading of a symptom named the wrong object** — after the three
+circles and the terminator.
