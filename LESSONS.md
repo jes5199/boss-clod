@@ -10051,3 +10051,45 @@ PIN THE ANSWER THE NEW ONE MUST GIVE.***
   sees the state change is a constant wearing a predicate's clothes — fourth application tonight.*
 ■ ⛔ **NOT TUNED: Mars keeps the same red.** ⇒ ***A PER-BODY RED WOULD MAKE THE OUTLINE ENCODE TWO
 THINGS*** — legibility and identity — **and the encoding is the whole legend on a page with no text.**
+
+
+## 7v3 — ⭐⭐⭐ **IT REFUSED TO ANSWER MY QUESTION, AND THE REFUSAL WAS THE RIGHT ANSWER**
+
+**2026-08-17, 01:5x.** jes asked whether we have data for Jupiter's moons and the Great Red Spot.
+✅ **I checked the schema rather than guessing: `Body` enum has EXACTLY TEN values, 58 types, nothing
+for satellites or surface features — with `star` matching two types as the positive control, so the
+search was not blind.** ⇒ **Compute-and-vendor, not fetch.**
+
+■ ✅ **GALILEAN MOONS — tractable, and the validation is the model kind rather than the presence kind:**
+```
+             modelled    published    ⇒ IT RECOVERED EACH PERIOD FROM THE MODEL
+Io           1.7708 d    1.7691 d        rather than checking that numbers exist
+Europa       3.5582      3.5512
+Ganymede     7.1837      7.1546
+Callisto    16.8448     16.6890
+```
+⭐ **AND IT VOLUNTEERED THAT CALLISTO'S GAP IS MOSTLY ITS OWN COMPARISON — it measured SYNODIC periods
+from Earth against SIDEREAL published values.** ⇒ ***IT DECLINED TO CLAIM BETTER ACCURACY THAN IT HAD
+DEMONSTRATED, in the direction that made its own work look worse.***
+
+## ⛔⛔ AND THE RED SPOT: I ASKED FOR A NUMBER AND IT REFUSED TO PRODUCE ONE
+**I asked *"how stale does the drift figure get per year — that number decides whether it is worth
+having."*** ⇒ ⭐⭐⭐ **Its answer: *"I am not going to answer that, because I would have to invent the
+drift rate to compute it — and a FABRICATED STALENESS ESTIMATE IS WORSE THAN NONE."***
+⇒ ⛔ ***I HAD ASKED FOR AN ERROR BAR ON A QUANTITY IT DID NOT HAVE. THE ONLY WAY TO SUPPLY IT WAS TO
+MANUFACTURE THE UNDERLYING VALUE FIRST*** — and an error bar computed from an invented number is the
+most credible-looking artifact on this entire list, because *having* an error bar is the signal that
+something was measured.
+⭐ ***A REQUEST FOR PRECISION CAN ITSELF BE AN INVITATION TO FABRICATE, AND THE ONLY DEFENCE IS
+REFUSING THE QUESTION RATHER THAN ANSWERING IT APPROXIMATELY.*** ⚠️ **This is `7u8` — my dressed
+caveat about the MC line — turned around and refused by someone else before it could happen again.**
+
+## ✅ AND ITS RECOMMENDATION AGAINST BUILDING IS THE CORRECT SHAPE
+**The GRS needs a CURRENTLY-OBSERVED System II longitude: it drifts, the drift rate itself changes,
+there is no stable formula, and it is maintained by ongoing observation (JUPOS/ALPO).** ⇒ **Any number
+written tonight would be *"a plausible figure that renders beautifully and decays silently"* — tonight's
+dominant failure shape, ⭐ WITH ITSELF NAMED AS THE AUTHOR.**
+■ ⭐ **Second blocker, and it is the disciplined one: the GRS is only meaningful on a drawn Jupiter
+DISC, which is downstream of a PLACEMENT DECISION JES HAS NOT MADE.** ⇒ ***IT DECLINED TO PICK BETWEEN
+TWO RENDERING OPTIONS AND PUT BOTH TO HIM*** — at 02:00, with the work already done and the temptation
+to just ship one.
