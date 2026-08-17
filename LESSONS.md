@@ -10093,3 +10093,44 @@ dominant failure shape, ⭐ WITH ITSELF NAMED AS THE AUTHOR.**
 DISC, which is downstream of a PLACEMENT DECISION JES HAS NOT MADE.** ⇒ ***IT DECLINED TO PICK BETWEEN
 TWO RENDERING OPTIONS AND PUT BOTH TO HIM*** — at 02:00, with the work already done and the temptation
 to just ship one.
+
+
+## 7v4 — ⭐⭐⭐ **THE OBSERVABLE OVERTURNED THE MODEL, AND THE "TWO INDEPENDENT SOURCES" WERE ONE SOURCE**
+
+**2026-08-17, 02:1x.** The Great Red Spot's longitude, on `/jupiter2`. **An hour earlier the agent had
+refused to invent a drift rate (`7v3`); then it found real sources and cross-checked them, and I
+relayed the uncertainty to jes as `5.1°`.** ⇒ ⛔ **BOTH OF THOSE WERE WRONG, AND IT CAUGHT THEM BY
+CHECKING THE MODEL AGAINST AN OBSERVABLE INSTEAD OF ADMIRING IT:**
+```
+CM2 at three PUBLISHED Aug-2026 GRS transits:  79.55 · 79.59 · 79.40 deg
+  ⇒ agree to 0.2 deg ACROSS FOUR WEEKS — the table applies essentially NO drift
+its extrapolation from JUPOS (79.0 @ 2025-12-01, +16 deg/yr):  ~90 deg
+  ⇒ observable vs model disagree by 10.5 deg — MORE THAN TWICE what I relayed
+```
+⇒ ⛔⛔ **AND THE INDEPENDENCE CLAIM FAILED TOO: its "two independent sources" BOTH TRACE TO PROJECT
+PLUTO.** ⭐ ***TWO NUMBERS FROM ONE UPSTREAM ARE NOT A CROSS-CHECK, THEY ARE ONE NUMBER QUOTED
+TWICE*** — and the agreement between them was evidence of shared provenance, not of correctness.
+✅ **It used `79.5°` DERIVED FROM THE TRANSIT TIMES, and the recheck note now says *re-derive from a
+fresh table*, NOT *advance the number by a rate*.** ⇒ ⭐ ***AN OBSERVABLE BEATS A MODEL, AND A MODEL
+THAT DRIFTS AWAY FROM ITS OWN OBSERVABLES IS THE MOST CONFIDENT KIND OF WRONG.***
+■ ⭐ **Free bonus: the same three-transit agreement VALIDATES the new central-meridian code
+(`9.9289 h` vs published `9.9279 h`). A wrong model would not agree at three transits a month apart.**
+⇒ ***ONE OBSERVABLE VALIDATED TWO THINGS AT ONCE — the constant and the machine that uses it.***
+
+## ⛔ AND MY OWN ARITHMETIC WAS OUT BY A FACTOR OF TWO
+**I told him Callisto's span was `52.6` Jupiter DIAMETERS and that true scale in both orbit and disc
+was probably impossible.** ⇒ **It is `26.3` — I doubled an orbit RADIUS that was already a radius.**
+⇒ ⭐ **So true scale IS possible: Jupiter `13.93 px`, GRS `1.17 px`, widest moon `156` units in a `560`
+half-width. NOTHING COMPRESSED, NO SCALE FAKED.**
+✅ **What survived of my point, and it is now ASSERTED: a bigger viewBox does not help, because the
+GRS is a FIXED `1 : 313` of Callisto's span — scaling the frame scales both together.**
+⇒ ⚠️ ***A RATIO ARGUMENT SURVIVED AN ARITHMETIC ERROR IN THE SAME BREATH THAT KILLED THE CONCLUSION.***
+**The structural half was right, the number was wrong, and only measuring separated them.**
+
+## ✅ AND THE UNVERIFIED THING IT REFUSED TO CLAIM
+⛔ **THE LEFT/RIGHT HANDEDNESS OF THE SPOT.** Whether increasing `(GRS − CM2)` puts it left or right
+depends on a sign convention **it has no oracle for from the sandbox** — it needs a dated reference
+image or an eyepiece. ⇒ ⭐ **Presence, timing, foreshortening and distance from the meridian are ALL
+validated by the transit times; ONLY THE MIRROR IS OPEN, and it is flagged IN THE CODE rather than
+quietly assumed.** ⚠️ ***THE SIXTH DIRECTION-VS-MAGNITUDE ITEM TONIGHT — and the first one shipped
+KNOWINGLY UNRESOLVED with the gap named.***
