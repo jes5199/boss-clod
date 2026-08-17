@@ -10221,3 +10221,39 @@ orientation article.** ⇒ **Nothing contradicted the conclusion.**
 ⭐ ***AND THE ONLY APPARENT CONFLICTS IN THE LITERATURE ARE DECLARED FRAME CHANGES — south-up vs
 north-up, and body-fixed vs celestial east/west, WHICH ARE OPPOSITE HANDED.*** **Named in the code
 comment, because it is precisely what would bite the next person who checks this.**
+
+
+## 7v7 — ⭐⭐⭐ **IT ASSERTED THE DRAWN VALUE EQUALLED ITS OWN FORMULA — AND A WRONG FORMULA SATISFIES THAT PERFECTLY**
+
+**2026-08-17, 02:5x.** jes asked for realistic stripes on `/jupiter2`. **Sourcing the band latitudes
+turned up a defect in ALREADY-SHIPPED code: JUPITER IS 6.49% OBLATE and the page was drawing a plain
+circle.** (71,492 km equatorial vs 66,854 polar — NASA/JPL.)
+```
+displacement from assuming a sphere, planetographic latitude in:
+  lat 22 (the GRS)   0.88 units      ← the Spot's own HALF-HEIGHT is 0.84
+  lat 40             1.31
+  lat 60             1.41  (worst)
+```
+⇒ ⛔ ***THE POSITIONAL ERROR ON THE GREAT RED SPOT IS LARGER THAN THE FEATURE ITSELF.***
+
+## ⛔⛔ AND THE REASON NOTHING CAUGHT IT IS THE PUREST SHAPE-EQUALITY FAILURE OF THE NIGHT
+**Its code computed `y = −sin(lat)`. Its assertion checked that the drawn value equalled `R·sin(22°)`.**
+⇒ ⭐⭐⭐ ***THE TEST AGREED WITH THE CODE BECAUSE BOTH WERE SPHERICAL. A WRONG FORMULA SATISFIES AN
+ASSERTION WRITTEN FROM THAT SAME FORMULA, PERFECTLY, FOREVER.***
+⚠️ **Nothing in seventeen suites referenced JUPITER'S ACTUAL FIGURE, so nothing COULD have found it.**
+⇒ ⭐ **This is the `7t6`/`7u9`/`7v6` family at its root: not a blind axis, not a coarse resolution — an
+assertion whose ORACLE IS THE IMPLEMENTATION.** ⛔ ***A CHECK DERIVED FROM THE THING IT CHECKS IS A
+TAUTOLOGY WEARING A MEASUREMENT'S CLOTHES*** — and it passes with the same green as a real one.
+✅ **The fix ties the drawing to an EXTERNAL fact (the published oblateness) instead of to itself:
+planetographic → planetocentric, `y = c·sin β`. One function for the Spot and every band edge.**
+
+## ✅ AND THE BEACH-BALL ASSERTION GOT ITS NUMBER BEFORE THE CODE EXISTED
+**Equal 15° latitude steps project to drawn gaps of `4.55, 4.34, 3.89, 3.14, 2.07, 0.72`** ⇒ **widest
+÷ narrowest = `6.28×`, against `1.00×` for uniform stripes.**
+⭐ ***A PREDICTED RATIO, COMPUTED BEFORE THE FEATURE IS BUILT, IS AN UNAMBIGUOUS RED/GREEN LINE RATHER
+THAN A JUDGEMENT CALL*** — same shape as the non-uniform sign-tick check that caught the straight-fan
+hour lines, and as the `90.000°` vs `78.043°` contrast that killed the Asc = MC + 90 assumption.
+■ ✅ **And the sourcing line held where it matters: LATITUDES sourced and cited, COLOURS declared an
+illustration choice IN THE CODE.** ⇒ **The SEB has faded and revived within living memory, so belt
+colour is genuinely not a measured constant** — ⭐ **and presenting a chosen palette as sourced is the
+difference between the vendored coastlines and a hand-drawn Africa.**
