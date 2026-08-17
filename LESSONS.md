@@ -9857,3 +9857,45 @@ and I am recording it rather than my apology: *you labelled it as your reading, 
 message, and the measurement retired the dangerous hypothesis in two minutes — that is the loop
 working, not failing.*** ⇒ ***A CORRECTION THAT COSTS ONE ROUND IN A LOOP THAT CATCHES IT IS NOT A
 FAILURE OF THE LOOP.***
+
+
+## 7u8 — ⛔⛔ **I GAVE A CLAIM, A CAVEAT, AND A REASON — AND ALL THREE WERE WRONG**
+
+**2026-08-17, 00:55.** jes asked what MC/IC/Asc/Dsc would mean if the globe went back to the ecliptic-
+pole view. **I answered that the lines become literal directions — *"the MC line runs out toward where
+you are"* — and I attached a caveat: true up to axial tilt, near-correct, worst at high latitudes.**
+⇒ ✅ **I told the agent to MEASURE it before building on it.** ⇒ ⛔ **It does not hold.**
+```
+offset between the MC line's bearing and the bearing to the observer star:
+Quito    lat  −0.2     1.9° ·   4.7°
+Portland lat  45.5     6.3° ·  12.0°     ← visible
+Tromsø   lat  69.6    20.0° · 104.8°     ← not a correction, a different quantity
+```
+
+## ⭐⭐⭐ AND THE CAVEAT WAS THE MOST DANGEROUS PART, BECAUSE IT MADE THE CLAIM SOUND MEASURED
+**I did not merely assert it — I named a mechanism (axial tilt), predicted the direction of the error
+(worse at high latitude), and bounded it (small).** ⇒ ⛔ ***ALL THREE WERE WRONG, AND THE THIRD WAS
+WRONG BECAUSE THE FIRST WAS.*** **The agent's finding: the MC is a point on the ECLIPTIC; the star's
+bearing is the observer's PROJECTED POSITION ON THE GLOBE. ⇒ Different objects, loosely correlated at
+low latitude and not otherwise.**
+⇒ ⭐⭐ ***A CLAIM WITH A MECHANISM AND AN ERROR BOUND ATTACHED IS MORE CREDIBLE AND EXACTLY AS
+UNVERIFIED. The caveat did not hedge the claim — IT DRESSED IT.*** ⚠️ **The only thing that saved it
+was the instruction to measure before building, which cost one message.**
+✅ **Corrected to jes in full: the number, the wrong explanation, and that the by-eye check I promised
+does not exist. And it is written in the SOURCE so nobody re-derives the hope.**
+
+## ⭐ AND THE MEASUREMENT PAID FOR ITSELF WITH A FACT NOBODY ASKED FOR
+**`z_ecl(min) = sin(lat − obliquity)`** ⇒ ***AN OBSERVER NORTH OF THE TROPIC OF CANCER IS ALWAYS ON THE
+NEAR SIDE from the ecliptic pole.*** **Portland never hides: 48 of 48 samples over a full rotation.
+Quito exactly half the day; Sydney never.** ⇒ **So the far-side rendering only matters inside the
+tropics and southward — jes will never see it.**
+⭐ ***A MEASUREMENT AIMED AT REFUTING ONE CLAIM RETURNED A STRUCTURAL PROPERTY OF THE WHOLE DESIGN.***
+
+## ✅ AND TWO THINGS DONE RIGHT ON THE REVERT
+- **It kept the roll COMPUTED rather than assuming zero** — and it comes out `0.000` at all four
+  location/time combinations. ⇒ ⭐ ***THAT ASSERTS THE FRAME AND THE ROLL MACHINERY AGREE, WHICH
+  NEITHER ALONE WOULD SHOW.*** **A redundant computation whose output you can predict is a free
+  cross-check, not waste.**
+- **Five observer-centred assertions went RED on the switch and were UPDATED, not deleted.** ⇒ *The
+  suite doing its job — and the opposite of the failure where a control is removed because the thing
+  it checked changed.*
