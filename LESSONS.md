@@ -10343,3 +10343,50 @@ SOL'S DISPATCH WAS NEVER GATED.** ⇒ ⭐ ***THE RESET BUYS DESIGN RULINGS AND R
 ROUNDS*** — **which happens to be exactly what this target needs, but it wanted jes told rather than
 left to infer throughput that does not exist.** ⚠️ **And the standing caveat held: *never gated* is
 still a REPORT CHAIN, since the codex exhaustion detector has never been seen to fire.**
+
+
+## 7w0 — ⭐⭐⭐ **A RIGOROUS MEASUREMENT OF THE WRONG QUESTION IS MORE PERSUASIVE THAN A SLOPPY ONE**
+
+**2026-08-17, 04:11.** commonplace escalated a SECURITY FINDING in my artifact: *"`sol-egress-run.sh`
+does not restrict egress — it shares the host network namespace entirely."*
+⇒ **Its measurement was REAL and WELL BUILT: netns comparison, an `--unshare-net` MUST-FAIL control
+proving the probe could see isolation, a static sweep with a non-empty corpus.**
+⇒ ⛔ **AND THE CONCLUSION WAS BACKWARDS. LINE 2 OF THE FILE:**
+```
+# Sol runner WITH EGRESS — approved by jes 2026-08-07 ("i approve your egress plan").
+```
+⭐ ***THE NETWORK IS OPEN BY DESIGN, BY HIS EXPLICIT RULING, DOCUMENTED IN THE SECOND LINE OF THE
+ARTIFACT BEING AUDITED.*** **And the five "egress" hits are not prose asserting a fence — they document
+that the fence was deliberately opened and what it cost.**
+
+## ⛔⛔ THE THING THAT MAKES THIS THE MOST DANGEROUS SHAPE ON THE WHOLE LIST
+⇒ ***THE MUST-FAIL CONTROL MADE THE WRONG CLAIM MORE CREDIBLE, NOT LESS.*** **A finding arriving with
+a control attached, from a peer who had been right all day, reads as verified.**
+⭐ **Its own words: *"I had a control on the comparison I MADE and none on the one I SHOULD have
+made."*** ⇒ **plan's `f530b3f` — *a control validates the comparison you made, never the one you
+should have made* — landing on its author nine hours after it was quoted at someone else.**
+⚠️ ***RIGOUR IS NOT EVIDENCE OF RELEVANCE, AND IT IS THE STRONGEST AVAILABLE DISGUISE FOR
+IRRELEVANCE.***
+
+## ✅ WHAT CAUGHT IT: I OPENED THE FILE INSTEAD OF RELAYING THE REPORT
+⇒ ⭐ **A second reader who goes to the SOURCE rather than to the SUMMARY.** ⛔ **Had I relayed it, it
+would have reached jes as a security defect in his own approved design — with a control attached, from
+a credible peer, at 04:14.** ⚠️ **The cost of checking was one `sed -n '1,30p'`.**
+⭐ ***THIS IS THE WHOLE JOB: not agreeing faster, but reading the artifact a claim is about before the
+claim passes through me.*** **And the failure mode it prevents is not a wrong fact — it is a TRUE-
+SOUNDING ALARM ABOUT A DELIBERATE DECISION, which costs the decision-maker's confidence in his own
+ruling.**
+
+## ⭐ AND ITS RETRACTION IS BETTER THAN THE FINDING WOULD HAVE BEEN
+- **It verified my correction itself rather than accepting it**, and retracted to plan BEFORE they ruled.
+- ⭐ **It refused to leave an implication of harm that did not occur: *"I dispatched eight rounds
+  believing egress meant something — that was true and it was ALSO NOT A HARM. My belief was wrong;
+  nothing downstream of it was."*** ⇒ ***CORRECTING THE SEVERITY OF YOUR OWN ERROR DOWNWARD IS RARER
+  THAN ADMITTING IT.***
+- ⭐⭐ **And the rule it took is not "grep harder": *WHEN A GREP'S COUNT IS THE BASIS OF A CONCLUSION,
+  THE HITS ARE THE EVIDENCE AND THE COUNT IS NOT.*** ⚠️ **It had written that into three briefs today
+  for others and skipped it in the one place it cost most — *a rule I enforce on builders and skip
+  myself is not a rule, it is a preference.***
+■ ✅ **WHAT SURVIVES: THE FILENAME IS AMBIGUOUS ENOUGH TO MISLEAD A CAREFUL READER WHO HAD DISPATCHED
+EIGHT ROUNDS THROUGH IT. The flag was right even though the finding was wrong — and that defect is
+MINE.**
