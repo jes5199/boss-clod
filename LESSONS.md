@@ -9937,3 +9937,41 @@ assertion.** ⚠️ **That is luck plus good practice on the agent's side, not c
 ⭐ **The agent's framing, which is better than mine and matches its own confession two hours earlier:**
 > ***A FACT YOU HOLD AND A FACT YOU APPLY ARE DIFFERENT OBJECTS, AND THE GAP BETWEEN THEM WIDENS
 > EXACTLY WHEN YOU ARE DEEP IN THE WORK.***
+
+
+## 7v0 — ⭐⭐⭐ **HE ASKED FOR A DOT AND WHAT HE ACTUALLY ASKED FOR WAS A CONTROL**
+
+**2026-08-17, 01:13.** jes: *"can we draw a dot on the rotational north pole, I wanna see something."*
+⇒ ⭐ **I did not ask what he was testing. I dispatched it AND named what the dot would prove:**
+```
+① it must lie ON the gray meridian — the meridian IS the great circle through the pole and him
+② it must NOT be at the disc centre — a naive polar projection would put it there
+③ its radius must be CONSTANT at R·sin(23.44°) ≈ 0.398 R across a full rotation
+```
+⇒ ✅ **All three confirmed over 24 hourly samples: radius `0.397722 R`, and `sin(23.4358°) = 0.397722`
+EXACTLY; never centred; on the meridian to `0.001` SVG units; never hides.**
+⇒ ⭐⭐ ***THE 0.398 FIGURE HAD BEEN QUOTED ALL EVENING — BY ME, REPEATEDLY, AS THE EYE-CHECK THAT THE
+PROJECTION WAS NOT NAIVE — AND THIS WAS THE FIRST TIME IT WAS CHECKED RATHER THAN ASSERTED.***
+⚠️ **A number that everyone repeats and nobody has measured is the most durable kind of unverified
+claim, because its repetition is mistaken for its verification.**
+■ ⭐ **And he then replaced the dot with THREE CONVERGING MERIDIANS.** ⇒ ***A DOT IS A CLAIM ABOUT
+WHERE THE POLE IS; THREE GREAT CIRCLES THAT MEET THERE IS A CONSTRUCTION THAT CANNOT AGREE BY
+ACCIDENT.*** **He replaced an assertion with a demonstration — the same move as everything that has
+worked tonight.**
+
+## ✅ AND THE GEOMETRY CLOSED, WITH MY WRONG CLAIM AND ITS RIGHT REPLACEMENT ASSERTED SIDE BY SIDE
+```
+MC / IC    MERIDIAN objects — related to the observer by CO-PLANARITY      8.8e-8°
+ASC / DSC  HORIZON  objects — related to the observer by PERPENDICULARITY  9.5e-8°
+the pole is NOT on the Asc–observer–Dsc circle: 5.6°–87.0°, varying, never zero
+```
+⇒ ⭐ ***NEITHER IS A BEARING RELATIONSHIP — which is exactly why "the MC points toward you" fails
+while both true statements hold to one part in 10⁸.*** ✅ **Both asserted TOGETHER, deliberately, so a
+reader who sees only one cannot re-derive the wrong bearing version.** ⚠️ ***AN ERROR IS RETIRED BY
+FILING IT NEXT TO ITS CORRECTION, NOT BY DELETING IT.***
+■ ⭐ **And the law is now checked GEOMETRY AGAINST GEOMETRY — drawn gold radius vs drawn Asc/Dsc
+chord, deviation `0.0e+0`.** ⇒ ***NO TRANSCRIPTION STEP, which is what nearly broke the measurement
+twice: once a bearing/longitude column swap reading as `74.8°`, once 4-decimal rounding reading as
+`4.85e-5` against a law of `8.8e-8`.*** ⭐ **Its rule, adopted: *when a check about precision
+disagrees, suspect the transcription before the theory* — and the files now say which number is the
+law and which is the paperwork.**
