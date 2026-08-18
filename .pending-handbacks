@@ -1,5 +1,16 @@
 # OPEN HAND-BACKS — work boss CANNOT do, awaiting a context-holder.
-# Surfaced on every sol-nudge run. Delete a line once it is confirmed DONE
-# BY EFFECT (the ticket reads closed on the live surface), never on a report.
+# Surfaced on every sol-nudge run.
+#
+# DELETION RULE, refined 2026-08-18 when it first met reality:
+#   Delete on CONFIRMED EFFECT — the state reads true on the LIVE surface.
+# ⛔ The original said "never on a report", which would have made every entry
+#   here IMMORTAL: these lines exist precisely BECAUSE boss cannot reach the
+#   surface (telegram + clod-squad only, no tix/MCP route). Demanding boss's
+#   own confirmation of a thing boss structurally cannot read is a rule that
+#   can never be satisfied.
+# ⇒ THE WORKABLE FORM: a context-holder's measurement counts as confirmed
+#   effect WHEN IT CARRIES ITS INSTRUMENT — a named positive control, the
+#   values read, and identities (shas/ids) rather than an assurance.
+#   "I closed it" is a report. "CX-3nf4 FOUND open as control; CX-1mn4 CLOSED
+#   @e72857a9 with its closed_reason" is a measurement, and that is deletable.
 CX-cj59|commonplace, next session holding a BdWrite signing context|bd_close {"ticket":"CX-cj59","witnesses":[]} — cite dc72b204 in the reason (fix landed under sibling id CX-vvbh; cross-ticket sweep gap). plan ruled the row struck 2026-08-18.
-CX-1mn4 / CX-fbah|commonplace or plan, next session holding a tix READ context|CHECK STATE ONLY, do not close blind: the "re-converge yelixer" pointer is moot BY the extraction (CX-b6mz/CX-71m2 @226eb8f5). If either row is still open in tix it is premise-dead — the THIRD today. boss has no tix route (telegram+clod-squad only), so this cannot be checked from here.
