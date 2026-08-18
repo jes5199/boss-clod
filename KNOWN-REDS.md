@@ -65,7 +65,7 @@ exist yet. **Always name the failing assertion's SHAPE, and say that a different
 # ▼▼ THE BLOCK — paste from here to the end marker ▼▼
 
 ```
-KNOWN REDS ON main (as of 80925204, 2026-08-18 10:15Z) — NOT YOURS. Anything else IS.
+KNOWN REDS ON main (as of 9eb98e97, 2026-08-18 10:25Z) — NOT YOURS. Anything else IS.
 
 ① ⭐⭐ MECHANISM PROVEN 2026-08-18 AND THE FIX HAS LANDED — ENTRY STAYS OPEN
    PENDING CONFIRMATION OVER N CI RUNS. ⛔ IT IS NOT CLOSED, AND ONE GREEN DOES
@@ -228,8 +228,17 @@ KNOWN REDS ON main (as of 80925204, 2026-08-18 10:15Z) — NOT YOURS. Anything e
                "messages render via the generic renderer (ChatViewCompute path)"
                — assert html =~ "hello world"; the rendered <ul> was EMPTY, the
                rest of the page rendered fine
-   DENOMINATOR: 2 of the last 3 push rows, with a FULL GREEN row (6020f782)
-   between them. Both landings touched runner/mediator code only; both had
+   DENOMINATOR (updated 2026-08-18 10:25Z): 2 of the last 4 push rows.
+       ff071567 RED (unswept siblings — unrelated, fixed)
+       bea91065 GREEN
+       43037955 RED   ← family sighting 1
+       6020f782 GREEN
+       80925204 RED   ← family sighting 2
+       9eb98e97 GREEN (S-storehelper)
+     ⚠️ THE TWO SIGHTINGS ALTERNATE WITH GREENS. That is an OBSERVATION about
+        six rows and NOT a period — at n=2 an alternating pattern is what two
+        events in six slots look like most of the time. DO NOT PREDICT THE NEXT
+        ROW FROM IT. Both landings touched runner/mediator code only; both had
    green local runs; every other app was green in both rows.
    ⛔⛔ HONEST LIMIT, AND IT IS THE WHOLE ENTRY: DIFFERENT apps, DIFFERENT tests,
       DIFFERENT observables. NO SHARED MECHANISM IS PROVEN. A story exists — the
@@ -643,3 +652,10 @@ KNOWN REDS ON main (as of 80925204, 2026-08-18 10:15Z) — NOT YOURS. Anything e
   refused to quote as a rate because its window straddled the fence fix.*** **The habit and the caution
   independently covered the same gap.**
   ✅ **RULE: never compute a CI rate from a count alone — print the rows, read the dates, then count.**
+- **2026-08-18 10:25Z** — ④ **DENOMINATOR UPDATED: the family did NOT recur at `9eb98e97` (S-storehelper, FULL
+  GREEN).** Now **2 of the last 4 push rows**, and the two sightings alternate with greens.
+  ⛔ **I recorded the alternation as an OBSERVATION and explicitly forbade predicting from it** — at n=2, two
+  events landing in six slots look alternating most of the time. ⭐ ***A pattern that appears at n=2 is a
+  property of small numbers, not of the system, and writing it down without that caveat is how a coincidence
+  becomes a mechanism nobody re-examines.***
+  ✅ **Main is green.** Last four rows: RED · GREEN · RED · GREEN.
