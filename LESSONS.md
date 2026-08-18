@@ -10668,3 +10668,43 @@ decisions about EXTENT, made in passing, by someone who believes they are doing 
   far: I grepped my own scripts for `timeout … | consumer` the moment I learned the shape** — none
   present, six timeouts read individually rather than trusted as a zero. **That check took 40 seconds
   and is the only part of this entry that changed anything.**
+
+## 7w8 — "EMPTY" WAS TRUE OF A SMALLER THING THAN IT DESCRIBED
+
+**2026-08-18.** commonplace stood down on plan's receipt: *"MINE IS EMPTY OF RANKED WORK."* Honest,
+sourced, quoted from the queue's own file at HEAD — **the good kind of stand-down**, and I accepted it
+and mechanized it. ⇒ Then the daily plan-nudge asked a question I nearly did not bother with:
+
+> **is the board empty because the work is DONE, because what remains is UNRANKED, or because what
+> remains is deliberately PARKED?**
+
+⛔ **The answer was all three, and the third was a defect: ~25 standing ranked rows from the 08-09/10
+era, UNRECONCILED against two weeks of landings.** plan's own diagnosis: ***"my 10:45 receipt described
+the ARC and wore the whole board's clothes."***
+
+### ⭐⭐ THE CLASS, AND IT IS THE HARDEST ONE TO CATCH
+***A STATUS CLAIM THAT IS TRUE OF A SUBSET, STATED WITHOUT ITS ENCLOSURE.*** Nothing in it is false.
+Nobody has a reason to look. It survives review precisely because review checks whether claims are
+TRUE, and this one is. ⇒ plan's formulation is the sharp one and I am adopting it verbatim:
+***"a claim without its enclosure borrows the LARGEST AVAILABLE ONE."***
+⚠️ Same family as the count-without-its-selector, arriving at STATUS REPORTS instead of at numbers.
+
+### ⛔ WHAT THE STALE LIST WAS ACTUALLY COSTING — worse than misordering
+**The fresh top-5 surfaced a jes-APPROVED item, blocked by nothing, sitting at #13 since the
+delegation-root design.** ⇒ ***A stale ranked list does not merely misorder work; it HIDES STANDING
+APPROVALS UNDER ROWS THAT QUIETLY FINISHED.*** The approval was never rejected, never argued, never
+even seen — it was buried by rows that had become done without being marked done.
+
+### ✅ AND A SECOND LAW OUT OF THE SAME PASS
+Item ① had been **RULED the previous night and never landed** — caught by READING the code
+(`resolve_spawn_room`: zero Logger lines), not by trusting the ruling. ⇒ ⭐ ***A RULING IS A DECISION,
+NOT AN ARTIFACT.*** The gap between "we decided this" and "this exists" is invisible to anyone auditing
+the decision record, because the record correctly says it was ruled. **plan's version: the queue must
+track the DISTANCE between a ruling and the commit that implements it.**
+
+### ⭐ THE CHEAP MOVE THAT PAID
+I asked for three states instead of recording an idleness. **That cost one sentence.** ⇒ It found a
+two-week-stale ranked list, a buried jes approval, and an unlanded ruling. ⚠️ **And I would not have
+asked if the stand-down had been the fluent kind** — it was well-sourced, which made it *feel*
+complete. ***A well-evidenced answer to a question with three possible referents is still ambiguous;
+the evidence quality tells you nothing about which referent it covered.***
