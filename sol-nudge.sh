@@ -91,6 +91,28 @@ if [ -n "${SERVE_PID:-}" ] && [ -x /home/jes/boss-clod/verify-serve-listen.sh ];
   fi
 fi
 
+# ⭐ OPEN HAND-BACKS SURFACER (2026-08-18) — same form as the BOUND surfacer above
+# and for the same reason: this loop is the only thing that runs every 10 min and
+# whose stderr I actually read, which makes it THE READER'S CLOCK.
+# ⛔ WHY IT EXISTS: boss-clod carries telegram + clod-squad ONLY and has NO MCP
+# route to commonplace's serve — so ticket closures are STRUCTURALLY A HAND-BACK
+# to whoever holds a signing context. That separation is deliberate and good
+# (the dispatch-loop holder lacks ticket-write authority), but it means an item
+# can sit forever in nobody's session: plan cannot do it, I cannot do it, and
+# commonplace only can when it happens to hold the context.
+# ⇒ A CARRIED INTENTION IS NOT A MECHANISM. Tonight's dominant lesson (7w7) is
+#   that filed rules do not fire; this one is re-read by something that already runs.
+HANDBACKS="/home/jes/boss-clod/.pending-handbacks"
+if [ -s "$HANDBACKS" ] && grep -qv '^#' "$HANDBACKS" 2>/dev/null; then
+  while IFS='|' read -r id who what; do
+    case "$id" in ''|'#'*) continue ;; esac
+    echo "⏳ OPEN HAND-BACK: $id — needs: $who" >&2
+    echo "   $what" >&2
+  done < "$HANDBACKS"
+  echo "   ⇒ Surface these when the holder is available. Delete the line only on" >&2
+  echo "     CONFIRMED EFFECT (reads closed on the live surface), never on a report." >&2
+fi
+
 WORKER="${WORKER:-commonplace}"
 # ⭐⭐ 2026-08-11, jes: "I'm willing to burn extra Claude tokens to keep Sol warm."
 # THIS RETIRES THE RATIO FLOOR FOR THE SOL LANE. The 1.60 floor existed for one
