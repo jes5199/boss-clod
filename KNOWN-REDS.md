@@ -242,9 +242,26 @@ KNOWN REDS ON main (as of 80d6e962, 2026-08-18 06:00Z) — NOT YOURS. Anything e
          and that is NOT a split: same store, same call, same CubDB failure at the
          same line, different phase. THE MODULE+LONE-RED KEY HOLDS.
    ✅✅ REPRODUCED 2026-08-18 (S-snapshot-repro-s1, in-sandbox, rep 4, seed 1745).
-      THE HANDLE — a worktree whose tmp/test_data has ACCUMULATED a few runs'
-      commits, then:  mix test <cli snapshot test file>:71 --repeat-until-failure 200
-      → red within ~4 reps (n=1). Artifacts: branch sol/s-snapshot-repro-s1 @
+      THE HANDLE — a FRESH worktree (see the warning below), then:
+        mix test <cli snapshot test file>:71 --repeat-until-failure 200
+      → red within ~4 reps (n=1).
+      ⛔⛔ THE HANDLE MAY BE SINGLE-USE PER CHECKOUT — READ THIS BEFORE CONCLUDING
+         "NOT REPRODUCIBLE". S-snapshot-mech-s2 ran 603 instrumented reps in the
+         SAME worktree that fired at rep 4 and got ALL GREEN. Post-round reads
+         (CubDB's captured path is RELATIVE; boot artifacts and test state landed
+         in TWO different tmp/test_data dirs — a boot-vs-test cwd split inside one
+         VM) support a LABELED, NOT PROVEN reading: the crash window CLOSES
+         PERMANENTLY once any invocation boots at app cwd — i.e. the reproducer is
+         SELF-EXTINGUISHING per checkout.
+         ⇒ ⭐ IF THAT READING HOLDS: use a FRESH worktree. Re-running the recipe
+           on a worktree that has already been exercised produces a null that
+           means "window closed", NOT "bug absent" — AND THOSE TWO ARE THE SAME
+           OBSERVATION FROM OUTSIDE. This annotation exists so that a null here
+           is not mistaken for a disconfirmation.
+         ⇒ IT ALSO EXPLAINS THE ~30% CI RATE WITHOUT ANY NEW MECHANISM: every CI
+           run is a fresh checkout, so the window is always open there.
+         ⚠️ LABELED READING, awaiting plan's two settling arms (fresh-worktree
+            replay + one CI cwd read). Do not cite it as established. Artifacts: branch sol/s-snapshot-repro-s1 @
       fcdd72da (stage logs + ACCEPTANCE.md + brief), verified present on origin.
       ⛔ DO NOT DELETE THAT BRANCH — it is the only durable copy of the REPORT.
       ⛔⛔ AND THE BRANCH DOES NOT PROTECT THE REPRODUCER. Measured 2026-08-18:
@@ -269,12 +286,18 @@ KNOWN REDS ON main (as of 80d6e962, 2026-08-18 06:00Z) — NOT YOURS. Anything e
          reproduces is not an explanation; it is what makes one affordable.
    ⛔ NOT "STANDING" AND NOT A TRIGGER. If your push goes red ONLY here, RE-RUN
       BEFORE INVESTIGATING: at ~30% a single red carries almost no information.
-      ⚠️ "NO ACTION OF YOURS SUMMONS IT" WAS TRUE UNTIL 06:10Z AND IS NOW ONLY
-         HALF TRUE — the handle below summons it deliberately from ACCUMULATED
-         LOCAL DISK STATE. In CI, where every run starts clean, nothing you do
-         summons it and the type still reads INTERMITTENT. ⇒ THE TYPE IS ABOUT
-         THE HABITAT, NOT THE TEST: same failure, intermittent in CI, driveable
-         on a dirty worktree.
+      ⚠️ THIS LINE HAS BEEN WRONG IN BOTH DIRECTIONS IN ONE HOUR, WHICH IS ITSELF
+         THE WARNING. At 06:10Z I wrote that the bug was "driveable on a dirty
+         worktree" — accumulated local state summons it. At 06:25Z a 603-rep run
+         on that same dirty worktree came back ALL GREEN, and the current reading
+         is closer to the OPPOSITE: a fresh checkout is what has the open window,
+         and accumulation CLOSES it.
+         ⇒ ⭐ I BUILT A RULE ON n=1 AND STATED IT AS A PROPERTY. The single
+           reproduction was real; the generalisation from it was mine and it did
+           not survive the second measurement.
+         ⇒ WHAT SURVIVES BOTH READINGS: in CI it fires at ~30% and nothing a
+           round does summons it, so the type is still INTERMITTENT and the
+           re-run rule above still stands. THAT is the part a round needs.
    ⛔ A DIFFERENT ASSERTION IN THIS MODULE IS PROBABLY STILL THIS ENTRY. Two of
       the module's tests have now failed with no code between them touching the
       CLI — so the entry is keyed on the MODULE plus the shape "a snapshot-command
@@ -465,3 +488,20 @@ KNOWN REDS ON main (as of 80d6e962, 2026-08-18 06:00Z) — NOT YOURS. Anything e
   gone. ⇒ **"It's committed" answers a different question than "can this be re-run."**
   ⚠️ **Note the shape: I found this only because I checked whether a claim I had WRITTEN MYSELF was true** — the
   do-not-delete line was mine, one commit old, and I had not asked what it actually covered.
+- **2026-08-18 06:28Z** — ⛔⛔ **ENTRY ④'s HANDLE ANNOTATED AS POSSIBLY SINGLE-USE, AND A CLAIM OF MINE RETRACTED.**
+  s2 ran **603 instrumented reps in the same worktree that fired at rep 4** and got **all green**. The labeled
+  reading: the crash window **closes permanently** once any invocation boots at app cwd — the reproducer is
+  **self-extinguishing per checkout** — which also explains the ~30% CI rate with **no new mechanism**, since
+  every CI run is a fresh checkout.
+  ⭐ **ANNOTATED NOW RATHER THAN AFTER CONFIRMATION, and the reason is the whole point of this file:** the block
+  told a reader to use *"a worktree whose tmp/test_data has ACCUMULATED a few runs' commits."* ⇒ **On an
+  already-exercised worktree that recipe yields a null that means WINDOW CLOSED — and "window closed" and "bug
+  absent" are the same observation from outside.** ⚠️ **A misleading recipe costs more than an unconfirmed
+  label, so the label goes in and says plainly it is not established.**
+  ⛔ **AND I RETRACTED MY OWN LINE:** at 06:10Z I wrote the bug was *"driveable on a dirty worktree"*; at 06:25Z
+  the opposite reading is the better-supported one. ⇒ ⭐ ***I BUILT A RULE ON n=1 AND STATED IT AS A PROPERTY.***
+  The reproduction was real; the generalisation was mine and did not survive the second measurement. **What
+  survives both readings — ~30% in CI, nothing a round does summons it, re-run before investigating — is what
+  the entry now leads with, because that is the part a round actually needs.**
+  ✅ **Durability verified, not accepted on report:** `a56b6fd7` on origin carries both habitat tarballs
+  (149,909 + 567,285 bytes) — **artifact and precondition now share a lifetime**, which is #12873 applied.
