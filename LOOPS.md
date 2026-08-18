@@ -237,3 +237,42 @@ DRY=1               → PLAN_NUDGE|plan idle, 7d utilisation 66.0% < 90%        
 ```
 ⭐ `DRY=1` evaluates the gate **without touching the marker** — verified: `.plan-nudge-last`
 still absent after four dry runs. **The marker records "gate passed", not "nudge sent".**
+
+---
+
+# ⛔⛔ 2026-08-18 — TWO LOOPS DIED SILENTLY FOR 31 HOURS, AND THE CHECK THAT WOULD HAVE CAUGHT IT WAS NEVER RUN
+
+```
+heartbeat ages measured 2026-08-17 22:20Z:
+  .heartbeat-epic-nudge   1881m  (31h)   ⛔ DEAD
+  .heartbeat-sol-nudge    1856m  (31h)   ⛔ DEAD
+  .heartbeat-plan-nudge      0m          ✅ alive
+  .heartbeat-quota-guard     8m          ✅ alive  (system cron)
+  .heartbeat-state-render   36m          ✅ alive  (system cron)
+```
+⇒ **`CronList` confirmed it: only the plan-nudge job existed. epic, sol and the alerts poll
+were gone.** Symptom jes saw: *"fable and sol both building"* → measured, both IDLE, and my
+first answer blamed a cooldown that was working correctly.
+
+## ⭐ WHAT MADE IT INVISIBLE — AND IT IS THE SAME SHAPE AS THE FOUR-DAY CI RED
+⛔ **A dead loop and a loop that keeps correctly declining are INDISTINGUISHABLE from the
+outside.** Both produce silence, and silence is what a healthy no-op looks like BY DESIGN
+(the scripts print nothing on stdout when no action is warranted — a property that is
+deliberate and correct, and which also hides their absence).
+⇒ ⭐⭐ ***THE HEARTBEAT FILES EXIST FOR EXACTLY THIS, AND `boss-preflight.sh` READS THEM AND
+CALLS A STALE ONE RED. IT WAS NOT RUN.*** ⚠️ **I built that check on 2026-08-15 after a loop
+died unnoticed for three days. It found nothing this time because nothing invoked it — a
+check with no caller is a filed rule, not a mechanism.**
+
+## ✅ FIX APPLIED, AND THE PART THAT MATTERS IS THE CALLER
+- **Re-armed:** sol `:1,:11,…` (9d083b05) · epic `:8,:18,…` (4a78d072) · alerts `:4,:14,…`
+  (97c4a216) · plan 6h `:23` (b342363d, never died). **Staggered 3 min apart as before.**
+- ⭐ **The nudge prompts now carry today's corrections rather than the 2026-08-10 text:**
+  the Fable-writes-code directive (his 2026-08-17 reversal of delegate-to-a-subagent), the
+  KNOWN-REDS-from-the-file rule with `bin/cp-brief-known-reds --check`, base-as-a-relation,
+  counts-carry-selectors, and the `sol-egress-run.sh` name warning.
+- ⛔⛔ **STILL SESSION-ONLY. `CronCreate` writes nothing to disk and dies with the session.**
+  ⇒ ***THIS FILE IS THE ONLY DURABLE COPY, AND IT IS ONLY DURABLE IF SOMEONE READS IT.***
+  ⭐ **On every session start: run `CronList`, compare against this file, and re-arm what is
+  missing. If the heartbeats disagree with `CronList`, believe the heartbeats — they record
+  what RAN, not what was SCHEDULED.**
