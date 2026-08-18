@@ -65,7 +65,7 @@ exist yet. **Always name the failing assertion's SHAPE, and say that a different
 # ▼▼ THE BLOCK — paste from here to the end marker ▼▼
 
 ```
-KNOWN REDS ON main (as of 80d6e962, 2026-08-18 06:30Z) — NOT YOURS. Anything else IS.
+KNOWN REDS ON main (as of ff071567, 2026-08-18 07:45Z) — NOT YOURS. Anything else IS.
 
 ① ⭐⭐ MECHANISM PROVEN 2026-08-18 AND THE FIX HAS LANDED — ENTRY STAYS OPEN
    PENDING CONFIRMATION OVER N CI RUNS. ⛔ IT IS NOT CLOSED, AND ONE GREEN DOES
@@ -213,6 +213,38 @@ KNOWN REDS ON main (as of 80d6e962, 2026-08-18 06:30Z) — NOT YOURS. Anything e
       was 47/66 = 71% green, so a ~29% instability PREDATES the fence, is UNOWNED,
       and is now observable for the first time.
 
+```
+
+# ▲▲ END OF BLOCK ▲▲
+
+---
+
+## Retired entries — kept so they are not silently re-added
+
+- **`CLI.SnapshotTest` ~30% intermittent — CLASS CLOSED at `ff071567`** (merge of `8cda4bf0`, verified on
+  `origin/main`; 3 `Path.expand` additions across `application.ex` + `commit_store.ex`).
+  ⛔⛔ **THE POLARITY FLIPPED, WHICH IS WHY THIS COULD NOT STAY IN THE BLOCK.** For four hours the entry said
+  *"a lone snapshot-command red is NOT YOURS."* **After `ff071567` a red there is a REGRESSION and IS yours.**
+  ⇒ ***An entry that outlives its fix does not merely go stale — it INVERTS, and it keeps telling rounds
+  "not yours" about a live defect.*** That is `CX-7rjn` verbatim, named at the top of this file, and the
+  only thing that stopped it repeating was that commonplace said the era had ended at that sha.
+  **THE FIX:** `Path.expand` at both doors — `application.ex`'s two boot captures and `CommitStore.init`
+  before join/lock/CubDB — each with a why-comment at the line citing `sol/s-snapshot-fresh-s3`, so the next
+  reader who thinks the expand is gratuitous trips over the reason where they stand.
+  **THE CLASS ARM, not just the crash arm:** post-fix 402 reps green **and** exactly one commits store exists
+  at the boot-resolved path, with the app-dir store never appearing. ⭐ **Asserting the ABSENCE of the
+  two-stores symptom is what proves the class died rather than this instance.**
+  **Suites at land:** commonplace 3582/0 · cli 121/0. Scale lane's first real **cron** firing (run
+  `32111305447`, `event=schedule`) came back **SUCCESS** — green in its true habitat, first try, ~45 min
+  after the 06:43 slot (scheduler lag worth knowing before calling a future firing "missing").
+  **THE ARC:** 1 observation not in the block → mis-blamed to the next CLI toucher → flake entry → 4 obs →
+  rekeyed on module+shape after a same-module sibling → reproduced n=1 → bounded null that INVERTED my n=1
+  rule → mechanism confirmed by watching the window close → fixed at both doors. **Four Sol rounds in one
+  night, every verdict verified on raw bytes before relay.**
+
+  <details><summary>the entry as it stood in the block at retirement</summary>
+
+```
 ④ KNOWN INTERMITTENT — Commonplace.CLI.SnapshotTest (commonplace_cli, 121 tests).
    ⛔ TWO KNOWN ASSERTIONS, AND THE SECOND IS WHY THIS ENTRY WAS REWRITTEN WITHIN
       THE HOUR OF BEING WRITTEN:
@@ -324,12 +356,7 @@ KNOWN REDS ON main (as of 80d6e962, 2026-08-18 06:30Z) — NOT YOURS. Anything e
       ⛔ THE RE-RUN RULE IS WHAT A ROUND NEEDS FROM THIS ENTRY. Everything below
          the rate is for whoever fixes it, not for whoever trips over it.
 ```
-
-# ▲▲ END OF BLOCK ▲▲
-
----
-
-## Retired entries — kept so they are not silently re-added
+  </details>
 
 - **`CX-7rjn` handler defect** — **FIXED at `2e693cd6`**, verified at source (the handler now filters
   correctly). ⛔ **It sat in my block as ACTIVE after the fix.** ⇒ ***A known-red entry that outlives
@@ -535,3 +562,15 @@ KNOWN REDS ON main (as of 80d6e962, 2026-08-18 06:30Z) — NOT YOURS. Anything e
   sentence of hedging and bought a correct instruction fifteen minutes early.**
   ⚠️ **Entry STAYS despite a known mechanism: a mechanism is not a fix, and CI still fires at ~30%.** The entry now
   says explicitly that the re-run rule is what a ROUND needs and the rest is for whoever fixes it.
+- **2026-08-18 07:45Z** — ✅✅✅ **④ RETIRED — CLASS CLOSED AT `ff071567`, VERIFIED ON `origin/main`.** Block now
+  carries ①②③ only; `SnapshotTest` appears **0 times** in the pasted block and 8 times in the file's retired
+  section, which is the split this file exists to maintain.
+  ⛔⛔ **THE REASON IT COULD NOT WAIT FOR MORE DATA: THE ENTRY'S POLARITY INVERTED.** For four hours it told
+  rounds *"a lone snapshot-command red is NOT YOURS."* From `ff071567` onward such a red is a **REGRESSION** and
+  **IS** theirs. ⇒ ***A known-red that outlives its fix does not go stale, it INVERTS — it keeps actively
+  asserting the opposite of the truth.*** That is `CX-7rjn`, named in this file's own header, and the only thing
+  that caught it in time was commonplace saying the era ended at that sha.
+  ⚠️ **NOT recorded: the push run at `ff071567`.** It is `in_progress`, and I labelled an in-progress run as red
+  once already tonight. **The first ceiling row where a SnapshotTest red would mean regression is still pending.**
+  ✅ **Cron lane green in its real habitat** (run `32111305447`, `event=schedule`) — first firing, first try,
+  ~45 min after the 06:43 slot. **Scheduler lag noted so a late firing is not read as a missing one.**
