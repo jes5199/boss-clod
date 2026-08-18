@@ -47,12 +47,38 @@ exist yet. **Always name the failing assertion's SHAPE, and say that a different
 # ▼▼ THE BLOCK — paste from here to the end marker ▼▼
 
 ```
-KNOWN REDS ON main (as of 0d4163ac, 2026-08-16 20:00Z) — NOT YOURS. Anything else IS.
+KNOWN REDS ON main (as of 316f7b53, 2026-08-18 02:35Z) — NOT YOURS. Anything else IS.
 
-① STANDING RED — ⭐ KEYED ON MECHANISM, NOT ON A SYMPTOM STRING.
-   MECHANISM: AN ARRANGEMENT-TRIGGERED MUD RENDER RETURNS WITHOUT ITS EXPECTED
-   ROOM CONTENT. Same tests at a DIFFERENT SEED and the SAME POPULATION are GREEN
-   — so it is arrangement, not count and not code.
+① ⭐⭐ MECHANISM PROVEN 2026-08-18 AND THE FIX HAS LANDED — ENTRY STAYS OPEN
+   PENDING CONFIRMATION OVER N CI RUNS. ⛔ IT IS NOT CLOSED, AND ONE GREEN DOES
+   NOT CLOSE IT. Read the proof and the status before attributing anything here.
+   ✅ THE MECHANISM, pinned by MODULE md5 rather than by narrative: test fixtures
+      in engine_module_test.exs defined modules under the PRODUCTION names.
+      Module names are BEAM-GLOBAL, so each fixture compile REDEFINED the real
+      module's code for the whole run; last_good caches an ATOM, so the victim
+      was served the fixture's code. The fixture passes no viewer → gated room →
+      :read_denied → swallowed by a catch-all → missing room content. THAT is why
+      only gated/private-room tests ever showed it.
+   ✅ FIXES LANDED: (c) `85f357ce` — :mud_engine_manifest joins the leak
+      detector's watchlist, the leak that hid it is now visible.
+      (a) `316f7b53` / `e8f50d48` — the TEN production Engine* names renamed to
+      *Fixture in test/; zero production definitions remain in test/; the five
+      real-seed string assertions in seed_sources_test are PRODUCTION content and
+      were correctly left untouched. Full suite 3580 tests, 0 failures.
+   ⏱ (b) PRODUCT-SIDE IS NOT DONE: last_good still caches by NAME. Verify code
+      identity at serve time (md5 beside the atom, mismatch ⇒ floor + NAMED
+      alarm), red-first with a deliberately-redefined module REFUSED.
+   ⛔⛔ WHY THIS ENTRY STAYS IN THE BLOCK ANYWAY: the family's CI rate is expected
+      to COLLAPSE, and expected-to-collapse is a PREDICTION, not a measurement.
+      The clock starts at `316f7b53`; it closes on consecutive CI runs, never on
+      one green. Until then a matching failure is still NOT YOURS.
+   ── the history below is what the entry looked like before the proof; it is
+      kept because a recurrence needs it, not because it is still the state ──
+   MECHANISM (as previously characterised): AN ARRANGEMENT-TRIGGERED MUD RENDER
+   RETURNS WITHOUT ITS EXPECTED ROOM CONTENT. Same tests at a DIFFERENT SEED and
+   the SAME POPULATION are GREEN — arrangement, not count and not code.
+   ⇒ ⭐ AND THAT CHARACTERISATION WAS RIGHT BUT SHALLOW: "arrangement" was the
+     OBSERVABLE of fixture-compile ORDER deciding whose code owned the atom.
    ⚠️ THREE KNOWN INSTANCES. This list is INSTANCES OF THE MECHANISM, not the
       definition of it — a FOURTH test showing the same mechanism is covered here
       even though it is not named yet. Tell me and I will add it.
@@ -69,8 +95,12 @@ KNOWN REDS ON main (as of 0d4163ac, 2026-08-16 20:00Z) — NOT YOURS. Anything e
         string rather than the mechanism.
    ⚠️ HONEST LIMIT: SAME FAMILY, SHARED MECHANISM NOT PROVEN. One symptom across
       two tests is corroboration, not proof, and the third has a third assertion.
-   Full suite at seed 117514, CURRENT (0d4163ac): 3569 tests, 1 FAILURE
-   (MUD.HumanWebPlayTest), measured by commonplace.
+   Full suite at seed 117514, CURRENT (316f7b53): 3580 tests, 0 FAILURES,
+   measured by commonplace post-(a). ⚠️ THE PRE-FIX READING WAS 3569 tests /
+   1 FAILURE (MUD.HumanWebPlayTest) at 0d4163ac — kept so the delta is legible.
+   ⛔ AND BY THIS ENTRY'S OWN RULE THAT ZERO IS UNINFORMATIVE, THIS GREEN IS NOT
+      THE CONFIRMATION. It is consistent with the fix and also consistent with
+      the arrangement simply not firing. The confirmation is the CI rate over N.
    ⭐ CONTROL THAT MAKES IT ARRANGEMENT AND NOT S99's CODE — same population,
       different seed: 117514/3569 → 1 failure · 424242/3569 → 0 failures.
    ⛔⛔ THIS IS NOT FIXED, RESOLVED, OR CLOSED, AND THE ENTRY MUST NOT BE DELETED
@@ -101,10 +131,16 @@ KNOWN REDS ON main (as of 0d4163ac, 2026-08-16 20:00Z) — NOT YOURS. Anything e
    ⛔ DO NOT CHANGE THE SEED TO MAKE IT PASS. That trades a DETERMINISTIC red for an
       INTERMITTENT one, which gets attributed to whoever is unlucky rather than to the
       defect — and it destroys the only handle anyone has on this class.
-   ⛔ MECHANISM IS UNMEASURED and the one named closing condition is SPENT (lead ⑧: the
-      CX_LOOKDENY name=:look denial is fixture background — RED 117514 and GREEN 424242
-      are IDENTICAL, 11 lookdeny / 2 name=:look / signer not in trusted set, both arms).
-      No further round on this without a NEW FACT. A measurement is a fact; an idea is not.
+   ✅ SUPERSEDED 2026-08-18 — this line used to read "MECHANISM IS UNMEASURED and the
+      one named closing condition is SPENT ... no further round without a NEW FACT."
+      ⭐ THE NEW FACT ARRIVED AND IT WAS AN ARTIFACT IDENTITY, NOT A REPRODUCER:
+      FOUR minimal reproducers had already failed — two- and three-file sets stayed
+      green at 14 seeds including forced order, because the atom's post-module state
+      in small sets happened to be benign. Fishing for orders was the wrong search.
+      md5 equality with the fixture compiles and INEQUALITY with the real seed was
+      the discriminator narrative could not fake.
+   ⇒ ⭐ TRANSFERABLE: when a defect resists minimisation, stop shrinking the input
+     and start asking WHAT WAS ACTUALLY SERVED. Identity beats reproduction.
    ⛔ A failure in these files that does NOT match the MECHANISM above IS yours.
       (Not "a different string" — a different MECHANISM. If a render comes back
        missing expected room content and a same-population different-seed run is
@@ -229,3 +265,15 @@ KNOWN REDS ON main (as of 0d4163ac, 2026-08-16 20:00Z) — NOT YOURS. Anything e
   forward.
 - **2026-08-16 08:34Z** — ② promoted from prose caveat into the block.
 - **2026-08-16** — `CX-7rjn` retired.
+- **2026-08-18 02:40Z** — ① **REWRITTEN: MECHANISM PROVEN, FIXES (a)+(c) LANDED, ENTRY KEPT OPEN.**
+  Population `3569` → **`3580`**, as-of `0d4163ac` → **`316f7b53`**. ⚠️ **commonplace flagged the stale
+  population rather than editing my file, which is the right call** — the block has one owner and a
+  second writer is how two versions start circulating in briefs.
+  ⭐ **THE ENTRY DID NOT CLOSE, AND THAT IS THE POINT.** The suite is green at 3580/0 and the mechanism
+  is proven, and *by this entry's own standing claim that a zero is uninformative,* **that green cannot
+  be the confirmation** — it is equally consistent with the fix working and with the arrangement not
+  firing this run. ⇒ ***The closing condition is the family's CI RATE over N consecutive runs from
+  `316f7b53`, and a prediction that it will collapse is not a measurement that it did.***
+  ⛔ **The trap this avoids is the one the entry has already survived once at population 3553:** a
+  known-red deleted while green is armed for whoever arrives next, who is then told by our own rule
+  that a days-old defect is theirs.
