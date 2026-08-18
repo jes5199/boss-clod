@@ -125,7 +125,11 @@ fi
 # --- 3. busy? use the SPINNER line, not "esc to interrupt" ------------
 # The interrupt hint is not always in the last lines; the spinner is the
 # reliable signal. Getting this wrong once produced a false "idle".
-BUSY=$(printf '%s\n' "$PANE" | grep -oE '^[✻✽✢·✶*] [A-Za-z]+…* \([0-9]+[ms]' | tail -1)
+# ⚠️ 2026-08-18: the unit class MUST include h. It was [ms], so the elapsed
+# field "(1h 6m 57s" did not match and the gate read a 67-minute generation
+# as IDLE — blind exactly past the hour mark, i.e. on the longest rounds,
+# failing silently toward the permissive answer.
+BUSY=$(printf '%s\n' "$PANE" | grep -oE '^[✻✽✢·✶*] [A-Za-z]+…* \([0-9]+[hms]' | tail -1)
 if [ -n "$BUSY" ]; then
   say "DECLINED: $WORKER is generating ($BUSY)"
   exit 0

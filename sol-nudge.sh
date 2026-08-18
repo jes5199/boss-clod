@@ -292,7 +292,9 @@ fi
 # ⚠️ epic-nudge KEEPS its generating gate on purpose: that one asks commonplace
 # to do work ITSELF, so stacking those up is noise. This one asks it to hand
 # work to a different pool.
-BUSY=$(printf '%s\n' "$PANE" | grep -oE '^[✻✽✢·✶*] [A-Za-z]+…* \([0-9]+[ms]' | tail -1)
+# ⚠️ unit class MUST include h — see the note in epic-nudge.sh: [ms] alone
+# missed "(1h 6m 57s" and read a 67-minute generation as idle.
+BUSY=$(printf '%s\n' "$PANE" | grep -oE '^[✻✽✢·✶*] [A-Za-z]+…* \([0-9]+[hms]' | tail -1)
 if [ -n "$BUSY" ]; then
   say "NOTE: $WORKER is generating ($BUSY) — dispatching anyway; the message queues"
 fi

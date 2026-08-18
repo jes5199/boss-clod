@@ -80,7 +80,9 @@ if [ "$CMD" != "claude" ]; then
 fi
 
 # --- 3. busy? the SPINNER is the reliable signal, not "esc to interrupt"
-BUSY=$(printf '%s\n' "$PANE" | grep -oE '^[✻✽✢·✶*] [A-Za-z]+…* \([0-9]+[ms]' | tail -1)
+# ⚠️ unit class MUST include h — see the note in epic-nudge.sh: [ms] alone
+# missed "(1h 6m 57s" and read a 67-minute generation as idle.
+BUSY=$(printf '%s\n' "$PANE" | grep -oE '^[✻✽✢·✶*] [A-Za-z]+…* \([0-9]+[hms]' | tail -1)
 if [ -n "$BUSY" ]; then
   say "DECLINED: $WORKER is generating ($BUSY)"
   exit 0
