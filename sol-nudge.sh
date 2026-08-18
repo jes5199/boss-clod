@@ -238,6 +238,27 @@ if [ -n "$BUSY" ]; then
   say "NOTE: $WORKER is generating ($BUSY) — dispatching anyway; the message queues"
 fi
 
+# --- 4b. AN UNCONSUMED-BOARD BACKSTOP WAS BUILT HERE AND BACKED OUT ----
+# ⛔⛔ 2026-08-18: I held a Sol dispatch by hand on the belief that three boards
+# were "stacked unread" while commonplace generated for 55 minutes, and started
+# to MECHANIZE that judgement here — a streak counter over consecutive
+# dispatches-made-while-busy. Then I measured the premise and IT WAS FALSE:
+# commonplace had replied at 01:07, 01:24, 02:04 and 02:08, consuming every
+# board and proving the MUD mechanism by md5 in the middle of it.
+# ⇒ ⭐ THE GATE WOULD HAVE FIRED ON CORRECT STATE — declining dispatch to the
+#   worker having its best hour of the night. A gate that reds on known-good
+#   input is worse than no gate, so this one does not ship.
+# ⚠️ BOTH AVAILABLE PROXIES ARE MEASURED-BLIND, and that is the finding:
+#   · tmux busy-ness  — was true the whole time WHILE it was consuming. A
+#     worker that is generating may be generating ABOUT MY BOARD.
+#   · clod-squad `delivered_at` — fills in ~2s on every message (checked:
+#     12820/12823/12826 all delivered within 2s of send). It is a PUSH
+#     receipt, not a READ receipt, and cannot distinguish the two states.
+# ⇒ There is no read-signal available, so there is no honest gate to write.
+#   The real signal is the one I used by hand: HAS THE WORKER SPOKEN SINCE MY
+#   LAST BOARD (`messages where from_id=<worker> and id > <board id>`). That is
+#   a query, not a proxy — if this ever needs mechanizing, mechanize THAT.
+
 if printf '%s\n' "$PANE" | grep -q 'Press up to edit queued'; then
   say "DECLINED: $WORKER has queued messages awaiting Enter"
   exit 0

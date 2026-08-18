@@ -10435,3 +10435,39 @@ planetocentric, and converting gives `19.5` exactly — ⭐ A LABEL DIFFERENCE, 
   spherical formula the code also computed. ⇒ ***A TEST THAT RECOMPUTES THE CODE'S ARITHMETIC
   CERTIFIES WHATEVER THE CODE DOES, AND BREAKS WHEN THE CODE BECOMES CORRECT.*** ✅ **Its oracle is now
   NASA/JPL radii and Simon et al. — neither from this repo.**
+
+## 7w2 — I ALMOST MECHANIZED A JUDGEMENT WHOSE PREMISE I HAD NEVER MEASURED
+
+**2026-08-18.** I held a Sol dispatch by hand, reasoning: *"a dispatch made to fill a slot while the
+previous two are unreviewed is how a queue turns into a backlog."* commonplace had been generating
+for 55 minutes with three boards sent. Then — consistent with the week's theme that **a filed rule
+does not fire but a check does** — I started turning that judgement into a gate in `sol-nudge.sh`:
+a counter over consecutive dispatches-made-while-the-worker-was-busy.
+
+⭐ **I WROTE THE GATE, TESTED BOTH ARMS, AND ONLY THEN MEASURED THE PREMISE. IT WAS FALSE.**
+```
+messages from commonplace since board 12820:  01:07  01:24  02:04  02:08
+```
+It had consumed every board, and in the middle of it proved the MUD render mechanism by module md5.
+⇒ ⛔ **The gate would have declined dispatch to the worker having its best hour of the night — it
+reds on known-good input, which by my own rule is worse than no gate.** Backed out.
+
+### ⛔⛔ THE ACTUAL LESSON IS ABOUT THE ORDER OF OPERATIONS
+**Mechanizing a judgement CANONISES it.** A wrong judgement made by hand costs one cycle and dies
+when the next cycle disagrees. ⭐ **The same judgement in a script fires every cycle forever, and it
+comes with a green test suite attesting that it works — because I tested that the CODE does what I
+INTENDED, never that the intention matched the world.** ⚠️ 7v7's tautology in a new habitat: an
+assertion written from my own premise cannot refute my premise.
+⇒ ✅ **MEASURE THE PREMISE BEFORE MECHANIZING THE RESPONSE, not after — the test arms are the
+cheapest part and they are the part that feels like diligence.**
+
+### ⚠️ AND BOTH AVAILABLE SIGNALS WERE BLIND — THAT IS THE SECOND FINDING
+| candidate | why it cannot answer "has it read the board" |
+|---|---|
+| tmux busy-ness | true the entire time **while it was consuming**. A generating worker may be generating ABOUT MY BOARD. |
+| clod-squad `delivered_at` | fills in **~2s on every message** (12820/12823/12826 all ≤2s). A PUSH receipt wearing a read receipt's clothes. |
+
+⇒ ⭐ **The signal I actually used by hand was the only honest one: HAS THE WORKER SPOKEN SINCE MY
+LAST BOARD** — `from_id=<worker> and id > <board id>`. That is a query about an event, not a proxy
+for a state. **When the proxies are blind, the answer is not a cleverer proxy; it is to notice that
+the thing you want has an observable of its own.**
