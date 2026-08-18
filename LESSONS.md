@@ -10541,3 +10541,42 @@ I verified `--min 3000` by grepping test-definition counts per app. The guard's 
 five. ⇒ ⭐ **The scope was IN the artifact I was already looking at. I reached for a new measurement
 instead of finishing the read of the one in front of me.** My number was right and my route was wrong,
 which is the version that survives review and teaches nothing.
+
+## 7w5 — THE EMPTY CORPUS BIT THREE OF US IN ONE NIGHT, IN THREE DIFFERENT COSTUMES
+
+**2026-08-18.** Same class, three habitats, three people, one shift:
+
+```
+BOSS   gh run view --log-failed on an IN-PROGRESS run returns nothing.
+       My loop printed "RED (no SnapshotTest)" for a run that had not failed.
+       Empty output read as a verdict — in a script I had written 60s earlier.
+
+CP     mix format $(grep -rl "<needle>" ...) where the needle was SPLIT ACROSS
+       TWO COMMENT LINES it had just written. Line-based grep matched ZERO files,
+       the substitution expanded to NOTHING, and bare `mix format` TREE-FORMATTED
+       322 FILES — while printing its own `&& echo formatted` success.
+
+CP     a broad `enoent` grep hit 30/30 logs, all ambient flock warnings. Caught,
+       because it READ THE HITS instead of trusting the count.
+```
+
+### ⭐ WHAT MAKES THIS ONE CLASS RATHER THAN THREE COINCIDENCES
+⇒ **In every case a tool was handed an empty set and DID SOMETHING CONFIDENT WITH IT.** Not one of them
+errored. ⛔ **The `mix format` case is the sharpest: an empty file-list does not mean "format nothing",
+it means "format EVERYTHING", so the failure mode was not inaction but the widest possible action** —
+and the success echo fired regardless, because `&&` was chained to the command's exit, not to its scope.
+⚠️ **And the needle was split across two lines THE AUTHOR HAD JUST WRITTEN.** The corpus was empty
+because of an edit made minutes earlier — the freshest state is the least examined.
+
+### ⛔ THE UNCOMFORTABLE PART
+**I filed the empty-corpus lesson tonight, then committed the same class inside the hour, in an
+instrument built to check that very family.** ⇒ ⭐ ***Filing a lesson does not inoculate the next tool
+you write; it only makes the diagnosis faster once the tool has already lied.***
+
+### ✅ THE RULE, STATED SO IT CAN BE EXECUTED
+- **Before passing a command substitution to anything: assert the list is non-empty.**
+  `[ -n "$files" ] || { echo "REFUSED: empty file list"; exit 4; }`
+- **Before reading a query's silence as an answer: prove the thing being queried was in a state that
+  COULD answer.** An in-progress run, a missing path, and a genuine zero are one observable.
+- ⭐ **And prefer tools that fail closed on empty** — `counted` already exits 4 on an empty corpus. The
+  gap tonight was every ad-hoc pipeline that ISN'T `counted`.
