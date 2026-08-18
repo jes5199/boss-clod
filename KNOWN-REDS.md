@@ -30,10 +30,23 @@ choosing to obey it is not a check; that command is.*
 ## ⭐ THE TWO ENTRY TYPES ARE NOT INTERCHANGEABLE
 
 ```
-KNOWN RED      a failure a round WILL SEE. Unconditional. "Not yours."
-KNOWN TRIGGER  a failure a round will see ONLY IF IT DOES X.
-               A round that changes nothing NEVER meets it.
+KNOWN RED           a failure a round WILL SEE. Unconditional. "Not yours."
+KNOWN TRIGGER       a failure a round will see ONLY IF IT DOES X.
+                    A round that changes nothing NEVER meets it.
+KNOWN INTERMITTENT  a failure a round MIGHT see, at a MEASURED RATE, with no
+                    action of its own summoning it. Carries its rate or it is
+                    not this type — "flaky" without a number is a shrug.
 ```
+⛔⛔ **THE THIRD TYPE WAS ADDED 2026-08-18 BECAUSE ITS ABSENCE HAD A COST.** `CLI.SnapshotTest` is an
+intermittent I MEASURED on 2026-08-16 (0 failures ×5, 1 failure ×2 over seven runs) and wrote into
+this file's **changelog** — where it sat for two days while the **block** never mentioned it. It went
+red again on 2026-08-18 and, by our own rule, would have been a round's to hunt.
+⭐ **The taxonomy was the reason: it is not STANDING (it passes most runs) and it is not a TRIGGER (no
+action summons it), so there was no shelf to put it on and it stayed in prose.** ⚠️ ***A missing
+CATEGORY is quieter than a missing entry — nobody notices the shelf that does not exist.***
+⇒ ⛔ **AND THE CHANGELOG IS NOT THE BLOCK. Writing it down in this file is not the same as putting it
+where it gets pasted** — which is the exact `CX-kacr` failure named at the top, recurring in the one
+file that documents it.
 ⛔ **Filing a TRIGGER as a RED tells a round "not yours" about a failure it cannot see — and reads as
 "main is red" when main is green.** ⛔ **Filing a RED as a TRIGGER tells it the opposite.** ⭐ **The
 block's whole purpose is telling a round what to disown; a wrong type teaches it to disown generally.**
@@ -193,6 +206,17 @@ KNOWN REDS ON main (as of 1d502586, 2026-08-18 04:05Z) — NOT YOURS. Anything e
    ⚠️ THE EXIT CRITERION IS NOT MET. One green is one data point. Pre-fence baseline
       was 47/66 = 71% green, so a ~29% instability PREDATES the fence, is UNOWNED,
       and is now observable for the first time.
+
+④ KNOWN INTERMITTENT — Commonplace.CLI.SnapshotTest, "snapshot command returns
+   :path_not_found when the path does not resolve" (commonplace_cli, 121 tests).
+   MEASURED RATE, 2026-08-17, seven completed runs whose logs contain the 121-test
+   verdict: 0 failures ×5, 1 failure ×2. Seen again 2026-08-18 05:18Z at a2efb172.
+   ⛔ NOT "STANDING" AND NOT A TRIGGER — it fires on some fraction of runs and no
+      action of yours summons it. If your push goes red ONLY here, re-run before
+      you investigate: at ~2-in-7 a single red carries almost no information.
+   ⛔ A SECOND failure in commonplace_cli, or this one plus anything else, IS yours.
+   ⚠️ MECHANISM UNKNOWN and UNOWNED. This entry buys a round its time back; it does
+      not excuse the flake, and the rate is old enough to deserve re-measuring.
 ```
 
 # ▲▲ END OF BLOCK ▲▲
@@ -308,3 +332,16 @@ KNOWN REDS ON main (as of 1d502586, 2026-08-18 04:05Z) — NOT YOURS. Anything e
   see a defect in CONTENT.** ⇒ ✅ **New habit, now in the entry itself: after every edit here, READ THE WHOLE
   ENTRY BACK — a diff shows what you added and cannot show what it now contradicts.** Header as-of also
   corrected `316f7b53` → `1d502586`.
+- **2026-08-18 05:35Z** — ⛔ **A THIRD ENTRY TYPE, `KNOWN INTERMITTENT`, AND ENTRY ④ (`CLI.SnapshotTest`).**
+  ⚠️ **The cost was already paid before I noticed:** I measured this flake on 2026-08-16 (0 failures ×5,
+  1 failure ×2 over seven runs), wrote it into **this file's changelog**, and left the **block** silent
+  about it for two days. It went red again today at `a2efb172` — and by our own *"anything else IS yours"*
+  rule, that was a round's to hunt.
+  ⭐ **THE TAXONOMY WAS THE CAUSE, NOT CARELESSNESS: it is not STANDING and it is not a TRIGGER, so there
+  was no shelf to put it on and it stayed in prose.** ⇒ ***A missing CATEGORY is quieter than a missing
+  entry — nobody notices the shelf that does not exist.***
+  ⛔ **And the changelog is not the block:** writing it down *in this file* is not the same as putting it
+  where it gets **pasted**. That is the `CX-kacr` failure named at the top of this very file, recurring
+  inside the document that documents it.
+  ✅ Type carries a **measured rate or it is not this type** — "flaky" without a number is a shrug.
+  Block extracts rc=0, `--check` round-trips, must-fail arm rc=3.
