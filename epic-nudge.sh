@@ -70,6 +70,37 @@ IDLE_MARKER="${IDLE_MARKER:-/home/jes/boss-clod/.epic-nudge-last}"
 
 say() { echo "$*" >&2; }
 
+# --- 0b. STAND-DOWN — THE SAME FILE sol-nudge READS (added 2026-08-18) -
+# ⛔⛔ WHY THIS IS SHARED AND NOT A SECOND FILE. commonplace's stand-down at
+# 10:45Z said BOTH halves in one breath: "nothing is Sol-dispatchable, and
+# nothing is me-dispatchable either" — because the CONDITION is one condition,
+# plan's QUEUE.md being empty of ranked work, quoted from the queue's own
+# receipt at HEAD rather than from anyone's impression.
+# ⚠️ I MECHANIZED ONLY THE SOL HALF FIRST. That is tonight's dominant defect
+#   (LESSONS 7w7) reproducing inside the very fix for it: the remedy attaches to
+#   the script I happen to be editing instead of to the class of act.
+# ⇒ ⭐ ONE CONDITION, ONE FILE, BOTH READERS. If the two pools ever need
+#   different stand-downs, set STANDDOWN_FILE in the environment — do not add a
+#   second default, because two defaults is how they drift apart unnoticed.
+# ⛔ IT EXPIRES, and the expiry is the point: a stand-down nobody clears is how
+#   this loop went quiet for 31 HOURS on 2026-08-16. Failing toward ASKING TOO
+#   EARLY costs one message; failing toward never asking costs the queue.
+STANDDOWN="${STANDDOWN_FILE:-/home/jes/boss-clod/.queue-standdown}"
+if [ -f "$STANDDOWN" ]; then
+  SD_UNTIL=$(awk '{print $1}' "$STANDDOWN" 2>/dev/null)
+  SD_WHY=$(cut -d' ' -f2- "$STANDDOWN" 2>/dev/null)
+  case "$SD_UNTIL" in ''|*[!0-9]*) SD_UNTIL=0 ;; esac
+  if [ "$(date +%s)" -lt "$SD_UNTIL" ]; then
+    say "DECLINED: stand-down until $(date -u -d "@$SD_UNTIL" +%H:%MZ) — $SD_WHY"
+    say "          (lift early with: rm $STANDDOWN)"
+    exit 0
+  else
+    say "NOTE: stand-down EXPIRED at $(date -u -d "@$SD_UNTIL" +%H:%MZ) — asking again."
+    say "      It expired rather than being lifted: $SD_WHY"
+    rm -f "$STANDDOWN"
+  fi
+fi
+
 # --- 1. locate the worker's tmux window BY NAME, not by index ---------
 WIN=$(tmux list-windows -t 0 -F '#{window_index} #{window_name}' 2>/dev/null \
       | awk -v n="$WORKER" '$2 == n {print $1; exit}')

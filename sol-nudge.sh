@@ -188,9 +188,9 @@ fi
 #   ASK TOO EARLY (costs one message the worker can answer in one line) rather
 #   than NEVER ASK AGAIN (costs the pool indefinitely, invisibly).
 #
-# Usage:  echo "$(( $(date +%s) + 4*3600 )) reason text" > .sol-standdown
-#         rm .sol-standdown            # lift early, e.g. when plan ranks
-STANDDOWN=".sol-standdown"
+# Usage:  echo "$(( $(date +%s) + 4*3600 )) reason text" > .queue-standdown
+#         rm .queue-standdown            # lift early, e.g. when plan ranks
+STANDDOWN="${STANDDOWN_FILE:-.queue-standdown}"
 if [ -f "$STANDDOWN" ]; then
   SD_UNTIL=$(awk '{print $1}' "$STANDDOWN" 2>/dev/null)
   SD_WHY=$(cut -d' ' -f2- "$STANDDOWN" 2>/dev/null)
