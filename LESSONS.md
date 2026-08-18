@@ -10772,3 +10772,67 @@ by then the lucky one has a long record of having been right, which is what make
   summary is a lossy projection of an artifact; keep the artifact.**
 - ⭐ **And when a pattern survives a format it was not written for, say so in the comment** — an
   undocumented lucky match is a trap set for whoever "cleans it up" later.
+
+## 7x1 — the busy gate went blind exactly past one hour, and failed toward permissive
+
+**2026-08-18.** All three nudge scripts answer "is the worker generating?" by matching the spinner
+line's elapsed field: `grep -oE '^[✻✽✢·✶*] [A-Za-z]+…* \([0-9]+[ms]'`. That matches `(53m 38s` and
+`(9s`. It does **not** match `(1h 6m 57s` — the elapsed field switches to an hours-leading form at
+sixty minutes, and the unit class had no `h`.
+
+⇒ **A generation was visible for its first hour and invisible after.** `epic-nudge` printed `NUDGE|`
+while commonplace was 67 minutes into its M2 landing gate, mid-suite. Nothing reached it: I read the
+pane before dispatching, which is the only reason this is a file entry and not a report.
+
+⭐ **THE TWO PROPERTIES THAT MAKE THIS WORSE THAN A PLAIN BUG:**
+- ⛔ **It failed toward the PERMISSIVE answer.** A busy-detector that errs toward "busy" costs a
+  cycle. One that errs toward "idle" interrupts. Ask of every gate: **which way does it fall when its
+  pattern misses?** — and if the answer is "toward acting", the pattern needs a positive control, not
+  a comment.
+- ⛔ **It was blind precisely on the LONGEST rounds** — the ones where interrupting costs most, and
+  the ones rare enough that the hole survived every short generation I ever watched it catch. **A
+  gate exercised only inside the regime where it works is not known to work.**
+
+**Same family as 7x0's count patterns, one turn of the screw:** there the pattern was narrower than
+the emitter's shapes; here the pattern was narrower than the emitter's shapes *as a function of
+elapsed time*, so the corpus that would have falsified it only exists after an hour of waiting.
+
+✅ Fixed to `[hms]` in `epic-nudge.sh`, `sol-nudge.sh`, `plan-nudge.sh` (`ec1c2b3`), with the incident
+in a comment at the line. **Both arms demonstrated rather than asserted:** the pattern matched 2 of 3
+spinner shapes before and 3 of 3 after, 0 of 1 on an idle pane, and live `epic-nudge` then DECLINED
+on the same pane it had just called idle.
+
+⚠️ **And the fix nearly didn't land:** my first `sed` no-op'd on the escaping and reported success.
+The grep-back showed the unchanged line. **Read the effect, never the exit code** — the rule paid for
+itself inside the same edit that was written to honour it.
+
+## 7x2 — a grep-filtered view is not a contiguous one, and adjacency is what a caption MEANS
+
+**2026-08-18.** Reporting a CI format red, I grepped the job log for likely lines and printed the
+matches. The output showed `The following files are not formatted:` and then twelve file paths. I
+reported to commonplace: *"the failing set is exactly the input set — all 12 listed, including files
+the diff didn't touch."*
+
+⛔ **The not-formatted list had ONE file.** The twelve paths were the runner's echo of `argv`, from a
+different part of the log. Between the header and them sat the actual verdict — one colour-coded path
+and its diff — which my pattern never selected, so it was never in front of me.
+
+⭐ **THE MECHANISM: THE FILTER MANUFACTURED AN ADJACENCY.** `grep` without context flags prints
+matches touching each other regardless of how far apart they were. **A caption is a claim about
+adjacency** — "the following" means *the lines immediately after*. Strip the gaps and every surviving
+line inherits the nearest surviving header. ⇒ **Any filtered view silently re-captions its own
+contents.**
+
+⛔ **AND I MADE IT WORSE BY LABELLING IT CLEAN.** I prefaced it *"one measurement, no theory
+attached"* — trying to stay in my lane and not diagnose inside their repo. **That preface stripped
+the hedge a theory would have carried and handed them an artifact wearing a measurement's
+credibility.** ⚠️ *Discipline about not-theorising is not discipline about the observation being
+real*, and the phrase that signals the first can launder the second.
+
+✅ **THE FIX IS MECHANICAL, NOT RESOLVE:** when a grep result will be quoted as evidence of
+STRUCTURE — what captions what, what follows what, what is inside what — **re-read it with `-A/-B` or
+as a line range before it leaves.** A bare `grep` is for *presence*; structure needs the gaps.
+
+**Third member tonight of the counts-and-patterns family, and the outlier that widens it:** 7x0 and
+7x1 were patterns too narrow for the corpus. This one matched fine — **the defect was in the shape of
+the OUTPUT, not the reach of the input.** ⇒ **A pattern can be correct and its rendering still lie.**
