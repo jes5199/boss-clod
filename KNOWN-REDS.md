@@ -65,7 +65,7 @@ exist yet. **Always name the failing assertion's SHAPE, and say that a different
 # ▼▼ THE BLOCK — paste from here to the end marker ▼▼
 
 ```
-KNOWN REDS ON main (as of 9eb98e97, 2026-08-18 10:25Z) — NOT YOURS. Anything else IS.
+KNOWN REDS ON main (as of 42ccac75, 2026-08-18 10:50Z) — NOT YOURS. Anything else IS.
 
 ① ⭐⭐ MECHANISM PROVEN 2026-08-18 AND THE FIX HAS LANDED — ENTRY STAYS OPEN
    PENDING CONFIRMATION OVER N CI RUNS. ⛔ IT IS NOT CLOSED, AND ONE GREEN DOES
@@ -121,16 +121,14 @@ KNOWN REDS ON main (as of 9eb98e97, 2026-08-18 10:25Z) — NOT YOURS. Anything e
         string rather than the mechanism.
    ⚠️ HONEST LIMIT: SAME FAMILY, SHARED MECHANISM NOT PROVEN. One symptom across
       two tests is corroboration, not proof, and the third has a third assertion.
-   Full suite CURRENT: 3591 tests, 0 FAILURES, 16 EXCLUDED, 1 SKIPPED —
-   CI-VERIFIED at the GREEN row 6020f782 (2026-08-18 09:46Z).
-   ⛔ AND A SECOND NUMBER EXISTS THAT IS *NOT* VERIFIED, WHICH IS WHY BOTH ARE HERE:
-       3591  as of 6020f782  ← CI-VERIFIED, green row, read from the run log
-       3601  as of 80925204  ← its author's hand delta (3591 + R2's 10). That
-             commit's CI row was still IN PROGRESS when this line was written.
-     ⇒ A HAND DELTA AND A CI READING ARE DIFFERENT KINDS OF CLAIM. Use 3591 until
-       80925204's row concludes; if it lands green at 3601, replace this pair with
-       the single verified figure.
-       16 excluded  as of 1d502586   (12 + four perf arms deliberately :scale)
+   Full suite CURRENT: 3603 tests, 0 FAILURES, 16 EXCLUDED, 1 SKIPPED —
+   CI-VERIFIED at the GREEN row 42ccac75 (run 32127756427, read from its log).
+   ⭐ THE HAND-DELTA / CI-READING SPLIT THIS LINE CARRIED FOR TWENTY MINUTES IS
+      NOW CLOSED, AND BOTH HAND DELTAS WERE RIGHT: 3591 → 3601 (R2's 10) →
+      3603 (the two import-deadline arms). ⇒ KEEP MAKING THE DISTINCTION ANYWAY.
+      "Its author's deltas have been right every time" is a statement about the
+      author, not about the next delta, and it is exactly the argument that
+      stops the split being drawn on the day one is wrong.
    ⛔ AN EXCLUSION COUNT IS PART OF THE POPULATION, NOT A FOOTNOTE. A round that
       compares 3581 against a run with a different :scale posture is comparing
       two different suites and will read the gap as its own defect.
@@ -228,13 +226,14 @@ KNOWN REDS ON main (as of 9eb98e97, 2026-08-18 10:25Z) — NOT YOURS. Anything e
                "messages render via the generic renderer (ChatViewCompute path)"
                — assert html =~ "hello world"; the rendered <ul> was EMPTY, the
                rest of the page rendered fine
-   DENOMINATOR (updated 2026-08-18 10:25Z): 2 of the last 4 push rows.
+   DENOMINATOR (updated 2026-08-18 10:50Z): 2 of the last 6 push rows.
        ff071567 RED (unswept siblings — unrelated, fixed)
        bea91065 GREEN
        43037955 RED   ← family sighting 1
        6020f782 GREEN
        80925204 RED   ← family sighting 2
        9eb98e97 GREEN (S-storehelper)
+       42ccac75 GREEN (import-deadline)
      ⚠️ THE TWO SIGHTINGS ALTERNATE WITH GREENS. That is an OBSERVATION about
         six rows and NOT a period — at n=2 an alternating pattern is what two
         events in six slots look like most of the time. DO NOT PREDICT THE NEXT
@@ -659,3 +658,10 @@ KNOWN REDS ON main (as of 9eb98e97, 2026-08-18 10:25Z) — NOT YOURS. Anything e
   property of small numbers, not of the system, and writing it down without that caveat is how a coincidence
   becomes a mechanism nobody re-examines.***
   ✅ **Main is green.** Last four rows: RED · GREEN · RED · GREEN.
+- **2026-08-18 10:50Z** — **POPULATION `3603`, CI-VERIFIED at the green row `42ccac75`** (run `32127756427`,
+  read from its own log). ④'s denominator now **2 of the last 6**; `42ccac75` GREEN, family absent.
+  ⭐ **THE HAND-DELTA / CI-READING SPLIT IS CLOSED, AND BOTH DELTAS WERE RIGHT** — 3591 → 3601 → 3603. ⇒ ⛔ **The
+  entry now says to KEEP DRAWING THE DISTINCTION ANYWAY.** ***"Its author's deltas have been right every time" is
+  a fact about the author, not about the next delta — and it is precisely the argument that would have retired
+  the split on the day one was finally wrong.***
+  ✅ **Main green. Last six rows: RED · GREEN · RED · GREEN · RED-by-④ · GREEN.**
