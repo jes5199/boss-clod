@@ -325,6 +325,22 @@ printf '%s avail=%sMB swap=%s/%sMB biggest_scope=%sMB inflight=%s\n' \
   "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "$MEM_AVAIL" "$SWAP_USED" "$SWAP_TOT" \
   "$BIGGEST_SCOPE_MB" "$N_INFLIGHT" >> /home/jes/boss-clod/.sol-mem-log 2>/dev/null
 
+# ⛔⛔ 2026-08-18 23:28 — THE PREMISE UNDER THIS FLOOR TURNED OUT TO BE WRONG,
+#   and it is left in place only because concurrency does still cost memory.
+#   ALL THREE of tonight's kills had ONE identified cause and it was not
+#   concurrency: commonplace's repo history holds a 7.77 GB blob (a crashed
+#   CubDB store, reachable only from two old boss-rollback stash commits), and
+#   `git log -S` INFLATES BLOB CONTENTS to scan them. Every Sol round whose
+#   brief mandated a pickaxe walked ~2 min of history, hit that commit, and
+#   tried to materialize 7,771,316,795 bytes on a box with ~9 GB free. The
+#   malloc error read 7,771,316,796 — size+1, a fingerprint, not a coincidence.
+#   ⇒ A SECOND ROUND WAS NEVER THE HAZARD. One round was enough, and a
+#     hundred rounds would have been fine had none of them run a pickaxe.
+# ⚠️ SO THIS FLOOR IS NOT EVIDENCE-BASED AND MUST NOT BE CITED AS IF IT WERE.
+#   It is currently deciding on margins of tens of MB (declined once at 8,962
+#   against 9,000), which is noise wearing a policy's clothes. It stays as a
+#   crude concurrency brake ONLY. When .sol-mem-log holds real per-round peaks,
+#   derive it or delete it — do not tune it by feel in the meantime.
 # PROVISIONAL, and only for the SECOND concurrent round. A first round is what
 # the box has always carried; an additional one is the untested regime.
 SOL_MIN_AVAIL_MB="${SOL_MIN_AVAIL_MB:-9000}"
