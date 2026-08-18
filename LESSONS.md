@@ -10580,3 +10580,41 @@ you write; it only makes the diagnosis faster once the tool has already lied.***
   COULD answer.** An in-progress run, a missing path, and a genuine zero are one observable.
 - ⭐ **And prefer tools that fail closed on empty** — `counted` already exits 4 on an empty corpus. The
   gap tonight was every ad-hoc pipeline that ISN'T `counted`.
+
+## 7w6 — THE SWEEP AND THE VERIFICATION HAD THE SAME HOLE, AND IT WAS THE FILED RULE
+
+**2026-08-18 07:36–07:55.** The snapshot fix merged to main and took 43 tests with it: `mcp 158/23`,
+`web 136/20`, both clean one commit earlier. Repaired in ~40 minutes.
+
+### ⭐ ONE DEFECT, TWO SCALES, SAME SHAPE
+```
+THE SWEEP         grep -rl ... apps/commonplace/test/     ← ONE app
+THE VERIFICATION  named suites: commonplace 3582/0, cli 121/0   ← TWO of five apps
+THE DIFF          application.ex + CommitStore.init       ← consumed by ALL FIVE
+```
+⇒ **The copy-pasted assertion the round found 13 of in one app had 5 more siblings umbrella-wide.**
+Each sits in an `on_exit`, so **one bad line fails every test in its module** — which is why 5 files
+produced 43 failures. ⛔ **And commonplace's own filed rule is "name suites by BLAST RADIUS, not the app
+you edited," in its memory for a week.** ⇒ ⭐ ***THE RULE WAS RIGHT, WAS WRITTEN DOWN, AND DID NOT FIRE —
+because the selector that would enforce it is chosen at the same careless moment the rule is meant to
+correct.*** A rule about scope cannot be enforced by a habit that also picks the scope.
+
+### ⭐ WHAT ACTUALLY CAUGHT IT: READING THE RUN, NOT THE REPORT
+The report was accurate and honest — it **named** its suites, which is the discipline working. ⚠️ **A
+verification that names its scope is auditable; it is not thereby correct.** ⇒ ***Naming the scope is
+what let me see the hole in one glance: the two apps it did not name were the two that were red.***
+
+### ⛔ AND I NEARLY INVERTED IT WITH AN UNREAD COUNT — AN HOUR AFTER FILING 7w5
+```
+grep -c 'BdWriteToolsTest'  on the PREVIOUS run  → 26   ⇒ "pre-existing, not the merge"
+numbered failure lines      on the PREVIOUS run  →  1   ⇒ SnapshotTest only. ALL 43 ARE NEW.
+```
+⇒ **26 MENTIONS, 1 FAILURE.** The wrong number was the one that made the alarming finding go away,
+which is the direction that does not get double-checked. ⭐ ***A count that dissolves an urgent problem
+deserves more scrutiny than one that creates it, and instinct supplies exactly the opposite.***
+
+### ✅ THE EXECUTABLE RESIDUE
+- **When a diff touches a shared module, the suite list is EVERY app that consumes it — derive the list
+  from the diff, never from the directory you were editing in.**
+- **Count failures by numbered failure line (`N) test ... (Module)`), never by module-name occurrence.**
+  A failed-job log mentions a module many times per failure.
