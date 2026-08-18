@@ -346,7 +346,7 @@ printf '%s avail=%sMB swap=%s/%sMB biggest_scope=%sMB inflight=%s\n' \
 SOL_MIN_AVAIL_MB="${SOL_MIN_AVAIL_MB:-9000}"
 if [ "$N_INFLIGHT" -gt 0 ] && [ "$MEM_AVAIL" -lt "$SOL_MIN_AVAIL_MB" ]; then
   say "DECLINED: $N_INFLIGHT round in flight and only ${MEM_AVAIL}MB available (provisional floor ${SOL_MIN_AVAIL_MB}MB for an ADDITIONAL round; swap ${SWAP_USED}/${SWAP_TOT}MB, biggest tmux scope ${BIGGEST_SCOPE_MB}MB)"
-  say "  ⇒ the 23:06 OOM was GLOBAL (no cgroup limit anywhere); one round plus the resident sessions was enough to kill a whole tmux scope"
+  say "  ⇒ NB this floor is a crude brake, not evidence: 2026-08-18's three OOMs were all one cause — git log -S inflating a 7.77GB blob in commonplace's history — not concurrency. Derive from .sol-mem-log or delete; do not tune by feel."
   exit 0
 fi
 [ "$N_INFLIGHT" -gt 0 ] && say "NOTE: $N_INFLIGHT codex round(s) already in flight (pgids: $(echo $INFLIGHT_PGIDS | tr '\n' ' ')), cap $SOL_MAX_PARALLEL, ${MEM_AVAIL}MB avail — dispatching alongside"
