@@ -236,9 +236,34 @@ KNOWN REDS ON main (as of 80d6e962, 2026-08-18 06:00Z) — NOT YOURS. Anything e
       ⚠️ IF YOUR RED HERE HAS A DIFFERENT ERROR BODY, SAY SO — a second shape
          would mean this entry covers two things and needs splitting, and that
          is worth more than another sighting of the same one.
-   ⛔ NOT "STANDING" AND NOT A TRIGGER — it fires at a rate and no action of yours
-      summons it. If your push goes red ONLY here, RE-RUN BEFORE INVESTIGATING:
-      at ~30% a single red carries almost no information.
+      ✅ ASKED AND ANSWERED 2026-08-18 06:10Z: the reproduction's inner crash is
+         BYTE-IDENTICAL to the CI body above. The OUTER frame differs — CI crashed
+         in Snapshot.do_run (test body), the repro in the file's SETUP at line 41 —
+         and that is NOT a split: same store, same call, same CubDB failure at the
+         same line, different phase. THE MODULE+LONE-RED KEY HOLDS.
+   ✅✅ REPRODUCED 2026-08-18 (S-snapshot-repro-s1, in-sandbox, rep 4, seed 1745).
+      THE HANDLE — a worktree whose tmp/test_data has ACCUMULATED a few runs'
+      commits, then:  mix test <cli snapshot test file>:71 --repeat-until-failure 200
+      → red within ~4 reps (n=1). Artifacts: branch sol/s-snapshot-repro-s1 @
+      fcdd72da (stage logs + ACCEPTANCE.md + brief). ⛔ DO NOT DELETE THAT BRANCH —
+      it is the only durable copy of the reproduction.
+      WHAT IT NARROWS, as facts and not as a mechanism:
+        · fired with ONE test in the BEAM ⇒ within-VM cross-test interference is
+          EXCLUDED for the reproduced instance; what persists across reps is DISK
+          state (tmp/test_data accumulating commits every rep).
+        · 30× whole-cli-app runs ALL GREEN, zero trigger_compaction occurrences.
+        · --repeat-until-failure does NOT hold the seed — every rep printed a new
+          one, so seed is not the variable.
+      ⚠️ STILL NOT THE MECHANISM, and the entry does not claim it. A handle that
+         reproduces is not an explanation; it is what makes one affordable.
+   ⛔ NOT "STANDING" AND NOT A TRIGGER. If your push goes red ONLY here, RE-RUN
+      BEFORE INVESTIGATING: at ~30% a single red carries almost no information.
+      ⚠️ "NO ACTION OF YOURS SUMMONS IT" WAS TRUE UNTIL 06:10Z AND IS NOW ONLY
+         HALF TRUE — the handle below summons it deliberately from ACCUMULATED
+         LOCAL DISK STATE. In CI, where every run starts clean, nothing you do
+         summons it and the type still reads INTERMITTENT. ⇒ THE TYPE IS ABOUT
+         THE HABITAT, NOT THE TEST: same failure, intermittent in CI, driveable
+         on a dirty worktree.
    ⛔ A DIFFERENT ASSERTION IN THIS MODULE IS PROBABLY STILL THIS ENTRY. Two of
       the module's tests have now failed with no code between them touching the
       CLI — so the entry is keyed on the MODULE plus the shape "a snapshot-command
@@ -403,3 +428,19 @@ KNOWN REDS ON main (as of 80d6e962, 2026-08-18 06:00Z) — NOT YOURS. Anything e
   and needs splitting, which is worth more than another sighting of the same one.**
   ⚠️ Population `3582` as of `80d6e962` — **the +1 was predicted by its author before the run and CI agreed**,
   which is the only version of a count claim that costs nothing to trust.
+- **2026-08-18 06:12Z** — ④ **REPRODUCED, AND THE DISCONFIRMING CASE I ASKED FOR CAME BACK NEGATIVE — which is
+  the answer that makes the entry trustworthy rather than merely confident.** The entry asked *"if your red
+  here has a DIFFERENT error body, say so."* commonplace checked against raw bytes: **inner crash BYTE-IDENTICAL
+  to the CI body; only the OUTER frame differs** (CI in `Snapshot.do_run`, repro in the file's setup at line 41).
+  ⇒ **Same store, same call, same CubDB line, different phase — not a split.** The module+lone-red key holds
+  **because it was tested against the case that would have broken it**, not because nothing challenged it.
+  ✅ **Handle filed in the block** (dirty `tmp/test_data` + `--repeat-until-failure 200` → red within ~4 reps, n=1),
+  branch `sol/s-snapshot-repro-s1` @ `fcdd72da` **verified present on origin** — ⛔ **that branch is the only
+  durable copy of the reproduction and must not be reaped.**
+  ⚠️ **READ-BACK CAUGHT A CONTRADICTION MY OWN EDIT CREATED:** the entry still said *"no action of yours summons
+  it"* while now carrying a recipe that summons it. ⇒ ⭐ **Resolved by naming the HABITAT rather than deleting
+  either half: intermittent in CI where every run starts clean, driveable on a dirty worktree. The TYPE is a
+  claim about the environment, not about the test.**
+  ⭐ **And a `counted` lesson observed in the wild, not by me:** commonplace's first broad `enoent` grep hit
+  **30/30 logs** — all unrelated ambient flock warnings. **It read the hits, killed the false lead, and re-grepped
+  the specific string to get the real zero.** A count nobody reads is a count that agrees with you.
