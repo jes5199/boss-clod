@@ -65,7 +65,7 @@ exist yet. **Always name the failing assertion's SHAPE, and say that a different
 # ▼▼ THE BLOCK — paste from here to the end marker ▼▼
 
 ```
-KNOWN REDS ON main (as of 80d6e962, 2026-08-18 06:00Z) — NOT YOURS. Anything else IS.
+KNOWN REDS ON main (as of 80d6e962, 2026-08-18 06:30Z) — NOT YOURS. Anything else IS.
 
 ① ⭐⭐ MECHANISM PROVEN 2026-08-18 AND THE FIX HAS LANDED — ENTRY STAYS OPEN
    PENDING CONFIRMATION OVER N CI RUNS. ⛔ IT IS NOT CLOSED, AND ONE GREEN DOES
@@ -245,14 +245,12 @@ KNOWN REDS ON main (as of 80d6e962, 2026-08-18 06:00Z) — NOT YOURS. Anything e
       THE HANDLE — a FRESH worktree (see the warning below), then:
         mix test <cli snapshot test file>:71 --repeat-until-failure 200
       → red within ~4 reps (n=1).
-      ⛔⛔ THE HANDLE MAY BE SINGLE-USE PER CHECKOUT — READ THIS BEFORE CONCLUDING
+      ⛔⛔ THE HANDLE IS SINGLE-USE PER CHECKOUT — READ THIS BEFORE CONCLUDING
          "NOT REPRODUCIBLE". S-snapshot-mech-s2 ran 603 instrumented reps in the
-         SAME worktree that fired at rep 4 and got ALL GREEN. Post-round reads
-         (CubDB's captured path is RELATIVE; boot artifacts and test state landed
-         in TWO different tmp/test_data dirs — a boot-vs-test cwd split inside one
-         VM) support a LABELED, NOT PROVEN reading: the crash window CLOSES
-         PERMANENTLY once any invocation boots at app cwd — i.e. the reproducer is
-         SELF-EXTINGUISHING per checkout.
+         SAME worktree that fired at rep 4 and got ALL GREEN. The crash window
+         CLOSES PERMANENTLY once any invocation boots at app cwd — the reproducer
+         is SELF-EXTINGUISHING per checkout. (Read as a labeled guess at 06:10Z;
+         CONFIRMED by s3 at 06:20Z — see below.)
          ⇒ ⭐ IF THAT READING HOLDS: use a FRESH worktree. Re-running the recipe
            on a worktree that has already been exercised produces a null that
            means "window closed", NOT "bug absent" — AND THOSE TWO ARE THE SAME
@@ -260,8 +258,23 @@ KNOWN REDS ON main (as of 80d6e962, 2026-08-18 06:00Z) — NOT YOURS. Anything e
            is not mistaken for a disconfirmation.
          ⇒ IT ALSO EXPLAINS THE ~30% CI RATE WITHOUT ANY NEW MECHANISM: every CI
            run is a fresh checkout, so the window is always open there.
-         ⚠️ LABELED READING, awaiting plan's two settling arms (fresh-worktree
-            replay + one CI cwd read). Do not cite it as established. Artifacts: branch sol/s-snapshot-repro-s1 @
+      ✅✅ CONFIRMED 2026-08-18 06:20Z (S-snapshot-fresh-s3, artifacts 05475ffc on
+         sol/s-snapshot-fresh-s3, verified on origin — 71 log files). THE LABEL
+         ABOVE HAS GRADUATED: this is no longer a reading.
+         OBSERVED, in a verified-FRESH worktree, the window closing LIVE:
+             invocation 1  red at rep 7
+             invocation 2  red at rep 1
+             invocation 3  red at rep 1 — app-dir commits/ flips absent→present
+             invocations 4-5  402 consecutive greens, zero compaction crashes
+         MECHANISM: CubDB's State.data_dir is RELATIVE, and mix has a boot-vs-test
+         CWD SPLIT. Compaction CREATES BY PATH. ⇒ NOTHING IS EVER DELETED — THE
+         PATH'S MEANING MOVES. Once an invocation boots at app cwd the directory
+         exists there, the window shuts, and that checkout never fires again.
+         ⇒ ⭐ THE HARNESS IS NOW NEAR-DETERMINISTIC: fresh worktree ⇒ red by ~rep 7.
+           A fix round has a red-first handle waiting for it.
+         ⇒ ⛔ AND THIS RETROSPECTIVELY GROUNDS THE RETRACTION ABOVE: accumulation
+           does not make it MORE likely — ACCUMULATION IS WHAT CLOSES THE WINDOW.
+           My n=1 rule was not merely unsupported, it was backwards. Artifacts: branch sol/s-snapshot-repro-s1 @
       fcdd72da (stage logs + ACCEPTANCE.md + brief), verified present on origin.
       ⛔ DO NOT DELETE THAT BRANCH — it is the only durable copy of the REPORT.
       ⛔⛔ AND THE BRANCH DOES NOT PROTECT THE REPRODUCER. Measured 2026-08-18:
@@ -305,8 +318,11 @@ KNOWN REDS ON main (as of 80d6e962, 2026-08-18 06:00Z) — NOT YOURS. Anything e
       ⚠️ THIS IS A DELIBERATE, NARROW EXCEPTION TO "NEVER KEY BY MODULE", and it
       is bounded by the shape: a commonplace_cli failure that is NOT a snapshot
       command test, or one that arrives alongside other failures, IS YOURS.
-   ⚠️ MECHANISM UNKNOWN and UNOWNED. This entry buys a round its time back; it does
-      not excuse the flake, and ~30% in one module deserves an owner.
+   ✅ MECHANISM KNOWN as of 2026-08-18 06:20Z (above) and a fix round is plan's to
+      rank — candidate is Path.expand at capture time. UNTIL THAT LANDS the entry
+      stays: a known mechanism is not a fixed defect, and CI still fires at ~30%.
+      ⛔ THE RE-RUN RULE IS WHAT A ROUND NEEDS FROM THIS ENTRY. Everything below
+         the rate is for whoever fixes it, not for whoever trips over it.
 ```
 
 # ▲▲ END OF BLOCK ▲▲
@@ -505,3 +521,17 @@ KNOWN REDS ON main (as of 80d6e962, 2026-08-18 06:00Z) — NOT YOURS. Anything e
   the entry now leads with, because that is the part a round actually needs.**
   ✅ **Durability verified, not accepted on report:** `a56b6fd7` on origin carries both habitat tarballs
   (149,909 + 567,285 bytes) — **artifact and precondition now share a lifetime**, which is #12873 applied.
+- **2026-08-18 06:30Z** — ✅✅ **④ GRADUATES: MECHANISM CONFIRMED, LABEL RETIRED.** s3 watched the window close
+  **live** in a verified-fresh worktree — red at inv1/rep7, inv2/rep1, inv3/rep1 with app-dir `commits/` flipping
+  absent→present, then **402 consecutive greens**. Artifacts `05475ffc` verified on origin (**71 log files**).
+  ⭐ **MECHANISM: CubDB's `State.data_dir` is RELATIVE and mix has a boot-vs-test CWD split; compaction CREATES
+  BY PATH.** ⇒ ***Nothing is ever deleted — the path's MEANING moves.*** Once any invocation boots at app cwd the
+  directory exists there, the window shuts, and that checkout never fires again.
+  ⛔ **AND IT SHOWS MY 06:10Z RULE WAS NOT MERELY UNSUPPORTED — IT WAS BACKWARDS.** I wrote that accumulated state
+  *summons* the bug; **accumulation is what CLOSES the window.** ⚠️ ***An n=1 generalisation is not a weak claim,
+  it is an untested one, and untested claims are as likely to be inverted as vague.***
+  ✅ **The annotation I added BEFORE confirmation held on both operational points** — use a fresh worktree, and a
+  null on an exercised one means window-closed not bug-absent. ⇒ **Annotating an unconfirmed reading cost one
+  sentence of hedging and bought a correct instruction fifteen minutes early.**
+  ⚠️ **Entry STAYS despite a known mechanism: a mechanism is not a fix, and CI still fires at ~30%.** The entry now
+  says explicitly that the re-run rule is what a ROUND needs and the rest is for whoever fixes it.
