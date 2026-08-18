@@ -284,7 +284,43 @@ if [ "$N_INFLIGHT" -ge "$SOL_MAX_PARALLEL" ]; then
   say "DECLINED: $N_INFLIGHT codex round(s) in flight, cap is $SOL_MAX_PARALLEL (pgids: $(echo $INFLIGHT_PGIDS | tr '\n' ' ') | pids: $(echo $INFLIGHT | tr '\n' ' '))"
   exit 0
 fi
-[ "$N_INFLIGHT" -gt 0 ] && say "NOTE: $N_INFLIGHT codex round(s) already in flight (pgids: $(echo $INFLIGHT_PGIDS | tr '\n' ' ')), cap $SOL_MAX_PARALLEL — dispatching alongside"
+# --- MEMORY HEADROOM, installed after the 2026-08-18 23:06 OOM ------------
+# ⛔ WHAT THE OOM ACTUALLY WAS, because it changes what a gate can even do:
+#   there is NO cgroup limit anywhere — MemoryMax=infinity on every
+#   tmux-spawn scope AND on user.slice. So the kill was a GLOBAL kernel OOM;
+#   systemd's OOMPolicy=stop then took the whole scope down as collateral,
+#   which is why an entire tmux WINDOW vanished rather than one process dying.
+#   ⇒ There is no per-scope budget to tune. The only real quantity is
+#     host-wide free memory, shared by every session on the box.
+#
+# ⚠️ I DO NOT YET HAVE A DEFENSIBLE THRESHOLD AND WILL NOT PRETEND OTHERWISE.
+#   Before the kill I held the second slot on "swap 2,127/4,095 MB" — a number
+#   I picked, which sounded like a measurement. The box then died on ONE round
+#   plus the resident sessions, so that number was not nearly-breached, it was
+#   in the WRONG PLACE. One datapoint (11.1 G scope peak) cannot fix it.
+#   ⇒ So this block MEASURES on every evaluation and gates only the ADDITIONAL
+#     round, on a value marked provisional. When .sol-mem-log has peaks from
+#     several rounds, the threshold gets derived and this comment gets deleted.
+MEM_AVAIL=$(awk '/^MemAvailable:/{print int($2/1024)}' /proc/meminfo)
+SWAP_TOT=$(awk '/^SwapTotal:/{print int($2/1024)}' /proc/meminfo)
+SWAP_FREE=$(awk '/^SwapFree:/{print int($2/1024)}' /proc/meminfo)
+SWAP_USED=$((SWAP_TOT - SWAP_FREE))
+BIGGEST_SCOPE=$(systemctl --user show 'tmux-spawn-*.scope' -p MemoryCurrent 2>/dev/null \
+                | sed 's/MemoryCurrent=//' | grep '^[0-9]' | sort -n | tail -1)
+BIGGEST_SCOPE_MB=$(( ${BIGGEST_SCOPE:-0} / 1048576 ))
+printf '%s avail=%sMB swap=%s/%sMB biggest_scope=%sMB inflight=%s\n' \
+  "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "$MEM_AVAIL" "$SWAP_USED" "$SWAP_TOT" \
+  "$BIGGEST_SCOPE_MB" "$N_INFLIGHT" >> /home/jes/boss-clod/.sol-mem-log 2>/dev/null
+
+# PROVISIONAL, and only for the SECOND concurrent round. A first round is what
+# the box has always carried; an additional one is the untested regime.
+SOL_MIN_AVAIL_MB="${SOL_MIN_AVAIL_MB:-9000}"
+if [ "$N_INFLIGHT" -gt 0 ] && [ "$MEM_AVAIL" -lt "$SOL_MIN_AVAIL_MB" ]; then
+  say "DECLINED: $N_INFLIGHT round in flight and only ${MEM_AVAIL}MB available (provisional floor ${SOL_MIN_AVAIL_MB}MB for an ADDITIONAL round; swap ${SWAP_USED}/${SWAP_TOT}MB, biggest tmux scope ${BIGGEST_SCOPE_MB}MB)"
+  say "  ⇒ the 23:06 OOM was GLOBAL (no cgroup limit anywhere); one round plus the resident sessions was enough to kill a whole tmux scope"
+  exit 0
+fi
+[ "$N_INFLIGHT" -gt 0 ] && say "NOTE: $N_INFLIGHT codex round(s) already in flight (pgids: $(echo $INFLIGHT_PGIDS | tr '\n' ' ')), cap $SOL_MAX_PARALLEL, ${MEM_AVAIL}MB avail — dispatching alongside"
 
 # --- 3. locate commonplace BY NAME, not by index ----------------------
 WIN=$(tmux list-windows -t 0 -F '#{window_index} #{window_name}' 2>/dev/null \
