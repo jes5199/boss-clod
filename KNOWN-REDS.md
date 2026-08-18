@@ -245,8 +245,19 @@ KNOWN REDS ON main (as of 80d6e962, 2026-08-18 06:00Z) — NOT YOURS. Anything e
       THE HANDLE — a worktree whose tmp/test_data has ACCUMULATED a few runs'
       commits, then:  mix test <cli snapshot test file>:71 --repeat-until-failure 200
       → red within ~4 reps (n=1). Artifacts: branch sol/s-snapshot-repro-s1 @
-      fcdd72da (stage logs + ACCEPTANCE.md + brief). ⛔ DO NOT DELETE THAT BRANCH —
-      it is the only durable copy of the reproduction.
+      fcdd72da (stage logs + ACCEPTANCE.md + brief), verified present on origin.
+      ⛔ DO NOT DELETE THAT BRANCH — it is the only durable copy of the REPORT.
+      ⛔⛔ AND THE BRANCH DOES NOT PROTECT THE REPRODUCER. Measured 2026-08-18:
+         the habitat is /home/jes/sol-snapshot-repro/wt/tmp/test_data (~1 MB of
+         accumulated commits) and it is GIT-IGNORED (.gitignore:27 "tmp/").
+         ⇒ IT IS IN NO COMMIT, ON NO BRANCH, AND ON NO REMOTE. A single
+           `git clean -xfd` in that worktree destroys the precondition — and -x
+           is exactly the flag someone reaches for to "tidy up a Sol worktree".
+         ⇒ ⭐ THE ARTIFACT AND THE PRECONDITION HAVE DIFFERENT LIFETIMES AND
+           DIFFERENT PROTECTIONS. Pushing the branch felt like durability and
+           covered only half of what makes this reproducible.
+         ⇒ IF THE HABITAT IS LOST: it is re-creatable (run the cli snapshot file
+           a few times in a worktree to accumulate commits), just not free.
       WHAT IT NARROWS, as facts and not as a mechanism:
         · fired with ONE test in the BEAM ⇒ within-VM cross-test interference is
           EXCLUDED for the reproduced instance; what persists across reps is DISK
@@ -444,3 +455,13 @@ KNOWN REDS ON main (as of 80d6e962, 2026-08-18 06:00Z) — NOT YOURS. Anything e
   ⭐ **And a `counted` lesson observed in the wild, not by me:** commonplace's first broad `enoent` grep hit
   **30/30 logs** — all unrelated ambient flock warnings. **It read the hits, killed the false lead, and re-grepped
   the specific string to get the real zero.** A count nobody reads is a count that agrees with you.
+- **2026-08-18 06:15Z** — ⛔⛔ **MY OWN "DO NOT DELETE THAT BRANCH" LINE PROTECTED THE WRONG HALF.** I pushed the
+  branch, verified it on origin, and wrote *"the only durable copy"* — ⚠️ **but the thing that makes this
+  reproducible is the worktree's `tmp/test_data`, and it is GIT-IGNORED (`.gitignore:27 "tmp/"`).** It is in no
+  commit, on no branch, on no remote. **~1 MB of accumulated commits that one `git clean -xfd` erases** — and
+  `-x` is precisely the flag someone reaches for to tidy a Sol worktree.
+  ⭐ ***THE ARTIFACT AND THE PRECONDITION HAVE DIFFERENT LIFETIMES AND NEED DIFFERENT PROTECTIONS.*** Pushing the
+  branch **felt** like durability and covered the report while leaving the reproducer one careless command from
+  gone. ⇒ **"It's committed" answers a different question than "can this be re-run."**
+  ⚠️ **Note the shape: I found this only because I checked whether a claim I had WRITTEN MYSELF was true** — the
+  do-not-delete line was mine, one commit old, and I had not asked what it actually covered.
