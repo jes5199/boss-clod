@@ -65,7 +65,7 @@ exist yet. **Always name the failing assertion's SHAPE, and say that a different
 # ▼▼ THE BLOCK — paste from here to the end marker ▼▼
 
 ```
-KNOWN REDS ON main (as of ff071567, 2026-08-18 07:45Z) — NOT YOURS. Anything else IS.
+KNOWN REDS ON main (as of 6020f782, 2026-08-18 10:05Z) — NOT YOURS. Anything else IS.
 
 ① ⭐⭐ MECHANISM PROVEN 2026-08-18 AND THE FIX HAS LANDED — ENTRY STAYS OPEN
    PENDING CONFIRMATION OVER N CI RUNS. ⛔ IT IS NOT CLOSED, AND ONE GREEN DOES
@@ -121,10 +121,15 @@ KNOWN REDS ON main (as of ff071567, 2026-08-18 07:45Z) — NOT YOURS. Anything e
         string rather than the mechanism.
    ⚠️ HONEST LIMIT: SAME FAMILY, SHARED MECHANISM NOT PROVEN. One symptom across
       two tests is corroboration, not proof, and the third has a third assertion.
-   Full suite CURRENT: 3582 tests, 0 FAILURES, 16 EXCLUDED — and the two halves
-   of that line have DIFFERENT AS-OFS, which is the point of stating both:
-       3582 tests   as of 80d6e962   (3581 + 1, the gc7q refusal test; delta
-                    predicted by its author BEFORE the run, and CI agreed)
+   Full suite CURRENT: 3591 tests, 0 FAILURES, 16 EXCLUDED, 1 SKIPPED —
+   CI-VERIFIED at the GREEN row 6020f782 (2026-08-18 09:46Z).
+   ⛔ AND A SECOND NUMBER EXISTS THAT IS *NOT* VERIFIED, WHICH IS WHY BOTH ARE HERE:
+       3591  as of 6020f782  ← CI-VERIFIED, green row, read from the run log
+       3601  as of 80925204  ← its author's hand delta (3591 + R2's 10). That
+             commit's CI row was still IN PROGRESS when this line was written.
+     ⇒ A HAND DELTA AND A CI READING ARE DIFFERENT KINDS OF CLAIM. Use 3591 until
+       80925204's row concludes; if it lands green at 3601, replace this pair with
+       the single verified figure.
        16 excluded  as of 1d502586   (12 + four perf arms deliberately :scale)
    ⛔ AN EXCLUSION COUNT IS PART OF THE POPULATION, NOT A FOOTNOTE. A round that
       compares 3581 against a run with a different :scale posture is comparing
@@ -574,3 +579,13 @@ KNOWN REDS ON main (as of ff071567, 2026-08-18 07:45Z) — NOT YOURS. Anything e
   once already tonight. **The first ceiling row where a SnapshotTest red would mean regression is still pending.**
   ✅ **Cron lane green in its real habitat** (run `32111305447`, `event=schedule`) — first firing, first try,
   ~45 min after the 06:43 slot. **Scheduler lag noted so a late firing is not read as a missing one.**
+- **2026-08-18 10:05Z** — **POPULATION `3582 → 3591`, AND THE ENTRY NOW CARRIES TWO NUMBERS ON PURPOSE.**
+  `3591` is **CI-VERIFIED** — read from the green row `6020f782`'s own run log (`5 doctests, 3591 tests,
+  0 failures, 16 excluded, 1 skipped`). `3601` is its author's **hand delta** at `80925204`, whose CI row was
+  still `in_progress` when I wrote this. ⇒ ⭐ ***A HAND DELTA AND A CI READING ARE DIFFERENT KINDS OF CLAIM,
+  and the block should say which one it is holding.*** Hand deltas have been right every time tonight — and
+  "right every time so far" is exactly the argument that stops a distinction being drawn.
+  ✅ **`ChatViewComputeSupervisorTest` did NOT recur** at the green row ⇒ **n stays 1 and it stays OUT of the
+  block.** ⛔ It is not an entry, and the temptation to add it was strongest right after I found it.
+  ⚠️ **The `43037955` red therefore remains a single unexplained observation with a parked mechanism
+  (`:source_doc_index` ETS ownership as protection-by-accident) and a defined recurrence path.**
