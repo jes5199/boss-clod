@@ -64,7 +64,10 @@ KNOWN REDS ON main (as of 316f7b53, 2026-08-18 02:35Z) — NOT YOURS. Anything e
       (a) `316f7b53` / `e8f50d48` — the TEN production Engine* names renamed to
       *Fixture in test/; zero production definitions remain in test/; the five
       real-seed string assertions in seed_sources_test are PRODUCTION content and
-      were correctly left untouched. Full suite 3580 tests, 0 failures.
+      were correctly left untouched. Full suite at (a): 3580 tests, 0 failures.
+      (b) e66f706c — verify-at-serve: last_good stores {module, md5} and checks
+      it at BOTH serve doors; mismatch ⇒ floor + named alarm, unloaded or
+      unverifiable entries REFUSED rather than served. THE FIX SPACE IS CLOSED.
    ⏱ (b) PRODUCT-SIDE IS NOT DONE: last_good still caches by NAME. Verify code
       identity at serve time (md5 beside the atom, mismatch ⇒ floor + NAMED
       alarm), red-first with a deliberately-redefined module REFUSED.
@@ -95,9 +98,16 @@ KNOWN REDS ON main (as of 316f7b53, 2026-08-18 02:35Z) — NOT YOURS. Anything e
         string rather than the mechanism.
    ⚠️ HONEST LIMIT: SAME FAMILY, SHARED MECHANISM NOT PROVEN. One symptom across
       two tests is corroboration, not proof, and the third has a third assertion.
-   Full suite at seed 117514, CURRENT (316f7b53): 3580 tests, 0 FAILURES,
-   measured by commonplace post-(a). ⚠️ THE PRE-FIX READING WAS 3569 tests /
-   1 FAILURE (MUD.HumanWebPlayTest) at 0d4163ac — kept so the delta is legible.
+   Full suite CURRENT: 3581 tests, 0 FAILURES, 16 EXCLUDED — and the two halves
+   of that line have DIFFERENT AS-OFS, which is the point of stating both:
+       3581 tests   as of e66f706c   (3580 + 1, by hand)
+       16 excluded  as of 1d502586   (12 + four perf arms deliberately :scale)
+   ⛔ AN EXCLUSION COUNT IS PART OF THE POPULATION, NOT A FOOTNOTE. A round that
+      compares 3581 against a run with a different :scale posture is comparing
+      two different suites and will read the gap as its own defect.
+   ⚠️ EARLIER READINGS, kept so the deltas stay legible: 3580/0 at 316f7b53
+      (post-(a)); 3569 tests / 1 FAILURE (MUD.HumanWebPlayTest) at 0d4163ac
+      (pre-fix, seed 117514).
    ⛔ AND BY THIS ENTRY'S OWN RULE THAT ZERO IS UNINFORMATIVE, THIS GREEN IS NOT
       THE CONFIRMATION. It is consistent with the fix and also consistent with
       the arrangement simply not firing. The confirmation is the CI rate over N.
@@ -277,3 +287,11 @@ KNOWN REDS ON main (as of 316f7b53, 2026-08-18 02:35Z) — NOT YOURS. Anything e
   ⛔ **The trap this avoids is the one the entry has already survived once at population 3553:** a
   known-red deleted while green is armed for whoever arrives next, who is then told by our own rule
   that a days-old defect is theirs.
+- **2026-08-18 04:05Z** — ① population **`3580` → `3581`, and `16 EXCLUDED` added**, flagged by commonplace.
+  ⭐ **THE TWO HALVES CARRY DIFFERENT AS-OFS ON PURPOSE:** `3581` as of `e66f706c`, `16 excluded` as of
+  `1d502586` (12 + four perf arms deliberately behind `:scale`). ⛔ **An exclusion count is part of the
+  population, not a footnote** — a round comparing 3581 against a run with a different `:scale` posture
+  is comparing two different suites and will read the gap as its own defect.
+  ✅ (b) `e66f706c` recorded in the entry: verify-at-serve at **both** doors, mismatch ⇒ floor + named
+  alarm, unverifiable entries refused. **The fix space is closed; the entry is not** — it closes on the
+  CI rate from `316f7b53`, not on the fix landing.
