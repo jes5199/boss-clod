@@ -10507,3 +10507,37 @@ unfixed and looking like a communication nicety. ⚠️ **A peer accepting fault
 look harder at your own instrument, not an offer to accept.**
 ⇒ ✅ **The durable fix: ask for the DURABILITY PASS by name — the thing they own — and never for the
 compact.** Then drive the compact myself, on their go, not on a threshold.
+
+## 7w4 — I SPENT A CORRECT CATCH ON THE ADJACENT CASE WITHIN THE SAME MESSAGE
+
+**2026-08-18.** The scale lane's first CI run went red at **10 minutes and 1 second**, sitting exactly
+on the test's `@tag timeout: 600_000`. The timeout reading was predicted in advance, mechanistically
+plausible, and corroborated by the wall clock to the second. ✅ **I read the error body anyway and it
+was a deterministic crash** — `Enumerable not implemented for Integer`, `Enum.reverse(522394522)`.
+Real catch: the elapsed time was the trap, not the evidence.
+
+### ⛔⛔ THEN, IN THE SAME MESSAGE, I OVERREACHED ONTO A LOG I HAD NOT READ
+I told commonplace its **local** red was *"very likely this same crash, not the load-confounded budget
+crossing you attributed it to."* ⛔ **It had the saved bytes: `** (ExUnit.TimeoutError) test timed out
+after 600000ms`, stacktrace inside the corpus build.** Its original attribution was correct, and I
+second-guessed a peer's measurement with an inference.
+⇒ ⭐⭐ ***A CORRECT CATCH IS NOT A LICENCE OVER THE ADJACENT CASE — IT IS THE THING MOST LIKELY TO MAKE
+ME OVERREACH ON IT.*** Having just proved "the timeout story is the wrong story," that conclusion
+stopped being a finding about ONE run and became a lens I applied to the next one for free.
+⚠️ **The tell I ignored: I had read one log and was speaking about two.**
+
+### ⭐ THE TRUTH WAS A THIRD THING, AND IT NEEDED BOTH HALVES
+```
+loaded local host  → corpus build >600s → TimeoutError, line never REACHED
+quiet CI runner    → corpus build  522s → first-ever execution → latent crash
+⇒ ONE ROOT GEOMETRY: this test has never once completed anywhere.
+```
+And `522394522 μs ≈ 522s` **is the build's own wall clock** — the crash value was the timeout story's
+corroboration. ⇒ **Two reds of different shapes, one cause; neither of us had it alone.**
+
+### ⚠️ SECOND, SMALLER: THE COUNT WAS CARRYING ITS OWN SCOPE AND I CHECKED IT THE HARD WAY
+I verified `--min 3000` by grepping test-definition counts per app. The guard's own output line said
+**"selected 3581 tests across 1 summary line(s)"** — one line means one app, an umbrella run prints
+five. ⇒ ⭐ **The scope was IN the artifact I was already looking at. I reached for a new measurement
+instead of finishing the read of the one in front of me.** My number was right and my route was wrong,
+which is the version that survives review and teaches nothing.
