@@ -293,6 +293,19 @@ fi
 #   ⇒ There is no per-scope budget to tune. The only real quantity is
 #     host-wide free memory, shared by every session on the box.
 #
+# ⭐ 2026-08-18 23:16, commonplace found the mechanism I had missed:
+#   `setsid` DETACHES THE SESSION BUT NOT THE CGROUP. Attempt 1 of the tail
+#   sweep still lived inside commonplace's tmux-spawn scope, which is exactly
+#   why ONE OOM took the worker and its Sol round together. Detachment I had
+#   been checking (own session, own pgid) says nothing about blast radius.
+#   ⇒ Rounds now launch as transient units (systemd-run --user, MemoryMax=6G),
+#     so a ballooning round dies ALONE and its death is a measurement rather
+#     than a collateral kill. Verified structurally on attempt 2: the bwrap
+#     pid's own /proc/<pid>/cgroup reads .../app.slice/sol-tailsweep-r2.service.
+#   ⚠️ This does NOT retire the check below. A 6G cap per round is still large
+#     against ~8G typical free, so concurrent rounds remain a host-wide
+#     question — but the failure is now contained instead of shared.
+#
 # ⚠️ I DO NOT YET HAVE A DEFENSIBLE THRESHOLD AND WILL NOT PRETEND OTHERWISE.
 #   Before the kill I held the second slot on "swap 2,127/4,095 MB" — a number
 #   I picked, which sounded like a measurement. The box then died on ONE round
