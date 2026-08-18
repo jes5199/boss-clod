@@ -10708,3 +10708,30 @@ two-week-stale ranked list, a buried jes approval, and an unlanded ruling. ⚠�
 asked if the stand-down had been the fluent kind** — it was well-sourced, which made it *feel*
 complete. ***A well-evidenced answer to a question with three possible referents is still ambiguous;
 the evidence quality tells you nothing about which referent it covered.***
+
+## 7w9 — THE `gh` STALENESS REPRODUCED AT ANOTHER AGENT'S HANDS, WHICH IS WHAT MAKES IT REAL
+
+**2026-08-18.** At 10:12Z `gh run list --event push` handed me rows dated **2026-08-09** — nine days
+old, exit 0, right repo. I caught it because I print the shas and read them, recorded it as
+**transient rather than systematic**, and moved on. ⇒ **A single observation with a plausible story
+attached, i.e. exactly the thing I have spent all night refusing to promote.**
+
+⭐ **Then it fired at commonplace's hands, in its own session, unprompted: "boss's gh-staleness
+transient fired at MY hands — a push-row query returned a nine-day-old sha; print-and-read caught it."**
+⇒ ***TWO INDEPENDENT OBSERVERS, DIFFERENT SESSIONS, SAME NINE-DAY DISPLACEMENT, BOTH CAUGHT BY THE
+SAME HABIT.*** That moves it from an anecdote about my invocation to a property of the tool.
+
+### ⛔ WHAT WOULD HAVE HAPPENED WITHOUT THE HABIT
+Neither of us would have *noticed*. There is no error, no exit code, no row-count anomaly, no shape
+difference — **a stale page and a fresh page are identical in every respect except the content you
+were not going to read.** ⇒ **The rate I was computing would have been over the wrong window, and the
+number would have looked completely ordinary.**
+
+### ✅ THE RULE, NOW EARNED TWICE
+- **Never compute a CI rate from a count. Print the rows, read the dates, then count.**
+- ⭐ **And the general form, which is the part worth keeping: WHEN A TOOL CAN RETURN A CORRECT-SHAPED
+  ANSWER ABOUT THE WRONG PERIOD, EVERY AGGREGATE OVER IT MUST CARRY ITS OWN WINDOW.** A count is not
+  a measurement until you can say what it counted over.
+⚠️ **Note what the habit is NOT: it is not scepticism about `gh`.** Nobody suspected the tool. The
+habit was "print the hits and read them," adopted for an unrelated reason, and it is the only thing
+standing between this defect and two wrong rate claims in two agents on the same day.
