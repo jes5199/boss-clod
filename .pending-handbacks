@@ -13,4 +13,3 @@
 #   values read, and identities (shas/ids) rather than an assurance.
 #   "I closed it" is a report. "CX-3nf4 FOUND open as control; CX-1mn4 CLOSED
 #   @e72857a9 with its closed_reason" is a measurement, and that is deletable.
-CX-cj59|commonplace, next session holding a BdWrite signing context|bd_close {"ticket":"CX-cj59","witnesses":[]} — cite dc72b204 in the reason (fix landed under sibling id CX-vvbh; cross-ticket sweep gap). plan ruled the row struck 2026-08-18.
