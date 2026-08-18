@@ -65,7 +65,7 @@ exist yet. **Always name the failing assertion's SHAPE, and say that a different
 # ▼▼ THE BLOCK — paste from here to the end marker ▼▼
 
 ```
-KNOWN REDS ON main (as of a2efb172, 2026-08-18 05:30Z) — NOT YOURS. Anything else IS.
+KNOWN REDS ON main (as of 80d6e962, 2026-08-18 06:00Z) — NOT YOURS. Anything else IS.
 
 ① ⭐⭐ MECHANISM PROVEN 2026-08-18 AND THE FIX HAS LANDED — ENTRY STAYS OPEN
    PENDING CONFIRMATION OVER N CI RUNS. ⛔ IT IS NOT CLOSED, AND ONE GREEN DOES
@@ -121,9 +121,10 @@ KNOWN REDS ON main (as of a2efb172, 2026-08-18 05:30Z) — NOT YOURS. Anything e
         string rather than the mechanism.
    ⚠️ HONEST LIMIT: SAME FAMILY, SHARED MECHANISM NOT PROVEN. One symptom across
       two tests is corroboration, not proof, and the third has a third assertion.
-   Full suite CURRENT: 3581 tests, 0 FAILURES, 16 EXCLUDED — and the two halves
+   Full suite CURRENT: 3582 tests, 0 FAILURES, 16 EXCLUDED — and the two halves
    of that line have DIFFERENT AS-OFS, which is the point of stating both:
-       3581 tests   as of e66f706c   (3580 + 1, by hand)
+       3582 tests   as of 80d6e962   (3581 + 1, the gc7q refusal test; delta
+                    predicted by its author BEFORE the run, and CI agreed)
        16 excluded  as of 1d502586   (12 + four perf arms deliberately :scale)
    ⛔ AN EXCLUSION COUNT IS PART OF THE POPULATION, NOT A FOOTNOTE. A round that
       compares 3581 against a run with a different :scale posture is comparing
@@ -218,9 +219,23 @@ KNOWN REDS ON main (as of a2efb172, 2026-08-18 05:30Z) — NOT YOURS. Anything e
         "snapshot command returns :path_not_found when the path does not resolve"
                                           ×2  (0bf50a30, a2efb172)
         "snapshot command writes a snapshot commit for the resolved doc"
-                                          ×1  (bb086a53)
-   MEASURED RATE: 3 of the last 10 completed push runs (2026-08-18 05:45Z), and
-   separately 2 of 7 on 2026-08-16 — call it ~30%, not a rarity.
+                                          ×2  (bb086a53, 80d6e962)
+   MEASURED RATE: 4 of the last 11 completed push runs (2026-08-18 06:00Z), and
+   separately 2 of 7 on 2026-08-16 — call it ~30-35%, not a rarity.
+   ⭐ ONE CAPTURED ERROR BODY (80d6e962, by commonplace — the first anyone has
+      taken for this flake). ⛔ READ IT AS ONE OBSERVATION'S SHAPE, NOT AS THE
+      MECHANISM: it is a single sample and the entry does NOT claim it explains
+      the other three.
+        ** (exit) exited in: GenServer.call(Commonplace.Store.CommitStore,
+             {:create_commit, ...}, 5000)
+           ** (MatchError) no match of right hand side value: {:error, :enoent}
+               (cubdb 2.0.2) lib/cubdb.ex:1499: CubDB.trigger_compaction/1
+      ⇒ CubDB COMPACTION crashed on :enoent inside the app-default CommitStore
+        during the snapshot's create_commit — the store's files were missing when
+        compaction fired.
+      ⚠️ IF YOUR RED HERE HAS A DIFFERENT ERROR BODY, SAY SO — a second shape
+         would mean this entry covers two things and needs splitting, and that
+         is worth more than another sighting of the same one.
    ⛔ NOT "STANDING" AND NOT A TRIGGER — it fires at a rate and no action of yours
       summons it. If your push goes red ONLY here, RE-RUN BEFORE INVESTIGATING:
       at ~30% a single red carries almost no information.
@@ -375,3 +390,16 @@ KNOWN REDS ON main (as of a2efb172, 2026-08-18 05:30Z) — NOT YOURS. Anything e
   SnapshotTest)`, because `gh run view --log-failed` returns nothing for a run that has not failed yet.
   **Empty output read as a verdict — the empty-corpus family, in a tool sixty seconds old.** Row five's
   result was NOT recorded.
+- **2026-08-18 06:00Z** — ④ **FOURTH SIGHTING + THE FIRST CAPTURED ERROR BODY**, and ⑤ population `3581 → 3582`.
+  Rate now **4 of the last 11 push runs**; the `"writes a snapshot commit"` assertion is at ×2, so both
+  known assertions have now recurred — **the module+shape rekey was load-bearing within one run of being made.**
+  ⭐ **commonplace captured the error body — the first anyone has taken for this flake in its recorded
+  life** — and offered it rather than editing my file, which is the second time tonight it has respected
+  that boundary. ⇒ **`CubDB.trigger_compaction/1` matching `{:error, :enoent}` inside a 5000ms
+  `GenServer.call` to the app-default CommitStore during the snapshot's create_commit.**
+  ⛔ **Recorded as ONE OBSERVATION'S SHAPE, explicitly NOT as the mechanism** — it is a single sample and
+  the entry says outright that it does not claim to explain the other three. ✅ **And the entry now ASKS
+  for the disconfirming case: a red here with a DIFFERENT error body means this entry covers two things
+  and needs splitting, which is worth more than another sighting of the same one.**
+  ⚠️ Population `3582` as of `80d6e962` — **the +1 was predicted by its author before the run and CI agreed**,
+  which is the only version of a count claim that costs nothing to trust.
