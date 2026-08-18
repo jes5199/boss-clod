@@ -337,6 +337,18 @@ fi
 # happened. Checking a thing changed the thing.
 # ⇒ DRY=1 evaluates every gate and commits no claim, so verification stops
 # costing a slot and the file keeps saying something true.
+# ⛔⛔ AND THE SAME DIVERGENCE HAPPENS ON A BOSS-HELD DISPATCH, WHICH THE COMMENT
+# ABOVE DID NOT COVER (observed 2026-08-18 02:57Z). The gate passed, the marker
+# was touched, and I then held the send by hand because commonplace had not yet
+# spoken since the previous board. Fifteen minutes later the cooldown declined
+# on the strength of a dispatch THAT NEVER HAPPENED.
+# ⚠️ The harm is small — a hold that suppresses the next cycle DELAYS rather
+#   than SKIPS — but the file is asserting something false, and this whole
+#   script exists because false state in a marker is how a loop goes quiet.
+# ⇒ ✅ THE HABIT, since the script cannot know my decision: run DRY=1 FIRST when
+#   the outcome is in doubt, and run it for real ONLY in the same breath as
+#   sending. "I ran it to see" and "I ran it to dispatch" must not be the same
+#   invocation.
 if [ "${DRY:-0}" = "1" ]; then
   echo "(DRY=1: gate passed, marker NOT touched — nothing has been claimed)" >&2
 else
