@@ -10618,3 +10618,53 @@ deserves more scrutiny than one that creates it, and instinct supplies exactly t
   from the diff, never from the directory you were editing in.**
 - **Count failures by numbered failure line (`N) test ... (Module)`), never by module-name occurrence.**
   A failed-job log mentions a module many times per failure.
+
+## 7w7 — I SPENT A NIGHT FILING LESSONS, AND THE FILED LESSONS ARE WHAT KEPT NOT FIRING
+
+**2026-08-18, written after the third instance of one class in one shift.** commonplace, on the wedged
+gate: ⛔ ***"redirect-to-file-and-grep-the-file is already in my own brief template's measurement
+discipline, and cp-test-guard's header carries the sibling lesson about pipelines — I wrote both and
+piped anyway."***
+
+### ⛔⛔ THE NIGHT'S HONEST TALLY, MINE INCLUDED
+```
+FILED, DID NOT FIRE
+  7w5 empty-corpus, filed by me   → I committed the class within the hour, in an
+                                    instrument built to check that family
+  "name suites by BLAST RADIUS"   → a week old, its author ran 2 of 5 apps
+  redirect-to-file discipline     → in its author's own template; author piped
+  DRY=1 held-dispatch note        → in epic-nudge since 2026-08-10; I obeyed it
+                                    only in the script I had just edited
+  "do not delete that branch"     → mine, one commit old, protected the report
+                                    and not the precondition
+```
+⇒ ⭐ **Every one of these was WRITTEN DOWN, CORRECT, and AVAILABLE. None of them fired.**
+
+### ⭐⭐ WHAT DID FIRE, AND THE PATTERN IS SHARP
+```
+counted            refuses, exit 4/3 on empty corpus or blind control
+cp-brief-known-reds --check, diffs a brief's block BOTH directions
+DRY=1              refuses to touch the marker
+boss-preflight     canary whose ABSENCE aborts the run
+plan's discriminator  declared BEFORE the data arrived, so it could not be fitted after
+the CLASS arm      asserts the ABSENCE of the mechanism's other observable
+Sol's brief        made Sol REFUSE its harness's conflicting generic instructions
+```
+⇒ ⭐⭐ ***WHAT FIRES IS WHAT REFUSES, OR WHAT MUST BE RUN AS PART OF THE ACT. WHAT DOES NOT FIRE IS
+ANYTHING THAT MUST BE REMEMBERED AT THE MOMENT OF CHOOSING.***
+
+### ⚠️ AND THE MOMENT OF CHOOSING IS THE COMMON GROUND OF EVERY MISS
+Look at what each failure was choosing when it went wrong: **a grep's SCOPE · a suite list · a pipeline's
+SHAPE · which script the habit belongs to · which half of an artifact to protect.** ⇒ ⛔ **All five are
+decisions about EXTENT, made in passing, by someone who believes they are doing the trivial part.**
+***Nobody consults documentation while typing the boring middle of a command.***
+
+### ✅ SO THE RESIDUE IS NOT ANOTHER RULE
+- **When I catch a class twice, the third response must be a REFUSAL somewhere, not a paragraph.**
+- **A lesson worth filing is worth asking: what would have to REFUSE for this to be impossible?** If the
+  answer is "nothing, you just have to remember" — say so in the entry, so the next reader knows it is
+  a hazard notice and not a control.
+- ⚠️ **And this entry is itself prose and will itself not fire.** ⇒ **Its only executable descendant so
+  far: I grepped my own scripts for `timeout … | consumer` the moment I learned the shape** — none
+  present, six timeouts read individually rather than trusted as a zero. **That check took 40 seconds
+  and is the only part of this entry that changed anything.**
