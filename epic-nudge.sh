@@ -176,6 +176,26 @@ fi
 # ⚠️ Deliberately NOT solved by moving the touch to the caller: a guard that
 # depends on boss remembering to touch a file is a guard on memory, which this
 # workspace has repeatedly established does not hold.
+#
+# ⛔⛔ AND IT RECURRED ON 2026-08-18, IN THE EXACT SCENARIO THIS COMMENT DESCRIBES:
+# the gate opened while commonplace had a Q2 verification running in a background
+# shell, I held the board, and the marker suppressed the next 50 minutes anyway.
+# ⭐ THE INTERESTING PART IS WHY, BECAUSE IT IS NOT FORGETFULNESS: I had used DRY=1
+#   on EVERY sol-nudge.sh run for the previous two hours — flawlessly — because I
+#   had just written that script's version of this comment. The habit attached to
+#   the SCRIPT I EDITED instead of to the CLASS OF ACT.
+# ⇒ ⛔ A FIX LEARNED IN ONE HABITAT DOES NOT TRAVEL TO ITS TWIN. Same defect as
+#   `counted` (five greps fixed one at a time, the FORM never fixed) and as
+#   commonplace's brief corrections landing in instances, not the template.
+# ⇒ ✅ THE RULE, STATED WITHOUT A SCRIPT NAME IN IT: **any nudge script, whenever
+#   the send is in doubt, runs DRY=1 FIRST and for real only in the same breath as
+#   sending.** If you are reading this in one script, it applies to the other.
+#
+# ⛔ AND DO NOT "FIX" THIS BY MAKING DRY THE DEFAULT. Considered and rejected
+#   2026-08-18: the loop prompts invoke these scripts bare, so a DRY default means
+#   the marker is never touched by the loop itself, cooldowns stop working, and a
+#   held-dispatch bug (which only ever DELAYS) becomes a repeat-dispatch bug (which
+#   is unbounded). The current default fails in the safe direction. Leave it.
 if [ "${DRY:-0}" = "1" ]; then
   echo "(DRY=1: gate passed, marker NOT touched — nothing has been claimed)" >&2
 else
