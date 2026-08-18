@@ -264,13 +264,27 @@ fi
 # boss nor commonplace would recognise. Keep the cap low; raise it on
 # evidence, never on the absence of a complaint.
 SOL_MAX_PARALLEL="${SOL_MAX_PARALLEL:-2}"
+# ⚠️ 2026-08-18: COUNT ROUNDS, NOT PROCESSES. One codex round is at least two
+# matching pids — the node wrapper (`node .../bin/codex exec`) and the native
+# binary it execs (`.../codex-linux-x64/vendor/.../codex exec`) — so counting
+# pids made ONE round read as 2 and eat the whole cap. Observed on the cx-dwhy
+# round: pids 3753093 + 3753100, both PGID 3753087, i.e. one process group.
+# The cap of 2 had silently been a cap of 1 and would never have complained:
+# a too-conservative gate declines quietly and looks exactly like a busy pool.
+# ⇒ A round is a PROCESS GROUP (the wrapper setsids, so pgid is the round id).
 INFLIGHT=$(pgrep -f '(^|/)codex (exec|resume)' 2>/dev/null)
-N_INFLIGHT=$(printf '%s\n' "$INFLIGHT" | grep -c '[0-9]')
+if [ -n "$INFLIGHT" ]; then
+  INFLIGHT_PGIDS=$(ps -o pgid= -p $(printf '%s' "$INFLIGHT" | tr '\n' ',' | sed 's/,$//') 2>/dev/null \
+                   | tr -d ' ' | sort -u | grep '[0-9]')
+else
+  INFLIGHT_PGIDS=""
+fi
+N_INFLIGHT=$(printf '%s\n' "$INFLIGHT_PGIDS" | grep -c '[0-9]')
 if [ "$N_INFLIGHT" -ge "$SOL_MAX_PARALLEL" ]; then
-  say "DECLINED: $N_INFLIGHT codex run(s) in flight, cap is $SOL_MAX_PARALLEL (pids: $(echo $INFLIGHT | tr '\n' ' '))"
+  say "DECLINED: $N_INFLIGHT codex round(s) in flight, cap is $SOL_MAX_PARALLEL (pgids: $(echo $INFLIGHT_PGIDS | tr '\n' ' ') | pids: $(echo $INFLIGHT | tr '\n' ' '))"
   exit 0
 fi
-[ "$N_INFLIGHT" -gt 0 ] && say "NOTE: $N_INFLIGHT codex run(s) already in flight, cap $SOL_MAX_PARALLEL — dispatching alongside"
+[ "$N_INFLIGHT" -gt 0 ] && say "NOTE: $N_INFLIGHT codex round(s) already in flight (pgids: $(echo $INFLIGHT_PGIDS | tr '\n' ' ')), cap $SOL_MAX_PARALLEL — dispatching alongside"
 
 # --- 3. locate commonplace BY NAME, not by index ----------------------
 WIN=$(tmux list-windows -t 0 -F '#{window_index} #{window_name}' 2>/dev/null \
