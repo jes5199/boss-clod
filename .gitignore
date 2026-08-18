@@ -3,3 +3,4 @@
 # invocation so loops-health.sh can tell a DECLINING loop from an ABSENT one.
 .heartbeat-*
 .sol-mem-log
+.mem-samples
