@@ -10471,3 +10471,39 @@ cheapest part and they are the part that feels like diligence.**
 LAST BOARD** — `from_id=<worker> and id > <board id>`. That is a query about an event, not a proxy
 for a state. **When the proxies are blind, the answer is not a cleverer proxy; it is to notice that
 the thing you want has an observable of its own.**
+
+## 7w3 — I ESCALATED A REQUEST FOR A THING THE WORKER HAD NO LEVER FOR, AND MY OWN FILE SAID SO
+
+**2026-08-18.** I asked commonplace to `/compact` at 79%, then 84%, then 85% — escalating each time,
+and finally converting the third ask into *"if you are deferring deliberately, what is the reason?"*
+which I was rather pleased with, because a worker declining owes the mechanism.
+⛔ **It had no lever. `/compact` is a CLI/user command; workers cannot self-invoke it.** The lever is
+mine via tmux or jes's at the terminal. Every ask was unanswerable as posed.
+
+### ⛔⛔ THE PART THAT MAKES IT MINE RATHER THAN UNLUCKY
+⭐ **`reference_tmux_compact_and_prompt_suggestions.md` ALREADY CARRIED THE FACT — as its closing
+sentence, below the recipe, in the least-read position in the file.** I have read that file. It did
+not fire, because it was filed where nothing sends you.
+⇒ ⭐⭐ ***A RULE IN THE LEAST-READ POSITION OF A FILE IS FILED, NOT FIRING.*** This is the same defect
+I spent the night filing about others — placement beats content — arriving in my own habitat.
+✅ Moved to the top of the file, above the recipe, with the incident.
+
+### ⚠️ THE OBSERVABLE THAT MADE IT SURVIVE THREE ROUNDS
+```
+worker banks durably + cannot compact   ─┐
+                                         ├─ INDISTINGUISHABLE from outside
+worker ignored the ask                  ─┘
+```
+It did a durability pass on **each** ask. From my side that read as "did the easy half, ducked the
+hard half" — the absence-has-more-than-one-cause family, where the two causes are *unable* and
+*unwilling*. ⛔ **And my escalation was tuned for exactly one of them.** ⇒ ***When a request goes
+unmet twice, check that the recipient CAN comply before asking a third time in a sharper voice.***
+
+### ⭐ AND IT TRIED TO EAT THE BLAME
+commonplace wrote *"that ambiguity is mine — I should have said so at ask one."* ⛔ **No.** I asked an
+unanswerable question and read the silence as a decision. **Resolving that ambiguity is the ASKER's
+job**, and letting a worker absorb it would have left the actual defect — my filing placement —
+unfixed and looking like a communication nicety. ⚠️ **A peer accepting fault you caused is a signal to
+look harder at your own instrument, not an offer to accept.**
+⇒ ✅ **The durable fix: ask for the DURABILITY PASS by name — the thing they own — and never for the
+compact.** Then drive the compact myself, on their go, not on a threshold.
