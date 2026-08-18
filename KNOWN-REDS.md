@@ -65,7 +65,7 @@ exist yet. **Always name the failing assertion's SHAPE, and say that a different
 # ▼▼ THE BLOCK — paste from here to the end marker ▼▼
 
 ```
-KNOWN REDS ON main (as of 6020f782, 2026-08-18 10:05Z) — NOT YOURS. Anything else IS.
+KNOWN REDS ON main (as of 80925204, 2026-08-18 10:15Z) — NOT YOURS. Anything else IS.
 
 ① ⭐⭐ MECHANISM PROVEN 2026-08-18 AND THE FIX HAS LANDED — ENTRY STAYS OPEN
    PENDING CONFIRMATION OVER N CI RUNS. ⛔ IT IS NOT CLOSED, AND ONE GREEN DOES
@@ -217,6 +217,39 @@ KNOWN REDS ON main (as of 6020f782, 2026-08-18 10:05Z) — NOT YOURS. Anything e
    ⚠️ THE EXIT CRITERION IS NOT MET. One green is one data point. Pre-fence baseline
       was 47/66 = 71% green, so a ~29% instability PREDATES the fence, is UNOWNED,
       and is now observable for the first time.
+
+④ KNOWN INTERMITTENT — THE ChatViewCompute PATHWAY. A LONE failure in a test
+   that exercises ChatViewCompute, on a commit that does NOT touch that pathway.
+   TWO SIGHTINGS, and they share a pathway, NOT a mechanism:
+     43037955  commonplace  Chat.ChatViewComputeSupervisorTest
+               "compute loop end-to-end (Anchor B)" — (MatchError) :ets.insert
+               badarg on :source_doc_index, error_info cause: :id
+     80925204  web          CommonplaceWebWeb.ChatRoomLiveTest
+               "messages render via the generic renderer (ChatViewCompute path)"
+               — assert html =~ "hello world"; the rendered <ul> was EMPTY, the
+               rest of the page rendered fine
+   DENOMINATOR: 2 of the last 3 push rows, with a FULL GREEN row (6020f782)
+   between them. Both landings touched runner/mediator code only; both had
+   green local runs; every other app was green in both rows.
+   ⛔⛔ HONEST LIMIT, AND IT IS THE WHOLE ENTRY: DIFFERENT apps, DIFFERENT tests,
+      DIFFERENT observables. NO SHARED MECHANISM IS PROVEN. A story exists — the
+      ETS-ownership read from sighting 1 COULD produce a silently-empty render
+      downstream if the compute dies and something swallows it — and it is a
+      STORY. It is written here so nobody re-derives it as a finding.
+   ⛔ THE BOUND, because this entry keys on a PATHWAY and that is broader than
+      this file normally allows:
+        · MORE THAN ONE failure in the run  ⇒ YOURS.
+        · Your commit TOUCHES chat / view-compute / source_doc  ⇒ YOURS.
+        · A ChatViewCompute test failing with a DIFFERENT shape again ⇒ tell me;
+          a third distinct observable would mean this is a container, not a
+          family, and the entry must be split or deleted.
+   ⚠️ WHY IT IS AN ENTRY AT ALL AT n=2: the two rows are consecutive landings by
+      the same author on code that does not touch the pathway. Without an entry
+      the NEXT lander is told by our own rule that it is theirs. WITH one, they
+      are told to look twice and report the shape. That is the trade, stated.
+   ⏱ MECHANISM UNOWNED. The named structural candidate (:source_doc_index is a
+      :named_table owned by whoever touches SourceDoc first — protection by
+      accident) is plan's to rank on recurrence, not mine to assert.
 
 ```
 
@@ -589,3 +622,24 @@ KNOWN REDS ON main (as of 6020f782, 2026-08-18 10:05Z) — NOT YOURS. Anything e
   block.** ⛔ It is not an entry, and the temptation to add it was strongest right after I found it.
   ⚠️ **The `43037955` red therefore remains a single unexplained observation with a parked mechanism
   (`:source_doc_index` ETS ownership as protection-by-accident) and a defined recurrence path.**
+- **2026-08-18 10:15Z** — **NEW ENTRY ④: THE ChatViewCompute PATHWAY, at n=2, keyed on a PATHWAY — which is
+  broader than this file's own rule allows, so the bound is explicit and the trade is stated in the entry.**
+  Two consecutive landings (`43037955`, `80925204`) each red by ONE test in that pathway, **different apps,
+  different tests, different observables**, with a **full green row between them** and both landings touching
+  only runner/mediator code. ⛔ **No shared mechanism is proven.** The ETS-ownership story is recorded *as a
+  story*, so nobody re-derives it as a finding.
+  ⭐ **Why file at n=2 rather than wait:** without an entry the next lander is told by our own rule that it is
+  theirs; with one, they are told to look twice and report the shape. ⚠️ **And the entry asks for the thing
+  that would destroy it — a THIRD distinct observable means this is a container, not a family, and it gets
+  split or deleted.**
+- **2026-08-18 10:12Z** — ⛔⛔ **INSTRUMENT FAULT WORTH MORE THAN THE ENTRY: `gh run list --event push`
+  RETURNED NINE-DAY-OLD ROWS, TWICE, WITH NO ERROR.** Same repo (`commonplace-systems/commonplace` confirmed),
+  rows dated `2026-08-09`, exit 0. Dropping `--event push` returned the correct current rows; **two attempts a
+  minute later returned current rows through the SAME flag** ⇒ **transient, not systematic, which is the worse
+  kind because it works almost always.**
+  ⭐ **I CAUGHT IT ONLY BECAUSE I PRINT THE SHAS AND READ THEM.** The rows were unfamiliar, so I checked instead
+  of computing. ⇒ ***Every base rate I quoted tonight that printed its underlying rows was over the right
+  window; the one aggregate I could not check that way is the "20 runs, 15 red" figure — which I had already
+  refused to quote as a rate because its window straddled the fence fix.*** **The habit and the caution
+  independently covered the same gap.**
+  ✅ **RULE: never compute a CI rate from a count alone — print the rows, read the dates, then count.**
