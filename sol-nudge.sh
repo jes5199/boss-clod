@@ -113,6 +113,23 @@ if [ -s "$HANDBACKS" ] && grep -qv '^#' "$HANDBACKS" 2>/dev/null; then
   echo "     CONFIRMED EFFECT (reads closed on the live surface), never on a report." >&2
 fi
 
+# --- DATED WATCHES: things BOSS must read once a date has arrived ----------
+# Distinct from hand-backs above: those are work boss CANNOT do, these are
+# reads boss CAN do but would forget, because the trigger is a clock and
+# boss's context does not survive to meet it. Same principle as 7w7 — the
+# reminder lives in something that already runs, not in a resolution.
+WATCHES="/home/jes/boss-clod/.dated-watches"
+if [ -s "$WATCHES" ]; then
+  TODAY=$(date -u +%Y-%m-%d)
+  while IFS='|' read -r due what why; do
+    case "$due" in ''|'#'*) continue ;; esac
+    # string compare is correct for ISO dates: due <= today means it has arrived
+    [ "$due" \> "$TODAY" ] && continue
+    echo "🔔 DATED WATCH DUE ($due): $what" >&2
+    echo "   why: $why" >&2
+  done < "$WATCHES"
+fi
+
 WORKER="${WORKER:-commonplace}"
 # ⭐⭐ 2026-08-11, jes: "I'm willing to burn extra Claude tokens to keep Sol warm."
 # THIS RETIRES THE RATIO FLOOR FOR THE SOL LANE. The 1.60 floor existed for one

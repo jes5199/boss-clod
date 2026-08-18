@@ -1,0 +1,10 @@
+# DATED WATCHES — things boss must READ at a future time, not work handed to others.
+# Format:  YYYY-MM-DD|what to read|why it matters
+# Surfaced by sol-nudge once the date has arrived. Delete the line once read
+# AND the finding is relayed or filed — a watch that fires forever is noise,
+# and one deleted before the read is the watch never happening.
+#
+# ⚠️ THIS FILE EXISTS BECAUSE A REMEMBERED RULE DOES NOT FIRE. Anything whose
+# trigger is "hours from now, in some later context" belongs here the moment
+# it is agreed, not at the moment it is due.
+2026-08-19|commonplace CI scale-lane cron row (fires 06:43 UTC daily; skip-on-push is by design)|First CI exercise of the ELAPSED-TIME ADMISSION CEILING since the select_replace fix at d25b1b15 — the one guard that can see cap bypass, and the axis the harness conservation law is structurally blind to. Verified locally 5/5, never on a second machine post-fix. The ordinary-lane rollover pin is already CI-proven both ways (red @3d26d807, green @d25b1b15); THIS is the part that isn't.
