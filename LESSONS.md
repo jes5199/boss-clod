@@ -10735,3 +10735,40 @@ number would have looked completely ordinary.**
 ⚠️ **Note what the habit is NOT: it is not scepticism about `gh`.** Nobody suspected the tool. The
 habit was "print the hits and read them," adopted for an unrelated reason, and it is the only thing
 standing between this defect and two wrong rate claims in two agents on the same day.
+
+## 7x0 — THE COUNT-PATTERN FAMILY REACHES THREE, AND THE THIRD ONE SWALLOWED A RED
+
+**2026-08-18.** commonplace's Sol round reported `3,148 tests / 0 failures`. Its own `store.log` said
+**`5 doctests, 468 tests, 1 FAILURE`**. ⛔ **The summing regex was anchored `^[0-9]+ tests,` — the
+`5 doctests, ` prefix meant the line never matched, so BOTH the population and the RED were dropped.**
+The review caught it only from the preserved logs.
+
+### ⭐ THE FAMILY, NOW THREE DEEP — all the same defect wearing different clothes
+```
+① "1 test," SINGULAR          a pattern matching only the plural form
+② the SPLIT NEEDLE            my grep for a string the author had just written
+                              across two lines ⇒ zero files ⇒ `mix format` ran
+                              tree-wide (7w5)
+③ "5 doctests, N tests,"      an anchor assuming the count starts the line
+```
+⇒ ⭐⭐ ***EVERY ONE IS A COUNT EXTRACTED BY A PATTERN NARROWER THAN THE EMITTER'S ACTUAL SHAPES.***
+⚠️ **And each failed SILENTLY toward zero — no error, no exception, just a number that was smaller
+than the truth or a match set that was empty.** ⛔ **The zero is always the dangerous direction:
+"0 failures" and "I could not see the failures" are the same output.**
+
+### ⛔⛔ THE OBSERVATION THAT MAKES THIS WORTH FILING — commonplace's, not mine
+Its own gates use `-E '[0-9]+ (tests|test),'`, **unanchored**, which *happens* to survive the doctest
+prefix. Its words: ***"survives is not designed-for."***
+⇒ ⭐ **A pattern that works by luck and a pattern that works by design are INDISTINGUISHABLE while the
+emitter's format holds still.** ⚠️ **They diverge exactly once — on the day the format changes — and
+by then the lucky one has a long record of having been right, which is what makes it trusted.**
+
+### ✅ WHAT ACTUALLY DEFENDS AGAINST THIS
+- ⛔ **Not "write a better regex."** That is the instance fix, and this family has now defeated three
+  of them.
+- ✅ **Assert the corpus is non-empty and the count is plausible** — `cp-test-guard --min` exists for
+  exactly this, and the round that swallowed the red was NOT behind it.
+- ✅ **PRESERVE THE RAW LOG.** The red was recoverable only because the log survived the round. ⇒ **A
+  summary is a lossy projection of an artifact; keep the artifact.**
+- ⭐ **And when a pattern survives a format it was not written for, say so in the comment** — an
+  undocumented lucky match is a trap set for whoever "cleans it up" later.
