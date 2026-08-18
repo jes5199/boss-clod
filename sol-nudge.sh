@@ -171,6 +171,43 @@ if [ -f "$HOLD" ]; then
   exit 0
 fi
 
+# --- 1b. STAND-DOWN, WITH AN EXPIRY (added 2026-08-18) ----------------
+# ⭐ WHY THIS IS A FILE AND NOT A RESOLUTION. On 2026-08-18 commonplace answered
+# the Sol board with a MECHANISM-CARRYING stand-down: it read plan's QUEUE.md
+# receipts at HEAD and quoted them — "MINE IS EMPTY OF RANKED WORK" — so the
+# board is empty by the queue's own evidence, not by anyone's impression. The
+# correct response is to stop surfacing the pool until plan ranks something.
+# ⛔ AND "I WILL REMEMBER TO STOP" IS EXACTLY THE KIND OF RULE THAT DID NOT FIRE
+#   ALL NIGHT (see LESSONS 7w7). A stand-down that lives only in my head lasts
+#   until my next context boundary and then silently ends.
+#
+# ⛔⛔ BUT A STAND-DOWN FILE THAT NOBODY CLEARS IS HOW A LOOP GOES QUIET FOR
+# THIRTY-ONE HOURS — which happened here on 2026-08-16 and took a direct
+# question from jes to notice. So this one EXPIRES.
+# ⇒ ⭐ THE FAILURE DIRECTION IS CHOSEN DELIBERATELY: when the expiry is wrong we
+#   ASK TOO EARLY (costs one message the worker can answer in one line) rather
+#   than NEVER ASK AGAIN (costs the pool indefinitely, invisibly).
+#
+# Usage:  echo "$(( $(date +%s) + 4*3600 )) reason text" > .sol-standdown
+#         rm .sol-standdown            # lift early, e.g. when plan ranks
+STANDDOWN=".sol-standdown"
+if [ -f "$STANDDOWN" ]; then
+  SD_UNTIL=$(awk '{print $1}' "$STANDDOWN" 2>/dev/null)
+  SD_WHY=$(cut -d' ' -f2- "$STANDDOWN" 2>/dev/null)
+  case "$SD_UNTIL" in ''|*[!0-9]*) SD_UNTIL=0 ;; esac
+  NOW_S=$(date +%s)
+  if [ "$NOW_S" -lt "$SD_UNTIL" ]; then
+    say "DECLINED: stand-down until $(date -u -d "@$SD_UNTIL" +%H:%MZ) — $SD_WHY"
+    say "          (lift early with: rm $STANDDOWN)"
+    exit 0
+  else
+    say "NOTE: stand-down EXPIRED at $(date -u -d "@$SD_UNTIL" +%H:%MZ) — asking again."
+    say "      It expired rather than being lifted, so the question is live again:"
+    say "      $SD_WHY"
+    rm -f "$STANDDOWN"
+  fi
+fi
+
 # --- 2. how many Sol runs are in flight? ------------------------------
 # Exact-match the codex binary; never a broad pattern — hermes runs a
 # live-money BEAM on this box.
