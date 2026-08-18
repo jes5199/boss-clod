@@ -47,7 +47,7 @@ exist yet. **Always name the failing assertion's SHAPE, and say that a different
 # ▼▼ THE BLOCK — paste from here to the end marker ▼▼
 
 ```
-KNOWN REDS ON main (as of 316f7b53, 2026-08-18 02:35Z) — NOT YOURS. Anything else IS.
+KNOWN REDS ON main (as of 1d502586, 2026-08-18 04:05Z) — NOT YOURS. Anything else IS.
 
 ① ⭐⭐ MECHANISM PROVEN 2026-08-18 AND THE FIX HAS LANDED — ENTRY STAYS OPEN
    PENDING CONFIRMATION OVER N CI RUNS. ⛔ IT IS NOT CLOSED, AND ONE GREEN DOES
@@ -68,9 +68,14 @@ KNOWN REDS ON main (as of 316f7b53, 2026-08-18 02:35Z) — NOT YOURS. Anything e
       (b) e66f706c — verify-at-serve: last_good stores {module, md5} and checks
       it at BOTH serve doors; mismatch ⇒ floor + named alarm, unloaded or
       unverifiable entries REFUSED rather than served. THE FIX SPACE IS CLOSED.
-   ⏱ (b) PRODUCT-SIDE IS NOT DONE: last_good still caches by NAME. Verify code
-      identity at serve time (md5 beside the atom, mismatch ⇒ floor + NAMED
-      alarm), red-first with a deliberately-redefined module REFUSED.
+   ⛔ A LINE SAYING "(b) IS NOT DONE" STOOD HERE FOR ~40 MINUTES AFTER THE LINES
+      ABOVE SAID IT HAD LANDED — TWO ADJACENT CLAIMS IN OPPOSITE DIRECTIONS, in
+      the one file whose entire purpose is that a round can trust what it pastes.
+      ⇒ IT CAME FROM EDITING THE NEW STATE IN WITHOUT DELETING THE OLD STATE OUT.
+        An append is not an update, and a block is not a changelog: the changelog
+        is below the end marker precisely so the BLOCK can hold one present tense.
+      ⇒ ⭐ AFTER EVERY EDIT HERE, READ THE WHOLE ENTRY BACK — a diff shows what you
+        added and CANNOT show what it now contradicts.
    ⛔⛔ WHY THIS ENTRY STAYS IN THE BLOCK ANYWAY: the family's CI rate is expected
       to COLLAPSE, and expected-to-collapse is a PREDICTION, not a measurement.
       The clock starts at `316f7b53`; it closes on consecutive CI runs, never on
@@ -295,3 +300,11 @@ KNOWN REDS ON main (as of 316f7b53, 2026-08-18 02:35Z) — NOT YOURS. Anything e
   ✅ (b) `e66f706c` recorded in the entry: verify-at-serve at **both** doors, mismatch ⇒ floor + named
   alarm, unverifiable entries refused. **The fix space is closed; the entry is not** — it closes on the
   CI rate from `316f7b53`, not on the fix landing.
+- **2026-08-18 04:12Z** — ⛔ **SELF-CAUGHT: THE BLOCK CONTRADICTED ITSELF FOR ~40 MINUTES.** Lines saying
+  *"(b) landed, the fix space is closed"* sat directly above a surviving *"⏱ (b) PRODUCT-SIDE IS NOT DONE."*
+  ⭐ **Cause: I edited the new state IN without deleting the old state OUT — an append is not an update.**
+  ⚠️ **And my verification could not have caught it:** I checked that the block still *extracts* and that
+  `--check` *round-trips*, both of which pass happily on a self-contradictory block. **A gate on FORM cannot
+  see a defect in CONTENT.** ⇒ ✅ **New habit, now in the entry itself: after every edit here, READ THE WHOLE
+  ENTRY BACK — a diff shows what you added and cannot show what it now contradicts.** Header as-of also
+  corrected `316f7b53` → `1d502586`.
