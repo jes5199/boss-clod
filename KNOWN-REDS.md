@@ -41,6 +41,11 @@ KNOWN INTERMITTENT  a failure a round MIGHT see, at a MEASURED RATE, with no
 intermittent I MEASURED on 2026-08-16 (0 failures ×5, 1 failure ×2 over seven runs) and wrote into
 this file's **changelog** — where it sat for two days while the **block** never mentioned it. It went
 red again on 2026-08-18 and, by our own rule, would have been a round's to hunt.
+⚠️ **AND THE ENTRY I THEN WROTE WAS ITSELF WRONG WITHIN THE HOUR — I keyed it on ONE assertion string,
+and the very next red I read was a DIFFERENT test in the same module.** ⇒ ⭐ ***That is entry ①'s
+instance-③ failure repeating in a new module: keying on the symptom string is as narrow as keying on a
+module is broad, and I had the lesson written down twelve inches above where I made the mistake.***
+Re-measured: ~30% of push runs, two assertions, mechanism unknown.
 ⭐ **The taxonomy was the reason: it is not STANDING (it passes most runs) and it is not a TRIGGER (no
 action summons it), so there was no shelf to put it on and it stayed in prose.** ⚠️ ***A missing
 CATEGORY is quieter than a missing entry — nobody notices the shelf that does not exist.***
@@ -207,16 +212,27 @@ KNOWN REDS ON main (as of a2efb172, 2026-08-18 05:30Z) — NOT YOURS. Anything e
       was 47/66 = 71% green, so a ~29% instability PREDATES the fence, is UNOWNED,
       and is now observable for the first time.
 
-④ KNOWN INTERMITTENT — Commonplace.CLI.SnapshotTest, "snapshot command returns
-   :path_not_found when the path does not resolve" (commonplace_cli, 121 tests).
-   MEASURED RATE, 2026-08-17, seven completed runs whose logs contain the 121-test
-   verdict: 0 failures ×5, 1 failure ×2. Seen again 2026-08-18 05:18Z at a2efb172.
-   ⛔ NOT "STANDING" AND NOT A TRIGGER — it fires on some fraction of runs and no
-      action of yours summons it. If your push goes red ONLY here, re-run before
-      you investigate: at ~2-in-7 a single red carries almost no information.
-   ⛔ A SECOND failure in commonplace_cli, or this one plus anything else, IS yours.
+④ KNOWN INTERMITTENT — Commonplace.CLI.SnapshotTest (commonplace_cli, 121 tests).
+   ⛔ TWO KNOWN ASSERTIONS, AND THE SECOND IS WHY THIS ENTRY WAS REWRITTEN WITHIN
+      THE HOUR OF BEING WRITTEN:
+        "snapshot command returns :path_not_found when the path does not resolve"
+                                          ×2  (0bf50a30, a2efb172)
+        "snapshot command writes a snapshot commit for the resolved doc"
+                                          ×1  (bb086a53)
+   MEASURED RATE: 3 of the last 10 completed push runs (2026-08-18 05:45Z), and
+   separately 2 of 7 on 2026-08-16 — call it ~30%, not a rarity.
+   ⛔ NOT "STANDING" AND NOT A TRIGGER — it fires at a rate and no action of yours
+      summons it. If your push goes red ONLY here, RE-RUN BEFORE INVESTIGATING:
+      at ~30% a single red carries almost no information.
+   ⛔ A DIFFERENT ASSERTION IN THIS MODULE IS PROBABLY STILL THIS ENTRY. Two of
+      the module's tests have now failed with no code between them touching the
+      CLI — so the entry is keyed on the MODULE plus the shape "a snapshot-command
+      test fails alone, everything else in the run green", NOT on either string.
+      ⚠️ THIS IS A DELIBERATE, NARROW EXCEPTION TO "NEVER KEY BY MODULE", and it
+      is bounded by the shape: a commonplace_cli failure that is NOT a snapshot
+      command test, or one that arrives alongside other failures, IS YOURS.
    ⚠️ MECHANISM UNKNOWN and UNOWNED. This entry buys a round its time back; it does
-      not excuse the flake, and the rate is old enough to deserve re-measuring.
+      not excuse the flake, and ~30% in one module deserves an owner.
 ```
 
 # ▲▲ END OF BLOCK ▲▲
@@ -345,3 +361,17 @@ KNOWN REDS ON main (as of a2efb172, 2026-08-18 05:30Z) — NOT YOURS. Anything e
   inside the document that documents it.
   ✅ Type carries a **measured rate or it is not this type** — "flaky" without a number is a shrug.
   Block extracts rc=0, `--check` round-trips, must-fail arm rc=3.
+- **2026-08-18 05:47Z** — ⛔⛔ **ENTRY ④ REWRITTEN WITHIN THE HOUR OF BEING WRITTEN, AND THE REASON IS THE
+  LESSON PRINTED TWELVE INCHES ABOVE IT.** I keyed it on one assertion string; the next red I read was
+  `"writes a snapshot commit for the resolved doc"` — **a different test in the same module** — so the
+  entry I had just added to prevent a misattribution would have produced one.
+  ⭐ ***This is entry ①'s instance-③ failure, verbatim, in a new module: keying on the SYMPTOM STRING is
+  as narrow as keying on a MODULE is broad.*** The file says exactly that, in the section directly above.
+  ⇒ ✅ Now keyed on **module + shape** (*a snapshot-command test fails ALONE, everything else green*),
+  with the "never key by module" exception called out as deliberate and **bounded** — a commonplace_cli
+  failure that is not a snapshot-command test, or one arriving alongside others, is still theirs.
+  ✅ **Rate re-measured: 3 of the last 10 push runs (~30%), two assertions**, superseding the 2-of-7 read.
+  ⚠️ **Instrument note:** the loop I wrote to measure this labelled an IN-PROGRESS run as `RED (no
+  SnapshotTest)`, because `gh run view --log-failed` returns nothing for a run that has not failed yet.
+  **Empty output read as a verdict — the empty-corpus family, in a tool sixty seconds old.** Row five's
+  result was NOT recorded.
