@@ -27,7 +27,7 @@ because it was copied from a previous brief rather than from here.**
 BOTH directions — missing entries and invented ones.** ⭐ *A written rule that depends on someone
 choosing to obey it is not a check; that command is.*
 
-## ⭐ THE TWO ENTRY TYPES ARE NOT INTERCHANGEABLE
+## ⭐ THE THREE ENTRY TYPES ARE NOT INTERCHANGEABLE
 
 ```
 KNOWN RED           a failure a round WILL SEE. Unconditional. "Not yours."
@@ -60,7 +60,7 @@ exist yet. **Always name the failing assertion's SHAPE, and say that a different
 # ▼▼ THE BLOCK — paste from here to the end marker ▼▼
 
 ```
-KNOWN REDS ON main (as of 1d502586, 2026-08-18 04:05Z) — NOT YOURS. Anything else IS.
+KNOWN REDS ON main (as of a2efb172, 2026-08-18 05:30Z) — NOT YOURS. Anything else IS.
 
 ① ⭐⭐ MECHANISM PROVEN 2026-08-18 AND THE FIX HAS LANDED — ENTRY STAYS OPEN
    PENDING CONFIRMATION OVER N CI RUNS. ⛔ IT IS NOT CLOSED, AND ONE GREEN DOES
