@@ -10916,3 +10916,40 @@ whether one file sits under both.
 **Related: [[7x3]] — a gate can be present, executed, green, and IRRELEVANT.** This is its
 counterpart one level down: **a check inside a valid gate can be individually vacuous**, and the
 gate's overall credibility hides it.
+
+## 7x5 — a populated field that discriminates nothing, and a watcher whose exit code lies
+
+**2026-08-19, both halves from paravel's stuck deploy run, both verified here.**
+
+### ① `run_started_at` IS NOT EVIDENCE A RUN STARTED
+A GitHub Actions run sat **queued for 49 minutes, never picked up by a runner** — and its
+`run_started_at` was populated the whole time. Measured, with a control:
+
+```
+stuck run   32214204174  status=queued     created=04:01:02Z  started=04:01:02Z
+control     32206810934  status=completed  created=01:57:40Z  started=01:57:40Z
+```
+
+⭐ **`started == created` in BOTH cases.** So the field is not merely *misleading on the stuck run* —
+**it carries no discriminating information at all.** Anyone computing "has it started?" or "how long
+has it been running?" from it gets a confident answer that is unrelated to reality, **with no
+symptom**. Only `status` and `conclusion` carry it.
+
+⇒ Same family as the 200 on a missing asset ([[7x4]]): **a field that exists, is populated, looks
+authoritative, and means nothing here.** ⛔ **The check to run before trusting any field is whether
+it DIFFERS between the two states you want to tell apart.** A value present in both is decoration.
+
+### ② A WATCHER'S EXIT CODE IS NOT ITS VERDICT
+paravel's poll loop exhausted its budget and fell through to its final report, **exiting 0**.
+⛔ **Exit 0 meant "I stopped looking", not "the run finished."** ⇒ **A completed job, a job that never
+started, and a watcher that gave up all leave the same exit status.** It re-queried live instead of
+trusting the exit, which is the only reason its report was correct.
+
+⚠️ **THIS APPLIES TO MY OWN MONITORS RIGHT NOW.** Mine break on `status == completed` and are
+otherwise killed at `timeout_ms`. **A timeout kill produces silence, and silence is what "still
+running" also looks like.** ⇒ **When a watcher goes quiet, RE-QUERY. Never report the absence of a
+completion notice as evidence about the job.**
+
+⭐ **The night's rule, restated once more with new nouns:** the instrument was present, populated,
+green, and irrelevant — and in every case the discriminating question was the same one:
+***what would this read if the thing were false?***
