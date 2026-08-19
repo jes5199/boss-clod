@@ -44,3 +44,18 @@ above IS the backup, and it is good until someone prunes.
   worktrees while CI is mid-flight is its own decision, and it destroys this recovery path.
 - ⇒ If anyone later wants the space, they are choosing to make this irreversible. Say so out loud
   when proposing it.
+
+## ⚠️ ADDENDUM (commonplace, 2026-08-19 00:56) — A GC WOULD DESTROY **TWO** THINGS, NOT ONE
+
+**The 2.9 GB dangling blob `0f0430c3` becomes prunable the same day these stash commits do.** It is
+already unreachable (that is why the pickaxe never touched it), so nothing keeps it but the absence
+of a prune.
+
+⇒ ⭐ **Any future gc proposal must list BOTH monsters as what it makes irreversible** — the 7.77 GB
+blob's stash commits AND the 2.9 GB dangling blob. Stating it here because the alternative is that
+whoever runs the gc discovers it afterwards, which is the worst possible time to learn what a
+command destroyed.
+
+**Combined: ~10.7 GB of the 3.8 GB packed .git is these two objects' uncompressed weight.** Whether
+the reclaim is worth the irreversibility is jes's call, and it should be made with both numbers in
+front of him rather than one.
