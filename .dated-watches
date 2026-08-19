@@ -11,4 +11,3 @@
 # ⚠️ THIS FILE EXISTS BECAUSE A REMEMBERED RULE DOES NOT FIRE. Anything whose
 # trigger is "hours from now, in some later context" belongs here the moment
 # it is agreed, not at the moment it is due.
-2026-08-19 14:00|paravel run 32214204174 — LAST CHECKED 05:20Z, still QUEUED at 79 min, never started. Re-query once in daylight: gh api repos/jes5199/paravel/actions/runs/32214204174 --jq '.status,.conclusion'|Record it as NEVER RAN if still queued — not failed, not passed. ⛔ Do NOT cancel, re-run, or push an empty commit: a stuck run beside a site that updated anyway is the only natural experiment for the two-deployer question, and every tidy-up destroys it. Its value is ONLY as evidence about whether the workflow also publishes.
