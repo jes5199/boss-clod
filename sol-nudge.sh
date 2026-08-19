@@ -260,6 +260,31 @@ fi
 #
 # Usage:  echo "$(( $(date +%s) + 4*3600 )) reason text" > .queue-standdown
 #         rm .queue-standdown            # lift early, e.g. when plan ranks
+# ⭐ 2026-08-19 13:05 — TWO STAND-DOWNS, DELIBERATELY, BECAUSE THEY HOLD DIFFERENT THINGS.
+#   .queue-standdown  is SHARED with epic-nudge: "there is no ranked work".
+#   .sol-standdown    is SOL-ONLY: "there is work, but a Sol ROUND specifically
+#                     must not start" — e.g. plan's @7708025 sequencing, where one
+#                     tree-wide format commit must land BEFORE ANY NEW BRANCH, and
+#                     a Sol round is by construction a new branch.
+# ⚠️ I FIRST WROTE THAT HOLD INTO THE SHARED FILE AND IT BLOCKED epic-nudge TOO —
+#   which would have blocked commonplace from doing the very format commit that
+#   lifts the hold. THE HOLD WOULD HAVE BLOCKED ITS OWN UNBLOCKER. Caught by
+#   running the other script instead of assuming the file's scope.
+# ⇒ A gate's SCOPE is part of its correctness, not a detail of where you put it.
+SOL_STANDDOWN="${SOL_STANDDOWN_FILE:-/home/jes/boss-clod/.sol-standdown}"
+if [ -f "$SOL_STANDDOWN" ]; then
+  SSD_UNTIL=$(awk '{print $1}' "$SOL_STANDDOWN" 2>/dev/null)
+  SSD_WHY=$(cut -d' ' -f2- "$SOL_STANDDOWN" 2>/dev/null)
+  case "$SSD_UNTIL" in ''|*[!0-9]*) SSD_UNTIL=0 ;; esac
+  if [ "$(date +%s)" -lt "$SSD_UNTIL" ]; then
+    say "DECLINED: SOL-ONLY stand-down until $(date -u -d "@$SSD_UNTIL" +%H:%MZ) — $SSD_WHY"
+    say "          (epic-nudge is deliberately NOT gated by this; lift: rm $SOL_STANDDOWN)"
+    exit 0
+  else
+    say "NOTE: SOL-ONLY stand-down EXPIRED at $(date -u -d "@$SSD_UNTIL" +%H:%MZ) — its condition may still hold; re-check before dispatching."
+  fi
+fi
+
 STANDDOWN="${STANDDOWN_FILE:-.queue-standdown}"
 if [ -f "$STANDDOWN" ]; then
   SD_UNTIL=$(awk '{print $1}' "$STANDDOWN" 2>/dev/null)
