@@ -10992,3 +10992,40 @@ and not-due (no false alarm).
 run that an unfiltered listing shows plainly as `ev=schedule`. Had I trusted it I would have told
 plan "never fired" — a confident wrong answer, aimed exactly at its three-way fork. **List
 unfiltered, select on the field yourself.**
+
+## 7x7 — two instruments, two populations, and the artifact inherits the UNION
+
+**2026-08-19.** commonplace's tree-wide reflow landed with all four of plan's conditions met and its
+gates green pre-push — and CI went **red on `format`**, on exactly one file:
+`.commonplace-state/.state-render.R5uxmF/probe.exs`, scratch from a `mktemp -d` that `bin/state-render`
+writes **inside the repo**, triggered hourly by my cron.
+
+⭐ **THE MECHANISM, WHICH IS commonplace's FINDING AND BETTER THAN MINE:**
+```
+the census that CHOSE the files:  git ls-files '*.ex' '*.exs'   → TRACKED files only
+                                   ⇒ probe.exs was INVISIBLE to it
+the staging that BUILT the commit: git add -- '*.ex' '*.exs'    → glob pathspecs add UNTRACKED matches
+                                   ⇒ probe.exs was VISIBLE to it
+```
+⇒ ***TWO INSTRUMENTS, TWO POPULATIONS, AND THE COMMIT INHERITED THE UNION.*** Neither instrument was
+broken. Each was correct about its own set. **The defect lived in the gap between their scopes, which
+is a place no single check looks.** The one-flag fix is `git add -u -- '*.ex' '*.exs'` — `-u` updates
+tracked files only, which makes the two populations the same set by construction.
+
+⛔ **AND MY OWN CHECK FAILED ON THE SAME AXIS ONE STEP LATER.** I flagged a 356-vs-354 count gap,
+counted the commit's paths, confirmed **all 356 were `.ex`/`.exs`**, and concluded "no strays".
+**`probe.exs` IS an `.exs`.** ⇒ ***A SHAPE CHECK CANNOT SEE AN INTRUDER THAT HAS THE RIGHT SHAPE.***
+The delta was the stray announcing itself, and I answered it with a satisfied predicate instead of a
+filename. **A count gap is closed by NAMING THE DIFFERING ITEM, never by verifying a property the
+whole set shares.**
+
+⚠️ **A SECOND ERROR OF MINE, IN THE DIRECTION THAT FEELS SAFE:** on seeing the path I told commonplace
+"my cron writes scratch into your tree" and took the fault. **The code says otherwise** — my cron only
+`cd`s and invokes; *their* script chooses the location; the missing `.gitignore` entry is what made a
+temp dir stageable. ⇒ **Taking blame fast is the same defect as assigning it fast: I named a cause
+before reading the code.** Had they acted on it they would have searched my cron for a line that does
+not exist. **A wrong owner misroutes the fix whichever direction the generosity runs.**
+
+✅ Fixed at `61a70157` (untrack + ignore the scratch pattern). ⭐ **The reflow itself was vindicated by
+the same run:** 1 brittle test in 3,624, brittle in its *pins* and not its *detection* — a 356-file
+perturbation proved a design property no deliberate test of it could have.
