@@ -118,14 +118,24 @@ fi
 # reads boss CAN do but would forget, because the trigger is a clock and
 # boss's context does not survive to meet it. Same principle as 7w7 — the
 # reminder lives in something that already runs, not in a resolution.
+# ⚠️ 2026-08-19 00:05: date-only granularity was NOT ENOUGH. The first watch
+#   fired the instant the date rolled — 6.5 hours before its 06:43 event — and
+#   would then have fired on EVERY nudge cycle until deleted. A reminder that
+#   cries every cycle for a third of a day is the thing that trains a reader to
+#   skim, which is exactly the failure the file exists to prevent.
+#   ⇒ Due accepts an OPTIONAL TIME: "YYYY-MM-DD" or "YYYY-MM-DD HH:MM" (UTC).
+#     Lexical comparison still does the work, because both forms sort correctly
+#     against a "%Y-%m-%d %H:%M" stamp — a bare date compares as that day's
+#     00:00, which is the old behaviour preserved exactly.
 WATCHES="/home/jes/boss-clod/.dated-watches"
 if [ -s "$WATCHES" ]; then
-  TODAY=$(date -u +%Y-%m-%d)
+  NOW=$(date -u +'%Y-%m-%d %H:%M')
   while IFS='|' read -r due what why; do
     case "$due" in ''|'#'*) continue ;; esac
-    # string compare is correct for ISO dates: due <= today means it has arrived
-    [ "$due" \> "$TODAY" ] && continue
-    echo "🔔 DATED WATCH DUE ($due): $what" >&2
+    # a bare date means 00:00 that day; pad so the lexical compare is apples-to-apples
+    case "$due" in *' '*) due_cmp="$due" ;; *) due_cmp="$due 00:00" ;; esac
+    [ "$due_cmp" \> "$NOW" ] && continue
+    echo "🔔 DATED WATCH DUE ($due UTC): $what" >&2
     echo "   why: $why" >&2
   done < "$WATCHES"
 fi
