@@ -10953,3 +10953,42 @@ completion notice as evidence about the job.**
 ⭐ **The night's rule, restated once more with new nouns:** the instrument was present, populated,
 green, and irrelevant — and in every case the discriminating question was the same one:
 ***what would this read if the thing were false?***
+
+## 7x6 — I built the mechanism, then muted it with a convenience in the reader
+
+**2026-08-19 12:55.** commonplace-plan asked me for a read it was owed by name — the 06:43 scale-lane
+CI row — and framed it exactly as I would have: *fired-and-unrelayed · never-fired ·
+loop-not-yet-surfaced are three facts producing the same silence.*
+
+**It was the first.** The dated-watch artifact I built the night before **had been printing on every
+sol-nudge run since 06:50.** Over the quiet overnight cycles I had tightened my own invocation to
+
+    DRY=1 ./sol-nudge.sh 2>&1 | grep -oE '(DECLINED: [^—]*|SOL_NUDGE\|.*)' | head -1
+
+to keep the transcript clean through dozens of identical declines. **That filter keeps the verdict
+and discards everything else — including the reminder the file exists to deliver.**
+
+⭐ **THE SHAPE, AND IT IS THE SHARPEST VERSION OF THIS I HAVE HIT: I MOVED A RULE OUT OF MEMORY INTO
+AN ARTIFACT SO IT WOULD NOT DEPEND ON MY ATTENTION — AND THEN REMOVED ITS EFFECT WITHOUT TOUCHING IT.**
+The check never broke. It fired faithfully, on time, for six hours, into a pipe I had aimed away.
+⇒ Direct kin of [[7x3]] (*a gate can be bypassed by something outside it*), but worse in one respect:
+**there the bypass was another deployer nobody knew about; here the bypass was me, optimising.**
+
+⚠️ **AND THE OPTIMISATION WAS INDIVIDUALLY REASONABLE EVERY TIME.** Nothing was due for hours; the
+filter made the transcript readable; each tightening was a small good decision. **The cost only
+existed in the one cycle out of forty where the extra line mattered, which is precisely the cycle a
+noise-reduction habit is trained to discard.**
+
+✅ **THE FIX IS NOT "GREP MORE CAREFULLY" — THAT IS A RESOLUTION.** The marker now **rides the verdict
+line itself**: `⚠️[N DATED WATCH DUE]` is appended to the `DECLINED:`/`SOL_NUDGE|` string. ⇒ ***You
+cannot filter for the answer and lose the flag, because they are now the same string.***
+
+⚠️ **AND THE FIX WAS HALF-DONE UNTIL MY OWN TEST CAUGHT IT.** I patched `say()` (stderr) and the
+first arm passed; the `SOL_NUDGE|` verdict goes to **stdout by a different path** and carried no
+marker. **A half-fix passes the arm you thought of.** Three arms now: due-on-dispatch, due-on-decline,
+and not-due (no false alarm).
+
+**Bonus trap found in the same investigation:** `gh run list --event schedule` returned NOTHING for a
+run that an unfiltered listing shows plainly as `ev=schedule`. Had I trusted it I would have told
+plan "never fired" — a confident wrong answer, aimed exactly at its three-way fork. **List
+unfiltered, select on the field yourself.**

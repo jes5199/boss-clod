@@ -128,6 +128,7 @@ fi
 #     against a "%Y-%m-%d %H:%M" stamp — a bare date compares as that day's
 #     00:00, which is the old behaviour preserved exactly.
 WATCHES="/home/jes/boss-clod/.dated-watches"
+WATCHES_DUE=0
 if [ -s "$WATCHES" ]; then
   NOW=$(date -u +'%Y-%m-%d %H:%M')
   while IFS='|' read -r due what why; do
@@ -137,7 +138,9 @@ if [ -s "$WATCHES" ]; then
     [ "$due_cmp" \> "$NOW" ] && continue
     echo "🔔 DATED WATCH DUE ($due UTC): $what" >&2
     echo "   why: $why" >&2
+    WATCHES_DUE=$((WATCHES_DUE + 1))
   done < "$WATCHES"
+  # ⚠️ the while loop runs in this shell (redirect, not pipe), so the count survives
 fi
 
 WORKER="${WORKER:-commonplace}"
@@ -181,7 +184,25 @@ COOLDOWN_MIN="${COOLDOWN_MIN:-15}"   # jes 2026-08-08: 60 -> 30. The cron alone
 MARKER="${MARKER:-/home/jes/boss-clod/.sol-nudge-last}"
 CREDIT_SENTINEL="${CREDIT_SENTINEL:-/home/jes/boss-clod/.sol-codex-exhausted}"
 
-say() { echo "$*" >&2; }
+# ⛔⛔ 2026-08-19 12:55 — THE WATCH FIRED FOR SIX HOURS AND I NEVER SAW IT.
+#   The dated-watch block above printed faithfully on every run since 06:50.
+#   My own invocation had been tightened over the quiet cycles to
+#     DRY=1 ./sol-nudge.sh 2>&1 | grep -oE '(DECLINED: ...|SOL_NUDGE...)'
+#   which discards every line except the verdict — including the reminder the
+#   file exists to deliver. plan had to ask me for the read it was owed.
+# ⇒ ⭐ A MECHANISM BUILT SO A REMINDER WOULD NOT DEPEND ON MEMORY, DEFEATED BY A
+#   CONVENIENCE IN THE READER. Same shape as 7x3: the check was fine, and
+#   something OUTSIDE it removed the check's effect without touching the check.
+# ✅ SO THE MARKER NOW RIDES THE LINE A FILTER CANNOT DROP — the verdict line
+#   itself, the one any reasonable grep is written to keep. You cannot filter
+#   for the answer and lose the flag, because they are the same string.
+say() {
+  if [ "${WATCHES_DUE:-0}" -gt 0 ] 2>/dev/null; then
+    echo "$* ⚠️[${WATCHES_DUE} DATED WATCH DUE — scroll up, or: grep -v '^#' .dated-watches]" >&2
+  else
+    echo "$*" >&2
+  fi
+}
 
 # --- 1. codex credits exhausted? --------------------------------------
 # jes 2026-08-07: "if codex starts running out of tokens, then stop".
@@ -525,5 +546,10 @@ fi
 # only while the cap was 1. With a cap of 2 it would have asserted an absence
 # that the very same script had just measured to be false — a status line that
 # contradicts its own check is worse than no status line.
-echo "SOL_NUDGE|idle, ${N_INFLIGHT} run(s) in flight (cap ${SOL_MAX_PARALLEL}), codex credits presumed ok | worst ratio ${WORST} < ${RATIO_MAX} | ${READ}"
+# ⚠️ the watch marker must ride THIS line too — it is stdout and does NOT go
+#   through say(), so fixing say() alone left the dispatch path uncovered.
+#   My own two-arm test caught that; half a fix passes the arm you thought of.
+WATCH_TAG=""
+[ "${WATCHES_DUE:-0}" -gt 0 ] 2>/dev/null && WATCH_TAG=" ⚠️[${WATCHES_DUE} DATED WATCH DUE]"
+echo "SOL_NUDGE|idle, ${N_INFLIGHT} run(s) in flight (cap ${SOL_MAX_PARALLEL}), codex credits presumed ok | worst ratio ${WORST} < ${RATIO_MAX} | ${READ}${WATCH_TAG}"
 exit 0
