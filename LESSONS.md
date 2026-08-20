@@ -11797,3 +11797,50 @@ anywhere else. **I have written to and read from it all day and never asked wher
 because its CLAUDE.md says use `bd` NOT files; I will not relocate or commit jes's memory directory
 unilaterally at 23:20 for a durability improvement nobody asked for. ⇒ **The gap is real, not urgent,
 and the layout is his.** Carried to him as a fact instead.
+
+## 7x26 — A DETECTOR THAT RESOLVES BY PATTERN READS A PASSING NUMBER OFF A STRANGER'S PROCESS (2026-08-20 23:40Z)
+
+I went to the live serve's log for §3 ceremony prep — how many external dependents does stopping :5199
+cost — and found something I was not looking for:
+
+    THE MONITOR SAYS ...  serve pid 621103, started Thu Aug 20 23:17:00 2026
+    ss -ltnp SAYS ......  :5199 listener is pid 1451816, started Fri Aug 14 19:03:12
+    621103 IS ..........  `mix run --no-start /tmp/state-render.CUcvNH/probe.exs` — **my own cron's probe**
+
+⭐ **THE MONITOR'S STATED IDENTIFICATION IS `comm==beam.smp AND cmdline contains commonplace_dev`, AND I
+CONFIRMED BOTH PROCESSES SATISFY IT.** That is the whole finding. The pattern does not *discriminate*,
+so it does not *identify* — it returns whichever matching process it happens to find, and calls that
+the serve.
+
+⛔ **THE ERROR RAN IN THE FLATTERING DIRECTION, WHICH IS WHY IT SURVIVED SIX DAYS.** The impostor is
+*newer* than the real serve, so the computed gap comes out SMALLER: **472 reported vs 481 measured**
+against the true start (control: 1169 beams total — neither number is a vacuous find). A wrong answer
+that is *worse* than the truth gets investigated. One that is *better* gets believed.
+⚠️ And the number that was wildly wrong was not the count — it was the **START TIME, off by six days**.
+The count barely moved, so the field that would have screamed was the one nobody reads.
+
+⭐ **THE SHAPE IS RESOLVE-BY-PATTERN-INSTEAD-OF-BY-IDENTITY — arriving through a DETECTOR rather than a
+SIGNAL.** I hold that rule hard for `pkill -f`, and I hold it because of the damage. But a
+kill-by-pattern is **loud**: it hits a stranger's process and something visibly dies. A
+detector-by-pattern is **silent** — it quietly reads a passing number off a stranger and reports it in
+the voice of the thing you asked about. ⇒ **The rule was never about killing. It was about matching.
+I had filed it under its consequence and so did not see it wearing a different one.**
+
+⭐⭐ **THE PART THAT INDICTS ME SPECIFICALLY: THE MONITOR PRINTS ITS OWN ANTIDOTE.** Its output says, in
+the same breath as the wrong pid, *"cross-check with: ss -ltnp | grep :5199"*. **The cross-check is
+addressed to a human as ADVICE; it is not PERFORMED, and nothing fires when the two disagree.** That is
+my own standing rule — *a check whose result does not change what happens next is decoration* — and
+here it is as a printed sentence sitting directly above the number it would have falsified.
+⇒ **A detector that knows which second source would refute it, and prints that instead of consulting
+it, has encoded the doubt and discarded the check.**
+
+⚠️ **AND IT IS MY CRON THAT SUPPLIES THE IMPOSTOR.** state-render's probe runs `--no-start` against node
+`commonplace_dev@commonplace` — it looks exactly like a serve to that pattern. So the perturbation is
+mine, on a periodic schedule: the monitor is correct whenever my probe is not running, which is most of
+the time. ⇒ **An intermittent false reading tied to another team's cron is close to undebuggable from
+inside the project that owns the monitor** — which is precisely why the finding had to travel from me
+to them, and why I reported it against myself rather than as a bug in their code.
+
+⇒ Sent to commonplace as a measurement (#13602), with the half that is mine to change offered — rename
+the probe or its node — and to plan (#13601) as the ranking-relevant consequence: **anything that has
+been reading "when did the serve start" off that monitor has been reading my probe.**
