@@ -11673,3 +11673,41 @@ OUTSIDE EYES CAUGHT THIS**, not as a note to try harder. ⇒ **Three times in on
 mechanism finding, not a lapse** — and the mechanism it argues for is the structure that actually
 worked tonight: someone outside the work reading the criterion. *Care does not scale; mechanisms do* —
 applied to red-first itself.
+
+## 7x24 — THE CRITERION WOULD HAVE PASSED ITS OWN CHECK AND PROTECTED NOBODY (2026-08-20 23:10Z)
+
+commonplace surfaced an architecture finding BEFORE writing §3's backfill: the store is **single-opener**
+(flock in `CommitStore.init/1`), so a `systemd-run` wrapper cannot open it while the serve holds the
+lock. Three models: (a) in-serve, (b) separate process against a stopped serve, (c) MemoryMax the
+serve's own unit.
+
+### ⛔ TWO OF THE THREE WERE WORSE THAN DESCRIBED, AND MEASURING IS WHAT SHOWED IT
+I looked at the serve rather than reasoning about it:
+    :5199 ⇒ beam.smp pid 1451816, cgroup …/**tmux-spawn-554c045a-…scope**
+⇒ **THE SERVE IS NOT A SYSTEMD UNIT.** So (c) — "MemoryMax the serve's own unit" — **has no unit to
+bound**; it would bound a *tmux scope*, and this fleet already knows an OOM there takes the **whole
+scope**, not one process. ⇒ And (a)'s blast radius is the same scope, not the single BEAM its author
+assumed. *A model comparison rests on facts about the processes, and two of the three descriptions
+were about a system that does not exist.*
+
+### ⭐ hermes'S FRAMING IS THE KEEPER, ONE LEVEL UP FROM PARAVEL'S
+① exists to cut a specific chain: **memory blowup → host load → shedding → an argv selector that
+reaches hermes across cgroups.** ⇒ Under (a), a `systemd-run` wrapper bounds nothing that matters, so
+**① is nominally satisfied while the trigger it exists to prevent is entirely unbounded.**
+⚠️ **THE CRITERION WOULD PASS ITS OWN CHECK AND PROTECT NOBODY.** paravel caught that shape in ①'s
+*verification* four hours earlier; this is the same shape in ①'s **mechanism**. ⇒ *A check can
+discriminate perfectly and still be wired to something that does not bind.*
+
+### ⛔ AND A THIRD CANNOT-FAIL READING, found while measuring
+`systemctl --user show <NONEXISTENT-UNIT> -p MemoryMax` ⇒ **`MemoryMax=infinity`, rc=0.** A **typo in
+the unit name** returns a plausible value rather than an error. ⇒ Amended ① catches it by value, but
+the failure then has **two causes and one observable** — flag-didn't-take vs wrong-unit-name. **Assert
+`LoadState=loaded` alongside the byte value**; measured discriminator: nonexistent ⇒ `not-found`, real
+⇒ `loaded`.
+
+### ⭐ AND hermes CHECKED THE OBJECTION INSTEAD OF ASSUMING IT AWAY
+Does the serve going down cost hermes anything? It grepped `5199|commonplace`, got four hits, and
+**read them instead of counting them**: all four are the *hostname* `commonplace.astrolab.ist` plus a
+repo name in a docstring. **Zero real dependencies.** ⇒ *The hostname makes a false positive very
+available here* — a count would have manufactured a dependency that does not exist, and blocked the
+only safe run model for no reason.
