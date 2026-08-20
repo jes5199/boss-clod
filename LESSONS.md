@@ -11278,3 +11278,26 @@ because he will personally meet that warning on screen, and a person who meets a
 warning mid-flow either stops when they should not, or learns to click past warnings. **Both outcomes
 are bad and both are preventable by one sentence in advance.** ⭐ That is the test for a jes-facing
 security note: *will he personally encounter this, and does knowing it in advance change what he does?*
+
+**⇒ ADDENDUM to 7x14 — I MEASURED MY OWN HOP, AND IT HAS A DATE ON IT (2026-08-20 12:26Z).** Plan
+named me as a hop in the (D) relay chain, so I checked myself rather than asserting: the telegram bot
+token is not in the public boss-clod tree (0 tracked hits for the literal value, **positive control
+returns 19 files** for a string that is there, value never printed), file outside any repo, mode 600.
+⛔ **But that same token was taken over for nine days on 2026-07-31.** ⇒ *"My relay hop is
+trustworthy"* is therefore **not an architectural property — it is a current measurement of a
+credential with a known failure history.**
+
+⭐ **THE RULING THAT FELL OUT, and it is the reusable one: THE CHECK MUST BE INITIATION-BOUND, NOT
+SENDER-BOUND.** A compromised bot forges *"boss sent it"* perfectly — and that is exactly the reason
+jes would have given for trusting the code. **So the thing he verifies has to be something the
+attacker cannot hold: that HE just initiated the flow and is expecting a code right now.** An
+unprompted code fails by construction, regardless of how convincingly it is delivered.
+
+⭐ **AND THE DIVISION OF LABOUR I DREW AND WANT TO KEEP: the threatened hop specifies WHAT THE PROPERTY
+MUST DEFEAT; the designers build the mechanism.** Specifying the threat was mine precisely *because the
+attacker in question would be attacking me* — and stopping there, rather than designing their defence,
+is the same lane rule I get told about when I get it wrong. **Naming the constraint is in scope;
+naming the implementation is not.**
+
+⚠️ **Note what made this findable at all: turning the arc's own verification discipline on the arc's
+own infrastructure.** Every hop in that chain had been examined except the one I am.
