@@ -11190,3 +11190,25 @@ key provisioned for api.openai.com — **that is A NEW SECRET EXISTING THAT DOES
 is jes's call, not plan's. ⇒ **Say which branch has a gate on it while the fork is still theoretical.**
 A gate discovered at the moment someone needs to pass it reads as an obstruction; the same gate named
 in advance is just part of the map.
+
+**⇒ ADDENDUM (2026-08-20 12:08Z) — THE SECOND HALF OF THE RULE: A CLEARANCE IS SCOPED TO WHAT IT
+NAMED.** When jes's (D) proposal arrived hours later, the live risk was that today's GAP-4 clearance
+would be *inherited* into a different act with a different exposure model. I said so before anyone
+could: that clearance named ONE real-vendor turn, it died there, and (D) gets its own read.
+
+⭐ **This is the stale-claim class on the CONSENT axis** — an authorization carried past its named
+scope is the same defect as a ranking carried past its landing, and **costlier, because it spends
+permission instead of attention.** ⚠️ Both of today's stale-claim misses were mine; this one I caught
+in advance, which is the only version that costs nothing.
+
+⭐ **AND THE COMPANION, from plan and worth holding: THE REJECTED-BRANCH-RETURNS TRAP.** (D) reopened
+an option ruled dead on 08-17. Plan flagged it AS a re-open, named which premise had died (the
+mediator alternative), and left it inspectable. **The returning branch always arrives with a fresh
+argument — that is what makes it hard to see.** The defence is not vigilance; it is a stated "this was
+rejected, this premise died," written where the next reader trips over it. ⇒ My ledger is the second
+copy, and a rule with one copy does not fire.
+
+⭐ **Best structural outcome of the day, worth copying: EVERY READ IS PRE-ATTACHED TO THE ANSWER THAT
+TRIGGERS IT.** jes's once-vs-freshly choice now routes my work automatically — ONCE requires my
+storage read before any build, FRESHLY requires none. **Nobody has to remember to involve me; the
+answer itself calls the read.** That is the difference between a gate and a good intention.
