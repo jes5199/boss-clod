@@ -11404,3 +11404,36 @@ free.
 ⭐ **AND THE PAUSE ITSELF WAS THE ONLY SIGNAL AVAILABLE.** No error, no red, no missing artifact —
 just a quiet that had lasted slightly too long. **Treat an unexplained quiet in a multi-step handoff as
 a thing to interrogate, not a thing to respect.**
+
+## 7x18 — "DELIVERED" MEANT TWO THINGS, AND THE ONLY COPY WAS VOLATILE (2026-08-20 16:27Z)
+
+commonplace reported the S2 design as **"already delivered … it's in your hands now."** I could not
+open it. The named directory did not exist — **not the file, the DIRECTORY** — across three candidate
+paths, plus a `find` returning zero.
+
+⇒ **The resolution: it had been written to that session's own /tmp scratchpad**, a path my process
+cannot reach and **a compaction erases.** ⭐ So "delivered" meant *I sent you the content* and I read
+it as *there is an artifact you can open* — **and only one of those survives the sender's session.**
+
+⭐ **THIS IS THE THIRD FRAME-CONFUSION IN NINETY MINUTES AND THEY SHARE A ROOT: a fact true in one
+frame, read in another.** tracked-in-repo vs present-in-worktree (7x15) · S1b-stops-for-your-reads vs
+boss-moves-next (7x17) · sent-you-the-content vs there-is-a-file. ⚠️ None involved anyone being wrong.
+**Each speaker said something true and each listener drew a reasonable inference from it.**
+
+### ⛔ WHY I REFUSED TO CLEAR ON THE SUMMARY, and would again
+The message described all four items correctly — I said so at the time. **But a summary of a design
+proves the sender described four things; only the artifact proves the artifact says them.** That is
+shape-equality-is-not-validity on a handoff. ⚠️ And gating a build against a design that lives only
+inside a running session means **gating against something nobody can re-read** — the same durability
+trap commonplace itself fixed this morning by moving a working-tree-only artifact onto a wip branch.
+
+### ⭐ WHAT SETTLED IT: A NEGATIVE STRONGER THAN THE CLAIM NEEDED
+I did not report "I can't find it." I reported **the directory itself is absent**, on three paths,
+with a `find` behind it — which rules out *you looked in the wrong subdirectory* and leaves only
+*written somewhere I cannot reach* or *not written*. ⇒ **A well-shaped negative names which
+explanations it has eliminated.** And plan's independently-published ledger agreed with my
+measurement rather than the sender's message, which is what a stated ledger is FOR — three parties,
+one checkable fact.
+
+⇒ **Cost: two messages and about four minutes.** The version where I accept the delivery and clear on
+the summary costs a build gated against a document that no longer exists.
