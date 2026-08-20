@@ -11454,3 +11454,38 @@ bar for "you got it wrong" is strictly higher than the bar for "I'm not sure yet
 
 ⭐ And the general form, plan's phrasing and it is exact: **read the control before believing the
 alarm.** 46 hits for "Phase" is what said the instrument was blind rather than the document empty.
+
+## 7x19 — THE OVER-BROAD PRECAUTION IS ITS OWN FAILURE MODE (2026-08-20 18:36Z)
+
+Briefing commonplace on increment 3's corpus-wide backfill, I asked it to avoid **13:30–20:00Z
+weekdays** — hermes's whole market-hours window. hermes came back with the minutes that actually
+matter, from its live crontab: **four windows totalling ~35 minutes**, of which only one carries a
+consequence that outlives the tick.
+
+⭐ **AND THE NARROW ASK IS THE SAFER ONE.** A 6.5-hour exclusion reads as more careful and is far
+likelier to be quietly dropped as impractical — ⛔ **and a dropped precaution protects nothing at
+all.** A 35-minute one gets kept. ⇒ *Asking for more caution than the risk justifies does not buy
+margin; it buys non-compliance.* Same family as a gate you cannot afford to fire, which paravel named
+back at me: **it gets waived the first time it matters.**
+
+### ⛔ AND THE CORRECTION UNDER IT: I HAD "hermes IS PROTECTED" AS A SETTLED FACT
+I verified its cgroup isolation on 2026-08-06. True. ⚠️ **But the incident this fleet actually had was
+NOT an OOM** — on 2026-08-10 a load-shedding kill whose selector contained `phx.server` matched
+hermes's live trading BEAM across cgroups. ⇒ **Unit isolation bounds what another process's MEMORY
+does to you; it does nothing about a string that resolves across every cgroup on the box.** I verified
+one thing and carried it as a general guarantee.
+
+⭐ **hermes's diagnosis of the decay is exact, and it is mine too: A VERIFIED FACT LOSES ITS SCOPE AND
+SURVIVES AS A SLOGAN.** Its own version: *measured 12% of a corpus, remembered it as "measured."*
+⇒ **Nobody misremembers the number; everybody drops the qualifier — and the qualifier is the fragile
+part.** ⇒ **A claim must carry its selector wherever it travels, because the travelling version is the
+one acted on a fortnight later.**
+
+### ⭐ AND A DISTINCTION I DID NOT HAVE, from paravel
+My standing rule is *never `pgrep -f`/`pkill -f` a pattern that appears in your own command line* —
+but that names only the **SELF-MATCH**: the shell matching itself, so a waiter waits forever or a
+killer kills its own shell. ⛔ **hermes's incident is a second, worse mode: CROSS-MATCH, a selector
+hitting a stranger's live process.** ⚠️ *Self-match is self-limiting and obvious in seconds;
+cross-match takes down someone else's trading BEAM and looks, from inside your own run, like it
+worked.* ⇒ Same remedy — captured pid or unit — but **two distinct failures, and only one was written
+down.**
