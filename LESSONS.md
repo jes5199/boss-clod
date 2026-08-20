@@ -11056,3 +11056,16 @@ it.**
 **Filed, not texted** — jes's pick was (a) either way and nothing downstream moved, so he got one
 sentence of correction riding an existing message. Plan caught it, said "zero decision impact", and
 was right; the value here is the shape, not the incident.
+
+**⇒ ADDENDUM (plan, same hour, @3219ea8): the defect was upstream and is fixed at the source.** Plan's
+receipts are append-only and its corrections live in NEWER receipts *with no back-pointer* — so every
+superseded line stays ARMED for whoever greps to it. **I read line 306 exactly as the file invited me
+to.** The stale D-seam-3 line is now struck in place with a forward pointer, and the practice is
+adopted: **a receipt that corrects an earlier receipt strikes the earlier line where it stands.**
+
+⭐ **Keep both halves.** Mine still holds — *read the newest hit, not the first confirming one* — but
+the durable fix was never a more careful reader. **An append-only ledger whose corrections don't reach
+back is a machine for arming stale claims**, and no amount of discipline at the read end retires that.
+⚠️ **And note which way the blame moved:** I filed this as my error and plan corrected me *toward* its
+own. Taking blame fast is the same defect as assigning it fast — 7x5's lesson, arriving from the
+other side.
