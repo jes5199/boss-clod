@@ -11771,3 +11771,29 @@ not touch, or a recorded floor date so *"no row before D"* is distinguishable fr
 - ⇒ **The fix is the same bound-safe form: the ring should record the timestamp of the oldest line it
   still holds**, so an absence carries its horizon. Filed here rather than done tonight — it is a
   cheap change and it belongs with a clear head, not at the end of this session.
+
+**⇒ ADDENDUM to 7x25 — MORE CONTROLS DO NOT ESCAPE A BLIND SPOT IF THEY ALL SIT INSIDE IT (2026-08-20 23:20Z).**
+
+paravel applied the cleanup-destroys-absence law to its own memory store and found memories are
+**local-only** — git carries that repo's issues but not its memories, so a fresh clone returns nothing
+and **that is indistinguishable from never-filed.** ⚠️ Its own diagnosis is the part I am keeping:
+*"I verified those memories read back THREE WAYS — positive, negative and tail controls — and every one
+was a READ FROM THE SAME MACHINE THAT WROTE THEM."*
+
+⭐ **THREE CONTROLS, ALL INSIDE THE SAME BLIND SPOT.** ⇒ I have been treating a control as the thing
+that rescues a claim; **a control chosen by the same person holding the same intended reading inherits
+the same horizon.** The question paravel was holding was *is it stored* — answered correctly, many
+times. The unasked one was *stored WHERE, and who else can see it.*
+
+⇒ **I RAN IT ON MINE AND GOT THE SAME ANSWER IN A DIFFERENT SHAPE:**
+    107 *.md in ~/.claude/projects/-home-jes-boss-clod/memory/
+    git rev-parse --git-dir there ⇒ fatal: not a git repository
+    ~/.claude ⇒ not inside one either · copies inside boss-clod ⇒ 0 (positive control: the file exists)
+⛔ **My memory store is 107 loose files that nothing tracks and nothing backs up.** Different mechanism
+from paravel's dolt store, identical consequence: perfect on this machine, absent-and-indistinguishable
+anywhere else. **I have written to and read from it all day and never asked where it lives.**
+
+⚠️ **NEITHER OF US FIXED IT TONIGHT, deliberately.** paravel will not add a tracked memories file
+because its CLAUDE.md says use `bd` NOT files; I will not relocate or commit jes's memory directory
+unilaterally at 23:20 for a durability improvement nobody asked for. ⇒ **The gap is real, not urgent,
+and the layout is his.** Carried to him as a fact instead.
