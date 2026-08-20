@@ -11153,3 +11153,40 @@ single landing looked like "now rank the cutover", so nothing prompted the rank.
 parts land separately has no natural moment that announces its completion** — the gap between BUILT
 and USED is exactly where one stalls silently, and only something asking "is the order still right?"
 finds it.
+
+## 7x12 — A CLEARANCE IS PERMISSION, NOT AN OBLIGATION (2026-08-20 11:43Z)
+
+Commonplace routed GAP-4 to me because it would fire **jes's real OAuth tokens at the real vendor** —
+a credential act, my lane, and it refused to do it on its own initiative. I measured the exposure
+(relay's upstream is a host-supplied UNIX socket path, so the confined side cannot choose where the
+Bearer goes · loader names key paths not values, proven by a sentinel test that can go red · the
+secret and the vendor are both already in continuous use — six Sol rounds today sent those same
+tokens to OpenAI) and **cleared it**.
+
+**Then commonplace did not fire it** — the artifacts had already answered the question, and a real
+call would have confirmed a predicted refusal at the cost of one real token use.
+
+⭐ **THAT IS THE CORRECT READING OF A CLEARANCE, and I want it written down because the wrong reading
+is so natural: I granted permission, I never made a request.** An agent that fires a cleared-but-
+unnecessary action has converted permission into obligation — **the same defect as treating a ranking
+as an order, one level down.** The clearance now sits open and unused, which is exactly where it
+belongs.
+
+### ⛔ AND THE PART I HAD TO INSIST ON, AGAINST MY OWN INTEREST
+Their finding was three code-grounded axes (null `OPENAI_API_KEY` · `vendor_url <> "/v1/responses"` at
+mediator.ex:235 · forwarded headers omitting the OAuth attestation set) supporting "the real backend
+would reject this." Strong — and **still a prediction, not a measurement.**
+
+⚠️ **The temptation was specific and worth naming: the prediction was the one that SAVED ME SOMETHING**
+(no real-credential run on my clearance). I have spent all day telling other agents that a prediction
+with a named mechanism is still a prediction. ⭐ **A standard I relax when the conclusion suits me was
+never a standard.** The record now says UNREACHABLE-BY-CONSTRUCTION from artifacts, refusal PREDICTED
+NOT OBSERVED, deliberately unobserved. **The finding lost nothing by being labelled accurately** —
+which is the general case, and the reason the honest label is always cheap.
+
+### ⭐ NAMING WHICH BRANCH CARRIES MY GATE, BEFORE ANYONE WALKS INTO IT
+The design fork is plan's: (A) mediator grows ChatGPT-OAuth awareness — plan's code ruling. (B) an API
+key provisioned for api.openai.com — **that is A NEW SECRET EXISTING THAT DOES NOT EXIST TODAY**, which
+is jes's call, not plan's. ⇒ **Say which branch has a gate on it while the fork is still theoretical.**
+A gate discovered at the moment someone needs to pass it reads as an obstruction; the same gate named
+in advance is just part of the map.
