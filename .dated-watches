@@ -10,4 +10,11 @@
 # ⚠️ THIS FILE EXISTS BECAUSE A REMEMBERED RULE DOES NOT FIRE. Anything whose
 # trigger is "hours from now, in some later context" belongs here the moment
 # it is agreed, not at the moment it is due.
-# READ LOG for the 2026-08-20 06:50 row (delete this block with the watch line):
+#
+# ⭐⭐ SET A WATCH ON A SCHEDULED JOB FROM ITS *OBSERVED LATENESS*, NEVER FROM ITS
+# CRON. Earned 2026-08-20: the scale row's cron is 06:43, this file armed the read
+# at 06:50, and the row fired at 07:27 — 44 min late, GREEN. A watch set at cron+7
+# would have reported "never fired" on a passing run EVERY SINGLE DAY. The cron is
+# when the job is ASKED to run; past firings are when it RUNS. ⚠️ The baseline in
+# that very watch line already said 07:25 — I read it as "when I looked" instead of
+# "when this lane fires". Quote the observed firing time INTO the trigger.
