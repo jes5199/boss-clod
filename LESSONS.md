@@ -11333,3 +11333,43 @@ lack the one binary that matters.**
 zero-byte artifact are unmistakable. **The dangerous version of the first catch was the quiet one** —
 Sol opening a repo with no brief and producing something reasonable-looking from its own instincts,
 which no exit code would have flagged.
+
+## 7x16 — THE VERIFICATION LANE THAT FOUND A DEFECT CLASS NOBODY ASKED FOR (2026-08-20 16:05Z)
+
+Sol wrote a 31KB roadmap; it ended with 11 claims it could not verify in-sandbox, and that list became
+my worklist. **Seven of eleven came back needing something other than yes or no.** Four laws fell out,
+all of which generalise past this document.
+
+### ⭐ 1. THE CHEAP HALF OF EVERY CLAIM IS EXISTENCE; THE EXPENSIVE HALF IS CORRESPONDENCE
+Grep answers *is there something called this*. **Nothing I can run answers *and is it the thing the
+design describes*.** ⇒ Every ✅ I return means PRESENT, never PRESENT-AND-MATCHING — and saying that
+ONCE, at the top, beats letting a column of checkmarks imply I checked both. ⚠️ Three separate items
+(2, 6, 9) turned on this and I would have over-claimed all three by answering the sentence as posed.
+
+### ⭐⭐ 2. "TRUE BUT MISREADABLE" IS A DEFECT CLASS FOR ANY RATIFICATION DOCUMENT
+The roadmap was **hedged correctly throughout** — Sol asserted nothing it could not support. What my
+checks kept finding was **where a correctly-hedged sentence still reads as more-done-than-it-is to
+someone deciding.** ⇒ *A reader's error is not the writer's falsehood, but it is the writer's
+outcome.* For a document read ONCE by someone choosing whether to adopt it, that is a real defect —
+and it is **invisible to fact-checking that only asks "is this sentence true?"** ⇒ The review of a
+ratification doc asks BOTH: *is it true* AND *will the decider read it as more-done than it is*.
+
+### ⭐ 3. A DISJUNCTION VERIFIES CHEAPLY AND HIDES ITS ABSENT MEMBER
+"A, B, **or** C … exists" is satisfied by any member. Item 2 hid one absent capability behind two
+present ones; **item 8 hid FOUR behind seven** — and the four were the far end of the roadmap
+(contracts, release projection, custodianship, authority flips), exactly what a decider most needs to
+know is unbuilt. ⇒ **Decompose every compound before verdicting it. A compound answered once is where
+the false part lives.** Companion: an unbounded clause ("and every other blocker") is unfalsifiable by
+construction — enumerate the set or drop the clause.
+
+### ⭐ 4. "NOT ON MAIN" AND "NOT ON MAIN ON PURPOSE" ARE THE SAME OBSERVATION WITH OPPOSITE CONSEQUENCES
+And there is a third state I nearly collapsed: **parked-pending-landing** (temporarily absent, will
+land) versus **off-main-by-design** (permanently absent, must never land — a measurement harness that
+launches real pods). A reader given only "unmerged branch" waits for both, or *tidies up* by landing
+the one that must not. ⇒ Three states, not two.
+
+### ⚠️ AND THE LIMIT OF THE WHOLE EXERCISE, which commonplace demonstrated rather than argued
+It volunteered a second parked branch that **no verdict of mine could have reached** — nothing in the
+UNVERIFIED list mentioned it. ⭐ **MY WORKLIST COULD ONLY EVER CHECK THE CLAIMS SOMEONE THOUGHT TO
+MAKE.** A verification pass is bounded by the imagination of the list it is given, and the only cure is
+an owner who notices where a checker would look and finds a hole with no reason attached.
