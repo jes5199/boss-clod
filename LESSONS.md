@@ -11740,3 +11740,34 @@ AND the never-existed name. No combination answers this after the fact.
 may stop discriminating later — **and "later" is exactly when a post-hoc auditor looks.** ⇒ Fifth
 distinct instance today of one observable spanning states we need to separate, and **the third found
 by someone other than the person who wrote the check.**
+
+## 7x25 — CLEANUP DESTROYS THE STATE THAT MADE AN ABSENCE MEANINGFUL (2026-08-20 23:17Z)
+
+paravel named a symmetry between two of tonight's findings and it generalises past both:
+
+> **arm ③ was a state destroyed by cleanup; a future pruner would be cleanup destroying a state.
+> Same mechanism, opposite direction — one already bit, the other has not yet.**
+
+⇒ hermes's *"no Oban row means it never ran"* is true **because nobody has configured a Pruner — not
+because anything prevents one.** ⛔ **The day someone adds one, that inference silently becomes
+ambiguous, RETROACTIVELY, for every conclusion drawn from the table afterwards — and nothing signals
+the change, because the check keeps returning answers in the same shape.** ⭐ And the pressure to add
+it is already there (995 rows/day, 256 MB since March), which makes the two findings **one coupled
+decision rather than two filable items.**
+
+### ⭐ THE BOUND-SAFE FORM, if pruning ever happens
+**Prune in a way that leaves absence unambiguous** — a retained tombstone, a run-log the pruner does
+not touch, or a recorded floor date so *"no row before D"* is distinguishable from *"no row, ever."*
+⇒ Then the disk question stops threatening the correctness question.
+
+### ⚠️ AND I CHECKED WHETHER IT APPLIES TO MY OWN EVIDENCE, rather than filing it as someone else's lesson
+- Sol run logs live under `$HOME` (`/home/jes/sol-*/log/`), **not** `/tmp`, and no logrotate rule
+  touches them ⇒ my refusal-sentinel and non-vacuity checks rest on evidence nothing currently prunes.
+- ⛔ **BUT `mem-sampler.sh` IS A SELF-PRUNING RING** — `MAX_LINES=20000`, halved on overflow. ⇒ *"No
+  OOM in the samples"* is only meaningful **within the retained window**, and that window has no
+  recorded floor. **A memory event older than the ring is indistinguishable from one that never
+  happened**, and I wrote that ring myself, in the file whose whole purpose is making the next OOM
+  attributable.
+- ⇒ **The fix is the same bound-safe form: the ring should record the timestamp of the oldest line it
+  still holds**, so an absence carries its horizon. Filed here rather than done tonight — it is a
+  cheap change and it belongs with a clear head, not at the end of this session.
