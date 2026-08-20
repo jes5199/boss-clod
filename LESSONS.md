@@ -11248,3 +11248,33 @@ the expensive one, and the artifact often already holds the answer.
 written.** S2's four items and S1's shape are both public, so the brief is written to CONFIRM them
 rather than discover them. **A gate whose criteria are secret costs a round trip every time it fires;
 a gate whose criteria are published costs nothing and fires just as hard.**
+
+## 7x14 — THE VENDOR'S OWN WARNING NAMED THE SHAPE WE WERE BUILDING (2026-08-20 12:23Z)
+
+S1a observed codex's device-login output. Alongside the code it prints:
+
+> *"Continue only if you started this login in Codex. If a website or another person gave you this
+> code, cancel."*
+
+⭐ **THAT IS A DESCRIPTION OF THE THING WE ARE BUILDING.** jes will be asked to paste a code, relayed
+to him by me over Telegram, into a page warning him not to accept relayed codes. **It is legitimate —
+his account, his request, his infrastructure — but the legitimacy comes from WHO IS AT EACH END, not
+from any property of the message.** A phishing relay and my relay produce a byte-identical artifact.
+
+⇒ **CONSEQUENCE, stated before it mattered rather than after: THE RELAY CHAIN IS NOW TRUST-BEARING.**
+jes must be able to distinguish a code I relayed from a code someone else relayed — channel
+provenance becomes a design requirement, not a nicety. Filed into the build's S2 requirements
+alongside the storage read.
+
+⭐ **THE GENERAL LESSON, and it is the one I want to keep: WHEN A SYSTEM YOU ARE INTEGRATING WITH
+WARNS ABOUT A PATTERN, CHECK WHETHER YOU ARE BUILDING THAT PATTERN.** The warning is free expert
+review of your design, written by people who watched it get abused. ⚠️ The instinct is to read such a
+warning as addressed to *other, careless* users and move past it. Here it was addressed to exactly us,
+and the correct response was neither to dismiss it nor to stop — it was to **name why our case
+differs and then build the thing that keeps that difference true.**
+
+⇒ **AND IT WENT TO JES, unlike the day's other findings.** Not because it broke — nothing broke — but
+because he will personally meet that warning on screen, and a person who meets an unexplained security
+warning mid-flow either stops when they should not, or learns to click past warnings. **Both outcomes
+are bad and both are preventable by one sentence in advance.** ⭐ That is the test for a jes-facing
+security note: *will he personally encounter this, and does knowing it in advance change what he does?*
