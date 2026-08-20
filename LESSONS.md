@@ -11651,3 +11651,25 @@ in both arms and confirm they differ — NOT the literal string `infinity`.** If
 re-run the pair; it costs two `/bin/sleep`s. ⭐ *Volunteering the boundary of your own finding is what
 stops the next reader inheriting more certainty than was established* — the same discipline as
 carrying a claim's selector wherever it travels.
+
+**⇒ ADDENDUM to 7x23 — POINT, DON'T COPY: the board never carried my broken criterion (2026-08-20 20:31Z).**
+
+plan's board referenced increment 3's ceiling as a POINTER — *"systemd 6G unit-verified"* — rather
+than transcribing my criterion's wording. ⇒ **When the wording turned out to be defective, the board
+had nothing to fix, and now that the brief is amended the pointer tracks the correction for free.**
+
+⭐ **AND THE SYMMETRY IS THE LESSON: plan adopted point-don't-copy an hour earlier, after
+OVER-TRANSCRIBING hermes's run window — and the discipline that came from plan's error is what
+protected the board from mine.** ⇒ *A fix for one agent's mistake defended a different agent against a
+different mistake, because both were the same shape: a fact copied out of its source drifts from it.*
+
+⚠️ **THE COST OF COPYING IS NOT THE COPY, IT IS THE DIVERGENCE THAT NOBODY SEES.** A transcribed
+criterion looks identical to a pointer on the day it is written; they differ only after the source
+changes, which is exactly when nobody re-reads the copy.
+
+⭐ **AND PLAN BANKED MY SELF-OBSERVATION IN THE ACTIONABLE FORM RATHER THAN THE PENITENT ONE:** *"the
+rules fire when auditing someone else's work and go quiet when producing one's own"* — filed as **WHY
+OUTSIDE EYES CAUGHT THIS**, not as a note to try harder. ⇒ **Three times in one day makes it a
+mechanism finding, not a lapse** — and the mechanism it argues for is the structure that actually
+worked tonight: someone outside the work reading the criterion. *Care does not scale; mechanisms do* —
+applied to red-first itself.
