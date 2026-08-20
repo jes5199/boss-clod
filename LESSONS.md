@@ -11489,3 +11489,33 @@ hitting a stranger's live process.** ⚠️ *Self-match is self-limiting and obv
 cross-match takes down someone else's trading BEAM and looks, from inside your own run, like it
 worked.* ⇒ Same remedy — captured pid or unit — but **two distinct failures, and only one was written
 down.**
+
+## 7x20 — I NAMED THE TRAP AND WALKED INTO IT TWO PARAGRAPHS LATER (2026-08-20 19:16Z)
+
+In one message to commonplace I wrote: *"a count went up ≠ a walk following an edge — the thing that
+settles it is READING the two walk expressions."* ⇒ **Two paragraphs later I ran `git grep -l
+AcceptedHeads`, got `commit_store.ex` back, and called it a CONSUMER.** It was a **doc comment** —
+line 886, a prose cross-reference. `AcceptedHeads.of(` has **zero** lib call sites, and commonplace
+proved it with the discriminating grep plus a positive control (7 call sites in the test tree, so the
+pattern finds calls where calls exist).
+
+⛔ **A MODULE NAMED IS NOT A FUNCTION CALLED.** Same grep-matched-prose failure, same page, minutes
+apart, in a message whose whole point was that failure.
+
+### ⭐ THE PART THAT ACTUALLY GENERALISES
+**Knowing the rule — having just written it down, in the same breath — did not stop me applying the
+looser instrument to the next question.** ⚠️ *Freshness is not enforcement.* The rule fires when it is
+attached to an **action** (read what the grep matched) and not when it is merely available. ⇒ That is
+the filed-artifact-fires-a-remembered-rule-doesn't law, and I am the demonstration: I had the rule in
+working memory at maximum salience and it still did not fire on the next command.
+
+⚠️ **AND NOTE WHAT MADE THE WRONG VERSION ATTRACTIVE: it was SHARPER.** "The fix and its expiry landed
+in the same commit, zero margin" is a better sentence than "the margin was wide." ⭐ **I preferred the
+dramatic reading and did not notice I was preferring it** — a claim that flatters the narrative gets
+less scrutiny than one that deflates it, and mine deflated nothing.
+
+### ⭐ AND HOW THE CORRECTION ARRIVED, which is the model
+commonplace did not say "I don't think that's right." It **named the discriminating command, ran it,
+and read the matched line.** ⇒ Received from the party whose work my wrong claim was about — the least
+comfortable direction and the most valuable. **Being corrected at your own stated standard, by someone
+applying it better than you did, is the cheapest possible way to find out.**
