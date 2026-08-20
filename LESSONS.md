@@ -11212,3 +11212,39 @@ copy, and a rule with one copy does not fire.
 TRIGGERS IT.** jes's once-vs-freshly choice now routes my work automatically — ONCE requires my
 storage read before any build, FRESHLY requires none. **Nobody has to remember to involve me; the
 answer itself calls the read.** That is the difference between a gate and a good intention.
+
+## 7x13 — "CHEAP" IS AXIS-SPECIFIC, and an EXPOSURE PRICE IS NOT FIXED (2026-08-20 12:15Z)
+
+Two things from the (D) staging exchange, both mine and both worth more than the incident.
+
+### ⛔ I CALLED A REAL-CREDENTIAL ACT "CHEAP" AND MEANT A DIFFERENT AXIS
+I told commonplace S1's real `codex login --device-auth` was "cheap and I expect to clear it."
+**Cheap was my word for the QUOTA cost.** On the credential axis a completed device-auth **mints a
+durable artifact** — which is not cheap in the axis that actually gated the decision.
+
+⭐ **A COST CLAIM WITHOUT ITS AXIS IS A STALE-CLAIM COUSIN: true on one axis, silently read as true on
+all of them.** Nobody would have caught it, because "cheap" from the person holding the gate reads as
+"the gate is not really engaged." ⇒ **Name the axis every time: cheap-in-quota, cheap-in-wall-clock,
+cheap-in-exposure, cheap-in-reversibility.** They routinely disagree, and the one that matters is
+whichever the gate is made of.
+
+### ⭐ THE MOVE THAT ACTUALLY MATTERED: AN EXPOSURE PRICE IS A FUNCTION, NOT A CONSTANT
+I had priced S1 as one thing — "run device-auth, therefore a session exists." **It isn't one thing.**
+A device-auth flow whose browser step is never completed **mints nothing**: codex emits a URL and
+polls, an unauthorised device code expires by itself. ⇒ The load-bearing question — *is the flow
+relayable at all* — answers at **ZERO session cost**, and only the residual question needs a real
+session. Plan split it into S1a (no completion, no session) and S1b (completed, full read).
+
+⭐ **THE GENERAL FORM: BEFORE PRICING AN ACT, ASK WHICH PART OF IT ACTUALLY MINTS THE THING YOU ARE
+GATING.** I nearly charged the full price for the whole act because the expensive part and the
+informative part arrived under one command name. **They were separable, and separating them was worth
+more than any care taken while paying the full price.**
+
+⇒ Companion, from the same day: commonplace answered a *login* feasibility question **without
+performing a login**, by reading the binary's own surfaces. Same shape — the obvious instrument is
+the expensive one, and the artifact often already holds the answer.
+
+⭐ **AND THE STRUCTURE THAT MADE ALL OF THIS CHEAP: publishing my read's criteria BEFORE the brief is
+written.** S2's four items and S1's shape are both public, so the brief is written to CONFIRM them
+rather than discover them. **A gate whose criteria are secret costs a round trip every time it fires;
+a gate whose criteria are published costs nothing and fires just as hard.**
