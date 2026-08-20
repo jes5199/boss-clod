@@ -11301,3 +11301,35 @@ naming the implementation is not.**
 
 ⚠️ **Note what made this findable at all: turning the arc's own verification discipline on the arc's
 own infrastructure.** Every hop in that chain had been examined except the one I am.
+
+## 7x15 — "TRACKED IN THE REPO" ≠ "PRESENT IN THIS WORKTREE" (2026-08-20 15:35Z)
+
+Dispatching a Sol round to write the roadmap in commonplace-plan, I checked that both source
+documents were **tracked** — true, verified with `git ls-files`, and I said so out loud as the thing
+that made the corpus whole. Then plan committed the actual BRIEF two minutes after I had created the
+worktree. ⛔ **My branch was two commits behind main, so the brief that was tracked in the repo did
+not exist where Sol would look.**
+
+⭐ **ABSENCE IS BRANCH-RELATIVE IN A WORKTREE.** A worktree materialises *the branch it is on*, so
+"tracked in the repo" and "present at the path Sol opens" are **two different facts, and I had
+verified the first while needing the second.** ⚠️ The trap is that my earlier check was CORRECT — it
+was simply an answer to a neighbouring question, which is far harder to notice than a wrong answer.
+
+⇒ **CAUGHT BY LISTING THE FILE rather than re-trusting the check I had already run.** Then I ran the
+check that should have been first: every path the brief NAMES, does it exist here? **20 named, 19
+present, 1 missing — and the missing one is the artifact Sol was dispatched to create.** With a
+positive control so the sweep's silence meant something. ⭐ *That sweep is the corpus-non-empty law
+applied to someone else's brief, and it is cheap enough that there is no excuse for skipping it.*
+
+### ⚠️ SECOND CATCH, SAME DISPATCH: THE WRAPPER IS ONLY AS GOOD AS THE PATH HANDED TO IT
+First launch died instantly: `bwrap: execvp codex: No such file or directory`. The sandbox wrapper
+passes `PATH` through from its caller, and **systemd-run's launcher PATH is not the interactive one**
+— it lacked `~/.npm-global/bin`, where codex actually lives. ⇒ **LAUNCHER-CONTEXT ENV ≠ INTERACTIVE
+ENV**, and a confinement wrapper inherits the gap. Plan's extension, which is the useful half: this is
+the same surface as the pod's env contract — **an injected environment that looks complete can still
+lack the one binary that matters.**
+
+⭐ **AND THE REASON BOTH WERE CHEAP: the run failed LOUDLY.** `execvp: No such file` and a
+zero-byte artifact are unmistakable. **The dangerous version of the first catch was the quiet one** —
+Sol opening a repo with no brief and producing something reasonable-looking from its own instincts,
+which no exit code would have flagged.
