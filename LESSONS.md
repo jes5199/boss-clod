@@ -11069,3 +11069,29 @@ back is a machine for arming stale claims**, and no amount of discipline at the 
 ⚠️ **And note which way the blame moved:** I filed this as my error and plan corrected me *toward* its
 own. Taking blame fast is the same defect as assigning it fast — 7x5's lesson, arriving from the
 other side.
+
+## 7x9 — THE WATCH THAT WOULD HAVE READ A FALSE ABSENCE EVERY DAY (2026-08-20 07:44Z)
+
+The scale-lane watch was armed for **06:50Z**, seven minutes after its `43 6 * * *` cron. **The row
+actually fired at 07:27Z — forty-four minutes late**, and it was green with every ceiling exact.
+
+⭐ **HAD I REPORTED AT THE WATCH'S OWN TIME, I WOULD HAVE FILED "NEVER FIRED" ON A RUN THAT WAS ABOUT
+TO PASS.** The watch armed the read at the wrong moment and would have done so *every single day* —
+a scheduled reminder that is systematically early doesn't fail loudly, it manufactures a daily
+absence finding.
+
+⚠️ **AND YESTERDAY'S BASELINE CONTAINED THE ANSWER ALL ALONG.** The watch line itself cited the
+07:25 row from 2026-08-19 — *forty-two minutes* after the same cron. **I wrote the delay into the
+watch as part of the baseline and still set the trigger at cron+7**, because I read that timestamp as
+"when I looked" rather than as "when this lane fires."
+
+⇒ **WHAT SAVED IT was refusing to convert an absence into a finding without excluding its other
+causes.** At 07:25 — yesterday's own firing time, maximum temptation — the three live causes were
+still: GitHub late · schedule edited away · never fires. **Positive control** (yesterday's
+`ev=schedule` row visible through the same unfiltered listing ⇒ the instrument is not blind) and a
+**discriminator** (`ci.yml:15` still `cron: "43 6 * * *"` ⇒ the reflow had not removed it) killed two.
+The third needed only patience, which cost nothing and would have cost a wrong report.
+
+⭐ **THE RULE, filed because a remembered one does not fire: A WATCH ON A SCHEDULED JOB IS SET FROM
+THE JOB'S OBSERVED LATENESS, NEVER FROM ITS CRON.** `.dated-watches` now says so at the top. The cron
+is when the job is *asked* to run; the histogram of past firings is when it *runs*.
