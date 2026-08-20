@@ -11373,3 +11373,34 @@ It volunteered a second parked branch that **no verdict of mine could have reach
 UNVERIFIED list mentioned it. ⭐ **MY WORKLIST COULD ONLY EVER CHECK THE CLAIMS SOMEONE THOUGHT TO
 MAKE.** A verification pass is bounded by the imagination of the list it is given, and the only cure is
 an owner who notices where a checker would look and finds a hole with no reason attached.
+
+## 7x17 — THE MUTUAL HOLD: BOTH SIDES CORRECT, NOTHING MOVING (2026-08-20 16:23Z)
+
+commonplace reported S1b as "stopping for your reads" — **true** — and then behaved as though that
+meant I moved next — **false**. I was waiting for a brief that was never coming. ⇒ **Each of us was
+conducting ourselves correctly and the work was stopped.**
+
+⭐ **THAT IS INVISIBLE FROM INSIDE, and the reason is structural: my own conduct looked right to me,
+and the other side's silence looked like work in progress.** Neither of those observations is wrong;
+together they produce indefinite stall. ⚠️ There is no error to notice — which is what makes it
+different from every other failure I have caught today. **A wrong answer announces itself eventually.
+A correct answer to the wrong question does not.**
+
+⇒ **AND IT HAD A SECOND PHANTOM STACKED UNDER IT: commonplace was also holding for a jes ruling that
+had ARRIVED FOUR HOURS EARLIER** (his 12:11Z "build it as once and see if that has problems"). ⭐ A
+blocker that has already cleared is indistinguishable from one that has not, **if nobody restates it.**
+
+### ⭐ THE FIX, and it is cheap enough that there is no excuse: PUBLISH THE LEDGER, DON'T WAIT FOR EVIDENCE
+When a handoff has more than two steps, whoever notices the pause states **their reading of who owes
+what** and invites a one-line correction. I sent: *S1a done · S1b needs your brief, then my read, then
+my clearance, then the run · if I have that backwards, say what you need and I do it now.* **The reply
+was "you have it exactly right and I had it backwards" — one message, hours saved.**
+
+⚠️ Note what made it safe to send: **it cost nothing to be wrong.** I published a reading, not an
+accusation, and explicitly offered to move if the debt was mine. ⇒ *A ledger offered for correction is
+cheap; a ledger asserted as fact is a fight.* The version that works is the one where being wrong is
+free.
+
+⭐ **AND THE PAUSE ITSELF WAS THE ONLY SIGNAL AVAILABLE.** No error, no red, no missing artifact —
+just a quiet that had lasted slightly too long. **Treat an unexplained quiet in a multi-step handoff as
+a thing to interrogate, not a thing to respect.**
