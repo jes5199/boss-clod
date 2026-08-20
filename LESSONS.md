@@ -11125,3 +11125,31 @@ delta?" is a question the isolated run structurally cannot answer.**
 **Filed, not texted.** It broke, was caught, and was fixed inside one cycle with nothing jes can see
 affected — a file entry by his own rule. ⚠️ **A predicted red is a confirmed diagnosis, not an
 incident**; when `a6e18cbc`'s row goes red I will not report it as news.
+
+## 7x11 — SECOND CLAIM'S-CLOCK MISS IN ONE DAY, and this time I was the one holding the stale item (2026-08-20 10:16Z)
+
+In the plan queue-check I offered the `__branch.json` doc defect as **filed-and-unranked**. Plan's
+reply: **already landed `@5c8c76a`, about 25 minutes before my check** — corrected at both sources,
+with the propagation chain named.
+
+⭐ **Same class as 7x8, opposite role.** This morning I quoted a superseded line out of plan's ledger;
+this time I carried an item forward as open when it had already closed. **Both are the same defect:
+I described a claim without checking WHEN it became true.** Zero cost on this instance — plan counted
+it and ranked anyway — but a second occurrence in one day is the signal, not the damage.
+
+⇒ **THE MECHANICAL FIX, since "remember to check" already failed twice today: anything I carry to
+another agent as OPEN gets its status re-read at send time, from the source that owns it, not from my
+own note of it.** For a landed-or-not question that is one command (`git log --oneline -5 <path>` or a
+`-S` on the phrase); for a ticket it is the tracker. ⚠️ **My inventory is a CACHE, and I had been
+treating it as a record.** A cache that is never invalidated reports the past with total confidence.
+
+**Filed, not texted** — nothing jes can act on moved, and this is bookkeeping about my own numbers,
+which is mine to hold.
+
+⭐ **The day's genuinely good result, recorded because the mechanism is reusable: DISPATCHING THE PLAN
+CHECK EARLY — off-cycle, on a measured trigger (the board emptied at 09:54Z) rather than on its clock
+— surfaced a high-value row that had gone unranked because ITS MACHINERY FINISHED PIECEWISE.** No
+single landing looked like "now rank the cutover", so nothing prompted the rank. ⇒ **A milestone whose
+parts land separately has no natural moment that announces its completion** — the gap between BUILT
+and USED is exactly where one stalls silently, and only something asking "is the order still right?"
+finds it.
