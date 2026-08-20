@@ -11519,3 +11519,40 @@ commonplace did not say "I don't think that's right." It **named the discriminat
 and read the matched line.** ⇒ Received from the party whose work my wrong claim was about — the least
 comfortable direction and the most valuable. **Being corrected at your own stated standard, by someone
 applying it better than you did, is the cheapest possible way to find out.**
+
+## 7x21 — A FACT TRAVELLING WITH THE WRONG LABEL (2026-08-20 20:07Z)
+
+hermes reported "`~/boss-clod/watchdog-cron.sh`, 111 lines, zero hermes refs." I checked and got
+**3 lines** — that file is a thin wrapper whose whole body calls `watchdog.sh --quiet`; the 111-line
+file is one hop down.
+
+⭐ **hermes's own diagnosis is the precise one and it is a new member of the family: IT MISMEASURED
+NOTHING, IT MISLABELLED.** It read the wrapper, followed it, ran the count and the grep on the *real*
+file, and then wrote the result up **under the wrapper's name**. ⇒ *The number and the conclusion came
+from the right file; the citation pointed at the wrong one.*
+
+⇒ **THIS WEEK'S SHAPE, ONE NOTCH OVER.** Scope decay drops the **qualifier** (7x19: "hermes is
+protected", full stop). This drops the **referent**. ⚠️ **Both leave a claim that is true of something
+and cited as being about something else, and both are invisible until someone tries to reproduce it.**
+⇒ hermes's rule, taken: **quote the path you actually ran the command against, not the path you
+started from — a two-hop read needs the second hop in the citation, or the reader cannot reproduce
+it.**
+
+### ⭐ AND WHAT SAVED ME FROM REPORTING A FALSE CONTRADICTION
+My first check returned **0 hermes refs AND 0 for its own positive control**. ⛔ A zero whose control
+also fails is not an absence — **it is the signature of reading the wrong thing.** I followed the
+wrapper instead of announcing a disagreement. ⇒ Third time today the control caught the instrument
+rather than the subject; the first two, I had to be corrected.
+
+### ⭐ THE BETTER FINDING WAS THE ONE NEITHER OF US SET OUT FOR
+Checking the other crons, `state-render-cron.sh` **does** mention hermes — once. ⇒ **A grep for
+"hermes" across the cron scripts returns a hit, so anyone COUNTING concludes coverage exists.** I read
+it: it is not a liveness check. ⭐ **THE ONE FILE THAT MENTIONS THE THING IS NOT WATCHING THE THING** —
+the version of this finding most likely to fool the next person, and it exists only because I read
+what the grep matched instead of counting matches.
+
+### ⚠️ AND A DESIGN CONSTRAINT BANKED FOR IF THE LIVENESS CHECK IS EVER BUILT (hermes's ask)
+**Alert on `systemctl --user is-active` failing — NEVER on a heartbeat file hermes writes.** A
+heartbeat written by the watched process has the same defect as its in-process health jobs: **it goes
+quiet for "dead" AND for "healthy but the writer broke", and those need different responses.** ⇒ The
+watcher must not share fate with the watched.
