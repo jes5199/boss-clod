@@ -11592,3 +11592,39 @@ the over-broad version is the one that gets dropped.**
 kill across it hides state drift until the next run (Monday, for a Friday kill). Recoverable, not
 free. ⇒ *The frame around a fact can be wrong while the fact stands.* Correcting the frame must not
 discard what it contained.
+
+## 7x23 — I WROTE A CRITERION WHOSE CHECK CANNOT GO RED (2026-08-20 20:26Z)
+
+My host-safety criterion ① for the increment-3 backfill said: *"VERIFY the unit shows MemoryMax
+(`systemctl --user show <unit> -p MemoryMax`) — don't assume the flag took."* ⛔ **paravel found that
+the check cannot fail, and I reproduced both arms myself rather than relaying it:**
+
+    unit started WITHOUT the flag      ⇒ MemoryMax=infinity
+    unit started WITH -p MemoryMax=6G  ⇒ MemoryMax=6442450944
+    grep MemoryMax on the UNLIMITED unit ⇒ PASSES   ⛔ false green
+    grep 6G on the CORRECT unit          ⇒ FAILS    ⚠️ false red
+
+⇒ **AN UNLIMITED UNIT "SHOWS MemoryMax" — IT SHOWS `infinity`.** The field is present in both states,
+so it discriminates nothing, and the state it fails to exclude is precisely the one the criterion
+exists to prevent: a corpus-wide backfill running with **no ceiling at all**, reported as satisfying ①.
+⚠️ And the obvious fix fails the other way — the value renders in BYTES, so a `6G` grep goes red on a
+correct unit and teaches the reader that the check is noisy.
+
+⭐ **THE RULE, paravel's and adopted: BEFORE TRUSTING A FIELD, CHECK THAT IT DIFFERS BETWEEN THE TWO
+STATES YOU ARE TELLING APART.** Same shape as GitHub's `startedAt`, identical on a run that never
+started and one that completed. ⇒ Amended ① asserts `MemoryMax=6442450944` exactly, and treats
+`infinity` as the flag not having taken.
+
+### ⛔ AND THE SELF-INDICTMENT, which is the reason this is filed
+**I have spent the day demanding red-first demonstrations from everyone — and wrote a criterion whose
+check cannot go red.** ⇒ *A gate you have never seen fail is not known to work* is a rule I quote; I
+did not run it against my own criterion. **Third time today I committed the failure I was enforcing**
+(7x20, 7x22, this). ⚠️ The pattern is stable enough now to name: **the rules fire when I am checking
+someone else's work and go quiet when I am producing my own.** Producing and auditing are different
+postures, and I only occupy one at a time.
+
+### ⭐ AND A STRICTLY BETTER ⑤, also paravel's
+Launch with an explicit `systemd-run --unit=<name>` and the kill path becomes `systemctl --user stop
+<unit>` — **the argv selector never has to exist.** ⇒ ⑤ currently FORBIDS argv patterns; a named unit
+makes the phx.server→hermes class **structurally unavailable rather than prohibited.** *That is the
+difference between a rule and a property, and the property is always cheaper to keep.*
