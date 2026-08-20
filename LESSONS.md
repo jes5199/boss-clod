@@ -11844,3 +11844,49 @@ to them, and why I reported it against myself rather than as a bug in their code
 ⇒ Sent to commonplace as a measurement (#13602), with the half that is mine to change offered — rename
 the probe or its node — and to plan (#13601) as the ranking-relevant consequence: **anything that has
 been reading "when did the serve start" off that monitor has been reading my probe.**
+
+## 7x27 — A FIX PROTECTS THE THINGS THAT EXISTED WHEN IT WAS WRITTEN (2026-08-20 23:57Z)
+
+Doing §3 ceremony prep I tested the run's memory cap on a throwaway unit, and the number that mattered
+was not the one I was testing:
+
+    systemd-run --user, NO OOMScoreAdjust (what the brief specifies) ...  adj=200  score=800
+    hermes' LIVE-MONEY BEAM (3985426) ...............................  adj=200  score=808
+    ThetaTerminal (3175392) .........................................  adj=200  score=849
+
+⛔ **A 6G ALLOCATION AND THE TRADING STACK, EFFECTIVELY TIED.** The 2026-07-30 fix raised *agents* to
+300–350 precisely to end this inversion — `systemd --user` hands out `DefaultOOMScoreAdjust=200` to
+everything it supervises, so hermes sat above unadjusted agents and the kernel preferred the live BEAM.
+⭐ **But a `systemd-run --user` unit is not an agent.** It inherits the raw 200 and lands back inside
+the inversion the fix removed. **The fix enumerated the launch paths that existed in July. I was about
+to create a new one.**
+
+⇒ Fixed for the run with `-p OOMScoreAdjust=900`, and **verified from the kernel, not from systemd's
+report**: `/proc/<pid>/oom_score_adj` = 900, `memory.max` = 6442450944 read out of the cgroup file.
+⚠️ That distinction is load-bearing here specifically: my own notes record a user unit declaring
+`OOMScoreAdjust=0` starting **successfully, `Result=success`, and coming up at adj 100** — systemd
+clamps to its floor without erroring. **A knob that reports what you asked for is not a knob that did
+what you asked.**
+
+⭐⭐ **THEN THE SAME QUESTION, ASKED OF THE FLEET, FOUND IT ALREADY LIVE:**
+    boss-clod session ....  adj=0    ⛔ should be 300
+    HERMES' OWN SESSION ..  adj=0    ⛔ should be 350 — score 684, BELOW its own BEAM's 808
+    four other agents ....  adj=350  ✅
+⛔ **The kernel would have killed the live-money BEAM before the recoverable hermes agent session.**
+⚠️ **AND IT WAS NOT "THOSE SESSIONS PREDATE THE FIX"** — I checked, and hermes' pid is HIGHER than
+several correctly-adjusted ones. **It is a launch-path difference:** the adj is set inside the
+`workerclaude`/`bossclaude` shell functions, so anything started via the plain `claude` alias skips it
+and is **indistinguishable afterwards**. A session at 0 does not look broken; it looks like a session.
+
+⇒ Applied at runtime (raising a same-uid adj needs no privilege): boss 0→300, hermes' session 0→350,
+verified after — order now agents 917–938, ThetaTerminal 849, BEAM 808, serve 682.
+⇒ **AND THE DURABLE HALF, BECAUSE RUNTIME STATE DIES WITH THE SESSION AND A REMEMBERED RULE DOES NOT
+FIRE:** `alias claude=...` → a FUNCTION carrying the adj line (backup `.bashrc.bak-oomadj-20260820T2357Z`).
+**An alias cannot carry a pre-step; that is the entire reason the hole existed.** Verified by effect —
+bashrc parses, alias gone, and a stubbed invocation shows the kernel reading 350 before exec.
+
+⭐ **THE SHAPE, WHICH IS THE REUSABLE PART: a safety property enforced at N launch paths is a property
+you must re-prove every time someone adds path N+1** — and nobody experiences adding a launch path as
+touching a safety property. ⇒ **Where the guarantee is "every process of class X has property P", audit
+the POPULATION, not the paths.** I only found the live inversion because I asked the fleet the question
+I had just asked one throwaway unit.
