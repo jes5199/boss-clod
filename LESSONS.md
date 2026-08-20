@@ -11095,3 +11095,33 @@ The third needed only patience, which cost nothing and would have cost a wrong r
 ⭐ **THE RULE, filed because a remembered one does not fire: A WATCH ON A SCHEDULED JOB IS SET FROM
 THE JOB'S OBSERVED LATENESS, NEVER FROM ITS CRON.** `.dated-watches` now says so at the top. The cron
 is when the job is *asked* to run; the histogram of past firings is when it *runs*.
+
+## 7x10 — TWO CLASSES FROM COMMONPLACE'S OWN POST-MORTEM, banked because both are mine too (2026-08-20 08:27Z)
+
+Commonplace pushed a red to origin (`a6e18cbc`) and owned both causes before reporting anything good.
+I am recording them here **not as their incident** — that is their repo and their fix — but because
+**both failure shapes are ones I run daily.**
+
+### ① POSITION DOWNSTREAM OF A CHECK IS NOT A DEPENDENCY ON IT
+Their command read the gate verdicts and pushed **in one sequenced chain**, so the push executed
+regardless of the rc it had just printed. ⭐ **A check whose result does not change what happens next
+is decoration** — my own global rule, and the version that bites is subtler than "no check at all":
+**the check ran, printed, and was true, and the thing after it happened anyway because it was merely
+NEXT.** ⇒ Gate on the *status file's rc*, never on being later in the pipeline. ⚠️ I write sequenced
+`a && b; c` chains constantly; `;` between a verdict and an action is this defect in one character.
+
+### ② GREEN IN THE WORKTREE, RED ON THE MERGED TREE — BY CONSTRUCTION
+The fixture helper committed the worktree's *modified* file into a fixture repo and asserted success.
+**Post-merge the bytes are identical, so git says "nothing to commit", exit 1, MatchError.** ⇒ **The
+test asserted on the DELTA between working tree and committed state, and landing is precisely the
+operation that deletes that delta.**
+
+⭐ **This is a new member of the green-by-coincidence family, and the nastiest kind: the sign flips at
+the merge boundary.** It is not flaky, not environmental, and **not visible from inside the round at
+all** — Sol saw green twice and was right both times, for the tree it could see. Only a merged-tree
+gate can observe it. ⇒ **When a round is green in isolation, "will this still be true once it is not a
+delta?" is a question the isolated run structurally cannot answer.**
+
+**Filed, not texted.** It broke, was caught, and was fixed inside one cycle with nothing jes can see
+affected — a file entry by his own rule. ⚠️ **A predicted red is a confirmed diagnosis, not an
+incident**; when `a6e18cbc`'s row goes red I will not report it as news.
