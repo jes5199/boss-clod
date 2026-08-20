@@ -11029,3 +11029,30 @@ not exist. **A wrong owner misroutes the fix whichever direction the generosity 
 ✅ Fixed at `61a70157` (untrack + ignore the scratch pattern). ⭐ **The reflow itself was vindicated by
 the same run:** 1 brittle test in 3,624, brittle in its *pins* and not its *detection* — a 356-file
 perturbation proved a design property no deliberate test of it could have.
+
+## 7x8 — A FILE CAN CONTAIN ITS OWN CONTRADICTION, and I quoted the older half (2026-08-20 04:37Z)
+
+jes asked what the outstanding chit decision was. I read plan's QUEUE.md, relayed the fork correctly —
+and added a rider from **line 306** ("the proto_chit → Sync.Watcher seam debt rides whichever fork you
+pick"). **That rider had dissolved on 2026-08-18**, and the entry recording its dissolution sits at
+**line 288 of the same file** — eighteen lines above the line I quoted.
+
+⭐ **THE CLAIM'S CLOCK IS NOT THE FILE'S CLOCK.** I checked that the file was current (it was — plan
+had written to it that day) and let that stand in for the line being current. A living document
+accumulates strata: a fresh mtime says the newest layer is fresh, and says nothing at all about the
+layer I happened to grep into.
+
+⚠️ **GREP LANDS YOU MID-DOCUMENT WITH NO SENSE OF DEPTH.** Reading top-to-bottom, the 08-18
+reclassification arrives before the rider and disarms it. Landing on line 306 by pattern match, the
+rider reads as simply true. **The instrument that found the line also stripped the context that
+retired it** — the same shape as the grep-manufactured adjacency in 7x2, one level up: there I made
+non-adjacent lines look contiguous, here I made a superseded line look current.
+
+⇒ **THE FIX, mechanical:** when quoting a dated ledger to jes, grep the SUBJECT (`chit`, `D-seam-3`)
+across the whole file and read the newest hit, never the first hit that matches the claim I am about
+to make. **A confirming hit is the one most likely to be stale, because I stopped looking when I found
+it.**
+
+**Filed, not texted** — jes's pick was (a) either way and nothing downstream moved, so he got one
+sentence of correction riding an existing message. Plan caught it, said "zero decision impact", and
+was right; the value here is the shape, not the incident.
