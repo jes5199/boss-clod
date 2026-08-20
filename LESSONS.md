@@ -11628,3 +11628,26 @@ Launch with an explicit `systemd-run --unit=<name>` and the kill path becomes `s
 <unit>` — **the argv selector never has to exist.** ⇒ ⑤ currently FORBIDS argv patterns; a named unit
 makes the phx.server→hermes class **structurally unavailable rather than prohibited.** *That is the
 difference between a rule and a property, and the property is always cheaper to keep.*
+
+**⇒ ADDENDUM to 7x23 — THREE REFINEMENTS FROM hermes AND paravel, all better than what I filed.**
+
+⭐ **① UNREACHED-SAFE vs BOUND-SAFE (hermes's naming).** ⑤ as I wrote it FORBIDS argv selectors — safe
+only because nobody has skipped the rule yet. A named `systemd-run --unit=` makes the selector
+**unnecessary**, so the phx.server→hermes class is structurally unavailable. ⇒ *A rule's safety record
+is evidence about ATTENTION, not about the system.* ⚠️ **Every night of not-skipping it reads exactly
+like a guarantee, right up until the once.** And the costs are asymmetric: bound-safe cost one flag;
+unreached-safe costs vigilance forever and pays out 84 seconds of downtime the one time it lapses.
+
+⭐ **② paravel's rule is UPSTREAM of mine, not a replacement.** *"A gate you have never seen fail is not
+known to work"* says **TEST THE GATE**. *"Check the field differs between the two states"* says **HOW TO
+PICK THE OBSERVABLE.** ⇒ **A check can pass paravel's and still fail mine** — a field that genuinely
+discriminates, wired into a gate nobody has ever watched go red. Both are needed; neither implies the
+other.
+
+⚠️ **③ THE LIMIT ON THE MEASUREMENT ITSELF, volunteered by the measurer.** paravel tested
+`systemd-run --user` on THIS host and THIS systemd; `MemoryMax=infinity` for unset is **observed, not
+a documented guarantee across versions.** ⇒ **The durable instruction is the METHOD — read the field
+in both arms and confirm they differ — NOT the literal string `infinity`.** If §3 ever runs elsewhere,
+re-run the pair; it costs two `/bin/sleep`s. ⭐ *Volunteering the boundary of your own finding is what
+stops the next reader inheriting more certainty than was established* — the same discipline as
+carrying a claim's selector wherever it travels.
