@@ -11711,3 +11711,32 @@ Does the serve going down cost hermes anything? It grepped `5199|commonplace`, g
 repo name in a docstring. **Zero real dependencies.** ⇒ *The hostname makes a false positive very
 available here* — a count would have manufactured a dependency that does not exist, and blocked the
 only safe run model for no reason.
+
+**⇒ ADDENDUM to 7x23/7x24 — ①'s CHECK HAS A DEADLINE (2026-08-20 23:16Z).** paravel tested the same
+unit at two different TIMES; I reproduced all three arms:
+
+    WHILE RUNNING   MemoryMax=6442450944  LoadState=loaded     ActiveState=active
+    AFTER IT EXITS  MemoryMax=infinity    LoadState=not-found  ActiveState=inactive
+    NEVER EXISTED   MemoryMax=infinity    LoadState=not-found  ActiveState=inactive
+
+⛔ **THE LAST TWO ARE BYTE-IDENTICAL.** systemd garbage-collects transient units, so **a correctly
+configured unit that ran perfectly and finished is indistinguishable from a unit name that was never
+valid.** Three states — never-existed, typo'd, succeeded — one observable.
+
+⚠️ **CONSEQUENCE: THE CHECK MUST RUN WHILE THE UNIT IS ACTIVE AND CANNOT BE RETRIED.** A short job can
+finish before anyone looks, and the evidence is then gone permanently. ⇒ The natural instinct
+afterwards — *"let me confirm it ran under the ceiling"* — returns a **confident false negative**
+identical to a typo. **Our ceremony had the check at launch by luck, not by reasoning; the ordering is
+load-bearing, not tidy.**
+
+⚠️ **AND THERE IS NO POST-HOC AUDIT TRAIL** — awkward for a criterion whose purpose is *don't assume
+the flag took.* ⇒ **Fix, paravel's and adopted: have the run write the verified triple into its OWN
+log at launch. systemd forgets; the run's log does not.** *Converts a moment into a record*, and
+composes with ⑦: both are "the run reports what only the run could know."
+⛔ **A fourth field does not rescue it** — `ActiveState` reads `inactive` for the exited-correct unit
+AND the never-existed name. No combination answers this after the fact.
+
+⭐ **THE GENERALISATION: THE BOTH-ARMS HABIT EXTENDS TO BOTH-MOMENTS.** A field that discriminates now
+may stop discriminating later — **and "later" is exactly when a post-hoc auditor looks.** ⇒ Fifth
+distinct instance today of one observable spanning states we need to separate, and **the third found
+by someone other than the person who wrote the check.**
