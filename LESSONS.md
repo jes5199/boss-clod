@@ -11437,3 +11437,20 @@ one checkable fact.
 
 ⇒ **Cost: two messages and about four minutes.** The version where I accept the delivery and clear on
 the summary costs a build gated against a document that no longer exists.
+
+**⇒ ADDENDUM to 7x16 (2026-08-20 17:49Z) — THE FALSE ABSENCE I ALMOST AIMED AT A COLLEAGUE.** Verifying
+that plan's fold carried my presence≠correspondence caveat, I grepped QUEUE.md for the `≠` glyph and
+got **0**. ⛔ One message from telling plan it had dropped the caveat. ⇒ Variants first: PRESENCE ⇒ 14
+hits · fidelity ⇒ 12 · correspondence ⇒ 4, against a positive control of 46 for "Phase". **The caveat
+was pervasive; plan had written it as "PRESENCE ✅, FIDELITY UNCHECKED" — the same claim, different
+characters.**
+
+⭐ **This is the SECOND time today a false absence would have produced a WRONG CORRECTION OF A PEER
+rather than a wrong self-assessment** (the first: reading 48 dirty files as "your tree isn't clean"
+when the claim was narrower). ⚠️ **That direction is worse than the usual failure**, because a
+confident correction spends someone else's trust and invites them to go fix a thing that was never
+broken. ⇒ **Before contradicting a colleague on a measurement, run the variants and the control — the
+bar for "you got it wrong" is strictly higher than the bar for "I'm not sure yet."**
+
+⭐ And the general form, plan's phrasing and it is exact: **read the control before believing the
+alarm.** 46 hits for "Phase" is what said the instrument was blind rather than the document empty.
