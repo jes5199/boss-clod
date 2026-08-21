@@ -210,3 +210,62 @@ a doc under one, re-opens this until the backfill round lands.
 
 ⚠️ **Also logged: the containment result pre-declares World-B — 116/116 dangling by MEMBERSHIP**, which
 is the set to check against, not the count.
+
+---
+
+# ✅ CEREMONY COMPLETE — 2026-08-21, 20:00–20:20Z
+
+## Deploy
+| step | result |
+|---|---|
+| stop | SIGTERM to **numeric pid 664985** (never a pattern) → gone, `:5199` released |
+| **hermes during stop** | **UNTOUCHED** — same pid, RSS, swap |
+| launch | `cp-serve-launch.sh` (`env -i` allowlist) → **pid 1353372** @20:09:27 |
+| downtime | **< 1 minute** |
+| **environ diff old→new** | **27→27 vars, ZERO added, ZERO removed** |
+| REFLOG / LETTA in new env | **0 / 0**, read from `/proc/1353372/environ`; control `PHX_SERVER=true`=1 |
+| HTTP `:5199` | **200** |
+| posture | `local_write_gate: :enforce (env-set)` · `mud_full_citizenship: true (env-set)` |
+| Erlang dist | **127.0.0.1 only** (53973, 41571) — CX-vvn4 clear; `0.0.0.0:5199` is Bandit HTTP, intended |
+| **deploy-gap** | **30 → 0** ⭐ candidates 1/2/3's FIRST live reading, and it moved |
+
+## Riders
+- **MUD (liveness + web only, as commonplace ruled):** `/mud` → **302**; control `/nope-not-a-route` → **404**.
+- **(a) `check-mcp-fresh`: 112 of 325 modules stale.** ⚠️ Escript ALSO absent from the process table
+  since ~20:01. **Trigger named: escript rebuild+relaunch (`bin/rebuild-mcp`) is a separate staged act,
+  due at the next natural session boundary**, at which point the span's MUD/MCP changes reach that surface.
+- **`MemorySwapMax=0`:** verified **ENFORCED at the cgroup**, not merely declared.
+
+## World-B (rode the window, run against the 20:03 read-consistent copy — same quiescence, no added downtime)
+```
+green: false        ← EXPECTED: caused by the 116, which were PRE-DECLARED
+vacuous: false      index_ready: true
+dangling_latest ................ 116
+orphaned_other / orphaned_genesis_only / orphaned_from_latest ... 0 / 0 / 0
+commits_missing_from_doc_index / dangling_doc_index ............. 0 / 0
+two-axis sizes ................. ids_from_structs 79524 == ids_from_doc_index 79524
+```
+⭐ **MEMBERSHIP CHECKED, NOT JUST THE COUNT** — independent recomputation of F2 from the same copy:
+```
+CORPUS 6110 (non-vacuous)   F2 116   World-B 116
+symmetric difference: 0 and 0     intersection: 116
+control: vs a deliberate 115-set → differs by 1   ⇒ the comparison CAN discriminate
+```
+⇒ **World-B's dangling_latest IS the F2 116.** Not two populations that happen to share a size.
+
+## Host safety
+`hermes VmSwap 92,724 kB BEFORE and AFTER` the memory-bounded run — **identical**. Unit quad verified by
+effect: `memory.max=6442450944`, `memory.swap.max=0`, `/proc/<pid>/oom_score_adj=900` (> hermes 200, so
+the audit dies first). Unit `Result=success`.
+
+## ⚠️ What went wrong, recorded because it nearly mattered
+1. **First store copy: `| tail -20` on a backgrounded command.** The copy completed (2.3G) but the task
+   was killed before `tail` flushed ⇒ **the non-perturbation proof was lost.** I deleted the unproven
+   copy and re-ran with output to a file. **A pipe stage that buffers converts a COMPLETED result into
+   NO result.**
+2. **Mount gate ran RED first** on a vacuously-empty store (`CommitStore` CREATES one rather than
+   erroring; 3,089-byte `0.cub` vs the real 2,430,236,694). **The control caught it. The runbook warning
+   I had written did not.**
+3. **I used the banned `pgrep -f` self-matching form** while checking for leftovers; it matched my own
+   command line. Read-only, no harm, but it is the exact pattern that kills a stranger's process one
+   word looser.
