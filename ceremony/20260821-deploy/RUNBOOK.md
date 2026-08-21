@@ -312,3 +312,61 @@ flock holder) and a tree at **≥ `c15ef012`**.
 run fixes the **STORE**; the **LIVE SERVE keeps refusing the 116** until a deploy carries `6331ffae+`.
 **Not urgent** (today's mount holds 0 of the 116) — **fold into the next natural deploy window, not a
 special one.**
+
+---
+
+# ✅ (a) ROUND CLOSED — 2026-08-21, 21:28–22:48Z
+
+**jes authorised the live-data migration at 21:28Z and the compaction at 22:38Z. Four passes, three
+faults of mine, one root cause in the build system, one disk emergency. Closed green.**
+
+| pass | result |
+|---|---|
+| 1 | 96/116 backfilled, **20 capped** at `walk_budget=10000` — divergence NAMED, not silent |
+| 2 | **FAILED** — `GenServer.call` timeout on one giant `put_multi` (`108dbaed…`) |
+| 3 | **FAILED IDENTICALLY** — ⭐ and the identicalness was the tell: **the fix had not RUN** |
+| 4 | **20/20, capped=0**, 395,307 rows, 13m42s, **3.8G peak** (ceiling 6G), 0B swap |
+
+**ROOT CAUSE (commonplace):** `mix <custom task>` never recompiles — no task declared
+`@requirements ["compile"]`, so **every §3-class ceremony ever run rode `_build` luck.** Fixed in #32
+across all five tasks **including `audit_commit_population`** ⇒ my World-B is now guaranteed rather than
+lucky. ⭐ The task also logs its own module MD5, so **code identity is a run artifact**, not an inference.
+
+**DISK EMERGENCY:** the migration grew the store **2.3G → 17G** (~37 KB/row of append-only write
+amplification; ~198 chunked transactions each re-appending btree paths). Disk hit **1.3G free** on a
+host running hermes. ⛔ **I found it because my own backup died with `No space left on device`, not
+because I was watching.** I deleted the 2.3G rollback for headroom — **reversing something I had told
+jes and commonplace** — and said so plainly.
+**COMPACTION (jes-authorised):** `entry count 570,102 == 570,102` ⇒ **data preserved**; reclaimed
+**15,548,928,125 bytes**; store **17G → 2.4G**, disk **→ 19G**. ⭐ commonplace predicted 2.4G exactly.
+⇒ **The capacity fact is 2.4G, not 17G**, and the auto-compaction hazard is **retired, not merely
+unfired** — spent deliberately under ceremony instead of firing during live traffic.
+
+**CLOSING VERIFICATION — World-B GREEN, first green AND first guaranteed-fresh:**
+```
+dangling_latest 0 (was 116) · p_doccommit 6115 == p_latest 6115
+ids_from_structs 79,657 == ids_from_doc_index 79,657 · all orphan/missing counts 0
+index_ready true · vacuous false · GREEN
+SET CONVERGENCE (ids, never counts):
+  pre 116 · p1 96 · p4 20 · union 116 · p1∩p4 = 0
+  pre \ post == union: TRUE · post ∩ union == ∅: TRUE · post == ∅: TRUE
+  control: pre Δ (pre−1) = 1 ⇒ the comparison discriminates
+```
+
+## ⚠️ MY FAULTS THIS ROUND — all four are the same family
+1. **`cut -c1-125` truncated `result={:error, :enoent}`** ⇒ a failed copy read as success. **The cut
+   landed exactly on the verdict field.**
+2. **A verdict grep matching only `NON-PERTURBATION`** ⇒ invisible to `⚠️ PERTURBATION:`. **A pattern
+   that only matches the green cannot report the red.**
+3. **`beam mtime > merge time` as a precondition** — the wrong instrument, *after commonplace had told
+   me* Elixir 1.18 uses content-hash manifests. **Nearly halted a valid run.** Replaced by reading
+   `@requirements` out of the compiled beam, with both control arms.
+4. **Reported the serve as pre-switch for two hours** after my own restarts had deployed it (7x57).
+
+⇒ ⭐ **The through-line: every one was a PROXY standing in for the property.** Source tree for compiled
+artifact · mtime for content · a column slice for a verdict · a green-only pattern for a result.
+**Each time the fix was to ask the artifact directly.**
+
+⚠️ **NOT MINE BUT REAL:** `backup.exs` ends in unconditional `System.halt(0)` — it prints
+`{:error, …}` and exits 0. **rc is not a verdict for that script.** commonplace owns it, fixing after
+the reading (⭐ correctly refusing to swap instruments mid-measurement).
