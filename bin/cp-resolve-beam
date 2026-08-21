@@ -50,8 +50,18 @@ is_hermes() { [ "$(readlink -f "/proc/$1/cwd" 2>/dev/null)" = "/home/jes/hermes"
 
 # serve: cwd under ~/commonplace AND actually HOLDING the listening socket. The socket is
 # what makes it the serve; a sibling BEAM in the same cwd (the MCP escript) is not.
+# ⚠️ 2026-08-21: the serve now boots from the PINNED WORKTREE, so its cwd is the pin
+# dir, not the shared tree. This matcher would have stopped identifying the serve the
+# moment the pinned-boot migration landed — I caught it BEFORE the migration by asking
+# "what does my own tool assume?" rather than after, when `cp-resolve-beam serve` would
+# have reported ABSENT for a perfectly healthy serve.
+# ⭐ The SOCKET is the identity; cwd is only a corroborator, so it accepts either home.
 is_serve() {
-  [ "$(readlink -f "/proc/$1/cwd" 2>/dev/null)" = "/home/jes/commonplace" ] || return 1
+  _cwd=$(readlink -f "/proc/$1/cwd" 2>/dev/null)
+  case "$_cwd" in
+    /home/jes/commonplace|/home/jes/commonplace-serve-pin) : ;;
+    *) return 1 ;;
+  esac
   case "$(cmdline_of "$1")" in *commonplace_dev*) : ;; *) return 1 ;; esac
   ss -ltnpH "sport = :$SERVE_PORT" 2>/dev/null | grep -q "pid=$1,"
 }
