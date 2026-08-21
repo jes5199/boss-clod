@@ -12202,3 +12202,42 @@ go red, I wrote one that cannot come back green.**
 `ps --ppid <claude-pid>` — a live tool call has a live child process, with an age. **Never by the
 spinner, never by the elapsed clock, and never by flat tokens alone.** Include the ps positive control:
 if the same command finds no children of a process known to have them, the instrument is blind.
+
+## 7x36 — I WROTE THE SAME PREDETERMINED COMPARISON TWICE IN ONE NIGHT (2026-08-21 02:47Z)
+
+A background waiter to tell me when PR #12 landed. It fired in **20 seconds** announcing
+*"MAIN MOVED — PR #12 likely landed."* Main had not moved. PR #12 was still OPEN.
+
+    git ls-remote → cut -c1-10 ....... "b50facb3ce"   (10 chars)
+    compared against the literal ..... "b50facb3"     (8 chars)
+    ⇒ NEVER EQUAL. The waiter could only ever report "moved".
+
+⛔ **AND I HAD ALREADY MADE THIS EXACT MISTAKE THREE HOURS EARLIER TONIGHT** (7x35 ②): comparing a
+spinner string containing an elapsed clock, and printing *"ADVANCING — genuinely generating"* off a
+comparison that could only come back "changed". **Same defect, same night, different surface — a
+timestamp there, a truncation width here.** ⇒ Filing 7x35 did not stop me writing 7x36 forty minutes
+later, which is itself the second instance of *"a lesson is indexed by its story, not its shape"*
+(7x28). **Three of tonight's entries are now the same lesson failing to install.**
+
+⭐⭐ **THE DEFECT IS NOT "I COMPARED SLOPPILY". IT IS THAT I BUILT A DETECTOR AND NEVER ASKED WHETHER
+IT COULD RETURN THE BORING ANSWER.** I checked, both times, that it could report the interesting
+result — the thing I was waiting for. **I never checked it could report "nothing happened", which is
+the answer it should give almost every time it runs.** ⇒ A waiter that cannot say "not yet" is not a
+waiter; it is a delay followed by an announcement.
+
+⇒ ⭐ **THE FIX THAT GENERALISES, AND I APPLIED IT ON THE REWRITE: RUN THE COMPARISON ONCE, BEFORE
+WAITING, AGAINST UNCHANGED STATE, AND REQUIRE IT TO REPORT EQUAL.**
+```
+BASE=$(git ls-remote origin main | cut -f1)     # captured by the SAME command that will be compared
+NOW=$(git ls-remote origin main | cut -f1)
+[ "$NOW" = "$BASE" ] && echo "control ✅ can report EQUAL"
+```
+**That is a green-arm control, and it costs one extra invocation.** It catches truncation mismatches,
+format drift, and every case where the two sides were produced by different pipelines. ⚠️ Note what it
+is NOT: the usual instinct is to prove a check CAN GO RED. **Here the failure was the opposite — a
+check that could not come back GREEN — so the control has to be pointed at whichever arm is the
+"nothing to report" one.**
+⭐ **AND THE SECOND HALF: DERIVE THE BASELINE FROM THE SAME COMMAND THAT WILL PRODUCE THE COMPARISON
+VALUE.** My baseline was a sha I had read off `git log` output earlier and retyped as a literal. **Two
+values that name the same commit, produced by different tools, in different formats.** A comparison is
+only as sound as the provenance of both sides — and one side was a human-shaped copy.
