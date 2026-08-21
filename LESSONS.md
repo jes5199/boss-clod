@@ -11890,3 +11890,43 @@ you must re-prove every time someone adds path N+1** — and nobody experiences 
 touching a safety property. ⇒ **Where the guarantee is "every process of class X has property P", audit
 the POPULATION, not the paths.** I only found the live inversion because I asked the fleet the question
 I had just asked one throwaway unit.
+
+## 7x28 — I WROTE THE BUG FROM 7x26 INTO THE SCRIPT THAT WAS FIXING 7x26 (2026-08-21 00:02Z)
+
+Three hours after filing **7x26** — *a detector that resolves by pattern reads a passing number off a
+stranger's process, and the error survived because it ran in the FLATTERING direction* — I moved the §3
+ceremony into a script, precisely so it would survive my attention rather than live in a conversation.
+The script printed:
+
+    deploy gap the relaunch will land: 36 commits
+
+I had measured the same quantity **214** an hour earlier by another route. The disagreement is the only
+reason I looked.
+
+    ps -o lstart= -p 1451816     Fri Aug 14 19:03:12    -> 214 commits   ← the TRUE process start
+    stat -c %y /proc/1451816     2026-08-18 23:06:31    -> 36 commits    ← what my script used
+
+⛔ **`/proc/<pid>` mtime IS NOT PROCESS START TIME.** It moves. My script under-reported the deploy gap
+by **178 commits** — and, exactly like the monitor I had just filed a lesson about, **in the direction
+that makes the situation look smaller and safer than it is.**
+
+⭐⭐ **THE PART THAT ACTUALLY MATTERS: FILING THE LESSON DID NOT PREVENT THE LESSON.** I did not fail to
+know this. I had written the words *"the error ran in the flattering direction, which is why it
+survived"* into a committed file the same evening, and then reached for a wrong-but-plausible time
+source without the thought recurring. ⇒ **A lesson is indexed by its STORY, not by its SHAPE.** 7x26
+was filed under *"a monitor misidentified a process"*; this was *"a script computed a timestamp"* —
+different story, same defect, and the index did not fire. **Writing it down is not installing it.**
+
+⚠️ **AND THE THING THAT SAVED ME WAS NOT VIGILANCE — IT WAS A SECOND MEASUREMENT THAT ALREADY EXISTED.**
+If I had written the script first and never computed 214 by hand, 36 would have gone into a report,
+been believed, and made a 214-commit deploy look like a routine one. ⇒ **A number with no second
+derivation is not a measurement; it is an assertion with a command line in front of it.**
+
+⇒ Fixed to `ps -o lstart=`, re-run, now agrees at 214. ⭐ **And the durable half is that the correction
+lives IN THE SCRIPT, with the wrong value and the right one both written into the comment** — so the
+next reader sees the trap rather than the tidied result. A comment that says "use ps here" teaches
+nothing; one that says "proc-mtime said 36, truth was 214, and 36 is the comfortable answer" is the
+lesson at the point of use.
+⇒ Also added to the script what the number MEANS, not just what it is: a gap over 50 prints
+*"this is the biggest thing happening tonight, not a footnote."* **7x26's real content was that a step
+named by its mechanism hides its effect; the fix is to make the artifact say the effect out loud.**
