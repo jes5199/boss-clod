@@ -12359,3 +12359,45 @@ trap. ⇒ **The scoreboard that matters is not how many lessons got written. It 
 became something you cannot skip:** the launcher allowlist, the corpus non-vacuity gate, `--serve-pid`
 with no default, `MemorySwapMax=0` in the recipe, the paired-probe habit. **Five artifacts. Everything
 else is a note hoping to be remembered by someone under load.**
+
+## 7x40 — I REPORTED "NO ALERTS" FIFTEEN TIMES WITHOUT EVER PROVING THE READER COULD SPEAK (2026-08-21 03:45Z)
+
+Tonight I ran `squad-alerts-poll.sh` about fifteen times and reported **"No alerts. Silent."** every
+time — while spending the same evening telling three other agents that an absence needs a positive
+control. ⛔ **"Nothing new" and "the reader is broken" produce the identical output, and I had never
+once distinguished them on my own alert path.**
+
+⇒ **THE CONTROL, and it cost thirty seconds and wrote nothing to the live channel:** rewind the marker
+one step so a known-present alert becomes "new", run the poller, require it to print, restore the
+marker, run again and require silence.
+```
+marker 504 -> 503, poll  =>  "ALERT #504 [error] boss-clod:scheduled ..."   RED ARM ✅
+marker restored to 504, poll  =>  (empty)                                    GREEN ARM ✅
+```
+⭐ **Both arms, reversible, no write to the alert DB.** The script itself was already hardened (a
+broken poll shouts and exits 3, from a 2026-08-09 lesson) — **but hardening the reader is not the same
+as demonstrating it, and I had inherited the hardening as if it were evidence.**
+
+⛔⛔ **AND THE CONTROL SURFACED A THING I WAS NOT LOOKING FOR.** The alert it printed was from
+**2026-08-17**: *SCHEDULED ACTION DUE — switch commonplace + commonplace-plan to Fable*, arming jes's
+instruction of 08-15. The trigger fired. The alert was relayed. **Four days later both agents read
+`[Opus 4.8]` off their statuslines.**
+⚠️ I am not asserting it was never done — Fable falls back to Opus silently, this switch has reverted
+twice before, and jes said *"okay, not fable"* about a different task today. ⇒ **The honest report is
+that a documented trigger fired, the observable state does not match it, and I cannot tell which
+explanation holds.** Asked him rather than acting on a four-day-old instruction that may have been
+overtaken.
+
+⭐⭐ **THE SHAPE THAT MAKES THIS WORTH FILING: THE ALERT LOOP EXISTS BECAUSE OF THE SENTENCE "a working
+detector reaching someone who does not act on it." THAT IS EXACTLY WHAT HAPPENED, INSIDE THE LOOP
+BUILT TO PREVENT IT.** The detector fired. The relay worked. The marker advanced, which is the system
+recording *"delivered"*. ⇒ **And `delivered_at` is precisely the field the original 2026-07-31 incident
+identified as the thing that made the gap invisible** — alert #481 was "delivered" and no human ever
+saw it. **The same field made this one invisible in the same way, four days ago, to me.**
+⇒ ⛔ **RELAY IS NOT RESOLUTION, AND A MARKER THAT ADVANCES ON SEND RECORDS ONLY THAT SOMETHING WAS
+SAID.** An alert whose whole content is *"go do this thing"* needs its DOING tracked, not its sending —
+otherwise the loop's success metric is satisfied by the message leaving.
+⇒ ⭐ **The actionable half, and it is the one artifact this produces: SCHEDULED-ACTION alerts belong in
+`.dated-watches`, which refuses to discharge on an absence, rather than in a channel whose marker
+advances the moment the words are relayed.** Filed there is a thing that keeps asking; relayed is a
+thing that was mentioned once.
