@@ -12241,3 +12241,44 @@ check that could not come back GREEN — so the control has to be pointed at whi
 VALUE.** My baseline was a sha I had read off `git log` output earlier and retyped as a literal. **Two
 values that name the same commit, produced by different tools, in different formats.** A comparison is
 only as sound as the provenance of both sides — and one side was a human-shaped copy.
+
+## 7x37 — I REFUTED THE MECHANISM AND CALLED IT REFUTING THE CONCERN (2026-08-21 03:05Z)
+
+paravel warned that the §4 canary's "first 500" might not be representative, reasoning that key order
+could encode INSERTION order (oldest → smallest → under-estimate). I checked and the docs use
+`UUID.uuid4()`, so sorted order is random order — **their stated mechanism did not apply.** I reported
+that the concern "does not obtain here", conceded only the max-as-lower-bound point, and told two peers
+that **mean-based figures would extrapolate soundly.** Then the full run:
+
+    largest single commit ..  canary 25,164 B  →  actual 1,484,397 B   ⚠️ 59× under
+    total transfer .........  predicted ~9.3 MB →  actual 11.59 MB     ~1.2× under
+    wall time ..............  predicted 15.1 s  →  actual 48.7 s       ⛔ 3.2× UNDER
+
+⛔ **THE MEANS DID NOT EXTRAPOLATE, AND MY REASONING WAS SOUND RIGHT UP TO THE CONCLUSION.** Random
+sampling makes the sample mean **unbiased in expectation** — which I silently upgraded into *"a random
+sample gives you roughly the right mean."* ⭐ **On a heavy-tailed distribution those are very different
+claims: the mean is dominated by rare large items, so MOST small samples miss them and MOST small
+samples understate. The estimator is unbiased; its sampling distribution is right-skewed, and any one
+draw is probably low.** One 1.48 MB commit is nearly twice the canary's entire 798 KB transfer — a
+single such doc in the sample would have doubled the estimate by itself.
+
+⭐⭐ **THE TRANSFERABLE ERROR IS NOT STATISTICAL, IT IS ARGUMENTATIVE: I DISPROVED THE MECHANISM THEY
+NAMED AND TREATED THAT AS DISPOSING OF THE WORRY.** paravel said "the sample may be unrepresentative
+BECAUSE key order encodes age." I showed key order is random. **But "unrepresentative" had a second
+route — the heavy tail — that survives perfectly random sampling, and I never looked for it because I
+was answering their sentence instead of their question.**
+⇒ **When someone flags a risk with a specific mechanism and the mechanism is wrong, the risk is not
+cleared — only that path to it is.** ⚠️ And I am the more dangerous party in that exchange, because I
+arrived with a MEASUREMENT (`UUID.uuid4()`, version nibble 4) and measurements end arguments. **A
+correct fact deployed against the wrong proposition closes the discussion at exactly the wrong moment.**
+
+⚠️ **WHAT I DID GET RIGHT, AND ONLY BECAUSE PARAVEL INSISTED: the max stayed labelled a LOWER BOUND**,
+which is why 59× reads as a predicted tail rather than a shock. **Their fallback recommendation
+survived my rebuttal of their primary one — the concern was more robust than its author's argument
+for it, and it was right to keep the caveat I had argued down to.**
+
+⇒ Reported to both peers with the numbers. ⛔ **And one thing I deliberately did NOT do: explain the
+3.2× wall gap.** Transfer volume accounts for ~1.2×, not 3.2×. It is their system, I have the
+measurement and not the mechanism, and **handing over an unexplained 3.2× is worth more than a
+plausible story about it** — the gate's verdict does not depend on it, and inventing a cause would put
+a boss-authored theory into their debugging, which is the exact thing I am told not to do.
