@@ -11930,3 +11930,50 @@ lesson at the point of use.
 ⇒ Also added to the script what the number MEANS, not just what it is: a gap over 50 prints
 *"this is the biggest thing happening tonight, not a footnote."* **7x26's real content was that a step
 named by its mechanism hides its effect; the fix is to make the artifact say the effect out loud.**
+
+## 7x29 — A PERFECT GREEN OFF A CORPUS THAT DID NOT EXIST (2026-08-21 00:15Z)
+
+The §3 backfill's first run:
+
+    Result=success   ExecMainStatus=0
+    ① ceiling triple VERIFIED (MemoryMax=6442450944, loaded, active)
+    entries_walked=0  total=0  seen=0  written=0  violations=0
+    terminal_state={:ready, 1}        ← the exact field §4's precondition reads
+
+⛔ **EVERY CRITERION WE SPENT THE EVENING DESIGNING PASSED.** The ceiling was verified by effect
+from the kernel. The unit was active. The exit was clean. The terminal state was the one §4 waits for.
+**And it had processed nothing at all.**
+
+⭐ **THE CAUSE: I passed `--data-dir .../workspace/.commonplace/commits`. `CommitStore` appends
+`"commits"` itself, so it opened `.commonplace/commits/commits/` — A NEW EMPTY STORE IT CREATED ON
+THE SPOT — and correctly reported that it found nothing there.** Not a crash, not a permissions error,
+not an empty result from a real query: **a real store, created by the act of looking, that was empty
+because it had just been born.**
+
+⚠️ **AND THE WRONG PATH CAME OUT OF THE TASK'S OWN `@moduledoc` EXAMPLE.** The prose one line above it
+says "the stopped serve's commits data_dir"; the worked `systemd-run` invocation beneath it shows the
+child dir. I copied the example. ⭐ **A worked example is trusted more than a prose contract, so a
+wrong example travels further than a wrong sentence** — it is the thing a reader under load lifts
+verbatim, which is exactly what I did.
+
+⭐⭐ **THE SHAPE, AND IT IS THE ONE MY OWN RULES NAME: I VERIFIED THE INSTRUMENT AND NEVER THE
+SPECIMEN.** Hours went into proving the ceiling was enforced, the adj took, the unit was active, the
+kill order was right — every one of those a property of the APPARATUS. **Not one of them asks whether
+there was anything under the lens.** *"Before trusting a zero, prove the corpus was non-empty"* is a
+rule I hold, and I applied it all night to other people's greps while running a 6GB-capped, OOM-ranked,
+triple-verified ceremony against an empty directory.
+⇒ ⛔ **And the failure is SILENT AND FORWARD-PROPAGATING: `{:ready, 1}` on an empty store is
+byte-identical to `{:ready, 1}` on a completed one.** §4 removes SiblingMerger's scan fallback on the
+strength of that field. A vacuous green here does not stay here — it authorises the removal of the
+thing that was covering for it.
+
+⇒ Caught because the report printed `total=0` beside a corpus I knew was 5GB, and the two could not
+both be true. ⇒ Re-run against the parent dir: **6105 docs seen, 6105 written, 0 violations,
+`{:ready, 1}`, peak 506MB against a 6144MB cap.**
+⇒ **DURABLE HALF: my runner now REFUSES TO LAUNCH unless the `.cub` set exceeds 1MB**, and says so —
+*"corpus non-vacuity ✅ 5022MB — a zero result now MEANS something."* ⚠️ But that guard lives in MY
+script, not in their task, so I reported the defect rather than just fixing my own caller: **a
+`{:ready, n}` that is reachable with `total=0` is a green nobody downstream can distinguish.**
+⭐ **THE GENERALISATION WORTH KEEPING: every verification I built pointed at the MEASURING DEVICE.
+The one that mattered pointed at the SAMPLE. A ceremony can be fully instrumented and still be
+measuring an empty room — and the more elaborate the instrumentation, the more the green feels earned.**
