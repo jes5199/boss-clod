@@ -13107,3 +13107,38 @@ working tree IS a deploy. Name it as one before doing it, or establish that the 
 `bin/cp-deploy-gap` answers this in one command and I ran it *after* each restart (seeing the reassuring
 `0`) instead of *before* (which would have shown the 30 about to ship). **Same instrument, same
 evening, wrong side of the act.**
+
+## 7x58 — "the fix didn't work" and "the fix didn't run" are the same log line
+
+**Pass 3 of the (a) migration failed identically to pass 2:** same doc, same `GenServer.call` timeout,
+**same source line `doc_commit_backfill.ex:300`.** The obvious reading is *commonplace's chunked-write
+fix did not solve the problem.* **The mtimes say otherwise:**
+```
+doc_commit_backfill.ex SOURCE .... 21:54:31   (#31 merged)
+DocCommitBackfill.beam ........... 21:17:03   ← STALE, predates the fix
+pass 3 executed .................. 21:58:53
+```
+⇒ **The run used the OLD build. The fix never executed.**
+
+⭐⭐ **THE TELL WAS THE IDENTICALNESS, AND I ALMOST READ IT THE OTHER WAY.** A fix that fails usually
+fails *differently* — a new line, a new bound, a partial success. **Byte-identical failure after a
+targeted change is evidence the change was not present**, not evidence it was insufficient. ⚠️ The
+seductive reading is the pessimistic one: *"we fixed it and it still broke"* feels like hard-won
+knowledge, and it would have sent commonplace re-designing a fix that was never on trial.
+
+⛔ **THE MISSING PRECONDITION WAS MINE.** I verified the SOURCE tree was at `>= 5f9440fb` — with a
+control, carefully — and then ran a task whose behaviour depends on the **COMPILED ARTIFACT**. ⇒ **I
+checked the wrong layer.** *"The tree contains the fix"* and *"the running code contains the fix"* are
+different claims and I had a habit of conflating them all evening (see 7x57 — same conflation, opposite
+direction: there the artifacts were ahead of what I believed, here they were behind).
+
+⇒ **NEW PRECONDITION, added to the ceremony: before running any task that depends on a just-merged
+change, assert `beam_mtime > merge_time`.** One `ls`. ⛔ Never infer a build from a checkout.
+
+⚠️ **AND A RELATED INSTRUMENT LIMIT, found the same hour:** `cp-deploy-gap` compares `_build` beams to
+serve start. ⭐ **It cannot see a SOURCE TREE THAT IS AHEAD OF `_build`** — which is exactly the state
+that produced tonight's two unannounced deploys, and it read a reassuring `0` throughout. **It also
+reads `11 newer beams` immediately after a compile-on-boot launch, because `mix phx.server` starts the
+BEAM and then compiles inside it — an artifact, not a gap.** ⇒ **The tool answers "are there newer
+compiled artifacts than the running process", which is NARROWER than "would a restart change what
+runs". I used the second question's words for the first question's answer.**
