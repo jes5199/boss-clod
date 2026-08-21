@@ -12557,3 +12557,40 @@ appear inside the answer: 18 beams / 17 commits / 7 merges newer than the serve'
 ⚠️ Relevant because commonplace pre-registered the caveat that fixing the probe drops the deploy-gap
 count **hard but not to zero** — a residual non-zero is the fix working. **That caveat now has a
 measured value behind it instead of an expectation.**
+
+## 7x44 — A GATE THAT CANNOT GO GREEN IS THE SAME DEFECT AS ONE THAT CANNOT GO RED (paravel, 2026-08-21 05:52Z)
+
+World-B's audit gates green on `orphaned_from_latest` being empty — **and commonplace had already documented
+that `ensure_genesis` writes `{:commit}` + `{:doc_commit}` and NO `{:latest}`, so genesis-only docs land
+in that set BY CONSTRUCTION, benignly.** ⇒ The gate is expected to be not-green on every run, forever,
+until a refinement lands.
+
+⭐⭐ **paravel's formulation is the one that unifies half of tonight's file: A GATE THAT CANNOT GO GREEN
+IS THE MIRROR OF THE DECORATION DELETED AN HOUR EARLIER — a check that cannot go red. BOTH STOP
+CARRYING INFORMATION FOR THE SAME REASON: THE OUTPUT NO LONGER VARIES WITH THE THING YOU CARE ABOUT.**
+```
+cannot go RED    (the latest_key_count cross-check — unique keys made it unfalsifiable)
+cannot go GREEN  (World-B's orphan gate — genesis docs make it permanently dirty)
+cannot say NOT-YET (7x36: my waiter, comparing a truncated sha — could only report "changed")
+cannot say NOTHING-HAPPENED (7x35: the spinner clock — advanced whether or not work progressed)
+```
+⛔ **Four instances, one night, and I had been filing them as four different lessons.** They are one:
+***an instrument whose output does not vary with its subject is not an instrument.*** ⇒ The
+red/green asymmetry I kept reaching for is a special case — **the general test is "can this thing
+produce BOTH of its answers, in response to the world rather than to its own construction?"**
+
+⚠️ **AND THE PRACTICAL FAILURE IS TONIGHT'S OTHER LESSON ARRIVING INSIDE THE FIX FOR IT: a REAL orphan
+appears inside a set dominated by expected genesis-only entries, and nothing distinguishes them.** That
+is 8,332-lines-hiding-605-alarms, **occurring in the instrument built to find things.**
+
+⇒ paravel's disposal is the one I would want and it costs no delay: **PARTITION at report time rather
+than FILTER** — `orphaned_genesis_only` vs `orphaned_other`, report both completely, gate green on
+`orphaned_other`. ⭐ Nothing is silently dropped (commonplace's stated principle survives), the green
+becomes achievable, and one genuine orphan is visible instead of being the 4,001st line in a list of
+4,000 expected ones. ⚠️ And if the partition predicate is itself uncertain: **say the green is
+CURRENTLY UNREACHABLE and treat the first run as a CENSUS, not a gate** — honest, and very different
+from shipping a gate whose green nobody expects, which quietly becomes *"we always ignore that one."*
+
+⇒ **MY HALF, since the RUN is mine to execute: I will report the PARTITION, not a green/not-green
+verdict.** A not-green that everyone expects, relayed as a verdict, is an alarm I manufactured out of a
+census — **and I am the last link before that number reaches jes.**
