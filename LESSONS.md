@@ -12664,3 +12664,34 @@ had.** ⭐ **The ask is not an override and must not become one:** the rule is *
 owes you the mechanism, and you owe it the same before you accept the decline"* — **one question,
 answered, done.** If it hits 70% the remedy is compact-and-continue; if it brings a real cause I take
 it immediately and stop asking.
+
+## 7x47 — A MUST-FIND CONTROL PINNED TO AN EXAMPLE DIES WHEN THE EXAMPLE IS LEGITIMATELY REMOVED (2026-08-21 07:00Z)
+
+commonplace's 2a migration moved `mixed_plane_history` off its raw `{:commit}` scan. A test broke:
+```
+DocCommitIndexTest:71   assert output =~ "mixed_plane_history.ex"
+```
+⇒ That assertion **pinned `mixed_plane_history` as its live example of an "ignored read pattern."** The
+migration correctly deleted the pattern ⇒ **the control's target no longer existed** ⇒ **the test went
+RED ON CORRECT WORK.**
+
+⭐⭐ **THE SHAPE: A MUST-FIND CONTROL BOUND TO AN INSTANCE RATHER THAN A PROPERTY HAS THE INSTANCE'S
+LIFETIME, NOT THE PROPERTY'S.** The property — *reads are distinguishable from writes* — is permanent.
+The example — *`mixed_plane_history.ex` contains such a read* — was always going to be someone's
+cleanup target. ⚠️ **And the failure presents as a REGRESSION: the suite goes red at exactly the moment
+the code got better**, which is the worst possible time to be arguing with a test.
+⛔ **A gate that fires on correct state is worse than no gate** — this one fired on an improvement, and
+the tempting reading is "my migration broke something."
+
+⇒ Fixed by re-pointing at **stable in-adapter readers** (`find_commit_in_rows`, `rebuild_doc_commit_index`)
+that still exercise the read-vs-write distinction, **with a comment recording why it moved** — so the
+next person to legitimately delete one knows the assertion is a property probe, not a reference.
+⭐ **Same family as the sole-caller choke bound to the PROPERTY rather than today's single caller**, and
+as *point-don't-copy*: **any check naming a specific site inherits that site's mortality.**
+
+⚠️ **AND THE META: THIS WAS THE SECOND SOURCE-SCAN INVARIANT TEST A STORE-ADJACENT CHANGE TRIPPED
+TONIGHT** (the first was `InvariantChokeTest`, caught by CI). **Both were found by WIDENING the local
+run to the full app suite instead of a hand-picked list** — commonplace's own remedy for the earlier
+test-SELECTION miss, adopted after CI caught it. ⇒ ⭐ **The remedy for "I ran the wrong subset" is not
+a better subset — it is a default that does not require choosing correctly.** The first miss cost a CI
+round; the second cost nothing because the default had already changed.
