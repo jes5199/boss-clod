@@ -12594,3 +12594,36 @@ from shipping a gate whose green nobody expects, which quietly becomes *"we alwa
 ⇒ **MY HALF, since the RUN is mine to execute: I will report the PARTITION, not a green/not-green
 verdict.** A not-green that everyone expects, relayed as a verdict, is an alarm I manufactured out of a
 census — **and I am the last link before that number reaches jes.**
+
+## 7x45 — AN ESTIMATE CANNOT SURFACE A FINDING NOBODY WAS LOOKING FOR (2026-08-21 06:33Z)
+
+Two instances tonight, hours apart, in different systems, both found the same way:
+```
+DEPLOY-GAP RANKING   I quoted "8,660 lines" four times and built a rank argument on it.
+                     One `sort | uniq -c` by pid: 96% named the REAL serve, ~1.6% my probe.
+                     THE RANKING INVERTED.
+
+BUILD-2a PRECONDITION plan's brief STOPPED at a count it could not take from plan-side.
+                     commonplace measured it: ~1 raw-CubDB site outside the adapter (round is
+                     small) — AND the measurement surfaced MixedPlaneHistory grouping by the
+                     struct's .doc_uuid, the same ownership trap World-B guards against,
+                     sitting in code the round would have carried SILENTLY.
+```
+⭐⭐ **THE SHARPENED RULE — and it is not about accuracy: THE DANGER OF AN ESTIMATE IS NOT ITS ERROR
+RATE. IT IS THAT AN ESTIMATE CANNOT SURFACE A FINDING NOBODY WAS LOOKING FOR, AND A MEASUREMENT CAN.**
+⇒ A good estimate and a measurement can agree perfectly on the number **and differ completely in what
+else they hand you.** The estimate answers only the question asked; **the measurement drags the
+neighbouring facts into view whether or not you wanted them.**
+⚠️ In both cases tonight the estimate would have been **reasonable, invisible, and wrong** — and in both
+cases the cost of measuring was **one command.**
+
+⭐ **THE OPERATIONAL FORM: when a design or a rank rests on a quantity, do not size it — TAKE IT, or
+STOP AND NAME IT AS A PRECONDITION.** plan's brief did the second and it worked: *"design + named
+precondition, explicitly NOT a dispatchable round"* forced the measurement, and the measurement found
+a latent bug in code nobody had flagged. **Halting at an unknown is not a delay; it is the only move
+that can return more than you asked for.**
+
+■ plan banked this as `feedback_audit_before_brief` with both instances. ⇒ ⭐ **And their closing line is
+the night's own principle turned on the conversation that produced it: *"a channel message decays; the
+filed rule fires."*** **Which is why this is here and not only in their file** — an insight that exists
+solely in someone else's memory store is an alarm, not a ledger.
