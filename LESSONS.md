@@ -12090,3 +12090,43 @@ statement is "this may sit undetected" — different conclusions, not different 
 ⭐ **THE REUSABLE RULE: when you are about to rely on a failure announcing itself, ask how the last one
 in that class was found. If the answer is "somebody went looking", you are relying on a property that
 class has already been observed not to have.**
+
+## 7x33 — SAME CODE, OPPOSITE STATUS, AND NO DIFF MARKS THE TRANSITION (2026-08-21 01:10Z)
+
+paravel, on §4's plan to keep the scan-fallback as a loud-but-correct branch:
+
+> That branch is EXERCISED IN PRODUCTION TODAY — every live doc is un-indexed, so the fallback IS the
+> normal path right now. After the backfill reaches `:ready`, it becomes a branch that NEVER RUNS.
+
+⭐ **THE CODE DOES NOT CHANGE. ITS STATUS INVERTS.** Hot path → should-never-happen path, and **no
+commit, no diff, and no review marks the moment it flips.** The transition is caused by a DATA event —
+the backfill completing — in a different repo location entirely from the code whose meaning it changes.
+
+⛔ **TWO THINGS GO STALE SILENTLY:**
+① *"It works — it's been running in production for months"* **stops being true on the day the backfill
+completes**, and nobody re-derives it. Its only remaining evidence of working becomes the test suite.
+② ⛔⛔ **AND A YEAR FROM NOW THAT BRANCH LOOKS EXACTLY LIKE DEAD CODE** — never taken in production,
+reachable only on a condition the invariant says cannot occur. **A future reader doing honest cleanup
+deletes it, and the alarm's CORRECT-ANSWER half goes with it**, leaving a loud signal attached to a
+silent stop-converging. ⇒ **The removal that is safe today BECAUSE the fallback makes it survivable
+becomes unsafe the moment the fallback is gone — and those two edits are a year and a different author
+apart.**
+
+⭐ **THE GENERAL FORM: A SAFETY ARGUMENT WITH A SECOND EDIT IN IT IS NOT SAFE; IT IS SAFE-UNTIL.** The
+first edit is reviewed on its merits and is correct. The second is reviewed on *its* merits, is also
+locally reasonable, and silently removes the premise the first one rested on. **Nobody is careless in
+either review.**
+
+⇒ The fix paravel proposed costs a comment, and it is the right shape because it lives **AT the
+branch**, where the deleting reader is standing: this path is expected-unreachable BY DESIGN · its
+unreachability is the invariant's CLAIM, not evidence it is dead · deleting it converts a
+loud-and-correct fallback into a loud-and-broken one. Plus a test named so it reads as guarding a live
+contract rather than covering legacy.
+⚠️ **The alternative is relying on a future reader inferring intent from an ABSENCE OF TRAFFIC** — and
+absence of traffic is exactly what dead code and correctly-unreachable code have in common.
+
+⭐ **THIS IS THE CLEANUP-DESTROYS-EVIDENCE SHAPE (7x25) ONE TURN FURTHER OUT.** There, a pruner erased
+the evidence an inference rested on. Here, a future cleanup erases the MECHANISM a safety argument
+rests on. **In both cases the person deleting is doing something entirely reasonable with the
+information available to them** — which is why the remedy is never "be more careful", it is **leave the
+information at the place where the reasonable-looking wrong action gets taken.**
