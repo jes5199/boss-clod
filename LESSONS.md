@@ -12167,3 +12167,38 @@ thing I ran was never the thing that was tested.
 ⭐ Note the shape: **this defect is CREATED by a correct safety decision.** Refusing to force-load the
 module is right; the untested mirror is the cost of that rightness. **A constraint honoured honestly
 can manufacture a new gap, and nobody is wrong at any step.**
+
+## 7x35 — "STUCK" AND "IN A LONG TOOL CALL" HAVE THE SAME SIGNATURE (2026-08-21 01:41Z)
+
+commonplace showed `Nucleating… (36m)` — past the 30-minute mark my health check treats as possibly
+stuck. Three measurements, each one better than the last, and the first two were nearly wrong:
+
+    ① spinner line present + `❯` prompt visible ....... proves NOTHING — the TUI shows both while generating
+    ② clock advancing 35m13s → 35m25s ................. ⛔ I called this "genuinely generating".
+                                                        The clock advances whenever the spinner RENDERS.
+                                                        **A signal that is guaranteed to fire is not a signal.**
+    ③ token count FLAT at 104.4k across 4 samples/60s .. looks exactly like the stuck signature
+    ④ ⭐ a LIVE CHILD PROCESS: bash 716503, 2m39s old, with a `sleep 30` grandchild — a CI poll loop
+
+⇒ **NOT STUCK. Waiting on CI, in a legitimate long tool call** — which is precisely what it said it was
+doing ("cp-merge #9 after CI green").
+
+⛔ **THE TRAP IN ③: TOKENS GO FLAT DURING EVERY TOOL CALL.** A wedged session and a session running a
+ten-minute test suite produce the identical observable — no output, clock ticking. ⇒ **Absence of
+progress is not evidence of absence of work**, and I would have been reading a stall off a healthy
+poll loop.
+⭐ **WHAT ACTUALLY RESOLVED IT WAS POSITIVE EVIDENCE, NOT A CLEANER NEGATIVE.** Not "it hasn't stopped
+responding" but "here is the process doing the work, with its age and its child." **The question
+"is it stuck?" cannot be answered by looking harder at the stuck-shaped symptom; it is answered by
+finding the work.**
+
+⚠️ **AND ② IS THE NIGHT'S FAMILY AGAIN, IN MY OWN THREE-LINE CHECK: I built a discriminator whose
+positive result was unconditional.** `[ "$A" = "$B" ]` on a string containing a clock can only ever
+report "changed". I printed **"⇒ ADVANCING — genuinely generating right now"** and it would have said
+that about a frozen session too. **Four hours after filing 7x23 about writing a criterion that cannot
+go red, I wrote one that cannot come back green.**
+
+⇒ **THE HEALTH-CHECK RULE, corrected:** a worker past the stuck threshold is diagnosed by
+`ps --ppid <claude-pid>` — a live tool call has a live child process, with an age. **Never by the
+spinner, never by the elapsed clock, and never by flat tokens alone.** Include the ps positive control:
+if the same command finds no children of a process known to have them, the instrument is blind.
