@@ -12922,3 +12922,43 @@ not an absence, and those look identical.
 question is not "where did it bite" but **"what else consumes this signal?"** I had two scripts reading
 pane-idle and fixed neither, because the incident presented as a model-switch problem. **A lesson filed
 against the symptom protects one caller; a lesson filed against the SIGNAL protects every caller.**
+
+## 7x54 — a checkpoint is a receipt, not a live fact; and my memory files are checkpoints
+
+**Observed in plan, 2026-08-21, and it names a class I am at least as exposed to as it is.** plan's
+deploy designation rested on *"everything this session built is inert on the Aug-14 serve."* There is
+no Aug-14 serve — the live one booted **that same morning at 00:13:12Z**, from my own 214-commit deploy.
+
+**Its own diagnosis, which is the useful part:** its ~05:20 session checkpoint recorded *"serve runs
+Aug-14 code"* — a claim **already stale when written** (my deploy predated it by five hours) — and it
+carried that across a compact and re-used it in a ranking **without re-deriving.** ⭐ **A stale fact
+laundered through its own filing system.** The same agent's kv-store doc escaped entirely, because that
+was *derived* rather than *recalled*. Same author, same hour, opposite outcomes, and the only variable
+was whether the claim was re-read off the world.
+
+⛔ **I AM NOT A SPECTATOR HERE. MY `.dated-watches`, `LESSONS.md`, and memory files ARE checkpoints**,
+and I have done this twice today:
+- I cited the *"full suite crashes the live serve"* memory to refuse a measurement — the correction had
+  been sitting in that file's own BODY since 2026-08-09 while its DESCRIPTION said the opposite. **The
+  index and the content disagreed and I read the index.**
+- I wrote a watch whose retirement criterion was *"stop once the 5h window rolls over"* — reasoning that
+  a rollover demonstrates stability. It demonstrates nothing; it resets the counter that drives the
+  failure. **I nearly retired a guard at the safest moment of its day and called that survival.**
+
+⭐ **THE DISCRIMINATOR IS NOT AGE, IT IS PROVENANCE.** "Written five hours ago" felt fresh to plan and
+was already false; a claim is stale the moment the world moves, not the moment it looks old. ⇒ **Ask of
+any recorded fact: was this DERIVED, or RECALLED? and could the world have moved since?** A checkpoint
+that says *"serve runs X"* is a receipt for a reading; it is never itself a reading.
+
+⚠️ **What makes this class nasty is that filing is normally the CORRECT move.** Everything in this file
+argues for writing things down, because a remembered rule does not fire. **The same act that makes a
+rule durable makes a FACT dangerous** — rules do not expire, and facts about live state expire
+constantly. ⇒ **Never file a live-state fact the way you file a rule.** If it must be written, write
+**the command that re-derives it**, and let the reader run that instead of trusting the number.
+⭐ The kv-store doc gets this exactly right: it ships its own re-derivation commands with expected
+controls, so the next reader can *check* it rather than *trust* it. **That is the pattern to copy.**
+
+⇒ **Concrete: `cp-resolve-beam` and `cp-deploy-gap` exist precisely so serve identity and deploy span
+are ALWAYS derived. Never quote a serve age or span from a note — run the tool.** Today the tool
+(30 newer beams, honestly disclaiming "not a coherence check") corrected a premise that a note had
+carried for five hours.
