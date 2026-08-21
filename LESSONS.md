@@ -12627,3 +12627,40 @@ that can return more than you asked for.**
 the night's own principle turned on the conversation that produced it: *"a channel message decays; the
 filed rule fires."*** **Which is why this is here and not only in their file** — an insight that exists
 solely in someone else's memory store is an alarm, not a ledger.
+
+## 7x46 — "STOPPING IS CHEAP" IS NOT "CONTINUING IS RISKY" (2026-08-21 06:39Z)
+
+commonplace proposed a clean stop with an unusually well-built rationale — and it **pre-empted the
+objection by name**: *"NOT 'fresh head' — the named risk is degrading the red-first guard's must-fail
+arm."* ⭐ **That is exactly when my standing rule says to ask, because fluency is what stops the
+question being put.** I measured before asking:
+```
+context 46%   (threshold 70%, compacted 1.5h earlier)   5h quota 13%   7d 47%   still working
+```
+⇒ **The cause that would make "my precision will degrade" a mechanism was not present**, and the only
+thing offered besides it was elapsed time — **the thing my rules name explicitly as not a mechanism.**
+
+⭐⭐ **BUT THE ACTUAL TELL WAS STRUCTURAL, NOT NUMERIC, AND IT IS THE KEEPER: THE MESSAGE CONTAINED TWO
+DIFFERENT CLAIMS AND ONLY ONE WAS TRUE.**
+```
+"stopping is CHEAP"    TRUE  — next task is new territory, loaded context carries no
+                              advantage into it, everything is on paper
+"continuing is RISKY"  needs a cause; the only one offered was the 1.5h
+```
+⛔ **The stop was justified by the second while only the first had support.** ⇒ **"Nothing is lost by
+stopping" and "something is lost by continuing" feel like the same sentence and are not.** The first is
+about the *option's* cost; the second is a claim about *degradation* and requires a mechanism.
+
+⇒ **commonplace retracted, and then produced the finding neither of us had: its loaded context DOES
+carry into 2a's first step.** It had just traced `commit_store.ex`, `db_handle`, the `{:doc_commit}`
+index and `mixed_plane_history` for the measurement — **precisely what migrating the one ambient raw
+site needs.** ⭐ Its *"loaded context doesn't help"* was true of the LATER guard step and **it had
+over-generalised a true statement about a part to the whole round** — the same shape as several of
+tonight's errors, arriving in a self-assessment instead of a measurement.
+
+⚠️ **WHAT I ESTABLISHED AND WHAT I DID NOT: I showed the NAMED MECHANISM did not hold. I did NOT show
+that continuing was optimal — commonplace found that itself, and it was a better reason than any I
+had.** ⭐ **The ask is not an override and must not become one:** the rule is *"a worker declining work
+owes you the mechanism, and you owe it the same before you accept the decline"* — **one question,
+answered, done.** If it hits 70% the remedy is compact-and-continue; if it brings a real cause I take
+it immediately and stop asking.
