@@ -12763,3 +12763,43 @@ reason broad-pattern kills are banned on this host at all. Same defect, two blas
 ⇒ **Concrete fix, not a resolution:** identity resolution moves out of one-liners into
 `bin/cp-resolve-beam` — one place, with the count-the-corpus check built in, so the cheap path and the
 true path are the same act.
+
+## 7x50 — I invented a mechanism for a bug I had not yet shown existed, and nearly "fixed" a working detector
+
+**What happened.** `epic-nudge.sh` declined with `commonplace is generating (· Sprouting… (1h)`.
+I knew commonplace had messaged me 5 minutes earlier, so I reasoned: a message means a completed turn,
+a completed turn resets the spinner, therefore a 1h clock is impossible, therefore the script is reading
+a **stale spinner frame out of `-S -10` scrollback** — `tail -1` cannot tell an animating spinner from
+the frozen last frame of a finished turn.
+
+That story was **specific, mechanically plausible, named the exact line and flag responsible, and
+explained a debt I already believed I owed** ("fix the nudge scripts' stale idle detection"). I had
+opened the script and located the fix site. Then I sampled the line three times, 2 seconds apart:
+
+```
+1h 3m 0s → 1h 3m 2s → 1h 3m 4s
+```
+
+**Incrementing. The spinner was live. The detector was correct and commonplace really had been in one
+continuous turn for 63 minutes.** My load-bearing premise — *a clod-squad message ends a turn* — is
+false. Sending a message is a TOOL CALL. commonplace messaged me mid-turn and kept working, which is
+precisely what it had told me it was going to do.
+
+⭐ **THE DISCREPANCY WAS NEVER MEASURED — ONLY EXPLAINED.** I went from "these two facts look
+inconsistent" straight to "here is the mechanism", skipping "is there actually an inconsistency?"
+⚠️ **A mechanism is not evidence that the thing it explains occurred.** An explanation this good is
+worse than a bad one, because its fit is what stops you checking.
+
+⛔ **AND THE PRIOR BELIEF MADE IT WORSE, NOT BETTER.** I was carrying "I owe a fix for stale idle
+detection". A new observation that MATCHES an outstanding debt gets filed as a sighting of that debt
+instead of being tested on its own. ⇒ **An open TODO is a hypothesis with a standing invitation to be
+confirmed.** ⚠️ I must not now assert the reverse either: this measurement says nothing about whether
+that earlier debt was real. One live spinner does not retroactively clear four readings I did not re-check.
+
+⭐ **THIS IS THE FAILURE CLAUDE.md WAS WRITTEN ABOUT, AIMED AT MY OWN MACHINERY.** 2026-08-09: five boss
+hypotheses, each killed by commonplace with a single command, none correct. The lane rule kept me from
+doing it inside their repo; it does not protect the code I own. **The discipline is not "stay out of
+their project" — it is "measure before theorising", and it applies hardest where I am allowed to edit.**
+
+⇒ **Cost of the check that settled it: 3 samples, ~6 seconds.** Cost of the fix I was about to ship:
+a rewrite of the one gate standing between a nudge and an interrupted 63-minute build.
