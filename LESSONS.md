@@ -12478,3 +12478,42 @@ larger share, and both of us were wrong in the same direction.** Earlier tonight
 **and over-assigning credit is the identical operation with the sign flipped.** ⇒ **The record should
 say who did what. Generosity that makes it less accurate is not generosity, it is a second error
 wearing better manners.**
+
+## 7x42 — A COMMAND LINE IS NOT AN IDENTITY, AND THE CHEAP FIX HIDES THE REAL ONE (2026-08-21 03:56Z)
+
+paravel counted the instances and there are **three on this host**, all one root cause:
+```
+2026-08-10  a load-shed selector matched `phx.server` in hermes' argv  -> KILLED THE TRADING BEAM
+criterion ⑤  forbids argv kills outright; `--unit` makes the selector unnecessary
+tonight      the deploy-gap monitor matches `commonplace_dev` in my probe's argv
+             -> misidentifies it as the serve -> 8,660 error lines, the largest category in the log
+```
+⭐ **Same defect, three consequences: a killed live-money process, a standing prohibition, and the
+single loudest thing in a production log.** ⛔ **A command line is not an identity — it is a string that
+anything may happen to contain.** ⚠️ And the first instance is the one that should end the argument
+forever: **argv-as-identity has already killed hermes once on this box.**
+
+⛔⛔ **THE TRAP PARAVEL NAMED, WHICH IS THE NEW PART: THE FIX IS ON THE CALLER, NOT THE MATCHER.**
+Moving the node name out of the probe's argv into the environment removes `commonplace_dev` from
+**that** cmdline. Correct, one line, mirrors a pattern already in the file. ⇒ **But the monitor still
+identifies serves by argv substring**, so the next process that happens to carry the string
+reintroduces the whole failure — **and nothing will connect it to this fix a month from now.**
+⭐⭐ **WORSE, AND THIS IS THE PART I WOULD HAVE MISSED: ONCE THE 8,660 LINES STOP, THE MONITOR LOOKS
+FINE. The defect becomes invisible precisely BECAUSE its only symptom was removed by a fix somewhere
+else.** ⇒ **A repair that silences a symptom without touching its cause does not leave the defect where
+it was — it leaves it in a strictly worse place, because the evidence is gone and the appearance is
+healthy.** Same family as *cleanup destroys the state that made an absence meaningful* (7x25), except
+the destroying act is a legitimate improvement rather than a prune.
+
+⇒ **AND THE RANKING STILL FAVOURS THE CHEAP FIX, which is what makes this subtle rather than obvious:**
+8,660 lines is the background texture the 605 unheard canary alarms and 339 persist failures are
+hiding **in**. **Removing the noise NOW makes the audit-blindness escalation legible NOW, for one
+line.** ⇒ **Take the cheap fix AND file the argv-matching as its own item in the same motion** — the
+filing is not bookkeeping, it is the only thing that survives the symptom disappearing.
+
+✅ **One thing I got right in advance, by accident of having been burned already:** `s3-backfill-run.sh`
+resolves the serve by cmdline substring **AND requires it to hold the listening socket**
+(`ss -ltnp | grep -q "pid=$p,"`). ⭐ **The socket is the identity; the string is only a prefilter.** A
+`mix run` probe can carry any argv it likes and will never hold :5199 — **which is exactly the
+discriminator the monitor lacks, and its own output already suggests it** (*"cross-check with
+ss -ltnp"*, printed as advice and never performed).
