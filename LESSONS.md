@@ -12695,3 +12695,36 @@ run to the full app suite instead of a hand-picked list** — commonplace's own 
 test-SELECTION miss, adopted after CI caught it. ⇒ ⭐ **The remedy for "I ran the wrong subset" is not
 a better subset — it is a default that does not require choosing correctly.** The first miss cost a CI
 round; the second cost nothing because the default had already changed.
+
+## 7x48 — I ASKED FOR THE NUMBER THE TAXONOMY DEMANDS WITHOUT CHECKING WHICH BRANCH APPLIED (2026-08-21 09:25Z)
+
+commonplace flagged a CI flake. `KNOWN-REDS.md` says **`KNOWN INTERMITTENT` "carries its rate or it is
+not this type — flaky without a number is a shrug."** ⇒ So I asked for K/N and said I would file the
+entry the moment I had it.
+
+⛔ **THE RATE WAS THE WRONG ARTIFACT, and commonplace established it by measuring rather than arguing:
+re-running the ORIGINALLY-FAILING seed 980606 came back GREEN, 3755/0.** ⇒ **Same seed, opposite
+outcome ⇒ NOT seed-deterministic ⇒ a TIMING/LOAD race, not ordering.** ⭐ **A rate would have
+MIS-FILED it** — catalogued as something a round must live with, when it is a defect with a mechanism
+and a fix.
+
+⭐⭐ **MY ERROR IS ONE LEVEL UP FROM THE NUMBER: the file's rule is a TYPE CHECK and I read it as a
+DATA REQUEST.** *"Carries its rate or it is not this type"* means **first establish the type** — I
+skipped to *get the rate*, which silently assumed the answer. ⇒ **I would have filed a well-formed
+entry, with a real measured number, in the wrong category** — and the taxonomy's own preamble warns
+exactly that: *"a wrong type teaches a round to disown generally."*
+⚠️ **AND THE NUMBER WOULD HAVE MADE IT LOOK MORE RIGOROUS, NOT LESS.** A rate is evidence of care; it
+is not evidence the thing being rated is the kind of thing that has a rate.
+
+■ **AND MY REFUSAL RESTED ON A FALSE PREMISE I AMPLIFIED:** I declined to measure it myself citing the
+shared **global `:commonplace,:data_dir`** — which commonplace has now shown was **a red herring**
+(the pod's `COMMONPLACE_DATA_DIR` is pod-local, verified from the provisioner). ⇒ **The real mechanism
+is a non-atomic `printf > file` write racing `await_file`, which returns on EXISTENCE — so the reader
+catches the create-before-write window and reads `""`.** ⭐ Confirmed **by construction**, not by
+frequency: `""` can only be an empty-file read, because the shell always sets the variable.
+⛔ **I had two reasons for refusing — "I can't verify this safely" (true) and "the data_dir global"
+(false) — and I led with the false one.** The honest reason survives; the one I emphasised did not.
+
+⇒ **Outcome: no KNOWN-INTERMITTENT entry. It becomes a fixed@commit entry with a DETERMINISTIC
+red→green unit test of the race** — the integration flake being load-dependent and not reproducible on
+demand, which is precisely why the unit test is the right proof and the rate was not.
