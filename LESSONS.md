@@ -13065,3 +13065,45 @@ commonplace-plan (idle)          -> PASS: 0 children
 detached session). ⇒ **I am recording the gate as "covers spinner + subagents + child processes",
 NOT as "detects busy".** The first is a list I can check; the second is a promise I have now broken
 three times.
+
+## 7x57 — I invalidated my own recorded fact BY MY OWN ACTION, then kept quoting it for two hours
+
+**The claim, repeated to commonplace twice (#14434, #14441) and to jes when ASKING HIS PERMISSION for a
+live-data migration (telegram 9684):** *"the live serve still runs `b1d19ab8` = pre-switch, so it keeps
+refusing the 116 until a deploy carries `6331ffae+`."*
+
+**FALSE since 21:32.** Measured:
+```
+6331ffae (fetch_commit switch) committed .. 20:56:38
+CommitStore beam compiled ................. 21:17:03   ← after the switch
+serve started ............................. 21:36:22   ← after the beam
+cp-deploy-gap: 0 beams newer than start   ⇒ it loaded that _build
+```
+
+⭐⭐ **THIS IS 7x54 ("a checkpoint is a receipt, not a live fact") — WITH THE TWIST THAT MAKES IT WORSE.**
+I filed 7x54 *this afternoon*, about plan quoting a five-hour-old checkpoint. There, someone else moved
+the world. **Here I moved it myself:** I established "serve runs `b1d19ab8`" at 20:09, then personally
+restarted the serve **twice** from a shared working tree that had advanced between 21:28 and 21:32 —
+and went on quoting the 20:09 reading afterwards.
+
+⛔ **THE BLIND SPOT IS SPECIFIC AND NAMEABLE: I treated my own actions as not-events.** I re-derive
+facts when I suspect the world moved — but I did not model MYSELF as something that moves it. **A
+restart I perform is exactly as invalidating as a deploy someone else performs**, and it is *less*
+likely to prompt re-checking because I know I did not intend a deploy.
+
+⚠️ **WHERE IT COST SOMETHING REAL: that false claim was IN THE PERMISSION REQUEST.** jes weighed a
+live-data migration partly on "the running server keeps refusing those 116 anyway." **Consent obtained
+against a stale premise is the expensive form of this error** — not the bookkeeping.
+
+⚠️ **AND THE SECOND-ORDER FINDING: three serve restarts tonight were UNANNOUNCED DEPLOYS.** The shared
+`/home/jes/commonplace` tree advances as commonplace merges, so **any restart deploys whatever is in
+`_build` at that instant.** ⇒ Tonight's 20:00 ceremony was certified; the 21:32 and 21:36 restarts
+carried `6331ffae+` to production with **no span certification, no deploy-gate grep, no
+known-limitation review.** Green CI and commonplace's own work — but it arrived as a *side effect*.
+
+⇒ **FIXES.** (1) ⭐ **Before quoting any deployed-version fact, re-derive it — and treat MY OWN
+restarts as invalidating events, not as neutral operations.** (2) ⛔ **A serve restart in a shared
+working tree IS a deploy. Name it as one before doing it, or establish that the tree has not moved.**
+`bin/cp-deploy-gap` answers this in one command and I ran it *after* each restart (seeing the reassuring
+`0`) instead of *before* (which would have shown the 30 about to ship). **Same instrument, same
+evening, wrong side of the act.**
