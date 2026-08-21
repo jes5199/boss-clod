@@ -125,3 +125,47 @@ separate act. **Named here so it is a decision, not a discovery at 20:15Z.**
 ⛔ **STILL TO DO AT THE WINDOW (deliberately not done early — these are readings of a live thing):**
 fresh `backup.exs` store copy · `mount_gate.exs` (the zero that must carry its own control) · the stop ·
 `env -i` launch · `/proc/<newpid>/environ` reflog check · post-restart deploy-gap · World-B · MUD.
+
+## MUD RIDER — RULED BY COMMONPLACE @18:46Z: **LIVENESS-ONLY**, and say so in the notes
+
+⭐ **commonplace corrected its OWN assumption to reach this**, which is why I trust the ruling: *"the
+chit epic has no MUD surface"* was **true of the epic and FALSE of the span.** I verified rather than
+relayed:
+```
+span 1f7a66e..b1d19ab8
+  apps/commonplace/lib/commonplace/mud/ ....... 23 files  (verbs.ex +344, world/facade.ex +94, player_session.ex)
+  apps/commonplace_mcp/ ....................... 26 files
+  total files in span ......................... 1039
+  control (nonexistent app path) ..............    0     ⇒ the filter discriminates
+```
+⚠️ Note 1039 changed **files** vs 30 newer **beams** — different quantities (source vs compiled modules
+newer than serve start), not a contradiction.
+
+**⇒ THE SPLIT: the serve restart deploys the span's MUD changes to the WEB surface (MudLive) ONLY.**
+MCP-driven `PlayerSession`s reach them **only** via escript rebuild + relaunch.
+
+**Why liveness-only is right tonight (commonplace's reasoning, which I am recording because it is the
+justification for a deferral and deferrals need one):**
+1. **Nothing the ceremony certifies has an escript surface** — chit deploy, World-B, §3 are all
+   serve-side. The rider's job here is *"the live world still plays after the restart"* and it does that
+   job fully.
+2. **The escript's staleness is the STATUS QUO, not a state the restart creates** — those sessions have
+   run pre-span code against post-span store data for up to two weeks (store format unchanged, chit keys
+   additive). ⭐ **The restart adds no new hazard on that surface.**
+3. **Rebuild+relaunch kills registered MCP sessions** (MCP registers at session start only — including
+   commonplace's own). ⛔ Folding it in risks the ceremony's own tooling mid-window.
+4. ⭐ **USEFUL DIFFERENTIAL PROPERTY: the escript is an UNCHANGED INSTRUMENT across the restart.** So if
+   the liveness run shows a behaviour delta, **it attributes to the serve side by construction.**
+
+**⛔ TWO THINGS OWED IN THE DEPLOY NOTES so this is a NAMED deferral, not a silent one:**
+- **(a)** take a `bin/check-mcp-fresh` reading **during the window** (verified present, executable) and
+  record the **stale-module count as a fact with its trigger**: *"escript rebuild+relaunch is a separate
+  staged act, due at the next natural session boundary, at which point the span's MUD/MCP changes reach
+  the escript surface."*
+- **(b)** the rider line must read: **"MUD re-verify (liveness + web-surface only; escript surface
+  deliberately deferred, see (a))."**
+
+⭐ **The point of (a) and (b): a check whose scope is narrower than the claim it will be quoted for is
+how a green gets laundered.** *"MUD re-verified"* in a deploy note would be read as *"MUD works on the
+new code"* — which is false for the escript surface. **The note has to carry the scope or the scope is
+lost the first time someone quotes it.**
