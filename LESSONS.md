@@ -12517,3 +12517,43 @@ resolves the serve by cmdline substring **AND requires it to hold the listening 
 `mix run` probe can carry any argv it likes and will never hold :5199 — **which is exactly the
 discriminator the monitor lacks, and its own output already suggests it** (*"cross-check with
 ss -ltnp"*, printed as advice and never performed).
+
+## 7x43 — I SUPPRESSED STDERR AND TURNED A HARD ERROR INTO A MEASUREMENT (2026-08-21 03:58Z)
+
+Measuring the live serve's true deploy gap, I fed `ps -o lstart=` output straight into
+`find -newermt`. Three attempts, three different numbers, **and only the third was a measurement at
+all**:
+```
+find ... -newermt "$(ps -o lstart=)" 2>/dev/null | wc -l   ->  0   "no beams newer than serve start"
+find ... -newermt 'Fri Aug 21 00:13:12 2026' 2>&1 | wc -l  -> 10   (plausible!)
+find ... -newermt '2026-08-21 00:13:12'                    -> 18   ← the actual answer
+```
+⛔⛔ **`bfs` REJECTS THE `ps` FORMAT OUTRIGHT — "Invalid timestamp" — and both wrong numbers are pure
+redirection artifacts of that one error:**
+- **`2>/dev/null | wc -l` → 0.** The error went to the void, stdout was empty, and **the count of
+  nothing became "nothing is newer"**. ⭐ **A hard failure rendered as a clean, confident, actionable
+  zero.**
+- **`2>&1 | wc -l` → 10.** ⭐⭐ **That is the ten LINES OF THE ERROR MESSAGE, counted as results.** A
+  number in exactly the right order of magnitude, produced by a command that measured nothing whatever.
+
+⚠️ **NEITHER LOOKED WRONG. I only caught it because 0 contradicted a beam I had personally watched get
+written at 02:42** — a fact I happened to be holding, not a check I performed. ⇒ **Without that
+accident I would have reported "0 beams newer than serve start" — i.e. "the running serve is fully
+up to date" — which is the exact opposite of the truth, on the question the deploy-gap monitor exists
+to answer.**
+
+⭐ **THE RULE: `2>/dev/null` ON A MEASURING COMMAND CONVERTS FAILURE INTO A NUMBER.** It is written to
+suppress noise and it also suppresses *"this command did not run"*. ⛔ And `2>&1 | wc -l` is worse, not
+better — **it launders the error into the result set.** ⇒ **When counting, never discard stderr and
+never merge it: check the exit status, or count from a form that cannot silently degrade.**
+⭐ **And the deeper one: DO NOT PASS A FORMATTED TIMESTAMP BETWEEN TOOLS.** `ps` prints for humans;
+`find` parses ISO. **Both are correct and they do not compose.** ⇒ The fix is an unambiguous instant —
+I derived the epoch from `/proc/stat` btime + field 22 of `/proc/<pid>/stat` and passed `@1787271192`,
+which no tool can misread. **A timestamp that survives a round trip through two programs' opinions
+about formatting is not a timestamp, it is a hope.**
+
+⇒ **TRUE CURRENT DEPLOY GAP, settled with all three spellings side by side and a control beam that must
+appear inside the answer: 18 beams / 17 commits / 7 merges newer than the serve's 00:13:12Z start.**
+⚠️ Relevant because commonplace pre-registered the caveat that fixing the probe drops the deploy-gap
+count **hard but not to zero** — a residual non-zero is the fix working. **That caveat now has a
+measured value behind it instead of an expectation.**
