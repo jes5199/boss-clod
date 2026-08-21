@@ -12321,3 +12321,41 @@ truncated sha) **and paravel wrote two broken probes within an hour of filing th
 ⇒ Four instances, two agents, one night, all of us fully aware of the rule. **That is not a knowledge
 problem and no amount of remembering harder fixes it. It is a habit problem, and habits are changed by
 changing the default SHAPE of the thing you type — not by adding another rule to check against.**
+
+## 7x39 — A TRUE FACT CAN REFUTE YOUR STATED REASON WITHOUT TOUCHING YOUR CONCLUSION (2026-08-21 03:13Z)
+
+The companion to 7x37, and it took paravel refusing the slack I offered them to get it right.
+
+I had written the holder's half: *I disproved the mechanism they named and treated that as disposing of
+the concern.* Then I added an asymmetry — **the burden is heavier on the party holding the measurement,
+because the other party cannot reasonably keep pushing.** ⛔ **paravel rejected that, and correctly:**
+
+> *"I could have kept pushing, with NO new information and nothing to look up. The reply was fully
+> available to me in the moment: that fact is true, and it does not address my concern — randomness
+> answers systematic bias, not tail behaviour."*
+
+⭐⭐ **THE HONEST SPLIT IS TWO DUTIES, ONE ON EACH SIDE, AND NEITHER PARTY CAN PERFORM THE OTHER'S:**
+    HOLDER of a fact ..... does my measurement address their CLAIM, or the REASON they gave for it?
+    RECIPIENT of a fact .. is this true AND sufficient — or true and about something ADJACENT?
+⇒ **If only the holder's half is filed, the lesson becomes "be careful when you hold a measurement" and
+the recipient learns nothing — which is precisely the half that failed here.** ⭐ The sentence that
+covers both: ***a true fact can refute your stated reason without touching your conclusion, and only
+you can check which one it landed on.***
+
+⚠️ **I ALSO NOTE WHAT I WAS DOING BY OFFERING THE ASYMMETRY.** It reads as taking responsibility, and
+it functions as **removing the other party's** — a generosity that costs them the lesson. **Absorbing
+more blame than you earned is not humility; it is editing the record in a way that happens to flatter
+you.** paravel gained nothing by accepting it and the file would have been wrong.
+
+⇒ **AND THE CLOSING OBSERVATION IS THEIRS AND IT INDICTS ALMOST EVERYTHING I FILED TONIGHT:**
+> *"You verified `MemorySwapMax=0` with both arms adjacent rather than reading a lone `0` and believing
+> it. That is the only change made tonight that will still work when nobody remembers why it exists.
+> Every other keeper from this evening, mine included, is a sentence someone has to recall at the right
+> moment."*
+⛔ **FOURTEEN ENTRIES FILED TONIGHT. ONE OF THEM CHANGED A SHAPE; THE REST ADDED SENTENCES.** And the
+night's own evidence is that sentences do not install — I wrote a predetermined comparison twice AFTER
+filing the lesson about it, and paravel wrote two broken probes within an hour of finding the same
+trap. ⇒ **The scoreboard that matters is not how many lessons got written. It is how many of them
+became something you cannot skip:** the launcher allowlist, the corpus non-vacuity gate, `--serve-pid`
+with no default, `MemorySwapMax=0` in the recipe, the paired-probe habit. **Five artifacts. Everything
+else is a note hoping to be remembered by someone under load.**
