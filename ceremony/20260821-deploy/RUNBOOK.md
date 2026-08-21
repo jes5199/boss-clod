@@ -169,3 +169,44 @@ justification for a deferral and deferrals need one):**
 how a green gets laundered.** *"MUD re-verified"* in a deploy note would be read as *"MUD works on the
 new code"* — which is false for the escript surface. **The note has to carry the scope or the scope is
 lost the first time someone quotes it.**
+
+---
+
+## ⛔ MOUNT GATE — RAN RED, THEN GREEN. Both arms observed on the live artifact.
+
+**RED FIRST (20:04:53, rc=3) — and this is the important half.** My first correct-command run
+(`mix run --no-start`) opened the copy at the wrong nesting level:
+```
+CubDB integrity probe: entries_walked=0
+F2 population recomputed: 0 (expect 116)
+mount subtree (SUPERSET walk): 0 schemas + 0 leaf docs = 0 total
+POSITIVE CONTROL FAILED: mount walk found <2 docs — walk blind or wrong mount uuid
+```
+⚠️ **Absent the control this reads `0 of 116 under the mount → DEPLOY SAFE`** — the correct verdict,
+computed from nothing. ⛔ **`CommitStore` does not error on a missing store: it CREATES an empty one**
+(`<copy>/commits/0.cub`, **3,089 bytes**, timestamped 20:04:53) **and then truthfully reports it is
+empty.** Against the real `0.cub` of **2,430,236,694 bytes** — a ratio of ~786,000:1.
+⭐ **This is the vacuous-green trap recorded in this very runbook, entered from the opposite direction:**
+I wrote *"`--data-dir` is the PARENT"* and then passed the store dir itself. **Writing the warning did
+not protect me; the probe's control did.**
+
+**GREEN (20:06, rc=0), all controls satisfied:**
+```
+F2 population recomputed .......... 116  (expect 116)   ← re-derived IN-PROBE, never inherited
+SUPERSET walk ..................... 1588 schemas + 3839 leaf docs = 5427 total
+F2 DOCS UNDER THE MOUNT ........... 0 of 116
+hits .............................. []                  ← itemised empty, not a bare count
+containment ....................... 116/116 have ZERO own {:doc_commit} rows
+```
+⭐ **5427 matches commonplace's 15:5xZ walk exactly**, and 116 was recomputed rather than trusted.
+
+⇒ ⭐⭐ **THE ZERO IS ACCEPTED — not because the gate is designed to fail loudly, but because I WATCHED
+IT FAIL LOUDLY four minutes earlier on a real wrong input, then pass on the right one.** A gate whose
+red arm I have personally seen fire is a different object from one I have been told will fire.
+
+⇒ **DEPLOY IS GO WITH [6] INCLUDED.** The hard-fail path is unreachable on the mount as mounted now.
+⚠️ **Known limitation still stands and still needs its trigger in the notes:** adding a mount, or moving
+a doc under one, re-opens this until the backfill round lands.
+
+⚠️ **Also logged: the containment result pre-declares World-B — 116/116 dangling by MEMBERSHIP**, which
+is the set to check against, not the count.
