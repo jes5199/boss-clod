@@ -269,3 +269,46 @@ the audit dies first). Unit `Result=success`.
 3. **I used the banned `pgrep -f` self-matching form** while checking for leftovers; it matched my own
    command line. Read-only, no harm, but it is the exact pattern that kills a stranger's process one
    word looser.
+
+---
+
+## ⏸️ PENDING JES — the (a) live-data migration (asked 21:2xZ, telegram 9684)
+
+⛔ **NOT DONE. AWAITING HIS YES.** The `{:doc_commit}` backfill for the 116 is a **live-data
+migration**, which is on the short stop-and-ask list by name. ⭐ **The quality of commonplace's
+engineering lowers the risk; it does not move the act off the list.**
+
+**Code is on main and verified** (control: a commit I know is NOT on main correctly reports not-on):
+`6331ffae` backfill+switch · `c15ef012` rebuild-completeness (the erasure hazard closed BEFORE my run).
+
+**SAFETY NET TAKEN — so his yes is cheap and the downside is bounded:**
+```
+/tmp/claude-1000/-home-jes-boss-clod/59f429ae-.../scratchpad/pre-migration-copy
+  2.3G · CubDB.back_up -> :ok in 76.3s · read-consistent
+  all_loaded 780 -> 782 (delta 2): [CubDB.Snapshot, Enumerable.CubDB.Btree]
+  ⇒ dep submodules only; ZERO working-tree Commonplace.* force-loaded
+```
+⭐ **Note the delta-2 vs the 20:03 run's delta-0: a BARE COUNT criterion would have gone RED here.**
+The itemised list makes it legible in one glance. **This is why the criterion is a set difference and
+not a number.**
+
+**THE COMMAND (commonplace #14430, §3 model — do NOT improvise it):**
+```
+systemd-run --user --unit=cp-dc-backfill -p MemoryMax=6G -p OOMScoreAdjust=900 \
+  mix commonplace.backfill_doc_commit_index \
+    --data-dir /home/jes/commonplace/workspace/.commonplace \
+    --unit cp-dc-backfill --expected-bytes 6442450944 --expected-oom-adj 900 \
+    --out <report path>
+```
+⚠️ **`--data-dir` is the PARENT** — the `/commits` wrong-path mints an empty store. **That is my own
+catch from tonight**, and the task's non-vacuity gate refuses it. Requires the **STOPPED serve** (sole
+flock holder) and a tree at **≥ `c15ef012`**.
+
+**Expected:** `selected=116 backfilled=116 capped=0 head_commit_missing=0 struct_f2=116`, empty diff.
+⭐ **Convergence is a SET DIFFERENCE, never a count delta:**
+`dangling_pre \ dangling_post == backfilled` **AND** `dangling_post ∩ backfilled == ∅`.
+
+⛔ **LEDGER DEPENDENCY, true regardless:** tonight's serve runs `b1d19ab8` = **pre-switch**. The data
+run fixes the **STORE**; the **LIVE SERVE keeps refusing the 116** until a deploy carries `6331ffae+`.
+**Not urgent** (today's mount holds 0 of the 116) — **fold into the next natural deploy window, not a
+special one.**
