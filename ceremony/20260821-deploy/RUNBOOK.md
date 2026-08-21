@@ -92,3 +92,36 @@ it is "what's getting done", not a near-miss. Include anything that went wrong.
 Copied from commonplace's scratchpad @16:03Z **because a `/tmp` scratchpad is not where a thing I need
 in four hours should live.** `SHA256SUMS` in this dir pins them. Authoritative source was
 `/tmp/claude-1000/-home-jes-commonplace/b21bc109-.../scratchpad/chit-remeasure/`.
+
+---
+
+## PRE-FLIGHT @18:40Z (T-80min) — all four green, re-read not recalled
+
+| check | result |
+|---|---|
+| span end still `b1d19ab8` | ✅ unchanged (fetched first) |
+| mount mapping sha256 | ✅ `426cb758…` — **exact match** to the 16:05Z baseline, one uuid |
+| gate 1: [4] main-push `32499059147` | ✅ `completed / success` |
+| gate 2: commonplace span certification | ✅ held from 16:01Z |
+| deploy-gap pre-reading | **30 newer beams** — unchanged since 15:47Z |
+
+**Host, and it has IMPROVED since the window was chosen:**
+```
+serve  664985  RSS 250,232kB  VmSwap 17,188kB  adj 0
+hermes 3985426 RSS 152,396kB  VmSwap 93,384kB  adj 200   ← was 109,756 @16:44Z, baseline 144,900
+mcp    1328106 RSS  97,704kB  VmSwap      0kB  adj 0     ← ⚠️ NEW PID (was 1220084)
+swap used 3,030 MB   ·   disk 83% used, 21G free
+```
+⭐ **hermes has paged back a further ~16 MB.** Memory pressure is easing, not building — the host is in
+better shape for the World-B run than when I picked the window.
+
+⚠️ **THE MCP ESCRIPT PID CHANGED** (1220084 → 1328106). Not a fault — it restarts on its own. **But it
+matters for the MUD re-verify rider:** MUD `PlayerSession`s run on **the MCP escript, not the serve**, so
+**a serve restart does NOT deploy new code to them.** ⇒ Verifying MUD *after* the restart proves the
+serve is fine and says **nothing** about whether the sessions picked anything up. If the MUD rider is
+meant to prove deployed behaviour rather than liveness, it needs the escript rebuilt + relaunched — a
+separate act. **Named here so it is a decision, not a discovery at 20:15Z.**
+
+⛔ **STILL TO DO AT THE WINDOW (deliberately not done early — these are readings of a live thing):**
+fresh `backup.exs` store copy · `mount_gate.exs` (the zero that must carry its own control) · the stop ·
+`env -i` launch · `/proc/<newpid>/environ` reflog check · post-restart deploy-gap · World-B · MUD.
