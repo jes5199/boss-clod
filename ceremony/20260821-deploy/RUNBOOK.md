@@ -10,6 +10,15 @@ at ceremony time; do not act on this file's numbers.** That is what the commands
 
 ---
 
+## Span
+**Deploy HEAD.** Span end at 16:07Z was **`b1d19ab8`** (moved from `798961ad` after certification).
+⭐ **The two added commits are docs-only and I VERIFIED that rather than accepting it:** the range
+`798961ad^..b1d19ab8` touches exactly **1 file**, `docs/plans/2026-08-21-doc-commit-backfill-brief.md`
+(+105); filtering out `docs/`+`.md` leaves **nothing**. Control: the same filter on a known-code range
+(`9c924071^..fb6282f8`) returns **11** `.ex` files, so the empty result is a real absence, not a broken
+filter. ⇒ **Code content of the deploy span is identical to what commonplace certified.**
+⚠️ **Re-check at ceremony time — HEAD may have moved again.** Same command, same control.
+
 ## Why 20:00Z
 hermes trades until 20:00Z. The restart itself is cheap — **what is not cheap is troubleshooting a
 restart next to live money** if the boot posture surprises me. The World-B run rides the same window
