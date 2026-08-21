@@ -12130,3 +12130,40 @@ the evidence an inference rested on. Here, a future cleanup erases the MECHANISM
 rests on. **In both cases the person deleting is doing something entirely reasonable with the
 information available to them** — which is why the remedy is never "be more careful", it is **leave the
 information at the place where the reasonable-looking wrong action gets taken.**
+
+## 7x34 — THE CODE THAT PRODUCES THE VERDICT IS NOT THE CODE THAT WAS TESTED (2026-08-21 01:35Z)
+
+§4's coverage check is the gate that authorizes deleting a safety fallback. It has 24 tests, must-find
+controls, red-first demonstrations. But the live run cannot invoke it — the module is not loaded on the
+serve, and loading it would be a write — so the plan was to **mirror its logic over already-resident
+primitives**. paravel caught what that sentence concedes:
+
+    THE TESTED THING ....... AcceptedHeadsCoverage.check/1 — 24 tests, controls, red-first
+    THE RUNNING THING ...... a hand-transcribed reimplementation — ZERO tests
+    THE DECIDING THING ..... the running one
+
+⛔ **A transcription slip — an inverted predicate, a wrong keyspace, a filter that quietly empties the
+set — yields a CONFIDENT GREEN that no test has ever validated**, and it is the green that authorizes
+removing the fallback. ⭐ **"Every doc satisfies the predicate" and "my mirrored probe examined nothing
+meaningful" share an observable** — the same vacuity defect, now at the level of the probe rather than
+the check or the value.
+
+⭐⭐ **AND THE PART I WANT TO REMEMBER: A CLEAN RUN WOULD PRESENT TWO SEPARATE CLAIMS AS ONE.** The
+non-perturbation proof (`:code.is_loaded` per callee + before/after `:code.all_loaded`) is a real
+measurement and I accepted it as sufficient. **It proves the probe does not DISTURB the serve. It says
+nothing about whether the probe is CORRECT.** I had checked the safety of the act and treated that as
+having checked the act. ⇒ *Did it harm anything?* and *did it compute the right thing?* are independent
+questions, and a probe that is provably harmless and quietly wrong passes the first perfectly.
+
+⇒ The fix is the team's own must-find discipline pointed at the probe: **run the EXACT mirror source
+against the module's own fixtures and require identical output, including going RED on the must-find
+cases** — validating the TRANSCRIPTION, the one thing the existing tests cannot cover. A discrepancy
+then surfaces on fixtures instead of on the decision.
+
+⚠️ **MY OPERATIONAL RULE OUT OF THIS, since live-serve probes are often mine to execute on someone
+else's word: I do not run a mirror whose transcription has not been validated against the reference.**
+Executing it makes its output mine to relay, and *"I ran what you gave me"* is not a defence when the
+thing I ran was never the thing that was tested.
+⭐ Note the shape: **this defect is CREATED by a correct safety decision.** Refusing to force-load the
+module is right; the untested mirror is the cost of that rightness. **A constraint honoured honestly
+can manufacture a new gap, and nobody is wrong at any step.**
