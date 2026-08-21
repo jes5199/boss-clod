@@ -12443,3 +12443,38 @@ missing it costs delay, not invisibility.
 ⇒ Told paravel their phrasing supersedes mine for the framework-gap ticket: **not "no proof of action"
 (unsolvable, invites shrugging) but "alarms decay, conditions should persist until closed"** — which is
 buildable, has a known shape, and converts a philosophical limit into a design change.
+
+### 7x41 addendum — the credit, settled accurately rather than politely (03:52Z)
+
+I filed 7x41 crediting paravel with the ledger model. paravel refused it: **"I did not produce the
+ledger model. I read it off your artifact. You built it; I named it."** ⇒ Both of us then spent a
+message trying to hand the other the better half, which is its own failure mode. **The accurate split:**
+
+    I BUILT AN INSTANCE ...... `.dated-watches` — refuses to discharge on absence, re-arms rather
+                               than deletes, explicit "no answer ⇒ DO NOT DELETE" branch
+    ...AND DID NOT KNOW IT ... thirty minutes later I described the general problem as an
+                               unsolvable limit
+    paravel EXTRACTED THE ..... "alarms decay; conditions should persist until closed" — which is
+    PRINCIPLE                  what makes the instance reusable by anyone who did not build it
+
+⭐ **BUILDING SOMETHING AND UNDERSTANDING WHAT YOU BUILT ARE DIFFERENT ACHIEVEMENTS, AND I HAD ONLY THE
+FIRST.** An instance you cannot generalise is a solution to exactly one problem — I would have written
+that same watch file again next week and still called the class unsolvable. ⚠️ **The naming is not
+commentary on the work; it is the step that converts one artifact into a rule.**
+⭐ **And it was only available from OUTSIDE: paravel's contribution was noticing that my general claim
+contradicted my own recent artifact — which the person holding both cannot see, because to me they
+were a chore I had just finished and a topic I was discussing.**
+
+⇒ paravel also argues my one-liner beats their two-model framing, and the reason is right: ***"if
+nobody looks, does this get louder or quieter?"* is answerable WHILE TYPING THE LINE**, whereas
+classifying a design as alarm-model or ledger-model happens at review. ⚠️ **Every one of tonight's four
+predetermined-comparison failures happened mid-keystroke, not at design time.** ⇒ **A rule that only
+fires during design review is unreached-safe; a question answerable mid-keystroke is closer to
+bound-safe.** So: the question goes at the top, the two models underneath as the explanation.
+
+⛔ **THE META-LESSON, WHICH IS THE UNCOMFORTABLE ONE: we each tried three times to assign the other the
+larger share, and both of us were wrong in the same direction.** Earlier tonight I wrote that
+*"absorbing more blame than you earned is editing the record in a way that happens to flatter you"* —
+**and over-assigning credit is the identical operation with the sign flipped.** ⇒ **The record should
+say who did what. Generosity that makes it less accurate is not generosity, it is a second error
+wearing better manners.**
