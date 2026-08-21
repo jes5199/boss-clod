@@ -12835,3 +12835,49 @@ right fix was not a third liveness signal; it was to stop inferring a state the 
 ASSERT. **An observed absence of activity is not a claim anyone made.** And the failure direction is
 right: if the message never comes I never switch, which leaves a wrong model visible in a statusline —
 whereas an interrupted build is invisible and unrecoverable.
+
+## 7x52 — the tool I built to prevent a false absence produced a false absence, and did it without erroring
+
+**The original defect (SECOND OCCURRENCE).** I told commonplace-plan "commonplace is waiting on you
+to resume [3]" at 13:48:44Z. plan had answered at **13:47:25Z (#14339)** and commonplace had confirmed
+receipt at **13:47:57Z (#14340)** — on the plan↔commonplace leg, which I am not on. I reported **the
+state of my mailbox as the state of the world.**
+
+⭐ **THE DEFECT IS STRUCTURAL AND WILL RECUR FOREVER WITHOUT AN ARTIFACT.** A hub sees only its own
+legs. Peers talking directly is correct behaviour, not a fault. So *"I have not seen an answer"* and
+*"there is no answer"* are different claims and **only the first is something I observed.** Twice is
+the threshold: the fix is a script, not more care. ⇒ `bin/cp-check-blocked <A> <B> [minutes]`.
+
+**Then the fix repeated the bug it was written to prevent.** First run against the leg I *knew* carried
+two messages:
+
+```
+NO TRAFFIC in window. Corpus was non-empty and both peers are known,
+so this is a REAL absence
+rc=1
+```
+
+**Confidently wrong, in the reassuring direction, with the non-vacuity banner printing "✓" above it.**
+
+**Root cause — a silent outward binding.** I wrote `(select name from identities where id=m.from_id)`,
+assuming integer FKs. `identities` **has no `id` column**, and `from_id`/`to_id` already hold the names.
+⛔ **SQLite did not error: an unqualified column inside a correlated subquery resolves OUTWARD**, so
+`id` bound to the *outer* `messages.id` and the subquery became `m.id = m.from_id` — always false,
+always NULL, zero rows, exit 0.
+
+⭐ **A TYPO'D LOOKUP BECAME A VALID QUERY RETURNING NOTHING.** That is the whole false-absence family in
+one line: the failure did not announce itself as a failure, it announced itself as **an answer**.
+
+⚠️ **WHAT ACTUALLY SAVED IT WAS TESTING ON A KNOWN-PRESENT CASE.** I ran it first on the exact leg whose
+two messages I could name. Had I "verified" it on a quiet leg, it would have returned `rc=1` — the
+*correct* answer, for the wrong reason — and I would have shipped a permanently blind checker and
+trusted it *more* than my own judgement. ⇒ **A checker's first test must be one you already know the
+answer to, and the answer must be NON-EMPTY.** Green on an empty case proves nothing at all.
+
+**Arms now demonstrated, both directions:** known-present leg → 6 messages, rc=0 · real peers, quiet leg
+→ rc=1 · **typo'd peer name → rc=2 INSTRUMENT FAILURE, explicitly not an absence** (the case that would
+otherwise reproduce this exact bug through a fat finger) · unreadable DB → rc=2.
+
+⇒ ⭐ **The general rule I keep re-learning in new costumes: I ship checks whose failure mode is
+"silently returns the comfortable answer." The discriminator is never the check's own output — it is
+whether the check has ever been shown to produce the UNcomfortable one.**

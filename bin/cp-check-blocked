@@ -1,0 +1,86 @@
+#!/usr/bin/env bash
+# cp-check-blocked <peerA> <peerB> [minutes] — show recent traffic BETWEEN two peers,
+# before telling anyone that A is blocked waiting on B.
+#
+# ⛔ WHY THIS EXISTS (boss-clod LESSONS 7x52, 2026-08-21 — SECOND OCCURRENCE).
+# Twice now I have relayed "A is still waiting on B" when B had ALREADY ANSWERED A
+# directly, minutes earlier, on a leg of the conversation I am not on. The second time,
+# plan's answer (#14339, 13:47Z) beat my "commonplace is waiting on you" (#14342, 13:49Z)
+# by two minutes. I was reporting the state of MY MAILBOX as though it were the state of
+# THE WORLD.
+#
+# ⭐ THE DEFECT IS STRUCTURAL, NOT INATTENTION. A hub sees only the legs it is on. Peers
+# talk to each other directly and correctly; nothing about that is a failure. So "I have
+# not seen an answer" and "there is no answer" are DIFFERENT CLAIMS, and only the first
+# one is something I actually observed. Twice was enough: a remembered rule does not fire.
+#
+# ⚠️ A stale block-report is not harmless noise. It spends the answerer's turn re-answering,
+# and it can re-open a question they already closed — manufacturing exactly the churn the
+# lane rules exist to prevent.
+#
+# Usage:  cp-check-blocked commonplace commonplace-plan [90]
+# Exit:   0 traffic found in window (READ IT before claiming a block)
+#         1 window genuinely empty AND the corpus is non-empty (a real absence)
+#         2 corpus empty / unreadable / peer name unknown (instrument failure, NOT absence)
+
+set -uo pipefail
+DB="${CLOD_SQUAD_DB:-/home/jes/.claude/channels/clod-squad/queue.db}"
+A="${1:?usage: cp-check-blocked <peerA> <peerB> [minutes]}"
+B="${2:?usage: cp-check-blocked <peerA> <peerB> [minutes]}"
+MINS="${3:-90}"
+
+[ -r "$DB" ] || { echo "INSTRUMENT FAILURE: cannot read $DB" >&2; exit 2; }
+
+python3 - "$DB" "$A" "$B" "$MINS" <<'PY'
+import sqlite3, sys
+db, a, b, mins = sys.argv[1], sys.argv[2], sys.argv[3], int(sys.argv[4])
+c = sqlite3.connect(f'file:{db}?mode=ro', uri=True); c.row_factory = sqlite3.Row
+
+names = {r['name'] for r in c.execute("select name from identities")}
+
+# POSITIVE CONTROL FIRST: the table must be non-empty and both peers must be known.
+# Without this, a typo'd peer name returns zero rows and reads as "no answer exists".
+total = c.execute("select count(*) n from messages").fetchone()['n']
+if total == 0:
+    print("INSTRUMENT FAILURE: messages table is EMPTY — this is not evidence of anything.", file=sys.stderr)
+    sys.exit(2)
+if names:
+    for p in (a, b):
+        if p not in names:
+            print(f"INSTRUMENT FAILURE: peer '{p}' not in identities ({sorted(names)}) — "
+                  f"a wrong name returns zero rows and looks exactly like silence.", file=sys.stderr)
+            sys.exit(2)
+
+# ⛔ from_id/to_id ALREADY HOLD THE PEER NAME. An earlier version of this file joined
+# them against identities via `(select name from identities where id=m.from_id)` —
+# identities HAS NO `id` COLUMN, so SQLite bound the bare `id` to the OUTER query's
+# messages.id, making the subquery `m.id = m.from_id`: always false, always NULL, and
+# it NEVER RAISED. The tool then reported "NO TRAFFIC ... this is a REAL absence" for a
+# leg carrying two messages from ten minutes earlier.
+# ⭐ An unqualified name inside a correlated subquery silently resolves OUTWARD. That
+# turns a typo'd lookup into a valid query returning nothing — the exact false-absence
+# this script exists to prevent, reproduced inside the script itself.
+q = """
+select m.id, m.created_at, m.from_id f, m.to_id t,
+       substr(replace(m.body, char(10), ' '), 1, 150) snippet
+from messages m
+where m.created_at > strftime('%Y-%m-%dT%H:%M:%SZ', 'now', ?)
+  and ( (m.from_id = ? and m.to_id = ?) or (m.from_id = ? and m.to_id = ?) )
+order by m.id
+"""
+rows = list(c.execute(q, (f'-{mins} minutes', a, b, b, a)))
+
+print(f"corpus: {total} messages total (non-empty ✓)")
+print(f"window: last {mins} min, legs {a}<->{b}")
+if not rows:
+    print(f"\nNO TRAFFIC in window. Corpus was non-empty and both peers are known,")
+    print(f"so this is a REAL absence — but note it only covers the {a}<->{b} leg.")
+    sys.exit(1)
+
+print(f"\n{len(rows)} message(s) — READ THESE BEFORE CLAIMING A BLOCK:\n")
+for r in rows:
+    print(f"  #{r['id']} {r['created_at'][:19]}  {r['f']:>16} -> {r['t']:<16}")
+    print(f"      {r['snippet']}")
+print("\n⭐ If B answered A here, then 'A is blocked on B' is FALSE regardless of what")
+print("   my own mailbox shows. My inbox is not the world.")
+PY
