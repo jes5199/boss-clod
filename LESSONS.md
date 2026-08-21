@@ -13265,3 +13265,41 @@ construction; the gauge's exit table can grow without this file learning about i
 1. **Never read `$?` after `if ! cmd`.** Suspend `set -e`, run the command bare, capture `rc`, restore.
 2. **Test the refusal, not just the acceptance** — and **check the EXIT CODE of the refusal**, not only
    its output. **Tonight the output was perfect and the code was wrong.**
+
+## 7x62 — `PWD=` is a string, not a chdir: the migration "succeeded" and did the opposite
+
+**The first pinned-boot migration came up perfect and was wrong.** Gate exit 0, HTTP 200, posture
+`:enforce`, environ diff clean, my launcher printing **`✅ booting from the pin`** — and:
+```
+readlink /proc/<newpid>/cwd  →  /home/jes/commonplace     ⛔ the SHARED tree
+```
+**It booted from exactly the source the whole exercise exists to eliminate.**
+
+**Cause:** I set `PWD=$CP` inside `env -i`. ⛔ **`PWD` is a STRING the shell maintains; it does not move
+the process.** `mix` resolves its project from the **real** working directory, inherited from the
+launching shell — the tmux pane sitting in the shared tree. **One `cd "$PIN"` was missing.**
+
+⭐⭐ **EVERY INDICATOR AGREED AND EVERY INDICATOR WAS DOWNSTREAM OF THE WRONG THING.** The gate checks
+the *pin's validity*, not what the serve *used*. HTTP 200 proves a serve, not *which* serve. The environ
+diff compares variables, and `PWD` was "correct" — it said the pin, because I had set the string. ⇒
+**The one instrument that could discriminate was `/proc/<pid>/cwd`, and it is the only one I would not
+have run if I had believed my own banner.**
+
+⚠️ **MY LAUNCHER PRINTED A CLAIM IT COULD NOT VERIFY.** `"booting from the pin at $PIN"` is an
+INTENTION rendered as a FACT — emitted before the exec, describing what the script *meant* to do.
+⛔ **A success message written by the actor is never evidence; it is a plan in the past tense.**
+⭐ Same defect as `System.halt(0)` and the negation-`rc`, in a third costume: **behaviour and verdict
+decoupled, verdict cheerful.** Three specimens in one file in one night.
+
+⇒ **After the `cd`, verified BY EFFECT:**
+```
+cwd /home/jes/commonplace-serve-pin · pin b50528c7 · shared b50528c7 · lag 0
+environ diff empty both ways · REFLOG/LETTA 0 · dist on 127.0.0.1 only · HTTP 200
+```
+
+⭐ **AND THE NEAR-MISS BEFORE IT, worth as much: my own `cp-resolve-beam` matched the serve by
+`cwd == /home/jes/commonplace`.** The pinned serve's cwd is the pin — **the tool would have reported
+ABSENT for a perfectly healthy serve the instant the migration worked.** I caught it by asking *"what
+does my own tooling assume?"* **before** the migration rather than debugging a phantom outage after.
+⇒ **When you change where a thing lives, audit what identifies it.** The socket is the identity; cwd
+was only ever a corroborator, and it is now written that way.

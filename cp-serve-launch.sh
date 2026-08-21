@@ -73,6 +73,15 @@ echo "✅ cp-pin-status exit 0 — booting from the pin at $PIN" >&2
 CP=$PIN                                   # code: the pinned worktree
 DATA=$SHARED/workspace/.commonplace       # data: the LIVE store, unchanged and absolute
 
+# ⛔⛔ ACTUALLY CHANGE DIRECTORY. `PWD=$CP` in the env below is a STRING; it does not
+# move the process. `mix` resolves its project from the REAL working directory, which
+# is inherited from the launching shell — i.e. the shared tree.
+# ⚠️ 2026-08-21: the first pinned migration came up HTTP 200, gate green, this script
+# printing "booting from the pin" — and `readlink /proc/<pid>/cwd` said
+# /home/jes/commonplace. Everything reported success and the one property that mattered
+# was FALSE. Caught only by checking the cwd BY EFFECT rather than believing the banner.
+cd "$PIN" || { echo "⛔ REFUSING TO BOOT: cannot cd to $PIN" >&2; exit 2; }
+
 # ── THE ALLOWLIST ──────────────────────────────────────────────────────────────────
 # Derived from the LAST KNOWN-CLEAN serve's own environ, not from what happens to be
 # in my shell. Anything not named here does not reach the serve, by construction.
