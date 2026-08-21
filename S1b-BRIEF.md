@@ -141,3 +141,23 @@ not live on a loose object.** Flagged to commonplace; theirs to land or tag.
 **jes INITIATES.** A device-auth code arriving **unprompted** fails by construction. So I have told him
 it is waiting and what it needs, and I have **not** sent, generated, or prepared any code. **The run
 does not begin until he asks.**
+
+### ⛔ CORRECTION TO THE PRECONDITION ABOVE — 2026-08-21 17:15Z
+
+**I WAS WRONG. The precondition I named is withdrawn.** `0406b091` is **NOT** an unreferenced commit:
+it is the tip of **`wip/d-once-injector`**, **pushed to origin**, and `origin/wip/d-once-injector` was
+in my own local refs the whole time (reflog: *"update by push"*).
+
+⇒ **There is NO GC risk and NO landing requirement.** The run resolves `store_dir/0` from that branch
+or the sha directly. Whether it ever merges to main is a separate, **non-blocking** decision (it is WIP,
+host-side, not wired). **The four criteria above stand cleared; this precondition is deleted, not
+downgraded.**
+
+**How I got it wrong:** my branch-tip search was `git for-each-ref … | head -40` against a repo with
+**327 refs**. The branch sits at positions **200** and **312**. ⭐ **I searched 12% of the corpus and
+reported an absence** — and the `head -40` was a *performance guard* added after a full search timed
+out, so the cap arrived looking like diligence. My positive control sat at **position 3**: it shared the
+truncation and therefore discriminated nothing. Full write-up: LESSONS 7x55.
+
+⚠️ **Consequence for anyone reading this brief: the GC warning is void.** ⛔ Do not act on it, and do
+not let it justify a rushed merge of WIP code that handles a real credential's storage path.
