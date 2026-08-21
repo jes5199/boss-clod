@@ -12055,3 +12055,38 @@ nothing was forcing it to look.** ⛔ **A flag raised and left un-narrowed reads
 forever and eventually gets waived along with the real ones.** ⇒ The discipline is not "raise
 concerns"; it is **work out which failure the scary number actually changes the probability of, and say
 so out loud when the answer is "none of them tonight".**
+
+## 7x32 — HOW A FAILURE WAS ORIGINALLY DISCOVERED IS EVIDENCE ABOUT HOW LOUD IT IS (2026-08-21 00:33Z)
+
+The deploy cleared on a read-only `look`. The recorded gap was *"mutation-under-`:enforce` untested —
+self-verifies on the first real session."* I wrote that to jes as reassurance. paravel dismantled it,
+and the argument needs **no new test at all**:
+
+> The known failure in this exact class — Bursar-under-`:enforce`, 2026-07-12 — was found by a
+> **deliberate durable-token `take`** built to look for it.
+
+⭐⭐ **A FAILURE THAT REQUIRED A PURPOSE-BUILT PROBE TO FIND IS, BY THAT VERY FACT, DEMONSTRATED NOT TO
+ANNOUNCE ITSELF.** Had it been loud, it would have been found by it *happening* — not by someone
+constructing an experiment to catch it. ⇒ **The discovery method is a measurement of the failure's
+loudness, and it was sitting in the record the whole time.** I had the fact and read it as history
+rather than as evidence.
+
+⛔ **SO THE GAP IS NOT "UNTESTED". IT IS: UNTESTED + HISTORICALLY FAILS + QUIET WHEN IT FAILS** — the
+worst of the three combinations, and the one I had just described as self-correcting.
+
+⚠️ **"SELF-VERIFIES ON FIRST USE" IS A CLAIM ABOUT A DETECTOR WHOSE FIRING HAS NEVER BEEN OBSERVED** —
+the gate-never-seen-fail shape, except the gate is *a stranger noticing*, and I was counting it as
+coverage. ⭐ paravel's earlier form of this was sharper than mine: if a broken engine no-ops, degrades,
+or errors into an unread log, **the first real session is not a test — it is an undetected bad
+experience borne by a user**, and we learn about it only if they mention it.
+
+⇒ **THE ACTIONABLE DISTINCTION: a gap recorded as *pending* quietly ages into *resolved*. A gap
+recorded WITH ITS DETECTION-LIKELIHOOD cannot.** So the watch I armed does not say "verify take/move";
+it says the mutation class is known-quiet, names the designated-test-actor as the thing to arrange
+rather than skip again, and refuses to be deleted on an absence.
+⇒ **And I corrected jes**, because I had handed him "this will be caught automatically" and the true
+statement is "this may sit undetected" — different conclusions, not different wording.
+
+⭐ **THE REUSABLE RULE: when you are about to rely on a failure announcing itself, ask how the last one
+in that class was found. If the answer is "somebody went looking", you are relying on a property that
+class has already been observed not to have.**
