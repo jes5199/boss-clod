@@ -16,10 +16,39 @@
 #   phase 3 = relaunch serve + verify by effect
 set -uo pipefail
 
-SC="${SC:-/home/jes/boss-clod/logs/s3-run-$(date -u +%Y%m%dT%H%M%SZ)}"
+# ⛔ THE RUN DIRECTORY MUST BE STABLE ACROSS PHASES. First draft computed it from
+# $(date) at every invocation, so phase 2 looked in a directory phase 1 never wrote to
+# and aborted on "no preflight pid on file". ⭐ The gate FIRED CORRECTLY — it refused to
+# stop the serve on missing state rather than proceeding — which is the first time
+# tonight a gate of mine went red on a real condition rather than in a test. Phase 1
+# now pins the path; phases 2 and 3 read it back.
+POINTER=/home/jes/boss-clod/.s3-current-run
+if [ "${1:-}" = "1" ] || [ "${1:-}" = "preflight" ]; then
+  SC="${SC:-/home/jes/boss-clod/logs/s3-run-$(date -u +%Y%m%dT%H%M%SZ)}"
+  echo "$SC" > "$POINTER"
+else
+  SC="${SC:-$(cat "$POINTER" 2>/dev/null)}"
+  [ -n "$SC" ] || { echo "⛔ no pinned run dir at $POINTER — run phase 1 first"; exit 1; }
+fi
 CP=/home/jes/commonplace
 UNIT="cp-backfill-$(date -u +%H%M%S)"
 CEILING=6442450944          # 6 GiB, asserted BYTE-EXACT — `grep MemoryMax` passes on `infinity`
+# ⛔⛔ MemoryMax BOUNDS RSS. IT DOES NOT BOUND SWAP, and MemorySwapMax is NOT implied by
+# it. paravel measured a 64M-capped probe swapping 1.4 GB WITHOUT EVER TRIPPING ITS
+# CEILING (2026-08-21). This box: swap 4.0G total, 2.6G already used, 1.4G free — and
+# hermes' live trading BEAM is ALREADY 87M paged out, its cgroup 611M into swap.
+# ⇒ An unbounded job can thrash the host WITHOUT the ceiling firing, WITHOUT the OOM
+# killer firing, and without any of the seven criteria noticing: they all aim at the
+# memory-KILL axis and this is the I/O axis. hermes named the sharpest consequence —
+# page-in latency eats the 5-minute fill deadline inside its two-legged 19:50 RotationCheck,
+# so the sell fills and the buy does not. That is a way to hurt the trading stack through
+# its worst window WITHOUT KILLING ANYTHING.
+# ⭐ TRADE ACCEPTED (boss, 2026-08-21): =0 makes the kill EARLIER and MORE LIKELY. With
+# chunked+resumable that costs a restart; swap thrash costs hermes. Not comparable.
+# ⚠️ The 2026-08-21 00:09Z run PREDATED this flag and was fine — systemd accounting read
+# "506.2M memory peak, 0B memory swap peak". The gap was real and it did not bite.
+# That is a statement about that run, NOT a reason the flag is optional.
+SWAPMAX=0
 ADJ=900                     # must outrank hermes' live BEAM (200) so WE die first, not it
 ENVIRON_BEFORE=/tmp/claude-1000/-home-jes-boss-clod/59f429ae-7ded-4956-8d9f-f171e388a49d/scratchpad/serve-environ-before.txt
 
@@ -96,14 +125,23 @@ phase1() {
 phase2() {
   say "───── PHASE 2: STOP + COMPILE + BACKFILL ─────"
   local serve; serve=$(cat "$SC/serve-pid-before" 2>/dev/null) || die "no preflight pid on file — run phase 1 first"
-  kill -0 "$serve" 2>/dev/null || die "serve $serve is already gone — re-run preflight rather than guessing"
 
-  say "SIGTERM -> $serve (numeric pid, never a pattern)"
-  kill -TERM "$serve"
-  for i in $(seq 1 60); do kill -0 "$serve" 2>/dev/null || break; sleep 1; done
-  kill -0 "$serve" 2>/dev/null && die "serve $serve still alive after 60s — NOT escalating unasked"
-  say "serve down ✅ (verified by the pid being gone, not by kill returning 0)"
-  ss -ltn 2>/dev/null | grep -q ':5199 ' && die ":5199 still listening after the serve died — something else holds it"
+  # ⭐ RESUMABLE: phase 2 can legitimately be re-entered after a failed launch, with the
+  # serve ALREADY stopped by the previous attempt. "Already down" and "I could not stop
+  # it" are different states and must not share an exit. Distinguish them by the SOCKET,
+  # which is the thing that actually matters, not by the pid alone.
+  if kill -0 "$serve" 2>/dev/null; then
+    say "SIGTERM -> $serve (numeric pid, never a pattern)"
+    kill -TERM "$serve"
+    for i in $(seq 1 60); do kill -0 "$serve" 2>/dev/null || break; sleep 1; done
+    kill -0 "$serve" 2>/dev/null && die "serve $serve still alive after 60s — NOT escalating unasked"
+    say "serve down ✅ (verified by the pid being gone, not by kill returning 0)"
+  else
+    ss -ltn 2>/dev/null | grep -q ':5199 ' \
+      && die "serve pid $serve is gone but :5199 IS still listening — something else holds the socket; refusing to proceed"
+    say "serve $serve already down and :5199 free — RE-ENTRY after a failed launch, continuing"
+  fi
+  ss -ltn 2>/dev/null | grep -q ':5199 ' && die ":5199 still listening — something else holds it"
   say ":5199 free ✅"
 
   # ⭐ compile AFTER the stop, deliberately against the recipe's "pre-build to minimise
@@ -115,17 +153,59 @@ phase2() {
   say "compile ok ✅"
 
   say "launching backfill unit $UNIT (ceiling $CEILING, oom adj $ADJ)"
+  # ⛔ FLAGS READ FROM THE TASK'S OWN SOURCE, NOT GUESSED. My first draft passed only
+  # --unit and set COMMONPLACE_DATA_DIR in the env; the task requires --data-dir
+  # explicitly and it points at the *commits* subdir, not .commonplace itself. It would
+  # have Mix.raise'd — loudly, which is the good failure — but the serve would already
+  # have been down. Read the entry point before invoking it.
+  # ⛔⛔ --data-dir IS THE PARENT, *NOT* `.../commits`. CommitStore does
+  # `Path.join(data_dir, "commits")` itself (commit_store.ex:1413). Passing the commits
+  # dir made it open `.commonplace/commits/commits/` — A BRAND-NEW EMPTY STORE — walk 0
+  # entries, and report `terminal_state={:ready, 1}` with total=0 written=0. A PERFECT
+  # GREEN OFF AN EMPTY CORPUS, and §4's precondition reads exactly that field.
+  # ⚠️ The task's own @moduledoc example shows the wrong path and I copied it. A worked
+  # example is trusted more than a prose contract, so a wrong one propagates further.
+  local DD="$CP/workspace/.commonplace"
+  [ -d "$DD/commits" ] || die "no commits dir under $DD — refusing to invoke on a path I have not confirmed"
+  # ⭐ NON-VACUITY GATE: prove the corpus is non-empty BEFORE the run, so a zero result
+  # afterwards can only mean "nothing to do", never "I was pointed at nothing".
+  local cub_bytes; cub_bytes=$(find "$DD/commits" -maxdepth 1 -name '*.cub' -printf '%s\n' 2>/dev/null | paste -sd+ | bc)
+  [ -n "$cub_bytes" ] && [ "$cub_bytes" -gt 1000000 ] \
+    || die "corpus at $DD/commits is ${cub_bytes:-0} bytes — refusing to run a backfill that could only report a vacuous success"
+  say "corpus non-vacuity ✅ $DD/commits holds $((cub_bytes/1024/1024))MB of .cub — a zero result now MEANS something"
+  # ⛔ systemd-run DOES NOT INHERIT THE INTERACTIVE PATH. Measured 2026-08-21 00:06:
+  # the unit died instantly with `exec: erl: not found`, status 127 — asdf's shims are
+  # absent from systemd's environment. Same class as the Sol dispatch that died on a
+  # missing ~/.npm-global/bin. ⭐ THE PATH IS TAKEN FROM THE SERVE'S OWN CAPTURED
+  # ENVIRON, which is the concrete payoff of capturing all 26 vars unfiltered instead
+  # of grepping for the ones I expected to need: I did not know I would need PATH.
+  local serve_path; serve_path=$(grep '^PATH=' "$ENVIRON_BEFORE" | cut -d= -f2-)
+  [ -n "$serve_path" ] || die "no PATH in the captured environ — refusing to guess one"
+  PATH="$serve_path" command -v erl >/dev/null || die "erl does not resolve under the captured PATH — the capture is not usable as a launch environment"
   systemd-run --user --unit="$UNIT" \
-    -p MemoryMax=$CEILING -p OOMScoreAdjust=$ADJ \
+    -p MemoryMax=$CEILING -p MemorySwapMax=$SWAPMAX -p OOMScoreAdjust=$ADJ \
     --working-directory=$CP \
+    --setenv=PATH="$serve_path" \
     --setenv=MIX_ENV=dev \
-    --setenv=COMMONPLACE_DATA_DIR=$CP/workspace/.commonplace \
-    mix commonplace.backfill_accepted_heads --unit="$UNIT" >> "$SC/run.log" 2>&1 \
+    mix commonplace.backfill_accepted_heads \
+      --data-dir "$DD" \
+      --unit "$UNIT" \
+      --expected-bytes $CEILING >> "$SC/run.log" 2>&1 \
     || die "systemd-run failed to launch"
 
-  sleep 2
-  local mp; mp=$(systemctl --user show "$UNIT" -p MainPID --value)
-  [ -n "$mp" ] && [ "$mp" != 0 ] || die "unit has no MainPID — cannot verify the ceiling WHILE ACTIVE, and it is unverifiable afterwards"
+  # poll rather than sleeping a guessed interval; report the unit's own verdict on failure
+  local mp=0
+  for i in $(seq 1 15); do
+    mp=$(systemctl --user show "$UNIT" -p MainPID --value)
+    [ -n "$mp" ] && [ "$mp" != 0 ] && break
+    [ "$(systemctl --user show "$UNIT" -p ActiveState --value)" = "failed" ] && break
+    sleep 1
+  done
+  if [ -z "$mp" ] || [ "$mp" = 0 ]; then
+    say "unit state: Result=$(systemctl --user show "$UNIT" -p Result --value) ExecMainStatus=$(systemctl --user show "$UNIT" -p ExecMainStatus --value)"
+    journalctl --user -u "$UNIT" --no-pager -n 20 2>&1 | tail -10 | tee -a "$SC/run.log"
+    die "unit has no MainPID — cannot verify the ceiling WHILE ACTIVE, and it is unverifiable afterwards (journal above)"
+  fi
 
   # ① THE QUAD, READ FROM THE KERNEL WHILE THE UNIT IS ALIVE.
   # ⛔ This is the only moment any of it is readable: systemd garbage-collects the

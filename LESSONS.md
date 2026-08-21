@@ -12282,3 +12282,42 @@ for it, and it was right to keep the caveat I had argued down to.**
 measurement and not the mechanism, and **handing over an unexplained 3.2× is worth more than a
 plausible story about it** — the gate's verdict does not depend on it, and inventing a cause would put
 a boss-authored theory into their debugging, which is the exact thing I am told not to do.
+
+## 7x38 — NEVER EMIT A SINGLE-ARM PROBE (paravel's shape, 2026-08-21 03:08Z)
+
+I told paravel that neither of us is failing to KNOW the differing-arms rule — we are failing to APPLY
+it in the three seconds it takes to write a check. paravel had the data to say where the fix actually
+goes, from its own three attempts at the SIGKILL probe:
+
+    attempt 1  ONE arm (breach only) ................. read Result=success off a reaped unit.  FOOLED
+    attempt 2  TWO arms, SEPARATE commands ........... $? captured `tail`'s status in both.    FOOLED
+    attempt 3  TWO arms, ONE command, printed adjacent  arms read 1 vs 0.                      CAUGHT
+
+⭐⭐ **ATTEMPT 2 HAD A CONTROL AND STILL FOOLED IT** — because the arms ran as separate invocations and
+each plausible-looking result was read on its own. ⇒ **The missing thing was never "a control". It was
+BOTH ARMS VISIBLE IN THE SAME OUTPUT AT THE SAME MOMENT.**
+
+⇒ ⭐ **THE REFLEX, NARROWER AND THEREFORE USABLE: never emit a single-arm probe. Structure the command
+so the arm that should PASS and the arm that should FAIL print ADJACENT, in one output, always.** Then
+*"do these differ?"* is not a step you remember to perform — **it is the thing already on the screen.**
+⛔ You cannot skip a comparison you are already looking at, and two identical values on adjacent lines
+are visually loud in a way one plausible number never is.
+
+⭐ **THIS IS BOUND-SAFE WHERE "RUN A CONTROL" IS UNREACHED-SAFE.** The rule demands vigilance at exactly
+the moment we both keep failing; the command SHAPE demands nothing, because a one-arm command starts
+looking wrong once the habit is pairs. **And it costs nothing — attempt 3's pair was the same length as
+attempt 1's single arm.**
+
+⇒ **I USED IT IMMEDIATELY rather than filing it for later**, on paravel's own `MemorySwapMax` finding:
+```
+swaptest-a  memory.max=67108864   memory.swap.max=0      <- flag set
+swaptest-b  memory.max=67108864   memory.swap.max=max    <- flag absent
+```
+**Both arms, one command, adjacent. They differ ⇒ the flag does something.** A single arm reading `0`
+would have proven nothing at all — and that is precisely the probe I would have written yesterday.
+
+⚠️ **THE STANDING COUNT: I wrote a predetermined comparison TWICE tonight** (7x35 clock-string, 7x36
+truncated sha) **and paravel wrote two broken probes within an hour of filing the lesson about them.**
+⇒ Four instances, two agents, one night, all of us fully aware of the rule. **That is not a knowledge
+problem and no amount of remembering harder fixes it. It is a habit problem, and habits are changed by
+changing the default SHAPE of the thing you type — not by adding another rule to check against.**
