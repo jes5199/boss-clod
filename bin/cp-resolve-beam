@@ -1,0 +1,105 @@
+#!/usr/bin/env bash
+# cp-resolve-beam — resolve a BEAM on this host by IDENTITY, never by a loose cmdline grep.
+#
+# ⛔ WHY THIS EXISTS (boss-clod LESSONS 7x49, 2026-08-21). An inline matcher
+#     pgrep -f beam.smp | while read p; do grep -q hermes /proc/$p/cmdline && echo $p; done
+# printed NOTHING for a perfectly healthy hermes: /proc/<pid>/cmdline is NUL-separated,
+# grep treats it as binary, and the match sits past where the eye lands. Empty output is
+# byte-identical to "the live-money BEAM is dead". The near-miss was not the bad one-liner —
+# it was that a correct resolver already existed in s3-backfill-run.sh and I retyped a worse
+# one from memory. An artifact only fires if it is on the path of the cheap action.
+#
+# ⭐ EVERY LOOKUP HERE PROVES ITS CORPUS WAS NON-EMPTY FIRST. A zero from a search whose
+# corpus was never counted is not an absence, it is an unread instrument.
+#
+# ⛔ THIS TOOL NEVER SIGNALS. It prints pids. Killing is the caller's act, by numeric pid,
+# because hermes runs a live-money BEAM on this shared host and a pattern is not an identity.
+#
+# Usage:
+#   cp-resolve-beam list                 # all BEAMs, with identity columns
+#   cp-resolve-beam hermes               # pid of the hermes BEAM
+#   cp-resolve-beam serve                # pid of the commonplace serve HOLDING :5199
+#   cp-resolve-beam stat <role>          # role + RSS + VmSwap + oom_score_adj
+# Exit: 0 resolved · 1 corpus non-empty but role absent (a REAL absence) · 2 corpus EMPTY
+#       or unreadable (instrument failure — NOT an absence; do not report "it is down")
+
+set -uo pipefail
+
+SERVE_PORT="${SERVE_PORT:-5199}"
+
+# cmdline as a space-joined string. `tr` on the NUL bytes is the whole point: this is the
+# step the inline version skipped, and skipping it is what made the match impossible.
+cmdline_of() { tr '\0' ' ' < "/proc/$1/cmdline" 2>/dev/null; }
+field_of()   { awk -v k="$2" '$1==k":"{print $2}' "/proc/$1/status" 2>/dev/null; }
+
+corpus() { pgrep -x beam.smp 2>/dev/null; }
+
+require_corpus() {
+  local n; n=$(corpus | wc -l)
+  if [ "$n" -eq 0 ]; then
+    echo "INSTRUMENT FAILURE: zero beam.smp processes visible." >&2
+    echo "  This is NOT proof that any BEAM is down — pgrep may be wrong, or /proc unreadable." >&2
+    echo "  Verify by hand before telling anyone a service is dead." >&2
+    exit 2
+  fi
+  echo "$n"
+}
+
+# hermes: cwd is the identity. A path the kernel reports beats any string we grep for.
+is_hermes() { [ "$(readlink -f "/proc/$1/cwd" 2>/dev/null)" = "/home/jes/hermes" ]; }
+
+# serve: cwd under ~/commonplace AND actually HOLDING the listening socket. The socket is
+# what makes it the serve; a sibling BEAM in the same cwd (the MCP escript) is not.
+is_serve() {
+  [ "$(readlink -f "/proc/$1/cwd" 2>/dev/null)" = "/home/jes/commonplace" ] || return 1
+  case "$(cmdline_of "$1")" in *commonplace_dev*) : ;; *) return 1 ;; esac
+  ss -ltnpH "sport = :$SERVE_PORT" 2>/dev/null | grep -q "pid=$1,"
+}
+
+role_of() {
+  if is_hermes "$1"; then echo hermes
+  elif is_serve "$1"; then echo serve
+  else echo other; fi
+}
+
+resolve() {
+  local want="$1" hits=()
+  require_corpus >/dev/null
+  while read -r p; do
+    [ -n "$p" ] || continue
+    [ "$(role_of "$p")" = "$want" ] && hits+=("$p")
+  done < <(corpus)
+  if [ "${#hits[@]}" -eq 0 ]; then
+    echo "ABSENT: no BEAM matched role '$want' (corpus was non-empty — this is a real absence)" >&2
+    exit 1
+  fi
+  if [ "${#hits[@]}" -gt 1 ]; then
+    echo "AMBIGUOUS: role '$want' matched ${#hits[@]} pids: ${hits[*]} — resolve by hand, do not guess." >&2
+    exit 1
+  fi
+  echo "${hits[0]}"
+}
+
+case "${1:-list}" in
+  list)
+    n=$(require_corpus)
+    printf 'corpus: %s beam.smp process(es)\n' "$n"
+    printf '%-9s %-8s %-26s %-10s %-10s %s\n' PID ROLE CWD RSS VMSWAP OOM_ADJ
+    while read -r p; do
+      [ -n "$p" ] || continue
+      printf '%-9s %-8s %-26s %-10s %-10s %s\n' \
+        "$p" "$(role_of "$p")" "$(readlink -f "/proc/$p/cwd" 2>/dev/null)" \
+        "$(field_of "$p" VmRSS)kB" "$(field_of "$p" VmSwap)kB" \
+        "$(cat "/proc/$p/oom_score_adj" 2>/dev/null)"
+    done < <(corpus)
+    ;;
+  stat)
+    role="${2:?usage: cp-resolve-beam stat <hermes|serve>}"
+    p=$(resolve "$role") || exit $?
+    printf 'role=%s pid=%s RSS=%skB VmSwap=%skB oom_score_adj=%s\n' \
+      "$role" "$p" "$(field_of "$p" VmRSS)" "$(field_of "$p" VmSwap)" \
+      "$(cat "/proc/$p/oom_score_adj" 2>/dev/null)"
+    ;;
+  hermes|serve) resolve "$1" ;;
+  *) echo "unknown role/command: $1" >&2; exit 2 ;;
+esac
