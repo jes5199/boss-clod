@@ -13142,3 +13142,35 @@ reads `11 newer beams` immediately after a compile-on-boot launch, because `mix 
 BEAM and then compiles inside it — an artifact, not a gap.** ⇒ **The tool answers "are there newer
 compiled artifacts than the running process", which is NARROWER than "would a restart change what
 runs". I used the second question's words for the first question's answer.**
+
+### 7x58 addendum — the root cause reaches BACKWARDS into results already relayed
+
+commonplace found it: **`mix <custom task>` in this setup never recompiles.** None of the five tasks in
+`lib/mix/tasks` declared `@requirements ["compile"]`, so **every §3-class ceremony ever run rode
+`_build` luck.** The serve relaunch compiles because *its launch path compiles explicitly*; the task
+path never did. ⇒ My "contrast fact" (same host, same env, compiles 4 minutes later) had a clean
+explanation and it was not the one I would have guessed.
+
+⚠️ **THIS TOUCHES A RESULT I ALREADY REPORTED TO JES.** My World-B audit is one of those five tasks.
+I verified rather than accepting *"it was lucky-fresh"*:
+```
+serve booted 20:09:27 (launch path COMPILES) · World-B started 20:11:31
+tree b1d19ab8 at both moments; next commit not until 20:56
+⇒ World-B ran code matching the tree. The result STANDS.
+```
+⛔ **But it stands BY LUCK.** Two minutes after a compiling launch. **Run at 21:00 it would have used
+the stale build and I would have reported the number with identical confidence** — same format, same
+controls, same tone. ⭐ **A result being correct is not evidence that the process producing it was
+sound**, and I had no way to tell the two apart from inside the report.
+
+⭐⭐ **AND THE BEST INSTRUMENT LESSON OF THE NIGHT IS COMMONPLACE'S, ABOUT ITS OWN PROBE.** Its first
+test — `touch` the source, run, observe the beam unchanged — **"confirmed" the stale-build hypothesis
+and COULD NOT HAVE DONE OTHERWISE**: Elixir 1.18 uses content-hash manifests, so a bare `touch` never
+triggers recompilation and that probe returns "stale" for a *healthy* build too. ⇒ **Right conclusion,
+non-discriminating instrument.** ⚠️ **It agreed with him, which is why it took discipline to distrust
+it** — a probe that contradicts you gets scrutinised for free; a probe that confirms you has to be
+audited on purpose. He rebuilt it as a replica of the real unit shape against a real content change.
+
+⇒ **And the decisive evidence was in MY OWN JOURNAL, unread: pass 3 went unit-start → task-output in
+1.4 SECONDS.** That is not a compile. **I diagnosed "stale beams" from mtimes while holding a timing
+that proved the mechanism outright.** ⭐ Having the evidence is not the same as reading it.
