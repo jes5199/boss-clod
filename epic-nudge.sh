@@ -135,6 +135,29 @@ if [ -n "$BUSY" ]; then
   exit 0
 fi
 
+# --- 3b. BLOCKED ON A BACKGROUND SUBAGENT? ALSO BUSY. -----------------
+# ⛔⛔ 2026-08-21 (boss-clod LESSONS 7x51, then AGAIN 40 min later). A worker
+# waiting on a background subagent has NO SPINNER and NO non-bun children —
+# the subagent runs OUTSIDE the pane's process tree. So *idle-because-finished*
+# and *idle-because-blocked-on-a-subagent* were byte-identical under BOTH
+# checks above, and the two checks are not independent: they share the
+# assumption that the work is happening in THIS process.
+# ⚠️ FIRST TIME it failed toward DECLINE (harmless). SECOND TIME it emitted a
+# NUDGE| while commonplace was 4m35s into the [3] build subagent — i.e. it
+# failed toward DISPATCH, telling an agent to "take the top unblocked item"
+# while it was mid-build on exactly that item. Permissive is the expensive
+# direction: a wasted Fable turn, and a board that reads as a re-rank.
+# ⭐ The live agent list IS the missing signal, and it is right there in the
+# pane: "◯ <agent-type> <activity> ... 5m 18s · ↓ N tokens".
+# Verified BOTH arms at install: busy commonplace -> 1 hit, idle plan -> 0 hits
+# with a NON-EMPTY capture (so the zero is an absence, not a blind read).
+SUBAGENTS=$(printf '%s\n' "$PANE" | grep -cE '◯ [A-Za-z-]+ .*[0-9]+[hms] ')
+if [ "$SUBAGENTS" -gt 0 ]; then
+  WHICH=$(printf '%s\n' "$PANE" | grep -oE '◯ [A-Za-z-]+ .*[0-9]+[hms] ?[0-9]*s?' | tail -1 | tr -s ' ' | cut -c1-90)
+  say "DECLINED: $WORKER is blocked on $SUBAGENTS running subagent(s) — $WHICH"
+  exit 0
+fi
+
 # --- 4. queued input waiting on a keypress? not idle, needs a human ---
 if printf '%s\n' "$PANE" | grep -q 'Press up to edit queued'; then
   say "DECLINED: $WORKER has queued messages awaiting Enter"

@@ -12881,3 +12881,44 @@ otherwise reproduce this exact bug through a fat finger) · unreadable DB → rc
 ⇒ ⭐ **The general rule I keep re-learning in new costumes: I ship checks whose failure mode is
 "silently returns the comfortable answer." The discriminator is never the check's own output — it is
 whether the check has ever been shown to produce the UNcomfortable one.**
+
+## 7x53 — the same blind spot fired again 40 minutes later, and this time it failed toward DISPATCH
+
+**What happened.** `epic-nudge.sh` emitted `NUDGE|idle, headroom ok` for commonplace. Per the loop
+instruction that means: send the board, *"take the top unblocked item from QUEUE.md."*
+
+commonplace was **4m35s into the [3] build subagent** — mid-build on exactly that top item.
+
+⭐ **THIS IS 7x51, RE-FIRED, IN THE OPPOSITE DIRECTION.** Same root cause: a background subagent runs
+**outside the pane's process tree** and drives **no spinner**, so the two checks the gate relies on —
+spinner text and `ps --ppid` — are not independent. They share one assumption: *the work is happening
+in THIS process.* When it isn't, both report idle, agreeing confidently.
+
+⚠️ **The first firing declined (harmless). The second DISPATCHED.** ⛔ **A shared blind spot has no
+preferred failure direction — it returns whatever the surrounding logic happens to do with "no signal",
+and that differs per script.** I had filed the lesson and drawn the wrong boundary from it: I treated
+7x51 as *"be careful before switching a model"* when it was really *"this gate cannot see subagents."*
+**The narrow reading is why it recurred in a different script within the hour.**
+
+**Cost had I obeyed it:** a board telling an agent to start the item it is already building — a wasted
+Fable turn (which burns the 5h window faster), and a message that reads as a re-rank when it is noise.
+
+⭐ **WHAT I DID INSTEAD, AND IT IS THE GENERAL MOVE: DO NOT OVERRIDE A GATE BY HAND — REPAIR IT AND
+RE-MEASURE.** Skipping the dispatch on my own judgement would have produced the right action and left
+the instrument broken, silently, for the next caller. I patched the gate to read the live agent list
+(`◯ <type> <activity> … 5m 18s · ↓ N tokens`), re-ran it, and it declined **on its own evidence**.
+⇒ **The verdict must come from the fixed instrument, not from me knowing the answer.** Otherwise the
+next run repeats the failure and I am the only mitigation.
+
+**Both arms demonstrated at install, on live panes:**
+```
+commonplace (building) : capture 38 non-empty lines, hits=1 -> DECLINE
+plan        (idle)     : capture 47 non-empty lines, hits=0 -> PASS
+```
+⚠️ The idle arm reports its **capture size** on purpose: `hits=0` from an empty capture is a blind read,
+not an absence, and those look identical.
+
+⇒ ⭐ **The durable lesson is about SCOPE OF A FIX, not about subagents.** When a defect is found, the
+question is not "where did it bite" but **"what else consumes this signal?"** I had two scripts reading
+pane-idle and fixed neither, because the incident presented as a model-switch problem. **A lesson filed
+against the symptom protects one caller; a lesson filed against the SIGNAL protects every caller.**
