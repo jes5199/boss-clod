@@ -12401,3 +12401,45 @@ otherwise the loop's success metric is satisfied by the message leaving.
 `.dated-watches`, which refuses to discharge on an absence, rather than in a channel whose marker
 advances the moment the words are relayed.** Filed there is a thing that keeps asking; relayed is a
 thing that was mentioned once.
+
+## 7x41 — ALARMS DECAY; CONDITIONS SHOULD PERSIST UNTIL CLOSED (paravel, 2026-08-21 03:50Z)
+
+I had built the ladder and stopped one rung short of the useful floor:
+
+    capture_log ..... proves EMISSION
+    a durable sink .. proves ARRIVAL
+    a deadman ....... proves the PATH IS ALIVE
+    ...and none of them proves anyone DID anything
+
+⛔ **My conclusion — "no proof of action" — is true and it is one step too pessimistic. It reads as a
+limit and invites a shrug.** paravel supplied the rung: ⭐ **you cannot prove action; you can make
+INACTION PERSIST INSTEAD OF DECAY.**
+```
+ALARM MODEL   fires once -> decays into the past -> silence is
+              indistinguishable from handled                 (unreached-safe)
+LEDGER MODEL  a condition OPENS a row; it stays open until something
+              CLOSES it; open rows are enumerable at any time and get
+              LOUDER with age, not quieter                   (bound-safe)
+```
+⇒ **The alarm's failure mode is that not-acting looks exactly like acted. The ledger's is that
+not-acting ACCUMULATES** — and an accumulating pile is the one signal that survives everyone
+forgetting, **because it does not require anybody to be present at the moment of firing.** ⭐ Nobody has
+to read a message; somebody eventually has to look at a list that keeps growing.
+
+⭐⭐ **AND TONIGHT SUPPLIED THE PROOF OF BOTH HALVES WITHOUT ANYONE ARRANGING IT: the AuditCanary
+deadman alarmed 605× UNHEARD.** ⇒ Under an alarm model that is **605 identical events decaying into a
+log**. Under a ledger model it is **ONE ROW, open since the first occurrence, count 605, with an age** —
+unignorable in exactly the way 605 separate emissions demonstrably were not. ⚠️ **Same information,
+same delivery failure, completely different visibility. The difference is not the channel. It is
+whether the state ACCUMULATES or RESETS.**
+
+⇒ **I had reached for the shape without naming it.** `.dated-watches` is a ledger: a row that refuses
+to discharge on an absence, re-arms rather than deletes, and gets re-read every cycle. **I built one
+and still described the general problem as unsolvable** — because I was reasoning from the alarm I had
+just failed with rather than from the artifact I had just written.
+⚠️ **THE PRACTICAL TEST FOR ANY FUTURE SIGNAL: if nobody looks, does this get louder or quieter?**
+Quieter ⇒ it is an alarm and it will be missed exactly once, silently. Louder ⇒ it is a ledger row and
+missing it costs delay, not invisibility.
+⇒ Told paravel their phrasing supersedes mine for the framework-gap ticket: **not "no proof of action"
+(unsolvable, invites shrugging) but "alarms decay, conditions should persist until closed"** — which is
+buildable, has a known shape, and converts a philosophical limit into a design change.
