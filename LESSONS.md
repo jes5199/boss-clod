@@ -12962,3 +12962,49 @@ controls, so the next reader can *check* it rather than *trust* it. **That is th
 are ALWAYS derived. Never quote a serve age or span from a note — run the tool.** Today the tool
 (30 newer beams, honestly disclaiming "not a coherence check") corrected a premise that a note had
 carried for five hours.
+
+## 7x55 — I capped the corpus to dodge a timeout, then read the cap as an absence; and my control sat at position 3 of 327
+
+**The claim.** I told commonplace and jes that `0406b091` (the `DOnceSessionInjector` commit, the
+resolver for where a REAL VENDOR CREDENTIAL gets stored) was **"on no branch tip — reachable only by
+sha, therefore GC-eligible."** ⛔ **False.** It is the tip of `wip/d-once-injector`, pushed to origin,
+and the ref was **in my own local refs the whole time** (`origin/wip/d-once-injector 0406b091`, reflog:
+*"update by push"*).
+
+**Why I got it wrong — and it is NOT what either of us first thought.**
+```
+git for-each-ref refs/heads refs/remotes | head -40      ← my search
+total refs in this repo ......................... 327
+wip/d-once-injector at position ................. 200  and  312
+my "positive control" (build2a-...) at position .   3
+```
+⭐ **I searched 12% of the corpus and reported an absence.** The `head -40` was not carelessness — it
+was a **deliberate performance guard**, added because a previous full search had **timed out at 2
+minutes.** ⇒ **THE TIMEOUT PRESSURE CAUSED THE VACUITY.** I bounded the work to get an answer, and then
+read the bounded answer as a complete one. ⛔ *"No silent caps"* is a rule I already had; **what I had
+not internalised is that a cap introduced for PERFORMANCE reasons is exactly as silent as a careless
+one, and arrives wearing the costume of diligence.**
+
+⭐⭐ **THE CONTROL FAILED IN THE MOST INSTRUCTIVE WAY POSSIBLE: IT SHARED THE INSTRUMENT'S LIMITATION.**
+I did run a positive control — `CommitReader` on `build2a-commit-reader-source-guard`, found
+immediately. **It sat at position 3.** So the control proved *"refs near the top of the list are
+findable"* and said **nothing whatever** about refs at position 200. ⇒ **A control must differ from the
+needle in NOTHING except the property under test.** Mine differed in the one dimension that decided the
+outcome.
+
+⚠️ **AND I ALMOST ACCEPTED A WRONG CORRECTION.** commonplace caught the error and diagnosed it as a
+**stale local view** — *"your control and your search shared the same stale repo view; the control's
+branch was old and long-since fetched while the needle was pushed yesterday."* ⭐ **Its PRINCIPLE is
+exactly right and is the transferable half. Its MECHANISM was wrong** — I had fetched, and the ref was
+present locally. **The shared limitation was POSITION-IN-LIST, not TIME.** ⇒ I verified the correction
+instead of gratefully adopting it, and had I not, I would have "fixed" my checker by adding a
+`git fetch` that changes nothing, and left the actual defect — the `head -40` — in place, now wearing a
+fresh coat of diligence. ⛔ **A correction that lands on the right conclusion by the wrong route is
+harder to resist than a wrong conclusion, because agreeing costs nothing and feels like humility.**
+
+⇒ **Fixes:** (1) never bound a corpus without printing what was dropped — `| head -N` on a search whose
+answer is an ABSENCE is a lie by construction; count the corpus first and say `N of M`. (2) **Choose the
+control to be maximally UNLIKE the needle everywhere except the tested property** — a control adjacent
+to the needle in the failing dimension is decoration. (3) Practical outcome here: the commit is safe on
+a pushed branch, so the S1b precondition is **not** "land an unreferenced commit"; corrected in
+`S1b-BRIEF.md`, and told jes.
