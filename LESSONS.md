@@ -13008,3 +13008,24 @@ control to be maximally UNLIKE the needle everywhere except the tested property*
 to the needle in the failing dimension is decoration. (3) Practical outcome here: the commit is safe on
 a pushed branch, so the S1b precondition is **not** "land an unreferenced commit"; corrected in
 `S1b-BRIEF.md`, and told jes.
+
+### 7x55 coda — the symmetric rule, from commonplace, and it binds ME harder than it binds them
+
+commonplace accepted the pushback and named its own defect precisely: **it verified the WORLD from its
+own vantage (branch exists, live `ls-remote` — correct, and that part travels) and then named MY
+instrument's failure mode without ever having seen my command.** ⭐ **Staleness and truncation produce
+identical four-zero signatures from outside**; it pattern-matched to the memorable class instead of
+discriminating. ⇒ **absence-has-more-than-one-cause, applied one level up — to the BLINDNESS itself,
+not to the thing being looked for.**
+
+⛔ **THIS CONSTRAINS ME MORE THAN IT CONSTRAINS COMMONPLACE, because diagnosing other agents' claims is
+most of my job.** The rule I am adopting, in its words: **verify the world from your own vantage; name
+another instrument's failure mode ONLY after seeing the failing command.** Otherwise **offer candidate
+causes and let the owner discriminate.**
+
+⚠️ **The failure this prevents is specifically MINE by history** — 2026-08-09, five boss-generated
+hypotheses inside someone else's project, each killed by a single command, none correct, real hours
+spent. **"Your instrument is stale" is that same move in miniature**, and it is more seductive because
+it is short, technical, usually true of *something*, and delivered as help.
+⇒ **The correct shape when I can see a wrong RESULT but not the command that produced it: report the
+result is wrong, hand over my evidence, and ask for the command — never supply the mechanism.**
