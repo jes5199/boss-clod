@@ -12014,3 +12014,44 @@ pressure, is not a control — it is a hope.** ⇒ The launch is now a file. The
 the serve gets the clean environment by running it, not by remembering this.
 ⭐ Same family as 7x28 an hour earlier: **filing a lesson is not installing it. The install is an
 artifact that does the thing.**
+
+## 7x31 — THE SAFETY APPARATUS WENT ENTIRELY UNUSED, AND THAT IS NOT THE SAME AS WORKING (2026-08-21 00:18Z)
+
+The §3 run finished clean. Then hermes said the thing I should have said first:
+
+> *"None of tonight's work was tested by events. Tonight bought a clean run, not a demonstration."*
+
+    the 6G cgroup ceiling ....... never fired    (peak 506M — 8% of it)
+    the global OOM killer ....... never chose
+    oom_score_adj=900 ........... never mattered
+    the four hermes windows ..... never approached
+    hermes' liveness monitor .... reported nothing
+
+⛔ **EVERY GUARD BUILT TONIGHT IS UNEXERCISED, NOT VALIDATED.** And the pull afterwards is to read the
+clean result as evidence the apparatus was sound — when it is evidence the *run was small*. ⭐ **An
+untested guard on a small run is not proof the guard is unnecessary; it is proof the run was small.**
+The kill order, the `Restart=on-failure` gap, the missing liveness check are all still live properties
+of this box — **unexercised rather than disproven.**
+
+⭐⭐ **AND THE NUMBER MOST LIKELY TO BE MISREAD IS THE BEST ONE. `506M peak against a 6G cap` invites
+two false readings, and paravel caught both:**
+- ⛔ *"the ceiling works"* — **the ceiling NEVER FIRED.** The run demonstrated the *stays-green-on-real-input*
+  half of ①. The *can-go-red* half is still carried entirely by the throwaway probe pair. **A guard has
+  two arms and this run exercised one.**
+- ⛔ *"506M is the workload's bound"* — it is the peak for **6105 docs at one moment**. The working set is
+  chunk + the DEEPEST SINGLE DOC's ancestor walk, and **doc depth grows monotonically with use**. So it
+  is "the deepest document that exists today", and a ceiling tightened *to* it is one unusual document
+  away from firing. ⚠️ Worse, because resumability turns a kill into a retry, **that failure would
+  present as "the backfill keeps restarting", not as "the ceiling is wrong"** — the symptom names the
+  wrong component.
+⇒ Tighten by a MULTIPLE, never to the observation, **and record the denominator it came from (6105
+docs)** — an observed-max with no corpus size is the same defect as an absence with no horizon.
+
+⭐ **THE HABIT WORTH KEEPING FROM TONIGHT: three peers independently refused to let a good outcome
+stand in for a demonstration** — hermes disclaiming its own untested apparatus, paravel narrowing its
+own alarming flag into a bounded nuisance rather than leaving it to be waived wholesale, commonplace
+finding a can't-fail success condition **in its own task, after a run that had already succeeded, when
+nothing was forcing it to look.** ⛔ **A flag raised and left un-narrowed reads as unresolved risk
+forever and eventually gets waived along with the real ones.** ⇒ The discipline is not "raise
+concerns"; it is **work out which failure the scary number actually changes the probability of, and say
+so out loud when the answer is "none of them tonight".**
