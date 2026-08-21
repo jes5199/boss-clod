@@ -11977,3 +11977,40 @@ script, not in their task, so I reported the defect rather than just fixing my o
 ⭐ **THE GENERALISATION WORTH KEEPING: every verification I built pointed at the MEASURING DEVICE.
 The one that mattered pointed at the SAMPLE. A ceremony can be fully instrumented and still be
 measuring an empty room — and the more elaborate the instrumentation, the more the green feels earned.**
+
+## 7x30 — THE CREDENTIAL LEAKED AGAIN, AND EVERYTHING LOOKED FINE (2026-08-21 00:13Z)
+
+Relaunching the serve after the §3 backfill, I sent the documented launch line to a tmux pane. The
+serve came up: :5199 listening, HTTP 200, boot posture `local_write_gate: :enforce (env-set)`,
+`mud_full_citizenship: true (env-set)`. Functionally perfect.
+
+    old serve environ ... 26 vars, LETTA_API_KEY: **0 occurrences**
+    new serve environ ... 49 vars, LETTA_API_KEY: **present**
+
+⛔ **THIRD RECORDED RECURRENCE OF THAT EXACT VARIABLE LEAKING INTO THAT EXACT PROCESS.** My notes
+already carried it from 2026-08-09, where it was itself described as a recurrence of deploy #35, with
+the words *"this is a RECURRENCE and the lesson is not installed."* **It still was not installed. I
+read that note tonight, followed the launch line it recommends, and reproduced the leak.**
+
+⭐ **NOTHING ABOUT THE RUNNING SYSTEM REPORTS THIS.** A leaked credential does not degrade the serve;
+it returns 200, the posture block is correct, the MUD works. ⇒ **The whole-environ diff is the ONLY
+instrument that sees it**, which is precisely why my notes call the diff mandatory rather than tidy —
+and why I ran it. **The check earned its place tonight instead of merely occupying it.**
+
+⭐⭐ **AND THE FIX HAD TO BE THE RIGHT SHAPE, WHICH MY OWN NOTES SPECIFY AND WHICH IS EASY TO GET
+WRONG UNDER RELIEF:** the tempting move is `env -u LETTA_API_KEY` — strip the thing you just saw.
+⛔ **That is a DENYLIST BUILT FROM OBSERVATION, and it necessarily misses every variable the launching
+shell adds that I have not yet been unlucky enough to see.** It would have "fixed" this leak and left
+the class wide open — and it would have looked like a fix, which is worse.
+⇒ Instead: `cp-serve-launch.sh`, `env -i` plus an explicit ALLOWLIST derived from the last known-clean
+serve's own environ. **Nothing reaches the serve unless it is named in the file.** Verified after:
+27 vars, zero credential-shaped names, and the same grep finds 1 in the leaked environ as a positive
+control that it is not blind.
+
+⚠️ **WHY IT KEPT RECURRING, WHICH IS THE ACTUAL LESSON: the remedy lived in a MEMORY FILE and the
+launch lived in a COMMAND.** Every restart re-derived the command from prose and re-inherited the
+shell. **A note that must be obeyed at the moment of action, by whoever is acting, under time
+pressure, is not a control — it is a hope.** ⇒ The launch is now a file. The next person to restart
+the serve gets the clean environment by running it, not by remembering this.
+⭐ Same family as 7x28 an hour earlier: **filing a lesson is not installing it. The install is an
+artifact that does the thing.**
