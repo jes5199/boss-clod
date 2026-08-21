@@ -158,6 +158,30 @@ if [ "$SUBAGENTS" -gt 0 ]; then
   exit 0
 fi
 
+# --- 3c. A LIVE CHILD PROCESS IS WORK. CHECK THE PROCESS TABLE. --------
+# ⛔⛔ 2026-08-21, THIRD firing of the same class (LESSONS 7x51, 7x53, now this).
+# commonplace was 25 MINUTES into the (a) build — full core suite running as a
+# BACKGROUNDED command writing to a log — and this gate said "idle". I had told
+# it, in the same message, that "the two-signal blind spot is closed."
+# ⭐ THE ACTUAL DEFECT, and it is embarrassing: this gate had TWO PANE-TEXT
+# CHECKS AND ZERO PROCESS CHECKS. The "repair" I shipped this morning added a
+# SECOND PANE-TEXT signal — which shares the pane's blindness by construction.
+# Every by-hand liveness check I ran today used `ps --ppid`; the automated gate
+# never did. THE SCRIPT WAS STRICTLY WEAKER THAN MY HANDS, and I called it fixed.
+# ⇒ A backgrounded command drives no spinner and is no subagent, but it IS a
+# child process. Ask the kernel, not the screen.
+# ⚠️ `bun` is excluded: those are long-lived harness helpers, not work.
+PANE_PID=$(tmux list-panes -t "0:$WIN" -F '#{pane_pid}' 2>/dev/null | head -1)
+CLAUDE_PID=$(pgrep -P "$PANE_PID" 2>/dev/null | head -1)
+if [ -n "$CLAUDE_PID" ]; then
+  KIDS=$(ps --ppid "$CLAUDE_PID" -o comm= 2>/dev/null | grep -cv '^bun$')
+  if [ "$KIDS" -gt 0 ]; then
+    WHAT=$(ps --ppid "$CLAUDE_PID" -o etime=,comm= 2>/dev/null | grep -v ' bun$' | tail -1 | tr -s ' ')
+    say "DECLINED: $WORKER has $KIDS live child process(es) — work in flight:$WHAT"
+    exit 0
+  fi
+fi
+
 # --- 4. queued input waiting on a keypress? not idle, needs a human ---
 if printf '%s\n' "$PANE" | grep -q 'Press up to edit queued'; then
   say "DECLINED: $WORKER has queued messages awaiting Enter"

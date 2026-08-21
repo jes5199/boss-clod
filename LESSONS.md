@@ -13029,3 +13029,39 @@ spent. **"Your instrument is stale" is that same move in miniature**, and it is 
 it is short, technical, usually true of *something*, and delivered as help.
 ⇒ **The correct shape when I can see a wrong RESULT but not the command that produced it: report the
 result is wrong, hand over my evidence, and ask for the command — never supply the mechanism.**
+
+## 7x56 — I fixed one instance, announced the CLASS was closed, and the class fired again 4 hours later
+
+**What happened.** I dispatched a board to commonplace saying *"you read idle on the repaired gate (no
+spinner AND no running subagent; the two-signal blind spot from this morning is closed)."* It was **25
+minutes into the (a) build** — the full core suite running as a **backgrounded command writing to a log**.
+
+**Third firing of one class in one day:** 7x51 (subagent, failed toward decline) → 7x53 (subagent,
+failed toward DISPATCH) → this (backgrounded command, failed toward DISPATCH, *and* I certified the
+class fixed in the same breath).
+
+⭐⭐ **THE DEFECT IS WORSE THAN THE MISS. `epic-nudge.sh` HAD TWO PANE-TEXT CHECKS AND ZERO PROCESS
+CHECKS.** My "repair" this morning added a **second pane-text signal** — which shares the pane's
+blindness *by construction*. ⇒ **Every by-hand liveness check I ran today used `ps --ppid`. The
+automated gate never did. THE SCRIPT WAS STRICTLY WEAKER THAN MY HANDS, and I called it repaired.**
+
+⚠️ **This is 7x53's own lesson, applied to 7x53's fix.** I wrote there: *"the question is not 'where did
+it bite' but 'what else consumes this signal?'"* — and then fixed the **instance** (subagents) instead
+of the **signal** (the pane). ⛔ **A fix that adds a check drawn from the SAME SOURCE as the one that
+failed is not defence in depth; it is the same instrument twice.**
+
+⭐ **AND I ANNOUNCED IT. Saying "the blind spot is closed" converted my own unverified belief into a
+claim commonplace could have relied on.** It caught me because it knew what it was doing; nothing in my
+report would have revealed it. ⇒ **Never certify a class closed on the strength of having fixed an
+instance. State what was fixed, not what is now safe.**
+
+**Fix (§3c): ask the KERNEL, not the screen.** A live non-`bun` child of the pane's claude process =
+work in flight. Demonstrated on live workers at install:
+```
+commonplace (25m into the build) -> DECLINED: 1 live child — 12:28 bash
+commonplace-plan (idle)          -> PASS: 0 children
+```
+⚠️ Still not provably complete — **a fourth mode may exist** (work on another host, work inside a
+detached session). ⇒ **I am recording the gate as "covers spinner + subagents + child processes",
+NOT as "detects busy".** The first is a list I can check; the second is a promise I have now broken
+three times.
