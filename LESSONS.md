@@ -13229,3 +13229,39 @@ worked because their targets were direct children of an existing dir; this one n
 ⇒ **A scheduled pause is a prediction. A triggered pause is an observation.** The first can only be asserted; the second can actually fire — and can be checked afterwards for whether it did.
 
 ⛔ **MY OWN RESTRAINT, recorded because it is the other half of doing this well:** I raised it **once**, said in the message that it was once, stated plainly that the rank might still be right on ordering grounds, and **did not relay the unblock to commonplace** — plan had cc'd it, and routing plan's ruling through me would put it in the wrong place. ⭐ **Spending a raise well means also spending it only once.**
+
+## 7x61 — I shipped `System.halt(0)` into my own launcher, three hours after criticising it
+
+**Writing the pinned-boot gate, I used the obvious idiom:**
+```bash
+if ! "$SHARED/bin/cp-pin-status" >&2; then
+  rc=$?            # ⛔ status of the NEGATION, not of the command
+```
+⇒ **`if ! cmd; then rc=$?` yields 0 when `cmd` FAILED.** The launcher **refused correctly and
+completely** — printed the gauge's verdict, did not fall back — **and then announced `"exited 0"` and
+EXITED 0.**
+
+⭐⭐ **THAT IS EXACTLY THE DEFECT I HAD FLAGGED IN `backup.exs` THREE HOURS EARLIER:** *"it prints
+`{:error, :enoent}` and exits 0 ⇒ rc is not a verdict for that script."* **I wrote the same hole into a
+file whose own header warns about instruments that cannot fail** — a launcher whose refusal is
+invisible to any caller checking its exit code.
+
+⚠️ **AND THE BEHAVIOUR WAS RIGHT, WHICH IS WHY IT WOULD HAVE SURVIVED.** It refused. It printed the
+right words. It protected the serve. **Only the exit code lied** — and nothing about watching it work
+would have revealed that. ⛔ **A correct action with a false verdict passes every test that looks at
+the action.**
+
+⇒ **WHAT CAUGHT IT: testing the RED ARM before trusting the gate.** Not review, not care — **running
+the refusal and reading its `rc`.** The pinless world was free to test in, and I would have had no
+reason to check the exit code if I had only ever run the green path.
+
+⭐ **AND THE SECOND ARM EARNED ITS KEEP TOO:** a stub `cp-pin-status` exiting **99** — a code nobody
+has ever defined — **also refused, `rc=99`.** ⇒ **That is the payoff for enumerating the GO CONDITION
+instead of the failures.** A launcher written as `if rc -eq 2 || rc -eq 3` would have **booted** on 99,
+on a crash exiting 1, on an ENOENT of the binary itself. ⭐ **New failure modes are refusals by
+construction; the gauge's exit table can grow without this file learning about it.**
+
+⇒ **Two rules, both now demonstrated rather than asserted:**
+1. **Never read `$?` after `if ! cmd`.** Suspend `set -e`, run the command bare, capture `rc`, restore.
+2. **Test the refusal, not just the acceptance** — and **check the EXIT CODE of the refusal**, not only
+   its output. **Tonight the output was perfect and the code was wrong.**

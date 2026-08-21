@@ -21,8 +21,57 @@
 # mandatory on every restart and not a nicety.
 set -euo pipefail
 
-CP=/home/jes/commonplace
-DATA=$CP/workspace/.commonplace
+# ══════════════════════════════════════════════════════════════════════════════════
+# ⛔⛔ PINNED BOOT GATE (2026-08-21). THE SERVE BOOTS FROM THE PIN OR IT DOES NOT BOOT.
+#
+# WHY: three times tonight I restarted this serve and each restart silently deployed
+# whatever the SHARED tree at /home/jes/commonplace had compiled in the meantime —
+# code that had never been through a span certification. `cp-deploy-gap` read a
+# reassuring `0` throughout, because it compares _build to the running process and
+# CANNOT SEE A SOURCE TREE THAT IS AHEAD OF _build. The gauge shared fate with the
+# thing it measured. (boss LESSONS 7x57/7x58.)
+#
+# ⭐ THE FIX IS STRUCTURAL: code comes from a dedicated worktree pinned at a sha,
+# written ONLY by `bin/cp-deploy-pin` as a ceremony step. The shared tree may churn
+# freely; it no longer reaches production by accident.
+#
+# ⭐⭐ BOOT ONLY ON EXIT 0. REFUSE ON EVERYTHING ELSE — never enumerate the failures.
+# A launcher that refused on {2,3} would BOOT on an unanticipated code: a crash
+# exiting 1, an ENOENT on the binary, a future exit 4. The GO condition is what gets
+# enumerated; everything else is refusal, INCLUDING THE UNKNOWN. cp-pin-status's
+# exit table can grow without this file learning about it.
+#
+# ⛔ AND IT MUST NEVER FALL BACK TO $SHARED. A silent fallback recreates the exact
+# accident with extra steps, on the day someone deletes the pin — i.e. when nobody
+# is watching. Fail loud, refuse to serve.
+PIN=/home/jes/commonplace-serve-pin      # CODE comes from here. Constant, never env:
+                                          # if the boot source could arrive by
+                                          # environment it would be exactly the class
+                                          # of fact `env -i` below exists to eliminate.
+SHARED=/home/jes/commonplace              # DATA + tooling only. NOT a boot source.
+
+# ⛔⛔ CAPTURE THE STATUS CORRECTLY. `if ! cmd; then rc=$?` yields the status of the
+# NEGATION (0 when cmd failed) — NOT cmd's status. I shipped exactly that bug here on
+# 2026-08-21 and the red-arm test caught it: the launcher refused correctly, then
+# announced "exited 0" and EXITED 0. ⭐ That is the same defect I had criticised in
+# backup.exs three hours earlier — an instrument that reports failure in text and
+# success in its exit code. `rc` must come from the command itself, with `set -e`
+# suspended so the failure does not abort before we can read it.
+set +e
+"$SHARED/bin/cp-pin-status" >&2
+rc=$?
+set -e
+if [ "$rc" -ne 0 ]; then
+  echo "⛔ REFUSING TO BOOT: cp-pin-status exited $rc (boot requires exit 0)." >&2
+  echo "   The verdict above is verbatim from the gauge — act on it, do not guess." >&2
+  echo "   ⛔ NOT falling back to $SHARED. Run: $SHARED/bin/cp-deploy-pin <sha>" >&2
+  exit "$rc"
+fi
+echo "✅ cp-pin-status exit 0 — booting from the pin at $PIN" >&2
+# ══════════════════════════════════════════════════════════════════════════════════
+
+CP=$PIN                                   # code: the pinned worktree
+DATA=$SHARED/workspace/.commonplace       # data: the LIVE store, unchanged and absolute
 
 # ── THE ALLOWLIST ──────────────────────────────────────────────────────────────────
 # Derived from the LAST KNOWN-CLEAN serve's own environ, not from what happens to be
