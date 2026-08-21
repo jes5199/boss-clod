@@ -12803,3 +12803,35 @@ their project" — it is "measure before theorising", and it applies hardest whe
 
 ⇒ **Cost of the check that settled it: 3 samples, ~6 seconds.** Cost of the fix I was about to ship:
 a rewrite of the one gate standing between a nudge and an interrupted 63-minute build.
+
+## 7x51 — two independent-looking liveness signals shared one blind spot, and three agreeing samples felt like proof
+
+**What happened.** The Sol gate passed, so I checked whether commonplace was free. It read **idle on
+both signals I trust**: no spinner line in the pane, and zero non-`bun` children under the pane's
+`claude` pid. I sampled three times to be careful. All three agreed.
+
+By my own rule that is a finished turn. I was one command from sending `/model` — which would have
+switched commonplace's model **in the middle of its §4 read**, invalidating its cache and jumping the
+exact boundary I had asked it to stop at an hour earlier.
+
+**What stopped it was a line I read for an unrelated reason** — the pane's agent list:
+`◯ Explore  Reading do_get_commit in commit_store.ex`. A background subagent was in flight.
+
+⭐ **A SUBAGENT RUNS OUTSIDE THE PANE'S PROCESS TREE AND DOES NOT DRIVE THE PANE'S SPINNER.** So
+*idle-because-finished* and *idle-because-blocked-on-a-subagent* are *byte-identical* under both checks.
+⚠️ **The two signals were not independent. They shared a blind spot** — and because I believed they were
+independent, their agreement read as corroboration. ⛔ **Sampling three times made it worse, not better:
+repetition tests for FLICKER, never for BLINDNESS.** A blind instrument is perfectly repeatable.
+
+⭐ **THE GENERAL FORM: CORROBORATION IS ONLY WORTH ITS INDEPENDENCE, AND INDEPENDENCE IS A CLAIM ABOUT
+MECHANISM, NOT ABOUT THE SIGNALS LOOKING DIFFERENT.** "Pane text" and "process table" *feel* maximally
+unalike — different subsystems, different tools. They both answer *is work happening in THIS process*,
+and the work was happening in another one. ⇒ **Before counting two checks as two, name the failure that
+would take out both.** Here it takes ten seconds and the answer is "the work is not in this process."
+
+⇒ **Fix, and it is a protocol change rather than a better probe:** I now switch commonplace's model
+**only on its explicit "AT THE GAP" message — never on inferred idleness** (told it so, #14336). ⭐ The
+right fix was not a third liveness signal; it was to stop inferring a state the other party can simply
+ASSERT. **An observed absence of activity is not a claim anyone made.** And the failure direction is
+right: if the message never comes I never switch, which leaves a wrong model visible in a statusline —
+whereas an interrupted build is invisible and unrecoverable.
