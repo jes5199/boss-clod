@@ -12728,3 +12728,38 @@ frequency: `""` can only be an empty-file read, because the shell always sets th
 ⇒ **Outcome: no KNOWN-INTERMITTENT entry. It becomes a fixed@commit entry with a DETERMINISTIC
 red→green unit test of the race** — the integration flake being load-dependent and not reproducible on
 demand, which is precisely why the unit test is the right proof and the rate was not.
+
+## 7x49 — I hand-rolled a worse copy of a resolver I had already written and committed
+
+**What happened.** Checking commonplace's liveness, I needed hermes' `VmSwap`. I wrote inline:
+`pgrep -f 'beam.smp' | while read p; do grep -q hermes /proc/$p/cmdline && echo $p; done`.
+It printed **nothing**. Output: `hermes pid= VmSwap=`. That is byte-for-byte what a **dead hermes**
+looks like — the live-money BEAM absent from the process table.
+
+hermes was fine (pid 3985426, RSS 135M, swap 112M). The matcher was blind: `/proc/<pid>/cmdline` is
+NUL-separated, `grep` treats it as binary, and the string `hermes` sits well past where I was looking.
+
+**The near-miss is not the broken one-liner. It is that the correct resolver already existed.**
+`s3-backfill-run.sh` has `find_serve()`, which I wrote *for this exact problem* — resolve a BEAM by
+`comm`, by cwd, by a socket it actually holds, never by a loose cmdline grep. It is committed. It works.
+I did not use it. I typed a worse one from memory in the moment I needed it.
+
+⭐ **"A FILED ARTIFACT FIRES; A REMEMBERED RULE DOES NOT" HAS A SECOND HALF I HAD NOT NOTICED: a filed
+artifact only fires IF YOU REACH FOR IT.** Filing `find_serve()` discharged the *rule*, so the rule
+stopped nagging — and then nothing pointed at the file. ⇒ Writing the artifact quiets the very instinct
+that would have made you look for it. **The artifact must be on the PATH of the cheap action, not merely
+in the repository**; otherwise filing it is what makes it invisible.
+
+**What caught it: a positive control, and only that.** I enumerated the corpus — `pgrep -x beam.smp`,
+printed all three with cwd and app name, and **counted them**. Three. Non-empty corpus ⇒ the zero was
+my instrument, not the world. ⛔ Had I skipped the count I would have relayed "hermes is not running"
+to jes, at 100% confidence, off a grep that never could have matched.
+
+⚠️ **And this is the family where a false positive is expensive in the other direction too.** A
+cmdline matcher that under-matches reports a dead process that is alive. The same matcher, one word
+looser, **over-matches and hits a stranger's process** — which is the CROSS-MATCH mode, silent, and the
+reason broad-pattern kills are banned on this host at all. Same defect, two blast radii.
+
+⇒ **Concrete fix, not a resolution:** identity resolution moves out of one-liners into
+`bin/cp-resolve-beam` — one place, with the count-the-corpus check built in, so the cheap path and the
+true path are the same act.
