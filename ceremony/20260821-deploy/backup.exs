@@ -77,4 +77,12 @@ else
 end
 
 IO.puts("BACKUP_DONE target=#{target} result=#{inspect(res)}")
-System.halt(0)
+
+# rc IS the verdict: the 2026-08-21 22:4x incident read a printed
+# {:error, :enoent} as success because this script halted 0 regardless —
+# a check that cannot fail, in the instrument itself. Any non-:ok result
+# exits nonzero; CubDB.back_up does NOT mkdir -p the parent.
+case res do
+  :ok -> System.halt(0)
+  _ -> System.halt(4)
+end
