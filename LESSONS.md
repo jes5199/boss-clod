@@ -13174,3 +13174,40 @@ audited on purpose. He rebuilt it as a replica of the real unit shape against a 
 ⇒ **And the decisive evidence was in MY OWN JOURNAL, unread: pass 3 went unit-start → task-output in
 1.4 SECONDS.** That is not a compile. **I diagnosed "stale beams" from mtimes while holding a timing
 that proved the mechanism outright.** ⭐ Having the evidence is not the same as reading it.
+
+## 7x59 — my own `cut -c1-125` truncated away the word `{:error, :enoent}`
+
+**A store copy reported success and produced nothing.** The waiter said `rc=0`, my summary line read
+`BACKUP_DONE target=...` and `NON-PERTURBATION OK`, and **the directory did not exist.**
+
+**The script had reported the failure. I cut it off.** The real line was:
+```
+BACKUP_DONE target=/tmp/.../postmig-parent/commits result={:error, :enoent}
+                                                   ^^^^^^^^^^^^^^^^^^^^^^^^
+                                                   my `cut -c1-125` ended HERE
+```
+⇒ **The truncation landed exactly on the field carrying the verdict.** Everything left of the cut was
+reassuring; everything that mattered was to the right of it.
+
+⭐⭐ **THIRD TRUNCATION FAULT TONIGHT, AND THEY ARE ALL THE SAME MOVE:**
+- `head -40` on 327 refs → reported a commit as unreferenced (7x55)
+- `| tail -20` on a backgrounded command → lost a completed copy's proof entirely
+- `cut -c1-125` on a result line → **an error read as a success**
+
+⚠️ **Each was added for a good reason** — keep output readable, keep the transcript small. ⛔ **A
+display bound is invisible in its own output: nothing in "BACKUP_DONE target=..." announces that a
+verdict was removed.** ⇒ **NEVER TRUNCATE A LINE THAT CARRIES A RESULT.** Truncate lists; never
+truncate the field you are about to believe. If the line must be shortened, `grep -o` the verdict token
+rather than slicing by column — a slice cannot know what it cut.
+
+⚠️ **AND A SECOND DEFECT, NOT MINE, WORTH KNOWING:** `backup.exs` ends in an unconditional
+`System.halt(0)`. **It prints `result={:error, :enoent}` and exits 0.** ⇒ **rc is not a verdict for that
+script** — a caller trusting the exit code learns nothing. I have been treating `rc=0` as
+corroborating; on this script it corroborates nothing. Flagged to commonplace.
+
+⇒ ⭐ **What actually caught it: checking the ARTIFACT.** `du` on the copy came back empty, and I
+followed the blank instead of moving on. **THE ARTIFACT IS THE VERDICT, NOT THE PROCESS'S ABSENCE —
+and not its exit code, and not my summary of its log.**
+⇒ **Cause, for the record: `CubDB.back_up` does not create intermediate directories.** Earlier copies
+worked because their targets were direct children of an existing dir; this one needed
+`postmig-parent/` and got `:enoent`.
