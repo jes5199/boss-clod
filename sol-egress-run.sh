@@ -128,6 +128,65 @@ case "$(readlink -f "$WORKDIR")" in
     ;;
 esac
 
+# ══════════════════════════════════════════════════════════════════════════════
+# ⛔ CONCURRENCY CAP, MOVED INTO THE RUNNER 2026-08-22.
+#
+# WHY NOW: until tonight exactly ONE agent (commonplace) dispatched Sol, and the
+# cap lived in sol-nudge.sh — so the gate sat on the only path to the runner and
+# that was sufficient. jes then moved commonplace-log onto Sol programmers, which
+# makes it TWO dispatchers. I grepped both files before widening the dispatch:
+# sol-nudge.sh has 9 cap/memory checks, THIS FILE HAD ZERO. Two agents calling the
+# runner directly would each have launched unimpeded, and neither would have seen
+# the other. sol-nudge.sh's own line 155 already said so in a comment —
+# "commonplace's own dispatch bypasses it" — a known bypass that was harmless
+# only because there was one caller.
+#
+# ⭐ THE GATE BELONGS ON THE RESOURCE, NOT ON ONE ROUTE TO IT. A cap that a
+# second caller can walk around is not a cap; it is a habit that happened to hold
+# while only one agent had the habit. A FILED ARTIFACT FIRES; A NOTE IN A BRIEF
+# ASKING AGENTS TO COORDINATE DOES NOT.
+#
+# ⚠️ A round is ~6G and the box has no cgroup limit anywhere (2026-08-18 OOM).
+# OOMPolicy=stop takes the WHOLE tmux scope, and hermes runs a live-money BEAM on
+# this host. Declining a round costs a cycle; getting this wrong costs the fleet.
+#
+# ⛔ COUNT ROUNDS, NOT PROCESSES — one codex round is >=2 pids (the node wrapper
+# and the native binary it execs) sharing a PGID. Counting pids made the cap of 2
+# silently behave as a cap of 1, which declines quietly and looks exactly like a
+# busy pool. This is the same logic as sol-nudge.sh; it is duplicated ON PURPOSE
+# so the runner is safe no matter who calls it.
+SOL_MAX_PARALLEL="${SOL_MAX_PARALLEL:-2}"
+# ⛔ `|| true` HERE FOR THE SAME REASON AS THE grep BELOW, and I needed TWO tries
+# to find it: pgrep ALSO exits 1 on no-match. I fixed the grep first, re-ran the
+# red arm, still got a silent exit 1, and only a `bash -x` trace showed the script
+# was dying HERE — one line earlier — having never reached the fix. ⭐ Two commands
+# in this block return 1 on the EMPTY case, which is the NORMAL case; under
+# `set -e` the gate aborted the whole runner exactly when nothing was in flight.
+# ⇒ Fixing the first cause a trace points at does not mean the symptom had one.
+INFLIGHT=$(pgrep -f '(^|/)codex (exec|resume)' 2>/dev/null || true)
+if [ -n "$INFLIGHT" ]; then
+  INFLIGHT_PGIDS=$(ps -o pgid= -p $(printf '%s' "$INFLIGHT" | tr '\n' ',' | sed 's/,$//') 2>/dev/null \
+                   | tr -d ' ' | sort -u | grep '[0-9]')
+else
+  INFLIGHT_PGIDS=""
+fi
+# ⛔ `|| true` IS LOAD-BEARING, NOT DEFENSIVE PADDING. `grep -c` EXITS 1 WHEN THE
+# COUNT IS ZERO, and under `set -euo pipefail` a bare assignment from it ABORTS
+# THE SCRIPT on the commonest case of all: nothing in flight. I shipped exactly
+# that here on 2026-08-22 and the red-arm test caught it — the gate exited 1 and
+# printed nothing, and my GREEN arm passed VACUOUSLY because it only grepped for
+# the refusal string, which was absent because the script had already died rather
+# than because the gate correctly stayed quiet. ⭐ A green-only pattern cannot
+# distinguish "gate stayed silent" from "gate never ran".
+N_INFLIGHT=$(printf '%s\n' "$INFLIGHT_PGIDS" | grep -c '[0-9]' || true)
+if [ "$N_INFLIGHT" -ge "$SOL_MAX_PARALLEL" ]; then
+  echo "REFUSED: $N_INFLIGHT codex round(s) already in flight, cap is $SOL_MAX_PARALLEL." >&2
+  echo "  pgids: $(echo $INFLIGHT_PGIDS | tr '\n' ' ') | pids: $(echo $INFLIGHT | tr '\n' ' ')" >&2
+  echo "  This is the CAP, not an error. Wait for a slot; do not raise the cap to get past it." >&2
+  exit 65
+fi
+# ══════════════════════════════════════════════════════════════════════════════
+
 # Sensitive paths masked with an empty tmpfs. ~/.codex/auth.json is deliberately NOT masked:
 # codex needs it to authenticate, so it is a known, accepted residual.
 MASK=(

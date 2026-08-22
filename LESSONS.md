@@ -13303,3 +13303,36 @@ ABSENT for a perfectly healthy serve the instant the migration worked.** I caugh
 does my own tooling assume?"* **before** the migration rather than debugging a phantom outage after.
 ⇒ **When you change where a thing lives, audit what identifies it.** The socket is the identity; cwd
 was only ever a corroborator, and it is now written that way.
+
+## 7x63 — I lifted a working block into a stricter file and it aborted on the normal case
+
+**2026-08-22.** jes moved commonplace-log onto Sol programmers, making TWO agents that
+dispatch Sol where there had been one. The concurrency cap lived in `sol-nudge.sh`, which
+sat on the *only* route to the runner — sufficient while there was one caller. I grepped
+before widening: **9 cap/memory checks in the nudge gate, 0 in `sol-egress-run.sh`.**
+`sol-nudge.sh` line 155 had even written the bypass down — *"commonplace's own dispatch
+bypasses it"* — a known hole that was harmless only because nobody else walked through it.
+
+⭐ **THE GATE BELONGS ON THE RESOURCE, NOT ON ONE ROUTE TO IT.** A cap a second caller can
+walk around is not a cap; it is a habit that held while only one agent had the habit.
+
+**Then I broke it three times over, and the tests are the story:**
+
+1. I copied the round-counting block verbatim from `sol-nudge.sh` (`set -uo pipefail`) into
+   `sol-egress-run.sh` (`set -e**u**o pipefail`). ⛔ **`pgrep` and `grep -c` BOTH exit 1 on
+   no-match — and no-match is the NORMAL case.** Under `set -e` the gate aborted the entire
+   runner precisely when nothing was in flight. **Identical code, different contract.**
+2. **My green arm passed VACUOUSLY.** It grepped for the absence of the refusal string — but
+   the string was absent because the script had *died*, not because the gate correctly stayed
+   quiet. ⭐ **A green-only pattern cannot distinguish "gate stayed silent" from "gate never
+   ran."** Same family as the verdict-grep that matched only `NON-PERTURBATION` (7x5x).
+3. I fixed the `grep`, re-ran, still silent-exit-1 — and only `bash -x` showed it was dying
+   one line *earlier*, at the `pgrep`, having never reached my fix. ⇒ **Fixing the first
+   plausible cause does not mean the symptom had one.**
+
+⭐ **WHAT ACTUALLY CAUGHT IT: insisting the red arm print exit 65 rather than merely "fail."**
+An exit-1-with-no-output satisfies "the gate refused" if you only ask whether it stopped.
+**Demand the specific code and the specific reason, or a crash impersonates your gate.**
+
+⚠️ Cost of getting this wrong is not a wasted cycle: a round is ~6G, the box has no cgroup
+limit anywhere, OOMPolicy=stop takes the whole tmux scope, and hermes runs live money here.
