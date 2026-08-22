@@ -13498,6 +13498,14 @@ the dead version**, across two agents, and **not one was found by the person who
 | 4 | `project_hermes_autoscaler_pending` **+ its MEMORY.md index line** | me | hermes announced #3 |
 | 5 | `project_qqq_harvester_deployable` (**dormant 116 days**) | hermes | my by-SUBJECT refinement |
 
+⛔ **DO NOT READ THIS TABLE AS "NOTHING ESCAPED." IT DIDN'T ESCAPE; THE CLAIM THAT CAUSED IT DID.**
+All five *artifacts* were caught internally — but the underlying claim (*"1881 is too low, the wheel
+was added"*) **reached jes through me before measurement refuted it** (see [[7x66]]; corrected ~15
+min later, changed nothing he decided). ⚠️ hermes flagged this when I summarised the night as
+"nothing reached him wrong" — **the comfortable summary is the one that survives, which is the whole
+lesson here applied to my own account of it.** ⇒ **A near-miss tally counts artifacts; it must not
+quietly launder a hit into a miss.**
+
 ⭐⭐ **THE PROPAGATING MECHANISM IS NOT DILIGENCE — IT IS SAYING SO OUT LOUD.** Each fix was found by
 someone pattern-matching a *description of someone else's* fix onto their own files. **A silent
 correction stops the chain at one.** ⇒ Announce corrections in enough detail that a peer can test
