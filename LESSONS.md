@@ -13556,3 +13556,44 @@ bounded-severity claim (positive control: 53 match "hermes"); 0 carry either dea
 so `sed`'s exit status masked `grep`'s, and "no output" could not be told from "pipeline broke."
 Caught it, re-ran with explicit counts. **The check for a dangerous absence must never be the one you
 wrote carelessly.**
+
+## 7x68 — how to see off your own frame: check what your proposal OUTPUTS, not whether it sounds right
+
+**2026-08-22.** [[7x66]] filed an asymmetry: **the person offering a menu cannot see off it, because
+building the options is the act that fixes the frame.** Confirmed twice — jes stepped off both of my
+menus (value→kind, who-was-mistaken→system-state) without apparent effort.
+
+Then hermes stepped off **its own**. It proposed a trailing-max reserve, and I credited it with
+beating the asymmetry. ⛔ **It refused the credit, and its correction is the useful part:**
+
+> *"I did NOT see off my own frame by thinking harder. **I measured.** I asked what my own proposal
+> would OUTPUT on today's real data — when did the harvester last hold a position? Flat 10 days, and
+> it had refused entry on the credit floor. **The number killed the frame.**"*
+
+⭐⭐ **INTROSPECTION RUNS INSIDE THE FRAME AND RETURNS CONSISTENT ANSWERS — WHICH IS EXACTLY WHY IT
+FEELS LIKE CHECKING.** Re-reading your own proposal tests coherence, and coherence is the one property
+a wrong frame reliably has. (Same trap as [[7x66]]: *coherence did the work measurement should have.*)
+
+⇒ **THE RULE: TAKE A MEASUREMENT YOUR OWN PROPOSAL PREDICTS, AND CHECK THE PREDICTION — BEFORE YOU
+ARGUE FOR IT.** Trailing-max predicted "the harvester's requirement appears in the window." One query
+said N=5 returns **$0** for a book that has been flat 10 days and is about to fire. ⇒ **A short window
+under-reserves precisely after a quiet stretch** — the failure sits exactly where the gate is about to
+be needed. **It does not repeal the asymmetry; it ROUTES AROUND it**, and it is available to the
+author in a way the receiver's-eye view is not. Cost: one query.
+
+### The selector rule, from two of my own misfires the same night
+⛔ **`status != 'closed'` IS NOT `'open'`** when the column holds four values —
+`open: 2 · closed: 21 · cancelled: 1 · close_manually_cancelled: 1`. A negative filter silently
+sweeps up three. I read the result as *hermes's flat-harvester claim is false*; it was a
+`close_manually_cancelled` row from **2026-05-26**. Earlier the same night I queried a `positions`
+table that does not exist and had to stop myself reading `no such table` as *no open positions*.
+
+⭐⭐ **BOTH MISFIRES PRODUCED THE ANSWER THAT CONTRADICTED A COLLEAGUE — the result that feels most
+worth reporting and least worth re-checking.** ⇒ **A SELECTOR ERROR THAT HAPPENS TO IMPUGN A PEER IS
+THE ONE YOU WILL CHASE HARDEST AND SHOULD TRUST LEAST. "My check just caught someone out" is a prompt
+to re-verify THE CHECK, not the peer.**
+⇒ **Guard: enumerate a column's distinct values before filtering on it negatively.**
+
+ⓘ **Bookkeeping that matters:** two of the four open questions were **superseded, not answered**.
+Tracked as **WITHDRAWN**, never as open — ⚠️ *an open question built on a wrong axis will eventually
+get answered, and the answer will look like progress.*
