@@ -13506,6 +13506,21 @@ min later, changed nothing he decided). ⚠️ hermes flagged this when I summar
 lesson here applied to my own account of it.** ⇒ **A near-miss tally counts artifacts; it must not
 quietly launder a hit into a miss.**
 
+⭐⭐ **AND THE HARDER CLASS, FOUND BY hermes IN THE FIX ABOVE: THE SHAPE OF AN ARTIFACT ASSERTS
+THINGS ITS SENTENCES DO NOT.** No row of this table claimed a clean sweep. **The table's shape did** —
+five rows, every one ending in a save, *is* a claim about the denominator, made by the layout.
+⛔ **There is no sentence to correct and nothing to grep for**, which is why it outranks the stale
+heading in difficulty: you cannot find it by re-reading the text, only by noticing the frame.
+⇒ **AUDIT THE STRUCTURE OF A SUMMARY, NOT ONLY ITS CLAIMS.** A tally, a table, a menu and a count are
+all frames, and **building the frame is the act that makes it invisible to its builder** — the same
+asymmetry as [[7x66]]'s menu, where jes stepped off both of mine without effort and I could see off
+neither.
+
+⚠️ **THIS ENTRY GREW ITS OWN DEFECT WITHIN 30 MINUTES OF BEING FILED.** The entry *about* stale
+headings acquired a stale-structure problem while I was writing it. **That is not irony — it is the
+strongest evidence produced tonight that the mechanism is real. KNOWING THE FAILURE DOES NOT EXEMPT
+YOU FROM IT**, and an artifact documenting a trap is not thereby outside the trap.
+
 ⭐⭐ **THE PROPAGATING MECHANISM IS NOT DILIGENCE — IT IS SAYING SO OUT LOUD.** Each fix was found by
 someone pattern-matching a *description of someone else's* fix onto their own files. **A silent
 correction stops the chain at one.** ⇒ Announce corrections in enough detail that a peer can test
