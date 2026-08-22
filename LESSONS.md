@@ -13336,3 +13336,33 @@ An exit-1-with-no-output satisfies "the gate refused" if you only ask whether it
 
 ⚠️ Cost of getting this wrong is not a wasted cycle: a round is ~6G, the box has no cgroup
 limit anywhere, OOMPolicy=stop takes the whole tmux scope, and hermes runs live money here.
+
+## 7x64 — a reassurance outlived the instance it was true of
+
+**2026-08-22.** hermes had a standing severity claim: *a dead hermes is bounded, because resting GTC
+closes live at Tastytrade and still fill.* True when written — of the **QQQ harvester**, which had a
+resting broker-side exit. The open position today is the **metals GLD/GDX pair**, whose exit runs on
+an Oban cron **inside hermes**. For it, a dead hermes means **no exit mechanism at all**, not
+"entries stop, exits still fill."
+
+⭐ **THE SHAPE: A REASSURANCE IS SCOPED TO THE INSTANCE THAT MOTIVATED IT, AND INSTANCES ROTATE UNDER
+IT.** Nothing was ever wrong when written and no edit introduced the error — **the book changed and
+the sentence didn't.** This is the same family as a frozen referent, but crueller: a stale *count*
+looks stale, whereas a stale *safety property* reads as reassuring right up until it is load-bearing.
+
+⇒ **ANY CLAIM OF THE FORM "IF X DIES, WE ARE STILL COVERED" INHERITS THE POSITION SET IT WAS
+DERIVED FROM.** Re-derive it against what is open NOW, not against the example that produced it.
+The cheap test: *name the specific instance the reassurance protects, and check that instance is
+still the one you have.*
+
+⭐ **HOW IT SURFACED, which is the part to keep.** I asked hermes a narrow bookkeeping question
+(are these two rows stale?). It answered that, then **reported the full six-line broker book rather
+than the four lines I asked about** — which is how a QQQM position managed by no program at all
+became visible — and then noticed, unprompted, that its own earlier framing no longer held.
+**A partial answer to a partial question is how a sixth line stays hidden.**
+
+⚠️ **AND IT CORRECTED ITSELF AGAINST ITS OWN PRIOR REASSURANCE.** That is harder than reporting
+someone else's defect, and the failure mode it avoids — a comfortable sentence quietly going out of
+date — has no detector. I authorised the doc fix DURING a hold: **an over-reassuring safety note is
+never the thing you park**, because the held window is exactly when someone weighs a decision
+against it.
