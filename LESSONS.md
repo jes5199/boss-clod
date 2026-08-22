@@ -13672,3 +13672,44 @@ five findings including two that killed the proposal. ***"Does this look OK?"* w
 difference was entirely in **what the asker permitted the responder to say.** Worth noticing which of
 my own questions do that — to jes, and to every worker I dispatch. **A question that only invites
 agreement will receive it, and the agreement will be sincere.**
+
+## 7x71 — the night's shape: the observable disappeared while the truth didn't
+
+**2026-08-22, capstone.** hermes noticed three of tonight's failures are one family. **None of them
+produces a diff, and each destroys its own evidence:**
+
+| # | failure | what vanished | what stayed true |
+|---|---|---|---|
+| 1 | [[7x64]]/[[7x65]] a claim decayed **without an edit** | nothing changed in the file | the book rotated underneath it |
+| 2 | [[7x67]] a check that **could not fail** (`\|\|` bound to a pipeline's end) | the possibility of a red | the thing it was meant to catch |
+| 3 | this entry — a hazard that **changed agents** | the assignment event that announced it | the collision itself |
+
+⭐⭐ **A REMEDY CAN PRESERVE A HAZARD WHILE DESTROYING ITS SIGNAL.** jes ruled *keep the wheel
+cash-secured*, which genuinely removes the assignment-overdraws-cash failure. **But the QQQM
+maintainer is structurally blind to cash** — `parse_margin_requirements` extracts exactly `equity`
+and `option_bp`; **`cash-balance` appears 0 times in the module** (verified two-armed at
+`tastytrade.ex:206-213`). ⇒ It now spends the cash that secures the put. **Same collision, quieter
+agent: the old form had an assignment to announce it, the new one is a Wednesday cron.**
+
+⛔ **"IS THE ORIGINAL FAILURE STILL REACHABLE?" IS THE WRONG TEST.** Ask **WHICH AGENT CAN NOW CAUSE
+IT, AND DOES THAT AGENT MAKE NOISE?** ⚠️ **Trading a loud failure for a silent one reads as progress
+in every summary anyone would write — including an honest one, because the original failure genuinely
+is gone.**
+
+### The unit class — `HERMES-swc5j`, and the third instance was already in the tree
+Three live-money formulas tonight tried to add **different resources**: *interest vs buying power*
+(**interest-free ≠ capital-free**) · *cash vs buying power* (the wheel's claim is cash, every other
+book's is BP, the governing formula is a BP inequality) · and **rotation, already excluded from
+`CapitalPriority` because it "checks live free cash directly"** — `CLAUDE.md:350`, **prose, enforced
+by nothing.** ⭐ **Somebody hit this before, solved it by exclusion, and wrote a note. The note is
+load-bearing.**
+
+⇒ **WHY IT IS INVISIBLE: all three operands are floats denominated in dollars.** Dollars of cash,
+of BP, and of interest are **released by different events and consumed by different things.** Adding
+them yields a quantity of nothing — **and it errs in a direction set by whichever resource is
+currently scarce, so it returns a PLAUSIBLE NUMBER rather than a failure.** ⛔ **A shared unit is not
+a shared resource.**
+
+ⓘ **Method note:** I could not confirm the parser from my side and **attributed it to hermes rather
+than claiming it**; it then handed me the file and lines, and I closed it two-armed. **An empty grep
+is not a confirmation** — I had already made that error twice tonight.
