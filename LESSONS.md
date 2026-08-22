@@ -13366,3 +13366,41 @@ someone else's defect, and the failure mode it avoids — a comfortable sentence
 date — has no detector. I authorised the doc fix DURING a hold: **an over-reassuring safety note is
 never the thing you park**, because the held window is exactly when someone weighs a decision
 against it.
+
+## 7x65 — adding a member to a set is an unwritten write to every constant that summed over it
+
+**2026-08-22, ninety minutes after [7x64].** Second instance of the same mechanism in one evening,
+different subsystem, and **the pair is the finding — neither instance shows it alone.**
+
+| | derived from | invalidated by | still in force |
+|---|---|---|---|
+| severity claim | harvester's resting GTC | rotation to metals | recited as reassurance |
+| `alloc_reserve_need = 1881` | harvester $1000 + metals $781 | **DNA wheel, 08-10, $900** | governs a live buy decision |
+
+⭐ **THE MECHANISM: ADDING A BOOK IS A WRITE TO EVERY CONSTANT THAT SUMMED OVER THE OLD SET — a
+write nothing performs and no test observes.** Neither value was edited. Neither produced a diff.
+Both were exactly correct when written and went false through the **arrival of a new member**.
+⇒ Ordinary drift review cannot catch this: **there is nothing to review.** The artifact is unchanged;
+the world moved.
+
+⛔ **AND RE-READING IS THE ONE METHOD GUARANTEED TO FAIL** — both looked fine on re-read, because a
+sum is not self-describing. `1881` does not say "= harvester + metals"; only a July design doc does.
+**The trigger (arming a new ticker) is rare, celebratory, and lives in a different file from the
+constant it invalidates.** Nobody is thinking about a month-old derivation while a new book goes live.
+
+⭐ **hermes's sharpening, which is better than my framing:** the key `alloc_reserve_need` was **never
+created** — `read_float(key, "1881")` means the *install-time default* has governed since 07-09.
+⇒ **A stale setting implies a decision once happened; a never-created key means the number was never
+anyone's choice.** ⚠️ **AND THE READ SIDE IS IDENTICAL EITHER WAY** — `get(key) || default` returns
+1881 whether someone chose it or nobody ever did. **Never-created and deliberately-stale are the same
+observable**, which is exactly why it was unanswerable by inspection and had to go to jes.
+
+⭐⭐ **WHY I SAW IT AND THE FINDER DIDN'T: hermes found BOTH and read them as two tidy-ups.** From
+inside an instance it is ordinary drift; only the twin makes it a mechanism. ⇒ **Cross-instance
+pattern-spotting is a distinct job from finding the instances, and the finder is the worst-placed
+party to do it.** That IS in my lane — naming the shape. ⛔ Prescribing the remedy is not, and I
+didn't.
+
+⚠️ **Honest count: AT LEAST two.** Any other constant in there derived when the portfolio was smaller
+is in the same state, and nobody knows which. Filed as HERMES-k22qj for someone to go and check —
+because, per the above, they will not find it by re-reading.
