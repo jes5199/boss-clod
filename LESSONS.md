@@ -13404,3 +13404,42 @@ didn't.
 ⚠️ **Honest count: AT LEAST two.** Any other constant in there derived when the portfolio was smaller
 is in the same state, and nobody knows which. Filed as HERMES-k22qj for someone to go and check —
 because, per the above, they will not find it by re-reading.
+
+## 7x66 — I verified every component of a claim whose conclusion pointed the opposite way
+
+**2026-08-22.** hermes brought me: *"`reserve_need`=1881 is TOO LOW — the wheel was added 08-10 and
+nobody updated it."* I verified the components before relaying, and **every one was true**:
+
+| component | checked | true? |
+|---|---|---|
+| reserve is 1881 | `settings` + `allocation_maintainer.ex:264` | ✅ |
+| the key was NEVER created | absent from `settings`, default in code | ✅ (worse than stated) |
+| wheel live 08-10, $700 committed | `wheel_positions` | ✅ |
+| design doc says adding a book updates it | the doc | ✅ |
+
+**I relayed it to jes as the finding.** Then hermes measured what the books actually consume:
+**$1,086.63 — BELOW 1881.** Metals $383 against an assumed $781; the harvester **flat**, $0 against an
+assumed $1,000. ⇒ The constant **overstates** today and **understates** peak. **The claim did not just
+overstate its confidence — it pointed the wrong way, and I had already sent it.**
+
+⭐⭐ **A CLAIM ASSEMBLED FROM VERIFIED FACTS IS NOT A VERIFIED CLAIM.** Provenance, arithmetic and
+each premise can all check out while the conclusion is backwards, because **verifying the parts tests
+the parts, never the inference joining them.** My whole discipline is aimed at "is this fact true?"
+and this failed at "does the conclusion follow?" — a different question that the first one's success
+makes feel already answered.
+
+⛔ **THE MISSING CHECK WAS THE CHEAP ONE.** I asked *where did 1881 come from* and never asked
+**what is actually being consumed right now.** One broker read. ⇒ **When a claim says a budget is
+wrong, MEASURE THE SPEND.** Auditing the budget's derivation is the interesting question and the
+wrong one; the boring current-state read is what discriminates.
+
+⭐ **THE REPLACEMENT ARGUMENT WAS STRONGER, WHICH IS THE TELL:** *a number wrong in BOTH directions
+cannot be repaired by choosing a better number.* That argues from structure, so it survives the
+obvious counter ("fine, set it to 2781"). **An argument that only works against one instance is
+usually an instance-shaped argument, and I should have noticed I was carrying one.**
+
+⚠️ Note the relayed error was **safe by luck** — the 1-share/week cap binds at 1881, at $1,086 and at
+peak, so Wednesday's action is identical under all three. **Nothing was riding on my being right, and
+that is not a property I arranged.**
+
+See [[7x64]], [[7x65]] — the same evening's constants; this one is about *my* inference, not theirs.
