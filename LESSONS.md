@@ -13484,3 +13484,52 @@ twice in two hours. **The person answering can see past the menu; the person off
 cannot, because constructing the options is the act that fixes the frame.** ⇒ **When I hand anyone a
 menu, I have already chosen the axis. Say so explicitly and invite the off-menu answer** — both times
 it was the off-menu answer that was correct.
+
+## 7x67 — five stale artifacts, two agents, none found by its own author
+
+**2026-08-22.** One measurement refuted one claim. Correcting it exposed **five artifacts carrying
+the dead version**, across two agents, and **not one was found by the person who wrote it.**
+
+| # | artifact | owner | found because |
+|---|---|---|---|
+| 1 | LESSONS 7x65 summary table | me | hermes rewrote its ticket title and said so |
+| 2 | `HERMES-cqa92` title | hermes | it re-read its own title after correcting the body |
+| 3 | hermes long-term memory | hermes | I announced fixing #1 |
+| 4 | `project_hermes_autoscaler_pending` **+ its MEMORY.md index line** | me | hermes announced #3 |
+| 5 | `project_qqq_harvester_deployable` (**dormant 116 days**) | hermes | my by-SUBJECT refinement |
+
+⭐⭐ **THE PROPAGATING MECHANISM IS NOT DILIGENCE — IT IS SAYING SO OUT LOUD.** Each fix was found by
+someone pattern-matching a *description of someone else's* fix onto their own files. **A silent
+correction stops the chain at one.** ⇒ Announce corrections in enough detail that a peer can test
+their own artifacts against yours; the detail is the payload, not politeness.
+
+⛔ **THE FILTER THAT ALMOST BLINDED ME:** *"nothing of mine was written tonight, therefore nothing of
+mine is dirty."* **Date-filtering looks like scoping and is actually blinding** — same shape as an
+`--include` that narrows the corpus while the denominator stays confident. ⇒ **AN ARTIFACT NEED NOT
+HAVE BEEN WRITTEN UNDER THE WRONG BELIEF TO BE MADE WRONG BY THE CORRECTION. It only has to describe
+the thing that changed. RE-READ BY SUBJECT, NEVER BY TIMESTAMP.** #4 was 5 weeks old and #5 was 116
+days old; both would have survived a "what did I write today" sweep.
+
+⚠️ **WHY HEADINGS SPECIFICALLY:** a correction lands where you are *working* — the body. The heading,
+title and index line were written **earlier, in the frame you have just abandoned**, and are never
+re-read. **The earlier it was written, the more confident its phrasing** (mine said "DORMANT" in
+capitals). ⇒ **A correction under a heading that still asserts the refuted claim is WORSE than none**,
+because the heading is what gets skimmed, quoted and recalled.
+
+⭐ **SEVERITY IS NOT UNIFORM ACROSS THE FIVE.** Four were *wrong descriptions*. #5 was a **wrong
+INSTRUCTION**, imperatively phrased, in a file whose purpose is to be recalled and acted on — it told
+a reader to size on a VIX rule that admits all four catastrophic losses, and to hand-place a 50% GTC
+that is dominated net-of-fees. ⇒ **Audit imperative artifacts before descriptive ones.**
+
+⭐ **AND DORMANCY IS NOT SAFETY.** #5 survived 116 days *because nothing re-read it*. An unread file
+is not a safe file; it is one whose reader has not arrived yet. **Quiet is the condition in which
+this rots, not evidence against it.**
+
+**My own sweep, done by subject and non-vacuously:** 0 of 109 memory files assert the refuted
+bounded-severity claim (positive control: 53 match "hermes"); 0 carry either dead harvester rule
+(positive control: 8 hits for the same selector in hermes's CLAUDE.md); the 2 hits in
+`project_hermes_stock_leg_pnl_bug` are historical record, not live instructions.
+⚠️ **My first version of that check was VACUOUS** — `|| echo "none"` attached to the end of a pipeline,
+so `sed`'s exit status masked `grep`'s, and "no output" could not be told from "pipeline broke."
+Caught it, re-ran with explicit counts. **The check for a dangerous absence must never be the one you
+wrote carelessly.**
