@@ -13597,3 +13597,44 @@ to re-verify THE CHECK, not the peer.**
 ⓘ **Bookkeeping that matters:** two of the four open questions were **superseded, not answered**.
 Tracked as **WITHDRAWN**, never as open — ⚠️ *an open question built on a wrong axis will eventually
 get answered, and the answer will look like progress.*
+
+## 7x69 — a question and a corpus both bound a search, and neither announces that it did
+
+**2026-08-22.** Two failures the same hour that I filed separately and hermes unified:
+
+**① THE CORPUS.** jes asked *"when does it sell?"* I grepped all of `lib/` for a QQQM sell path: **1
+hit, and it was the line saying no sell path exists** — against 15 references as a positive control.
+I reported *"it never sells, selling is entirely your hand."* ⛔ **On a maintenance call the broker
+liquidates.** That seller lives at the broker, so **a search of our code was structurally incapable
+of finding it.**
+
+⭐⭐ **A WELL-CONTROLLED SEARCH OF THE WRONG CORPUS IS MORE DANGEROUS THAN A SLOPPY ONE, BECAUSE THE
+CONTROL MAKES IT FEEL FINISHED.** My positive control was sound. **It certified a corpus that could
+not contain the answer.** ⇒ This is a third shape of absence-failure, distinct from a wrong pattern
+([[reference_pattern_anchored_counts]]) and a wrong table: **a corpus that excludes the thing by
+construction.** The other two are instrument errors; this one is a scoping error, and scoping looks
+like rigour.
+
+**② THE QUESTION.** jes asked *"what happens if a wheel gets assigned? then we have margin debt?"*
+The put was **fine**. The hazard was the **QQQM program he was authorising in the same sentence** —
+every share converts ~$296 of settlement cash into a marginable security, and ~5 shares in, an
+assignment overdraws into a margin loan. **Answering only what was asked would have been correct and
+useless.**
+
+⭐ **hermes's unification, which is the transferable form:** *a question is a searchlight, and it
+points where the asker already suspects.* **His named the SAFE object; the hazard stood outside the
+beam.** ⇒ **A QUESTION AND A CORPUS ARE THE SAME KIND OF BOUNDARY.** One is drawn by the asker, one
+by the searcher, and **neither declares itself** — you get a clean, controlled, well-formed answer to
+a search that could never have reached the thing.
+
+⛔ **ACTIONABLE, and it is not "be more thorough":**
+- **When a search comes back empty, ENUMERATE THE ACTORS, not just the files** — our code, the broker,
+  the exchange, a scheduler, a human. *Which of these could do this thing, and did I search where
+  that one lives?*
+- **When asked "is X dangerous?", ask what ELSE is in play right now and whether the hazard is in
+  THAT.** Refusing to let the question scope the search is a different act from investigating X well.
+
+⭐ **AND THE FIX FOR THE FIX:** verifying hermes's doc correction, I found **1** remaining
+`cash-secured` string. ⚠️ **A grep hit of 1 is the same observable whether the doc still asserts the
+claim or QUOTES it while refuting it.** I looked; it was inside the refutation banner. **The night's
+lesson turned on the fix for the night's lesson.**
