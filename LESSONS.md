@@ -13372,10 +13372,21 @@ against it.
 **2026-08-22, ninety minutes after [7x64].** Second instance of the same mechanism in one evening,
 different subsystem, and **the pair is the finding — neither instance shows it alone.**
 
-| | derived from | invalidated by | still in force |
+| | derived from | went stale when | still in force |
 |---|---|---|---|
 | severity claim | harvester's resting GTC | rotation to metals | recited as reassurance |
-| `alloc_reserve_need = 1881` | harvester $1000 + metals $781 | **DNA wheel, 08-10, $900** | governs a live buy decision |
+| `alloc_reserve_need = 1881` | harvester $1000 + metals $781 | the set it summed over changed | governs a live buy decision |
+
+> ⛔ **CORRECTED 40 MINUTES AFTER FILING — this table originally read "invalidated by: DNA wheel,
+> 08-10, $900", i.e. THE CONSTANT IS TOO LOW. Measurement refuted that: live consumption is
+> $1,086.63, BELOW 1881** (metals $383 vs an assumed $781; harvester **flat**, $0 vs an assumed
+> $1,000). The constant **overstates today and understates peak** — wrong in both directions, not
+> too low. ⭐ **The MECHANISM below survives intact** (the wheel genuinely was an unwritten write to
+> a constant that summed over the old set); **only the direction I attached to it was wrong.**
+> ⚠️ Left visible rather than edited away, per the rule in [[7x66]]: **a correction buried under a
+> heading that still asserts the refuted claim is worse than no correction, because the heading is
+> what gets skimmed and quoted.** I filed this entry BEFORE the measurement existed — which is
+> itself the lesson: **I wrote up a mechanism from a story, and the story's direction was untested.**
 
 ⭐ **THE MECHANISM: ADDING A BOOK IS A WRITE TO EVERY CONSTANT THAT SUMMED OVER THE OLD SET — a
 write nothing performs and no test observes.** Neither value was edited. Neither produced a diff.
@@ -13443,3 +13454,33 @@ peak, so Wednesday's action is identical under all three. **Nothing was riding o
 that is not a property I arranged.**
 
 See [[7x64]], [[7x65]] — the same evening's constants; this one is about *my* inference, not theirs.
+
+### 7x66 addendum — the supplier of the components bounds what verification can find
+
+**hermes's own account of 7x66, and it is sharper than mine.** I framed my failure as *I verified the
+parts, not the inference.* Its correction:
+
+> *"I chose which components to offer, and every one I picked was a **provenance** fact — what the
+> doc said, when it was written, that the key was never created. Not one was a **consumption** fact.
+> I handed you a set that could only be verified into agreement."*
+
+⭐⭐ **A VERIFIER CHECKING A SUPPLIED SET IS BOUNDED BY THAT SET.** Every component can be
+independently, honestly true, and the selection still forecloses the refutation — **without anyone
+intending it.** hermes wasn't hiding the consumption number; it had run that same RPC twice that hour
+for other reasons. **It didn't think to offer it, and I didn't think to ask.**
+
+⇒ **THE FIX IS NOT MORE RIGOUR ON THE OFFERED FACTS — it is to ask what measurement would REFUTE the
+claim, and check THAT.** ⛔ Verifying supplied components is confirmation with extra steps. The
+adversarial question is one line: *"what reading would make this false, and have I taken it?"*
+For "a budget is wrong", that reading is always **the current spend**.
+
+⭐ **AND WHAT MADE IT FEEL FINISHED WAS COHERENCE** — doc says update on new book · book added · key
+never created · therefore too low. Every link true, chain pointed backwards. **Coherence did the work
+that measurement should have**, and a coherent chain feels *more* verified than a bare number, not less.
+
+⚠️ **THE ASYMMETRY, which is why this is not fixable by the person offering:** hermes notes that jes
+saw past my either/or (value→kind) and past my three-option menu (who-was-mistaken→system-state),
+twice in two hours. **The person answering can see past the menu; the person offering it usually
+cannot, because constructing the options is the act that fixes the frame.** ⇒ **When I hand anyone a
+menu, I have already chosen the axis. Say so explicitly and invite the off-menu answer** — both times
+it was the off-menu answer that was correct.
