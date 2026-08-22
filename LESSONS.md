@@ -13824,3 +13824,41 @@ or existence rather than content, **an innocuous content edit is a silent gate-d
 ⇒ And **verify by the gate's own output afterward** — I only caught this because I printed the decline
 line instead of trusting that writing a file had gone fine. **`HELD 0m` was the whole tell, and it was
 one line I nearly did not look at.**
+
+## 7x74 — I read the same stale number three times and called it three confirmations
+
+**2026-08-22 14:04Z.** The Fable revert watch reads 5h utilisation off the agents' **statuslines**.
+
+```
+statusline   5h = 68%    identical at 12:05Z, 13:04Z, 14:04Z
+quota API    5h = 0.0%   window rolled at 09:50Z
+```
+
+⛔ **The 5h window had rolled and the IDLE panes never repainted.** The 68% was real overnight
+(API-confirmed 03–05Z) and **was already over when I "detected" the danger zone at 12:05Z** — I
+tightened the watch to hourly on an expired number, then re-armed it twice more on the same corpse.
+
+⭐⭐ **REPETITION IS NOT CONFIRMATION WHEN THE SOURCE IS A CACHE.** Three identical readings felt
+like *stable*, which is the most reassuring shape a measurement has. **A frozen value and a steady
+value are the same observable** — and the thing that should have tipped me off is the very thing that
+read as reassuring: **exactly 68%, three times, to the digit.** ⇒ **A number that does not move AT
+ALL across hours is evidence about the INSTRUMENT, not the world.**
+
+⛔ **AND I HAD THE SECOND ARM AVAILABLE THE WHOLE TIME.** `claude-quota --json` is the source the
+nudge scripts already use; I read it at 03:00Z that same night. **Nothing was hard about the check —
+I simply took the watch's own prescribed instrument as authoritative** because the watch named it.
+⇒ **A procedure that names its instrument transfers your trust to that instrument.** Re-derive what
+the instrument is actually reporting, especially one that renders rather than queries.
+
+⭐ **WHAT SURVIVED, AND WHY IT IS NOT LUCK:** the MODEL half of the same statusline is still
+trustworthy — **a fallback happens during generation, and these agents were parked for 10h, so there
+was no opportunity to revert.** A frozen indicator on an *idle* agent is stale but not wrong.
+⇒ **Staleness is only a defect where the underlying thing could have changed.** Same display, two
+fields, opposite verdicts.
+
+### ⛔ And the retirement condition is MET — VACUOUSLY, so I did not retire it
+5h went 68% → 0.0% with all three still `[Fable 5]`: literally the retirement test. **But it came
+down because THE WINDOW EXPIRED UNDER ZERO LOAD** — agents held 10h, context flat at 55/51/47, zero
+dispatch. **Fable was never tested against a busy window.** ⇒ **That is a green from a gate that
+never ran.** Retiring on it would convert "we never exercised this" into "this is proven safe" — the
+exact laundering [[7x67]] warns about. **New bar: 5h must cross 60% WHILE AGENTS ARE WORKING.**
