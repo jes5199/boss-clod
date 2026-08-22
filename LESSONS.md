@@ -13740,3 +13740,52 @@ in prose gets re-broken by someone who never reads the prose.
 found by its own author.** My best generalisation was hermes's finding; its best finding was my
 question. **Neither of us produced tonight's output alone**, and the propagating mechanism was
 announcing each correction in enough detail for the other to test their own files against it.
+
+## 7x72 — a load-bearing absence, and the overstatement that travels further
+
+**2026-08-22, closing the hermes thread.** Three general forms, all earned tonight.
+
+### ⭐⭐ A LOAD-BEARING ABSENCE
+Two instances, both real: **rotation missing from `CapitalPriority`** (the correct handling of a
+second resource, encoded as an exclusion) and **a missing `wheel_max_collateral_<T>` key** (which
+*is* the arming switch — no key ⇒ `:disabled` ⇒ the ticker cannot trade).
+
+⛔ **A FORMULA THAT COMPUTES WHAT AN ABSENCE USED TO MEAN SILENTLY CONVERTS FAIL-CLOSED INTO
+FAIL-OPEN.** hermes found this auditing **its own** proposal: a derived per-ticker cap would arm every
+ticker in `wheel_tickers` automatically.
+
+⚠️ **Why it is so easy to break: an absence carries no comment, no test, and no diff when removed —
+and it is indistinguishable from an oversight.** That is *precisely* the condition under which
+someone proposes a fix for it. ⇒ **Where an absence is load-bearing, give it a positive
+representation BEFORE anything computes over it** — an explicit `enabled: false`, a named guard, a
+test that fails when the absence is filled. **Otherwise the only artifact recording the decision is
+the thing that is not there.** (Cf. [[7x71]]: a note explaining an absence is the least discoverable
+artifact there is.)
+
+### ⭐ A THING'S STATED PURPOSE IS THE AUDIT ITS READERS SKIP
+Twice tonight the disguise was **the category, not the complexity**:
+- *"sell QQQM to cover the debt"* — **a portfolio-shape decision wearing a plumbing decision's clothes**
+- the wheel — **an accumulation program wearing an income program's clothes**
+
+⇒ Both disguises came from **the framing being a promise about what the thing is FOR.** A remedy
+promises restoration; an income program promises income. **Nobody audits a thing against its own
+stated purpose**, so the label does the work that scrutiny should.
+
+### ⚠️ THE OVERSTATEMENT THAT IS MORE INTERESTING IS THE DANGEROUS DIRECTION
+I told jes *"every number here is a default nobody ever set"* — generalised from **four verified
+`settings` keys.** The `$900` wheel cap was **his own recorded amendment** (`2026-08-10-dna-wheel-design.md:6`).
+⇒ Same defect as [[7x66]] — verified components, over-broad conclusion — **but note the direction:
+the false version was the more DRAMATIC one.**
+
+⭐ **An overstatement that is more interesting travels further and is challenged less** — right up
+until the person who was there remembers, **at which point the true core goes down with it.** The
+narrower claim (*he answered the capital-allocation question first, which is a reasonable question to
+answer first*) is **not merely fairer — it is the version that survives the participant.**
+⇒ **When a claim gets MORE striking as you widen it, that is the moment to re-check the scope, not to
+send it.**
+
+### ⭐ THE BAR, which I had not articulated
+Most of tonight was **corrections** — they improve accuracy without moving anything forward. The
+research doc was **the only artifact that REDUCED WHAT jes HAS TO DECIDE, rather than adding to what
+he has to know.** ⇒ **Prefer work that makes the next decision easier over work that makes the
+current picture more accurate.** Accuracy is a precondition, not the deliverable.
