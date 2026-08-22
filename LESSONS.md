@@ -13713,3 +13713,30 @@ a shared resource.**
 ⓘ **Method note:** I could not confirm the parser from my side and **attributed it to hermes rather
 than claiming it**; it then handed me the file and lines, and I closed it two-armed. **An empty grep
 is not a confirmation** — I had already made that error twice tonight.
+
+### 7x71 addendum — the catching question, and where a "don't do X" note belongs
+
+⭐⭐ **hermes's actionable form of the capstone, and it is better than mine because it is a question
+you can actually ask:** every discipline either of us has is aimed at **reading an observable
+correctly** — and all three of tonight's failures work by **removing the observable.** ⇒ So the
+catching question is not *"is this reading right?"* but:
+
+> ⭐ **"IF THIS WENT WRONG, WHAT WOULD I SEE — AND WOULD I SEE ANYTHING AT ALL?"**
+
+Ask it of a fix as readily as of a design. A remedy that leaves nothing to observe has not been
+verified; it has been made unfalsifiable.
+
+⭐ **AND WHERE AN ABSENCE-NOTE BELONGS.** The third unit-class instance is *correct and undefended*:
+rotation is deliberately excluded from `CapitalPriority` because it checks live free cash directly,
+and the reason lives in `CLAUDE.md:350` — **prose, enforced by nothing.** ⚠️ **Right answer, no
+enforcement, and no path by which the next person discovers the exclusion was deliberate rather than
+an oversight.** ⇒ **A NOTE EXPLAINING WHY SOMETHING IS ABSENT IS THE LEAST DISCOVERABLE ARTIFACT
+THERE IS — nothing brings you to it, because the thing it explains isn't there.**
+**Fix: when the remedy is "don't do X here", put the reason WHERE X WOULD GO** — a guard that fails
+loudly, a test named for the exclusion — **not only in a doc.** A solved problem whose solution lives
+in prose gets re-broken by someone who never reads the prose.
+
+ⓘ **On the tally, since tonight's lesson is that summaries flatter:** five stale artifacts, **none
+found by its own author.** My best generalisation was hermes's finding; its best finding was my
+question. **Neither of us produced tonight's output alone**, and the propagating mechanism was
+announcing each correction in enough detail for the other to test their own files against it.
