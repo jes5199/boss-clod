@@ -13789,3 +13789,38 @@ Most of tonight was **corrections** — they improve accuracy without moving any
 research doc was **the only artifact that REDUCED WHAT jes HAS TO DECIDE, rather than adding to what
 he has to know.** ⇒ **Prefer work that makes the next decision easier over work that makes the
 current picture more accurate.** Accuracy is a precondition, not the deliverable.
+
+## 7x73 — I destroyed a staleness signal by writing down that the state was current
+
+**2026-08-22 05:37Z, ~30 minutes after filing [[7x71]].** The loops had been held 120m and both nudge
+scripts were firing their over-90m warning. **The hold was correct and current** — I had asked jes at
+05:12 and was awaiting his word — **but that fact lived only in my session and a Telegram thread.**
+A successor session would have found a two-hour hold with nobody visibly chasing it.
+
+So I did the right thing: **wrote the pending-question state into the hold files themselves**, where
+the reader already goes. Then the next run printed:
+
+```
+DECLINED: epic hold, HELD 0m
+```
+
+⛔ **THE SCRIPT DERIVES HELD-DURATION FROM THE FILE'S MTIME. REWRITING THE FILE RESTARTED THE CLOCK
+AND SILENCED THE 90-MINUTE STALENESS GATE — permanently, and on every future hold.** Restored with
+`touch -d '2026-08-22 03:58:00 UTC'`; both scripts now read **HELD 122m** and the gate fires again.
+
+⭐⭐ **THIS IS [[7x71]] COMMITTED BY ITS AUTHOR, THIRTY MINUTES LATER: a write that PRESERVED the
+state and DESTROYED its observable.** Nothing about the hold changed. The only casualty was the
+evidence of how long it had been there. ⇒ **Knowing the failure does not exempt you from it** — that
+was already filed in 7x67, and I re-proved it against a *different* lesson from the same night.
+
+⛔ **THE SPECIFIC TRAP: A FILE'S CONTENT AND ITS METADATA ARE TWO CHANNELS, AND EDITING ONE SILENTLY
+RESETS THE OTHER.** The hold carried its reason in the body and **its AGE in the mtime** — and the
+age was the part a gate consumed. **Nothing in the file says "my mtime is load-bearing."** That is a
+[[7x72]] load-bearing absence in a second form: **not a missing key, but a missing declaration that
+an implicit property is being depended on.**
+
+⇒ **BEFORE EDITING ANY FILE A GATE READS, ASK WHAT THE GATE ACTUALLY CONSUMES.** If it is mtime, size,
+or existence rather than content, **an innocuous content edit is a silent gate-disable.**
+⇒ And **verify by the gate's own output afterward** — I only caught this because I printed the decline
+line instead of trusting that writing a file had gone fine. **`HELD 0m` was the whole tell, and it was
+one line I nearly did not look at.**
