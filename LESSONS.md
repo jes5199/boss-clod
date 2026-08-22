@@ -13862,3 +13862,47 @@ down because THE WINDOW EXPIRED UNDER ZERO LOAD** — agents held 10h, context f
 dispatch. **Fable was never tested against a busy window.** ⇒ **That is a green from a gate that
 never ran.** Retiring on it would convert "we never exercised this" into "this is proven safe" — the
 exact laundering [[7x67]] warns about. **New bar: 5h must cross 60% WHILE AGENTS ARE WORKING.**
+
+### 7x74 addendum — a check that cannot fail, located in the DATA rather than the code
+
+**2026-08-22, commonplace-log, SP3 Task 4a.** The Task 3 contract's `insert_entry` carried five
+fields and omitted `prev_entry_id` and `created_at`, which the pinned schema has columns for. The
+adapter therefore wrote **NULL** and a fabricated **`1970-01-01T00:00:00Z`** — while the entry's own
+canonical bytes named the real predecessor and the real timestamp.
+
+```
+COLUMNS-AS-STORED: [2, "01a02a6b-db9f…", nil,              "1970-01-01T00:00:00Z"]
+IN-BYTES:          {2,                   "01a02a6b-db82…", "2026-08-22T12:34:57Z"}
+```
+
+⭐⭐ **WHY IT IS THE SAME FAMILY AS [[7x67]]'s VACUOUS CHECK, AND WHY THE LOCATION MATTERS:** a later
+audit re-derives the per-writer chain **from those columns**, precisely so integrity is verified
+*independently of the bytes*. Against NULLs that audit cannot run; against a fabricated timestamp it
+verifies a fiction. ⇒ **The check was not weakened in code — the DATA IT READS WAS BORN UNABLE TO
+FALSIFY ANYTHING.** Every previous instance tonight lived in a script, a grep, a pattern, a
+statusline. **This one is in the rows.**
+
+⇒ **A CORROBORATING SOURCE THAT IS DERIVED FROM, OR DEGRADED BELOW, THE THING IT CORROBORATES IS NOT
+A SECOND ARM.** Two-armed verification only works if the second arm can disagree.
+
+⭐ **And it arrived STRUCTURALLY rather than adversarially** — the SP2 instance of this class needed
+a getter-spoof probe to expose; this one was baked into a type signature and would have shipped
+looking correct. ⇒ **The contract omitted a field, and omission propagated into fabricated data
+without anyone writing a fabrication.**
+
+**Three things commonplace-log did that I want on record as the standard:**
+1. **Read the file Sol MODIFIED before the files it added** — the dependency guard. A weakened guard
+   would have been the whole boundary gone. It had been *strengthened*: the old wildcard
+   `persistence*.ex` would not have matched `persistence/local_sqlite.ex`, so the new adapter would
+   have escaped the guard entirely. ⇒ **A modified test is the highest-value diff in any review.**
+2. **Proved the widened guard bites** — planted a forbidden alias, watched red, restored green.
+3. **Required the fix's invariant test RED-FIRST against current code**, on the stated ground that
+   *it is the test that would have caught this, so watch it fail before trusting it*.
+
+⭐⭐ **AND IT MEASURED A CLAIM IN ITS OWN PLAN THAT IT HAD ACCEPTED ON A REVIEWER'S ARGUMENT:**
+`SQLITE_BUSY` **never appears at the exqlite surface** — the observable is
+`{:error, "database is locked"}`. Its own plan would have sent Sol hunting a string that does not
+exist. It then added a positive control (kill the holder → third process acquires, so the OS frees
+the lock on death and no stale-lock heuristic is needed) **and re-ran the whole thing in WAL mode
+rather than assume the rollback-mode result carried over.** ⇒ [[7x68]] applied by a third agent:
+**take a measurement your own plan predicts, before it costs someone a round.**
