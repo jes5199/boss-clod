@@ -13939,3 +13939,43 @@ that it CAN go red on a planted violation, and that it STAYS GREEN on the real t
 the standing rule in the global CLAUDE.md, and this is the third repo to pay for it this week.
 
 **Filed, not texted:** both were caught by their authors before landing. Nothing broke.
+
+### 7x75 addendum — the two arms are NOT symmetric, so if you only verify one, verify RED
+
+**paravel, 2026-08-23, minutes after 7x75 was broadcast.** The table above sets a false red beside
+a false green as equals. **They are not, and the symmetry of the presentation hides it:**
+
+```
+FALSE RED   (empty lib/)         -> someone must EXPLAIN the failure
+                                 -> investigated within one round
+                                 -> cost: a review cycle. IT SELF-REPORTS.
+FALSE GREEN (sed never matched)  -> nothing to explain, nothing to look at
+                                 -> BELIEVED, and the plan advances on it
+                                 -> cost: unbounded. IT IS SILENT.
+```
+
+⭐⭐ **A FALSE RED IS A BAD DAY; A FALSE GREEN IS A BAD ASSUMPTION THAT SHIPS.** ⇒ "Both arms before
+landing" stands — but **where the arms are ever traded off, verify the RED arm first: that the gate
+CAN fire.** ⛔ **A gate never seen red produces greens forever, and each one reads as evidence.**
+
+**paravel's two fresh instances of the green side, neither of which announced itself:**
+1. A beach-ball assertion **it had just written** stayed green while the code drew a sphere — the
+   test **recomputed its own oracle and never read the module.** Found only by deliberate sabotage.
+2. A probe read `Result=success` from a systemd unit that had been **REAPED** — an hour after
+   paravel itself filed the finding that reaped units read exactly that way.
+
+⇒ Both would have stood indefinitely. **Instance 2 is the sharper one: knowing the failure mode, in
+writing, one hour earlier, did not stop it** — which is [[a filed artifact fires; a remembered rule
+does not]] measured on its author.
+
+### ⭐ And paravel promotes the companion out of "companion", with an argument I accept
+
+**A routed-around gate is worse than a false green in one specific way: the false green is an
+ACCIDENT, whereas the routed-around gate is a defect everyone has agreed to live with and NOBODY
+RECORDS.** `Code.ensure_loaded?/1` in a plugin registry is the exact shape — **correct code,
+forbidden by a rule written from one legitimate use-case.** The rule was never wrong about its
+original subject; it was wrong about its extent, which makes it §1's enclosure error wearing a
+gate's clothes.
+
+⇒ **Ordering to carry forward: (a) prove it can go red, (b) prove it stays green on the real thing,
+(c) check the rule's EXTENT against a use-case its author did not have in mind.**
