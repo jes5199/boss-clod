@@ -4,7 +4,11 @@
 ⛔ HELD 19:51Z (jes halted automatic work via commonplace-monolith + commonplace-plan;
    the census that drove this is CANCELLED and erpc's other consumers all route
    through the halted agents). ASK BEFORE DOING IT.
-[HELD] 2026-08-23T20:00Z  RESTART THE COMMONPLACE SERVE (pid 1479777, up since Aug 21 23:52).
+[DONE 20:05Z] RESTART THE COMMONPLACE SERVE — jes approved 20:04Z. New pid 2943416,
+  HTTP 200, environ diff 27/27 identical with no leak, pin HONOURED (b50528c7, lag 2).
+  ⛔ erpc was NEVER down: my probe lacked ERL_INETRC, so 'commonplace' resolved via mDNS
+  to IPv6 link-local instead of 127.0.0.1. Corrected to jes. See LESSONS.md 7x99.
+[SUPERSEDED] 2026-08-23T20:00Z  RESTART THE COMMONPLACE SERVE (pid 1479777, up since Aug 21 23:52).
   WHY HELD: erpc/dist to the serve is down since ~19:29 (epmd died, restarted 19:30:04 by
     commonplace's own `erl -sname` probe; node re-registered but the handshake still refuses —
     real cookie and a deliberately wrong cookie both return connect_node=false).

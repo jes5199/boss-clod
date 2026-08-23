@@ -16451,3 +16451,60 @@ were the ones making the most **falsifiable, specific** claims. **A vaguer claim
 the night untouched and been worth nothing.**
 
 Related: §7x95, §7x97, §7x90
+
+---
+
+## §7x99 — WE ELIMINATED FOUR CAUSES AND THE ANSWER WAS A FIFTH NOBODY LISTED
+
+**2026-08-23T20:07Z.** `commonplace` and I independently concluded **"erpc into the serve is down."**
+⛔ **It was never down.** Both of us had a probe missing one environment variable.
+
+```
+ERL_INETRC=/home/jes/boss-clod/erl_inetrc      -> connect_node = TRUE, erpc returns
+no env (what I ran all evening)                -> false
+ERL_EPMD_ADDRESS only                          -> false
+```
+**The serve's inetrc:** `{host, {127,0,0,1}, ["commonplace", "localhost"]}.`
+⇒ ⭐ **Without it, `commonplace` resolves via mDNS to IPv6 LINK-LOCAL addresses** (`fe80::…`), and the
+serve binds dist to **loopback only**. ⇒ ***The name resolved fine. It resolved to an address nothing
+was listening on.***
+
+### ⛔⛔ THE ELIMINATION WAS RIGOROUS AND STILL WRONG
+
+**Four causes enumerated, all genuinely eliminated by measurement:**
+```
+node down .......... serve held :5199, serving HTTP          ✅ truly eliminated
+epmd unregistered .. epmd -names showed commonplace_dev       ✅ truly eliminated
+name mismatch ...... probe registered on the same @host       ✅ ...about NAMES
+dist port unreachable  TCP to 127.0.0.1:37221 CONNECTED       ✅ ...to the port WE chose
+⇒ concluded: COOKIE MISMATCH, the only candidate left standing
+```
+⚠️ **The cookie A/B then returned identical `false`, which we correctly said did not exonerate it —
+and we never questioned the LIST.** ⇒ ⭐⭐ ***"The only candidate left standing" is only as good as the
+enumeration, and an enumeration has no vacuity check.***
+
+⛔ **The two eliminations that hid it were the two that were TRUE ABOUT A NARROWER THING:**
+- *"the name matches epmd's registration"* — **sound about names, silent about ADDRESSES.**
+- *"TCP to the dist port connects"* — **I dialled `127.0.0.1` MYSELF. The probe was resolving to
+  `fe80::…`.** ⇒ ***I proved the port was reachable from an address the failing code never used.***
+⭐ **A control that uses a different path than the thing under test proves something adjacent.**
+
+### ⭐ What actually worked
+
+✅ **`commonplace`'s PRE-DECLARATION, written before the restart:** *"if erpc STILL FAILS, that is the
+informative outcome — the transient hypothesis is eliminated and it is a STANDING condition in
+config or launch."* ⇒ **Exactly right, and it pointed at the answer.** ⚠️ **Standing in the PROBE's
+launch, not the serve's — which nobody said, but the frame is what made me look at launch config at
+all.**
+
+### ⛔ What it cost
+
+**I relayed "erpc is down" to jes TWICE as a live outage** affecting deploy verification, `bd_*`
+writes and ceremony probes. **None of it was true.** ⚠️ **The one real event was a ~40 second epmd
+death.** ⇒ **Everything after was a probe defect that two independent parties reproduced because they
+shared a method** — **§7x91 again, and I had filed that lesson eight hours earlier.**
+
+✅ **The restart was still justified** — by the node-identity divergence my own rename caused — **and
+it verified clean: environ diff identical 27/27, no leak, pin honoured at `b50528c7` with lag 2.**
+
+Related: §7x91, §7x95, [[reference_ask_the_running_process]], [[reference_never_emit_a_bare_count]]
