@@ -427,9 +427,17 @@ commonplace-log          NO top-level lib/   ->  commonplace_log/lib
 commonplace-log-reducer  NO top-level lib/   ->  commonplace_log_reducer/lib  AND  commonplace_attribute_map/lib
 commonplace-merkle-crdt  lib/ at top
 yepochs                  lib/ at top
-commonplace-doc          no lib/ at all — docs only, nothing has ever run
-commonplace-doc-sync     no lib/ at all — docs only, nothing has ever run
+commonplace-doc          lib/ at top  ⚠️ CHANGED 20:58Z — was docs-only, now 3 .ex files
+commonplace-doc-sync     no lib/ at all — docs only, 0 .ex files
 ```
+⚠️ **THE DOCS-ONLY EXCEPTION EXPIRED SEVEN MINUTES AFTER I WROTE IT.** `commonplace-doc` landed
+phase 1 at `681f6bc` and now has `lib/` at top. ⇒ ⭐ **The `.ex` control works there again and the
+`.md` substitute NO LONGER APPLIES.** ⛔ **`commonplace-doc-sync` is still docs-only — the exception
+survives for exactly one repo, and it will expire there too.**
+⭐ **`commonplace-doc` caught this in my file, not me.** *An exception written against a state that is
+actively changing is a stale entry that reads as measured — which is the whole §7x90 shape, in the
+document that carries the warning about it.* ⇒ **Re-measure before trusting this table; the command
+is two lines below.**
 
 ⛔⛔ **THIS HAS NOW CAUSED THREE SEPARATE FALSE ABSENCES IN ONE EVENING:**
 - **mine, twice** — grepping `commonplace-log/lib` and `commonplace/lib`, both non-existent. **Every
@@ -452,6 +460,24 @@ be `.md` instead).*
 
 ⛔ **Do not "fix" this by guessing the nesting.** ⇒ **`find <repo> -maxdepth 2 -type d -name lib`
 answers it in one command, and answers it correctly for both layouts.**
+
+### 18. ⛔ SOL CANNOT COMMIT IN A LINKED GIT WORKTREE
+
+**Found by `commonplace-doc` on its first Sol round, 2026-08-23T20:58Z.**
+```
+worktree /home/jes/commonplace-doc-sol-p1/.git  ->  "gitdir: /home/jes/commonplace-doc/.git/worktrees/..."
+```
+⇒ ⛔ **A linked worktree's git metadata lives OUTSIDE the sandbox's writable root**, so `index.lock`
+fails with **"Read-only file system."** ⚠️ **The WORK survives uncommitted and Sol reported the
+failure accurately** — *it did not silently drop anything* — **but the round cannot commit itself.**
+
+✅ **Two fixes, either fine:** use a **CLONE** rather than `git worktree add`, **or** the dispatcher
+commits on Sol's behalf (what `commonplace-doc` did). ⭐ **Decide before dispatch, not after.**
+
+⚠️ **Why this is worth a boundary entry rather than a lesson: it will hit whoever dispatches next,
+and the symptom is a WRITE failure inside a sandbox** — ⛔ **the exact shape that gets misread as
+"the fence blocked my work"** when the fence is doing nothing of the kind. *Same family as §17's
+path errors reading as masks.*
 
 ---
 
