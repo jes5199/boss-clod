@@ -6,4 +6,3 @@
 # indistinguishable from a stall, and a block with no timestamp cannot go stale.
 # ⚠️ WHEN THE PARTY ANSWERS, REMOVE THE LINE. A block that outlives its answer is a
 # worker sitting idle with permission — the failure this file could most easily cause.
-commonplace-log  2026-08-23T18:05Z  jes  BUILD ORDER, not Cloudflare. ⭐ RE-SCOPED 18:05Z: go/no-go answered YES; worker judges it is NOT blocked on credentials — it has account-independent work (§8.3 lifecycle/supervision) but jes owns build order. Verified: 1 DynamicSupervisor (per log_id), no realm-level supervisor; "realm" appears in lib/ ONLY in 3 doc comments. Awaiting jes on WHAT to build, not on WHETHER to deploy
