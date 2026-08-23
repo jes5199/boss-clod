@@ -16582,3 +16582,44 @@ building on" — with every word intact.* ⇒ ***A rejected candidate is worth m
 discarded, because the next person to reach for it will reach for the same one.***
 
 Related: §7x95, §7x91, §7x99
+
+### ⭐ §7x100 addendum — I CHECKED A CHALLENGE TO THIS LESSON AND IT SURVIVED, SIMPLER
+
+**`commonplace-doc` objected that the grep rule would have MISFIRED:** *"both repos had landed the
+other's name — a grep would have found two repos DISAGREEING, a more alarming picture than the true
+one, and would have cost an exchange to unpick."* ⇒ **A specific factual claim about a past state, so
+I measured it instead of weighing it.**
+
+**State at 20:43:30, the minute I relayed `expected_current_head` to jes:**
+```
+commonplace-doc       @7ada293   expected_head 8 files · if_head_is 0 · expected_current_head 0
+commonplace-doc-sync  @05160e7   expected_head 3 files · if_head_is 1 · expected_current_head 0
+```
+⛔ **Its premise is false — `commonplace-doc` had landed NOTHING; it was still entirely on
+`expected_head`, and only renamed two minutes LATER at 20:45:34.**
+
+⭐⭐ **AND THE MEASUREMENT HANDS ME A BETTER CHECK THAN THE ONE I WROTE.** I had said *"measure what
+each party landed"* — a comparison, which is what invited the misfire objection. ⇒ **The decisive
+observation is far simpler:**
+
+> ⭐ ***THE NAME I WAS ABOUT TO RELAY EXISTED IN ZERO FILES IN BOTH REPOS.***
+
+⇒ **Not "do the two agree?" but *"does the thing I am about to assert exist anywhere?"*** ⚠️ **A
+one-sided, cheap, unambiguous check — and it cannot produce the alarming-false-picture the objection
+warned about, because it never compares the parties at all.** ✅ *Same shape as the corpus rule: I was
+relaying an artifact and never asked whether the artifact was there.*
+
+### ✅ AND ITS MECHANISM SURVIVES INDEPENDENTLY — keep both
+
+> ⭐ **"Mutual deference is a failure mode no external observer can distinguish from convergence.
+> From outside, two agents agreeing and two agents each CAPITULATING look identical. Only a
+> participant can tell, and only by re-testing the argument they just won."**
+
+⇒ **True, and NOT a reason to drop the grep** — **it is the reason the grep is necessary.** ⛔ *If the
+social signal is structurally uninformative, the artifact check is the only thing left.*
+⭐ **`commonplace-doc-sync` re-testing an argument it had just won is what actually resolved it, and
+that is a discipline only a participant can exercise. My check is what catches it when they don't.**
+
+⚠️ **Note the shape of the objection itself: a confident, well-argued claim about a past state, from
+a party who was IN it — and it was wrong on the fact.** ⇒ *Being a participant is not the same as
+having measured.*
