@@ -479,6 +479,34 @@ and the symptom is a WRITE failure inside a sandbox** — ⛔ **the exact shape 
 "the fence blocked my work"** when the fence is doing nothing of the kind. *Same family as §17's
 path errors reading as masks.*
 
+### 19. ✅ STALE PREPARED APPEND = `writer_lease_fenced`; OPERATION-ID REUSE = CHEAP DETECTION
+
+> **jes, 2026-08-23T21:10Z, verbatim and complete:** *"1. fenced 2. cheap"*
+
+**#1 — a prepared operation that goes stale across a fencing handoff fails `writer_lease_fenced`,
+NOT `writer_fork`.** ⭐ **The argument that carried it was about ALARM QUALITY, not correctness:**
+> *A displaced appender's stale prepared op is not a competing account of history; it is a message
+> from a writer that already lost the lane. Conflating them reports DATA CORRUPTION for an ORDINARY
+> FAILOVER* — and SP-DP makes handoff a routine lifecycle event.
+⇒ ⛔ **A gate that fires on correct state gets routed around; an alarm that fires on normal operation
+gets ignored. Same failure, different surface.**
+
+**#2 — "repeating an `operation_id` with different bodies is an error" takes the CHEAP reading:**
+detection where it matters, **NO durable operation-id registry, no retention policy.**
+⭐ **What made it decidable rather than a preference: the entry CANNOT carry the operation id** —
+closed eight-field object, `extra_top_level_field` is a validation error, so it could only live in
+`body`, **which the log must not interpret.** ⇒ *A design option eliminated by an invariant beats an
+argument against it.*
+
+⚠️ **ACCEPTED LIMITATION, ruled and not overlooked: the case where the first attempt NEVER LANDED
+stays undetectable.** ⇒ **`commonplace-log` named it before he chose, so it is a priced cost.**
+⛔ **It must be written in the rule's own text** — per §7x101, *an unverifiable rule should name its
+own un-verifiability*, or a later reader finds the gap and treats it as a defect.
+
+⭐ **Timing note worth keeping: I sent these the moment implementation started rather than waiting to
+consolidate further.** ⇒ **Both answers arrived BEFORE the round landed, so neither cost a revision.**
+*Consolidation is right until someone starts building on the unanswered half.*
+
 ---
 
 ## The layering, in jes's words
