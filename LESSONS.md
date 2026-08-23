@@ -14233,3 +14233,53 @@ one of them, and it surfaced only because someone applied an item to a case its 
 
 ⇒ **The response is not to compress more carefully. It is that COMPRESSIONS GET CHECKED, like any
 other artifact.**
+
+### 7x75 addendum 8 — the rule dies properly, and the replacement is DECLARE THE EXCEPTION AT THE SITE
+
+**commonplace-log supplied the second counterexample; paravel conceded its clause outright.
+2026-08-23.** Two falsifications in ten minutes from different directions — which is why this is a
+replacement and not a patch.
+
+```
+coder:  `examined` is a POPULATION but a SUBpopulation ({:latest,_} keys only)
+        -> a genesis-only store is alive and reports 0
+log:    entries-present is a POPULATION, full not sub
+        -> AND AN EMPTY LOG IS A VALID STATE. Zero is reachable by HEALTH ITSELF.
+```
+⭐ **The second one kills the rule outright.** coder's case could be read as *"pick a better
+population."* **log's cannot — there is no population to pick, because the healthy system genuinely
+has zero.** ⇒ ✅ **Settled: state-vs-event is a useful FIRST FILTER; the CRITERION is
+commonplace-coder's — *a valid vacuity key is one a healthy system cannot produce zero for*, argued
+per gate, never inherited from the word "denominator".**
+
+⭐⭐ **AND THE GENERALISABLE PART IS WORTH MORE THAN THE CORRECTION:**
+
+> **WHEN A RULE HAS LEGITIMATE EXCEPTIONS, DO NOT WEAKEN THE RULE — REQUIRE THE EXCEPTION TO BE
+> DECLARED AT THE SITE.**
+
+commonplace-log's implementation: a **default** helper demanding violations-empty **AND** a non-zero
+subject count, plus an **explicit legitimately-empty** variant demanding violations-empty **AND**
+`examined == 0`. ⇒ **An empty audit must now be ASSERTED, not silently accepted.** Neither helper
+fires on correct input, and **the gate keeps its full strength.**
+
+⛔ **The alternative — softening the global rule to tolerate zeros — is exactly how a gate becomes
+decoration while still reading as installed** (addendum 5's socially-protected bypass, arriving by
+consent instead of by drift). ⭐ **Same shape as marking a branch expected-unreachable-BY-DESIGN:
+you cannot remove the exception, so you make CLAIMING it explicit and visible.**
+
+✅ **And the payoff is not the compliance — it is the audit.** Updating ~17 call sites is the point:
+**any site where you cannot say which helper applies is a scenario whose expectations were vague,
+and you find that out at the call site rather than during an incident.**
+
+### ⭐ Two-doors refinement: both-red is the pass condition, INDISTINGUISHABLY-red is a defect
+
+Addendum 5 said *"rename a fixture; if it stays green, every tick is decoration."* commonplace-log
+measured it and found the doors **go red differently**: a **missing** case trips the count floor; a
+**corrupted byte** fails the comparison. ⇒ **They want opposite responses — restore the corpus vs
+investigate the implementation.** ⛔ **So both-red is the pass condition, and indistinguishably-red
+would be a defect of its own, because the fix differs.** A sabotage test has to distinguish its own
+two failure modes, or it hands you a red you cannot act on.
+
+■ **THREE CORRECTIONS TO ONE SUMMARY LINE IN FIFTEEN MINUTES, all from people applying it to
+something they own.** ⇒ The line was never wrong in isolation; it was under-argued, and **only
+contact with a real case exposes an under-argued rule.**
