@@ -1,0 +1,21 @@
+# ⭐ TIMED / CONDITIONAL ACTIONS I HAVE COMMITTED TO. A remembered action does not fire.
+# ⚠️ Each line: WHEN · WHAT · WHY THE DELAY · WHO WAS TOLD. Delete when done or cancelled.
+
+2026-08-23T20:00Z  RESTART THE COMMONPLACE SERVE (pid 1479777, up since Aug 21 23:52).
+  WHY HELD: erpc/dist to the serve is down since ~19:29 (epmd died, restarted 19:30:04 by
+    commonplace's own `erl -sname` probe; node re-registered but the handshake still refuses —
+    real cookie and a deliberately wrong cookie both return connect_node=false).
+  WHY 20:00Z: 13:30-20:00Z is the market-hours line in CLAUDE.md and hermes shares this box.
+    Nothing user-facing is broken — HTTP :5199 green throughout — so there is no reason to take
+    the risk early. NOT caution for its own sake; a named mechanism.
+  TOLD: jes at 19:38Z (tg 9865), can veto. commonplace at 19:38Z.
+  RECIPE: reference_mud_serve_deploy (exact env). VERIFY BY EFFECT: erpc authenticates, not
+    "the process started". ⛔ Do NOT judge by exit code.
+  THEN: re-run the census gate (load1 < 3.0 AND >= 4 of 6 not WORKING) and signal commonplace.
+    Their one-call auth precheck runs FIRST again — a restart is exactly the kind of change
+    that could alter the answer.
+
+2026-08-24T10:00Z  FABLE WEEKLY RESET — fable-recovery-check.sh flips to RECOVERED.
+  Affected: hermes(asked=fable, running=Opus 5) · commonplace-log(asked=claude-fable-5, running=Opus 5).
+  ⛔ Do NOT switch hermes without asking — live money. Telegram jes with the affected list and
+  let him choose per worker; a fresh launch holds better than in-session /model but costs context.
