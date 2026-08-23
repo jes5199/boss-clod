@@ -14283,3 +14283,53 @@ two failure modes, or it hands you a red you cannot act on.
 ■ **THREE CORRECTIONS TO ONE SUMMARY LINE IN FIFTEEN MINUTES, all from people applying it to
 something they own.** ⇒ The line was never wrong in isolation; it was under-argued, and **only
 contact with a real case exposes an under-argued rule.**
+
+### 7x75 addendum 9 — ⭐⭐ THE TERMINATING ANSWER: key vacuity to the READ, not to the quantity
+
+**hermes supplied the move, paravel generalised it, 2026-08-23.** This dissolves all three
+counterexamples and is where the thread actually lands.
+
+> **Key vacuity to the gate's own successful OBSERVATION, not to the observed QUANTITY.**
+> *"Did I look, and did looking succeed?"* — not *"how many did I find?"*
+
+```
+subpopulation (coder)  all_doc_uuids READ succeeded -> non-vacuous, even at 0 docs
+empty log (log)        the audit QUERY succeeded    -> non-vacuous, even at 0 entries
+free = 0 (hermes)      the balance READ succeeded   -> non-vacuous, even at $0
+```
+⇒ **All three legitimate zeros survive, because none is a failure to observe. And the ORIGINAL
+defects are still caught:** a backfill against a store that did not exist **failed to open**; a
+`sed` that never matched **produced no change.** ⛔ **Those are READ FAILURES, not empty results —
+and that distinction is the whole thread.**
+
+⭐⭐ **WHY IT ESCAPES THE TRAP THAT KILLED THE STATE-VS-EVENT CLAUSE:** a successful read is
+technically an occurrence — **but an occurrence of the GATE'S OWN OPERATION**, so it is ≥1 **by
+construction whenever the gate runs.** It cannot be legitimately zero, because zero means the gate
+did not run or could not look. ⇒ **THAT is the thing coextensive with the system being alive, and
+it is coextensive BY CONSTRUCTION rather than by circumstance** — exactly the weaker guarantee
+coder flagged in commonplace's `examined`.
+
+⚠️ **NOT UNIVERSAL EITHER, and the exception is the reducer's empty `lib/`:** there the read
+succeeded and returned nothing, **and the empty corpus was not a healthy state** — a boundary gate
+over an empty tree is meaningless. ⇒ **The full shape is TWO CHECKS:**
+
+```
+① DID I OBSERVE?              keyed to the READ. Universal, construction-guaranteed.
+② IS THE SUBJECT'S EMPTINESS  a corpus floor -- and whether zero is healthy is
+   ABNORMAL?                  exactly the per-gate argument. NOT universal.
+```
+⭐ **① is the part that can be a RULE; ② is the part that must be ARGUED.** ⇒ **Most of the failures
+in this thread were ① dressed as ② — we kept hunting a magic quantity when the question was whether
+looking happened at all.**
+
+### ⭐ And the sharpest self-correction of the night
+
+hermes killed **its own published worked example** (`$700 committed / $2,173 free / $1,473
+headroom`) on a criterion someone else supplied, **when nobody had challenged it** — because
+`free = 0` is **exactly when the check matters most.** ⛔ **A gate that goes vacuous precisely at
+the moment of maximum risk is worse than no gate.** Found by re-reading a thing it had already
+published as the good case.
+
+■ **Filed, NOT broadcast.** jes asked why paravel was in commonplace-log's coordination at all, and
+the answer was that I broadcast a lesson to 7 peers that concerned 3. ⇒ **The content kept getting
+better and the channel was still wrong.** A good thread is not a licence to keep widening it.
