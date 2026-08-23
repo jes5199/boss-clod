@@ -309,3 +309,34 @@ prompt line ends in **U+00A0 NON-BREAKING SPACE**, so `[[:space:]]*$` does not m
 RATE_LIMITED / STUCK / UNKNOWN / BLIND, or an IDLE that persists two consecutive checks. jes does
 not want a 15-minute heartbeat.
 
+
+### 5. Fable recovery watch — hourly at :23 (job 2a35bc3a)
+**Added 2026-08-23.** Script: `/home/jes/boss-clod/fable-recovery-check.sh`.
+
+⚠️ **WHY IT EXISTS:** the **Fable-scoped weekly meter** hit **100% at 2026-08-22T03:16Z**, and
+`quota-guard.sh` watches **5h and 7d only** — it does not watch that scope. ⇒ **hermes and
+commonplace-log ran ~24h on Opus while everyone, including jes, believed they were on Fable.**
+The discrepancy surfaced only because a pane check compared `/proc/<pid>/cmdline` against the
+rendered statusline.
+
+⭐ **THE LOAD-BEARING HALF OF THE STANDING DIRECTIVE IS THE SWITCH-BACK** (jes 2026-07-06: the Opus
+fallback is fine *"as long as we remember to switch back"*). **A remembered rule does not fire.**
+This loop is the artifact that does. Fable resets **2026-08-24T10:00Z**.
+
+**Silence policy:** `FABLE|EXHAUSTED` → stay completely silent, that is expected until reset.
+`FABLE|RECOVERED` → the event it exists for; telegram jes with the affected workers and ask which
+to switch (a relaunch costs context; ⛔ never restart hermes without asking, live money).
+`BLIND`/rc=2 → **instrument failure, NOT evidence Fable is healthy.**
+
+⭐ **ALL FOUR ARMS DEMONSTRATED BEFORE TRUSTING IT** — including the one that matters:
+- **RED:** quota tool yields nothing → `BLIND` rc=2. Fable entry absent from the payload →
+  `BLIND` rc=2 (**a shape change must not read as "Fable is fine"**).
+- ⭐ **RED, the important one:** a synthetic payload with `percent=12` **flips it to the
+  switch-back branch.** Without planting that, the recovery path would never have been seen fire
+  until the real reset — **a branch that only runs once, at the moment it matters, is the worst
+  possible place for an untested arm.**
+- **GREEN:** the real payload → `EXHAUSTED`, correct reset time, correct affected list.
+
+⭐ **The check reads its POSITIVE CONTROL FIRST:** it proves the `scope.model.display_name=Fable`
+entry exists before believing any percentage, because **a missing entry and a healthy meter are
+indistinguishable to a `percent >= 100` test.**
