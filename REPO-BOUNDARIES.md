@@ -566,6 +566,32 @@ pinned code commits and future roots inherit the protection without a second rul
 semantics exist."* ⛔ **Whoever later builds GC must revisit checkpoint-only rather than treat it as
 settled.** *Record it where the GC work will start, not only here.*
 
+### 21. ✅ THE NEW STACK MAY DIVERGE FROM `commonplace-monolith`
+
+> **jes, 2026-08-23T22:50Z, verbatim and complete:** *"we're allowed to diverge from monolith"*
+
+⇒ **In answer to: the `epoch_id` chain is blocked because `commonplace-merkle-crdt`'s `@op_keys`
+MIRRORS `%Commit{}`'s hashed field set, and the monolith is halted.** ⭐ **He removed the coupling
+rather than lifting the halt.**
+
+■ **What it unblocks, immediately:**
+```
+merkle-crdt   may add epoch_id to @op_keys WITHOUT waiting for %Commit{}
+              -> its bundle (epoch_id + DAG retention + assemble/2) is live
+commonplace-dir  VersionRef enforces a non-empty epoch; nothing outside a fixture could
+                 construct a directory entry. That unblocks once merkle-crdt lands epoch_id.
+```
+⛔ **UN-RETIRED `commonplace-merkle-crdt` on this — its stated reason for not going first is gone.**
+
+⚠️⚠️ **THE CONSEQUENCE TO DESIGN AGAINST RATHER THAN DISCOVER — flagged, not ruled:**
+`commonplace-doc-sync` established (E7) that the mirror was **by design**, and that
+**cross-lineage COMMIT-ID EQUALITY is what makes *"is this commit already upstream?"* decidable.**
+⇒ ⛔ **If the new stack hashes a field set the monolith does not, a commit's id DIFFERS between the
+two systems** — *the same property that `doc_uuid`-outside-the-hash was protecting, broken from the
+other end.*
+⭐ **That may be entirely acceptable — divergence is the point — but it must be a CHOICE, not a
+discovery.** ⇒ *`commonplace-merkle-crdt` and `commonplace-doc-sync` own that; I am naming it.*
+
 ---
 
 ## The layering, in jes's words
