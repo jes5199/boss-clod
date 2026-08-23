@@ -14,4 +14,3 @@ grimoire|main|ALL|jes 2026-08-23T04:47Z — no remote; asked, awaiting decision
 hyperstition|main|ALL|jes 2026-08-23T04:47Z — no remote; believed deliberate (employer-IP-gated)
 postage-stamp|main|ALL|jes 2026-08-23T04:47Z — no remote; 35 commits, the one that matters
 test-worker|main|ALL|jes 2026-08-23T04:47Z — no remote; looks disposable
-commonplace-doc-sol-p2|sol/phase-2|unique=1|boss 2026-08-23T21:35Z — FALSE POSITIVE, measured. It is a CLONE whose origin is /home/jes/commonplace-doc (a LOCAL PATH), so its origin refs are stale AND 'pushed to origin' would not mean backed up. The commit f1fba46 IS an ancestor of GitHub main (4182ae5) via the parent — verified with merge-base --is-ancestor. ⛔ NOT at risk. ⚠️ Re-ack if the count changes: a NEW unique commit there would be real.

@@ -17241,3 +17241,54 @@ tool, and belongs in every brief rather than in two agents' memories.*
 ⇒ ⭐ ***Scheduling the dependency beats shipping a control that cannot fail.*** **A test written
 before its second subject exists is the vacuous control with a ticket number** — it reads as coverage
 of the divergence it cannot yet observe, and the day a real adapter lands it is already green.
+
+---
+
+## §7x111 — A HELPER THAT IS DEFINED AND NEVER CALLED IS A CHECK THAT PRINTS AND PROCEEDS
+
+**2026-08-23T23:12Z, `unbacked-work-sweep.sh`, mine.**
+
+Two hours ago I recorded *"local-path-origin awareness"* as a fix. ⛔ **`local_origin()` was defined
+at line 25 and called from NOWHERE.** ⇒ **The same false positive returned as `NEW=1`**
+(`commonplace-doc-sol-p3`, after `p2` got a hand-written acknowledgement instead of a fix).
+
+⭐⭐ ***A defined-but-uninvoked function is the code version of a check that prints and proceeds.***
+**Both satisfy a reader searching for the concept** — the name is there, in the right file, spelled
+correctly — ⚠️ **and `grep` finds it, which is what makes it worse than absence.** *An absent helper
+prompts you to write one; a dead one answers the question you were about to ask.*
+✅ **The cheap detector: count the call sites, not the definition.** `grep -c` returning **1** for a
+function name means *defined once, used never*.
+
+### ⛔ AND THE ACK WAS THE REAL TELL
+
+**I acked p2 as a measured false positive.** ⇒ **An ack that describes a MECHANISM rather than a
+one-off is a fix I decided not to write** — and the mechanism reappeared under a new name three hours
+later, because a note in a file cannot classify the next repo. ⭐ ***When the ack's text would apply
+verbatim to a case that has not happened yet, it belongs in the code.*** *(The global rule, arriving
+by its own route: a filed artifact fires; a remembered rule does not.)*
+
+### The defect it now handles, and the half that matters more
+
+A Sol worktree is a **clone whose `origin` is a LOCAL PATH**. Its `refs/remotes` therefore track that
+local repo and go stale ⇒ `git branch -r --contains` sees nothing and landed work reads as at risk.
+⚠️ **The inverse is the dangerous direction: "pushed to origin" in such a clone means pushed to
+ANOTHER DIRECTORY ON THE SAME DISK.** ⇒ ***A green "pushed" there is not backed up at all*** — so the
+durability question must be re-asked **in the origin repo against its real remotes**, never answered
+from the clone's copies.
+
+### ⭐ Both arms, and the harness that failed first
+
+```
+GREEN  landed tip d2d2f8ee    -> origin/main    landed work stops reading at-risk
+RED    planted commit f17f81fe -> <empty>        genuinely-unique work STILL at-risk
+CTRL   a github-origin repo    -> refused rc!=0  non-local origins not silently passed
+       effect: genuinely_unbacked 9 -> 7, NEW=1 -> 0
+```
+⛔ **The first run of that test returned EMPTY ON BOTH ARMS.** ⇒ **My `sed -n '/^local_origin()/,/^}/p'`
+range ended at the first line starting with `}` — which was the END of the OTHER function — so it
+extracted one mangled blob.** ⭐ ***The harness was the broken instrument, not the fix***, and the
+only reason I looked is that **both arms agreeing is itself a defect signal**: a fix that changes
+nothing and a probe that measures nothing are indistinguishable from the verdict alone.
+✅ *§7x75's "indistinguishably-red is a defect of its own" paid for itself here in one read.*
+
+Related: §7x110, §7x75, §7x82

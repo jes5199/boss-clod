@@ -23,6 +23,31 @@ is_halted() { [ -r "$HALTED_FILE" ] && grep -qE "^$1[[:space:]]" "$HALTED_FILE";
 # reports unique commits that are already on GitHub via the parent. Both directions are wrong.
 # ⇒ Resolve such a repo against its PARENT'S real remote, and say so in the line.
 local_origin() { case "$1" in /*|file:*) return 0;; *) return 1;; esac; }
+
+# ⛔⛔ 2026-08-23T23:12Z — local_origin WAS DEFINED HERE AND NEVER CALLED. A dead
+# helper reads exactly like a handled case: I recorded "local-path-origin
+# awareness" as done, and the same false positive returned as NEW=1 two hours
+# later (commonplace-doc-sol-p3, after p2).
+# ⭐ A FUNCTION THAT IS DEFINED BUT NEVER INVOKED IS THE CODE VERSION OF A CHECK
+# THAT PRINTS AND PROCEEDS. Both satisfy a reader looking for the concept.
+#
+# The defect it must fix: a Sol worktree is a CLONE whose origin is a LOCAL PATH
+# (/home/jes/commonplace-doc). Its refs/remotes therefore point at that local
+# repo and go stale, so `git branch -r --contains` sees nothing and the branch
+# reads as unreachable — while the commit is on GitHub via the parent's merge.
+# ⚠️ AND THE INVERSE MATTERS MORE: "pushed to origin" in such a clone means
+# pushed to another directory on THE SAME DISK. That is not backed up at all.
+# ⇒ So the durability question must be re-asked IN THE ORIGIN REPO, against ITS
+# real remotes — never answered from the clone's stale copies.
+reach_via_origin() {   # $1 = tip sha ; echoes remote refs from the ORIGIN repo, or nothing
+  local tip="$1" url par
+  url=$(git remote get-url origin 2>/dev/null) || return 1
+  local_origin "$url" || return 1
+  par=${url#file://}
+  [ -e "$par/.git" ] || return 1
+  git -C "$par" cat-file -e "$tip^{commit}" 2>/dev/null || return 1
+  git -C "$par" branch -r --contains "$tip" 2>/dev/null | head -3 | tr -d ' ' | paste -sd, -
+}
 # Which repos hold commits that exist ONLY on this droplet's disk?
 #
 # ⭐ WHY: 2026-08-23. commonplace-log-reducer reported a doc "filed at main
@@ -124,6 +149,10 @@ for d in "${REPOS[@]}"; do
     tip=$(git rev-parse "$br" 2>/dev/null || git rev-parse HEAD 2>/dev/null)
     reach=""
     [ -n "$tip" ] && reach=$(git branch -r --contains "$tip" 2>/dev/null | head -3 | tr -d ' ' | paste -sd, -)
+    if [ -z "$reach" ] && [ -n "$tip" ]; then
+      reach=$(reach_via_origin "$tip" || true)
+      [ -n "$reach" ] && reach="via-local-origin:$reach"
+    fi
     if [ -n "$reach" ]; then
       FINDINGS+=("REACHABLE|$d|$br|0|no upstream, but REACHABLE from: $reach — nothing to push")
     else
@@ -163,6 +192,10 @@ for d in "${REPOS[@]}"; do
     if [ -n "$tip" ]; then
       # --contains over remote refs: empty means no remote ref reaches this commit
       reachable=$(git branch -r --contains "$tip" 2>/dev/null | head -3 | tr -d ' ' | paste -sd, -)
+      if [ -z "$reachable" ]; then
+        reachable=$(reach_via_origin "$tip" || true)
+        [ -n "$reachable" ] && reachable="via-local-origin:$reachable"
+      fi
     fi
     if [ -n "$reachable" ]; then
       FINDINGS+=("REACHABLE|$d|$br|$n|ahead of upstream but REACHABLE from: $reachable — nothing to push$mism")
