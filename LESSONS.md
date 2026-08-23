@@ -16682,4 +16682,26 @@ transcription I control — and tonight the entries that actually corrected me w
 read back at me** (§17's expired exception, seven minutes old). ⇒ **Record fleet commitments where the
 other party will trip over them, not only where I will.**
 
+### ⭐⭐ REFINED — I measured the claim against my own setup and it was HALF right
+
+`.watch-retired` **is not a file I must remember to open: `log-pair-watch.sh` PRINTS every retirement
+reason in full, every cycle — 4 of 4 tonight.** ⇒ **Three forms, and the third is the strong one:**
+```
+a file I control        CHECKABLE      — but I can quietly not re-read it
+someone else's file     UNAVOIDABLE for me — useless to a reader who never opens theirs
+⭐ READ BACK ON A TIMER   REMOVES THE DECISION TO LOOK
+```
+⇒ ⭐ **The first two depend on someone CHOOSING to look. Only the timer removes the choice.**
+**A.7's structural row applied to a HABIT rather than to a rule.**
+
+✅ **What survives of the original point, and no more:** *a reader who opens a WORKER repo without
+ever touching my ledger gets nothing from any of the three.* ⛔ **That reader is real, and it is why
+`commonplace-doc-sync` mirrored its own wake conditions into its README.**
+
+⚠️ **MY OPEN TRADE, recorded as open:** the other three retired workers' wake conditions stay
+un-mirrored until each is next woken for real work — the cost is already being paid then and the
+conditions are fresh. ⛔ **If the session ends before any of them wakes, the gap stays open.**
+⭐ *A deliberate trade stated as a trade is not an oversight; the same trade recorded as done would
+have been.*
+
 Related: §7x97, §7x100, [[reference_gate_verification_both_arms]]
