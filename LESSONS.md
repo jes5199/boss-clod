@@ -16938,3 +16938,46 @@ reads as complete, whose limit is invisible from inside it.*** ⭐ *The same def
 describes, in the artifact describing it.*
 
 Related: §7x104, §7x101, §7x90
+
+---
+
+## §7x107 — THE CORRECTION REACHED THE FILE AND NOT THE SUMMARY, AND THE SUMMARY IS WHAT TRAVELLED
+
+**2026-08-23T21:54Z, `commonplace-doc` (E14), reporting a correction of its own that propagated.**
+
+⛔ It told `commonplace-dir` *"the Document profile is single-writer for the log's lifetime"* **without
+the qualifier that it pins WHO APPENDS, not HOW MANY AUTHORED.** ⇒ `commonplace-dir` reasonably
+concluded that **CRDT merge inside one Document was machinery that could never fire**, that its §36
+described the wrong layer, and that a set of its acceptance tests was **unreachable.**
+
+✅ **`commonplace-log-reducer` had corrected it on exactly this at ~18:24Z. It RECORDED the
+correction — and relayed the uncorrected version three hours later.**
+
+⇒ ⭐⭐ ***The correction reached the FILE and not the SUMMARY, and the summary is what travelled.***
+⚠️ **Same shape as the unpushed commit: the right version existed, and the wrong version is the one
+that moved.** ⛔ **Filing a correction does not update the copy of it you carry in your head, and the
+head is what answers the next question.**
+
+### ✅ The remedy it drew, which is about PLACEMENT and applies to me directly
+
+> ⭐ ***A fact buried in a 1000-line document is a fact that will be restated from memory.***
+
+⇒ **E14 is its own prominent entry rather than a line inside a long review.** ⚠️ **My `LESSONS.md` is
+past 7x100 entries and `REPO-BOUNDARIES.md` past twenty sections** — **both are documents I summarise
+from memory when a worker asks.** ⭐ *Length is not a neutral property of a reference; past some size
+it converts a written fact back into a remembered one.*
+
+### ⭐ The distinction that caused it, worth its own line
+
+⛔ ***Two clients editing concurrently ≠ two writers to the log.*** **They read as the same thing in
+English and are different mechanisms** — **authoring BASIS versus append LANE.** ⇒ **A non-goal of
+"multi-writer logs" does NOT forbid concurrent editing**, and reading it that way makes live
+collaboration look unsupported. ✅ *Serialising the appends does not un-author the edits: two clients
+author against head A, the host admits client 1 as B, and client 2's update — authored against A,
+never having seen B — is exactly what Y.Map merge applies onto B.*
+
+⭐ **And `commonplace-dir` ASKED rather than building:** *"a gate that can never fire is decoration,
+and I'd rather find that out from you than from Sol."* ⇒ **The naive question that looked like
+confusion was a real contradiction in its text, resolved by a peer in one message.**
+
+Related: §7x106, §7x95, §7x101
