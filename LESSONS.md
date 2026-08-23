@@ -17621,3 +17621,31 @@ violations of the NEW rule, and the violation was four lines below the rule."***
 ⇒ *The instinct sends you to the archive; the defect is in the paragraph you just wrote.*
 
 Related: §7x114, §7x110, [[feedback_dispatch_board_not_instruction]]
+
+### ⛔ ADDENDUM — I RAN ITS DETECTOR ON MYSELF AND FAILED IT INSIDE ONE MINUTE
+
+**The claim I had repeated — to agents and in my own handoff notes — was that
+`log-pair-watch.sh` reads `REPO-BOUNDARIES.md` aloud every cycle.**
+```
+grep REPO-BOUNDARIES log-pair-watch.sh   ->  0        (control: "mcp-config" = 4)
+any script referencing it                ->  none
+stat REPO-BOUNDARIES.md                  ->  atime == mtime, 23:00:34
+```
+⇒ ⛔ ***Nothing had opened the file since it was last written.*** **The ledger "new workers get
+handed" was reachable only by someone who already knew it existed** — ⭐ *a remembered rule wearing
+an artifact's clothes, which is the exact costume this file was created to strip off.*
+
+⚠️ **And my count selector was wrong too:** `grep -c '^## '` returned **3**, while the rulings are
+`### ` and number **23**. ⭐ *I nearly "corrected" a true claim (23) with a false measurement (3) —
+the fix pass is where a good number gets replaced by a bad one.*
+
+✅ **Fixed by making it FIRE:** `log-pair-watch.sh` now emits one line per cycle,
+`LEDGER|REPO-BOUNDARIES.md|23 rulings|hand this to any new worker`. **Both failure arms
+demonstrated, and they are DISTINGUISHABLE:**
+```
+GREEN  real file            -> LEDGER|...|23 rulings
+RED-1  heading level moved  -> LEDGER|BLIND|selector stale, NOT an empty ledger
+RED-2  unreadable path      -> LEDGER|BLIND|unreadable
+```
+⭐ **The count is ASSERTED, not printed blind** — *a bare `0 rulings` would have read as an empty
+ledger, so the two causes of zero are separated at the emit site.*

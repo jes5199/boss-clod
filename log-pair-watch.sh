@@ -231,4 +231,25 @@ if [ "$found" -eq 0 ]; then
 fi
 
 printf '%s\n' "${REPORT[@]}"
+# ⛔ 2026-08-23T23:26Z — I told several agents, and my own handoff notes, that this
+# script "reads REPO-BOUNDARIES.md aloud every cycle". IT DID NOT. Zero references;
+# the file's atime equalled its mtime, so nothing had opened it since it was written.
+# ⭐ Caught by doc-sync's detector: list what you QUOTED today, then ask when you last
+# OPENED it. Citation is an act of USE, and use is what confidence is built from — so
+# the most-quoted document accrues the FEELING of being checked and zero actual reads.
+# ⇒ The ledger is the thing new workers are handed, so its existence must FIRE rather
+# than be remembered. One line, every cycle, naming the file and its live count.
+_led=/home/jes/boss-clod/REPO-BOUNDARIES.md
+if [ -r "$_led" ]; then
+  _n=$(command grep -c '^### ' "$_led")
+  # ⚠️ the count is asserted, not printed blind: 0 would mean the heading level moved
+  # and the pointer had gone stale, which is the failure this line exists to prevent.
+  if [ "$_n" -gt 0 ]; then
+    echo "LEDGER|REPO-BOUNDARIES.md|$_n rulings|hand this to any new worker"
+  else
+    echo "LEDGER|BLIND|REPO-BOUNDARIES.md matched 0 '### ' headings — selector stale, NOT an empty ledger"
+  fi
+else
+  echo "LEDGER|BLIND|REPO-BOUNDARIES.md unreadable at $_led"
+fi
 echo "SUMMARY|$nowiso|resolved $found of ${#WORKERS[@]} windows|stuck_threshold=${STUCK_MIN}m"
