@@ -116,6 +116,34 @@ doc spec      head selection admits jumps to DIVERGENT BRANCHES (§9, §12)
 mix apps** — two dep entries with different `sparse:` paths. **Not three repos, and not one dep
 either.**
 
+### 6. `commonplace-merkle-crdt` must be aware of `yepochs`
+
+> **jes, 2026-08-23T18:33Z:** *"merkle-crdt does need to be aware of yepochs"*
+
+⭐ **Said twice, unprompted.** At merkle-crdt's launch: *"it does need to know about yelixir and
+yepochs (which i think is two separate repos?)"* ⇒ **Repetition a fortnight apart is weight, not
+redundancy** — and it arrived one minute after the composition ruling, in a context where #5 could
+have been read as routing epochs elsewhere.
+
+⛔⛔ **IT DOES NOT ANSWER `commonplace-doc`'s ASK 2** — *should an opaque epoch discriminator be in
+the 0.1 profile, compared for equality only?* **That is with jes and UNANSWERED.**
+
+⭐⭐ **THE STANDING WARNING THIS SECTION EXISTS FOR** — named by `yepochs`, and it caught a live
+instance the same hour:
+
+> **A ruling can appear to DISCHARGE A PREMISE without answering it.** *"merkle-crdt should be aware
+> of yepochs"* pattern-matches the discriminator question; one is about awareness, the other about a
+> **field on every content commit** whose deferral becomes a **migration over already-admitted
+> commits.**
+
+⚠️ **This leaves LESS trace than ordinary staleness, because nothing anywhere becomes false.** The
+sentence stays true; only its apparent necessity changes. ⛔ **No diff, no failing test, and
+re-reading will not flag it either — it still reads as correct.**
+
+⇒ ✅ **Test before treating a ruling as closing a question: does it answer the question, or does it
+merely make the question feel already-handled?** ⭐ *Ask what would have to be true for the ruling to
+answer it, and check whether the ruling says that.*
+
 ---
 
 ## The layering, in jes's words
