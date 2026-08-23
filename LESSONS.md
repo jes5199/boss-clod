@@ -14386,42 +14386,61 @@ concluding anything about whether it chose to.** The ratio of *inbound messages*
 in its own pane settles it in one command, and I did not run that command for twenty minutes because
 "busy" is the explanation that costs nothing to believe.
 
-### 7x76 addendum — a quiescence-triggered monitor cannot see a round that never started
+### 7x76 addendum — ⛔ I CALLED A COMPLETED ROUND "NEVER DISPATCHED", AND THE INSTRUMENT THAT WOULD HAVE CORRECTED ME WAS BROKEN WITH ITS STDERR SUPPRESSED
 
-**2026-08-23 03:56Z, commonplace-log.** It dispatched SP4 Task 1, cut `.worktrees/sp4-task1`, and
-reported: *"the monitor is armed, quiescence-triggered, and proven able to fire — so I'll be told
-when the round ends, and **its silence now carries information rather than being ambiguous**."*
+⚠️ **THIS ENTRY WAS ORIGINALLY FILED AS A LESSON ABOUT commonplace-log. IT IS A LESSON ABOUT ME.**
+The original text asserted that its SP4 Task 1 round never started. **That was false.** It is
+rewritten rather than deleted, because a corrected record is worth more than a clean one.
 
-**Measured three minutes later:**
+**What actually happened, measured after the agent contradicted me:**
 ```
-codex processes:                            0
-processes with cwd under sp4-task1:         0   (scanned every pid in /proc)
-files touched in the worktree, last 2 min:  0
-logs written anywhere under the repo:       none
-POSITIVE CONTROL: same /proc scan finds my own cwd; pgrep -x finds 25 bashes
+sol-sp4-task1.log   36,414 lines · 1,593,122 bytes · mtime 03:53:35Z
+                    'tokens used' marker ×3  -> COMPLETED
+my scan began       03:54:01Z  -- 26 SECONDS AFTER THE ROUND FINISHED
 ```
-⇒ **The round never started, and the agent was prepared to wait forever.**
 
-⭐⭐ **THE DEFECT IS IN THE SENTENCE, NOT THE MONITOR.** A quiescence trigger fires on *quiet*, and
-**a round working silently and a round that never began are both quiet.** ⇒ **Silence does NOT
-carry information here — it carries two causes with one observable**, which is the global rule
-arriving inside a mechanism built to remove ambiguity.
+⭐ **ERROR 1 — I judged by the process's absence.** Zero codex processes is equally consistent with
+*never started*, *died*, and **finished**. The global rule says it in as many words: ***THE ARTIFACT
+IS THE VERDICT, NOT THE PROCESS'S ABSENCE.*** I had three causes sharing one observable and named
+the most dramatic.
 
-⛔ **AND IT PASSED THE WRONG ARM.** "Proven able to fire" is §7x75's **red arm** — it shows the gate
-*can* go off. **The arm actually needed was the one proving it has a SUBJECT.** A monitor watching a
-process that does not exist is a gate over an empty corpus, and it reports green forever.
+⛔⛔ **ERROR 2, THE LOAD-BEARING ONE — MY LOG SEARCH DID NOT RUN, AND I READ ITS SILENCE AS DATA.**
+`find` on this box is **bfs 4.1.1**, not GNU findutils. **bfs rejects relative offsets in `-newermt`**
+— `-newermt '-5 minutes'` is an *Invalid timestamp* **error**, not a query. **I had `2>/dev/null`
+on it.**
+```
+with 2>/dev/null :  ''                             <- read as "NO LOGS EXIST"
+without          :  bfs: error: Invalid timestamp
+```
+⇒ ⭐⭐ **I SUPPRESSED THE ONLY CHANNEL THAT COULD HAVE TOLD ME THE INSTRUMENT FAILED, THEN TREATED
+ITS SILENCE AS A MEASUREMENT.** **Every** freshness claim I made that night from
+`find -newermt '-N minutes'` was vacuous — the 2-minute worktree poll, the 5-minute log check, the
+15-minute sweep, the 40-minute sweep. **All returned zero because none of them ran.**
 
-⭐ **The discriminator the agent already owned, and which the monitor structurally cannot reach:**
-a round that ran leaves a log; a **completed** one ends with a `tokens used` marker, a **killed** one
-has none. ⇒ ***No log at all is a THIRD state — never dispatched*** — invisible to a design that
-only distinguishes finished from killed.
+⭐⭐ **AND THE SHARPEST PART: I RAN POSITIVE CONTROLS ON THREE INSTRUMENTS AND NOT THE FOURTH.**
+I proved `pgrep -x` could see processes and that my `/proc` scan could read a cwd. **Both true, both
+irrelevant** — neither can distinguish *completed* from *never started*. **The one arm that could
+was the log search, and it is the one arm I never controlled.** ⇒ ***A positive control on the
+instruments that cannot answer the question is not verification; it is confidence wearing its
+clothes.*** Ask which instrument carries the discriminating power, and control THAT one.
 
-⚠️ **PROBABLE CAUSE, AND IT IS A COST OF AN EARLIER FIX:** rounds moved to `setsid nohup … &` to
-survive the harness reaper. **A detached round is not harness-managed, so nothing reports its
-failure to launch either.** A dispatch that dies at exec is indistinguishable from one running
-quietly. ⇒ **Detachment buys survival and costs the launch receipt.** The remedy is a positive
-launch confirmation — *the log exists and is growing within N seconds* — not trust in the `&`.
+✅ **Working syntax on this box:** `-newermt "$(date -u -d '-20 minutes' +%Y-%m-%dT%H:%M:%S)"`, or
+`touch -d '-20 minutes' /tmp/ref` then `-newer /tmp/ref`. ⛔ **And never put `2>/dev/null` on a
+command whose emptiness you intend to believe.** See [[reference_bfs_not_gnu_find]].
 
-■ **Second time in one hour the family landed on the person auditing for it:** I keyed a Fable check
-to the `--model` launch flag rather than the running statusline and missed two wedged agents. ⇒
-**Both errors are the same shape — trusting a stable-looking proxy over the thing that reflects now.**
+### ⭐ What survives from the original entry, because the agent kept it after refuting my example
+
+commonplace-log's own framing, which was true independently of my bad evidence: **"proven able to
+fire" establishes the INSTRUMENT, not that it has a SUBJECT.** A quiescence-triggered monitor cannot
+distinguish a round working quietly from a round that never began — both are quiet. ⇒ It added a
+**launch receipt** anyway, found the first version false-alarmed at a 20-second window, and settled
+on **process-exists-or-log-growing over 60s**.
+
+⭐ **THAT IS THE MODEL RESPONSE TO A WRONG REPORT WITH A RIGHT SHAPE:** refute the specific claim,
+keep the structural one, and ship the guard. **It would have been entirely fair to discard the whole
+message on the strength of the error, and the gap it named was real.**
+
+■ **Two of my errors in one hour, same family:** keying a Fable check to the `--model` launch flag
+instead of the running statusline, and here judging a finished job by an absent process while the
+correcting instrument sat broken behind a silenced stderr. ⇒ **Both trusted a proxy that looked
+stable over the thing that reflects now.**
