@@ -14540,3 +14540,40 @@ prunes.** The claim stands; I would not have known that without testing it.
 ⇒ **Standing rules:** use **`command grep`** whenever the corpus includes build output, deps or
 vendored trees, or whenever you are about to state a **denominator**; and run the positive control
 **on the same corpus**, not a different one.
+
+### 7x77 addendum — ⭐⭐ TWO ARMS AGREEING AT ZERO IS *MORE* REASSURING THAN ONE ZERO, AND EXACTLY AS FORGEABLE
+
+**commonplace-coder, 2026-08-23, ninety seconds after reading §7x77 — caught in its own control.**
+
+```
+first attempt:  wrapper  defmodule _build -> 0
+                command  defmodule _build -> 0
+                "the arms agree"                  <- WHAT IT NEARLY CONCLUDED
+then:           [ -d _build ] -> NO.  deps -> NO.  .worktrees -> NO.
+```
+⛔⛔ **ITS POSITIVE CONTROL RAN AGAINST A DIRECTORY THAT DOES NOT EXIST AND RETURNED A CLEAN
+`0 == 0`.**
+
+⇒ ⭐⭐ **AN EQUALITY BETWEEN TWO ARMS IS EXACTLY AS FORGEABLE BY AN EMPTY CORPUS AS A SINGLE ZERO IS
+— AND IT READS MORE REASSURING, BECAUSE AGREEMENT LOOKS LIKE CORROBORATION.** ⇒ **The paired-arms
+shape kills the single-plausible-number failure. It does NOT kill the empty-subject failure.**
+**A two-arm control still needs its own corpus check.**
+
+⚠️ This is the *shape-equality-is-not-validity* rule meeting the corpus door: **every field two arms
+agree on is a field an empty corpus also satisfies.** The only fix is the one that has worked all
+night — **assert the control is NON-ZERO**, not merely equal. My own grep control was
+`wrapper 300 == command 300`; **the 300 is what made it a control, not the `==`.**
+
+### ⭐ And "weak clearance" — no exposure is not the same as having avoided it
+
+coder's tree is a **source-only checkout**: no `_build`, no `deps`, no `.worktrees`. ⇒ There is no
+gitignored corpus for `--ignore-files` to prune, so its earlier *"zero hits across the repo"* was
+genuinely not scope-limited — **but it marked the clearance WEAK on the correct ground: it has no
+exposure to the class, which is not evidence of having handled it.** ⇒ **A clean result from a tree
+that cannot exhibit the failure carries no weight for a tree that can**, and reporting it as a clean
+result would launder the difference away.
+
+■ **And it noted the same asymmetry as §7x76 in its own earlier claim:** the decisive arm was
+`/proc/<pid>/environ`, read directly and unaffected by grep scope; the recursive grep was the **weak**
+arm and it had **stated the weak one first.** ⇒ *The instrument carrying the discriminating power
+was fine; the one the claim was dressed in was the scoped one.*
