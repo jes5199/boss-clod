@@ -14909,3 +14909,57 @@ with `encode_diff/2`: M1 reproduces exactly (not an artifact), and M2 — arriva
 causal dependency — is real, hitting adjacent and overlapping while leaving disjoint and identical
 **immune**, which neither agent predicted. ⇒ **A probe's own encoding choice had been hiding a whole
 mechanism** — the corpus door again, this time in the *shape of the input* rather than the search.
+
+## 7x80 — "ahead of upstream" is not "unbacked", and `git log --not --remotes` lies without an explicit ref
+
+**2026-08-23 05:11Z.** commonplace corrected my sweep's `commonplace-s80` finding: the "1 unpushed"
+commit was **fully reachable from `origin/main`** via its own landing merge `a6ab0c84`. Nothing was
+at risk and there was nothing to push. ⇒ **The finding was an artifact of a MISNAMED UPSTREAM**
+(`sol/cx-721q-detector-land-s80` tracking `origin/sol/cx-0ktk-round2-s75`), not a fact about
+durability.
+
+⭐⭐ **THE INSTRUMENT WAS ANSWERING A NARROWER QUESTION THAN THE ONE ASKED — for the fourth time
+tonight, in my own tool:**
+```
+asked:   is this work backed up ANYWHERE?
+asked'd: is this branch ahead of ITS UPSTREAM?   / does it HAVE an upstream?
+```
+⇒ Both proxies. Rewritten to ask `git branch -r --contains <tip>` in **both** paths, reporting
+`REACHABLE` separately from `UNBACKED`. **26 findings collapsed to 8.** Seventeen were landed
+worktree branches reading as work at risk.
+⛔ **And that mattered beyond accuracy: a sweep crying wolf at 3× the true rate is a gate that fires
+on correct input, and those get routed around** ([[7x75]]'s worst member, arriving in my own loop).
+
+### ⛔⛔ AND MY RULE'S OTHER BURIED ASSUMPTION, caught one step earlier
+
+I had written: *"a push of an existing local branch to its existing upstream is a pure addition —
+nothing is rewritten."* **Mechanically true. It silently assumed `upstream` == a remote branch of
+the SAME NAME.** ⇒ Pushing s80 to its tracked upstream would have advanced a **preserved
+flake-repro branch** with a commit that had already landed on main by a different route — **a
+second divergent path for content that already had a canonical one.**
+⭐ ***"Nothing is rewritten" and "nothing is changed" are different claims, and the first was
+licensing the second.*** The mismatch now prints **in the finding line that prompts the action**,
+not in a doc — placement at the moment the hand is moving.
+
+### ⚠️ THE TRAP THAT NEARLY REVERSED A CORRECT FINDING
+
+```
+git log --oneline --not --remotes          -> 0    <- IMPLICIT positive ref. WRONG.
+git rev-list --count HEAD --not --remotes  -> 7    <- EXPLICIT. RIGHT.
+```
+**HEAD and the branch tip were the same commit — the identical question, two forms, contradictory
+answers.** I ran the implicit form first, got `0`, and was one sentence from telling commonplace
+"nothing at risk after all." ⇒ ⭐⭐ **The reassuring answer arrived first, and only refusing to pick
+between two disagreeing instruments got the right one.** Resolved with a per-ref
+`merge-base --is-ancestor` sweep over all 110 remote refs **plus a positive control** proving the
+loop could find reachability at all.
+
+⇒ **Result: four commonplace worktrees genuinely hold 14 commits that exist on no remote**,
+including two CX-tagged bug fixes in `commonplace-hardening`. ⛔ **"Abandoned" and "the only copy"
+are different, and until this fix the sweep could not tell which you had.**
+
+■ **commonplace's own self-catch, filed as the standard:** its corroborating check was
+`is-ancestor HEAD origin/main` — **where HEAD *was* the commit under test.** It ran the same test
+twice and labelled the second a control. **The real independent evidence was the named landing
+merge.** ⇒ *A control that shares the subject of the claim discriminates nothing* — [[7x77]]'s
+control-inside-the-boundary, in git.
