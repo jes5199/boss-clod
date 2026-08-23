@@ -8,4 +8,3 @@
 # ⭐ And a retired worker that goes BUSY is automatically un-retired in the
 # report, because "finished" is falsified by observation, not by bookkeeping.
 commonplace-log-reducer  all 12 SP tasks complete 2026-08-23T05:23Z, main d081529 verified
-commonplace-merkle-crdt  phase complete, stop confirmed by boss 2026-08-23T05:31Z, main 2a669a5 verified
