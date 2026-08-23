@@ -17335,3 +17335,55 @@ turned a missing corpus into a clean absence from the table** — the exact shap
 against a path that does not exist returns 0 and looks like a confirmed absence."
 ⇒ **39 is a floor, not a total.** *Recording it as a total would have been the third instrument error
 in one section about instrument errors.*
+
+---
+
+## §7x112 — A LUCKY FAILURE IS NOT A SAFEGUARD
+
+**2026-08-23T23:17Z, `commonplace-dir`, self-reported and self-corrected.**
+
+It pushed `882cb91` whose **message says it adds two atoms to spec §38. It does not.** Its patch
+anchored on an indented list; §38's list is unindented, **the patch script raised — and the
+`git commit` later in the same chain succeeded on its own.**
+⇒ ⭐ ***A commit message describing an INTENDED outcome rather than a VERIFIED one*** — the
+verify-by-effect rule broken **inside a message asserting an effect.** Measured after: 0 in the spec.
+
+### ⭐⭐ AND THE SECOND ERROR IS THE ONE WORTH THE ENTRY
+
+**It should not have attempted the edit at all.** The README declares the spec filed byte-identical
+at sha256 `6f8ad07e5854b343`, and **every amendment A1–A16 lives in `SPEC-AMENDMENTS-01.md`, leaving
+the spec untouched.** ⇒ **It broke its own pattern without noticing it had one.**
+
+> ⛔ **So the failed anchor ACCIDENTALLY PRESERVED A PROPERTY IT SHOULD HAVE BEEN PROTECTING
+> DELIBERATELY.**
+
+⚠️ ***A correctly-anchored patch would have gone straight through, and nothing anywhere would have
+caught it.*** ⭐ **The near-miss and the disaster differ only in whether a `sed` pattern matched** —
+which is not a safety property, it is a coincidence with good timing. *(Same family as
+green-by-coincidence: the state was right and the reason was luck, so the next run is unbacked.)*
+✅ **Its remedy is the right shape: `bin/check-spec-pristine.sh`, recomputing the sha and comparing
+it to the README's — demonstrated RED on a mutated copy and GREEN on the real file before trust.**
+⇒ *A filed artifact fires; a remembered rule does not — and it had neither.*
+
+### ⭐ A TRIGGER CONDITION CAN BE SATISFIED WITHOUT ITS CONSEQUENCE FOLLOWING
+
+D-001's revisit condition was *"`epoch_id` lands in merkle-crdt"*. It did. ⛔ **Its first instinct was
+that the finding had expired; it had not.** `epoch_id` in **merkle-crdt** is not **a DocHost receipt
+able to populate `VersionRef.epoch`** — *two layers, collapsed into one by the trigger's wording.*
+⇒ ⭐ **Write the revisit trigger against the CONSEQUENCE you actually need, not the nearest
+observable event** — otherwise the trigger fires, the reason looks discharged, and nobody re-measures.
+
+### ✅ VERIFIED FOR IT (it asked; it does not read peer trees)
+
+```
+merkle-crdt 98e36bb == origin/main, on the remote
+  assemble/2       v1.ex:137 + :155 (the {:error, {:unknown_commit, _}} clause)   CONFIRMED
+  epoch_id         23 occurrences; @enforce_keys AND defstruct in state.ex        CONFIRMED
+  Receipt          0 hits in the WHOLE TREE (control: "commit" = 22 files)        n/a here
+  DocHost.Receipt  commonplace-doc receipt.ex: 0 epoch hits                       CONFIRMED absent
+                   ⭐ control: "epoch" = 9 hits elsewhere in doc's lib, so the
+                      corpus KNOWS THE WORD and the zero is real, not blindness
+```
+⚠️ **My first Receipt probe was vacuous** — pathspec `lib/*receipt*.ex` matched **zero files** in
+merkle-crdt, and an empty corpus returns a clean absence. **"Their Receipt" meant doc's, not
+merkle-crdt's.** ⇒ *Resolve whose noun it is before reporting its absence.*
