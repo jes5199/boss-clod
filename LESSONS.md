@@ -14385,3 +14385,43 @@ silently discarding its inbox.
 concluding anything about whether it chose to.** The ratio of *inbound messages* to *instant errors*
 in its own pane settles it in one command, and I did not run that command for twenty minutes because
 "busy" is the explanation that costs nothing to believe.
+
+### 7x76 addendum — a quiescence-triggered monitor cannot see a round that never started
+
+**2026-08-23 03:56Z, commonplace-log.** It dispatched SP4 Task 1, cut `.worktrees/sp4-task1`, and
+reported: *"the monitor is armed, quiescence-triggered, and proven able to fire — so I'll be told
+when the round ends, and **its silence now carries information rather than being ambiguous**."*
+
+**Measured three minutes later:**
+```
+codex processes:                            0
+processes with cwd under sp4-task1:         0   (scanned every pid in /proc)
+files touched in the worktree, last 2 min:  0
+logs written anywhere under the repo:       none
+POSITIVE CONTROL: same /proc scan finds my own cwd; pgrep -x finds 25 bashes
+```
+⇒ **The round never started, and the agent was prepared to wait forever.**
+
+⭐⭐ **THE DEFECT IS IN THE SENTENCE, NOT THE MONITOR.** A quiescence trigger fires on *quiet*, and
+**a round working silently and a round that never began are both quiet.** ⇒ **Silence does NOT
+carry information here — it carries two causes with one observable**, which is the global rule
+arriving inside a mechanism built to remove ambiguity.
+
+⛔ **AND IT PASSED THE WRONG ARM.** "Proven able to fire" is §7x75's **red arm** — it shows the gate
+*can* go off. **The arm actually needed was the one proving it has a SUBJECT.** A monitor watching a
+process that does not exist is a gate over an empty corpus, and it reports green forever.
+
+⭐ **The discriminator the agent already owned, and which the monitor structurally cannot reach:**
+a round that ran leaves a log; a **completed** one ends with a `tokens used` marker, a **killed** one
+has none. ⇒ ***No log at all is a THIRD state — never dispatched*** — invisible to a design that
+only distinguishes finished from killed.
+
+⚠️ **PROBABLE CAUSE, AND IT IS A COST OF AN EARLIER FIX:** rounds moved to `setsid nohup … &` to
+survive the harness reaper. **A detached round is not harness-managed, so nothing reports its
+failure to launch either.** A dispatch that dies at exec is indistinguishable from one running
+quietly. ⇒ **Detachment buys survival and costs the launch receipt.** The remedy is a positive
+launch confirmation — *the log exists and is growing within N seconds* — not trust in the `&`.
+
+■ **Second time in one hour the family landed on the person auditing for it:** I keyed a Fable check
+to the `--model` launch flag rather than the running statusline and missed two wedged agents. ⇒
+**Both errors are the same shape — trusting a stable-looking proxy over the thing that reflects now.**
