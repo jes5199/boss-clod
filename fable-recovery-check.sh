@@ -71,6 +71,24 @@ while read -r win name; do
   done
 done < <(tmux list-windows -a -F '#{session_name}:#{window_index} #{window_name}' 2>/dev/null)
 
+# ⚠️ 2026-08-23: `claude-quota` can hit "HTTP Error 429: Too Many Requests" on the
+# usage API and STILL PRINT NUMBERS -- identical across repeated calls, i.e. a
+# cached value, with nothing marking it stale. A frozen cache would make the
+# RECOVERED branch fire late or never, which is the one branch this loop exists
+# for. ⭐ Cheap staleness gate: resets_at must be in the FUTURE. A cache frozen
+# past the reset betrays itself here; a fresh read cannot fail it.
+now_s=$(date -u +%s)
+res_s=$(date -u -d "$resets" +%s 2>/dev/null || echo "")
+if [ -z "$res_s" ]; then
+  echo "BLIND|resets_at unparseable ('$resets') — cannot judge staleness, treating as instrument failure"
+  exit 2
+fi
+if [ "$res_s" -le "$now_s" ]; then
+  echo "BLIND|resets_at $resets is in the PAST — this payload is stale (429 cache?), NOT a live reading"
+  echo "BLIND|do not act on percent=$pct until a fresh read succeeds"
+  exit 2
+fi
+
 if [ "${pct%.*}" -ge 100 ]; then
   echo "FABLE|EXHAUSTED|percent=$pct|resets_at=$resets"
   echo "FABLE|affected=${affected:-none — no running worker was launched asking for Fable}"
