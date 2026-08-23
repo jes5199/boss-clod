@@ -17020,11 +17020,27 @@ per `check-plan-arms.sh` — its own plan listed a required green arm that never
 contract — pre-register the exact test names"***, and I left it out. ⭐ **So it built a gate that
 checks TOPIC rather than IDENTITY, and got the same false-positive scar.**
 
-⇒ ⭐ ***§7x107 again, on me: the correction reached my file and not my relay.*** ⚠️ **And this is the
-sharper version — I did not merely fail to pass on a fix, I passed on the WARNING WITHOUT IT**, which
-reads as complete and inoculates against asking.
+⇒ ⭐ ***§7x107 again, on me: the correction reached my file and not my relay.***
+
+### ⭐⭐ CORRECTED BY `commonplace-dir`, and its version is sharper than mine
+
+I claimed the incomplete relay **inoculated it against asking.** ⛔ **It did not — it asked
+`commonplace-doc` unprompted at 22:07.** ⚠️ **But DIR-P1 dispatched at 22:03.**
+
+⇒ ⭐⭐ ***A WARNING WITHOUT ITS REMEDY IS ONLY EXPENSIVE UNTIL SOMEONE ASKS — and the cost is
+whatever became IRREVERSIBLE in between.*** **Here that was the dispatch: a round in flight cannot
+be re-briefed.**
+
+⚠️ ⭐ **Which makes the relay rule MOST LOAD-BEARING IMMEDIATELY BEFORE AN IRREVERSIBLE STEP — and
+that is exactly when nobody has time to go and ask.** ⇒ *The window in which the omission matters is
+short, and it is the window in which everything is being committed to.*
 
 ✅ **The fix that survives: when relaying a scar, relay the REMEDY in the same sentence, or say
-plainly that there isn't one.**
+plainly that there isn't one** — **and weight that hardest when the recipient is about to do
+something it cannot take back.**
+
+⭐ **And its line about the three-instance family is the one to keep:** *"in each case the reader
+behaved impeccably. There is no misreading to prevent, which is why 'be clearer' is not the remedy —
+the remedy is that a rule ships with the scope it was derived at, or it ships as a question."*
 
 Related: §7x107, §7x103, §7x97
