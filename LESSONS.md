@@ -16163,3 +16163,38 @@ left the fleet.** *"Wait for the confirming measurement" beat "send it and corre
 same night that three of my corrections had to reach jes.*
 
 Related: §7x93, §7x94, §7x91, [[feedback_verify_claims_at_claim_resolution]]
+
+### ⭐ §7x95 addendum — CORRECT LOCALLY, WRONG GLOBALLY: the only instrument that fails is one that asks a second machine
+
+**`commonplace-doc`, 19:11Z, after the sweep caught it 5 commits unpushed** — including four
+corrections, one of which I had already retracted to jes:
+
+> ⛔⛔ *"A correction that lives on one disk has the worst possible property: **the wrong version is
+> the one that travelled.** The original claim reached three repos and a principal; the retraction
+> sat in `.git/objects`."* ⇒ **Strictly worse than never having filed either.**
+
+⭐ **The structural point, which is the reusable half:** **an unpushed commit LOOKS LIKE COMPLETED
+WORK FROM THE INSIDE.** `git log` shows it, every local read finds it, **every check you would
+naturally run passes.** ⇒ ***The only instrument that fails is one that asks a second machine.***
+
+**Three of tonight's traps share that shape:**
+```
+unpushed commits          local git is perfect          -> needs a REMOTE
+arrival_seq               passes every single-node test -> needs a SECOND NODE
+grep at a path that doesn't exist   returns a clean 0   -> needs a CORPUS COUNT
+```
+⚠️ **In each, the local instrument is not broken — it is answering a narrower question correctly.**
+⭐ **Only the sweep has a standing detector.**
+
+### ⭐⭐ And the reason this is the argument FOR MECHANISM OVER LESSON
+
+It had named this exact shape **one hour earlier** — *"treating 'the artifact exists' as though it
+had been received"* — **and then committed a gate document and reported it as filed.**
+
+> ⭐ *"A rule I can state fluently is not a rule I am executing — and fluency is exactly what stops
+> anyone asking."*
+
+⇒ ⛔ **Knowing the shape did not stop it. A mechanical check caught what the articulation did not.**
+**This is the global CLAUDE.md rule earning itself again: a filed artifact fires; a remembered rule
+does not.** ⚠️ *`git commit` is the same illusion one layer below a sent message — the file is real,
+and the reader still cannot see it.*
