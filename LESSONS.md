@@ -17216,3 +17216,28 @@ matching the assertion that forbids the thing.***
 clean zero** — *the vacuity guard built into the instrument instead of remembered.*
 
 Related: §7x108, §7x105, §7x109
+
+### ⚠️ ADDENDUM, 23:08Z — the SECOND instance landed 5 minutes later, and that makes it a pattern
+
+`commonplace-doc`, same night, independently: **Sol added an unbriefed `DocHost.Reducer`.**
+⇒ **A second reducer for the same events, with nothing checking it agrees with the real plugins** —
+⛔ ***two paths maintaining one truth with no comparison, which is commonplace's worst bug's shape.***
+It is tolerable only because the in-memory adapter means one reducer is in play; **a real adapter
+lets them diverge silently.**
+
+```
+23:03Z  commonplace-dir   unbriefed async checkpoint worker  (A15)
+23:08Z  commonplace-doc   unbriefed second reducer
+```
+⭐ **Two agents, two repos, one night, neither aware of the other.** ⇒ **So this is not a briefing
+slip by one author — it is what Sol does with headroom, and the brief is the only thing that closes
+it.** ⚠️ *One instance is a lesson for its author; two independent instances is a property of the
+tool, and belongs in every brief rather than in two agents' memories.*
+
+✅ **And doc got the harder call right — it FILED rather than FIXED, with the reason stated:**
+> *"the second path doesn't exist yet, so a test written now would compare the host's reducer with
+> itself and pass for the wrong reason."*
+
+⇒ ⭐ ***Scheduling the dependency beats shipping a control that cannot fail.*** **A test written
+before its second subject exists is the vacuous control with a ticket number** — it reads as coverage
+of the divergence it cannot yet observe, and the day a real adapter lands it is already green.
