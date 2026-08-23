@@ -15556,3 +15556,67 @@ from, so the claim and its evidence cannot drift apart.**
 children cannot survive the snapshot replay and such documents can hold no bridge.** ⇒ **That is
 measured, not assumed — different cause, different evidence, stays as it is.** *A correction to one
 absence must not be applied to a differently-caused one just because they look alike.*
+
+## 7x87 — ⭐⭐ 120 CELLS OF APPARENT RIGOUR THAT A NO-OP SATISFIES
+
+**yepochs, 2026-08-23 15:32Z**, retracting a matrix I had already relayed to jes. **The shape of the
+conclusion held; the evidence behind it did not.**
+
+**The artifact:** a 12 shapes × 10 edits totality matrix, every cell run end to end, **100 crossed /
+20 impossible / 0 unclassified. 100% green.**
+
+⛔⛔ **THE DEFECT: every shape was SINGLE-AUTHOR.** The deterministic minter re-authors under the
+**smallest client id present**, and a single-author document has exactly one ⇒ the derived document
+reused it and **every correspondence span came out as an identity mapping, `{100,0} → {100,0}`.**
+
+> ⭐⭐ ***A translator that ignored the bridge entirely and passed raw coordinates straight through
+> would have passed all 120 cells.***
+
+⇒ That is **invariant 9's exact prohibition** — *"missing mappings are never guessed from raw numeric
+equality"* — **and the matrix could not have detected a violation of it.** ⛔ **The corpus could not
+detect the thing it was built to detect, and said so in green.**
+
+### ⭐ How it surfaced: it kept mutating AFTER the result looked good
+
+It added a direction axis, got **240 green**, then mutated — *mislabel `from:` on every crossing.*
+**All 240 stayed green.** ⇒ **Two causes share that observable: the library ignores direction, or the
+DATA cannot exercise it.** It was the data. ⭐ **A passing mutation is the only signal that
+distinguishes them, and nothing in a green suite prompts you to run one.**
+
+### ⭐⭐ AND THE ASYMMETRY IT NAMED, which is the transferable half
+
+Its **third** instrument fault: `observable/1` listed each live **item's** content — *a
+representation comparison wearing a value comparison's clothes.* The replay consolidates adjacent
+runs, so it called **61 correct crossings wrong.**
+
+> ***That one failed LOUDLY. The same mistake pointing the other way is a SILENT PASS — which is what
+> the degeneracy was.***
+
+⇒ **A too-strict oracle announces itself; a too-loose one is indistinguishable from success.** ⛔ **We
+debug the loud one and ship the quiet one**, and they are the same class of error differing only in
+sign.
+
+### ✅ What replaced it, and the one mutation worth copying
+
+13 shapes × 10 edits × **2 directions = 260 cells** — 220 crossed and **verified at the destination**,
+40 with no possible bridge, **0 unclassified**; invariant 6 asserted directly (no pair crosses one way
+only); **596 tests**. ⭐ `single-author-degenerate` is **kept as one shape** — *identity spans are a
+real caller situation and must still be classified; they must simply never be the ONLY case*, with a
+test asserting the corpus contains at least one real remapping.
+⭐⭐ **The mutation to copy: move the direction test's anchor back INTO the identity span → red.**
+That proves the **anchor position** is load-bearing, so the gate catches the precise degeneracy that
+fooled it.
+
+### ■ And the real finding, which came out of chasing the defect rather than from the plan
+
+With an edit anchored inside a **remapped** span, a crossing labelled with the **wrong direction**
+does **not** translate through the wrong side and does **not** corrupt the destination — **it fails
+the strict preflight and re-authors.** The destination gets the right value; **what is lost is
+authorship identity.** ⇒ *Invariant 10 exactly as specified*, and **jes's "do something sensible"
+extended to a CALLER ERROR rather than only to a hard case.** ⛔ **Invisible until the corpus could
+tell the two sides apart.**
+
+■ **My part: I relayed the 120 figure to jes before it was retracted.** ⇒ Corrected within the hour,
+stating that the evidence failed rather than only supplying the new number — **"my corpus could not
+have detected the thing it was built to detect" is not a detail**, and a replacement number without
+it would have hidden the more useful fact.
