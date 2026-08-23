@@ -3,6 +3,14 @@
 # ⛔ HALT AWARENESS: never ask a halted agent to push. See .watch-halted.
 HALTED_FILE=/home/jes/boss-clod/.watch-halted
 is_halted() { [ -r "$HALTED_FILE" ] && grep -qE "^$1[[:space:]]" "$HALTED_FILE"; }
+
+# ⛔ A LOCAL-PATH ORIGIN IS NOT A BACKUP. Sol phase-2 ran in a CLONE of /home/jes/commonplace-doc,
+# so its 'origin' is a directory ON THE SAME DISK. This sweep exists because work on one disk is
+# work at risk — and 'pushed to origin' in such a clone means pushed to the same disk.
+# ⚠️ It also produces a FALSE POSITIVE the other way: the clone's origin refs go stale, so cherry
+# reports unique commits that are already on GitHub via the parent. Both directions are wrong.
+# ⇒ Resolve such a repo against its PARENT'S real remote, and say so in the line.
+local_origin() { case "$1" in /*|file:*) return 0;; *) return 1;; esac; }
 # Which repos hold commits that exist ONLY on this droplet's disk?
 #
 # ⭐ WHY: 2026-08-23. commonplace-log-reducer reported a doc "filed at main
