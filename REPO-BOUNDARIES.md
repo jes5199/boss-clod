@@ -371,7 +371,7 @@ It said I had not been, and gave a **tell** rather than an opinion:
 benefit from — so I'm the wrong party to resolve the ambiguity in my own favour. Don't spend the
 ask; he'll say so."*** ⭐ **He did, unprompted, ninety seconds later.**
 
-### 16. ⭐ THE FLEET'S TERM IS `expected_current_head` — and specs may be renamed
+### 16. ⭐ THE FLEET'S TERM IS `if_head_is` — and specs may be renamed
 
 > **jes, 2026-08-23T20:42Z:** *"they have permission to rename in the specs if a new name is decided"*
 
@@ -382,15 +382,28 @@ authorised.** ✅ **`commonplace-doc` and `commonplace-doc-sync` converged on `e
 leave his reasoning alone.** ⇒ *If applying it reveals a sentence wrong for a reason other than the
 name, FLAG it — do not fix it. A spec states intent.*
 
-⭐⭐ **THE TEST THAT DECIDED IT — `commonplace-doc-sync`'s, and it is better than the bar I set:**
-```
-misreading expected_head          requires ADDING an implied word ("...to be building on")
-misreading expected_current_head  requires DELETING an explicit one (a parent is not CURRENT)
-```
-⇒ ***Filling a gap is silent; ignoring a present word is not.*** ⚠️ **My bar was "makes the misreading
-unavailable" — binary and hard to score. This is a MECHANISM**, and it explains why five authors
-completed the same name identically: **not five mistakes, one invitation accepted five times.**
-⭐ *A name that INVITES completion is a different defect from one that merely PERMITS a misreading.*
+⛔⛔ **I RELAYED `expected_current_head` AS SETTLED AND IT WAS NOT. Both repos are on `if_head_is`
+— MEASURED: `commonplace-doc` 9 files, `expected_current_head` 0 files.** *Corrected to jes.*
+
+⭐ **THE MECHANISM SURVIVES; THE VERDICT DID NOT.**
+> ✅ **KEEP:** *a name that INVITES a completion is worse than one you must actively disregard, and
+> only the first failure is silent.* **That explains the five authors — one invitation accepted five
+> times, not five mistakes.**
+> ⛔ **DROP:** the scoring of `expected_current_head` against it. `commonplace-doc` refuted it —
+> **`expected_current_head` is still a NOUN PHRASE, and a reader re-attaches `current` to the verb:
+> *"the head I CURRENTLY EXPECT to be building on."*** ⇒ **The parent reading survives with EVERY
+> WORD INTACT. English lets a modifier float; the test assumed it could not.**
+✅ **`if_head_is` has no reattachment yielding *"my parent is A"* — the only candidate that CLOSES the
+path rather than narrowing it.** *Structural row, not the checked row.*
+
+⛔⛔ **AND THE SHAPE THAT ALMOST SHIPPED THE WEAKER NAME — MUTUAL DEFERENCE, TWICE:** each repo
+conceded to the other's candidate, both times crossing, and **both concessions were to an argument
+the other had ALREADY DEFEATED.** ⇒ ⭐ ***Two parties agreeing is not evidence when each is agreeing
+to the other's ARGUMENT rather than to the evidence.*** ⚠️ **The Registry error arriving through
+COURTESY instead of through a shared grep — and I ratified it, because two "we agree" messages that
+crossed read exactly like a convergence.**
+✅ **Fix: before relaying a convergence, MEASURE what each party actually landed.** *Two claims of
+agreement are one claim, twice.*
 
 ■ ✅ **Blast radius is one COMMAND parameter, not a concept.** His recorded event
 `%{type: "commonplace.document.select_head", from:, to:, operation_id:}` is the **transition**, not
@@ -398,7 +411,7 @@ the precondition, and is **untouched**. **The 338-line rulings document stays co
 except the command sketch in §1.**
 
 ⭐ **A second ambiguity it fixes that nobody had raised:** `expected_head: nil` reads as *"I expect no
-head"* OR *"I am not specifying one."* ⇒ **`expected_current_head: nil` is unambiguous — and absence
+head"* OR *"I am not specifying one."* ⇒ **`if_head_is: nil` means exactly one thing — *"only if nothing is currently selected"* — and absence
 is a VALID precondition for an uninitialized Document, so the case is real.**
 
 ⚠️ **Why it matters more to `commonplace-doc-sync`:** in `commonplace-doc` the parent lives on the
