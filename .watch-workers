@@ -9,3 +9,4 @@ commonplace-log-reducer
 commonplace-merkle-crdt
 yepochs
 commonplace-doc
+commonplace-doc-sync
