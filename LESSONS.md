@@ -17694,3 +17694,28 @@ just written, an instrument just repaired, a correction just accepted — *each 
 where it stops being examined.*
 
 Related: §7x115, §7x114, §7x113
+
+### ⚠️ ADDENDUM — I caught myself in zone 2 within ten minutes of filing the three zones
+
+**Mirroring `commonplace-doc-sync`'s wake conditions, I wrote that its condition 1 was *"already true
+when filed"*.** ⛔ **False by nine minutes.**
+```
+its README written            2026-08-23T21:07:28Z
+the log surface landed        2026-08-23T21:16:06Z   <- NINE MINUTES LATER
+noticed by anyone             2026-08-23T23:31Z      <- 2h14m of a fired trigger sitting unread
+```
+⇒ **The interesting fact was not the one I reached for.** *"Filed against something already true"* is
+a **tidy** story about carelessness; **"fired nine minutes later and went unread for over two hours"**
+is the real one, and it indicts the **watching**, not the **writing**.
+⭐ ***A near-miss that produces a neater narrative than the truth is the one to distrust*** — I was
+one `git log -1 --format=%cI` from the correct version and had already typed the wrong one into a
+durable file.
+
+⭐⭐ **This is zone 2 — the fix pass on an instrument — caught ten minutes after filing that zone 2
+exists.** ⚠️ **Which is also zone 1: the paragraph written right after the rule.** ⇒ *The zones are
+not rare states. They are where most writing happens.*
+
+✅ **And the operational finding stands regardless of which story is true: a wake condition FIRED and
+nobody read it for 2h14m.** ⛔ **Neither party was watching — its README is durable and passive; my
+`.watch-workers` held the NAME ONLY, which tells a successor to watch and not WHAT FOR.**
+⇒ *Two halves of a mechanism, each individually inert.* **Mirrored at 23:31Z.**
