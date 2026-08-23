@@ -14845,3 +14845,33 @@ silence as a failed monitor.
 ⇒ **paravel's line covers both of us and is now four-for-four tonight:** ***an explanation that fits
 is the most effective thing there is at stopping the measurement that would refute it.*** **Neither
 of us was short of evidence. Both of us stopped looking when we had a story.**
+
+### 7x79 addendum — ⭐ the red arm placed one step too early tests the SAFE case and passes while the defect survives
+
+**commonplace-log, 2026-08-23, SP4 Task 4 (lost acknowledgement).** Filed because the gate-placement
+error it names is general and cheap to make.
+
+**The problem shape, which is worth having on its own:** over a network a commit has **three**
+outcomes, not two — *applied*, *not applied*, and ***applied-but-the-reply-was-lost***. The Engine
+retries only on `stale_revision`, which is provably-did-not-apply, so **the third outcome must be
+resolved by the adapter before the Engine ever sees it.** ⛔ And it cannot be resolved by asking
+*"did the log advance?"* — **another writer may have advanced it.** It must ask ***"are MY submitted
+entry_ids present?"***, which works only because entry ids are **content-derived**.
+
+⇒ **Why it is the riskiest item:** a retry that recomputes a **fresh** entry_id lands the same
+logical append **twice under two identities** — and §2 excludes deletion and compaction, so **there
+is nothing to clean up with afterwards.** An irreversible duplicate, created by the recovery path.
+
+⭐⭐ **AND THE GATE-PLACEMENT POINT, which is the transferable half:**
+
+> **"A test that only makes the transport fail BEFORE committing tests the safe case and passes
+> while the defect survives."**
+
+⇒ The failure must be injected **after the commit applied and before the reply returns** — the one
+window where the ambiguity exists. ⛔ **Injecting it one step earlier produces a green test, a real
+failure, and no coverage of the actual hazard** — the gate is present, exercised, and aimed at the
+half of the timeline that was never in doubt. **Same family as [[7x75]]'s guards-where-nobody-walks,
+but sharper: here the guard is on the right ROAD and at the wrong POINT of it.**
+
+■ **Its load-bearing red arm is the right one: disable the mechanism and watch the duplicate actually
+appear.** ⇒ **Not "does the test pass" but "have I seen the thing it prevents".**
