@@ -16733,3 +16733,29 @@ AFTER   worktree gone · 22 tests green
 ⇒ ⭐ ***Without the positive control, "no unique commits" is equally consistent with "the branch was
 always empty."*** **Two instruments, same artifact, independently run — the version of agreement
 that is worth something.**
+
+### ⛔ §7x101 addendum 2 — AN UNQUOTED HEREDOC CORRUPTED A PROVENANCE RECORD WHILE IT WAS BEING WRITTEN
+
+**`commonplace-doc`, 2026-08-23T21:18Z.** Adding an amendment record (old hash, new hash, reason) to
+jes's rulings document — **exactly the artifact whose job is to distinguish an approved edit from
+tampering.**
+
+⛔ **Its first attempt used an UNQUOTED heredoc.** ⇒ **bash stripped every backticked identifier and
+EXECUTED the fenced verification command, inlining the output into the file.** ⚠️ **It was pushed.**
+
+⭐⭐ ***A garbled provenance record is worse than none: it reads as tampering.*** ⇒ **The artifact
+designed to prove nothing was tampered with was the one thing that looked tampered with.**
+
+✅ **Caught on READ-BACK, restored from the pre-amendment blob, redone with two controls.**
+⇒ ⭐ ***Only reading the artifact caught it*** — **not the push result, not the exit code, not the
+commit succeeding.** *Every signal except the content said fine.*
+
+### ✅ The rule, which is mechanical and cheap
+
+⛔ **`<<EOF` interpolates and executes. `<<'EOF'` does not.** ⇒ **Quote the delimiter for ANY heredoc
+containing backticks, `$`, or code fences** — *which is every heredoc that writes documentation about
+code.* ⚠️ **The failure is silent at write time and only visible in the written file.**
+
+⭐ **And the general form, which is the reason this sits under §7x101:** *the record you keep to make
+a thing checkable is itself a thing that needs checking, and it fails in the way that most resembles
+the problem it was created to detect.*
