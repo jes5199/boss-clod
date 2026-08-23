@@ -110,6 +110,16 @@ party guaranteed to still exist when the trigger fires.
 ⇒ ACTION: mirror each into its own repo README when next woken. Deliberately NOT waking them for
 this alone — the write costs a wake, and the condition is not yet live.
 
+## ✅ ANSWERED 2026-08-23T23:48Z — jes: "uh i guess i mean import"
+⇒ IMPORT, and it is commonplace-doc-sync's. Verified before relaying: its v0.2 line 390 already
+  says derived-snapshot MUST MINT / MUST NOT retain, so this is a CLASSIFICATION, not a new
+  mechanism. merkle-crdt's legacy hatch stays the UPGRADE path, unchanged and unaffected.
+  §5a.3 already names foreign-source import as an extension point rather than designing it.
+⏳ STILL OPEN and now genuinely his — the reader adapter (below). Put to him 23:49Z with two
+  options: unhalt commonplace-monolith enough to write the reader, or park import at the spec
+  boundary. Nothing is blocked on the answer.
+⭐ IF he unhalts the monolith, that becomes commonplace-doc-sync's WAKE CONDITION 4.
+
 ## UNOWNED: the import reader adapter needs the source stack's storage format
 Filed 2026-08-23T23:20Z from commonplace-doc-sync (4369372, on origin).
 
