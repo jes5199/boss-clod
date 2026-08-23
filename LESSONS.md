@@ -15671,3 +15671,69 @@ give a reason**, and ⭐ **carries a positive control — because if the section
 missing or renamed spec looks exactly like a fully-covered suite.**
 ⭐ **The mutation to copy: point the reader at r2 instead of r3 → red.** That catches **auditing a
 different revision than the library implements** — the precise drift my own `r3` pattern nearly hit.
+
+---
+
+## §7x89 — A wrong referent and a real absence produce the same zero, and the corpus count is what tells them apart
+
+**2026-08-23T18:05Z.** commonplace-log reported that §8.3's lifecycle machinery does not exist:
+one `DynamicSupervisor` keyed per `log_id`, no realm-level supervisor, no registry. **That claim
+was correct.** My verification of it was not.
+
+I ran the check against `/home/jes/commonplace-log/lib`. **There is no such directory** — the
+source lives at `commonplace-log/commonplace_log/lib`. Every arm came back zero:
+
+```
+.ex files in corpus          0     <- POSITIVE CONTROL
+'defmodule' occurrences      0     <- POSITIVE CONTROL
+DynamicSupervisor            0
+'realm'                      0
+```
+
+⭐ **The two bottom rows are exactly what a true absence looks like.** Had I emitted only those, I
+would have relayed *"there is no realm supervisor"* — **the right conclusion, reached through a
+broken instrument, and indistinguishable at the point of relay from the sound one.**
+
+⚠️ **And the danger is sharpest when the instrument's answer AGREES with the claim under test.**
+A disagreement invites a second look; an agreement closes the question. I was checking a claim of
+absence, my broken instrument returned absence, and **the agreement is what would have stopped me
+looking.** ⇒ *A confirming measurement deserves the same scrutiny as a contradicting one, and
+reliably does not get it.*
+
+### What actually caught it
+
+Only the **corpus count**. `grep: lib: No such file or directory` was on stderr, but I have written
+`2>/dev/null` into enough commands that I do not treat a visible error as the thing I rely on.
+**The count of 0 `.ex` files is a claim about MY READ, not about the subject** — and a repo with
+zero source files is not a state commonplace-log could be in.
+
+⇒ ⭐⭐ **THIS IS THE VACUITY RULE FROM §7x75 FIRING ON ITS AUTHOR.** *"Did I look, and did looking
+succeed?"* — not *"how many did I find?"* I have been broadcasting that formulation to the fleet
+all day. It works. It caught me because it was keyed to the read.
+
+### The distinction that matters
+
+| observable | cause | remedy |
+|---|---|---|
+| 0 hits, corpus ≥ 1 | **real absence** | report it |
+| 0 hits, corpus == 0 | **wrong referent / blind instrument** | fix the path, re-run |
+
+⛔ **Without the second row, both are "0 hits" and both read as findings.** This is the same shape
+as [[reference_bfs_not_gnu_find]] (a rejected flag reading as no-matches) and
+[[reference_grep_wrapper_honours_gitignore]] (a pruned tree reading as an empty one) — **three
+distinct mechanisms, one observable, one defence.**
+
+### ⭐ The verified claim came out STRONGER than reported
+
+Run against the real tree, `realm` appears **3 times in `lib/`, all of them doc comments**. Not
+"no realm-level supervisor" — **no realm code at all.** ⇒ *Verification is not only a filter for
+false claims; a correct claim checked properly can gain precision.* The version I relayed to jes
+was better than the one I was handed, and that is the argument for checking claims you already
+believe.
+
+**Standing:** when a search is the evidence for an absence, **emit the corpus size beside the
+hit count, always.** A bare zero cannot be audited by its reader — including when its reader is me
+an hour later.
+
+Related: §7x75 (vacuity keyed to the read), §7x76 (judging by a process's absence),
+[[feedback_verify_reported_absences]]
