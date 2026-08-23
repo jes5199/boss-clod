@@ -81,3 +81,13 @@
   ⚠️ commonplace-doc listed three candidate shapes and chose none. The third — an accepted
   dangling-reference model — needs NO new mechanism and quietly makes dir's §40.1.10 untestable.
   ⇒ THAT is the default that arrives by nobody deciding, which is the argument for the trigger.
+
+⏳ IMPORT/UPGRADE PATH FROM THE MONOLITH — a REQUIREMENT WITH NO OWNER (jes, 2026-08-23T22:59Z).
+  "no, but we need a path to import/upgrade" — the second clause of the sync-partnership answer.
+  ⛔ Nobody has been assigned it. Routed once to commonplace-doc-sync as a QUESTION (does jes's
+  ruling 3 semantic-offer shape already cover it?), NOT as an assignment.
+  ⇒ IF their answer is "yes, it is §25 aimed at the monolith" -> record the owner and close this.
+  ⇒ IF "no, it is a new mechanism" -> it needs an owner, and the monolith side is HALTED, so that
+     is a jes item. Send it WITH whatever else is open rather than alone.
+  ⚠️ Do not let it sit: a requirement stated once, in a subordinate clause, with no owner, is the
+  shape that gets discovered late. This file is the only place it exists outside one message.

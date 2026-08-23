@@ -567,6 +567,36 @@ semantics exist."* ⛔ **Whoever later builds GC must revisit checkpoint-only ra
 settled.** *Record it where the GC work will start, not only here.*
 
 ### 21. ✅ THE NEW STACK MAY DIVERGE FROM `commonplace-monolith`
+### 21b. ✅ NO SYNC PARTNERSHIP WITH THE MONOLITH — but an IMPORT/UPGRADE PATH IS REQUIRED
+
+> **jes, 2026-08-23T22:59Z, verbatim and complete:** *"no, but we need a path to import/upgrade"*
+
+⇒ **Answers the one-way-door question two repos raised independently: *is a monolith-era Document
+ever a sync partner of a new-stack Document?*** ✅ **NO.** ⭐ **So mandatory `epoch_id` is free and
+`commonplace-merkle-crdt` is landing it.**
+
+⚠️ **WHY THE DOOR WAS REAL:** ruling 3 has the destination **VERIFY commit hashes**, i.e. **RECOMPUTE
+the content address over bytes minted by the SENDING stack.** ⇒ **The invariant was never *"nobody
+compares ids across mints"* — it is ***both endpoints must compute the content address over the same
+field set***. ⛔ **A divergence fails verification on a PERFECTLY VALID commit and presents as
+CORRUPTION when it is VERSION SKEW** — *quarantine the data vs reconcile the stacks, opposite
+responses.* ✅ `commonplace-doc-sync` added `:hash_definition_mismatch` so they cannot share an error.
+
+⭐⭐ **THE SECOND CLAUSE IS A NEW REQUIREMENT WITH NO OWNER YET.** ⇒ **An import/upgrade path is
+ONE-TIME and ONE-WAY, so the same-field-set constraint does NOT bind it** — that came from *ongoing*
+recomputation. ⚠️ **A one-way import may RE-AUTHOR, mint a new epoch, and accept that ids change:
+the exact cost that made SYNC a one-way door is ACCEPTABLE for a migration performed once.**
+
+⭐ **My reading, put to `commonplace-doc-sync` as a question rather than a ruling: jes's own ruling 3
+may ALREADY be the shape of it** — *"Document sync offers SEMANTIC CONTENT to the destination, which
+authors NEW DESTINATION-NATIVE log entries"* **is a translation with destination-native authorship,
+which is what importing from a foreign stack needs.** ⇒ **If so it is §25 aimed at the monolith
+rather than a new mechanism.**
+⛔ **NOT ASSIGNED.** ⚠️ *`commonplace-doc-sync` owns semantic offers; `commonplace-doc` owns the
+Document semantics an import produces; the monolith side is HALTED.* ⭐ ***"We need a path" with no
+owner is how a requirement gets discovered late*** — routed once, awaiting their read.
+
+
 
 > **jes, 2026-08-23T22:50Z, verbatim and complete:** *"we're allowed to diverge from monolith"*
 
