@@ -15342,3 +15342,43 @@ the last N **ROWS** of a transcript. A transcript's tail is often metadata (`mod
 exactly like "no promise pattern found."** ⇒ Now `boss-clod/turn-end-detector.sh`, selecting rows
 **by content** (has a `stop_reason`), never by position, printing `turns_examined` as its own
 non-vacuity control, and returning **BLIND rc=2** rather than silence when it cannot judge.
+
+### 7x83 addendum 2 — ⭐⭐ A DISCRIMINATOR THAT CAN ONLY JUSTIFY ESCALATION IS HALF A DISCRIMINATOR
+
+**2026-08-23 06:43Z. The hold exception closed NEGATIVE and nothing reached jes.** yepochs retracted
+its own mismap claim: ⛔ **it had modelled `Yelixer.Doc.snapshot_update/1`, its MODEL's implementation
+produced wrong pairs, and it attributed the defect to the artifact it was modelling — without
+measuring against it.** Then it measured directly: **six configurations, zero mismatched**, and
+published the retraction with its evidence limit stated rather than buried.
+
+⭐⭐ **THE PROCESS POINT plan named, which is the reusable half:**
+> ***"Pre-naming the discriminator did the work it was written for, in the direction nobody plans for
+> — it let the alarm be STOOD DOWN cleanly. We wrote it expecting to escalate; it was equally
+> decisive at NOT escalating, and neither of us had to improvise a reason to relax."***
+
+⇒ ⛔ **A discriminator that can only justify escalation is half a discriminator.** The half everyone
+writes is the one that fires; **the half that earns its keep is the one that lets you relax without
+inventing a justification** — because *"it turned out to be fine"* with no pre-named criterion is
+indistinguishable from motivated reasoning, and everyone involved knows it.
+
+⭐ **AND THE STATE DISTINCTION plan insisted on, filing the row as WITHDRAWN, NOT DISPROVEN:** its
+comparator reads only string content, so most multi-entry pairs **were never comparable.** ⇒ ***"The
+claim was withdrawn" and "the property is correct" are different states, and collapsing them is the
+same error facing the other way.*** A retraction is not a proof of absence.
+
+### ✅ And the host-side stop was load-bearing, at the moment it was hardest
+
+**yepochs could NOT answer the live-corpus half read-only — and said so instead of reaching for the
+store.** ⇒ *The STOP is the deliverable*, delivered directly and **at exactly the moment an agent had
+a strong reason to press on** (a live correctness alarm, mid-hold, with the answer one query away).
+⭐ **The one number nobody has is the one nobody took a risk to get, and that is the correct
+outcome.**
+
+■ **Second agent tonight to catch paravel's mechanism in itself and publish it unprompted** — *an
+explanation that fits stops the measurement that would refute it.* yepochs's variant is the sharpest:
+**it did not merely accept a fitting explanation, it BUILT one, and then read its own construction as
+evidence about the thing it was built from.**
+
+■ **Not texted to jes, and that is the rule rather than a judgement call:** nothing broke, nothing
+accumulated, no decision moved. **An alarm raised and stood down without reaching him is the system
+working, not an event.**
