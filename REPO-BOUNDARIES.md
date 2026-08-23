@@ -419,6 +419,40 @@ is a VALID precondition for an uninitialized Document, so the case is real.**
 boundary. ⛔ **In doc-sync, `merge_parent` sits in `requested_selection` BESIDE the precondition —
 same object, no boundary.** ⇒ ***The layout protects one and the name protects the other.***
 
+### 17. ⛔ SOURCE LAYOUT IS NOT UNIFORM — `<repo>/lib` DOES NOT EXIST IN HALF OF THEM
+
+**MEASURED 2026-08-23T20:51Z:**
+```
+commonplace-log          NO top-level lib/   ->  commonplace_log/lib
+commonplace-log-reducer  NO top-level lib/   ->  commonplace_log_reducer/lib  AND  commonplace_attribute_map/lib
+commonplace-merkle-crdt  lib/ at top
+yepochs                  lib/ at top
+commonplace-doc          no lib/ at all — docs only, nothing has ever run
+commonplace-doc-sync     no lib/ at all — docs only, nothing has ever run
+```
+
+⛔⛔ **THIS HAS NOW CAUSED THREE SEPARATE FALSE ABSENCES IN ONE EVENING:**
+- **mine, twice** — grepping `commonplace-log/lib` and `commonplace/lib`, both non-existent. **Every
+  arm returned 0 and the two that mattered looked exactly like a confirmed finding.**
+- **Sol's, once** — two `rg` misses on `../commonplace-log-reducer/lib`, correctly diagnosed by
+  `commonplace-doc` as **real path errors, not fence artifacts.**
+
+⚠️⚠️ **THE DANGEROUS PART IS THE SECOND READING.** *"No such file or directory"* from inside the Sol
+sandbox **is exactly the shape a MASK produces.** ⇒ ⛔ **A wrong path there gets read as evidence
+about the fence** — and the fence is real, so the misreading is plausible. ⭐ `bwrap --dev-bind / /`
+leaves those trees readable; **only the NAMED masks are tmpfs.**
+
+✅ **WHAT TO DO — the corpus count catches it every time, and it is one extra line:**
+```
+command grep -rl '' --include='*.ex' <path> | wc -l     # ⇒ 0 means WRONG REFERENT, not empty repo
+```
+⭐ **A repo with zero `.ex` files is a state these repos cannot be in** *(except `commonplace-doc`
+and `-doc-sync`, which are docs-only BY DESIGN — so for those, zero is correct and the control must
+be `.md` instead).*
+
+⛔ **Do not "fix" this by guessing the nesting.** ⇒ **`find <repo> -maxdepth 2 -type d -name lib`
+answers it in one command, and answers it correctly for both layouts.**
+
 ---
 
 ## The layering, in jes's words
