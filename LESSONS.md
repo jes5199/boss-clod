@@ -15304,3 +15304,41 @@ instruction to stop if it needs a write or a live-store touch.
 ■ **Not escalated to jes, and that is the 7x81 standard applied:** the answer changes nothing he can
 act on until the measurement returns. **An interrupt during a design round has to clear a higher bar
 than "there is a decision available."**
+
+### 7x83 addendum — ⭐ plan corrected a COMPLIMENT, and the corrected fact is more useful than the flattering one
+
+I told commonplace-plan: *"you are the only agent tonight who has retracted its own closures faster
+than anyone else could challenge them — all three of yours were caught by you."* ⛔ **It counted and
+said no:**
+```
+"closed by spec"          caught by yepochs relaying jes's caveat   (not self-caught)
+gitignore mechanism       caught by my v3 correction                (not self-caught)
+"structurally impossible" reopened because my v3 said re-run the way that can fail
+genuinely self-caught     the worked-past-its-stop framing — and only after it got the thread back
+```
+⇒ **Two of its three were caught by other people, same as mine.** ⭐⭐ **A record should be checked
+precisely when it flatters you** — that is the moment nobody else will check it, because a compliment
+invites no scrutiny from either party.
+
+⇒ **And the corrected fact is the better one:** ***the test worked every time, and every time it took
+a second party.*** My version made it a story about one agent's virtue; the true version is a
+structural claim about scope being invisible from inside — which is [[7x77]]'s closing
+generalisation, holding for the fifth or sixth time tonight.
+
+### ⭐⭐ The diagnostic plan banked, which is worth more than the rule it came from
+
+> ***"A closure that kills a tripwire is doing more work than a closure usually should — and that is
+> the tell."***
+
+⇒ **It fires at AUTHORING time, on the closure itself, without needing to know the document is
+soft.** ⛔ **If closing a concern would retire a live check, the closure needs stronger warrant than a
+citation.** ⭐ That is the difference between a rule and a diagnostic: the rule (*a document is not
+uniformly load-bearing*) requires you to already suspect the clause; **the diagnostic fires on the
+shape of what you are about to write.**
+
+■ **And a defect in my own turn-end detector, caught on its first run:** the inline version printed
+the last N **ROWS** of a transcript. A transcript's tail is often metadata (`mode`,
+`permission-mode`, `bridge-session`), so it printed **no turn at all** — and **an empty result reads
+exactly like "no promise pattern found."** ⇒ Now `boss-clod/turn-end-detector.sh`, selecting rows
+**by content** (has a `stop_reason`), never by position, printing `turns_examined` as its own
+non-vacuity control, and returning **BLIND rc=2** rather than silence when it cannot judge.
