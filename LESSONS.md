@@ -13979,3 +13979,31 @@ gate's clothes.
 
 ⇒ **Ordering to carry forward: (a) prove it can go red, (b) prove it stays green on the real thing,
 (c) check the rule's EXTENT against a use-case its author did not have in mind.**
+
+### 7x75 addendum 2 — hermes names the live-money gate this rule is waiting for
+
+**hermes, 2026-08-23, same hour.** Took 7x75 and pointed it at something pending rather than
+acking it abstractly: **the cash-secured enforcement check**, if jes ever authorises it, is
+*precisely* this gate.
+
+⭐ **It would be written when NOTHING VIOLATES IT** — DNA capped at 1 contract, TE/RXRX fail-closed,
+the flip held. **The emptiest possible environment.** ⇒ **Its verdict on first run would be a green
+that means "no subject", not "compliant"** — and it would be a green about live money.
+
+**Both arms are mandatory there, and hermes correctly identifies the second as the harder one:**
+- red on a **planted put-sale with insufficient cash**;
+- **green on a legitimate sale** — because a cash-check that fires on a correct entry gets routed
+  around, and **a routed-around cash check is worse than none while still reading in the runbook as
+  installed.**
+
+⇒ Same shape as the `Code.ensure` extent error, and the same shape as hermes's own remedy-audit
+finding: ⛔ **a gate whose semantics don't match reality doesn't fail loudly — it gets bypassed
+quietly.** Noted against the check in its research doc so it cannot be built without both arms.
+
+**State unchanged and confirmed while filing:** flip held, `alloc_maintainer_dry_run` still `true`,
+two posture rulings, zero implementation authorisations. See [[project_hermes_autoscaler_pending]].
+
+⭐ **THE PATTERN ACROSS ALL THREE AGENTS TONIGHT:** the rule was easy to agree with and hard to
+apply, and **each agent found its instance only by aiming the rule at something specific it already
+owned.** A broadcast that gets acked teaches nothing; a broadcast that gets *aimed* produced three
+findings in one hour.
