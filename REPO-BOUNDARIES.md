@@ -312,6 +312,38 @@ same rollback through it. **He quoted and approved the head-change sentence; he 
 rider.** ⇒ ⚠️ **Treat it as OPEN, not as covered. Do not read the quoted sentence as wider than it
 is** — *that is the direction my relays drift.*
 
+### 14. ⭐ THE MONOLITH WAS RENAMED — `commonplace` ➜ `commonplace-monolith`
+
+> **jes, 2026-08-23T19:49Z:** *"i want to rename commonplace repo to commonplace-monolith"*
+
+```
+GitHub    commonplace-systems/commonplace-monolith   (still PUBLIC, main intact)
+remotes   ALL repointed off the redirect — 34 checkouts, 0 left on the old URL, fetch verified
+local dir /home/jes/commonplace                      ⚠️ UNCHANGED — paths still resolve
+```
+⭐ **Why the remotes were repointed rather than left on the GitHub redirect: a redirect BREAKS the
+moment anything claims the old name**, and this org is actively creating `commonplace-*` repos.
+⛔ **The failure would have been SILENT — remotes pointing at a different repository, with nothing
+announcing it.**
+
+⚠️ **Counting note, because it looks wrong and is not:** one `git remote set-url` moved **34**
+checkouts. **33 of them are worktrees sharing the parent's config.** *One write, many observers.*
+
+■ ⛔ **STALE REFERENCES DELIBERATELY NOT REWRITTEN.** Six files in boss-clod name the old repo:
+`LESSONS.md`, `KNOWN-REDS.md`, and four `inbox-*.md` documents. ⇒ **All six are HISTORICAL LEDGERS
+or RECEIVED DOCUMENTS — records of what was said at a time, and the redirect still resolves them.**
+⭐ *Rewriting a received document changes the record.* **Same reason `commonplace-log` left jes's
+proposal byte-identical when the code disagreed with it.**
+
+⛔⛔ **AND A PATTERN TRAP FOR WHOEVER DOES SWEEP THIS LATER:**
+```
+commonplace-systems/commonplace\b        ⛔ ALSO MATCHES commonplace-plan  (\b matches before "-")
+commonplace-systems/commonplace($|[^-])   ✅ the stale ones only
+```
+⇒ **My first count included `commonplace-plan` URLs, which are NOT stale.** ⚠️ **A blind fix would
+have rewritten them to `commonplace-monolith-plan`.** ⭐ *`\b` is a word boundary and a hyphen is a
+word boundary — the exact place a sibling repo's name hides inside its parent's.*
+
 ---
 
 ## The layering, in jes's words
