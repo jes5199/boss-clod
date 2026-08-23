@@ -16759,3 +16759,55 @@ code.* ⚠️ **The failure is silent at write time and only visible in the writ
 ⭐ **And the general form, which is the reason this sits under §7x101:** *the record you keep to make
 a thing checkable is itself a thing that needs checking, and it fails in the way that most resembles
 the problem it was created to detect.*
+
+---
+
+## §7x102 — A DILEMMA MANUFACTURED BY AN UNEXAMINED COUPLING
+
+**2026-08-23T21:28Z, `commonplace-doc`, on why the whole fleet called clause 6 impossible.**
+
+**We had established two facts, both TRUE, and treated them as exhausting the space:**
+```
+A  a rule added at FOLD TIME applies to the PAST — it halts replay on legal historical data
+B  an unenforced rule is not a gate
+⇒ concluded: the guard CANNOT live in the reducer. Nobody proposed a third option.
+```
+⇒ ⭐⭐ **A and B exhaust the space ONLY IF DETECTION AND REFUSAL ARE THE SAME ACT.** ⛔ **Nobody
+questioned that they were.** ✅ **jes's ruling decouples them: replay REPORTS a legacy violation and
+still projects.**
+
+⚠️ **This is a DIFFERENT failure from everything else catalogued tonight.** ⛔ **Not a claim nobody
+measured, not a premise that narrowed — a JOINT ASSUMPTION, invisible precisely because BOTH HALVES
+WERE INDIVIDUALLY TRUE.** ⇒ ⭐ *Checking each premise would have confirmed both. The defect was in
+the AND.*
+
+✅ **Usable form: when two true facts appear to close off a space, ask what they are assuming about
+EACH OTHER.** ⭐ *A manufactured dilemma is airtight from inside and dissolves the moment the
+coupling is named.*
+
+---
+
+## §7x103 — THE TEST WAS IN THE PLAN AND NOT IN THE SUITE, AND 31 GREEN TESTS HID IT
+
+**Same message. `commonplace-doc` mutated code it had shipped TWENTY MINUTES EARLIER:**
+```
+MUTATION 1  re-tighten head selection to forward-only   -> 31 tests, 5 FAILURES   ✅ guard alive
+MUTATION 2  tighten verb charset to forbid hyphens      -> 31 tests, 0 failures   ⛔ NOTHING CAUGHT IT
+```
+⇒ ⛔ **No test mounts a legal hyphenated name, so the charset gate can be OVER-TIGHTENED silently.**
+
+⭐⭐ **AND ITS PLAN DOCUMENT LISTED *"a legal verb name mounts"* AS A REQUIRED GREEN ARM.** ⇒ ***The
+test existed in the plan and not in the suite, and 31 passing tests concealed the difference
+completely.*** ⚠️ **Counting green tests could never find this** — **the suite was green because the
+test was ABSENT, which is indistinguishable from green because it PASSED.**
+
+⛔ **Over-firing is the worse direction here** (§7x97): a rule rejecting valid names gets **routed
+around**, and a routed-around gate protects nothing while still reading as installed.
+
+✅ **The fix it chose is the right one: a green arm PER ACCEPTED CHARACTER CLASS, not one specimen.**
+⭐ *One legal example proves the gate is not universally closed; it does not prove the boundary is
+where you think.*
+
+⇒ ⭐ **Standing: a plan that names required tests is a CHECKLIST, and a checklist nobody diffs against
+the suite is a wish.** *Diff the plan's named arms against the actual test names before calling a
+phase done.*
