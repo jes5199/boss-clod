@@ -109,3 +109,23 @@ and the worker cannot be woken by a condition nobody can read. The retired worke
 party guaranteed to still exist when the trigger fires.
 ⇒ ACTION: mirror each into its own repo README when next woken. Deliberately NOT waking them for
 this alone — the write costs a wake, and the condition is not yet live.
+
+## UNOWNED: the import reader adapter needs the source stack's storage format
+Filed 2026-08-23T23:20Z from commonplace-doc-sync (4369372, on origin).
+
+⭐ It wrote import as an EXTENSION POINT, not a design — deliberately, because which half of
+"import/upgrade" jes meant is his call. What is determined EITHER WAY is already written and is
+not speculative:
+  · import = fork with a derived-snapshot basis, so §5a.1's MUST already forces the mint;
+    only the CLASSIFICATION is new, no new mechanism
+  · the source is a READER adapter, not an Endpoint — a foreign store implements no
+    summary/export/offer/watch and cannot be offered to
+  · one-way and terminal: no relationship, no receipt exchange
+  · foreign ids MAY be stored as provenance — verification recomputes, provenance does not
+
+⛔ THE GAP: the reader adapter needs the SOURCE STACK'S STORAGE FORMAT, and nobody in this
+package has it. ⚠️ The obvious holder is the monolith side, which is HALTED by jes since 19:51Z.
+⇒ So this cannot be routed to an agent; it is a jes item, and it is the SAME SHAPE as the
+import/upgrade owner question already waiting on him.
+⇒ ACTION: send WITH the import/upgrade answer when he replies, never alone. Two questions about
+one operation arriving separately is how a decided thing gets re-litigated.
