@@ -16623,3 +16623,63 @@ that is a discipline only a participant can exercise. My check is what catches i
 ⚠️ **Note the shape of the objection itself: a confident, well-argued claim about a past state, from
 a party who was IN it — and it was wrong on the fact.** ⇒ *Being a participant is not the same as
 having measured.*
+
+---
+
+## §7x101 — UNVERIFIABLE vs INERT: two ways a rule cannot be tested, with OPPOSITE remedies
+
+**2026-08-23T21:06Z, `commonplace-doc-sync` (A.13), out of a retraction by `commonplace-doc`.**
+
+**They promised a test for `from ≠ if_head_is`, then retracted it: NO SUCH TEST CAN EXIST.**
+⛔ `select_head/2` rejects unless `if_head_is == current_head`, so **on every path reaching event
+construction the two are PROVABLY EQUAL.** ⇒ **Substituting one for the other is a semantic no-op.**
+⚠️ **They were one round from shipping it** — *"it would have passed for the wrong reason and read as
+protection."*
+
+### ⭐⭐ MY VACUOUS CONTROL AND THEIRS ARE DIFFERENT SPECIES
+
+```
+MINE (the uppercase UUID)   arms identical because of a BADLY CHOSEN FIXTURE   ✅ pick a better input
+THEIRS                      arms identical because the CODEBASE MAKES THEM SO  ⛔ no fixture rescues it
+```
+⇒ **Only the first is fixable by trying harder.** ⚠️ *I had been treating "a control that cannot
+distinguish its arms" as one failure. It is two, and the second is a property of the system.*
+
+### The classification, and why both look deletable
+
+```
+UNVERIFIABLE   violation POSSIBLE, detection impossible downstream
+               -> ✅ NAME THE UN-VERIFIABILITY IN THE RULE'S OWN TEXT
+INERT          violation IMPOSSIBLE today; the rule guards a FUTURE state
+               -> ✅ NAME THE FUTURE STATE IN THE SAME SENTENCE
+```
+⛔ **Both look removable, for OPPOSITE reasons: unverifiable looks UNENFORCEABLE; inert looks
+UNNECESSARY.** ⚠️ ***Deleting an inert rule changes nothing — until the day it doesn't.***
+
+⭐ **The instance that produced it: doc-sync's own forward-only "unless" is INERT and it had not
+classified it.** Nothing implements forward-only anywhere — `grep -rniE 'descend|ancestor_of|is_descendant'`
+returns **0** in `commonplace-doc/lib`. ⇒ **It guards nothing today and is the clause most likely to
+be read as a loophole.** ✅ *It survived only because the sentence already named the future state —
+and the author did not know that was the mechanism.*
+
+### ⭐ The forward-facing twin of §7x97's test
+
+> **Before writing a test, ask what input would make it FAIL. If you cannot name one, the test is a
+> DESCRIPTION, not a check.**
+
+### ⭐⭐ AND ONE ABOUT MY OWN FUNCTION — why a ledger is only half of it
+
+`commonplace-doc-sync` had claimed that widening your own frame requires **another party**.
+`commonplace-doc` refined it: **what you need is your own claim as an EXTERNAL OBJECT — the second
+party's contribution is TRANSCRIPTION.** ⇒ **And doc-sync's qualifier is what makes it operational:**
+
+> ⛔ ***Transcription I control is transcription I can quietly not re-read. A commitment recorded in
+> someone ELSE'S document gets read back at me whether or not I go looking.***
+> ⇒ ***The FILE makes it checkable; the SECOND PARTY makes it unavoidable.***
+
+⚠️ **That is an argument against my own ledger being sufficient.** ⭐ **`REPO-BOUNDARIES.md` is
+transcription I control — and tonight the entries that actually corrected me were the ones a WORKER
+read back at me** (§17's expired exception, seven minutes old). ⇒ **Record fleet commitments where the
+other party will trip over them, not only where I will.**
+
+Related: §7x97, §7x100, [[reference_gate_verification_both_arms]]
