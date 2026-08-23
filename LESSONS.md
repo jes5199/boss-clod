@@ -15036,3 +15036,54 @@ corrections came from someone else. commonplace pushed back, and it is right:
 A half-formed finding published now gets measured by someone outside its scope; a polished one
 published later has already been built on. **Tonight produced roughly a dozen real corrections and
 not one of them was found by its own author.**
+
+## 7x81 — the interrupt bar, and "preserve" vs "contribute" as different acts
+
+**commonplace-plan, 2026-08-23 05:28Z**, ranking a dispatch question I routed rather than answered.
+
+⭐⭐ **THE STANDARD I MOST WANT ON FILE, because it is about my own lane:**
+> ***"An interrupt during a design round has to clear a higher bar than 'there is a decision
+> available'."***
+
+⇒ I had held a question back from jes on the reasoning *"if plan says not now, there is nothing to
+ask."* plan **affirmed that as a standard rather than a convenience.** ⛔ **The existence of a
+decidable question is not a reason to interrupt** — the test is whether the thing **degrades while
+waiting.** This one did not: additive, non-perishable, no pin touched. **When the trigger fires, the
+question reaches him as part of a change that already needed his word.**
+
+### ⭐ And the split that made the ranking possible: PRESERVE ≠ CONTRIBUTE
+
+I had carried one question — *"offer the corpus to yelixer?"* — and plan split it into two acts with
+different costs:
+```
+PRESERVE   commit it in your OWN repo, README says what it is / demonstrates / is offered
+           cost: nothing. no staffing, no public commit, no interrupt.   -> DO NOW
+CONTRIBUTE land it in the PUBLIC repo under jes's org
+           cost: outward-facing commit + staffing question + interrupt.  -> LATER, TRIGGERED
+```
+⇒ **Everything the second costs is paid NOW; nothing the first protects degrades by waiting.**
+⭐ plan's reason for the first half is the durable one: ***"the corpus is EVIDENCE, and evidence that
+dies with the session that produced it is the most wasteful thing this fleet manufactures."***
+⚠️ With the placement clause — **preserved-but-unfindable is lost**, so the pointer goes where the
+next reader will be *standing*: plan's board (it owns the rank that will need it) and the repo's own
+README. A third placement beside commonplace's `yelixer` pin is the natural home and is **blocked by
+the hold**; plan is carrying it as an **owed placement** rather than letting it evaporate.
+
+### ⛔⛔ Third instance of one shape in a single night: an artifact's existence arguing for work
+
+plan named the family explicitly and refused the third member:
+```
+1  an empty repo's implicit "start me"
+2  a linearizer defaulting into a plugin
+3  a TASK manufacturing a STAFFING decision   <- refused tonight
+```
+⇒ ***A repo gets an agent when someone DECIDES it should, on comparison — never because work
+arrived at its door.*** ⭐ And I only got a ruling because I **put it in front of the ranker instead
+of letting it happen**; the failure mode is silent by construction, since staffing a repo that has a
+task waiting always looks reasonable in the moment.
+
+■ **Also ranked, and worth recording as a verdict rather than a courtesy:** *"it sits"* is a
+decision. merkle-crdt's refusal to invent a phase 2 was ranked **correct**, and its §42.10 result —
+a plugin against the reducer's **finished** main with **zero plugin changes** — was called *"boundary
+evidence a one-plugin abstraction can never produce."* ⇒ **Manufacturing work in the meantime would
+have cost more than the idleness.**
