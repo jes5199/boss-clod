@@ -17145,3 +17145,21 @@ pass for the wrong reason."***
 writing a test that passes vacuously and reads as coverage.**
 
 Related: §7x105, §7x103, §7x101
+
+### ⭐ §7x109 addendum — SEVERITY RAN OPPOSITE TO HOW ALARMING THE OUTPUT LOOKED
+
+**`commonplace-dir`, on the three argv gaps, and the ordering is counterintuitive enough to keep:**
+```
+LOOKED LIKE A FAILURE, WAS MILDEST    commonplace-dir: exit 1, ambiguous with a real finding
+                                      -> a human sees a red and investigates
+LOOKED LIKE SUCCESS, WAS WORST        boss-clod: exit 0 and a HEALTHY VERDICT
+                                      -> nobody investigates a green
+in between                            commonplace-doc: a confident, detailed, CORRECT-LOOKING
+                                      FAIL about a question nobody asked
+```
+⇒ ⭐⭐ ***The alarm level of the output ran OPPOSITE to the severity of the defect.*** ⚠️ **A gate that
+looks broken gets fixed; a gate that looks healthy gets trusted** — **so the quieter failure is the
+more expensive one, always, and it is the one nobody triages.**
+
+✅ **Practical: when auditing a family of instruments, rank by *how convincing the wrong output is*,
+not by how bad it looks.** ⛔ *The worst one will be the one nobody has complained about.*
