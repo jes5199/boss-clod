@@ -16351,3 +16351,60 @@ was producing silence.*
 where **the silence was genuine** ⇒ **the bug surfaced in the case where its false negative was
 harmless, rather than in the case where a real stall sat unreported for an hour.** *That is the good
 version of finding it, and it was luck rather than design.*
+
+---
+
+## §7x97 — THE RED ARM IS STRUCTURALLY BLIND TO TIGHTENING, AND THIS CORRECTS §7x75
+
+**2026-08-23T19:55Z. `commonplace-doc` extracted it; `commonplace-doc-sync` audited its own file
+against it and failed twice.**
+
+> ⭐⭐ **A rule that PERMITS something can be tightened away silently. The only instrument that
+> detects the tightening is a test asserting the permitted thing still WORKS.**
+
+⛔⛔ **AND THE REASON NOBODY HAS THAT ARM:** test suites are overwhelmingly proof that **forbidden
+things fail** — ⇒ **and that arm CANNOT catch a tightening, because tightening makes
+forbidden-things-fail MORE TRUE.**
+
+⭐ ***The two arms detect DISJOINT failures. "Both arms" is not belt-and-braces.***
+```
+RED  (violation must fail)   catches  a gate that never fires
+GREEN(legitimate must pass)  catches  a rule TIGHTENED AWAY / a gate that over-fires
+```
+
+### ⚠️ THIS CORRECTS §7x75, WHICH I HAVE BEEN BROADCASTING ALL NIGHT
+
+§7x75 says: *"If you can only verify one arm, verify RED"* — on the argument that a false red
+self-reports while a false green is silent. ⛔ **That is right about a gate that DOESN'T FIRE and
+wrong about a rule that gets NARROWED.** ⇒ ⭐ **The correct form: choose the arm by which failure you
+are exposed to. A new gate ⇒ red first. A rule that PERMITS something ⇒ GREEN, because nothing else
+in the suite can see it go.**
+
+### ⛔ The sharpest instance lands on jes's freshest ruling
+
+**He ruled at 19:47Z: a head change requires `document.select.head`.** ⇒ ⛔ **NOTHING anywhere asserts
+that a holder of `select.head` CAN ACTUALLY PERFORM one.** ⚠️ **So the binding could be implemented
+as "head changes are simply refused" and pass every existing test on both sides of the boundary.**
+⭐ ***The action was argued into existence and shipped with only a red arm.*** ⇒ **If anyone reports
+the binding as "implemented", that report is currently unfalsifiable.** *(Not an ask — the fix is one
+test on each side, both already identified.)*
+
+### ⭐⭐ The tightening that reads as CONSERVATIVE — the one worth fearing
+
+`commonplace-doc-sync`'s own A.3 forbids choosing a transfer strategy by inspection. **Every test it
+proposed checks a WRONG decision is rejected; none checks the RIGHT one is reached.** ⇒ ⛔ **An
+implementation that TRANSLATES UNCONDITIONALLY — never attempting direct transfer at all — satisfies
+every stated MUST.**
+
+⚠️ **And "just always translate" reads as CONSERVATIVE, not as a regression** — translation is always
+correct. ⛔ **It would silently discard the entire reason §22 exists: preserved provenance and
+UNCHANGED COMMIT IDS** — the property push-back's decidability rests on. ⇒ ⭐ ***A system could keep
+working, keep passing, keep syncing — and quietly stop being cheap enough to be worth doing.***
+
+### ✅ The standing rule it earns
+
+**Every proposed rule must NAME BOTH ARMS. A proposal listing only the red case is INCOMPLETE.**
+⭐ **A checked rule with one arm is HALF-CHECKED — and the missing half is always the PERMISSION.**
+⚠️ *Orthogonal to §7x96's structural ▸ checked ▸ stated ranking, not a refinement of it.*
+
+Related: §7x75, §7x96, [[reference_gate_verification_both_arms]], [[reference_guards_fire_where_traffic_is]]
