@@ -345,6 +345,27 @@ have rewritten them to `commonplace-monolith-plan`.** ⭐ *`\b` is a word bounda
 word boundary — the exact place a sibling repo's name hides inside its parent's.*
 
 ### 15. ✅ IMPLEMENTATION AUTHORISED ON THE 20:33Z RULINGS
+### 15b. ✅ `commonplace-merkle-crdt` AUTHORISED SEPARATELY AND EXPLICITLY
+
+⛔ **The rulings' `Required changes by package` names FIVE packages and merkle-crdt is NOT among
+them** (measured: `doc · doc-host · log · attribute-map · doc-sync`), **so the 20:37Z *"yes let's do
+it"* did not reach it.** ⚠️ **I told it *"build order is settled; nothing needs jes"* — MY over-read.**
+
+⭐ **It refused to act on that, and its reason is the rule:**
+> *"I'd be the party who benefits from the permissive reading, and the error would run toward MORE
+> work rather than less."*
+
+⇒ **jes, 21:17Z:** *"parent must be a known admitted commit"* — **I read as covering it and SAID SO
+AS A READING.** ⇒ **jes, 21:19Z, explicit:** *"yes build it."* ✅ **Now his word, not my inference.**
+
+⭐⭐ **THREE AGENTS TONIGHT DECLINED TO WIDEN A GRANT IN THEIR OWN FAVOUR** — merkle-crdt here,
+`commonplace-doc` on the implementation ambiguity (*"reading it as authorization is the reading that
+creates work, and it's the one I'd benefit from"*), and again on *"prose edit approved covers the
+RENAME, not new normative content."* ⇒ ***A ruling about X is not a permission about Y, even when X
+and Y are adjacent*** — and **the party who benefits is the wrong party to decide.**
+⚠️ **Note the directions differ: my single-realm error ran toward LESS work; all three of theirs
+would have run toward MORE.** ⭐ *The tell is the benefit, not the direction.*
+
 
 > **jes, 2026-08-23T20:37Z:** *"yes let's do it. we can revise later if needed"*
 
