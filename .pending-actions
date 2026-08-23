@@ -1,7 +1,10 @@
 # ⭐ TIMED / CONDITIONAL ACTIONS I HAVE COMMITTED TO. A remembered action does not fire.
 # ⚠️ Each line: WHEN · WHAT · WHY THE DELAY · WHO WAS TOLD. Delete when done or cancelled.
 
-2026-08-23T20:00Z  RESTART THE COMMONPLACE SERVE (pid 1479777, up since Aug 21 23:52).
+⛔ HELD 19:51Z (jes halted automatic work via commonplace-monolith + commonplace-plan;
+   the census that drove this is CANCELLED and erpc's other consumers all route
+   through the halted agents). ASK BEFORE DOING IT.
+[HELD] 2026-08-23T20:00Z  RESTART THE COMMONPLACE SERVE (pid 1479777, up since Aug 21 23:52).
   WHY HELD: erpc/dist to the serve is down since ~19:29 (epmd died, restarted 19:30:04 by
     commonplace's own `erl -sname` probe; node re-registered but the handshake still refuses —
     real cookie and a deliberately wrong cookie both return connect_node=false).

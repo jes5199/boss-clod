@@ -1,0 +1,21 @@
+jes design round, requested 2026-08-22 03:58Z via telegram 9717. Implementation and dispatch paused at his word. LIFT ONLY ON HIS WORD — not on a timer, not because burn recovered.
+  ⇒ STATUS 07:55Z: jes REPLIED at 07:53Z (tg 9749) — "unblock commonplace-log". That is
+     SCOPED TO commonplace-log ONLY, which is not gated by these files. THIS HOLD STANDS.
+     ⛔ He did NOT say the design round is over. Do NOT read a narrow unblock as a general
+     one — he named one agent and I am not widening it. Do NOT ask again (asked once, 05:12Z).
+     hermes side: TWO POSTURE RULINGS, ZERO IMPLEMENTATION AUTHORISATIONS. Flip held,
+     alloc_maintainer_dry_run still true. Detail in HERMES-cqa92 / swc5j / k22qj.
+
+  ⇒ STATUS 2026-08-23T19:51Z: jes RE-STATED AND WIDENED IT, verbatim:
+     "i think i want to halt doing automatic work via commonplace-monolith and commonplace-plan
+      right now"
+     ⛔ AUTOMATIC WORK VIA commonplace-monolith AND commonplace-plan IS HALTED.
+     ⛔ The decode census I authorised at 19:29Z is CANCELLED, not deferred. Nothing was
+        consumed (blocked on erpc, no copy taken, no disk used).
+     ⚠️ He named TWO agents. Do NOT widen it to commonplace-log / -reducer / -merkle-crdt /
+        -doc / -doc-sync / yepochs — those were not named, and over-widening a hold is the
+        same error as over-reading a ruling, in the direction that costs the most hours.
+     ⛔ THE 20:00Z SERVE RESTART IS HELD TOO. Its main driver was the census, which is now
+        cancelled; erpc's other consumers (deploy verification, bd writes, ceremony probes)
+        all route through the two halted agents. Restarting their serve during a halt is not
+        obviously mine to do, and nothing needs it tonight. ASK BEFORE DOING IT.
