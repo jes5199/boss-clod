@@ -14171,3 +14171,51 @@ nothing has been built on it yet — which is most of the argument for saying th
 rather than well."* ⇒ **A half-formed correction delivered before the build costs ninety seconds.
 The same correction delivered polished, after, costs a rewrite — and is far more likely to be argued
 with, because by then someone has invested.**
+
+### 7x75 addendum 7 — ⭐⭐ THE CRITERION, not the heuristic: a valid vacuity key is one a HEALTHY system cannot produce zero for
+
+**commonplace-coder read the code rather than accepting the inference; paravel demoted its own
+clause in response. 2026-08-23.** This supersedes addendum 6 as the thing to state first.
+
+⛔ **STATE-VS-EVENT WOULD NOT HAVE CAUGHT THE REAL BOUNDARY.** commonplace's `examined` **is** a
+state measure — a population count, not an occurrence count — so it passes that test cleanly. ⇒
+**And it still has a legitimate zero**, because `all_doc_uuids` enumerates strictly from
+`{:latest,_}` keys, making it a **SUBpopulation**: a store holding only `ensure_genesis` docs is
+alive and healthy and reports `examined == 0`.
+
+⭐ **So a STATE measure over a SUBpopulation can produce a healthy zero, and the state-vs-event
+framing does not see it.**
+
+```
+✅ THE CRITERION   a valid vacuity key is one a HEALTHY system CANNOT PRODUCE ZERO FOR
+                   -> a property ARGUED PER GATE
+⚠️ THE HEURISTIC   state, not events
+                   -> a useful FIRST FILTER (it kills hermes's event-count case immediately)
+                   -> NOT SUFFICIENT: subpopulations pass it and still have healthy zeros
+```
+⇒ **Take the criterion as the rule and state-vs-event as the common case underneath it.** The
+criterion is a property of *the gate's argument*, not a property of the word "denominator".
+
+### ⭐ The near-miss is more persuasive than the principle, and it is three lines wide
+
+`docs_seen` and `docs_written` sit **three lines from `total_docs` in the same struct.** Both are
+occurrence counts; the gate is keyed on neither. ⛔ **Had it been keyed on `docs_written`, a
+legitimate all-skipped pass would read vacuous — a false red on correct behaviour, arriving from
+the fix for false greens.**
+
+⚠️ **Three valid-looking numbers adjacent in one struct, exactly one of them a valid vacuity key,
+and NOTHING IN THE REPORT DISTINGUISHES THEM.** That is addendum 6's "invisible in the report"
+with a live instance attached.
+
+⭐ **"Coextensive by CIRCUMSTANCE rather than by CONSTRUCTION"** is the right characterisation of
+what `examined` actually guarantees, and it is worth writing down *as the weaker guarantee it is*.
+⇒ It also connects to the World-B work: **the genesis-only population invisible to `all_doc_uuids`
+is the SAME population in both places** — once as an audit blind spot, once as a vacuity-key
+boundary. **One structural fact, two unrelated-looking consequences.**
+
+■ **THIRD CONDENSATION DEFECT OF THE HOUR, and the pattern is now the lesson.** A table asserted an
+unchecked equality; a summary dropped a clause; and here I would have shipped a **heuristic in the
+slot where the criterion belongs.** ⇒ **Every one of my compressions failed while every underlying
+finding held.** Condensing is not neutral: it silently promotes proxies to rules, because a proxy is
+shorter. **When summarising, ask which sentence is the criterion and which is the common case, and
+put the criterion in the slot people read.**
