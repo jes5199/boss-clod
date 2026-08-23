@@ -43,10 +43,12 @@ mapfile -t REPOS < <(for g in /home/jes/*/.git; do
     [ -e "$g" ] || continue
     r=$(readlink -f "$g" 2>/dev/null) || continue
     printf '%s\t%s\n' "$r" "${g#/home/jes/}"
-  done | sort -k1,1 -k2,2r | sort -u -k1,1 | cut -f2 | sed 's|/\.git$||' | sort)
-# ⭐ -k2,2r before the unique pass so the LONGER name wins a tie: commonplace-monolith over
-# the commonplace symlink. Arbitrary either way for correctness — but a finding should name
-# the real directory, because that is what someone will cd into.
+  done | sort -u -k1,1 | cut -f2 | sed 's|/\.git$||' | sort)
+# ⭐ This ALREADY keeps commonplace-monolith over the commonplace symlink — verified by
+# running it, not by reasoning about sort. ⛔ I 'improved' it with a -k2,2r pre-sort to force
+# that outcome and FLIPPED it to the symlink: `sort -u` re-sorts and discards the incoming
+# order, so the pre-sort did nothing except change which line came first.
+# ⚠️ Do not tune this by argument. Run it and read which name comes out.
 discovered=${#REPOS[@]}
 
 # ⭐⭐ THIRD STATE, found by commonplace 2026-08-23: LANDED-BY-CONTENT.
