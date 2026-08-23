@@ -232,6 +232,34 @@ it is reachable without anyone deciding it.
 Document lineage** and **multi-writer Document logs**; those deferrals stand. **This is a note about
 what NOT to preclude, not a licence to un-defer anything.**
 
+### 11. ⭐ STANDING: Sol does the code work
+
+> **jes, 2026-08-23T18:52Z:** *"let's keep using Sol for code work"*
+> (earlier, 18:22Z, on `commonplace-doc`: *"have them use Sol to implement"*)
+
+⇒ **Standing policy for this cluster, not a per-task instruction.** ⭐ **Agents design, review, decide
+and MEASURE; Sol types.** Same division as Fable: reserve the expensive judgement for judgement.
+
+⚠️ **SCOPE I AM ASSUMING, stated so it can be corrected:** the doc/log cluster — `commonplace-doc`,
+`commonplace-log`, `commonplace-log-reducer`, `commonplace-merkle-crdt`, `yepochs`.
+⛔ **NOT `hermes`** — live money, and he did not say it. ⛔ **NOT `commonplace`** — under an
+implementation hold. **Told jes this is my reading so he can widen it.**
+
+**Mechanics** (`sol-egress-run.sh`):
+```
+SOL_WORKDIR=<isolated worktree>   SOL_MAX_PARALLEL default 2 (REFUSES a third, does not queue)
+```
+⛔ **The filename lies:** *"sol-egress-run"* = the runner **WITH** egress. **There is no egress fence.**
+⭐⭐ **ANYTHING MEASURED INSIDE THE FENCE INHERITS THE FENCE AS A FACT** — masked paths and scrubbed
+env return as ordinary negative findings with plausible mechanisms. **Name what is masked in the
+brief.** ⚠️ **A content refusal looks like an empty diff with `rc=0` — i.e. exactly like
+"nothing to do". Check the diff, never the exit code.**
+
+⛔ **Sol writing the code does NOT authorise implementation. Build order is still jes's.**
+
+⏳ **`commonplace-log` and `commonplace-log-reducer` are retired as of this ruling and have not been
+sent it — include it when un-retiring them.**
+
 ---
 
 ## The layering, in jes's words
