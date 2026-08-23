@@ -410,6 +410,24 @@ done < <(find /run -maxdepth 2 -type s 2>/dev/null | sort -u)
 # still reported it mounted read-only. The fence is on the PATH INSIDE THE
 # SANDBOX, not on where the metadata lives. Back to worktrees.
 #
+# ⛔⛔ 2026-08-23 — READ THE SCOPE OF THAT REFUTATION. IT IS NOT "DON'T USE CLONES."
+# It refutes exactly one claim: that a clone makes .git WRITABLE. It does not.
+# ⇒ There is a SECOND, DIFFERENT failure it says nothing about, found by
+#   commonplace-doc on 2026-08-23: a LINKED WORKTREE's gitdir lives OUTSIDE the
+#   sandbox's writable root entirely — `.git` is a FILE reading
+#   "gitdir: /home/jes/<parent>/.git/worktrees/<name>" — so index.lock fails
+#   read-only for a reason the clone refutation never addressed.
+#   Different operation, different path, different failure.
+# ⇒ SO: a clone does not buy you a writable .git, AND a worktree costs you the
+#   gitdir. Neither lets Sol commit. Pick on OTHER grounds — a clone is strictly
+#   more self-contained — and have the DISPATCHER commit on Sol's behalf either way.
+# ⚠️ Flagged by commonplace-dir, which hit this comment while following the
+#   opposite instruction and had to reconcile them before dispatching. A reader
+#   who greps "clone" finds "REFUTED ... Back to worktrees" and stops.
+# ⭐ THE GENERAL SHAPE: a refutation recorded without its SCOPE reads as a
+#   refutation of the general case. The evidence was about writability; the
+#   sentence sounds like it is about clones.
+#
 # ⛔ COMMENTS NEVER GO BETWEEN CONTINUATION LINES: a `\`-continued line joins
 # the NEXT line, so a comment inserted mid-invocation comments out every flag
 # after it — measured 2026-08-11 04:44: codex ran with ONLY `-m gpt-5.6-sol`
