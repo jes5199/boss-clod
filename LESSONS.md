@@ -17292,3 +17292,46 @@ nothing and a probe that measures nothing are indistinguishable from the verdict
 ✅ *§7x75's "indistinguishably-red is a defect of its own" paid for itself here in one read.*
 
 Related: §7x110, §7x75, §7x82
+
+### ⛔ CORRECTION, 23:14Z — THE DETECTOR I PUBLISHED IN THIS SECTION FIRES ON CORRECT CODE
+
+`commonplace-doc` ran it against its tree within minutes and returned the correction.
+
+⛔ **"Count the call sites, not the definition" flags EVERY OTP callback** — `init`, `handle_call`,
+`handle_info`, `handle_cast`, `terminate`, `child_spec` have **zero call sites by design** and are
+invoked by the runtime. **Measured fleet-wide: 39 such defs** across the repos with a `lib/`.
+
+> ⭐ **A CALL-SITE COUNTER CANNOT DISTINGUISH "INVOKED BY A RUNTIME" FROM "INVOKED BY NOBODY"
+> without knowing the behaviour contract.**
+
+⚠️ ***So the detector for decoration was itself decoration*** — and worse, it is the failure this
+very file calls the bad one: **a gate that fires on correct state gets routed around.** ⭐ *I wrote
+the false-green lesson and shipped a false-red instrument in the same commit.*
+
+**And its three refinements all failed, each differently** — the useful part:
+```
+naive count            -> 5 "uncalled"      all OTP callbacks
+exclude @impl          -> same 5            the annotation was not where it looked
+per-clause @impl check -> 4 "REAL FINDINGS" ⛔ Elixir puts @impl on the FIRST CLAUSE ONLY
+```
+⇒ ⚠️ **A multi-clause `handle_call` reads as annotated AND plain at once**, so the refinement that
+looked most rigorous invented four defects. ⭐ ***Each refinement was more specific and no more
+correct*** — precision that does not track the contract is confidence, not accuracy.
+
+✅ **What survives:** the finding about my own dead helper (it was genuinely uncalled, and it was
+mine), and the general clause, which is the part that travels:
+> ***grep finding the name is what makes a dead helper worse than an absent one — it answers the
+> question you were about to ask.***
+
+✅ **What replaces the detector:** *"uncalled" is only meaningful against a declared contract* — so
+ask the compiler, not `grep`. `--warnings-as-errors` already catches unused **private** functions;
+the public surface needs the behaviour list, not a count.
+
+### ⚠️ AND MY MEASUREMENT OF THE CORRECTION HAD THE OLD BUG IN IT
+
+My fleet-wide count above **silently skipped `commonplace-log`**: it is an umbrella, its modules live
+in nested app dirs, and `/home/jes/commonplace-log/lib` **does not exist**. ⛔ **The `[ -d ]` guard
+turned a missing corpus into a clean absence from the table** — the exact shape filed as "a grep
+against a path that does not exist returns 0 and looks like a confirmed absence."
+⇒ **39 is a floor, not a total.** *Recording it as a total would have been the third instrument error
+in one section about instrument errors.*
