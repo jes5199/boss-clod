@@ -17443,3 +17443,65 @@ hatch written into the brief, where the worker meets it, instead of into a revie
 ⇒ **My three wake conditions carried as a spoken trade were the same shape as its blocker list, one
 level up.** ✅ **`commonplace-log` closing its half unprompted is the version that works — and it
 works because it wrote the condition where the other party could read it.**
+
+---
+
+## §7x114 — "IT TERMINATES" IS ALSO TRUE OF A THING THAT HAS STOPPED WORKING
+
+**2026-08-23T23:21Z, `commonplace-doc-sync` (E15).** ⭐ **E11 gave it a duplicate; the SAME mechanism
+inside a MIRROR is an unbounded loop that generates its own next input.**
+
+```
+A offers X to B  ->  B RE-AUTHORS, admits X'        (the ruling's rebase path — PERMITTED and CORRECT)
+                 ->  B's watch fires: X' is a GENUINE NEW COMMIT on B
+                 ->  controller reconciles B->A, offers X'
+                 ->  A doesn't recognise it, admits it, perhaps as X''  ->  A's watch fires ...
+```
+⛔ **Every step valid. Every step reports success. Content grows without bound — and BOTH ENDPOINTS
+REMAIN "IN SYNC" BY THEIR OWN ACCOUNTING.** ⚠️ **Debounce cannot help: these are genuine distinct
+commits, not rapid duplicates of one.** ⭐ *A mirror is the one component whose job is to run this
+cycle on a trigger, so it is the only place the mechanism is unbounded.*
+
+### ⭐⭐ THE ENTRY: A TERMINATION PROPERTY IS SATISFIED BY DEATH
+
+Scenario 23 asserts *"the cycle terminates"*. ⛔ **A suppression rule that swallows genuine
+independent destination edits satisfies it PERFECTLY.**
+> ⚠️ ***"The cycle terminates" is also true of a mirror that has stopped working.***
+
+⇒ ⭐ **Only the PAIR distinguishes CONVERGED from DEAD, and from outside they share an observable** —
+the same shape as *absence has more than one cause*, arriving in a liveness property instead of a
+search. ✅ **24 is the green arm and it is what makes 23 honest.**
+⭐ **Generalises past mirrors: every "it stops / it settles / it drains / no more retries" assertion
+has a dead sibling that passes it.** *Ask what the metric reads when the component is switched off;
+if that value also passes, the assertion is measuring the wrong thing.*
+
+### ⛔ A FIX THAT MADE THE PROBLEM DIAGNOSABLE AND NOT TERMINATING
+
+§31 advances *"only through accepted source changes"*; v0.2 §6 advances on destination-native ids
+**retaining the offered id as provenance.** ⛔ **Nothing said the provenance must SUPPRESS A RETURN
+OFFER.**
+> ⭐⭐ **The dual-id receipt made the loop DIAGNOSABLE and did not make it TERMINATE — and its own
+> author would have read E11 as closed.**
+
+⚠️ ***Diagnosability is not containment,*** and the fix that produces a clear record of the failure is
+the one most likely to be filed as the cure. ✅ **Rule: a controller MUST NOT offer an endpoint
+material whose recorded provenance identifies that endpoint as its origin — mapping TRANSITIVE TO THE
+ORIGIN, not the immediate predecessor**, or a chain merely takes longer to close.
+⛔ **Suppression by RECORDED PROVENANCE, never by content comparison** — *a re-authored commit does
+not share its origin's content address and no hash property relates them.*
+
+### ⚠️ AND IT KILLED A REASSURANCE INHERITED FROM 0.1 AND REPEATED ALL EVENING
+
+**0.1 §16:** *"Loss of relationship state must not corrupt either Document, though it may require
+expensive rediscovery."*
+⛔ **Too weak for a bidirectional mirror over a re-authoring destination: the mapping CANNOT be
+reconstructed from the endpoints, because THE EVIDENCE IS EXACTLY WHAT WAS LOST.**
+⇒ ⭐ ***Rediscovery is not available at any price*** — correct behaviour is to STOP with
+`:resync_required`, never to reconcile from summaries.
+⭐ **The sentence is RIGHT ABOUT CORRUPTION AND WRONG ABOUT COST**, and *"no corruption"* was being
+read as the whole reassurance. ⚠️ **Relationship storage is not an optimisation for mirroring; it is
+what BOUNDS it.**
+⇒ *A guarantee can be true and still not be the guarantee you need — check which failure it
+actually excludes, not how reassuring it sounds.*
+
+Related: §7x113, §7x110, §7x75
