@@ -9,4 +9,3 @@
 # report, because "finished" is falsified by observation, not by bookkeeping.
 commonplace-log-reducer  all 12 SP tasks complete 2026-08-23T05:23Z, main d081529 verified
 commonplace-merkle-crdt  phase complete, stop confirmed by boss 2026-08-23T05:31Z, main 2a669a5 verified
-commonplace-log  SP4a complete + realm layering ANSWERED 2026-08-23T18:15Z, main 2fcf113 verified; §8.3's log-layer half turns out BUILT (server_for/2 = registry + on-demand start), realm-level supervision belongs ABOVE this library; nothing to build until jes's Cloudflare account exists
