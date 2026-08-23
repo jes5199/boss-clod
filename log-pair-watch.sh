@@ -132,9 +132,20 @@ for w in "${WORKERS[@]}"; do
     state=UNKNOWN; detail="no known pattern matched — classifier may be blind to a new UI state; quiet ${still_min}m"
   fi
 
+  # ⛔ 2026-08-23: the statusline is TRUNCATED AT PANE WIDTH. With a long project
+  # name (commonplace_attribute_map, 64-col pane) it renders "📊 40…" -- no "%".
+  # The old pattern required the % and yielded ctx=?, which NOTHING ACTED ON.
+  # ⇒ A CONTEXT GATE THAT GOES BLIND EXACTLY WHEN THE PROJECT NAME IS LONG, and
+  # announces it with a silent "?", is a check whose result changes nothing.
+  # Now: accept the truncated form, mark it, and make a TOTAL failure LOUD.
   ctx=$(printf '%s' "$pane" | grep -o '📊 [0-9]\+%' | tail -1)
+  ctx_trunc=""
+  if [ -z "$ctx" ]; then
+    ctx=$(printf '%s' "$pane" | grep -o '📊 [0-9]\+' | tail -1)
+    [ -n "$ctx" ] && ctx_trunc="~"   # digits present but cut off before the %
+  fi
   model=$(printf '%s' "$pane" | grep -o '\[[A-Za-z0-9. ]*\]' | tail -1)
-  REPORT+=("STATUS|$w|$state|$detail|ctx=${ctx:-?}|model=${model:-?}|win=$target")
+  REPORT+=("STATUS|$w|$state|$detail|ctx=${ctx:-BLIND}${ctx_trunc}|model=${model:-?}|win=$target")
 
   # ⛔⛔ CONTEXT: THE COMPACT LEVER IS MINE, NOT THE WORKER'S.
   # A worker CANNOT run /compact -- it is a CLI/user command, not a tool in its
@@ -145,7 +156,12 @@ for w in "${WORKERS[@]}"; do
   # top of a file I might not open was not enough; it belongs HERE, in the output
   # of the thing that measures the number.
   ctx_n=${ctx//[^0-9]/}
-  if [ -n "$ctx_n" ] && [ "$ctx_n" -gt 70 ]; then
+  if [ -z "$ctx_n" ]; then
+    # ⭐ Blind, and it says so. Never a silent "?" that no branch reads.
+    REPORT+=("ACTION|$w|CONTEXT GATE BLIND — no 📊 figure parsed from the pane.")
+    REPORT+=("ACTION|$w|  This is NOT 'context is fine'. Read the pane, or widen the window:")
+    REPORT+=("ACTION|$w|  tmux resize-window -t $target -x 130   (statusline truncates at pane width)")
+  elif [ "$ctx_n" -gt 70 ]; then
     REPORT+=("ACTION|$w|ctx ${ctx_n}% > 70 — DRIVE THE COMPACT YOURSELF VIA TMUX. Do NOT ask the worker.")
     REPORT+=("ACTION|$w|  ask it only for the DURABILITY PASS (state written where a successor will look)")
     REPORT+=("ACTION|$w|  tmux send-keys -t $target C-u; send-keys \"/compact\"; send-keys Escape; send-keys Enter")
