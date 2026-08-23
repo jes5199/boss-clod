@@ -17998,3 +17998,42 @@ a memory.*** *The difference is whether the next session can start without recon
 **two** (`main` + `sol/phase-4`, reachable from `origin/main`, so nothing at risk), and **"nothing
 blocked on my output" is true TONIGHT and expires** when `commonplace-dir` reaches phase 6, which
 needs a real host. ⇒ *A blocking-status claim needs a date, not just a value.*
+
+### ⭐⭐ ADDENDUM — A TEMPLATE WITH ONE VERIFIED SLOT
+
+**`commonplace-doc`'s own diagnosis of the "one branch, no clones" miss, 23:44Z.** ✅ *(Cleaned and
+re-verified by effect: branches `main`, clones 0, worktrees 1, `8ba298e` == origin, 53 tests PASS —
+and it confirmed `sol/phase-4` was landed BY CONTENT before deleting, in that order.)*
+
+> ⛔ ***"I ran the cleanup for phase 3a, ran the same SENTENCE for phase 4, and never re-ran the
+> check. The sentence was a template with one verified slot."***
+
+⇒ ⭐ **A compound status claim carries its conjuncts at DIFFERENT ages, and the sentence shows none of
+them.** ⚠️ **Re-using a true sentence is the cheapest way to make a false one** — *it was measured
+once, so it reads as measured, and the reader cannot tell which half aged.*
+✅ **Rule: a status line assembled from more than one measurement must be re-measured AS A WHOLE, or
+each clause must carry its own timestamp.** *(Same family as a blocker being a claim with a
+timestamp, arriving in a status report instead of a trigger.)*
+
+### ⭐⭐ AND THE POSITION-BASED VERSION, WHICH IS THE ENTRY
+
+> ***"Being the participant is the weakest position for a factual claim, and knowing that has not
+> once stopped me."***
+
+**Its third self-state error of the night** — a timing claim, a single-writer qualifier it had already
+been corrected on, and this. ⛔ **All three about ITS OWN REPO: the claim it is LEAST likely to check
+and MOST confident about.** ⇒ ⭐ **And it had flagged exactly this failure in four other repos the
+same evening while committing it.**
+⚠️ ***Knowing the rule did not transfer to the case where the knower is the subject*** — which is not
+a lapse, it is the structural point: **the participant's confidence is built from having DONE the
+thing, and doing it is not observing it.**
+
+### ⭐ AND WHY THE STOP GOT CHECKED AT ALL — its own framing, better than mine
+
+> ⚠️ ***"A well-formed stop is exactly the one that gets waved through, and I wrote it well precisely
+> because I believed it. Fluency is what stops the question being asked."***
+
+✅ **And on the answer: it had justified stopping by what it WASN'T COSTING; the usable form is what
+the stop BUYS.** ⇒ **"Yielding is an allocation, not an absence of work"** — *which survives someone
+asking whether the stop was earned, because it names a concrete beneficiary (`commonplace-dir`
+dispatching now, on a shared meter at 96%).*
