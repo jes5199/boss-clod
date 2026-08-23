@@ -12,6 +12,18 @@
 # those and NO TURN AT ALL — and an empty result reads exactly like "no promise
 # pattern found". ⇒ Select rows BY CONTENT (has a stop_reason), never by position.
 #
+# ⛔⛔ SECOND DEFECT, caught 2026-08-23 07:23Z: the verdict USED TO DEPEND ON MATCHING
+# ENGLISH. It reported "no promise phrase" for a turn ending
+#     "Starting with `derivation_map_inverse_test.exs` and ... , since those test ..."
+# -- a bare present-participle promise the regex did not enumerate. ⇒ A detector that
+# says "no promise" when there IS one is the false-green class it was built to catch,
+# and it fails EXACTLY on the phrasings I did not think of, which is not a list I can
+# finish.
+# ⭐ FIX: the VERDICT no longer depends on the wording. stop=end_turn PLUS nothing
+# running IS the stall candidate; the phrase is reported as a DETAIL explaining why,
+# never as the thing that decides. ⇒ Stop asking "did it promise" (unbounded language
+# problem) and ask "did it stop with nothing scheduled" (a fact about the machine).
+#
 # usage: turn-end-detector.sh <worker-name>
 # rc 0 = report printed   2 = instrument blind (no transcript / no turns)
 
@@ -54,11 +66,42 @@ if not turns:
 ts,sr,txt = turns[-1]
 tail = txt[-200:].replace('\n',' ')
 # first-person future-tense promise, at the END of the turn
-promise = re.search(r"\b(I'?ll|I will|I'?m going to|next[,:]|now\b.{0,40}\bdispatch|in this turn)\b",
-                    txt[-400:], re.I)
-verdict = "PROMISE-ENDED-TURN" if (sr=='end_turn' and promise) else \
-          ("ended on text, no promise phrase" if sr=='end_turn' else f"stop={sr}")
-print(f"TURN|{w}|{ts}|stop={sr}|{verdict}")
+promise = re.search(r"\b(I'?ll|I will|I'?m going to|going to|next\b|I plan to|then I|starting with|first[,:]|reading .{0,30}next)\b",
+                    txt[-900:], re.I)
+import subprocess
+def live_work():
+    try:
+        n=subprocess.run(['pgrep','-u','jes','-x','codex'],capture_output=True,text=True).stdout.split()
+        return len(n)
+    except Exception:
+        return -1
+running = live_work()
+# ⭐ A legitimately-idle worker must not report STALL-CANDIDATE. Same files the pane
+# watch uses, so the two instruments cannot disagree about who is expected to be idle.
+def listed(path, name):
+    try:
+        for line in open(path):
+            if line.startswith('#'): continue
+            if line.split()[:1] == [name]: return True
+    except Exception: pass
+    return False
+retired = listed('/home/jes/boss-clod/.watch-retired', w)
+blocked = listed('/home/jes/boss-clod/.watch-blocked', w)
+
+if sr != 'end_turn':
+    verdict = f"WORKING (stop={sr})"
+elif running > 0:
+    verdict = f"ended on text, but {running} round(s) running — legitimately waiting"
+elif running == 0 and retired:
+    verdict = "idle BY DECISION (retired) — expected, not a stall"
+elif running == 0 and blocked:
+    verdict = "idle BLOCKED on a named party — expected, not a stall"
+elif running == 0:
+    verdict = "STALL-CANDIDATE — ended on text with NOTHING running"
+else:
+    verdict = "BLIND — could not determine whether anything is running"
+why = " · forward-looking phrase present" if promise else " · no phrase matched (verdict does NOT depend on this)"
+print(f"TURN|{w}|{ts}|stop={sr}|{verdict}{why if sr=='end_turn' else ''}")
 print(f"TURN|{w}|  …{tail}")
 print(f"TURN|{w}|turns_examined={len(turns)}  (control: nonzero => the parser saw real turns)")
 PY
