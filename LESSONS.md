@@ -17557,3 +17557,67 @@ test doesn't discriminate."*
 code the test RUNS THROUGH.** ⚠️ **Both of its inert mutations tonight were code the test executes and
 neither touched what the test was asserting about** — *which is why "I mutated it and nothing failed"
 is not yet evidence about the test.*
+
+---
+
+## §7x115 — A THREAT MODEL HAS A DIRECTION, AND CITING A SECTION IS WHAT MAKES IT FEEL CHECKED
+
+**2026-08-23T23:25Z, `commonplace-doc-sync` (`c8a0123`), aiming the previous entry at §43.**
+
+### ⛔⛔ ALL TEN 0.1 SECURITY PROPERTIES PROTECT THE DESTINATION FROM THE SOURCE
+
+*"a source cannot force an append" · "lineage is not a write capability" · "a replayed bundle cannot
+move a head."* ⇒ ⭐ **The framing invites the reading that the destination is the only party needing
+protection** — and **for a mirror it is exactly backwards.**
+
+**E15: a destination that re-authors every offer drives UNBOUNDED GROWTH AT THE SOURCE.**
+⚠️ ***Every step is a conforming action by a WELL-BEHAVED peer. No adversary is required*** — which is
+why a threat model framed as *protect the receiver from the sender* **never reaches it**.
+✅ **The dual, now written: *a destination cannot force a source to append merely by re-authoring what
+it was offered.***
+
+⭐⭐ **And it is a property of the CONTROLLER, not of either endpoint.** ⛔ **Neither endpoint can
+enforce it because neither can SEE the cycle** — each sees only a valid offer and a valid admission.
+⇒ *The only party positioned to observe the loop is the one holding the relationship.* ⚠️ **Third
+independent reason relationship storage BOUNDS a mirror rather than optimising it** — and the first
+two did not make anyone look at §43.
+
+⇒ ⭐ **Standing question for any list of guarantees: WHICH PARTY IS EACH ONE PROTECTING?** *If every
+entry protects the same side, the list is a direction, not a model — and the unlisted direction is
+where a conforming peer does the damage.*
+
+### ⚠️ A PROPERTY THAT IS NECESSARY AND SILENTLY STOPPED BEING SUFFICIENT
+
+> **§43.10: *"Partial acceptance is explicit and cannot masquerade as full success."***
+
+⛔ **Under the ruling a destination may accept EVERYTHING and still produce ids the source does not
+recognise.** ⇒ ⭐ ***Full acceptance masquerading as nothing at all — because it IS full acceptance.***
+**§43.10 passes cleanly and the source is still lost.**
+✅ **Restated: acceptance is explicit in both its EXTENT and its FORM** — how much was admitted, and
+whether each object retained its identity. **Extent alone was the 0.1 property, and it is half.**
+⚠️ *A guarantee does not have to be wrong to stop covering you; the world moved and the sentence
+didn't.* **Re-derive guarantees against the CURRENT rules, not against the reasons they were written.**
+
+### ⭐⭐ THE MECHANISM THAT HID IT: CITATION FEELS LIKE VERIFICATION
+
+> ***§43 was the section it had cited three times tonight and never re-read — and citing it
+> repeatedly is precisely what made it feel already-checked.***
+
+⇒ ⭐ **Every citation is an act of USE, and use is what confidence is normally built from** — so a
+frequently-invoked section accrues the FEELING of having been verified while accruing zero actual
+reads. ⛔ **The most-quoted document is therefore the least-audited one, and the ranking is inverted
+from where anyone looks.** *(Sibling of "correctness suppresses its own audit": there, a working
+system stops anyone checking; here, a useful citation does.)*
+✅ **Cheap detector: list what you QUOTED today, then ask when you last OPENED it.**
+
+### ✅ And the confirmation for the previous entry's prediction
+
+> *A rule you have just articulated is at its least likely to be applied to what you write
+> immediately after, because the articulation feels like the work.*
+
+⭐ **It reports this "predicts a specific place to look rather than an attitude to adopt"** — the
+paragraphs written in the SAME PASS as a new rule. ⚠️ ***"I'd have re-read the OLD material for
+violations of the NEW rule, and the violation was four lines below the rule."***
+⇒ *The instinct sends you to the archive; the defect is in the paragraph you just wrote.*
+
+Related: §7x114, §7x110, [[feedback_dispatch_board_not_instruction]]
