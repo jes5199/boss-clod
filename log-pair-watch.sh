@@ -165,6 +165,16 @@ for w in "${WORKERS[@]}"; do
     if [ -x /home/jes/boss-clod/turn-end-detector.sh ] \
        && /home/jes/boss-clod/turn-end-detector.sh "$w" 2>/dev/null | head -1 | grep -q 'DECLARED PAUSE'; then
       state=PAUSED; detail="agent DECLARED a pause ('nothing queued'); not a finding — quiet ${still_min}m"
+    # ⛔ 2026-08-23T23:55Z — I taught .declared-stopped to stall-sweep.sh at 23:53Z and NOT to
+    # this script, so two minutes later the two watchers disagreed about commonplace-doc again:
+    # STOPPED there, IDLE here. ⚠️ That is commonplace-dir's 23:52Z lesson landing on me inside
+    # the hour — fixing a defect in ONE instrument does not fix the reflex that built it, and the
+    # second instrument is where you find that out.
+    # ⭐ ONE record, BOTH consumers — the same rule this file already carries about the worker list.
+    elif [ -r /home/jes/boss-clod/.declared-stopped ] \
+         && grep -v '^#' /home/jes/boss-clod/.declared-stopped | grep -q "^${w}|"; then
+      _rel=$(grep -v '^#' /home/jes/boss-clod/.declared-stopped | grep "^${w}|" | head -1 | cut -d'|' -f2)
+      state=STOPPED; detail="declared stop, mechanism accepted — not a finding; release: ${_rel}"
     elif is_blocked "$w"; then
       bl=$(blocked_line "$w"); bts=${bl%% *}; brest=${bl#* }
       bage="?"

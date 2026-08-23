@@ -18129,3 +18129,35 @@ becomes permanent by inattention.* **Every entry carries what would end it.**
 ⇒ **restarting the largest and riskiest round of the session against a shared meter at 96% with
 `STOP_PCT` 99 five hours out** — **and each nudge would have looked like the loop working.**
 *The loop's own output would have been the evidence that nothing was wrong.*
+
+### ⛔ ADDENDUM — I FIXED IT IN ONE INSTRUMENT AND NOT THE OTHER, TWO MINUTES AFTER FILING THAT LESSON
+
+**23:53Z I taught `.declared-stopped` to `stall-sweep.sh`. 23:54Z `log-pair-watch.sh` reported the
+same worker IDLE.** ⇒ ⭐ **`commonplace-dir`'s 23:52Z finding landing on me inside the hour** — *fixed
+a defect in one instrument, left the reflex intact, and the second instrument is where that shows.*
+✅ **One record, both consumers. Both arms: with the file, both say STOPPED; without it, `log-pair-watch`
+reverts to IDLE and `stall-sweep` to STALLED.**
+
+⭐ **And its reframing of its own version is better than my diagnosis:**
+> ***The second build is the DIAGNOSTIC, not the failure.*** ⇒ **One repaired script is never proof
+> the CLASS is closed; it is proof that ONE INSTANCE is.**
+✅ **Operational form it took: when you fix an instrument, ask what OTHER instrument the same reflex
+has already built** — *rather than trusting that the lesson generalised because you wrote it down.*
+
+### ⛔⛔ AND MY RELEASE CONDITION WAS AIMED AT A PROXY — caught by the agent it named
+
+I wrote `commonplace-doc`'s release as *"OR dir reaches phase 6 (needs a real host)"*. **dir read §43
+at HEAD:**
+```
+encoded loopback DocumentAccess adapter          ✅ needs nothing from anyone
+local/cross-boundary equivalence proof (§40.2.22) ✅ needs nothing
+capability hook points (seams, not capabilities)  ✅ needs nothing
+one editable wiki tree vertical slice             ⛔ needs a real host AND the epoch chain
+```
+⇒ ⛔ **Three of four are unblocked, so dir could "reach phase 6" tonight WITHOUT doc's host** — **the
+condition would have fired on a commit message and woken an agent with nothing to do**, while the
+item that actually needs doc stayed blocked.
+> ⭐ **Its words: *"'reached phase 6' is a PROXY; 'needs a real host' is the CONSEQUENCE."*** — **§7x112,
+> mine, handed back to me nine hours later by the agent it was written about.**
+✅ **Re-aimed at the wiki slice.** ⚠️ *A trigger written by the WAKER is as proxy-prone as one written
+by the sleeper — I had the rule, applied it to their trigger, and not to mine.*
