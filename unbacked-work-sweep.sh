@@ -1,5 +1,17 @@
 #!/usr/bin/env bash
 
+# ⛔ REFUSE UNKNOWN ARGUMENTS — exit 2 (BLIND), never a normal verdict.
+# ⚠️ Found 2026-08-23: all four of these scripts SILENTLY IGNORED any argument and
+# printed a healthy verdict. A typo'd flag or env var meant the script answered the
+# NO-FLAG question correctly while the caller believed a different question was asked.
+# ⭐ These take NO positional arguments. Overrides are ENV VARS and are named in the
+# body; a mistyped env var still silently defaults, which is why the ones that matter
+# are echoed in the output line rather than assumed.
+if [ "$#" -gt 0 ]; then
+  echo "BLIND|$(basename "$0") takes no arguments (got: $*) — overrides are env vars. NOT a verdict." >&2
+  exit 2
+fi
+
 # ⛔ HALT AWARENESS: never ask a halted agent to push. See .watch-halted.
 HALTED_FILE=/home/jes/boss-clod/.watch-halted
 is_halted() { [ -r "$HALTED_FILE" ] && grep -qE "^$1[[:space:]]" "$HALTED_FILE"; }
