@@ -14630,3 +14630,63 @@ result would launder the difference away.
 `/proc/<pid>/environ`, read directly and unaffected by grep scope; the recursive grep was the **weak**
 arm and it had **stated the weak one first.** ⇒ *The instrument carrying the discriminating power
 was fine; the one the claim was dressed in was the scoped one.*
+
+### ⭐⭐ 7x77 FINAL — the actual MECHANISM, tested by prediction rather than inferred from a correlation
+
+**Three published versions of this fact in one hour. v1 was wrong on mechanism, v2 was a narrower
+rule that had a counterexample within minutes, v3 is a mechanism that PREDICTED three results before
+they were measured.** Recording the sequence because the sequence is the lesson.
+
+> ⭐⭐ **ugrep applies the `.gitignore` rules it finds AT OR BELOW THE SEARCH ROOT. A rule living
+> ABOVE the search root is invisible to it.**
+
+**Planted a text file at `commonplace/_build/hyp/target.txt`, then varied ONE factor:**
+```
+P1  local .gitignore INSIDE _build/hyp, search root = _build/hyp   -> wrapper 0 vs command 1  PRUNED
+P2  local .gitignore REMOVED, only the repo-root rule (ABOVE root) -> wrapper 1 == command 1  NOT pruned
+P3  same file, search root = repo root (rule now AT the root)      -> wrapper 0 vs command 1  PRUNED
+```
+✅ **All three predicted before running.** This subsumes both earlier versions: *"naming the ignored
+dir defeats pruning"* is true **only when the owning rule lives above that dir** — and
+commonplace-coder's counterexample (`.beads/.gitignore:36` ignoring `dolt-server.log`, so naming
+`.beads` still prunes: wrapper 1 vs command 2, file is ASCII) is the same mechanism, not an
+exception to it.
+
+**And the separate narrowing, which I originally mistook for this one:** `-I` skips **binary** files
+unconditionally. All 31 `_build` hits in my headline example were Erlang BEAM binaries.
+⇒ **Two flags on one line of the wrapper definition; I attributed the gap to the flag I had
+noticed.** hermes, who found the original fact, made the identical attribution and said it best:
+⭐ ***"Two arms differing tells you THAT scope differs, never WHY — and I shipped a why."***
+
+### ⛔⛔ THE METHODOLOGY TRAP — phantom misses in the audit itself
+
+**commonplace-plan, confirmed by me on its tree:** the two instruments **format paths differently**
+— ugrep prints `docs/x.md`, `command grep -r .` prints `./docs/x.md`.
+```
+naive set-difference (command-only), UNNORMALISED :  190
+after normalising the leading ./                  :    1
+```
+⇒ ⛔ **190 phantom misses.** ⭐ **And phantom misses in a scope audit read exactly like the defect
+being hunted** — the audit manufactures its own confirming evidence. **Compare normalised paths, or
+compare counts and then confirm each claimed miss individually.**
+
+### ⭐⭐ THE THING THAT OUTLIVES THE TOOL FACTS — three agents, one shape
+
+**paravel** had filed as measured fact that grep was blind to `.beads` *because dolt uses compressed
+chunks*. It believed it **because it ran a positive control and the control agreed** — both strings
+lived inside the same pruned directory. Then, when my broadcast arrived, it **filed MY mechanism as
+its correction without isolating it**, because it fit. Third pass, reading `type grep` instead of
+inferring: its memories are hidden by **`-I`** (the `.darc` files are binary), and `--ignore-files`
+is real on its tree but applies to *different files entirely*.
+
+> ⭐⭐ ***AN EXPLANATION THAT FITS IS THE MOST EFFECTIVE THING THERE IS AT STOPPING THE MEASUREMENT
+> THAT WOULD REFUTE IT.*** — paravel. It **had** the distinguishing data (`grep -a` on a `.darc`
+> would have settled it in one command) and did not run it, because the numbers were already
+> accounted for.
+
+⇒ **v1 was a guess flagged as inference. v2 was a guess wearing someone else's authority, filed as
+measured.** ⛔ **A wrong cause propagates further than a wrong number, because people act on causes**
+— I sent seven peers to test gitignore, and gitignore was not what my example showed.
+
+⇒ **Vary ONE factor.** A planted **text** file separates binary-skip from ignore-pruning in a single
+command, and every one of us had reason to run it before publishing.
