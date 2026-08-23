@@ -415,6 +415,15 @@ done < <(find /run -maxdepth 2 -type s 2>/dev/null | sort -u)
 # after it — measured 2026-08-11 04:44: codex ran with ONLY `-m gpt-5.6-sol`
 # (no sandbox flag, no workdir, no prompt); only the no-prompt fail-fast kept
 # those runs harmless. This block therefore lives ABOVE the exec, not inside it.
+# ⛔⛔ THIS IS AN ENV ALLOWLIST AND IT STRIPS SILENTLY. 2026-08-23: a worker set
+# WRANGLER_LOG_PATH on the dispatch command and reported the env as "applied".
+# `env -i` dropped it before codex started — no warning, no error, and the round
+# behaved correctly for an unrelated reason, so nothing surfaced the loss.
+# ⇒ ANY VARIABLE NOT NAMED ON THE NEXT FOUR LINES DOES NOT REACH THE ROUND.
+# ⭐ TO GIVE A ROUND AN ENV VAR: PUT IT IN THE BRIEF so Sol exports it in its own
+#   shell. Do NOT set it on the dispatch command and assume it arrived.
+# ⚠️ The allowlist is deliberate — it is part of the fence. Do not widen it to
+#   solve a one-off; widening it is a fence decision, not a convenience.
 exec env -i \
   HOME="$HOME" PATH="$PATH" USER="$USER" LOGNAME="$LOGNAME" SHELL="$SHELL" \
   TERM=xterm-256color LANG="${LANG:-C.UTF-8}" LC_ALL="${LC_ALL:-C.UTF-8}" \
