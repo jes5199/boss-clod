@@ -260,6 +260,30 @@ brief.** ⚠️ **A content refusal looks like an empty diff with `rc=0` — i.e
 ⏳ **`commonplace-log` and `commonplace-log-reducer` are retired as of this ruling and have not been
 sent it — include it when un-retiring them.**
 
+### 12. ✅ CALLER-SUPPLIED PARENT — the linearity trap is ruled on
+
+> **jes, 2026-08-23T18:53Z:** *"i think caller-supplied parent is correct"*
+
+⇒ **Answers `commonplace-doc`'s HH2 and unblocks `commonplace-merkle-crdt`'s `check_chain`.** The
+shape, as doc specified it: **parent is CALLER-SUPPLIED, defaulting to the current head, constrained
+to a known admitted commit.**
+
+⭐ **What it fixes is a FUSION, not a comparison.** Host §17 and `check_chain` both conflated two
+questions that a linear history makes indistinguishable:
+```
+"what am I branching FROM?"              -> a PARENT.       Any known admitted commit.
+"what do I expect the SELECTION to be?"  -> a PRECONDITION. The current head.
+```
+⛔ **Fused, forks are not mis-handled — they are INEXPRESSIBLE**, so the bug presents as a missing
+feature rather than an error. **Four occurrences today** (`check_chain`, doc spec §7, host §17, and
+the host's 21 acceptance tests exercising no non-forward head move).
+
+⭐ **It is also the mechanism §10's future push-back would need.** ⚠️ **So a later reader tempted to
+re-tighten the parent rule is not merely re-entering the trap — they are removing the thing
+push-back runs on.** See `commonplace-doc/docs/LINEARITY-TRAP.md`.
+
+⛔ **A design ruling, NOT an implementation authorisation.** Build order remains jes's.
+
 ---
 
 ## The layering, in jes's words
