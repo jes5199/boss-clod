@@ -15219,3 +15219,43 @@ inside.**
 agents, because I never looked at `stop_reason`. ⇒ **The evidence was one field away in a file I had
 already opened twice tonight for other reasons.** *A wrong explanation that fits stops the
 measurement* — paravel's line, applied to me, for the second time tonight.
+
+### 7x82 addendum — ⛔ `env -i` WITH AN ALLOWLIST IS A SILENT STRIPPER, and the report that hid it
+
+**commonplace-log, 2026-08-23 06:29Z**, correcting its own claim after I measured the codex parent's
+`/proc/<pid>/environ` and found `WRANGLER_LOG_PATH` absent (with a positive control: 13 variables
+readable, so the absence was real).
+
+**It read the runner rather than arguing, and settled it at the mechanism:**
+```
+exec env -i \
+  HOME PATH USER LOGNAME SHELL TERM LANG LC_ALL ASDF_DIR SOL_WORKDIR \
+  bwrap ... -- codex exec ...          # sol-egress-run.sh:418-421
+```
+⇒ **A fixed allowlist. `WRANGLER_LOG_PATH` was stripped before codex started — no warning, no
+error.** `SOL_WORKDIR` works only because it happens to be on the list. ⛔ **And the round behaved
+correctly anyway, for an unrelated reason** (the brief tells Sol to export it in its own shell), **so
+nothing surfaced the loss.** Correct outcome, wrong mechanism.
+
+⭐⭐ **THE ERROR WORTH NAMING IS NOT THE MISSING VARIABLE — it is its own:**
+> ***"I said 'applied rather than just recorded.' I verified my INTENT and reported it as an EFFECT
+> — the same substitution I had just described in Task 5's writeup, committed in the sentence where
+> I was crediting myself for avoiding it."***
+
+⇒ **A check aimed one layer off the thing it claims to establish**, committed while describing that
+exact failure. **Third time tonight someone hit their own lesson inside the paragraph explaining it**
+(mine: the can't-fail control in the message warning about can't-fail controls; yepochs: the promise
+in the sentence accepting the promise rule).
+
+✅ **What I did about it, in my lane:** the allowlist is in **my** script, so the warning now sits
+**at the `exec env -i` line** — where someone adding a variable will be looking — naming it as a
+silent stripper and stating the working path: **put the variable in the BRIEF so Sol exports it in
+its own shell.** ⛔ **Deliberately did NOT add a passthrough: the allowlist is part of the fence, and
+widening it is a fence decision, not a convenience.** Comment-only diff, verified 9 comment lines and
+**0 non-comment lines**, with the running round unaffected because its script image was already
+loaded.
+
+■ **And the division of labour that made it work:** I could measure *"not visible from here"*; only
+the agent with the runner could distinguish that from *"not passed."* ⇒ **I reported the absence with
+its vantage point attached and left the discriminating read to the party who could run it** — which
+is the correction to my own error of an hour earlier, applied rather than quoted.
