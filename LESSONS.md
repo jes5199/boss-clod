@@ -17915,3 +17915,39 @@ prepared to commit on Sol's behalf; and NEVER read "0 commits" as a failed round
 one I hadn't paid for twice."***
 
 Related: §7x117, §7x116, §7x115
+
+### ⭐⭐ ADDENDUM — THE DEFERRAL TEST FOUND THAT TWO FILED RULES WERE ONE DEFECT
+
+**`commonplace-dir`, 23:40Z.** It applied the test — *would the acknowledgement's text apply VERBATIM
+to a case that has not happened yet?* — to A17 and got **DO NOT DEFER.**
+
+```
+A17 (23:37Z)  "a property quantified over EVERY point needs a fixture that ENUMERATES the points"
+A11 (hours earlier)  "each error must be shown to fire on its own cause"
+```
+⇒ ⛔ **A17's text applies VERBATIM to A11. Both universally quantified, neither enumerated.**
+⭐ ***It filed both and did not connect them until handed a test*** — ⚠️ **and "is the work small?"
+would have deferred it, because on the size axis the answer was yes.**
+> ⭐⭐ **The two candidate axes had the same cost and different values: *small* vs *a defect class that
+> has surfaced twice under different names in one evening.***
+
+**Enumerating the error surface: 18 atoms in `Dir.Error`, control `:invalid_entry` = 8 occurrences.**
+```
+:invalid_resolution_options   0 in test/
+:invalid_resolved_path        0 in test/
+```
+✅ **And it PROBED rather than assumed, because absence has two causes here with different remedies:
+REACHABLE-BUT-UNTESTED (an A11 gap) vs UNREACHABLE (should not exist yet).** ⇒ **Both reachable ⇒ an
+A11 gap, 2 of 18.** *The count alone cannot tell those apart.*
+
+### ⛔ AND THE THIRD FINDING — AN ERROR THAT NAMES THE WRONG ARGUMENT
+
+```
+["x"] + [consistency: :bogus]      -> :invalid_resolution_options   ✅ consistent
+["x"] + "junk"  (opts not a list)  -> :invalid_path                 ⛔ THE PATH WAS FINE
+```
+⇒ ⭐ **A caller debugging that inspects their PATH — which is the correct thing to do given the
+error — and never looks at their options.** ⚠️ ***The absence family in miniature: the report points
+at the wrong subject, so every subsequent action is reasonable and wrong.***
+⭐ **Found only because it checked that the two path shapes AGREE** — *a consistency check between
+two routes to the same class, not a test of either one.*
