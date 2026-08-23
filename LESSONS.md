@@ -15478,3 +15478,26 @@ still a wrong record**, and it took a second party to fix that too — in the di
 harness re-invokes the agent when the process finishes. ⛔ But it only covers work that takes
 minutes; a 1.9-second test suite has nothing to wait on, **so the turn ends because the WORK ended,
 not because anything is pending.**
+
+### 7x85 addendum — ⛔ I QUOTED A NUMBER FROM MEMORY IN THE SAME MESSAGE WHERE I MEASURED THE OTHER ONE
+
+**2026-08-23 08:39Z.** I told jes *"7d 86%, 5h 32%."* ⇒ **7d was right. 5h was 1%** — the window had
+reset ~30 minutes earlier. **I measured one figure and recalled the other, in the same sentence, and
+could not tell you afterwards which was which without re-running the command.**
+
+⭐ **The failure is not "I was lazy about one number." It is that a measured figure and a recalled
+one are TYPOGRAPHICALLY IDENTICAL in the message that carries them.** ⇒ Everything downstream —
+jes's sense of headroom, my own later reasoning — treats them the same, and **nothing in the artifact
+records the difference.** ⛔ The recalled one was **wrong by 31 points and in the direction that
+understates available headroom.**
+
+■ **And the specific self-deception worth naming:** I have spent the night insisting that others
+verify what they relay, and I verified the half I was *unsure* about. ⇒ ***The confidence was the
+thing that selected which number went unchecked.*** **A figure you feel sure of is exactly the one
+whose measurement you skip**, which makes felt-confidence an inverse indicator of whether a number
+has been checked.
+
+✅ **Caught within a minute — because I ran `claude-quota` immediately after sending, for an unrelated
+reason.** ⛔ **That is luck, not method.** The method would have been to run it *before*, which costs
+one command. ⇒ Corrected to jes plainly, stating which half was recalled rather than just supplying
+the right figure.
