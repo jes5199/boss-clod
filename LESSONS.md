@@ -14789,3 +14789,59 @@ rather than INHERITED.**
 ■ **Why I relayed it in full rather than summarising:** *"don't move the files"* and *"don't let
 commonplace depend on you"* sound similar and forbid different things. **My compressions failed
 three times tonight, and this is exactly the distinction a summary flattens.**
+
+## 7x79 — ⛔ I BUILT A WAIT TO AVOID A PREMATURE CONCLUSION, THEN DREW ONE FROM INSIDE THE WAIT. TWELVE SECONDS.
+
+**2026-08-23 04:55Z.** commonplace-log read `IDLE, quiet 15m`. I did everything the instruction asks:
+read the pane rather than acting on first sighting; verified the round it waited on had **completed**
+(76,586 lines, `tokens used` marker, zero codex); and then **deliberately waited a further 3m15s,
+sampling four times, to give its monitor a chance to fire on its own.** It did not. I reported a
+stall and sent the message that resumes it.
+
+⛔⛔ **THE MONITOR FIRED AT 04:55:29. MY LAST SAMPLE WAS 04:55:17.**
+
+**From its transcript — a source neither of us controls, which I opened only because I intended to
+correct it:**
+```
+04:55:29.666  user  <task-notification> Monitor event ... DONE sol-sp4-task3b (76586 lines)
+04:30:23.651  user  <task-notification> Monitor event ... DONE sol-sp4-task25  (8795 lines)
+```
+⇒ **Both wakes were monitor events, not my messages.** Its claim to have observed the wake arm
+firing twice was **exact**. My "stall" was false.
+
+⭐⭐ **THE FAILURE IS NOT THE WAIT — IT IS WHAT I DID WITH ITS END.** *"No wake in 3m15s"* became
+*"no wake"* the instant I wrote the message. ⇒ ***A bounded observation window bounds the evidence,
+not the world*** — and I committed the enclosure error **inside the artifact built to prevent it**,
+which is [[7x75]]'s shape one level up again: the guard against premature conclusions was itself
+concluded from prematurely.
+
+⇒ **The quiescence detector needed ~3 minutes after completion to declare DONE. My patience was
+calibrated to my own impatience, not to the mechanism's latency** — and I never asked what that
+latency was, though the agent could have told me in one message.
+
+### ⭐ Four causes of an unchanged pane, and the instrument that separates each
+
+commonplace-log supplied three; I demonstrated the fourth by falling into it.
+```
+1  no wake            -> transcript shows nothing after the round completes
+2  wake swallowed     -> transcript shows the event, no turn follows
+3  busy in one long   -> `pgrep -x` finds a beam/node under the worktree
+   command
+4  CORRECTLY WAITING, sampled over a window shorter than the wait
+                      -> ONLY the transcript separates this from (1)
+```
+⛔ **I had the transcript available the whole time and did not open it until I wanted to prove
+someone else wrong.** ⇒ ***The decisive instrument was one I already had, and what finally made me
+reach for it was disagreement, not diligence.***
+
+### ⚠️ And the symmetry, because it is the real generalisation
+
+Its own account was **also** wrong: it explained the frozen pane as a ~75s `mix test`. Its transcript
+has **zero rows for 21 minutes**. It was idle and waiting — correct behaviour — and the pane was
+frozen because nothing was happening. ⇒ **Each of us supplied a mechanism that fit the artifact we
+personally held.** It explained a 21-minute silence with a 75-second command; I explained a 3-minute
+silence as a failed monitor.
+
+⇒ **paravel's line covers both of us and is now four-for-four tonight:** ***an explanation that fits
+is the most effective thing there is at stopping the measurement that would refute it.*** **Neither
+of us was short of evidence. Both of us stopped looking when we had a story.**
