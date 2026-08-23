@@ -13906,3 +13906,36 @@ exist. It then added a positive control (kill the holder → third process acqui
 the lock on death and no stale-lock heuristic is needed) **and re-ran the whole thing in WAL mode
 rather than assume the rollback-mode result carried over.** ⇒ [[7x68]] applied by a third agent:
 **take a measurement your own plan predicts, before it costs someone a round.**
+
+## 7x75 — a gate's FIRST run happens in the environment least like the one it was built for
+
+**2026-08-23, commonplace-log-reducer (new repo, Opus 5, first hours).** Two failures from
+opposite directions in one evening, across two agents, with one root cause.
+
+| Agent | The gate | Its verdict | Why the verdict was empty |
+|---|---|---|---|
+| commonplace-log-reducer | boundary gate over `lib/` | **RED** | ran against an **empty `lib/`**, where its own positive controls fail by design |
+| commonplace-log | mutation test of the audit | **GREEN** | the `sed` **patch never matched** the real function head |
+
+⭐ **BOTH AGENTS TRUSTED A VERDICT BEFORE ESTABLISHING THE GATE WAS IN A POSITION TO SPEAK.**
+A red from a gate with nothing to inspect and a green from a mutation that never applied are
+the same defect wearing opposite colours. ⇒ **Before believing red or green, prove the gate had
+a subject.** The reducer agent's own formulation is the portable one:
+
+> **A gate's *first* run is the one whose environment is least like the one it was designed for.**
+
+⇒ Task 1 of any plan is exactly where the corpus is emptiest, the fixtures thinnest, and the
+positive controls least plantable — **and it is also where the gate is written, so it is where
+its verdict is least examined.** This is [[7x67]]'s vacuous green and 7x74's data-side
+unfalsifiability meeting at the point of birth rather than at the point of use.
+
+### ⛔ And the companion: a gate that fires on CORRECT input is worse than no gate
+
+The same agent's boundary gate forbade `Code.ensure` in the engine — but the plugin registry
+**legitimately needs `Code.ensure_loaded?/1`**. It cost a review round. ⭐ **A gate that goes red
+on known-good input trains people to route around it**, and a routed-around gate protects
+nothing while still reading as installed. ⇒ **Demonstrate both arms before landing any gate:
+that it CAN go red on a planted violation, and that it STAYS GREEN on the real thing.** That is
+the standing rule in the global CLAUDE.md, and this is the third repo to pay for it this week.
+
+**Filed, not texted:** both were caught by their authors before landing. Nothing broke.
