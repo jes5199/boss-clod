@@ -50,7 +50,17 @@ for d in "${REPOS[@]}"; do
     cd /home/jes; continue
   fi
   n=$(git log --oneline "$up..$br" 2>/dev/null | wc -l)
-  [ "$n" -gt 0 ] && FINDINGS+=("UNBACKED|$d|$br|$n|commits exist only on this disk")
+  # ⛔ 2026-08-23: the rule "push an existing branch to its existing upstream is a
+  # pure addition" silently assumed upstream == a remote branch of the SAME NAME.
+  # commonplace-s80's branch is sol/cx-721q-detector-land-s80 and its upstream is
+  # origin/sol/cx-0ktk-round2-s75 -- a DIFFERENT branch. Pushing would either mint
+  # an unrequested ref or advance someone else's branch with a foreign commit.
+  # ⇒ Neither is the safe act the rule assumed, so the MISMATCH must be visible in
+  # the finding, not discovered afterwards by whoever acts on it.
+  up_short=${up#origin/}
+  mism=""
+  [ "$up_short" != "$br" ] && mism="|⚠️UPSTREAM-NAME-MISMATCH:$up (do NOT push blind)"
+  [ "$n" -gt 0 ] && FINDINGS+=("UNBACKED|$d|$br|$n|commits exist only on this disk$mism")
   cd /home/jes
 done
 
