@@ -125,8 +125,10 @@ yepochs (which i think is two separate repos?)"* ⇒ **Repetition a fortnight ap
 redundancy** — and it arrived one minute after the composition ruling, in a context where #5 could
 have been read as routing epochs elsewhere.
 
-⛔⛔ **IT DOES NOT ANSWER `commonplace-doc`'s ASK 2** — *should an opaque epoch discriminator be in
-the 0.1 profile, compared for equality only?* **That is with jes and UNANSWERED.**
+⚠️ **IT DID NOT ANSWER `commonplace-doc`'s ASK 2 — but jes ANSWERED IT SEPARATELY three minutes
+later, at 18:36Z:** *"let's put an epoch id into the commit struct"* ⇒ ✅ **YES. The epoch id is
+IN.** See #7. **The warning below stands on its own merits and is why the two were kept apart:**
+the awareness ruling still did not answer the field question — **jes did, in a separate sentence.**
 
 ⭐⭐ **THE STANDING WARNING THIS SECTION EXISTS FOR** — named by `yepochs`, and it caught a live
 instance the same hour:
@@ -143,6 +145,26 @@ re-reading will not flag it either — it still reads as correct.**
 ⇒ ✅ **Test before treating a ruling as closing a question: does it answer the question, or does it
 merely make the question feel already-handled?** ⭐ *Ask what would have to be true for the ruling to
 answer it, and check whether the ruling says that.*
+
+### 7. ✅ An EPOCH ID goes in the commit struct
+
+> **jes, 2026-08-23T18:36Z:** *"let's put an epoch id into the commit struct"*
+
+⇒ **Answers `commonplace-doc`'s ask 2 affirmatively.** The reasoning that made it urgent, from
+`yepochs` via doc: ⭐ **deferring epoch POLICY is cheap; deferring the FIELD is a migration over
+already-admitted commits.** ⇒ **It is in the 0.1 profile.**
+
+⚠️ **WHICH commit struct is not stated, and I am not deciding it.** Doc's ask was about **content
+commits**; `commonplace-merkle-crdt` has a concrete v1 commit shape in code. **Both readings are
+available and they may be the same thing.** ⇒ **`commonplace-doc` + `commonplace-merkle-crdt` own
+this; ask jes if it does not resolve between you.**
+⛔ *Logged explicitly because I over-read a ruling once today (see #4) and the error ran toward less
+work. A referent I cannot see from outside is not one to guess at.*
+
+⭐ **Why the field is worth its cost even under single-realm-per-object (#4):** Yepochs and Realms
+are **different axes**. A history acquires a new Yepoch on **snapshot, fork, divergent branch, or
+import** — none of which needs a second realm, and doc's head selection admits divergent-branch
+jumps. **The boundary is reachable in v1 on day one.**
 
 ---
 
