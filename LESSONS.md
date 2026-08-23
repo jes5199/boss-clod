@@ -15501,3 +15501,58 @@ has been checked.
 reason.** ⛔ **That is luck, not method.** The method would have been to run it *before*, which costs
 one command. ⇒ Corrected to jes plainly, stating which half was recalled rather than just supplying
 the right figure.
+
+## 7x86 — ⭐⭐ A REPORTED ABSENCE IS CHEAP TO POSITIVE-CONTROL AND EXPENSIVE TO UN-RELAY
+
+**2026-08-23 15:00Z.** yepochs told me the cross-language conformance vectors were blocked because it
+**could not generate upstream-Yjs fixtures without Node.** ⛔ **I relayed that to jes without
+measuring it.** He asked *"do we not have node?"* — and:
+```
+node  /usr/bin/node  v24.13.1     npm 11.8.0     npx present
+DECISIVE: npm i yjs@13.6.32 in a scratch dir, Y.Doc + encodeStateAsUpdate -> 16 bytes
+AND the generator ALREADY EXISTED: commonplace-merkle-crdt/conformance/{corpus,finals,
+  verify_reverse}.mjs + node_modules + a README documenting `npm i yjs@13.6.32`
+```
+⇒ **Node was on the host, yjs ran on it, and a sibling repo had a working generator committed.**
+
+⭐ **yepochs retracted it and REFUSED THE TIDIER STORY, which is the part worth keeping:**
+> ***"Do not let me have option 2. 'Node is not reachable from where I run tool calls' would be a
+> tidier story and it is not true — I ran `node` from inside my own tool calls, in this working
+> directory, and it worked. There is no vantage point that rescues it."***
+
+⛔ **An offered escape hatch is the most dangerous form of a fitting explanation**, because it comes
+from the other party and therefore feels like evidence rather than convenience. **It declined one I
+had handed it.**
+
+### ⭐⭐ THE RULE IT GAVE ME, and the asymmetry that makes it worth obeying
+
+> ***"A reported absence is cheap for you to positive-control and expensive to un-relay. `which node`
+> cost you one command; the relay to jes cost a correction. Treat any worker's 'X is not available'
+> as unmeasured until one command says otherwise — including mine, especially when it is phrased
+> confidently."***
+
+⇒ **Second time in one day I passed on a worker's reported absence unverified** — the wrangler
+read-only path was the first, and **that one was a vantage point reported as a fact about the
+filesystem.** ⭐ **Same shape twice: absence has more than one cause and they share an observable.**
+*"Not installed"*, *"not reachable from here"*, and *"I never looked"* are indistinguishable from
+outside — **and confidence in the phrasing is not one of the distinguishing signals.**
+
+### ⭐ AND THE DOC-WRITING STEP IS WHAT FORCED THE MEASUREMENT
+
+I had told it to write the constraint into `OPEN-QUESTIONS.md`. ⇒ **It went to check the claim so it
+could word it precisely, and checking it is what killed it.** ⭐⭐ **The requirement to state
+something durably is itself a verification step** — *"I asked for the claim in durable form rather
+than in conversation, and the durable form would not accept it."* ⇒ That is a reason to demand
+written claims that has nothing to do with the reader.
+
+✅ **Outcome, verified: `54edc46` on `origin/main`, 0 unpushed.** A new generator
+(`conformance/map_array_corpus.mjs`), five upstream-authored vectors (`006`–`010`, three `Y.Map`,
+two `Y.Array`), a conformance test that decodes, assembles to **upstream's own computed view**,
+snapshots without loss and crosses over a bridge built from a foreign snapshot. **§28.4 satisfied,
+325 tests.** And the doc line now names the vantage point, **from the same vantage the fixtures came
+from, so the claim and its evidence cannot drift apart.**
+
+⚠️ **One absence it protected from the correction, correctly:** no XML vectors, **because element
+children cannot survive the snapshot replay and such documents can hold no bridge.** ⇒ **That is
+measured, not assumed — different cause, different evidence, stays as it is.** *A correction to one
+absence must not be applied to a differently-caused one just because they look alike.*
