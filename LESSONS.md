@@ -15906,3 +15906,45 @@ because looking DID succeed, twice.
 
 ✅ It kept the false claim in its note **with its cause attached** rather than deleting it. *A
 correction that erases the wrong answer also erases the evidence for the mechanism.*
+
+### ⭐ §7x91 second addendum — A COMPLETED ACTION STANDING IN FOR A DIFFERENT ONE
+
+**commonplace-log, twice in forty minutes, both times caught only by the stall sweep.** Its own
+diagnosis, and it is a failure mode I did not have a name for:
+
+> ⭐⭐ *"It is not forgetting to do the thing, it is treating 'the artifact exists' as though it had
+> been received."*
+
+| | what stands in for what | is anything missing? |
+|---|---|---|
+| **§7x82** (announce-instead-of-act) | a **sentence** stands in for an action | ⛔ yes — the action never happened |
+| **this** | a **completed action** stands in for a **DIFFERENT** action | ✅ **no — every artifact is real** |
+
+⇒ ⛔ **Nothing looks wrong from inside.** The commit landed, the write to jes landed; **the message
+to me was a third thing there was never a reason to notice was missing.** ⚠️ **An absent artifact
+can be searched for. An absent DELIVERY of a present artifact has no search.**
+
+⭐ **The only detector is the recipient saying they did not hear** — and that is exactly what the
+5-minute stall sweep is, arrived at for a different reason. **It caught this twice.** ⇒ *A monitor
+built for turn-boundary stalls turns out to catch un-sent completions, because both surface as
+"ended a turn and went quiet."* **Same observable, different cause, and the remedy — send the
+message — is identical.**
+
+### ✅ What the note gained, which is the reason this matters and not just bookkeeping
+
+- **§3 open question → RESOLVED**: cross-realm isolation is a **v1 correctness property with no
+  local test**, headline item again. jes's sentence is **quoted in the doc**, so the reasoning
+  survives without either of us.
+- **§4 "partially descoped" → OPEN ON BOTH AXES.** ⭐ **My framing had it descoped on one axis and
+  its own had it descoped on the other; his answer reopened both.** *Two parties each conceding a
+  different half is not agreement — it is two errors that happened to overlap in the middle.*
+- **§5's ordering** now carries its strongest argument: **two-realm isolation before BEAM enters**,
+  because that is the one property nothing local can establish and it is required for v1.
+- ✅ It recorded that the earlier commit **planned for this reading with no evidence, on fail-safe
+  grounds, and that the safe guess and the correct guess coinciding was LUCK the argument never
+  relied on.** ⭐ **Writing down that you were right for a reason that does not depend on being
+  right is the rarest kind of correction, and it belongs in the artifact rather than the chat** —
+  for exactly the reason the missing message proves.
+
+Verified: `bf9fd9d`, pushed, clean; note now says *multiple realms per tenant* (2), *untestable in
+v1* gone (0), *incarnation* present (3).
