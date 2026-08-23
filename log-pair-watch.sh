@@ -35,12 +35,37 @@ found=0
 declare -a REPORT=()
 
 for w in "${WORKERS[@]}"; do
-  # Resolve by NAME. Exact match on the window name field.
-  target=$(tmux list-windows -a -F '#{session_name}:#{window_index} #{window_name}' 2>/dev/null \
-           | awk -v n="$w" '$2 == n {print $1; exit}')
+  # ⛔ RESOLVE BY PROCESS IDENTITY FIRST, NAME ONLY AS A FALLBACK.
+  #
+  # ⚠️ 2026-08-23: window 0:17 was AUTO-RENAMED from "commonplace-log" to
+  # "worker" (Claude Code emits a title escape derived from its cwd, and a
+  # /compact moved it through a worktree). The name-only lookup then reported
+  # MISSING -- which reads exactly like a CRASHED-and-gone worker. The session
+  # was untouched, same pid 1443494.
+  # ⭐ A WINDOW NAME IS A LABEL THE APP CAN REWRITE; THE --mcp-config PATH IS SET
+  # AT LAUNCH AND NAMES THE WORKER. Resolve on the thing that cannot drift.
+  target=""
+  while read -r cand cname; do
+    [ -z "$cand" ] && continue
+    pp=$(tmux list-panes -t "$cand" -F '#{pane_pid}' 2>/dev/null | head -1)
+    [ -z "$pp" ] && continue
+    for cc in $(pgrep -P "$pp" 2>/dev/null); do
+      if grep -qa "mcp-config-${w}\.json" "/proc/$cc/cmdline" 2>/dev/null; then
+        target="$cand"; break 2
+      fi
+    done
+  done < <(tmux list-windows -a -F '#{session_name}:#{window_index} #{window_name}' 2>/dev/null)
+
+  # Fallback: exact window-name match (covers a worker not yet launched under a
+  # per-project mcp-config, and keeps the check working if the flag shape changes).
+  if [ -z "$target" ]; then
+    target=$(tmux list-windows -a -F '#{session_name}:#{window_index} #{window_name}' 2>/dev/null \
+             | awk -v n="$w" '$2 == n {print $1; exit}')
+    [ -n "$target" ] && REPORT+=("NOTE|$w|resolved by window NAME, not process identity — check the launch flags")
+  fi
 
   if [ -z "$target" ]; then
-    REPORT+=("STATUS|$w|MISSING|no tmux window with that name")
+    REPORT+=("STATUS|$w|MISSING|no pane whose claude cmdline names mcp-config-${w}.json, and no window with that name — this worker is GONE, not merely renamed")
     continue
   fi
   found=$((found+1))
@@ -110,6 +135,23 @@ for w in "${WORKERS[@]}"; do
   ctx=$(printf '%s' "$pane" | grep -o '📊 [0-9]\+%' | tail -1)
   model=$(printf '%s' "$pane" | grep -o '\[[A-Za-z0-9. ]*\]' | tail -1)
   REPORT+=("STATUS|$w|$state|$detail|ctx=${ctx:-?}|model=${model:-?}|win=$target")
+
+  # ⛔⛔ CONTEXT: THE COMPACT LEVER IS MINE, NOT THE WORKER'S.
+  # A worker CANNOT run /compact -- it is a CLI/user command, not a tool in its
+  # hand. Asking it to compact is asking for a thing it cannot do, and a worker
+  # that banks durably and cannot compact looks EXACTLY like one that ignored
+  # you. I have now made this mistake a FOURTH time (2026-08-18 x3, 2026-08-23),
+  # despite the warning sitting at the top of the memory file. ⇒ Moving it to the
+  # top of a file I might not open was not enough; it belongs HERE, in the output
+  # of the thing that measures the number.
+  ctx_n=${ctx//[^0-9]/}
+  if [ -n "$ctx_n" ] && [ "$ctx_n" -gt 70 ]; then
+    REPORT+=("ACTION|$w|ctx ${ctx_n}% > 70 — DRIVE THE COMPACT YOURSELF VIA TMUX. Do NOT ask the worker.")
+    REPORT+=("ACTION|$w|  ask it only for the DURABILITY PASS (state written where a successor will look)")
+    REPORT+=("ACTION|$w|  tmux send-keys -t $target C-u; send-keys \"/compact\"; send-keys Escape; send-keys Enter")
+    REPORT+=("ACTION|$w|  then VERIFY BY EFFECT: ctx drops to ~0%. If the pane is mid-turn the")
+    REPORT+=("ACTION|$w|  command QUEUES and runs when the turn ends — that is fine, keep watching.")
+  fi
 done
 
 # ⭐ POSITIVE CONTROL: prove the corpus was non-empty before trusting any verdict.
