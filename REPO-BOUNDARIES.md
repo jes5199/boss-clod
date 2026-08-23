@@ -42,12 +42,23 @@ Settled by `commonplace-log` 2026-08-23, and the profile doc states it twice
 (§117, §310): *"physical containment MUST NOT be interpreted as logical ownership."*
 ⇒ **Nothing acquires an owner from where its bytes are stored.**
 
-### 4. Logs and docs are SINGLE-REALM for v1 — ⚠️ AMBIGUOUS, jes has NOT disambiguated
+### 4. Logs and docs are SINGLE-REALM for v1 — ✅ RESOLVED 18:30Z: reading (a), MULTI-REALM DEPLOYMENT
 
 > **jes, 2026-08-23T18:26Z:** *"right, we're keeping logs and docs single-realm for v1"*
 
-⛔⛔ **DO NOT TREAT THIS AS SETTLED. I over-read it and `commonplace-log` caught me.** Two readings,
-and they imply different work:
+⭐ **jes, 18:30Z, verbatim:** *"a log lives in a single realm. in fact, a cell lives in a single
+realm. but I may have multiple realms per tenant"*
+
+⇒ ✅ **READING (a), and STRONGER than (a) as posed.** Not merely many realms per deployment —
+**many realms per TENANT.** ⛔ **Isolation is a genuine v1 requirement**, it is load-bearing, and
+**verifying it requires at least two realms.** `commonplace-log` planned for exactly this and was
+right to; **it fails safe, and here the safe guess was also the correct one.**
+
+⚠️ **What "single-realm" actually constrains:** a **log** lives in one realm, and a **cell** lives
+in one realm. **That is a containment statement about each object — never a claim that the
+deployment has one realm.** I read it as the latter; that was the error.
+
+■ *The two readings, kept because the resolution only means something against them:*
 
 ```
 (a) a log lives in exactly ONE realm, but the deployment hosts MANY realms (multi-tenant)
