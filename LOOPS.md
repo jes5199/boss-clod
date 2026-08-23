@@ -407,3 +407,28 @@ Pushed `bartleby` (4 commits, sitting since 2026-01-03) and `friendly-claude-mes
 (1, since 2026-03-18). ⚠️ Four repos have **no remote at all** — `postage-stamp` (35 commits),
 `hyperstition` (9, believed deliberate — employer-IP-gated), `grimoire` (2), `test-worker` (1).
 Escalated, not invented.
+
+### 7. Stall sweep — every 5 min at :2,:7,:12,… (job 202bc9c9)
+**Added 2026-08-23 07:53Z.** Scripts: `stall-sweep.sh` + `turn-end-detector.sh`.
+
+⚠️ **WHY, in numbers:** a stalled agent costs **~half the check interval**. `yepochs` stalled **four
+times in one hour**; at the 15-minute pane-watch floor that is **~30 minutes of an agent sitting at a
+prompt with unblocked work in front of it.** ⇒ The pane watch answers *"is the fleet healthy"*; this
+answers the narrower and more perishable *"is anyone stopped who should not be"*, so it can run far
+more often for far less.
+
+⭐ **The verdict does NOT depend on matching English** (see `LESSONS.md` §7x82 and its corrections):
+it is **`stop=end_turn` PLUS nothing running** — a fact about the machine. The forward-looking phrase
+is printed as a *detail explaining why*, never as the decider. **I tried the wording-based version
+first and it produced a false negative on "Starting with X…" within the hour.**
+
+⛔ **It does not decide what anyone works on.** Resuming a stalled agent is **unsticking, not
+scheduling** — the agent chose the work and only the turn boundary interrupted it. ⇒ RETIRED and
+BLOCKED workers are skipped by the detector itself, so it **cannot fire on correct state**.
+
+**Silence policy:** `stalled=0` → silent. `BLIND`/rc=2 → the detector failed, **not** "nobody is
+stalled". ⛔ **Never telegram jes for a stall** — internal fleet mechanics, explicitly not what he
+asked to hear about.
+
+⭐ **Built-in stop condition:** if one worker stalls **three times in an hour despite this**, stop
+nudging and say so. **At that point the nudge is a substitute for a fix, not a fix.**
