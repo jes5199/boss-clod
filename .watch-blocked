@@ -6,4 +6,4 @@
 # indistinguishable from a stall, and a block with no timestamp cannot go stale.
 # ⚠️ WHEN THE PARTY ANSWERS, REMOVE THE LINE. A block that outlives its answer is a
 # worker sitting idle with permission — the failure this file could most easily cause.
-commonplace-log  2026-08-23T06:53Z  jes  SP4b needs a Cloudflare account, Containers access, gateway auth; and a go/no-go
+commonplace-log  2026-08-23T06:53Z  jes  SP4b CREDENTIALS (account + Containers + gateway auth). ⭐ GO/NO-GO ANSWERED 17:59Z — jes: "I'll try to set up the cloudflare soon"; the decision is YES-in-principle, only the credentials are outstanding
