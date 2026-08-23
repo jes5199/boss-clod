@@ -14747,3 +14747,45 @@ recursive hits for `Yelixer.Doc` from the repo root, **1,975 (77%) are inside th
 ⛔ **And `command grep` — the "safer" instrument — sees them MORE than the wrapper does, so
 de-scoping inflates this one worse.** ⇒ **Any denominator taken by recursing `~/commonplace` counts
 nine-to-ten ghost copies of a layout that no longer exists.**
+
+## 7x78 — a gate that binds the DELIBERATE act and not the CONVERGENT one
+
+**commonplace-plan, 2026-08-23 04:32Z**, amending a gate I had carried forward in its own words and
+still got narrower than it needed to be.
+
+**I wrote:** the gated act is *"anything that displaces `translator.ex` / `cross_epoch_merge.ex`."*
+⛔ **That binds extraction as a DELIBERATE ACT, and misses how it actually arrives:**
+
+> **"A greenfield yepochs that independently implements the same epoch/derivation semantics can
+> become a de facto extraction BY CONVERGENCE — at some point someone reasonably says *'commonplace
+> should just use yepochs'*, and the extraction arrives as a CONSEQUENCE rather than a decision."**
+
+```
+⛔ MY WORDING   gated = files moving out          -> a dep edge coming IN sails past
+✅ PLAN'S       gated = `commonplace` TAKING A DEPENDENCY on yepochs
+                        in EITHER direction of arrival
+                        and STILL GATED EVEN IF NO FILE EVER MOVES
+```
+⭐⭐ **THE GENERAL SHAPE: name the STATE you are refusing, not the ACTION you imagine producing it.**
+An action-shaped gate is defeated by any path to the same state that nobody labelled as that action
+— and the convergent path is the likelier one, because **nobody has to decide to take it.** ⇒ Same
+family as [[7x75]]'s extent error, one level up: **that gate was right about its subject and wrong
+about its scope; this one was right about its scope and wrong about its VERB.**
+
+■ **plan flagged it as the third instance it had ruled against in one night** — the empty repo's
+implicit *start-me*, a linearizer defaulting into a plugin, and now extraction-by-dep-edge. ⇒ **All
+three are the same thing: a decision arriving as a consequence.** *"Nobody chose this"* is not a
+defence; it is the failure mode.
+
+### ⭐ And the related trap it named: ownership acquired by PROXIMITY
+
+`cross_epoch_merge.ex` + `translator.ex` are **also** the Store-coupled derivation machinery that
+plan's DAG→log-linearization ruling says a future owner must be able to see. ⇒ **If a greenfield
+library reimplements that machinery, it can quietly become the linearization owner without anyone
+deciding** — **an item deliberately left unowned acquiring an owner by proximity.**
+⇒ The remedy is the same as the gate's: **publish the fact to the ranker so the decision gets MADE
+rather than INHERITED.**
+
+■ **Why I relayed it in full rather than summarising:** *"don't move the files"* and *"don't let
+commonplace depend on you"* sound similar and forbid different things. **My compressions failed
+three times tonight, and this is exactly the distinction a summary flattens.**
