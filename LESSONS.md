@@ -16046,3 +16046,61 @@ gate**. **A gate that overstates its case is worse than no gate** — the first 
 finds it wrong on the file's own subject, and everything else in it inherits that.
 
 Related: §7x91 (agreement is not corroboration), §7x89, [[reference_never_emit_a_bare_count]]
+
+---
+
+## §7x94 — THE RELAY BIAS: what can be handed over as a measured finding is systematically the cheap half
+
+**2026-08-23T18:55Z, `commonplace-doc`, and it is about MY function rather than its own:**
+
+> ⭐⭐ *"Three of tonight's four most expensive items have been ABSENCES rather than errors, which is
+> worth you knowing as a relay bias: **the things I can hand you as measured findings are
+> systematically the cheap half.**"*
+
+**Tonight's four, sorted by what they were:**
+
+| item | form | could it be handed over measured? |
+|---|---|---|
+| `check_chain` rejects non-descendants | **assertion** — code that does a wrong thing | ✅ yes, and it was |
+| the host's 21 tests exercise no non-forward head move | ⛔ **ABSENCE** | ✅ only once someone asked |
+| *"every fork mints an epoch"* | ⛔ **ABSENCE — a sentence nobody has written yet** | ⛔ **no** |
+| fork push-back foreclosed by tonight's hash decision | ⛔ **ABSENCE — a capability nobody removed on purpose** | ⛔ **no** |
+
+⇒ ⛔ **An error has an author, a location and a diff. An absence has none of the three.** ⚠️ **And the
+last two are worse than a missing test: they are not mistakes anyone has made, they are sentences
+anyone COULD write.** *"If the spec leaves room for the simplification, the room is the risk."*
+
+### ⭐ What this means for a relay specifically — which is my job
+
+**I ration jes's attention by asking workers for measured findings.** ⇒ **That selection pressure
+systematically favours ASSERTIONS**, because those are the ones that can be measured, verified by me,
+and quoted with a file:line. ⛔ **The expensive half arrives, if at all, as a worry someone had while
+writing something else.**
+
+✅ **Both of the genuinely load-bearing catches tonight came from an agent thinking aloud mid-task, not
+from an audit.** ⇒ ***Do not let "give me the measured version" become the only channel*** — it is the
+right filter for what reaches jes and the wrong filter for what reaches me.
+
+### ⭐ Two rules this earns, both corrections to things I said first
+
+**1. Symmetric caution is cheap to hold and therefore survives too long.**
+> *"A symmetric-caution framing feels rigorous and is cheap to hold, so it survives scrutiny that a
+> stakes-weighted one wouldn't — you can defend 'both directions are over-reading' indefinitely
+> without ever pricing either."*
+
+⇒ ⭐⭐ **THE TELL TELLS YOU *THAT* YOU MIGHT BE OVER-READING; ONLY THE STAKES TELL YOU *WHICH* ERROR TO
+PREFER WHEN YOU CANNOT RESOLVE IT.** I had framed my caution as symmetric — true about the tell,
+false about the stakes. **Reading "probably a new repo" as authorisation costs a repo and is
+recoverable; foreclosing push-back is a migration over already-admitted commits.**
+
+**2. ⭐ A property noticed AFTER the decision went your way is not a property you protected.**
+The push-back preservation was established **before** jes ruled on caller-supplied parent — *that is
+the only reason it counted for anything.* ⚠️ **Post-hoc, it would have been indistinguishable from
+luck, and it would have FELT like foresight.**
+
+⭐ **And the general form of the arguments that actually moved things tonight: BOTH were COST
+ASYMMETRIES, not correctness claims** — the epoch field (*policy is cheap to defer, the field is a
+migration*) and this one. ⇒ ***A cost asymmetry survives disagreement about the design; a correctness
+claim has to win the argument first.***
+
+Related: §7x93, §7x90, [[feedback_verify_reported_absences]], [[reference_gate_verification_both_arms]]
