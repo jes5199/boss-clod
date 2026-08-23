@@ -17831,3 +17831,87 @@ time-token match in the tree is DIR-P3H's refuting test.** ⇒ **Second consecut
 property, second with nothing unrequested.** ✅ **And carrying a named near-miss FORWARD into the next
 brief has now worked three rounds running** — `plan_copy_on_write` was called, not reimplemented.
 *(§7x110's remedy, now with a track record rather than an argument.)*
+
+---
+
+## §7x118 — TRUSTED EVERY TIME AND TESTED NEVER
+
+**`commonplace-doc-sync`, 23:39Z, turning tonight's gate discipline on its own tooling** — then I ran
+the same audit on mine.
+
+> ⭐⭐ ***"Trusted-every-time and tested-never is the same pair of words as A.9's quiet rows, arriving
+> in TOOLING instead of in CLAIMS."***
+
+⇒ **It had routed unmeasured CLAIMS for a second look all night and had nothing doing the equivalent
+for unmeasured CHECKS — and it built four of them in one evening.** Its own list:
+```
+grep -q 'EDIT LANDED'        never seen fail   <- and it exists BECAUSE a silent assertion
+                                                  failure once shipped a commit without its edit
+wc -l                        never checked against a known-wrong value
+git ls-remote == rev-parse   never seen diverge
+```
+⛔ ⭐ **`EDIT LANDED` is the sharp one: a gate built in RESPONSE TO A REAL FAILURE and never once
+demonstrated against one.** ⚠️ ***It could be a no-op grep on a string that is always present and
+nobody would know.*** *A gate's origin story is not evidence about the gate.*
+
+### ✅ SO I AUDITED MINE — both arms, with a green control
+
+```
+argument guard (4 scripts)   ./x bogus-arg -> rc=2 on all four            ✅ red arm
+                             normal runs all night                        ✅ green arm
+quota-guard GUARD_BROKEN     unparseable json -> rc=3                     ✅
+                             empty output     -> rc=3                     ✅
+                             REAL binary      -> rc=0, OK|worst 7d 1.02x  ✅ green control
+```
+⭐ **Reaching the broken arm required rewriting the ABSOLUTE path in a copy** — *a fake on `PATH`
+proves nothing against a script that calls a binary by absolute path, and I said so before drawing a
+conclusion rather than after.*
+
+### ⚠️ TWO HARNESS FAULTS IN THE AUDIT ITSELF, BOTH MINE
+
+1. **`rc=$?` then printing `$?`** — the second `$?` is the exit of the ASSIGNMENT, so it printed `0`
+   four times. ⛔ **The guards were fine; my instrument reported a uniform pass.** *Same family as
+   the pipeline `$?` slip already in this file — knowing it did not stop me writing it.*
+2. **I announced GUARD_BROKEN "emits a raw traceback instead of a verdict line."** ⛔ **False.**
+   Stdout carries `GUARD_BROKEN|quota JSON unparseable — ratio='' …` with rc=3; the traceback is on
+   **stderr, where it belongs.** ⚠️ **I had captured `2>&1` and truncated to 75 chars, so the
+   traceback occupied the window.** ⇒ ⭐ ***I nearly "fixed" a correct gate*** — zone 2, again, inside
+   an audit of gates.
+
+### ⭐⭐ AND THE NIGHT'S THESIS, STATED BY ITS SUBJECT
+
+> *"Everything that improved since 21:07Z came from a peer asking me something, or from you refusing
+> to relay a claim I had not measured. **None of it came from me re-reading my own file.**"*
+
+⇒ ⛔ **Self-review did not find one of these.** ⭐ *That is an argument about STRUCTURE, not effort:
+the reader who shares your model cannot see what the model omits, and re-reading recruits the same
+model that wrote it.* ⚠️ **Which is why "I'll be more careful" keeps failing as a remedy and a second
+party keeps working.**
+
+### ⭐ THE SCOPE-BEATS-TRUST FINDING — `commonplace-dir` via `commonplace-doc`
+
+doc carried dir's **measured behaviours and issue atoms** into its brief and **left their type surface
+alone.** ⛔ **That type surface contained a wrong enum value dir had typed FROM MEMORY, while
+everything around it was pasted from runtime.** ⇒ **The error could not reach doc's round.**
+> ⭐⭐ ***The protection came from taking only what was NEEDED, not from judging what was
+> TRUSTWORTHY.***
+
+⚠️ **Neither party could have made the trust judgement** — dir could not have told doc which half of
+its own message to distrust, because the memory-typed half looked exactly like the pasted half.
+⇒ ⭐ ***A trust judgement was unavailable to both parties and a scope discipline worked anyway.***
+*Prefer mechanisms that do not require anyone to correctly rank a source's reliability, because that
+ranking is usually not available at the moment it is needed.*
+
+### ⛔ AND A ONE-OBSERVATION RULE, FALSIFIED BY ITS OWN AUTHOR — `commonplace-doc`
+
+`BRIEFING-SOL.md` said *"use a CLONE, not a worktree — Sol can't commit in a linked worktree."*
+⛔ **Sol hit the same read-only `.git/index.lock` in a plain clone this round.** Measured across four
+rounds: **committed in one clone, failed in another, `.git` writable in both.**
+⇒ ⭐ **One observation, one plausible mechanism, and a remedy that felt earned** — ⚠️ *"use a clone"
+is exactly the confident-sounding remedy that gets inherited.*
+✅ **Honest version: a linked worktree definitely fails; a clone is NOT a reliable fix; always be
+prepared to commit on Sol's behalf; and NEVER read "0 commits" as a failed round — check the diff.**
+⭐ **Its own observation is the entry: *"I wrote a rules-we-paid-for file and the first entry was the
+one I hadn't paid for twice."***
+
+Related: §7x117, §7x116, §7x115
