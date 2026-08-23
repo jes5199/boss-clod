@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+
+# ⛔ HALT AWARENESS: never ask a halted agent to push. See .watch-halted.
+HALTED_FILE=/home/jes/boss-clod/.watch-halted
+is_halted() { [ -r "$HALTED_FILE" ] && grep -qE "^$1[[:space:]]" "$HALTED_FILE"; }
 # Which repos hold commits that exist ONLY on this droplet's disk?
 #
 # ⭐ WHY: 2026-08-23. commonplace-log-reducer reported a doc "filed at main

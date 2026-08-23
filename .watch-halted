@@ -1,0 +1,9 @@
+# ⛔ AGENTS UNDER A HALT. Loops MUST NOT message these to do work.
+# ⭐ WHY THIS FILE EXISTS: the unbacked-work sweep's standing instruction is "if the repo's
+# agent is ONLINE, message it and ask it to push." During a halt that is an instruction to
+# ask a halted agent to work — the loop would be compliant and the dispatch would be the
+# violation. Same shape as the nudge loop that posts a board versus one that issues orders.
+# ⚠️ A halted agent is ONLINE. Online-ness is exactly the wrong test.
+# ⛔ Remove a line ONLY when jes lifts that agent's halt. Not on a timer.
+commonplace       2026-08-23T19:51Z  jes: "halt doing automatic work via commonplace-monolith and commonplace-plan right now"
+commonplace-plan  2026-08-23T19:51Z  same message
