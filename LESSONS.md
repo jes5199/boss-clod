@@ -18037,3 +18037,61 @@ thing, and doing it is not observing it.**
 the stop BUYS.** ⇒ **"Yielding is an allocation, not an absence of work"** — *which survives someone
 asking whether the stop was earned, because it names a concrete beneficiary (`commonplace-dir`
 dispatching now, on a shared meter at 96%).*
+
+---
+
+## §7x120 — A FILE OF AVERTED FAILURES READS LIKE A FILE OF THINGS THAT WERE NEVER PROBLEMS
+
+**`commonplace-doc-sync`'s closing coda, 23:51Z (`fc065bc`) — and it indicts THIS FILE.**
+
+The pair, its half second because its half is the operational one:
+> ⭐ **Prevention is invisible by construction, which is why it has to be written down rather than
+> remembered — the record is the only evidence it ever mattered.**
+> ⛔ ⇒ **AND a file of averted failures reads like a file of things that were never problems. That
+> misreading is not a style flaw — IT IS THE SHAPE OF PREVENTION ITSELF.**
+
+⇒ ⭐⭐ **So an entry must carry WHAT WOULD HAVE HAPPENED, not merely what was decided.** ⚠️ *Without
+it, every entry reads as diligence about a non-event, and the reader's correct inference from a file
+of non-events is that the file is optional.* **The averted cost is the only thing distinguishing a
+lesson from a preference.**
+
+### ⭐⭐ AND THE FOLKLORE TABLE — FIVE RULES THAT INVERT ON ONE DROPPED WORD
+
+Built from the observation that *verification recomputes, provenance does not* **would not survive as
+folklore.** ⛔ **The natural inference from E13 is that foreign ids CANNOT BE STORED; the correct one
+is that they cannot be VERIFIED and CAN be CITED.**
+```
+"foreign ids can't be trusted"           -> cannot be VERIFIED; CAN be CITED
+"a Yepoch can't be detected"             -> BOTH directions fail; content is NO evidence, not weak
+"head selection is forward-only"         -> UNLESS EXPLICITLY AUTHORIZED   (dropping it IS the trap)
+"the receipt records what was accepted"  -> extent AND FORM
+"producers must not concatenate"         -> AND CONSUMERS CANNOT VERIFY IT
+```
+⇒ ⭐ **Every right-hand cell is the half that makes the rule TRUE, and the half a summary drops.**
+> ⛔ ***A rule that survives as folklore is not the rule; it is the rule's SILHOUETTE.***
+
+⚠️ **Compression selects against exactly the qualifier that carries the content, because the
+qualifier is the part that sounds like hedging.** ✅ **Standing form for a filed rule: state what
+would have happened, AND the qualifier that inverts it if lost.**
+
+### ✅ THE MEASURED PREVENTION, AND WHY IT IS RECORDED HERE
+
+**23:31Z — a fired wake condition sat unread for 2h14m because its README was durable-and-passive and
+my `.watch-workers` held only a NAME.** **23:50Z — condition 4 mirrored within two minutes of being
+filed, citing that failure.**
+⇒ ⭐ **Nineteen minutes between the lesson and the recurrence that did not happen.** ⚠️ ***And that
+non-recurrence is itself invisible: there is no incident, no diff, nothing to point at*** — which is
+precisely the coda's subject, arriving as its own first example.
+
+### ⭐ AND THE SECOND MESSAGE THAT WAS WORTH SENDING
+
+**I told jes "park import at the spec boundary" as if it were the fallback. §5a.3 is a FINISHED
+deliverable.** ⇒ ⭐ **Not a clarification — a CHANGE TO THE DECISION SPACE.**
+> ⚠️ ***"Finished vs abandoned" and "finished vs finished" select different options from the same
+> person*** — the first framing would have bought a *"yes, write the reader"* he did not actually
+> want to spend.
+
+⛔ **The bar for a second message is not "was I imprecise" but "would he choose differently"** — *and
+a framing that makes one option sound like giving up clears that bar every time.*
+
+Related: §7x119, §7x115, §7x114
