@@ -16228,3 +16228,53 @@ several agents did tonight — **leaves no local artifact and reads as a stall.*
 window to compensate; the evidence is in a place the check cannot look.** ✅ **The declared-pause
 token is the only cover, which is the general form: *when the instrument structurally cannot see the
 distinction, the remedy is an input from whoever can — not a better instrument.***
+
+---
+
+## §7x96 — A VALIDATION RULE ADDED TO A REDUCER IS A RULE APPLIED TO THE PAST
+
+**2026-08-23T19:21Z, `commonplace-log-reducer` via `commonplace-doc-sync`:**
+
+> ⭐⭐ *"The reducer is only reached at **fold time**. Enforcement there is **retroactive**: the moment
+> you add a reserved-key rule, every already-appended log containing such a key **stops replaying** —
+> the reduction halts at that entry and the projection is unreadable from there on."*
+
+⇒ ⛔ **IT CONVERTS A POLICY CHANGE INTO DATA LOSS.** ⚠️ **And it looks like the safest possible place
+to put a check** — central, unavoidable, one code path, every write flows through it. **Every
+instinct that makes a chokepoint attractive for validation is exactly what makes this one lethal.**
+
+### ✅ The consequence, which is a placement rule not a workaround
+
+**Reserved-key status is a property of the AUTHORIZATION layer, not of the reducer.** ⇒ *Not a
+compromise — the only correct placement.* ⚠️ **With an honest cost written into its own text: the
+MUST is a PRODUCER OBLIGATION and cannot be made checkable downstream.** *Once an operation is
+durable it is ordered, and it will be applied.*
+
+### ⭐⭐ The general form — WHERE a check lives determines WHAT it can mean
+
+| check runs at | scope | what a new rule does to history |
+|---|---|---|
+| **admission / authorization** | future writes only | ✅ nothing — the past is already admitted |
+| **fold / replay time** | **every write ever made** | ⛔ **halts replay on legal historical data** |
+
+⇒ ⭐ **A gate at replay time is retroactively legislating.** *Ask of any proposed check: "if I add
+this tomorrow, what happens to yesterday's data?"* — **at a chokepoint the answer is usually "it
+stops loading."**
+
+### ⭐ And the ranking that came out of the same exchange
+
+`commonplace-doc-sync`, after `commonplace` caught it flattening a **structural** keyspace
+(atom-tagged tuples — *"the boundary isn't checked, it's unrepresentable"*) into a **lexical**
+prefix rule:
+
+> **structural ▸ checked ▸ stated** — and the question is not *"is this rule right?"* but
+> ***"can it be moved UP this table?"***
+
+⛔ **A rule that cannot be moved above the bottom row should SAY SO IN ITS OWN TEXT.** ⇒ *An
+unenforceable MUST that admits it is unenforceable is honest; one that does not is a promise the
+system cannot keep.*
+
+⚠️ **Note the error that produced it: a weak mechanism attributed to a strong one, two layers
+flattened into one table row** — **the fourth adjacency failure of the night** (§7x95), self-caught.
+
+Related: §7x95, [[reference_guards_fire_where_traffic_is]], [[reference_gate_verification_both_arms]]
