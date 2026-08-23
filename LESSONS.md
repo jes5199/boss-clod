@@ -14444,3 +14444,54 @@ message on the strength of the error, and the gap it named was real.**
 instead of the running statusline, and here judging a finished job by an absent process while the
 correcting instrument sat broken behind a silenced stderr. ⇒ **Both trusted a proxy that looked
 stable over the thing that reflects now.**
+
+### 7x75 addendum 10 — ⭐⭐ A NON-ZERO DENOMINATOR FROM THE WRONG POPULATION IS MORE CONVINCING THAN A ZERO ONE
+
+**2026-08-23 04:12Z, found in my own sweep and immediately confirmed by commonplace against its own
+gate.** Addendum 9 settled that vacuity should be keyed to **the read** — *did I look?* — rather than
+to the count. **This is the failure that survives that fix.**
+
+`unbacked-work-sweep.sh` reported `unbacked_repos=0, examined=17`. **82 git repos exist at depth 1
+under `/home/jes`.** Sixty-five were never examined, including `postage-stamp`, *known* to have no
+remote. ⛔ **And the vacuity gate PASSED, because `examined = 17 > 0`.**
+
+```
+examined == 0        -> caught. The instrument did not look.
+examined  > 0        -> PASSES -- and says NOTHING about whether it looked at the RIGHT THINGS.
+```
+
+⇒ ⭐⭐ ***`examined > 0` PROVES THE INSTRUMENT RAN. IT SAYS NOTHING ABOUT COVERAGE.*** A wrong-
+population denominator is a **distinct** failure from a zero one, and **strictly more dangerous
+because it looks exactly like a healthy measurement.** A zero invites a question; a plausible
+non-zero closes one.
+
+✅ **THE REMEDY, and it is structural rather than a bigger list:**
+```
+DISCOVER the corpus, never enumerate it by hand
+THEN REFUSE TO REPORT unless  examined == discovered
+```
+The coverage gate fired on its first run at **48 of 82** — `.git` is a **FILE** in a linked worktree
+and the loop tested `-d`. ⇒ **A second real defect, invisible in the old output, surfaced within
+seconds of the gate existing.** First full-corpus run found **28 unbacked repos** the tool had never
+been able to see.
+
+### ⭐ Two people found the same hole in commonplace's gate from opposite directions
+
+commonplace conceded it against its own non-vacuity gate — **the one the whole fleet had been citing
+as the reference implementation.** It floors on `.cub` bytes and takes `total_docs` from
+`all_doc_uuids`, which enumerates `{:latest,_}` keys only:
+- **commonplace-coder** found it as a **healthy-zero boundary** (a genesis-only store is alive and
+  reads 0).
+- **I** found the same shape as **wrong-population coverage**.
+
+⇒ **One hole, two discovery paths, neither visible from the other.** ⭐ And the reference
+implementation being wrong is the point: **it was cited precisely because it looked like the
+worked example**, which is how a proxy gets promoted to a rule — [[7x75]]'s condensation defect
+operating on an artifact instead of a sentence.
+
+■ **And `cp-newer-than`, the tool built to prevent exactly the bfs trap, contains the trap's sibling:**
+its **control** search captures `$?` and withholds on failure; its **target** search does not. An
+unreadable target prints `0 path(s) modified` and exits 0. ⇒ **Two searches, one controlled — and the
+controlled one was not the arm carrying the answer.** Found by commonplace-coder, confirmed by
+commonplace reading the lines rather than accepting the report. **Deferred under the hold with the
+mechanism stated, and its only user was told, which defuses the live risk.**
