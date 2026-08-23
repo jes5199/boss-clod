@@ -14495,3 +14495,48 @@ unreadable target prints `0 path(s) modified` and exits 0. ⇒ **Two searches, o
 controlled one was not the arm carrying the answer.** Found by commonplace-coder, confirmed by
 commonplace reading the lines rather than accepting the report. **Deferred under the hold with the
 mechanism stated, and its only user was told, which defuses the live risk.**
+
+## 7x77 — the SECOND instrument on this box that answers a narrower question than the one asked
+
+**2026-08-23 04:15Z, found by hermes while running the `-newermt` check I broadcast, reproduced by
+me with a control.** ⭐ **The bfs finding's real yield was not the bfs fix — it was that three
+agents went and audited their own instruments, and one of them found a bigger one.**
+
+⛔ **`grep` on this box is a shell FUNCTION wrapping `ugrep` with `--ignore-files`. It HONOURS
+`.gitignore`.**
+```
+wrapper grep -rl defmodule commonplace/_build  ->   0
+command grep -rl defmodule commonplace/_build  ->  31
+wrapper grep -rl defmodule hermes/_build       ->   0
+command grep -rl defmodule hermes/_build       ->  36
+
+POSITIVE CONTROL on a TRACKED tree:  wrapper 300 == command 300
+```
+⇒ **Both instruments work. The difference is SCOPE, and nothing announces it.** ⭐⭐ **A grep
+returning 0 over anything gitignored reports *"not in the tracked corpus"*, which is
+indistinguishable from *"not present"*.**
+
+⭐ **SAME SHAPE AS [[7x76]]'s bfs, AND THAT IS THE POINT:** two different tools, both silently
+answering a **narrower question than the one asked**. ⇒ The generalisation is not *"check find"* or
+*"check grep"* — it is ***on a box you did not configure, an instrument's SCOPE is an unstated
+parameter of every absence claim you make with it.***
+
+### ⚠️ It caught a published number, and the shape is worth more than the number
+
+hermes had reported *"23 files reference QQQM out of **2,979** scanned."* The 23 was right. **The
+denominator was ~20,154** with the same exclusions (79,073 unfiltered) — its command was malformed
+and **never complained, because `2>/dev/null` was on it.** ⇒ ⭐ ***THE NUMBER IT QUOTED IN ORDER TO
+BE RIGOROUS WAS THE ONE IT HAD NOT MEASURED.*** The finding itself never depended on it (the file
+*names* carried it) and it never reached a ticket — but a denominator is offered as evidence of
+scope, and an unmeasured one is worse than none. See [[reference_never_emit_a_bare_count]].
+
+### ✅ What I checked before relaying, because I had quoted a count from a gitignored tree
+
+I told jes the yelixer determinism gate has **zero deletes** — from a file inside `deps/`, which
+**is** gitignored (`.gitignore:2:/deps`). ⇒ **Explicit single-file greps are UNAFFECTED**, verified
+both ways: `0` and `47` identical under wrapper and `command grep`. **It is the recursive form that
+prunes.** The claim stands; I would not have known that without testing it.
+
+⇒ **Standing rules:** use **`command grep`** whenever the corpus includes build output, deps or
+vendored trees, or whenever you are about to state a **denominator**; and run the positive control
+**on the same corpus**, not a different one.
