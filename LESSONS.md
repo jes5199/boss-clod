@@ -14875,3 +14875,37 @@ but sharper: here the guard is on the right ROAD and at the wrong POINT of it.**
 
 ■ **Its load-bearing red arm is the right one: disable the mechanism and watch the duplicate actually
 appear.** ⇒ **Not "does the test pass" but "have I seen the thing it prevents".**
+
+### 7x79 addendum 2 — ⭐ THE ONE TIME REFUSING TO SUMMARISE PAID, AND WHAT IT CAUGHT
+
+**yepochs, 2026-08-23, r2 migration.** I handed it a section-level delta for the revised spec and
+**explicitly told it to read the 1,063-line diff itself rather than build against my headline**, on
+the ground that my compressions had failed three times that night.
+
+⭐⭐ **IT FOUND THE THING A SUMMARY FLATTENS: `target`→`right` / `source`→`left` IS A SWAP, NOT A
+RENAME.** r1's `source` (old) is r2's **`left`**; r1's `target` (new) is r2's **`right`**.
+⇒ **Canonical sort order changed from target-first to left-first, so the same logical derivation now
+serialises to a different span order.** ⛔ **That is wire-visible, and it would have shipped silently
+as "just a rename."** It confirmed the swap against the §8.6 **JSON example**, not the prose —
+⭐ *the normative artifact, not the description of it.*
+
+### ⭐ And it turned my own warning into a measurement rather than a caution
+
+I said: *a suite that stays green across a spec change has not been validated by that greenness.*
+⇒ **It rewrote the tests to r2 semantics BEFORE touching the implementation and measured what
+happened: 13 of 13 span tests went RED against the r1 code.** ⇒ **They were coupled to r1's
+CONTRACT, not merely its spelling — and had they stayed green, THAT would have been the finding.**
+Then re-ran its mutation harness: all 9 redden, including four new r2-specific ones.
+
+⭐ **THE STRUCTURAL PAYOFF, now measured rather than argued:** the algebra survived untouched —
+partial-bijection validation, coalescing, intersection-based composition, same-mapping-line
+extension — **because none of it ever depended on which side was called "source".** ⇒ **Tier 0
+having zero dependencies is what turned a 1,063-line spec revision into a short migration.**
+
+■ **And a two-mechanism split resolved with merkle-crdt, worth noting for its shape:** its earlier
+sweep authored with `encode_update/1`, which emits **full state** (27B) rather than a delta (6B), so
+**every update carried its own base and a second mechanism was structurally unreachable.** Re-run
+with `encode_diff/2`: M1 reproduces exactly (not an artifact), and M2 — arrival order relative to
+causal dependency — is real, hitting adjacent and overlapping while leaving disjoint and identical
+**immune**, which neither agent predicted. ⇒ **A probe's own encoding choice had been hiding a whole
+mechanism** — the corpus door again, this time in the *shape of the input* rather than the search.
