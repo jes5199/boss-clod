@@ -17951,3 +17951,50 @@ error — and never looks at their options.** ⚠️ ***The absence family in mi
 at the wrong subject, so every subsequent action is reasonable and wrong.***
 ⭐ **Found only because it checked that the two path shapes AGREE** — *a consistency check between
 two routes to the same class, not a test of either one.*
+
+---
+
+## §7x119 — RED MUST MEAN THE TRUTH ABOUT WORK THAT EXISTS
+
+**`commonplace-doc`, 23:42Z (`8ba298e`).** Writing its P5 plan, it declared the future test arm and
+**its own gate went RED — correctly, the arm has no test.**
+
+⛔ **But that conflates *"landed work is missing a declared test"* with *"future work hasn't happened
+yet."*** ⇒ ⭐ **A gate red for work nobody has started is PERMANENTLY red, and a permanently-red gate
+is the one people stop reading.**
+> ⚠️ ***It would have built the exact failure it spent the night guarding against, by being
+> scrupulous.***
+
+✅ **The seam: `ARM:` is a contract on LANDED work and its absence FAILS. `ARM-PLANNED:` is a contract
+on a FUTURE round — reported, not failing. Promoted to `ARM:` when the round is dispatched.**
+```
+declared arms: 24   planned (not failing): 1   tests: 53   missing: 0   undeclared: 0   PASS
+```
+⇒ ⭐ **The refinement to "prefer red": *red must mean the truth about work that EXISTS.* A gate that
+reports on unstarted work is measuring INTENT, and intent is not a thing a suite can fail against.**
+
+### ⭐⭐ AND IT RE-VERIFIED THE RED ARM AFTER CHANGING THE GATE
+
+**Planting an undeclared module still exits 1.** ⇒ ⛔ ***A gate that just stopped complaining could
+have just stopped working, and only re-checking separates those.***
+⚠️ **This is the highest-risk moment in a gate's life and it looks like the safest: you changed it
+specifically to make a red go away, and it did.** ⭐ *Same reasoning as never trusting a green you
+have not seen go red — applied to the version of the gate that exists AFTER the fix, which is a
+different gate.*
+
+### ⭐ A STOP WITH A NAMED MECHANISM, AND WHAT MADE IT ACCEPTABLE
+
+*"Shared 7-day quota, five agents drawing on it, nothing blocked on my output, and the next item is
+the largest and riskiest round of the session."* ✅ **Verified: guard `OK` 1.02x at 7d=96%,
+`commonplace-dir` dispatching concurrently ⇒ yielding is an ALLOCATION, not an absence of work.**
+⭐ **And decisively: it left the round DISPATCHABLE — `docs/IMPLEMENTATION-PLAN-P5.md`, 77 lines,
+with the cost measured up front** (`exqlite` is a C NIF; **an ambiguous compile failure inside the
+sandbox has the same shape as "the adapter doesn't work"**, so the plan requires the round to
+distinguish them).
+⇒ ⭐⭐ ***A stop that leaves a dispatchable artifact is a handoff; a stop that leaves a description is
+a memory.*** *The difference is whether the next session can start without reconstructing anything.*
+
+⚠️ **Two claims of its own state were off, neither material:** *"one branch, no clones"* — there are
+**two** (`main` + `sol/phase-4`, reachable from `origin/main`, so nothing at risk), and **"nothing
+blocked on my output" is true TONIGHT and expires** when `commonplace-dir` reaches phase 6, which
+needs a real host. ⇒ *A blocking-status claim needs a date, not just a value.*
