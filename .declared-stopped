@@ -1,0 +1,13 @@
+# ⭐ Workers that have DECLARED A STOP with a mechanism I VERIFIED and ACCEPTED.
+# ⛔ WHY THIS FILE EXISTS: 2026-08-23T23:53Z. commonplace-doc stopped dispatching at
+# 23:42Z naming a real mechanism (shared 7d meter at 96%, commonplace-dir dispatching
+# concurrently, next round the largest of the session). I verified it and accepted.
+# ⇒ Then it replied to my message at 23:45:31Z, and THAT turn carried no 'nothing
+# queued', so stall-sweep flagged it STALLED. Nudging would have RE-DISPATCHED an agent
+# that deliberately yielded quota — undoing an accepted decision every five minutes.
+# ⚠️ THE PHRASE-BASED PAUSE CHECK IS PER-TURN AND A STOP IS A STANDING STATE. A reply to
+# a message is not a retraction of a stop, and the last turn is the wrong place to look.
+# ⛔ NOT SUPPRESSION: stall-sweep prints STOPPED| for these, so they stay VISIBLE and a
+# stale entry is readable rather than silent. Silence is what an unwatched worker looks like.
+# format: name|release condition|note
+commonplace-doc|jes unhalts the monolith, OR dir reaches phase 6 (needs a real host, doc's), OR quota 7d resets 2026-08-24T09:59:59Z|stopped 23:42Z, mechanism verified; P5 plan written and DISPATCHABLE at docs/IMPLEMENTATION-PLAN-P5.md (77 lines); main 8ba298e == origin, clean

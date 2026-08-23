@@ -18095,3 +18095,37 @@ deliverable.** ⇒ ⭐ **Not a clarification — a CHANGE TO THE DECISION SPACE.
 a framing that makes one option sound like giving up clears that bar every time.*
 
 Related: §7x119, §7x115, §7x114
+
+---
+
+## §7x121 — A DECLARED STOP IS A STANDING STATE; THE PHRASE CHECK IS PER-TURN
+
+**2026-08-23T23:53Z, mine.** `commonplace-doc` stopped dispatching at 23:42Z with a mechanism I
+**verified and accepted**. It then **replied to my message at 23:45:31Z**, and that reply carried no
+*"nothing queued"* ⇒ **`stall-sweep.sh` reported it STALLED.**
+
+⛔ **A nudge would have RE-DISPATCHED an agent that deliberately yielded quota to a peer**, undoing an
+accepted decision — **and it would have done so every five minutes.**
+> ⭐⭐ ***A reply to a message is not a retraction of a stop, and the LAST TURN is the wrong place to
+> look for a STANDING decision.***
+
+⚠️ **The two instruments disagreed about the same worker**: `log-pair-watch.sh` asks the detector for
+`DECLARED PAUSE` and prints PAUSED; `stall-sweep.sh` never asked. ⇒ *Two watchers, one state, no
+shared record — and the cheaper one was authoritative because it ran more often.*
+
+✅ **Fixed with a PERSISTENT record (`.declared-stopped`), not a phrase**, because the phrase is a
+property of a turn and the stop is a property of the agent. **Both arms:**
+```
+GREEN  doc listed      -> STOPPED|... |release: <condition>   stalled=0
+RED    list removed    -> STALLED|commonplace-doc|...          stalled=1
+```
+⭐ **NOT suppression — it PRINTS `STOPPED|` and the RELEASE CONDITION.** ⚠️ *A silently skipped worker
+is indistinguishable from one nobody is watching, and a stop with no printed release condition
+becomes permanent by inattention.* **Every entry carries what would end it.**
+
+### ⭐ AND THE COST THIS AVERTED, stated because §7x120 requires it
+
+**Without the record: a nudge every 5 minutes to an agent that had stopped on a verified mechanism,**
+⇒ **restarting the largest and riskiest round of the session against a shared meter at 96% with
+`STOP_PCT` 99 five hours out** — **and each nudge would have looked like the loop working.**
+*The loop's own output would have been the evidence that nothing was wrong.*

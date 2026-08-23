@@ -101,7 +101,23 @@ for w in "${WORKERS[@]}"; do
       if [ -n "$grace" ]; then
         echo "COMPLETED|$w|${out#*|*|} · committed ${grace}s before turn end — NOT nudged this cycle"
       else
-        stalled=$((stalled+1)); echo "STALLED|$w|${out#*|*|}"
+        # ⛔ 2026-08-23T23:53Z — a DECLARED STOP is a STANDING STATE; the phrase check is
+    # PER-TURN. commonplace-doc stopped at 23:42Z with a verified mechanism, then REPLIED
+    # to a message at 23:45:31Z, and that reply carried no 'nothing queued' — so it read as
+    # STALLED and a nudge would have re-dispatched an agent that deliberately yielded quota.
+    # ⚠️ A reply to a message is not a retraction of a stop, and the LAST TURN is the wrong
+    # place to look for a standing decision.
+    # ⭐ NOT SUPPRESSION — these print STOPPED| and stay visible, because a silently skipped
+    # worker is indistinguishable from one nobody is watching. The release condition prints
+    # too, so a stale entry is READABLE rather than inert.
+    _stopfile=/home/jes/boss-clod/.declared-stopped
+    _stopline=""
+    [ -r "$_stopfile" ] && _stopline=$(grep -v '^#' "$_stopfile" | grep "^${w}|" | head -1)
+    if [ -n "$_stopline" ]; then
+      echo "STOPPED|$w|declared stop, mechanism accepted — NOT nudged|release: $(echo "$_stopline" | cut -d'|' -f2)"
+      continue
+    fi
+    stalled=$((stalled+1)); echo "STALLED|$w|${out#*|*|}"
       fi
       ;;
   esac
