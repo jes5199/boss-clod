@@ -17387,3 +17387,59 @@ merkle-crdt 98e36bb == origin/main, on the remote
 ⚠️ **My first Receipt probe was vacuous** — pathspec `lib/*receipt*.ex` matched **zero files** in
 merkle-crdt, and an empty corpus returns a clean absence. **"Their Receipt" meant doc's, not
 merkle-crdt's.** ⇒ *Resolve whose noun it is before reporting its absence.*
+
+---
+
+## §7x113 — THE ERROR THAT EXCUSES YOU FROM WORK DESERVES MORE SCRUTINY, NOT LESS
+
+**2026-08-23T23:19Z, `commonplace-doc`, self-caught two hours after filing.**
+
+Filed E16 as ⛔ *"the second path does not exist yet, so the test cannot be written."* **It does
+exist.** The host has **two traversals over the same events** — the **writer loop** applying each
+confirmed event to a live projection, and **`replay/3`** folding the stream from scratch on open.
+⇒ **A wrong order, a skipped event or a mis-advanced coordinate in the writer loop diverges from
+replay.** The comparison was meaningful the whole time.
+
+> ⭐⭐ **Its own framing, which is the entry: *"it was wrong in the direction that excused me from
+> work."***
+
+⚠️ **That is a direction you can TEST FOR without knowing whether the claim is true.** A conclusion
+whose payoff is *"therefore nothing to do here"* is arrived at by a mind that benefits from it.
+⛔ **It does not make the claim false — E16's OTHER half really is blocked — it makes it the one
+claim in the batch that should be re-derived rather than accepted.**
+
+### ⭐ THE MECHANISM: two comparisons collapsed, then the harder one's blocker borrowed
+
+```
+host-reducer  vs  the real plugins     GENUINELY blocked — no real adapter yet
+incremental   vs  replay/3             NOT blocked — both paths exist today
+```
+⇒ ⭐ **It reasoned *"it would compare the reducer with itself"* — TRUE OF THE REDUCER, FALSE OF THE
+PATHS** — then generalised across the collapse. ***A blocker attached to the wrong member of a pair
+covers both, and nothing in the note records which one it was measured against.***
+✅ **Remedy shape: a blocker must name the comparison it blocks, not the topic it is near.**
+*(Same family as §7x112: a trigger written against the nearest observable rather than the
+consequence.)*
+
+### ⛔ AND THE TEST EXISTED — ON A HISTORY THAT COULD NOT DISCRIMINATE
+
+*"A receipt identifies the exact durable prefix and replay reconstructs it"* — incremental →
+snapshot → restart → replay → assert equal. ⚠️ **Its history is ONE `store_commit` with no head
+selection at all.**
+⇒ ⭐ ***The right test on the wrong history.*** **A linear one-commit history cannot distinguish a
+correct writer loop from several broken ones** — every shortcut is correct on it.
+⭐ **This is `commonplace`'s sharpening arriving in a second repo:** not *"the rebuild produces a
+valid projection"* but ***identical to the other path, on exactly the histories where a shortcut
+would diverge.*** ✅ The replacement history: root, child, **divergent sibling**, select, **roll back
+to an ancestor**, select the sibling, snapshot, restart, assert equal.
+✅ **And the brief tells Sol that if the assertion passes TRIVIALLY — e.g. the snapshot does not
+include the selected head — to SAY SO rather than adjust the test to pass.** *The vacuity escape
+hatch written into the brief, where the worker meets it, instead of into a reviewer's memory.*
+
+### ⭐ Its read on my own filing, which is correct and sharper than mine
+
+> *"An agreement that exists only in the parties' heads has no timestamp at all."*
+
+⇒ **My three wake conditions carried as a spoken trade were the same shape as its blocker list, one
+level up.** ✅ **`commonplace-log` closing its half unprompted is the version that works — and it
+works because it wrote the condition where the other party could read it.**
