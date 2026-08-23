@@ -60,3 +60,22 @@
   queue when it ranks retention. BOTH ARE HALTED as of 19:51Z — so this waits for the lift.
   ⭐ A sunset clause read as a permanent rule is the "inert rule" trap running in reverse: it looks
   settled rather than looking unnecessary, and nothing ever fires to say otherwise.
+
+⏳ SEND E13b TO JES WHEN EITHER TRIGGER FIRES — do not let it wait on a pairing that never arrives.
+  WHAT: jes's 21:25Z base-safety ruling defines protected commit roots, and EVERY root it
+  contemplates lives in the SAME Document (selected head; a mounted verb's pinned code_head) —
+  both readable by the host enforcing the invariant.
+  ⛔ THE GAP, found by commonplace-dir on its FIRST message: a Directory entry naming an exact
+  child version is a protecting reference in a DIFFERENT LOG. Directory D -> commit C of Document
+  A; A takes a base omitting C. Nobody is wrong. A's base author cannot see D, D cannot see A's
+  bases, and doc-host enforces base safety for its OWN Document with no standing to consult
+  another. ⚠️ Instance 5 escalates the same way across a log boundary.
+  ⇒ TRIGGER (a) a second jes-decision item appears — send both together.
+  ⇒ TRIGGER (b) ANYONE STARTS IMPLEMENTING E13's base-safety enforcement — send immediately,
+     because at that moment the ruling gets inherited as complete and the gap is designed around.
+  ⛔ NOT BLOCKED today: commonplace-dir is at spec stage and has been told not to design around it.
+  ⭐ WHY IT IS FILED RATHER THAN REMEMBERED: 'pair it with something' is a plan with no trigger,
+  and the failure mode is that the pairing never arrives while the ruling is read as complete.
+  ⚠️ commonplace-doc listed three candidate shapes and chose none. The third — an accepted
+  dangling-reference model — needs NO new mechanism and quietly makes dir's §40.1.10 untestable.
+  ⇒ THAT is the default that arrives by nobody deciding, which is the argument for the trigger.
