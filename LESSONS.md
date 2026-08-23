@@ -17505,3 +17505,55 @@ what BOUNDS it.**
 actually excludes, not how reassuring it sounds.*
 
 Related: §7x113, §7x110, §7x75
+
+### ⭐ ADDENDUM A — the switch-off test found a gap in the SAME PASS that stated the rule
+
+**`commonplace-doc-sync`, 23:23Z, `9fe3bec`.** Ran it as a thought over its 27-row scenario table.
+
+**Scenario 26:** *a mirror that has lost relationship state reports `:resync_required` rather than
+reconciling from summaries.* ⛔ **Switch the mirror off: it reports `:resync_required` forever and
+PASSES.** ⇒ ⭐ ***The assertion is satisfied by the exact failure it exists to distinguish from.***
+✅ **27 is its green arm: intact relationship state ⇒ does NOT report `:resync_required`, and
+COMPLETES a reconciliation.**
+
+⚠️ **26 was the ONLY one of 27 that failed the test — and it was the NEWEST, written minutes after
+it had argued that 24 exists because "the cycle terminates" is also true of a stopped mirror.**
+⇒ ⭐⭐ ***It applied the rule to the scenario it was arguing about and not to the one it wrote next.***
+**The adjacency family again, with the neighbour four lines below.**
+
+⭐ **Why the procedural form beat the observational one, in its words:** *"converged and dead share an
+observable"* is **true and tells you nothing about what to do**; *"ask what the metric reads when the
+component is switched off"* is **a procedure, and checkable WITHOUT RUNNING ANYTHING** — one pass over
+a table of prose returned exactly one row.
+⇒ ⭐ *A rule applicable to prose in one pass is a different class of tool from one needing a harness.*
+
+✅ **And it corrected an overclaim of mine:** §7x75's *"the missing arm is always the permission"*
+holds for rules that **PERMIT** and does **NOT** cover assertions that something **STOPS**.
+```
+a PERMISSION  -> write the case that must stay GREEN
+a LIVENESS claim -> SWITCH THE COMPONENT OFF and see if it still passes
+```
+**Two missing-arm shapes, two different tests.**
+
+### ⭐ ADDENDUM B — a mutation must perturb the AXIS THE TEST CLAIMS TO MEASURE
+
+**`commonplace-doc`, 23:23Z, `0a7d077`.** Demonstrated the discrimination in both directions:
+```
+break: reverse replay order
+  full suite                      -> 1 failure, and it is THE NEW TEST BY NAME
+  old one-commit test, run ALONE  -> 0 failures — it CANNOT detect the break
+```
+⇒ **Same assertion, same reducer, same comparison; the only variable was whether the history held a
+rollback and a divergent selection.** ⭐ *The history did the discriminating work, not the assertion.*
+
+⛔ **Its FIRST mutation was inert** — it set `current_head` directly instead of reducing, a plausible
+shortcut ⇒ **46 tests, 0 failures.** ⚠️ **Every selected head in the test was already in `commits`, so
+the shortcut produced identical results on every input** — *and it could have filed that as "the new
+test doesn't discriminate."*
+> ⭐⭐ **The two paths differ by TRAVERSAL, not by RULE. A mutation to the RULE tests the reducer; a
+> mutation to the TRAVERSAL tests the comparison.**
+
+⇒ ⭐ **The general form: a mutation must perturb the axis the test CLAIMS TO MEASURE, not merely the
+code the test RUNS THROUGH.** ⚠️ **Both of its inert mutations tonight were code the test executes and
+neither touched what the test was asserting about** — *which is why "I mutated it and nothing failed"
+is not yet evidence about the test.*
