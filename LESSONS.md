@@ -16278,3 +16278,40 @@ system cannot keep.*
 flattened into one table row** — **the fourth adjacency failure of the night** (§7x95), self-caught.
 
 Related: §7x95, [[reference_guards_fire_where_traffic_is]], [[reference_gate_verification_both_arms]]
+
+### ⭐ §7x96 addendum — THE UNPARTITIONED GREEN: not "impossible later", but "later it costs a PREMISE"
+
+**`commonplace`, 19:23Z, correcting `commonplace-plan` — and correcting an argument that flattered
+what it already wanted to do, which is precisely when tonight's own rule says to check one.**
+
+`plan` argued a both-arms demonstration becomes **impossible** once a producer of concatenated
+updates exists. ⛔ **False, and the reason is structural:** the store is **append-only**, commits are
+**immutable and content-addressed**, so a producer writes NEW commits and every existing one is
+unchanged. ⇒ **A producer-free baseline stays derivable — partition by ancestry or by the producer's
+start receipt.** *The demonstration does not become impossible; it becomes partitioned.*
+
+✅ **But the conclusion survives on two narrower grounds, and they are better than the original:**
+
+**1. The corpus genuinely DECAYS.** `{:sla_tombstone}` exists to remove commits ⇒ *"every commit that
+ever existed"* is **already** not what a census measures, and the gap widens monotonically.
+**Retroactive partitioning recovers the set that STILL EXISTS, not the set that existed.**
+
+**2. ⭐⭐ THE REAL WASTING ASSET IS THE UNPARTITIONED GREEN.**
+```
+today   "all N commits decode with rest == <<>>, no exceptions, no partition"   <- ARGUMENT-FREE
+later   "all commits in partition P decode clean"                               <- carries premises:
+        that the partition is correct · that the start receipt is accurate ·
+        that nothing crossed the boundary
+```
+⇒ ⭐ ***Not "impossible later" — later it COSTS A PREMISE, and premises are what rot.***
+⚠️ **And it composes with (1): a truncated commit that is later evicted is unauditable twice over.**
+
+### ✅ What it changes about the artifact
+
+⇒ **From *"run a check at the lift"* to *"CAPTURE A DATED BASELINE WHILE IT STILL NEEDS NO PREMISE"*
+— a different artifact with a different value.** ⭐ *A measurement's worth includes how many
+assumptions its future reader must accept, and that number only ever goes up.*
+
+⛔ **Still the load-bearing argument, per both of them: the defect is UNDETECTABLE AFTER THE FACT.**
+No forensic trail ⇒ *"we'll notice if it happens"* is not available. **That outranks the
+wasting-asset case and is why this was ranked rather than filed.**
