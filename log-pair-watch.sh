@@ -137,7 +137,15 @@ for w in "${WORKERS[@]}"; do
       is_retired "$w" && detail="$detail ⚠️ marked RETIRED but is WORKING — remove it from .watch-retired"
     fi
   elif printf '%s' "$pane" | grep -qE '^❯[[:space:]]*$|^[[:space:]]*❯[[:space:]]*$'; then
-    if is_blocked "$w"; then
+    # ⭐ ONE SOURCE OF TRUTH for "is this idle expected?". The detector owns the
+    # declared-pause protocol (agent emits the literal token "nothing queued"); the
+    # pane watch must not form its own opinion, or the two instruments disagree about
+    # the same worker — which is exactly what happened at 08:53Z, one hour after I
+    # wrote that they must not. ⇒ Ask the detector rather than re-deriving.
+    if [ -x /home/jes/boss-clod/turn-end-detector.sh ] \
+       && /home/jes/boss-clod/turn-end-detector.sh "$w" 2>/dev/null | head -1 | grep -q 'DECLARED PAUSE'; then
+      state=PAUSED; detail="agent DECLARED a pause ('nothing queued'); not a finding — quiet ${still_min}m"
+    elif is_blocked "$w"; then
       bl=$(blocked_line "$w"); bts=${bl%% *}; brest=${bl#* }
       bage="?"
       bsec=$(date -u -d "$bts" +%s 2>/dev/null) && bage="$(( (now - bsec) / 60 ))m"
