@@ -4,10 +4,15 @@
 # — the pane watch resolved 5 while the stall sweep examined 4, and a stall-sweep
 # blind spot is silent by construction: examined=4|stalled=0 looks exactly like health.
 # ⛔ A worker missing from a list is not a fault anywhere; it is simply never asked about.
+# ⛔ NAMES ONLY, ONE PER LINE. Both consumers treat the WHOLE LINE as the worker
+# name. 2026-08-23T23:33Z I appended "name|WAKE: ..." here and stall-sweep took the
+# entire blob as one repo name: examined dropped 7 -> 6 and commonplace-doc-sync was
+# silently unwatched. ⭐ The edit made the file MORE informative and LESS functional.
+# ⇒ Wake conditions live in .wake-conditions and in each repo's own README.
 commonplace-log
 commonplace-log-reducer
 commonplace-merkle-crdt
 yepochs
 commonplace-doc
-commonplace-doc-sync|WAKE: (1) commonplace-log prepare_append/commit_prepared lands — ⭐ SATISFIED at 19268f4 (on origin). ⚠️ TIMELINE, corrected: its README was written 21:07:28Z and the surface landed 21:16:06Z — NINE MINUTES LATER, so it was NOT already true when filed; it fired almost immediately and then sat unnoticed for 2h14m. It is a CHECK not a BLOCK; (2) a published shape changes — commonplace-doc's head-selection command or event, since v0.2 §5's seam rule holds only while from/to mean the same thing on both sides; (3) jes rules on E1's merge-base schema. ⚠️ MIRRORED FROM ITS README 23:31Z — my side previously held the NAME ONLY, which is not a wake condition. Its README is the durable copy; this is the waker's half.
+commonplace-doc-sync
 commonplace-dir

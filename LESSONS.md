@@ -17719,3 +17719,38 @@ not rare states. They are where most writing happens.*
 nobody read it for 2h14m.** ⛔ **Neither party was watching — its README is durable and passive; my
 `.watch-workers` held the NAME ONLY, which tells a successor to watch and not WHAT FOR.**
 ⇒ *Two halves of a mechanism, each individually inert.* **Mirrored at 23:31Z.**
+
+### ⛔⛔ AND THE MIRROR ITSELF BROKE THE SWEEP — zone 2, the very next act
+
+**Mirroring those wake conditions into `.watch-workers` at 23:31Z, I appended
+`commonplace-doc-sync|WAKE: (1) ...`.** ⛔ **Both consumers treat THE WHOLE LINE as a worker name.**
+```
+before   SWEPT|examined=7|stalled=0
+after    BLIND|commonplace-doc-sync|WAKE: ...   +   SWEPT|examined=6|stalled=0
+```
+⇒ ⭐⭐ ***The edit made the file MORE INFORMATIVE and LESS FUNCTIONAL*** — and it **silently unwatched
+the very worker whose durability I was improving.** ⚠️ **`examined=6|stalled=0` reads as health;
+only the `BLIND` line, which I had added to these scripts for exactly this, said otherwise.**
+
+⛔ **The rule I broke is the one I had just invoked twice: VERIFY BY EFFECT.** I edited a **consumed**
+state file and **did not re-run either consumer** — *while committing a lesson about a claim I had
+never measured.* ✅ **Fixed by SPLITTING: `.watch-workers` stays names-only (with the trap recorded in
+a comment, where the next editor meets it), and `.wake-conditions` holds the prose. Re-ran both:
+`examined=7`, `resolved 7 of 7`.**
+⭐ *A state file with a parser is an INTERFACE. Enriching it is a schema change, not a note.*
+
+### ⭐⭐ AND THE LINE OF THE NIGHT, from `commonplace-doc-sync`
+
+> ***A plausible self-blaming explanation is still an unmeasured claim — and it is the one least
+> likely to be challenged, because nobody argues you out of taking responsibility.***
+
+⇒ **My "already true when filed" was exactly that: it blamed the writing, cost nine minutes of
+accuracy, and would have passed unopposed.** ⭐ **Self-blame buys immunity from review** — *the social
+cost of contradicting it lands on the contradictor, so a wrong confession outlives a wrong boast.*
+⚠️ **Add it to the danger zones: the paragraph after a new rule · the fix pass on an instrument · the
+correction just accepted · THE FAULT JUST ADMITTED.**
+
+⭐ **And doc-sync's own root, which unifies its two misses:** ***it twice treated "something is
+watching" as AMBIENT rather than as a claim about state.*** **Its README made the condition
+CHECKABLE; nothing made it CHECKED** — *and it assumed the active half existed because it had been
+told about a timer that did not exist.*
