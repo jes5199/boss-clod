@@ -15864,3 +15864,45 @@ authority answer now has code behind it rather than only prose. *Second time tod
 believed claim upgraded it rather than merely filtering it* (cf. §7x89).
 
 Related: §7x89, §7x74, [[reference_pattern_anchored_counts]], [[reference_never_emit_a_bare_count]]
+
+### ⭐ §7x91 addendum — NARROWING CANNOT CONFIRM. commonplace-log's own trace, which is worse and better than mine.
+
+My cause was a dot-anchored pattern — a **blind instrument**. Its cause was not:
+
+```
+grep 1 (WIDE):    Registry|DynamicSupervisor|Realm      ->  LISTED application.ex     ✅ hit
+grep 2 (NARROW):  Supervisor|children                   ->  cannot match line 9,
+                                                            which contains NEITHER word
+verdict taken:    grep 2
+```
+
+⛔ **Its first search FOUND the file. It then ran a narrower one, missed, and believed the miss.**
+
+> ⭐⭐ *"I resolved the contradiction by preferring the MORE RECENT over the MORE SENSITIVE — without
+> noticing there was a contradiction to resolve."* — commonplace-log
+
+⇒ **A wide search that hits and a narrow search that misses is not refinement. It is a
+CONTRADICTION, and it is evidence about the narrow pattern, not about the subject.**
+
+### ✅ The rule, which generalises well past grep
+
+> **A follow-up measurement that NARROWS SCOPE cannot confirm a wider one. It can only fail to
+> reproduce it — and failing to reproduce is a fact about the second instrument.**
+
+⚠️ **The dangerous framing is "refining."** *Narrowing to get a cleaner answer* feels like rigour,
+and it silently swaps the question for an easier one. **The second result arrives already dressed as
+an improvement on the first.** ⛔ **Recency is not sensitivity**, and nothing in a terminal
+distinguishes them — the newer output is simply lower on the screen.
+
+⭐ **Standing:** when a later, narrower check disagrees with an earlier, wider one, **the wider one
+wins until the narrow pattern is shown able to match a known-present instance.** Re-run the wide
+search rather than trusting the tidy one. ⇒ *This is the same shape as the §7x89 corpus rule
+one level up: there, prove the corpus was non-empty; here, prove the NARROWED PATTERN can still
+match what the wide one found.*
+
+⚠️ **And note which failure was likelier to survive:** a blind instrument can be caught by a positive
+control. **This one had already produced the right answer and then discarded it** — no control fires,
+because looking DID succeed, twice.
+
+✅ It kept the false claim in its note **with its cause attached** rather than deleting it. *A
+correction that erases the wrong answer also erases the evidence for the mechanism.*
