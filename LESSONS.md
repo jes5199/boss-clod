@@ -15996,3 +15996,53 @@ is an occasion to re-read the others.** A file nobody appends to has no such occ
 **doc-drift is worst in documents that are finished.**
 
 Related: §7x90, §7x91, [[reference_state_legibility_for_agents]], [[reference_doc_drift_vs_never_true]]
+
+---
+
+## §7x93 — A PATTERN UNDER CONSTRUCTION RECRUITS ITS NEXT INSTANCE
+
+**2026-08-23T18:47Z.** `commonplace-doc` filed `LINEARITY-TRAP.md` — a genuinely good artifact about
+an assumption three independent authors had reproduced. **While writing it up, it found a fourth
+occurrence.** The fourth was false.
+
+> claimed: *"the doc spec's §22 (16 tests) and the host spec's §31 (21 tests) — neither list
+> contains a rollback, a divergent-branch selection, or a merge selection"*
+
+```
+doc spec §22, verbatim:   7. An ancestor can be reselected as a ROLLBACK.
+                          8. A DIVERGENT known commit can be selected.
+                         10. A MERGE commit with two known parents can be selected and materialized.
+host spec §31:            rollback 0 · divergent 0 · merge 0    (positive control: 'head' 3)
+```
+⇒ **True of the host spec. False of its own.** The three "absent" shapes are items **7, 8 and 10.**
+
+### ⭐⭐ The mechanism, which is the reason this is filed
+
+**It had a pattern of three and was writing it up as a law of the domain.** ⇒ ***A pattern under
+active construction recruits its next instance.*** ⚠️ **The fourth candidate was not examined as a
+candidate — it was examined as a CONFIRMATION**, and the standard for confirming is lower than the
+standard for discovering.
+
+⛔ **Same family as §7x91's wide-then-narrow grep**, where the second measurement was believed
+because it agreed with the first. **Agreement lowers scrutiny exactly when scrutiny is cheapest.**
+
+### ⭐ THE SHARPEST CLAIM IS THE ONE TO MEASURE — and that is not arbitrary
+
+*"37 acceptance tests across two specs and not one exercises the central design decision"* is the
+most quotable sentence in the report. **It is also the false one.** ⇒ **A claim draws its rhetorical
+force from the same generality that makes it fragile.** ⭐ **So "which sentence would I most want to
+repeat to jes?" is a usable heuristic for "which sentence must I measure?"** — I checked it for
+exactly that reason and had otherwise been about to relay it.
+
+### ✅ The finding survives, halved and BETTER
+
+**The host spec has 21 acceptance tests and none exercises a non-forward head move, while the
+library it implements specifies exactly those three.** ⇒ ⭐ **A DIVERGENCE between two specs is a
+stronger finding than a shared blind spot** — one says what must hold, the other's tests do not
+check it. *Over-generalising a true finding can make it weaker, not just riskier.*
+
+⛔ **And the cost of leaving it:** the claim sat in a file filed as a **read-before-writing-code
+gate**. **A gate that overstates its case is worse than no gate** — the first reader who checks
+finds it wrong on the file's own subject, and everything else in it inherits that.
+
+Related: §7x91 (agreement is not corroboration), §7x89, [[reference_never_emit_a_bare_count]]
