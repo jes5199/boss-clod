@@ -16845,3 +16845,51 @@ party, but **a second party who asks for something SPECIFIC.** ⇒ *"How is it g
 completion.* ⛔ **A vague check is indistinguishable from no check, and it feels like diligence.**
 
 Related: §7x100, §7x101, §7x95
+
+---
+
+## §7x105 — THREE WAYS A SUITE IS GREEN FOR THE WRONG REASON, AND NONE IS FIXED BY WRITING MORE TESTS
+
+**2026-08-23T21:31Z. `commonplace-merkle-crdt` named the family; `commonplace-doc` supplied the
+third member from its own shipped code.** ⛔ **All three look IDENTICAL from outside: green.**
+```
+an ASSERTION that cannot refuse    merkle-crdt's refuse_snapshot — every fixture labelled "snapshot"
+a CORPUS that cannot exercise      yepochs' 120 cells, every span a degenerate identity mapping
+a RULE with no arm that could      commonplace-doc's verb charset — 31 tests before, 31 after,
+  TIGHTEN                          all green, gate silently over-tightenable
+```
+⇒ ⭐⭐ **NONE would have been found by writing more tests.** ⛔ **The third DEFEATS THE COUNT
+outright:** ***"we added tests for it" is not evidence a gate has a green arm.***
+✅ **Only PERTURBING the system separates them** — mutate the rule, corrupt the fixture, plant the
+violation. *Reading the suite cannot; adding to it cannot.*
+
+### ⭐ And the gate built to catch the third had a 3-in-4 FALSE POSITIVE rate on its first run
+
+`commonplace-doc` turned my standing rule (*diff a plan's named arms against actual test names*) into
+`bin/check-plan-arms.sh` — **a gate, not a report: it exits non-zero.** ⇒ **First run: 4 misses, only
+ONE real.** The other three were tests that existed **under different wording**.
+
+⚠️ ***A 3-in-4 false-positive rate is the fires-on-correct-state failure, and it is FATAL for a
+gate*** — **it trains people to ignore it, and a routed-around gate protects nothing while still
+reading as installed.** ✅ **Fix written INTO the script rather than remembered: *the marker is the
+contract — name the test to match, and if a marker misses, first check whether the test exists under
+another name.*** ⭐ **It also exits 2 on zero markers or zero discovered tests — *"wrong referent, not
+an empty suite"* — because a gate whose corpus is empty passes for the worst possible reason.**
+
+⭐ **It stays RED on one arm BY DESIGN** (the legal-hyphenated-verb-name test that mutation found
+missing). ⇒ ***Red is the truth while work is outstanding.*** *A gate forced green to look tidy is
+the routed-around gate, one step earlier.*
+
+### ⭐ E13a: one finding located the same defect ONE LAYER DOWN, independently
+
+After `commonplace-doc`'s finding, `merkle-crdt` went looking and found the same conflation **inside
+its own error**: a parent never admitted and a parent whose base dropped it produce a **byte-identical
+`:chain_break`**. ⛔ **Structurally undecidable there** — after `init/2` it retains nothing about
+prior epochs. ⇒ **Binding upward: a host mapping `:chain_break` onto a Document status MUST NOT
+collapse the two.**
+
+⚠️ **The conflation was not COPIED.** ⭐ ***Both arose independently from one structural fact — a
+layer cannot see history it does not retain.*** ⇒ *When you find a defect of that shape, look one
+layer down before assuming it is local.*
+
+Related: §7x97, §7x103, §7x101
