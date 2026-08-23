@@ -28,7 +28,12 @@ if [ -r "$WORKER_LIST" ]; then
   [ "${#_wl[@]}" -gt 0 ] && WORKERS=("${_wl[@]}")
 fi
 # ⭐ Seconds: a commit this recently before a turn end means the turn ENDED ON WORK.
-COMMIT_GRACE="${COMMIT_GRACE:-180}"
+# ⚠️ 60, NOT 180. 180 was a guess; the measured "just pushed then ended the turn" cases were
+# 17s and 38s. The first production downgrade came in at 175s — an agent that committed,
+# worked three more minutes, then went quiet, which is closer to a real stall than to a
+# completed push. A window wide enough to swallow that is a window that suppresses the
+# thing this sweep exists to catch.
+COMMIT_GRACE="${COMMIT_GRACE:-60}"
 D=/home/jes/boss-clod/turn-end-detector.sh
 [ -x "$D" ] || { echo "BLIND|detector missing or not executable at $D"; exit 2; }
 
