@@ -33,7 +33,20 @@ cd /home/jes || exit 2
 # more convincing of the two.
 # ⇒ DISCOVER the corpus; never enumerate it by hand. And PRINT the coverage so a
 # gap is visible rather than implied.
-mapfile -t REPOS < <(ls -d /home/jes/*/.git 2>/dev/null | sed 's|^/home/jes/||; s|/\.git$||' | sort)
+# ⛔ DEDUPE BY RESOLVED PATH. /home/jes/commonplace became a SYMLINK to
+# commonplace-monolith on 2026-08-23, so the glob returned one repo under two names —
+# same .git inode. The coverage gate still passed (85==85) because BOTH sides were
+# inflated, which is exactly why it looked healthy.
+# ⚠️ The real damage would have been a duplicate finding, and an ack keyed on repo|branch|count
+# that no longer matches the second name — a KNOWN item reporting as NEW forever.
+mapfile -t REPOS < <(for g in /home/jes/*/.git; do
+    [ -e "$g" ] || continue
+    r=$(readlink -f "$g" 2>/dev/null) || continue
+    printf '%s\t%s\n' "$r" "${g#/home/jes/}"
+  done | sort -k1,1 -k2,2r | sort -u -k1,1 | cut -f2 | sed 's|/\.git$||' | sort)
+# ⭐ -k2,2r before the unique pass so the LONGER name wins a tie: commonplace-monolith over
+# the commonplace symlink. Arbitrary either way for correctness — but a finding should name
+# the real directory, because that is what someone will cd into.
 discovered=${#REPOS[@]}
 
 # ⭐⭐ THIRD STATE, found by commonplace 2026-08-23: LANDED-BY-CONTENT.
