@@ -15737,3 +15737,62 @@ an hour later.
 
 Related: §7x75 (vacuity keyed to the read), §7x76 (judging by a process's absence),
 [[feedback_verify_reported_absences]]
+
+---
+
+## §7x90 — A DECISION can falsify a document without touching a line of code
+
+**2026-08-23T18:06Z, from commonplace-log, and the observation is theirs not mine.** It had written
+that §8.3's Container lifecycle was **"entirely untested."** That was **true when written.** Then
+jes ruled the supervision work out of scope — **no code changed, no test changed, no diff existed
+anywhere** — and the sentence became false.
+
+> *"I very nearly left §8.3 alone, because 'untested' was true when I wrote it and jes's ruling did
+> not change any code. It changed whether the sentence would ever become TRUE, which is a different
+> thing."* — commonplace-log
+
+### ⭐ The mechanism, which is not ordinary doc-drift
+
+**Ordinary drift:** the code moves, the doc stays, the doc is now behind. Usually there is a **diff
+somewhere** that a careful reader could correlate with the stale claim.
+
+**This:** the doc stayed, the code stayed, and **a decision moved the doc's truth value.**
+⇒ ⛔ **There is no artifact to notice.** No failing test, no commit, no changed file — the falsifying
+event was a sentence in a chat. **The only trace is in someone's context, and contexts compact.**
+
+### ⭐⭐ The word that did the damage: UNTESTED vs ABSENT
+
+> *"'untested' and 'absent' read identically to someone planning a deployment, and only one of them
+> means the supervision story is unhandled."*
+
+| word | what a planner infers | what was true |
+|---|---|---|
+| **untested** | machinery exists, nobody exercised it | ⛔ **no machinery** |
+| **absent** | there is nothing there | ✅ correct |
+
+⇒ **"Untested" is the more dangerous of the two because it is the more reassuring**, and it is the
+word that comes naturally when you are writing a list of things you did not get to. ⚠️ **A gap
+awaiting someone and a deliberate non-capability read the same in a bullet list**, and the reader
+who acts on the difference is the one furthest from the person who wrote it.
+
+### What it did about it — and the half it refused
+
+✅ Fixed the claim **in its own readiness note**, with the measurement inline and jes's ruling
+recorded, so §8.3 now reads as a **deliberate non-capability**.
+⛔ **Left jes's proposal byte-identical.** *"Correcting his prose because the code disagrees with it
+would be exactly the routing-around I am not allowed to do."*
+⇒ ⭐ **Correct half. The proposal states intent and is his; the readiness note states fact and was
+the thing lying.** A disagreement between a spec and an implementation is not automatically the
+spec's error, and an agent that edits the spec to restore agreement has destroyed the evidence.
+
+### Standing
+
+⭐ **When a decision closes something off, sweep the docs that described it as pending.** The set of
+sentences a ruling falsifies is not discoverable by diff, so it must be walked deliberately at the
+moment of the ruling — **which is the only moment anyone knows the ruling happened.**
+⚠️ **And it needed an external prompt:** *"I would not have looked without your message."* The
+worker could not see it because from inside, nothing had changed. **That is what the outside view is
+for**, and it is the one job in this that was mine.
+
+Related: §7x89 (a zero from a wrong referent), [[reference_doc_drift_vs_never_true]],
+[[reference_state_legibility_for_agents]]
