@@ -9,7 +9,7 @@
 # ⚠️ An ack is not a resolution. Every line below is still unbacked work.
 commonplace-b2-mr|cross-repo/b2-merge-request|unique=7|commonplace 2026-08-23T05:15Z — its worktree, deliberate deletion may be right; held
 commonplace-crossrepo-slice0|cross-repo/slice0-readonly-replica|unique=2|commonplace 2026-08-23T05:15Z — demo lineage, held
-substrate|substrate-commonplace|unique=1|commonplace 2026-08-23T05:15Z — 2 merges outside cherry's reach, hand-check owed
+substrate|substrate-commonplace|unique=1|commonplace 2026-08-23T05:15Z — HAND-CHECK DONE 18:10Z by boss: the 2 merges are both "Merge origin/main into substrate-commonplace" and carry NO unique content; total at-risk surface is ONE file, docs/engineering/substrate-commonplace-mapping.md, +166 lines. ⛔ NOT auto-pushed: the branch has no upstream, so pushing would CREATE a branch in the third-party org repo lubelski/substrate — a new visible artifact, not a pure addition. jes's call, not mine
 grimoire|main|ALL|jes 2026-08-23T04:47Z — no remote; asked, awaiting decision
 hyperstition|main|ALL|jes 2026-08-23T04:47Z — no remote; believed deliberate (employer-IP-gated)
 postage-stamp|main|ALL|jes 2026-08-23T04:47Z — no remote; 35 commits, the one that matters
