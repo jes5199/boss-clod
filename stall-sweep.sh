@@ -34,6 +34,8 @@ fi
 # completed push. A window wide enough to swallow that is a window that suppresses the
 # thing this sweep exists to catch.
 COMMIT_GRACE="${COMMIT_GRACE:-60}"
+# ⭐ How long a commit-backed downgrade may last. Beyond this the pane is just quiet.
+QUIET_MAX="${QUIET_MAX:-300}"
 D=/home/jes/boss-clod/turn-end-detector.sh
 [ -x "$D" ] || { echo "BLIND|detector missing or not executable at $D"; exit 2; }
 
@@ -56,9 +58,14 @@ for w in "${WORKERS[@]}"; do
       # minutes spent measuring in commonplace's test tree to answer doc-sync.
       # ⇒ The declared-pause token is the only cover for it, because the evidence exists
       # somewhere this check cannot look. Do not widen the window to compensate.
-      # ⚠️ This DELAYS the nudge by one cycle, it does not suppress it: once the commit
-      # ages past the window the same quiet pane reports STALLED again. A genuine stall
-      # after a push is still caught, five minutes later.
+      # ⛔ THE FIRST VERSION OF THIS COMMENT WAS FALSE AND THE CODE MATCHED THE COMMENT.
+      # I wrote "delays the nudge by one cycle" — but delta is t_turn MINUS t_commit, and
+      # BOTH ARE FIXED TIMESTAMPS. It never ages. commonplace-doc was suppressed at minute
+      # one and still suppressed at minute ten, silently, forever for that turn.
+      # ⇒ A SECOND condition makes the stated behaviour true: the turn must also be RECENT.
+      # Past QUIET_MAX the pane reports STALLED regardless of how tidily it committed.
+      # ⭐ A worker that commits, ends a turn, and goes quiet for an hour IS stalled — the
+      # commit says the turn ended on work, it says nothing about the hour that followed.
       # ⛔ FIELD 2 IS THE WORKER NAME, FIELD 3 IS THE TIMESTAMP: TURN|<worker>|<iso>|...
       # Stripping only once fed `date -d <worker-name>`, which fails, leaving t_turn empty
       # and this whole branch DEAD — it never fired even with a 100000s window. Caught by
@@ -73,7 +80,8 @@ for w in "${WORKERS[@]}"; do
         if [ -n "$t_turn" ] && [ -n "$t_commit" ]; then
           delta=$(( t_turn - t_commit ))
           # committed at most COMMIT_GRACE before the turn ended (and not in the future)
-          if [ "$delta" -ge -30 ] && [ "$delta" -le "$COMMIT_GRACE" ]; then
+          quiet=$(( $(date -u +%s) - t_turn ))
+          if [ "$delta" -ge -30 ] && [ "$delta" -le "$COMMIT_GRACE" ] && [ "$quiet" -le "$QUIET_MAX" ]; then
             grace="$delta"
           fi
         fi
