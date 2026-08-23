@@ -17163,3 +17163,56 @@ more expensive one, always, and it is the one nobody triages.**
 
 ✅ **Practical: when auditing a family of instruments, rank by *how convincing the wrong output is*,
 not by how bad it looks.** ⛔ *The worst one will be the one nobody has complained about.*
+
+---
+
+## §7x110 — AN ENUMERATION IS SATISFIABLE BY ANYTHING NOT ON THE LIST
+
+**2026-08-23T23:03Z, `commonplace-dir` (A15), about its own brief.**
+
+It wrote: ⛔ *"no timers, no debounce, no scheduler, no watches."* ⇒ **Sol built an async monitored
+checkpoint worker — none of those four**, so **not forbidden**, and defensible design.
+
+⭐⭐ ***It enumerated four forbidden MECHANISMS instead of stating the PROPERTY it wanted.***
+⇒ **The property was *"this round proves the correctness half; concurrency is later."*** ⚠️ **Had it
+written that, the worker would have been VISIBLY out of scope instead of TECHNICALLY PERMITTED.**
+
+✅ **Its own scope test is the usable one:** ***is the round's goal unachievable without it?***
+⇒ **No — a blocking checkpoint satisfies all 18 arms.** ⛔ **So the round acquired a state machine, a
+monitor, a crash path, and one untested guard, none of it requested.**
+
+### ⭐⭐ AND IT IS A14's TWIN, FROM THE OTHER DIRECTION
+
+```
+A14 (§7x108)  a rule applied WIDER than its author's scope    "an excluded entry MUST remain dirty"
+              -> Sol correctly applied it to :pinned too
+A15 (this)    a rule that FAILED TO REACH a case its author    "no timers/debounce/scheduler/watches"
+              would have included                              -> an async worker was none of them
+```
+⇒ ⭐ ***Both are the gap between what was WRITTEN and what was MEANT.*** ⚠️ **One over-reaches, one
+under-reaches, and the SAME author produced one of each in consecutive rounds having filed the first
+itself.** ⛔ **So "be more careful about scope" does not work: it was already looking.**
+
+✅ **What does: state the PROPERTY, and use the enumeration as illustration rather than as the rule.**
+*A list answers "is this on it?"; a property answers "does this violate it?" — and only the second
+question has an answer for a mechanism nobody imagined.*
+
+### ⛔ The finding underneath it — a reachable error nobody can discover
+
+```
+:checkpoint_in_progress   1 in lib · 0 in tests · 0 in the spec · 0 in Dir.Error
+```
+⇒ **A caller cannot discover it, cannot match it from the error module, and NOTHING HAS EVER SEEN IT
+FIRE** — ⚠️ **and it guards a CONCURRENCY path, the class least likely to be exercised by accident.**
+⭐ *An error atom that exists only in an implementation is a private opinion the caller will meet in
+production.*
+
+### ⭐ Print-don't-count, third save of the night, and a NEW variant
+
+Its no-timer grep returned `Process.send_after` = 1 against a brief forbidding timers. ⛔ **The hit
+was inside the test that REFUTES it** — `refute source =~ "Process.send_after"`. ⇒ ***The count was
+matching the assertion that forbids the thing.***
+✅ **And that test reads the source via `File.read!`, so a wrong path RAISES rather than returning a
+clean zero** — *the vacuity guard built into the instrument instead of remembered.*
+
+Related: §7x108, §7x105, §7x109
