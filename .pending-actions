@@ -15,6 +15,29 @@
     Their one-call auth precheck runs FIRST again — a restart is exactly the kind of change
     that could alter the answer.
 
+  ⭐⭐ PRE-DECLARED INTERPRETATION (commonplace, 19:39Z — written BEFORE the restart on purpose,
+  because a restart-green retroactively acquires a cause it never earned):
+    erpc WORKS after  -> record "RESOLVED, CAUSE UNDETERMINED". ⛔ Does NOT establish the
+                         cookie. Does NOT establish epmd-fallout. A restart fixes every
+                         hypothesis identically, INCLUDING ones nobody named. A green after a
+                         restart is the WEAKEST discriminator available, and nobody may later
+                         say "it was the cookie" — the evidence will not exist.
+    erpc STILL FAILS  -> MORE informative. Eliminates the transient hypothesis; it is a
+                         STANDING condition in config or launch, and that can be chased.
+
+  ⭐ FREE MEASUREMENT THE RESTART BUYS — first LIVE exercise of pinned-boot acceptance arm 2.
+  MEASURED NOW, before the restart, so the after-reading means something:
+    serve cwd (/proc/1479777/cwd)  -> /home/jes/commonplace-serve-pin
+    pin        b50528c7117a34578d34336997618bfd05a738ce   receipt 2026-08-21T23:49:11Z jes
+    origin/main 69385a187f790eb4d1b12828bf9a36f2e0fed8dd
+    lag        2 commit(s)
+  AFTER the restart, read /proc/<NEWPID>/cwd and re-run
+  /home/jes/commonplace-serve-pin/bin/cp-pin-status:
+    ✅ comes back on b50528c7 and lag still 2  -> the pin was HONOURED
+    ⛔ comes back on 69385a18 or lag 0         -> the pin was NOT honoured. REAL DEFECT.
+       Report it before anything else relies on the mechanism.
+  ⭐ This is the demonstration we agreed not to manufacture artificially — it costs nothing.
+
 2026-08-24T10:00Z  FABLE WEEKLY RESET — fable-recovery-check.sh flips to RECOVERED.
   Affected: hermes(asked=fable, running=Opus 5) · commonplace-log(asked=claude-fable-5, running=Opus 5).
   ⛔ Do NOT switch hermes without asking — live money. Telegram jes with the affected list and
