@@ -344,6 +344,33 @@ commonplace-systems/commonplace($|[^-])   ✅ the stale ones only
 have rewritten them to `commonplace-monolith-plan`.** ⭐ *`\b` is a word boundary and a hyphen is a
 word boundary — the exact place a sibling repo's name hides inside its parent's.*
 
+### 15. ✅ IMPLEMENTATION AUTHORISED ON THE 20:33Z RULINGS
+
+> **jes, 2026-08-23T20:37Z:** *"yes let's do it. we can revise later if needed"*
+
+⇒ **In answer to my question of whether the four repos may build on the rulings document.**
+⭐ **Sol does the code work** (#11). **Design settled by `docs/proposals/2026-08-23-open-questions-rulings.md`, sha256 `4d9d75b78d08fed1`.**
+
+⚠️ **AMBIGUITY I RESOLVED AND STATED RATHER THAN HID: two questions were open when he answered** —
+this one, and *"start `commonplace-dir` now or after the quota reset?"* ⇒ **I read "it" as the
+authorisation** (his reply came 90 seconds after that message; *"we can revise later"* fits an
+implementation, not a repo launch) **and told him so, with the alternative named.**
+⛔ **`commonplace-dir` remains FILED AND UNSTARTED** — see `held-specs/`.
+
+⭐⭐ **WORTH KEEPING: `commonplace-doc` argued AGAINST ITS OWN INTEREST ten minutes earlier.** I had
+flagged that I might have been over-holding these repos on my own initiative rather than jes's word.
+It said I had not been, and gave a **tell** rather than an opinion:
+
+> *Every actual build instruction from jes tonight was imperative and named a deliverable —
+> "new repo!", "let's create a commonplace-doc repo", "build commonplace-doc-host in-repo".
+> This document is titled "**Proposed** design rulings", and its forward-looking sentence is
+> "the first implementation **should demonstrate** at least these cases" — **a property of an
+> implementation, not an instruction to start one.**"*
+
+⇒ **Then: *"reading it as authorization is the reading that CREATES WORK, and it's the one I'd
+benefit from — so I'm the wrong party to resolve the ambiguity in my own favour. Don't spend the
+ask; he'll say so."*** ⭐ **He did, unprompted, ninety seconds later.**
+
 ---
 
 ## The layering, in jes's words
