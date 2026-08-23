@@ -384,3 +384,26 @@ state and must stay legal, so the gate is `examined > 0` — *did the sweep look
 
 **Both arms demonstrated:** planting an empty commit in `yepochs` made it appear (and vanish after
 reset); pointing `REPOS` at a nonexistent path produced `BLIND` rc=2 rather than a clean sweep.
+
+#### ⛔⛔ Sweep §6 correction, 2026-08-23 04:12Z — THE SWEEP ITSELF WAS THE 17-OF-82 CASE
+
+It shipped with a hardcoded 17-name `REPOS=()` list and reported **`unbacked_repos=0,
+examined=17`** while **82 git repos existed at depth 1 under `/home/jes`.** Sixty-five were never
+looked at — including `postage-stamp`, which is *known* to have no remote.
+
+⭐⭐ **AND MY OWN VACUITY GATE PASSED, BECAUSE `examined=17 > 0`.** ⇒ ***`examined > 0` proves the
+instrument RAN. IT SAYS NOTHING ABOUT COVERAGE.*** A non-zero denominator drawn from the wrong
+population is a **distinct** failure from a zero one — **and far more convincing**, because it looks
+exactly like a healthy measurement. This is §7x75's corpus door, held open by the gate meant to
+guard it.
+
+✅ **Fixed twice over:** the corpus is now **DISCOVERED** (`ls -d /home/jes/*/.git`), never
+enumerated by hand; and a **coverage gate** refuses to report unless `examined == discovered`. It
+fired immediately on `48 of 82` — because `.git` is a **FILE** in a linked worktree and the loop
+tested `-d`. **Both defects were invisible in the old output; both are now loud.**
+
+**First full-corpus run: 28 unbacked repos**, none of which the sweep had ever been able to see.
+Pushed `bartleby` (4 commits, sitting since 2026-01-03) and `friendly-claude-message-alerts`
+(1, since 2026-03-18). ⚠️ Four repos have **no remote at all** — `postage-stamp` (35 commits),
+`hyperstition` (9, believed deliberate — employer-IP-gated), `grimoire` (2), `test-worker` (1).
+Escalated, not invented.
