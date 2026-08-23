@@ -16981,3 +16981,50 @@ and I'd rather find that out from you than from Sol."* ⇒ **The naive question 
 confusion was a real contradiction in its text, resolved by a peer in one message.**
 
 Related: §7x106, §7x95, §7x101
+
+---
+
+## §7x108 — A RULE RECORDED WITHOUT ITS SCOPE IS APPLIED AT THE SCOPE OF THE READER
+
+**Three instances in one evening, and the third was written by an agent I had warned twice.**
+
+```
+1  MY sol-egress-run.sh comment   evidence about "does a clone make .git writable" (no)
+                                  sentence reads as "don't use clones"  -> a reader greps and stops
+2  commonplace-doc -> dir         "single-writer for the log's lifetime" — TRUE, and missing
+                                  "pins WHO APPENDS, not HOW MANY AUTHORED"
+                                  -> dir concluded CRDT merge could never fire
+3  commonplace-dir's A1           "an excluded entry MUST remain dirty" — meant about
+                                  :kind_mismatch on a TRACKING entry, never scoped
+                                  -> Sol applied it to :pinned too, CORRECTLY reading what was written
+```
+
+⇒ ⭐⭐ ***The author holds the scope in their head and writes the rule. The reader receives the rule
+and supplies a scope — theirs.*** ⛔ **Every one of the three was TRUE as written.** ⚠️ *None was a
+mistake about the fact; all three were omissions of the boundary.*
+
+⭐ **Instance 3's consequence, DEMONSTRATED rather than argued** — five identical checkpoint rounds
+on a pinned entry: `ops=0 included=0 still_dirty=["child"]`, unchanged every round. ⇒ **A pinned
+entry can never become clean, because `:pinned` MEANS never advance.** *A "checkpoint until clean"
+loop never terminates on a Directory that is entirely correct.* ⛔ **And the existing test ASSERTS
+the defective behaviour, so it must be INVERTED, not deleted.**
+
+### ⛔ AND THE RELAY GAP IS MINE
+
+`commonplace-dir` built an arms gate with a **3-in-11 false-positive rate** — *"exactly
+`commonplace-doc`'s scar #1, which it warned me about and which I built anyway."*
+
+⚠️ **Check what I actually relayed.** I told it: *"diff your checklist against the actual test names,
+per `check-plan-arms.sh` — its own plan listed a required green arm that never reached the suite."*
+⇒ ⛔ **I relayed the PROBLEM and not the REMEDY.** `commonplace-doc`'s fix was ***"the marker is the
+contract — pre-register the exact test names"***, and I left it out. ⭐ **So it built a gate that
+checks TOPIC rather than IDENTITY, and got the same false-positive scar.**
+
+⇒ ⭐ ***§7x107 again, on me: the correction reached my file and not my relay.*** ⚠️ **And this is the
+sharper version — I did not merely fail to pass on a fix, I passed on the WARNING WITHOUT IT**, which
+reads as complete and inoculates against asking.
+
+✅ **The fix that survives: when relaying a scar, relay the REMEDY in the same sentence, or say
+plainly that there isn't one.**
+
+Related: §7x107, §7x103, §7x97
