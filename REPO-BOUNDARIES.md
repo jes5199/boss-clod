@@ -94,6 +94,28 @@ already-admitted commits.
 descoped the most work is the one that arrived.** ⇒ *When a ruling could narrow scope, check which
 reading you adopted before checking anything else.*
 
+### 5. `commonplace-doc` COMPOSES BOTH reducer plugins; the head is an ATTRIBUTE
+
+> **jes, 2026-08-23T18:32Z:** *"commonplace-doc should use both of the reducer plugins. head commit
+> is an attribute stored in the attributes reducer"*
+
+⇒ **Resolves `commonplace-doc`'s H1 three-way call.** Not *"extend merkle-crdt"*, not *"write a new
+plugin"*, not *"re-point at `commonplace`"* — **compose the two that exist.** The selected content
+head lives in the **attribute-map component** (repo: `commonplace-log-reducer`, see #1).
+✅ Option (C)'s gating behind `commonplace`'s implementation hold stops mattering.
+
+⚠️ **A ruling about composition does not conjure a DAG, and §7's factual gap is about a DAG.** Two
+measured facts still have to meet, and **this is `commonplace-doc` + `commonplace-merkle-crdt`'s to
+resolve, not boss-clod's:**
+```
+merkle-crdt   head_id is @enforce_keys; check_chain REJECTS parent != head
+              -> a LINEAR engine over a gapless single-writer log
+doc spec      head selection admits jumps to DIVERGENT BRANCHES (§9, §12)
+```
+⭐ **Practical consequence for whoever wires the deps:** the attribute component is **one repo, TWO
+mix apps** — two dep entries with different `sparse:` paths. **Not three repos, and not one dep
+either.**
+
 ---
 
 ## The layering, in jes's words
