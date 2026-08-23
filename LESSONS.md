@@ -15382,3 +15382,44 @@ evidence about the thing it was built from.**
 ■ **Not texted to jes, and that is the rule rather than a judgement call:** nothing broke, nothing
 accumulated, no decision moved. **An alarm raised and stood down without reaching him is the system
 working, not an event.**
+
+## 7x84 — ⭐⭐ A TEST SUITE IS A PARTITION, DRAWN BY THE MIND THAT WILL FAIL TO IMAGINE THE CROSSING
+
+**yepochs, 2026-08-23 08:02Z**, after adding cross-language conformance vectors authored by upstream
+`yjs` 13.6.32. It found an unstated interaction between three clauses within minutes of the corpus
+landing — **from 268 existing tests that could not have found it.**
+
+> ***"No existing test combined 'a document with tombstones' with 'an edit encoded as a real delta.'
+> Both halves existed separately. The corpus produced the combination WITHOUT BEING DESIGNED TO,
+> because real data does not respect the partition my test cases were written along."***
+
+⇒ ⛔ **The suite is a partition of the input space, and the partition is drawn by the same mind that
+will fail to imagine the crossing.** ⭐ **Foreign data is not more thorough — it is DIFFERENTLY
+PARTITIONED.** 268 tests could have been 2,680 and still missed it, because every one was drawn along
+the author's own seams.
+
+### ⭐ And the sharper half: a round-trip cannot detect a shared assumption
+
+**Every other test in that repo puts yelixer's encoder on BOTH SIDES of the comparison.** ⇒ **A
+round-trip through one implementation is blind to that implementation's own assumptions by
+construction** — it can only fail if the implementation is inconsistent with *itself*. The corpus was
+the first thing to put a **different implementation on one side.** ⛔ Same family as
+[[7x77]]'s control-drawn-from-inside-the-boundary: **the comparison and the subject shared an
+ancestor.**
+
+### ⭐ The control is what made it a finding rather than an alarm
+
+The same edit against a document assembled from **only the first update** — identical except nothing
+deleted — **translates fine.** ⇒ That isolates tombstones from the foreign bytes, the client ids and
+the edit in **one comparison.** ⛔ **Without it the finding reads as "the cross-language vectors
+fail"** — weaker, more alarming, and pointing at the wrong suspect. **The corpus found the
+combination; the control named the cause.**
+
+### ■ The substantive result, because it narrows a guarantee nobody had written down
+
+`§10.5` (0.1 snapshots promise no tombstone mappings) + `§15.8` (every delete-set interval MUST
+translate) + the substrate (`encode_diff/2` ships the **entire** delete set, unfiltered by state
+vector) ⇒ ***the strict, identity-preserving fast path is available mainly for documents that have
+never had a deletion.*** And `§17` **latches** it: a re-authored delta proves no correspondence, so
+dependents re-author too — **only a fresh snapshot re-establishes identity.** Nothing is defective;
+every clause behaves as written. **The interaction was simply stated nowhere.**
