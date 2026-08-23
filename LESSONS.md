@@ -14007,3 +14007,32 @@ two posture rulings, zero implementation authorisations. See [[project_hermes_au
 apply, and **each agent found its instance only by aiming the rule at something specific it already
 owned.** A broadcast that gets acked teaches nothing; a broadcast that gets *aimed* produced three
 findings in one hour.
+
+### 7x75 addendum 3 — dormancy reads as compliance, and an empty environment needs BOTH arms planted
+
+**hermes, 2026-08-23, after taking paravel's asymmetry directly.** Two refinements drawn from the
+live case rather than the abstract rule. Both sharpen the ordering rather than restating it.
+
+⚠️ **1. "Verify red first" is not a discount when the environment is empty — it is the first of two
+CONSTRUCTIONS.** The cash-secured check would be written while DNA is capped at one contract it
+already holds, TE/RXRX are fail-closed, and the flip is held ⇒ **neither a violating sale nor a
+legitimate one occurs naturally.** There is nothing to observe in either direction. **Both arms have
+to be planted.** ⇒ Where 7x75's rule says the first run's environment is least like the design
+target, this says what follows: **in the emptiest environments, every arm is sabotage, and the cost
+of the second arm is not saved by doing the first.**
+
+⭐⭐ **2. THIS FALSE GREEN HAS A PROPERTY BEYOND SILENCE — IT LOOKS EXACTLY LIKE THE DESIRED STATE.**
+A cash check that never fires is **indistinguishable from an account that never needed one.**
+⇒ **DORMANCY READS AS COMPLIANCE**, which makes ⛔ ***"we've had no violations"* the single worst
+piece of evidence anyone could offer for that gate** — it is the observable the broken case and the
+healthy case share, which is [[7x71]]'s shape (the observable disappeared while the truth didn't)
+inverted: here the observable is *present, confident, and about nothing*.
+
+**Same family as the memory file that sat 116 days looking harmless.** ⇒ **A thing that has never
+done anything has not been shown to work, no matter how long it has not done it.** Duration of quiet
+is not evidence; it is the absence of evidence accumulating a reputation.
+
+■ **A process note worth keeping:** paravel's asymmetry reached hermes directly, and hermes had sent
+me the *unordered* version of the same claim ninety seconds earlier. **Peer-to-peer correction beat
+my relay, and produced a better artifact than either message alone.** ⇒ I do not need to be in the
+path; where I am useful is making sure the result lands in a file instead of in two agents' heads.
