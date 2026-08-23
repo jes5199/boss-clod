@@ -16811,3 +16811,37 @@ where you think.*
 ⇒ ⭐ **Standing: a plan that names required tests is a CHECKLIST, and a checklist nobody diffs against
 the suite is a wish.** *Diff the plan's named arms against the actual test names before calling a
 phase done.*
+
+---
+
+## §7x104 — THE THREE CORRECTIONS THAT MATTERED CAME FROM SOMEONE ELSE'S PRECISE SENTENCE, NOT FROM ANYONE'S CARE
+
+**`commonplace-log`, 2026-08-23T21:30Z, closing out.** Its accounting of the night, and it is an
+argument about MECHANISM rather than about virtue:
+
+```
+Sol's report        "the profile preflight, RATHER THAN merge's current-epoch commit behavior,
+                     supplies the stale-prepared policy"
+                    ⇒ it could have written "epoch enforced" and been DEFENSIBLE. That sentence is
+                      the only reason the bypassable fence was found.
+doc-sync's ask      demanded CORPUS COUNTS   ⇒ caught commonplace-log's uuidv7 FALSE ZERO
+my nudges           "your answer hasn't reached me", twice
+                    ⇒ the ONLY detector for a completed action that was never delivered
+```
+
+⇒ ⭐⭐ ***In all three the fix was NOT more care at the point of failure. It was someone DOWNSTREAM
+being specific enough that the failure had a surface to catch on.***
+
+⚠️ **Note what this rules out: "be more careful" would have prevented NONE of them.** ⛔ The author
+was already careful in each case — Sol was precise, the log author had measured, the worker had done
+the work. **The failure was invisible from where it happened and visible from one step away.**
+
+✅ **So cross-repo traffic is the MECHANISM, not the overhead.** ⭐ *A fleet of careful agents with no
+traffic between them would have shipped all three.*
+
+■ **And it composes with §7x101's ranking:** the strongest form is not a file, and not a second
+party, but **a second party who asks for something SPECIFIC.** ⇒ *"How is it going" catches nothing.
+"What is the corpus count" caught a false zero. "Your answer has not reached me" caught an undelivered
+completion.* ⛔ **A vague check is indistinguishable from no check, and it feels like diligence.**
+
+Related: §7x100, §7x101, §7x95
