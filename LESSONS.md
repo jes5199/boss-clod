@@ -15948,3 +15948,51 @@ message — is identical.**
 
 Verified: `bf9fd9d`, pushed, clean; note now says *multiple realms per tenant* (2), *untestable in
 v1* gone (0), *incarnation* present (3).
+
+---
+
+## §7x92 — A RULING THAT IS NOT SELF-EXECUTING, and the ledger that catches its own staleness
+
+**2026-08-23T18:38Z, from `commonplace-doc`.** jes ruled *"let's put an epoch id into the commit
+struct."* ⭐ **Doing exactly that, naively, would look like compliance while reproducing the bug the
+ruling exists to prevent.**
+
+### The mechanism
+
+`commonplace`'s `%Commit{}` hashes `parent_id, update, metadata, merge_parents` and **excludes**
+`timestamp, doc_uuid, signature, signer_id`. Its stated criterion, verbatim: **"None change what the
+commit means."**
+
+⇒ **An epoch DOES change what a commit means** — yepochs invariant 1 is that raw `{client_id, clock}`
+is meaningless without its Yepoch. ⛔ **So a field added to the struct but OUTSIDE the hash means two
+commits differing only in epoch collide on one content address** — no discriminator change visible,
+and a crossing gets treated as a replay.
+
+⭐⭐ **THE SHAPE:** *the instruction is satisfiable in a way that satisfies its words and defeats its
+purpose.* ⚠️ **And the failing version is the SILENT one** — it produces a struct with the field in
+it, which is what anyone checking compliance would look for. ⇒ **"Did we do what he said?" returns
+yes. "Does the property hold?" is a different question nobody asked.**
+
+✅ **The migration turns out nearly free, and the precedent is written down twice:** `metadata` and
+`merge_parents` were both later additions, each with a **legacy hatch** — at their default empty
+value the canonicaliser returns the empty binary, collapsing to `sha256(parent_id <> update)`.
+Their invariant: *"Empty metadata/merge_parents reproduce the original — historical ids never move."*
+⇒ **Add `epoch_id` the same way.** *This is the concrete form of "cheap today, a migration later".*
+
+### ⭐ The ledger property, which is the transferable half
+
+`REPO-BOUNDARIES.md` §6 said *"ask 2 is with jes and UNANSWERED."* **True when written, false twenty
+minutes later, no code change, nothing to notice** — §7x90's shape landing on the file that carries
+the standing warning about it.
+
+⇒ ⭐⭐ **I found it because I went to ADD the new ruling.** *That is not luck — it is what
+one-file-for-rulings buys:*
+
+> **A ruling file is a place where the act of ADDING forces a re-read of everything the ruling
+> touches.** Several files do not do that; a chat log does not do that at all.
+
+⚠️ **Note the asymmetry that makes this work:** the rulings arrive one at a time, and **each arrival
+is an occasion to re-read the others.** A file nobody appends to has no such occasion — which is why
+**doc-drift is worst in documents that are finished.**
+
+Related: §7x90, §7x91, [[reference_state_legibility_for_agents]], [[reference_doc_drift_vs_never_true]]
