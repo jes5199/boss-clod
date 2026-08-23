@@ -15620,3 +15620,54 @@ tell the two sides apart.**
 stating that the evidence failed rather than only supplying the new number — **"my corpus could not
 have detected the thing it was built to detect" is not a detail**, and a replacement number without
 it would have hidden the more useful fact.
+
+## 7x88 — ⭐⭐ A PATTERN THAT MATCHES SOMETHING REAL, BUT NOT THE THING ASKED ABOUT
+
+**2026-08-23, four instances in one evening across two agents.** yepochs named the family; I supplied
+two of the four, one of them **inside the message verifying its claim about the family.**
+
+```
+mine    grep 'r3'            -> matched docs/design/0007-spec-r3-amendment.md, NOT the spec
+                                -> hashed the design doc, got a false "hash differs"
+mine    grep '900\|300'      -> matched bridge SPANS, not the mixed-client-id TEST
+yepochs '\|' in ERE          -> matched a literal, not the alternation
+yepochs 'XmlText'            -> module is XMLText; 40 rows measured a typo
+yepochs item boundaries      -> a representation comparison wearing a value comparison's clothes
+```
+⭐⭐ **ALL OF THEM RETURNED CONFIDENT, WELL-FORMED, WRONG ANSWERS.** ⛔ Not empty results — *plausible*
+ones, which is worse, because an empty result at least prompts a second look.
+
+⇒ ⭐ **And all of them were caught the same way: by asking whether a KNOWN-PRESENT item came back.**
+**That is the only check in the set that does not require guessing the failure in advance** — every
+other defence (a better pattern, a narrower path, a second grep) presumes you already suspect the
+specific way it went wrong.
+
+### ⛔ And I relayed an overstatement built on one of them
+
+I told jes that yepochs's degenerate matrix violated a spec requirement **"and nothing noticed until
+mutation testing forced it."** ⇒ **The second half was false.** `test/compatibility_test.exs:225`
+enforces §28.1 with a genuinely non-degenerate case — clients **900 and 300**, minting under 300,
+asserting **both** appear on the origin side. **The requirement WAS enforced; the new artifact simply
+did not inherit the discipline.** ⭐ **A materially different failure, and the version I relayed was
+the more alarming one.** yepochs caught its own overstatement and filed the correction in `0007 §5`
+rather than quietly rewording.
+
+### ⭐⭐ THE TRUE FINDING IS BETTER: a missing THREAD, not a missing test
+
+It audited all 28 of §28.2's fixtures. **Every one was already covered — but only 13 of 28 could be
+traced BY NUMBER.** The other 15 took semantic archaeology through the suite.
+
+> ***A requirement whose enforcing test cannot be LOCATED is not reliably maintained.***
+
+⇒ **That is exactly how the discipline failed to travel from `compatibility_test` to
+`totality_test`.** ⛔ **Not a missing test — a missing thread between the clause and the test.** The
+coverage was real and unfindable, and unfindable coverage does not propagate to the next artifact.
+
+✅ **Fixed as an artifact, not a sweep:** markers on all 15, plus `test/fixture_coverage_test.exs`
+which **reads §28.2 out of the spec file** rather than hard-coding a count, requires the numbering to
+be **contiguous from 1** (a renumbering cannot silently drop an entry), rejects markers claiming
+numbers the spec does not define, requires every `@unsatisfied` entry to name a real fixture **and
+give a reason**, and ⭐ **carries a positive control — because if the section split yields nothing, a
+missing or renamed spec looks exactly like a fully-covered suite.**
+⭐ **The mutation to copy: point the reader at r2 instead of r3 → red.** That catches **auditing a
+different revision than the library implements** — the precise drift my own `r3` pattern nearly hit.
