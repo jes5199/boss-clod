@@ -49,9 +49,23 @@ while read -r win name; do
   for c in $(pgrep -P "$p" 2>/dev/null); do
     cl=$(tr '\0' ' ' < "/proc/$c/cmdline" 2>/dev/null)
     case "$cl" in
-      *claude*--model*fable*)
+      *claude*)
         live=$(tmux capture-pane -t "$win" -p 2>/dev/null | grep -o '\[[A-Za-z0-9. ]*\]' | tail -1)
-        affected="${affected}${name}(asked=fable,running=${live:-?}) "
+        asked=$(printf '%s' "$cl" | grep -o -- '--model [a-z0-9-]*' | head -1)
+        asked=${asked#--model }
+        # ⛔ 2026-08-23: the ORIGINAL version matched only *--model*fable* in the
+        # cmdline, and therefore MISSED commonplace entirely -- which carries NO
+        # --model flag and was on Fable by SESSION STATE. It sat wedged with 10
+        # inbound messages and 10 "reached your Fable 5 limit" errors, dropping
+        # 100% of its traffic, invisible to this check.
+        # ⭐ A LAUNCH FLAG IS WHAT WAS ASKED FOR; THE STATUSLINE IS WHAT IS
+        # RUNNING. Key on the statusline -- the only source that reflects now.
+        case "$live" in
+          *Fable*) affected="${affected}${name}(asked=${asked:-none},RUNNING-FABLE-WHILE-EXHAUSTED=WEDGED) " ;;
+          *) case "$asked" in
+               *fable*) affected="${affected}${name}(asked=$asked,running=${live:-?}) " ;;
+             esac ;;
+        esac
         ;;
     esac
   done

@@ -14333,3 +14333,55 @@ published as the good case.
 ■ **Filed, NOT broadcast.** jes asked why paravel was in commonplace-log's coordination at all, and
 the answer was that I broadcast a lesson to 7 peers that concerned 3. ⇒ **The content kept getting
 better and the channel was still wrong.** A good thread is not a licence to keep widening it.
+
+## 7x76 — two agents were dead for hours and the pane said nothing, ten times
+
+**2026-08-23 03:50Z.** `commonplace` had not answered a new worker that had been blocked on it for
+twenty minutes. I assumed it was busy. It was not busy — **it was wedged.**
+
+```
+commonplace   (0:3)   inbound clod-squad messages: 10   "reached your Fable 5 limit": 10
+commonplace-plan (0:4) inbound clod-squad messages:  3   "reached your Fable 5 limit":  4
+                       elapsed on each: "Worked for 0s" / "Churned for 0s"
+```
+
+⛔⛔ **EVERY MESSAGE THAT REACHED EITHER AGENT FAILED INSTANTLY.** They were receiving and dropping
+**100% of their traffic** — including my own "board update" to plan, which I had already told jes
+had landed. It had not.
+
+⭐ **THE FAILURE SHAPE, and it is the night's theme arriving in the messaging layer:** an agent that
+**cannot** answer and an agent that **has chosen not to** answer are **indistinguishable from
+outside.** ⇒ And from *inside*, a turn that dies in 0s **leaves no turn in which to notice** —
+**neither agent could have caught this itself.** ⛔ Silence is the observable that a working-but-busy
+agent and a wholly dead one share, which is [[7x71]] exactly: *the observable disappeared while the
+truth didn't.*
+
+### ⛔ AND MY OWN FABLE CHECK COULD NOT SEE EITHER OF THEM
+
+`fable-recovery-check.sh` matched `*claude*--model*fable*` **in the cmdline** — so it found only
+agents that **asked for Fable at launch**. Both wedged agents carry **no `--model` flag at all**;
+they were on Fable **by session state**.
+
+⭐⭐ **A LAUNCH FLAG IS WHAT WAS ASKED FOR. THE STATUSLINE IS WHAT IS RUNNING.** The check was keyed
+to the wrong one, and the wrong one is the one that cannot change — **which is exactly why it felt
+like the reliable field.** ⇒ Re-keyed to the rendered statusline; **it found `commonplace-plan` on
+the first run after the fix**, an agent I had not suspected and would not have looked at.
+
+⇒ This is [[7x75]]'s corpus door in a new costume: the check ran, returned a confident list, and
+**the list was drawn from a population that excluded the failures by construction.**
+
+### ✅ Fixed, and the fix demonstrated rather than assumed
+
+Both driven to Opus via tmux (`/model opus`, Escape, Enter, confirm), **verified by effect** —
+statuslines now read `[Opus 5]`, contexts preserved at 55% and 51%. Then a **whole-fleet rescan
+across 20 windows with a positive control** (three known panes printed their tags, proving the
+scanner could see one at all): **zero agents still on Fable.**
+
+⚠️ **The cost is real and worth stating:** each switched agent re-reads its full history on the next
+message. That is the price of not losing the session, and it is cheaper than an agent that has been
+silently discarding its inbox.
+
+⭐ **THE RULE THIS EARNS:** ⇒ **when an agent has not replied, measure whether it CAN reply before
+concluding anything about whether it chose to.** The ratio of *inbound messages* to *instant errors*
+in its own pane settles it in one command, and I did not run that command for twenty minutes because
+"busy" is the explanation that costs nothing to believe.
