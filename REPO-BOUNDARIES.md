@@ -528,6 +528,44 @@ own un-verifiability*, or a later reader finds the gap and treats it as a defect
 consolidate further.** ⇒ **Both answers arrived BEFORE the round landed, so neither cost a revision.**
 *Consolidation is right until someone starts building on the unanswered half.*
 
+### 20. ✅ CROSS-PROJECTION BASE SAFETY — defined by `commonplace-doc`, enforced by the host
+
+> **jes, 2026-08-23T21:25Z, verbatim and complete:**
+> *"commonplace-doc defines the cross-projection base-safety invariant, and commonplace-doc-host
+> enforces it before admitting a base. The rule should be expressed in terms of protected commit
+> roots, of which the selected head is the first. Until retention and garbage-collection semantics
+> exist, bases are checkpoint-only and must not discard admitted commit material. Reducers remain
+> isolated; replay reports legacy invariant violations rather than refusing to project them."*
+
+■ **Six rulings in one paragraph:**
+```
+1  commonplace-doc DEFINES the invariant          (the layer that can see both projections)
+2  commonplace-doc-host ENFORCES it BEFORE admitting a base
+3  expressed as PROTECTED COMMIT ROOTS — the selected head is the FIRST, not the only one
+4  until retention/GC exist: bases are CHECKPOINT-ONLY
+5  a base MUST NOT discard admitted commit material
+6  reducers stay ISOLATED — replay REPORTS legacy violations, never REFUSES to project
+```
+
+⭐⭐ **CLAUSE 6 RESOLVES A PROBLEM THE FLEET HAD NAMED AS STRUCTURALLY UNSOLVABLE.**
+`commonplace-log-reducer` established (§7x96) that **a validation rule added to a reducer is a rule
+applied to the PAST** — the moment you add it, every already-appended log that violates it **stops
+replaying**, and the projection is unreadable from that entry on. ⇒ ***It converts a policy change
+into data loss.*** ⛔ **That is why nobody could put the guard in the reducer.**
+
+⇒ ✅ **jes's answer: REPORT, DO NOT REFUSE.** ⭐ **A reducer that reports a legacy violation while
+still projecting keeps replay total AND surfaces the defect.** ⚠️ *The dilemma was between an
+unenforced rule and destroyed history; the third option was to decouple detection from refusal, and
+nobody had proposed it.*
+
+⭐ **Clause 3 also generalises past what was asked:** the question named the SELECTED HEAD; he
+answered with **PROTECTED COMMIT ROOTS, of which the head is merely the first.** ⇒ **Verb mounts,
+pinned code commits and future roots inherit the protection without a second ruling.**
+
+⚠️ **Clause 4 is a SUNSET, not a permanent rule** — *"until retention and garbage-collection
+semantics exist."* ⛔ **Whoever later builds GC must revisit checkpoint-only rather than treat it as
+settled.** *Record it where the GC work will start, not only here.*
+
 ---
 
 ## The layering, in jes's words
