@@ -46,7 +46,18 @@ for d in "${REPOS[@]}"; do
   fi
   up=$(git rev-parse --abbrev-ref "$br@{upstream}" 2>/dev/null)
   if [ -z "$up" ]; then
-    FINDINGS+=("UNBACKED|$d|$br|?|branch has no upstream — never pushed")
+    # ⭐ SAME CORRECTION AS THE AHEAD-OF-UPSTREAM CASE: "no upstream" is not
+    # "not backed up" either. A worktree branch cut for a landed round has no
+    # upstream and is still fully reachable from origin/main. Ask the durability
+    # question here too, or ~20 landed branches read as work at risk.
+    tip=$(git rev-parse "$br" 2>/dev/null || git rev-parse HEAD 2>/dev/null)
+    reach=""
+    [ -n "$tip" ] && reach=$(git branch -r --contains "$tip" 2>/dev/null | head -3 | tr -d ' ' | paste -sd, -)
+    if [ -n "$reach" ]; then
+      FINDINGS+=("REACHABLE|$d|$br|0|no upstream, but REACHABLE from: $reach — nothing to push")
+    else
+      FINDINGS+=("UNBACKED|$d|$br|?|no upstream AND unreachable from any remote ref — genuinely at risk")
+    fi
     cd /home/jes; continue
   fi
   n=$(git log --oneline "$up..$br" 2>/dev/null | wc -l)
@@ -60,7 +71,26 @@ for d in "${REPOS[@]}"; do
   up_short=${up#origin/}
   mism=""
   [ "$up_short" != "$br" ] && mism="|⚠️UPSTREAM-NAME-MISMATCH:$up (do NOT push blind)"
-  [ "$n" -gt 0 ] && FINDINGS+=("UNBACKED|$d|$br|$n|commits exist only on this disk$mism")
+
+  # ⛔⛔ 2026-08-23: "ahead of its upstream" IS NOT "not backed up". commonplace-s80
+  # reported 1 unpushed against a MISNAMED upstream while the commit was fully
+  # reachable from origin/main via its own landing merge -- nothing was at risk and
+  # there was nothing to push. ⇒ THE INSTRUMENT WAS ANSWERING A NARROWER QUESTION
+  # THAN THE ONE ASKED, and every finding of this kind is a candidate false positive.
+  # ⭐ The durability question is "reachable from ANY remote ref?", so ask THAT.
+  if [ "$n" -gt 0 ]; then
+    tip=$(git rev-parse "$br" 2>/dev/null)
+    reachable=""
+    if [ -n "$tip" ]; then
+      # --contains over remote refs: empty means no remote ref reaches this commit
+      reachable=$(git branch -r --contains "$tip" 2>/dev/null | head -3 | tr -d ' ' | paste -sd, -)
+    fi
+    if [ -n "$reachable" ]; then
+      FINDINGS+=("REACHABLE|$d|$br|$n|ahead of upstream but REACHABLE from: $reachable — nothing to push$mism")
+    else
+      FINDINGS+=("UNBACKED|$d|$br|$n|commits exist only on this disk$mism")
+    fi
+  fi
   cd /home/jes
 done
 
@@ -79,4 +109,5 @@ if [ "$examined" -ne "$discovered" ]; then
 fi
 
 if [ ${#FINDINGS[@]} -gt 0 ]; then printf '%s\n' "${FINDINGS[@]}"; fi
-echo "SWEPT|discovered=$discovered|examined=$examined|unbacked_repos=${#FINDINGS[@]}"
+real=0; for f in ${FINDINGS+"${FINDINGS[@]}"}; do case "$f" in UNBACKED\|*) real=$((real+1));; esac; done
+echo "SWEPT|discovered=$discovered|examined=$examined|findings=${#FINDINGS[@]}|genuinely_unbacked=$real"
