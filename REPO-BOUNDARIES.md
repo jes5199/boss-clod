@@ -284,6 +284,34 @@ push-back runs on.** See `commonplace-doc/docs/LINEARITY-TRAP.md`.
 
 ⛔ **A design ruling, NOT an implementation authorisation.** Build order remains jes's.
 
+### 13. ✅ HEAD SELECTION IS BOUND TO `document.select.head`
+
+> **jes, 2026-08-23T19:47Z, verbatim:** *"a change to commonplace.content.head requires
+> document.select.head — approved, yes"*
+
+⇒ **Closes `commonplace-doc`'s W1 completely.** ⭐ **The earlier 19:07Z ruling (*"select.head is
+good"*) gave the ACTION; this gives the BINDING** — and the binding was where the hole was, because
+a purely additive action takes nothing away from `document.write.attributes`.
+
+⭐ **The negative is ENTAILED, not separately stated.** *"Requires `document.select.head`"* means
+`write.attributes` alone is insufficient. ⇒ **Spec text should state both halves** — the positive
+because he ruled it, the negative because that is the half that closes the escalation, and a reader
+who sees only a new name in a list will still authorize a rollback under the general action.
+
+⚠️ **WHY IT MATTERED, so it is not re-litigated:** head selection is **physically an attribute
+write** (the head lives in the attribute projection), and the attribute plugin enforces **no key
+namespaces at all** — measured by `commonplace-log-reducer`: the complete key validator is five
+rules (non-empty · valid UTF-8 · no null · ≤1024 bytes · `:ok`) **with no sixth branch.** ⇒ Without
+this binding, **anyone able to set a display name could roll a document back to an arbitrary
+ancestor without holding `write.content` — silent, instant, authorized.**
+
+⛔ **AND ONE PART OF THE ASK HE DID NOT EXPLICITLY ANSWER: the merge-parent rider.** I asked whether
+the action must also cover **choosing a merge parent**, not only the tip — because his
+caller-supplied-parent ruling (#12) created that door, and an unconstrained merge base reaches the
+same rollback through it. **He quoted and approved the head-change sentence; he did not address the
+rider.** ⇒ ⚠️ **Treat it as OPEN, not as covered. Do not read the quoted sentence as wider than it
+is** — *that is the direction my relays drift.*
+
 ---
 
 ## The layering, in jes's words
