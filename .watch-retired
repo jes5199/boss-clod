@@ -9,4 +9,3 @@
 # report, because "finished" is falsified by observation, not by bookkeeping.
 commonplace-log-reducer  all 12 SP tasks complete 2026-08-23T05:23Z, main d081529 verified
 commonplace-merkle-crdt  phase complete, stop confirmed by boss 2026-08-23T05:31Z, main 2a669a5 verified
-commonplace-log  SP4a complete 2026-08-23T18:07Z, main dcf2714 verified (HEAD==origin, clean, 0 unpushed); §8.3 ruled out of scope by jes; nothing actionable until the Cloudflare account exists; handoff in SP4 plan §0 + docs/sp4b-deployment-readiness.md
