@@ -18,15 +18,25 @@
 set -uo pipefail
 cd /home/jes || exit 2
 
-REPOS=(commonplace commonplace-plan commonplace-log commonplace-log-reducer
-       commonplace-merkle-crdt yepochs hermes wimble dirigible tarot awakening
-       claude-chat boss-clod paravel mater2026 a113028 clockwork)
+# ⛔⛔ DO NOT GO BACK TO A HARDCODED LIST. 2026-08-23: this script shipped with a
+# 17-name list and reported "unbacked_repos=0, examined=17" while **82 git repos
+# existed at depth 1 under /home/jes**. Sixty-five were never looked at --
+# including `postage-stamp`, which is KNOWN to have no remote and results that
+# exist only on this disk.
+# ⭐ AND MY OWN VACUITY GATE PASSED: examined=17 > 0. ⇒ `examined > 0` proves the
+# instrument RAN. It says NOTHING ABOUT COVERAGE. A non-zero denominator drawn
+# from the wrong population is a distinct failure from a zero one, and it is the
+# more convincing of the two.
+# ⇒ DISCOVER the corpus; never enumerate it by hand. And PRINT the coverage so a
+# gap is visible rather than implied.
+mapfile -t REPOS < <(ls -d /home/jes/*/.git 2>/dev/null | sed 's|^/home/jes/||; s|/\.git$||' | sort)
+discovered=${#REPOS[@]}
 
 examined=0
 declare -a FINDINGS=()
 
 for d in "${REPOS[@]}"; do
-  [ -d "/home/jes/$d/.git" ] || continue
+  [ -e "/home/jes/$d/.git" ] || continue
   cd "/home/jes/$d" || continue
   examined=$((examined+1))
   br=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
@@ -51,6 +61,12 @@ if [ "$examined" -eq 0 ]; then
   echo "BLIND|examined 0 repos — the sweep did not run, this is NOT 'everything is pushed'"
   exit 2
 fi
+# ⭐ Coverage gate: examined must equal what was discovered. A silent shortfall is
+# the 17-of-82 failure returning.
+if [ "$examined" -ne "$discovered" ]; then
+  echo "BLIND|examined $examined of $discovered discovered repos — COVERAGE GAP, findings are not trustworthy"
+  exit 2
+fi
 
 if [ ${#FINDINGS[@]} -gt 0 ]; then printf '%s\n' "${FINDINGS[@]}"; fi
-echo "SWEPT|examined=$examined|unbacked_repos=${#FINDINGS[@]}"
+echo "SWEPT|discovered=$discovered|examined=$examined|unbacked_repos=${#FINDINGS[@]}"
