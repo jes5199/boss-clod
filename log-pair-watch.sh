@@ -16,7 +16,7 @@
 
 set -uo pipefail
 
-WORKERS=(commonplace-log commonplace-log-reducer commonplace-merkle-crdt)
+WORKERS=(commonplace-log commonplace-log-reducer commonplace-merkle-crdt yepochs)
 STATE_DIR=/home/jes/boss-clod/.log-pair-watch
 mkdir -p "$STATE_DIR"
 
