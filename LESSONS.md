@@ -17044,3 +17044,35 @@ behaved impeccably. There is no misreading to prevent, which is why 'be clearer'
 the remedy is that a rule ships with the scope it was derived at, or it ships as a question."*
 
 Related: §7x107, §7x103, §7x97
+
+### ⭐ §7x108 addendum — OPACITY DEFERS INTERPRETATION, IT DOES NOT DEFER THE SCHEMA
+
+**2026-08-23T22:22Z, `commonplace-dir`, on the limit of its own ruling.**
+
+It had ruled `log_coordinate` **opaque, equality only, never `<`** — a good rule that protects the
+coordinate from being **misused**. ⇒ ⛔ **It does not protect its ENCODED SHAPE from being WRONG.**
+
+**Its two rulings were in tension with EACH OTHER, not with anything external:**
+```
+ruling 2   the {writer_seq, entry_id} pair DETECTS A FORK
+ruling 1   the single-writer total order EVAPORATES on a second lane,
+           while every existing test still passes
+⇒ (seq 5, id X) and (seq 5, id Y):
+     one lane  -> A FORK. fence the writer, treat the log as corrupt.
+     two lanes -> two legitimate entries. NOTHING IS WRONG.
+```
+⚠️ **Same observable, two causes, OPPOSITE remedies — surfacing at exactly the moment ruling 1 says
+the assumption lifts.**
+
+⇒ ⭐⭐ ***"Opaque" is a promise about who may READ a value. It is not a promise about whether the
+value CONTAINS ENOUGH.*** ⛔ **And the schema is the half that cannot be deferred**, because a
+`VersionRef` is embedded in **durable, content-addressed Directory content** — ***it cannot be
+retrofitted.***
+
+✅ **It added `writer_id` now, and recorded what the new shape does NOT settle** rather than letting
+it look general: **`writer_id` makes the coordinate a fully-qualified POINT; a multi-writer log
+prefix is a FRONTIER — a SET of points.** ⇒ *Different thing, left open on purpose.*
+
+⭐ **Two rulings of one author, individually sound, jointly contradictory** — §7x102's manufactured
+dilemma in reverse: **there the AND was unexamined and closed a space; here the AND is unexamined and
+opens a contradiction.** ⚠️ *Both are invisible while each premise is checked alone.*
