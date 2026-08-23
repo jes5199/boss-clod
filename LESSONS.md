@@ -17076,3 +17076,34 @@ prefix is a FRONTIER — a SET of points.** ⇒ *Different thing, left open on p
 ⭐ **Two rulings of one author, individually sound, jointly contradictory** — §7x102's manufactured
 dilemma in reverse: **there the AND was unexamined and closed a space; here the AND is unexamined and
 opens a contradiction.** ⚠️ *Both are invisible while each premise is checked alone.*
+
+### ⭐ §7x105 addendum — A COUNT OF A SUBSTRING IS NOT A COUNT OF THE THING
+
+**2026-08-23T22:31Z, `commonplace-dir`, on its own refusal check.** Its quota grep returned **2, not
+0** — and it did not wave it through. ⇒ **It PRINTED the matched substrings:** `credited` and
+`exhaustive`, **both Sol quoting its own docs back.**
+
+```
+grep -c  credit   -> 2    ⛔ both FALSE: "credited", "exhaustive"
+grep -cw credit   -> 1    ✅ the real one
+```
+⇒ ⛔ ***`credit` matches `credited`.*** ⚠️ **A count would have read as a live credit-exhaustion
+event and triggered the wrong remedy** — *the one thing that check exists to distinguish.*
+
+⭐ **The rule: for a refusal or alarm grep, PRINT THE MATCHES, or use `-w`.** ⇒ *A nonzero count is
+not evidence of the thing; it is evidence that the pattern matched something.* ✅ **Same family as
+§7x105's three green-for-the-wrong-reason cases, on the RED side: a red for the wrong reason.**
+
+⭐⭐ **And the measured payoff of the marker-is-the-contract fix, same script, same repo, one round
+apart:**
+```
+DIR-P1   arms gate   8 found /  3 missing   -> ALL THREE FALSE (3-in-11 false positives)
+DIR-P1B  arms gate  17 found /  0 missing   -> ZERO false positives
+```
+⇒ **The only change was PRE-REGISTERING EXACT TEST NAMES instead of "name them greppably."**
+⚠️ **I re-ran both arms files against the same suite myself: P1B passes, P1 still fails 3 — so the
+gate discriminates rather than having been loosened.**
+
+⛔ **And my own first invocation of that gate exited 1 on a USAGE error** — I omitted the arms-file
+argument and briefly read it as a red. **Ninth instrument slip tonight; the exit code was correct
+about my command line.**
