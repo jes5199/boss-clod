@@ -166,6 +166,48 @@ are **different axes**. A history acquires a new Yepoch on **snapshot, fork, div
 import** — none of which needs a second realm, and doc's head selection admits divergent-branch
 jumps. **The boundary is reachable in v1 on day one.**
 
+### 8. `commonplace-doc-host` is built IN-REPO by `commonplace-doc` — no new repo, no new agent
+
+> **jes, 2026-08-23T18:41Z:** *"i want commonplace-doc to build commonplace-doc-host in-repo for
+> testing/debugging/proof-of-concept"*
+
+⇒ **Spec filed byte-identical at `commonplace-doc/docs/proposals/2026-08-23-commonplace-doc-host-spec.md`**
+(782 lines, sha256 `05e81989582bbee3`). ⭐ **Note the PURPOSE he gave it: testing, debugging,
+proof-of-concept.** ⛔ **That is not the same as "the production host", and the distinction should
+survive into whatever gets built** — a proof-of-concept that quietly becomes the reference
+implementation is how a scoping word gets lost.
+
+■ **The spec's own dependency direction** (§6):
+```
+commonplace-doc · commonplace-log · commonplace-log-reducer
+        ^
+commonplace-doc-host
+        ^
+future Environment / Realm adapters
+```
+
+### 9. ⚠️ `commonplace-doc-host` §16 BEARS ON THE OPEN CAS QUESTION — not yet confirmed as answering it
+
+`commonplace-doc`'s **ask 2b** is that `commonplace-attribute-map` has **no CAS** (`put`/`delete`/
+`patch`, all unconditional, verified by reading `attribute_map/v1.ex` — they are operation TYPES
+dispatched through `apply/3`, not functions), so *"set the head to Y only if it is currently X"* is
+inexpressible, and under the composition ruling **content merges while the pointer to it clobbers**.
+
+**The host spec §16 offers, verbatim:**
+```elixir
+expected_coordinate: coordinate
+expected_head: commit_id | nil
+```
+> *"`expected_head` provides the narrower content-edit compare-and-set defined by `commonplace-doc`."*
+> *"Multiple clients may attach concurrently, but their mutations are SERIALIZED."*
+
+⇒ ⭐ **That looks like the CAS landing at the HOST layer rather than in attribute-map.** ⛔ **I am
+NOT recording it as answering ask 2b.** `commonplace-doc` owns that judgement; **the hazard it
+described lives in the layer that can see both plugins, and whether a serializing host discharges it
+is exactly the kind of thing I got wrong earlier today by over-reading.**
+⚠️ **And note the direction the convenient reading runs, again: "the host handles it" retires an
+open decision.** ⇒ *Ask, do not assume.*
+
 ---
 
 ## The layering, in jes's words
