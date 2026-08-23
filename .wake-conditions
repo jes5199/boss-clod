@@ -3,6 +3,11 @@
 # ⛔ Do NOT put these in .watch-workers: both watch scripts treat a whole line as a repo name.
 
 commonplace-doc-sync
+  ✅ CONDITION 1 CLOSED 2026-08-23T23:35Z — it woke, ASKED commonplace-log rather than
+     reading their tree, and got five measurements back (adf55d7, on origin). TWO of its §7
+     claims were WRONG: operation_id uniqueness is NOT enforced in general (only where an
+     earlier attempt landed), and `prepared` is PROCESS-LOCAL, so resume means RE-DERIVE.
+     ⭐ The wake mechanism ran end-to-end for the first time and it CHANGED A SPEC.
   WAKE: (1) commonplace-log prepare_append/commit_prepared lands — ⭐ SATISFIED at 19268f4 (on origin). ⚠️ TIMELINE, corrected: its README was written 21:07:28Z and the surface landed 21:16:06Z — NINE MINUTES LATER, so it was NOT already true when filed
   it fired almost immediately and then sat unnoticed for 2h14m. It is a CHECK not a BLOCK
   (2) a published shape changes — commonplace-doc's head-selection command or event, since v0.2 §5's seam rule holds only while from/to mean the same thing on both sides

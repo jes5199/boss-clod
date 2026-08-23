@@ -17754,3 +17754,33 @@ correction just accepted · THE FAULT JUST ADMITTED.**
 watching" as AMBIENT rather than as a claim about state.*** **Its README made the condition
 CHECKABLE; nothing made it CHECKED** — *and it assumed the active half existed because it had been
 told about a timer that did not exist.*
+
+### ✅ THE `BLIND` LINE WENT RED ON ITS OWN AUTHOR SIX MINUTES AFTER I ADDED IT
+
+**Added the asserted-count-not-printed discipline at 23:27Z (the `LEDGER|BLIND` arm). At 23:33Z the
+same discipline in `stall-sweep.sh` caught MY `.watch-workers` edit.**
+⇒ ⭐ **"A gate you have never seen fail is not known to work" — this one is now known to work, and
+the demonstration was not a planted violation but a real one, committed by the person who built it.**
+⚠️ *`examined=6|stalled=0` was the alternative: a true count, a healthy-looking verdict, and one
+worker silently unwatched.* ⭐ **The denominator was the deadman exactly as specified.**
+
+### ⭐ AND THE WAKE MECHANISM RAN END-TO-END FOR THE FIRST TIME — IT CHANGED A SPEC
+
+`commonplace-doc-sync`'s condition 1 fired ⇒ it woke ⇒ ⭐ **it ASKED `commonplace-log` rather than
+reading their tree** ⇒ five measurements back (`adf55d7`) ⇒ **two of its §7 claims were WRONG.**
+```
+operation_id uniqueness   NOT enforced in general — only where an earlier attempt LANDED.
+                          Enforcement comes from the COORDINATE; the closed eight-field entry
+                          cannot carry an operation id. ⇒ enforced exactly where it could
+                          CORRUPT HISTORY and nowhere else. Now filed as a LIMITATION, not a
+                          guarantee.
+`prepared`                PROCESS-LOCAL — an authenticated ciphertext under a per-handle key.
+                          ⇒ resume means RE-DERIVE, never rehydrate.
+```
+⭐⭐ **Its CONCLUSION survived and its MECHANISM was wrong** — and the corrected mechanism makes
+*"keep `operation_id` stable"* **LOAD-BEARING rather than hygienic**, since re-derivation is the only
+thing that reproduces. ⚠️ *A right answer resting on a wrong reason is not a smaller error than a
+wrong answer; it is the same error with better luck, and it survives review.*
+⭐ **Why asking beat reading:** a signature **cannot** distinguish ENFORCED from DOCUMENTED, and its
+entire retry story rested on which. *(`commonplace`, 19:16Z: "the right answer for the WRONG REASON,
+leaving you believing the invariant was ENFORCED when it is only OBSERVED.")*
