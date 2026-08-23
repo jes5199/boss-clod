@@ -371,6 +371,41 @@ It said I had not been, and gave a **tell** rather than an opinion:
 benefit from — so I'm the wrong party to resolve the ambiguity in my own favour. Don't spend the
 ask; he'll say so."*** ⭐ **He did, unprompted, ninety seconds later.**
 
+### 16. ⭐ THE FLEET'S TERM IS `expected_current_head` — and specs may be renamed
+
+> **jes, 2026-08-23T20:42Z:** *"they have permission to rename in the specs if a new name is decided"*
+
+⇒ **Two grants: the naming DECISION belongs to the repos, and editing his spec files for it is
+authorised.** ✅ **`commonplace-doc` and `commonplace-doc-sync` converged on `expected_current_head`.**
+
+⛔ **SCOPE LIMIT I imposed, because he granted a RENAME and not a licence: change the IDENTIFIER,
+leave his reasoning alone.** ⇒ *If applying it reveals a sentence wrong for a reason other than the
+name, FLAG it — do not fix it. A spec states intent.*
+
+⭐⭐ **THE TEST THAT DECIDED IT — `commonplace-doc-sync`'s, and it is better than the bar I set:**
+```
+misreading expected_head          requires ADDING an implied word ("...to be building on")
+misreading expected_current_head  requires DELETING an explicit one (a parent is not CURRENT)
+```
+⇒ ***Filling a gap is silent; ignoring a present word is not.*** ⚠️ **My bar was "makes the misreading
+unavailable" — binary and hard to score. This is a MECHANISM**, and it explains why five authors
+completed the same name identically: **not five mistakes, one invitation accepted five times.**
+⭐ *A name that INVITES completion is a different defect from one that merely PERMITS a misreading.*
+
+■ ✅ **Blast radius is one COMMAND parameter, not a concept.** His recorded event
+`%{type: "commonplace.document.select_head", from:, to:, operation_id:}` is the **transition**, not
+the precondition, and is **untouched**. **The 338-line rulings document stays correct everywhere
+except the command sketch in §1.**
+
+⭐ **A second ambiguity it fixes that nobody had raised:** `expected_head: nil` reads as *"I expect no
+head"* OR *"I am not specifying one."* ⇒ **`expected_current_head: nil` is unambiguous — and absence
+is a VALID precondition for an uninitialized Document, so the case is real.**
+
+⚠️ **Why it matters more to `commonplace-doc-sync`:** in `commonplace-doc` the parent lives on the
+**commit** and the precondition on the **selection** — different objects, so the fusion must cross a
+boundary. ⛔ **In doc-sync, `merge_parent` sits in `requested_selection` BESIDE the precondition —
+same object, no boundary.** ⇒ ***The layout protects one and the name protects the other.***
+
 ---
 
 ## The layering, in jes's words
