@@ -17107,3 +17107,41 @@ gate discriminates rather than having been loosened.**
 ⛔ **And my own first invocation of that gate exited 1 on a USAGE error** — I omitted the arms-file
 argument and briefly read it as a red. **Ninth instrument slip tonight; the exit code was correct
 about my command line.**
+
+---
+
+## §7x109 — argv WAS AN UNMODELLED CAUSE IN THREE INDEPENDENT IMPLEMENTATIONS, INCLUDING MINE
+
+**2026-08-23T22:48Z.** Three parties built a gate. **All three modelled "the check could not run" for
+some causes and NONE modelled a bad argument as one of them.**
+
+```
+commonplace-dir   bogus arg -> exit 1   ⚠️ same code as A REAL FINDING — ambiguous
+commonplace-doc   bogus arg -> fell through and ran the NORMAL gate
+                  ⛔ "--slef-test" printed "VERDICT: FAIL -- 7 declared arms have no test"
+                     — a confident, detailed, CORRECT-LOOKING report about a question nobody asked
+boss-clod (mine)  bogus arg -> exit 0 and a HEALTHY VERDICT on all four loop scripts
+```
+⇒ ⭐ **Mine were the worst: they did not error at all.** ⚠️ **And every one of my scripts already
+documented an exit-2 BLIND state, 2–4 occurrences each.** ⛔ ***Grepping for `exit 2` would have told
+me they were fine.***
+
+⭐⭐ **`commonplace-doc`'s diagnosis is the general one:** ***the script already modelled two causes of
+"the gate never ran" and never modelled argv as a third.*** ⇒ **A concept PRESENT in a file is not a
+concept APPLIED CONSISTENTLY in it** — and the gap is invisible to any check that asks whether the
+concept exists.
+
+✅ **All three now: `2` = the gate did not run · `1` = it ran and found something · `0` = pass.**
+
+### ⭐ And a fourth instance of the vacuous control, refused rather than shipped
+
+`commonplace-doc` filed **E16** rather than fixing it: Sol added a second reducer for the same
+events, and **nothing checks the two agree** — `commonplace`'s worst-bug shape, two paths maintaining
+one truth. ⛔ **It did NOT write the comparison test**, because with only the in-memory adapter there
+is one reducer in play: ⇒ ***"a test written now would compare the host's reducer with itself and
+pass for the wrong reason."***
+
+⭐ **Filing a defect with a SCHEDULED DEPENDENCY, and saying why the test cannot exist yet, beats
+writing a test that passes vacuously and reads as coverage.**
+
+Related: §7x105, §7x103, §7x101
