@@ -18,7 +18,15 @@
 # rc 0 = swept   2 = instrument blind
 
 set -uo pipefail
-WORKERS=(commonplace-log commonplace-log-reducer commonplace-merkle-crdt yepochs)
+WORKERS=(commonplace-log commonplace-log-reducer commonplace-merkle-crdt yepochs commonplace-doc)
+WORKER_LIST=/home/jes/boss-clod/.watch-workers
+# ⭐ ONE list, two scripts. If the file is missing or empty we KEEP the literal
+# fallback below rather than silently watching nothing — an empty watch list is
+# the one failure that reports perfect health forever.
+if [ -r "$WORKER_LIST" ]; then
+  mapfile -t _wl < <(grep -v '^#' "$WORKER_LIST" | grep -v '^[[:space:]]*$')
+  [ "${#_wl[@]}" -gt 0 ] && WORKERS=("${_wl[@]}")
+fi
 D=/home/jes/boss-clod/turn-end-detector.sh
 [ -x "$D" ] || { echo "BLIND|detector missing or not executable at $D"; exit 2; }
 

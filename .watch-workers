@@ -1,0 +1,11 @@
+# ⭐ THE SINGLE SOURCE OF TRUTH for which workers are watched.
+# ⚠️ WHY THIS FILE EXISTS: on 2026-08-23 log-pair-watch.sh and stall-sweep.sh each
+# kept their OWN list. Adding commonplace-doc to one left it INVISIBLE to the other
+# — the pane watch resolved 5 while the stall sweep examined 4, and a stall-sweep
+# blind spot is silent by construction: examined=4|stalled=0 looks exactly like health.
+# ⛔ A worker missing from a list is not a fault anywhere; it is simply never asked about.
+commonplace-log
+commonplace-log-reducer
+commonplace-merkle-crdt
+yepochs
+commonplace-doc
