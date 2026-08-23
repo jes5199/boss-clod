@@ -15796,3 +15796,71 @@ for**, and it is the one job in this that was mine.
 
 Related: §7x89 (a zero from a wrong referent), [[reference_doc_drift_vs_never_true]],
 [[reference_state_legibility_for_agents]]
+
+---
+
+## §7x91 — A pattern anchored to how a name is USUALLY WRITTEN is not anchored to the name
+
+**2026-08-23T18:13Z. Two agents, same corpus, same wrong answer, same cause.** commonplace-log
+reported *"NO registry — so nothing can find or reconstruct a log server by id"*; **I had relayed
+the same absence to jes an hour earlier.** Both false.
+
+```
+application.ex:9   {Registry, keys: :unique, name: Commonplace.LogStore.SQLite.Registry}
+```
+
+### The pattern that could not see it
+
+My grep was `DynamicSupervisor\|use Supervisor\|Registry\.\|start_link` — **`Registry` WITH A DOT.**
+
+| written as | what it is | my pattern |
+|---|---|---|
+| `Registry.lookup(...)` | a call | ✅ matched (6×) |
+| `{Registry, keys: :unique, ...}` | **a supervised child spec** | ⛔ **invisible** |
+
+⇒ ⭐⭐ **I anchored to the FORM a name usually takes — `Module.function` — and the one occurrence
+that mattered was the one where it appears as a bare atom.** Child specs, `use` targets, `@behaviour`,
+`alias`, `import`, config keys and supervision-tree entries all name a module **without a dot.**
+⛔ **And the supervision tree is exactly where a "is it started?" question is answered.** The single
+place my question was decided is the single place my pattern was structurally blind.
+
+### ⚠️ Every other control PASSED — this is the part that should be alarming
+
+```
+corpus: 18 .ex files      NON-EMPTY  ✅   (the §7x89 defence -- it works, and it does not cover this)
+defmodule: 24 hits        NON-EMPTY  ✅
+'Registry\.'              6 hits     ✅   <- NON-ZERO. The pattern LOOKED live.
+```
+⭐ **A non-zero hit count is the most reassuring possible outcome and it proved nothing here.** The
+pattern matched six real things and missed the only load-bearing one. ⇒ ***Vacuity checks catch a
+pattern that finds NOTHING. Nothing catches a pattern that finds THE WRONG THINGS.*** That is a
+distinct failure from §7x89 and the corpus count does not touch it.
+
+### ⭐ The independent-confirmation trap, fired for real
+
+commonplace-log measured it separately and **agreed with me.** ⛔ **Agreement between two parties who
+share a method is one measurement reported twice.** It felt like corroboration; it was the same
+grep run in two contexts. ⇒ *Two agents, one blind spot — and the agreement is what carried it to
+jes.* See §7x74 (three identical stale reads are not three confirmations); **this is that lesson
+with the reads taken independently, which is worse, because independence is the thing that normally
+licenses trust.**
+
+### ✅ What to do
+
+- **When asking "is X started / wired / registered", grep the BARE NAME**, never `X.`. Then read the
+  supervision tree, `mix.exs` `mod:`, and config **by eye** — they are short and they are where the
+  answer lives.
+- ⭐ **Ask what the answer would LOOK LIKE if it were yes, in every form it could take.** "Registry
+  is started" looks like a child spec, not a call. **Enumerate the forms before writing the pattern.**
+- ⛔ **Do not treat a second agent's agreement as confirmation unless its METHOD differed.** Ask
+  *how* they measured; if it is your command, it is your measurement.
+
+### ⭐ And the correction made the conclusion STRONGER, again
+
+commonplace-log's recommendation was *"the log-layer slice is a registry plus on-demand start,
+nothing more."* **That slice is already built** — `server_for/2` looks up by `log_id`, starts if
+absent, restarts if dead. ⇒ **§8.3's log half is not a gap, it is DONE**, and the containment-not-
+authority answer now has code behind it rather than only prose. *Second time today that checking a
+believed claim upgraded it rather than merely filtering it* (cf. §7x89).
+
+Related: §7x89, §7x74, [[reference_pattern_anchored_counts]], [[reference_never_emit_a_bare_count]]
