@@ -276,3 +276,36 @@ check with no caller is a filed rule, not a mechanism.**
   ⭐ **On every session start: run `CronList`, compare against this file, and re-arm what is
   missing. If the heartbeats disagree with `CronList`, believe the heartbeats — they record
   what RAN, not what was SCHEDULED.**
+
+### 4. commonplace-log pair watch — every 15 min at :4,:19,:34,:49 (job 45f66f9d)
+**Added 2026-08-23 at jes's request:** *"can you check the two commonplace-logs claudes every 15
+minutes to make sure they're still working (unless they finish or get stuck!)"*
+
+Script: `/home/jes/boss-clod/log-pair-watch.sh` — resolves windows **by name**
+(`commonplace-log`, `commonplace-log-reducer`), never by index. Prints `STATUS|` per worker plus
+`SUMMARY|`; `BLIND|` + rc=2 when the instrument itself failed.
+
+⭐ **BOTH ARMS DEMONSTRATED BEFORE TRUSTING IT** (see `LESSONS.md` §7x75):
+- **RED:** a bogus window name → `MISSING`; *both* names bogus → `BLIND|` and **rc=2**, not a clean
+  "nothing wrong".
+- **GREEN:** real windows → clean report, rc=0.
+
+⛔ **AND IT SHIPPED WITH THE EXACT DEFECT THE LESSON DESCRIBES, CAUGHT ON ITS FIRST RUN.** v1 tested
+only for `esc to interrupt` and **fell through to IDLE** — so it reported **both busy workers as
+IDLE**. A false green, on a gate's first run, in an environment unlike the one it was written
+against. **Fixes, both structural:**
+1. Busy is now detected from four independent signals — spinner-with-elapsed `(2m 12s · ↓ …)`,
+   `Waiting for N background agent`, an agent-tray row carrying a duration, and `esc to interrupt`.
+2. ⭐ **`IDLE` now requires a POSITIVELY matched idle prompt.** Anything unrecognised reports
+   **`UNKNOWN`**, so *"no pattern matched"* and *"genuinely idle"* stop sharing an observable —
+   the thread's own answer applied to my own script.
+
+⚠️ **And UNKNOWN immediately earned its keep:** it fired on window 0:17 and the cause was that the
+prompt line ends in **U+00A0 NON-BREAKING SPACE**, so `[[:space:]]*$` does not match it under
+`LANG=C.UTF-8`. Found with `cat -A`. The script now normalises NBSP→space before matching, and
+**hashes the RAW pane** so normalisation can never mask a change.
+
+**Silence policy:** stay quiet while both are `WORKING`. Report only CRASHED / QUEUED /
+RATE_LIMITED / STUCK / UNKNOWN / BLIND, or an IDLE that persists two consecutive checks. jes does
+not want a 15-minute heartbeat.
+
