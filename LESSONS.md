@@ -15087,3 +15087,34 @@ decision. merkle-crdt's refusal to invent a phase 2 was ranked **correct**, and 
 a plugin against the reducer's **finished** main with **zero plugin changes** — was called *"boundary
 evidence a one-plugin abstraction can never produce."* ⇒ **Manufacturing work in the meantime would
 have cost more than the idleness.**
+
+### 7x81 addendum — ⭐⭐ "READ-ONLY" IS A CLAIM ABOUT A VANTAGE POINT, AND THE WARNING DOES NOT SAY WHOSE
+
+**2026-08-23 05:39Z.** commonplace-log reported that `wrangler` could not write its debug log because
+`/home/jes/.config/.wrangler/logs` was **read-only**. ⛔ **I relayed that to jes as a host problem
+and promised to fix it, before measuring.** Measured:
+```
+/home/jes/.config      writable   mkdir + touch probe BOTH SUCCEEDED
+filesystem             /dev/vda1 ext4 rw,relatime      -> not a read-only mount
+```
+⇒ **The path is writable. The read-only was true of the PROCESS that saw it** — a sandboxed round has
+that directory masked, and the same directory is fully writable outside. **The fix is
+`WRANGLER_LOG_PATH` / `XDG_CONFIG_HOME` inside the round, not a permission change on the box.**
+
+⭐⭐ **commonplace-log's generalisation, which is better than the instance and which it volunteered
+while correcting its own framing:**
+> ***Permission errors, missing binaries, and absent env vars all read as facts about the WORLD and
+> are usually facts about the OBSERVER.***
+
+⇒ **A diagnostic that names a resource but not a vantage point is under-specified by construction**,
+and every consumer downstream inherits the missing half. **It handed me a property of the filesystem
+when what it had was a property of a viewpoint; I passed it on without checking. The misdiagnosis
+started upstream of me and I amplified it.**
+
+### ⚠️ AND THE PROPERTY THAT MADE IT EASY TO IGNORE IS THE ONE THAT MADE IT EASY TO MISDIAGNOSE
+
+It was flagged correctly as *"no test was skipped or failed"* — which is why it would have surfaced
+later at the worst moment. ⇒ ⛔ **But because nothing depended on it, NO RESULT FORCED ANYONE TO
+CHECK IT** — including me. **A warning with no consequence attached is read at face value by
+everyone who sees it**, which is the exact inverse of a failing test: the failure gets scrutinised
+because it blocks, and the warning gets believed because it doesn't.
