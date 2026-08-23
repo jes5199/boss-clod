@@ -32,6 +32,28 @@ cd /home/jes || exit 2
 mapfile -t REPOS < <(ls -d /home/jes/*/.git 2>/dev/null | sed 's|^/home/jes/||; s|/\.git$||' | sort)
 discovered=${#REPOS[@]}
 
+# ⭐⭐ THIRD STATE, found by commonplace 2026-08-23: LANDED-BY-CONTENT.
+# `--contains <tip>` asks "is this REF reachable" and CANNOT see content that
+# landed as a DIFFERENT commit (rebase / cherry-pick). Such a branch looks
+# exactly like genuinely-unbacked work.
+# ⇒ `git cherry <upstream> <branch>` is git's own answer: '-' = an equivalent
+# patch exists upstream (by patch-id), '+' = genuinely absent. Verified against
+# commonplace's independent patch-id measurement: hardening 2 landed / 0 unique,
+# b2-mr 0 landed / 7 unique.
+# ⛔ A subject line is shape-equality and a rebase that drops a hunk keeps it
+# perfectly. The patch-id is the thing resemblance cannot fake.
+content_verdict() {   # $1 = branch/ref ; echoes "unique=<n> landed=<n>" or "" if unusable
+  local b="$1" base out
+  for base in origin/main origin/master; do
+    git rev-parse --verify -q "$base" >/dev/null 2>&1 || continue
+    out=$(git cherry "$base" "$b" 2>/dev/null) || return 1
+    printf 'unique=%s landed=%s' \
+      "$(printf '%s\n' "$out" | grep -c '^+')" "$(printf '%s\n' "$out" | grep -c '^-')"
+    return 0
+  done
+  return 1
+}
+
 examined=0
 declare -a FINDINGS=()
 
@@ -56,7 +78,12 @@ for d in "${REPOS[@]}"; do
     if [ -n "$reach" ]; then
       FINDINGS+=("REACHABLE|$d|$br|0|no upstream, but REACHABLE from: $reach — nothing to push")
     else
-      FINDINGS+=("UNBACKED|$d|$br|?|no upstream AND unreachable from any remote ref — genuinely at risk")
+      cv=$(content_verdict "$br" || true)
+      case "$cv" in
+        "unique=0 "*) FINDINGS+=("LANDED|$d|$br|0|no upstream and no reachable ref, but ALL commits landed by CONTENT ($cv) — nothing at risk") ;;
+        unique=*)     FINDINGS+=("UNBACKED|$d|$br|${cv%% *}|unreachable AND unique by content ($cv) — GENUINELY AT RISK") ;;
+        *)            FINDINGS+=("UNBACKED|$d|$br|?|unreachable from any remote ref; content check unavailable — treat as at risk") ;;
+      esac
     fi
     cd /home/jes; continue
   fi
@@ -88,7 +115,12 @@ for d in "${REPOS[@]}"; do
     if [ -n "$reachable" ]; then
       FINDINGS+=("REACHABLE|$d|$br|$n|ahead of upstream but REACHABLE from: $reachable — nothing to push$mism")
     else
-      FINDINGS+=("UNBACKED|$d|$br|$n|commits exist only on this disk$mism")
+      cv=$(content_verdict "$br" || true)
+      case "$cv" in
+        "unique=0 "*) FINDINGS+=("LANDED|$d|$br|$n|ahead of upstream but ALL commits landed by CONTENT ($cv) — nothing at risk$mism") ;;
+        unique=*)     FINDINGS+=("UNBACKED|$d|$br|$n|unique by content ($cv) — GENUINELY AT RISK$mism") ;;
+        *)            FINDINGS+=("UNBACKED|$d|$br|$n|commits exist only on this disk; content check unavailable$mism") ;;
+      esac
     fi
   fi
   cd /home/jes
