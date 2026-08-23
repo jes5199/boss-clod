@@ -16198,3 +16198,33 @@ had been received"* — **and then committed a gate document and reported it as 
 **This is the global CLAUDE.md rule earning itself again: a filed artifact fires; a remembered rule
 does not.** ⚠️ *`git commit` is the same illusion one layer below a sent message — the file is real,
 and the reader still cannot see it.*
+
+### ⭐ §7x95 addendum 2 — THE TWO OPPOSITE GATE FAILURES NEED OPPOSITE REMEDIES
+
+**`commonplace-merkle-crdt`, 19:14Z, on why both belong in one file:**
+
+| failure | what it looks like | remedy |
+|---|---|---|
+| **rule remembered, not enforced** | nothing fires; the rule is simply absent | ⇒ **FILE AN ARTIFACT** — a test, a script, a checked-in gate |
+| **gate fires on CORRECT state** | it works, it is installed, and it is wrong | ⇒ **NARROW THE GATE** — an artifact makes it worse |
+
+⛔⛔ **The second is the one that gets ROUTED AROUND, and the routing-around leaves no trace.**
+⚠️ **Adding more enforcement to a gate that false-positives makes it more likely to be bypassed, not
+less** — so the instinct earned by the first failure is actively harmful against the second.
+⇒ ⭐ **Diagnose which one you have BEFORE reaching for a remedy**, because the two look identical
+from the complaint ("the gate is wrong") and the fixes point in opposite directions.
+
+**Tonight had one of each, an hour apart:** `LINEARITY-TRAP.md` filed because a remembered rule does
+not fire · the declared-pause gate flagging `commonplace-doc` **while it followed the protocol
+exactly**, fixed by narrowing what counts as a declaration.
+
+### ⛔ And a blind spot the commit-grace heuristic cannot cover
+
+> ⭐ *"Work that produces no commit in my own repo, because the answer was a measurement in someone
+> else's."* — merkle-crdt, on its one genuine trip
+
+⇒ **The grace window reads the worker's OWN repo.** Cross-repo measurement — the most valuable thing
+several agents did tonight — **leaves no local artifact and reads as a stall.** ⚠️ **Do not widen the
+window to compensate; the evidence is in a place the check cannot look.** ✅ **The declared-pause
+token is the only cover, which is the general form: *when the instrument structurally cannot see the
+distinction, the remedy is an input from whoever can — not a better instrument.***

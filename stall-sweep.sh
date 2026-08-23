@@ -50,6 +50,12 @@ for w in "${WORKERS[@]}"; do
       # commonplace-merkle-crdt tripped this 3x in one hour; 2 of the 3 turn-ends were
       # within 40s of a push. The detector reports that a turn ENDED, never what happened
       # in it — a commit is the missing evidence, and it is on disk.
+      # ⛔ BLIND SPOT, NAMED BY merkle-crdt 19:14Z: this only sees the worker's OWN repo.
+      # Work whose product is a MEASUREMENT IN A PEER'S TREE leaves no local commit and
+      # reads as a stall. That case is real and recurring — its 19:07 trip was three
+      # minutes spent measuring in commonplace's test tree to answer doc-sync.
+      # ⇒ The declared-pause token is the only cover for it, because the evidence exists
+      # somewhere this check cannot look. Do not widen the window to compensate.
       # ⚠️ This DELAYS the nudge by one cycle, it does not suppress it: once the commit
       # ages past the window the same quiet pane reports STALLED again. A genuine stall
       # after a push is still caught, five minutes later.
