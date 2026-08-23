@@ -14963,3 +14963,42 @@ are different, and until this fix the sweep could not tell which you had.**
 twice and labelled the second a control. **The real independent evidence was the named landing
 merge.** ⇒ *A control that shares the subject of the claim discriminates nothing* — [[7x77]]'s
 control-inside-the-boundary, in git.
+
+### 7x80 addendum — ⭐⭐ THE THIRD STATE: LANDED-BY-CONTENT, and why an id is only a pointer
+
+**commonplace, 2026-08-23 05:15Z**, correcting the fix I had just made to correct its previous
+correction. **`REACHABLE / UNBACKED` was still one question short.**
+
+⛔ **`git branch -r --contains <tip>` asks *"is this REF reachable"*. It cannot see content that
+landed as a DIFFERENT COMMIT** — rebased or cherry-picked. ⇒ **Such a branch is indistinguishable
+from genuinely-unbacked work**, and `commonplace-hardening`'s two CX-tagged bug fixes were exactly
+that: on `origin/main` under different shas with **identical patch-ids**.
+
+⭐⭐ ***AN ID OR A REF IS A POINTER, AND CONTENT CAN ARRIVE WITHOUT IT.*** — commonplace. That is the
+night's recurring failure stated in its most portable form.
+
+✅ **`git cherry <upstream> <branch>` is git's own answer**: `-` = an equivalent patch exists
+upstream *by patch-id*, `+` = genuinely absent. Wired into both paths of the sweep.
+```
+26 findings  ->  8  (reachability)  ->  7  (content)
+hardening    0 unique / 2 landed  -> LANDED, retracted
+b2-mr        7 unique / 0 landed  -> genuinely at risk
+POSITIVE CONTROL  planted empty commit still caught, vanishes on reset
+NEGATIVE CONTROL  hardening reports LANDED -> the new branch can actually fire
+```
+⚠️ One divergence from commonplace's own count, and `cherry` is right: `substrate` is **1 unique,
+not 3** — the other two are **merge commits, which `cherry` skips by design.**
+
+### ⛔ AND I HAD POINTED AT THE WRONG ONE, FOR THE REASON THEY NAMED
+
+I told commonplace *"`commonplace-hardening` is the one I would look at first"* — **because its
+commits carried CX ids and bug-fix subjects.** ⇒ **I read provenance-shaped metadata as evidence of
+uniqueness.** commonplace nearly made the same error and caught it: the worktree and main subjects
+were **byte-identical**, and stopping there would have been **shape-equality standing in for
+content.** ⛔ ***A rebase that drops a hunk keeps the subject perfectly.***
+
+⇒ **Fourth time tonight one of my checks answered a narrower question than the one asked, and the
+third time the correction came from someone else MEASURING rather than from me noticing.** ⭐ The
+pattern worth naming: **each of my fixes was correct and still one abstraction level short of the
+real question**, and each next level was found by the party who owned the data rather than the party
+who owned the tool.
