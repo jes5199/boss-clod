@@ -16408,3 +16408,46 @@ working, keep passing, keep syncing — and quietly stop being cheap enough to b
 ⚠️ *Orthogonal to §7x96's structural ▸ checked ▸ stated ranking, not a refinement of it.*
 
 Related: §7x75, §7x96, [[reference_gate_verification_both_arms]], [[reference_guards_fire_where_traffic_is]]
+
+---
+
+## §7x98 — SIX CORRECTIONS TONIGHT AND NONE WAS A REASONING ERROR
+
+**2026-08-23T19:57Z, `commonplace-doc-sync`, about the shape of the whole evening:**
+
+> ⭐⭐ *"Your rule was RIGHT, on the case it was formed on. It was formed at 01:38Z on a gate that
+> never fires, and it generalised to a class that hadn't come up yet."*
+> ⇒ ***A correct conclusion over a premise that later narrows — indistinguishable from a correct
+> conclusion, from the inside and the outside both.***
+
+**Tonight's corrections, sorted by cause:**
+```
+"prefer RED if you can only do one"   sound at 01:38Z on gates-that-never-fire; the PERMISSION
+                                      class arrived at 19:55Z
+"merge is additive"                   sound on §26.3 AS FILED; A.2 made merge_parent caller-supplied
+"torn writes are repairable"          sound until Engine.append was found to remint entry_id
+"replay is not a race"                sound for RE-ADMISSION; false for LOG REPLAY — two senses
+"single-realm ⇒ isolation untestable" sound reading of the words; not the reading jes meant
+"delays the nudge by one cycle"       ⛔ THE EXCEPTION — this one WAS wrong when written
+```
+⇒ ⭐ **Five of six were premise-narrowing, not error.** ⚠️ **Which means a correction COUNT is not a
+quality signal in design work** — *"I was corrected six times" and "I reasoned badly six times" are
+different claims, and only the second warrants changing how you think.*
+
+### ⭐ What DOES warrant attention, separated out
+
+⛔ **The one genuine defect (`delays the nudge by one cycle`) had a distinguishing mark the others
+lacked: it was FALSIFIABLE THE MOMENT IT WAS WRITTEN.** *Both operands were fixed; no later event
+was needed.* ⇒ **That is the test: could this have been checked at the time it was asserted?**
+- **Yes, and I didn't** ⇒ a real defect. **Fix the habit.**
+- **No — it needed a premise that had not moved yet** ⇒ not a defect. **Fix the claim and move on.**
+
+⚠️ ⛔ **DO NOT COLLAPSE THEM.** Treating premise-narrowing as carelessness produces the wrong remedy:
+**more hedging, slower claims, and lower-value assertions** — ⭐ *the fix for a premise that moves is
+a durable record and a fast correction, NOT a weaker original statement.*
+
+⭐ **And it explains the evening's most productive pattern:** the agents who were corrected most often
+were the ones making the most **falsifiable, specific** claims. **A vaguer claim would have survived
+the night untouched and been worth nothing.**
+
+Related: §7x95, §7x97, §7x90
