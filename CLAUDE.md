@@ -172,10 +172,25 @@ On session start, set up these recurring jobs:
 Anthropic's March 2026 peak/off-peak promotion ended (announced 2026-05-06). Rates are uniform — no time-of-day throttling needed. The 5h and 7d session/weekly limits still apply.
 
 ### Quota Guard
-Runs every 15 minutes via cron. Thresholds:
-- 5h >= 80%: SLOW_DOWN — pause loops
-- 7d >= 90%: SLOW_DOWN — pause loops
-- 7d >= 95%: STOP — only direct messages
+Runs every 15 minutes via cron. ⛔ **THE THRESHOLDS ARE BURN-RATE, NOT RAW PERCENT.** The raw-percent
+list that used to sit here (5h>=80, 7d>=90 SLOW_DOWN, 7d>=95 STOP) was **superseded by jes on
+2026-08-09: _"no hard stop under 99%"_**, and the running script has been rate-based since. ⚠️ A raw
+percent alone is not a reason to slow anything down.
+
+| verdict | condition (from `quota-guard.sh`) |
+|---|---|
+| **SLOW_DOWN** | `ratio >= 1.05` — burning fast enough to hit the wall EARLY and stop mid-work |
+| **STOP** | `7d >= 99%` — `STOP_PCT=99`, the hard backstop |
+| `GUARD_BROKEN` | rc=3 — neither OK nor SLOW_DOWN nor STOP; **treat as blind, not as healthy** |
+
+**ratio** = burn relative to elapsed time. **0.99x at 7d=90% is ON PACE, not an alarm** — measured
+2026-08-23T18:48Z, guard said `OK`.
+
+⭐ **Read the guard's verdict, never the percentage.** *The percentage answers "how much is gone";
+only the ratio answers "will it run out before the week does".*
+
+⚠️ **The Fable-scoped weekly cap is a SEPARATE meter this guard does not gate on** — it reports it
+(`Fable=100%:critical:ACTIVE`) but does not slow down for it. `fable-recovery-check.sh` owns that.
 
 Script: `/home/jes/boss-clod/quota-guard.sh`
 Quota tool: `/home/jes/.local/bin/claude-quota`
