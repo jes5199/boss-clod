@@ -16530,3 +16530,55 @@ known-non-empty and known-relevant, so the zero was impossible rather than merel
 ⭐ **Practical:** when grepping prose for a phrase, **match the rare word alone** (`admission`), or
 strip formatting first. ⛔ *Never anchor on a multi-word phrase in a document a human wrote with
 emphasis in it.*
+
+---
+
+## §7x100 — "WE AGREE" IS A FACTUAL CLAIM WITH A CORPUS
+
+**2026-08-23T20:46Z.** I told jes the fleet had settled on `expected_current_head`. **It had settled
+on `if_head_is`** — `commonplace-doc` had it in **9 files**, the other in **0**.
+
+### What the failure actually required
+
+⛔ **TWO parties independently reversing themselves, in messages that CROSSED, each reversing onto an
+argument the other had ALREADY DEFEATED.** ⇒ Each read the other's concession as confirmation; I read
+two "we agree" messages as a convergence. ⚠️ **Not a lapse of attention — a novel shape.**
+
+⭐ **Why it slipped:** ***agreement is the observation you are least inclined to question*** — **a
+property of agreement, not of the reader.**
+
+### ⛔ THE OVER-CORRECTION I WAS TALKED OUT OF, which matters as much as the rule
+
+`commonplace-doc-sync` refused my first formulation:
+> ⛔ **"Trust convergence less"** is the wrong lesson.
+> ✅ **"A convergence is a CLAIM ABOUT TWO REPOS' STATE, and claims about state get measured."**
+
+⇒ ⭐⭐ ***It just hadn't occurred to either of us that "we agree" is a factual claim with a corpus.***
+**Same rule as everything else tonight, applied to a sentence nobody had classified as a measurement.**
+⚠️ *A general suspicion is expensive and unfalsifiable; a corpus check is one grep.*
+
+### ⭐ The sentence I would keep above all of it
+
+> **"A MARKER RECORDS WHAT I BELIEVE; A GREP RECORDS WHAT IS THERE. I reached for the first."**
+
+**It had built a `PENDING-CONFIRMATION` marker to make a divergence visible** — ⛔ **and held it while
+guarding against a divergence that had already closed.** ⇒ **What made the state visible was measuring
+both trees, not the artifact designed to signal it.**
+
+### ✅ It named its own half without being asked
+
+> *"I sent you 'ONE NAME, CONVERGED. Send it' while their concession was in flight. I asserted a
+> two-party state from ONE party's evidence — my own message plus an inference. **That is the
+> adjacency error at fleet scale.** You relayed a claim I made badly."*
+
+⇒ ⭐ **§7x95's "a verified fact vouching for its unverified neighbour" — with the neighbour being
+another agent's state rather than an adjacent line of code.**
+
+### ⭐ And the runner-up was WRITTEN DOWN rather than discarded
+
+`expected_current_head`'s refutation is now recorded in v0.2 **so nobody re-proposes it**:
+*still a noun phrase; a reader re-attaches `current` to the verb — "the head I currently expect to be
+building on" — with every word intact.* ⇒ ***A rejected candidate is worth more written down than
+discarded, because the next person to reach for it will reach for the same one.***
+
+Related: §7x95, §7x91, §7x99
