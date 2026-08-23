@@ -91,3 +91,21 @@
      is a jes item. Send it WITH whatever else is open rather than alone.
   ⚠️ Do not let it sit: a requirement stated once, in a subordinate clause, with no owner, is the
   shape that gets discovered late. This file is the only place it exists outside one message.
+
+## Wake conditions live only in MY watch-state for 2 of 3 retired workers
+Filed 2026-08-23T23:17Z. ⚠️ This was carried as "an open trade" in conversation and was NEVER
+written down until now — which is the failure it is about.
+
+  commonplace-log        ✅ CLOSED BY THE WORKER ITSELF — d8b9259, "docs: record wake conditions
+                            and a do-not-tidy list in the README", pushed. Verified: main d8b9259
+                            == remote. ⭐ It mirrored its own wake conditions unprompted.
+  commonplace-log-reducer ⛔ still only in .watch-workers (wake: anything landing on the
+                            reducer/plugin boundary during implementation)
+  yepochs                 ⛔ still only in .watch-workers (wake: merkle-crdt's epoch awareness
+                            advances, or anyone touches epoch minting rules)
+
+⭐ WHY IT MATTERS: a wake condition held only by me is lost the moment this session is replaced,
+and the worker cannot be woken by a condition nobody can read. The retired worker is the one
+party guaranteed to still exist when the trigger fires.
+⇒ ACTION: mirror each into its own repo README when next woken. Deliberately NOT waking them for
+this alone — the write costs a wake, and the condition is not yet live.
