@@ -1,0 +1,9 @@
+# Workers waiting on a NAMED EXTERNAL PARTY. One line: name, ISO timestamp, party, what.
+# ⭐ WHY SEPARATE FROM .watch-retired: retired = finished by decision, idle forever and
+# correct. BLOCKED = has work it cannot start until someone else acts. Both read IDLE
+# to the pane watch, and conflating them loses the thing that matters — a block ENDS.
+# ⛔ EVERY ENTRY MUST NAME A PARTY AND A TIME. A block with no named party is
+# indistinguishable from a stall, and a block with no timestamp cannot go stale.
+# ⚠️ WHEN THE PARTY ANSWERS, REMOVE THE LINE. A block that outlives its answer is a
+# worker sitting idle with permission — the failure this file could most easily cause.
+commonplace-log  2026-08-23T06:53Z  jes  SP4b needs a Cloudflare account, Containers access, gateway auth; and a go/no-go

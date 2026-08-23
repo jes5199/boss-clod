@@ -28,6 +28,11 @@ RETIRED_FILE=/home/jes/boss-clod/.watch-retired
 is_retired() { [ -r "$RETIRED_FILE" ] && grep -qE "^$1[[:space:]]" "$RETIRED_FILE"; }
 retired_reason() { grep -E "^$1[[:space:]]" "$RETIRED_FILE" 2>/dev/null | head -1 | sed "s/^$1[[:space:]]*//"; }
 
+# Workers waiting on a named external party — see .watch-blocked.
+BLOCKED_FILE=/home/jes/boss-clod/.watch-blocked
+is_blocked()   { [ -r "$BLOCKED_FILE" ] && grep -qE "^$1[[:space:]]" "$BLOCKED_FILE"; }
+blocked_line() { grep -E "^$1[[:space:]]" "$BLOCKED_FILE" 2>/dev/null | head -1 | sed "s/^$1[[:space:]]*//"; }
+
 now=$(date -u +%s)
 nowiso=$(date -u +%Y-%m-%dT%H:%M:%SZ)
 
@@ -132,7 +137,13 @@ for w in "${WORKERS[@]}"; do
       is_retired "$w" && detail="$detail ⚠️ marked RETIRED but is WORKING — remove it from .watch-retired"
     fi
   elif printf '%s' "$pane" | grep -qE '^❯[[:space:]]*$|^[[:space:]]*❯[[:space:]]*$'; then
-    if is_retired "$w"; then
+    if is_blocked "$w"; then
+      bl=$(blocked_line "$w"); bts=${bl%% *}; brest=${bl#* }
+      bage="?"
+      bsec=$(date -u -d "$bts" +%s 2>/dev/null) && bage="$(( (now - bsec) / 60 ))m"
+      # ⭐ The AGE is the point: a block that outlives its answer is idle-with-permission.
+      state=BLOCKED; detail="waiting on $brest (blocked ${bage} ago); not a stall — REMOVE the .watch-blocked line when answered"
+    elif is_retired "$w"; then
       # ⭐ Idle is the EXPECTED state here. Report it as such so it stops
       # generating findings — but keep printing it, because a silently dropped
       # worker is how a retirement becomes a blind spot.
