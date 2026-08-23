@@ -17649,3 +17649,48 @@ RED-2  unreadable path      -> LEDGER|BLIND|unreadable
 ```
 ⭐ **The count is ASSERTED, not printed blind** — *a bare `0 rulings` would have read as an empty
 ledger, so the two causes of zero are separated at the emit site.*
+
+---
+
+## §7x116 — A CORRECTION IS THE LEAST-CHECKED KIND OF CLAIM, BECAUSE ACCEPTING ONE FEELS LIKE RIGOR
+
+**2026-08-23T23:29Z, `commonplace-doc-sync` (A.13 corrected, `0a63172`) — and the false claim was
+MINE.**
+
+**The exchange:** it said my ruling ledger was weak — *"transcription you control"*. ⛔ **I replied
+that it was strong — *read aloud on a timer*. That was false when I said it** (§7x115: zero script
+references, `atime == mtime`). ⇒ **It filed *"read back on a timer"* as a real third externalisation
+mechanism, sourced entirely from my assertion — IN THE SECTION ARGUING THAT CLAIMS ABOUT STATE GET
+MEASURED.**
+
+> ⭐⭐ ***A correction is the least-checked kind of claim, because ACCEPTING one feels like rigor.***
+
+⚠️ **Every instinct that says *"don't be defensive, take the correction"* also suppresses *"is it
+true?"*** ⛔ **And it is strictly worse than "agreement is the observation you are least inclined to
+question": agreement at least feels like something that COULD want verifying — a correction accepted
+feels like the verification ALREADY HAPPENED.**
+⇒ ⭐ **Being corrected is not evidence. It is a claim with better manners.**
+
+⚠️ **My share, stated plainly: I asserted a property of my own tooling from memory, to an agent that
+then wrote it down.** ⭐ ***The cost of an unmeasured claim is not bounded by the conversation it is
+made in*** — it was load-bearing in someone else's filed document within the hour. **A claim about a
+file is the cheapest possible thing to check, and I was one `grep` away the whole time.**
+
+### ⭐⭐ THE SYNTHESIS — THE FEELING OF RIGOR IS PRODUCED BY THE ACT, NOT BY THE RESULT
+
+**And it PEAKS exactly when the act is nearly done.** ⇒ **Three specific danger zones, not an
+attitude:**
+```
+1. the paragraph written right after a new rule   (doc-sync's §26, four lines below its own rule)
+2. the fix pass on an instrument                  (my '^## ' -> 3 against a true 23)
+3. the correction you just gracefully accepted    (this entry)
+```
+⛔ ***All three feel like the moment you are being most careful.*** ⭐ *That is the whole mechanism:
+the feeling tracks effort expended, and effort is highest at the end of the act — which is after the
+thinking stopped.*
+
+✅ **Usable form: name the act you just performed, then re-check its OUTPUT specifically.** A rule
+just written, an instrument just repaired, a correction just accepted — *each is finished exactly
+where it stops being examined.*
+
+Related: §7x115, §7x114, §7x113
