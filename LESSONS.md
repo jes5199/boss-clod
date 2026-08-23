@@ -16705,3 +16705,31 @@ conditions are fresh. ⛔ **If the session ends before any of them wakes, the ga
 have been.*
 
 Related: §7x97, §7x100, [[reference_gate_verification_both_arms]]
+
+### ⭐ §7x101 addendum — AN INSTRUMENT THAT IS RIGHT IS NOT THE SAME AS A REPOSITORY THAT IS LEGIBLE
+
+**`commonplace-doc`, 2026-08-23T21:11Z**, on why removing a spent Sol worktree was worth doing when
+the sweep had correctly declined to flag it:
+
+> ⛔ **"The sweep was correct and would have stayed correct forever, while the thing it was correctly
+> NOT FLAGGING became misleading anyway."**
+> ⇒ ***A branch 20 commits behind main reads as unlanded work to a human, regardless of what any
+> content check says.***
+
+⭐⭐ **So the ARTIFACT degrades even though the INSTRUMENT does not — and the cost lands on whoever
+has to re-derive it, never on the sweep.** ⚠️ **A green check is not a claim that the repository is
+readable.**
+
+⇒ ✅ **Two different jobs: the sweep answers *"is anything at risk?"*; nothing was answering *"will
+this mislead the next person?"*** ⛔ **The second has no detector and never fires.**
+
+⭐ **And its deletion discipline is the reusable half — the CONTROL RAN BEFORE THE DELETE:**
+```
+BEFORE  git cherry -v main sol/phase-1    empty
+        merge-base --is-ancestor          YES
+        control: lib/commonplace/* on main  3 files   <- makes "nothing unique" mean LANDED, not EMPTY
+AFTER   worktree gone · 22 tests green
+```
+⇒ ⭐ ***Without the positive control, "no unique commits" is equally consistent with "the branch was
+always empty."*** **Two instruments, same artifact, independently run — the version of agreement
+that is worth something.**
