@@ -15152,3 +15152,50 @@ the string is there. **`grep -c` on the patched file, every time.**
 four agents that an absence has more than one cause. ⇒ **The empty output had two: "the warning
 correctly did not fire" and "nothing ran at all."** I picked the one that let me proceed, in a test
 I had constructed specifically to be rigorous.
+
+## 7x82 — ⭐⭐ WRITING "I WILL DO X NOW" DISPOSES OF X. The turn ends on the sentence.
+
+**2026-08-23 06:23Z.** Seven stalls tonight across three agents, all the same shape: a turn ending on
+an enumeration or a promise, nothing scheduled, 9–27 minutes of silence until the pane watch noticed.
+I had been treating it as weak follow-through and saying so. **It is a mechanism, and the transcripts
+prove it.**
+
+```
+commonplace-log
+  06:08:11 assistant tool_use  stop=tool_use
+  06:08:23 assistant text      stop=end_turn   "I'll dispatch Task 6 NOW rather than leaving it as a list."
+yepochs   (six minutes later, independently)
+  06:14:17 assistant tool_use  stop=tool_use
+  06:14:33 assistant text      stop=end_turn   "Reading them next, IN THIS TURN."
+```
+⛔⛔ **BOTH WROTE THE CORRECTION AND COMMITTED THE ERROR IN THE SAME SENTENCE.** `stop=end_turn` — not
+truncation, not an error, not a tool budget. **The model emitted a promise and had nothing left to
+say.**
+
+⭐⭐ **THE MECHANISM: the sentence DISCHARGES the impulse that would have produced the tool call.**
+⇒ ***An announcement is indistinguishable from an action TO ITS AUTHOR, because both feel like having
+dealt with it.*** ⛔ **Which is exactly why understanding the lesson does not help: understanding
+produces more sentences, and sentences ARE the failure mode.** Two agents hit it *in the act of
+articulating the fix*, six minutes apart, independently — that rules out resolve and rules in
+structure.
+
+✅ **THE MECHANICAL RULE, which needs no memory and is checkable from the turn's own shape:**
+> ***THE LAST THING IN A TURN MUST BE A TOOL CALL, NOT A SENTENCE ABOUT A TOOL CALL.***
+
+⇒ **Emit the dispatch first; describe it afterward.** Prose about what you are about to do belongs
+*after* the call that does it. ⭐ **The tell is exact and greppable: a first-person future-tense
+sentence followed by `stop=end_turn`.**
+
+### ⭐ Why this is the same family as everything else tonight
+
+**A promise is a green suite.** It looks like the work having happened, and **it is produced by the
+same act that would have produced the work** — so it satisfies the author's check for "is this
+done?". ⇒ Same shape as the ornamental gates yepochs found in four consecutive modules, as
+`--contains` standing in for durability, as a subject line standing in for a patch-id: **a cheap
+proxy occupying the slot where the expensive real thing belongs, and reading identically from
+inside.**
+
+■ **And my own error in it:** I diagnosed this as discipline for six hours and said so to three
+agents, because I never looked at `stop_reason`. ⇒ **The evidence was one field away in a file I had
+already opened twice tonight for other reasons.** *A wrong explanation that fits stops the
+measurement* — paravel's line, applied to me, for the second time tonight.
