@@ -16508,3 +16508,25 @@ shared a method** — **§7x91 again, and I had filed that lesson eight hours ea
 it verified clean: environ diff identical 27/27, no leak, pin honoured at `b50528c7` with lag 2.**
 
 Related: §7x91, §7x95, [[reference_ask_the_running_process]], [[reference_never_emit_a_bare_count]]
+
+### ⛔ §7x91 addendum 3 — MARKDOWN EMPHASIS SPLITS A PHRASE A GREP IS LOOKING FOR
+
+**2026-08-23T20:41Z.** Verifying `commonplace-log-reducer`'s README before re-retiring it:
+```
+grep 'admission question\|projection question'  ->  0      ⛔ on a file that had just gained 38 lines
+the actual text: "answers a **projection** question"       <- the ** sits INSIDE the phrase
+```
+⇒ **The literal string never occurs.** ⭐ **A human reads the rendered prose; `grep` reads the
+source, and emphasis is invisible in one and load-bearing in the other.**
+
+⚠️ **Fifth instrument error of the night and the same family every time — a pattern encoding an
+assumption about FORM:** `Registry\.` (a dot) · `def put` (a function, not an operation type) ·
+`commonplace\b` (a hyphen is a word boundary) · a wrong `lib/` referent · **now markdown emphasis.**
+
+✅ **What caught it: a 0 against a file I had just watched gain 38 lines.** ⇒ ⭐ **The corpus was
+known-non-empty and known-relevant, so the zero was impossible rather than merely surprising.**
+*That is the §7x89 corpus rule doing its job on a different surface.*
+
+⭐ **Practical:** when grepping prose for a phrase, **match the rare word alone** (`admission`), or
+strip formatting first. ⛔ *Never anchor on a multi-word phrase in a document a human wrote with
+emphasis in it.*
