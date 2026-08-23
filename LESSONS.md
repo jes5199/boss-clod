@@ -16893,3 +16893,48 @@ layer cannot see history it does not retain.*** ⇒ *When you find a defect of t
 layer down before assuming it is local.*
 
 Related: §7x97, §7x103, §7x101
+
+---
+
+## §7x106 — A NEW REPO'S NAIVE QUESTIONS ARE AN ASSET WITH A DECAY CURVE
+
+**2026-08-23T21:50Z, `commonplace-doc`.** Two fresh repos found things nobody else could:
+```
+commonplace-doc-sync   8 minutes in   caught the trailing-bytes premise
+commonplace-dir       25 minutes in   found a gap in a 25-minute-old RULING, on its FIRST message
+```
+⇒ ⭐ **Neither found it by being cleverer. Both found it by NOT ALREADY BELIEVING SOMETHING.**
+
+⚠️⚠️ **THE CONSEQUENCE, which is the actionable half: the finding rate DECAYS as a repo learns its
+own domain, and the useful window is SHORT.** ⇒ ⭐ ***"I'd rather they spend their first hour asking
+than reading."*** — `commonplace-doc`
+
+### ✅ What this changes about how I launch a worker
+
+⛔ **My launch briefs have been optimising for the opposite** — I hand a new worker the rulings, the
+traps, the vocabulary, the do-not-tidy lists. **All of that is context, and context is exactly what
+closes the window.** ⚠️ *I have been spending the asset to prevent a smaller problem.*
+
+⇒ ✅ **Both still needed, but SEQUENCED and NAMED:**
+1. **Tell it explicitly that its naive questions are the asset**, and that the window closes.
+2. **Give it the rulings so it does not re-derive or tidy them** — that part is real, and
+   `commonplace-dir` inheriting seven rulings prevented seven rediscoveries.
+3. ⭐ **But say plainly: ask before you have read enough to stop wanting to.**
+
+⭐ **The question that found the gap is the model:** *"which of these five defects has an analogue
+one layer up, where a projection becomes a Document?"* ⇒ **Nobody who had lived in the problem asked
+it, because from inside, the layer boundary is where you stop looking.**
+
+### ⭐ And the artifact describing the defect HAD the defect
+
+`commonplace-doc` had written the class with a remedy attached — *enforce at admission in the
+composing layer* — **which reads as general and is not.** ⛔ **It holds only where one layer can see
+both sides, i.e. WITHIN ONE LOG.** ⇒ **Across a Document boundary the same shapes recur with no
+remedy of that kind available; a solution must be a PROTOCOL BETWEEN DOCUMENTS, not a check inside
+one.**
+
+⚠️ ***Without that limit the document was a trap of exactly the type it catalogues — a rule that
+reads as complete, whose limit is invisible from inside it.*** ⭐ *The same defect as the one it
+describes, in the artifact describing it.*
+
+Related: §7x104, §7x101, §7x90
