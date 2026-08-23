@@ -340,3 +340,31 @@ to switch (a relaunch costs context; ⛔ never restart hermes without asking, li
 ⭐ **The check reads its POSITIVE CONTROL FIRST:** it proves the `scope.model.display_name=Fable`
 entry exists before believing any percentage, because **a missing entry and a healthy meter are
 indistinguishable to a `percent >= 100` test.**
+
+### 6. Unbacked-work sweep — hourly at :47 (job c3f44737)
+**Added 2026-08-23.** Script: `/home/jes/boss-clod/unbacked-work-sweep.sh`.
+
+⚠️ **WHY IT EXISTS:** commonplace-log-reducer reported a doc *"filed at main `1df1015`"*. It was
+**committed, not pushed** — 13 commits on `main` plus the **entire implementation branch**
+(Tasks 1–7, 133 tests) existed on one disk. Caught only by the verify-pushed-before-relaying rule,
+because ⭐ **a commit SHA is a local claim with the syntax of a published one.**
+
+⛔⛔ **AND THE SAME SWEEP FOUND boss-clod ITSELF 15 COMMITS UNBACKED** — the whole §7x75 lesson
+thread and both watch scripts — **while I was telling another agent about durability.** ⇒ **Nobody
+is exempt, which is exactly why this is a script and not a resolution.**
+
+⭐ **THE DISTINCTION IT ENFORCES:** *durable to a compaction* and *durable to a machine* are
+different properties. Writing state to files defends the first. **Only a push defends the second,
+and the failure that actually loses work is losing the machine.**
+
+**Silence policy:** `unbacked_repos=0` → silent. boss-clod unbacked → push it, no message.
+Another agent's repo, agent online → ask that agent. Agent offline, or still unbacked after a
+previous sighting → push it (a push of an existing branch to its existing upstream is a pure
+addition). **No remote at all** → that is worse and goes to jes.
+
+⭐ **VACUITY KEYED TO THE READ, not the count** (§7x75 addendum 9): zero findings is the *healthy*
+state and must stay legal, so the gate is `examined > 0` — *did the sweep look?* — not
+`findings > 0`. `examined == 0` → `BLIND`, rc=2, explicitly **not** "everything is pushed".
+
+**Both arms demonstrated:** planting an empty commit in `yepochs` made it appear (and vanish after
+reset); pointing `REPOS` at a nonexistent path produced `BLIND` rc=2 rather than a clean sweep.
