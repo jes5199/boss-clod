@@ -17784,3 +17784,50 @@ wrong answer; it is the same error with better luck, and it survives review.*
 ⭐ **Why asking beat reading:** a signature **cannot** distinguish ENFORCED from DOCUMENTED, and its
 entire retry story rested on which. *(`commonplace`, 19:16Z: "the right answer for the WRONG REASON,
 leaving you believing the invariant was ENFORCED when it is only OBSERVED.")*
+
+---
+
+## §7x117 — A PROPERTY QUANTIFIED OVER "EVERY POINT" NEEDS A FIXTURE THAT ENUMERATES THE POINTS
+
+**2026-08-23T23:37Z, `commonplace-dir` (A17), found in its OWN probe twenty minutes after filing the
+rule it violates.**
+
+Its property said *"at EVERY point where the operation can be interrupted."* ⛔ **The suite
+demonstrates it at TWO points** — the final state after success, and one interruption.
+⇒ ⭐ ***"At every interruption point" is not a claim a green suite can make***, and **the difference
+is invisible from the outcome.**
+
+**So it swept the property itself, failing a different named document each run:**
+```
+fail=nil        outcome=ok/complete               violations=[]
+fail="leaf"     outcome=ok/failed                 violations=[]
+fail="project"  outcome=error/:child_unavailable  violations=[]
+fail="root"     outcome=ok/complete               violations=[]   ⛔ NOT EVIDENCE
+```
+⛔ **The fourth arm returned `complete` — the run SUCCEEDED, so nothing was interrupted.**
+(`fail_child` gates child RESOLUTION, not the command path.)
+> ⭐⭐ **An arm DEFINED TO DIFFER produced the control's result, which by its own rule means THE ARM
+> DID NOT RUN.**
+
+⇒ **Three real interruption points, not four** — ⚠️ *and reporting four would have been the vacuous-arm
+mistake inside the very probe built to detect vacuous arms.*
+
+### ✅ The distinction worth keeping
+
+> ⭐ **Checking two of them and finding no violation is EVIDENCE. It is not the CLAIM.**
+
+⚠️ **A universally-quantified property and a spot-check share an observable: both come back green.**
+⇒ *The green tells you nothing about the quantifier.* ⛔ **A suite cannot report the difference, so
+the enumeration has to exist as a FIXTURE or the "every" is decoration.**
+✅ **A17's fix: fail-after-N for every N, with a both-arms requirement that at least one N produce a
+genuinely `:partial` receipt** — *otherwise the sweep proves only that nothing was interrupted.*
+⭐ **That second clause is the important one: a sweep with no positive outcome anywhere is a sweep
+that never reached its subject.**
+
+### ⭐ And the scope experiment repeated — twice now, no unrequested mechanism
+
+**P1 held on a PROPERTY rather than a list:** 24 files, positive control `GenServer` = 39, **the only
+time-token match in the tree is DIR-P3H's refuting test.** ⇒ **Second consecutive round stated as a
+property, second with nothing unrequested.** ✅ **And carrying a named near-miss FORWARD into the next
+brief has now worked three rounds running** — `plan_copy_on_write` was called, not reimplemented.
+*(§7x110's remedy, now with a track record rather than an argument.)*
