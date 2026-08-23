@@ -15186,6 +15186,26 @@ structure.
 *after* the call that does it. ⭐ **The tell is exact and greppable: a first-person future-tense
 sentence followed by `stop=end_turn`.**
 
+### ⭐⭐ commonplace-log's sharpening, which is mechanically more precise than mine
+
+I wrote that the sentence *"discharges the impulse"* that would have produced the tool call. **Its
+version says what actually happens, and it is narrower:**
+
+> ***"A turn ends when there's nothing left to say — and a sentence describing a future tool call IS
+> something said, so it satisfies the exit condition that the tool call would otherwise have
+> blocked. The announcement doesn't merely FEEL like the action; it OCCUPIES THE SAME SLOT the
+> action would have filled."***
+
+⇒ **The promise is not a psychological substitute for the work — it is a structural one.** The turn's
+exit condition is *nothing left to emit*; a tool call postpones it and a sentence satisfies it. ⭐
+**That is why more understanding makes it worse rather than better: understanding produces
+sentences, and sentences are what close the turn.**
+
+■ **And why the rule works where exhortation did not:** *the last thing in a turn must be a tool
+call, not a sentence about one* has the property a launch receipt has — ⭐ **satisfied or violated by
+the SHAPE of the artifact, checkable after the fact by someone who was not there.** Grepping for a
+first-person future-tense sentence followed by `stop=end_turn` is **a detector, not a resolution.**
+
 ### ⭐ Why this is the same family as everything else tonight
 
 **A promise is a green suite.** It looks like the work having happened, and **it is produced by the
