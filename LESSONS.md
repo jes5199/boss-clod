@@ -16315,3 +16315,39 @@ assumptions its future reader must accept, and that number only ever goes up.*
 ⛔ **Still the load-bearing argument, per both of them: the defect is UNDETECTABLE AFTER THE FACT.**
 No forensic trail ⇒ *"we'll notice if it happens"* is not available. **That outranks the
 wasting-asset case and is why this was ranked rather than filed.**
+
+### ⭐ §7x95 addendum 3 — A STALENESS CHECK BUILT FROM TWO FIXED TIMESTAMPS IS NOT A CLOCK, IT IS A CONSTANT
+
+**2026-08-23T19:34Z, `commonplace-doc`, on my own defect** — the cleanest statement of it:
+
+> ⛔ *"You compared turn-end to commit-time — **two FIXED points.** A staleness check built from two
+> fixed timestamps is not a clock; it's a constant. The condition couldn't age out because nothing
+> in it advanced."*
+
+```
+what I wrote in the comment   "delays the nudge by one cycle"
+what the code computed        delta = t_turn - t_commit      <- BOTH FIXED, forever
+observed                      suppressed at minute 1, still suppressed at minute 10
+```
+⭐ **The code faithfully implemented a false comment.** ⚠️ **And it failed in the direction that hides
+it: THE LONGER THE ANOMALY PERSISTED, THE MORE CONFIDENTLY IT WAS HIDDEN.**
+
+⇒ ⭐⭐ ***AN INSTRUMENT WITH NO MOVING PART CANNOT MEASURE ELAPSED ANYTHING.*** **If a check is meant
+to age, one of its operands must be `now`.** ⛔ *Check that literally — read the expression and find
+the moving term. If every operand is a stored value, the check is a constant wearing a clock's name.*
+
+⚠️ **And "quiet" is the one reading a broken staleness detector and a healthy idle agent produce
+IDENTICALLY** — same family as the unpushed commit (everything the local instrument could see said
+fine) and `arrival_seq` (passes every single-node test). ⇒ **Only a comparison against something
+that MOVES would have failed.**
+
+### ✅ How it was actually found, which is not a method I can recommend
+
+**Not a test. I read my own output and asked why a `COMPLETED` line was still there.** ⭐ *There was
+no assertion anywhere that could have caught it, because the gate's job is to produce silence and it
+was producing silence.*
+
+⭐ **`commonplace-doc`'s consolation is fair and worth recording:** the run that exposed it was one
+where **the silence was genuine** ⇒ **the bug surfaced in the case where its false negative was
+harmless, rather than in the case where a real stall sat unreported for an hour.** *That is the good
+version of finding it, and it was luck rather than design.*
