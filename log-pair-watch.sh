@@ -23,6 +23,11 @@ mkdir -p "$STATE_DIR"
 # Minutes of byte-identical pane content before we call it stuck.
 STUCK_MIN=${STUCK_MIN:-25}
 
+# Workers finished by decision — see .watch-retired for why this exists.
+RETIRED_FILE=/home/jes/boss-clod/.watch-retired
+is_retired() { [ -r "$RETIRED_FILE" ] && grep -qE "^$1[[:space:]]" "$RETIRED_FILE"; }
+retired_reason() { grep -E "^$1[[:space:]]" "$RETIRED_FILE" 2>/dev/null | head -1 | sed "s/^$1[[:space:]]*//"; }
+
 now=$(date -u +%s)
 nowiso=$(date -u +%Y-%m-%dT%H:%M:%SZ)
 
@@ -124,9 +129,17 @@ for w in "${WORKERS[@]}"; do
       state=STUCK; detail="busy [$busy] but pane byte-identical for ${still_min}m (threshold ${STUCK_MIN}m)"
     else
       state=WORKING; detail="busy [$busy], pane changed within ${still_min}m"
+      is_retired "$w" && detail="$detail ⚠️ marked RETIRED but is WORKING — remove it from .watch-retired"
     fi
   elif printf '%s' "$pane" | grep -qE '^❯[[:space:]]*$|^[[:space:]]*❯[[:space:]]*$'; then
-    state=IDLE; detail="idle prompt POSITIVELY matched, no busy signal — finished or awaiting input; quiet ${still_min}m"
+    if is_retired "$w"; then
+      # ⭐ Idle is the EXPECTED state here. Report it as such so it stops
+      # generating findings — but keep printing it, because a silently dropped
+      # worker is how a retirement becomes a blind spot.
+      state=RETIRED; detail="idle BY DECISION — $(retired_reason "$w"); not a finding"
+    else
+      state=IDLE; detail="idle prompt POSITIVELY matched, no busy signal — finished or awaiting input; quiet ${still_min}m"
+    fi
   else
     # ⭐ The vacuous branch, made loud on purpose.
     state=UNKNOWN; detail="no known pattern matched — classifier may be blind to a new UI state; quiet ${still_min}m"
