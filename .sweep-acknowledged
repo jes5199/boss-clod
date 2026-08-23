@@ -1,0 +1,16 @@
+# Findings already triaged, with WHO owns them and WHEN. Format: repo|branch|count|owner  note
+# ⭐ WHY: this sweep has returned the identical 7 findings for four consecutive hours.
+# A report that always says the same thing trains its reader to skim, and the NEXT
+# genuinely new finding arrives into that habit. Acknowledging the known ones makes
+# new=N the only number that needs reading.
+# ⛔ ACKNOWLEDGEMENT IS KEYED ON THE COUNT. If b2-mr goes from 7 unique commits to 9,
+# the ack no longer matches and it reports as NEW — because growth means work is
+# accumulating off-remote, which is the thing the sweep exists to catch.
+# ⚠️ An ack is not a resolution. Every line below is still unbacked work.
+commonplace-b2-mr|cross-repo/b2-merge-request|unique=7|commonplace 2026-08-23T05:15Z — its worktree, deliberate deletion may be right; held
+commonplace-crossrepo-slice0|cross-repo/slice0-readonly-replica|unique=2|commonplace 2026-08-23T05:15Z — demo lineage, held
+substrate|substrate-commonplace|unique=1|commonplace 2026-08-23T05:15Z — 2 merges outside cherry's reach, hand-check owed
+grimoire|main|ALL|jes 2026-08-23T04:47Z — no remote; asked, awaiting decision
+hyperstition|main|ALL|jes 2026-08-23T04:47Z — no remote; believed deliberate (employer-IP-gated)
+postage-stamp|main|ALL|jes 2026-08-23T04:47Z — no remote; 35 commits, the one that matters
+test-worker|main|ALL|jes 2026-08-23T04:47Z — no remote; looks disposable

@@ -156,6 +156,29 @@ if [ "$examined" -ne "$discovered" ]; then
   exit 2
 fi
 
+# ⭐ Split KNOWN-AND-TRIAGED from NEW so a new finding cannot hide in a familiar list.
+# The ack is keyed on repo|branch|count — a GROWING count is new again, because growth
+# means work is accumulating off-remote, which is exactly what this sweep is for.
+ACK_FILE=/home/jes/boss-clod/.sweep-acknowledged
+new_n=0; known_n=0
+declare -a NEWF=() KNOWNF=()
+for f in ${FINDINGS+"${FINDINGS[@]}"}; do
+  case "$f" in
+    UNBACKED\|*) : ;;
+    *) continue ;;
+  esac
+  IFS='|' read -r _k repo br cnt _rest <<< "$f"
+  if [ -r "$ACK_FILE" ] && grep -qF "$repo|$br|$cnt|" "$ACK_FILE"; then
+    KNOWNF+=("$f"); known_n=$((known_n+1))
+  else
+    NEWF+=("$f"); new_n=$((new_n+1))
+  fi
+done
+if [ "$new_n" -gt 0 ]; then
+  echo "⛔ NEW FINDINGS — not previously triaged, or the count has GROWN:"
+  printf '  %s\n' "${NEWF[@]}"
+fi
+[ "$known_n" -gt 0 ] && echo "ⓘ known-and-triaged: $known_n (see .sweep-acknowledged for owner and date)"
 if [ ${#FINDINGS[@]} -gt 0 ]; then printf '%s\n' "${FINDINGS[@]}"; fi
 real=0; for f in ${FINDINGS+"${FINDINGS[@]}"}; do case "$f" in UNBACKED\|*) real=$((real+1));; esac; done
-echo "SWEPT|discovered=$discovered|examined=$examined|findings=${#FINDINGS[@]}|genuinely_unbacked=$real"
+echo "SWEPT|discovered=$discovered|examined=$examined|findings=${#FINDINGS[@]}|genuinely_unbacked=$real|NEW=$new_n|known=$known_n"
