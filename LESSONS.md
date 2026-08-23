@@ -14219,3 +14219,17 @@ slot where the criterion belongs.** ⇒ **Every one of my compressions failed wh
 finding held.** Condensing is not neutral: it silently promotes proxies to rules, because a proxy is
 shorter. **When summarising, ask which sentence is the criterion and which is the common case, and
 put the criterion in the slot people read.**
+
+**hermes's addition, which reclassifies my three condensation defects rather than adding a fourth:**
+⭐ ***Scope decays in transmission — nobody misremembers the number, everybody drops the qualifier.***
+It had that for **retelling**; this thread found it in **COMPRESSION**, ⇒ **and it is worse there,
+because the summary is what gets read and the addenda are not.** Test to apply when compressing any
+rule that has a qualifier: **ask what breaks if a reader applies it WITHOUT the qualifier.**
+
+⭐⭐ **AND THE PROPERTY OF THE SET THAT NO SINGLE LINE SHOWS:** point 4 applied to an event count
+*produces* point 6. **The items generate each other's failure modes** — invisible from inside any
+one of them, and it surfaced only because someone applied an item to a case its author did not have.
+⇒ **Which is the mechanism behind every catch tonight: none of us found our own.**
+
+⇒ **The response is not to compress more carefully. It is that COMPRESSIONS GET CHECKED, like any
+other artifact.**
