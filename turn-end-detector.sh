@@ -92,6 +92,18 @@ if sr != 'end_turn':
     verdict = f"WORKING (stop={sr})"
 elif running > 0:
     verdict = f"ended on text, but {running} round(s) running — legitimately waiting"
+elif running == 0 and re.search(r"\bnothing queued\b", txt[-600:], re.I):
+    # ⭐ AGENT-DECLARED PAUSE (protocol agreed with yepochs 2026-08-23 08:24Z).
+    # My verdict is "end_turn + nothing running", which deliberately ignores wording —
+    # and therefore CANNOT distinguish "stalled on a promise" from "finished a chunk
+    # and said so". The agent CAN. ⇒ Rather than have the instrument guess, the agent
+    # declares: a turn that ends with nothing pending says the literal words "nothing
+    # queued", and the transcript then CONFIRMS OR CONTRADICTS the sweep instead of my
+    # judgement arbitrating.
+    # ⛔ This is the ONE place wording is load-bearing, and it is safe because it is a
+    # PROTOCOL TOKEN, not an attempt to parse intent: a stalled agent has no reason to
+    # emit it, and an agent that emits it falsely is making a checkable claim.
+    verdict = "DECLARED PAUSE — agent said 'nothing queued'; not a stall"
 elif running == 0 and retired:
     verdict = "idle BY DECISION (retired) — expected, not a stall"
 elif running == 0 and blocked:

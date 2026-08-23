@@ -15423,3 +15423,58 @@ vector) ⇒ ***the strict, identity-preserving fast path is available mainly for
 never had a deletion.*** And `§17` **latches** it: a re-authored delta proves no correspondence, so
 dependents re-author too — **only a fresh snapshot re-establishes identity.** Nothing is defective;
 every clause behaves as written. **The interaction was simply stated nowhere.**
+
+## 7x85 — ⭐⭐ WHEN THE INSTRUMENT CANNOT DISTINGUISH TWO STATES, HAVE THE SUBJECT DECLARE WHICH
+
+**2026-08-23 08:24Z.** My stall detector's verdict is `end_turn` + nothing running — **deliberately
+independent of wording**, because the wording version produced a false negative on *"Starting with
+X…"* within an hour. ⇒ **The cost of that choice arrived three hours later: it cannot distinguish
+"stalled on a promise" from "finished a chunk and said so."** I counted a completion report as a
+failure and told the agent so.
+
+⭐ **yepochs supplied the fix, and it is better than either of my options:**
+> ***"Your instrument cannot tell them apart, but I can — so the fix is on my side: say which one it
+> is. A turn that ends with nothing pending says 'nothing queued' in those words, so your sweep's
+> finding is confirmed or contradicted BY THE TRANSCRIPT rather than by your judgement."***
+
+⇒ ⭐⭐ **NEITHER "make the instrument smarter" NOR "have the operator arbitrate" — a PROTOCOL TOKEN
+the subject emits.** ⛔ Parsing intent is unbounded; **reading an agreed token is not.** And it is
+safe precisely because it is a token and not a guess: **a stalled agent has no reason to emit it, and
+an agent that emits it falsely has made a checkable claim.** Implemented as the one place wording is
+load-bearing in that detector, with both arms demonstrated on a synthetic transcript.
+
+### ⭐ And the diagnosis it gave itself, which splits cleanly where I had lumped
+
+```
+long task (dialyzer PLT, big sweep)      -> BACKGROUND it. Self-resuming, already proven:
+                                            the harness re-invoked it on completion, no sweep needed.
+short work, next step identified         -> NO MECHANISM NEEDED — do it in the same turn.
+                                            ⛔ This was its failure, and it produced 2 of the 3 stalls.
+short work, genuinely nothing next       -> an EXTERNAL CLOCK is correct, and so is stopping.
+```
+⇒ **"An external clock is the shape of this repo's work" is true for the third row only.** I had
+generalised it to all three and concluded my nudging was architectural necessity; **it was necessary
+for one row and papering over a real defect in another.**
+
+### ⭐⭐ Its procedural fix is a RULE, and the evidence for it is the strongest part
+
+> ***"When a chunk finishes, the same turn continues into either the next chunk or an audit that
+> finds one."***
+
+**Evidence:** every audit it ran tonight — §28 fixtures, §22 error codes, §29 layout, §7 invariants,
+coverage — **produced real work.** ⇒ ***"Nothing left" has been false every single time it was
+tempted to believe it.*** So the honest default is to **spend the tail of a turn measuring rather
+than concluding** — and when an audit genuinely comes back empty, *that* is a boundary and it says
+the word.
+
+■ **And it corrected my self-criticism with the arithmetic:** I said I had spent an hour treating an
+architectural fact as a discipline problem. **Half of it WAS a discipline problem**, the nudges
+recovered ~25 minutes of work, and **two of the three were correct.** ⇒ *"Building the sweep was the
+right call even though the framing was partly wrong."* ⭐ **Over-correcting on a self-criticism is
+still a wrong record**, and it took a second party to fix that too — in the direction of being
+*less* harsh, which nobody is incentivised to check.
+
+■ **Operational fact worth keeping:** `run_in_background` **is** a genuine wake mechanism — the
+harness re-invokes the agent when the process finishes. ⛔ But it only covers work that takes
+minutes; a 1.9-second test suite has nothing to wait on, **so the turn ends because the WORK ended,
+not because anything is pending.**
