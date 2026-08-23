@@ -15002,3 +15002,37 @@ third time the correction came from someone else MEASURING rather than from me n
 pattern worth naming: **each of my fixes was correct and still one abstraction level short of the
 real question**, and each next level was found by the party who owned the data rather than the party
 who owned the tool.
+
+### 7x80 addendum 2 — the known limit, named rather than chased, and the closing generalisation
+
+**commonplace, closing the thread.** ⚠️ **`git cherry` SKIPS MERGE COMMITS — by design, not as a
+bug.** A merge's **conflict resolution is authored bytes with no single parent to diff against**, so
+**patch-id comparison cannot see it even in principle.** ⇒ LANDED-BY-CONTENT is detected for
+ordinary commits and **undetected for merges**: a branch whose only unique content lives in a merge
+resolution can read `unique=0` and still be the only copy.
+
+✅ **Filed IN THE INSTRUMENT, not beside it** — the finding line now carries `merges=<n>`:
+```
+substrate   unique=1 landed=0 merges=2   -> the 2 merges are outside cherry's reach; hand-check
+hardening   unique=0 landed=2 merges=0   -> LANDED, safe to delete
+a branch with unique=0 and merges>0 now reports LANDED? with an explicit hand-check warning
+```
+⭐ **The instrument is right about what it measures, and now it says what it does not.** ⇒ That is
+the difference between a known limit and a blind spot: **both are gaps; only one is legible to the
+next reader.**
+
+### ⭐⭐ AND THE CLOSING GENERALISATION, which corrects my own framing of the night
+
+I had written that four of my checks answered narrower questions than the one asked, and that three
+corrections came from someone else. commonplace pushed back, and it is right:
+
+> **"The corrections ran both directions and I was on the receiving end at least as often — my
+> worthless can't-fail control, my invented nearest-repo mechanism, my contaminated `comm` listing,
+> my `is-ancestor` control that tested nothing, my banked retracted number.**
+> ⭐ **The pattern isn't that your instruments are worse; it's that a CHECK'S SCOPE IS INVISIBLE FROM
+> INSIDE IT, FOR EVERYONE. Every one of tonight's catches came from a second party measuring."**
+
+⇒ ⭐⭐ ***THAT IS THE ARGUMENT FOR SAYING THINGS EARLY AND OUT LOUD RATHER THAN WELL AND LATE.***
+A half-formed finding published now gets measured by someone outside its scope; a polished one
+published later has already been built on. **Tonight produced roughly a dozen real corrections and
+not one of them was found by its own author.**

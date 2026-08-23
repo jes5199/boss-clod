@@ -42,13 +42,23 @@ discovered=${#REPOS[@]}
 # b2-mr 0 landed / 7 unique.
 # ⛔ A subject line is shape-equality and a rebase that drops a hunk keeps it
 # perfectly. The patch-id is the thing resemblance cannot fake.
-content_verdict() {   # $1 = branch/ref ; echoes "unique=<n> landed=<n>" or "" if unusable
+# ⚠️⚠️ KNOWN LIMIT, named by commonplace 2026-08-23 and true BY DESIGN, not a bug:
+# `git cherry` SKIPS MERGE COMMITS. A merge's conflict resolution is AUTHORED
+# BYTES with no single parent to diff against, so patch-id comparison cannot see
+# it EVEN IN PRINCIPLE. ⇒ LANDED-BY-CONTENT is detected for ordinary commits and
+# UNDETECTED for merges: a branch whose only unique content lives in a merge
+# resolution can read `unique=0` and still be the only copy.
+# ⇒ The `merges=` field below exists so that gap is VISIBLE in the finding rather
+# than discovered later. Nonzero merges means: hand-check before deleting.
+content_verdict() {   # $1 = branch/ref ; echoes "unique=<n> landed=<n> merges=<n>" or "" if unusable
   local b="$1" base out
   for base in origin/main origin/master; do
     git rev-parse --verify -q "$base" >/dev/null 2>&1 || continue
     out=$(git cherry "$base" "$b" 2>/dev/null) || return 1
-    printf 'unique=%s landed=%s' \
-      "$(printf '%s\n' "$out" | grep -c '^+')" "$(printf '%s\n' "$out" | grep -c '^-')"
+    local merges
+    merges=$(git rev-list --count --merges "$base..$b" 2>/dev/null || echo 0)
+    printf 'unique=%s landed=%s merges=%s' \
+      "$(printf '%s\n' "$out" | grep -c '^+')" "$(printf '%s\n' "$out" | grep -c '^-')" "$merges"
     return 0
   done
   return 1
@@ -80,7 +90,10 @@ for d in "${REPOS[@]}"; do
     else
       cv=$(content_verdict "$br" || true)
       case "$cv" in
-        "unique=0 "*) FINDINGS+=("LANDED|$d|$br|0|no upstream and no reachable ref, but ALL commits landed by CONTENT ($cv) — nothing at risk") ;;
+        "unique=0 "*) case "$cv" in
+                        *"merges=0") FINDINGS+=("LANDED|$d|$br|0|no upstream, ALL commits landed by CONTENT ($cv) — nothing at risk") ;;
+                        *)           FINDINGS+=("LANDED?|$d|$br|0|landed by content BUT ($cv) — ⚠️ cherry SKIPS MERGES; hand-check the merge resolutions before deleting") ;;
+                      esac ;;
         unique=*)     FINDINGS+=("UNBACKED|$d|$br|${cv%% *}|unreachable AND unique by content ($cv) — GENUINELY AT RISK") ;;
         *)            FINDINGS+=("UNBACKED|$d|$br|?|unreachable from any remote ref; content check unavailable — treat as at risk") ;;
       esac
@@ -117,7 +130,10 @@ for d in "${REPOS[@]}"; do
     else
       cv=$(content_verdict "$br" || true)
       case "$cv" in
-        "unique=0 "*) FINDINGS+=("LANDED|$d|$br|$n|ahead of upstream but ALL commits landed by CONTENT ($cv) — nothing at risk$mism") ;;
+        "unique=0 "*) case "$cv" in
+                        *"merges=0") FINDINGS+=("LANDED|$d|$br|$n|ahead of upstream, ALL commits landed by CONTENT ($cv) — nothing at risk$mism") ;;
+                        *)           FINDINGS+=("LANDED?|$d|$br|$n|landed by content BUT ($cv) — ⚠️ cherry SKIPS MERGES; hand-check before deleting$mism") ;;
+                      esac ;;
         unique=*)     FINDINGS+=("UNBACKED|$d|$br|$n|unique by content ($cv) — GENUINELY AT RISK$mism") ;;
         *)            FINDINGS+=("UNBACKED|$d|$br|$n|commits exist only on this disk; content check unavailable$mism") ;;
       esac
