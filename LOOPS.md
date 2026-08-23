@@ -277,7 +277,7 @@ check with no caller is a filed rule, not a mechanism.**
   missing. If the heartbeats disagree with `CronList`, believe the heartbeats — they record
   what RAN, not what was SCHEDULED.**
 
-### 4. commonplace-log pair watch — every 15 min at :4,:19,:34,:49 (job 45f66f9d)
+### 4. commonplace-log pair watch — every 15 min at :4,:19,:34,:49 (job 8a545fd6)
 **Added 2026-08-23 at jes's request:** *"can you check the two commonplace-logs claudes every 15
 minutes to make sure they're still working (unless they finish or get stuck!)"*
 
@@ -309,6 +309,22 @@ prompt line ends in **U+00A0 NON-BREAKING SPACE**, so `[[:space:]]*$` does not m
 RATE_LIMITED / STUCK / UNKNOWN / BLIND, or an IDLE that persists two consecutive checks. jes does
 not want a 15-minute heartbeat.
 
+
+
+⚠️ **Job re-created 2026-08-23 03:39Z (was `45f66f9d`, now `8a545fd6`) to fix TWO defects in the
+prompt itself, not the script:**
+1. ⛔ **The old prompt told me to "tell it on clod-squad to ... /compact".** Workers have no such
+   tool — it is a user command. **I wrote that instruction myself and then followed it**, which is
+   the fourth time that mistake has been made here. The prompt now says the lever is mine via tmux
+   and points at the script's `ACTION|` lines; the worker is asked only for the DURABILITY PASS.
+2. ⭐ **The IDLE branch now names the mechanism instead of just the threshold:** an agent that ends
+   a turn saying *"continuing to Task N"* does **not** continue, and a post-`/compact` pane is the
+   same shape — **a turn that ends returns it to the prompt and nothing restarts it.** ⇒ In both
+   cases **a clod-squad message IS the input that resumes it.** Both were observed the same hour:
+   the reducer stalled on an announced continuation, commonplace-log stalled after a compact I
+   drove. Reporting either as "finished" would have been wrong.
+
+Also now covers **three** workers (added `commonplace-merkle-crdt`).
 
 ### 5. Fable recovery watch — hourly at :23 (job 2a35bc3a)
 **Added 2026-08-23.** Script: `/home/jes/boss-clod/fable-recovery-check.sh`.
