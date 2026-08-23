@@ -208,6 +208,30 @@ is exactly the kind of thing I got wrong earlier today by over-reading.**
 ⚠️ **And note the direction the convenient reading runs, again: "the host handles it" retires an
 open decision.** ⇒ *Ask, do not assume.*
 
+### 10. ⏳ FUTURE: forked documents pushing changes back up — probably `commonplace-doc-sync`
+
+> **jes, 2026-08-23T18:51Z:** *"eventually I want the ability for a forked document to push changes
+> back up. actually that is probably a new repo, commonplace-doc-sync"*
+
+⛔ **NOT CREATED, and deliberately so.** ⭐ **Compare his phrasing to the four repos he actually
+started today** — *"new repo!"* · *"let's create a commonplace-doc repo"* · *"let's also start a
+yepochs repo"* · *"i want commonplace-doc to build commonplace-doc-host in-repo"*. **Every one is an
+instruction. This one is "eventually" and "probably".** ⇒ *Treating it as an instruction would
+spend a repo and a sixth Opus worker on a thought.*
+
+⚠️ **WHY IT IS RECORDED ANYWAY, AND WHY THE TIMING MATTERS: it is a FORECLOSURE RISK, live right
+now.** `commonplace-doc` and `commonplace-merkle-crdt` are **this hour** deciding whether forks are
+admissible at all — the linearity trap, `check_chain`, whether a head may move to a non-descendant.
+⇒ ⭐ **A design that makes forks EXPRESSIBLE but push-back IMPOSSIBLE is the expensive outcome**, and
+it is reachable without anyone deciding it.
+
+✅ **What to do with it:** **do not design it, do not build it, do not let it be designed out.**
+⇒ *"Could a fork ever be merged back?" is a question to keep answerable, not a feature to add.*
+
+⛔ **And do not let it re-open settled scope.** §23 of the doc spec defers **import of commits across
+Document lineage** and **multi-writer Document logs**; those deferrals stand. **This is a note about
+what NOT to preclude, not a licence to un-defer anything.**
+
 ---
 
 ## The layering, in jes's words
