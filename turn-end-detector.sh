@@ -59,11 +59,38 @@ for line in open(path, errors='ignore'):
     if not sr: continue
     c=m.get('content'); txt=''
     if isinstance(c,list):
-        txt=' '.join(x.get('text','') for x in c if isinstance(x,dict) and x.get('type')=='text')
+        # ⭐ INCLUDE TOOL-CALL INPUT TEXT, NOT ONLY THE FINAL ASSISTANT TEXT.
+        # commonplace-doc declared 'nothing queued' in the clod-squad MESSAGE it sent me
+        # and not in its own user-facing summary — so the declared-pause gate fired on a
+        # worker that had followed the protocol exactly. ⛔ A gate that fires on correct
+        # state is worse than no gate: it gets routed around. The declaration is the token
+        # the agent EMITTED, wherever it emitted it.
+        parts=[]
+        for x in c:
+            if not isinstance(x,dict): continue
+            if x.get('type')=='text': parts.append(x.get('text',''))
+            elif x.get('type')=='tool_use':
+                inp=x.get('input') or {}
+                if isinstance(inp,dict):
+                    for v in inp.values():
+                        if isinstance(v,str): parts.append(v)
+        txt=' '.join(parts)
     turns.append((d.get('timestamp',''), sr, txt.strip()))
 if not turns:
     print("BLIND|transcript parsed but contained zero turns"); sys.exit(2)
 ts,sr,txt = turns[-1]
+# ⭐ THE DECLARATION SCOPE IS THIS RESPONSE, NOT THIS TURN.
+# commonplace-doc said 'nothing queued' inside a clod-squad send at turn[-2]
+# (stop=tool_use); its final turn was plain prose without the token. Checking only
+# the last turn made the gate fire on a worker that had followed the protocol.
+# ⇒ Walk back over the contiguous tool_use turns and stop at the previous end_turn:
+# that span is exactly one agent response, from its last input to now. ⛔ Wider than
+# that and a stale declaration would suppress a later, genuine stall.
+decl_txt = txt
+_i = len(turns) - 2
+while _i >= 0 and turns[_i][1] == 'tool_use':
+    decl_txt += ' ' + turns[_i][2]
+    _i -= 1
 tail = txt[-200:].replace('\n',' ')
 # first-person future-tense promise, at the END of the turn
 promise = re.search(r"\b(I'?ll|I will|I'?m going to|going to|next\b|I plan to|then I|starting with|first[,:]|reading .{0,30}next)\b",
@@ -92,7 +119,7 @@ if sr != 'end_turn':
     verdict = f"WORKING (stop={sr})"
 elif running > 0:
     verdict = f"ended on text, but {running} round(s) running — legitimately waiting"
-elif running == 0 and re.search(r"\bnothing queued\b", txt[-600:], re.I):
+elif running == 0 and re.search(r"\bnothing queued\b", decl_txt, re.I):
     # ⭐ AGENT-DECLARED PAUSE (protocol agreed with yepochs 2026-08-23 08:24Z).
     # My verdict is "end_turn + nothing running", which deliberately ignores wording —
     # and therefore CANNOT distinguish "stalled on a promise" from "finished a chunk
