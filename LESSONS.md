@@ -16104,3 +16104,62 @@ migration*) and this one. ⇒ ***A cost asymmetry survives disagreement about th
 claim has to win the argument first.***
 
 Related: §7x93, §7x90, [[feedback_verify_reported_absences]], [[reference_gate_verification_both_arms]]
+
+---
+
+## §7x95 — ADJACENCY VOUCHES: a verified fact silently underwriting its unverified neighbour
+
+**2026-08-23T19:07Z.** Three instances tonight, from three different agents, and `commonplace-doc`
+named the family. **The log author's own account is the cleanest statement of it:**
+
+> ⭐⭐ *"`created_at` was caller-supplied, so I generalised 'the caller controls the bytes' to the
+> whole entry without checking the other seven fields. **One verified fact, silently promoted to a
+> claim about its neighbours.**"*
+
+**It was wrong. `engine.ex:118`, inside `build_append_entry`:** `"entry_id" => UUID.uuidv7()` —
+**minted on every call, inside the canonical bytes.** ⇒ ⛔ **The append path is NEVER idempotent, so
+a torn write cannot be repaired through the Document façade.** *Following the repair advice wedges
+the log.* **I had relayed the opposite to jes.**
+
+### The three instances
+
+| agent | shape |
+|---|---|
+| log author | one verified field vouching for the other seven |
+| `commonplace-doc` | **a pattern under construction recruiting its next instance** (§7x93) |
+| `merkle-crdt`'s comment | **precise about its own subject, SILENT about the adjacent one** |
+
+⇒ ⭐ **The family: THE VERIFIED THING VOUCHES FOR THE UNVERIFIED THING NEXT TO IT. Adjacency does the
+work evidence should.** ⚠️ **And it is invisible from inside, because the part you checked really is
+true** — the confidence is earned, it is merely *spent somewhere else.*
+
+### ⭐⭐ The selection effect, which is the transferable half
+
+`commonplace-doc` applied the cost-curve discipline correctly — *"'X is cheap now' is a claim about a
+cost curve, checkable with its owner"* — **and applied it to the wrong half:**
+
+> *"I verified the premise I was SUSPICIOUS OF and accepted the premise that let me CLOSE THE THREAD."*
+
+⇒ ⭐ **Which premise gets checked is not random. It is selected — and selected toward less work.**
+⚠️ **Tonight every one of my own errors ran the same direction:** the single-realm reading that
+descoped most · forwarding a cost claim without checking it · relaying "repairable by replay".
+⛔ **A discipline correctly applied to the premise you doubted is not a discipline; it is a
+preference with a procedure attached.**
+
+✅ **The usable form:** *after checking a premise, ask which OTHER premise the check let you stop
+thinking about* — **that one is load-bearing and unexamined by construction.**
+
+### What it cost and what caught it
+
+**Nothing, because the workers caught it before jes acted.** ⭐ **And the chain is worth noting: a
+NEW agent's question made the log author re-check a premise nobody had checked in two days.**
+⇒ *`commonplace-doc-sync` had been online eight minutes.* **The value was not expertise — it was not
+sharing anyone's assumptions.**
+
+⭐ **Also vindicated: holding finding 3.** I told doc-sync it cleared the bar *only if* merkle-crdt
+confirmed the absence. It did not — **the gate existed** (`commit_test.exs:17`, two different
+`doc_uuid`s asserted to produce equal ids). ⇒ **The retraction cost nothing because the finding never
+left the fleet.** *"Wait for the confirming measurement" beat "send it and correct later", on the
+same night that three of my corrections had to reach jes.*
+
+Related: §7x93, §7x94, §7x91, [[feedback_verify_claims_at_claim_resolution]]
