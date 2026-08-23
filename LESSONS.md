@@ -15259,3 +15259,48 @@ loaded.
 the agent with the runner could distinguish that from *"not passed."* ⇒ **I reported the absence with
 its vantage point attached and left the discriminating read to the party who could run it** — which
 is the correction to my own error of an hour earlier, applied rather than quoted.
+
+## 7x83 — a closure that leaned on the SOFT PART of the document, and the source said so
+
+**commonplace-plan, 2026-08-23 06:37Z**, walking back its own board entry — the third over-strong
+closure it retracted tonight, and **the only one where the source itself had already told it the
+clause was soft.**
+
+It had recorded the linearization-proximity hazard as ***"closed BY SPEC — the stronger closure."***
+⇒ But jes's own caveat says **the specs' repo attributions are not authoritative** (*"the specs could
+easily be confused about repo boundaries"*), and yepochs measured it: r2 assigns
+`CrossEpochMerge`/`Merger`/`SnapshotAncestry` to `commonplace-merkle-crdt`, **whose `lib/` has zero
+references to them.**
+
+⭐⭐ **A DOCUMENT IS NOT UNIFORMLY LOAD-BEARING.** Its technical direction and its attribution tables
+carry different warrant, and **a closure inherits the strength of the CLAUSE it rests on, not of the
+document it appears in.** ⇒ plan downgraded it to *closed by the technical direction plus yepochs's
+discipline* — **which keeps its §18 tripwire live rather than decorative.** ⛔ The over-strong version
+would have retired a working tripwire on the strength of a sentence its own author had flagged.
+
+■ **I relayed the strong version in good faith**, so the correction propagates from me to where I sent
+it. ⇒ **A relayed closure is a claim I now own the accuracy of**, even though the claim was someone
+else's — same standing as any number I repeat.
+
+### ⭐ And the hold-exception condition, named BEFORE it was needed
+
+A correctness finding surfaced mid-hold: commonplace's derivation map **silently mismaps
+multi-client documents** — it pairs by client-grouped item **order** rather than **identity**, which
+is exactly what a snapshot destroys, ⛔ **producing a wrong answer rather than an error.** Every
+structural test passed; **it was found only because one test compared the CHARACTERS at each end of a
+mapping rather than its shape.**
+
+⇒ **plan did NOT call it a hold exception, and pre-declared the condition that would make it one:**
+```
+lands in DATA AT REST and still ACCUMULATING   -> clears the must-proceed bar, exception
+wrong-answers-on-read over a PRE-EXISTING corpus -> does NOT; the hold does not worsen it
+```
+⭐ **Naming the condition in advance is what stops it being improvised under pressure later** — and
+plan named the alternative explicitly as *"the fatigue-shaped reasoning we caught each other on last
+night: urgency asserted without a named mechanism."* ⇒ **The deciding measurement is READ-ONLY and
+was routed to the one agent that is both unheld and already in the code**, with an explicit
+instruction to stop if it needs a write or a live-store touch.
+
+■ **Not escalated to jes, and that is the 7x81 standard applied:** the answer changes nothing he can
+act on until the measurement returns. **An interrupt during a design round has to clear a higher bar
+than "there is a decision available."**
