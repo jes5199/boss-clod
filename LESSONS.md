@@ -19596,3 +19596,35 @@ verification shared a derivation.*
 - ✅ **ASSERT THE EFFECT with expected numbers**: `removed: 1 (expect 1)`, `dir 0 / doc 1`. A bare
   post-state print would have looked plausible; the *expectations* are what make it a gate.
   *(Same fix as §7x142's before/after delta.)*
+
+## 7x145 — a gate run only for the round that wrote it protects nothing older, and its stale red reads as a normal number
+
+**2026-08-24T17:22Z, commonplace-dir's A26.** For **eleven rounds** it ran the arms gate against
+only the new round's file. Running every round's file for the first time: **9 arms red**, four
+rounds affected. Three had been red **since P1's own landing** — one required arm (`backward`)
+**never had a test at all**, and two were topic tokens that never matched any test name.
+
+⭐ **THE PART THAT MAKES THIS MORE THAN HOUSEKEEPING.** The reading `8/3` had been recorded in
+STATUS §6 **five times** as the control's *expected* value. ⛔ **That 8/3 WAS the red gate.** A
+required arm that never reached the suite had been sitting inside the very gate built to catch
+that — and its failure had been transcribed into the documentation as the normal reading.
+⇒ ***A persistent red, written down often enough, becomes a baseline.*** Nobody re-derives a number
+they have copied five times; the copying IS what stops the re-derivation.
+
+### ⭐ The general form — sibling to §7x143's "a brief is a claim, not a control"
+
+> **A gate scoped to the newest subject is not a gate over the population.**
+
+⇒ Every landing is green *for the thing being landed*, and the corpus of older arms **rots
+unobserved**. The gate is not absent and not broken — it is **aimed narrowly**, which produces an
+unbroken run of true-but-irrelevant greens. ✅ dir's fix is the right shape: `check-all-arms.sh`
+fails on **any** round, and retired arms stay as comments **with reason and original token** so a
+retirement cannot be mistaken for an omission later.
+
+### ⚠️ Turned on my own loops
+
+Checked rather than assumed: `unbacked-work-sweep` re-examines all 92 repos each run **and** re-tests
+known items for growth; `log-pair-watch`/`stall-sweep` resolve all 8 workers every pass. **None is
+newest-subject-scoped.** ⛔ But my `.declared-stopped`-vs-WORKING arm from §7x142 is worse than
+narrowly aimed — **it has never run at all**, and is marked UNVERIFIED in the script for that reason.
+⇒ *An unfired arm and an eleven-round-stale arm produce the same evidence: nothing.*
