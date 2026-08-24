@@ -15,3 +15,4 @@
 # trigger already fired. An entry here must be armed NOW, not once.
 # RETIRED 2026-08-24T01:06Z — run 32678034910 completed (success) and that watcher exited.
 # RETIRED 2026-08-24T01:14Z — post-merge run 32678659194 completed (success); watcher exited.
+commonplace-doc|3750451|Sol round DIR/DOC phase-6 in pane 0:26 (-C /home/jes/sol-docp6/wt) to finish; it has a waiter on the outer pid|armed 14:49Z, verified live 14:50Z via /proc — 6 processes on that -C. ⛔ Verified by /proc scan, NOT by `ps | grep | grep -v grep`: that pipeline returned a FALSE ABSENCE on a live Sol round at 14:40Z because the brief embedded in argv contains the word "grep" (§7x134).
