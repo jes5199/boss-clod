@@ -13,4 +13,4 @@
 # failure) and exited as designed. ⭐ Retiring it because a record pointing at a pid that will
 # never return is a stale claim about a live mechanism — the same defect as a wake condition whose
 # trigger already fired. An entry here must be armed NOW, not once.
-commonplace|3364397|gh run 32678034910 (the d7d4a979 re-run) RUN COMPLETE|armed ~00:51Z, verified alive 00:56Z at 239s. FILTER CHECKED: breaks on status==completed and prints the conclusion, so a red wakes it as loudly as a green — the property that matters, per its own rule.
+# RETIRED 2026-08-24T01:06Z — run 32678034910 completed (success) and that watcher exited.
