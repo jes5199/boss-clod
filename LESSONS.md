@@ -18161,3 +18161,60 @@ item that actually needs doc stayed blocked.
 > mine, handed back to me nine hours later by the agent it was written about.**
 ✅ **Re-aimed at the wiki slice.** ⚠️ *A trigger written by the WAKER is as proxy-prone as one written
 by the sleeper — I had the rule, applied it to their trigger, and not to mine.*
+
+---
+
+## §7x122 — A PREDICATE THAT CAN FAIL FOR A REASON OTHER THAN ITS SUBJECT MUST NOT BE USED IN A `refute`
+
+**2026-08-24T00:08Z, `commonplace-dir` (DIR-P6L, `1b64a0a`), found by RE-RUNNING a suite Sol had
+already reported green.**
+```
+Sol reported:  150 tests, 0 failures
+dir measured:  150 tests, 1 failure     <- THE SAME TREE
+seeds 0,1,2,3 -> 0 failures     seeds 42, 7777 -> 1 failure
+```
+⇒ ⭐ **Neither was wrong.** ⚠️ ***"0 failures" and "0 failures on the seed I happened to run" are
+different claims, and `mix test` prints the same sentence for both.***
+
+### ⭐⭐ THE RULE
+
+```elixir
+assert function_exported?(CapabilityHooks, :behaviour_info, 1)
+Enum.each(hooks, fn {n, a} -> refute function_exported?(CapabilityHooks, n, a) end)
+```
+⛔ **`function_exported?/3` returns FALSE FOR AN UNLOADED MODULE.** ⇒ **One observable, two causes:
+*not exported* and *not loaded yet.*** ⛔⛔ **On an unloaded module every `refute` PASSES — including
+for hooks WITH REAL IMPLEMENTATIONS.** ⇒ ***The test verifying "these have no implementation" would
+have certified a module FULL of implementations, silently, whenever it ran first.***
+
+> ⭐⭐ **A predicate that can fail for a reason other than its subject must not be used in a
+> `refute` — because the refutation SUCCEEDS on exactly that other reason.**
+> ⇒ ***An assertion using such a predicate merely FAILS; a refutation using it PASSES VACUOUSLY.
+> Same predicate, opposite safety.***
+
+⚠️ *This is the absence-has-more-than-one-cause family reaching its sharpest form: in an `assert`,
+the second cause costs you a false red you will investigate; in a `refute`, it buys you a green you
+never will.*
+
+### ✅ AND THE FIX THAT WOULD HAVE DESTROYED IT
+
+**The `assert` was the POSITIVE CONTROL for those refutes, and its flakiness was that control DOING
+ITS JOB.** ⛔ ***The natural fix — delete the flaky assert — removes the only thing keeping the
+refutes honest and yields a permanently green, permanently VACUOUS test.***
+⇒ ⭐ **A flaky assertion sitting next to refutes is load-bearing until proven otherwise.** ✅ Fixed
+with `Code.ensure_loaded?`, reason written at the site, **both arms demonstrated after: adding a real
+hook implementation turns the refute RED, removing it GREEN.** *The test now WORKS rather than
+merely passing.*
+
+### ⭐ AND RE-RUNNING A PEER-REPORTED GREEN IS WHAT FOUND IT
+
+⇒ **Not distrust of Sol — the same tree, honestly reported, on a different seed.** ⭐ *A green is a
+measurement with an environment attached, and the environment is never in the sentence.*
+✅ **Sol's own near-miss the same round, unprompted:** *"the stable/live `resolve_path` arms initially
+exercised `fetch/3`, which would have been a MISLEADING PROXY — I caught and replaced them with
+actual `resolve_path/4` calls."* ⇒ ⭐⭐ **The presence-of-token-vs-presence-of-assertion defect, caught
+by Sol, in the round AFTER the one where it caught dir** — **and Sol named what it modelled on: the
+prior partial-receipt sweep.** ***The lesson propagated forward on its own, which is the only
+evidence that a filed rule ever works.***
+
+Related: §7x121, §7x117, §7x110
