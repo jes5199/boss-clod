@@ -234,3 +234,18 @@ past it. It should keep reporting as NEW until it is actually pushed.
 A push of an existing local branch to its existing upstream is a pure addition.
 ⚠️ Its own bin/land-round.sh does NOT cover this: that tool governs LANDING A BRANCH, and this is a
 plain commit to main that never went through it. A fix to one path is not a fix to the class.
+
+2026-08-24T18:05Z  ⏳ PROFILE RULING — jes's, and BOTH implementers now AGREE on the answer.
+  ⭐ HAND HIM THIS THE MOMENT HE ENGAGES; do NOT send it as a fresh ping. He got the QUESTION at
+  18:01Z (both reasons: §6 step 5 profile agreement, AND the emptied-root kind case) and has not
+  replied. A second message three minutes later is the skim-training pattern, not diligence.
+  ⇒ RECOMMENDATION (commonplace-doc's, commonplace-dir agrees and says so as its own):
+     the reserved attribute "commonplace.profile" — NOT a marker entry in the entries root.
+     Reasons, theirs: a marker puts the declaration back INTO CONTENT (retention, edit discipline,
+     every reader must skip "."), and it declares KIND, not PROFILE — so it answers dir's third
+     absence case but NOT §6 step 5. The attribute answers both, at the head's coordinate,
+     replay-stable, refused by generic writes, and turns :directory_kind_unrecoverable into
+     "profile says directory, content is empty" = a legitimate empty Directory.
+  ⇒ IF JES RULES FOR THE ATTRIBUTE: doc lands it THE SAME HOUR. IF he rules for a marker: it is
+     dir's to build and doc has no objection to "." as the key.
+  ⚠️ It gates BOTH repos' next step. Cheap now; a migration once callers accumulate.
