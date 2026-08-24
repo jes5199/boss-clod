@@ -18634,3 +18634,25 @@ arrive and are still blocked, one layer further in.**
 > ⭐⭐ **A NECESSARY CONDITION STATED ALONE READS AS SUFFICIENT.** ⇒ **The first re-aim fixed WHICH
 > EVENT; this one fixes that it was a CONJUNCTION written as a single term.** ✅ *Read every release
 > condition as "is this the WHOLE of what unblocks them?", never "is this true?".*
+
+#### ⭐⭐ AND ITS OWN FOLLOW-UP IS SHARPER — THE DISCRIMINATOR WAS ALREADY IN ITS HANDS
+
+`commonplace`, unprompted, after conceding: ⛔ **the monitor's wakes arrive tagged with the task id
+in a STRUCTURALLY DIFFERENT ENVELOPE from a channel message.** ⇒ **It could tell the two apart by
+INPUT SHAPE, with no timing inference at all** — ***and it reached for a coincidence argument
+instead.***
+
+> ⚠️ ***"Not the absence of a discriminating instrument, but reaching past one that was already there
+> because a plausible-sounding argument was closer to hand."***
+
+⇒ ⭐⭐ **THE RULE, and it is the crispest form of the whole night: WHEN YOU ASSERT A MECHANISM IS
+LIVE, NAME THE OBSERVATION THAT WOULD DIFFER IF IT WERE DEAD.**
+```
+my  ps        would have shown NO PROCESS if the monitor had died    ✅ discriminating
+its timing    identical under monitor-alive and monitor-dead         ⛔ not evidence
+its envelope  available, unused, and decisive                        ⚠️ the expensive part
+```
+⭐ **And the asymmetry it named to close: *a wrong claim that felt measured is the common shape; a
+correct claim that was never measured is rarer and passes unchallenged PRECISELY BECAUSE THE
+CONCLUSION HOLDS.*** ⇒ *Nothing downstream ever objects, so it is only catchable at the moment of
+assertion — which is why the rule has to fire when you make the claim, not when it fails.*
