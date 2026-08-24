@@ -122,7 +122,13 @@ WORKDIR="${SOL_WORKDIR:?set SOL_WORKDIR to the isolated worktree -- never /home/
 
 # Refuse to run against the live checkout. The fence is not negotiable by argument.
 case "$(readlink -f "$WORKDIR")" in
-  /home/jes/commonplace|/home/jes/commonplace/*)
+  # ⛔⛔ 2026-08-24T01:08Z — THIS FENCE WAS SILENTLY OPEN FOR ~5 HOURS. The 20:00Z repo rename made
+  # /home/jes/commonplace a SYMLINK to /home/jes/commonplace-monolith, and `readlink -f` returns the
+  # PHYSICAL path — so the live checkout stopped matching these patterns and SOL_WORKDIR=/home/jes/
+  # commonplace was ALLOWED. ⭐ A fence keyed on a path string is keyed on a NAME, and a rename is
+  # exactly the event that separates a name from the thing it names.
+  # ⇒ Both spellings now, and the physical one FIRST because it is what readlink -f produces.
+  /home/jes/commonplace-monolith|/home/jes/commonplace-monolith/*|/home/jes/commonplace|/home/jes/commonplace/*)
     echo "REFUSED: SOL_WORKDIR points at the live checkout ($WORKDIR)" >&2
     exit 64
     ;;

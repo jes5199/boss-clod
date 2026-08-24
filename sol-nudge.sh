@@ -75,7 +75,10 @@ fi
 # ⛔ SERVE RESOLVED BY IDENTITY (comm + cwd), NEVER BY BROAD PATTERN — hermes
 # runs a live-money BEAM on this box and matches any naive beam.smp pattern.
 SERVE_PID=$(for p in $(pgrep -x beam.smp 2>/dev/null); do
-  [ "$(readlink "/proc/$p/cwd" 2>/dev/null)" = "/home/jes/commonplace" ] && echo "$p"
+  # ⛔ 2026-08-24T01:08Z — /proc/<pid>/cwd resolves to the PHYSICAL path, so after the 20:00Z rename
+  # this equality was never true again and the finder returned a silent zero. Match both spellings.
+  _c=$(readlink "/proc/$p/cwd" 2>/dev/null)
+  { [ "$_c" = "/home/jes/commonplace-monolith" ] || [ "$_c" = "/home/jes/commonplace" ]; } && echo "$p"
 done | head -1)
 if [ -n "${SERVE_PID:-}" ] && [ -x /home/jes/boss-clod/verify-serve-listen.sh ]; then
   AUDIT=$(/home/jes/boss-clod/verify-serve-listen.sh "$SERVE_PID" 5199 2>&1)
