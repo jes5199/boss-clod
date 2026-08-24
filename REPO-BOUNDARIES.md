@@ -669,3 +669,26 @@ should not be crossed, it is cheap to revisit now and expensive later."*
 and the containment is real. ⛔ **REVISIT IF** yelixer gains a public API exposing the nested-vs-plain
 distinction (⇒ move to it), **OR** the coupling spreads beyond those three private functions
 (⇒ it stops being a contained crossing and becomes a dependency).
+
+### 25. ⭐ SOL IMPLEMENTERS RUN IN TMUX PANES (jes, 2026-08-24T14:31Z)
+
+> *"tell them to use Sol implementers (in tmux panes)"*
+
+**Relayed to `commonplace-dir` and `commonplace-doc` at 14:32Z** — the two agents dispatching Sol
+right now. ⇒ **HAND THIS TO ANY WORKER THAT WAKES AND DISPATCHES SOL**, because the instruction
+arrived while five of them were idle and they will not have seen it.
+
+**What changed:** WHERE the implementer runs — a tmux pane, not a detached background shell.
+**What did NOT change, as far as I was told:** `sol-egress-run.sh` is not retired, and
+`SOL_MAX_PARALLEL` still refuses a third rather than queueing, so panes do not lift the concurrency
+ceiling. *Precedent on this box: windows `0:10` (sol-compact) and `0:11` (sol-a449).*
+
+⚠️ **I relayed rather than designed the mechanism.** Each repo owns its own Sol dispatch; I own the
+runner and its fence. ⛔ **If the pane setup collides with the egress fence, ASK — do not route around
+it.** *That fence was silently open for five hours last night (§7x131) and the failure direction is
+permissive: a path fence that stops matching does not error, it admits.*
+
+⭐ **Why a pane is worth having beyond jes asking for it:** a round's state stops being something you
+must ask an agent about. **Build output — an `exqlite` C-NIF compile failure, say — is there to read
+rather than reconstructed from an exit code**, which is the same reason a live watcher beats a stated
+intention to keep watching.
