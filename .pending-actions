@@ -363,3 +363,25 @@ plain commit to main that never went through it. A fix to one path is not a fix 
   ⭐ SCORE FOR THE DAY: of the questions doc's epochs document surfaced, jes has now ruled (1)
     commit-id-is-a-hash, (2) epoch-tokens-are-hashes, and (3) compaction-is-needed. All three landed
     within ~90 minutes of the document existing. ⇒ The document was the intervention, not the routing.
+
+2026-08-24T22:32Z  ⏳ HOLDING doc's compaction response — hand over on jes's NEXT contact or the
+  moment he rules the opener clause. He asked about opener-order 1 min ago and I answered; a second
+  message now fragments the thread he is actually in.
+  Record at commonplace-doc origin/main f003156 (docs/DECISION-compaction.md).
+  ⭐ ON THE HEDGED OWNERSHIP — doc did NOT accept silently, it SPLIT: the HOST owns WHEN (only it
+    sees the composed Document; selected head is an attribute; retention rule is the host's), the
+    PLUGIN + YEPOCHS own HOW (the opener update is yepochs' snapshot algorithm over a Yjs doc only
+    merkle holds, and no Doc crosses doc's boundary). Monolith's compactor is a BEHAVIOURAL
+    REFERENCE, not reusable — welded to Commonplace.Store.
+  ⭐ HEURISTICS PROPOSED — this answers his stated "I'm not sure":
+    1. EXPLICIT BEFORE AUTOMATIC: a Compact command over the selected head, no policy in the library.
+    2. ⭐ WHEN a trigger comes, it must be a READ-COST BOUND, never a clock or write count — because
+       a clock COMPACTS DOCUMENTS NOBODY READS AND SKIPS THE ONES READ CONSTANTLY. Best line in it.
+    3. An opener adds a fast start, PRUNES NOTHING (§9 absolute).
+    4. Two nodes compacting the same head mint the SAME commit — but ONLY once the opener-order
+       clause is ruled.
+    5. merge-snapshots / late-edit translation stay out until a fork is a command.
+  ⛔ ESCALATION TO CARRY: the OPENER-ORDER CLAUSE NOW SITS ON THE PATH OF EVERY COMPACTION. It has
+    been with jes since 19:33Z. It was a correctness nicety when raised; it is now blocking.
+  ⇒ Phase 17 (Compact command) NOT STARTED until two doors exist (merkle's author_opener, yepochs'
+    minting function as public pure API) AND the opener clause is ruled.
