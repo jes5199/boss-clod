@@ -12,4 +12,10 @@
 # one of them is in his message. Everything else via commonplace stays halted.
 # ⛔ commonplace-plan is NOT lifted — his message named the reader, not prioritisation.
 # commonplace  LIFTED for the import reader adapter only, 2026-08-24T00:14Z
+#              ⭐ EXTENDED 2026-08-24T01:03Z — jes: "merge it". The lift now covers MERGING PR #37
+#              (cell-1/monolith-import-reader @ d7d4a979) to main, and nothing else. ⚠️ Recorded as
+#              an EXTENSION with its own timestamp rather than by editing the original line, so the
+#              scope history stays readable: he authorised the reader at 00:13Z and the merge at
+#              01:03Z, as two decisions, because they were two.
+#              ⛔ After the merge lands, commonplace is HALTED AGAIN. A merge is not a resumption.
 commonplace-plan  2026-08-23T19:51Z  same message
