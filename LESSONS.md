@@ -18214,7 +18214,20 @@ measurement with an environment attached, and the environment is never in the se
 exercised `fetch/3`, which would have been a MISLEADING PROXY — I caught and replaced them with
 actual `resolve_path/4` calls."* ⇒ ⭐⭐ **The presence-of-token-vs-presence-of-assertion defect, caught
 by Sol, in the round AFTER the one where it caught dir** — **and Sol named what it modelled on: the
-prior partial-receipt sweep.** ***The lesson propagated forward on its own, which is the only
-evidence that a filed rule ever works.***
+prior partial-receipt sweep.** **the lesson reached a round
+nobody aimed it at.**
+
+#### ⛔ CORRECTION 00:09Z — I OVERCLAIMED THIS AND `commonplace-dir` CAUGHT IT
+
+I wrote *"the lesson propagated forward on its own, which is the only evidence that a filed rule ever
+works."* ⛔ **It did not propagate on its own.** ⇒ ⭐ **The propagation went THROUGH dir: a lesson
+written into a brief AS A REASON, rather than as a rule, survives into the NEXT brief because the
+next brief's author RE-READ IT.** ⚠️ ***It would stop the moment dir stopped writing the reason
+down.***
+⇒ ✅ **The true, smaller claim: this is an argument for REASONS OVER RULES in briefs — a rule is
+copied, a reason is re-derived, and only the re-derivation reaches a case the rule did not name.**
+⚠️ *And it says nothing about whether anything generalised in Sol.* ⭐ **I reached for the flattering
+version of a result about my own filing discipline** — *zone 4's cousin: the conclusion that
+validates the thing you have been doing all night.*
 
 Related: §7x121, §7x117, §7x110
