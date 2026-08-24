@@ -18903,3 +18903,18 @@ arriving in tooling: *self-review does not find these, because the person who ma
 one who believes it was cosmetic.*
 ✅ **Standing: after any rename/move of a path that appears in tooling, grep for COMPARISONS
 (`show-toplevel`, `readlink`, `pwd -P`, `realpath`, `=` against a literal), not for mentions.**
+
+### ✅ ADDENDUM — THE `WAITING` BRANCH EXECUTED FOR REAL, AND IT WAS TELLING THE TRUTH
+
+**01:12Z, first genuine execution of the path I could only test vacuously at 00:48Z** (both arms then
+returned `stalled=0` with no `WAITING` line at all, because the subject stopped being a stall
+candidate mid-test).
+```
+WAITING|commonplace|armed watcher pid 3371217 ALIVE — not a stall|wakes on: run 32678659194 RUN COMPLETE
+  cross-checked: run 32678659194 still in_progress, pid 3371217 still alive
+```
+⇒ ⭐ **A branch demonstrated in production on a real subject, which is what the vacuous test could not
+buy.** ⚠️ **And I cross-checked the verdict rather than accepting it** — *the branch firing proves the
+code runs; only the run-state and the pid prove it is RIGHT.* ⭐ ***"It executed" and "it was correct"
+are different claims, and the first is much easier to mistake for the second when the output is a
+line you wrote yourself.***
