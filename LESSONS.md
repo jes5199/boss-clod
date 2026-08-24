@@ -19973,3 +19973,39 @@ recorded that the draft had been wrong *beside* the corrected one rather than qu
 ⭐ A collision in a token formula would have been discovered by two epochs colliding in production,
 which is the worst possible discovery site. **Recording the wrong draft next to the right one is
 what stops someone reintroducing it in six months.**
+
+## 7x154 — I quoted an alarm's text inside a data file, so every search for the alarm matched the data
+
+**2026-08-24T19:54Z.** Cleared a stale suppression, re-counted, and the stale-suppression warning
+**still showed 1**. I went looking for a second worker that had resumed. There was none.
+
+⛔ **The hit was my own annotation.** Earlier I had written into `commonplace`'s `.declared-stopped`
+entry: *"DO NOT DELETE THIS ENTRY ON THE 'marked STOPPED but is WORKING' WARNING ALONE"* — quoting
+the warning verbatim so a future reader would know which alarm not to act on. ⇒ **The pane watch
+prints that entry's text on every run, so `grep -c 'marked STOPPED but is WORKING'` matched the
+NOTE ABOUT the warning, not the warning.**
+
+⭐ **The gate was correct throughout.** `commonplace` read `STOPPED`, which is right — it is halted.
+**Only my verification method was wrong**, and it was wrong in the direction that manufactures work:
+I went hunting for a worker that had resumed and none had.
+
+### ⭐ The general shape
+
+> **Naming an alarm inside the data the alarm scans makes the alarm self-matching.**
+
+Same family as `grep -v grep` (§7x134) and as a fixture whose content satisfies the check that
+should reject it: **the description and the thing described end up in one corpus, and a text search
+cannot tell them apart.** ⚠️ It is a *documentation* instinct that causes it — I was being helpful
+to the next reader, and helpfulness is what put the string there.
+
+### ✅ Two fixes, both applied
+
+1. **Anchor the count to the STRUCTURE, not the phrase**: match the warning only on a line that is
+   also `|WORKING|`, so a mention inside a `STOPPED` entry cannot count. *A warning is a property of
+   a verdict line, not of the output as a whole.*
+2. **Rephrase the note so it no longer contains the literal string.** ⇒ Refer to an alarm by
+   DESCRIPTION inside data the alarm reads, never by quotation.
+
+⚠️ **And the reason the note existed is still right**: `commonplace` is HALTED, its entry describes
+a STANDING condition, and deleting it on a momentary busy signal would quietly un-halt a repo jes
+halted. **The note was correct; its wording was the defect.**
