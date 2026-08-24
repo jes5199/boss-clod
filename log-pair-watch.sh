@@ -233,6 +233,15 @@ printf '%s' "$pane" | grep -qE '[✻✽✳✢·*][[:space:]]+[A-Za-z]+…' && bu
       #   said "IDLE" — and the IDLE rule escalates on the second consecutive sighting.
       # ⛔ That is how a correctly-waiting agent gets nudged mid-round. Same file, same
       #   pid-conditional rule, so the two instruments answer the same question the same way.
+      # ⭐ 2026-08-24T17:39Z — ASK THE DETECTOR FIRST, because it computes "work running for THIS
+      #   worker" from process attribution (-C worktree -> git-common-dir), which needs no
+      #   bookkeeping from me. .awaiting-watcher is hand-maintained, and I had just failed to
+      #   re-arm it for dir's D11A round — so a correctly-waiting worker read IDLE, which
+      #   escalates on the second sighting. ⛔ A rule I have to REMEMBER to update is not a gate.
+      # ⇒ The manual file stays only as an OVERRIDE for watchers that are not codex processes.
+      if printf '%s' "$_ted" | grep -qE 'round\(s\) running|unit\(s\) of work running'; then
+        state=WAITING; detail="detector: $(printf '%s' "$_ted" | sed 's/.*stop=end_turn|//')"
+      else
       _aw=$(grep -E "^${w}\|" /home/jes/boss-clod/.awaiting-watcher 2>/dev/null | head -1)
       _awpid=$(printf '%s' "$_aw" | cut -d'|' -f2)
       if [ -n "$_awpid" ] && kill -0 "$_awpid" 2>/dev/null; then
@@ -244,6 +253,7 @@ printf '%s' "$pane" | grep -qE '[✻✽✳✢·*][[:space:]]+[A-Za-z]+…' && bu
         state=IDLE; detail="⚠️ .awaiting-watcher names pid $_awpid which is GONE (finished or died — indistinguishable); ENTRY IS STALE, remove it. Treating as idle; quiet ${still_min}m"
       else
         state=IDLE; detail="idle prompt POSITIVELY matched, no busy signal — finished or awaiting input; quiet ${still_min}m"
+      fi
       fi
     fi
   else

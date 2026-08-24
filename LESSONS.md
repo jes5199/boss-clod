@@ -19708,3 +19708,30 @@ independently, and only the arms distinguished them.
 (subagent-running · codex-running · retired · declared-pause), and the new subagent pattern was
 green-armed against four genuinely idle panes — **0 matches, because a pattern that over-matches
 here MASKS stalls**, which is the failure this whole thread exists to prevent.
+
+### 7x142b — I violated my own moving-corpus rule twice more in the same session
+
+**7x142 already says, in my words:** *"A pane is a MOVING corpus; two separate captures cannot test
+one verdict. Freeze ONE frame and test that."* ⛔ **I then did it twice more within the hour**, both
+times concluding a pattern was broken when it was fine:
+
+| # | what I "found" | what was true |
+|---|---|---|
+| 16:42 | classifier falsely reports doc IDLE | verdict was 16:40:57Z, my evidence 16:42; the turn began ~16:41:26Z |
+| 17:39 | new WAITING pattern does not match the detector line | dir had transitioned to `stop=tool_use` between my two runs; **against a FROZEN string the pattern matches** |
+
+⭐ **The rule was FILED and I still did not apply it, because in the moment it does not look like the
+rule's situation — it looks like a pattern bug.** ⇒ *A lesson written as a fact about panes did not
+fire for a fact about detector output, though the mechanism is identical.* **State the rule by its
+MECHANISM (any live subject), not by the instance that taught it.**
+
+✅ **Standing, generalised:** to test a predicate against a live subject, **capture once into a
+variable or file and test THAT**. Never re-invoke the source as the test. If two runs disagree,
+suspect the SUBJECT moved before suspecting the predicate.
+
+### ⛔ And a second instrument mismatch inside the same check
+
+I tested the script's pattern using my interactive `grep` — **which is the ugrep wrapper, not the
+binary the script runs** ([[reference_grep_wrapper_honours_gitignore]]). Both happened to agree here,
+but they are **different instruments**, so the test was not testing the thing it claimed to.
+⇒ **Test a script's predicate with `command grep`**, matching what the script actually executes.
