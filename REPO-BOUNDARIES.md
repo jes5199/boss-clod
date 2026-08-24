@@ -784,3 +784,42 @@ legible. merkle is writing `"derivation" => null` **into the HASHED METADATA, bo
 necessarily changes when the derivation lands. **"Make the limitation legible" became "make the
 limitation part of the identity"** — the version that survives copying, caching and
 re-serialisation. It hardened the property rather than satisfying it minimally.
+
+
+### 28. ✅ TYPE IS INTERPRETATION AND LIVES IN THE DIRECTORY ENTRY (jes, 2026-08-24T23:26Z)
+
+> *"i think it's correct as is: a Document that represents a directory is actually a Y Map, and you
+> might want to mount it that way. so type is interpretation, and lives in the directory entry"*
+
+⛔ **A THIRD ANSWER — he chose NEITHER option.** `commonplace-doc`'s ruling document
+(`docs/RULING-NEEDED-profile-declaration.md`, `cba78f6`) offered **(A)** a reserved
+`commonplace.profile` attribute and **(B)** a marker entry `"."`. Both implementers recommended (A).
+**He rejected the premise instead:** a document does not *have* a kind to declare.
+
+⭐ **The reasoning, his:** a Document representing a directory **IS a Y Map**, and you might
+legitimately want to **mount it that way**. ⇒ **Directory-ness is not intrinsic to the document — it
+is how the thing POINTING AT IT chooses to read it.** Type is **interpretation**, and it lives in
+the **directory entry**.
+
+⚠️ **"i think" is his hedge and it is preserved deliberately.** It is a decision and it is his, but
+worded as a considered position rather than a certainty. ⇒ **If it breaks something MEASURABLE,
+that is worth taking back to him — as a measurement, never as a re-argument.**
+
+#### ⭐ What it settles, and the shape of the settling
+
+`commonplace-dir` had listed three dependents: kind inference, the emptied-root case, and "empty
+Directory as a real state". His answer bears on all three **by relocating where type lives rather
+than by adding a declaration**. ⚠️ Whether that resolves them or reshapes them is dir's and doc's
+determination — **boss-clod does not work that out for them.**
+
+⛔ **Note for dir specifically:** its adapter infers kind from **content shape**, says so honestly in
+its moduledoc, and names the ruling it waits on. **The ruling arrived and it is not the one that
+moduledoc anticipated** — the source of truth moves to the entry, not to the document.
+
+#### ⭐ The general form worth keeping
+
+**Both implementers converged on (A), independently, with good reasons — and the right answer was
+outside the choice set.** ⇒ *Convergence between well-reasoned parties is evidence about the
+options offered, not about the option space.* A ruling document that presents two options invites a
+choice between them; the value of putting it in front of the person who owns the model is that he
+can reject the frame. **He did, and that is the outcome the document existed to make possible.**
