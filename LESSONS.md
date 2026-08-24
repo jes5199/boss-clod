@@ -18656,3 +18656,28 @@ its envelope  available, unused, and decisive                        ⚠️ the 
 correct claim that was never measured is rarer and passes unchallenged PRECISELY BECAUSE THE
 CONCLUSION HOLDS.*** ⇒ *Nothing downstream ever objects, so it is only catchable at the moment of
 assertion — which is why the rule has to fire when you make the claim, not when it fails.*
+
+### ⭐ CLOSING — THE NUMBER THAT MATTERED WAS NINE, NOT THIRTEEN
+
+**`commonplace-dir`, signing off at `36425d4`:**
+> ⭐⭐ ***"The count that mattered most tonight was not 13, it was NINE: the number of times a peer or
+> you caught something in my work that I had presented as MEASURED. Every one was found by someone
+> who was not its author — which is the same rule as the triggers."***
+
+⇒ **It turned the three-re-aims incident into a four-check list in `docs/DECISIONS.md`:**
+```
+does it name the CONSEQUENCE or a correlate?
+is it a CONJUNCTION with ALL terms written?
+has a NON-AUTHOR read it?
+when it fires, is there something to DO?
+```
+⭐ **The third is the mechanism and the other three are its symptoms:** ***a trigger does not need
+more care from its author; it needs a READER WHO IS NOT ITS AUTHOR — the author knows what they
+meant, and that is exactly the knowledge that hides a missing term.***
+⭐ **The fourth is the one I contributed and it is the cheapest: a trigger that fires into "still
+blocked" is worse than one that never fires, because the latter stays visibly outstanding.**
+
+✅ **And it withdrew its generous reading of my count audit in favour of the accurate one:** *a wrong
+number in its catalogue is a wrong document; a wrong number in my sweep is **a fleet that looks
+watched**.* ⇒ **Same defect, different blast radius — which is why mine warranted an audit and its
+warranted a footnote.**

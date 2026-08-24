@@ -18,3 +18,15 @@ commonplace-doc-sync
       MAY NEVER OCCUR is different from one that fires on a landing, and doc-sync marked which.
       Added 23:50Z after jes ruled IMPORT (23:48Z, "uh i guess i mean import").
   this is the waker's half.
+
+commonplace-dir
+  Recorded 2026-08-24T00:46Z by BOSS, from its closing message. ⚠️ MY HALF ONLY — its own repo
+  carries the reasoning in docs/DECISIONS.md; if those two ever disagree, ITS FILE WINS.
+  (1) A REAL HOST **AND** epoch_id reaching a RECEIPT — BOTH. This is the wiki slice, the only
+      remaining item. ⛔ The host alone is NECESSARY AND NOT SUFFICIENT: VersionRef requires epoch
+      with no nil path, so a host that cannot populate it cannot construct one Directory entry
+      outside a fixture. Waking it on the host alone wakes it into still-blocked.
+  (2) Phase 3 SCHEDULING POLICY is ⛔ NOT a wake condition — it is a DECISION, not a gap. §21 puts
+      cadence outside commonplace-dir's semantics and forbids correctness depending on a timer.
+      The correctness half is built and proven; the policy half belongs to a deployment.
+      ⚠️ Do NOT let a future reader "finish" it.
