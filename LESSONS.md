@@ -18951,3 +18951,45 @@ the same PR-merge-result population, so the reader's 12 were inside every number
 correct, and it would have been the reasoning that hid the deletion in the case where there was one.*
 
 Related: §7x130, §7x128, §7x127
+
+---
+
+## §7x133 — THE GATE BLINDED THE LOOP AT THE EXACT MOMENT IT EXISTED FOR
+
+**2026-08-24T10:09Z, mine.** `fable-recovery-check.sh` exists for ONE event: **Fable recovering.** At
+the reset it returned **`BLIND`, rc=2.**
+
+**The Fable entry at reset goes `percent=100 -> 0` AND `resets_at -> null`** — *a meter at 0 has
+nothing left to reset.* ⛔ **My staleness gate demanded a FUTURE `resets_at`, so the RECOVERED branch
+— the only branch the loop was built to catch — reported instrument failure.**
+> ⭐⭐ **A gate written for the EXHAUSTED state fired on the RECOVERED state.** ⇒ *Same family as
+> `bin/cp-merge` refusing in the one place it is supposed to run: **the check was correct about the
+> world it was written in, and that world was the one that ends.***
+
+⚠️ **And it failed SAFE-LOOKING**: `BLIND` is the honest verdict I built for a broken instrument, so
+the loop's own discipline — *"BLIND is NOT evidence Fable is healthy"* — kept me from concluding
+anything. ⭐ *The blindness was caught because the instrument says which kind of nothing it saw.*
+
+✅ **Fix, narrow: a null `resets_at` is suspicious ONLY when the meter is non-zero.** All four arms:
+```
+percent=100, resets null    -> BLIND   (a real stale cache)      ✅ still red
+percent=100, resets past    -> BLIND   (stale payload)           ✅ still red
+percent=100, resets future  -> EXHAUSTED                          ✅
+percent=0,   resets null    -> RECOVERED                          ✅ the fixed case
+percent=0,   resets future  -> RECOVERED                          ✅
+```
+
+### ⛔ AND MY FIRST PROBE READ THE WRONG KEY
+
+I dumped `weekly_scoped` — **absent** — and nearly concluded the payload shape had changed. **The
+script reads `limits`.** ⇒ ⭐ ***I was diagnosing my own script against a key it does not use***, and
+the "missing" structure was missing only from my query. ⚠️ *Reading the script before theorising
+about it cost one `sed` and would have saved the detour.*
+
+### ⭐ AND THE 7-DAY WINDOW ROLLED IN THE SAME MINUTE
+```
+7d  97% -> 0.0%   next reset 2026-08-31T09:59:59Z
+5h        -> 0.0%   next reset 2026-08-24T13:59:59Z
+```
+*Both meters and the Fable scope reset together; three consecutive live payloads agreed, so this is
+not a cache artefact.*

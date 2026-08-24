@@ -89,10 +89,24 @@ done < <(tmux list-windows -a -F '#{session_name}:#{window_index} #{window_name}
 # RECOVERED branch fire late or never, which is the one branch this loop exists
 # for. ⭐ Cheap staleness gate: resets_at must be in the FUTURE. A cache frozen
 # past the reset betrays itself here; a fresh read cannot fail it.
+# ⛔⛔ 2026-08-24T10:09Z — THIS GATE BLINDED THE LOOP AT THE EXACT MOMENT IT EXISTS FOR.
+# At the reset, the Fable entry goes percent=100 -> percent=0 AND resets_at -> null, because a
+# meter at 0 has nothing left to reset. The staleness gate demanded a FUTURE resets_at, so the
+# RECOVERED case — the one branch this loop was built to catch — reported BLIND instead.
+# ⭐ A gate written for the exhausted state fired on the recovered state. Same family as a fence
+# that refuses in the one place it is supposed to run.
+# ⇒ A null resets_at is only suspicious WHEN THE METER IS NON-ZERO. At percent=0 it is EXPECTED,
+# and the recovery is corroborated by the entry still being present and readable.
 now_s=$(date -u +%s)
 res_s=$(date -u -d "$resets" +%s 2>/dev/null || echo "")
+if [ -z "$res_s" ] && [ "${pct%.*}" -eq 0 ]; then
+  echo "FABLE|RECOVERED|percent=$pct|resets_at=none (expected at 0% — nothing left to reset)"
+  echo "FABLE|affected=${affected:-none}"
+  echo "FABLE|action=ask jes which to switch back; do NOT switch hermes without asking (live money)"
+  exit 0
+fi
 if [ -z "$res_s" ]; then
-  echo "BLIND|resets_at unparseable ('$resets') — cannot judge staleness, treating as instrument failure"
+  echo "BLIND|resets_at unparseable ('$resets') AT percent=$pct — a null reset is only expected at 0%"
   exit 2
 fi
 if [ "$res_s" -le "$now_s" ]; then
