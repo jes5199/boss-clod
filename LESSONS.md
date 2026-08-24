@@ -19450,3 +19450,36 @@ require `epoch_id`). ⇒ **That is merkle's FORMAT moving, not the engine breaki
 is pinned valid only at `31e6dca`. ⭐ **Its own caveat, recorded: 42.10 is re-demonstrated but the
 door's FIRST CONSUMER HAS NOT USED IT YET.** *A door proven by its builder is not yet proven by its
 user.*
+
+## 7x141 — a consistency check between two things that share a derivation cannot detect a fault in that derivation
+
+**2026-08-24, commonplace-log, arriving from commonplace-doc's side.** The test asserted two
+replicas encoded a frontier to identical bytes. doc mutated the code to reverse the tips
+**identically on both replicas** — the arm went red anyway, and the reason is the part worth keeping.
+
+The second assertion compares against a **hand-written literal in the test source**, not against
+the store's canonical frontier. ⭐ **That is stronger than comparing against the store would be: a
+store-derived expectation inherits the bug it is checking for; an independently-stated literal
+cannot.** The difference between *"the code agrees with itself"* and *"the code agrees with
+something a human wrote while thinking about the spec."*
+
+⛔ **I relayed this to jes with the machinery as the hero** — said the check compared against the
+store's canonical frontier. commonplace-log corrected it. My version was a better story and a
+worse fact, and it credited the wrong mechanism.
+
+⭐ **THE GENERAL FORM.** Two replicas share the code. Two adapters share the contract.
+**Two agents share a relayed measurement.** ⇒ The fix is always an anchor OUTSIDE the shared
+derivation: a literal, an independent implementation, or **a second party who MEASURED rather
+than RELAYED**. Not more comparisons of the same kind.
+
+⚠️ **The last one is aimed at me.** A worker's number, repeated by me to jes, is one derivation
+wearing two faces — and it reads as corroboration. Confirmation requires a second *measurement*,
+not a second *mention*. See [[feedback_verify_reported_absences]].
+
+### ⭐ And the mechanism beats the virtue, because the virtue is not reproducible
+
+I told jes the flaw surfaced because the worker was careful enough to say so instead of adjusting
+the test. Its own account: *"I did not notice the flaw by being careful — Sol RAN the sabotage I
+specified and it FAILED TO FAIL."* ⇒ **Pre-registering the sabotage before knowing the outcome is
+what made the test's own inadequacy observable. Written after seeing green, the arm would have
+passed.** ⛔ *"Was careful"* cannot be scheduled; *"pre-register the red arm"* can.
