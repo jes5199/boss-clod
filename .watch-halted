@@ -18,4 +18,11 @@
 #              scope history stays readable: he authorised the reader at 00:13Z and the merge at
 #              01:03Z, as two decisions, because they were two.
 #              ⛔ After the merge lands, commonplace is HALTED AGAIN. A merge is not a resumption.
+#              ⭐ EXTENDED AGAIN 2026-08-24T15:34Z — jes: "i need merkle, monolith, and doc to
+#              discuss how to support epoch-changing snapshots as seen in monolith". The lift now
+#              covers PARTICIPATING IN THAT DISCUSSION, and nothing else. ⚠️ Third scope extension,
+#              each with its own timestamp rather than by editing the earlier ones, because he made
+#              them as three separate decisions: the reader (00:13Z), the merge (01:03Z), this
+#              (15:34Z). ⛔ Discussion is not implementation; the 19:51Z halt on automatic work
+#              still stands underneath.
 commonplace-plan  2026-08-23T19:51Z  same message
