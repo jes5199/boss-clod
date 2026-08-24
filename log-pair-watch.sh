@@ -226,7 +226,12 @@ for w in "${WORKERS[@]}"; do
   elif [ "$ctx_n" -gt 70 ]; then
     REPORT+=("ACTION|$w|ctx ${ctx_n}% > 70 — DRIVE THE COMPACT YOURSELF VIA TMUX. Do NOT ask the worker.")
     REPORT+=("ACTION|$w|  ask it only for the DURABILITY PASS (state written where a successor will look)")
-    REPORT+=("ACTION|$w|  tmux send-keys -t $target C-u; send-keys \"/compact\"; send-keys Escape; send-keys Enter")
+    REPORT+=("ACTION|$w|  tmux send-keys -t $target C-u; send-keys \"/compact\"; send-keys Enter")
+    REPORT+=("ACTION|$w|  ⛔ NO Escape. MEASURED 2026-08-24T00:33Z: Escape CLEARS THE INPUT rather")
+    REPORT+=("ACTION|$w|  than dismissing the suggestion menu — C-u+/compact+Escape+Enter left an")
+    REPORT+=("ACTION|$w|  EMPTY prompt still at 75%, silently. With /compact typed the exact match")
+    REPORT+=("ACTION|$w|  is highlighted and ONE Enter submits it.")
+    REPORT+=("ACTION|$w|  ⭐ \"Press up to edit queued messages\" = SUCCESS mid-turn, not a stuck prompt.")
     REPORT+=("ACTION|$w|  then VERIFY BY EFFECT: ctx drops to ~0%. If the pane is mid-turn the")
     REPORT+=("ACTION|$w|  command QUEUES and runs when the turn ends — that is fine, keep watching.")
   fi

@@ -18475,3 +18475,21 @@ that **"Press up to edit queued messages" is SUCCESS when the pane is mid-turn, 
 that message is itself easy to read as a stuck prompt.
 ⭐ **This is the recipe I had carried in memory and printed for others without ever running it end to
 end** — *§7x118's "trusted every time and tested never", arriving in a procedure instead of a gate.*
+
+#### ⛔⛔ AND I COMMITTED THAT FIX BEFORE IT APPLIED — §7x112, BY ME, FOUR HOURS AFTER FILING IT
+
+**My patch script asserted on a string that did not match (the line is inside a `REPORT+=(...)`
+array with escaped quotes, not a bare `echo`). Python raised at the assert ⇒ NEITHER replacement
+ran ⇒ `log-pair-watch.sh` was UNCHANGED — and the `git commit` later in the same chain succeeded on
+its own and said *"fix the compact recipe"*.**
+
+⇒ ⭐⭐ **This is `commonplace-dir`'s 23:17Z finding reproduced exactly, by me, in the same file that
+records it:** *a commit message describing an INTENDED outcome rather than a VERIFIED one, because a
+failing step and a succeeding commit sat in one `&&`-free chain.*
+⚠️ **`bash -n` printed `syntax OK` immediately after the traceback, and the two lines together read
+as a successful run.** ⛔ ***A green from a LATER step is not evidence about an EARLIER one*** — and
+when they print adjacently, the eye takes the pair as one verdict.
+✅ **Fixed for real, and verified by effect on the ARTIFACT rather than the exit code:**
+`grep -c 'send-keys Escape'` → **0**, `grep -c 'NO Escape'` → **1**.
+⭐ *dir's remedy was a script (`check-spec-pristine.sh`); mine is the same discipline — assert on the
+file's CONTENT after writing, never on the writer having run.*
