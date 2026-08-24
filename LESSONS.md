@@ -19379,3 +19379,38 @@ coupled to which door it came through.*
 second connection.** ⇒ **It only worked because the rule was written where it would be READ** — the
 same reason that repo's do-not-tidy list went into its README rather than staying in someone's head.
 > ⭐⭐ ***A boundary nobody can find is indistinguishable from one that is not there.***
+
+### ⭐⭐ ADDENDUM — AN ASSERTION GOES TAUTOLOGICAL WHEN ROUTED THROUGH THE GATE IT WAS EVIDENCE FOR
+
+**`commonplace-merkle-crdt`, 16:25Z, naming the casualty BEFORE measuring it.**
+
+Closing the `assemble/2` capability means routing 24 assertions from the `%Yelixer.Doc{}` to
+`materialize/2`'s JSON roots. It identified which ones lose something, and why:
+
+> ⛔ **The `pending_info(assembled_doc).count == 0` assertions "were evidence for the
+> `assembly_unresolved` gate INDEPENDENT of the gate's own red tests; via `materialize` they become
+> TAUTOLOGICAL — materialize succeeding IS the gate."**
+
+⇒ ⭐ **The assertion does not break. It stops being a SECOND witness and becomes a restatement of the
+first.** ⚠️ *And it still passes — so the suite's count is unchanged while its independence is gone.*
+⭐⭐ ***Two tests that agree because one derives from the other are one test with two names.***
+
+✅ **Its check is the right one and it PRE-REGISTERED the prediction:** *after the rewrite, delete
+the gate; separately delete the epoch-boundary stop in the walk; count reds. If either mutation
+survives, that is the finding, and it keeps a narrow internal accessor for those specific tests.*
+⭐ **Naming the candidate before measuring is what lets the measurement DISCONFIRM it** — a
+prediction made after the count is a description of the count.
+
+⚠️ **And the remedy it pre-authorised is the right shape: a narrow INTERNAL accessor for named tests
+is not a public handle.** *The handle rule is about what callers can reach, not about whether a
+function exists — collapsing those two would cost real coverage to satisfy a slogan.*
+
+⇒ ⭐ **This is the fourth distinct way a passing test can stop discriminating, all found today:**
+```
+wrong history        the fixture cannot express the difference        (commonplace-dir)
+wrong axis           the mutation perturbs something else             (commonplace-doc)
+inert red arm        the sabotage is invisible to the oracle          (commonplace-log)
+tautological         the assertion now restates what it tested        (commonplace-merkle-crdt)
+```
+**All four pass. None is found by reading the test.** ⭐ ***Only by asking what it can still tell
+apart.***
