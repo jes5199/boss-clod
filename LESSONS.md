@@ -18883,6 +18883,16 @@ list every spelling the OS can produce.*
 ⭐ **And the discriminating question was not "which files mention the path" (11) but "which files
 COMPARE it" (2).** *A count of mentions would have produced a nine-item cleanup that fixed nothing
 and missed the fence.*
+> ⭐⭐ **`commonplace` generalised it past paths, and this is the form to keep: *WHEN A CONSTANT'S
+> MEANING CHANGES RATHER THAN ITS VALUE, THE POPULATION IS THE `==`/`!=` SITES, NOT THE
+> OCCURRENCES.*** ⇒ *The same shape as counts-need-per-hit-shapes, aimed at a grep's SELECTOR rather
+> than its TOTAL.*
+
+⭐ **And its read on which failure did the work: *"my door was the CANARY, not the finding."*** ⇒ **Its
+guard failed CLOSED — intolerable within seconds, fixed in minutes. Mine failed OPEN and sat five
+hours looking exactly like a working fence.** ⚠️ ***The sweep that found the quiet one happened only
+because the loud one made a noise*** — *so the cheap lesson is not "audit after renames" (nobody
+does) but "when any tool breaks on a rename, treat it as a SAMPLE, not an incident."*
 
 ### ⚠️ WHAT MADE IT FINDABLE AT ALL
 
