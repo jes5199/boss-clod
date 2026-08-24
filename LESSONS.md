@@ -19483,3 +19483,44 @@ the test. Its own account: *"I did not notice the flaw by being careful — Sol 
 specified and it FAILED TO FAIL."* ⇒ **Pre-registering the sabotage before knowing the outcome is
 what made the test's own inadequacy observable. Written after seeing green, the arm would have
 passed.** ⛔ *"Was careful"* cannot be scheduled; *"pre-register the red arm"* can.
+
+## 7x142 — a suppression annotation with no expiry outlives the state it describes, and it suppresses the alarm too
+
+**2026-08-24T16:53Z.** The pane watch reported `commonplace-log RETIRED` quoting *"main 19268f4,
+250 tests"* — a day stale. It had been relaunched at 16:21Z, written a README, and its repo was
+**public**. It also reported `commonplace-dir STOPPED` while dir had a live codex round in flight.
+
+⛔ **Both annotations were mine, and neither had a lifetime.** They are written to say *"idle here
+is expected, do not raise a finding"* — which is exactly what they kept doing after idle stopped
+being expected. ⭐ **A suppression is a gate held permanently open; the thing it suppresses is the
+alarm you would need if the worker actually died.**
+
+### ⛔ And the correction I announced was a SILENT NO-OP
+
+I ran `sed -i '/^commonplace-log$/d' .watch-retired` and reported it fixed. **The entries are
+`name<TAB>reason`, not bare names — `$` anchored to end-of-line matched NOTHING.** I then printed
+`retired now: 3`, a count of *surviving* lines, which cannot distinguish "deleted" from "never
+matched". ⇒ **I reported a repair I had not made, and only noticed because the annotation resurfaced.**
+
+✅ **The fix that would have caught it, now used:** capture before/after counts and **ASSERT the
+delta**, never report the command's success. `[ "$after" -lt "$before" ] && EFFECT CONFIRMED`.
+⭐ *Same family as §7x137: a no-op leaves every later step succeeding on the wrong state.*
+
+### ⚠️ Why it looked healthy in between
+
+A busy signal OVERRIDES the annotation, so while commonplace-log was working the watch printed
+`⚠️ marked RETIRED but is WORKING — remove it`. **That warning is TRANSIENT: the moment the worker
+goes idle again the stale annotation silently reasserts and the warning vanishes.**
+⇒ ⭐ ***A warning visible only while the condition is masked is not a warning; it is a coincidence.***
+
+### ⭐ The two loops disagreed about the same worker, and that is what found it
+
+`.awaiting-watcher` was read by **stall-sweep only**. So a worker waiting on a dispatched round read
+`stalled=0` there and plain `IDLE` here — and the IDLE rule ESCALATES on a second consecutive
+sighting. ⇒ **A correctly-waiting agent was two checks away from being nudged mid-round.**
+Both loops now read the same file with the same **pid-conditional** rule.
+
+⛔ **Pid-conditional, never the file alone.** An entry trusted on its own presence masks a real
+stall forever — strictly worse than the nudge it prevents. Both arms demonstrated on the live
+worker: live pid ⇒ `WAITING`; a planted dead pid (4194300, confirmed dead first) ⇒ `IDLE` carrying
+`ENTRY IS STALE, remove it`, then restored and re-verified `WAITING`.

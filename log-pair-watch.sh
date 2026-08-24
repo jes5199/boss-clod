@@ -203,7 +203,24 @@ printf '%s' "$pane" | grep -qE '[✻✽✳✢·*][[:space:]]+[A-Za-z]+…' && bu
       # worker is how a retirement becomes a blind spot.
       state=RETIRED; detail="idle BY DECISION — $(retired_reason "$w"); not a finding"
     else
-      state=IDLE; detail="idle prompt POSITIVELY matched, no busy signal — finished or awaiting input; quiet ${still_min}m"
+      # ⭐ 2026-08-24T16:56Z — .awaiting-watcher was read by stall-sweep ONLY, so a worker
+      #   legitimately waiting on a dispatched codex round read as plain IDLE here. The two
+      #   loops then DISAGREED about the same worker: stall-sweep said "not stalled", this
+      #   said "IDLE" — and the IDLE rule escalates on the second consecutive sighting.
+      # ⛔ That is how a correctly-waiting agent gets nudged mid-round. Same file, same
+      #   pid-conditional rule, so the two instruments answer the same question the same way.
+      _aw=$(grep -E "^${w}\|" /home/jes/boss-clod/.awaiting-watcher 2>/dev/null | head -1)
+      _awpid=$(printf '%s' "$_aw" | cut -d'|' -f2)
+      if [ -n "$_awpid" ] && kill -0 "$_awpid" 2>/dev/null; then
+        # ⭐ PID-CONDITIONAL, never on the file alone: a stale entry would mask a real stall
+        #   forever, which is strictly worse than the nudge it prevents.
+        state=WAITING; detail="armed watcher pid $_awpid ALIVE — waiting, not idle: $(printf '%s' "$_aw" | cut -d'|' -f3-)"
+      elif [ -n "$_awpid" ]; then
+        # ⚠️ FINISHED and DIED are indistinguishable from here — say so, do not pick one.
+        state=IDLE; detail="⚠️ .awaiting-watcher names pid $_awpid which is GONE (finished or died — indistinguishable); ENTRY IS STALE, remove it. Treating as idle; quiet ${still_min}m"
+      else
+        state=IDLE; detail="idle prompt POSITIVELY matched, no busy signal — finished or awaiting input; quiet ${still_min}m"
+      fi
     fi
   else
     # ⭐ The vacuous branch, made loud on purpose.
