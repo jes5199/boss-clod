@@ -20049,3 +20049,43 @@ merkle's real stale frame  bottom7=no match   whole-pane=MATCH   <- the bug, iso
 ⚠️ **Green arm is SYNTHETIC** — no live subagent existed to test against, so I constructed a frame
 of that exact shape. Stated rather than implied. The RED arm is real: merkle now reports
 `STALL-CANDIDATE` and the sweep sees it.
+
+## 7x156 — I dropped "yet" and turned a current state into a permanent one
+
+**2026-08-24T22:26Z.** jes pushed back on a phrase: *"'if the stack never compacts'??"*
+
+The document says: ***"The new stack does not compact YET** and reads through the frontier, not
+through snapshots. If it never compacts, or bounds reads by a base instead, most of that machinery
+has no job here."*
+What I relayed at 19:09Z: *"The new stack **doesn't compact** and reads through the frontier."*
+
+⛔ **One word, and it changes the claim's tense from CURRENT to PERMANENT** — which made an open
+question read as a settled assumption the workers had already made. They had not: they filed it as
+the third decision and said it is **upstream of the other two**, because the answer could shrink
+everything above the per-document epoch.
+
+### ⭐ Second instance today of ONE failure mode
+
+| # | qualifier dropped | effect |
+|---|---|---|
+| 19:33Z | *measured, not proven* → **"settled"** (§7x153) | a bounded result became an unbounded belief |
+| 19:09Z | *does not compact **yet*** → "doesn't compact" | an open decision became a stated premise |
+
+⭐ **Both are the same mechanism and it is not carelessness about facts — every word I dropped was a
+HEDGE, and hedges are exactly what compresses out when you summarise.** ⇒ *Summarising is lossy in a
+DIRECTION: it removes uncertainty markers first, because they read as padding. The result is always
+more confident than the source.*
+
+⛔ **And I am the worst place for it to happen**, because I am the only path from the workers to jes.
+A qualifier they wrote carefully, dropped by me, cannot be recovered downstream — he has no other
+copy. **doc even repeated my "settled" phrasing back into its own decision record**, so my
+compression became their premise (§7x153).
+
+### ✅ Standing rule
+
+> **When a sentence contains a hedge, QUOTE IT — do not summarise it.**
+
+A hedge is not decoration; it is the part of the claim that says how much weight it will bear.
+⇒ If a relay is too long to quote, the fix is to quote the hedged sentence and summarise the rest —
+**never the reverse.** ⚠️ Both catches came from jes questioning the flattened version. *He is not a
+substitute for the check; he is what the check failing looks like.*
