@@ -28,6 +28,23 @@ fi
 
 set -uo pipefail
 
+# ⛔⛔ DO NOT CHANGE `printf '%s' "$pane"` TO A MULTI-ARGUMENT printf. (2026-08-24T18:33Z)
+#   commonplace-dir (A28) and commonplace-doc INDEPENDENTLY hit a SIGPIPE FALSE-MISS race:
+#   `printf '%s\n' $LIST | grep -q` under pipefail -- grep exits on the FIRST match, printf's NEXT
+#   write() takes EPIPE -> SIGPIPE -> pipefail -> pipeline reports MISS with the item PRESENT.
+#   Theirs, measured: 7/150 and 12/150 false FAILs on byte-identical trees; 0/150 once fixed.
+# ⭐ THIS SCRIPT HAS pipefail AND 10 `printf | grep -q` SITES AND IS SAFE -- structurally, not by
+#   luck, and the reason is the thing you must not break:
+#     ONE argument  -> printf emits the payload in a SINGLE write. Measured: 15 write() syscalls
+#                      total, payload 1260 bytes, into a 64KB pipe buffer -> cannot block.
+#     N arguments   -> printf iterates the format PER ARGUMENT. Measured: 1302 write() syscalls.
+#   ⇒ With a single write there IS NO SUBSEQUENT WRITE to receive EPIPE. The race needs N writes.
+#   Also run empirically: 150 iterations of the real idle-prompt predicate on a frozen pane, 0 anomalies.
+# ⚠️ BOUNDARY: holds while the payload stays well under the pipe buffer. A tmux pane is bounded by
+#   terminal geometry (~5KB). Do NOT feed an unbounded file through this pattern.
+# ⭐ Found by auditing MY scripts against SOMEONE ELSE'S bug -- the cheapest audit available is
+#   aiming an existing finding at a corpus it was never aimed at.
+
 WORKERS=(commonplace-log commonplace-log-reducer commonplace-merkle-crdt yepochs commonplace-doc)
 WORKER_LIST=/home/jes/boss-clod/.watch-workers
 # ⭐ ONE list, two scripts. If the file is missing or empty we KEEP the literal
