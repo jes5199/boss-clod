@@ -19822,3 +19822,45 @@ was P1 genuinely red (§7x145). ⇒ *dir's words: a story fitting both would hav
 to re-run until green — and that habit is exactly what hid P1's real red for eleven rounds.*
 ⇒ **Flakiness does not merely waste runs; it MANUFACTURES the reflex that ignores true reds.** A
 flaky gate and a silent gate are the same defect at different latencies.
+
+## 7x150 — the cap's ARITHMETIC was right every time I checked it; the defect was the WINDOW
+
+**2026-08-24T18:47Z.** commonplace-log flagged that three codex rounds were running under
+`SOL_MAX_PARALLEL=2`. Its own read was that the cap "was not enforced, or is per-repo."
+
+⭐ **The counting is correct.** Run against the live three-round state it returns `N=3`, and the
+whole runner, invoked for real, printed `REFUSED: 3 codex round(s) already in flight` and exited 65
+without launching. Nothing was wrong with the arithmetic — **and the arithmetic is the only thing I
+had ever tested.**
+
+⛔ **THE DEFECT WAS TOCTOU.** The cap reads shared state and then acts on it with no mutual
+exclusion. commonplace-log dispatched two rounds close together while commonplace-dir already had
+one; **both read the count before either had spawned**, both saw a free slot, both were admitted.
+> ⭐ **A gate that reads shared state and then acts on it is not a gate until the read and the act
+> are ATOMIC.** *Same family as testing an oracle and never testing the corpus: I kept measuring the
+> component that was never broken.*
+
+### ⛔ AND I NEARLY REINTRODUCED THE BUG THIS SCRIPT'S OWN HEADER RECORDS
+
+First fix was `exec 9>lock; flock 9` around count-and-launch. ⚠️ **`exec` REPLACES the shell and FILE
+DESCRIPTORS SURVIVE EXEC** — so fd 9 and its lock would have been held **by the codex process for
+the entire round**. That does not make the cap stricter: it converts a cap of 2 into a hard
+serialisation of 1 that then FAILS at the timeout with a *different* exit code.
+⭐ **The header of that very script records the last time a cap of 2 silently behaved as a cap of 1.**
+I was about to recreate it from the opposite direction, while fixing it.
+✅ Fixed with `exec 9>&-` immediately before the launch, leaving a window of a few builtins instead
+of a multi-second one. ⚠️ **Not zero — stated in the script rather than pretended away.**
+
+### ✅ Verified, three ways, none of them "it looks right"
+
+1. **Serialisation:** two holders — second WAITED 2s and acquired, did not fail.
+2. **Release at launch:** a structural stub (`flock` → `9>&-` → `exec sleep`) let a competitor
+   acquire while the exec'd child ran. ⭐ *Without this arm I would have shipped the cap-of-1.*
+3. **End to end, live:** the real runner with 3 in flight refused at the cap, exit 65, launched nothing.
+
+### ⭐ And the load question, which is the one that actually mattered
+
+⛔ **I did not reason about whether three rounds were safe — I measured**: load 4.77 and FALLING
+(5.54/6.30 at 5/15min), 7GB of 15GB available, each codex ~165MB. **Nothing held.** hermes is
+live-money on this box, so the answer had to come from `free` and `uptime`, not from a cap being
+breached sounding alarming. *The cap being wrong and the box being in danger are separate claims.*

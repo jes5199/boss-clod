@@ -169,6 +169,20 @@ SOL_MAX_PARALLEL="${SOL_MAX_PARALLEL:-2}"
 # in this block return 1 on the EMPTY case, which is the NORMAL case; under
 # `set -e` the gate aborted the whole runner exactly when nothing was in flight.
 # ⇒ Fixing the first cause a trace points at does not mean the symptom had one.
+# ⛔⛔ TOCTOU: THE CAP IS CHECK-THEN-ACT AND HAD NO MUTUAL EXCLUSION. (2026-08-24T18:47Z)
+#   commonplace-log dispatched two rounds close together while commonplace-dir already had one.
+#   BOTH read N_INFLIGHT before EITHER had spawned, both saw a free slot, and three rounds ran
+#   under a cap of 2. The counting logic is CORRECT — re-tested against the live 3-round state,
+#   it returns N=3 and WOULD refuse. Nothing was wrong with the arithmetic; the window was.
+# ⭐ A gate that reads shared state and then acts on it is not a gate until the read and the act
+#   are ATOMIC. Every measurement I took of this cap was of the ARITHMETIC, which was never the
+#   defect — the same shape as testing an oracle and never testing the corpus.
+# ⇒ Serialise admission on a lock file. The lock is held across COUNT + LAUNCH, so a second
+#   dispatcher blocks until the first has actually spawned and is therefore countable.
+# ⚠️ -w 30: WAIT, do not fail. A refusal here would be indistinguishable from the cap refusing,
+#   which is a DIFFERENT decision with a different remedy.
+exec 9>/home/jes/boss-clod/.sol-admission.lock
+flock -w 30 9 || { echo "REFUSED: could not acquire admission lock in 30s — NOT the cap; investigate." >&2; exit 66; }
 INFLIGHT=$(pgrep -f '(^|/)codex (exec|resume)' 2>/dev/null || true)
 if [ -n "$INFLIGHT" ]; then
   INFLIGHT_PGIDS=$(ps -o pgid= -p $(printf '%s' "$INFLIGHT" | tr '\n' ',' | sed 's/,$//') 2>/dev/null \
@@ -448,6 +462,16 @@ done < <(find /run -maxdepth 2 -type s 2>/dev/null | sort -u)
 #   shell. Do NOT set it on the dispatch command and assume it arrived.
 # ⚠️ The allowlist is deliberate — it is part of the fence. Do not widen it to
 #   solve a one-off; widening it is a fence decision, not a convenience.
+# ⛔ RELEASE THE ADMISSION LOCK AT THE LAUNCH POINT. `exec` REPLACES this shell and FILE
+#   DESCRIPTORS SURVIVE EXEC — so without this close, fd 9 (and its flock) would be held by the
+#   codex process FOR THE ENTIRE ROUND. That does not make the cap stricter; it converts a cap of
+#   2 into a hard serialisation of 1 that then FAILS at the 30s timeout with exit 66. ⭐ This
+#   script's own header records the last time a cap of 2 silently behaved as a cap of 1; I nearly
+#   reintroduced it from the opposite direction while fixing the race.
+# ⇒ Closing here leaves a window of a few bash builtins between the release and codex becoming
+#   visible to pgrep — microseconds, versus the multi-second window that let three rounds in.
+#   Not zero. Small enough to be worth the exchange, and stated rather than pretended away.
+exec 9>&-
 exec env -i \
   HOME="$HOME" PATH="$PATH" USER="$USER" LOGNAME="$LOGNAME" SHELL="$SHELL" \
   TERM=xterm-256color LANG="${LANG:-C.UTF-8}" LC_ALL="${LC_ALL:-C.UTF-8}" \
