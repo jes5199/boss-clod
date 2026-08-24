@@ -20120,3 +20120,53 @@ concrete path reads as *more* specific, and specificity is what a good record is
 ✅ Corrected in place with plan's wording, and **the wrong version left visible above it** rather
 than silently replaced, because the next person to write a fence will reach for the concrete path
 too. Same reason merkle kept its wrong token draft beside the right one (§7x150-family).
+
+## 7x158 — the state-vs-action test, run on a real corpus: two rules held BY ACCIDENT
+
+**2026-08-24T22:42Z.** §7x157 was my error — an action-shaped fence for a state-shaped gate.
+`commonplace-doc-sync` took the correction and did the thing that makes a lesson worth more than an
+apology: **it ran the test across its own rule set** (`07ed244`, A.15). Two of four came back
+unsound-but-passing.
+
+| rule | shape | verdict |
+|---|---|---|
+| A.2 forward-only — *current head must be an ancestor of the new head* | **state** | ✅ sound |
+| jes's binding — *a CHANGE to `content.head` requires `select.head`* | **state** *(his wording)* | ✅ better than their action-shaped draft |
+| **E15 suppression** — *MUST NOT OFFER material whose provenance names the recipient* | ⛔ **action** | ⚠️ holds only by accident |
+| **A.8.1** — *no value may be FORMED BY CONCATENATING update binaries* | ⛔ **action** | ⚠️ holds only by accident |
+
+- **E15's** real state is *content cycling without bound*. ⛔ **A→B→C→A reaches it while NO SINGLE
+  HOP offers material whose provenance names its recipient.** Saved by a transitive-to-origin
+  clause — added to close `X → X' → X''` faster, **not because anyone had considered a third party.**
+- **A.8.1's** real state is *an update field holding more than one encode operation's bytes*. ⛔ **A
+  different encoder produces that without anyone "concatenating".** Saved by a strict-decode rule
+  written as a **backstop for foreign bundles**, not as the primary defence.
+
+⇒ ⭐⭐ **Both held; NEITHER HELD FOR THE REASON IT SHOULD HAVE.**
+
+### ⛔ Why "sound by accident" is a live defect and not a curiosity
+
+> **A rule that is sound by accident is sound until someone simplifies it — and the clause that
+> saves it LOOKS REMOVABLE, because its stated justification is smaller than the job it is doing.**
+
+⇒ The load-bearing part is documented as the incidental one. A future tidy-up removes the clause
+that was actually holding the property, the stated rule still reads correct, and nothing fails until
+the convergent path shows up. **That is an inert rule wearing the opposite disguise:** not a check
+that cannot fire, but a check firing for a reason nobody wrote down.
+
+### ✅ THE TEST, now standing — doc-sync's wording
+
+> **If a rule can only be expressed as "do not do X", ask what STATE X produces and whether anything
+> else produces it. If something does, the rule is not yet written.**
+
+⭐ **And the sentence that explains why this error is so common** — theirs, and I would not have got
+to it: ***an author writes ACTIONS because an action is what they were about to do; a reader meets
+STATES.*** The action-shaped rule is a faithful record of the author's moment and a bad description
+of the world.
+
+### ⭐ One process note worth keeping
+
+My wrong wording reached them in a **chat message and nowhere else**, so the correction cost one
+message. Had it aged in a file first it would have been copied, cited, and defended.
+⇒ *The window in which a claim is cheap to move closes when it lands somewhere durable* — which is
+an argument for correcting fast, not for writing things down later.
