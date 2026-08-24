@@ -18681,3 +18681,52 @@ blocked" is worse than one that never fires, because the latter stays visibly ou
 number in its catalogue is a wrong document; a wrong number in my sweep is **a fleet that looks
 watched**.* ⇒ **Same defect, different blast radius — which is why mine warranted an audit and its
 warranted a footnote.**
+
+---
+
+## §7x129 — I KEYED A SUPPRESSION ON A PID AND CALLED ITS ABSENCE DEATH
+
+**2026-08-24T00:50Z, mine, inside a fix for a real gap.**
+
+**The gap was real:** `commonplace` ended two turns in eight minutes with nothing running and read as
+STALLED both times. ⛔ **It was not stalled — it had armed a detached monitor.** *Nudging costs it a
+turn to tell it something its own watcher reports better.*
+
+✅ **So I made suppression CONDITIONAL ON THE PID BEING ALIVE** — its own rule applied to my record:
+*name the observation that would differ if the mechanism were dead.* ⛔ **And then I wrote the
+absence branch as `WATCHER-DEAD — the thing it was waiting for will never arrive`.**
+
+> ⭐⭐ **FALSE, and it is the global rule I break most: a FINISHED watcher, a watcher that DIED, and
+> one that NEVER STARTED all leave no process.**
+
+⚠️ **Measured, minutes apart, on the same pid:**
+```
+00:48Z  ps -p 3348897   ->  ALIVE, 487s
+00:50Z  kill -0 3348897 ->  No such process
+        gh run view     ->  status COMPLETED, conclusion FAILURE
+```
+⇒ ⭐ **The monitor did EXACTLY what it was built to do — broke on `completed`, printed the
+conclusion, exited.** ***Its absence was success.*** **I was one commit away from filing a
+correctly-functioning watcher as a dead one, and from telling an agent its verdict would never
+arrive while the verdict sat in the API.**
+✅ **Fixed to say only what is true — `WATCHER-GONE … FINISHED or DIED, indistinguishable from here`
+— and to fall through to normal stall handling**, which is the safe direction: *a nudge to a finished
+agent costs one turn; a missed stall costs the interval.*
+
+### ⛔ AND MY TEST OF THAT FIX WAS VACUOUS IN A NEW WAY — A MOVING SUBJECT
+
+**Both arms returned `stalled=0` with NO `WAITING` or `WATCHER-DEAD` line at all** ⇒ **the block never
+ran, because `commonplace` stopped being a stall candidate between the arms.** ⭐ *Not a planted
+sabotage and not a broken oracle — **the SUBJECT moved while I measured it.***
+⚠️ **The arms agreed, which is what a pass looks like.** ✅ **Caught only because §7x75's
+"indistinguishably-red is a defect of its own" makes agreement itself suspicious** — *and the tell
+was the missing line, not the matching verdict.*
+⇒ ⭐ **A test whose subject is a LIVE system must assert that it REACHED the subject** — the same
+positive-control requirement as any sweep, applied to the test rather than the code.
+
+### ⭐ AND THE MONITOR'S OWN DESIGN WAS VINDICATED IN THE ONLY WAY THAT COUNTS
+
+**The run came back `failure`, and the monitor woke on it** — because it breaks on `status ==
+completed` **regardless of conclusion.** ⇒ ***A success-only filter would have gone silent exactly
+here***, on the one outcome anyone needed to hear about. *Its filter was checked before it mattered
+and it mattered within ten minutes.*

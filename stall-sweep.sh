@@ -110,6 +110,29 @@ for w in "${WORKERS[@]}"; do
     # ⭐ NOT SUPPRESSION — these print STOPPED| and stay visible, because a silently skipped
     # worker is indistinguishable from one nobody is watching. The release condition prints
     # too, so a stale entry is READABLE rather than inert.
+    # ⭐ 2026-08-24T00:48Z — an agent waiting on an ARMED watcher is not stalled. Suppression is
+    # CONDITIONAL ON THE PID BEING ALIVE: a dead watcher re-exposes the stall rather than hiding it.
+    _watchfile=/home/jes/boss-clod/.awaiting-watcher
+    _wline=""
+    [ -r "$_watchfile" ] && _wline=$(grep -v '^#' "$_watchfile" | grep "^${w}|" | head -1)
+    if [ -n "$_wline" ]; then
+      _wpid=$(echo "$_wline" | cut -d'|' -f2)
+      if kill -0 "$_wpid" 2>/dev/null; then
+        echo "WAITING|$w|armed watcher pid $_wpid ALIVE — not a stall|wakes on: $(echo "$_wline" | cut -d'|' -f3)"
+        continue
+      else
+        # ⛔⛔ 2026-08-24T00:50Z — I FIRST WROTE THIS AS "pid GONE => the thing it was waiting
+        # for will never arrive". THAT IS FALSE, and it is the global rule I break most: a
+        # FINISHED watcher, a watcher that DIED, and one that NEVER STARTED all leave no process.
+        # commonplace's monitor vanished between two of my own checks — because the run COMPLETED
+        # and it exited normally, exactly as designed. I nearly filed that as a dead watcher.
+        # ⭐ THE ARTIFACT IS THE VERDICT, NOT THE PROCESS'S ABSENCE. So say only what is true:
+        # the watcher is no longer running, which is AMBIGUOUS, and fall through to normal stall
+        # handling — the safe direction, since a nudge to a finished agent costs one turn while a
+        # missed stall costs the interval.
+        echo "WATCHER-GONE|$w|pid $_wpid no longer running — FINISHED or DIED, indistinguishable from here; falling through to stall handling"
+      fi
+    fi
     _stopfile=/home/jes/boss-clod/.declared-stopped
     _stopline=""
     [ -r "$_stopfile" ] && _stopline=$(grep -v '^#' "$_stopfile" | grep "^${w}|" | head -1)

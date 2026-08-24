@@ -1,0 +1,12 @@
+# ⭐ Agents legitimately WAITING ON AN ARMED BACKGROUND WATCHER, not stalled.
+# ⛔ WHY: 2026-08-24T00:48Z. commonplace ended two turns in eight minutes with nothing running and
+# read as STALLED both times. It was not — it had armed a detached monitor that wakes it on RUN
+# COMPLETE. Nudging would have cost it a turn to tell it something its own watcher reports better.
+# ⚠️ BUT A DEAD WATCHER AND A LIVE ONE LOOK IDENTICAL FROM THE AGENT'S SIDE — silence either way.
+# ⭐ So suppression here is CONDITIONAL ON THE PID BEING ALIVE. That is commonplace's own rule
+# applied to the record: when you assert a mechanism is live, name the observation that would
+# DIFFER IF IT WERE DEAD. Here the observation is the pid.
+# ⇒ pid gone  => the entry stops suppressing and the stall is reported again, loudly.
+# ⛔ Do NOT write an entry without a pid. A watcher you cannot check is a remembered rule.
+# format: name|pid|what it wakes on|note
+commonplace|3348897|gh run 32677343403 RUN COMPLETE (breaks on status==completed regardless of conclusion, so a red wakes it as loudly as a green)|armed 00:37Z, verified alive 00:48Z at 487s
