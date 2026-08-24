@@ -709,8 +709,15 @@ intention to keep watching.
   it only at the IMPORT door as a sibling head. ⇒ **The two stacks now differ deliberately at the
   write door, which is a fact for whoever reconciles them — not a defect in either.**
 
-⛔ **STILL OPEN and NOT settled by this:** the boundary commit's epoch token must be minted
-DETERMINISTICALLY or randomly. *That is the one-way door* — determinism preserves the monolith's
+✅ **RULED 2026-08-24T15:40:50Z — jes: *"deterministic if possible"*.** The boundary commit's
+epoch token is minted **DETERMINISTICALLY**.
+
+⭐⭐ **"IF POSSIBLE" HANDS OVER THE FEASIBILITY DETERMINATION, IT DOES NOT HEDGE THE DIRECTION.**
+⇒ *Build deterministic. If it genuinely cannot survive the two derivation facts below, that is a NEW
+question for jes WITH THE MEASUREMENT — not a licence to fall back to random on a worker's own
+judgement.* ⛔ **"If possible" is not "your choice"; it is "prove the impossibility if you claim it".**
+
+[was: the token must be minted] *That is the one-way door* — determinism preserves the monolith's
 "deterministic-anyone" snapshot property; randomness forks federation on every epoch change.
 ⚠️ **And the monolith added two facts that shape what "deterministic" must MEAN:** a 2-parent opener
 needs an **ORDER RULE** for the derivation, and a **snapshotter/reducer VERSION must ride along** —
