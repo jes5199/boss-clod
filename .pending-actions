@@ -147,7 +147,24 @@ import/upgrade owner question already waiting on him.
 ⇒ ACTION: send WITH the import/upgrade answer when he replies, never alone. Two questions about
 one operation arriving separately is how a decided thing gets re-litigated.
 
-## ⏳ WATCH, NOT YET A JES ITEM — import is LOSSY in CRDT granularity and UNRECOVERABLE
+## ✅ CLOSED 2026-08-24T00:22Z WITHOUT REACHING JES — commonplace chose (ii), the preserving option
+⭐ It did NOT weigh cost against risk. It MEASURED: in yelixer's source the two cases are DIFFERENT
+  item content shapes — {:type, type_ref} vs {:any, [value]} — and only become indistinguishable
+  AFTER the JSON render flattens them. ⇒ "The flat version would be me DESTROYING a distinction I
+  can see, not failing to recover one already lost." That is a different act from the trade-off as
+  posed, and it decided itself.
+⭐⭐ AND THE SECOND ARGUMENT IS THE ONE TO KEEP: it CANNOT measure whether our corpus contains any
+  nesting (halted, no store access — flock single-opener, erpc down). Code search finds no path
+  that creates one. ⇒ Choosing flat on "we probably don't nest" would be the INHERITED-ZERO TRAP:
+  an UNMEASURED ABSENCE licensing an UNRECOVERABLE conversion. Preserving is correct either way and
+  costs nothing extra if the corpus turns out flat.
+⚠️ Cost stated honestly: the tagged walk is NOT covered by the F5 determinism measurement, which
+  was of the FLAT renderer. It will claim reproducibility only for what it tests rather than
+  inheriting a number from an adjacent path.
+⇒ NO JES ITEM. The trigger was "IF (ii) is expensive" and it is not. Holding it back was correct:
+  a telegram at 00:20Z would have been a decision that evaporated in two minutes.
+
+## [CLOSED] WATCH — import is LOSSY in CRDT granularity and UNRECOVERABLE
 Filed 2026-08-24T00:20Z from commonplace-doc-sync (9dd24eb). ⛔ DO NOT TELEGRAM YET.
 
 ⛔ THE FINDING: the reader renders map/array content to canonical JSON, and a rendered value
