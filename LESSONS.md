@@ -19891,3 +19891,41 @@ is serving, whatever its CPU average says.
 ⇒ Recorded, not escalated: sustained ~2 cores for a day is a capacity fact commonplace owns and is
 currently halted on; hermes idle, 7GB of 15GB free, nothing at risk. **Not every true observation is
 a report.**
+
+## 7x152 — I relayed a proposed test to jes that was structurally incapable of observing the thing it tested
+
+**2026-08-24T19:11Z relayed, 19:20Z corrected.** commonplace-log finished the epoch fence work and
+named one open item: drive a rollout with a new image during live traffic and watch for a refusal on
+the draining side — *"the only way to observe the condition the fence exists for."* **I relayed that
+to jes as the remaining step.** He had not answered when the worker re-read what is actually deployed
+and killed it.
+
+⛔ **The realm node's `/engine/*` appends take NO LEASE** — they use epoch `:current`. The fence is
+consulted only by lease-taking callers, and the only such caller is `DocumentProfile`, which is
+SQLite-only. ⇒ During a rollout the old and new containers **both commit legitimately**. The run
+comes back **green meaning "not applicable"** — indistinguishable from green meaning "verified".
+Correctness on that path rests on `expected_revision` CAS, not on the epoch at all.
+
+⭐ **This is the day's recurring defect arriving in a new costume: a test whose green arm cannot
+fail, proposed BEFORE it was written, and I passed it upward as a plan.** Every earlier instance was
+a gate already installed; this one would have cost a decision AND a deploy to learn the same thing.
+
+### ⛔ What I should have asked, and did not
+
+I checked that the *claim* was honestly framed — the worker had volunteered its own limit, said
+"mechanism verified, deployment condition unobserved", and that candour is exactly what made me
+relay it without a second thought. ⚠️ **Candour about a limit is not evidence that the proposed
+remedy addresses it.**
+⇒ ⭐ **The question I owed it: WHICH CODE PATH TAKES THE LEASE?** One question, answerable from
+source, and it decides whether the proposed test can fail. *I verify claims that pass through me;
+I had not been treating a proposed EXPERIMENT as a claim. It is one — it asserts "this would show X".*
+
+### ✅ Standing
+
+- **Before relaying a proposed test upward, ask what its RED arm would look like** and who
+  would produce it. A test nobody can describe failing is a test that cannot fail.
+- ⭐ **The worker found this by RE-READING WHAT IS DEPLOYED after it had already shipped the claim.**
+  That is the cheapest audit in this file, running for the fifth time today: aim an existing check
+  at a corpus it was never aimed at — here, its own deployed code against its own proposal.
+- ✅ It amended its readiness doc from *"unobserved"* to *"cannot be observed on the deployed path"*.
+  **Those are different facts and only the second one is true.**
