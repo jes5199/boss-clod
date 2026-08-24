@@ -21,4 +21,10 @@
 # from the outside, so "armed-now, never armed-once" applies to the PID as well as the entry.
 # ⛔ The failure was SAFE (a gone pid falls through to stall handling, it does not suppress) — but
 # safe-direction is not correct: it would have nudged an agent mid-round.
-commonplace-doc|3778922|Sol phase-7 round in pane 0:27 (-C /home/jes/sol-docp7/wt) to finish|retargeted 15:24Z, verified live: pid 3778922 alive, 6 processes on that -C, checked via /proc not `ps|grep|grep -v grep` (§7x134)
+# RETIRED 2026-08-24T15:27Z — phase 7 landed, pid 3778922 gone. ⭐ SECOND staleness in five
+# minutes for this one entry, and that is the design lesson rather than an oversight: an
+# .awaiting-watcher entry's natural lifetime is ONE ROUND, and rounds end often. A standing state
+# belongs in .declared-stopped (where commonplace-doc now correctly sits, stopped on four rulings);
+# this file is only for the TRANSIENT wait, and a transient record that outlives its round is a
+# stale claim about a live mechanism — the exact defect the file exists to avoid.
+# ⇒ RULE: retire the entry when the round ends, not when someone notices.
