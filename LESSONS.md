@@ -19414,3 +19414,39 @@ tautological         the assertion now restates what it tested        (commonpla
 ```
 **All four pass. None is found by reading the test.** ⭐ ***Only by asking what it can still tell
 apart.***
+
+### ⭐⭐ ADDENDUM — A CALLBACK THAT RECEIVES THE HANDLE IS STILL A HANDLE ESCAPE
+
+**`commonplace-log-reducer`, 16:27Z, choosing between two ways to satisfy the same ask.**
+`commonplace-doc` offered it two shapes; it shipped the narrow one and named why:
+```
+with_projection(state, name, fun)   fn _, s -> s end  RETURNS THE STATE
+                                    -> leaving the boundary is a DELIBERATE ACT
+plugin_call(state, name, fun, args) -> leaving is IMPOSSIBLE from the caller's side
+```
+> ⭐ **A callback that receives the handle is still a handle escape — it just requires intent.**
+
+⚠️ ***"Requires intent" is not a boundary.*** *It is the difference between a locked door and a door
+with a sign, and the sign version reads as closed in every review.* ✅ **Verified: `with_projection`
+appears NOWHERE — the convenient form was considered and not quietly shipped alongside.**
+
+⭐ **And it closed the second route in the same breath:** the behaviour callbacks — `apply/3`,
+`checkpoint/1`, `init/2`, `restore/2`, `view/1` — are refused as **reserved**, *because running
+`apply` out of band against a live state is the reach-in by another name.* ⇒ **Closing one door while
+leaving the callback names callable would have been the same leak with a longer path.**
+
+### ⭐ AND THE DOUBLE WRAP IS LOAD-BEARING, NOT CLUMSINESS
+
+`{:ok, {:error, {:unknown_commit, id}}}` — **the plugin's own return carried VERBATIM inside the
+engine's `{:ok, _}`**, with engine refusals as the OUTER `{:error, _}`.
+⇒ ⭐ **Two failure classes that must stay distinguishable: the plugin declining, and the engine
+refusing to ask it.** ⚠️ *A flattened return would make "this commit is unknown" indistinguishable
+from "that projection does not exist" — and a caller acts differently on each.*
+*Same shape as `commonplace-log` keeping its typed error un-flattened across a process boundary.*
+
+■ ⚠️ **And it flagged an aging artifact rather than letting it rot:** the old §42.10 proof script no
+longer runs at merkle's HEAD (`reducer_version_mismatch`, registered 1 vs reported 3, commits now
+require `epoch_id`). ⇒ **That is merkle's FORMAT moving, not the engine breaking** — and the new probe
+is pinned valid only at `31e6dca`. ⭐ **Its own caveat, recorded: 42.10 is re-demonstrated but the
+door's FIRST CONSUMER HAS NOT USED IT YET.** *A door proven by its builder is not yet proven by its
+user.*
