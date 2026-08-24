@@ -400,3 +400,22 @@ plain commit to main that never went through it. A fix to one path is not a fix 
   ⛔ NOT TEXTED TO JES: he ruled it and it shipped; the reportable milestone is phase 17 LANDING,
     which is what his compaction ruling was actually for. Fold this in there rather than sending
     a second progress note in the same hour.
+
+2026-08-24T22:58Z  ⏳ PHASE 17 DISPATCHED — the manual Compact command jes ruled at 22:38Z.
+  pane sol-docp17, codex 358251, fence VERIFIED on the running process: -C /home/jes/sol-docp17/wt
+  -> commonplace-doc. Seven arms ARM-PLANNED for the round to promote (doc's promote-then-implement
+  rule, the fix for its own "just docs" bypass).
+  ⭐ DOORS MEASURED AT THE PIN BEFORE BRIEFING, not relayed: merkle de86447, author_opener/3-4,
+    mint_epoch_token/2 at v1.ex:434, and the token VERIFIED AT THE DOOR (epoch_token_mismatch) — so
+    a caller literal is REFUSED BY THE PLUGIN rather than merely absent from doc's code. A gate, not
+    an absence. That distinction is the whole difference between "we don't do that" and "you can't".
+  ⚠️ GRANT-BOUNDARY FACT, stated by doc unprompted and verified by me: doc's mix.exs now carries
+    {:yepochs, path: ..., override: true} because mix demands ONE declaration for a transitive git-ref
+    pin. ⇒ I checked independently: ZERO Yepochs. references in doc/lib AND doc/test. So the manifest
+    entry is a resolution artifact, not a dependency in the meaningful sense.
+  ⭐ AND DOC PUT THE BOUNDARY NOTE IN mix.exs ITSELF, citing DECISION-compaction.md — at the exact
+    line a future person adding a yepochs call would be editing. That is placement over content:
+    the constraint lives where it would be violated, not in a doc nobody opens first.
+  ⛔ STILL: this shortens the transitive path to the gated state. The rule is unchanged and
+    state-shaped — the monolith depending on yepochs BY ANY PATH is a NEW decision. Recorded, not
+    escalated; nothing has produced that state.
