@@ -146,3 +146,29 @@ package has it. ⚠️ The obvious holder is the monolith side, which is HALTED 
 import/upgrade owner question already waiting on him.
 ⇒ ACTION: send WITH the import/upgrade answer when he replies, never alone. Two questions about
 one operation arriving separately is how a decided thing gets re-litigated.
+
+## ⏳ WATCH, NOT YET A JES ITEM — import is LOSSY in CRDT granularity and UNRECOVERABLE
+Filed 2026-08-24T00:20Z from commonplace-doc-sync (9dd24eb). ⛔ DO NOT TELEGRAM YET.
+
+⛔ THE FINDING: the reader renders map/array content to canonical JSON, and a rendered value
+CANNOT distinguish a NESTED Y-TYPE from a PLAIN JSON VALUE in a slot. Values survive; MERGE
+BEHAVIOUR does not:
+    nested Y.Map     concurrent edits to different keys -> BOTH SURVIVE
+    plain JSON value concurrent edits to different keys -> ONE WINS (LWW on the slot)
+⇒ Import silently re-chooses the merge behaviour of every nested structure. Invisible at import
+  time, invisible in the content, surfacing only as LOST EDITS the first time two people edit an
+  imported document concurrently. ⚠️ And UNRECOVERABLE: once imported flat, nothing can tell you
+  what was nested — so the choice cannot be deferred.
+
+Two options, both already written into v0.2 §5a.4:
+  (i)  accept and document "granularity is destination-chosen"   <- ONE-WAY
+  (ii) the reader emits a TYPE-TAGGED structure descriptor       <- values unchanged, shape annotated
+
+⭐ WHY THIS IS NOT YET HIS: commonplace owns the COST of (ii) and has not answered. doc-sync
+prefers (ii) and said so without insisting. If (ii) is cheap, there is no decision to make and a
+telegram would have been noise that evaporated in ten minutes.
+
+⇒ TRIGGER — and it is the CONSEQUENCE, not a nearby event: IF commonplace reports (ii) is
+expensive, THEN this is a jes-shaped trade (a one-way door on merge semantics) and goes to him
+WITH the measured cost attached. IF (ii) is cheap, it closes silently and never reaches him.
+⚠️ Do NOT convert this to a jes item on the mere passage of time.

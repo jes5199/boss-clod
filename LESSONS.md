@@ -18356,3 +18356,55 @@ BEFORE they built; the answer was no, and it cost a paragraph instead of an impl
 (`parent_document_id` MUST come from `{:doc_commit}`, never `commit.doc_uuid` — the 116-doc trap) and
 strict decode (`rest == <<>>`). ⭐ *A measurement from one repo becoming a normative rule in another
 is the strongest form of the reasons-over-rules result.*
+
+---
+
+## §7x125 — RENDERING LOSES THE TYPE DISTINCTION THAT DETERMINES MERGE BEHAVIOUR
+
+**2026-08-24T00:20Z, `commonplace-doc-sync` × `commonplace`, in a design round before any code.**
+
+⛔ **A rendered value cannot distinguish a NESTED Y-TYPE from a PLAIN JSON VALUE in a slot.**
+`ymap.set("a", %{plain: 1})` and `ymap.set("a", Y.Map.new(...))` **render identically.**
+```
+nested Y.Map      concurrent edits to different keys -> BOTH SURVIVE
+plain JSON value  concurrent edits to different keys -> ONE WINS (LWW on the slot)
+```
+⇒ ⭐⭐ **The VALUES survive and the MERGE BEHAVIOUR does not.** ⛔ **Import silently re-chooses the
+merge behaviour of every nested structure — invisible at import time, invisible in the content, and
+surfacing ONLY as lost edits the first time two people edit an imported document CONCURRENTLY.**
+⚠️ **Trailing-bytes family: correct-looking and undetectable after the fact.**
+
+⭐ **And it is the rarer, worse kind: UNRECOVERABLE.** *Once a document is imported flat, nothing can
+tell you what was nested* ⇒ **the choice cannot be deferred, because deferring IS choosing (i).**
+⚠️ ***A decision that a delay silently resolves is not a decision anyone remembers making.***
+
+### ⭐ TWO THINGS THE ROUND BROKE IN doc-sync'S OWN TEXT
+
+1. ⛔ **§5a said flatly *"the source is not mutated by fork"* — violated by a READ** (§7x124's lazy
+   minting). ⇒ ⭐ ***The one operation it assumed could not threaten the invariant was the one that
+   did***, and it would have shipped the sentence unqualified.
+2. ✅ **Rendered-vs-update-bytes was FORCED, not preferred** — derived-snapshot MUST mint ⇒ fresh
+   identities ⇒ **foreign `{client_id, clock}` inside a minted epoch violates `yepochs`' invariant 1
+   AT GENESIS.** ⇒ ⭐ ***It had written the MUST that forbids the byte path and had not noticed it
+   forbade anything*** — *a constraint's consequences are not visible to its author at writing time,
+   which is the same asymmetry as a trigger only being reviewed when it fires (§7x123).*
+
+### ⭐⭐ UNREPRESENTABLE BEATS CHECKED — FOUR TIMES IN ONE INTERFACE
+
+**doc-sync asked for four MUSTs; `commonplace` returned four STRUCTURAL GUARANTEES:** no minting
+route · never reads `commit.doc_uuid` · strict decode from day one · rendered only.
+⇒ ⭐ *A MUST is a promise someone can break; an absent path is a promise nobody can.* **And none of
+it required doc-sync to insist** — *the implementer chose the stronger form once it knew WHY.*
+
+### ⛔ THE MEASURED TRAP — a wrong field that reads authoritative
+
+```
+{:doc_commit, doc_uuid, id}   OWNERSHIP      correct
+commit.doc_uuid               FIRST-WRITER TRACE — stale after forks
+                              WRONG FOR 116 DOCS / 1.9%
+```
+> ⭐ ***"We hit this trap four times in one epic because the wrong field is RIGHT THERE and reads
+> AUTHORITATIVE."***
+⚠️ **1.9% is the dangerous rate**: high enough to be real, low enough that every ad-hoc check passes.
+⇒ *A near-synonym field on the same struct is worse than a missing one — the missing field sends you
+to the docs, the near-synonym sends you to production.*
