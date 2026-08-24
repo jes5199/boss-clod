@@ -190,7 +190,12 @@ expensive, THEN this is a jes-shaped trade (a one-way door on merge semantics) a
 WITH the measured cost attached. IF (ii) is cheap, it closes silently and never reaches him.
 ⚠️ Do NOT convert this to a jes item on the mere passage of time.
 
-## ⏳ COMPACT PENDING for commonplace (tmux 0:3) — waiting on ITS durability confirmation
+## ✅ DONE 2026-08-24T00:33Z — commonplace compacted, 75% -> 0%, VERIFIED BY EFFECT
+  Durability confirmed first: cell-1/monolith-import-reader c58fcaab, local == remote, and I
+  checked that 0 of the 49 dirty files touch the reader — the commit carries the module (447
+  lines) and its tests (239). The dirty set is pre-existing noise.
+
+## [DONE] COMPACT PENDING for commonplace (tmux 0:3)
 Filed 2026-08-24T00:26Z. ctx=72%, over the 70 line. Durability pass requested (msg #15381).
 
 ⛔ DO NOT COMPACT UNTIL IT CONFIRMS PUSHED. A compact before the state is durable throws away

@@ -18456,3 +18456,22 @@ exhaustive set to cover something newly in scope STRENGTHENS it and is required.
 AFTER filing the lesson.** ⇒ ***The fix lived in a brief; the defect lives in a habit — and the habit
 writes enumerations because a list is what a constraint FEELS like.*** *Same reflex as `grep -rF`,
 different surface.*
+
+### ⛔ ADDENDUM — THE COMPACT RECIPE MY OWN SCRIPT PRINTS WAS WRONG
+
+**Driving `commonplace`'s compact at 00:33Z, the printed recipe failed:**
+```
+C-u ; "/compact" ; Escape ; Enter   ->  empty prompt, still 75%.  NOTHING RAN.
+C-u ; "/compact" ; Enter            ->  "Press up to edit queued messages"  -> 75% -> 0%
+```
+⇒ ⭐ **`Escape` CLEARS THE INPUT; it does not merely dismiss the suggestion menu.** The step added to
+defeat the menu **deleted the command instead.**
+⚠️ **And the failure was SILENT and looked like success**: keys sent, no error, prompt back to normal
+— *the only tell was the ctx number not moving.* ⛔ **Had I trusted the send-keys returning, I would
+have reported a compact that never happened.** ⭐ *The artifact is the verdict: `75%` was the whole
+report.*
+✅ **Corrected in `log-pair-watch.sh`'s ACTION block, where the next reader meets it** — plus the note
+that **"Press up to edit queued messages" is SUCCESS when the pane is mid-turn, not failure**, since
+that message is itself easy to read as a stuck prompt.
+⭐ **This is the recipe I had carried in memory and printed for others without ever running it end to
+end** — *§7x118's "trusted every time and tested never", arriving in a procedure instead of a gate.*
