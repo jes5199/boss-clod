@@ -19674,3 +19674,37 @@ returns to `DECLARED PAUSE` instead of borrowing dir's ✅ · retired worker sti
 
 ⇒ ⭐ **A gate whose subject is global cannot make a per-subject claim.** Ask what varies in the
 answer that does not vary in the question.
+
+### 7x146a — addendum, same hour: a process count cannot see work that is not a process
+
+⛔ **The fix in §7x146 was right and INCOMPLETE.** Its first catch, `commonplace-merkle-crdt`, was a
+**FALSE POSITIVE**: its implementer was a **background Claude subagent**, which runs *inside* the
+worker's own claude process. **There is no process to count.** In its words: *"turn ended, subagent
+running is my normal working state, not an idle one."*
+
+⭐ **And the pane watch had it RIGHT the whole time** — `busy [bg-agent]` — while the transcript
+detector said STALLED. Earlier today I trusted the transcript over the pane and was right; here the
+scraper was right. ⇒ ***The rule is not "prefer the transcript" or "prefer the pane". It is: ASK
+WHICH INSTRUMENT CAN PHYSICALLY SEE THE THING IN QUESTION.*** A `pgrep` cannot see an in-process
+subagent no matter how carefully it is written.
+
+⇒ Fixed by reusing the pane watch's own patterns rather than inventing a second opinion, so the two
+instruments cannot drift apart (§7x142's one-source-of-truth rule applied in the other direction).
+
+### ⛔⛔ AND THE MISTAKE INSIDE THE FIX — I took my own detector down
+
+I wrote `[[:space:]]` in a **Python** regex. `re` has no POSIX classes; it parsed as a **nested set**,
+emitted a `FutureWarning`, and **printed no verdict for ANY worker**. For several minutes the stall
+sweep had no detector at all.
+⭐ **A malformed pattern is not a narrower match — it is a DEAD INSTRUMENT.** And I only saw it
+because I ran three arms instead of one: the warning appeared identically for a subagent worker, a
+codex worker, and a retired worker, and *three different subjects returning one identical non-answer*
+is the signature of a broken tool rather than a real finding.
+⚠️ My first repair attempt also silently failed (an escaping mismatch in the patch, `AssertionError`)
+**while the three test arms printed the same warning** — the repair and the diagnosis failed
+independently, and only the arms distinguished them.
+
+✅ **Both directions verified after the repair.** Four workers produce correct, DIFFERENT verdicts
+(subagent-running · codex-running · retired · declared-pause), and the new subagent pattern was
+green-armed against four genuinely idle panes — **0 matches, because a pattern that over-matches
+here MASKS stalls**, which is the failure this whole thread exists to prevent.

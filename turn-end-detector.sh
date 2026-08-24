@@ -130,6 +130,36 @@ def live_work():
             unattributable += 1
     return mine, unattributable
 running, unattr = live_work()
+
+# ⛔⛔ 2026-08-24T17:30Z — A CODEX COUNT CANNOT SEE AN IN-PROCESS SUBAGENT. commonplace-merkle-crdt
+#   was reported STALLED while its author/4 implementer ran as a background Claude subagent. Those
+#   live INSIDE the worker's own claude process — there is no separate process to count, so
+#   "turn ended + no codex" is its NORMAL WORKING STATE, not an idle one. Its words.
+# ⭐ The pane watch already saw this correctly (busy [bg-agent]) while this instrument said STALLED.
+#   ⇒ The two disagreed and the SCRAPER was right. Same lesson as §7x146 inverted: there I trusted
+#     the transcript over the pane; the rule is not "prefer one", it is ASK WHICH ONE CAN SEE THE
+#     THING IN QUESTION. A process count cannot see work that is not a process.
+# ⇒ Reuse the pane patterns rather than inventing a second opinion (§7x142: one source of truth).
+def bg_agent_running():
+    try:
+        win = subprocess.run(['tmux','list-windows','-a','-F','#{window_id} #{window_name}'],
+                             capture_output=True,text=True).stdout
+        wid = next((l.split()[0] for l in win.splitlines() if l.split()[1:2] == [w]), None)
+        if not wid:
+            return False, True          # could not locate pane -> BLIND, not "no subagent"
+        pane = subprocess.run(['tmux','capture-pane','-p','-t',wid],
+                              capture_output=True,text=True).stdout
+        # ⚠️ pure-Python regex: re has NO POSIX classes. My first attempt used [[:space:]];
+        #   python read it as a NESTED SET, warned, and printed NO VERDICT AT ALL for every
+        #   worker — the detector was down until I noticed. A malformed pattern is not a
+        #   narrower match, it is a DEAD INSTRUMENT.
+        hit = re.search(r'Waiting for \d+ background agent|^\s*[\u25ef\u25cf]\s+\w.*\d+m ?\d*s ', pane, re.M|re.I)
+        return bool(hit), False
+    except Exception:
+        return False, True
+bg, bg_blind = bg_agent_running()
+if bg:
+    running = running + 1
 # ⭐ A legitimately-idle worker must not report STALL-CANDIDATE. Same files the pane
 # watch uses, so the two instruments cannot disagree about who is expected to be idle.
 def listed(path, name):
@@ -145,7 +175,7 @@ blocked = listed('/home/jes/boss-clod/.watch-blocked', w)
 if sr != 'end_turn':
     verdict = f"WORKING (stop={sr})"
 elif running > 0:
-    verdict = f"ended on text, but {running} round(s) running FOR THIS WORKER — legitimately waiting"
+    verdict = f"ended on text, but {running} unit(s) of work running FOR THIS WORKER (codex and/or background subagent) — legitimately waiting"
 elif running == 0 and re.search(r"\bnothing queued\b", decl_txt, re.I):
     # ⭐ AGENT-DECLARED PAUSE (protocol agreed with yepochs 2026-08-23 08:24Z).
     # My verdict is "end_turn + nothing running", which deliberately ignores wording —
