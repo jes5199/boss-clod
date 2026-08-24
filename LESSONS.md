@@ -18231,3 +18231,62 @@ version of a result about my own filing discipline** — *zone 4's cousin: the c
 validates the thing you have been doing all night.*
 
 Related: §7x121, §7x117, §7x110
+
+---
+
+## §7x123 — A CONDITION IS UNVERIFIED UNTIL IT FIRES ONCE, AND THE FIRING IS THE REVIEW
+
+**2026-08-24T00:16Z, `commonplace-doc-sync`, generalising my three bad triggers.**
+
+**Three proxy triggers tonight, all mine** — dir's D-001 (*"`epoch_id` lands"* vs *a receipt that can
+construct a `VersionRef`*), doc's release (*"reaches phase 6"* vs *needs a real host*), and doc's
+other release (*"jes unhalts the monolith"* vs *the quota mechanism it actually stopped on*).
+> ⭐⭐ **All three were found by CHECKING A CONDITION AT FIRING TIME rather than at WRITING TIME.**
+> ⇒ ***A condition is unverified until it fires once, and the firing IS the review.***
+
+⚠️ **Which makes an unfired condition the same object as an unfired gate:** *believed to work, never
+demonstrated.* ⭐ **doc-sync's own audit under the new standard: four conditions, two fired, and
+"two remain unexercised and are, by that standard, unknown to work."** ⇒ *The right response is not
+to fire them artificially — it is to stop counting them as coverage.*
+
+### ⛔ AND THE ASYMMETRY THAT MAKES A BAD TRIGGER WORSE THAN NO TRIGGER
+
+> ***A trigger that fires and moves you the WRONG WAY is worse than one that never fires, because
+> the firing supplies confidence.***
+
+⭐ **My "jes unhalts the monolith" was wrong in BOTH directions at once**: doc stopped on a **quota**
+mechanism, which unhalting does not touch — **and unhalting puts ANOTHER agent on the same meter,
+making the stop MORE justified, not less.** ⇒ *It would have released a correct stop using an event
+that argued for keeping it.*
+✅ **The rule: a release condition must be the NEGATION OF THE STATED MECHANISM, not an event that is
+nearby and memorable.** ⚠️ *Nearby-and-memorable is exactly what a mind reaches for when writing a
+condition it does not expect to check again.*
+
+### ⭐ THE PRE-EMPTED HAZARD — a mandatory field that MUST NOT be present
+
+Publishing the reader contract **before** the monolith builds it, doc-sync flagged the thing an
+implementer would reach for and must not:
+```
+REQUIRED  materialized content at a REPRODUCIBLE PIN · foreign document_id · foreign head id
+NOT       the commit graph  (derived-snapshot: no reachability walk, the DAG is never traversed)
+NOT       any epoch         (the destination MINTS; do not carry one, do not synthesize one)
+NOT       verified ids      (citation, never recomputed — no hash function to reproduce)
+NOT       an Endpoint       (one-way, terminal, no relationship, no receipt)
+```
+⛔ **E13 says `epoch_id` is MANDATORY for inbound commits — and it does not apply, because NOTHING
+INBOUND IS A COMMIT.** The material crossing is **content**, which acquires its epoch when the
+destination authors genesis. ⇒ ⭐ ***Unflagged, that sends a careful implementer hunting for a field
+that must not exist*** — **and the more carefully they read the spec, the longer they hunt.**
+⚠️ *A mandatory-field rule whose scope excludes your case is the most expensive kind of correct
+documentation.*
+
+### ⭐ AND THE WIDER READING OF A TERSE INSTRUCTION
+
+**jes answered five words: "uh yes reader." Unhalting `commonplace-plan` too would have been the
+wider reading.**
+> ⚠️ ***The wider reading of a terse instruction is the one that never gets challenged, because
+> nobody is harmed at the moment it is taken.***
+⇒ ⭐ **The harm arrives later and detached from its cause**, so the scope decision has to be made when
+the instruction is fresh — *by whoever can still see how few words it contained.*
+
+Related: §7x121, §7x120, §7x112
