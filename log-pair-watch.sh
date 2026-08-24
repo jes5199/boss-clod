@@ -231,6 +231,20 @@ printf '%s' "$pane" | grep -qE '[✻✽✳✢·*][[:space:]]+[A-Za-z]+…' && bu
     elif [ -r /home/jes/boss-clod/.declared-stopped ] \
          && grep -v '^#' /home/jes/boss-clod/.declared-stopped | grep -q "^${w}|"; then
       _rel=$(grep -v '^#' /home/jes/boss-clod/.declared-stopped | grep "^${w}|" | head -1 | cut -d'|' -f2)
+      # ⛔⛔ 2026-08-24T23:09Z — THIRD VARIANT OF THE SAME STALENESS BUG, and the first two fixes
+      #   did not cover it. The busy-branch warnings (RETIRED twin, STOPPED twin) only fire when a
+      #   worker is BUSY. A worker WAITING on a dispatched round is NOT busy — its pane sits at a
+      #   prompt — so this branch printed a flat STOPPED and never asked the detector.
+      # ⭐ Caught on commonplace-doc: it dispatched phase 17 at 22:58Z, codex 358251 alive and
+      #   attributed to it, detector says "1 unit(s) of work running FOR THIS WORKER" — and the
+      #   watch said STOPPED, because a stale entry from 19:59Z short-circuits before the check.
+      # ⛔ THE REAL COST IS NOT THE WRONG LABEL: if that round DIES, this branch STILL says STOPPED,
+      #   so a genuine stall is masked by an entry describing a state the worker left an hour ago.
+      # ⇒ Each earlier fix covered the arm I had just been burned by. Cover the read, not the arm:
+      #   ask the detector here too, and warn on ANY disagreement with the suppression.
+      if printf '%s' "$_ted" | grep -qE 'round\(s\) running|unit\(s\) of work running'; then
+        _rel="$_rel ⚠️ ENTRY IS STALE — detector reports work running for this worker; it is WAITING, not stopped"
+      fi
       state=STOPPED; detail="declared stop, mechanism accepted — not a finding; release: ${_rel}"
     elif is_blocked "$w"; then
       bl=$(blocked_line "$w"); bts=${bl%% *}; brest=${bl#* }

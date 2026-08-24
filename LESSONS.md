@@ -20170,3 +20170,37 @@ My wrong wording reached them in a **chat message and nowhere else**, so the cor
 message. Had it aged in a file first it would have been copied, cited, and defended.
 ⇒ *The window in which a claim is cheap to move closes when it lands somewhere durable* — which is
 an argument for correcting fast, not for writing things down later.
+
+## 7x159 — third variant of one staleness bug, because each fix covered the ARM I had just been burned by
+
+**2026-08-24T23:09Z.** `commonplace-doc` dispatched phase 17 at 22:58Z — codex alive, attributed to
+it, detector reporting *"1 unit(s) of work running FOR THIS WORKER"*. **The pane watch printed a flat
+`STOPPED`**, because a `.declared-stopped` entry from 19:59Z short-circuits the branch before the
+detector is ever consulted.
+
+⛔ **The wrong label is not the cost. If that round DIES, the branch still says `STOPPED`** — so a
+genuine stall is masked by an entry describing a state the worker left an hour earlier.
+
+### ⭐ Three variants, three fixes, and the first two did not cover this one
+
+| when | variant | what I fixed |
+|---|---|---|
+| 17:09Z | STOPPED worker **busy** → no warning (RETIRED twin had one) | added a warning **on the busy branch** |
+| 20:24Z | finished subagent read as running (scrollback) | scoped the bg-agent match to the **live region** |
+| **23:09Z** | STOPPED worker **WAITING** → no warning | **this one** — the busy-branch warnings never fire, because a worker waiting on a round is *not busy*; its pane sits at a prompt |
+
+⇒ ⭐ **Each fix was aimed at the arm that had just embarrassed me, and each left a sibling arm
+uncovered.** *A suppression can be stale against BUSY, against WAITING, or against a round that
+died — three reads, and I patched them one funeral at a time.*
+✅ **The fix that generalises: ask the detector IN THE SUPPRESSION BRANCH ITSELF** and warn on any
+disagreement, rather than adding a warning per observed symptom. **Cover the read, not the arm.**
+
+### ⛔ And the moving-corpus error, for the FOURTH time today
+
+Verifying the new branch, I tested the predicate against a **live** detector call. Between my
+measurements doc transitioned to `stop=tool_use` and the string changed, so the predicate "failed"
+against a state it was never meant to match. ⭐ **§7x142 and §7x142b both say freeze one frame and
+test that. I have now violated it four times in seven hours** — 16:42, 17:39, 20:24, 23:09.
+⇒ **A rule I have written down three times and broken four is not a knowledge problem.** The
+countermeasure has to be mechanical: *when a check involves a live worker, capture into a variable
+on the FIRST line and never re-invoke the source inside the same verification.*
