@@ -9,8 +9,17 @@
 # entire blob as one repo name: examined dropped 7 -> 6 and commonplace-doc-sync was
 # silently unwatched. ⭐ The edit made the file MORE informative and LESS functional.
 # ⇒ Wake conditions live in .wake-conditions and in each repo's own README.
+# ⛔⛔ 2026-08-24T15:54Z — A DELIBERATE TAKEDOWN LOOKS EXACTLY LIKE A CRASH. jes authorised taking
+# down claudes not working today; I exited commonplace-log-reducer, and the very next pane-watch
+# reported it CRASHED — whose standing instruction is RELAUNCH IT and telegram jes. The loop would
+# have undone the takedown within 15 minutes and called it a repair.
+# ⇒ A worker taken down ON PURPOSE must leave this list, or the watcher resurrects it. Removed:
+#   commonplace-log-reducer  (down 15:53Z; state clean, main == origin; wake condition still valid:
+#   anything landing on the reducer/plugin boundary. Relaunch: cd ~/commonplace-log-reducer && workerclaude)
+# ⭐ commonplace-coder and paravel were never in this list, which is why they went quietly — the
+# same absence that made them UNWATCHED made the takedown invisible. Both directions of that gap
+# are real.
 commonplace-log
-commonplace-log-reducer
 commonplace-merkle-crdt
 yepochs
 commonplace-doc
