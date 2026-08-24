@@ -20250,3 +20250,16 @@ doc-sync recorded a **negative** in its file: *"Shouldn't a fork carry the sourc
 the source did not have one."* ⇒ **Because the question will recur, and unwritten, someone adds `kind`
 to the fork plan in six weeks and it looks like completeness.** ⭐ *A recorded negative is how an
 absence defends itself against a future tidy-up.*
+
+### 7x159a — the fix fired on a real subject 29 minutes later, unmanufactured
+
+**23:38Z.** The suppression-branch detector check added at 23:09Z printed
+`ENTRY IS STALE — detector reports work running for this worker` for `commonplace-dir`: its entry
+was recorded at 23:14Z, jes's profile ruling fired its release condition at 23:26Z, and it
+dispatched D15 at 23:29Z. ⇒ **A stale suppression over a WAITING worker — the exact arm the two
+earlier fixes could not reach, because a worker waiting on a round is not busy.**
+
+⭐ **I did not go looking for it.** The gate found it during a routine pass, which is the only
+evidence that separates a working gate from one I have only ever seen pass on cases I constructed.
+⇒ Both arms of this variant are now real: the RED fired here, and the GREEN is every quiet pass
+since, on suppressions that genuinely describe stopped workers.
