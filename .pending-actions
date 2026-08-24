@@ -454,3 +454,25 @@ plain commit to main that never went through it. A fix to one path is not a fix 
   ⛔ NOT TEXTED TO JES: he had a substantial message at 23:53Z and nothing here needs him. Fold the
     E21-negative-became-a-gate outcome into the next message — it came from HIS hedged suggestion,
     which he would probably like to know produced something.
+
+2026-08-24T23:58Z  ⏳ POSSIBLE ORDERING ITEM FOR JES — hold until doc answers; it may evaporate.
+  commonplace-log: create_log returns :ok whether it CREATED or FOUND the log, so a caller cannot
+  learn "I was first". ⇒ Two concurrent creators of one log_id would BOTH run genesis, producing two
+  genesis entries at (writer_a,1) and (writer_b,1) — VALID, NOT A FORK, wrong at doc's level.
+  ⇒ TWO FIXES, NOT EQUIVALENT:
+     · doc-local:  genesis conditional on an empty frontier at doc's own seam. Cheap. No cross-repo.
+     · log-side:   create_log returns {:ok, :created | :existed}. Touches the LogStore behaviour
+       (spec §14 shape), THREE adapters, the sidecar wire, and the cross-adapter contract suite.
+       One Sol round but genuinely cross-surface — log made it an ORDERING item for jes rather than
+       acting on a relay, which is correct.
+  ⛔ DO NOT ROUTE TO JES YET. I have asked doc whether it takes the local guard. If it does, the
+    cross-surface change may not be worth his time, and putting a question to him that his own
+    workers are about to dissolve is the noise pattern.
+  ⭐ ALSO SETTLED, worth keeping as a distinction: the check-then-act I flagged in log's create IS
+    present in source and ABSENT IN EFFECT — one GenServer per log_id serializes callers, so THE
+    MUTUAL EXCLUSION IS THE PROCESS MAILBOX, NOT THE SQL; plus log_meta.singleton is a PK so even a
+    raw concurrent INSERT fails a constraint. ⇒ My Sol-cap TOCTOU does NOT reproduce here, and the
+    reason is a mechanism they could name rather than a test that happened to pass.
+  ⓘ log's judgement, theirs: create should NOT refuse an existing log — idempotent create is what
+    makes "make a replica" and "open a log you may or may not have made" safe to retry. THE MISSING
+    SIGNAL IS THE FIX, NOT A REFUSAL.
