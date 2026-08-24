@@ -53,6 +53,7 @@ if [ "$found" != "1" ]; then
 fi
 
 # Which running workers ASKED for Fable, and what are they actually on?
+on_fable=""
 affected=""
 while read -r win name; do
   [ -z "$win" ] && continue
@@ -73,7 +74,18 @@ while read -r win name; do
         # ⭐ A LAUNCH FLAG IS WHAT WAS ASKED FOR; THE STATUSLINE IS WHAT IS
         # RUNNING. Key on the statusline -- the only source that reflects now.
         case "$live" in
-          *Fable*) affected="${affected}${name}(asked=${asked:-none},RUNNING-FABLE-WHILE-EXHAUSTED=WEDGED) " ;;
+          # ⛔⛔ 2026-08-24T14:28Z — THIS LABEL WAS WRITTEN FOR THE EXHAUSTED WORLD AND FIRED IN
+          # THE RECOVERED ONE. Running Fable is WEDGED only while the meter is exhausted; once it
+          # resets, a worker that asked for Fable and IS on Fable is exactly right, and calling it
+          # "affected" tells me to restart two healthy workers for nothing.
+          # ⭐ Second instance today of a check correct about the world it was written in. The
+          # verdict has to be conditioned on the METER, not on the statusline alone.
+          *Fable*)
+            if [ "${pct%.*}" -ge 100 ]; then
+              affected="${affected}${name}(asked=${asked:-none},RUNNING-FABLE-WHILE-EXHAUSTED=WEDGED) "
+            else
+              on_fable="${on_fable}${name} "
+            fi ;;
           *) case "$asked" in
                *fable*) affected="${affected}${name}(asked=$asked,running=${live:-?}) " ;;
              esac ;;
@@ -101,6 +113,7 @@ now_s=$(date -u +%s)
 res_s=$(date -u -d "$resets" +%s 2>/dev/null || echo "")
 if [ -z "$res_s" ] && [ "${pct%.*}" -eq 0 ]; then
   echo "FABLE|RECOVERED|percent=$pct|resets_at=none (expected at 0% — nothing left to reset)"
+  echo "FABLE|already-on-fable=${on_fable:-none} (correct, NOT affected)"
   echo "FABLE|affected=${affected:-none}"
   echo "FABLE|action=ask jes which to switch back; do NOT switch hermes without asking (live money)"
   exit 0
@@ -121,6 +134,7 @@ if [ "${pct%.*}" -ge 100 ]; then
   echo "FABLE|action=none now; switch back AFTER $resets"
 else
   echo "FABLE|RECOVERED|percent=$pct|resets_at=$resets"
+  echo "FABLE|already-on-fable=${on_fable:-none} (correct, NOT affected)"
   echo "FABLE|affected=${affected:-none}"
   echo "FABLE|action=SWITCH FABLE-INTENDED WORKERS BACK. A fresh 'workerclaude --model claude-fable-5'"
   echo "FABLE|       launch holds better than in-session /model, but costs context — weigh per worker."

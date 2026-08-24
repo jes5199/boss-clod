@@ -18993,3 +18993,30 @@ about it cost one `sed` and would have saved the detour.*
 ```
 *Both meters and the Fable scope reset together; three consecutive live payloads agreed, so this is
 not a cache artefact.*
+
+### ⛔ ADDENDUM — THE SAME BUG, SECOND INSTANCE, SIX HOURS LATER IN THE SAME SCRIPT
+
+**14:28Z.** After the reset, `fable-recovery-check.sh` labelled `commonplace-doc` and
+`commonplace-dir` **`RUNNING-FABLE-WHILE-EXHAUSTED=WEDGED`** — *twenty minutes after I switched them
+onto Fable at jes's instruction, and with the meter at 0%.*
+
+⛔ **The `*Fable*)` branch tested only the STATUSLINE. Running Fable is WEDGED only while the meter
+is exhausted** — once it resets, a worker that asked for Fable and IS on Fable is exactly right.
+⇒ ⚠️ ***The `action=` line then told me to "SWITCH FABLE-INTENDED WORKERS BACK", naming two workers
+that were already correct*** — **acting on it would have restarted two healthy agents for nothing.**
+
+> ⭐⭐ **Second instance TODAY, in the SAME FILE, of a check that was correct about the world it was
+> written in.** ⇒ **§7x133 fixed the staleness gate; this is the classification. Both were written
+> while Fable was exhausted, and BOTH encoded that as a permanent fact.**
+
+✅ **Fixed: the verdict is conditioned on the METER, not the statusline alone**, and correct workers
+are now reported on their own line — `already-on-fable=… (correct, NOT affected)` — *so the
+distinction is visible rather than inferred from an absence.*
+```
+meter 0%    doc+dir on Fable  -> already-on-fable, affected = hermes + commonplace-log only  ✅
+meter 100%  a worker on Fable -> WEDGED, as before                                            ✅ red arm intact
+```
+⭐ **The lesson generalises past this script: when a condition ends, every branch written under it
+inherits an assumption nobody restated.** ⚠️ *I fixed one branch this morning and did not ask what
+else in the file assumed exhaustion — which is `commonplace`'s own rule, unapplied: when a tool
+breaks on a state change, treat it as a SAMPLE, not an incident.*
