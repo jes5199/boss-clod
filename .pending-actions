@@ -385,3 +385,18 @@ plain commit to main that never went through it. A fix to one path is not a fix 
     been with jes since 19:33Z. It was a correctness nicety when raised; it is now blocking.
   ⇒ Phase 17 (Compact command) NOT STARTED until two doors exist (merkle's author_opener, yepochs'
     minting function as public pure API) AND the opener clause is ruled.
+
+2026-08-24T22:51Z  ✅ merkle v6 PUSHED — jes's opener-order ruling implemented 18 min after he made it.
+  Verified: main 99f46c2 == origin, clean, 0 unpushed, reducer_version 6, 255 tests green.
+  author_opener real at v1.ex:359 (positive control on the same corpus). yepochs dependency TAKEN
+  in mix.exs:29 as a path dep, WITH a drift-guard test on the yelixer pin (yepochs pins yelixer by
+  git ref bc35a0e9 and the path checkout must not drift from it).
+  ⭐ THE REVIEW FINDING THAT MATTERED, and it is forgery-shaped: merkle's selective opener gate on
+    CHECKPOINT ROWS was ORDER-DEPENDENT — a forged opener MOVED TO ROW 0 loaded as GENESIS and
+    skipped the gate. Rows now run the EXACT SAME ADMISSION as ops. ⇒ A gate applied to one entry
+    path and not its sibling is the by-CATEGORY exemption again (7x147), this time reachable by an
+    attacker rather than by habit: the bypass is a REORDERING, which needs no privilege.
+  ⇒ PHASE 17 now waits on ONE door: yepochs' minter as a public pure function. merkle is done.
+  ⛔ NOT TEXTED TO JES: he ruled it and it shipped; the reportable milestone is phase 17 LANDING,
+    which is what his compaction ruling was actually for. Fold this in there rather than sending
+    a second progress note in the same hour.
