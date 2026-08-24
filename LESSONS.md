@@ -18810,8 +18810,17 @@ came back looking like FOUR apps instead of five.**
 > ⭐⭐ **A count pattern that cannot match the singular is blind to exactly the case worth finding —
 > the run with ONE failure.**
 ⚠️ *And the output was plausible: four real rows, no error, nothing to suggest a fifth existed.*
-✅ **Fixed with `tests?, [0-9]+ failures?`.** ⭐ *Plural-only patterns are a silent-zero family member
-I had not filed: the boundary case the regex excludes is usually the boundary case you are hunting.*
+✅ **Fixed with `tests?, [0-9]+ failures?`.** ⭐ **`commonplace` stated it as the rule, and its version is better than my anecdote:**
+> ⭐⭐ ***A COUNT PATTERN THAT CANNOT MATCH THE SINGULAR IS BLIND TO THE ONE-FAILURE RUN.***
+⇒ **And why THAT blindness is the worst one: `1 failure` is the SMALLEST REAL RED — the one most
+likely to be a single genuine defect rather than a cascade, and the hardest to notice missing.**
+⛔ **Four apps all green LOOKS LIKE A PASS.** ⚠️ *The absence had a cause invisible from the
+observable: not "commonplace was fine" but "my pattern could not REPRESENT commonplace's answer".*
+⭐ **Its filing is the one to use — the MIRROR of the counts rule:** *that rule says a COUNT needs
+per-hit shapes; this is a SHAPE that cannot express the COUNT.* **Same instrument family, opposite
+direction.**
+✅ *And pulling the PER-APP summary lines rather than the run conclusion is what made the population
+table possible at all: a run conclusion is ONE BIT; the per-app lines are the POPULATION.*
 
 ### ⭐ AND IT DECLINED TO MERGE FROM A GREEN
 
