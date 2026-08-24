@@ -28,4 +28,4 @@
 # this file is only for the TRANSIENT wait, and a transient record that outlives its round is a
 # stale claim about a live mechanism — the exact defect the file exists to avoid.
 # ⇒ RULE: retire the entry when the round ends, not when someone notices.
-commonplace-dir|4005812|DIR-D10 codex round, -C /home/jes/sol-dir-d10/wt, window 0:sol-dir-d10. Dispatched 16:51Z. Waiting is NOT stalling while this pid lives; when it dies this entry MUST go (one round = one lifetime)
+commonplace-dir|4033503|DIR-D10B codex round, -C /home/jes/sol-dir-d10b/wt. Dispatched 17:06Z. One round = one lifetime; clear when this pid dies

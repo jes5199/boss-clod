@@ -19524,3 +19524,36 @@ Both loops now read the same file with the same **pid-conditional** rule.
 stall forever — strictly worse than the nudge it prevents. Both arms demonstrated on the live
 worker: live pid ⇒ `WAITING`; a planted dead pid (4194300, confirmed dead first) ⇒ `IDLE` carrying
 `ENTRY IS STALE, remove it`, then restored and re-verified `WAITING`.
+
+## 7x143 — a brief that says "measured" can be wrong twice, and the measurement that catches it is the implementer's
+
+**2026-08-24T17:06Z, commonplace-dir's DIR-D10.** The brief carried a section headed *"What is true
+about the dependency (measured on the pinned worktrees)"*. Sol corrected it **twice** while
+implementing:
+
+| brief said | actual |
+|---|---|
+| `Frontier.new/1` does **not** sort — hand-ordered tips are refused by it | it **SORTS**: `%__MODULE__{tips: Enum.sort(tips)}`, `frontier.ex:63-66`. Its own `@doc` says *"sorting entry IDs by their bytes"* |
+| corpus is 4 lib + 15 test files | **9 lib + 16 test** — the author grepped **field names**, not the **type** |
+
+⭐ **The first was INHERITED — commonplace-doc asserted it about commonplace-log's code, and dir
+wrote it down as measured.** ⇒ Exactly [[7x141]]: dir and doc shared one derivation, so dir's
+"measurement" could not detect a fault in doc's claim. **I confirmed it independently against the
+source at the pin** — which is the remedy, not a third opinion.
+
+⭐ **The second was a REAL measurement AIMED WRONG.** Grepping field names finds every site that
+mentions a field and misses every site that names only the type. ⚠️ *A count is only as good as
+the thing it is anchored to* — and "I measured it" does not say **what**. See
+[[reference_pattern_anchored_counts]].
+
+⇒ **Both survived a brief whose whole purpose was to be the verified part.** The implementer
+reading actual source is a distinct instrument from the briefer reading their own notes; the value
+came from them **disagreeing**, and the disagreement only surfaced because Sol was told to say so
+rather than to comply. ⭐ *A brief is a claim, not a control.*
+
+### ✅ Not a finding against anyone
+
+dir landed D10 green, recorded the hole it found (Entry.encode/1 can now return an error tuple that
+four call sites treat as a map) as a bounded follow-up rather than holding the round, and told doc
+with the cite. **That is the correct shape: correct the source of the claim, do not just patch
+locally.**
