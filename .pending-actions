@@ -334,3 +334,17 @@ plain commit to main that never went through it. A fix to one path is not a fix 
        from me that assumes it drops, so the corrected version goes to him.
   ⛔ Do not evaluate this against a window that contains new dispatches. If work resumes, the clock
      restarts — say so rather than quietly reusing a contaminated window.
+
+2026-08-24T21:27Z  ✅ BURN-RATE TEST CLOSED — the prediction HELD, and I am recording it as closed
+  rather than letting it lapse, because a test only counts if it is settled when the answer is
+  flattering as well as when it is not.
+  19% at 20:27Z -> 19% at 21:27Z. Window verified idle (0 codex, 0 WORKING) so it is not
+  contaminated. Rate: ~0.0 pct/hr idle vs ~2.9 pct/hr active.
+  ⇒ The Fable burn is ACTIVITY-DRIVEN, not a standing drain. The "exhausts in ~29h" figure I gave
+    jes at 19:29Z is a CONTINUOUS-WORK ceiling, not a forecast — and the caveat I attached to it
+    was correct.
+  ⛔ NOT TEXTING HIM: he was told at 19:29Z the rate would probably fall because the fleet had gone
+    idle. It fell. "The thing I predicted happened" changes nothing he would do and is a heartbeat.
+  ⇒ USE IT when the burn next comes up: quote the two rates together (active ~2.9/hr, idle ~0/hr)
+    so the ceiling is never mistaken for a forecast again.
+  ⓘ hermes remains settled-by-non-objection on Opus. Do not re-raise.
