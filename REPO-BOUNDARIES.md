@@ -727,3 +727,48 @@ its own snapshotter_version bump 1→2 on 2026-08-05.*
 ⭐ **Until that is ruled, the default is safe by construction:** a cross-epoch merge is handed to the
 plugin with **no strategy**, and it **refuses loudly**. *An unruled question whose default fails
 loudly is the one shape of unruled question that does not rot.*
+
+
+### 27. ✅ MANUAL COMPACT COMMAND, AND merkle-crdt MAY DEPEND ON yepochs (jes, 2026-08-24T22:38Z)
+
+> *"we do want a manual compact command and I do want merkle-crdt to depend on yepochs"*
+
+**Two grants in one sentence, both firm.** Together with 22:30Z (*"we do need compaction, that's
+probably commonplace-doc's job, I'm not sure about the heuristics"*) this settles decision (3) of
+`commonplace-doc/docs/HOW-EPOCHS-WORK-TODAY.md`.
+
+- **Manual compact** ratifies doc's heuristic (1), *explicit before automatic*: a `Compact` command
+  over the selected head, no policy in the library. ⛔ **He did NOT rule on an automatic trigger.**
+  doc's read-cost-bound-never-a-clock argument remains a PROPOSAL, not a decision.
+- **The yepochs dependency is granted**, carried by `commonplace-merkle-crdt` (it already holds
+  yelixer; re-exporting keeps doc's surface at one content door).
+
+#### ⛔ WHAT WAS ASKED AND IS *NOT* ANSWERED — do not let it arrive transitively
+
+`commonplace-plan` raised the crux nobody else had: the gate was worded as a **STATE** — the
+monolith depending on yepochs, *in either direction of arrival*. So: **is `commonplace-merkle-crdt`
+ever INTENDED to be consumed by the monolith?** If yes, granting merkle→yepochs pre-authorises the
+gated monolith→yepochs edge without anyone choosing it.
+
+**jes granted the edge. He did not answer that question.**
+
+✅ **Harmless today, and MEASURED so** (merkle-crdt, 22:38Z): the monolith references merkle-crdt in
+**0 files** under `apps/*/lib`, **0** mix.exs mentions, **0** references to the reducer plugin
+protocol it implements. Consumers are `commonplace-doc` and `commonplace-dir`, both path-deps. The
+recorded direction of travel runs **away** from the edge — jes's 2026-08-23 *"we're allowed to
+diverge from monolith"*, and the reader design carrying **rendered values, not plugin code**.
+
+⇒ ⭐ **THE RULE: the grant covers merkle→yepochs ONLY. If the monolith is ever proposed as a
+consumer of merkle-crdt, that is a NEW DECISION and this gate is live again.** ⛔ It must not arrive
+on the strength of tonight's grant. *This is precisely the failure doc's epochs document caught
+hours earlier — a shape that "fell out of" two other decisions and was never chosen — and it would
+be a poor outcome to repeat it inside the fix.*
+
+#### ⭐ Craft worth keeping, merkle's, improving on plan's ask
+
+plan asked that a derivation-less opener be **marked at authoring time** so the limitation is
+legible. merkle is writing `"derivation" => null` **into the HASHED METADATA, bound into the id**.
+⇒ A marker outside the hash can drift from the artifact it describes; inside it cannot, and the id
+necessarily changes when the derivation lands. **"Make the limitation legible" became "make the
+limitation part of the identity"** — the version that survives copying, caching and
+re-serialisation. It hardened the property rather than satisfying it minimally.
