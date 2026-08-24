@@ -29,5 +29,9 @@
 # ⭐ A necessary condition stated alone reads as sufficient. Every release condition here should be
 # read as "is this the WHOLE of what unblocks them?", not "is this true?".
 # format: name|release condition|note
-commonplace-doc|commonplace-dir needs a real host AND epoch_id reaching a RECEIPT — BOTH, not either. (commonplace-dir, 00:43Z: the host is NECESSARY AND NOT SUFFICIENT; VersionRef requires epoch with no nil path, so a host that cannot populate it still cannot construct one Directory entry outside a fixture. Waking doc on the host alone repeats the failure the first re-aim prevented — they arrive and are still blocked, one layer further in.), OR quota 7d resets 2026-08-24T09:59:59Z|stopped 23:42Z, mechanism verified; P5 plan written and DISPATCHABLE at docs/IMPLEMENTATION-PLAN-P5.md (77 lines); main 8ba298e == origin, clean
+# ✅ CLEARED 2026-08-24T14:26Z — commonplace-doc's stop RELEASED and the worker restarted on
+# Fable at jes's instruction. Its recorded release condition included "quota 7d resets
+# 2026-08-24T09:59:59Z", which fired at 10:00Z (7d 97% -> 0%) — so the mechanism it stopped on
+# was already gone before jes asked. ⭐ The condition fired and was READ, which is the thing that
+# did not happen at 23:31Z. State was durable first: c7bbb3d == origin, clean, 0 unpushed.
 commonplace|jes lifts the halt again, or ranks work for it (the 19:51Z halt on automatic work stands; the 00:14Z lift covered the reader and the 01:03Z extension covered the merge — BOTH DISCHARGED)|stopped 01:14Z after post-merge CI green on main 6dd6d211. ⛔ Nudging it would push a halted agent back into a repo jes halted, on my authority rather than his — the exact widening I filed at 00:14Z. Its work is done and pushed; nothing decays.
