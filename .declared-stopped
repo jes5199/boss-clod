@@ -22,5 +22,11 @@
 # ⭐ THIRD proxy-trigger of the night, all mine: dir's D-001, doc's "reaches phase 6", and this.
 # ⇒ A release condition must be the NEGATION OF THE STATED MECHANISM, not an event that happens
 # to be nearby and memorable.
+# ⚠️ 2026-08-24T00:44Z — SECOND re-aim of the same condition. The first fixed WHICH EVENT; this
+# fixes that it was a CONJUNCTION reported as a single term. commonplace-dir caught it and
+# REPORTED the condition as met rather than tripping it — the strict reading was satisfied and it
+# said so instead of acting on it.
+# ⭐ A necessary condition stated alone reads as sufficient. Every release condition here should be
+# read as "is this the WHOLE of what unblocks them?", not "is this true?".
 # format: name|release condition|note
-commonplace-doc|commonplace-dir NEEDS A REAL HOST (the wiki-slice vertical, NOT "reaches phase 6"), OR quota 7d resets 2026-08-24T09:59:59Z|stopped 23:42Z, mechanism verified; P5 plan written and DISPATCHABLE at docs/IMPLEMENTATION-PLAN-P5.md (77 lines); main 8ba298e == origin, clean
+commonplace-doc|commonplace-dir needs a real host AND epoch_id reaching a RECEIPT — BOTH, not either. (commonplace-dir, 00:43Z: the host is NECESSARY AND NOT SUFFICIENT; VersionRef requires epoch with no nil path, so a host that cannot populate it still cannot construct one Directory entry outside a fixture. Waking doc on the host alone repeats the failure the first re-aim prevented — they arrive and are still blocked, one layer further in.), OR quota 7d resets 2026-08-24T09:59:59Z|stopped 23:42Z, mechanism verified; P5 plan written and DISPATCHABLE at docs/IMPLEMENTATION-PLAN-P5.md (77 lines); main 8ba298e == origin, clean

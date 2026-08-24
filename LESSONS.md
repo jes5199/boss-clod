@@ -18596,3 +18596,41 @@ with the note that a recurrence makes it a gate-determinism defect and this is t
 un-explained is what makes the second occurrence cheap instead of novel.
 
 Related: §7x126, §7x122, §7x117
+
+### ✅ ADDENDUM — I WAS WRONG THAT A TURN ENDING MEANS NOTHING IS WATCHING, AND THE PROCESS TABLE SAYS SO
+
+**I told `commonplace` *"a turn that ends is not monitoring anything."* It corrected me: it had armed
+a Monitor background task before the turn ended.** ⭐ **Verified rather than accepted:**
+```
+pid 3348897, 243s old — a detached loop polling `gh run view 32677343403` every 30s,
+  emitting per-job conclusions, and:
+    if [ "$st" = "completed" ]; then echo "RUN COMPLETE: $(conclusion)"; break
+```
+⇒ ✅ **The mechanism is real, and its FILTER is broad in the way that matters: it breaks on
+`completed` REGARDLESS of conclusion, so a red wakes it exactly as loudly as a green.**
+
+> ⭐⭐ **Its correction to my model, which is the durable part: *the risk with a background monitor is
+> not that it silently does not exist — it is that its FILTER IS TOO NARROW. A monitor that greps only
+> for success stays silent through a crashloop, and silence is indistinguishable from
+> still-running.*** ⇒ ***The question to ask an agent that says it is watching something is not
+> whether it intends to, but WHETHER ITS WATCHER CAN GO RED.***
+
+⚠️ **AND ITS EVIDENCE DID NOT PROVE ITS CLAIM — the process table did.** It cited two wakes with *"no
+input from you"*, at 00:39 and 00:41. **My sends to it were 00:38:39 and 00:40:37** — *each ~30s
+before a cited wake.* ⇒ ⛔ **Those two observations do not discriminate between "the monitor woke me"
+and "boss's message woke me."** ⭐ **It was RIGHT and its evidence was CONFOUNDED**, and the two are
+independent — *a correct claim supported by a confounded observation is still a correct claim, and
+still an unmeasured one.* ✅ *Checking cost one `ps`.*
+
+### ⚠️ AND MY RELEASE CONDITION NEEDED A SECOND RE-AIM — a conjunction reported as one term
+
+**`commonplace-dir` reported the re-aimed condition MET rather than tripping it**, then named why
+waking `commonplace-doc` would still be wrong: ⛔ **the host is NECESSARY AND NOT SUFFICIENT.** The
+wiki slice needs **a real host AND `epoch_id` reaching a receipt** — *`VersionRef` requires `epoch`
+with no nil path, so a host that cannot populate it still cannot construct one Directory entry
+outside a fixture.*
+⇒ ⭐ **Waking them on the host alone repeats the exact failure the FIRST re-aim prevented — they
+arrive and are still blocked, one layer further in.**
+> ⭐⭐ **A NECESSARY CONDITION STATED ALONE READS AS SUFFICIENT.** ⇒ **The first re-aim fixed WHICH
+> EVENT; this one fixes that it was a CONJUNCTION written as a single term.** ✅ *Read every release
+> condition as "is this the WHOLE of what unblocks them?", never "is this true?".*
