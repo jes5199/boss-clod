@@ -297,3 +297,17 @@ plain commit to main that never went through it. A fix to one path is not a fix 
   ⚠️ WHY I AM NOT SENDING IT: I told him at 19:27Z that doc recommended (ii) and merkle had been
     asked. This CONFIRMS that expectation rather than changing his decision. Three messages in
     three minutes on one topic is the pattern that trains him to skim.
+
+2026-08-24T19:34Z  ✅ RULING (2) LANDED AND ROUTED — record at commonplace-doc origin/main 3c9821d.
+  Feasibility DISCHARGED by yepochs' 290/0 measurement, not left open. Composition credited to
+  yepochs: (1) put the epoch in the commit id, (2) makes the token a function of pre-snapshot
+  inputs — together the boundary commit CONVERGES, neither alone.
+  ⏳ STILL WITH JES, both handed to him at 19:33Z: the OPENER-PARENT-ORDER clause (merkle's
+    structural reason: order is meaningless for an opener by construction, and meaningless-but-
+    hashed yields two ids for one content; (ii) is a gate, (i) is an unenforceable assumption),
+    and (3) THE COMPACTION PREMISE.
+  ⭐ NARROWING TO WATCH, doc's own and recorded by it: until (3), (2) changes NO code on doc's
+    side — GENESIS tokens stay caller-supplied because they have NO INPUTS TO HASH. That is
+    the honest scope of "if possible", not a workaround; it is in the record rather than implicit.
+  ⚠️ (3) decides whether this host ever mints an opener AT ALL, so it can shrink (2)'s footprint
+    to nothing. Do not let anyone treat (2) as settled implementation work before (3).
