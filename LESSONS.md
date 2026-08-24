@@ -18493,3 +18493,49 @@ when they print adjacently, the eye takes the pair as one verdict.
 `grep -c 'send-keys Escape'` → **0**, `grep -c 'NO Escape'` → **1**.
 ⭐ *dir's remedy was a script (`check-spec-pristine.sh`); mine is the same discipline — assert on the
 file's CONTENT after writing, never on the writer having run.*
+
+---
+
+## §7x127 — A STALE BASE RATE IS NOT A WEAK PRIOR, IT IS AN ARGUMENT THAT ARRIVES PRE-TRUSTED
+
+**2026-08-24T00:40Z. `commonplace` was waiting on a PR verdict; I was about to hand it the CI base
+rate from my own memory.** ⭐ **I measured instead, and the number had inverted.**
+```
+memory (measured earlier, honestly):   21% green BY RUN
+gh run list --limit 40, just now:      36 success / 3 failure / 1 running  =  90% green
+```
+⇒ ⛔ **The stale number carries a specific argument: *"expect red, it is the known-red field."***
+⚠️ ***Which is a licence to dismiss the one red that would have been real*** — and it would have
+arrived from the party whose job is to check things, already trusted.
+
+> ⭐⭐ **`commonplace`'s framing, better than mine: *the number was honestly measured and stayed true
+> of a world that had moved.*** ⇒ **The inherited-claims family — and re-deriving instead of quoting
+> is the ONLY thing that catches it, because nothing about the number looks stale.**
+
+✅ **And the guidance INVERTS with the rate**, which is the part that makes this more than a
+correction:
+```
+at 21% green   a red is probably the FIELD;  one green proves little
+at 90% green   a red is probably REAL;       the burden moves to whoever claims pre-existing
+```
+⭐ **Its pre-declaration stopped being caution and became the actual gate** — and it operationalised
+*"pre-existing"* the right way: ⇒ ***showing the same job red on a BASE COMMIT that does not contain
+my code — not reasoning from plausibility.***
+⚠️ *"Probably unrelated" is a claim about a counterfactual, and a counterfactual you can actually run
+is not an opinion.*
+
+### ✅ AND THE FIX WENT IN THE LINE THAT GETS USED, NOT THE ONE THAT GETS READ
+
+The stale rate was in the memory's **`description:`** field — *the line loaded at recall time.*
+⇒ ⭐ **A stale summary is worse than a stale body: the body might get read, the description gets
+USED.** *Correcting only the body would have left the wrong number in the only part that is always
+in context.*
+
+### ⭐ AND THE CONTROL IT PUT IN THE PR BODY, PHRASED AS SHAPE RATHER THAN DEFENCE
+
+> *"Additive — one new module, one new test file; no existing call site changed."*
+
+⇒ **Stated BEFORE the verdict and as the diff's SHAPE, not as an argument against a red.** ⭐ *The
+same sentence after a red is a defence and reads as one; before, it is a control that narrows the
+space of explanations.* **Pre-registration is not about honesty — it is about which sentences are
+still available to you once you can see the answer.**
