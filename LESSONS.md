@@ -20009,3 +20009,43 @@ to the next reader, and helpfulness is what put the string there.
 ⚠️ **And the reason the note existed is still right**: `commonplace` is HALTED, its entry describes
 a STANDING condition, and deleting it on a momentary busy signal would quietly un-halt a repo jes
 halted. **The note was correct; its wording was the defect.**
+
+## 7x155 — my fix for a false stall created a false WAITING, and it masked a real stall for 30 minutes
+
+**2026-08-24T20:24Z.** The pane watch reported `commonplace-merkle-crdt` STUCK — busy `[bg-agent]`,
+pane byte-identical for 30m. ⭐ I read the pane instead of cancelling, which is the standing rule,
+and the truth was the opposite of both readings: **it was not stuck AND not busy. It was idle.**
+
+⛔ **`tmux capture-pane` RETURNS SCROLLBACK.** The line *"Waiting for 1 background agent to finish"*
+stays in the visible pane long after that agent finishes. My `bg_agent_running()` matched anywhere
+in the capture, so a **finished** agent read as **running** — and the stall sweep therefore reported
+`stalled=0` for ~30 minutes while merkle sat at a prompt.
+✅ Confirmed by a second instrument before believing it: the claude process was at **0.0% CPU
+instantaneous**. A live subagent burns CPU.
+
+### ⭐⭐ THE PART THAT GENERALISES, AND IT IS ABOUT ME
+
+**I introduced this at 17:30 while fixing the OPPOSITE bug** — a codex count could not see an
+in-process subagent, so a working agent read as stalled (§7x146a).
+```
+original defect   process count blind to subagents   -> real WORK looked like a stall
+my fix's defect   scrollback text read as live       -> real STALL looked like work
+```
+⇒ ⭐ **One predicate, two arms, and I only ever tested the arm I had just been burned by.** The fix
+was verified against "does it see a live subagent?" and never against "does it stop seeing a
+finished one?" ⛔ *Fixing a false negative by loosening a predicate produces a false positive unless
+you test the loosening.* **The second arm is not optional; it is the other half of the same change.**
+
+### ⭐ And a corpus lesson, not just a pattern lesson
+
+**The pane is not a snapshot of NOW — it is NOW plus history, in one string.** Any predicate over
+`capture-pane` output must say WHERE it looks, or it is asking a question about the past.
+⇒ ✅ Fixed by scoping to the **bottom 7 lines**, the live status region that scrollback cannot
+reach. Demonstrated both ways on frozen frames:
+```
+live-region indicator      bottom7=MATCH      whole-pane=MATCH
+merkle's real stale frame  bottom7=no match   whole-pane=MATCH   <- the bug, isolated
+```
+⚠️ **Green arm is SYNTHETIC** — no live subagent existed to test against, so I constructed a frame
+of that exact shape. Stated rather than implied. The RED arm is real: merkle now reports
+`STALL-CANDIDATE` and the sweep sees it.

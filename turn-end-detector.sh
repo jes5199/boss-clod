@@ -147,8 +147,18 @@ def bg_agent_running():
         wid = next((l.split()[0] for l in win.splitlines() if l.split()[1:2] == [w]), None)
         if not wid:
             return False, True          # could not locate pane -> BLIND, not "no subagent"
-        pane = subprocess.run(['tmux','capture-pane','-p','-t',wid],
-                              capture_output=True,text=True).stdout
+        pane_full = subprocess.run(['tmux','capture-pane','-p','-t',wid],
+                                   capture_output=True,text=True).stdout
+        # ⛔⛔ 2026-08-24T20:24Z — capture-pane RETURNS SCROLLBACK. The line
+        #   "Waiting for 1 background agent to finish" SURVIVES in the visible pane long after
+        #   that agent finished, so matching anywhere in the capture reported a FINISHED agent as
+        #   RUNNING — and that MASKED A REAL STALL for ~30 minutes on commonplace-merkle-crdt.
+        # ⭐ I introduced this at 17:30 fixing the OPPOSITE bug (a codex count could not see an
+        #   in-process subagent). The first fix missed real WORK; the fix for it missed real STALLS.
+        #   ⇒ Both arms of one predicate, and I only ever tested the arm I had just been burned by.
+        # ⇒ The live status region is the BOTTOM of the pane; scrollback cannot reach it. Match
+        #   only there. A completed summary ("Cogitated for 15m 34s") sits above the prompt box.
+        pane = "\n".join(pane_full.splitlines()[-7:])
         # ⚠️ pure-Python regex: re has NO POSIX classes. My first attempt used [[:space:]];
         #   python read it as a NESTED SET, warned, and printed NO VERDICT AT ALL for every
         #   worker — the detector was down until I noticed. A malformed pattern is not a
