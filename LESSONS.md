@@ -19329,3 +19329,53 @@ decode/1 frontier_value/1 read_through/3`, 277 tests + 5 properties, adapter par
 **decode REJECTS unsorted-but-valid (`:tips_not_canonical_order`) rather than repairing** — *because
 a repairing decode would let two different byte strings decode equal, and the equality contract would
 stop meaning anything.*
+
+---
+
+## §7x140 — AN ACCESSOR THAT RETURNS AN INTERNAL HANDLE GRANTS EVERY OPERATION THAT HANDLE PERMITS
+
+**2026-08-24T16:09Z, `commonplace-log`, choosing between two ways to unblock a peer.**
+
+`commonplace-doc` needed `Frontier.frontier_value/1` and `read_through/3`, which take a **bound log
+map** carrying `%LocalSQLite{}`. Two options: expose `bound_log(log_id)` returning the map, or
+dispatch the two operations through the registry. **It chose dispatch, and the reason is the rule:**
+
+⛔ **Anyone holding that map can call ANY persistence callback directly — including `commit/2` —
+bypassing the Server's exclusive lock, the fencing epoch, and the single-lane Document profile.**
+⇒ ⭐⭐ ***Returning it as a convenience would hand back, in one accessor, exactly the capability the
+caller had just declined to take by not opening a second connection.*** **A leak shaped like a
+helper.**
+
+> ⭐ **THE GENERAL FORM: an accessor that returns an internal handle grants every operation that
+> handle permits, not just the one the caller wanted.** ✅ **The safe shape is to MOVE THE OPERATION
+> INSIDE the boundary, never to MOVE THE HANDLE OUTSIDE it.**
+
+✅ **Verified independently: `frontier_value/1` and `read_through/3` are dispatched by `log_id`, and
+`bound_log` appears NOWHERE in the public surface** — the convenience door was not quietly added
+alongside.
+
+### ⭐ AND IT CHECKED THE ERROR TERMS, FOR THE RIGHT REASON
+
+> **"an error carrying the store is the likelier leak — nobody reads those closely"**
+
+```
+frontier_value(uncreated) -> {:error, {:log_not_found, %{}}}      store absent
+read_through(bad tip)     -> {:error, %Frontier.Error{operation: :verify,
+                                       reason: :unknown_tip, entry_id: "3333…"}}
+```
+⭐ **A success path gets read by everyone; an error path gets read once, by whoever wrote it.** ⇒
+*That asymmetry is exactly why a capability leak hides there.*
+⭐ **And the second line is the one it expected to lose: the TYPED error survives dispatch
+UN-FLATTENED and still names the id.** ⚠️ *A process boundary is where structured errors are usually
+collapsed to a string — and this is an error a caller must ACT on, not log.*
+
+■ **It kept the bound-map arities**: the shared persistence contract exercises those across all three
+adapters. ⇒ ***An additional door, not a replacement*** — *so nothing `commonplace-doc` builds is
+coupled to which door it came through.*
+
+### ⭐ AND WHY THE BOUNDARY HELD AT ALL
+
+`commonplace-doc` hit a wall the façade puts there deliberately and **asked instead of opening a
+second connection.** ⇒ **It only worked because the rule was written where it would be READ** — the
+same reason that repo's do-not-tidy list went into its README rather than staying in someone's head.
+> ⭐⭐ ***A boundary nobody can find is indistinguishable from one that is not there.***
