@@ -18730,3 +18730,61 @@ positive-control requirement as any sweep, applied to the test rather than the c
 completed` **regardless of conclusion.** ⇒ ***A success-only filter would have gone silent exactly
 here***, on the one outcome anyone needed to hear about. *Its filter was checked before it mattered
 and it mattered within ten minutes.*
+
+---
+
+## §7x130 — AN ALLOWLIST THAT IS A DIRECTORY PREFIX CANNOT BECOME A COUNT TO BUMP
+
+**2026-08-24T00:53Z, `commonplace`. CI came back RED and the red was its own.**
+
+**The verdict, named by job:** `format success · scale skipped · test FAILURE`. **Whole-run
+population so the count is not inferred: 3816 tests, ONE failure, in its file at its line numbers.**
+```
+monolith_reader.ex:175  CommitStore.db_handle/1 escape hatch outside the storage adapter
+monolith_reader.ex:179  raw CubDB.select outside the storage adapter
+```
+⭐ **BUILD-2a's read perimeter — an AST scanner that fails CI when product code reaches CubDB outside
+`store/` — fired on the NEWEST caller in the tree, which is the only population where it can still do
+any good, and it fired on that code THE FIRST TIME THAT CODE EXISTED.** ⇒ *A gate demonstrably able
+to go red, on a real violation, at its first genuine opportunity.*
+
+### ⭐⭐ AND THE DESIGN THAT MADE THE FIX HONEST WAS IN THE EXCEPTION'S SHAPE
+
+> ***"The allowlist is a DIRECTORY PREFIX on purpose — so raw access has one correct home and
+> ENUMERATION NEVER BECOMES A COUNT-TO-BUMP."***
+
+⛔ **Adding a second named file would have WIDENED THE BOUNDARY TO FIT THE CODE instead of MOVING THE
+CODE INSIDE IT.** ⚠️ ***"The perimeter would still have been green, and it would have meant less."***
+⇒ ⭐ **A per-file allowlist makes every violation a one-line edit that leaves the gate reporting
+success — the routed-around gate, reached by the front door.** ✅ **A prefix has no such edit: you
+either move the code or you do not.**
+⭐ *Choose the exception mechanism by what a lazy fix would look like, not by what a correct one
+would.*
+
+✅ **VERIFIED, not relayed** — the claim that matters is the one an author is least able to audit:
+```
+d7d4a979 local == remote
+files changed:  monolith_reader.ex (-16 net) · commit_store.ex (+58)
+perimeter / allowlist files touched:  NONE
+```
+⇒ **It moved the code; it did not move the fence.**
+
+### ⭐ AND IT DECLINED A SECOND, CHEAPER WIDENING
+
+It did **not** extend `population_scan/1` — a **World-B-audited return shape** — to serve import,
+because that function reports `p_latest` as doc_uuids ONLY and **import needs which commit the head
+IS** (the head pointer is the default pin offered to the destination). ⇒ ⭐ ***"Changing a
+World-B-audited return shape to suit an unrelated caller is the more expensive edit; a sibling reader
+with its own name is the honest one."*** *Reuse that alters an audited contract is not reuse — it is
+an unreviewed amendment with a caller attached.*
+
+### ✅ AND THE BASE-RATE CORRECTION PAID INSIDE FIFTEEN MINUTES
+
+**§7x127 replaced a stale 21%-green prior with a measured 90%.** ⇒ **Its own words: *"Your 90% base
+rate pointed the right way."*** ⚠️ **The stale number would have supplied *"probably the known-red
+field"* — for a red that named its own file and line numbers.** ⭐ *The correction was not
+bookkeeping; it was the difference between investigating and dismissing.*
+
+■ **And the comment at the old site records what happened rather than being deleted** — *so the next
+person reaching for `db_handle/1` there learns why before CI tells them.* ⭐ **Placement over
+content, again: the explanation lives where the mistake is made, not where it was discussed.**
