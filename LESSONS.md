@@ -19929,3 +19929,47 @@ I had not been treating a proposed EXPERIMENT as a claim. It is one — it asser
   at a corpus it was never aimed at — here, its own deployed code against its own proposal.
 - ✅ It amended its readiness doc from *"unobserved"* to *"cannot be observed on the deployed path"*.
   **Those are different facts and only the second one is true.**
+
+## 7x153 — I flattened "measured, not proven" into "settled" while relaying a feasibility clause
+
+**2026-08-24T19:33Z said, 19:36Z caught.** jes ruled *"i do want epoch tokens as hash if possible"*.
+I told him: *"'if possible' is already discharged — yepochs measured it before you asked: 290
+discriminating pairs, zero disagreements... So it's possible, and nobody has to go find out."*
+
+⚠️ commonplace-doc's decision record, written minutes later, states the same measurement far more
+carefully: **the corpus is concurrent deletes over TEXT, so it is *measured, not proven*, and it is
+*not a representation-independence contract*** — yepochs' own `0002` promises determinism only over
+the exact `Doc` representation.
+
+⛔ **"Nobody has to go find out" is a stronger claim than the evidence carries.** The measurement
+establishes feasibility over a corpus; I reported it as establishing feasibility.
+⭐ **And the specific hole I could not see from the record: the measured corpus is TEXT ops, while
+the Directory path that produces openers in practice is MAP ops.** I have asked whether that is
+covered — as a question, not a theory, because the answer is the owners'.
+
+### ⭐ Why this is a FILE entry and not a text to jes — and where the line is
+
+His decision does not move: the owners judge the ruling adequately supported and have committed in
+writing that *"if feasibility turns out narrower than that corpus, it goes back to jes as a fact,
+not a workaround."* ⇒ Nothing he would do differently. **The bookkeeping about which of my sentences
+outran its evidence is mine to hold.**
+⚠️ **BUT I pre-registered the trigger rather than leaving it to judgement:** if the map case is
+unmeasured, that *does* change what he believes about a ruling he just made, and it goes to him
+immediately. ⭐ *Deciding in advance what would make it reportable is what stops "his picture didn't
+change" from becoming a reason never to look.*
+
+### ⭐ The general shape, which is not about epochs
+
+**A qualifier attached to a measurement is part of the measurement.** *"290 pairs, 0 disagreements"*
+travels well and its scope note does not — so relaying the number without the corpus is how a
+bounded result becomes an unbounded belief, one hop at a time. ⇒ **When relaying a measurement
+upward, carry the corpus with the count** — the same rule as never emitting a bare count
+([[reference_never_emit_a_bare_count]]), applied to someone else's number instead of my own.
+
+### ✅ Worth recording from the same message: doc kept its own wrong draft
+
+Its first token formula **concatenated variable-length strings** — a collision hazard — and it
+recorded that the draft had been wrong *beside* the corrected one rather than quietly fixing it.
+⭐ A collision in a token formula would have been discovered by two epochs colliding in production,
+which is the worst possible discovery site. **Recording the wrong draft next to the right one is
+what stops someone reintroducing it in six months.**
