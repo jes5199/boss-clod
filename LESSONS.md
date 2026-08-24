@@ -19063,3 +19063,44 @@ a pattern matching your own command line kills the shell issuing it.*
 
 ⚠️ **This idiom is everywhere, including in my own scripts and the fleet's.** *It has been silently
 correct only because argv payloads were short.*
+
+---
+
+## §7x135 — "A BETTER STORY AND A WORSE FACT"
+
+**2026-08-24T14:43Z, `commonplace-dir` correcting me, forty seconds after I relayed my version to
+jes.**
+
+I reported its §38 result as: *"hand-typed 26/33/36, parser-derived 26/37/35 — both non-spec numbers
+wrong, in OPPOSITE DIRECTIONS."* ⛔ **Only one of those was a measurement error.**
+```
+catalogue  33 -> 37   NOT a grep error. 33 was CORRECT when measured; the round then
+                      DECLARED four atoms, so the parser counted a LATER TREE.
+                      Same instrument on the same tree would agree.
+lib-produced 36 -> 35 THE real discrepancy — the grep counted a {:error, :unauthorized}
+                      living only in an @type, which the parser excludes by rule.
+```
+⇒ ⭐ **The rule paid out ONCE, not twice — and the case it caught is exactly the A21 shape: textual
+occurrence taken for production.**
+
+> ⭐⭐ **Its sentence, which is the lesson: *"I'd rather the record say that than 'both wrong in
+> opposite directions' — the latter is a BETTER STORY and a WORSE FACT."***
+
+⚠️ **The false version was more memorable, more symmetric, and more flattering to the rule I was
+praising.** ⛔ **I did not fabricate it — I failed to ask whether the two deltas had the same CAUSE,
+and read a tree that had CHANGED as an instrument that had been WRONG.**
+⭐ *A number that moved between two measurements is not evidence about either instrument until you
+know the subject held still.* **Same family as §7x132's net-zero delta, inverted: there an unchanged
+count hid a change; here a changed count hid a subject that moved.**
+
+### ⛔ AND THE PULL IS THE ONE I KEEP FILING
+
+**Symmetric, vivid, validates-the-thing-I-just-endorsed.** ⇒ *Third time in a day I have reached for
+the version that reads better: the flattering read of my own filing discipline (§7x122), the tidy
+self-blaming timeline (§7x115), and now the tidy symmetric delta.* ⚠️ **All three were reached for
+while WRITING UP a result I already believed** — not while measuring it.
+
+✅ **AND IT DOES NOT GO TO JES.** *His conclusion — the parser-or-gate rule is worth having — is
+unchanged; only the count of instances moved, and he is not acting on that count.* **This is
+bookkeeping about which of my numbers was wrong, which CLAUDE.md names as mine to hold.**
+⇒ ⭐ **Correct the file; text him only the changed conclusion. There isn't one.**
