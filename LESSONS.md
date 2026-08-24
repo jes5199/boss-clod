@@ -18832,3 +18832,64 @@ a merge would be me widening the scope I had just told jes was narrow** — *§7
 reading of a terse instruction is the one that never gets challenged", committed by the person who
 filed it, one hour later.* **Put to jes instead.**
 ⭐ ***A green is evidence about the code. It is not authorisation.***
+
+---
+
+## §7x131 — MY RENAME SILENTLY OPENED A SAFETY FENCE, AND A PEER'S UNRELATED FINDING SURFACED IT 5 HOURS LATER
+
+**2026-08-24T01:08Z.** `commonplace` reported that `bin/cp-merge` **refused in the one place it is
+supposed to run** — the rename made `/home/jes/commonplace` a **symlink**, and
+`git rev-parse --show-toplevel` reports the **physical** path, so the door compared
+`commonplace-monolith` against its literal `/home/jes/commonplace` and exited 1. **On main, in the
+main checkout, with a green branch.**
+> ⭐ **Its line: *a broken door does not stop people merging — it stops them USING THE DOOR.*** ⇒ **The
+> obvious workaround is a bare `git merge`, which is precisely what the door exists to prevent.**
+
+### ⛔⛔ SO I SWEPT MY OWN TOOLING, AND FOUND THE SAME DEFECT ON A FENCE
+
+```
+11 scripts hardcode /home/jes/commonplace   (controls: pattern matches the bare path,
+                                             does NOT match commonplace-monolith)
+  9 only cd/read through it        -> the symlink resolves; UNAFFECTED
+  2 COMPARE it                     -> BOTH BROKEN
+```
+⛔ **`sol-egress-run.sh` — the fence that REFUSES to run Sol against the live checkout.** It matched
+`/home/jes/commonplace|/home/jes/commonplace/*` against `readlink -f "$WORKDIR"`, which now yields
+the **physical** path ⇒ ***`SOL_WORKDIR=/home/jes/commonplace` was ALLOWED for about five hours.***
+⛔ `sol-nudge.sh` — compared `/proc/<pid>/cwd` (also physical) to the literal path ⇒ **a silent zero;
+its finder could never match again.**
+
+✅ **Both arms, on real paths:**
+```
+BEFORE  SOL_WORKDIR=/home/jes/commonplace   ->  ALLOWED   ⛔ fence open, demonstrated
+AFTER   /home/jes/commonplace               ->  REFUSED
+        /home/jes/commonplace-monolith      ->  REFUSED
+        /home/jes/commonplace/apps          ->  REFUSED
+CONTROL /home/jes/cell-1/wt, /tmp/sol-work  ->  ALLOWED   (not over-broad)
+```
+✅ **EXPOSURE MEASURED, not assumed: every Sol run since 20:00Z used an isolated `sol-dirp*`
+worktree.** ⇒ **Nobody walked through the open fence.** *That is why this is a file entry and not a
+telegram — it broke, and it changed nothing he believes or can act on.*
+
+### ⭐⭐ THE RULE
+
+> ***A fence keyed on a PATH STRING is keyed on a NAME — and a rename is exactly the event that
+> separates a name from the thing it names.***
+
+⚠️ **The failure is SILENT IN THE PERMISSIVE DIRECTION**: a path fence that stops matching does not
+error, it **admits**. ⇒ *Compare a fence's subject by IDENTITY (device+inode, or a resolved path
+computed the same way on both sides) rather than by spelling — and if you must compare spellings,
+list every spelling the OS can produce.*
+⭐ **And the discriminating question was not "which files mention the path" (11) but "which files
+COMPARE it" (2).** *A count of mentions would have produced a nine-item cleanup that fixed nothing
+and missed the fence.*
+
+### ⚠️ WHAT MADE IT FINDABLE AT ALL
+
+**I performed that rename at 20:00Z and did not sweep for path-comparison fallout.** ⛔ **It surfaced
+because a peer hit an UNRELATED instance of the same defect and told me** — ⇒ ***the rename's blast
+radius was discovered by someone who was not the renamer***, which is §7x120's structural point
+arriving in tooling: *self-review does not find these, because the person who made the change is the
+one who believes it was cosmetic.*
+✅ **Standing: after any rename/move of a path that appears in tooling, grep for COMPARISONS
+(`show-toplevel`, `readlink`, `pwd -P`, `realpath`, `=` against a literal), not for mentions.**
