@@ -189,3 +189,16 @@ telegram would have been noise that evaporated in ten minutes.
 expensive, THEN this is a jes-shaped trade (a one-way door on merge semantics) and goes to him
 WITH the measured cost attached. IF (ii) is cheap, it closes silently and never reaches him.
 ⚠️ Do NOT convert this to a jes item on the mere passage of time.
+
+## ⏳ COMPACT PENDING for commonplace (tmux 0:3) — waiting on ITS durability confirmation
+Filed 2026-08-24T00:26Z. ctx=72%, over the 70 line. Durability pass requested (msg #15381).
+
+⛔ DO NOT COMPACT UNTIL IT CONFIRMS PUSHED. A compact before the state is durable throws away
+exactly what the compact is supposed to survive. Durable-to-a-compaction and durable-to-a-machine
+are different properties; only a push buys the second.
+⇒ THEN: tmux send-keys -t 0:3 C-u ; "/compact" ; Escape ; Enter
+⇒ THEN VERIFY BY EFFECT: ctx drops to ~0%. If mid-turn the command QUEUES and runs at turn end —
+  that is fine, keep watching. ⚠️ The verdict is the ctx number, never the send-keys returning.
+
+⚠️ IF I AM REPLACED BEFORE THIS COMPLETES: the worker is mid-build on the import reader adapter,
+narrowly unhalted for that task only (see .watch-halted). Its context is the risk, not its work.
