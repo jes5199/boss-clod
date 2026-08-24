@@ -30,3 +30,14 @@ commonplace-dir
       cadence outside commonplace-dir's semantics and forbids correctness depending on a timer.
       The correctness half is built and proven; the policy half belongs to a deployment.
       ⚠️ Do NOT let a future reader "finish" it.
+
+commonplace-merkle-crdt
+  ⛔ NOT RECORDED — and this is the THIRD instance of the same gap (commonplace-log-reducer and
+  yepochs were the first two, filed 2026-08-23T23:17Z; commonplace-log closed its own unprompted).
+  ⚠️ I am NOT inventing conditions for it. What is verifiable: it landed 98e36bb — epoch_id, DAG
+  retention, assemble/2, reducer_version 2 — and TWO other repos' open items name that work
+  (commonplace-dir's D-001, commonplace-doc's §11 materialization). Those are reasons someone may
+  need it, not conditions it agreed to.
+  ⇒ ACTION when next woken: ask it for its own wake conditions and get them into ITS README, not
+  only here. ⭐ A condition I write for another agent is a condition it never agreed to and will
+  never read — which is the half of the two-party mechanism that does not work.
