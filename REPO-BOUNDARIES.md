@@ -644,3 +644,28 @@ log  ->  reducers  ->  commonplace-doc (document)  ->  directory  ->  cell
 | Verb mount semantics and invocation plans | `commonplace-doc` |
 | Persistence, routing, capabilities, runtime execution | Environment/host |
 | Paths, directory snapshots, lineage copy-on-write | Directory/Cell layers |
+
+### 24. ⚠️ RECORDED CROSSING — `commonplace` reads `yelixer` INTERNALS in the import reader
+
+**2026-08-24T00:29Z, declared by `commonplace` before it could be discovered.**
+
+**This is the FIRST commonplace code to read `Yelixer.BlockStore` / `%Yelixer.Item{}` / `doc.types`
+directly.** ⛔ **No public yelixer API exposes the nested-vs-plain distinction**, and **yelixer is a
+separate public repo commonplace cannot change.**
+
+⭐ **WHY IT IS NEEDED:** a rendered value cannot distinguish a nested Y-type from a plain JSON value
+(§7x125). The distinction exists at the item level — `{:type, type_ref}` vs `{:any, [value]}` — and
+is destroyed by `to_json`. **Without reaching the item layer, import silently re-chooses the merge
+behaviour of every nested structure, unrecoverably.**
+
+✅ **HOW IT IS CONTAINED** — all three declared, not discovered:
+- confined to **three private functions**
+- **pinned by the granularity test**, so the coupling breaks loudly rather than silently
+- **an unrecognised sub-type kind REFUSES rather than silently flattening**
+
+⇒ ⭐ **Its own framing, and the reason this is filed rather than escalated:** *"if that boundary
+should not be crossed, it is cheap to revisit now and expensive later."*
+⚠️ **NOT escalated to jes tonight**: he asked for the reader, this is how the reader can be correct,
+and the containment is real. ⛔ **REVISIT IF** yelixer gains a public API exposing the nested-vs-plain
+distinction (⇒ move to it), **OR** the coupling spreads beyond those three private functions
+(⇒ it stops being a contained crossing and becomes a dependency).
