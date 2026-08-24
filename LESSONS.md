@@ -19735,3 +19735,45 @@ I tested the script's pattern using my interactive `grep` — **which is the ugr
 binary the script runs** ([[reference_grep_wrapper_honours_gitignore]]). Both happened to agree here,
 but they are **different instruments**, so the test was not testing the thing it claimed to.
 ⇒ **Test a script's predicate with `command grep`**, matching what the script actually executes.
+
+## 7x147 — "it's just docs" is how a gate gets bypassed without anyone deciding to bypass it
+
+**2026-08-24T17:46Z, commonplace-doc, discovered by the script REFUSING it.** Its plan commits carry
+`ARM:` markers that are **red by design** until the round lands, and `land-round.sh` (under
+`pipefail`, correctly) will not push a red main. ⇒ **Every earlier plan commit that day had bypassed
+the script BY CONSTRUCTION** — pushed directly, never noticed, *"because they were just docs."*
+
+⭐ **Nobody decided to skip the gate.** A CATEGORY got quietly exempted — and the exemption was
+invisible precisely because it sounded like a description rather than a decision. ⛔ This is the
+routed-around gate from [[reference_gate_verification_both_arms]]: it leaves **no diff, no ticket, no
+failing run**, and it is protected socially rather than technically, so no tooling finds it.
+
+⚠️ **It pairs with this morning's:** doc had a gate it used for *Sol's* commits and not its own —
+*"a gate that applies to other people's commits and not yours is decoration for exactly the commits
+you are most confident about."* ⇒ **Two exemptions, both by category, neither ever chosen:
+by AUTHOR, and by CONTENT TYPE.**
+
+✅ **The fix is the right shape because it removes the exemption rather than remembering it:** plans
+carry `ARM-PLANNED`; the ROUND promotes them to `ARM` as the first step, so main stays green for
+unlanded work and the worktree goes red the moment Sol promotes — and the brief must **report seven
+MISSING before implementing**. *The gate now has a green arm for the legitimate case, so nothing
+needs to route around it.*
+
+### ⭐ Four instances of one shape in a single day, across four repos
+
+| repo | the check that could not see | found by |
+|---|---|---|
+| commonplace-log | red arm inert — sorting is deterministic on both replicas | a pre-registered sabotage that failed to fail |
+| commonplace-dir | arms gate run only for the newest round; 3 arms red since P1 | running every round's file once |
+| commonplace-merkle-crdt | id-collision gate blind; **2 of its own fixtures colliding since before today** | pointing something stricter at the OLD corpus |
+| commonplace-doc | land-round.sh bypassed for "just docs" | the script finally refusing it |
+
+⇒ ⭐ **Every one was found by aiming an EXISTING check at a corpus it had never been aimed at.**
+Not by writing a new check. **The cheapest audit available is to run what you already have against
+everything you already have.**
+
+### ✅ Unrelated, and the good news of the hour: the attribution fix (§7x146) held on a fresh subject
+
+doc's phase-14 codex resolved `-C /home/jes/sol-docp14/wt` → `commonplace-doc` and the pane watch
+read `WAITING` with **zero manual `.awaiting-watcher` entries**. ⭐ The bookkeeping step that I kept
+forgetting no longer exists to forget.
