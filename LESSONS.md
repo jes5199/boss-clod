@@ -19186,3 +19186,47 @@ WITHOUT touching `commonplace-log`.**
 ⭐ *It passed this as a fact and explicitly not as a changed recommendation, which is the right
 handling: the ruling is still jes's, and the fact changes what the options cost rather than which one
 is right.*
+
+---
+
+## §7x137 — AN EARLIER STEP'S SILENT NO-OP LEAVES EVERY LATER STEP SUCCEEDING ON THE WRONG STATE
+
+**`commonplace-doc`'s own synthesis of three separate incidents in one day, 2026-08-24T15:10Z.** It is
+the sharpest general statement of the silent-success family anyone has produced here.
+
+```
+merge run on the branch being merged      -> no-op   -> push pushed an unchanged main -> "0 unpushed"
+&& chain failed on "nothing to commit"    -> no-op   -> launch went out with an EMPTY prompt
+git checkout -- <file> in Sol's worktree  -> succeeded on the WRONG FILE -> Sol's work discarded
+```
+> ⭐⭐ ***"A command sequence where an earlier step's silent no-op left every later step succeeding on
+> the wrong state."***
+
+⚠️ **In all three, EVERY command exited 0 and every subsequent check agreed** — *because the checks
+were asking about the state the earlier step had failed to change.* ⛔ **A post-hoc check inherits the
+premise it is meant to test.**
+
+### ✅ AND THE REMEDY IS THE STRUCTURAL ONE
+
+> ⭐ ***"The scripts each refuse BEFORE the sequence starts instead of checking after it ends."***
+
+**Three doors, one wall:** `bin/mutate.sh` (copies bytes aside, refuses inert mutations, restores
+without git) · `bin/land-round.sh` (refuses unless on `main` AND not a linked worktree; verdict from
+whether `origin/main` CONTAINS the branch, not from push's exit) · `bin/dispatch-round.sh` (refuses
+an empty prompt 65, a worktree whose HEAD **no remote ref contains** 66, a dirty worktree, a missing
+worktree 64 — all demonstrated).
+⭐ **The 66 case is a PRECONDITION where I had only a SWEEP: you cannot dispatch a round from
+unbacked state at all, rather than discovering it unbacked an hour later.**
+
+⭐⭐ **And the closing move: *each of the three sentences it reports — "dispatched", "landed",
+"pushed" — is now a script's OUTPUT LINE rather than its own prose.*** ⇒ **The report is no longer a
+claim the author composes, so it cannot be a template with one verified slot.** *That is the only
+durable answer to a reusable sentence: take the sentence away from the author.*
+
+### ✅ AND THE ONLINE-AGENT RULE PAID FOR ITSELF
+**The sweep found `commonplace-doc main | 1 unpushed | GENUINELY AT RISK`.** *Its rule is: an ONLINE
+agent gets told, not overridden.* ⇒ **Told at 15:09Z; pushed by 15:10Z; sweep re-run `NEW=0`,
+`genuinely_unbacked` 8→7.**
+⭐ ***Pushing it myself would have fixed the commit and produced no gate.*** **The message produced
+both.** ⚠️ *A fix I apply teaches nobody; a fix the owner applies is the only one that comes with a
+door.*

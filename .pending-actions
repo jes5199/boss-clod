@@ -208,7 +208,12 @@ are different properties; only a push buys the second.
 ⚠️ IF I AM REPLACED BEFORE THIS COMPLETES: the worker is mid-build on the import reader adapter,
 narrowly unhalted for that task only (see .watch-halted). Its context is the risk, not its work.
 
-## ⏳ commonplace-doc main: 1 unpushed — FIRST SIGHTING 2026-08-24T15:11Z
+## ✅ CLOSED 2026-08-24T15:12Z — pushed by the agent, one sighting, no second needed
+  origin/main 34703c19, 0 unpushed, 0377b3b on origin, sweep re-run NEW=0 genuinely_unbacked 8->7.
+  ⭐ The online-agent rule paid: a message rather than a push resolved it in two minutes AND
+  produced a gate, which pushing it myself would not have.
+
+## [CLOSED] commonplace-doc main: 1 unpushed — FIRST SIGHTING 2026-08-24T15:11Z
 "phase 7: planned and dispatched" (0377b3b7). origin/main is dddb6457. Unreachable from any remote ref.
 
 ⭐ Found manually at 15:09Z while verifying its round, then CONFIRMED INDEPENDENTLY by the sweep at
