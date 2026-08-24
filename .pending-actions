@@ -46,9 +46,14 @@
   ⭐ This is the demonstration we agreed not to manufacture artificially — it costs nothing.
 
 2026-08-24T10:00Z  FABLE WEEKLY RESET — fable-recovery-check.sh flips to RECOVERED.
-  Affected: hermes(asked=fable, running=Opus 5) · commonplace-log(asked=claude-fable-5, running=Opus 5).
-  ⛔ Do NOT switch hermes without asking — live money. Telegram jes with the affected list and
-  let him choose per worker; a fresh launch holds better than in-session /model but costs context.
+  ⏳ STILL OPEN AT 17:33Z: hermes ONLY. commonplace-log was RESOLVED 16:21Z (jes asked for it on
+  Fable for the README work; relaunched, statusline confirms [Fable 5]) — do not re-list it.
+  ⛔ Do NOT switch hermes without asking — LIVE MONEY. Asked jes 10:09Z, mentioned again 16:32Z.
+  ⚠️ UNANSWERED, NOT DECLINED — and I am deliberately NOT re-asking on the hourly loop.
+  ⭐ WHY THE SILENCE IS CORRECT: jes's standing rule is ask ONCE; a pending question repeated in a
+  recurring report is noise that trains him to skim, which costs the reports that matter. The
+  Opus fallback is EXPLICITLY fine by his 2026-07-06 directive — nothing is broken while it waits.
+  ⇒ FOLD IT INTO the next substantive hermes-or-quota update rather than sending a standalone ping.
 
 ⏳ WHEN RETENTION / GARBAGE-COLLECTION WORK IS NEXT RAISED — place a SUNSET note there.
   jes, 2026-08-23T21:25Z: "Until retention and garbage-collection semantics exist, bases are
