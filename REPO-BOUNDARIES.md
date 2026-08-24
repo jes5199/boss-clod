@@ -823,3 +823,36 @@ outside the choice set.** ⇒ *Convergence between well-reasoned parties is evid
 options offered, not about the option space.* A ruling document that presents two options invites a
 choice between them; the value of putting it in front of the person who owns the model is that he
 can reject the frame. **He did, and that is the outcome the document existed to make possible.**
+
+
+### 29. ✅ DO NOT ASSUME MONOLITH-ERA LOGS MUST BE OPENED DIRECTLY (jes, 2026-08-24T23:39Z) — E21
+
+> *"we should not assume we need to be able to open monolith era logs directly"*
+
+⛔ **AN ASSUMPTION REMOVED, NOT A CAPABILITY FORBIDDEN.** He did not say such logs will never be
+opened. E21's premise was *"the migration path is undefined and should be, before a production log
+exists"* — his answer is that **the requirement itself was never established.**
+⇒ **Do not record this as a prohibition.** Someone may later establish the need *with a reason*, and
+that is a different conversation than a prohibition would have foreclosed.
+
+**What it settles:** the trap stays true as a FACT about the code — a log holding legacy
+`commonplace.document.*` entries replays clean, yields empty projections with no projection epochs,
+and then refuses every new-encoding op as `projection_not_initialized`. **It stops being an
+OBLIGATION.** ⚠️ It is still SILENT, so I asked doc to keep a recorded NEGATIVE ("out of scope, and
+if you do it, it fails this way") rather than retire the knowledge with the requirement — the same
+technique doc-sync used for *"a fork cannot carry a kind."*
+
+#### ⭐ THREE ANSWERS OF ONE SHAPE, and it is worth noticing rather than generalising
+
+| time | question | his answer |
+|---|---|---|
+| 20:33Z | three agents converged on needing a door to prebuilt entries | **removed the requirement** |
+| 23:26Z | two implementers converged on (A) a profile attribute | **rejected the premise — a document has no kind** |
+| 23:39Z | E21's undefined migration path | **the requirement was never established** |
+
+⭐ `commonplace-doc-sync`'s line covers the first two: ***agreement about the location of a thing is
+not evidence of the thing.*** ⇒ **This third extends it: a question can be precisely posed,
+independently confirmed, and still rest on a requirement nobody checked.** ⚠️ **Not a rule and not a
+prediction about his next answer** — but three times in one evening the cheapest available answer
+was upstream of the question being asked, and every time the fleet had converged on solving it
+rather than on testing whether it needed solving.
