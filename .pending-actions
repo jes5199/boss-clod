@@ -207,3 +207,20 @@ are different properties; only a push buys the second.
 
 ⚠️ IF I AM REPLACED BEFORE THIS COMPLETES: the worker is mid-build on the import reader adapter,
 narrowly unhalted for that task only (see .watch-halted). Its context is the risk, not its work.
+
+## ⏳ commonplace-doc main: 1 unpushed — FIRST SIGHTING 2026-08-24T15:11Z
+"phase 7: planned and dispatched" (0377b3b7). origin/main is dddb6457. Unreachable from any remote ref.
+
+⭐ Found manually at 15:09Z while verifying its round, then CONFIRMED INDEPENDENTLY by the sweep at
+15:11Z as NEW=1. Two instruments, same answer — worth noting because the ad-hoc check came first and
+the sweep is what would have caught it anyway.
+
+✅ Agent is ONLINE and was told at 15:09Z (msg 15420). It is mid-Sol-round (sol-docp7 live). Per the
+sweep's own rule, a first sighting on an online agent gets a message, NOT a push out from under it.
+
+⛔ DELIBERATELY NOT ACKED in .sweep-acknowledged. An ack would move it out of NEW= and I would skim
+past it. It should keep reporting as NEW until it is actually pushed.
+⇒ ON THE NEXT SWEEP, IF STILL UNPUSHED: that is the second sighting, and the rule is push it myself.
+A push of an existing local branch to its existing upstream is a pure addition.
+⚠️ Its own bin/land-round.sh does NOT cover this: that tool governs LANDING A BRANCH, and this is a
+plain commit to main that never went through it. A fix to one path is not a fix to the class.
