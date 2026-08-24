@@ -9,4 +9,7 @@
 # ⇒ pid gone  => the entry stops suppressing and the stall is reported again, loudly.
 # ⛔ Do NOT write an entry without a pid. A watcher you cannot check is a remembered rule.
 # format: name|pid|what it wakes on|note
-commonplace|3348897|gh run 32677343403 RUN COMPLETE (breaks on status==completed regardless of conclusion, so a red wakes it as loudly as a green)|armed 00:37Z, verified alive 00:48Z at 487s
+# RETIRED 2026-08-24T00:52Z — that watcher FINISHED (run 32677343403 completed, conclusion
+# failure) and exited as designed. ⭐ Retiring it because a record pointing at a pid that will
+# never return is a stale claim about a live mechanism — the same defect as a wake condition whose
+# trigger already fired. An entry here must be armed NOW, not once.
