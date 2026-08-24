@@ -40,3 +40,14 @@ commonplace-merkle-crdt
   drift, and the copy in the WAKER'S file is the one nobody who acts on it will read.
   ⭐ Third and last of the unrecorded-wake gaps filed 2026-08-23T23:17Z. All three closed by the
   worker writing its own, never by me writing one for it.
+
+yepochs
+  ⚠️ RECORDED BY BOSS ONLY — its own README does not carry these. Asked it at 15:44Z to move them
+  into its repo, as commonplace-merkle-crdt just did. Until it does, this is half a mechanism.
+  (1) ✅ FIRED 2026-08-24T15:44Z — BOTH halves at once: "merkle-crdt's epoch awareness advances"
+      (per-epoch Doc, epoch_crossing retired, reducer_version 2→3) AND "anyone touches epoch minting
+      rules" (jes's ruling 26). Woken with the feasibility question that merkle correctly scoped OUT
+      of its own repo: can the boundary token be minted DETERMINISTICALLY, given a 2-parent opener
+      needs an order rule and a minting version must ride along.
+  (2) ⚠️ DO NOT TIDY: test/epoch_boundary_test.exs protects FORK PUSH-BACK and must not be collapsed
+      into "every fork mints an epoch". Recorded when it retired; more relevant now, not less.
