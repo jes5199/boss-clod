@@ -323,3 +323,14 @@ plain commit to main that never went through it. A fix to one path is not a fix 
   corpus). The fleet only went properly idle ~20:10Z. ⇒ THE TEST IS THE NEXT QUIET HOUR. If the
   rate stays ~3 pct/hr through a genuinely idle stretch, my explanation was wrong and jes should
   hear the corrected version, because he has a burn number from me that assumes it drops.
+
+2026-08-24T20:38Z  ⏱ IDLE-WINDOW CLOCK STARTS — this anchors the burn-rate test recorded at 20:27Z.
+  All 8 watched workers now STOPPED/PAUSED/RETIRED with named triggers; 0 codex rounds; 0 subagents.
+  Last substantive work landed ~20:02Z (dir's re-pin). Treat 20:10Z as the honest start of idle.
+  ⇒ FABLE AT THE ANCHOR: 19% at 20:27Z.
+  ⇒ THE TEST: at the next fable check after a full idle hour, compute the rate across THIS window.
+     · rate falls well below ~3 pct/hr  -> my explanation to jes (activity-driven) HELD.
+     · rate stays near ~3 pct/hr        -> MY EXPLANATION WAS WRONG. He is holding a burn estimate
+       from me that assumes it drops, so the corrected version goes to him.
+  ⛔ Do not evaluate this against a window that contains new dispatches. If work resumes, the clock
+     restarts — say so rather than quietly reusing a contaminated window.
