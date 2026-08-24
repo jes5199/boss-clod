@@ -278,3 +278,22 @@ plain commit to main that never went through it. A fix to one path is not a fix 
     the other way. Either both survive or one is narrowed — and the narrowing must be WRITTEN AS A
     DECISION rather than falling out again. ⛔ Do not let a second unruled shape fall out of the fix
     for the first one.
+
+2026-08-24T19:28Z  ⏳ HOLDING — hand over on jes's NEXT contact, do NOT send as a fresh ping.
+  merkle answered the boundary-order gap (doc recorded it at origin/main 7ea9723): it leans (ii),
+  and THREE REPOS NOW AGREE — yepochs, merkle, doc — all stopped on the same ruling.
+  ⭐ merkle's reason is STRUCTURAL, not preference, and it is the sentence to give jes if he asks:
+    for an ORDINARY merge, which parent sits in parent_id is semantic (mainline) and stays as
+    carried. For an OPENER it is MEANINGLESS BY CONSTRUCTION — the opener stands alone, nothing
+    after the boundary refers back through either parent, so "mainline" names nothing.
+    ⇒ MEANINGLESS-BUT-HASHED is exactly what yields two ids for one content.
+  ⇒ So they canonicalise PRECISELY THERE (opener parents byte-lexicographic, smallest in parent_id,
+    the SAME order yepochs uses for the token, so token and id agree) and, because admission already
+    recognises an opener by property, they VERIFY it: an opener with non-canonical parent order is
+    REFUSED. ⭐ (ii) is a GATE; (i) is an ASSUMPTION NOBODY CAN CHECK.
+  ⇒ THE ASK IS NOW ONE RULING WITH TWO CLAUSES: epoch tokens minted from inputs by yepochs'
+    formula, AND opener parent order canonical-and-verified. merkle adds it to v5 only if jes
+    rules it. Nothing proceeds until he does.
+  ⚠️ WHY I AM NOT SENDING IT: I told him at 19:27Z that doc recommended (ii) and merkle had been
+    asked. This CONFIRMS that expectation rather than changing his decision. Three messages in
+    three minutes on one topic is the pattern that trains him to skim.
