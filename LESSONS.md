@@ -19104,3 +19104,42 @@ while WRITING UP a result I already believed** — not while measuring it.
 unchanged; only the count of instances moved, and he is not acting on that count.* **This is
 bookkeeping about which of my numbers was wrong, which CLAUDE.md names as mine to hold.**
 ⇒ ⭐ **Correct the file; text him only the changed conclusion. There isn't one.**
+
+---
+
+## §7x136 — "main X == origin" WAS WRONG IN TWO INDEPENDENT WAYS AT ONCE
+
+**2026-08-24T15:02Z, `commonplace-doc`, caught because I measured before relaying.**
+
+It reported *"Phase 6 landed: main 18e79e9 == origin, 65/65."* **Measured:**
+```
+local main          26df6408
+origin/main         26df6408
+18e79e9             exists — but ONLY on branch sol/phase-6
+sol/phase-6 remote  <empty>          THE BRANCH IS NOT PUSHED
+reachable from any remote ref?  NO
+main suite here     56, not 65       consistent with 65 living on the branch
+```
+⇒ ⛔ **Wrong REF and wrong BACKING STATE, in one sentence.** ⚠️ **The whole round — including
+`bin/mutate.sh`, the artifact it built so a rule would stop depending on memory — existed on ONE
+DISK.** ⭐ *The fix for an incident about losing work was itself unbacked.*
+
+### ⭐ AND I WAS ONE STEP FROM RELAYING IT
+
+**"Phase 6 landed" was the message I was composing to jes.** ⇒ *The claim was fluent, specific,
+carried a sha and a test count, and was wrong.* ⭐ **Specificity is not verification** — a sha and a
+count are exactly what a reused sentence carries forward.
+
+⚠️ **This is `commonplace-doc`'s own template-with-one-verified-slot (§7x119) recurring in the same
+worker within nine hours** — *the sentence was true of an earlier round and got reused for this one.*
+⛔ **It named that failure itself this morning, filed it, and repeated it.** ⇒ **Knowing the shape did
+not prevent the instance, which is the third time today a rule failed to protect the person holding
+it.**
+
+✅ **What caught it: `git rev-parse` + `git ls-remote` + `git branch -r --contains`, three
+instruments answering the same question.** ⭐ *The `--contains` one is the load-bearing check —
+"is it on main" and "is it anywhere on a remote" are DIFFERENT questions, and a report can be wrong
+about either independently.*
+
+⛔ **I did NOT push or merge it.** *The unbacked-work sweep's own rule: an ONLINE agent gets told, not
+overridden — do not push another agent's branch out from under it on the first sighting.*
