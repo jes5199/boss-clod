@@ -19020,3 +19020,46 @@ meter 100%  a worker on Fable -> WEDGED, as before                              
 inherits an assumption nobody restated.** ⚠️ *I fixed one branch this morning and did not ask what
 else in the file assumed exhaustion — which is `commonplace`'s own rule, unapplied: when a tool
 breaks on a state change, treat it as a SAMPLE, not an incident.*
+
+---
+
+## §7x134 — `| grep -v grep` DELETES REAL MATCHES WHEN THE TARGET'S ARGV CONTAINS "grep"
+
+**2026-08-24T14:40Z, mine, checking whether `commonplace-dir`'s Sol round was still alive.**
+```
+ps -eo pid= -o args= | grep '\-C /home/jes/sol-dir-p9r/wt' | grep -v grep   ->  NONE
+same, without the `grep -v grep`                                            ->  3724507
+/proc scan for the same string                                              ->  4 processes
+```
+⇒ ⛔ **The round was RUNNING** — pid alive, `run.log` at 299 KB and growing, 5 dirty files in the
+worktree. **My instrument said it was gone.**
+
+### ⭐⭐ THE MECHANISM
+
+**Sol's argv EMBEDS THE ENTIRE BRIEF.** dir's brief is about reconciling error surfaces *by
+measuring*, so **the string `grep` appears 3 times in that command line** ⇒ **the idiomatic
+`| grep -v grep`, which exists to drop the pipeline's own `grep` process, dropped the REAL MATCH.**
+
+> ⚠️ ***The filter is keyed on a word that the payload can legitimately contain*** — and the richer
+> the argv, the likelier it is. **An agent dispatching a brief about measurement is the maximally
+> likely case.**
+
+⛔ **And the failure direction is the dangerous one: a FALSE ABSENCE.** *"No process" and "a process
+whose command line mentions grep" are the same observable through that pipeline* — and absence is
+what I was testing for. ⭐ *I was one step from telling an agent its round had ended while it was
+writing to disk.*
+
+### ✅ WHAT TO USE INSTEAD
+```
+pgrep -f PATTERN                     # pgrep excludes ITSELF by construction — no filter needed
+                                     # ⛔ but see the standing rule: never a pattern matching your own cmdline
+ps -eo pid=,args= | awk '$1!=MYPID'  # exclude by PID, which is what you actually meant
+/proc/<pid>/cmdline scan             # no shell in the loop at all — what settled this
+```
+⭐ **The general form: NEVER filter a process list by a STRING THAT DESCRIBES YOUR OWN TOOL. Filter
+by IDENTITY — your pid, your pgid — because that is the thing that is actually different about you.**
+*Same family as resolving BEAMs by identity rather than cmdline grep, and as the `pkill -f` rule that
+a pattern matching your own command line kills the shell issuing it.*
+
+⚠️ **This idiom is everywhere, including in my own scripts and the fleet's.** *It has been silently
+correct only because argv payloads were short.*
