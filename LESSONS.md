@@ -18788,3 +18788,38 @@ bookkeeping; it was the difference between investigating and dismissing.*
 ■ **And the comment at the old site records what happened rather than being deleted** — *so the next
 person reaching for `db_handle/1` there learns why before CI tells them.* ⭐ **Placement over
 content, again: the explanation lives where the mistake is made, not where it was discussed.**
+
+### ✅ ADDENDUM — GREEN, AND THE COMPARISON THAT MAKES A GREEN MEAN SOMETHING
+
+**Run `32678034910`: success. And the population is UNCHANGED, which is the half that matters:**
+```
+red   32677343403:  3816 tests, 1 failure   · 126 · 276 · 158 · 136   all 0
+green 32678034910:  3816 tests, 0 failures  · 126 · 276 · 158 · 136   all 0
+```
+⇒ ⭐ **One FAILING test became a PASSING test — the corpus did not SHRINK.** ⚠️ *"Green" alone cannot
+distinguish those, and a green bought by a smaller run is the cheaper and commoner way to get one.*
+✅ **`commonplace`'s guard makes it a number rather than an argument: `selected 4512 across 5 apps,
+floor 4100` in BOTH runs.** ⭐ *A floor turns "did I still run everything?" from a thing you assert
+into a thing that fails.*
+
+### ⛔ AND MY OWN CHECK OF THAT WAS BLIND TO THE ONLY INTERESTING CASE
+
+My first pass used `grep -oE '[0-9]+ tests, [0-9]+ failures'`. ⛔ **A single failure prints
+`1 failure` — SINGULAR.** ⇒ **The red run's `3816 tests, 1 failure` line NEVER MATCHED, and the row
+came back looking like FOUR apps instead of five.**
+> ⭐⭐ **A count pattern that cannot match the singular is blind to exactly the case worth finding —
+> the run with ONE failure.**
+⚠️ *And the output was plausible: four real rows, no error, nothing to suggest a fifth existed.*
+✅ **Fixed with `tests?, [0-9]+ failures?`.** ⭐ *Plural-only patterns are a silent-zero family member
+I had not filed: the boundary case the regex excludes is usually the boundary case you are hunting.*
+
+### ⭐ AND IT DECLINED TO MERGE FROM A GREEN
+
+> *"Merge is a change to main and my lift was scoped to building the reader and taking it through
+> CI — that is your call or jes's, not mine to assume from a green."*
+
+⇒ ✅ **Correct, and I did not override it.** **My lift said "write the reader"; extending it to cover
+a merge would be me widening the scope I had just told jes was narrow** — *§7x123's "the wider
+reading of a terse instruction is the one that never gets challenged", committed by the person who
+filed it, one hour later.* **Put to jes instead.**
+⭐ ***A green is evidence about the code. It is not authorisation.***
