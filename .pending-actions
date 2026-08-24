@@ -419,3 +419,17 @@ plain commit to main that never went through it. A fix to one path is not a fix 
   ⛔ STILL: this shortens the transitive path to the gated state. The rule is unchanged and
     state-shaped — the monolith depending on yepochs BY ANY PATH is a NEW decision. Recorded, not
     escalated; nothing has produced that state.
+
+2026-08-24T23:31Z  ⚠️ BURN MODEL UPDATED — my own number to jes needs a third figure, recorded now
+  rather than after the fact.
+  Fable 25%. Readings: 7(16:21) 10 13 16 19(20:27) 19(21:27) 19(22:27) 25(23:31).
+  ⇒ THREE rates, not two:
+      IDLE      0.0 pct/hr   (the 20:27-21:27 test, closed and verified uncontaminated)
+      ACTIVE    2.9 pct/hr   (16:21-19:29, the figure I gave jes at 19:29Z)
+      PEAK      5.6 pct/hr   (22:27-23:31: phase 17 landing + merkle v5 AND v6 + two dir re-pins)
+  ⛔ THE PEAK IS NEARLY 2x THE "ACTIVE" RATE I QUOTED HIM. My 19:29Z ceiling of ~29h to exhaustion
+    used 2.9/hr; at 5.6/hr it would be ~13h. Neither is a forecast — the fleet is idle again as of
+    23:23Z — but if I quote a burn figure again I must give ALL THREE or I understate the tail.
+  ⇒ NOT TEXTED: he had a full status at 23:29Z and the fleet went idle at 23:23Z; 25% with 6.4 days
+    of window left and nothing running is not an actionable change. Fold into the next quota report.
+  ⓘ hermes still settled-by-non-objection on Opus. Unchanged, do not re-raise.
