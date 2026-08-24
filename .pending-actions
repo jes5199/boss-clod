@@ -120,7 +120,14 @@ this alone — the write costs a wake, and the condition is not yet live.
   boundary. Nothing is blocked on the answer.
 ⭐ IF he unhalts the monolith, that becomes commonplace-doc-sync's WAKE CONDITION 4.
 
-## UNOWNED: the import reader adapter needs the source stack's storage format
+## ✅ CLOSED 2026-08-24T00:14Z — jes: "uh yes reader"
+⇒ commonplace (the monolith worker, tmux 0:3) UNHALTED FOR THIS TASK ONLY and dispatched 00:15Z.
+  commonplace-plan remains halted; the original 19:51Z halt was on AUTOMATIC work and a direct
+  instruction is not that, but the lift is SCOPED to the reader — "he named one task" and "the
+  halt is over" are different facts and only one is in his message.
+⭐ This fired commonplace-doc-sync's wake condition 4, which existed because it wrote it down.
+
+## [CLOSED] UNOWNED: the import reader adapter needs the source stack's storage format
 Filed 2026-08-23T23:20Z from commonplace-doc-sync (4369372, on origin).
 
 ⭐ It wrote import as an EXTENSION POINT, not a design — deliberately, because which half of

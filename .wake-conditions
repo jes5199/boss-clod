@@ -12,7 +12,8 @@ commonplace-doc-sync
   it fired almost immediately and then sat unnoticed for 2h14m. It is a CHECK not a BLOCK
   (2) a published shape changes — commonplace-doc's head-selection command or event, since v0.2 §5's seam rule holds only while from/to mean the same thing on both sides
   (3) jes rules on E1's merge-base schema. ⚠️ MIRRORED FROM ITS README 23:31Z — my side previously held the NAME ONLY, which is not a wake condition. Its README is the durable copy
-  (4) ⏳ CONTINGENT, not yet a condition — jes UNHALTS commonplace-monolith for the import
+  (4) ✅ FIRED 2026-08-24T00:14Z — jes answered "uh yes reader". commonplace UNHALTED FOR THAT
+      TASK ONLY and dispatched. doc-sync notified. [was: ⏳ CONTINGENT, not yet a condition] — jes UNHALTS commonplace-monolith for the import
       reader adapter. ⚠️ Marked contingent deliberately: a condition that fires on an event that
       MAY NEVER OCCUR is different from one that fires on a landing, and doc-sync marked which.
       Added 23:50Z after jes ruled IMPORT (23:48Z, "uh i guess i mean import").
