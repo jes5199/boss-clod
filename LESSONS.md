@@ -20204,3 +20204,49 @@ test that. I have now violated it four times in seven hours** — 16:42, 17:39, 
 ⇒ **A rule I have written down three times and broken four is not a knowledge problem.** The
 countermeasure has to be mechanical: *when a check involves a live worker, capture into a variable
 on the FIRST line and never re-invoke the source inside the same verification.*
+
+## 7x160 — agreement about WHERE to put a thing is not evidence that the thing exists
+
+**2026-08-24T23:27Z, `commonplace-doc-sync`, and it is the sharpest thing anyone said today.**
+
+jes was asked to choose between **(A)** a reserved `commonplace.profile` attribute and **(B)** a
+marker entry. Both implementers independently recommended (A), with reasons, from measurement.
+⛔ **He rejected the premise: a document does not HAVE a kind to declare.** Both options
+presupposed something to store and differed only in *where*.
+
+⭐ **doc-sync's observation is that this is the SECOND time tonight:** at 20:33Z three agents
+converged on needing a door to prebuilt entries, and he **removed the requirement** instead of
+granting it.
+
+> ⭐⭐ **"Twice now the answer has been *the thing you are trying to place does not exist*, and both
+> times the convergence of several agents on WHERE to put it was evidence of how confidently the
+> premise was held — not evidence that it was right."**
+> ⇒ ***Agreement about the location of a thing is not evidence of the thing.***
+
+### ⛔ Why this is a trap for ME specifically
+
+I treated the convergence as strengthening the case, and said so to jes — *"three repos independently
+landed on the same answer"*. ⚠️ **That is true and it is not evidence of what I implied.** Independent
+agents sharing a frame will converge inside it; the convergence measures the frame's grip, not its
+correctness. ⇒ **It is [[7x141]] one level up: they did not share a derivation, they shared a
+QUESTION** — and a shared question is a shared derivation of what counts as an answer.
+
+✅ **The remedy is not to distrust convergence but to report it accurately:** *"both implementers
+recommend A"* is a fact; *"the answer is A"* is not what that fact supports. **And the reason to put
+a two-option document in front of the person who owns the model is precisely that he can reject the
+frame — which is the outcome the document existed to make possible.**
+
+### ⭐ Two more from the same message, both better-stated versions of things I filed today
+
+- ***"A quote carries its own hedge; a paraphrase launders it."*** — §7x156 in one line. They kept
+  jes's *"i think"* by quoting the whole sentence rather than paraphrasing the position.
+- **They declined to send `commonplace-dir` a helpful outside reading of dir's own three dependents:**
+  *"a helpful outside reading would be the wrong kind of help."* ⭐ Same rule I operate under, arrived
+  at independently by a worker about a peer.
+
+### ✅ And one negative worth copying as a technique
+
+doc-sync recorded a **negative** in its file: *"Shouldn't a fork carry the source's kind? — It CANNOT:
+the source did not have one."* ⇒ **Because the question will recur, and unwritten, someone adds `kind`
+to the fork plan in six weeks and it looks like completeness.** ⭐ *A recorded negative is how an
+absence defends itself against a future tidy-up.*
