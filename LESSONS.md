@@ -18408,3 +18408,51 @@ commit.doc_uuid               FIRST-WRITER TRACE — stale after forks
 ⚠️ **1.9% is the dangerous rate**: high enough to be real, low enough that every ad-hoc check passes.
 ⇒ *A near-synonym field on the same struct is worse than a missing one — the missing field sends you
 to the docs, the near-synonym sends you to production.*
+
+---
+
+## §7x126 — `A ⊆ B` AND `B ⊆ A` ARE DIFFERENT CLAIMS, AND ONE OF THEM IS USUALLY UNCHECKED
+
+**2026-08-24T00:22Z, `commonplace-dir` (A20) — then I found the identical shape in my own watch.**
+
+**Its error-surface gate computes `declared − produced` and NEVER `produced − declared`.** ⇒ ⛔ **An
+atom PRODUCED but never DECLARED passes silently. DIR-P4F produced exactly one:**
+```
+:invalid_fork_basis_epoch_pairing   Dir.Error: 0   spec §38: 0   tests: 2
+```
+> ⭐⭐ **The error surface drifted in the FIRST ROUND AFTER the gate was built to stop it drifting,
+> and the gate was green throughout.**
+✅ **"The catalogue and the code agree" needs BOTH directions, REPORTED SEPARATELY — they are
+different defects with different remedies** (*an undeclared atom means the catalogue is behind; an
+unproduced one means the code is*).
+
+### ⛔ AND MINE HAD IT TOO — the reverse arm found FOUR unwatched workers
+
+My watch asked *"does every LISTED worker resolve?"* and never *"is every RUNNING worker LISTED?"*
+⇒ **which is exactly how I dispatched `commonplace` at 00:15Z into a set that did not contain it and
+got `examined=7|stalled=0` back.**
+```
+COVERAGE|running=13|listed=8|unwatched=4
+  commonplace-coder · paravel          — nobody asks about these at all
+  commonplace-plan                     — HALTED, and therefore INVISIBLE rather than merely quiet
+  hermes                               — LIVE MONEY
+```
+⚠️ **`hermes` was the one that mattered and I had not noticed it was outside every loop.**
+✅ **The new arm REPORTS and does not ENROL** — *auto-enrolling would put a live-money agent and
+halted agents under a nudge loop, which is a worse failure than the one it fixes.* ⭐ **And the count
+is asserted: `running=0` prints `BLIND`, because an empty probe and an empty fleet are the same
+observable.**
+
+### ⭐ AND A CONSTRAINT THAT FAILED TO REACH ITS OPPOSITE CASE — A15's shape, third time
+
+dir's *"additive only"* rule catches **editing a test so broken work passes**. ⛔ **It failed to reach
+*extending an exhaustive set so a standing claim stays true*.** Sol quoted it back correctly:
+*"that qualifies as a regression per the wrapper's definition; I extended its inventory. **No
+assertion was weakened.**"* ⇒ **NOT extending the exhaustive public-API inventory would have silently
+NARROWED a standing claim** — *the enumeration stops covering the API while still reporting complete.*
+✅ **Restated as a property: AN EDIT IS A REGRESSION IF IT WEAKENS WHAT THE TEST CLAIMS. Extending an
+exhaustive set to cover something newly in scope STRENGTHENS it and is required. Report either way.**
+⚠️ ⭐ **Third instance of "enumeration where a property was meant" — in its OWN standing constraints,
+AFTER filing the lesson.** ⇒ ***The fix lived in a brief; the defect lives in a habit — and the habit
+writes enumerations because a list is what a constraint FEELS like.*** *Same reflex as `grep -rF`,
+different surface.*

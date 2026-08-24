@@ -262,4 +262,34 @@ if [ -r "$_led" ]; then
 else
   echo "LEDGER|BLIND|REPO-BOUNDARIES.md unreadable at $_led"
 fi
+# ⛔⛔ 2026-08-24T00:23Z — REVERSE DIRECTION. commonplace-dir found its error gate computed
+# declared-minus-produced and never produced-minus-declared, so an atom produced but never
+# declared passed silently. ⭐ "A ⊆ B" and "B ⊆ A" are DIFFERENT CLAIMS and "the catalogue and
+# the world agree" needs BOTH.
+# ⇒ My watch had the identical shape: it asked "does every LISTED worker resolve?" and never
+# "is every RUNNING worker LISTED?" — which is exactly how I dispatched commonplace at 00:15Z
+# into a set that did not contain it and got examined=7|stalled=0 back.
+# ⚠️ This REPORTS and does not enrol. Auto-enrolling would put hermes (live money) and halted
+# agents under a nudge loop, which is a worse failure than the one it fixes.
+_me=boss-clod
+_unwatched=0
+while read -r _r; do
+  [ -z "$_r" ] && continue
+  [ "$_r" = "$_me" ] && continue
+  if ! grep -v '^#' "$WORKER_LIST" 2>/dev/null | grep -qx "$_r"; then
+    _note=""
+    grep -q "^${_r}[[:space:]]" /home/jes/boss-clod/.watch-halted 2>/dev/null && _note=" (HALTED — visible, not nudged)"
+    [ "$_r" = "hermes" ] && _note=" (LIVE MONEY — deliberate: never auto-nudge)"
+    echo "UNWATCHED|$_r|running but NOT in .watch-workers — no loop asks about it${_note}"
+    _unwatched=$((_unwatched+1))
+  fi
+done < <(ps -eo args= | grep -oE 'mcp-config-[a-z0-9-]+\.json' | sed 's/mcp-config-//;s/\.json//' | sort -u)
+# ⭐ the count is ASSERTED, not printed blind: 0 running workers means the PROBE failed, not that
+# the fleet is empty — the same distinction the LEDGER line makes.
+_runcount=$(ps -eo args= | grep -coE 'mcp-config-[a-z0-9-]+\.json')
+if [ "$_runcount" -eq 0 ]; then
+  echo "UNWATCHED|BLIND|found 0 running workers — probe failed, NOT an empty fleet"
+else
+  echo "COVERAGE|running=$_runcount|listed=${#WORKERS[@]}|unwatched=$_unwatched"
+fi
 echo "SUMMARY|$nowiso|resolved $found of ${#WORKERS[@]} windows|stuck_threshold=${STUCK_MIN}m"
