@@ -14,4 +14,4 @@
 # never return is a stale claim about a live mechanism — the same defect as a wake condition whose
 # trigger already fired. An entry here must be armed NOW, not once.
 # RETIRED 2026-08-24T01:06Z — run 32678034910 completed (success) and that watcher exited.
-commonplace|3371217|gh run 32678659194 (post-merge on main) RUN COMPLETE|filter checked: breaks on completed regardless of conclusion
+# RETIRED 2026-08-24T01:14Z — post-merge run 32678659194 completed (success); watcher exited.

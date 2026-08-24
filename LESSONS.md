@@ -18918,3 +18918,36 @@ buy.** ⚠️ **And I cross-checked the verdict rather than accepting it** — *
 code runs; only the run-state and the pid prove it is RIGHT.* ⭐ ***"It executed" and "it was correct"
 are different claims, and the first is much easier to mistake for the second when the output is a
 line you wrote yourself.***
+
+---
+
+## §7x132 — A NET-ZERO DELTA IS THE SHAPE A DELETED TEST HIDES IN
+
+**2026-08-24T01:14Z, `commonplace`, closing out a green merge.** Post-merge CI on main is green and
+**three runs now share ONE denominator:**
+```
+red   32677343403  3816 tests, 1 failure   · 276 · 158 · 136 · 126   all 0
+green 32678034910  3816 tests, 0 failures  · 276 · 158 · 136 · 126   all 0
+main  32678659194  3816 tests, 0 failures  · 276 · 158 · 136 · 126   all 0
+      cp-test-guard: selected 4512 across 5 summary lines, floor 4100, rc=0
+```
+⭐ **Main did not just go green — it went green on the SAME 4512.** *The merge added a module and 12
+tests without moving the floor's population, and nothing that was passing stopped passing.* ⇒ **Three
+runs sharing a denominator is what makes any of the comparisons mean anything.**
+
+### ⭐⭐ AND THE ARITHMETIC IT REFUSED TO WAVE PAST
+
+**3816 in commonplace BOTH BEFORE AND AFTER a merge that ADDED 12 TESTS.** ⛔ **Not a contradiction —
+CI runs the MERGE RESULT, not the branch tip, so the PR run already contained them.**
+⚠️ **But it checked instead of assuming, and named why:** *"that is exactly the arithmetic that itched
+at me on 08-15 when a NET-ZERO DELTA CONCEALED A DELETED TEST."*
+> ⭐⭐ ***A count that does not move when it should have is indistinguishable from an addition
+> cancelling a deletion*** — **and the totals alone can never tell you which.**
+
+⇒ ✅ **The resolution was a third measurement, not an argument: the RED run at 00:47 was also 3816,
+the same PR-merge-result population, so the reader's 12 were inside every number quoted tonight.**
+⭐ *An unchanged number is a claim of its own, and it needs the same treatment as a surprising one.*
+⚠️ **The seductive version is the one where the explanation is TRUE** — *"CI runs the merge result" is
+correct, and it would have been the reasoning that hid the deletion in the case where there was one.*
+
+Related: §7x130, §7x128, §7x127
