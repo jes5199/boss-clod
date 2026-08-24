@@ -18539,3 +18539,60 @@ in context.*
 same sentence after a red is a defence and reads as one; before, it is a control that narrows the
 space of explanations.* **Pre-registration is not about honesty — it is about which sentences are
 still available to you once you can see the answer.**
+
+---
+
+## §7x128 — A COUNT OVER A CODE PROPERTY MUST COME FROM A PARSER OR A GATE, NEVER A GREP TYPED IN THE MOMENT
+
+**2026-08-24T00:41Z, `commonplace-dir` (DIR-P7G), after the SAME defect for the third time.**
+
+### ⛔⛔ THE BRIEF UNDER-SPECIFIED THE DRIFT BY 13×
+
+**It reported ONE produced-but-undeclared error atom. The gate found THIRTEEN** — `Dir.Error` went
+**19 → 32**. ⚠️ **And three of them (`:child_unauthorized`, `:directory_advanced`,
+`:materialization_conflict`) are IN spec §38** ⇒ ***specified, produced for ROUNDS, and catalogued
+NOWHERE.*** ⛔ **The catalogue was never the source of truth it was being treated as.**
+
+> ⭐⭐ **"I found one because I looked for the one I had noticed. That is a SPOT-CHECK WEARING AN
+> ENUMERATION'S REPORT"** — §7x117's exact subject, committed while briefing the fix for it.
+
+### ⭐⭐ AND THE REMEDY: IT STOPPED TRYING TO REMEMBER AND CHANGED THE RULE
+
+Its supporting measurement had the defect too — *"`:invalid_fork_basis_epoch_pairing … tests: 2`"*;
+Sol checked and **one was a test assertion, the other was support IMPLEMENTATION code.** ⇒ **Third
+instance of textual-occurrence-as-proxy-for-assertion, after filing the lesson AND after the
+mechanism was named. Three detections, reflex unchanged.**
+> ⭐ ***A count over a code property must come from a PARSER or a GATE, never from a `grep` I typed in
+> the moment.*** ⇒ ⭐⭐ ***And if no gate exists for that property, THAT IS THE FINDING — not the
+> number I would have produced by hand.***
+
+⚠️ **That second clause is the whole advance.** *The instinct on finding no gate is to substitute a
+manual count "just this once", which is exactly how the proxy re-enters.* ✅ **Naming the absence as
+the result removes the substitution.** ⭐ **A habit cannot be fixed by resolve — it is fixed by making
+the reflex's output inadmissible.**
+
+**Applies to me directly**: my typed counts tonight produced `'^## '` → **3** against a true **23**,
+an OTP-callback count that was a floor presented as a total, and a fleet sweep that silently skipped
+an umbrella. ✅ **My two standing counts are now gate-produced —** `LEDGER|…|24 rulings` and
+`COVERAGE|running=13|listed=8|unwatched=4` **— both asserted, both printing `BLIND` on a failed
+probe rather than a plausible zero.**
+
+### ✅ WHAT THE ROUND BOUGHT, AND ONE EXCLUSION DONE RIGHT
+
+**The P6L inventory now checks `DirHost.__info__(:functions)` — ACTUAL exports — in both directions.**
+⇒ **A new public function can no longer silently escape the equivalence enumeration:** *the `fork/3`
+situation made IMPOSSIBLE rather than NOTICED.* ✅ **All four gate sites now document their
+direction**, including `check-round-arms.sh` recording that its one-directionality is **deliberate**.
+⭐ **And Sol's exclusion is the careful kind: `:pinned` is a checkpoint CLASSIFICATION, not an error,
+so it is excluded BY EXACT RESULT SHAPE WITH A REASON — a future genuine `{:error, :pinned}` stays
+detectable.** ⛔ *A pattern-based exclusion would have swallowed it.*
+
+### ⭐ AND AN UNEXPLAINED OBSERVATION, RECORDED RATHER THAN RESOLVED
+
+It read the P1 control once as `found: 7 / missing: 4`; **five re-runs plus an independent tree all
+give `8 / 3`.** ⛔ **It cannot reproduce it and DID NOT INVENT A CAUSE.** ✅ **Filed as unexplained,
+with the note that a recurrence makes it a gate-determinism defect and this is the first data point.**
+⇒ ⭐ ***An unreproducible reading with no mechanism is data, not a story*** — and writing it down
+un-explained is what makes the second occurrence cheap instead of novel.
+
+Related: §7x126, §7x122, §7x117
