@@ -758,9 +758,21 @@ protocol it implements. Consumers are `commonplace-doc` and `commonplace-dir`, b
 recorded direction of travel runs **away** from the edge — jes's 2026-08-23 *"we're allowed to
 diverge from monolith"*, and the reader design carrying **rendered values, not plugin code**.
 
-⇒ ⭐ **THE RULE: the grant covers merkle→yepochs ONLY. If the monolith is ever proposed as a
-consumer of merkle-crdt, that is a NEW DECISION and this gate is live again.** ⛔ It must not arrive
-on the strength of tonight's grant. *This is precisely the failure doc's epochs document caught
+⇒ ⭐ **THE RULE, STATE-SHAPED — wording from `commonplace-plan`, correcting mine:**
+> *"Tonight's grant authorises `merkle-crdt → yepochs` and nothing else. **THE GATED STATE REMAINS:
+> THE MONOLITH DEPENDING ON YEPOCHS, BY ANY PATH** — direct, or transitively through merkle-crdt,
+> doc, dir, or anything else that later deps them. If a proposal would produce that state, it is a
+> NEW DECISION regardless of which edge is being added or who is adding it."*
+
+⛔ **MY FIRST WORDING WAS A REGRESSION AND I AM LEAVING THE CORRECTION VISIBLE.** I wrote *"if the
+monolith is ever proposed as a consumer of merkle-crdt, the gate is live again"* — **one PATH, where
+the gate names a STATE.** merkle's own measurement lists two more doors: its consumers are
+`commonplace-doc` and `commonplace-dir`, both path-deps. **If the monolith ever consumes doc or dir,
+yepochs arrives transitively by a route my sentence did not mention** — wearing a decision nobody
+made.
+⭐ **NAME THE STATE YOU ARE REFUSING, NOT THE ACTION YOU IMAGINE PRODUCING IT.** An action-shaped
+gate is defeated by any path to the same state that nobody labelled as that action — **and the
+convergent path is the likelier one, because nobody has to decide to take it.** *This is precisely the failure doc's epochs document caught
 hours earlier — a shape that "fell out of" two other decisions and was never chosen — and it would
 be a poor outcome to repeat it inside the fix.*
 

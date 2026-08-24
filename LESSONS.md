@@ -20089,3 +20089,34 @@ A hedge is not decoration; it is the part of the claim that says how much weight
 ⇒ If a relay is too long to quote, the fix is to quote the hedged sentence and summarise the rest —
 **never the reverse.** ⚠️ Both catches came from jes questioning the flattened version. *He is not a
 substitute for the check; he is what the check failing looks like.*
+
+## 7x157 — I wrote an ACTION-shaped fence for a STATE-shaped gate, inside the record warning against exactly that
+
+**2026-08-24T22:39Z.** jes granted `merkle-crdt → yepochs`. I recorded the residual correctly in
+spirit — *the grant covers this edge only* — and then wrote the fence as:
+
+> *"If the monolith is ever proposed as a consumer of merkle-crdt, that is a NEW decision."*
+
+⛔ **One PATH. The gate names a STATE:** the monolith depending on yepochs, *in either direction of
+arrival*. `commonplace-plan` caught it using merkle's own measurement: **merkle's consumers are
+`commonplace-doc` and `commonplace-dir`, both path-deps.** ⇒ If the monolith ever consumes doc or
+dir, **yepochs arrives transitively by a route my sentence did not mention.**
+
+⭐ **NAME THE STATE YOU ARE REFUSING, NOT THE ACTION YOU IMAGINE PRODUCING IT.** An action-shaped
+gate is defeated by any path to the same state that nobody labelled as that action — ⭐ **and the
+convergent path is the LIKELIER one, precisely because nobody has to decide to take it.** A person
+adding `monolith → doc` is not thinking about yepochs at all.
+
+### ⛔ The part that stings, and is the reason this is filed rather than just fixed
+
+**I made this error in the entry whose entire subject was a decision that arrived as a consequence.**
+Hours earlier doc's epochs document caught a shape that "fell out of" two other decisions and was
+never chosen; I wrote *"it would be a poor outcome to repeat it inside the fix"* — and then wrote a
+fence with a gap of the same kind two paragraphs below.
+⇒ ⭐ **Restating a lesson is not applying it.** The narrowing felt like precision: naming the
+concrete path reads as *more* specific, and specificity is what a good record is supposed to have.
+**That is why it is hard to see — the defective version looks like the careful version.**
+
+✅ Corrected in place with plan's wording, and **the wrong version left visible above it** rather
+than silently replaced, because the next person to write a fence will reach for the concrete path
+too. Same reason merkle kept its wrong token draft beside the right one (§7x150-family).
