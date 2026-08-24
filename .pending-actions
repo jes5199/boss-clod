@@ -249,3 +249,10 @@ plain commit to main that never went through it. A fix to one path is not a fix 
   ⇒ IF JES RULES FOR THE ATTRIBUTE: doc lands it THE SAME HOUR. IF he rules for a marker: it is
      dir's to build and doc has no objection to "." as the key.
   ⚠️ It gates BOTH repos' next step. Cheap now; a migration once callers accumulate.
+
+2026-08-24T18:17Z  ✅ CLOUDFLARE TOKEN LANDED — SP4b unblocked, commonplace-log woken, retirement cleared.
+  Stored /home/jes/.config/cloudflare/do-worker.env (0600, dir 0700), OUTSIDE every git repo.
+  ⛔⛔ commonplace-log IS PUBLIC since 16:47Z. The token must never reach that tree. Publishing is
+  RETROACTIVE OVER HISTORY — a token committed then removed is still public; there is no undo, only
+  rotation. Verified at hand-over: 0 hits in tracked files across log/doc/dir/boss-clod.
+  ⇒ IF IT EVER LEAKS: rotate at the Cloudflare dashboard FIRST, then clean up. Order matters.
