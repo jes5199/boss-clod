@@ -15,4 +15,10 @@
 # trigger already fired. An entry here must be armed NOW, not once.
 # RETIRED 2026-08-24T01:06Z — run 32678034910 completed (success) and that watcher exited.
 # RETIRED 2026-08-24T01:14Z — post-merge run 32678659194 completed (success); watcher exited.
-commonplace-doc|3750451|Sol round DIR/DOC phase-6 in pane 0:26 (-C /home/jes/sol-docp6/wt) to finish; it has a waiter on the outer pid|armed 14:49Z, verified live 14:50Z via /proc — 6 processes on that -C. ⛔ Verified by /proc scan, NOT by `ps | grep | grep -v grep`: that pipeline returned a FALSE ABSENCE on a live Sol round at 14:40Z because the brief embedded in argv contains the word "grep" (§7x134).
+# ⚠️ RETARGETED 2026-08-24T15:24Z — the entry named phase 6's pid 3750451, which FINISHED, while
+# commonplace-doc was legitimately waiting on phase 7. ⭐ First time an entry here went stale while
+# the agent it covers was STILL WAITING: a round ending and the next one starting look identical
+# from the outside, so "armed-now, never armed-once" applies to the PID as well as the entry.
+# ⛔ The failure was SAFE (a gone pid falls through to stall handling, it does not suppress) — but
+# safe-direction is not correct: it would have nudged an agent mid-round.
+commonplace-doc|3778922|Sol phase-7 round in pane 0:27 (-C /home/jes/sol-docp7/wt) to finish|retargeted 15:24Z, verified live: pid 3778922 alive, 6 processes on that -C, checked via /proc not `ps|grep|grep -v grep` (§7x134)
