@@ -263,3 +263,18 @@ plain commit to main that never went through it. A fix to one path is not a fix 
   spike; `top` instantaneous reads ~100%. It responds: HTTP 200 in 0.74s.
   ⇒ hermes idle at 0.6%, 7GB/15GB free, nothing at risk. commonplace owns the serve and is HALTED.
   ⇒ RAISE IT only if hermes is affected, memory tightens, or jes lifts commonplace's halt.
+
+2026-08-24T19:21Z  ⭐ JES RULED decision (1) of the epochs document: content commit id SHOULD be a
+  hash of (parent, epoch, update), as in monolith. Verbatim: "should a content commit id be a hash
+  of (parent, epoch, update), as in monolith, YES"
+  ⇒ Routed to commonplace-doc (owner/hub) 19:22Z; merkle-crdt and commonplace-dir given a one-line
+    heads-up so nobody starts conflicting work.
+  ⛔ (2) WHO MINTS EPOCH TOKENS and (3) THE COMPACTION PREMISE ARE STILL OPEN. Do NOT infer them
+    from this ruling. (3) especially could change how much of the epoch machinery is needed at all.
+  ⚠️ THIS IS A MIGRATION, NOT AN ADDITION: every commit id in the new stack today is a caller
+    operation id, and dir's content-addressed entry bytes move with it.
+  ⭐ CONSISTENCY TRAP I FLAGGED TO DOC: the current shape "fell out of" two earlier decisions (host
+    must not synthesize identity; caller supplies the operation id). jes has ruled the CONSEQUENCE
+    the other way. Either both survive or one is narrowed — and the narrowing must be WRITTEN AS A
+    DECISION rather than falling out again. ⛔ Do not let a second unruled shape fall out of the fix
+    for the first one.
