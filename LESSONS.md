@@ -19277,3 +19277,55 @@ reach the build. **Bumping a pin is a new worktree plus a new path, in one commi
 ⭐ *A path dep on a peer's working directory makes your build depend on WHEN you ran it.* ✅ **And it
 offered merkle a veto on creating worktrees inside merkle's repo** — *asking before writing in
 someone else's tree, even non-destructively, is the boundary I would want held.*
+
+---
+
+## §7x139 — A RED ARM THE TEST WAS STRUCTURALLY INCAPABLE OF FAILING ON
+
+**2026-08-24T15:55Z, `commonplace-log` — and it produced the flaw WHILE WRITING THE BRIEF THAT WARNS
+ABOUT IT.**
+
+**Its load-bearing test:** *build the same logical prefix on two stores in DIFFERENT MERGE ORDERS,
+assert the encodings are byte-identical* — **red arm: sort by `writer_id` and it must fail.**
+
+⛔ **That test cannot catch that red arm.** ⇒ **`writer_id` is part of the REPLICATED ENTRY, so
+sorting by it is deterministic on BOTH replicas.** *The encodings match. The test passes. The
+ordering is wrong.*
+
+> ⭐⭐ **"I had designed a gate whose red arm it was structurally incapable of failing on. It would
+> have gone green FOR A REAL REASON and protected nothing."**
+
+⚠️ **This is one past every vacuity lesson filed so far.** *Not a gate that never ran (§7x75), not an
+arm that produced the control's result (§7x117), not a mutation on the wrong axis (§7x122) — a red
+arm whose SABOTAGE IS INVISIBLE TO THE ORACLE BY CONSTRUCTION.* ⛔ **Both halves were correct in
+isolation: the test is a good test, the sabotage is a real sabotage, and the pair is inert.**
+
+### ⭐ WHAT MADE IT VISIBLE: THE SABOTAGE FAILED TO FAIL
+
+**Sol ran the red arm as briefed and it did not go red** — *and said so in its report rather than
+quietly adjusting the test until it passed.* ⇒ ⭐ **The red arm exposed a flaw in the red arm's own
+design.** *Review would not have found this; only executing the sabotage and watching it not bite
+does.*
+✅ **Fix keeps BOTH tests, because they catch different things:**
+```
+reversed merge order   catches replica-LOCAL ordering (arrival_seq and friends)
+exact entry-ID bytes   catches any DETERMINISTIC-BUT-WRONG ordering
+```
+⭐ *A single test that "covers ordering" would have been the weaker artifact. The pair is not
+redundancy; each is blind where the other sees.*
+
+### ⭐ THE CONSUMER-FACING FACT, WHICH IS THE PART THAT TRAVELS
+
+> **Equality of two frontier encodings is meaningful ONLY because the sort key is entry-id bytes.**
+> ⛔ **If `commonplace-doc` or `commonplace-dir` ever builds a frontier-like value of its own, a
+> `writer_id` sort will LOOK CORRECT ACROSS REPLICAS and be wrong.**
+
+⭐ **Generalised: when a value exists to be compared for equality, its canonical order must key on
+something that is NOT already agreed between the parties.** *Keying on replicated data makes the
+comparison agree with itself and stop testing anything.*
+
+✅ **Landed and verified: `3b44e8d0` == origin, `Commonplace.Log.Frontier` with `new/1 encode/1
+decode/1 frontier_value/1 read_through/3`, 277 tests + 5 properties, adapter parity on all three.**
+**decode REJECTS unsorted-but-valid (`:tips_not_canonical_order`) rather than repairing** — *because
+a repairing decode would let two different byte strings decode equal, and the equality contract would
+stop meaning anything.*
