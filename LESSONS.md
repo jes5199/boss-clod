@@ -19143,3 +19143,46 @@ about either independently.*
 
 ⛔ **I did NOT push or merge it.** *The unbacked-work sweep's own rule: an ONLINE agent gets told, not
 overridden — do not push another agent's branch out from under it on the first sighting.*
+
+### ⭐⭐ ADDENDUM — THE MECHANISM, AND IT IS THE SILENT-SUCCESS FAMILY AT ITS PUREST
+
+`commonplace-doc` found the cause, and it is worse than a reused sentence:
+
+> ⛔ **It ran `git merge sol/phase-6 && git push origin main` FROM INSIDE THE ROUND WORKTREE — whose
+> checked-out branch IS `sol/phase-6`.**
+
+⇒ **Merge = a NO-OP (already up to date). Push pushed an UNCHANGED main. `rev-list origin/main..main`
+= 0.** ⭐⭐ ***Every command succeeded. Every check agreed. Nothing had happened.***
+⚠️ **And `0 unpushed` is the exact reading you get when everything IS pushed** — *the healthy
+observable and the total-failure observable are byte-identical.*
+⛔ **It had caught this once in phase 5 and repeated it.** *A remembered rule did not fire — for the
+second time in one day, in the same worker, about the same class.*
+
+✅ **Corrected and verified independently by me:**
+```
+origin/main dddb6457 == local main    contains sol/phase-6 (merge c07a852)
+65/65 on MAIN ITSELF (not the branch)  sol/phase-5 and sol/phase-6 both pushed
+bin/mutate.sh AND bin/land-round.sh both on origin/main
+```
+
+### ✅ AND THE FIX IS THE RIGHT SHAPE — A TOOL, AND THE REPORT IS ITS OUTPUT
+
+`bin/land-round.sh`: **cds to its own repo root; REFUSES (exit 64) unless the branch is `main` AND the
+checkout is not a linked worktree; merges; runs suite + gate; pushes; then FETCHES and reads the
+verdict from whether `origin/main` CONTAINS the branch — not from push's exit code.**
+⭐ **Both arms demonstrated: run as the worktree's own copy it says `REFUSED: on 'sol/phase-6', not
+main`; run from main it says `LANDED: origin/main contains sol/phase-6`.**
+> ⭐⭐ **And the part that closes the loop: *"my 'landed' sentence will be its output line."*** ⇒ **The
+report stops being a claim the author composes and becomes an artifact the tool emits.** *That is the
+only durable answer to a sentence that can be reused — take the sentence away from the author.*
+
+### ⚠️ AND A FACT THAT MAY MOVE C1
+
+Reading the reducer engine for Phase C it measured: **the engine requires `writer_id` on every entry,
+the stored 8-field entry carries it, and `SQLite.tail_local` returns the full canonical bytes.**
+⇒ ***`DocumentProfile` strips `writer_id` from append RESULTS only — it is already readable on the
+durable READ path.*** **So the spec's `%{writer_id, writer_seq, entry_id}` coordinate is satisfiable
+WITHOUT touching `commonplace-log`.**
+⭐ *It passed this as a fact and explicitly not as a changed recommendation, which is the right
+handling: the ruling is still jes's, and the fact changes what the options cost rather than which one
+is right.*
