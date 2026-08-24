@@ -18312,3 +18312,47 @@ COVERAGE, AND IT AGES AT EVERY DISPATCH.** ⇒ **Adding a worker is the moment t
 and it is also the moment nobody is thinking about coverage** — *they are thinking about the task.*
 ✅ **The mechanical fix is to make dispatch and enrolment the same act; until then this entry is the
 artifact, because a remembered rule does not fire.**
+
+---
+
+## §7x124 — A NAIVE READER OF OUR STORE WRITES TO IT
+
+**2026-08-24T00:18Z, `commonplace`, scoping the import reader — found BEFORE any code.**
+
+⛔ **Lazy snapshot minting means a READ can mint a full-state commit into the source.** ⇒ ⭐ **A
+"reader" adapter built the obvious way MUTATES THE FOREIGN STORE IT IS IMPORTING FROM** — and
+**changes which chain a later reconstruction walks.**
+> ⭐⭐ ***A read path with lazy materialization is a WRITE path wearing a read's name.***
+
+⚠️ **Nobody had named this, and it is invisible from the call site: the function is called `read`,
+the caller intends to read, and the mutation is an optimisation detail one layer down.**
+✅ **Fixed STRUCTURALLY — the adapter exposes NO MINTING PATH AT ALL**, rather than passing
+`mint: false` by convention. ⇒ ⭐ *A convention is a rule every future caller must remember; an
+absent code path is a rule that cannot be forgotten.* **Same choice as declaring a property instead
+of enumerating prohibitions (§7x110): remove the capability, do not police its use.**
+
+### ⭐ THE SCOPE COLLAPSED ON ONE ANSWER, AND THE ANSWER CAME FROM THE OTHER SIDE
+
+**doc-sync's contract said import is STATE-AT-A-PIN, not history.** ⇒ ⛔ **No commit-graph traversal,
+no reachability walk, no parent chains, no closure — the monolith DAG is never traversed.**
+⭐⭐ **Which takes the UNOWNED DAG→line sequencer problem — the one nobody in either stack owns —
+OFF THIS PATH ENTIRELY.** ⚠️ *Had the task been "read the commit graph", it would have been blocked
+on a design round rather than being an adapter.*
+⇒ ⭐ **Publishing the contract before the build did not merely prevent errors; it CHANGED THE SIZE OF
+THE JOB** — one module, ~4 functions, against synthetic fixtures. *The cheapest thing either party
+did all night was write down what was NOT needed.*
+
+### ⭐ AND A REQUIREMENT WAS FALSIFIED BEFORE IT COULD BE BUILT AGAINST
+
+**`commonplace`'s encoder is path-dependent ⇒ their §5a.4's byte-reproducible pin CANNOT be
+guaranteed.** ✅ **doc-sync fixed it within minutes: the destination captures the reader's output
+ONCE per `operation_id` and MUST NOT re-invoke on retry.**
+> ⭐ ***Remember, don't re-derive*** — **the same distinction arriving in a third place this week.**
+⚠️ *A spec requirement that the other side cannot meet is only discoverable by asking the other side,
+and only cheap to fix before anything depends on it.* **doc-sync asked "is the pin reproducible?"
+BEFORE they built; the answer was no, and it cost a paragraph instead of an implementation.**
+
+■ **Two of `commonplace`'s measured findings became MUSTs in doc-sync's spec** — the ownership key
+(`parent_document_id` MUST come from `{:doc_commit}`, never `commit.doc_uuid` — the 116-doc trap) and
+strict decode (`rest == <<>>`). ⭐ *A measurement from one repo becoming a normative rule in another
+is the strongest form of the reasons-over-rules result.*
