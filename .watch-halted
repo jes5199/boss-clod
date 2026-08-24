@@ -5,5 +5,11 @@
 # violation. Same shape as the nudge loop that posts a board versus one that issues orders.
 # ⚠️ A halted agent is ONLINE. Online-ness is exactly the wrong test.
 # ⛔ Remove a line ONLY when jes lifts that agent's halt. Not on a timer.
-commonplace       2026-08-23T19:51Z  jes: "halt doing automatic work via commonplace-monolith and commonplace-plan right now"
+# ⭐ NARROW LIFT 2026-08-24T00:14Z — jes: "uh yes reader" (answering: write the import reader
+# adapter now, or park import at the spec boundary). ⇒ commonplace is UNHALTED FOR THAT TASK ONLY.
+# ⚠️ The original halt was on AUTOMATIC work; a direct instruction from jes is not that. But the
+# lift is SCOPED, because "he named one task" and "the halt is over" are different facts and only
+# one of them is in his message. Everything else via commonplace stays halted.
+# ⛔ commonplace-plan is NOT lifted — his message named the reader, not prioritisation.
+# commonplace  LIFTED for the import reader adapter only, 2026-08-24T00:14Z
 commonplace-plan  2026-08-23T19:51Z  same message

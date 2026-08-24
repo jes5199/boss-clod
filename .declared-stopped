@@ -14,5 +14,13 @@
 # vertical needs a real host. ⇒ The condition was aimed at a PROXY and would have fired on a commit
 # message while the thing needing doc was still blocked — waking an agent with nothing to do.
 # ⭐ My own rule, returned to me: aim the trigger at the CONSEQUENCE, not the nearest observable.
+# ⛔⛔ 2026-08-24T00:14Z — REMOVED "jes unhalts the monolith" from commonplace-doc's release.
+# It fired tonight and it was WRONG BOTH WAYS. doc stopped for a QUOTA mechanism: shared 7d meter,
+# a peer dispatching, its next round the largest of the session. The monolith unhalting does not
+# touch any of that — and it makes the stop MORE justified, not less, because it puts ANOTHER
+# agent on the same meter.
+# ⭐ THIRD proxy-trigger of the night, all mine: dir's D-001, doc's "reaches phase 6", and this.
+# ⇒ A release condition must be the NEGATION OF THE STATED MECHANISM, not an event that happens
+# to be nearby and memorable.
 # format: name|release condition|note
-commonplace-doc|jes unhalts the monolith, OR commonplace-dir NEEDS A REAL HOST (the wiki-slice vertical, NOT "reaches phase 6"), OR quota 7d resets 2026-08-24T09:59:59Z|stopped 23:42Z, mechanism verified; P5 plan written and DISPATCHABLE at docs/IMPLEMENTATION-PLAN-P5.md (77 lines); main 8ba298e == origin, clean
+commonplace-doc|commonplace-dir NEEDS A REAL HOST (the wiki-slice vertical, NOT "reaches phase 6"), OR quota 7d resets 2026-08-24T09:59:59Z|stopped 23:42Z, mechanism verified; P5 plan written and DISPATCHABLE at docs/IMPLEMENTATION-PLAN-P5.md (77 lines); main 8ba298e == origin, clean
