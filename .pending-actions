@@ -256,3 +256,10 @@ plain commit to main that never went through it. A fix to one path is not a fix 
   RETROACTIVE OVER HISTORY — a token committed then removed is still public; there is no undo, only
   rotation. Verified at hand-over: 0 hits in tracked files across log/doc/dir/boss-clod.
   ⇒ IF IT EVER LEAKS: rotate at the Cloudflare dashboard FIRST, then clean up. Order matters.
+
+2026-08-24T19:06Z  ⓘ CAPACITY FACT, not a problem — do not escalate unless it changes.
+  The live serve (pid 2943416, cwd commonplace-serve-pin, :5199) has averaged ~2 of 4 cores since
+  2026-08-23T20:05Z — 45h CPU over ~23h wall. ⚠️ That is a LIFETIME AVERAGE from `ps pcpu`, not a
+  spike; `top` instantaneous reads ~100%. It responds: HTTP 200 in 0.74s.
+  ⇒ hermes idle at 0.6%, 7GB/15GB free, nothing at risk. commonplace owns the serve and is HALTED.
+  ⇒ RAISE IT only if hermes is affected, memory tightens, or jes lifts commonplace's halt.

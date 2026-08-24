@@ -19864,3 +19864,30 @@ of a multi-second one. ⚠️ **Not zero — stated in the script rather than pr
 (5.54/6.30 at 5/15min), 7GB of 15GB available, each codex ~165MB. **Nothing held.** hermes is
 live-money on this box, so the answer had to come from `free` and `uptime`, not from a cap being
 breached sounding alarming. *The cap being wrong and the box being in danger are separate claims.*
+
+## 7x151 — `ps pcpu` is a LIFETIME AVERAGE; I nearly reported a day-old baseline as tonight's spike
+
+**2026-08-24T19:06Z.** Load hit 8.26 on 4 cores and `ps -eo pcpu --sort=-pcpu` showed a BEAM at
+**196%**. I read that as "something is spiking right now."
+
+⛔ **It is not an instantaneous figure. `ps` pcpu is CPU time / process lifetime** — an average over
+the whole run. That BEAM started 2026-08-23T20:05Z and has 45 hours of CPU time across ~23 hours of
+wall clock. `top -b -n1` on the same pid, which IS instantaneous, showed 100%.
+⇒ ⭐ **The number had been true all day. Reading it as new would have made a 23-hour baseline into
+an incident**, and the "investigation" would have found nothing changing because nothing was.
+⚠️ Two samples of `pcpu` three seconds apart both read 196 — **not because it was steady, but
+because a lifetime average barely moves.** *A stable reading from the wrong instrument looks exactly
+like a stable system.*
+
+### ✅ What the check should have been, and was in the end
+
+⭐ **Resolve by IDENTITY, then judge by EFFECT.** Neither hot BEAM was hermes — resolved via
+`/proc/<pid>/cwd`, not a cmdline grep: one was commonplace-log's transient test VM, one was the live
+serve. **hermes was pid 3985426 at 0.6%, idle.** ⇒ *"A BEAM is hot" and "live money is at risk" are
+different claims and only the second one would have justified acting.*
+✅ Then the effect, not the metric: the serve **answered HTTP 200 in 0.74s**. A serve that responds
+is serving, whatever its CPU average says.
+
+⇒ Recorded, not escalated: sustained ~2 cores for a day is a capacity fact commonplace owns and is
+currently halted on; hermes idle, 7GB of 15GB free, nothing at risk. **Not every true observation is
+a report.**
