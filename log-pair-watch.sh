@@ -142,6 +142,22 @@ for w in "${WORKERS[@]}"; do
   printf '%s' "$pane" | grep -qiE 'Waiting for [0-9]+ background agent' && busy="${busy}bg-agent "
   printf '%s' "$pane" | grep -qE '^[[:space:]]*[◯●][[:space:]]+[a-z].*[0-9]+m ?[0-9]*s ·' && busy="${busy}agent-tray "
   printf '%s' "$pane" | grep -qi 'esc to interrupt' && busy="${busy}esc-hint "
+  # ⚠️ 2026-08-24T16:43Z — ADDED, BUT ITS RED ARM HAS NEVER BEEN SEEN TO FIRE. Read this before
+  #   trusting it. I believed commonplace-doc was reported IDLE while working, and patched on that.
+  # ⛔ THE BELIEF WAS UNSOUND: the IDLE verdict was stamped 16:40:57Z; my "it's working" evidence
+  #   was captured at 16:42, and the spinner then read "(1m 45s ...)" — i.e. that turn STARTED
+  #   ~16:41:26Z, AFTER the verdict. The classifier was very likely RIGHT and something woke doc.
+  #   ⇒ I compared a verdict to evidence from a LATER moment. A pane is a MOVING corpus; two
+  #     separate captures cannot test one verdict. Freeze ONE frame and test that.
+  #   ⇒ My own check compounded it: `grep -o` extracted the glyph+word and DISCARDED the
+  #     "(1m 45s · ↓ tokens)" suffix, so a suffixed spinner LOOKED bare. The instrument I used to
+  #     diagnose the gate removed the exact evidence that would have cleared it.
+  # ✅ KEPT anyway on its own (weak) merits: a spinner's suffix appears only after ~1s and is
+  #   truncated at narrow pane widths, so a bare frame is REACHABLE — but that is an ARGUMENT, not
+  #   a MEASUREMENT. Green arm IS verified: 3 declared-STOPPED panes (0:19, 0:23, 0:3) stayed quiet.
+  # ⇒ If you ever see "spinner-bare" WITHOUT "spinner" in a busy list, that is the first real
+  #   sighting — record it here and this comment can be replaced with a fact.
+printf '%s' "$pane" | grep -qE '[✻✽✳✢·*][[:space:]]+[A-Za-z]+…' && busy="${busy}spinner-bare "
 
   if [ "$cmd" = "bash" ] || [ "$cmd" = "sh" ]; then
     state=CRASHED; detail="pane is at a $cmd prompt, not claude — needs workerclaude relaunch"
