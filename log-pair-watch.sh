@@ -177,14 +177,12 @@ printf '%s' "$pane" | grep -qE '[✻✽✳✢·*][[:space:]]+[A-Za-z]+…' && bu
       #   I filed that lesson while THIS half of it was still missing — the fix went to the file I
       #   had just been burned by, not to its twin.
       # ⛔ Both suppression files now warn. A suppression with no expiry is a gate held open.
-      # ⚠️⚠️ THIS ARM IS UNVERIFIED as of 2026-08-24T17:10Z — RED NEVER FIRED. At the moment I
-      #   added it NO worker in the fleet was busy (all RETIRED/STOPPED/WAITING), so the branch
-      #   had no subject and I could not plant one without nudging a stopped agent to make work
-      #   for my own test. The RETIRED twin one line above IS proven; this one is argued from it.
-      # ⇒ NEXT READER (probably me, next quarter-hour): the FIRST time any worker shows WORKING
-      #   while carrying a .declared-stopped entry, CHECK that this warning actually appears —
-      #   then delete these four lines and say it fired. Until then treat its silence as
-      #   MEANINGLESS, not as evidence that no entry is stale.
+      # ✅ RED ARM FIRED 2026-08-24T17:26Z, on TWO independent live subjects at once:
+      #   commonplace-doc and commonplace-merkle-crdt both resumed (dir's D11 surfaced a seam gap)
+      #   while still carrying .declared-stopped entries, and this warning printed for both.
+      #   It was marked UNVERIFIED for 16 minutes because no worker was busy when I wrote it and I
+      #   would not nudge a stopped agent to manufacture a subject. ⭐ The subject arrived on its own.
+      # ⇒ Both arms now proven: RETIRED twin (long-standing) and this one. Do not re-mark unverified.
       grep -v '^#' /home/jes/boss-clod/.declared-stopped 2>/dev/null | grep -q "^${w}|" \
         && detail="$detail ⚠️ marked STOPPED but is WORKING — the .declared-stopped entry is stale; re-record it or remove it"
     fi
@@ -194,8 +192,18 @@ printf '%s' "$pane" | grep -qE '[✻✽✳✢·*][[:space:]]+[A-Za-z]+…' && bu
     # pane watch must not form its own opinion, or the two instruments disagree about
     # the same worker — which is exactly what happened at 08:53Z, one hour after I
     # wrote that they must not. ⇒ Ask the detector rather than re-deriving.
-    if [ -x /home/jes/boss-clod/turn-end-detector.sh ] \
-       && /home/jes/boss-clod/turn-end-detector.sh "$w" 2>/dev/null | head -1 | grep -q 'DECLARED PAUSE'; then
+    # ⚠️ 2026-08-24T17:24Z — I changed this to capture stderr believing `2>/dev/null` had hidden a
+    #   failing detector, because yepochs read RETIRED at 17:08 and PAUSED at 17:24 unchanged.
+    # ⛔ THAT DIAGNOSIS WAS WRONG: the detector's stderr is EMPTY, so the redirect hid nothing and
+    #   this change fixed nothing. The real cause was in turn-end-detector.sh — it counted codex
+    #   processes GLOBALLY, so yepochs's verdict moved when commonplace-dir launched a round.
+    #   Fixed there (attribution by -C worktree -> git-common-dir), not here.
+    # ✅ Keeping the stderr capture anyway: it is equivalent when stderr is empty, and it makes a
+    #   future detector failure VISIBLE instead of silently reading as "no declared pause".
+    _ted=$(/home/jes/boss-clod/turn-end-detector.sh "$w" 2>&1 | head -1)
+    if [ ! -x /home/jes/boss-clod/turn-end-detector.sh ]; then
+      state=IDLE; detail="⚠️ turn-end-detector.sh NOT EXECUTABLE — pause protocol UNREADABLE, this is a blind instrument not a healthy worker"
+    elif printf '%s' "$_ted" | grep -q 'DECLARED PAUSE'; then
       state=PAUSED; detail="agent DECLARED a pause ('nothing queued'); not a finding — quiet ${still_min}m"
     # ⛔ 2026-08-23T23:55Z — I taught .declared-stopped to stall-sweep.sh at 23:53Z and NOT to
     # this script, so two minutes later the two watchers disagreed about commonplace-doc again:

@@ -95,14 +95,41 @@ tail = txt[-200:].replace('\n',' ')
 # first-person future-tense promise, at the END of the turn
 promise = re.search(r"\b(I'?ll|I will|I'?m going to|going to|next\b|I plan to|then I|starting with|first[,:]|reading .{0,30}next)\b",
                     txt[-900:], re.I)
-import subprocess
+import subprocess, os
 def live_work():
+    # ⛔⛔ 2026-08-24T17:28Z — THIS COUNTED EVERY CODEX ON THE BOX, GLOBALLY, WITH NO
+    #   ATTRIBUTION TO THE WORKER BEING JUDGED. One agent's Sol round therefore made EVERY
+    #   OTHER WORKER read "legitimately waiting", so NO STALL COULD BE DETECTED ANYWHERE while
+    #   any round ran — and rounds ran most of 2026-08-24. The 5-minute sweep was structurally
+    #   incapable of firing for hours, and its silence was indistinguishable from health.
+    # ⭐ Found because yepochs flipped PAUSED -> RETIRED with nothing about yepochs changing;
+    #   what changed was that commonplace-dir launched a round. A verdict that moves when an
+    #   UNRELATED subject changes is not a verdict about this subject.
+    # ⇒ Attribute each codex to a repo via its -C worktree: git rev-parse --git-common-dir
+    #   resolves /home/jes/sol-dir-d11a/wt -> /home/jes/commonplace-dir/.git.
+    mine, unattributable = 0, 0
     try:
-        n=subprocess.run(['pgrep','-u','jes','-x','codex'],capture_output=True,text=True).stdout.split()
-        return len(n)
+        pids = subprocess.run(['pgrep','-u','jes','-x','codex'],
+                              capture_output=True,text=True).stdout.split()
     except Exception:
-        return -1
-running = live_work()
+        return -1, 0          # BLIND — the probe itself failed
+    for pid in pids:
+        try:
+            argv = open(f'/proc/{pid}/cmdline','rb').read().decode().split('\0')
+            tgt = argv[argv.index('-C')+1] if '-C' in argv else None
+            if not tgt:
+                unattributable += 1; continue
+            cd = subprocess.run(['git','-C',tgt,'rev-parse','--path-format=absolute',
+                                 '--git-common-dir'],capture_output=True,text=True)
+            if cd.returncode != 0:
+                unattributable += 1; continue
+            repo = os.path.basename(os.path.dirname(cd.stdout.strip()))
+            if repo == w:
+                mine += 1
+        except Exception:
+            unattributable += 1
+    return mine, unattributable
+running, unattr = live_work()
 # ⭐ A legitimately-idle worker must not report STALL-CANDIDATE. Same files the pane
 # watch uses, so the two instruments cannot disagree about who is expected to be idle.
 def listed(path, name):
@@ -118,7 +145,7 @@ blocked = listed('/home/jes/boss-clod/.watch-blocked', w)
 if sr != 'end_turn':
     verdict = f"WORKING (stop={sr})"
 elif running > 0:
-    verdict = f"ended on text, but {running} round(s) running — legitimately waiting"
+    verdict = f"ended on text, but {running} round(s) running FOR THIS WORKER — legitimately waiting"
 elif running == 0 and re.search(r"\bnothing queued\b", decl_txt, re.I):
     # ⭐ AGENT-DECLARED PAUSE (protocol agreed with yepochs 2026-08-23 08:24Z).
     # My verdict is "end_turn + nothing running", which deliberately ignores wording —

@@ -19628,3 +19628,49 @@ known items for growth; `log-pair-watch`/`stall-sweep` resolve all 8 workers eve
 newest-subject-scoped.** ⛔ But my `.declared-stopped`-vs-WORKING arm from §7x142 is worse than
 narrowly aimed — **it has never run at all**, and is marked UNVERIFIED in the script for that reason.
 ⇒ *An unfired arm and an eleven-round-stale arm produce the same evidence: nothing.*
+
+## 7x146 — my stall detector counted OTHER agents' work as this agent's, so no stall could be detected while any round ran
+
+**2026-08-24T17:28Z. The worst instrument defect I have found in my own tooling.**
+
+`turn-end-detector.sh` decided "is this worker legitimately waiting?" with:
+```python
+n = subprocess.run(['pgrep','-u','jes','-x','codex'],...).stdout.split()
+return len(n)          # EVERY codex on the box. No worker attribution AT ALL.
+```
+⛔ **So one agent's Sol round made EVERY OTHER WORKER read `legitimately waiting`.** While any round
+ran anywhere, **the 5-minute stall sweep was structurally incapable of firing for anyone** — and
+`stalled=0` is exactly what a healthy fleet looks like. Rounds ran most of the day.
+
+⭐ **THE TELL, and it is the generalisable part:** yepochs flipped `PAUSED` → `RETIRED` with
+**nothing about yepochs changing**. What changed was that *commonplace-dir launched a round*.
+> ***A verdict that moves when an UNRELATED subject changes is not a verdict about this subject.***
+
+⇒ I nearly filed it as harmless label instability, because both labels were non-findings. **The
+flip-flop was the only visible symptom of a detector that had been globally blind for hours.**
+
+### ⛔ Two wrong diagnoses on the way, both stated confidently
+
+1. *"`2>/dev/null` is swallowing a failing detector"* — **stderr was EMPTY.** The redirect hid
+   nothing and my patch fixed nothing. I had pattern-matched to a real trap
+   ([[reference_bfs_not_gnu_find]]) that did not apply here.
+2. *"I broke PAUSED with my own patch"* — **I had not.** The verdict changed underneath me.
+⇒ ⭐ **A remembered trap is a hypothesis, not a diagnosis.** Both were plausible, both were
+retrospective stories about a symptom I had not yet measured. I corrected the false justification
+I had already written into the script; **a wrong mechanism left in a comment is worse than no
+comment, because the next reader inherits it as fact.**
+
+### ✅ The fix, and the proof it works
+
+Attribute each codex to its repo through the fence it already carries:
+`-C /home/jes/sol-dir-d11a/wt` → `git rev-parse --git-common-dir` → `/home/jes/commonplace-dir/.git`.
+Count only rounds whose repo == the worker being judged; count unresolvable ones separately rather
+than crediting everyone.
+
+**Three arms, run:** dir (owns a live round) still `legitimately waiting` ✅ · yepochs (no round)
+returns to `DECLARED PAUSE` instead of borrowing dir's ✅ · retired worker still `expected` ✅.
+⭐ **And the immediate payoff is the real proof: the very next sweep caught
+`commonplace-merkle-crdt` stalled at 17:27:01Z — a genuine stall that the old code was masking.**
+
+⇒ ⭐ **A gate whose subject is global cannot make a per-subject claim.** Ask what varies in the
+answer that does not vary in the question.
