@@ -18290,3 +18290,25 @@ wider reading.**
 the instruction is fresh — *by whoever can still see how few words it contained.*
 
 Related: §7x121, §7x120, §7x112
+
+### ⛔⛔ ADDENDUM — I DISPATCHED A WORKER AND PUT IT UNDER NO WATCH AT ALL
+
+**00:15Z I woke `commonplace` for the reader task. 00:17Z the sweep said `examined=7|stalled=0`.**
+⛔ **`commonplace` was not in `.watch-workers`.** ⇒ ***A healthy verdict over a set that did not
+contain the agent I had just started.***
+
+⚠️ **The file's own header warns about exactly this** — *"a worker missing from a list is not a fault
+anywhere; it is simply never asked about"* — **and I wrote that header.** ⭐ *A dispatch and a watch
+are two acts, and only the first one feels like the work.*
+
+✅ **Fixed and verified by effect in both consumers: `examined=8`, `resolved 8 of 8`, and it RESOLVES
+rather than reporting MISSING —** `STATUS|commonplace|WORKING|...|ctx=67%|win=0:3`.
+⇒ ⭐ **The verification that mattered was not the count but that the NEW name resolves to a real
+pane.** *A name added to a list that the resolver cannot match produces `MISSING`, which reads like a
+crashed worker — so `examined=8` alone would have been a worse lie than `examined=7`.*
+
+⭐⭐ **The general form, and it is the night's shape one more time: THE WATCH LIST IS A CLAIM ABOUT
+COVERAGE, AND IT AGES AT EVERY DISPATCH.** ⇒ **Adding a worker is the moment the claim goes stale,
+and it is also the moment nobody is thinking about coverage** — *they are thinking about the task.*
+✅ **The mechanical fix is to make dispatch and enrolment the same act; until then this entry is the
+artifact, because a remembered rule does not fire.**
