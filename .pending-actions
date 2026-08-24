@@ -311,3 +311,15 @@ plain commit to main that never went through it. A fix to one path is not a fix 
     the honest scope of "if possible", not a workaround; it is in the record rather than implicit.
   ⚠️ (3) decides whether this host ever mints an opener AT ALL, so it can shrink (2)'s footprint
     to nothing. Do not let anyone treat (2) as settled implementation work before (3).
+
+2026-08-24T20:27Z  ⓘ FABLE 19%. hermes: EFFECTIVELY SETTLED, stop asking.
+  Raised inside the 19:29Z quota message WITH a recommendation (given the burn, leaving hermes on
+  Opus is arguably right) and jes did not object. ⇒ Treat as decided-by-non-objection, not open.
+  Re-raise ONLY if the burn picture changes or he asks.
+  ⚠️ A PREDICTION OF MINE THAT IS NOT YET TESTED — record it so I do not later claim it held:
+  at 19:29Z I told jes the measured ~2.9 pct/hr would probably fall because the fleet had gone
+  idle. Readings since: 16% (19:29) -> 19% (20:27), still ~3 pct/hr. ⛔ That is NOT a falsification:
+  19:29-20:27 was ACTIVE (doc's phase 16 at 247k tokens, dir's re-pin, merkle v5, yepochs' map
+  corpus). The fleet only went properly idle ~20:10Z. ⇒ THE TEST IS THE NEXT QUIET HOUR. If the
+  rate stays ~3 pct/hr through a genuinely idle stretch, my explanation was wrong and jes should
+  hear the corrected version, because he has a burn number from me that assumes it drops.
