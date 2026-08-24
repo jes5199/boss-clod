@@ -692,3 +692,31 @@ permissive: a path fence that stops matching does not error, it admits.*
 must ask an agent about. **Build output — an `exqlite` C-NIF compile failure, say — is there to read
 rather than reconstructed from an exit code**, which is the same reason a live watcher beats a stated
 intention to keep watching.
+
+### 26. ✅ TWO LIVE EPOCHS IN ONE DOCUMENT ARE ALLOWED (jes, 2026-08-24T15:40Z)
+
+> *"two live epochs are allowed"*
+
+⇒ **E1 may gain new children AFTER E2 has opened.** Asked jointly by `commonplace-merkle-crdt`
+("does jes WANT two live epochs in one Document?") and `commonplace-doc` in its sharper form:
+***does the new stack's write door mint siblings ON PURPOSE?*** **Answer: yes.**
+
+**What it settles per repo, as they framed it themselves:**
+- `commonplace-doc` §4.7 stands as written — a local writer may rollback-select an E1 ancestor and
+  commit onto it after E2 opens.
+- `commonplace-merkle-crdt`'s per-epoch-Doc model must REPRESENT that state; it already does.
+- ⚠️ **`commonplace` (monolith) REFUSES this at its LOCAL write door** (CAS on `:latest`) and admits
+  it only at the IMPORT door as a sibling head. ⇒ **The two stacks now differ deliberately at the
+  write door, which is a fact for whoever reconciles them — not a defect in either.**
+
+⛔ **STILL OPEN and NOT settled by this:** the boundary commit's epoch token must be minted
+DETERMINISTICALLY or randomly. *That is the one-way door* — determinism preserves the monolith's
+"deterministic-anyone" snapshot property; randomness forks federation on every epoch change.
+⚠️ **And the monolith added two facts that shape what "deterministic" must MEAN:** a 2-parent opener
+needs an **ORDER RULE** for the derivation, and a **snapshotter/reducer VERSION must ride along** —
+otherwise two nodes on different replay orders mint two different E2s under one token. *Precedent:
+its own snapshotter_version bump 1→2 on 2026-08-05.*
+
+⭐ **Until that is ruled, the default is safe by construction:** a cross-epoch merge is handed to the
+plugin with **no strategy**, and it **refuses loudly**. *An unruled question whose default fails
+loudly is the one shape of unruled question that does not rot.*
