@@ -19230,3 +19230,50 @@ agent gets told, not overridden.* ⇒ **Told at 15:09Z; pushed by 15:10Z; sweep 
 ⭐ ***Pushing it myself would have fixed the commit and produced no gate.*** **The message produced
 both.** ⚠️ *A fix I apply teaches nobody; a fix the owner applies is the only one that comes with a
 door.*
+
+---
+
+## §7x138 — A PIPE SWALLOWS A GATE'S VERDICT: `gate | tail -1` EXITS 0 WHEN THE GATE REFUSED
+
+**2026-08-24T15:48Z, `commonplace-doc` — its own words: *"the third time today a masked exit turned
+a refusal into a success."*** ⭐ **And the fourth is mine, at 00:52Z, in the same shape.**
+
+```
+bin/land-round.sh sol/phase-8 | tail -1
+  script REFUSED (correctly)      tail returned 0      the rest of the && chain RAN
+  -> commits landed on the BRANCH, `push origin main` pushed NOTHING
+
+demonstrated here:  false | tail -1            -> rc 0
+                    set -o pipefail; false|tail -1 -> rc 1
+```
+⇒ ⛔ **A shell pipeline's exit status is the LAST command's.** *A gate that refuses correctly, piped
+into anything, reports success.* ⚠️ ***It wrote that warning into the script's own header and then
+did it anyway*** — the header was read at authoring time and not at use time.
+
+### ⭐⭐ THE DAY'S PATTERN, NOW FOUR INSTANCES
+
+```
+merge run on the branch being merged   no-op   -> every later step succeeded on the wrong state
+&& chain failed on "nothing to commit" no-op   -> launch dispatched an EMPTY prompt
+gate piped into tail                   MASKED  -> a refusal read as a pass
+mine: rc=$? then printing $?           MASKED  -> four scripts reported a uniform pass
+```
+> ⭐ **All four are the same defect: THE STATUS OF THE STEP THAT MATTERED NEVER REACHED THE THING
+> THAT DECIDED WHAT TO DO NEXT.** ⚠️ *Two by no-op, two by masking — and from outside they are
+> identical: everything exits 0 and every later check agrees.*
+
+✅ **The remedies that work are structural, not attentional:** `set -o pipefail` · **never pipe a
+command whose exit you intend to believe** · capture into a variable and test THAT · and the one
+`commonplace-doc` reached independently — **make the report the tool's OUTPUT LINE**, so a masked
+exit produces no sentence at all rather than a confident wrong one.
+
+### ⭐ AND THE OTHER INCIDENT — A LIVE SIBLING BROKE THE BUILD
+
+`merkle-crdt`'s working tree was mid-edit for E20; `commonplace-doc`'s `mix.exs` path-depped it
+DIRECTLY, so a half-written `State` struct failed its suite. ⇒ **Fixed for the class: all three
+sibling deps are now DETACHED WORKTREES AT NAMED SHAS** (`…-pin-<sha>`, via
+`git worktree add --detach` in the sibling's repo — non-destructive), so a sibling's live tree cannot
+reach the build. **Bumping a pin is a new worktree plus a new path, in one commit.**
+⭐ *A path dep on a peer's working directory makes your build depend on WHEN you ran it.* ✅ **And it
+offered merkle a veto on creating worktrees inside merkle's repo** — *asking before writing in
+someone else's tree, even non-destructively, is the boundary I would want held.*
