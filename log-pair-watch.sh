@@ -171,6 +171,22 @@ printf '%s' "$pane" | grep -qE '[✻✽✳✢·*][[:space:]]+[A-Za-z]+…' && bu
     else
       state=WORKING; detail="busy [$busy], pane changed within ${still_min}m"
       is_retired "$w" && detail="$detail ⚠️ marked RETIRED but is WORKING — remove it from .watch-retired"
+      # ⭐ 2026-08-24T17:09Z — the RETIRED arm above has existed for a day; .declared-stopped had
+      #   NO equivalent, so a STOPPED worker that resumed was silently reclassified WORKING and the
+      #   stale suppression reasserted the moment it idled again. §7x142 is exactly this shape, and
+      #   I filed that lesson while THIS half of it was still missing — the fix went to the file I
+      #   had just been burned by, not to its twin.
+      # ⛔ Both suppression files now warn. A suppression with no expiry is a gate held open.
+      # ⚠️⚠️ THIS ARM IS UNVERIFIED as of 2026-08-24T17:10Z — RED NEVER FIRED. At the moment I
+      #   added it NO worker in the fleet was busy (all RETIRED/STOPPED/WAITING), so the branch
+      #   had no subject and I could not plant one without nudging a stopped agent to make work
+      #   for my own test. The RETIRED twin one line above IS proven; this one is argued from it.
+      # ⇒ NEXT READER (probably me, next quarter-hour): the FIRST time any worker shows WORKING
+      #   while carrying a .declared-stopped entry, CHECK that this warning actually appears —
+      #   then delete these four lines and say it fired. Until then treat its silence as
+      #   MEANINGLESS, not as evidence that no entry is stale.
+      grep -v '^#' /home/jes/boss-clod/.declared-stopped 2>/dev/null | grep -q "^${w}|" \
+        && detail="$detail ⚠️ marked STOPPED but is WORKING — the .declared-stopped entry is stale; re-record it or remove it"
     fi
   elif printf '%s' "$pane" | grep -qE '^❯[[:space:]]*$|^[[:space:]]*❯[[:space:]]*$'; then
     # ⭐ ONE SOURCE OF TRUTH for "is this idle expected?". The detector owns the

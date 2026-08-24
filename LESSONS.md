@@ -19557,3 +19557,42 @@ dir landed D10 green, recorded the hole it found (Entry.encode/1 can now return 
 four call sites treat as a map) as a bounded follow-up rather than holding the round, and told doc
 with the cite. **That is the correct shape: correct the source of the claim, do not just patch
 locally.**
+
+## 7x144 — I destroyed a state file with `sed` because the delimiter was also the data's delimiter
+
+**2026-08-24T17:10Z.** Updating one line of `.declared-stopped` (pipe-delimited), I wrote:
+
+```
+sed -i -E 's|^commonplace-doc\|.*|REPLACEMENT|' .declared-stopped
+```
+⛔ **It replaced ALL 48 LINES** — the comment header and every other worker's release condition —
+with one identical entry.
+
+⭐ **Why: I chose `|` as the sed delimiter for data whose separator is `|`.** With `|` as the
+delimiter the intended-literal `\|` did not read as a literal pipe; the pattern degraded to an
+**alternation** — `^commonplace-doc` **OR** `.*` — and `.*` matches every line.
+⇒ ***The escape that was supposed to protect the pipe is the thing that turned it into an operator.***
+
+### ✅ What made it a 90-second recovery instead of a loss
+
+The backup taken **before** the edit, unprompted, by habit. ⭐ *The `cp file file.bak-$(date)` that
+feels like ceremony is the entire difference between an incident and an anecdote.*
+
+### ⛔ And what nearly hid it: I checked with the SAME BROKEN IDIOM
+
+My verification was `grep -cE '^commonplace-doc\|'` → **48**. I had expected 1, and the count is what
+exposed the damage — but only because I read it. ⚠️ **A count I "expected to be 1" coming back 48 is
+the loudest possible signal and it is still only as good as my willingness to look at it.**
+⇒ **Never verify an edit with the same escaping idiom that performed it** — a shared bug makes the
+check agree with the mistake. *This is [[7x141]] at the level of a shell one-liner: the edit and its
+verification shared a derivation.*
+
+### ✅ Standing rules
+
+- ⛔ **Never use a delimiter that occurs in the data.** For pipe-delimited files use `#` or `,` — or
+  do not use `sed` at all.
+- ✅ **Prefer a real parser for structured state.** The reapply used python: split lines, filter by
+  `startswith`, assert the removed/added counts. **No escaping exists to get wrong.**
+- ✅ **ASSERT THE EFFECT with expected numbers**: `removed: 1 (expect 1)`, `dir 0 / doc 1`. A bare
+  post-state print would have looked plausible; the *expectations* are what make it a gate.
+  *(Same fix as §7x142's before/after delta.)*
