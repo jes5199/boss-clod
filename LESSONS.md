@@ -21940,3 +21940,29 @@ restarted the FIXTURE HOST, not the DocHost.** The flipped arm would have gone r
 **cheaper referent**. It refused to land that as the goal's proof and added a real DocHost-restart
 replay arm whose red is a reopen on a fresh store. *A red at the wrong layer is §7x190a; a red for the
 wrong referent is its twin.*
+
+## 7x200 — two repos green at the same pin, one broken seam, and only the composition root could see it
+
+commonplace-plan, 2026-08-25T21:07Z, found by commonplace-next's re-pin gate. doc-sync's push
+operation id is **256 bytes by itself**; doc's P27 caps `[command_id, index, hash]` at **256** — which
+is log's v2 wire bound. ⇒ **Every push into a P27 host is refused and the mirror goes
+`host_faulted`.** Both repos were **green at that pin in their own suites**; 26 of 131 went red in
+next.
+
+⭐ **NEITHER SUITE WAS WRONG AND NEITHER WAS LYING.** Each measured its own side of a bound whose two
+halves live in different repos. **A budget expressed as a cap in one package and a payload size in
+another is a shared invariant with no owner** — and the only place it is even expressible is where
+both are loaded at once.
+⚠️ **THE VACUITY IN THE SECOND PLACE IS THE PART TO KEEP:** doc-sync's suite was green because *the
+host it tests against evidently does not enforce the bound.* So the test that should have caught it
+ran against an oracle incapable of failing — §7x187's "the control validates the oracle" arriving
+from the far side.
+
+⇒ Ruled without jes: doc-sync hashes its id to a fixed size (deterministic, so exact retry keeps its
+meaning), the cap stays, **doc publishes the budget as a NUMBER** — i.e. the invariant gets an owner
+and a name instead of living implicitly in two places — and doc-sync answers why its suite was green.
+
+⭐ **THIS IS §14.5 ("cross-package integration tests live in the application") PAYING FOR ITSELF ON
+DAY ONE.** The rule looks like ceremony until the first defect that is invisible from either side of
+a seam. ⇒ *When work is split across repos, the seams are the only place defects can hide from every
+suite that exists.*
