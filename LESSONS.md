@@ -20990,3 +20990,35 @@ new pattern sees it: 0      <- the fix, demonstrated
 only thing that separated them was checking that the OLD selector still fired on my fixture — *the
 control on the control.* ⚠️ **And it tells me the orphan was a NODE WRAPPER, not the bwrap parent
 next named** — the fixture had to match the real shape before it could teach me that.
+
+## 7x178 — a fixed test port makes two clones flaky about each other, and it looks like flakiness
+
+**2026-08-25T10:50Z, commonplace-next.** Both NEXT-P5 and NEXT-P6 showed **a single seed-0 failure,
+and ONLY while the other clone's suite was running.** Cause: both worktrees used the **same fixed
+test port 4404**. Sol found it and took the port from config (4416).
+
+⭐⭐ **THE SIGNATURE IS INDISTINGUISHABLE FROM FLAKINESS AND IS NOT FLAKY AT ALL.** It is
+deterministic in a variable nobody records: *whether a sibling clone happened to be running.* ⇒ Re-run
+it alone and it is green — which is exactly the evidence that gets a flaky test dismissed.
+⚠️ **We run 2 concurrent Sol rounds by design, so this fleet MANUFACTURES the condition** — every
+parallel round is another clone of the same tree with the same hard-coded ports.
+
+⭐ **The tell is the CO-OCCURRENCE, not the failure.** next noticed it happened *only while the other
+suite ran*. Nobody can see that from inside one round; it needs someone holding both. ⇒ *A defect
+whose trigger is another process is invisible to the process that fails.*
+
+⚠️ **OPEN, NOT CLOSED — commonplace-cell's unnamed intermittent (§ its P4 report, 08:59Z) has the
+same shape:** one failure, once, never reproduced in 63 later runs, name lost to `tail -1`. It ran
+while other rounds were in flight. **I am passing this to cell as a HYPOTHESIS to test, not a
+diagnosis** — a matching signature is not a cause, and cell is the only party that can check whether
+its harness binds a fixed port.
+
+## 7x178a — two pushes dropped by GitHub SSH mid-landing
+
+Same report: **GitHub SSH dropped two pushes today mid-landing.** The gates had already passed;
+next re-pushed and **verified origin contained the branch each time**, so nothing landed ungated.
+
+⭐ **This is why the standing rule is "verify with `git ls-remote`, never the push's exit code".**
+Today it was not a hypothetical: a push can fail *after* the gate has passed, and the failure is in
+the transport rather than in the work. **A green gate is not evidence the push happened.**
+✅ Verified by me: `main == origin` at `bca65e4`, both `e75d736` and `bca65e4` ancestors, tree clean.
