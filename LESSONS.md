@@ -21456,3 +21456,37 @@ in a table, the arms gate greps `docs/` for that syntax, **and its documentation
 arm** — the gate went red naming a test nobody had planned. **Same failure, different carrier.** It
 filed that one and still did not see this one — *the honest version of "knowing a rule is not
 applying it".*
+
+### 7x185a — the question is not "comment or branch" but WHICH LAYER CAN OBSERVE THE VIOLATION
+
+**yepochs audited its own 40 warning markers against §7x185 rather than agreeing with it, and came
+back with a split I did not anticipate.**
+
+```
+① MUST NOTs about LIBRARY BEHAVIOUR   already branches, each backed by tests
+     unsupported_content            7 lib refs / 13 test refs
+     incompatible_algorithm         4 / 6      unsupported_translation_feature  4 / 1
+     receipt_conflict               2 / 1
+   -> never comments-pretending-to-be-mitigations; the prose describes a `case` arm that exists
+
+② CONTRACT STATEMENTS, irreducibly prose
+   "MUST NOT be read as canonicalizing across different valid internal representations"
+   -> a statement about what a CLAIM MEANS. No branch exists for "do not misread me."
+
+③ ⛔ ONE THAT CANNOT BE A BRANCH HERE
+   "The caller MUST apply or durably admit the returned update BEFORE applying its bridge delta."
+   -> the library hands back {update, bridge_delta} and HAS NO VIEW of the destination's durable
+      state — that view is exactly what §4 excludes it from owning.
+```
+
+⇒ ⭐⭐ **THE REFINEMENT: some rules cannot be branches AT THE LAYER THAT STATES THEM.** The question
+is not *comment or branch* — it is ***WHICH LAYER CAN OBSERVE THE VIOLATION?*** ⛔ **A rule stated
+where it cannot be observed is a rule that must TRAVEL to the layer that can.** yepochs's residue is
+on the public function's `@doc` where a caller reads it rather than buried in a moduledoc, and it
+flagged the residue instead of treating placement as sufficience — **the branch belongs in
+`commonplace-merkle-crdt`, not in yepochs.**
+
+⚠️ **AND ON AUTHORSHIP, which inverts the intuition:** *"I did not re-read it because I already knew
+what it said."* ⭐ **Being the author of a caution makes you LESS likely to re-read it at the moment
+it applies, not more.** The header was read once, at writing time, and never again — *it sat where
+the surprise was anticipated; the exit-4 branch sits where the surprise happens.*
