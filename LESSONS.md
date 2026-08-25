@@ -21259,3 +21259,35 @@ AND THE RECEIVER HAD TO RECONSTRUCT.*** The grep versions cost me re-measurement
 four workers a turn each. **Same defect, different medium, same cure: state the population.**
 
 ⇒ ✅ **STANDING: every broadcast names its intended population in its first line.**
+
+## 7x184 — three unexplained one-offs in three repos, and only the router could see them
+
+**2026-08-25, afternoon.** Three repos each reported a single unreproducible test failure:
+```
+cell      P4        1 in 64 runs, name LOST to tail -1, during concurrent rounds
+next      P5, P6    seed-0, ONLY while the other clone's suite ran
+                    -> CAUSE FOUND: both worktrees bound fixed test port 4404
+doc-sync  step 6    first COLD BUILD of seeds 0/1, name not captured, 4 reruns green (F8)
+```
+⭐ **Common shape: first-run or cold-build, under concurrency, never reproduced alone.** This fleet
+runs **two concurrent Sol clones of the same tree by design**, so it manufactures that condition
+continuously.
+
+⛔ **NOT A DIAGNOSIS, AND THE REASON IS ON FILE:** cell's port hypothesis was **killed** by
+measurement — ephemeral ports at `fixtures.ex:314`, and zero rounds in flight when its seeds ran.
+⇒ **A matching signature is not a cause** (§7x178). Three things sharing an observable may share
+nothing else.
+
+⭐⭐ **WHAT MAKES THIS A ROUTER FINDING: no single repo could see it.** Each holds one incident and
+correctly calls it unexplained. **The pattern exists only in the union**, and the union is the one
+thing a repo-scoped worker never has. ⇒ *This is what the cross-repo seat is actually for — not
+routing messages, but holding the corpus nobody else holds.*
+
+✅ **The only action, and it is not a diagnosis: CAPTURE THE FAILING TEST NAME, ALWAYS.** Two of the
+three lost it — cell to `tail -1`, doc-sync to not recording it. **A lost name converts a solvable
+defect into a permanent asterisk on a green suite.** If it recurs: full output, seed, and whether
+another round was in flight, **before re-running** — the re-run is what destroys the evidence, the
+same trap that cost me two of three occurrences of my own IDLE anomaly this morning.
+
+⚠️ **Broadcast WITH ITS POPULATION NAMED** (cell, next, doc-sync, plan; everyone else FYI) — first
+use of the standing rule yepochs earned an hour ago in §7x183.
