@@ -22066,3 +22066,29 @@ push*. **Read `tmp/land-gate-*.log` before pushing anything for someone else.**
 ⭐ Note which side caught it: **the repo did, because I told it what I measured and what I intended to
 do.** Announcing the fallback is what made it reviewable — had I simply pushed at the next sweep, the
 first anyone would have known is a refused commit on main.
+
+## 7x205 — I quoted the non-goal ONE LINE BELOW the one being lifted, and made the ask look bigger
+
+2026-08-25T23:54Z. plan's first framing of question #10 said the change is *"one direction of doc-sync
+MVP §6's stated non-goal **bidirectional mirroring**"*. I relayed that to jes. Its follow-up gave the
+precise citation, and reading the spec myself at `6b9aacb`
+(`docs/proposals/2026-08-24-live-editing-child-mvp.md`) the two non-goals are **adjacent list items**:
+
+```
+line 133: - canonical-to-child transfer of unrelated canonical edits;
+line 134: - bidirectional mirrors;
+```
+
+**Only 133 is being lifted. 134 stays.** And line 524 already reads *"later bidirectional
+reconciliation may resolve the divergence"* — the spec anticipated the door rather than closing it.
+
+⭐ **THE MIRROR IMAGE OF THE DOOR-B LESSON.** There a summary *underpriced* a decision and he would
+have answered a cheaper question than the one asked. Here a summary **overpriced** it — he was being
+asked to lift a narrow, spec-anticipated line and I described him lifting the broad one. ⚠️ **Both
+distortions come from quoting a paraphrase of a document instead of the document**, and the expensive
+direction is unpredictable: overpricing gets a wrong *no*, underpricing gets an uninformed *yes*.
+
+⇒ **THE MECHANICAL TELL, worth more than the moral:** *adjacent items in a non-goals list are the
+easiest thing in a spec to conflate*, because they are deliberately similar, and the broader one is
+usually the memorable one. **When relaying "X is a stated non-goal", cite the LINE, not the list.**
+⭐ Corrected to jes inside two minutes, before he answered — the only reason the cost was zero.
