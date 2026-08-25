@@ -229,6 +229,27 @@ printf '%s' "$pane" | grep -qE '[✻✽✳✢·*][[:space:]]+[A-Za-z]+…' && bu
     # ✅ Keeping the stderr capture anyway: it is equivalent when stderr is empty, and it makes a
     #   future detector failure VISIBLE instead of silently reading as "no declared pause".
     _ted=$(/home/jes/boss-clod/turn-end-detector.sh "$w" 2>&1 | head -1)
+    # ⛔⛔ 2026-08-25T12:53Z — THIRD OCCURRENCE of commonplace-log reading IDLE while carrying a
+    #   .declared-stopped entry (10:08, 11:38, 12:53 — always the same worker, never another).
+    #   The file is exonerated each time: the snapshot taken AT THE MOMENT still matches the
+    #   predicate. So the fault is in the EVALUATION, not the record.
+    # ⭐ The old form was `[ -r FILE ] && grep -v FILE | grep -q PAT` INSIDE an elif condition —
+    #   a pipeline whose status I never captured. That is the exact defect I have made three
+    #   other repos fix today (a gate on the left of a pipe). CAPTURE THE RC, then branch on it.
+    # ⇒ And log every evaluation, so the NEXT bad read is explained BY THE FAILING RUN rather
+    #   than by re-running afterwards and finding it green (which destroyed the evidence twice).
+    _ds_hit=no; _ds_rc=na
+    if [ -r /home/jes/boss-clod/.declared-stopped ]; then
+      _ds_out=$(grep -v '^#' /home/jes/boss-clod/.declared-stopped)
+      _ds_rc=$?
+      case $'\n'"$_ds_out" in
+        *$'\n'"${w}|"*) _ds_hit=yes ;;
+      esac
+    fi
+    printf '%s|%s|ds_hit=%s|ds_rc=%s|bytes=%s|ted=%s\n' \
+      "$(date -u +%FT%TZ)" "$w" "$_ds_hit" "$_ds_rc" \
+      "$(wc -c < /home/jes/boss-clod/.declared-stopped 2>/dev/null || echo ERR)" \
+      "$(printf '%s' "$_ted" | cut -c1-40)" >> /home/jes/boss-clod/.watch-debug.log 2>/dev/null || true
     if [ ! -x /home/jes/boss-clod/turn-end-detector.sh ]; then
       state=IDLE; detail="⚠️ turn-end-detector.sh NOT EXECUTABLE — pause protocol UNREADABLE, this is a blind instrument not a healthy worker"
     elif printf '%s' "$_ted" | grep -q 'DECLARED PAUSE'; then
@@ -239,8 +260,7 @@ printf '%s' "$pane" | grep -qE '[✻✽✳✢·*][[:space:]]+[A-Za-z]+…' && bu
     # the hour — fixing a defect in ONE instrument does not fix the reflex that built it, and the
     # second instrument is where you find that out.
     # ⭐ ONE record, BOTH consumers — the same rule this file already carries about the worker list.
-    elif [ -r /home/jes/boss-clod/.declared-stopped ] \
-         && grep -v '^#' /home/jes/boss-clod/.declared-stopped | grep -q "^${w}|"; then
+    elif [ "$_ds_hit" = "yes" ]; then
       _rel=$(grep -v '^#' /home/jes/boss-clod/.declared-stopped | grep "^${w}|" | head -1 | cut -d'|' -f2)
       # ⛔⛔ 2026-08-24T23:09Z — THIRD VARIANT OF THE SAME STALENESS BUG, and the first two fixes
       #   did not cover it. The busy-branch warnings (RETIRED twin, STOPPED twin) only fire when a

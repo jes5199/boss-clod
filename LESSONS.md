@@ -21038,3 +21038,39 @@ next re-pushed and **verified origin contained the branch each time**, so nothin
 Today it was not a hypothetical: a push can fail *after* the gate has passed, and the failure is in
 the transport rather than in the work. **A green gate is not evidence the push happened.**
 ✅ Verified by me: `main == origin` at `bca65e4`, both `e75d736` and `bca65e4` ancestors, tree clean.
+
+## 7x179 — I made three repos fix an uncaptured-rc gate while my own classifier's gate WAS one
+
+**2026-08-25T12:53Z, third occurrence.** commonplace-log read `IDLE` while carrying a
+`.declared-stopped` entry — 10:08, 11:38, 12:53, always the same worker, never another. Each time
+the snapshot taken **at the moment** still satisfied the predicate, so the record was never at fault.
+
+⛔⛔ **The condition was this:**
+```bash
+elif [ -r FILE ] && grep -v '^#' FILE | grep -q "^${w}|"; then
+```
+**A gate whose verdict is the exit status of a pipeline I never captured** — under `set -uo
+pipefail`, in a branch that silently falls through to IDLE when it goes wrong.
+
+⭐⭐ **THAT IS THE EXACT DEFECT I HAD THREE OTHER REPOS FIX TODAY.** commonplace-doc-sync built a
+`--self-test` for it; commonplace-dir's `land-gates.sh` refused a real push over it; commonplace-next
+put a red main on the board for it and I filed §7x175 saying *knowing the rule is not a control*.
+⇒ **I wrote that sentence about somebody else's chain while mine sat in the classifier those same
+loops depend on.** The rule I was enforcing had a route I had never looked at — §7x175's own
+finding, applied to me: *a gate protects a route, not an outcome.*
+
+✅ **Fixed by capturing, not by re-testing the hypothesis:** read the file once, capture the rc, and
+match with a bash `case` on the content — no pipeline in the condition at all.
+✅ **And instrumented**, because two of the three occurrences had their evidence destroyed by my own
+re-run: every evaluation now appends `ds_hit`, `ds_rc`, file size and the detector verdict to
+`.watch-debug.log`. ⇒ **The next bad read will be explained by the failing run itself.**
+
+✅ **Both arms, measured:**
+```
+GREEN  all 9 declared-stopped workers -> STOPPED, ds_hit=yes
+RED    commonplace-log-reducer, yepochs (NO entry) -> ds_hit=no, not suppressed
+```
+⚠️ **I still do not know the cause** — the pipeline is a candidate I removed rather than a mechanism
+I observed, and my one measured hypothesis (pipefail + SIGPIPE) was killed 0/200. **Recording that
+honestly matters more than the fix:** if the anomaly recurs, `.watch-debug.log` will say so, and I
+will not be able to tell myself it was the pipeline.
