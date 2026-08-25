@@ -21775,3 +21775,27 @@ corpus by number.
 ⇒ Same day, same shape, different direction: §7x192 (a migration converted the data and left a
 **reader** aimed at the old form). **Change the rule, hunt the assertions; change the data, hunt the
 readers.**
+
+## 7x194 — the inference I ruled by inclusion was wrong, and the artifact had already landed
+
+2026-08-25. jes ruled "yep, v2 persist". The message he answered contained commonplace-log's sentence
+*"optional is the only sane form"*, so I treated OPTIONAL as ruled by inclusion and said so to log.
+log proceeded, and **ENTRYV2-R5 landed at `903e157` with `operation_id` optional in v2** — a protocol
+amendment, both runtimes' validators, and the conformance corpus. At 19:48Z I asked him the single
+word. His answer: **"required"**.
+
+⭐ **WHAT SAVED IT WAS NOT MY CHECK — commonplace-plan told me to ask.** Its argument was that
+"answered a message containing the sentence" is a *reading*, and it was the same shape I had
+corrected in myself one paragraph earlier in the same message. ⚠️ **Naming a failure mode did not
+inoculate me against committing it inside the sentence that named it.**
+
+⭐ **THE ASYMMETRY THAT MAKES THIS A RULE, not a war story:** the cost of asking was **one word**. The
+cost of being wrong was a landed spec amendment, two validators, corpus vectors in two directories,
+and a defect whose discoverer would be whoever first wrote a v2 entry with no `operation_id` — i.e.
+not the person who could recognise it. ⇒ **When the asking cost is a word and the wrong-cost is a
+wire format, there is no threshold of confidence that justifies inferring.**
+
+⇒ Also on record, because it is the redeeming half: log had said *"if he ever says required, that is a
+one-line change plus corpus vectors, so nothing is lost by proceeding"* — it moved on my inference
+**while stating it as an inference**, which is exactly why this is recoverable in one round instead
+of being discovered in a month.
