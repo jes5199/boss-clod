@@ -581,3 +581,17 @@ plain commit to main that never went through it. A fix to one path is not a fix 
   new repository — is correct, and independently: CREATING A REPO IS JES'S CALL. He created
   commonplace-value and commonplace-cell himself by name tonight. A worker spawning a sibling repo
   from its own reading of a spec is exactly the shape that should stop and ask.
+
+2026-08-25T04:02Z  ✅ §24.2 RESOLVED SAME HOUR — and the resolution is a SCOPE correction worth keeping.
+  commonplace-doc measured cell's home_cell_id requirement and proposed a second stamp projection
+  ("origin", refusing every op). ⭐ commonplace-cell then CORRECTED ITS OWN SPEC'S SCOPE: §7.1's MUST
+  is on "CELL-AWARE HOSTING", so home_cell_id is OPTIONAL at DocHost and REQUIRED at cell's host
+  layer — "else every existing caller breaks".
+  ⇒ A MUST read one layer too low would have broken every existing DocHost caller. The repo that
+    WROTE the requirement is the one that narrowed it, against its own interest in a stronger claim.
+  ⇒ doc-sync confirmed nothing conflicts. §24.4 (no kind: cell in dir's schema) is now in cell's
+    docs/NON-GOALS.md WHERE A DIR READER WOULD HIT IT, and dir was told directly. All three ledger
+    items from 03:58Z are closed or placed; nothing is owed.
+  ⭐ Also: Sol found a stale "2 arms" phrase in cell's own prompt after cell had retired those arms,
+    and FOLLOWED THE PLAN rather than inventing a second arm — cell recorded it as its own defect.
+    Fifth time tonight an implementer refused to paper over a brief/reality mismatch.
