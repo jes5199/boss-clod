@@ -509,3 +509,23 @@ plain commit to main that never went through it. A fix to one path is not a fix 
   ⛔ REMAINING WITH JES ACROSS THE FLEET: commonplace-log's ordering call among (a) DocumentProfile
     over the sidecar, (b) realm naming/placement, (c) a sibling's need on the log surface. That is
     the ONLY open item anywhere, and it is a prioritisation question, not a blocker.
+
+2026-08-25T00:54Z  ✅ PHASE 19 LANDED — jes's version-reducer ruling (A) is what the tree does.
+  Verified: main a3cbd9f == origin, clean; 0665bc1 and a3cbd9f both on origin; 137/137, 105 arms.
+  Commonplace.Doc.VersionReducer {"commonplace.version",1} is an ORDINARY REGISTERED PLUGIN whose
+  apply/3 refuses every operation (a stamp never advances). Create writes its epoch FIRST with base
+  {"version": 1}; open refuses any other first entry as :version_stamp_missing (doc_host.ex:281)
+  AND NAMES WHAT WAS FIRST; phase 18's uninitialized/legacy gates stay distinct.
+  ⭐ yepochs' naming hazard SATISFIED BY CONSTRUCTION and verified in the diff, not assumed: the only
+    new identifier is format_version (snapshot.ex:20/33/48). No field near the Yepoch is called
+    "epoch". Recorded as yepochs' distinction, theirs.
+  ⭐ A GAP FOUND BY DOC'S OWN MUTATION AFTER LANDING, closed in a follow-up rather than forged into
+    Sol's commit: init/2's base validation was UNCONSTRAINED — accepting ANY base left 136 tests
+    GREEN. New arm "a version epoch with an invalid base is refused", shown red under that exact
+    mutation. ⇒ The cannot-fail-test family again, caught by mutation and not by review, and caught
+    AFTER the round reported green.
+  ⚠️ Sol reported the PLAN'S PROSE disagreeing with the engine's callback envelopes and followed the
+    CONTRACT rather than the prose. Third time today an implementer refused to paper over a mismatch.
+  ⏳ DURABILITY PASS ASKED at 00:54Z (doc at 69%, one point under my compact line). Its stop message
+    CROSSED mine, so it has not answered yet. ⛔ DO NOT COMPACT until it confirms; phase 19 landing
+    IS the natural boundary I told it to wait for.
