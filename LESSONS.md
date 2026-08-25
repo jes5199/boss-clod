@@ -20465,3 +20465,41 @@ repo's waiter does not count for you.**
 waiter launches and D14B finishes, **nothing returns control to dir.** doc-sync's variant waits on
 the resulting pid inside its own shell, which does keep the turn alive. Told dir, named both
 shapes, left the choice to it — *the instrument fix is mine, the waiter design is theirs.*
+
+## 7x165 — a missing FILE is not a missing ARM, so the gate said PASS
+
+**2026-08-25T05:04Z, commonplace-dir, found and fixed by dir itself.** Verified by me: the arms
+file `docs/DIR-D14-required-arms.tsv` is **ABSENT at a7e77ec** and **present (13 lines) at
+548ba40**. dir's account holds.
+
+**The sequence, which needed three innocent steps and no mistake anyone would catch in review:**
+1. dir deleted the file before D14 landed, as part of a deliberate ceremony change.
+2. Sol's D14 commit never re-added it — **it was already tracked at the branch point**, so nothing
+   in the round had reason to touch it.
+3. The rebase carried the deletion forward.
+
+⇒ **D14's thirteen arms were unguarded from `a7e77ec` until `548ba40`, and `check-all-arms`
+reported PASS the whole time** — because it enumerated the arms *listed in the files it found*.
+⭐⭐ **A MISSING FILE IS NOT A MISSING ARM. The gate's corpus silently went to zero and its verdict
+did not change.** This is the corpus door, not the oracle door: the oracle was fine and had nothing
+to read.
+
+⭐ **What actually caught it was a DENOMINATOR, not the gate:** the round count read **21 where dir
+expected 22**. The gate's own PASS carried no information; the count did. *(Exactly
+[[reference_never_emit_a_bare_count]] and the deadman argument in
+[[reference_gate_verification_both_arms]] — "planting is the red arm, the denominator is the
+deadman", here earned again in a repo that already knew the rule.)*
+
+✅ **The fix is structural, not a resolution to be careful:** `check-all-arms` is now RED on a
+vanished file — every brief under `docs/plans` MUST have an arms file — and dir demonstrated
+**both arms**: red by hiding one, green with it restored.
+
+⭐ **AND THE GATE FIRED FOR REAL ON THE SAME ROUND.** After dir's first restore, one arm was still
+missing (Sol had **renamed** its test rather than retiring it); `land-gates` went RED and **refused
+the push**. That is the first time the captured-rc gate stopped a push instead of decorating one —
+the same gate whose earlier hand-demonstration had printed `exit=0` because the demo was piped into
+`tail`. ⇒ **A gate that has now been seen red on real work is a different object from one that has
+only ever been seen green.**
+
+⚠️ **Not texted to jes:** nothing shipped wrong and nothing was at risk by the end — this is the
+shape of a near-miss, and the artifact is the remedy.
