@@ -21706,3 +21706,26 @@ wrong answer named before they reach for it.
 ⭐ *It is the second time today a repo recorded the WRONG measurement next to the right one*
 (§7x188's survey referent, now this). **A discarded attempt kept in the record is worth more than a
 clean result, because the clean result does not warn anybody.**
+
+## 7x191 — "restore my mutation" restores to HEAD, and HEAD does not hold work whose producer commits nothing
+
+commonplace-markdown, 2026-08-25T19:08Z, reported unprompted. It had made a deliberate red by
+mutating `lib/` (disabling an `is_struct` clause) inside a Sol clone, then undid the mutation with
+`git checkout lib/…`. **That command does not undo a mutation — it restores the path to HEAD.**
+Sol commits nothing in the fence, so Sol's entire reviewed lib change lived only in the worktree and
+was wiped by the same stroke. The landing script then committed tests-without-lib (11/11 red) and
+pushed it to `sol/md-m2` (4252193, never on main).
+
+⭐ **THE SHAPE:** an undo whose reference point is the *repository's* last state, applied to work
+whose producer never wrote to that state. The command is correct, the mental model — "put back what
+I changed" — is the thing that is wrong, and it is wrong only for producers with no commit.
+
+⚠️ **The second fault in the same minute is the more useful one.** It invoked the *clone's*
+`bin/land-sol-round.sh`, whose `cd "$repo"` resolved to the clone. The main-side landing refused with
+rc 128, "branch used by worktree". ⭐ **That refusal is what caught the first fault.** A gate nobody
+aimed at this failure fired on it, because the two faults shared a cause: *acting from the clone
+while believing you were acting on main.*
+
+⇒ Its filed rules: cp-backup/restore for toplevel mutations in an uncommitted clone; **land from the
+main checkout only.** ⭐ And it reported the whole incident inside a message whose greens were all
+clean — nobody would have asked.
