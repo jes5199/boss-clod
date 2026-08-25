@@ -21291,3 +21291,36 @@ same trap that cost me two of three occurrences of my own IDLE anomaly this morn
 
 ⚠️ **Broadcast WITH ITS POPULATION NAMED** (cell, next, doc-sync, plan; everyone else FYI) — first
 use of the standing rule yepochs earned an hour ago in §7x183.
+
+### 7x184a — the same loss, one turn later, in a place that would have MISATTRIBUTED it
+
+**Two repos acted on the FYI within four minutes, and one found something worse than a lost name.**
+
+**commonplace-cell filed the rule as a script** — `bin/test-capture.sh` (6866412), verified by me:
+writes full output, seed, `HEAD`, **and the number of Sol rounds in flight** to
+`.test-logs/<utc>-seed<N>.log` **before** printing any summary, and never re-runs. Both arms seen
+(green at 97/seed 1/2 rounds in flight; red on a deliberate probe, naming
+`test/zz_capture_probe_test.exs:3`). ⭐ Recording the concurrency context is the half my own note
+asked for and the half that makes a future one-off diagnosable rather than merely recorded.
+
+⛔⛔ **yepochs found the shape in `bin/mutate.sh`, where it was WORSE THAN A LOST NAME.** The script
+printed `"N tests, M failures"` and then `rm -f`'d the log. ⇒ **A flaky or concurrency-induced
+failure occurring inside a mutation run would have been reported as ✅ CAUGHT — a successful catch —
+with the name gone.** *The tool would have attributed someone else's failure to the mutation, and
+the gate would have been recorded as working.*
+⭐ **That is not a missing artifact; it is a FALSE POSITIVE MANUFACTURED BY THE MISSING ARTIFACT.** A
+lost name in a normal run leaves a question. A lost name in a mutation run leaves a **wrong
+answer that reads as evidence.**
+✅ Fixed at `272f176`: every failing test named in full on a CAUGHT result, log kept, path printed
+on both arms, with the note at the site — *"if a name is not one you expected this mutation to
+break, you have found something else — do not re-run before reading it."*
+
+⇒ ⭐⭐ **THE GENERALISATION, yepochs's words:** *"the re-run is what destroys the evidence, so the
+evidence has to outlive the first run, not be reconstructable after it."* **A tool that reports a
+summary and deletes its source is STRUCTURALLY unable to support a second look** — and this one had
+been reporting summaries that were trusted all session.
+
+✅ **And the selector line paid immediately:** yepochs read four repo names, knew in one line it was
+not among them, and spent **zero turns on membership** — going straight to *"does this shape exist
+in my tooling"*. One commit of real value instead of one turn of exclusion-proving. **That is the
+whole argument for wide distribution WITH a stated population.**
