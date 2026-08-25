@@ -562,3 +562,22 @@ plain commit to main that never went through it. A fix to one path is not a fix 
     fails, and the no-recommendation framing written into the AGENT PROMPT and the ticket — not
     just agreed in chat. ⚠️ 2 contracts stays regardless of what it returns; the measurement exists
     to inform a decision jes has NOT made, and must not become one.
+
+2026-08-25T03:58Z  ⓘ CROSS-REPO REQUIREMENTS CREATED BY JES'S CELL SPEC (f40a19f) — ledger entries,
+  NOT asks. commonplace-cell surfaced these from the spec and has NOT told the affected repos yet;
+  it will contact them directly when its Phase 1 is in flight, which is the right route.
+  · §24.2 REQUIRES commonplace-doc to add an IMMUTABLE home_cell_id in Document initialization —
+    explicitly "not a mutable reserved attribute and not a capability". ⚠️ Note the contrast with
+    ruling 28: jes rejected a profile ATTRIBUTE for document kind because type is interpretation
+    living in the pointer. home_cell_id is the opposite shape — ownership, immutable, in the
+    document. Do not let anyone collapse the two by analogy.
+  · §24.6 has commonplace-doc-sync's fork creation accept a destination home_cell_id.
+  · §24.4 — 0.1 does NOT add `kind: cell` to commonplace-dir's Directory schema. ⛔ Recorded so
+    nobody pre-empts it; an absence that is deliberate reads exactly like one nobody got to.
+  ⇒ All three are Phase 2 (spec §29). Nothing is owed by anyone tonight.
+
+2026-08-25T03:58Z  ✅ CONFIRMED TO commonplace-cell: it will NOT create a commonplace-cell-host repo.
+  Its reading of §1/§21.2/§22 — the two-process topology proof is a HARNESS IN ITS OWN REPO, not a
+  new repository — is correct, and independently: CREATING A REPO IS JES'S CALL. He created
+  commonplace-value and commonplace-cell himself by name tonight. A worker spawning a sibling repo
+  from its own reading of a spec is exactly the shape that should stop and ask.
