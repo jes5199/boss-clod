@@ -542,3 +542,23 @@ plain commit to main that never went through it. A fix to one path is not a fix 
   ⛔ hermes stays on Fable and stays UNWATCHED by the stall loop — live money, deliberate, never
     auto-nudge. Its model is now correct AND it is still exempt from nudging; those are separate
     properties and neither implies the other.
+
+2026-08-25T03:08Z  ⏳ HERMES GATE FIX — UNANSWERED, NOT DECLINED. Do not let this evaporate and do
+  not re-raise it tonight.
+  I put TWO things to jes at 03:05Z: (1) the two-file gate fix re-proposed on NEW grounds, and
+  (2) the 2x sizing re-validation. He answered "okay try to revalidate" — which names (2) only.
+  ⇒ (1) IS UNANSWERED. Not refused. hermes has recorded it that way on HERMES-jcqmf and the draft
+    stays in its scratchpad. ⛔ Same distinction I got wrong in my own record at 22:38Z over reading
+    (D): an option he never reached is not one he rejected, and filing it as rejected is how a live
+    question becomes a settled no whose basis nobody can find.
+  ⇒ THE NEW GROUNDS, if it is ever re-asked: it changes NO behaviour (the live path already runs
+    strictly-prior, measured 14/14 days). It makes the code say what it does and collapses three
+    date conventions into the one the spec specifies. Case against: churn on a live path for no
+    behavioural gain. Both halves were given to him.
+  ⇒ RE-ASK ONLY at a natural moment — if he touches the harvester again, or if a successor is about
+    to read that gate and would rediscover tonight. NOT on a loop.
+  ⭐ R3 (HERMES-6ko38) is running with the guard structural rather than remembered: an explicit
+    "reproduced: yes/no" line before any strictly-prior number, stop-and-report if the control
+    fails, and the no-recommendation framing written into the AGENT PROMPT and the ticket — not
+    just agreed in chat. ⚠️ 2 contracts stays regardless of what it returns; the measurement exists
+    to inform a decision jes has NOT made, and must not become one.
