@@ -21870,3 +21870,28 @@ because the thing that reads its verdict discarded the verdict.
 an arm that passes. Its filed rule — **gated arms re-run after every landing that touches the
 gateway/DO path** — is the right shape, because it puts the re-run on a *path being touched* rather
 than on someone remembering.
+
+## 7x197 — "deployed" named the Worker; the image followed six minutes later
+
+commonplace-log, 2026-08-25T20:15Z, verifying entry v2 on the live platform (`48362e9`, verified by
+me as `origin/main`). `wrangler deploy` returned success. Its first post-deploy probe emitted a
+**v1** entry — from a container booted a *minute after* the deploy "succeeded". ⭐ **That looked
+exactly like the new code failing to take effect, and it was not:** container rollouts are STAGED.
+The application sat in `provisioning` for ~6 minutes, and containers started fresh in that window
+still ran the OLD image. Only at `ready` do new starts get the new one. `wrangler containers list`
+shows the state.
+
+⭐ **THE SHAPE: a success signal that names a DIFFERENT OBJECT than the one you are about to
+measure.** "Deployed" was true — of the Worker. The image is a second artifact on its own clock, and
+nothing in the success message says so. ⚠️ **Every deploy-then-verify sequence has this hazard
+wherever the deploy unit and the run unit differ** — Worker vs container here, but also a
+hot-reloaded module vs a running process, a pushed ref vs a pulled checkout, a written config vs a
+process that read it at boot.
+
+⚠️ **AND NOTE THE DIRECTION OF THE ERROR, which is the rarer and more dangerous one.** The false
+reading was a **false RED** — it would have sent someone hunting a defect that did not exist,
+possibly reverting good code. The usual failure is a false green; a false red costs the same hours
+and is much easier to act on confidently, *because a failing probe feels like diligence.*
+⇒ **Before treating a post-deploy probe as evidence about the code, prove the artifact under test is
+the one running.** Its fix is the right one: it recorded the staging in readiness §4b, i.e. in the
+document the next person deploying will read, not in a commit message.
