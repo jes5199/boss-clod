@@ -199,9 +199,44 @@ fi
 # than because the gate correctly stayed quiet. ⭐ A green-only pattern cannot
 # distinguish "gate stayed silent" from "gate never ran".
 N_INFLIGHT=$(printf '%s\n' "$INFLIGHT_PGIDS" | grep -c '[0-9]' || true)
+
+# ⛔⛔ 2026-08-25T06:16Z — THE CAP ADMITTED THREE. Measured: sol-cell-p3 (17:54), sol-value-p6
+#   (05:41) and sol-cell-p1c (05:41) all live, three distinct pgids, cap 2. The two 05:41 rounds
+#   launched in the same second.
+# ⭐ THE LOCK WAS NOT THE BUG — THE WINDOW I DOCUMENTED AS "microseconds" WAS THE BUG. Between
+#   `exec 9>&-` and the round becoming visible to pgrep lies env + bwrap (twenty-odd binds) + a
+#   NODE wrapper start. That is hundreds of milliseconds, not microseconds. I wrote the estimate
+#   without measuring it, and it was the whole safety argument for releasing the lock early.
+# ⇒ ⭐⭐ A COUNT OF WHAT IS RUNNING CANNOT SEE WHAT IS ABOUT TO RUN. Fix the referent, not the
+#   lock: count LIVE ROUNDS + OUTSTANDING RESERVATIONS. A reservation is written under the lock
+#   and retired by a later purge the moment its own round becomes countable.
+RESERVE_DIR=/home/jes/boss-clod/.sol-reservations
+mkdir -p "$RESERVE_DIR"
+# Purge: (a) a reservation whose round is now visible — it is counted as in-flight, not twice;
+#        (b) a reservation older than the TTL — its launch died between reserve and exec.
+# ⚠️ TTL is a BACKSTOP for a dead launcher, not the mechanism. If it ever does the work, a
+#   launcher is failing silently between reservation and exec and that is its own defect.
+RESERVE_TTL=120
+_now=$(date +%s)
+for _r in "$RESERVE_DIR"/*.reserved; do
+  [ -e "$_r" ] || continue
+  _rwd=$(cat "$_r" 2>/dev/null || echo)
+  _rage=$(( _now - $(stat -c %Y "$_r" 2>/dev/null || echo "$_now") ))
+  if [ "$_rage" -ge "$RESERVE_TTL" ]; then
+    echo "NOTE: retiring reservation for ${_rwd:-?} after ${_rage}s — its launch never became countable." >&2
+    rm -f "$_r"; continue
+  fi
+  for _p in $INFLIGHT; do
+    _pc=$(tr '\0' '\n' < "/proc/$_p/cmdline" 2>/dev/null | grep -A1 -x -- '-C' | tail -1)
+    if [ -n "$_pc" ] && [ "$_pc" = "$_rwd" ]; then rm -f "$_r"; break; fi
+  done
+done
+N_RESERVED=$(find "$RESERVE_DIR" -maxdepth 1 -name '*.reserved' -type f 2>/dev/null | wc -l)
+N_INFLIGHT=$(( N_INFLIGHT + N_RESERVED ))
 if [ "$N_INFLIGHT" -ge "$SOL_MAX_PARALLEL" ]; then
   echo "REFUSED: $N_INFLIGHT codex round(s) already in flight, cap is $SOL_MAX_PARALLEL." >&2
   echo "  pgids: $(echo $INFLIGHT_PGIDS | tr '\n' ' ') | pids: $(echo $INFLIGHT | tr '\n' ' ')" >&2
+  echo "  of which $N_RESERVED are RESERVATIONS (admitted, not yet visible to pgrep)." >&2
   echo "  This is the CAP, not an error. Wait for a slot; do not raise the cap to get past it." >&2
   exit 65
 fi
@@ -471,6 +506,9 @@ done < <(find /run -maxdepth 2 -type s 2>/dev/null | sort -u)
 # ⇒ Closing here leaves a window of a few bash builtins between the release and codex becoming
 #   visible to pgrep — microseconds, versus the multi-second window that let three rounds in.
 #   Not zero. Small enough to be worth the exchange, and stated rather than pretended away.
+# ⭐ Reserve BEFORE releasing. This is the whole fix: the next dispatcher counts this round even
+#   though nothing of it is running yet. Retired by the purge above once it is visible.
+printf '%s' "$WORKDIR" > "$RESERVE_DIR/$(printf '%s' "$WORKDIR" | tr -c 'A-Za-z0-9._-' '_').reserved"
 exec 9>&-
 exec env -i \
   HOME="$HOME" PATH="$PATH" USER="$USER" LOGNAME="$LOGNAME" SHELL="$SHELL" \

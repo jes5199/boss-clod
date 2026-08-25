@@ -20615,3 +20615,45 @@ not an incident, and the fix belongs at the fixture-authoring boundary rather th
 
 ⛔ **Not texted to jes:** unreleased code, no user impact, and the finding arrived with its own fix
 queued. Near-miss shape; the artifact is the remedy.
+
+## 7x169 — the cap admitted three, and my own comment was the reason
+
+**2026-08-25T06:16Z, reported by commonplace-dir, cause entirely mine.** Three rounds live against
+`SOL_MAX_PARALLEL=2`: sol-cell-p3 (17:54), sol-value-p6 (05:41), sol-cell-p1c (05:41). **The two
+05:41 rounds launched in the same second.**
+
+⭐ **THE LOCK WAS NOT THE BUG. THE COMMENT WAS.** I had written, in the script, that the gap between
+`exec 9>&-` and the round becoming visible to `pgrep` was *"microseconds, versus the multi-second
+window that let three rounds in"*. **I never measured it.** What actually sits in that gap is
+`env` + `bwrap` with twenty-odd binds + a **node wrapper start** — hundreds of milliseconds. ⇒ *The
+estimate was the entire safety argument for releasing the lock early, and it was a guess wearing
+the typography of a measurement.*
+
+⭐⭐ **THE REFERENT FIX: a count of what is RUNNING cannot see what is ABOUT TO RUN.** Admission now
+counts live rounds **plus reservations** — written under the lock, retired by a later purge the
+moment the round becomes countable, TTL only as a backstop for a launcher that dies mid-flight.
+
+## ⛔ AND THE SECOND ERROR, WHICH IS WORSE THAN THE FIRST
+
+**I tested the fix by running the real runner as a "probe" — and on success the runner does not
+report, it `exec`s.** A slot had just freed, so it PASSED, and I launched an unauthorised codex
+round with the prompt `"probe"` **inside commonplace-dir's D11D worktree.** My own `timeout 40`
+killed it.
+
+⛔ **I TREATED A LAUNCH TOOL AS A QUERY TOOL.** The refusal path prints and exits; the success path
+*acts*. I had only ever exercised the refusal path, so the tool had always behaved like a query —
+**a tool whose dangerous branch you have never taken feels like a safe tool.**
+⇒ ✅ **A probe must be incapable of the action, not merely expected not to take it.** Force the
+refusal (occupy the cap, or read the counting through a path with no exec) — never rely on
+conditions that made it safe last time.
+
+⚠️ **My first probe's output was `grep`-filtered for `REFUSED|RESERVATIONS|pgids`. It matched
+nothing — which I read as "no interesting output" when it meant "IT DID NOT REFUSE".** ⭐ *The
+absence of the refusal string WAS the alarm, and I had filtered the output down to a set of strings
+that could not express it.* Same family as every selector failure this week: I chose what I could
+see, then trusted what I saw.
+
+✅ **Damage, verified rather than assumed:** no d11d codex alive; the worktree's single modified
+file has mtime 06:17:14, which is dir's own edit and predates my probe; the stale reservation my
+dead launch left — which would have refused dir's waiter for up to 120s — removed by hand. **Told
+dir before it could find it.**
