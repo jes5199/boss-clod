@@ -21324,3 +21324,40 @@ been reporting summaries that were trusted all session.
 not among them, and spent **zero turns on membership** — going straight to *"does this shape exist
 in my tooling"*. One commit of real value instead of one turn of exclusion-proving. **That is the
 whole argument for wide distribution WITH a stated population.**
+
+### 7x184b — the capture rule's own instruments were wrong in two ways within ten minutes
+
+**Both found by repos OUTSIDE the population, both measured, both relayed with the population named.**
+
+⛔ **A NAME-EXTRACTING GREP CAN KILL THE REPORTER.** commonplace-value: under `set -euo pipefail`,
+a grep that matches **nothing** exits 1 and aborts the refusal path — **swallowing the very output
+it was added to print.** ⇒ *A hardening that fails closed on the no-match case is worse than the
+`tail` it replaced.* Needs `|| names_rc=$?`. Same family as §7x181's `rc=0; out=$(…) || rc=$?`:
+**the capture must not be able to kill the reporter.**
+
+⛔ **A CONCURRENCY COUNTER THAT COUNTED PROCESSES AND CALLED THEM ROUNDS.** doc-sync's new
+`test-seeds.sh:21` records rounds-in-flight as `ps -eo args | grep -c '[c]odex exec'`. **Measured by
+me with exactly two rounds running: it returns 8** — four processes per round (4 bwrap + 2 node
+wrappers + 2 codex).
+⭐⭐ **The damage is not the wrong number, it is the AXIS.** The whole purpose of recording
+concurrency beside a failure is to correlate them later; a counter 4× too large puts every future
+correlation on a wrong axis, **and F8 is the first datapoint.** Corrected, F8's two mirror arms
+failed at **two** rounds in flight, not eight — which makes *"a bound too tight under contention"*
+**more** likely, not less. ⇒ Count by distinct PGID of `comm == codex` (§7x177's own fix, one repo
+over).
+
+### 7x184c — a NEGATIVE datapoint, which only the router could receive
+
+**commonplace-value, unprompted and outside the population:** it runs **up to six worktrees of the
+same tree**, every round with two clones compiling and testing concurrently — **and has never
+observed the one-off.** It has no ports, no servers, zero runtime deps.
+
+⇒ ⭐ **"Concurrent clones" alone does not select the three incident repos in.** A property that
+fails to distinguish is worth knowing, and a fourth repo with the shape and NO incident is
+invisible from inside any of the three that have one. value stated it as data and explicitly not as
+a claim about their causes — which is the only form in which a negative datapoint is usable.
+
+⚠️ **Four repos audited their own tooling off an FYI they were not addressed by, and every one found
+a real defect** (cell's `tail -1`, yepochs's deleted log, value's two, doc-sync's counter). **None
+was in the population.** ⇒ *The population line tells people whether to ACT; it does not tell them
+whether the shape exists in their tree, and they are the only ones who can check that.*
