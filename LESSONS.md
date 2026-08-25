@@ -21150,3 +21150,44 @@ has to travel with it, or every copy re-earns the lesson privately.*
 and now this — all "the gate's verdict was never the thing that decided". The first two were
 pipelines; this one is `set -e` killing the capture. **Different mechanism, identical failure:
 THE RC WAS NEVER CAPTURED.**
+
+## 7x182 — the red arm fires only against a PRIVATE dep, and half the stack is public
+
+**2026-08-25T17:38Z, found by commonplace-doc-sync while executing Goal #1's brief.**
+
+The brief's red arm is *"dispatch a worktree without the host step, capture the private fetch
+failing inside the fence"* — **my suggestion**, adopted verbatim by plan. doc-sync measured it and
+found the hole:
+
+⛔ **A FENCED `mix deps.get` SUCCEEDS FOR A PUBLIC REPO.** It fails only for a private one, via the
+gh credential helper reading a masked `~/.config/gh`. ⇒ **Anyone demonstrating the arm on a public
+dep reports the gate working when it was never exercised** — a vacuous red, in the gate built to
+prevent exactly this class.
+
+**Measured by me, so nobody guesses which side a dep falls on:**
+```
+PUBLIC   commonplace-log · yelixer
+PRIVATE  yepochs · doc · doc-sync · merkle-crdt · dir · cell · next · log-reducer · value
+```
+⚠️ **commonplace-log was made public THIS MORNING** (MIT, at jes's request). A property of the repo
+that had nothing to do with dependency mechanics silently decides whether a safety demonstration
+can fire.
+
+⭐⭐ **THE SHAPE: MY OWN SUGGESTED ARM WAS UNDER-SPECIFIED, AND I DID NOT NOTICE WHEN I ROUTED IT TO
+FIVE REPOS.** I wrote "show the private fetch failing" and read my own word *private* as a
+description rather than as **the load-bearing precondition**. plan adopted it, I relayed it five
+times, and the party who caught it was the one who ran it. ⇒ *A suggestion travels further than a
+measurement and is checked less.*
+
+✅ Broadcast to the fleet with the visibility table and the instruction: **if your only converted
+deps are commonplace-log or yelixer, your red arm CANNOT fire and you must say so rather than
+report a green.**
+
+⭐ merkle's round is the positive control: its red arm captured the exact **"could not read
+Username"** — the private-fetch signature — rather than a silent success. Verified at main
+`0d8697b`, three https refs at the same shas, zero `path:` deps.
+
+⚠️ **Two distinct vacuity traps in ONE gate's construction, found by two different repos within an
+hour**: §7x181's rc-never-captured, and this one's arm-that-cannot-fire. **Neither was anyone's
+fault and both were cheap to inherit** — which is the argument for the incident travelling with the
+template.
