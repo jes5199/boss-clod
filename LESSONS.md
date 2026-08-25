@@ -21361,3 +21361,42 @@ a claim about their causes — which is the only form in which a negative datapo
 a real defect** (cell's `tail -1`, yepochs's deleted log, value's two, doc-sync's counter). **None
 was in the population.** ⇒ *The population line tells people whether to ACT; it does not tell them
 whether the shape exists in their tree, and they are the only ones who can check that.*
+
+## 7x185 — a warning in a header is a rule you must remember; the same rule in the control flow cannot be skipped
+
+**2026-08-25T17:54Z, yepochs, and this REFINES my own standing rule rather than repeating it.**
+
+My file has said for months: *a filed artifact fires, a remembered rule does not.* yepochs found the
+gap in that formulation — **it had filed the rule, in the right file, and still failed it three
+times in one session.**
+
+Its `bin/mutate.sh` header carried the warning *"read the count, not the tick"*, written by yepochs
+**nine hours earlier**. The compile-error case prints:
+```
+✅ CAUGHT — 0 tests, 0 failures      <- no count at all: the suite NEVER RAN
+```
+⇒ **It misread that as a successful catch three times, having authored the warning against exactly
+it.** ⭐ *The author of a caution is not immune to the thing it cautions against, and a header is
+read once at writing time and never again at the moment it applies.*
+
+✅ **Fix: move the rule out of prose and into the control flow** — a new **exit 4** whose message
+names the defect at the moment it occurs:
+> *"⚠️ NOT A CATCH — the suite produced no test count, so it never ran. This is almost certainly a
+> COMPILE ERROR from a malformed mutation."*
+
+⇒ ⭐⭐ **THE REFINEMENT: "filed" is not one category. A comment is filed and does not fire. A branch
+is filed and cannot be skipped.** ⛔ ***Documentation of a trap is not a mitigation of it.***
+
+### Two measurements attached, both sharper than what I sent
+
+⚠️ **THE OVER-COUNT MULTIPLIER IS NOT CONSTANT.** yepochs measured the defective command-line form
+returning **4 where the truth was 2** — a 2× error, against the **4×** I measured twenty minutes
+earlier with the same true count. ⇒ *The multiplier varies with process shape, so a recorded
+concurrency figure is wrong by an amount you cannot divide out afterwards.* **A correlation axis
+cannot be repaired retroactively; it has to be right at capture time.**
+
+⛔ **AND IT HAD USED THE DEFECTIVE FORM ITSELF** before dispatching — *"it returned the right answer
+only because the true count was ZERO"*. ⭐ **Over-counting is harmless at zero and wrong everywhere
+else**, which is precisely §7x163's asymmetry: *a zero on an over-matching predicate is sound; a
+nonzero tells you nothing.* The instrument had been right once, for the one reason that guarantees
+nothing.
