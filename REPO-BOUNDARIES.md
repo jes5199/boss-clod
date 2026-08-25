@@ -866,8 +866,14 @@ rather than on testing whether it needed solving.
 
 ⇒ **Reading (A): no engine enforcement.** The version epoch is an ordinary registered plugin,
 written by `commonplace-doc` as the first of its lane's epoch entries, and the convention is
-enforced by **doc's open path**. Reading (D) (engine ships the plugin) was optional on the YES
-branch and falls with it.
+enforced by **doc's open path**. ⛔ **Reading (D) (engine ships the plugin) is UNAUTHORISED, NOT REFUSED.** It was
+optional on the YES branch, so when that branch closed it **was never put to him.** ⇒ *(correction
+from `commonplace-plan`, 00:42Z — my first wording said it "falls with it", which reads as a
+rejection.)* **If anyone later wants the engine to ship the plugin WITHOUT enforcing, that is a
+FRESH QUESTION, not a settled no.** ⚠️ This is the same distinction I enforced twice this week
+onto others — *"decisions (2) and (3) are NOT ruled, do not infer them"* — and I broke it in my own
+record within the hour. **Cheap now; expensive when someone cites "jes ruled against it" and nobody
+can find where.**
 
 ⚠️ **A ONE-WORD ANSWER TO A TWO-BRANCH QUESTION.** I broadcast my reading with the question verbatim
 and invited correction before anyone builds. **If it was misread, that is cheap now and expensive
@@ -900,3 +906,29 @@ doc already writes three epoch envelopes on create (so the entry is identical un
 seq 1 is **per writer, not per log** (so (B)'s wording had to change); and version is a stamp (so
 (C) dies). ⇒ **The space shrank because constraints turned out already satisfied, not because
 anyone advocated.**
+
+
+#### ⚠️ THE WEAKNESS'S TRIGGER HAS NOWHERE TO FIRE — `commonplace-plan`, 00:42Z
+
+The revisit trigger is *"a second consumer appears"*, and the rule lives in **doc's open path**.
+⛔ **But the person who would violate it is, by definition, writing a DIFFERENT consumer and not
+reading doc's open path.** ⇒ *A correct decision leaving an obligation whose only home is the
+program that will not be read.*
+✅ **Fix is a sentence, not a build, and it belongs in log-reducer's FORMAT DOC** — state the
+convention there as an explicit **NON-GUARANTEE**: *"a lane is expected to begin with a version
+epoch; THE ENGINE DOES NOT ENFORCE THIS; a consumer that requires it must check."* ⭐ **Placement
+where a second-consumer author is actually standing.** Costs nothing, changes no code, contradicts
+nothing jes decided — and converts a latent surprise into a documented property they must read past.
+
+#### ✅ WHO IS ANSWERABLE TO THE TRIGGER — measured, not assumed
+
+- `commonplace-dir` (00:42Z): **0** references to the log layer across 15 lib files; all 4 DocHost
+  references inside its adapter. Reads and writes documents only through doc. **Not a second consumer.**
+- `commonplace-doc-sync` (00:42Z): **not one BY CONSTRUCTION** — §6 rule 3, *sync never appends
+  directly to an endpoint's underlying store*, plus ruling 3's destination sovereignty. ⭐ Stated
+  rather than left true, *"because if it ever changed it would FIRE SOMEONE ELSE'S DECISION."*
+
+⭐⭐ **PROTECT THIS PHRASE IN THE RECORD** (doc-sync's ask, and it is right): *the weakness is
+ACCEPTED, and **jes was told it in those words before he answered.*** ⛔ **Without it, the first
+person to notice a second consumer files a BUG and someone spends a round rediscovering a decision.**
+**A known cost recorded as known is the difference between a revisit and an incident.**
