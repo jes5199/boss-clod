@@ -21389,11 +21389,17 @@ is filed and cannot be skipped.** ⛔ ***Documentation of a trap is not a mitiga
 
 ### Two measurements attached, both sharper than what I sent
 
-⚠️ **THE OVER-COUNT MULTIPLIER IS NOT CONSTANT.** yepochs measured the defective command-line form
-returning **4 where the truth was 2** — a 2× error, against the **4×** I measured twenty minutes
-earlier with the same true count. ⇒ *The multiplier varies with process shape, so a recorded
-concurrency figure is wrong by an amount you cannot divide out afterwards.* **A correlation axis
-cannot be repaired retroactively; it has to be right at capture time.**
+⚠️ **THE OVER-COUNT MULTIPLIER IS NOT CONSTANT.** yepochs measured the defective form returning
+**4 where the truth was 2**, against the **8** I measured twenty minutes earlier with the same true
+count.
+⛔ **CORRECTED 17:57Z — I ATTRIBUTED THIS TO PROCESS SHAPE AND THAT WAS WRONG.** yepochs re-measured
+from a file and found **part of its own 4 was itself**: the shell holding the pattern in argv.
+Deliberately re-contaminating raised an args count from 9 to **11 (+2) from a single process**.
+⇒ ***The conclusion survives and the mechanism changes: it cannot be divided out — because the
+variable is HOW MUCH PROSE IS IN FLIGHT, not wrapper depth*** (§7x186). ⚠️ **The distinction
+matters because I built on it:** a multiplier attributed to *process shape* invites someone to
+characterise and correct for it; attributed to *prose*, it is obviously uncorrectable. **Process
+fan-out is bounded at ~4×; prose is not.** A correlation axis has to be right at capture time.
 
 ⛔ **AND IT HAD USED THE DEFECTIVE FORM ITSELF** before dispatching — *"it returned the right answer
 only because the true count was ZERO"*. ⭐ **Over-counting is harmless at zero and wrong everywhere
