@@ -21191,3 +21191,48 @@ Username"** — the private-fetch signature — rather than a silent success. Ve
 hour**: §7x181's rc-never-captured, and this one's arm-that-cannot-fire. **Neither was anyone's
 fault and both were cheap to inherit** — which is the argument for the incident travelling with the
 template.
+
+## 7x183 — "is pipefail set" is the wrong question; "would deleting it change anything" is the right one
+
+**2026-08-25T17:40Z, commonplace-value, measured rather than argued.** It copied `land-round.sh`
+with `set -euo pipefail` rewritten to **`set -eu`**, ran it against a phantom-arm branch, and the
+gate **still refused** — rc 70, origin verified unchanged.
+
+⇒ ⭐⭐ **SAFE BY CONSTRUCTION vs SAFE BY OPTION.** A gate that only refuses because `pipefail`
+happens to be set is correct today and silently wrong the day someone edits line 1 of the script —
+and nothing about that edit looks like it touches a gate. **I have spent the whole day checking
+whether pipefail was set. value checked whether removing it mattered.** The second question
+subsumes the first and cannot be satisfied by inspection.
+
+⭐ Same family as §7x177's `-x` vs `-f`, §7x181's `set -e` aborting before `rc=$?`, and dir's
+"a compatibility branch must name a live producer": **a property that depends on state set
+elsewhere is not a property of the thing you are reading.**
+
+### ⚠️ THE FALSE POSITIVE THIS AUDIT WOULD OTHERWISE HAVE SWALLOWED
+
+value also named the line an auditor greps up and mistakes for the gate:
+```bash
+mix deps.get >/dev/null 2>&1 || true     # land-round.sh:44 — best-effort, NOT on the gate list
+```
+**It contains the string, it sits in the landing script, and `|| true` means it can never fail.**
+⇒ *An acceptance row must be satisfied by the dispatch path's CAPTURED-RC REFUSAL, never by the
+presence of `deps.get` anywhere in `bin/`.*
+
+### ✅ FOUR PIECES OF AUDITOR'S VOCABULARY, now binding in plan's acceptance read
+
+Contributed by four repos that were **out of scope and measured anyway**:
+```
+refusal-not-string          a row citing the grep hit is not accepted        (value)
+delete-pipefail             the option-independence test                     (value)
+"arm not applicable,        required wording where the only git dep is
+ NOT green"                 public and the red arm cannot fire               (log-reducer / yepochs)
+count-inside-the-block      path: = 2 was dialyzer's plt_local_path          (yepochs)
+```
+⭐ **plan made all four rejection criteria**: a row citing the string, the option, a green for an
+unfireable arm, or a whole-file count is refused. **The audit's vocabulary came from the repos with
+nothing to do** — which is an argument for who you tell, not just what you tell them.
+
+⛔ **AND MY ROUTING WAS WRONG.** I broadcast the vacuity correction to all 15 peers when plan's
+brief names SIX. log, log-reducer, value and yepochs each spent a turn proving they were excluded.
+⇒ *A broadcast is not an assignment, and I made one look like one.* The knowledge travelled well —
+that is a defence of the content, not of the address.
