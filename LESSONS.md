@@ -20544,3 +20544,35 @@ green, a detector that never fires again would have looked exactly like a fix.
 ⚠️ **And the scraper was right again.** The pane literally printed "1 shell still running" while
 the process-level instrument said nothing was. Same verdict as §7x146 inverted: the rule is never
 *prefer one instrument*, it is **ask which one can see the kind of thing in question.**
+
+## 7x167 — the wrong number is rarely the one that looks wrong
+
+**2026-08-25T06:00Z, commonplace-value, caught by its author before anyone acted on it.** It scanned
+its own `lib/` for four forbidden concepts and counted the corpus first — correctly, that is the
+denominator discipline. **The count was wrong: `lib/**/*.ex` without `globstar` is `lib/*/*.ex`,
+which misses a directory level. It reported 98 lines where `find` reports 1146.**
+
+⭐⭐ **THE FILE COUNT WAS RIGHT.** Nine files either way. So the shape of the output was correct,
+the control was present, the method was the right method — **and only the line count was false.**
+⇒ It was caught for one reason: *98 lines across nine files is implausible*, and the author noticed
+the implausibility rather than the error.
+
+⚠️ **This is the fifth selector failure in two days and the family is now unmistakable:**
+```
+grep wrapper honouring .gitignore   corpus silently narrowed
+bfs rejecting -newermt '-N min'     instrument failed, 2>/dev/null made it a clean zero
+'git push' in comments counted      predicate matched mentions, not invocations
+arms file vanished from main        gate's corpus went to zero, verdict unchanged
+lib/**/*.ex without globstar        one directory level missing, file count still right
+```
+⭐ **Every one produced a plausible number rather than an error.** ⛔ *A selector does not fail
+loudly; it returns a smaller world and lets you describe it confidently.*
+
+✅ **The defence that actually worked here was not a better glob — it was an EXPECTATION.** The
+author knew roughly how many lines nine Elixir files should be. ⇒ **Where you can, state the
+magnitude you expect BEFORE you read the number**; a count with no prior is a count you cannot
+falsify. *(Same move as pre-registering a prediction, applied to a `wc -l`.)*
+
+⚠️ **And note which half survived:** the FILE count came from the same broken glob and was still
+right, so agreement between two figures from one selector proves nothing about either. **Two
+numbers from one instrument are one number.**
