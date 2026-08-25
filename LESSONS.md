@@ -21913,3 +21913,30 @@ partial output was right.**
 reshape output doubles the cost of every check and puts the timeout inside your own control rather
 than the tool's. ⛔ And when a wrapper's exit disagrees with the wrapped thing's own output, **the
 wrapped thing's output is the evidence** — the exit describes my invocation, not the measurement.
+
+## 7x199 — two repos landed a FALSE COMMIT MESSAGE in one evening, by trusting a chain instead of an effect
+
+- **commonplace-log, 19:55Z:** `… mix test … | tail -1` hid the exit; `2f47a44`'s message claims an
+  arm was green that was failing (§7x196).
+- **commonplace-cell, 20:53Z:** an **unquoted heredoc let bash eat the regex backticks**, so the
+  README/STATE substitution **silently no-op'd** while the chain reported success. `4b0fb31`'s
+  message claims "README/STATE re-measured at `cc2bd9d`" and they were not. Fixed in `3e01f65`, which
+  **names the false claim in its own message**. Verified by me: `3e01f65` IS `origin/main`, all three
+  shas ancestors, README head now reads `measured at cc2bd9d`.
+
+⭐ **THE COMMON SHAPE IS NOT THE BUG, IT IS THE ASSERTION.** Both chains had a step that could fail
+quietly — a swallowed exit, a no-op substitution — and then a commit message *asserting the effect
+had happened*. ⚠️ **A commit message is a claim with no oracle behind it.** Nothing re-reads it, and
+it outlives the terminal where the truth was visible. ⇒ **What both caught it: reading the artifact
+in the same output** — log read the arm's own print, cell read the README head. **Verify by effect,
+in the same breath as the claim.**
+
+⭐ **AND BOTH NAMED THE FALSE CLAIM IN THE CORRECTING COMMIT** rather than quietly fixing it. That is
+the move worth institutionalising: a corrected record where the correction is *findable from the
+wrong version* — otherwise the false message stays the only thing a future reader sees.
+
+⇒ cell's other finding, same day, same family as the fresh-clone trap: **its P4 fixture's "restart"
+restarted the FIXTURE HOST, not the DocHost.** The flipped arm would have gone red honestly — for the
+**cheaper referent**. It refused to land that as the goal's proof and added a real DocHost-restart
+replay arm whose red is a reopen on a fresh store. *A red at the wrong layer is §7x190a; a red for the
+wrong referent is its twin.*
