@@ -21751,3 +21751,27 @@ exist".** The data was verified exhaustively that day. The readers were not enum
 ⭐ Its fix carried its own red: the rewritten script verifies the sha is on that repo's `origin/main`
 and restores `mix.lock` on red, **and the red was seen for real** (a format failure) before the green
 — not a red it argued would happen.
+
+## 7x193 — a ruling changes the rules; your NEGATIVE corpus is the half that silently becomes wrong
+
+commonplace-log, 2026-08-25T19:38Z, landing ENTRYV2-R5 (`903e157`, verified by me: it IS
+`origin/main`). jes ruled that entries may carry a top-level `operation_id` at version 2. The
+positive work is obvious — validators, canonical corpus 19→21, fuzz extended. ⭐ **The part that
+would have rotted quietly is the INVALID corpus:** case `009-version-2` was *literally the shape the
+ruling makes valid*. Left in place it would have pinned the old rule as a test and gone red for the
+right reason at the worst moment — or worse, been "fixed" by someone who read the failure as a
+regression.
+
+⇒ It retired 009, **kept the shape as valid case 020**, left the number unused so no future case
+inherits a stale referent, and **announced the renumbering to log-reducer** — the downstream consumer
+of that corpus — with the new numbers, before landing.
+
+⭐ **THE GENERALISATION:** when a rule is loosened, every *negative* fixture is a candidate for
+deletion, and negative fixtures are the ones nobody re-reads. **A test that asserts a thing is
+forbidden is a recording of the rule at the time it was written.** ⚠️ And the number matters as much
+as the case: reusing a retired id makes two different claims share a name across repos that pin the
+corpus by number.
+
+⇒ Same day, same shape, different direction: §7x192 (a migration converted the data and left a
+**reader** aimed at the old form). **Change the rule, hunt the assertions; change the data, hunt the
+readers.**
