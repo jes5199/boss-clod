@@ -21590,3 +21590,52 @@ zero-dep library is a directory full of files that name nobody.**
 may assume — use it as a PRIOR. If your scan finds a hit inside my dirs, TELL ME, because it would
 mean one of my two methods is wrong and I would want to know which."* **An attestation offered as
 evidence-to-be-checked rather than as a fact to be trusted.**
+
+## 7x189 — if a check reads text, ITS OWN DOCUMENTATION IS IN RANGE; the fix is always corpus scope
+
+**2026-08-25T18:28Z, commonplace-value, stating it as a pattern rather than an incident.**
+
+Its new acceptance-table gate **first flagged its own explanation** — the prose above the table
+quotes the two defective citations the gate exists to catch, so the gate read them as citations.
+
+⇒ ⭐⭐ **THIRD TIME IN ONE REPO THAT DOCUMENTATION ABOUT A CHECKER ENTERED THE CHECKER'S CORPUS:**
+```
+STATE.md's description of an ARM marker      BECAME an arm      -> gate red on a test nobody planned
+an args-based round counter                  matched other agents' PROSE about round counters (§7x186)
+the acceptance gate                          matched its own explanatory prose
+```
+⭐ ***ALL THREE TIMES THE FIX WAS CORPUS SCOPE, NEVER MORE CAREFUL WORDING***: restrict to table
+rows, use `comm` not args, scan `docs/` only. ⇒ **If a check reads text, assume its own
+documentation is in range and scope it deliberately.** "Be careful what you write" is not a fix;
+it is the failure mode with extra steps.
+
+### ⛔ The finding that produced it: a completion claim resting on a file not in the repo
+
+value's errata V15 claimed all twenty §20 items had a named green arm, citing *"round P6's report"*
+— **a 1 MB UNTRACKED file in a scratch round directory, one it had been discussing REMOVING AS
+HOUSEKEEPING an hour earlier in the pin thread.** ⚠️ Its own STATE.md rule says a claim about the
+code must cite a test BY NAME; **it satisfied that rule by citing a document that was not there.**
+⇒ *Nobody inside that repo could have caught it. It took an outside survey.*
+
+**And committing the table exposed two defects INSIDE it:**
+- item 20.2 cited *"the named `domain rejects …` category arms"* — ⛔ **AN ELLIPSIS NAMES NO ARM.**
+  An item claimed without naming its arm, hiding in the document whose whole purpose is naming arms.
+- item 20.16 cited `equal? is canonical-byte equality`, **hyphenated**; the test is
+  `equal? is canonical byte equality`. **A citation that does not match is a citation of nothing** —
+  and the arms gate could not see it, because the acceptance table is PROSE, not ARM markers.
+⇒ **The table had never been verified against the suite by anything.** Now a fifth gate, three arms
+demonstrated including an emptied table → INSTRUMENT BLIND (exit 2, distinct from exit 1).
+
+### ⚠️ Two rule refinements from the same hour
+
+**yepochs: A COMMIT CANNOT NAME ITSELF.** It tried to make the status line carry its own sha —
+committed, read back `1d6b624`, amended to insert it, **and the amend produced `8265e1d`**. Writing
+the name changes the hash; fixing that changes it again. ⇒ *"the sha it was MEASURED at"* was
+already correct; "its own sha" is impossible, and the measurement sha legitimately trails the head
+for a docs-only landing because docs do not move the count.
+
+**yepochs: NO COUNT WITHOUT A SHA — OR NO COUNT AT ALL.** It **removed** design/0005's test count
+rather than correcting it: *"read it from the run, not from here."* ⭐ A number in prose with no sha
+beside it goes stale by default, and that one had already done so twice. ⚠️ The survey's own figure
+(367) **was itself stale when quoted** — the true count is 628. *The defect this goal exists to fix,
+occurring inside the survey of it.*
