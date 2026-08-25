@@ -476,3 +476,21 @@ plain commit to main that never went through it. A fix to one path is not a fix 
   ⓘ log's judgement, theirs: create should NOT refuse an existing log — idempotent create is what
     makes "make a replica" and "open a log you may or may not have made" safe to retry. THE MISSING
     SIGNAL IS THE FIX, NOT A REFUSAL.
+
+2026-08-25T00:01Z  ✅ ORDERING ITEM DISSOLVED BEFORE IT REACHED JES — and this is the case for holding.
+  I recorded it at 23:58Z as a POSSIBLE item for him and explicitly did NOT route it, on the grounds
+  that doc might dissolve it. It did, in THREE MINUTES, with a test rather than an argument.
+  commonplace-doc arm ca053d1, "two concurrent creators of one log leave exactly one genesis"
+  (verified at concurrent_create_probe_test.exs:31): both creators get :ok with no created/existed
+  signal, both append genesis with expected_previous: nil, EXACTLY ONE LANDS, loser gets
+  :writer_conflict — and the profile's lease fences it besides.
+  ⇒ The "cheap local guard" I relayed as an option ALREADY EXISTS IN EFFECT and is STRICTER than the
+    empty-frontier check I suggested: genesis appends carry expected_previous: nil BY CONSTRUCTION.
+  ⇒ create_log returning {:ok, :created | :existed} is a CONVENIENCE, NOT A CORRECTNESS FIX.
+    Nothing lands twice without it. THE CONFLICT IS THE SIGNAL.
+  ⏳ ONE CLAUSE STILL OPEN AND IT IS NOT JES'S: does commonplace-log want the created/existed
+    distinction FOR ITS OWN ENDS (replica provenance, the sidecar wire)? Asked at 00:02Z. If yes it
+    stays an ordering item; if no it lapses. ⛔ Do not route to jes until log answers.
+  ⭐ THE PROCESS POINT, worth keeping: a question routed to jes at 23:58Z would have cost him
+    attention and then been retracted at 00:01Z. The hold was not caution — it was the correct
+    read that his workers had a cheaper instrument than his judgement for that particular question.
