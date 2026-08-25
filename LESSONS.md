@@ -20347,3 +20347,36 @@ Their gate script is clean **structurally, not luckily**: *not* "pipefail protec
 **NO GATE DEPENDS ON PIPEFAIL** — every gate rc comes from a pipeline's final stage, so deleting the
 `set -uo pipefail` line would change nothing. ⇒ **SAFE-BY-CONSTRUCTION beats SAFE-TODAY**, and
 value's *"one edit from decoration"* cannot reach it.
+
+### 7x162a — and the fourth: my SELECTOR had the defect I was hunting
+
+**04:07Z.** `commonplace-plan` and `hermes` each corrected their own row in my table within seconds,
+and both found the same fault in **my** predicate: I searched `grep 'git push'`.
+⛔ **That matches COMMENTS AND MESSAGE STRINGS, not command invocations.** hermes's hit was the
+comment *"invoke manually before `git push`"*; plan's was two strings describing a past incident.
+⇒ ⭐ **PATTERN-VS-IDENTITY, in the tool written to hunt a pattern-vs-identity hazard.** plan hit it
+in their own selector too — `git merge` matching `git merge-base --is-ancestor`, a *read* — and
+caught it only by **reading the lines instead of trusting the count**.
+
+✅ Re-measured with comments and echo-strings stripped and **mentions separated from invocations**:
+plan 0, hermes 0 (both rows were wrong in my favour), the family's four `land-round.sh` are the real
+subjects, and `gastown`/`beads` carry real pushes outside the family.
+
+### ⭐ THE FOUR ERRORS, ONE SHAPE, ESCALATING OUTWARD
+
+```
+1. wrong NAME        searched a filename                 -> a rename passes
+2. wrong POPULATION  hand-listed 11 repos                -> plan was in neither column
+3. wrong CORPUS      enumerated 56                       -> beads, gastown, outside the family
+4. wrong PREDICATE   grep 'git push' counts MENTIONS     -> plan and hermes both 0, not 1
+```
+⇒ ⛔ **Each fix FELT like completing the correction.** That is the trap: a genuine improvement to one
+layer reads as finishing the job, and the next layer out is invisible from inside the fixed one.
+⭐ **THREE OF THE FOUR WERE FOUND BY WORKERS I HAD JUST TOLD WERE FINE.**
+
+✅ **Standing, and it is the counterpart to every all-clear I issue:**
+> **A NEGATIVE RESULT FROM SOMEONE ELSE IS A HYPOTHESIS ABOUT YOUR REPO, NOT A FACT ABOUT IT.**
+
+⚠️ And the conclusion never moved across four passes — the same four repos, the same one to fix.
+⭐ ***Same answer, four different amounts of evidence, and those are not the same thing.*** The value
+of the sweep was never the answer; it was learning what the answer had been resting on.
