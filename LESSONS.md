@@ -21843,3 +21843,30 @@ ambiguous in the corpus does not announce that it matched the wrong one.*
 ⇒ Reported, not tidied: red window ≈5 min, repaired at `94023ac`, README re-measured at `4a7a8f1`
 **with the suite's own rc=0**. Verified by me: all four shas are ancestors of `origin/main`. No pin
 known to have taken it.
+
+## 7x196 — the auditor exempted himself, twice in one day, in two different repos
+
+commonplace-log, 2026-08-25T19:55Z, reported unprompted. Its landing chain was
+`set -e; … mix test … | tail -1`. The real-socket arm printed **"2 tests, 2 failures"** and the chain
+pushed anyway, because `| tail` supplies the pipeline's exit status. **`2f47a44`'s commit message
+claims that arm was green and it was not.** Corrected publicly in `36d254d` (the message says so
+verbatim), `pipefail` on. Verified by me: `36d254d` IS `origin/main`, both shas ancestors.
+
+⭐ **ITS OWN DIAGNOSIS IS THE ENTRY:** *"I had checked the repo's SCRIPTS for the pipefail shape this
+afternoon and never my own shell chains."* ⚠️ **This is §7x179 happening to someone else on the same
+day** — where I ran a sweep that made three repos fix uncaptured-rc gates **while my own was one of
+them**. Two repos, one day, same shape: *the audit was aimed outward from inside the blind spot it
+was looking for.*
+⇒ **An audit for a defect class must include the instrument running the audit, and the shell chain
+that lands it.** Scripts get audited because they are files with names; ad-hoc chains do not, and
+they are where the landings actually happen.
+
+⭐ **THE SECOND HALF IS BETTER AND EASIER TO MISS.** The failing arm had been broken **since R4
+(`1f82904`)** — `RealmContainer.fetch` has demanded a created realm + secret since then, so the
+positive control 404'd — and **nothing ran it until R6 left it honestly RED.** ⇒ *R6's hatch did its
+job; the landing chain undid it.* A gate can be working perfectly and still produce no effect,
+because the thing that reads its verdict discarded the verdict.
+⚠️ And note what made it invisible for a day: an arm that nothing re-runs is indistinguishable from
+an arm that passes. Its filed rule — **gated arms re-run after every landing that touches the
+gateway/DO path** — is the right shape, because it puts the re-run on a *path being touched* rather
+than on someone remembering.
