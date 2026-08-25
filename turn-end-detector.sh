@@ -96,6 +96,24 @@ tail = txt[-200:].replace('\n',' ')
 promise = re.search(r"\b(I'?ll|I will|I'?m going to|going to|next\b|I plan to|then I|starting with|first[,:]|reading .{0,30}next)\b",
                     txt[-900:], re.I)
 import subprocess, os
+# The worker's own claude process, resolved by its --mcp-config path (the same identity the pane
+# watch uses). ⛔ NOT pgrep -f on a bare name: that pattern would appear in this process's own
+# command line. We scan /proc and skip ourselves.
+def _worker_claude_pid(name):
+    me = os.getpid()
+    for ent in os.listdir('/proc'):
+        if not ent.isdigit() or int(ent) == me:
+            continue
+        try:
+            argv = open(f'/proc/{ent}/cmdline','rb').read().decode().split('\0')
+        except Exception:
+            continue
+        if not any(a.endswith(f'mcp-config-{name}.json') for a in argv):
+            continue
+        if any(os.path.basename(a) == 'claude' for a in argv[:2]):
+            return int(ent)
+    return -1
+worker_claude_pid = _worker_claude_pid(w)
 def live_work():
     # ⛔⛔ 2026-08-24T17:28Z — THIS COUNTED EVERY CODEX ON THE BOX, GLOBALLY, WITH NO
     #   ATTRIBUTION TO THE WORKER BEING JUDGED. One agent's Sol round therefore made EVERY
@@ -138,6 +156,39 @@ def live_work():
     # ⛔ Deliberately NOT pgrep -f 'wait-and-launch.sh' — that pattern would appear in this very
     #   process's own command line and match itself. Scanning /proc and skipping our own pid is
     #   the only form that cannot match the searcher.
+    # ⛔⛔ 2026-08-25T05:09Z — A HELD SHELL IS WORK, AND THIS COULD NOT SEE ONE EITHER.
+    #   commonplace-doc-sync read STALL-CANDIDATE while pid 993502 — a /bin/bash -c retry loop it
+    #   had started — sat in `for i in $(seq 1 60) … sleep 60`, retrying dispatch-round.sh until a
+    #   cap slot freed, then waiting on the outer pid. Its own pane said "1 shell still running";
+    #   BOTH of my instruments said idle. A background shell holds the turn open and re-invokes the
+    #   worker when it exits, so it is exactly the thing that makes waiting legitimate.
+    # ⭐ FOURTH member of the family (global count / in-process subagent / waiter script / held
+    #   shell). ⇒ Stop enumerating kinds of work and attribute by PARENTAGE instead: a live child
+    #   of the worker's own claude pid.
+    # ⛔ BUT NOT EVERY CHILD — the MCP servers (`bun run … clod-squad`, `… irc-channel`) are
+    #   permanent children. Counting those would make EVERY worker read "legitimately waiting"
+    #   forever, which is the 17:28Z catastrophe with the sign flipped and no way to notice.
+    #   ⇒ Count only the Bash-tool shape: argv[0] is a shell AND '-c' is present.
+    for ent in os.listdir('/proc'):
+        if not ent.isdigit():
+            continue
+        try:
+            with open(f'/proc/{ent}/stat','rb') as fh:
+                ppid = int(fh.read().decode().rsplit(')',1)[1].split()[1])
+        except Exception:
+            continue
+        if ppid != worker_claude_pid:
+            continue
+        try:
+            argv = open(f'/proc/{ent}/cmdline','rb').read().decode().split('\0')
+        except Exception:
+            continue
+        argv = [a for a in argv if a]
+        if not argv:
+            continue
+        if os.path.basename(argv[0]) in ('bash','sh','zsh') and '-c' in argv:
+            mine += 1
+
     my_pid = os.getpid()
     for ent in os.listdir('/proc'):
         if not ent.isdigit() or int(ent) == my_pid:

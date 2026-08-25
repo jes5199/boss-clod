@@ -20503,3 +20503,44 @@ only ever been seen green.**
 
 ⚠️ **Not texted to jes:** nothing shipped wrong and nothing was at risk by the end — this is the
 shape of a near-miss, and the artifact is the remedy.
+
+## 7x166 — the fourth blind spot in two days, and the fix was to stop enumerating kinds of work
+
+**2026-08-25T05:09Z.** commonplace-doc-sync read `STALL-CANDIDATE` while pid 993502 — a
+`/bin/bash -c` retry loop it had started — sat in `for i in $(seq 1 60) … sleep 60`, retrying
+`dispatch-round.sh` until a cap slot freed and then waiting on the outer pid. **Its own pane said
+"1 shell still running". Both of my instruments said idle.**
+
+⭐ **The family is now four, and the pattern is the point:**
+```
+global codex count, unattributed   -> everyone read "waiting"     (17:28Z)
+codex only                         -> in-process subagent unseen  (17:30Z)
+codex only                         -> waiter script unseen        (04:48Z, §7x164)
+codex only                         -> HELD SHELL unseen           (05:09Z, this)
+```
+⇒ ⭐⭐ **I patched the first three by adding one more KIND of work to enumerate. That is a losing
+shape: each fix is correct and the next kind is already out there.** The enumerating instrument
+cannot tell "no work" from "a kind I don't enumerate", and it renders both as a confident verdict.
+
+✅ **Fix: attribute by PARENTAGE, not by kind.** A live child of the worker's own claude pid is
+work, whatever it happens to be. The worker's claude pid is resolved by `--mcp-config` path — the
+same identity the pane watch uses, not a name match.
+
+⛔ **BUT NOT EVERY CHILD, and this is where the fix could have been a catastrophe.** The MCP
+servers (`bun run … clod-squad`, `… irc-channel`) are **permanent** children of every worker.
+Counting those would make **every worker read "legitimately waiting" forever** — the 17:28Z failure
+with its sign flipped, and *no stall detectable anywhere, silently, again*. ⇒ Count only the
+Bash-tool shape: `argv[0]` is a shell **and** `-c` is present.
+
+✅ **Both arms, with the control chosen to catch exactly that:**
+```
+GREEN  doc-sync 1 unit · dir 3 · cell 2        (held shells and rounds now count)
+RED    commonplace-doc, commonplace-log -> STALL-CANDIDATE, nothing running
+```
+⭐ **The red arm is load-bearing: doc and log have the SAME bun MCP children.** Their still reading
+STALL-CANDIDATE is the proof the permanent-child exclusion works. Had I only checked doc-sync going
+green, a detector that never fires again would have looked exactly like a fix.
+
+⚠️ **And the scraper was right again.** The pane literally printed "1 shell still running" while
+the process-level instrument said nothing was. Same verdict as §7x146 inverted: the rule is never
+*prefer one instrument*, it is **ask which one can see the kind of thing in question.**
