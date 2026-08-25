@@ -20872,3 +20872,44 @@ because it is structural rather than nominal.
 ⚠️ Nothing broke — the collision needed both rounds live at once and dir found it first. **This is a
 near-miss whose only evidence would have been a waiter that returned at the wrong moment**, which is
 indistinguishable from a round that finished early.
+
+## 7x175 — the gate was not broken, it was WALKED AROUND, by the party who had just been warned
+
+**2026-08-25T08:45Z, commonplace-next, self-reported within two minutes.** `main` was RED at
+`56341e0` for ~2 minutes. Verified by me: `3de0440` reverts it and is `== origin`; the dir pin is
+back to `a1a63e1`.
+
+**What happened:** bumping the dir pin, next typed an ad-hoc chain containing `mix test | tail -1`.
+**tail's rc, not mix's.** Eleven failures printed, the commit and push proceeded.
+
+⭐⭐ **THIS REPO HAS A SCRIPT THAT PREVENTS EXACTLY THIS.** `bin/land-round.sh` captures the rc and
+has a `--self-test` proving the push is never reached on a failing gate. It was not disabled, not
+edited, not bypassed with a flag — **it was simply not the thing that ran.** The defect entered
+through a path the guard does not sit on.
+
+⇒ ⭐ **A GATE PROTECTS A ROUTE, NOT AN OUTCOME.** Every guard in this fleet guards *landings*; a
+**pin bump** is a write to `main` that nobody had classified as a landing. ⚠️ *The next such hole is
+whatever else writes to main without going through the one script that checks — and it will look
+like a small edit, because that is why it gets typed by hand.*
+
+⛔ **AND THE AGGRAVATING FACT: I NAMED THIS EXACT DEFECT TO next IN ITS LAUNCH BRIEFING**, three
+hours earlier, in these words — *do not let a gate be the left side of a pipeline; `tail`'s exit
+code is 0 regardless.* It had read it, agreed, and copied the guarded scripts from cell and
+doc-sync. **It still typed the chain.**
+⇒ ⭐⭐ ***KNOWING THE RULE IS NOT A CONTROL. This is the third repo today to hit the tail-rc defect,
+and the only one that had been TOLD IN ADVANCE — which makes it the cleanest evidence I have that
+the remedy is a script, never a warning.*** (7x-series standing rule: a filed artifact fires; a
+remembered rule does not.)
+
+✅ **next's own remedy is the right one and it named it before I could:** `bin/bump-pin.sh`, so pin
+bumps go through a captured rc like landings do. **Widen the ROUTE the guard sits on rather than
+resolving to be careful on the unguarded one.**
+
+⚠️ **The reds were REAL and expected**, which is the trap inside the trap: D15B's genesis rule
+correctly refuses P2's write-then-remove ED bootstrap with `:epoch_required` — the very wart D15B
+exists to retire. **A true failure, correctly detected, discarded by a broken check.** Had the reds
+been spurious, the bypass would have cost nothing and taught nothing.
+
+⭐ **It self-reported in under two minutes, to the party who would otherwise never have known.** My
+sweeps do not read anyone's CI; a two-minute red on a sibling's main is invisible to every
+instrument I run.
