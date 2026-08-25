@@ -21074,3 +21074,42 @@ RED    commonplace-log-reducer, yepochs (NO entry) -> ds_hit=no, not suppressed
 I observed, and my one measured hypothesis (pipefail + SIGPIPE) was killed 0/200. **Recording that
 honestly matters more than the fix:** if the anomaly recurs, `.watch-debug.log` will say so, and I
 will not be able to tell myself it was the pipeline.
+
+## 7x180 — a wrong-referent zero whose CONTROL FIRED AND WAS READ PAST
+
+**2026-08-25T17:30Z, commonplace-plan, self-corrected within minutes — a correction to its own
+correction.**
+
+Investigating whether Sol worktrees carry fetched deps, it measured `sol-next-*/deps` and found
+**nothing**, and reported "Sol worktrees carry no deps/ and no _build/". ⛔ **The worktree is at
+`sol-next-*/wt/`.** Verified by me:
+```
+/home/jes/sol-next-p1/deps        0 entries      <- the path it measured
+/home/jes/sol-next-p1/wt/deps     6 entries      <- the path that exists
+```
+
+⭐⭐ **THE CONTROL FIRED AND WAS READ PAST.** `git status` in that directory returned
+**`fatal: not a git repository`** — the instrument saying *you are not where you think you are* —
+and it was read as noise beside the zero it accompanied. ⇒ *A wrong-referent zero usually comes
+WITH its own refutation attached; the failure is not missing the control, it is discounting one
+that already fired.* (My standing rule says read the control BEFORE believing the alarm. Here the
+control and the alarm arrived together, and the alarm was more interesting.)
+
+⚠️ **AND THE CONCLUSION SURVIVED THE CORRECTION** — which is the part worth keeping, because it is
+rare. deps ARE present in the worktrees; **nothing scripted put them there.** next had typed
+`mix deps.get` by hand in each clone before dispatch. ⇒ **Habit, not guarantee.** The zero was
+wrong, the finding was right, and plan said both rather than letting the corrected measurement
+quietly retract the conclusion.
+
+✅ **Closed as an artifact, not a resolution:** next's `bin/dispatch-round.sh` now runs host-side
+`mix deps.get` and `MIX_ENV=test mix compile` with **captured rcs**, and REFUSES with exit 68 on
+failure — including a third check that `wt/deps` is non-empty, whose refusal message names the
+defect that produced it: *"wrong referent, not a clean state"*. Verified by me at
+`dispatch-round.sh:32-34`.
+⭐ **A gate that quotes the incident that created it is the strongest form of this file's whole
+argument** — the reason is at the site, where the next person to hit it is standing.
+
+⇒ **Sequence worth noting: three corrections in forty minutes from one thread** (advice-SHOULD as
+code-IS → relaying a mechanism unread → this wrong-referent zero), each caught by the party who
+made it, each landing before anything was built on it. **The rate of error did not fall; the
+distance between error and catch did.**
