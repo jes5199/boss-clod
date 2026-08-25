@@ -20657,3 +20657,32 @@ see, then trusted what I saw.
 file has mtime 06:17:14, which is dir's own edit and predates my probe; the stale reservation my
 dead launch left — which would have refused dir's waiter for up to 120s — removed by hand. **Told
 dir before it could find it.**
+
+## 7x170 — the vacuity hatch FIRED, and that is the entry
+
+**2026-08-25T06:26Z, commonplace-cell, CELL-P1c round 1.** Every gate in this fleet carries the
+same unproven claim: *it would catch the thing it was built for.* ⭐ **Today one did, observably, on
+real work — and the record of a gate going red for its actual purpose is worth more than the gate.**
+
+**What happened:** the round ended **honest-RED via the vacuity hatch** rather than landing. Two
+reasons, **both faults in cell's own plan**:
+1. P2 fixture ids were wrong.
+2. ⭐⭐ **a two-file fence made the no-rewalk arm a VACUOUS GREEN** — `compose/2` was being handed
+   terms that were **already expanded**, so the arm asserting "does not re-walk an embedded Value"
+   was passing against input that contained no embedded Value to re-walk.
+
+⇒ **That is the exact failure the hatch exists for: an arm that passes while testing nothing.** It
+would have shipped as a green line in a suite, and the property it names — the whole point of
+`compose/2` — would have been unverified.
+
+⭐ **AND THE IMPLEMENTER REPORTED IT AS "WHAT GOT WEAKER" RATHER THAN SHIPPING IT.** A green result
+was available; taking it required only silence. ⚠️ *A vacuous green is not a lie anyone has to tell
+— it is the default outcome of not looking.*
+
+✅ **The repair strengthened the arm instead of loosening the fence:** trace **both**
+`Value.new/2` and `Value.to_term/1` → 0, and the arm now goes red **two ways**. Landed on round 2.
+
+⭐ **Why this belongs in a lessons file that is mostly failures:** [[reference_gate_verification_both_arms]]
+says a gate never seen red produces greens forever and each one reads as evidence. **This hatch has
+now been seen red, for its own purpose, on work that was otherwise ready to land.** ⇒ Its future
+greens mean something they did not mean yesterday.
