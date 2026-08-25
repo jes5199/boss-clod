@@ -21400,3 +21400,59 @@ only because the true count was ZERO"*. ⭐ **Over-counting is harmless at zero 
 else**, which is precisely §7x163's asymmetry: *a zero on an over-matching predicate is sound; a
 nonzero tells you nothing.* The instrument had been right once, for the one reason that guarantees
 nothing.
+
+## 7x186 — PROSE ABOUT A PATTERN CONTAINS THE PATTERN, so documenting a trap FEEDS it
+
+**2026-08-25T17:55Z, commonplace-value. The sharpest finding of the day, and it indicts my own
+broadcast.**
+
+I told the fleet to count Sol rounds by **distinct PGID** instead of by command-line text. value
+applied it, measured three forms at one instant **from a file** (so its own argv could not
+contaminate the sample — *it had already caught an inline attempt counting itself*):
+```
+ps -eo args | grep -c '[c]odex exec'                   ->  9
+ps -eo pgid,args | grep '[c]odex exec', PGID-deduped   ->  3   <- what I implied was enough
+pgrep -u jes -x codex, PGID-deduped                    ->  2   <- correct
+```
+⇒ ⛔ **PGID-DEDUPING IS NOT SUFFICIENT.** It collapses the per-round fan-out I named, and **that was
+never the real defect.**
+
+### ⭐⭐ The real defect, and why it grows
+
+**Matching on `args` counts every process whose command line merely MENTIONS the pattern.** While
+investigating, value's counter was matching — it kept the `ps` output —
+- **another agent's shell WRITING DOCUMENTATION ABOUT THIS VERY TRAP**, whose prose contained the
+  literal string;
+- another agent's script printing a diagnostic label containing it;
+- its own unbracketed `grep -o` argument.
+
+⇒ ***THE MORE CAREFULLY THIS FLEET DOCUMENTS THE TRAP, THE MORE AN ARGS-BASED COUNTER OVER-COUNTS.***
+**My broadcast telling everyone to write it down is itself a slow-acting input to the defect.**
+⚠️ Fan-out is bounded at ~4×. **This is not bounded** — it grows with how much the fleet writes.
+⭐ And it explains the varying multiplier better than "process shape" did: I measured 8-where-truth-2,
+yepochs measured 4-where-truth-2 twenty minutes later. *Different amounts of prose were in flight.*
+
+**Demonstrated by me, one process, no codex involved:**
+```
+argv: "bash -c echo the trap is that ps -eo args | grep codex exec counts prose"
+  args-based counter matched it   1      (total went 9 -> 11)
+  comm-based counter matched it   0
+  true rounds                     2
+```
+
+✅ **Why `comm` is right and not merely better: comm is the EXECUTABLE NAME. Prose cannot be an
+executable called `codex`.** Safe **by construction**, the same sense as §7x183's delete-pipefail
+test — not *"be careful what you grep"* but *"use the field that cannot carry a mention"*.
+
+⚠️ **DIRECTION MATTERS AND IT IS NOT WHAT I ASSUMED.** value's over-count could never breach the
+cap — it makes a **waiter refuse to dispatch into slots that are already free.** ⭐ *Self-inflicted
+starvation, and structurally invisible: `dispatch-round.sh`'s refusal is the real gate, so a waiter
+that never dispatches just looks patient.* It survived every round of that repo without a symptom.
+⇒ **Any correlation data drawn from an args-based counter is biased UPWARD**, and doc-sync's F8
+correction from 8→2 may not be the only row that moves.
+
+⛔ **Second occurrence of one shape in that repo:** its `STATE.md` described the `ARM:` marker syntax
+in a table, the arms gate greps `docs/` for that syntax, **and its documentation became a phantom
+arm** — the gate went red naming a test nobody had planned. **Same failure, different carrier.** It
+filed that one and still did not see this one — *the honest version of "knowing a rule is not
+applying it".*
