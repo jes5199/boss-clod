@@ -529,3 +529,16 @@ plain commit to main that never went through it. A fix to one path is not a fix 
   ⏳ DURABILITY PASS ASKED at 00:54Z (doc at 69%, one point under my compact line). Its stop message
     CROSSED mine, so it has not answered yet. ⛔ DO NOT COMPACT until it confirms; phase 19 landing
     IS the natural boundary I told it to wait for.
+
+2026-08-25T01:25Z  ✅ FABLE CHECK CLEAN — affected=none, and it PERSISTS. First fully clean reading
+  since 2026-08-22. All seven fable-intended workers render Fable, hermes included since 01:02Z.
+  ⇒ THE LOOP'S PURPOSE IS SATISFIED. Its action block is moot while affected stays none — nothing to
+    ask jes, so nothing sent.
+  ⓘ Meter 29% (was 25% at 23:31Z). +4 over two hours in which hermes ran two research lanes and doc
+    landed phases 18 and 19. Consistent with the activity-driven model, not a new rate:
+      IDLE 0.0/hr · ACTIVE ~2.9/hr · PEAK 5.6/hr (measured 22:27-23:31Z).
+  ⚠️ IF THE BURN COMES UP WITH JES, QUOTE ALL THREE. The ~29h ceiling I gave him at 19:29Z used the
+    ACTIVE rate alone and understates the tail; at peak it is ~13h. Neither is a forecast.
+  ⛔ hermes stays on Fable and stays UNWATCHED by the stall loop — live money, deliberate, never
+    auto-nudge. Its model is now correct AND it is still exempt from nudging; those are separate
+    properties and neither implies the other.
