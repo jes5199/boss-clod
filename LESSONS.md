@@ -20913,3 +20913,38 @@ been spurious, the bypass would have cost nothing and taught nothing.
 ⭐ **It self-reported in under two minutes, to the party who would otherwise never have known.** My
 sweeps do not read anyone's CI; a two-minute red on a sibling's main is invisible to every
 instrument I run.
+
+## 7x176 — a marker whose LIVE and DEAD forms are the same string is the one that goes stale
+
+**2026-08-25T08:53Z.** The pane watch reported **`STUCK|commonplace-merkle-crdt`** — *"busy
+[bg-agent] but pane byte-identical for 30m (threshold 25m)"*. I read the pane before touching
+anything, per the loop's own rule. **merkle was idle at a clean prompt**, its last line *"Noted.
+Idle, nothing outstanding."*
+
+**The cause: `capture-pane` returns SCROLLBACK, and the `bg-agent` grep ran over the whole capture.**
+The stale *"Waiting for 1 background agent to finish"* was **20 non-blank lines up** — comfortably
+inside `tail_txt`'s 25-line window, which is why a "reasonable" scoping would not have saved it.
+Measured before choosing the fix, rather than picking a number that felt safe.
+
+⭐⭐ **WHY THIS MARKER AND NOT THE OTHER THREE — the general rule:**
+```
+spinner    RUNNING "✻ Working… (2m 12s · ↓1.9k)"   FINISHED "✻ Worked for 3m 28s"   -> forms DIFFER, self-clears
+bg-agent   RUNNING "Waiting for 1 background agent to finish"
+           FINISHED "Waiting for 1 background agent to finish"                       -> IDENTICAL, never clears
+```
+⇒ ***A status marker whose live and dead renderings are byte-identical cannot be read as state at
+all unless you bound WHERE you read it.*** The spinner needs no scoping because the UI rewrites it;
+this one needs scoping precisely because the UI does not.
+
+✅ Scoped to the **last 7 non-blank lines** — the same window the turn-end detector uses, chosen
+because it is *below* the measured position of the stale line, not because 7 is a nice number.
+**Both arms demonstrated:** a synthetic live marker in the bottom 7 still matches; merkle's real
+pane no longer does. Re-run: merkle reads STOPPED, no alarms anywhere.
+
+⚠️ **This is the SECOND time this exact scrollback trap has bitten a different instrument** — I
+scoped the detector's copy on 2026-08-24 after introducing it while fixing the opposite bug, and
+**left the pane watch's copy unscoped, because I fixed the instance rather than the class.** ⇒ *When
+you scope one reader of a stale-prone marker, grep for every other reader of it the same hour.*
+
+⭐ **The loop's "do NOT cancel on first sighting, read the pane yourself" rule is what made this
+cheap.** Cancelling would have interrupted nothing, learned nothing, and left the classifier wrong.

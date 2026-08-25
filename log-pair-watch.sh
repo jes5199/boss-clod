@@ -156,7 +156,18 @@ for w in "${WORKERS[@]}"; do
   #   agent tray row with a duration:    "◯ general-purpose  Reading … 2m 18s · ↓ 47.4k"
   #   classic foreground hint:           "esc to interrupt"
   printf '%s' "$pane" | grep -qE '\([0-9]+m ?[0-9]*s ·|\([0-9]+s ·' && busy="${busy}spinner "
-  printf '%s' "$pane" | grep -qiE 'Waiting for [0-9]+ background agent' && busy="${busy}bg-agent "
+  # ⛔⛔ 2026-08-25T08:53Z — THIS ONE MUST BE SCOPED TO THE BOTTOM OF THE PANE, and the other three
+  #   must not be. commonplace-merkle-crdt was reported STUCK ("busy [bg-agent] but pane
+  #   byte-identical for 30m") while sitting idle at a prompt. `capture-pane` returns SCROLLBACK,
+  #   and the stale marker was 20 non-blank lines up from the bottom — inside `tail_txt`'s 25.
+  # ⭐ WHY THIS MARKER AND NOT THE SPINNER: a spinner's RUNNING and FINISHED forms differ
+  #   ("✻ Working… (2m 12s · ↓…)" becomes "✻ Worked for 3m 28s"), so a finished spinner stops
+  #   matching and self-clears. "Waiting for 1 background agent to finish" is BYTE-IDENTICAL
+  #   whether the agent is live or long gone. ⇒ A marker whose live and dead forms are the same
+  #   string is the one that goes stale; scope THAT one, and leave the self-clearing ones alone.
+  # ⚠️ 7 non-blank lines, the same window the turn-end detector uses and for the same reason.
+  printf '%s' "$pane" | grep -v '^[[:space:]]*$' | tail -7 \
+    | grep -qiE 'Waiting for [0-9]+ background agent' && busy="${busy}bg-agent "
   printf '%s' "$pane" | grep -qE '^[[:space:]]*[◯●][[:space:]]+[a-z].*[0-9]+m ?[0-9]*s ·' && busy="${busy}agent-tray "
   printf '%s' "$pane" | grep -qi 'esc to interrupt' && busy="${busy}esc-hint "
   # ⚠️ 2026-08-24T16:43Z — ADDED, BUT ITS RED ARM HAS NEVER BEEN SEEN TO FIRE. Read this before
