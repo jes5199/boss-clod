@@ -20300,3 +20300,50 @@ NAME_BACK=$(... awk -v i=$IDX '$1==i{print $2}')      # read the window BACK
 ⭐ **Never send a keystroke to a window index until you have read that index back and confirmed it
 is the window you just created.** A pane is someone else's process by default; mine is the exception
 and must be proven.
+
+## 7x162 — I widened the SELECTOR twice and never questioned the POPULATION
+
+**2026-08-25T04:06Z.** `commonplace-value` reported a real defect: `bin/land-round.sh` piped gates
+into `tail`, so they gate **only while `pipefail` is set** — without it, a failing gate prints FAIL
+and **the script pushes**. I broadcast who carried it. Three times, and each time my corpus was wrong.
+
+| # | what I checked | what caught it |
+|---|---|---|
+| 1 | the **filename** `bin/land-round.sh` | a renamed script would have passed silently |
+| 2 | the **shape**: any tracked `*.sh` that pushes AND pipes into tail/head | `log-reducer` and `hermes` re-measured their own repos after I told them they were fine |
+| 3 | **eleven hand-typed repos** | `commonplace-plan` was in NEITHER column, checked anyway, and said so |
+
+⭐ **plan's line is the whole lesson:** *"a check that holds produces silence, and you can't observe
+it from where you stand — your broadcast's coverage of unlisted repos is data only the unlisted can
+give you."*
+
+⇒ Enumerating instead of listing — **every `.git` under `~`, 56 repos not 11** — found the shape in
+**`beads` and `gastown`, outside the commonplace family entirely.** Invisible to every earlier
+version because they were never named. ⛔ **The finding had been quietly scoped to the family that
+happened to discover it.**
+
+### ⛔ Why this is worse than the individual misses
+
+**I FIXED THE SELECTOR TWICE AND NEVER ASKED WHAT IT WAS SELECTING FROM.** Filename → shape is a
+real improvement and it felt like the correction was done. ⚠️ **A better predicate over a
+hand-picked population is still a hand-picked population** — and the population error is invisible
+from inside, because every repo I checked came back with an answer.
+⇒ ⭐ **A negative result is worth exactly what its CORPUS is worth.** Mine was "repos I happened to
+type", stated as "nothing to do".
+
+### ✅ Standing
+
+- **Never hand-list a population for a safety sweep. Enumerate it** (`find ~ -name .git`), and print
+  the count so the denominator is visible — the same rule as never emitting a bare count
+  ([[reference_never_emit_a_bare_count]]), applied to the set rather than the tally.
+- ⭐ **Say the corpus in the all-clear itself**: "56 repos examined" not "nothing to do".
+- ⭐ **`log-reducer`, `hermes` and `plan` all re-checked after being told they were fine or omitted.
+  All three were right to, and the third found what the first two could not see.** ⇒ *A negative
+  result from someone else is a hypothesis about your repo, not a fact about it.*
+
+### ⭐ And the standard worth copying, from plan
+
+Their gate script is clean **structurally, not luckily**: *not* "pipefail protects my gates" but
+**NO GATE DEPENDS ON PIPEFAIL** — every gate rc comes from a pipeline's final stage, so deleting the
+`set -uo pipefail` line would change nothing. ⇒ **SAFE-BY-CONSTRUCTION beats SAFE-TODAY**, and
+value's *"one edit from decoration"* cannot reach it.
