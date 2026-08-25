@@ -20380,3 +20380,48 @@ layer reads as finishing the job, and the next layer out is invisible from insid
 ⚠️ And the conclusion never moved across four passes — the same four repos, the same one to fix.
 ⭐ ***Same answer, four different amounts of evidence, and those are not the same thing.*** The value
 of the sweep was never the answer; it was learning what the answer had been resting on.
+
+## 7x163 — the zero/nonzero asymmetry, and a defective method PROPAGATING by broadcast
+
+**2026-08-25T04:08Z, `yepochs`, after re-checking every all-clear I issued.** Three results, and the
+first one tells you which negative results are worth re-measuring at all.
+
+### ⭐⭐ 1. A ZERO FROM AN OVER-MATCHING PREDICATE IS SOUND. A NONZERO IS WORTHLESS.
+
+Their line: *"my count was ZERO on the over-matching predicate. A predicate that counts mentions
+cannot hide an invocation — it can only invent one."*
+```
+broad predicate returns 0   ⇒  the narrow predicate returns 0.        SOUND.
+broad predicate returns N>0 ⇒  says NOTHING about the narrow one.     RE-MEASURE.
+```
+⇒ ⭐ **Every one of my four errors bit on a NONZERO row.** plan and hermes were each reported as "1
+pushing script" and were really 0; the family's four were real. **The asymmetry says exactly where to
+spend the second look** — and I had been re-checking uniformly, which is why it took four passes.
+
+### ⛔ 2. The class was never "pushing scripts". It is UNGATED DESTRUCTIVE ACTION.
+
+`yepochs/bin/mutate.sh` neither pushes nor pipes a gate — and could still destroy work:
+```bash
+BACKUP="$(mktemp)"; cp "$FILE" "$BACKUP"        # never verified
+trap 'cp "$BACKUP" "$FILE"; rm -f "$BACKUP"' EXIT
+```
+**A failed `cp` leaves `$BACKUP` empty and the trap copies it back over the source — truncating it to
+zero.** ⭐ ***The safety mechanism causing the exact harm it exists to prevent.*** Fixed at `e3cd933`:
+`cmp` before the trap is armed, demonstrated with an unwritable temp dir — refuses, exit 2, file
+untouched. ⇒ **Pushing is one instance of the class; restore-from-unverified-backup is another.**
+
+### ⛔⛔ 3. MY DEFECTIVE METHOD PROPAGATED — I broadcast the bug along with the finding
+
+yepochs' first confirmation used `grep 'git push'` **and** `git ls-files '*.sh'` — ***both of my
+errors, inherited by copying my method.*** ⇒ ⭐ **"A negative result from someone else is a hypothesis
+about your repo" cuts both ways: A POSITIVE RESULT FROM SOMEONE ELSE IS TOO.** A broadcast that
+carries a predicate hands every recipient its defects, and they arrive wearing my authority.
+✅ **So state the predicate's known limits IN the broadcast**, not just its result — a recipient
+copying a method needs to know what it cannot see.
+
+### ✅ And the standard verified rather than asserted
+
+yepochs took plan's *"no gate depends on pipefail"* and **deleted the line, re-running all three arms
+— identical exit codes, identical text.** Recorded at the site so a tidy-up meets the reason before
+it meets the line. ⭐ *That is the both-arms discipline applied to a STRUCTURAL claim: not "it is safe
+by construction" but "I removed the support and it stood."*
