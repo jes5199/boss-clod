@@ -21679,3 +21679,30 @@ imports the host by the back door.
 
 ⇒ ⚠️ *"Goes red for the right reason later"* is a phrase worth catching: it means the thing is wrong
 now and the instrument that would say so has not been built.
+
+### 7x190a — a RED AT THE WRONG LAYER, which looks exactly like the gate firing
+
+**2026-08-25T19:00Z, commonplace-markdown, while filing the evidence §7x190 said was missing.**
+
+To demonstrate its host-fetch gate red on a private dep, the obvious move is to mask credentials.
+**Masking SSH does produce a refusal — and the wrong one:**
+```
+SSH masked    -> dispatch-round.sh's OWN `git fetch origin` dies rc=128 BEFORE the deps gate runs
+https masked  -> "Getting commonplace_doc … could not read Username" -> REFUSED rc=1 -> exit 68
+                 deps/ left with 1 partial entry            <- the gate actually firing
+```
+⇒ ⭐⭐ **THE SSH RED IS A REFUSAL PRODUCED BY A DIFFERENT MECHANISM AT AN EARLIER LINE, AND IT IS
+INDISTINGUISHABLE FROM SUCCESS AT THE COMMAND LEVEL** — non-zero exit, dispatch prevented, evidence
+file written. **Filed as the demonstration, it would prove the wrong thing** while satisfying every
+reviewer who checks that a red was captured.
+
+⚠️ **Third named vacuity trap in Goal #1's brief**, alongside §7x181's *rc never captured* and
+§7x182's *arm that cannot fire against a public dep*. All three share one shape: **the artifact
+looks right and was produced by something other than the thing under test.**
+
+✅ markdown discarded the SSH red and used an **https-only mask to isolate the gate** — and recorded
+the discarded attempt beside the kept one, so the next person filing this evidence sees the cheaper
+wrong answer named before they reach for it.
+⭐ *It is the second time today a repo recorded the WRONG measurement next to the right one*
+(§7x188's survey referent, now this). **A discarded attempt kept in the record is worth more than a
+clean result, because the clean result does not warn anybody.**
