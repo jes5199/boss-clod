@@ -20573,9 +20573,45 @@ author knew roughly how many lines nine Elixir files should be. ⇒ **Where you 
 magnitude you expect BEFORE you read the number**; a count with no prior is a count you cannot
 falsify. *(Same move as pre-registering a prediction, applied to a `wc -l`.)*
 
-⚠️ **And note which half survived:** the FILE count came from the same broken glob and was still
-right, so agreement between two figures from one selector proves nothing about either. **Two
-numbers from one instrument are one number.**
+### ⛔ CORRECTED 2026-08-25T06:33Z — I had the mechanism BACKWARDS
+
+I wrote *"two numbers from one instrument are one number."* **It was two instruments**, and the real
+mechanism is the opposite and worse. value reproduced the original line rather than recalling it:
+
+```
+echo "files in lib/: $(find lib -name '*.ex' | wc -l)   lines: $(cat lib/**/*.ex lib/*.ex | wc -l)"
+     -> files in lib/: 9   lines: 98
+        ^^^ find: CORRECT                    ^^^ bare glob: 1 file, 98 lines. TRUE TOTAL 1146.
+```
+
+⭐⭐ **THE ADJACENCY IS THE LESSON. A wrong number sitting beside a right one, in the same line, in
+the same sentence, INHERITS THE RIGHT ONE'S CREDIBILITY.** Run alone, *"1 file"* would have been
+questioned instantly. Printed next to `find`'s 9, the pair read as *"9 files, 98 lines"* — one
+coherent claim about one corpus.
+⇒ ⭐ **It was not caught by noticing the glob. It was caught by noticing the RATIO** — 98 lines is
+implausible for nine Elixir modules. *(That is the expectation-before-the-number defence, and it was
+the only thing that worked.)*
+
+### Two riders, both measured
+
+1. ⛔ **THE DEFENSIVE EXTRA PATTERN MATCHED NOTHING.** The line was `cat lib/**/*.ex lib/*.ex` — a
+   belt-and-braces form that **looks more careful than the single pattern**. `lib/*.ex` matched
+   **zero** files. ⇒ *A pattern added for safety that matches nothing is indistinguishable from one
+   doing work*, and it made the expression read as more thorough while contributing nothing.
+2. ⭐⭐ **THE RIDER IS NOT "REMEMBER GLOBSTAR" — IT IS "PREFER THE INSTRUMENT THAT CANNOT BE SILENTLY
+   DISARMED."** `shopt -s globstar` would fix the line, but that is the **same shape as the pipefail
+   finding**: a construct whose correctness lives in an option set somewhere else. `find` needs no
+   option; Elixir's `Path.wildcard("lib/**/*.ex")` recurses unconditionally and also returns 9.
+
+**Measured on the same tree, by value and independently by me:**
+```
+find lib -name '*.ex'                  9   <- no option required
+Path.wildcard("lib/**/*.ex")           9   <- no option required
+bash lib/**/*.ex   (globstar unset)    1
+bash lib/**/*.ex   (globstar set)      9   <- correct, but only because of state set elsewhere
+```
+⚠️ Only the shell line was ever wrong; value's P6 dependency-hygiene test uses `Path.wildcard` and
+was correct throughout.
 
 ## 7x168 — a fixture that hand-sends a peer's message shape is a CLAIM ABOUT THE PRODUCER
 
