@@ -957,3 +957,32 @@ already paid) · the `create_log` created/existed signal, **dissolved 00:02Z as 
 needs** and staying dissolved absent a new reason.
 
 ⭐ **THIS WAS THE LAST OPEN ITEM WITH JES ANYWHERE IN THE FLEET.**
+
+### 32. ✅ A DIRECTORY DOCUMENT DOES NOT KNOW IT IS A DIRECTORY (jes, 2026-08-25T04:57Z)
+
+> *"the directory document doesn't know it's a directory, a cell has to mount it somehow"*
+
+**Asked by commonplace-cell**, which found its own spec colliding with ruling #28 and **declined to
+pick because its preferred reading was the one that created less work.** The right instinct, and
+the reason this reached jes at all.
+
+**The collision:** cell spec §5 invariant 2, §8 and §28.3 say a Cell's root names a
+`commonplace.directory/v1` Document. Ruling #28 puts type in the directory ENTRY. **A Cell's root
+has no entry pointing at it** — the only pointer is the descriptor's `root_directory_id`.
+
+⭐ **MEASURED BEFORE ASKING** (cell): `commonplace.directory/v1` occurs in **0 files** across
+commonplace-doc (17 `.ex`), commonplace-dir (15 `.ex`) and commonplace-doc-sync. doc's only
+profile constant is `commonplace.document/v1` (`doc.ex:13`). dir's `Entry` carries
+`kind: :document | :directory` (`entry.ex:19`).
+
+✅ **RULED — reading (a):** directory-ness is **interpretation applied from outside**, not a
+property the Document declares. No Document-level directory profile is added; nothing in
+commonplace-doc changes; dir's existing `Entry.kind` is already on the correct side of the line.
+
+⚠️ **THE HALF HE DID NOT SETTLE IS THE WORD "SOMEHOW".** He affirmed that a Cell mounts it. He did
+**not** say whether the descriptor's `root_directory_id` **is** the mount, or whether a mount is
+its own named concept carrying more than a pointer. ⇒ **Do not infer a mount design from this
+sentence.** cell's Phase-2 root check is sound under either; the moment anyone needs to write down
+what a mount *is*, that is a new question for jes.
+
+⛔ Nothing was blocked on this either way — cell's Phase 2 sits behind commonplace-value's P3.
