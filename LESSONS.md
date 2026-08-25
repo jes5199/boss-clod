@@ -20761,3 +20761,35 @@ about someone else's artifact, delivered as a measurement plus two costed option
 gets fixed in one round instead of debated.**
 
 Related: [[reference_proximity_implies_capability]], [[reference_doc_drift_vs_never_true]]
+
+## 7x172 — "answerable from the public API" can mean "re-derive their invariant, silently"
+
+**2026-08-25T08:16Z, commonplace-next, corrected by its own second look — twenty seconds after
+telling me the opposite.**
+
+It reported that P4's browser-attachment seam needed **no §14.3 ask**: the doc could be built from
+`DocHost.content_commit/3`, walking the content graph and re-applying deltas in ancestry order.
+Everything in that sentence is true, and the API is public.
+
+⛔ **Then it noticed what "in ancestry order with the epoch-boundary rule" actually IS: merkle-crdt's
+`integrate_ancestry/1` (v1.ex:1033/1212, boundary at :605-609), re-implemented one layer up.**
+
+⭐⭐ **THE TRAP: a seam can be reachable through a public API and still require RE-DERIVING the
+owner's invariant.** The call compiles, the data is available, nothing is private — and what you
+have built is a second copy of somebody else's rule, which **diverges silently the first time they
+change it.** That is exactly the copy layout §14.2 forbids, and it does not announce itself as
+copying because no code was copied.
+
+✅ **The correct move is the one it made: ask the OWNER for the byte-level door** — one public arm
+beside `materialize/2` — rather than assembling the bytes yourself from their parts. ⇒ *If your
+implementation must know a rule that lives in another library, the seam is in the wrong place, even
+when every function you call is exported.*
+
+⚠️ **And note the near-miss shape: nothing was blocked, so nothing would have forced a second look.**
+It had already told me no ask was needed, and P4 sits after P3 anyway. **A wrong answer with no
+deadline attached is the kind that survives** — the only thing that caught it was re-reading its own
+conclusion once more before acting on it.
+
+⭐ It also SENT ME THE CORRECTION UNPROMPTED, labelled as a correction to its own message. A worker
+that corrects its own report to the party who cannot check it is the only reason my ledger means
+anything.
