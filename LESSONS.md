@@ -21895,3 +21895,21 @@ and is much easier to act on confidently, *because a failing probe feels like di
 ⇒ **Before treating a post-deploy probe as evidence about the code, prove the artifact under test is
 the one running.** Its fix is the right one: it recorded the staging in readiness §4b, i.e. in the
 document the next person deploying will read, not in a commit message.
+
+## 7x198 — I ran the instrument twice to reformat its output, and the timeout looked like the instrument failing
+
+2026-08-25T20:23Z. To get both the non-STATUS lines and a trimmed STATUS table out of
+`log-pair-watch.sh`, I invoked it **twice in one command**. The script takes ~60-70s; the pair
+exceeded the 2-minute limit and the call returned `Exit code 143 — Command timed out`.
+
+⚠️ **That output is indistinguishable from the watch itself hanging** — which is a BLIND verdict, and
+the loop's standing instruction for BLIND is to say so plainly and fix the instrument. ⭐ **I would
+have "fixed" a script that was working**, on evidence produced entirely by how I called it.
+⇒ What actually saved it: the first invocation's own output was still in the buffer, showing `rc=0`
+and `resolved 13 of 13 windows`. **The partial output disagreed with the exit status, and the
+partial output was right.**
+
+⭐ **THE RULE: run a slow instrument ONCE, cache to a file, and format from the file.** Re-invoking to
+reshape output doubles the cost of every check and puts the timeout inside your own control rather
+than the tool's. ⛔ And when a wrapper's exit disagrees with the wrapped thing's own output, **the
+wrapped thing's output is the evidence** — the exit describes my invocation, not the measurement.
