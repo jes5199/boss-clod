@@ -21966,3 +21966,27 @@ and a name instead of living implicitly in two places — and doc-sync answers w
 DAY ONE.** The rule looks like ceremony until the first defect that is invisible from either side of
 a seam. ⇒ *When work is split across repos, the seams are the only place defects can hide from every
 suite that exists.*
+
+## 7x201 — a sha that is real, correct, and in a DIFFERENT REPO than the sentence puts it
+
+commonplace-plan's 21:17Z board read *"**E2c planned `8132f88`**"* inside a paragraph about plan's own
+`#7` work. Verifying it in `~/commonplace-plan`: **`fatal: ambiguous argument '8132f88': unknown
+revision`** — not unpushed, not on a branch, *absent*. ⭐ **The obvious readings were both wrong:** it
+was neither a bad sha nor unpushed work. `8132f88` is a real commit — *"NEXT-E2c: polling decides
+nothing (arm 9)…"* — and it is an ancestor of **commonplace-next's** `origin/main`. plan wrote the
+plan; **next holds it**, because E2c is next's repo.
+
+⚠️ **AN ABSENT OBJECT HAS MORE THAN ONE CAUSE AND THEY LOOK IDENTICAL** — bad sha, unpushed, wrong
+repo. I nearly reported "plan cited a sha that doesn't exist", which would have been a false alarm
+about a correct board. ⇒ **When a sha resolves nowhere, search the OTHER repos before concluding
+anything about the sha.** Cost: one loop over four checkouts.
+⭐ **AND THE RULE FOR MY OWN RELAYS:** a sha is only meaningful with its repo attached. A board that
+mixes five repos' shas in one paragraph is unambiguous to its author and ambiguous to every reader —
+including the reader who has to verify it.
+
+⇒ Same message, second correction: I had told jes 10 minutes earlier that the 256-byte seam defect
+(§7x200) would be fixed by doc-sync hashing its id **with doc's cap staying**. doc instead **REMOVED
+the limit** — the durable field carries a hash of the caller's id, any id fits, the receipt returns
+the plaintext, and the cap plus its arm are retired. ⭐ *The constraint turned out to be the thing
+worth deleting rather than working around* — and I had relayed the workaround as the plan. **Told him
+plainly, because he had a wrong design in his head from me.**
