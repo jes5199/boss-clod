@@ -494,3 +494,18 @@ plain commit to main that never went through it. A fix to one path is not a fix 
   ⭐ THE PROCESS POINT, worth keeping: a question routed to jes at 23:58Z would have cost him
     attention and then been retracted at 00:01Z. The hold was not caution — it was the correct
     read that his workers had a cheaper instrument than his judgement for that particular question.
+
+2026-08-25T00:02Z  ✅ DISSOLVED — CLOSED, NOT OPEN. commonplace-log answered the one clause left to it:
+  NO, its layer has no use of its own for {:ok, :created | :existed}. Their reasons: replica
+  provenance is "the holder created it"; the sidecar's /create-log already answers 201 either way and
+  nothing downstream reads the difference; and the expected-previous/conflict path doc measured is the
+  log doing exactly what it is for — AN OCCUPIED COORDINATE IS REFUSED, AND THE REFUSAL IS THE SIGNAL.
+  ⇒ NEVER ROUTED TO JES. Raised 23:57Z, held 23:58Z, dissolved by measurement 00:01Z, closed 00:02Z.
+    Total cost to him: ZERO messages.
+  ⭐ log's read of doc's arm, worth keeping: two concurrent creators, one genesis, loser gets
+    :writer_conflict is "the fork-reported-not-resolved property doing work one layer up." The design
+    rule commonplace-log was built on — never silently choose a branch — turned out to be the thing
+    that made doc's genesis safe without doc adding a guard for it.
+  ⛔ REMAINING WITH JES ACROSS THE FLEET: commonplace-log's ordering call among (a) DocumentProfile
+    over the sidecar, (b) realm naming/placement, (c) a sibling's need on the log surface. That is
+    the ONLY open item anywhere, and it is a prioritisation question, not a blocker.
