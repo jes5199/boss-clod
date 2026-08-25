@@ -20263,3 +20263,40 @@ earlier fixes could not reach, because a worker waiting on a round is not busy.*
 evidence that separates a working gate from one I have only ever seen pass on cases I constructed.
 ⇒ Both arms of this variant are now real: the RED fired here, and the GREEN is every quiet pass
 since, on suppressions that genuinely describe stopped workers.
+
+## 7x161 — a failed `tmux new-window` printed an error and I sent keystrokes into another agent's live round anyway
+
+**2026-08-25T03:46Z.** Creating a window for `commonplace-cell`, I guessed index 50 because 49 had
+just worked. `tmux new-window -t 0:50` printed **`create window failed: index 50 in use`** — and I
+sent the launch command plus two Enters to `0:50` regardless.
+
+⛔ **Window 50 was `sol-docsync-p1`** — commonplace-doc-sync's phase-1 Sol round, live at the time.
+I typed `cd ~/commonplace-cell && workerclaude --model claude-fable-5` into another agent's
+in-flight work.
+
+✅ **No damage, and I can say exactly why rather than guessing:** `sol-egress-run.sh` ends its exec
+with `< /dev/null`, so the codex process's stdin is not the tty. The keystrokes went nowhere.
+⚠️ **That is the runner's fence protecting me from my own error — luck in the sense that I did not
+earn it.** Verified after the fact: outer 641609 alive, codex 641636 still on the right `-C`, no
+stray claude in `~/commonplace-cell`.
+
+### ⛔ The failure is not the guessed index. It is proceeding after an error.
+
+**The command TOLD ME it failed, in plain words, and I continued with the next step as if it had
+succeeded.** ⇒ *This is the exact rule I apply to everyone else — verify by effect, never by the
+command returning — inverted: I had an explicit failure message and did not read it.*
+⚠️ **Sending keystrokes is not idempotent and not addressed to a name.** `send-keys -t 0:50` goes to
+whatever occupies slot 50, and a slot is a POSITION, not an identity. The same shape as §7x157: I
+addressed an action to a location rather than to the thing I meant.
+
+### ✅ The fix, applied immediately
+
+```
+MAX=$(tmux list-windows -t 0 -F '#{window_index}' | sort -n | tail -1); IDX=$((MAX+1))
+tmux new-window -t 0:$IDX -n NAME -c DIR
+NAME_BACK=$(... awk -v i=$IDX '$1==i{print $2}')      # read the window BACK
+[ "$NAME_BACK" = "NAME" ] || die                       # ⛔ NO KEYSTROKE UNTIL THIS PASSES
+```
+⭐ **Never send a keystroke to a window index until you have read that index back and confirmed it
+is the window you just created.** A pane is someone else's process by default; mine is the exception
+and must be proven.
