@@ -22012,3 +22012,29 @@ to open decisions rather than shas.
 ⭐ And note the direction of the cost: this one **manufactured work for jes that did not exist**. A
 false open question is not a harmless error; it sits on his list, and he had told me hours earlier he
 was "overwhelmed by the open questions and didn't know where to start."
+
+## 7x203 — a rule DELEGATED across a layer boundary, and neither layer built it
+
+commonplace-doc-sync, measuring for #9, 2026-08-25T22:00Z. doc's errata **E9 delegated "forward-only"
+selection to doc-sync as higher-layer policy.** doc-sync's `verify_offer` checks **merge-base
+ancestry only.** ⇒ A crafted offer with `if_head_is = H` and a `proposed_head` that does **not**
+descend from `H` would be **SELECTED** — *a rollback through the plain select door, which is the exact
+shape `select.head` exists to guard.*
+
+⭐ **THIS IS §7x200's SHARED-INVARIANT-WITH-NO-OWNER, ONE STAGE WORSE.** There the two halves merely
+failed to line up. Here the boundary was **explicitly discussed and explicitly handed over** — and the
+hand-off is what closed the question for both sides. ⚠️ **A delegation reads, to the delegating layer,
+exactly like a solved problem.** doc is correct that it is not doc's rule; doc-sync never received a
+line of code saying so. **Nothing in either repo's tests can see a rule that exists only in a sentence
+in a third document.**
+
+⇒ Reachability, measured rather than assumed: **only** by a crafted offer holding
+`document.select.content-head`; the Mirror controller never produces one and the browser cannot
+author offers. ⇒ **A latent authorization gap, not a live exploit** — and doc-sync said so in exactly
+those words instead of either downplaying it or dressing it up.
+⭐ Fixed as P7's **first** arm (`:non_forward_head`), **red first by the crafted offer being selected
+today** — the gap demonstrated open before it is closed, ahead of the merge work it was found beside.
+
+⇒ **THE CHECK THIS EARNS: when a spec delegates a rule to another layer, the delegation is not done
+until the receiving layer has an ARM NAMED FOR IT.** A sentence saying "X is Y's responsibility" is a
+routing decision, not an implementation, and it is invisible to every suite in both repos.
