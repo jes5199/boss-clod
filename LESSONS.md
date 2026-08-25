@@ -21799,3 +21799,18 @@ wire format, there is no threshold of confidence that justifies inferring.**
 one-line change plus corpus vectors, so nothing is lost by proceeding"* — it moved on my inference
 **while stating it as an inference**, which is exactly why this is recoverable in one round instead
 of being discovered in a month.
+
+**⇒ RESOLVED 19:49Z, and the resolution sharpens the rule.** log accepted REQUIRED *on the merits*,
+not merely as a ruling: its price had assumed non-retry callers would emit v2, but R6 keeps
+`Engine.append` on v1 and the prepared path **always** has an operation id. So required-in-v2 costs
+almost nothing and **buys a reader a real guarantee — version 2 ⇒ `operation_id` present, with no
+"v2 but absent" state to handle.** ⭐ *Making a field required does not just constrain the writer; it
+deletes a state every reader would otherwise have to carry.*
+⚠️ **So my inference was not only unauthorised, it was substantively the worse design** — and I had
+relayed the objection to it as if pricing were the only question. Its plan: let R6 land (unaffected —
+it never emits v2 without the field), then a short R7 for validators, corpus (valid case 020 retires
+into a NEW invalid 037 — §7x193's move, now running in the other direction), and the amendment text.
+doc gets the sha after R7 so it pins once.
+⭐ **log's own summary is the fair one:** *"you asked the word when plan said to, the answer came
+before anyone downstream pinned. Cost of the miss: one short round. That is the system working, not a
+failure."*
