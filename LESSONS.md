@@ -20576,3 +20576,42 @@ falsify. *(Same move as pre-registering a prediction, applied to a `wc -l`.)*
 ⚠️ **And note which half survived:** the FILE count came from the same broken glob and was still
 right, so agreement between two figures from one selector proves nothing about either. **Two
 numbers from one instrument are one number.**
+
+## 7x168 — a fixture that hand-sends a peer's message shape is a CLAIM ABOUT THE PRODUCER
+
+**2026-08-25T06:02Z, commonplace-dir, found by measuring at its own pin rather than by a test.**
+
+commonplace-doc landed a `watch_lost` fix at `979fa98` and — separately, §7x166's neighbour — never
+sent the report. When dir finally measured at its current pin it found something worse than an
+unreported answer:
+
+```
+doc_host.ex:531        sends {:watch_lost, %{document_id, watch}, reason}   -- a 3-TUPLE
+dir's translator :230  matches the OLD 2-tuple
+                 :231  :ignore clause swallows the rest
+```
+⇒ **At every pin since — c2f1528, 8146e5d, a3cbd9f, 6741816 — a real watch loss was SILENTLY
+DROPPED**, and dir's loss arm never noticed **because the fixture SENDS THE OLD SHAPE BY HAND.**
+
+⭐⭐ **THE GENERAL FORM: a fixture that constructs a peer's message is not a test of the peer — it is
+an ASSERTION that the peer still emits that shape, frozen at the moment it was written.** ⛔ It
+stops being true the instant the peer changes, and **nothing goes red**, because the fixture is now
+testing the handler against a shape nobody produces.
+
+⚠️ **And the re-pins made it worse, not better.** dir re-pinned doc FOUR times; every run was green.
+**A green suite after a dependency bump reads as "the bump is compatible" — here it meant "my test
+does not consult the dependency."** ⇒ *The re-pin is exactly the moment this class of staleness is
+created AND the moment its only detector is switched off.*
+
+✅ **dir's remedy is the right shape: red first — send the PINNED 3-tuple, show the loss dropped —
+then fix, and delete the legacy clause UNLESS A PINNED PRODUCER CAN BE NAMED.** ⭐ That last clause
+is the reusable one: **a compatibility branch must name a live producer or be removed.** A legacy
+clause with no named producer is indistinguishable from a bug that swallows the current shape —
+which is exactly what it was here.
+
+⚠️ **Second instance in this repo** (the first was `Frontier.new`), and dir named it as such itself:
+*"a peer's shape written into my test as fact."* ⇒ Two occurrences in one repo make it a **class**,
+not an incident, and the fix belongs at the fixture-authoring boundary rather than in either bug.
+
+⛔ **Not texted to jes:** unreleased code, no user impact, and the finding arrived with its own fix
+queued. Near-miss shape; the artifact is the remedy.
