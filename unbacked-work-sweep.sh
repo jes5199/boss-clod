@@ -1,5 +1,14 @@
 #!/usr/bin/env bash
 
+# ⛔ 2026-08-25T23:14Z — DO NOT PUSH ANOTHER REPO'S UNPUSHED MERGE COMMIT WITHOUT READING ITS GATE LOG.
+# commonplace-next's 130fa70 looked like a forgotten push and was a landing its own gate REFUSED:
+# land-round leaves the rejected merge on local main BY DESIGN and prints a reset line. Pushing it
+# would have published a refused commit into the branch every sibling pins. "A push is a pure
+# addition" is true about git and false about the system.
+# ⇒ Before pushing for someone else: read tmp/land-gate-*.log in that repo. An unpushed MERGE on a
+#   repo with a refusal-based lander is usually a REJECTED LANDING, not forgotten work.
+# See LESSONS 7x204.
+
 # ⛔ REFUSE UNKNOWN ARGUMENTS — exit 2 (BLIND), never a normal verdict.
 # ⚠️ Found 2026-08-23: all four of these scripts SILENTLY IGNORED any argument and
 # printed a healthy verdict. A typo'd flag or env var meant the script answered the
