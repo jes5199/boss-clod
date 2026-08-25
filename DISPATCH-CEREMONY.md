@@ -436,3 +436,26 @@ re-measures the property works under all of them.**
 ⇒ **AND FROM OUTSIDE, A STOPPED RUN AND A RUN THAT NEVER HAD ITS INPUT ARE INDISTINGUISHABLE** — both
 leave an empty diff, both exit 0, both look like "nothing to do." Same family as the content-filter
 refusal. **Read the run log's first exec, not the diff.**
+
+## Appendix — commit a round's required-arms file WITH its tests, not with its brief (commonplace-dir, 2026-08-25)
+
+`bin/check-all-arms.sh` (every round's arms) went red on `main` the moment DIR-D14's brief landed,
+because the brief commit carried `docs/DIR-D14-required-arms.tsv` and the tests it names live only in
+Sol's worktree until the round lands. That red is CORRECT — and it means `main` was "arms-red" for the
+whole dispatch window of every round whose tsv shipped with its brief, invisible because the gate
+was only run inside worktrees after landing. ⇒ The brief carries the arm list as text; the tsv is
+created in the worktree (the brief already tells Sol to) and lands in the round's commit. A gate
+that is red by construction during a known window teaches the same re-run-until-green reflex as a
+flaky one (A28).
+
+## Appendix — the dispatch-window placeholder (commonplace-dir, 2026-08-25 17:55Z)
+`check-all-arms.sh` is red on a brief with no arms file (a vanished file must be red), but a round's
+arms land WITH its tests — so `main` was red for every dispatch window. The brief commit now carries a
+comment-only `docs/DIR-<round>-required-arms.tsv` ("placeholder; the landing replaces this"): present,
+zero arms, `found: 0 missing: 0`, and it cannot hide an arm because it names none. The landing
+overwrites it. Do not put arms in the placeholder — that recreates the A26 window.
+
+## Appendix — count Sol rounds by `pgrep -u jes -x codex` + distinct PGID (2026-08-25 17:57Z, boss-clod/value)
+An args pattern counts every process whose command line MENTIONS it — including a shell writing
+documentation about the trap. `-x codex` matches the executable name, which prose cannot be; dedupe
+PGIDs for the per-round fan-out. commonplace-dir's waiter templates (`sol-dir-g1/wait-*.sh`) use this form.
