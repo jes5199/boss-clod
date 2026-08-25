@@ -22038,3 +22038,31 @@ today** — the gap demonstrated open before it is closed, ahead of the merge wo
 ⇒ **THE CHECK THIS EARNS: when a spec delegates a rule to another layer, the delegation is not done
 until the receiving layer has an ARM NAMED FOR IT.** A sentence saying "X is Y's responsibility" is a
 routing decision, not an implementation, and it is invisible to every suite in both repos.
+
+## 7x204 — my own fallback rule would have pushed a REJECTED landing to main
+
+2026-08-25T23:09Z the unbacked sweep found commonplace-next 2 commits ahead of `origin/main`
+(`130fa70` "Merge branch 'arm7-rename'" + `877400e`). I messaged next rather than pushing — correct —
+but I stated a fallback: *"if it is still unpushed at the next sweep I will push it myself, since a
+push of an existing local branch to its existing upstream is a pure addition."*
+
+⛔ **`130fa70` WAS A LANDING THE GATE REFUSED.** `check-plan-arms` went red (MERGE's arm markers were
+promoted on main before the round landed), and **`land-round` leaves the rejected merge on local main
+by design and prints a reset line.** next reset to `5ce0413` and re-landed through the gates as
+`ecc685c`. Verified by me: local main == `origin/main` == `ecc685c`, and `130fa70` is **no longer
+reachable from main**.
+
+⭐ **"A PUSH IS A PURE ADDITION" IS TRUE ABOUT GIT AND FALSE ABOUT THE SYSTEM.** Nothing would have
+been rewritten — and I would have published a commit whose own repo's gate had *refused* it, into the
+branch every sibling pins. **The sentence I used to justify the safety of the action described the
+mechanism, not the consequence.**
+⚠️ And the trigger was mine, stated aloud, one sweep from firing. **The dangerous rules are the ones I
+write for my own future self**, because nobody reviews them the way a worker reviews a message from
+me.
+
+⇒ **THE DISCRIMINATOR next GAVE ME, now the rule:** on a repo whose landing script is
+**refusal-based**, an *unpushed merge commit on main is usually a REJECTED LANDING, not a forgotten
+push*. **Read `tmp/land-gate-*.log` before pushing anything for someone else.**
+⭐ Note which side caught it: **the repo did, because I told it what I measured and what I intended to
+do.** Announcing the fallback is what made it reviewable — had I simply pushed at the next sweep, the
+first anyone would have known is a refused commit on main.
