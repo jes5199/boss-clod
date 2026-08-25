@@ -20828,3 +20828,47 @@ in-process subagent → waiter script → held shell → in-process subagent aga
 changed the question from "what kinds of work exist" to "who owns this process"; this fifth one
 concedes that some work owns no process, and asks a different instrument.** Two questions, not one
 growing list.
+
+## 7x174 — an impossible arm, refused rather than manufactured; and a waiter that latched onto a MENTION
+
+**2026-08-25T08:29Z, commonplace-dir. Two findings from one round, and the second is the sharper.**
+
+### 1. The vacuity hatch fired on an arm that COULD NOT BE SATISFIED HONESTLY
+
+dir's D15B brief required *"the first checkpoint of an EMPTY directory is one genesis commit"*. Sol
+built the boot half, then **stopped with a named contradiction instead of a manufactured green**: an
+empty Directory has **zero ops**, so there is nothing to write — and **A30, dir's own amendment**,
+records that merkle cannot author an empty map root.
+
+⭐ **Every route to that arm — marker key, bootstrap entry, raw commit, pin change — is forbidden by
+a rule dir itself had written. Sol refused all four and asked for authorization.** dir denied it:
+*"the brief was wrong, not the fence."*
+
+⇒ ⭐⭐ **THE AUTHOR OF A BRIEF CAN SPECIFY SOMETHING ITS OWN EARLIER RULING FORBIDS, AND WILL NOT
+NOTICE** — the contradiction lives across two documents, and only the party made to satisfy both at
+once feels it. The correction: a checkpoint of an empty Directory is a **no-op receipt** (included
+`[]`, root nil→nil), not an error and not a commit; genesis is the **first entry actually written**.
+
+⚠️ **A brief with no vacuity hatch would have produced one of the four forbidden things and a green
+suite.** The hatch is what converted "impossible" into a REPORT rather than into a hack.
+
+### 2. ⛔ THE WAITER MATCHED A WORK-ID THAT APPEARS IN SOMEONE ELSE'S BRIEF
+
+dir's hold waiter identified its round by matching the work id `DIR-D15B` in `argv`.
+**commonplace-next's P3 brief MENTIONS `DIR-D15B`** — so the waiter would have latched onto
+**next's pid** and waited on the wrong round.
+
+⭐⭐ **A selector keyed to a NAME matches every document that TALKS ABOUT the thing, not the thing.**
+Same family as `grep 'git push'` counting mentions instead of invocations, and as my own
+`pgrep -f` matching the searcher: **the string you chose to identify something is also the string
+other people use to refer to it.** ⇒ Briefs quote briefs; work ids are the most quoted tokens there
+are, which makes them the worst possible selector.
+
+✅ **dir's fix is the right axis: match on `-C <worktree>`, the fence.** A worktree path is what the
+round *is*, not what anyone *calls* it — it cannot appear in a sibling's prose by coincidence
+because it is structural rather than nominal.
+⭐ **The rule: identify a process by something it POSSESSES, never by something it is NAMED.**
+
+⚠️ Nothing broke — the collision needed both rounds live at once and dir found it first. **This is a
+near-miss whose only evidence would have been a waiter that returned at the wrong moment**, which is
+indistinguishable from a round that finished early.
