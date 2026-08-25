@@ -21113,3 +21113,40 @@ argument** — the reason is at the site, where the next person to hit it is sta
 code-IS → relaying a mechanism unread → this wrong-referent zero), each caught by the party who
 made it, each landing before anything was built on it. **The rate of error did not fall; the
 distance between error and catch did.**
+
+## 7x181 — a gate that "prevented" the action by DYING, and reported a red it never saw
+
+**2026-08-25T17:31Z, commonplace-next, self-reported.** Its new dispatcher deps gate was committed
+with the message *"seen red (mix absent → rc 68)"*. **False.** The run returned **rc 127**: under
+`set -euo pipefail`, the bare
+```bash
+out=$(cd "$wt" && mix deps.get 2>&1); rc=$?
+```
+**aborted the script at the assignment, before `rc=$?` ever ran.** No REFUSED line printed. The
+exit code was the raw 127 from a missing binary.
+
+⭐⭐ **DISPATCH WAS STILL PREVENTED — and that is the trap, not the mitigation.** The script died
+before reaching tmux, so the outcome was correct while the gate's verdict never executed. ⇒ ***A
+gate whose decision never runs is decoration even when the result is right, and the result being
+right is exactly what stops anyone looking.*** A wrong outcome would have been found in minutes.
+
+✅ Fixed at `4d41ddf` — `rc=0; out=$(…) || rc=$?` — verified by me at `dispatch-round.sh:34-35`
+with `set -euo pipefail` at :16, and `4d41ddf` confirmed an ancestor of `origin/main`. Both arms
+then genuinely observed: `--preflight` → PREFLIGHT OK; mix off PATH → `REFUSED … (rc=127)`, exit 68.
+
+⚠️ **AND ITS FIRST RED ARM FOR THE SAME GATE WAS INERT** — a scratch clone with a bogus dep was
+refused *earlier, by a different gate* (the no-remote-ref check, exit 66). **§7x177's shape, in
+another repo, on the same afternoon.** next caught that one before claiming it and missed this one.
+⇒ *Two vacuity failures in one gate's construction: a red arm that fired for the wrong reason, and
+a red arm that never fired at all.*
+
+⭐ **THE PROPAGATION IS THE POINT.** That gate is now the reference implementation five other repos
+are copying for Goal #1's precondition. **I routed the corrected form to all five with the false-red
+story attached** — because a repo copying the pattern would otherwise copy the *first* version and
+inherit a gate that cannot report. ⇒ *When a fix becomes a template, the incident that produced it
+has to travel with it, or every copy re-earns the lesson privately.*
+
+⛔ **Same family, third instance today:** doc-sync's `mix test | tail -1`, dir's `land-gates.sh`,
+and now this — all "the gate's verdict was never the thing that decided". The first two were
+pipelines; this one is `set -e` killing the capture. **Different mechanism, identical failure:
+THE RC WAS NEVER CAPTURED.**
