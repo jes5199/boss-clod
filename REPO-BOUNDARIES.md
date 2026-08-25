@@ -932,3 +932,28 @@ nothing jes decided — and converts a latent surprise into a documented propert
 ACCEPTED, and **jes was told it in those words before he answered.*** ⛔ **Without it, the first
 person to notice a second consumer files a BUG and someone spends a round rediscovering a decision.**
 **A known cost recorded as known is the difference between a revisit and an incident.**
+
+
+### 31. ✅ commonplace-log's ORDERING RULED (jes, 2026-08-25T02:52Z)
+
+> *"great commonplace-log should do first then second then third"*
+
+⚠️ **"first/second/third" is only meaningful against the order I listed them in**, so the mapping is
+recorded here and was stated to log for correction before it starts:
+
+1. **DocumentProfile over the SIDECAR persistence** — the single-lane Document whose lease lives in
+   the realm DO. ⭐ *This is the one that makes the epoch fence testable in the condition it exists
+   for.* The fence is proven as a MECHANISM (two leases, stale refused, both arms) but its real case
+   — two live incarnations of one realm contending during a rollout — **cannot be observed on the
+   deployed path, because the engine path takes no lease.**
+2. **Realm naming / placement policy** — cheap now, expensive once realms exist whose names would
+   need migrating.
+3. **Sibling needs on the log surface** — ⚠️ **nobody is currently asking**; doc, dir and merkle all
+   finished with no outstanding request. ⇒ *"Third" may never arrive, and that is deliberate
+   idleness rather than a dropped item.*
+
+⛔ **NOT covered:** SP4b scope beyond what is agreed · the Workers Paid entitlement (already his,
+already paid) · the `create_log` created/existed signal, **dissolved 00:02Z as a convenience nobody
+needs** and staying dissolved absent a new reason.
+
+⭐ **THIS WAS THE LAST OPEN ITEM WITH JES ANYWHERE IN THE FLEET.**
