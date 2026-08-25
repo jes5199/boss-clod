@@ -856,3 +856,47 @@ independently confirmed, and still rest on a requirement nobody checked.** ⚠�
 prediction about his next answer** — but three times in one evening the cheapest available answer
 was upstream of the question being asked, and every time the fleet had converged on solving it
 rather than on testing whether it needed solving.
+
+
+### 30. ✅ A "VERSION" REDUCER, BUT NOT ENGINE-ENFORCED (jes, 2026-08-25T00:38Z + 00:41Z)
+
+> *"okay then i want a 'version' reducer that is special"* — 00:38Z
+> *"no"* — 00:41Z, answering: **does the reducer engine ALSO refuse a writer lane whose first entry
+> isn't that version epoch?**
+
+⇒ **Reading (A): no engine enforcement.** The version epoch is an ordinary registered plugin,
+written by `commonplace-doc` as the first of its lane's epoch entries, and the convention is
+enforced by **doc's open path**. Reading (D) (engine ships the plugin) was optional on the YES
+branch and falls with it.
+
+⚠️ **A ONE-WORD ANSWER TO A TWO-BRANCH QUESTION.** I broadcast my reading with the question verbatim
+and invited correction before anyone builds. **If it was misread, that is cheap now and expensive
+later** — recorded here so the reading is auditable rather than assumed.
+
+**Per repo, as they established it themselves:** log-reducer builds NOTHING (no reserved projection
+name, no §15/§16/§21 addition, no conformance genesis line, §42.10 stays closed) · doc makes a
+**one-line ordering change** — version joins attributes/content/verbs, and open already refuses
+their absence · commonplace-log is unchanged.
+
+#### ⚠️ THE ACCEPTED WEAKNESS — recorded so it is never reported as a bug
+
+**With (A), "a lane starts with a version epoch" lives in ONE CONSUMER, not in the format.** A second
+consumer could skip it and nothing would refuse. ⭐ **jes was told this in those words before he
+answered.** ⇒ If a second consumer ever appears, this is a **decision to revisit**, not a defect —
+and revisiting it is (B), already scoped by log-reducer and ready to build.
+
+#### ⭐ Settled jointly by doc and log-reducer: VERSION IS A STAMP
+
+Set once, never advanced by operations. A format change is a **NEW version epoch with
+`parent_epoch_id` pointing at the old**, written by an explicit migration command. ⇒ That answer
+**removed the "governing" reading entirely** — the expensive one, which would have made one durable
+entry decide what the others mean.
+
+#### ⭐ How the option set collapsed, worth keeping as a method
+
+Four readings at 00:39Z → two at 00:40Z → ruled at 00:41Z. **Nothing was argued away.** Each repo
+measured its own layer: the engine hard-codes no reducer or projection name (so (A) is free today);
+doc already writes three epoch envelopes on create (so the entry is identical under either branch);
+seq 1 is **per writer, not per log** (so (B)'s wording had to change); and version is a stamp (so
+(C) dies). ⇒ **The space shrank because constraints turned out already satisfied, not because
+anyone advocated.**
