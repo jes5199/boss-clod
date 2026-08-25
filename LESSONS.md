@@ -20793,3 +20793,38 @@ conclusion once more before acting on it.
 ⭐ It also SENT ME THE CORRECTION UNPROMPTED, labelled as a correction to its own message. A worker
 that corrects its own report to the party who cannot check it is the only reason my ledger means
 anything.
+
+## 7x173 — parentage cannot see work that has no process, and the scraper was right again
+
+**2026-08-25T08:17Z.** The sweep reported `STALLED|commonplace-merkle-crdt`. Its pane said
+**"Waiting for 1 background agent to finish"** — a `general-purpose` subagent, 53s in, reading
+`ancestry_order` in `v1.ex`.
+
+⭐ **§7x166 replaced "enumerate kinds of work" with "attribute by parentage", and THIS is the case
+parentage cannot reach: a Claude subagent runs INSIDE the worker's own claude process.** No child,
+no shell, no codex — **there is no process to attribute at all.** A `/proc` walk of any design is
+structurally blind to it.
+
+⇒ ⭐⭐ **The only observable is the pane.** Fixed by consulting it when the process count is zero.
+⚠️ **Bottom seven lines only** — `capture-pane` returns scrollback, and a stale marker from a
+FINISHED agent reads identically to a live one. *I introduced exactly that bug once while fixing its
+opposite, so the constraint is in the code with the reason beside it.*
+
+✅ **Both arms:**
+```
+GREEN  merkle-crdt -> "1 unit(s) running"   ·  commonplace-next -> 1 unit
+RED    commonplace-doc, commonplace-log -> STALL-CANDIDATE, nothing running
+```
+The red arm is again the load-bearing one: doc and log have panes too, and they still fire.
+
+⭐ **THE STANDING RULE THIS EARNS, now with two instances pointing the same way:** when the pane
+scraper and the process instrument disagree, **the answer is not "prefer one" — it is ASK WHICH ONE
+CAN SEE THE KIND OF THING IN QUESTION.** §7x146 had me trusting the transcript over the pane and
+being wrong; here and at §7x166 the pane was right twice. ⇒ *An in-process subagent is visible ONLY
+in the UI; a queued Sol round is visible ONLY in the process table. Neither instrument dominates.*
+
+⚠️ **Five blind spots in three days, and I have now stopped patching the taxonomy:** global count →
+in-process subagent → waiter script → held shell → in-process subagent again. **The fourth fix
+changed the question from "what kinds of work exist" to "who owns this process"; this fifth one
+concedes that some work owns no process, and asks a different instrument.** Two questions, not one
+growing list.

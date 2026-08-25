@@ -210,6 +210,43 @@ def live_work():
                 mine += 1
         except Exception:
             unattributable += 1
+    # ⛔⛔ 2026-08-25T08:17Z — THE IN-PROCESS SUBAGENT IS STILL INVISIBLE, AND PARENTAGE DOES NOT
+    #   FIX IT. commonplace-merkle-crdt read STALL-CANDIDATE while its pane said "Waiting for 1
+    #   background agent to finish" (general-purpose, 53s, reading ancestry_order in v1.ex).
+    # ⭐ A Claude subagent runs INSIDE the worker's own claude process. There is no child, no shell,
+    #   no codex — nothing for a /proc walk of ANY kind to attribute. §7x166 replaced "enumerate
+    #   kinds of work" with "attribute by parentage", and this is the case parentage cannot reach:
+    #   THE WORK HAS NO PROCESS AT ALL.
+    # ⇒ The ONLY observable is the pane. The scraper was right and the process instrument was wrong,
+    #   for the second time (§7x146 inverted). Ask which instrument can SEE the thing.
+    if mine == 0 and worker_claude_pid > 0:
+        try:
+            panes = subprocess.run(['tmux','list-panes','-a','-F','#{pane_pid} #{session_name}:#{window_index}'],
+                                   capture_output=True,text=True).stdout.splitlines()
+            pane_of = {}
+            for row in panes:
+                bits = row.split(None,1)
+                if len(bits) == 2 and bits[0].isdigit():
+                    pane_of[int(bits[0])] = bits[1]
+            # walk up from the worker's claude pid until we hit a pane's shell
+            cur, target, hops = worker_claude_pid, None, 0
+            while cur > 1 and hops < 12:
+                if cur in pane_of:
+                    target = pane_of[cur]; break
+                with open(f'/proc/{cur}/stat','rb') as fh:
+                    cur = int(fh.read().decode().rsplit(')',1)[1].split()[1])
+                hops += 1
+            if target:
+                pane = subprocess.run(['tmux','capture-pane','-p','-t',target],
+                                      capture_output=True,text=True).stdout
+                # ⚠️ BOTTOM LINES ONLY. capture-pane returns SCROLLBACK, and a stale
+                #   "Waiting for N background agent" line from a FINISHED agent reads identically
+                #   to a live one. I introduced exactly that bug once while fixing its opposite.
+                tail_lines = '\n'.join(pane.splitlines()[-7:])
+                if re.search(r'Waiting for [0-9]+ background agent', tail_lines, re.I):
+                    mine += 1
+        except Exception:
+            pass
     return mine, unattributable
 running, unattr = live_work()
 
