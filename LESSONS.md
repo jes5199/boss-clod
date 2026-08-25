@@ -20722,3 +20722,42 @@ was available; taking it required only silence. ⚠️ *A vacuous green is not a
 says a gate never seen red produces greens forever and each one reads as evidence. **This hatch has
 now been seen red, for its own purpose, on work that was otherwise ready to land.** ⇒ Its future
 greens mean something they did not mean yesterday.
+
+## 7x171 — advice-SHOULD transcribed as code-IS, with the checkout on the same machine
+
+**2026-08-25T07:31Z. Found by commonplace-next, owned immediately by commonplace-plan.**
+
+plan's D13a brief said the cadence worker **"consumes DirHost dirty notifications"** and referred to
+`checkpoint_authority`. Measured by next on dir pin `7b2b163` **and** live `db28f16`:
+
+```
+outbound notification from DirHost   NONE
+telemetry                            NONE
+what actually exists                 polling — snapshot :live / reconcile/1
+checkpoint_authority                 PROSE ONLY; in code the option is `authority:`, the principal
+```
+
+⭐ **plan derived both from jes's advice §3.5/§9/§13 — which describes what SHOULD exist — and wrote
+them into a brief in the register of things that DO.** Its own words: *"Advice-SHOULD transcribed as
+code-IS. I had the dir checkout on this machine and never grepped."*
+
+⭐⭐ **WHY THIS SURVIVES REVIEW INDEFINITELY: a plan naming a consumer for a producer that was never
+built READS AS ENTIRELY REASONABLE.** Every reviewer checks whether the consumer makes sense, and it
+does. ⇒ **Only someone who tries to BUILD it discovers the gap** — which is why it sat until the
+first implementer arrived, and why the discoverer is never the author.
+
+⚠️ **The aggravating detail is proximity, not distance.** The source of truth was a `git grep` away
+on the same disk. **Nothing about a nearby checkout makes you check it**; if anything, availability
+substitutes for verification — *I can see it any time* becomes *I have seen it*.
+
+✅ **The repair was placement, not apology:** the note now records the surface as **dir's open
+decision** (§14.3 — notify hook vs `reconcile/1` poll) **rather than as a fact from plan**, so the
+next reader inherits an open question instead of a false premise. D13a/D13b and the three
+constraints stand — *the split was never what was wrong.*
+
+⭐ **AND THE ROUTING WAS RIGHT BEFORE THE CORRECTION EXISTED:** next did not build either branch or
+argue the point — it costed both and handed the decision to dir, whose surface it is. **A finding
+about someone else's artifact, delivered as a measurement plus two costed options, is the form that
+gets fixed in one round instead of debated.**
+
+Related: [[reference_proximity_implies_capability]], [[reference_doc_drift_vs_never_true]]
