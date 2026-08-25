@@ -128,6 +128,37 @@ def live_work():
                 mine += 1
         except Exception:
             unattributable += 1
+
+    # ⛔⛔ 2026-08-25T04:48Z — A WAITER IS WORK, AND THIS COULD NOT SEE ONE. commonplace-dir was
+    #   reported STALLED while /home/jes/sol-dir-d14b/wait-and-launch.sh had been alive 54s,
+    #   holding a queued D14B round behind the cap. A waiter that has NOT YET launched codex is
+    #   not a codex process, so the -C attribution above is structurally blind to it.
+    # ⭐ Same family as the two failures above: each time the instrument could not SEE the kind
+    #   of work in front of it, and each time its blindness rendered as a confident verdict.
+    # ⛔ Deliberately NOT pgrep -f 'wait-and-launch.sh' — that pattern would appear in this very
+    #   process's own command line and match itself. Scanning /proc and skipping our own pid is
+    #   the only form that cannot match the searcher.
+    my_pid = os.getpid()
+    for ent in os.listdir('/proc'):
+        if not ent.isdigit() or int(ent) == my_pid:
+            continue
+        try:
+            argv = open(f'/proc/{ent}/cmdline','rb').read().decode().split('\0')
+        except Exception:
+            continue
+        script = next((a for a in argv if a.endswith('/wait-and-launch.sh')), None)
+        if not script:
+            continue
+        try:
+            cd = subprocess.run(['git','-C',os.path.join(os.path.dirname(script),'wt'),
+                                 'rev-parse','--path-format=absolute','--git-common-dir'],
+                                capture_output=True,text=True)
+            if cd.returncode != 0:
+                unattributable += 1; continue
+            if os.path.basename(os.path.dirname(cd.stdout.strip())) == w:
+                mine += 1
+        except Exception:
+            unattributable += 1
     return mine, unattributable
 running, unattr = live_work()
 

@@ -20425,3 +20425,43 @@ yepochs took plan's *"no gate depends on pipefail"* and **deleted the line, re-r
 — identical exit codes, identical text.** Recorded at the site so a tidy-up meets the reason before
 it meets the line. ⭐ *That is the both-arms discipline applied to a STRUCTURAL claim: not "it is safe
 by construction" but "I removed the support and it stood."*
+
+## 7x164 — a waiter is work, and the third thing my stall detector could not see
+
+**2026-08-25T04:48Z.** The sweep reported `STALLED|commonplace-dir`. dir had told me, three
+minutes earlier and in writing, that D14B was queued behind the cap with a file-based waiter in
+window `0:sol-dir-d14b`. The waiter was alive — pid 910195, up 54s — and the detector could not
+see it, because it attributes work by `codex -C <worktree>` and **a waiter that has not yet
+launched codex is not a codex process.**
+
+⭐ **This is the THIRD member of one family in two days, and the family is the lesson:**
+
+| what the instrument counted | what it could not see | how it rendered |
+|---|---|---|
+| every codex on the box, unattributed | which worker owned the round | *everyone* legitimately waiting |
+| codex processes only | an in-process Claude subagent | merkle-crdt STALLED while working |
+| codex processes only | **a waiter holding a queued round** | dir STALLED while queued |
+
+⇒ ⭐⭐ **Each time the blindness rendered as a CONFIDENT VERDICT, never as an error.** A detector
+that cannot see a kind of work does not say so; it says *stalled*. **The absence of the observable
+and the absence of the thing share one output.**
+
+⛔ **The fix could not use `pgrep -f 'wait-and-launch.sh'`** — that pattern appears in the command
+line of the very process doing the searching, so it matches itself. Scanning `/proc` and skipping
+our own pid is the only form that cannot match the searcher. *(Standing rule, applied rather than
+rediscovered.)*
+
+✅ **Both arms demonstrated before believing it:**
+```
+GREEN  commonplace-dir    -> "1 unit(s) of work running FOR THIS WORKER"   (the waiter counts)
+RED    commonplace-doc    -> "STALL-CANDIDATE — nothing running"          (still able to fire)
+RED    commonplace-log    -> "STALL-CANDIDATE — nothing running"          (dir's waiter did NOT leak)
+```
+⚠️ The red arm mattered more than the green here: a patch that makes *everything* read as waiting
+is indistinguishable from a working fix on the one worker you tested. **The proof is that another
+repo's waiter does not count for you.**
+
+⭐ **And the fact worth more than the patch:** nothing was holding dir's turn open, so when the
+waiter launches and D14B finishes, **nothing returns control to dir.** doc-sync's variant waits on
+the resulting pid inside its own shell, which does keep the turn alive. Told dir, named both
+shapes, left the choice to it — *the instrument fix is mine, the waiter design is theirs.*
