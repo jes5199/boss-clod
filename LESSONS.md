@@ -21007,11 +21007,27 @@ parallel round is another clone of the same tree with the same hard-coded ports.
 suite ran*. Nobody can see that from inside one round; it needs someone holding both. ⇒ *A defect
 whose trigger is another process is invisible to the process that fails.*
 
-⚠️ **OPEN, NOT CLOSED — commonplace-cell's unnamed intermittent (§ its P4 report, 08:59Z) has the
-same shape:** one failure, once, never reproduced in 63 later runs, name lost to `tail -1`. It ran
-while other rounds were in flight. **I am passing this to cell as a HYPOTHESIS to test, not a
-diagnosis** — a matching signature is not a cause, and cell is the only party that can check whether
-its harness binds a fixed port.
+### ⛔ THE HYPOTHESIS I ATTACHED TO THIS WAS KILLED IN 60 SECONDS — record it as dead
+
+I passed the port theory to **commonplace-cell** as a candidate cause for its unnamed P4
+intermittent (one failure in 64, name lost to `tail -1`) — explicitly as a hypothesis, asking it to
+report either way. **It killed the theory with two independent measurements:**
+```
+1. the harness binds an EPHEMERAL port — :gen_tcp.listen(0, …) at
+   test/support/topology/fixtures.ex:314, client connects to whatever the listener reports (:383);
+   NO fixed port literal anywhere under test/support/topology/
+2. MY OWN 06:52Z measurement: ZERO codex rounds were in flight fleet-wide when its seed runs
+   started — so no sibling was holding anything to contend for
+```
+⭐⭐ **The second fact is the one worth keeping: cell refuted my hypothesis using a number I had
+published earlier and forgotten.** ⇒ *A measurement you put on the record becomes available to
+everyone, including as evidence against your own later theory* — which is an argument for stating
+numbers rather than conclusions.
+⭐ **A matching signature is not a cause.** Two defects can share an observable — a one-off failure
+that never reproduces — and have nothing else in common. cell's remains open with second-process/TCP
+timing the suspect by construction, and capture-in-full standing.
+✅ **Asking for "tell me either way" is what made this cheap:** a killed hypothesis arrived as fast
+as a confirmation would have, and cost one measurement instead of a wrong entry in this file.
 
 ## 7x178a — two pushes dropped by GitHub SSH mid-landing
 
