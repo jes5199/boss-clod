@@ -21990,3 +21990,25 @@ the limit** — the durable field carries a hash of the caller's id, any id fits
 the plaintext, and the cap plus its arm are retired. ⭐ *The constraint turned out to be the thing
 worth deleting rather than working around* — and I had relayed the workaround as the plan. **Told him
 plainly, because he had a wrong design in his head from me.**
+
+## 7x202 — I had the source right at 19:57 and reverted to the summary twice afterwards
+
+At 19:57Z jes asked for a URL for "the E1 question". I read `doc-sync/docs/spec-errata.md` and told
+him correctly: **he already ruled E1's direction on 08-23** (*"caller-supplied parent is correct"*);
+what is open is the SCHEMA, and he had himself said the schema belongs to doc-sync. ⭐ **Then at
+20:09Z and 21:08Z I wrote "E1 when you want it" and "nothing waiting on you except, eventually, E1"**
+— reinstating it as a decision he owed. commonplace-plan caught it by re-reading the errata rather
+than its own paraphrase, and corrected the same error on its own side.
+
+⭐ **THE FAILURE IS NOT FORGETTING — IT IS THAT THE SUMMARY OUTLIVES THE READING.** The accurate
+version existed, in my own message, an hour old. The *shape* I kept reusing ("E1 = jes's open
+question") was older, more compact, and easier to reach for while composing a status line. ⚠️ **A
+status line is exactly where the stale compact form wins**, because its whole job is to be short.
+
+⇒ The rule that would have caught it: **when a line in a recurring status names an OPEN QUESTION,
+re-read the artifact before repeating it, or mark it as "as of <time>".** Same discipline as
+§reference_pattern_anchored_counts' frozen referent — *measured-then is not measured-now* — applied
+to open decisions rather than shas.
+⭐ And note the direction of the cost: this one **manufactured work for jes that did not exist**. A
+false open question is not a harmless error; it sits on his list, and he had told me hours earlier he
+was "overwhelmed by the open questions and didn't know where to start."
