@@ -21729,3 +21729,25 @@ while believing you were acting on main.*
 ⇒ Its filed rules: cp-backup/restore for toplevel mutations in an uncommitted clone; **land from the
 main checkout only.** ⭐ And it reported the whole incident inside a message whose greens were all
 clean — nobody would have asked.
+
+## 7x192 — Goal #1 converted the DATA and left a tool aimed at the old form
+
+commonplace-next, 2026-08-25T19:22Z, found on the way to dispatching E2a. `bin/bump-pin.sh` had
+never been re-referenced when the repo moved from path pins to https git refs at G1: it still
+grepped for a `*-pin-*` **path**, so it would have refused **every** bump since the conversion with
+rc 66, and it committed `mix.exs` without `mix.lock`.
+
+⭐ **THE SHAPE:** a migration changes the data and leaves the tooling pointed at the shape the data
+used to have. Nothing is broken at conversion time — the tool simply stops matching, and the first
+symptom arrives whenever someone next reaches for it. cf. §bd-as-frozen-archive: *the tool is not
+broken, it is aimed at a world that no longer exists.*
+
+⚠️ **THIS ONE WAS THE LUCKY VERSION AND THAT IS THE POINT.** A refusal at rc 66 is loud. The same
+class of miss that returns a confident **zero** — a grep for a vanished path shape reported as "no
+pins found" — is silent, and Goal #1 touched six repos' pin blocks. ⇒ **When you convert a
+representation, the audit is not "did the data convert"; it is "which readers of the old shape still
+exist".** The data was verified exhaustively that day. The readers were not enumerated at all.
+
+⭐ Its fix carried its own red: the rewritten script verifies the sha is on that repo's `origin/main`
+and restores `mix.lock` on red, **and the red was seen for real** (a format failure) before the green
+— not a red it argued would happen.
