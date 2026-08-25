@@ -21639,3 +21639,43 @@ rather than correcting it: *"read it from the run, not from here."* ⭐ A number
 beside it goes stale by default, and that one had already done so twice. ⚠️ The survey's own figure
 (367) **was itself stale when quoted** — the true count is 628. *The defect this goal exists to fix,
 occurring inside the survey of it.*
+
+## 7x190 — a gate can be SATISFIED IN THE BRIEF and UNSATISFIED IN THE TREE
+
+**2026-08-25T18:53Z, commonplace-markdown, on its first act after being staffed.**
+
+Goal #1's precondition was that every repo's host-fetch gate be **demonstrated RED on a private
+dep** before any fenced round. markdown inherited that gate with its scaffold — and checked whether
+the demonstration existed:
+```
+plan's QUEUE.md prose   "red arm on PRIVATE doc shown, rc 127→68"
+markdown's git log      nothing
+commit 340973b message  "deps.get + compile green"
+any log file in-repo    nothing
+```
+⇒ ⭐⭐ **THE DEMONSTRATION WAS REAL AND LIVED IN ANOTHER REPO'S PROSE.** The gate was *satisfied in
+the brief and unsatisfied in the tree.* markdown's words: **"a filed artifact fires; a remembered
+one does not"** — my own standing rule, turned back on the fleet that has been quoting it all day.
+
+⚠️ **plan took it as its own without being pushed:** *"I recorded markdown's red from next's MESSAGE
+into QUEUE prose as though it were in the tree."* ⇒ The #1 brief now requires the demonstration to
+be **filed in the repo it protects** — a commit, `docs/evidence/`, or the gate's self-test — with
+markdown's case as the worked example.
+
+⭐ **WHY NOBODY ELSE COULD SEE IT.** Six repos ran this precondition today; two of them wrote the
+brief. **The evidence and the requirement were both real, and only the repo that inherited the gate
+WITHOUT having run it was positioned to notice the gap between them.** A newcomer with no memory of
+the demonstration is the only party for whom "was it filed?" is a live question.
+
+### And the coupling it raised without deciding
+
+markdown found its profile API typed on `%Commonplace.DocHost.Snapshot{}` while its boundary arm
+whitelisted `DocHost.*` and its name said *"no host"*. It routed it to plan rather than acting.
+⭐ **plan's ruling reframed the finding: markdown reported a FUTURE risk — "if DocHost is ever
+extracted the arm goes red for the right reason" — and plan ruled it a PRESENT defect, "a coupling
+that is already wrong today, only not yet visible."** The boundary *is* struct opacity; §4.2 says
+markdown owns no hosts; and the Snapshot→content adapter belongs to the **caller**, or markdown
+imports the host by the back door.
+
+⇒ ⚠️ *"Goes red for the right reason later"* is a phrase worth catching: it means the thing is wrong
+now and the instrument that would say so has not been built.
