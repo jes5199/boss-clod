@@ -183,7 +183,19 @@ SOL_MAX_PARALLEL="${SOL_MAX_PARALLEL:-2}"
 #   which is a DIFFERENT decision with a different remedy.
 exec 9>/home/jes/boss-clod/.sol-admission.lock
 flock -w 30 9 || { echo "REFUSED: could not acquire admission lock in 30s — NOT the cap; investigate." >&2; exit 66; }
-INFLIGHT=$(pgrep -f '(^|/)codex (exec|resume)' 2>/dev/null || true)
+# ⛔⛔ 2026-08-25T10:21Z — A PHANTOM HELD A CAP SLOT FOR 48 MINUTES. commonplace-next measured an
+#   orphaned wrapper (ppid 1) whose cmdline still carried "codex exec … -C /home/jes/sol-next-p5/wt"
+#   AFTER its round had exited — no codex descendant left inside it. `pgrep -f` matches the STRING,
+#   so the corpse counted as a live round, and the dispatcher's ps scan even captured it as the next
+#   round's outer.pid, which would have made a waiter watch a dead process.
+# ⭐ Same family as commonplace-dir's waiter matching a work-id that appears in a sibling's BRIEF:
+#   a selector keyed to TEXT matches anything that merely CONTAINS the text, including a corpse.
+# ⇒ Count what the round IS, not what its command line SAYS: processes whose comm is exactly
+#   `codex`. A wrapper with no live codex inside it is not a round.
+# ⚠️ SAFE ONLY BECAUSE OF THE RESERVATION ABOVE: narrowing the count reopens the launch window
+#   (wrapper started, real binary not yet exec'd) — and reservations already cover exactly that.
+#   Do not narrow this without that block present.
+INFLIGHT=$(pgrep -u "$(id -un)" -x codex 2>/dev/null || true)
 if [ -n "$INFLIGHT" ]; then
   INFLIGHT_PGIDS=$(ps -o pgid= -p $(printf '%s' "$INFLIGHT" | tr '\n' ',' | sed 's/,$//') 2>/dev/null \
                    | tr -d ' ' | sort -u | grep '[0-9]')

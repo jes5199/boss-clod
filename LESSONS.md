@@ -20948,3 +20948,45 @@ you scope one reader of a stale-prone marker, grep for every other reader of it 
 
 ⭐ **The loop's "do NOT cancel on first sighting, read the pane yourself" rule is what made this
 cheap.** Cancelling would have interrupted nothing, learned nothing, and left the classifier wrong.
+
+## 7x177 — a corpse held a cap slot for 48 minutes, and my first red arm was vacuous
+
+**2026-08-25T10:21Z, reported by commonplace-next, defect in my runner.** After its NEXT-P5 round
+exited, a wrapper process survived **orphaned (ppid 1) for 48 minutes** with its cmdline still
+carrying `codex exec … -C /home/jes/sol-next-p5/wt` and **no codex descendant inside it**.
+
+⇒ The runner counts rounds with `pgrep -f '(^|/)codex (exec|resume)'`, which matches the **string**.
+**The corpse counted as a live round and occupied a cap slot**, and the dispatcher's `ps` scan even
+captured it as the next round's `outer.pid` — a waiter would have watched a dead process.
+
+⭐⭐ **SAME FAMILY AS dir's WAITER TWO HOURS AGO** (§7x174): a selector keyed to TEXT matches
+anything that merely *contains* the text — a sibling's brief there, a corpse here. ⇒ **Count what a
+round IS, not what its command line SAYS.** Narrowed to `pgrep -u <me> -x codex`: comm is exactly
+`codex`, so a wrapper with nothing alive inside it is not a round.
+
+⚠️ **Safe only because the reservation exists.** Narrowing reopens the launch window (wrapper
+started, real binary not yet exec'd) — which is precisely what §7x169's reservations already cover.
+**Two fixes that are each unsafe alone and correct together**, and the comment says so at the site.
+
+✅ **No-regression arm:** old and new selectors yield **identical PGIDs** on the live fleet
+(`1693393 1710099`) — the narrowing costs nothing while every wrapper still has its codex.
+
+### ⛔ AND MY FIRST RED ARM WAS VACUOUS — caught only because I read the number
+
+I planted a corpse with argv `bwrap -- codex exec -m gpt-5.6-sol …` and reported:
+```
+old pattern sees it: 0      <- I expected 1
+new pattern sees it: 0
+```
+⭐ **Both zero. I nearly read that as "the new selector excludes it" — but the OLD one excluded it
+too, so the test discriminated NOTHING.** The regex needs `codex` at a string start or after a
+slash; my fixture had it after a space, so it never matched either arm.
+⇒ Re-planted faithfully as `node /home/jes/.npm-global/bin/codex exec …` (the real wrapper's shape):
+```
+old pattern sees it: 1      <- the defect, reproduced
+new pattern sees it: 0      <- the fix, demonstrated
+```
+⭐⭐ **A red arm that fails to reproduce the defect looks exactly like a red arm that passed.** The
+only thing that separated them was checking that the OLD selector still fired on my fixture — *the
+control on the control.* ⚠️ **And it tells me the orphan was a NODE WRAPPER, not the bwrap parent
+next named** — the fixture had to match the real shape before it could teach me that.
