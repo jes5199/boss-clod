@@ -459,3 +459,33 @@ overwrites it. Do not put arms in the placeholder — that recreates the A26 win
 An args pattern counts every process whose command line MENTIONS it — including a shell writing
 documentation about the trap. `-x codex` matches the executable name, which prose cannot be; dedupe
 PGIDs for the per-round fan-out. commonplace-dir's waiter templates (`sol-dir-g1/wait-*.sh`) use this form.
+
+## ⛔ RULE — NEVER `git checkout <path>` IN A SOL CLONE (twice in one evening, 2026-08-25)
+
+**Sol commits nothing inside the fence.** Its entire reviewed change lives in the worktree until the
+landing script commits it. ⇒ `git checkout <path>` restores that path **to HEAD**, and HEAD does not
+contain Sol's work. **The command that means "undo my mutation" means "delete the author's work."**
+
+| when | repo | what was lost | recovered from |
+|---|---|---|---|
+| ~18:5xZ | commonplace-markdown (M2 reviewer) | Sol's lib change, wiped by undoing an arm-11 red | the diff Sol prints into `sol-run.log` |
+| ~22:5xZ | commonplace-next (E2c reviewer) | same shape | same |
+
+⭐ **THE SHAPE, so it is recognisable outside git:** *a reviewer mutates a clone whose author commits
+nothing.* Any "restore" whose reference point is the repository's last commit is destructive here.
+
+### ⇒ THE DISCIPLINE, both halves
+1. **Before mutating a Sol clone to demonstrate a red: `cp` the file aside.** Restore by `cp` back.
+   **Never** `git checkout`, `git restore`, or `git stash` — all three reference HEAD.
+2. **Land from the MAIN checkout**, never the clone's copy of the landing script — its `cd "$repo"`
+   resolves to the clone (markdown hit this in the same minute; the refusal, rc 128 *"branch used by
+   worktree"*, is what caught the first fault).
+
+⚠️ **WHY THIS IS HERE AND NOT ONLY IN LESSONS.** It was filed as LESSONS §7x191 at 19:0xZ and
+recurred at 22:5xZ in a different repo. **A rule that lives only in a lessons file is read by whoever
+is already reading lessons.** This file is what a round's reviewer has open. *A filed artifact fires;
+a remembered rule does not.*
+⇒ ⭐ **AND NOTE THE INVERSE RULE IS ALSO TRUE ELSEWHERE** (LESSONS §7x195): commonplace-log-reducer's
+hand-restore left a field un-reverted and pushed a red, and its correct fix was *use `git checkout`*.
+**The discriminator is not the command — it is whether the tree holds uncommitted work by someone
+else.** Sol clone ⇒ `cp`. Your own repo, everything committed but your mutation ⇒ `git checkout`.
