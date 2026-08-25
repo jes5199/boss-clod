@@ -21814,3 +21814,32 @@ doc gets the sha after R7 so it pins once.
 ⭐ **log's own summary is the fair one:** *"you asked the word when plan said to, the answer came
 before anyone downstream pinned. Cost of the miss: one short round. That is the system working, not a
 failure."*
+
+## 7x195 — two repos derived OPPOSITE rules about `git checkout` from the same day, and both are right
+
+- **§7x191, commonplace-markdown:** *"never `git checkout lib/…` to undo a red-arm mutation"* — it
+  restored the path to HEAD and **wiped Sol's uncommitted change**, because Sol commits nothing in
+  the fence.
+- **§7x195, commonplace-log-reducer, 19:51Z:** *"restore a red-arm mutation with `git checkout`,
+  never by hand"* — its hand restore fixed only the entry field and left the envelope one, pushing
+  **226 tests / 2 FAILURES** to main.
+
+⭐ **THE DISCRIMINATOR IS NOT THE COMMAND, IT IS WHAT ELSE IS IN THE TREE.** `git checkout <path>`
+restores to HEAD exactly — which is *precisely what you want* when HEAD holds everything except your
+mutation, and *destructive* when the tree holds someone else's uncommitted work. ⚠️ **A worker that
+reads only one of these two entries will get the other case wrong**, which is the whole reason this
+one exists.
+⇒ The safe form under both: **commit or stash the producer's work first, then `git checkout` the
+path.** Never hand-edit a mutation back.
+
+⭐ **THE SECOND FAULT IS THE FAMILIAR ONE AND IT IS THE REAL LESSON.** Its commit chain gated on a
+**grep of the suite's output** (matching `"tests,"`) rather than on the suite's **exit code**, so a
+2-failure run read as green. That is §7x181's uncaptured-rc trap *wearing a different pipe* — its
+own words. ⛔ **A gate that reads a program's TEXT is testing your regex, not the program.**
+⚠️ And the mutation itself missed for a third reason worth naming: `sed` on the first `"version": 1`
+in the file hit **entry 1's ENVELOPE version**, not the entry field it meant — *a pattern that is
+ambiguous in the corpus does not announce that it matched the wrong one.*
+
+⇒ Reported, not tidied: red window ≈5 min, repaired at `94023ac`, README re-measured at `4a7a8f1`
+**with the suite's own rc=0**. Verified by me: all four shas are ancestors of `origin/main`. No pin
+known to have taken it.
