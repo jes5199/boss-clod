@@ -22118,3 +22118,29 @@ not the number the label claimed*, and they said so rather than publishing it.
 ⇒ Same discipline as §7x200's seam and §7x203's delegation, running forward instead of backward: **a
 number that removes work is worth more than a number that confirms it**, because the confirming case
 would have been built anyway.
+
+## 7x207 — the growth was real, the ATTRIBUTION was wrong: 34 KB/edit was WAL, not log
+
+Three minutes after I relayed *"~34 KB of log per browser edit per mirror"* to jes, doc decomposed it
+against a real store over 120 edits (`9830f60`, verified on its main): **the canonical entry is 1.7 KB
+per edit, and the Yjs payload inside it is 16 bytes — 1% of the entry.** The 34 KB was **SQLite WAL
+accumulation**: the `-wal` file reached 4.13 MB against a 200 KB table, never checkpointed during the
+run.
+
+⭐ **THE MEASUREMENT WAS CORRECT AND THE LABEL WAS NOT.** Bytes-on-disk really did grow at ~34 KB per
+edit. What was wrong is *which component grew* — and the label ("log per edit") is the part that
+travels, gets quoted, and becomes the premise of the next decision. ⚠️ **A number acquires its
+meaning from the noun attached to it, and the noun is the half nobody re-derives.**
+⇒ Had it stood, the next round would have optimised entry encoding — **a Yjs payload that is 1% of
+the entry and 0.05% of the observed growth.** Weeks of work aimed at 1% of a problem, with a real
+measurement backing it the whole way.
+
+⭐ **THE DIAGNOSTIC MOVE, worth copying:** *decompose the total before acting on it.* doc did not
+argue about the number; it split 34 KB into entry / envelope / storage overhead and let the parts name
+the culprit. **A total is a symptom; only the decomposition is a cause.**
+⇒ And note the question changed shape rather than closing: "what's in an entry" is answered; **"why
+doesn't the WAL checkpoint"** — open read transaction, PRAGMA, or connection pattern — is now log's to
+measure *then* rule. Same discipline as §7x206: measure first, fix after.
+⚠️ D13b's conclusion survives untouched, because it counted **entries**, not bytes. *A conclusion is
+only as fragile as the quantity it actually rests on* — worth checking before assuming a correction
+propagates.
