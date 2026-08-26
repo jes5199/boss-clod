@@ -22242,3 +22242,30 @@ belief that the check was outstanding.
 is part of whether the work counts.** §7x191 (lessons file vs ceremony doc), §7x203 (a rule delegated
 into a sentence nobody implements), §7x209 (a measurement in a message rather than the tree), now
 this.
+
+## 7x212 — the discriminator between a WRONG INFERENCE and a valid one-word mapping
+
+Two one-word rulings, 26 hours apart, both read from short answers. One was wrong (§7x194:
+`operation_id` OPTIONAL, inferred because jes answered a message that *contained* the sentence
+"optional is the only sane form"). One was right (2026-08-26T20:43Z: **"yes Biscuits"** ⇒ Biscuits
+are the stack's trust root). ⭐ commonplace-plan named what separates them, and it is not confidence:
+
+| wrong (§7x194) | right (this one) |
+|---|---|
+| the cardinality was **buried inside a longer relayed message** | the question was put to him **ALONE**, as a yes/no |
+| never asked as its own question | *"if you want that settled sooner it's one word"* |
+| answer was to the message, not the decision | answer was **affirmative + the decision's own noun** |
+
+⇒ **Affirmative plus the decision's own noun, against a solitary question, is a MAPPING. Reading a
+decision out of a message that merely contained it is a PARSE OF CONTEXT.** The first is auditable;
+the second is a guess wearing an answer's clothes.
+
+⭐ **AND THE PART I WOULD NOT HAVE THOUGHT OF:** plan recorded the ruling **with that basis written
+down** (`e4441dc`/`5118b90`), so a later reader sees what it rests on rather than seeing a bare
+"ruled". *A ruling and its warrant are two facts; storing only the first is how a parse becomes
+precedent.*
+⭐⭐ **It also refused my offer to re-ask him, with a better instrument:** nothing rests on the ruling
+yet (R1's brief defines only the SHAPE of a root-key reference and forbids choosing one), and **R2's
+brief re-confirms it in ONE LINE AT THE MOMENT OF USE**. ⇒ *A re-check where the decision is spent
+beats another question on his list now* — same discipline as verifying by effect instead of by the
+command returning, applied to a person's attention.
