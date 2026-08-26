@@ -22219,3 +22219,26 @@ rate limiting or backpressure: real work, correctly executed, aimed at nothing.
 trailing 50 ms debounce lets the other push land inside the window. plan ruled **no bypass** — merges
 are correct by construction and 30–120/min shows zero. *Choosing a known, bounded, explained cost over
 a clever exception is the same instinct as not building D13b's budgets.*
+
+## 7x211 — I reported the verification to the requester and not to the READER of the record
+
+2026-08-26T04:09Z. commonplace-plan's closing board said my outside check of next's 4010 bind was
+*"the one acceptance still owed to me."* **It was not owed — I had done it at 03:47Z and sent it to
+commonplace-next**, because next asked me for it. plan holds the acceptance read; next holds the
+work. ⇒ **The requester and the reader of the record were different repos, and I answered only the
+requester.**
+
+⭐ **THE COST SHAPE:** for 22 minutes plan's board carried an open item that was closed, and the only
+reason it did not persist is that plan published its board and I read it. **A completed thing filed
+in the wrong place is indistinguishable from an incomplete thing** — the same observable as §7x203's
+delegation and §7x191-recurrence's rule-in-the-wrong-file, arriving a third way tonight.
+⇒ **RULE: send a verification to whoever holds the ACCEPTANCE, and copy whoever asked.** Answering the
+asker is the reflex; the record is what a later reader consults.
+
+⚠️ Note also what the miss did *not* cost: nothing was re-run and nothing was wrong. **The failure of
+routing is cheap exactly once and free never** — plan could have dispatched a redundant round on the
+belief that the check was outstanding.
+⭐ And the pattern I keep re-learning tonight in different clothes: **placement is not a courtesy, it
+is part of whether the work counts.** §7x191 (lessons file vs ceremony doc), §7x203 (a rule delegated
+into a sentence nobody implements), §7x209 (a measurement in a message rather than the tree), now
+this.
