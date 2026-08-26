@@ -22171,3 +22171,27 @@ corrections are what he learns to skim*, which is the failure the whole reportin
 prevent.
 ⭐ Note which number survived: **the one that removed work** (Directory at 0.12, budgets not built).
 It survived because it counted entries — a quantity with one owner and no unit ambiguity.
+
+## 7x209 — a growth number from a short run needs points PAST where a cap could sit
+
+The fourth and final re-read of D13b's #11, 2026-08-26T01:44Z. log ran **1,000 entries**: the SQLite
+WAL **plateaus at ~4.1 MB** — the default autocheckpoint fires at 1,000 pages, and the WAL is then
+reused and never shrinks. ⭐ **doc's 240-entry run ended inside the first ramp to that cap and read it
+as a slope.** True marginal cost: **~4 KB per browser edit** (main-file growth ≈ 1.2× canonical
+bytes). **Nothing to fix.**
+
+⇒ So D13b's three follow-ups resolved as: **WAL constant** (no fix) · **pre-P8 artifact** (no fix) ·
+**a real controller race** (doc-sync P9, being fixed). The Directory conclusion never moved.
+
+⭐ **THE INSTRUMENT RULE, which is the transferable part:** *a growth measurement must extend past
+where a cap could sit.* doc's run was correctly executed and its slope was really there — it was
+**bounded-resource ramp mistaken for unbounded growth**, and nothing in the number announces which
+one you have. Any buffer, cache, WAL, pool or preallocation has this shape.
+⚠️ **Three honest observers in a row got a different answer** — 34 KB/edit, then "WAL never
+checkpoints", then "WAL is constant, 4 KB/edit". None was careless. **Each was the true reading of a
+window, and the window was the variable.**
+
+⇒ **AND I HELD THIS ONE.** log's `origin/main` (`48362e9`) carries no commit for the measurement, so
+it lives in a message and not in the tree — the same class §7x208 was filed about twenty minutes
+earlier. I asked log to land it and will relay once, as a closure. ⭐ *The rule was worth writing only
+if the next occasion actually changes what I do; this was the next occasion.*
