@@ -22144,3 +22144,30 @@ measure *then* rule. Same discipline as §7x206: measure first, fix after.
 ⚠️ D13b's conclusion survives untouched, because it counted **entries**, not bytes. *A conclusion is
 only as fragile as the quantity it actually rests on* — worth checking before assuming a correction
 propagates.
+
+## 7x208 — I relayed three first-run numbers; all three moved within ten minutes
+
+2026-08-26T01:35Z I passed jes D13b's three by-product measurements. By 01:44Z **every one had been
+corrected by the repo that owns it**:
+
+| relayed | actual | corrected by |
+|---|---|---|
+| ~34 KB of **log** per edit | 1.7 KB log; 34 KB was **SQLite WAL** never checkpointing | doc `9830f60` |
+| D at **3×**, 119 merges/120 edits | measured **BEFORE P8 landed**; with propagation, **0 merges**, D grows 1× | doc-sync `86aaed0` |
+| sync path **saturates** at 120/min | a **concurrency race**, two controller mechanisms with lines | doc-sync, ruled → P9 |
+
+⭐ **I VERIFIED THE SHAS AND NOT THE CLAIMS**, and the shas were never the fragile part. Each number
+was *produced* by a run in one repo and *about* a subsystem owned by another — log's bytes, doc-sync's
+merge behaviour. **The producing repo is not the owning repo, and only the owner can say what a
+number means.**
+⚠️ **AND THE SECOND ONE IS THE SHARPEST: the measurement was simply STALE BY ONE LANDING.** It ran
+before P8; P8 is what made it wrong. *A fresh number is not a current number when the system changed
+under it* — §7x167's two-instrument problem, arriving as a clock rather than a device.
+
+⇒ **THE RULE I OWE JES, and told him: hold first-run numbers until the owning repo has decomposed
+them.** The cost of waiting ten minutes is nothing; the cost of relaying was three corrections into a
+thread where he has to re-reconcile his own picture each time — and after enough of those, *the
+corrections are what he learns to skim*, which is the failure the whole reporting bar exists to
+prevent.
+⭐ Note which number survived: **the one that removed work** (Directory at 0.12, budgets not built).
+It survived because it counted entries — a quantity with one owner and no unit ambiguity.
