@@ -22092,3 +22092,29 @@ direction is unpredictable: overpricing gets a wrong *no*, underpricing gets an 
 easiest thing in a spec to conflate*, because they are deliberately similar, and the broader one is
 usually the memorable one. **When relaying "X is a stated non-goal", cite the LINE, not the list.**
 ⭐ Corrected to jes inside two minutes, before he answered — the only reason the cost was zero.
+
+## 7x206 — the measurement said no, and the planned worker was NOT built
+
+commonplace-next D13b, 2026-08-26T01:35Z, `e667a23` (verified: it IS `origin/main`). D13b was
+planned as a budgets/coalescing worker for Directory growth. plan sequenced the **measurement first**
+— 30 edits/min/editor × 2 editors × 2 min under `:merge` — and the answer was that **WD checkpoints
+amortize at 0.12 of D's commits** (22 checkpoints/min, recounted from the log). ⇒ **The Directory is
+not the growth problem, so the worker was not built.**
+
+⭐ **THE OUTCOME WORTH NAMING IS THE ABSENCE.** A planned, briefed, dispatchable piece of work was
+deleted by a number. Nothing about the plan looked wrong beforehand — it looked like obvious
+housekeeping, which is exactly the kind of work that gets built without ever being justified.
+⇒ *"Measure first, budgets only if the number says so"* is cheap to say and rare to actually honour
+once a round is briefed and someone is ready to run it.
+
+⭐ **AND THE RUN'S THREE BY-PRODUCTS WERE FILED AS MEASUREMENTS, NOT FIXES:** ~34 KB of log per
+browser edit per mirror · the canonical running at **3× a mirror's rate because every edit merges**
+(119 merges for 120 edits — the push debounce is not coalescing) · the sync path saturating at 120
+edits/min. **Each is a question routed to the owning repo, none is a solution.**
+⚠️ **The honesty marker in that set is the best part:** 120/min is recorded as **NOT measured**,
+because the mirror controller did not finish an authored edit at that rate — *the number they had was
+not the number the label claimed*, and they said so rather than publishing it.
+
+⇒ Same discipline as §7x200's seam and §7x203's delegation, running forward instead of backward: **a
+number that removes work is worth more than a number that confirms it**, because the confirming case
+would have been built anyway.
