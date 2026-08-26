@@ -22297,3 +22297,21 @@ verify pass** — the reference implementation re-decides every fixture from its
 and the generator exits non-zero on disagreement. **Seen red at 4 mismatches**, and it caught cell
 asserting an error category the library does not have. ⇒ *A fixture corpus that cannot disagree with
 its own generator is not evidence; it is a transcript of what someone believed.*
+
+**⚠️ 7x213 AMENDED 2026-08-26T21:22Z — I recorded the form without its blind spot, and plan corrected
+itself before I did.** In the SAME round, the generator's verify pass **failed to catch that 12 of 24
+fixture tokens were padded base64** while the spec requires unpadded and cell's own new `Proof`
+module rejects padded. ⇒ **R2 would have rejected half its acceptance corpus for the wrong reason.**
+A human reading bytes caught it, not the oracle.
+⭐ **THE BLIND SPOT, now named and kept with the form:** *the oracle only decides what the reference
+implementation can decide.* The crate re-decides AUTHORIZATION from the bytes; it has no opinion on
+how those bytes were **encoded**. **Claims about the artifact's own encoding pass silently through a
+verifier that reads the artifact.** ⇒ A self-deciding corpus is still not self-validating about
+itself — §7x196's auditor-exempting-himself, one level further in.
+⭐⭐ **AND A SECOND TRAP, worth as much as the first: WHEN A TOOL REGENERATES ITS INPUTS, MUTATING THE
+OUTPUT IS AN INERT TEST — PERTURB THE GENERATOR.** cell's first attempt to show the new padding check
+red mutated the generated fixture; the generator simply rewrote it and the arm **reported PASS**. The
+red arm was vacuous in a way that looks identical to a passing green.
+⇒ ⛔ **MY OWN ERROR TO KEEP:** I called the verify pass "the form worth copying" and helped make it
+fleet-standard **in the same hour it silently missed a defect**. *Praising an instrument is not
+testing it* — and the praise travels faster than the caveat unless they are filed together.
