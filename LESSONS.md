@@ -22195,3 +22195,27 @@ window, and the window was the variable.**
 it lives in a message and not in the tree — the same class §7x208 was filed about twenty minutes
 earlier. I asked log to land it and will relay once, as a closure. ⭐ *The rule was worth writing only
 if the next occasion actually changes what I do; this was the next occasion.*
+
+## 7x210 — "saturation" was a race, and the fix made the race UNREPRESENTABLE rather than rarer
+
+doc-sync P9, 2026-08-26T02:41Z, `3c13642` (verified, ancestor of its main). D13b reported the sync
+path *"saturates at 120 edits/min — mirror controller did not finish an authored edit."* ⭐ **It was
+not a throughput limit at all.** Storing the head row and selecting it were **two host commands**; the
+other editor's select could land between them; the controller classified that as divergence and
+parked in `:conflicted` **regardless of policy**.
+
+⭐ **THE FIX IS THE ENTRY.** Not a retry, not a longer timeout, not a lock: the head is now stored and
+selected in **one host command** (doc's atomic `StoreAndSelect`), so the interleaving **cannot be
+expressed**. A lost CAS under `:merge` re-plans (bounded, 3) instead of parking, and the controller
+propagates before pushing. ⇒ *A race removed by construction needs no test for the window, because
+there is no window.*
+⚠️ **AND NOTE HOW IT PRESENTED:** a race under load looks exactly like a capacity ceiling — more load,
+more failures, a clean-looking threshold. **"Saturates at N" is a shape, not a diagnosis**, and the
+label survives into planning as if it were one. Had it been believed, the response would have been
+rate limiting or backpressure: real work, correctly executed, aimed at nothing.
+
+⇒ Numbers after: 600 edits/min/editor **timeout-and-parked → converged in 425 ms**; 3000/min in
+815 ms. ⭐ **Residual reported, not buried:** at 600/min the canonical grows 1.74×, because the
+trailing 50 ms debounce lets the other push land inside the window. plan ruled **no bypass** — merges
+are correct by construction and 30–120/min shows zero. *Choosing a known, bounded, explained cost over
+a clever exception is the same instinct as not building D13b's budgets.*
