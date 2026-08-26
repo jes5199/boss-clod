@@ -22335,3 +22335,29 @@ restated.**
 corpus its own oracle could not see, the inert red that mutated a regenerated file, and this. ⭐ *A
 round that produces three self-findings is not a round that went badly; it is the only kind that
 produces any.*
+
+## 7x215 — the Fable check reported jes's own order as a fault
+
+2026-08-26T21:26Z. At 20:39Z jes said *"we can go back to Opus now"* and I switched 13 workers
+in-session. At 21:26Z `fable-recovery-check.sh` returned **`affected=` with ELEVEN workers**
+(`asked=claude-fable-5, running=[Opus 5]`) — **every word of which is true**, and which is precisely
+the signature of a silent Fable fallback. ⛔ **The loop's standing instruction for that verdict is to
+telegram jes asking which he wants switched BACK** — i.e. to ask him to undo his own order,
+45 minutes after he gave it.
+
+⭐ **A DELIBERATE STATE AND A FAULT SHARE THE OBSERVABLE, AND THE DISCRIMINATOR IS NOT ON THE
+WORKER.** Nothing about the process distinguishes "fell back" from "was told to". The difference
+exists only in a sentence someone said, so it has to be **written down by whoever made the state
+deliberate** — exactly what `.watch-workers` already records for takedowns ("a deliberate takedown
+looks exactly like a crash", and the loop would have *resurrected* it within 15 minutes).
+⇒ Fixed as a **ledger, not a memory**: `.model-overrides`, consulted by the check, with the reason
+and the release condition in the file. New line `FABLE|deliberate-opus=…` names the order and its
+date, so a later reader sees the state IS intended rather than seeing silence.
+
+⭐ **BOTH ARMS DEMONSTRATED, because a gate never seen fail is not known to work:** remove one name →
+`affected=commonplace-cell` alone; remove the ledger → all eleven return as affected; restore →
+`affected=none`. **The red is not vacuous and the green is not luck.**
+⚠️ **THE GENERAL FORM, third instance this fleet has hit:** *a monitor written for one world keeps
+firing in the next one.* §bd-as-frozen-archive (tool aimed at a vanished world), §7x192 (a migration
+left readers aimed at the old shape), and now an alarm whose triggering condition became policy.
+**When you change the world deliberately, the watchers of the old world are part of the change.**
