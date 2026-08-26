@@ -22269,3 +22269,31 @@ yet (R1's brief defines only the SHAPE of a root-key reference and forbids choos
 brief re-confirms it in ONE LINE AT THE MOMENT OF USE**. ⇒ *A re-check where the decision is spent
 beats another question on his list now* — same discipline as verifying by effect instead of by the
 command returning, applied to a person's attention.
+
+## 7x213 — the annotation that was not the guard, and a generator that decides against itself
+
+commonplace-cell built R1's Biscuit fixture corpus against the Rust reference (24 fixtures with real
+bytes, `biscuit-auth =6.0.0`, generator committed). Three findings, 2026-08-26T20:57Z:
+
+⭐ **§11.5's origin-scoping annotation is not evidence.** The spec requires the allow query be
+origin-scoped; cell wrote `trusting authority`, then **removed it and nothing changed** — the crate's
+default authorizer scope already excludes appended blocks. ⇒ An implementation trusting ALL blocks
+would pass every fixture but two. **The annotation looked like the guard and the two negative
+fixtures were the guard.** *A clause that cannot fail on the corpus is decoration no matter how
+load-bearing it reads* — §7x175's "a gate protects a ROUTE, not an outcome" arriving in a spec
+instead of a script.
+
+⚠️ **§19 requires an `expired` error that Biscuit does not have.** An expiry is an ordinary failed
+check reported as `unauthorized`. A conforming verifier must inspect WHICH check failed or it
+**silently collapses two spec error categories into one** — the spec asks for a distinction the
+library does not draw.
+
+⭐ **§22.2.21 is unprovable from a 3.3 library** (cannot mint a v1 token or an out-of-range Datalog
+block). Those fixtures carry `token: null` **plus the reason**, and read **"not applicable, NOT
+green"** — the same refusal-to-round-up that value used on §24 yesterday.
+
+⭐⭐ **THE FORM WORTH COPYING, and plan is making it fleet-standard:** the generator **ends with a
+verify pass** — the reference implementation re-decides every fixture from its own committed bytes,
+and the generator exits non-zero on disagreement. **Seen red at 4 mismatches**, and it caught cell
+asserting an error category the library does not have. ⇒ *A fixture corpus that cannot disagree with
+its own generator is not evidence; it is a transcript of what someone believed.*
