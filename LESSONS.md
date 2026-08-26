@@ -22315,3 +22315,23 @@ red arm was vacuous in a way that looks identical to a passing green.
 ⇒ ⛔ **MY OWN ERROR TO KEEP:** I called the verify pass "the form worth copying" and helped make it
 fleet-standard **in the same hour it silently missed a defect**. *Praising an instrument is not
 testing it* — and the praise travels faster than the caveat unless they are filed together.
+
+## 7x214 — a landed arm that was BRANCH-RELATIVE: green on main, red on every later branch
+
+commonplace-cell, 2026-08-26T21:22Z, found in its own R1 round. A previously landed P4 arm —
+*"the library gains no module in this phase"* — **asserted a diff against `main`.** ⇒ It goes **red on
+any later branch** (which legitimately adds modules) and **green again once that round lands**. The
+arm measured *where you are standing*, not a property of the tree.
+
+⭐ **THE TELL:** an assertion whose subject is `main`, `HEAD~`, or a diff has **the reviewer's
+position baked into it**. It passes at the moment it is written — that is exactly when the diff is
+empty — and its later reds are indistinguishable from real ones, which trains the re-run-until-green
+reflex (§A28) on a gate that was never about the code.
+⇒ cell re-scoped it to a property of the tree **with a positive control, shown red two ways**. plan's
+standing trigger, adopted fleet-wide: **any arm mentioning `main`, `HEAD~`, or a diff gets
+restated.**
+
+⚠️ Same round, same repo, three findings, and **all three were against itself** — the padded-base64
+corpus its own oracle could not see, the inert red that mutated a regenerated file, and this. ⭐ *A
+round that produces three self-findings is not a round that went badly; it is the only kind that
+produces any.*
