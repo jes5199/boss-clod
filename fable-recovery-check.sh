@@ -55,6 +55,7 @@ fi
 # Which running workers ASKED for Fable, and what are they actually on?
 on_fable=""
 affected=""
+overridden=""
 while read -r win name; do
   [ -z "$win" ] && continue
   p=$(tmux list-panes -t "$win" -F '#{pane_pid}' 2>/dev/null | head -1)
@@ -87,7 +88,23 @@ while read -r win name; do
               on_fable="${on_fable}${name} "
             fi ;;
           *) case "$asked" in
-               *fable*) affected="${affected}${name}(asked=$asked,running=${live:-?}) " ;;
+               *fable*)
+                 # ⭐ 2026-08-26T21:26Z — A DELIBERATE SWITCH AND A SILENT FALLBACK SHARE THIS
+                 # OBSERVABLE (asked=fable, running=other). The discriminator is NOT readable from
+                 # the worker; it lives in .model-overrides, written by whoever made it deliberate.
+                 # ⛔ Without it this check told me to ask jes to undo his own 20:39Z order.
+                 _ovr=no
+                 if [ -r "$(dirname "$0")/.model-overrides" ]; then
+                   _ovr_out=$(grep -v '^#' "$(dirname "$0")/.model-overrides")
+                   case "
+$_ovr_out" in *"
+${name}"*) _ovr=yes ;; esac
+                 fi
+                 if [ "$_ovr" = yes ]; then
+                   overridden="${overridden}${name} "
+                 else
+                   affected="${affected}${name}(asked=$asked,running=${live:-?}) "
+                 fi ;;
              esac ;;
         esac
         ;;
@@ -115,6 +132,7 @@ if [ -z "$res_s" ] && [ "${pct%.*}" -eq 0 ]; then
   echo "FABLE|RECOVERED|percent=$pct|resets_at=none (expected at 0% — nothing left to reset)"
   echo "FABLE|already-on-fable=${on_fable:-none} (correct, NOT affected)"
   echo "FABLE|affected=${affected:-none}"
+  [ -n "$overridden" ] && echo "FABLE|deliberate-opus=${overridden}(jes 2026-08-26T20:39Z \"we can go back to Opus now\" — NOT a fallback; see .model-overrides)"
   echo "FABLE|action=ask jes which to switch back; do NOT switch hermes without asking (live money)"
   exit 0
 fi
@@ -136,6 +154,7 @@ else
   echo "FABLE|RECOVERED|percent=$pct|resets_at=$resets"
   echo "FABLE|already-on-fable=${on_fable:-none} (correct, NOT affected)"
   echo "FABLE|affected=${affected:-none}"
+  [ -n "$overridden" ] && echo "FABLE|deliberate-opus=${overridden}(jes 2026-08-26T20:39Z \"we can go back to Opus now\" — NOT a fallback; see .model-overrides)"
   echo "FABLE|action=SWITCH FABLE-INTENDED WORKERS BACK. A fresh 'workerclaude --model claude-fable-5'"
   echo "FABLE|       launch holds better than in-session /model, but costs context — weigh per worker."
 fi

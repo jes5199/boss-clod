@@ -1,0 +1,23 @@
+# ⭐ DELIBERATE model switches — workers here are NOT "affected" by a Fable fallback.
+# ⚠️ WHY THIS FILE EXISTS (2026-08-26T21:26Z): jes said "we can go back to Opus now" at 20:39Z and I
+# switched all 13 watched workers to Opus in-session. Forty-five minutes later fable-recovery-check.sh
+# reported ELEVEN of them as affected=... (asked=claude-fable-5, running=[Opus 5]) — which is TRUE and
+# is exactly what a silent Fable fallback looks like. The loop's standing instruction for that verdict
+# is to ask jes which he wants switched BACK to Fable.
+# ⛔ FOLLOWING IT LITERALLY WOULD HAVE ASKED HIM TO UNDO HIS OWN ORDER, 45 MINUTES AFTER HE GAVE IT.
+# ⭐ SAME CLASS AS .watch-workers' takedown-looks-like-a-crash note: A DELIBERATE STATE AND A FAULT
+# SHARE AN OBSERVABLE. The discriminator cannot be read off the worker; it has to be written down by
+# whoever made the state deliberate.
+# ⇒ FORMAT: one worker name per line. Remove a name when the override no longer applies.
+# ⇒ Remove ALL of these if jes puts the fleet back on Fable after the 08-31 reset.
+commonplace
+commonplace-plan
+commonplace-log
+commonplace-log-reducer
+commonplace-merkle-crdt
+commonplace-doc
+commonplace-doc-sync
+commonplace-dir
+commonplace-cell
+commonplace-next
+commonplace-markdown
