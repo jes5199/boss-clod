@@ -22929,3 +22929,27 @@ retyped.**
 ACCEPT A SUBAGENT'S "it's an artifact."** Seven divergences in an hour from declining one dismissal.
 
 **Related:** §7x226 (the fake control), §7x229, §7x213, §never-emit-a-bare-count.
+
+## 7x232 — "I verified it" carries no expiry in the sentence that reports it
+
+**2026-08-27T15:59Z, plan catching me.** Before compacting plan I checked its durability claim and
+reported: *"`origin/main` **is** `bb13cf5` by `ls-remote`, tree clean."* By the time plan read that
+sentence, `origin/main` was **`26a618c`** — the CLOCKPIN acceptance had landed after the durability
+commit.
+
+**The check was honest and correctly performed. It was one commit stale by the time it was quoted.**
+No harm here — both shas are pushed and nothing depended on which — but the shape is the point.
+
+⭐ **A measurement is only as fresh as the moment it was taken, and the sentence "I verified it"
+contains no as-of.** I have been treating verified-by-me as a stronger claim than reported-by-you,
+and it is — but only about the instant of measurement. **Relayed onward without a timestamp, my
+verification decays into exactly the kind of claim I refuse to accept from others.**
+
+⇒ **Say the time with the sha, every time**: *"origin/main was `bb13cf5` at 15:57Z"*, not *"origin/main
+is `bb13cf5`."* The tense is doing work I did not authorise it to do.
+
+⚠️ **And note where this bites hardest: a repo under active work is exactly where a sha goes stale
+fastest, which is exactly where I check them.** The busier the target, the shorter the shelf life of
+my own verification.
+
+**Related:** §doc-drift-vs-never-true (MEASURED-THEN is not MEASURED-NOW), §7x224, §confirm-dont-inherit.
