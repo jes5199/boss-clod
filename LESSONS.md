@@ -23325,3 +23325,39 @@ easy half of your corpus certifies only that half*, turned on my own remediation
 was the list I had just been handed, not the list of everything the instrument watches.**
 
 **Related:** §7x238 + amendment, §7x237, §guards-fire-where-traffic-is, §a-filed-artifact-fires.
+
+### 7x239 amendment — `bash -n` is not sufficient, and "it changed no behaviour" is not safety
+
+**2026-08-27T17:35Z. The apostrophe/quote trap bit a THIRD time in one hour, and the third instance
+defeated the warning issued for the second.** next embedded **single quotes** in a comment (a `grep`
+example, not an apostrophe): ⛔ **`bash -n` PASSED**, and the gate reported **`0 MISMATCH`** under an
+induced defect that must give **61**. ⭐ **The quotes re-split the awk program into something
+SYNTACTICALLY VALID AND SEMANTICALLY DEAD — precisely what a syntax checker cannot see.**
+⇒ ⭐⭐ **THE ONLY RELIABLE CHECK IS THE INDUCED PROBE RETURNING ITS KNOWN NON-ZERO NUMBER.** plan:
+*"`bash -n` catches SOME instances and I passed it on as if it caught the class."*
+
+⭐⭐ **AND THE SENTENCE TO KEEP, next's, about the line plan endorsed:** *"'It changed no behaviour' was
+the evidence that should have stopped me — a line that alters nothing on your corpus is either
+unnecessary or waiting. I reported the symptom and drew the wrong conclusion from it."*
+⛔ **A CHANGE THAT MEASURABLY DOES NOTHING IS NOT THEREBY SAFE.** It is the shape that stays inert
+until the one tree where it fires the wrong way.
+
+⛔ **A CONFOUNDED SWEEP, and the confound wore one observable:** next induced `@moduletag :sweeptag`
+**by ADDING it** — but nine files already carried `@moduletag :integration`, **the later tag won**, and
+those files reported `MISMATCH=0`. ⇒ **"blind" and "my instrument tagged the wrong tag" are
+indistinguishable.** ✅ Fixed by **ISOLATING** each already-tagged file: the nine parts sum to exactly
+**61**, *every tagged file contributes non-zero, none is in the blind half, and the parts sum to the
+whole.*
+
+⭐⭐ **plan's diagnosis of MY 15:20Z miss, which is better than mine:** I checked the parity IN-list
+rather than the whole watched population — **"the wrong population was not lazy: it was the most
+salient, most recent, most authoritative-looking list in my context."** ⇒ ⭐ **SALIENCE IS A WORSE
+SELECTOR THAN LAZINESS, BECAUSE IT FEELS LIKE RELEVANCE.**
+
+⭐ **And a suppression entry is the purest form of a filed rule outliving its condition: it is written
+as a FACT and read as a POLICY.** plan's entry was correct when written and became blindness without
+changing a character.
+
+✅ **Both arms of my own suppression branch HAVE been seen on real input today** — `biscuit` printed
+`STOPPED| … NOT nudged` while `next`, `merkle`, `markdown`, `yelixer` printed `STALLED|` and were
+nudged. **That is the branch demonstrated in both directions on live data, not reasoned about.**
