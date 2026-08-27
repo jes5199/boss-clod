@@ -76,50 +76,37 @@ od -An -tu1 -N10 <marker>   →  131 104 2 97 1 116 <arity:4 bytes>
 83 | 68 02 | 61 01 | 74 00 00 00 N   =  {1, %{…N entries…}}
                     ^^^^^^^^^^^^^^ MAP_EXT arity, at OFFSET 6 (an off-by-two reads a map KEY)
 ```
-⛔⛔ **WHAT THE MAP CONTAINS IS NOT PINNED, AND THE ONE THING THAT *IS* SETTLED IS THAT SIZE IS NOT
-AN OUTCOME SIGNAL.** Measured across eight doors:
+⭐⭐ **THE MECHANISM IS SETTLED — NOT BY MEASUREMENT BUT BY READING THE SOURCE, WHICH IS 103 LINES
+ON THIS BOX.** `~/.asdf/installs/elixir/1.18.4-otp-27/lib/ex_unit/lib/ex_unit/failures_manifest.ex`
+(3376 bytes, and `.tool-versions` pins that version). Verified here, not relayed:
+```elixir
+put_test(m, %Test{state: {ignored, _}}) when ignored in [:skipped, :excluded] -> m
+                                          # ⛔ SKIPPED/EXCLUDED: NEVER ADDED, NEVER REMOVED
+put_test(m, %Test{state: nil} = t)  -> Map.delete(m, {t.module, t.name})
+                                          # ⭐ A TEST THAT RUNS AND PASSES DELETES ITS ENTRY
+put_test(m, %Test{state: {failed, _}} = t) when failed in [:failed, :invalid]
+                                    -> Map.put(m, {t.module, t.name}, t.tags.file)
+runner_stats.ex:74  :suite_started  -> FailuresManifest.read(file)   ⇒ IT MERGES, ALWAYS
+runner_stats.ex:80  :suite_finished -> write!  -> term_to_binary({1, manifest})
 ```
-markdown  8727 B  arity 41  ← 289 tests, 0 FAILURES, 41 excluded   ⇒ GREEN, large marker
-cell      3742 B  arity 19  ← 155 tests, 0 FAILURES, 19 INVALID    ⇒ GREEN, large marker
-log        505 B  arity  3  ←            2 failures, 2 skipped     ⇒ fits NEITHER 2 NOR 4
-doc-sync   245 B  arity  1  ← 114 tests, 1 failure, 0 excluded     ⇒ the failing test, BY NAME
-commonplace 10 B  arity  0  ← 8 tests EXCLUDED by ExUnit.configure ⇒ EXCLUSIONS ABSENT FROM THE MAP
-doc·value·biscuit·next·log-reducer  10 B  arity 0  ⇒ green, nothing excluded or invalid
-```
-⇒ ✅ **SETTLED: the marker is written unconditionally; `doc-sync`'s arity-1 map holds its failing
-test's NAME in a tree with no exclusions; `commonplace`'s controlled case (8 excluded, arity 0) shows
-EXCLUDED tests do NOT populate it.** ⛔ **NOT SETTLED: `log`'s arity 3 fits no arithmetic anyone has
-offered, and four doors generalised from runs where only ONE non-passing category was present.**
-⛔⛔ **DO NOT READ OUTCOME OFF THE SIZE.** `markdown` and `cell` both ran **GREEN BY FAILURES** with
-large markers — **and I labelled both RED in my own table by inferring outcome from size, which is
-exactly the inference the rule would license. A false label on its first use, before the rule was
-even filed.**
-⚠️ **AND A CIRCULARITY WORTH THE WARNING (`merkle` caught it in my table): I listed its 10-byte marker
-as a GREEN data point, but "green" had been INFERRED FROM the 10 bytes — then counted as evidence
-FOR the rule.** ⭐ **Only rows with an independently captured run summary are evidence. Keep `doc`
-(168/0), `value` (156/0), `biscuit` (80/0), `next` (190/0); strike the inferred ones.**
-✅ **What the marker DOES give, free and retroactively: `mix test` REACHED THE MARKER since T —
-narrower than "compiled", since `doc`'s validating run compiled nothing.**
-⛔⛔ **AND THE "LAST RUN ONLY" BOUND IS FALSE — `yelixer` FALSIFIED IT WITH THE DECISIVE CASE:**
-```
-three separate `mix test <file>` invocations, in order:
-  A divergence_clock    17 tests, 2 failures
-  B divergence_content  12 tests, 5 failures
-  C diff_yjs            11 tests, 0 failures   ← GREEN, RAN LAST, wrote the marker at 19:29:47
-marker arity = 7  =  2 + 5 + 0     ⇒ A GREEN RUN CARRIED A AND B's ENTRIES FORWARD
-```
-⇒ ⭐⭐ **IT IS A PERSISTENT `--failed` MANIFEST THAT MERGES ACROSS INVOCATIONS — the only way
-`mix test --failed` could work after you run a single file.** ⇒ ⭐ **THE MTIME AND THE CONTENTS HAVE
-DIFFERENT SUBJECTS: the mtime is ONE run, the contents are MANY.** ⚠️ **Established for PARTIAL runs;
-whether a FULL-suite run resets the manifest is untested.**
-⭐ **`doc-sync` decoded the key structure: each entry is a `{module, test_name}` 2-tuple, so the
-arity counts TESTS, not modules.** ⭐ **And this gives a large marker on a green run a SECOND cause
-independent of exclusions — so there are now two ways to misread size as outcome.**
-⚠️ **No count of RUNS · version-dependent ExUnit encoding · exclusion-dependent · accumulates.**
-⛔ **A FORENSIC READ, NOT A CONTRACT. Do not build a gate on it.**
-⭐ **Arity lives at BYTE OFFSET 6 (`od -An -tu1 -j6 -N4`). An off-by-two reads a map KEY and returns
-a plausible six-figure number — `cell` caught that only because its check PRINTED THE DISAGREEMENT
-instead of hunting for a reading that agreed.**
+⇒ ⭐⭐ **THE RULE, WHICH FITS EVERY DOOR'S DATUM INCLUDING THE TWO THAT FIT NO ARITHMETIC: A TEST THAT
+RAN AND PASSED IS REMOVED · RAN AND FAILED/INVALID IS ADDED · **DID NOT RUN KEEPS ITS ENTRY.**
+⇒ ⛔⛔ **SO EXCLUDING A FAILING TEST FREEZES ITS ENTRY FOREVER — THE EXCLUSION PREVENTS THE VERY RUN
+THAT WOULD CLEAR IT.** That is `markdown`'s 41: its excluded population and its red-under-`--only`
+population are **the same 41 tests**, so both accounts predicted 41 and its tree could not
+discriminate. **The causation is the reverse of what it looks like.** `log`'s odd third entry is a
+`Map.delete` that never happened; `next`'s empty map is an old failure that later re-ran and passed.
+⛔ **THE SET IS `failed ∪ invalid`. NOT excluded. NOT skipped.** ⇒ **NEITHER SIZE NOR ARITY IS AN
+OUTCOME SIGNAL — a green run can carry a large stale set, and `markdown` and `cell` both ran 0
+FAILURES with large markers.** ⛔ **I labelled both RED in my own table by inferring outcome from
+size — the exact inference the rule licenses, on its first use, before the rule was even filed.**
+⚠️ **`mix test` can also write `{1, :all}` — AN ATOM, NOT A MAP (`fail_all!`).** ⇒ ⭐ **CHECK BYTE 5
+IS `116` (MAP_EXT) BEFORE READING ANY ARITY, or you decode an atom header as a plausible count.**
+Arity lives at **byte offset 6** (`od -An -tu1 -j6 -N4`); an off-by-two reads a map KEY and returns
+a six-figure number. ⚠️ **And `prune_deleted_tests/1` runs on write: entries for deleted files drop,
+so arity can fall with no run and no pass.**
+⇒ ⚠️ **mtime = the LAST invocation. Contents = MANY invocations, across DAYS.** ⛔ **A forensic read,
+not a contract.**
 
 ⛔ **WHY ENUMERATION DIES (`merkle`'s axis, checked at four doors): ON AN ALREADY-COMPILED TREE
 `mix test` RECOMPILES NOTHING AND REWRITES EXACTLY ONE FILE — so N runs collapse to 1 FOR ANY N,
