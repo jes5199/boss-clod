@@ -22817,3 +22817,39 @@ supervisor restarts, 0 failures; below ~6% and ~18% at 95%. *Neither proves abse
 **Verified by me:** `2e70851` and `05ff42a` are both on `origin/main` (head `05ff42a`), tree clean.
 
 **Related:** §7x223 (a once-per-case gate cannot see a rate), §7x227, §gate-verification-both-arms.
+
+## 7x229 — a comparison that has never been seen to fire can bound a rate; it cannot certify agreement
+
+**2026-08-27T14:27Z, next's R7B3 attribution.** `bin/land-round.sh` REFUSED the merge on a test that
+was **not one of R7B3's arms**, leaving the round neither landed nor refused but **held pending
+attribution** — and correctly unpushed, because *an unpushed merge reads as landed to nobody, while a
+PUSHED merge whose gate went red reads as landed AND is red.*
+
+**How it was resolved, and the method is the point:** a decision rule **pre-registered in the plan
+file before any result was read** (verified: 0 verdict lines in the output at time of writing), then
+an A/B of 5 full suites per side, alternating, two identically built clones, box idle. Merged 0/5,
+base 0/5 → land by the rule. ⛔ **Reported as a BOUND, never as "indistinguishable"** — each side's
+per-run rate below ~45% at 95%; pooled, merged 1/8 (the gate's own run is the 1) and base 0/9, Fisher
+p ≈ 0.47.
+
+⭐⭐ **AND next put the weakness of its own conclusion on the record: the failure has been reproduced
+exactly ONCE, by the gate, and never since — 0 in 17 controlled runs.** The gate failed at seed
+**737624**; the A/B sampled seeds 1–5, **so it never tried the failing configuration**, and re-running
+737624 on *both* trees comes back green. ⇒ It is timing-dependent, not seed-determined, and **no
+instrument built for it has ever demonstrated sensitivity to it.**
+
+⇒ **THE RULE: an instrument that has never been seen to fire can bound a rate; it cannot certify
+agreement.** A green from a comparison of unknown sensitivity is not evidence the two sides match —
+it is evidence the instrument did not fire, which is a different statement. Filed as an OPEN row
+carrying the rate, the bound, and an explicit ⛔ **that it must not be closed by "we did not see it
+again"** — plus the one condition no control reproduced: *the gate ran on the main checkout with
+existing `tmp/test-data` right after `mix deps.get`, while every control ran in a fresh clone.*
+
+**Also landed: `bin/run-detached.sh`**, the artifact for three background-launch misreports in one day
+— a `nohup` killed with its parent, a `pgrep -f` matching its own command line, and a `setsid` whose
+`$!` is the parent that exits immediately. ⚠️ **All three produced a confident "finished" over an
+EMPTY file.** It records the pid of *the work*, written by the work itself, and stamps the exit code
+into the log — so you wait on the right pid and judge by the artifact, never by the process's absence.
+It carries a retirement condition.
+
+**Related:** §7x223, §7x228, §gate-verification-both-arms, §a-filed-artifact-fires.
