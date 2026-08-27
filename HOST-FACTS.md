@@ -100,7 +100,22 @@ FOR the rule.** ⭐ **Only rows with an independently captured run summary are e
 (168/0), `value` (156/0), `biscuit` (80/0), `next` (190/0); strike the inferred ones.**
 ✅ **What the marker DOES give, free and retroactively: `mix test` REACHED THE MARKER since T —
 narrower than "compiled", since `doc`'s validating run compiled nothing.**
-⚠️ **LAST run only · no count of runs · version-dependent ExUnit encoding · exclusion-dependent.**
+⛔⛔ **AND THE "LAST RUN ONLY" BOUND IS FALSE — `yelixer` FALSIFIED IT WITH THE DECISIVE CASE:**
+```
+three separate `mix test <file>` invocations, in order:
+  A divergence_clock    17 tests, 2 failures
+  B divergence_content  12 tests, 5 failures
+  C diff_yjs            11 tests, 0 failures   ← GREEN, RAN LAST, wrote the marker at 19:29:47
+marker arity = 7  =  2 + 5 + 0     ⇒ A GREEN RUN CARRIED A AND B's ENTRIES FORWARD
+```
+⇒ ⭐⭐ **IT IS A PERSISTENT `--failed` MANIFEST THAT MERGES ACROSS INVOCATIONS — the only way
+`mix test --failed` could work after you run a single file.** ⇒ ⭐ **THE MTIME AND THE CONTENTS HAVE
+DIFFERENT SUBJECTS: the mtime is ONE run, the contents are MANY.** ⚠️ **Established for PARTIAL runs;
+whether a FULL-suite run resets the manifest is untested.**
+⭐ **`doc-sync` decoded the key structure: each entry is a `{module, test_name}` 2-tuple, so the
+arity counts TESTS, not modules.** ⭐ **And this gives a large marker on a green run a SECOND cause
+independent of exclusions — so there are now two ways to misread size as outcome.**
+⚠️ **No count of RUNS · version-dependent ExUnit encoding · exclusion-dependent · accumulates.**
 ⛔ **A FORENSIC READ, NOT A CONTRACT. Do not build a gate on it.**
 ⭐ **Arity lives at BYTE OFFSET 6 (`od -An -tu1 -j6 -N4`). An off-by-two reads a map KEY and returns
 a plausible six-figure number — `cell` caught that only because its check PRINTED THE DISAGREEMENT
