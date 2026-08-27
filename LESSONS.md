@@ -22892,3 +22892,40 @@ update being a footgun in exactly the §7x227 *successful-operation-that-accompl
 **Measure and choose**, with the choice left to the repo.
 
 **Related:** §7x227, §7x220 (the adjacent referent), §doc-drift-vs-never-true, §7x229.
+
+## 7x231 — a green from a fixture that CANNOT EXPRESS the defect
+
+**2026-08-27T15:04Z.** merkle's first attempt to measure the yelixer/yjs clock divergence used the
+Elixir literal `"Café"` — which is **PRECOMPOSED: 4 graphemes / 4 codepoints / 4 UTF-16 units.** All
+three unit systems agree, so the fixture **cannot express the defect**, and the arm came back
+**GREEN**.
+
+⭐ **Caught only because 4/4/4 looked suspicious.** Nothing about the run was wrong; the oracle was
+sighted, the code was right, the result was true — *and it was about a string incapable of
+disagreeing.*
+
+⇒ **STANDING REQUIREMENT for every arm in this class: the arm must ASSERT ITS OWN FIXTURE DIVERGES
+before trusting the result.** Same family as proving a corpus non-empty before believing a zero, and
+as §7x226's fake control — **an input that cannot fail is not a test, whatever it returns.**
+
+⚠️ **And the same day, the inverse trap in the same repo:** a *retyped* `"Café"` normalises
+precomposed while the *committed* fixture is decomposed — so the defect appears or vanishes depending
+on whether someone typed the string or read it from the file. **The fixture must be read, never
+retyped.**
+
+**Two more from the same measurement, both worth keeping:**
+- ⭐ **The original question was wrong in the direction that makes it worse.** plan asked whether a
+  `client_id` could be *shared* between server author and browser. **Disjointness does not protect** —
+  an id only has to be used **twice** by yelixer with a real-yjs peer in between, because the peer
+  recomputes string lengths in its own units. *The state vectors diverge with nobody having shared
+  anything.*
+- ⭐ **Two failure modes selected by TRANSPORT, a distinction nobody had until both were measured:**
+  incremental diff → **silent loss** (`applyUpdate` returns cleanly, text unchanged, queues null);
+  full state → **corruption** (clock read as a UTF-16 offset, split mid-surrogate, replacement
+  characters, no error). ⇒ *A stack that sends full state sees mojibake; one that sends diffs sees
+  nothing at all.*
+
+**⛔ And the discipline that produced all of it: the worst divergence was found by a worker REFUSING TO
+ACCEPT A SUBAGENT'S "it's an artifact."** Seven divergences in an hour from declining one dismissal.
+
+**Related:** §7x226 (the fake control), §7x229, §7x213, §never-emit-a-bare-count.
