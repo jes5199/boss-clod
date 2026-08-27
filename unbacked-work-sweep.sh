@@ -1,3 +1,36 @@
+# ⛔ DECLARED GAP (boss, 2026-08-27T22:25Z) — THIS SWEEP DOES NOT SEE LINKED WORKTREES,
+# AND IT DOES NOT SEE UNCOMMITTED WORK AT ALL.
+#
+# WHAT IT ANSWERS:  "are there COMMITTED commits on a primary checkout that reach no remote ref"
+# WHAT IT DOES NOT: · linked worktrees (`git worktree list` beyond line 1)
+#                   · UNCOMMITTED content anywhere, primary or linked
+#
+# ⭐ HOW THE GAP WAS FOUND, which is the part worth keeping: NOT by this script.
+#   commonplace-plan published a durability pass saying "nothing of mine is on one disk",
+#   claiming `worktrees 1, enumerated`. I held its compact for thirty seconds to check, and
+#   `git worktree list` said TWO. In the second root sat an UNTRACKED 31 KB authored doc,
+#   docs/plans/2026-08-20-cellular-roadmap.md, whose path exists on origin/main with a
+#   DIFFERENT blob — unreachable from every ref. It is now at wip/plan-roadmap-draft-2026-08-27.
+#   ⇒ FIVE doors found a second or third worktree that night (log, cell, merkle, yelixer, plan).
+#     This script would have reported every one of them clean.
+#
+# ⚠️ BLAST RADIUS, MEASURED 22:25Z — and the COUNT is not the finding, the CONTENT is:
+#   ~100 linked worktrees hold uncommitted content. The histogram is dominated by generated
+#   files (_build, *_oracle_*.bin, .cache, manifest, backup_state.json) — NOT at risk.
+#   ⛔ But commonplace-s85..s94 (Sol round worktrees) hold MODIFIED .ex/.exs SOURCE:
+#      capability.ex · spawn_ceremony_test.exs · class_ratification_test.exs ·
+#      subtree_delegation_test.exs · sla_tombstone_test.exs · and others.
+#      Their BRANCHES are pushed; these EDITS are not. Provenance unknown — an interrupted
+#      Sol round and a deliberate scratch edit look identical from here.
+#
+# ⇒ ⭐ THE RULE THIS EARNS: A SWEEP THAT ENUMERATES REPOS BY DIRECTORY IS ANSWERING ABOUT
+#   DIRECTORIES, NOT ABOUT REPOSITORIES. A repo can be N worktrees wearing one name, and the
+#   ones this fleet uses for round work are exactly where interrupted work lands.
+#   ⛔ Do not "fix" this by widening the find root — `.claude/worktrees/` alone adds ~40 agent
+#   trees whose dirt is all generated, and the false-alarm rate would retire the sweep.
+#   ✅ The shape that would work: enumerate via `git worktree list` per repo, and report only
+#   UNTRACKED-OR-MODIFIED files matching authorable extensions, excluding _build and .cache.
+#   NOT BUILT — recorded here rather than half-done, and this banner is the artifact.
 #!/usr/bin/env bash
 
 # ⛔ 2026-08-25T23:14Z — DO NOT PUSH ANOTHER REPO'S UNPUSHED MERGE COMMIT WITHOUT READING ITS GATE LOG.
