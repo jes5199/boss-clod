@@ -383,6 +383,31 @@ MASK=(
   # starloom26/paravel all have LIVE beads stores and must keep working.
   --ro-bind /home/jes/.local/bin/bd /home/jes/.local/bin/bd.real
   --ro-bind /home/jes/boss-clod/sol-bd-guard.sh /home/jes/.local/bin/bd
+
+  # ⛔⛔ 2026-08-27: THE RUST BUILD DRIVERS. Found by commonplace-cell's Sol
+  # reporting cell's OWN PROMPT AS FALSE: its R2b brief said "you have NO
+  # network and NO cargo", and /home/jes/.cargo/bin/cargo was reachable the
+  # entire round. ⭐ THE NETWORK HALF WAS ENFORCED BY CONSTRUCTION; THE CARGO
+  # HALF WAS ENFORCED BY A SENTENCE. Sol refrained because it was told to.
+  # ⚠️ NOT an empty --tmpfs: that leaves `cargo` resolving via PATH and then
+  # failing with a mystery. A named refusal says WHICH thing refused, which is
+  # the difference between a round reporting a fence and a round debugging one.
+  # ⭐ This masks the COMPILER, not the artifact — a committed .so arriving via
+  # `mix deps.get` still loads in here (R2b proved it end to end).
+  # ⭐⭐ STRUCTURAL FACT, verified 2026-08-27: ALL 13 toolchain entries in
+  # ~/.cargo/bin are SYMLINKS TO `rustup` (cargo, rustc, rustdoc, rustfmt,
+  # cargo-clippy, cargo-miri, clippy-driver, rls, rust-analyzer, rust-gdb,
+  # rust-gdbgui, rust-lldb). ⇒ THE `rustup` BIND ALONE COVERS EVERY ONE — the
+  # other three are belt-and-braces for anyone reading the list and expecting
+  # to see the obvious names. Demonstrated: with ONLY the rustup bind,
+  # cargo-clippy / rustfmt / cargo-miri all refuse.
+  # ⚠️ NEGATIVE CONTROL RUN: weft_inspect and wimble in the SAME directory are
+  # real ELF binaries, not shims, and stay intact and runnable — so this is a
+  # scoped mask, not a directory-wide one.
+  --ro-bind /home/jes/boss-clod/sol-cargo-guard.sh /home/jes/.cargo/bin/cargo
+  --ro-bind /home/jes/boss-clod/sol-cargo-guard.sh /home/jes/.cargo/bin/rustc
+  --ro-bind /home/jes/boss-clod/sol-cargo-guard.sh /home/jes/.cargo/bin/rustup
+  --ro-bind /home/jes/boss-clod/sol-cargo-guard.sh /home/jes/.cargo/bin/rustdoc
 )
 
 # ⛔⛔ CX-v14m (2026-08-13): SYSTEM SOCKETS — DERIVED AT LAUNCH, NOT LISTED.
