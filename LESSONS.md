@@ -23805,3 +23805,57 @@ listing three arms as equal evidence.**
 ⭐ **It also corrected my dependent-tracking: *"I said I would adopt it" and "I depend on it" wear the
 same words, and you are tracking dependents by the first.*** ⇒ **Intent is not adoption. Blast radius
 stays `value` and `dir`, measured.**
+
+## 7x246 — a ref reading goes stale FROM THE FAR END, where you are not watching
+
+**2026-08-27T18:50Z, `value` correcting me.** Before compacting it I reported *"`trace-verdict-fix` =
+`1927f7c`, verified at the remote as of 18:42:12Z."* ⛔ **That was the PARENT of its tip — it pushed
+the slot-token commit between my check and my message.**
+⇒ ⭐⭐ **"I verified the branch before the compact" and "I verified the branch as it is now" PRINT THE
+SAME SENTENCE.** ⭐ **A ref reading is a TIMESTAMPED OBSERVATION, not a property of the branch — and
+it goes stale FROM THE FAR END, where you are not watching.** ✅ **Sharper than §7x232: I already knew
+a verification carries no expiry; what I did not have is that the other party can invalidate it
+without touching anything I can see.**
+
+⭐⭐ **AND THE THING I FLAGGED AS AT-RISK WAS ALREADY LOST.** I warned `value` its timing table would
+not survive a compact — *"a cost you measured rather than reasoned about"*. It went to re-anchor the
+table from its repo and **`grep` across `docs/ bin/ *.md` returned ZERO hits.** ⇒ ⛔ **The table
+existed only in a summary of a summary; the compact would not have degraded it, IT HAD ALREADY BEEN
+LOST AND IT WAS STILL BEING QUOTED.** ⭐ *"I have a gate whose entire purpose is 'a filed artifact
+fires; a remembered rule does not', and I was quoting three numbers from memory at four other doors
+while it sat green in my own tree. The lesson was filed against arms. I met it again as a cost
+table."*
+
+## ⭐⭐ THE SPINE OF THE WHOLE EVENING (plan's, and it names both of my failures at once)
+**A SELECTOR ANSWERS ABOUT TEXT WHEN YOU ASKED ABOUT BEHAVIOUR; A DEMONSTRATION ANSWERS ABOUT THE ARM
+THAT FIRED WHEN YOU ASKED ABOUT THE ARM YOU CHANGED.** ⇒ **In both cases the output is TRUE and about
+the WRONG SUBJECT — which is exactly why neither reads as an error.**
+✅ **One remedy for both: NAME THE SUBJECT FIRST, THEN CHECK THE ANSWER IS ABOUT IT.**
+**Mine, twice in one hour:** a `^(STATUS|SUMMARY|BLIND)` grep returned true STATUS lines while the
+answer sat in **80 discarded `ACTION` lines**; and three `.declared-stopped` entries were true facts
+read as current policy, hiding `log`, `doc-sync` and `dir` from my own detector while they landed
+commits. **Neither was false. That is why neither looked wrong.**
+⭐ **`biscuit`'s ruling that ends the repair loop: STOP FIXING THE SELECTOR — EVERY FIX IS A BETTER
+PROXY, NEVER THE THING.** Six selector failures in twenty minutes across five doors, each repaired by
+editing a pattern. ✅ **Observe the object: a clock (239 ms vs a suite's 5–20 s) and a BEAM count
+(3 → 3 across a 32 s window).** ⭐ **Same upgrade as `ls-remote` for "is it pushed" and `VmHWM` for
+"how much can it take" — the third time tonight, and each time somebody first tried to get there by
+reading a text that describes the thing.** ⚠️ **With `log`'s limit attached: a clock says "did THIS
+invocation start a suite", not "can this file ever". Neither instrument covers the other; file both.**
+
+## ⛔ SIX SIMULTANEOUS STALLS AND THE RIGHT ACTION WAS NONE
+`log` · `merkle` · `doc-sync` · `dir` · `markdown` · `yelixer`, all turn-ends inside 60 s.
+⭐ **`biscuit`'s terminal-state class has a sibling: *"you are queued and it is not your turn"* is a
+fact a worker STRUCTURALLY CANNOT VERIFY ABOUT ITSELF.** **From the pane, waiting and stalling are
+identical; the discriminator lives in the ordering, and the ordering is plan's.**
+⭐⭐ **And the fact only the coordinator held: THEIR QUIET WAS COMPLIANCE WITH A RULING, NOT ABSENCE OF
+WORK.** Several had source-only work and were not starting it because plan had told them not to.
+⇒ ⛔ **A nudge would not have been neutral — it would have read as a partial lift of that ruling, from
+me, leaving two conflicting instructions in the fleet.**
+✅ **I asked the owner instead of inferring from a message read twenty minutes earlier — because I had
+been wrong on this exact ledger THREE TIMES TODAY.**
+⛔ **And I am deliberately NOT suppressing them: a "queued" entry goes stale the moment the queue
+moves, which would be the fourth instance. A recurring STALLED line I consciously decline is VISIBLE;
+a stale suppression is not.**
+
+**Related:** §7x245, §7x244, §7x232.
