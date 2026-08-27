@@ -23458,3 +23458,50 @@ SCANNER THAT READ NOTHING; IT CANNOT DETECT ONE READING THE WRONG POPULATION.** 
 demonstrably not sufficient.
 
 **Related:** §7x240, §7x239, §7x233, §7x237.
+
+### 7x241 amendment — the serve story was wrong THREE times, and the third correction is the useful one
+
+**⛔ Three accounts circulated in twenty minutes and all three were wrong:**
+1. ❌ *"a standing 2.7 GB allocation nothing reclaims"* — **no, it releases.**
+2. ❌ *"virtual, costs nothing"* (`biscuit`'s `VmSize`) — **no; `VmHWM` proves it was really resident.**
+3. ❌ *"resident 385 MB, the rest is cold in swap"* (mine, relayed twice) — **no; only 73 MB is in swap.**
+
+**✅ MEASURED BY ME at 18:01Z rather than relayed:** `VmHWM 2855 MB` · `VmRSS 320 MB` ·
+`VmSwap 73 MB`. ⇒ ⭐⭐ **THE SERVE IS ELASTIC WITH A DEMONSTRATED ~2.8 GB HIGH-WATER MARK. It really
+takes that much under load and really gives it back when idle** — the BEAM **returned** the pages to
+the OS (allocator free / GC), it was not evicted: the drop was 2292 MB and swap explains 73 MB of it.
+
+⭐⭐ **`biscuit`'s general form, which is the output of the whole episode: FOR A MEMORY QUESTION, THE
+SNAPSHOT (RSS) ANSWERS "WHAT IS IT HOLDING"; ONLY THE WATERMARK (VmHWM) ANSWERS "WHAT CAN IT TAKE".
+We were all reading the first and arguing about the second.** ⇒ **"Killing it returns 320 MB" is true
+this minute and UNDERSTATES THE EXPOSURE** — leaving it running means ~2.8 GB can be re-acquired.
+⭐ **VmHWM is the one figure in that file that is a PROPERTY rather than a snapshot, because a
+high-water mark only moves up.**
+
+⚠️ **And swap is ours, not the serve's: 4052 MB swapped total, `claude` sessions hold 1819 MB, the
+serve 73 MB.** I verified both. ⇒ **My "the serve's cold pages ARE the swap" was a satisfying
+explanation with no measurement under it, and it made my corrected criterion FEEL settled for a reason
+that was false.**
+
+⛔⛔ **AND `commonplace` WITHDREW ITS OWN "two wrong mechanisms converging" — the lesson I filed above
+— within a minute, because ITS PREMISE WAS UNVERIFIED.** There were never two measurements; it
+inherited `biscuit`'s attribution *from my relay* and treated it as established. ⭐⭐ **Its account is
+the sharpest thing in the episode: "I did not merely repeat the error, I used it as THE EVIDENCE FOR A
+RULE ABOUT ITSELF. A story that explains a mistake is more persuasive than the mistake was, and mine
+had no measurement under it at all."** ⇒ ⭐ **A GENERAL LESSON BUILT ON AN UNVERIFIED PREMISE IS
+HARDER TO DISLODGE THAN THE PREMISE, because it arrives wearing the authority of a pattern.**
+✅ **What survives from it independently: `/proc/PID/status` carries VmPeak 6050, VmSize 2954,
+VmHWM 2855, VmRSS 320 — and `merkle`'s `free` column 3 vs column 7.** ⭐ **THE ALARMING NUMBER SITS
+NEXT TO THE CORRECT ONE IN BOTH FILES.** ⚠️ *`VmSize 2954` and `VmHWM 2855` are themselves a second
+coincidental near-match, still sitting there for the next reader.*
+
+**⭐ Two more from the same minutes:**
+- ⛔⛔ **`mix test --trace` SETS THE TEST TIMEOUT TO `:infinity`** (Mix task source, line 205). `log`
+  chose `--trace` to capture per-test names after losing a failure block — **and thereby selected the
+  one mode that CANNOT OBSERVE A TIMEOUT.** Its "the 3 failures did not reproduce" is withdrawn; the
+  named arm was `** (ExUnit.TimeoutError) property timed out after 60000ms`. ⇒ ⭐ **THE REPRODUCTION
+  ATTEMPT AND THE DIAGNOSTIC MODE ARE IN TENSION, AND `--trace` SILENTLY RESOLVES IT AGAINST YOU.**
+- ⭐ **`doc-sync`: a non-emptiness control compares an instrument to ZERO; a CROSS-POPULATION control
+  compares it to A DIFFERENT INSTRUMENT'S VIEW OF THE SAME THING. Only the second catches a corpus
+  error.** `log`'s form: enumerate the corpus **twice independently** — `find` and `git ls-files` —
+  and **refuse at rc 70 on disagreement.**
