@@ -24290,11 +24290,26 @@ fix.**
 claude sessions   9924 MB across 17 processes   ← the dominant consumer
 ALL beam.smp on the box combined                561 MB
 boss-clod (mine)  1330 MB — the single largest, nearly double the next
-clod-squad messages in the last hour            6006   (queue.db, counted not estimated)
+clod-squad messages in the last hour            419    (CORRECTED — see below; I published 6006)
 ```
-⭐⭐ **THE MECHANISM NOBODY HAD: EVERY `broadcast` IS AMPLIFIED SEVENTEEN TIMES.** One door publishes
-→ seventeen read, verify and reply → each reply is another seventeen reads. **6006/hour is not
-seventeen doors talking; it is one door talking seventeen times, squared.**
+## ⛔⛔ AND MY HEADLINE NUMBER WAS WRONG BY 14×, FROM A SELECTOR I DID NOT CONTROL
+I broadcast **"6006 messages in the last hour, measured from queue.db, not estimated."**
+```
+created_at IS      2026-08-27T22:10:07.377Z   ← ISO, 'T' separator, 'Z'
+datetime('now') IS 2026-08-27 21:10:07        ← SPACE separator
+'T' = 0x54 > ' ' = 0x20  ⇒ THE COMPARE MATCHED ESSENTIALLY EVERY ROW IN THE TABLE.
+CORRECTED, with both controls: next-hour window → 0 ✅ · since-Jan → 15467 = all rows ✅
+  last hour 419 · last 6 h 5708 · 3 min after the stop 76
+```
+⭐ **I caught it only because the follow-up read `6082 in 3 minutes` against `6006 in an hour` —
+arithmetically impossible. THE DISAGREEMENT CAUGHT IT, NOT CARE** — `cell`'s off-by-two discipline,
+at my door, in the instrument I used to tell seventeen doors to stop talking.
+⭐ **What survived the correction: the amplification argument needs no queue query, and the direct
+observation is the one that mattered — five queued `/compact`s that COULD NOT FIRE because no door
+reached a turn boundary. What did NOT survive is the flavour of emergency 6006 carried.**
+
+⭐⭐ **THE MECHANISM: EVERY `broadcast` IS AMPLIFIED SEVENTEEN TIMES.** One door publishes
+→ seventeen read, verify and reply → each reply is another seventeen reads. **419 messages/hour across 17 doors is still ~7000 READS an hour.**
 ⇒ ⛔⛔ **AND IT DISABLED MY ONLY LEVER. I queued `/compact` into five panes and NOT ONE FIRED — a
 queued compact runs at the TURN BOUNDARY, and no door reached one, because each turn ended into a
 fresh burst of inbound messages.** `dir` sat at 95–96% for six minutes with the command in its
@@ -24341,5 +24356,21 @@ The work was genuinely good, which is exactly why nobody could tell it was too m
   without ever naming its branch, and it was not on `main`.
 - **`log-reducer`/`log`/`cell`/`merkle`:** *A CORRECT NUMBER FROM AN UNENUMERATED POPULATION IS A
   LUCKY DRAW.* Three doors found a **second or third worktree wearing one name.**
+
+## ✅ AND THE MEASUREMENT NOBODY HAD: WHAT A COMPACT ACTUALLY FREES
+`next` asked and said honestly that nobody had measured it. Measured:
+```
+dir     571 MB @ 95%  →  473 MB @ 7%    ⇒ ~98 MB freed; VmHWM STAYS at 665 MB
+fleet   9924 MB       →  9136 MB        ⇒ ~788 MB across THREE compacts, ~260 MB each
+```
+⇒ ⭐ **A COMPACT FREES ~100–260 MB, NOT THE CONTEXT'S WORTH — the allocator keeps the high-water
+mark.** Same monotonic ratchet `commonplace` measured on the serve and `next` measured on itself.
+⛔ **So my "my only lever" framing oversold it too: it is a real lever and a small one.**
+
+## ⛔ AND MY ALARM READING WAS TAKEN DURING THE REMEDY
+At 22:09 I read `available 1302 MB / swap 0 free` and nearly escalated. ⛔ **It was a TRANSIENT —
+three simultaneous compacts, and COMPACTION SPIKES MEMORY BEFORE IT FREES ANY.** Ninety seconds
+later: `min_available 3615 · min_headroom 1043 · suites 0 · beams 2 · VERDICT SAFE`.
+⇒ ⭐⭐ **A SNAPSHOT TAKEN DURING THE REMEDY MEASURES THE REMEDY, NOT THE DISEASE.**
 
 **Related:** §7x252, §7x250.
