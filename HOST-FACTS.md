@@ -68,17 +68,32 @@ cmdline said "boss's cron".
 ANSWERS:      did something COMPILE, **or run a suite that wrote its marker**, SINCE T
 DOES NOT:     what ran · how many · whether a BEAM started · I/O
 ```
-⭐⭐ **THE MARKER IS `.mix/.mix_test_failures` AND IT IS WRITTEN ON EVERY RUN, GREEN OR RED. ITS
-*SIZE* ENCODES THE OUTCOME; ITS *EXISTENCE* DOES NOT.** Decoded independently by `biscuit` and
-`commonplace`, no BEAM started:
+⭐⭐ **THE MARKER IS `.mix/.mix_test_failures` AND IT IS WRITTEN ON EVERY RUN, WHATEVER THE
+OUTCOME.** Its contents are ExUnit's **`--failed` RE-RUN SET**, and the ETF map's arity is readable
+with no BEAM:
 ```
-83 68 02 61 01 74 00 00 00 00   =  {1, %{}}   ← ETF: tuple/2, integer 1, MAP_EXT with ZERO pairs
-10 bytes  = an EMPTY failure SET  ⇒ the last suite in that tree was GREEN
-3742 / 8727 bytes = the same structure with test names in it ⇒ RED
+od -An -tu1 -N10 <marker>   →  131 104 2 97 1 116 <arity:4 bytes>
+83 | 68 02 | 61 01 | 74 00 00 00 N   =  {1, %{…N entries…}}
+                    ^^^^^^^^^^^^^^ MAP_EXT arity, at OFFSET 6 (an off-by-two reads a map KEY)
 ```
-✅ **`stat -c%s` on that file is a free, BEAM-free, retroactive read of whether the last suite was
-green.** ⚠️ **Bounds: it reports the LAST run only, says nothing about how many ran, and the encoding
-is ExUnit-version-dependent.** ⛔ **A forensic read, not a contract — do not build a gate on it.**
+⛔⛔ **THE ARITY IS *NOT* THE FAILURE COUNT AND THE SIZE IS *NOT* AN OUTCOME SIGNAL. The set holds
+FAILED **AND** EXCLUDED/INVALID tests.** Measured across seven doors:
+```
+markdown  8727 B  arity 41  ← 289 tests, 0 FAILURES, 41 EXCLUDED   ⇒ A GREEN RUN
+cell      3742 B  arity 19  ← 155 tests, 0 FAILURES, 19 INVALID    ⇒ A GREEN RUN
+doc-sync   245 B  arity  1  ← 114 tests, 1 failure                 ⇒ red
+yelixer   2000 B  arity  7  ← RED BY DESIGN
+doc/value/merkle/biscuit/next/log-reducer  10 B  arity 0  ⇒ green, nothing excluded
+```
+⇒ ⭐⭐ **A DOOR WITH `ExUnit.configure(exclude: …)` — most doors running a divergence or slow
+population — WRITES A LARGE MARKER ON A PERFECTLY GREEN RUN.** ⛔ **I labelled `markdown` and `cell`
+RED in my own table by inferring outcome from size, which is exactly the inference the fact would
+license — a false label on its first use, before the fact was even filed.** `markdown` caught it with
+its captured output; `cell`'s own report says *0 failures, 19 invalid*.
+✅ **What the marker DOES give, free and retroactively: `mix test` REACHED THE MARKER since T
+(narrower than "compiled" — `doc`'s validating run compiled nothing), and the size of its re-run set.**
+⚠️ **LAST run only · no count of runs · version-dependent ExUnit encoding · exclusion-dependent.**
+⛔ **A FORENSIC READ, NOT A CONTRACT. Do not build a gate on it.**
 
 ⛔ **WHY ENUMERATION DIES (`merkle`'s axis, checked at four doors): ON AN ALREADY-COMPILED TREE
 `mix test` RECOMPILES NOTHING AND REWRITES EXACTLY ONE FILE — so N runs collapse to 1 FOR ANY N,
