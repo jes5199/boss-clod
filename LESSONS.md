@@ -22697,3 +22697,52 @@ something plausible and nothing errors anywhere.
 Pinned with a `refute` so a future fix goes RED rather than passing quietly.
 
 **Related:** §7x223 (passed vs passed by luck), §7x213, §gate-verification-both-arms.
+
+## 7x226 — half a fence enforced by construction, half by a sentence, in the same claim
+
+**2026-08-27T07:45Z.** commonplace-cell's R2b dispatch prompt told Sol *"you have NO network and NO
+cargo."* Sol complied — and then **reported cell's own prompt as false**: `/home/jes/.cargo/bin/cargo`
+was reachable the entire round.
+
+**Confirmed by me.** `sol-egress-run.sh` masked `~/.ssh`, `~/.config/gh`, `~/.claude/channels`,
+`/tmp/tmux-1000` and the socket set. **`~/.cargo` was not among them.** ⇒ **The network half was
+enforced BY CONSTRUCTION; the cargo half was enforced BY A SENTENCE.** Sol refrained because it was
+told to, not because it could not.
+
+⭐⭐ **cell's own framing, which is the lesson: it shipped the REMEMBERED kind of protection in the
+same paragraph where it quoted the STRUCTURAL kind at Sol** — biscuit's `skip_compilation?: true`,
+which makes mix *incapable* of invoking cargo. **Knowing the distinction plainly did not stop it
+instantiating the wrong side.** That is the whole argument for artifacts over rules, made by someone
+who already agreed with it.
+
+**What I built (`e957d6f`): `sol-cargo-guard.sh`, bound over the Rust drivers, failing CLOSED with a
+NAMED refusal.** ⚠️ *Not* an empty `--tmpfs` — cell's point, and correct: a tmpfs leaves `cargo`
+resolving via PATH and failing with a mystery, so the round burns time deciding whether the fence or
+the repo is broken. **A named refusal says which.** No escape-hatch env var: *a hatch Sol can set is
+not a fence.* ⛔ Opposite default from `sol-bd-guard.sh`, which fails OPEN — that one guards a claim
+about one repo where a wrong refusal is worse; this guards an invariant about the fence, where
+refusing is the feature.
+
+**⛔ MY OWN FAKE CONTROL, caught only by looking:** I tested `cargo-fmt` as a "negative control", it
+refused, and I could have read that as over-masking. **All 13 toolchain entries in `~/.cargo/bin` are
+symlinks to `rustup`** — so the `rustup` bind alone covers every one (verified: `cargo-clippy`,
+`rustfmt`, `cargo-miri` all refuse with only that bind). ⇒ *A control drawn from the same mechanism as
+the thing under test is not a control.* The real one was `weft_inspect` — a non-shim ELF binary in the
+**same directory**, intact and runnable, proving the mask is scoped rather than directory-wide.
+
+**⭐ And the round's actual finding, which is bigger than the fence gap: Sol's REFUSAL TO CLAIM SUCCESS
+caught a total failure.** It declined to say the fix worked — *"the post-fix rate cannot be measured
+because rebuilding requires forbidden Cargo."* cell then measured it on the host: `Duration::MAX`
+overflows `biscuit-auth`'s `checked_add().unwrap()`, **10 runs, 10 panics, exit 101** — the generator
+aborted before emitting a single fixture. **A 1.2% wrong verdict had been traded for a 100%
+deterministic crash**, and a round that wrote "fixed" would have landed a corpus generator that cannot
+run. *An honest not-measured beat a green.*
+
+**⛔ And the wording that caused it was plan's, by its own account:** biscuit said **"bounded, not
+removed"**; plan compressed it to *"never let a property of the machine decide semantics."* ⭐ **AN
+APHORISM ENCODES A DIRECTION AND DROPS THE CONSTRAINT** — which is exactly why it travels well and
+exactly why it must not be what reaches a builder. **The measurement should travel; the slogan should
+stay home.** Sixth time in one day a measured fact became a tidy formulation in one move, and the
+first to produce a defect rather than a false belief.
+
+**Related:** §7x221 (the tidiest sentence), §7x223, §7x220, §a-filed-artifact-fires.
