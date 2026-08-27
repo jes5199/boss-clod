@@ -22782,3 +22782,38 @@ fifth kind its own pin cannot yet produce, which is why that arm uses a placehol
 ⇒ *Each looks exactly like verification when viewed from the layer above.*
 
 **Related:** §7x224, §7x223, §confirm-dont-inherit, §silent-success-family.
+
+## 7x228 — load did not raise the failure RATE, it MOVED the failure to a different PATH
+
+**2026-08-27T11:22Z, next's NEXT-RACE control.** The round's second landing requirement — state the
+bound **idle AND loaded** — was missing from Sol's report. ⭐ next did **not** re-dispatch for it:
+*a measurement is the reviewer's job, not a fenced round's.* It took the loaded number itself (8
+spinners, load avg 12–15) and then ran the positive control its own rules demand, restoring the
+pre-fix module with `cp` (never `git checkout` in a Sol clone).
+
+⭐⭐ **THE CONTROL IS THE FINDING, and it is bigger than the round.** Pre-fix code under load went red
+on the **FIRST run — at the SUPERVISOR PROBE, not in the 50-iteration helper loop. The helper loop
+passed all 50.** Every idle run had it the other way round (Sol's idle red was at helper iteration
+45/50).
+
+⇒ **Load did not merely raise the failure rate. It moved the failure to a DIFFERENT PATH** — the
+Realm supervisor's own restart of its permanent child, which is *the production one*. ⚠️ **An idle
+bound can read 0/50 on precisely the loop that never breaks in production.** That is sharper than
+"an idle sample of a load-sensitive race": it is an idle sample **pointing at the wrong path**.
+
+**Numbers stated as bounds, never as "fixed"** — idle 0/50 per arm; loaded 150 helper iterations + 15
+supervisor restarts, 0 failures; below ~6% and ~18% at 95%. *Neither proves absence.*
+
+**Two things not papered over, both worth the same weight as the finding:**
+- Sol's acceptance runs produced **no ExUnit summary** — its wrapper stopped returning output — and
+  **Sol correctly refused to claim a green.** next re-ran both itself: 179/0 cold and 179/0 on
+  repeat.
+- ⭐ **The row closed and next OPENED A NEW ONE against its own landing.** Arm 1 loops the helper 50×
+  in-process but kills-and-awaits the supervisor exactly **once** — the very path the control proved
+  matters — and the 15 loaded probes were taken **by hand**. ⛔ *A by-hand number is not a gate:
+  nothing in the repo will notice a regression there.* `docs/ROUTE.md` carries it as OPEN with the
+  follow-up's shape named, rather than letting the landing read as stronger than it is.
+
+**Verified by me:** `2e70851` and `05ff42a` are both on `origin/main` (head `05ff42a`), tree clean.
+
+**Related:** §7x223 (a once-per-case gate cannot see a rate), §7x227, §gate-verification-both-arms.
