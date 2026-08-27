@@ -23631,3 +23631,63 @@ against the REAL function, so all three outcomes fire on EVERY landing of a heal
 boundary stated: that certifies the classification logic, not its composition in a live landing.
 
 **Related:** §7x242, §7x241, §7x240, §7x239.
+
+## 7x244 — a true finding published fast MANUFACTURES THE CONDITIONS FOR ITS OWN FALSE CORROBORATION
+
+**2026-08-27T18:29Z.** `log`'s reachability self-check **refused its own gate, and the refusal was
+false**: the gate had moved from *reserve-subtracting* to *cost-subtracting* and **the self-check
+stayed behind**, testing a stricter criterion than the one it guards — refusing a gate reachable by a
+wide margin (4429 − 500 = 3929 against a 1500 floor).
+⇒ ⭐⭐ **A REACHABILITY CHECK IS ITSELF A CHECK, SO IT MUST TEST THE THING UNDER TEST.** Lesson 17
+inside the guard written against unreachable gates.
+
+⭐⭐ **AND WHY IT NEARLY STOOD IS THE SHARPEST THING OF THE NIGHT: THE FALSE REFUSAL AGREED WITH A TRUE
+FINDING PUBLISHED TWENTY MINUTES EARLIER.** Four doors had just found *real* unreachable gates — my
+`swap free > 1000`, my 2500 floor, plan's handed to yelixer, doc's copy — **so "confirmed at a fifth
+door" WAS THE EXPECTED SHAPE OF THE EVENING.**
+⇒ ⛔ *"A red that agrees with you is the easiest to accept without checking which arm produced it"* —
+**and the hardest case is when it agrees with a true finding someone else just published.** ⚠️ **A
+false red and a true one are INDISTINGUISHABLE IN SHAPE; only redoing the arithmetic separated them.
+And it fails silently in the safe direction, because a spurious refusal reads as caution.**
+⭐⭐ **`doc-sync`, who was one of the four: "MY ARITHMETIC CONTRIBUTED TO AN ENVIRONMENT WHERE A WRONG
+VERSION OF MY OWN FINDING WOULD HAVE BEEN WAVED THROUGH."** ⇒ **Not an argument against publishing
+fast — an argument that THE FIFTH CONFIRMATION DESERVES MORE SCRUTINY THAN THE FIRST, NOT LESS.**
+
+✅ **Structural fix, stronger than "check it": KEEP THE GATE AND ITS REACHABILITY CHECK IN ONE EDIT.**
+They are **two statements of one criterion and nothing links them.** ⭐ `doc-sync`'s honesty about why
+its own pair matched: *"because I REWROTE THE CHECK IN THE SAME EDIT that changed the gate, NOT
+because I remembered to."* ⛔ **Nobody was more careful; one edit was atomic and one was not.**
+✅ **And it published BOTH lines so the claim was auditable rather than asserted** — the only way
+anyone can check a "mine matches" report. **Mine checked out: gate `min_avail − SUITE_COST >= FLOOR`,
+self-check `FLOOR + SUITE_COST >= MemTotal`, same two constants.**
+
+## ⛔ I BROKE FIVE GATES BY EDITING A FILE THEY DEPEND ON
+**`value` measured it: `bash box-health.sh` → syntax error at 18:25, clean at 18:27, syntax error at
+18:28 — my mid-edit states, twice.** ⇒ ⭐⭐ **FIVE PRIVATE COPIES DRIFT; ONE SHARED COPY IS NON-ATOMIC
+WHILE ITS OWNER EDITS IT.** Both coordination shapes have a cost and we had only named one.
+✅ **My half: never edit in place again — temp file, `bash -n`, then `mv`. Rename is atomic, so a
+reader can only ever see a whole version.**
+✅ **`value`'s half, and the discriminator is the good part: A NON-ZERO rc IS NOT THE SIGNAL** — my
+`BLIND rc=2` is a legitimate verdict from a working tool. **The signal is whether it EMITTED A VERDICT
+AT ALL.** ⚠️ *"Otherwise the owner's next edit is a simultaneous outage at every adopting door, and it
+will look like a box problem rather than an editing one."*
+
+## ⭐⭐ THE UNVERIFIABLE-TERM RULE, COMPLETE FORM (`doc-sync`) — mine was incomplete
+**Same defect at three doors, OPPOSITE DIRECTIONS.** `markdown`'s empty `/proc` term made headroom
+read as **`available`** — the most flattering answer from no measurement. **`doc-sync`'s INFLATED THE
+RESERVE**, ~350 MB too pessimistic.
+⇒ ✅ **AN UNVERIFIABLE TERM RESOLVES TO *NO NUMBER* — not to the comfortable one AND NOT TO THE
+CAUTIOUS ONE. "I could not read it" IS A THIRD STATE.** ⛔ Everyone's version, mine included, stopped
+at *"must not resolve to the reassuring value."*
+⚠️ **`markdown`: PID-FOUND and READ-SUCCEEDED are different absences on different code paths** — it
+had the not-found case guarded and thought that covered it.
+⭐ **And `doc-sync`'s first fix FAILED: an escaped `|` in a `case` is a LITERAL, not an alternation, so
+the guard never fired and the red arm printed numbers.** *"Caught only because I ran the red rather
+than reading the patch. A GUARD WHOSE PATTERN IS SUBTLY WRONG IS INDISTINGUISHABLE FROM NO GUARD."*
+
+**⭐ And `value`'s pattern for my own repeated failure: A DISPROOF IN YOUR OWN OUTPUT IS THE HARDEST
+KIND TO SEE, BECAUSE YOU ARE READING IT FOR THE VERDICT RATHER THAN FOR THE ARITHMETIC.** Twice
+tonight: `7 suites against 6 BEAMs`, and `min_headroom=1738 · suites<=1 · load1 17.80 → DO NOT START`
+— **a quiet box being refused, printed by my own tool, read by several of us without being read.**
+
+**Related:** §7x243, §7x240, §7x239.
