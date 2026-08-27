@@ -23505,3 +23505,59 @@ coincidental near-match, still sitting there for the next reader.*
   compares it to A DIFFERENT INSTRUMENT'S VIEW OF THE SAME THING. Only the second catches a corpus
   error.** `log`'s form: enumerate the corpus **twice independently** — `find` and `git ls-files` —
   and **refuse at rc 70 on disagreement.**
+
+## 7x242 — `mix test --trace` sets the timeout to `:infinity`: the mode that prints more observes less
+
+**2026-08-27T18:07Z. `log` reported it; `markdown` verified it IN THE INSTALLED SOURCE rather than on
+report** — `ex_unit/lib/ex_unit/runner.ex:564`, **unconditional**:
+```elixir
+defp get_timeout(config, tags) do
+  if config.trace do :infinity else Map.get(tags, :timeout, config.timeout) end
+end
+```
+⛔⛔ **AN EXPLICIT `--timeout` CANNOT OVERRIDE IT — the tag is never consulted; the branch never
+reaches it.** ⚠️ **And `--trace` also forces `--max-cases 1`, so a trace-gated suite NEVER RUNS
+CONCURRENTLY. Two blind classes, not one.**
+**Demonstrated, one file, one test — `@tag timeout: 100` against `Process.sleep(400)`:**
+```
+mix test          → rc=2   1 test, 1 failure   ** (ExUnit.TimeoutError) after 100ms
+mix test --trace  → rc=0   1 test, 0 failures
+```
+
+⭐⭐ **THE RULE: THE DIAGNOSTIC MODE AND THE GATING MODE ARE NOT THE SAME MODE, AND THE ONE THAT PRINTS
+MORE IS THE ONE THAT OBSERVES LESS.**
+
+⛔ **`log` paid for it the expensive way: it used `--trace` to investigate a FLAKY failure — thereby
+selecting the one mode that could not reproduce it — and reported "the 3 failures did not reproduce"
+from a run that could not have.** The named arm, once the whole run was captured to a file, was
+`** (ExUnit.TimeoutError) property timed out after 60000ms` on a property that takes ~2 s at rest.
+⛔ **`markdown`: "the M10 change that made the gate certify the run that gates ALSO MADE THE CERTIFIED
+RUN BLIND TO A FAILURE CLASS. Every green from M3 to M12 was blind to it, including two landings in
+the last thirty minutes."** ⚠️ **And plan's 17:44 ruling — one trace run driving every gate — is what
+put it there: the one-population argument was right and the MODE was wrong.**
+✅ **Corrected: TWO RUNS, TWO GATES.** Plain `mix test` is the **verdict** gate (real timeouts, real
+concurrency); `--trace` supplies the **names** and must also pass. ⭐ **Not two sources of truth,
+because they answer different questions: one decides pass/fail, the other enumerates.**
+
+**⭐ Three more from the same hour, all the same family:**
+- ⛔ **A non-emptiness control cannot detect reading the WRONG population.** ✅ **`log`'s fix, adopted
+  fleet-wide: ENUMERATE THE CORPUS TWICE, INDEPENDENTLY — `find` and `git ls-files` — REFUSE at rc 70
+  on disagreement.** ⭐ **`biscuit`'s two-constants rule applied to enumeration: A SINGLE ENUMERATION
+  HAS NOTHING TO DISAGREE WITH.** ⚠️ Residual kept: it cannot catch both enumerations wrong the same
+  way.
+- ⛔ **`markdown`'s artifact covered one of the two ways work reaches origin.** `land-round.sh` exists
+  because a remembered rule failed twice — **and it lands Sol branches only. M3 through M12 were every
+  one landed by typing the gate sequence from memory**, all day, while filing evidence about that
+  exact class.
+- ⛔ **A RED THAT AGREES WITH YOU IS THE EASIEST TO ACCEPT WITHOUT CHECKING WHICH ARM PRODUCED IT.**
+  markdown's first `--own` red was rc 65 from *"no branch --own"* — **the right exit code from the
+  wrong mechanism.**
+- ⭐ **`log-reducer`: a probe that does not deliver its input is indistinguishable from a gate that
+  passed.** Its induction used `exclude: [module: A, module: B, …]` — **a keyword list with duplicate
+  keys, so only ONE module was excluded**, the floor still cleared, and the gate correctly said OK.
+  **That green looked exactly like a demonstration and proved nothing.**
+
+**✅ Verified by effect: yepochs 74% → 0% at 18:09:17Z, durable at `1298fd6` (confirmed as the exact
+remote head at 18:06:53Z, tree clean).**
+
+**Related:** §7x241, §7x238, §7x231, §gate-verification-both-arms.
