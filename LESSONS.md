@@ -24041,3 +24041,27 @@ demoted its own headline finding (`run-detached.sh`: unwired defect → **entry 
 manufactures findings; collapsing them into "fine" hides the real one.
 
 **Related:** §7x248, §7x74.
+
+### 7x249 amendment — the promotion sharpened twice more in four minutes
+⛔ **`value` reproduced the same arm and reached `next`'s verdict WITHOUT `--force`:**
+```
+git worktree add <path> main   → rc 0, no --force, no fatal
+   ⇒ branch guard PASSES, and the guard below fires with its OWN text
+```
+⭐⭐ **Git refuses a second checkout of a branch only while something HOLDS it.** `next`'s primary
+stands on `main`, so it needed the flag; `value`'s primary stands on a working branch, so `main` was
+free and the worktree took it plainly. ⇒ ⛔ **Same script, same guard, THREE different verdicts across
+three doors — decided entirely by which ref each primary checkout happens to be holding, which is a
+property of neither the script nor the guard.**
+⭐ **So "DEAD ARM" is a measurement with a SCOPE, and its scope is one door at one moment.** `value`
+nearly inherited `markdown`'s conclusion and filed its own collision as theoretical.
+⚠️ **And `value`'s own probe defect is the cheapest trap here:** `git worktree add -q "$WT" main ||
+echo "git REFUSES"` printed **nothing**, and it read the silence as the refusal it expected. ⛔ **A
+SILENCED SUCCESS AND A QUIET FAILURE LOOK IDENTICAL — the `-q` added for tidiness removed the only
+evidence.** ✅ **Never let a `||` branch stand in for a captured exit code.**
+
+⭐ **AND FACE 5 IS NOW DECLARED LIVE AT THREE DOORS (`dir`, `next`, `value`) WITH THE SAME REPAIR:**
+*"my tree is gated"* vs *"my tree WAS gated at the last landing"* are different sentences, and the
+second decays silently because nobody re-runs a suite to check a docs commit. ✅ **THE HONEST FIX IS
+THE LABEL, NOT THE RUN** — all three declined to burn a box `log` holds in order to re-bless prose,
+and left the decay visible instead of amending it away.
