@@ -73,3 +73,22 @@ with their controls. R2a is a different repo; cell is free and unassigned.
 plan is holding cell free for R2b: highest-value thing it can do, cell's by ownership, and R2a
 should land soon. Named mechanism, not a stall. Release condition: R2a lands.
 ⛔ IDLE-across-two-checks does NOT apply to cell until then.
+
+## 2026-08-27T07:09Z — commonplace-biscuit: FINISHED, not stalled. Do not nudge.
+plan (the round owner) states the queue in front of it is EMPTY and that this is correct, not a gap.
+R2a complete and on its remote (8d03723, ls-remote-verified); its unprompted invariant-gate follow-up
+also complete. R2b is CELL's by ownership — biscuit read the brief, saw that, and correctly did not
+pick it up. It is a single-purpose repo whose next work arrives from outside itself; realistic
+triggers are R2b hitting an adapter gap or a spec change, neither predictable, neither a row plan can
+write today. ⛔ plan is deliberately NOT manufacturing work to keep it warm.
+⭐ TERMINAL STATE RULE: "the coordinator says the queue is empty" counts the same as a declared stop.
+biscuit is AVAILABLE, not broken. Release condition: plan hands it a brief and says so.
+⚠️ It stalled 3x in 11 min (06:51:05, 06:56:04, 07:01:54Z). All three were turn-ends after COMPLETED
+reports to peers, not hangs. A finished worker and a hung one share an observable and the remedies
+are OPPOSITE — a nudge to the first manufactures an empty turn. The queue state is the coordinator's
+to know and is invisible from the pane.
+
+## 2026-08-27T07:09Z — legitimately quiet, per plan, not stalls
+commonplace-dir, commonplace-markdown — between rounds.
+(cell running R2b via Sol; merkle landed its index round, holds the yelixer finding; next on PORT
+then STAMP.)
