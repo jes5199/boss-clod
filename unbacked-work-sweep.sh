@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # ⛔ DECLARED GAP (boss, 2026-08-27T22:25Z) — THIS SWEEP DOES NOT SEE LINKED WORKTREES,
 # AND IT DOES NOT SEE UNCOMMITTED WORK AT ALL.
 #
@@ -31,7 +32,6 @@
 #   ✅ The shape that would work: enumerate via `git worktree list` per repo, and report only
 #   UNTRACKED-OR-MODIFIED files matching authorable extensions, excluding _build and .cache.
 #   NOT BUILT — recorded here rather than half-done, and this banner is the artifact.
-#!/usr/bin/env bash
 
 # ⛔ 2026-08-25T23:14Z — DO NOT PUSH ANOTHER REPO'S UNPUSHED MERGE COMMIT WITHOUT READING ITS GATE LOG.
 # commonplace-next's 130fa70 looked like a forgotten push and was a landing its own gate REFUSED:
