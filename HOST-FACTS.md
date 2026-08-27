@@ -76,24 +76,35 @@ od -An -tu1 -N10 <marker>   →  131 104 2 97 1 116 <arity:4 bytes>
 83 | 68 02 | 61 01 | 74 00 00 00 N   =  {1, %{…N entries…}}
                     ^^^^^^^^^^^^^^ MAP_EXT arity, at OFFSET 6 (an off-by-two reads a map KEY)
 ```
-⛔⛔ **THE ARITY IS *NOT* THE FAILURE COUNT AND THE SIZE IS *NOT* AN OUTCOME SIGNAL. The set holds
-FAILED **AND** EXCLUDED/INVALID tests.** Measured across seven doors:
+⛔⛔ **WHAT THE MAP CONTAINS IS NOT PINNED, AND THE ONE THING THAT *IS* SETTLED IS THAT SIZE IS NOT
+AN OUTCOME SIGNAL.** Measured across eight doors:
 ```
-markdown  8727 B  arity 41  ← 289 tests, 0 FAILURES, 41 EXCLUDED   ⇒ A GREEN RUN
-cell      3742 B  arity 19  ← 155 tests, 0 FAILURES, 19 INVALID    ⇒ A GREEN RUN
-doc-sync   245 B  arity  1  ← 114 tests, 1 failure                 ⇒ red
-yelixer   2000 B  arity  7  ← RED BY DESIGN
-doc/value/merkle/biscuit/next/log-reducer  10 B  arity 0  ⇒ green, nothing excluded
+markdown  8727 B  arity 41  ← 289 tests, 0 FAILURES, 41 excluded   ⇒ GREEN, large marker
+cell      3742 B  arity 19  ← 155 tests, 0 FAILURES, 19 INVALID    ⇒ GREEN, large marker
+log        505 B  arity  3  ←            2 failures, 2 skipped     ⇒ fits NEITHER 2 NOR 4
+doc-sync   245 B  arity  1  ← 114 tests, 1 failure, 0 excluded     ⇒ the failing test, BY NAME
+commonplace 10 B  arity  0  ← 8 tests EXCLUDED by ExUnit.configure ⇒ EXCLUSIONS ABSENT FROM THE MAP
+doc·value·biscuit·next·log-reducer  10 B  arity 0  ⇒ green, nothing excluded or invalid
 ```
-⇒ ⭐⭐ **A DOOR WITH `ExUnit.configure(exclude: …)` — most doors running a divergence or slow
-population — WRITES A LARGE MARKER ON A PERFECTLY GREEN RUN.** ⛔ **I labelled `markdown` and `cell`
-RED in my own table by inferring outcome from size, which is exactly the inference the fact would
-license — a false label on its first use, before the fact was even filed.** `markdown` caught it with
-its captured output; `cell`'s own report says *0 failures, 19 invalid*.
-✅ **What the marker DOES give, free and retroactively: `mix test` REACHED THE MARKER since T
-(narrower than "compiled" — `doc`'s validating run compiled nothing), and the size of its re-run set.**
+⇒ ✅ **SETTLED: the marker is written unconditionally; `doc-sync`'s arity-1 map holds its failing
+test's NAME in a tree with no exclusions; `commonplace`'s controlled case (8 excluded, arity 0) shows
+EXCLUDED tests do NOT populate it.** ⛔ **NOT SETTLED: `log`'s arity 3 fits no arithmetic anyone has
+offered, and four doors generalised from runs where only ONE non-passing category was present.**
+⛔⛔ **DO NOT READ OUTCOME OFF THE SIZE.** `markdown` and `cell` both ran **GREEN BY FAILURES** with
+large markers — **and I labelled both RED in my own table by inferring outcome from size, which is
+exactly the inference the rule would license. A false label on its first use, before the rule was
+even filed.**
+⚠️ **AND A CIRCULARITY WORTH THE WARNING (`merkle` caught it in my table): I listed its 10-byte marker
+as a GREEN data point, but "green" had been INFERRED FROM the 10 bytes — then counted as evidence
+FOR the rule.** ⭐ **Only rows with an independently captured run summary are evidence. Keep `doc`
+(168/0), `value` (156/0), `biscuit` (80/0), `next` (190/0); strike the inferred ones.**
+✅ **What the marker DOES give, free and retroactively: `mix test` REACHED THE MARKER since T —
+narrower than "compiled", since `doc`'s validating run compiled nothing.**
 ⚠️ **LAST run only · no count of runs · version-dependent ExUnit encoding · exclusion-dependent.**
 ⛔ **A FORENSIC READ, NOT A CONTRACT. Do not build a gate on it.**
+⭐ **Arity lives at BYTE OFFSET 6 (`od -An -tu1 -j6 -N4`). An off-by-two reads a map KEY and returns
+a plausible six-figure number — `cell` caught that only because its check PRINTED THE DISAGREEMENT
+instead of hunting for a reading that agreed.**
 
 ⛔ **WHY ENUMERATION DIES (`merkle`'s axis, checked at four doors): ON AN ALREADY-COMPILED TREE
 `mix test` RECOMPILES NOTHING AND REWRITES EXACTLY ONE FILE — so N runs collapse to 1 FOR ANY N,
