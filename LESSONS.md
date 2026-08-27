@@ -22853,3 +22853,42 @@ into the log — so you wait on the right pid and judge by the artifact, never b
 It carries a retirement condition.
 
 **Related:** §7x223, §7x228, §gate-verification-both-arms, §a-filed-artifact-fires.
+
+## 7x230 — the source you READ is not the source that RAN
+
+**2026-08-27T14:47Z.** jes ruled *"we should formalize the upstream directories somehow, but not
+vendor them."* I measured the two untracked clones in `yelixer` rather than describing them, and
+**deliberately proposed no mechanism** — the first mechanism named becomes the default by accident.
+
+⭐⭐ **The measurement exposed a distinction nobody had stated: there are TWO upstream references with
+DIFFERENT JOBS, and only one was unformalized.**
+- The **executable oracle** — already pinned and required: `test/fixtures/package.json` names
+  `yjs-stable` **13.6.32** and `yjs-preview` **14.0.0-16**, CI installs both and raises on a missing
+  one.
+- The **readable source reference** — the two clones, what a person reads to understand upstream
+  behaviour. ⛔ *It is not an oracle and must never become one*: a clone is easy to reach for when a
+  test is inconvenient, and a parity check run against a working tree nobody pinned is **a check with
+  no referent.**
+
+⛔⛔ **And the requirement that only the version numbers could reveal: the readable reference must pin
+the SAME versions as the executable oracle — and it did not.** The oracle tests **13.6.32**; the clone
+on disk was **v14.0.0-rc.1**. ⇒ **Anyone reading `yjs/` to explain a conformance failure is reading a
+different implementation from the one that failed.** ⚠️ *That produces confident wrong explanations
+rather than errors, which is the expensive kind.*
+
+**⛔ The trap attached to the obvious fix: ignoring the directories WITHOUT recording the versions
+loses the fact and looks tidy.** So the `.gitignore` and the manifest ship in the same change or
+neither does.
+
+**Two of my own observations that became requirements:** the clones are untracked and un-ignored, so
+`git status` there is **permanently dirty** — any landing gate reasoning about a clean tree is
+reasoning about a state that never occurs. And 222M (57M + 165M) sits in the worktree.
+
+⭐ **On not naming a mechanism:** plan gave a default (manifest + fetch script + `.gitignore` + a
+three-outcome verify: green / red on drift / **blind** when absent) and explicitly kept submodules
+alive as the standard answer **with their costs stated rather than assumed** — 222M on a default
+clone, a fenced flow that already trips on things absent from a plain `git clone`, and a submodule
+update being a footgun in exactly the §7x227 *successful-operation-that-accomplishes-nothing* shape.
+**Measure and choose**, with the choice left to the repo.
+
+**Related:** §7x227, §7x220 (the adjacent referent), §doc-drift-vs-never-true, §7x229.
