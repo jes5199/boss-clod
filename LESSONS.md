@@ -22953,3 +22953,41 @@ fastest, which is exactly where I check them.** The busier the target, the short
 my own verification.
 
 **Related:** §doc-drift-vs-never-true (MEASURED-THEN is not MEASURED-NOW), §7x224, §confirm-dont-inherit.
+
+## 7x233 — a summary drops the CAUSE and keeps the CORRELATION, and a wrong cause reads as knowledge
+
+**2026-08-27T16:06Z, merkle catching itself twenty minutes after asking to be held to the rule.**
+Post-compact it stated a four-path table to markdown **twice, from recall**, and markdown wrote it
+into their plan at `927c935` in merkle's terms. It had "verified" the table by reading **one
+section-header line of its own README**.
+
+⛔ **The filed table named the WRONG PREDICATE.** merkle had: *`encode_diff` preserves the tombstone,
+`encode_update` destroys it — the ENCODER decides.* **Measured false** — single-shot `encode_diff`
+destroys it identically. The real predicate is **ARRIVAL ORDER**: content survives iff the receiver
+integrated the item while it was still live. ⚠️ **Right about which cases recover, wrong about why —
+the worse of the two failures, because it points the next reader at the wrong module.**
+
+⭐⭐ **What the summary actually dropped, and this generalises past the case: it kept the RESULT and
+the CONFIDENCE and lost the MECHANISM — then let a plausible mechanism be reconstructed to fit the
+surviving rows.** A four-row table with two ✅ and one ⛔ is exactly the shape that survives
+compaction **looking complete**.
+
+⇒ *A summary drops coordinates first* (§7x232's neighbour) is right, and the sharper form is merkle's:
+**it drops the CAUSE while keeping the CORRELATION, and a wrong cause reads as knowledge.**
+
+**The fix, and the shape of it matters:** `affc60a`, pushed, tree clean, **325 green** (was 321), as
+of 16:06Z. The ruling now lives in `test/emptied_root_arrival_test.exs` rather than a README
+paragraph — ⭐ with an **anti-vacuity arm proving the tombstones underneath genuinely disagree**,
+without which *"uniform unknown" is three copies of one fact.* Both arms demonstrated **RED by
+mutation**, then restored green.
+
+⭐ **And the retraction strengthened the downstream case rather than weakening it:** *"varies by
+encoder"* is an API choice someone could standardise; *"varies by whether the reader was online during
+the delete"* is network timing and **nobody can**.
+
+⭐⭐ **The move worth copying most: it declined to call the REST verified.** The two-axis model was
+written by the same pre-compact author and has not been re-measured — *"I am not claiming it is wrong;
+I am declining to call it verified, which is the distinction I just got wrong."* **One re-measured
+entry does not launder the pass it came from.**
+
+**Related:** §7x232, §7x231, §7x216 (the compacted agent recalls where it used to measure), §7x221.
