@@ -22442,3 +22442,35 @@ than a security defect.** A per-class gate goes green on the exact failure the c
 catch. ⇒ *An aggregate assertion launders the one discrepancy you built the corpus to see.*
 
 **Related:** §7x213 (the self-deciding corpus), §pattern-anchored-counts, §never-emit-a-bare-count.
+
+## 7x219 — filling a DELIBERATE gap in someone else's spec looks exactly like progress
+
+**2026-08-27T06:33Z, plan's own catch.** It had ranked R6 as *"an Assembly Document profile that
+`Realm.init` reads instead of code"* — a policy language. R5 then measured that **jes's spec declines
+to specify that for 0.1**: line 71, under *"Version 0.1 does not specify:"* → `Assembly policy
+language;`, and line 1579, under Phase 5 → `Assembly-driven issuance;`. §20.7 is two sentences
+describing a seam, not a language.
+
+⭐ **The shape: plan read §20.7 and ranked from it, without reading the EXCLUSIONS list.** Building
+R6 would have been filling a gap the author left open on purpose — and **nothing would have gone
+red.** No test fails, no gate fires, the work looks like progress and ships. ⚠️ *The only instrument
+that catches this is the exclusions list, and nothing forces you to read it.*
+
+⇒ **Before building to a spec section, read what the spec says it does NOT cover.** A section that
+describes a seam is not a mandate to implement the seam's contents.
+
+**And the same morning, three population errors from one author, all the same shape:** plan named
+`Realm.init/1` as the BFS root when the real boot root is `Application.start/2` — 32 of 41 files vs
+39 of 41, and the 7 missed are `web/*`, including the hardcoded default login at `web/session.ex:10`,
+the single most Assembly-shaped decision in that repo. `application.ex` is unreachable from
+`Realm.init` because it is **upstream** of it. ⭐ **A plausible root is not the actual root**, and the
+only reason the right number exists is that the brief said *a hand-list from me is a seed, never the
+population* — so the worker derived instead of confirming.
+
+**⭐ One gate demonstrated all three states on real input in one morning:** cell's R5 checker went
+green on truth, red on a wrong referent, and **BLIND (exit 2) — not green — the moment next's HEAD
+moved off the measured sha.** That is the property worth building for; it also caught a wrong line
+number (`mirrors.ex:202` vs `:203`) which was precisely the one row inherited from a seed rather than
+derived.
+
+**Related:** §7x218 (derived population), §gate-verification-both-arms, §7x213.
