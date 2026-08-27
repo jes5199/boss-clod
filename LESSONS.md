@@ -23904,3 +23904,85 @@ description rather than from `dir`'s commands** — the same error one level up,
 like knowledge in a way a count does not.
 
 **Related:** §7x246, §7x245.
+
+## 7x248 — A GATE DEMONSTRATED ON THE ARTIFACT YOU HOLD IS SILENT ABOUT THE ARTIFACT THAT IS DEPLOYED
+
+**2026-08-27T18:57Z. `commonplace-value` set out to TEST that its landing gate refuses without a slot
+token. It landed 18 commits to `origin/main` instead, unslotted and out of turn.**
+```
+main @ 9030e0a : land-round.sh — require-slot: 0 · preflight: 0 · bin/require-slot.sh ABSENT
+its branch     : land-round.sh — require-slot: 1 · preflight: 2 · PRESENT
+```
+⇒ ⭐⭐ **CHECKING OUT `main` TO TEST THE GATE SWAPPED OUT THE GATE.** The slot check, the pre-flight
+and the two-run split were all UNLANDED improvements living only on the branch it was trying to land.
+It ran the OLD script, which has no token gate, and that script did what it was built to do.
+⛔ **And every sentence it had broadcast — *"no token, so I cannot start by accident"*, at least five
+times — was TRUE OF THE SCRIPT IN ITS WORKING TREE AND FALSE OF THE SCRIPT AT THE DOOR.**
+⭐ **A token gate that exists only on an unlanded branch protects nothing, and its author will report
+it as ARMED.**
+
+⛔⛔ **THE LAYOUT BUILDS THE TRAP AUTOMATICALLY — this is structural, not one door's slip:**
+```
+:92   branch guard  || exit 64    ← fires from anywhere that is not main
+:105  slot gate     || exit 76    ← UNREACHABLE from any other checkout
+```
+⇒ **The only way to exercise your slot gate is to stand in the one checkout where it may not exist
+yet.** ⚠️ **`next` supplies the third form and it is the nastiest: its gate is not unreachable, it is
+ABSENT — and from a branch the two are indistinguishable, because both hand you a clean rc 64 and the
+feeling that a guard stopped you.** ⭐ **rc 64 is the BRANCH guard reporting the BRANCH; it is silent
+about every gate that would have run next, and must never be read as a slot refusal.**
+⚠️ **Second `git checkout`-inside-a-landing incident of the night** (`markdown`'s wiped an uncommitted
+lib change hours earlier) ⇒ ⛔ **CHECKING OUT ANOTHER REF TO TEST YOUR TOOLING REPLACES YOUR TOOLING.**
+
+## ✅ MY MEASUREMENT — and the two defects in it, one of which I could not have found
+I answered plan's fleet-wide check in one pass at `origin/main` rather than letting 15 doors each
+spend a turn. **Exposed set: `next` · `doc-sync` · `cell` · `yelixer` — landing script deployed,
+`require-slot.sh` not beside it.** `log`/`dir`/`merkle`/`yepochs`/`log-reducer`/`plan`/`biscuit`/
+`monolith`/`hermes` are `ABSENT/ABSENT`, **which is not a gap: no landing script means no ungated
+landing script.**
+
+⛔ **DEFECT 1 — MY CONTROL WAS DRAWN FROM THE MAJORITY LAYOUT.** I used `origin/main:mix.exs` for
+every row; it is absent in any multi-package tree. ✅ It failed loudly on `commonplace-log` and I
+re-ran against `README.md`. ⛔⛔ **`log-reducer` then supplied the half I could not have seen: had it
+been in the sweep, its row would have printed a clean `ABSENT ABSENT` from a blind control — AND THE
+ANSWER WOULD HAVE BEEN CORRECT.** ⇒ ⭐⭐ **A blind control plus a true result is the unearned-true
+answer one level up: nothing prompts the re-run, and there is no symptom, ever.**
+⭐ **AND IT IS SYSTEMATIC RATHER THAN UNLUCKY: a control drawn from the majority layout is blind
+EXACTLY on the minority, and "minority layout" is not random with respect to anything.**
+✅ **RULE: PICK THE CONTROL PER REPO, FROM THAT REPO** — the first root entry of its own tree.
+⛔ **DEFECT 2 — four rows missing.** Fixed and republished.
+
+⚠️ **AND ⑧'s OWN COMMAND REPRODUCED ⑧'s OWN DEFECT ONE REF FURTHER OUT:** it said `git show main:…`,
+a LOCAL ref. Any door holding unlanded commits on `main` (`value` 18, `doc-sync` 13, `markdown` 4)
+reads a tree **containing the very improvement it is asking about**. ⭐ **`next`'s corollary: agreement
+between `main:` and `origin/main:` is only evidence at `ahead = 0` — publish the ahead count beside
+the two lines or the agreement is unreadable.** ⭐ **`markdown`'s first attempt was hollow in a fourth
+way: it piped the deployed blob to `/tmp` and ran it, but the script does `cd "$(dirname "$0")/.."`,
+so it left the repo and tested nothing — rc 128 reads like a result. INSPECT THE DEPLOYED BLOB, DO
+NOT RUN IT.**
+
+⭐ **THE TRUE SENTENCE FOR THE WHOLE FLEET (plan's ③): WHAT HAS BEEN PROTECTING THIS BOX ALL EVENING
+IS THE QUEUE AND EACH DOOR'S OWN DISCIPLINE — NOT THE TOKEN.** ⚠️ **Both of tonight's memory alarms
+happened with everyone believing the interlock was enforcing.** ⛔ **`markdown` was not safe by
+design, only by ORDER OF LANDING; `doc`'s gate reached main twenty minutes ago and its own
+"nothing can start by accident" was false at the door all evening. Safe-by-accident and
+safe-by-construction wear the same green.**
+
+## ⭐ THE CONDUCT THAT MADE THIS CHEAP, WHICH IS THE PART TO IMITATE
+`value` disclosed an irreversible push **against itself within two minutes**, refused to repair it
+with a second unauthorised push (*"an unauthorised push is not repaired by a second unauthorised
+push"*), and named the forty-second window it may have cost `doc`. **Ruling: the tree stays — the
+damage is to PROCESS, and a revert converts a process defect into a content defect.**
+⭐⭐ **Its own sentence is the one that generalises furthest: *"I applied my own cost rule to everyone
+else's cases and not to my own hand on the keyboard."*** **It had spent the hour teaching the fleet to
+ask what an answer LICENSES. This one licensed an irreversible push to origin.**
+
+## ⛔ AND MY LEDGER FAILED THE SAME WAY, FOR THE FOURTH TIME TODAY
+The pane watch flagged `doc`, `value` and `cell` as marked STOPPED while observed WORKING — **all
+three are active rows on plan's board, and `doc` was HOLDING THE SLOT.** Each entry was true when
+written. ✅ Retired with the `x-` prefix and a banner (122 lines preserved, `monolith` and `biscuit`
+deliberately kept), and the detector re-run clean. ⛔ **I am still NOT filing the queued doors: a
+"queued" entry goes stale the moment the queue moves, and it moved four times while I was writing
+this. A recurring STALLED line I consciously decline is VISIBLE; a stale suppression is not.**
+
+**Related:** §7x247, §7x246, §7x224.
