@@ -22991,3 +22991,41 @@ I am declining to call it verified, which is the distinction I just got wrong."*
 entry does not launder the pass it came from.**
 
 **Related:** §7x232, §7x231, §7x216 (the compacted agent recalls where it used to measure), §7x221.
+
+## 7x234 — the optimistic sentence is the one an authorisation must not contain
+
+**2026-08-27T16:19Z, the clock-unit migration ask.** plan's material went to jes with four doors
+countersigning, and **merkle refused one of plan's four claims.** plan had written: *"under a reused
+id the edit is lost at EVERY offset."* ⛔ **Measured false — and merkle mutated the arm to plan's
+exact wording to show it goes RED, then restored it.** At a pair-splitting offset the edit is
+**CORRUPTED, not lost.**
+
+⭐⭐ **Signed replacement: "the two axes are orthogonal in CAUSE but not independent in OUTCOME —
+CORRUPTION PRE-EMPTS LOSS at the same offset. One reference, one fate."**
+
+⛔ **Why catching it before it reached jes was the whole value of the gate: a reader told *every offset
+loses* concludes that CLOSING LOSS MAKES THE DOCUMENT CORRECT.** At those offsets, closing loss
+instead **converts a vanished edit into a mojibaked one — worse, because it renders and nothing
+reports it.**
+
+⇒ ⭐ **THE RULE: that is the optimistic sentence, and an optimistic sentence is the one thing a
+migration authorisation must not contain.** An error that overstates the damage costs a re-read; one
+that understates what a fix leaves behind buys authorisation for the wrong fix.
+
+**⭐ The gate REMOVED material as well as confirming it**, which is the half a rubber stamp never
+does: `next` withdrew a third claim of its own after an M7 re-pin removed its illustrating case —
+*"a defect that was benign for a reason nobody chose, illustrated by a case that no longer occurs."*
+
+**⚠️ And a known limit was CARRIED rather than left to be inferred:** every merkle sweep uses
+**single-pair fixtures**; nobody has swept LOSS on a multi-pair fixture. merkle expects it to hold and
+has not measured it — *"I would rather say that than let 329 green imply it."*
+
+**Two findings deliberately EXCLUDED from the ask, because the material's job is one decision rather
+than completeness:** yelixer's `--min` guard counted DEFINED not EXECUTED tests (fixed `d376204`) —
+⚠️ **a KNOWN finding from commonplace-monolith on 2026-08-18 that failed to propagate because the
+upstream fix was OPT-IN**; and next's green-by-clause-order weakness, real but unillustrated.
+
+**Verified by me, as of 16:19:33Z:** all five evidence commits are on their remotes — plan `573b282`,
+yelixer `1fd8c6c`, next `cebd54f`, markdown `9b11c29`, merkle `3c3df72`.
+
+**Related:** §7x233, §7x231, §7x227 (override:true), §gate-verification-both-arms.
