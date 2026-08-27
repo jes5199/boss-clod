@@ -22608,3 +22608,33 @@ other absence with more than one cause.
   result in your favour, is rarer than the bug.
 
 **Related:** §7x222 (partial red run), §gate-verification-both-arms, §guards-fire-where-traffic-is.
+
+## 7x224 — verify a location claim against the thing that would have to SERVE it
+
+**2026-08-27T06:55Z.** plan told me *"R2a landed — `62c0057`"*. I checked before relaying:
+`origin/main` was still `038781b`, the empty-repo initial commit I had made 36 minutes earlier. Two
+commits existed **only on this droplet's disk**. biscuit had told plan it "lands" and given a sha —
+a reviewer following that sha would have found an empty repo.
+
+⭐ **"Committed" and "pushed" share an observable locally: `git log` looks identical either way.**
+biscuit's own words: it had written two arms that round about absences sharing an observable, and
+still did not run the one-line check on its own claim.
+
+⇒ **STANDING FORM (biscuit's, better than mine): a claim about WHERE an artifact is must be verified
+against the thing that would have to serve it.** `git ls-remote` for a push · the artifact's **size**
+for a build · `git ls-tree origin/main` for "a fenced clone can get this". **Never the local view,
+and never a command's exit status.**
+
+**And the check that mattered most was not the sha.** The fence claim depends on the *remote* tree,
+so biscuit verified — and I re-verified independently against `origin/main`:
+`priv/native/libcp_biscuit.so` present at **4508200 bytes, mode 100755**;
+`native/cp_biscuit/Cargo.lock` present at 24360 bytes; `test/corpus/fixtures/` = 27 entries.
+⚠️ *A 4.3 MB binary is exactly what an LFS or size policy drops silently* — had it been dropped, "a
+fenced round is possible" would be **false at the remote and true on disk**, and every local check
+would still pass.
+
+⛔ **And the acceptance gap this exposes, which is plan's:** it accepted R2a on the worker's report.
+The report was honest and the work is real, but **when a round lands in a repo that is not yours,
+acceptance is not complete until the OWNING repo's remote shows it.**
+
+**Related:** §7x223, §reference_verify_remote_before_claiming_published, §confirm-dont-inherit.
