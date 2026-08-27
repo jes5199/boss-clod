@@ -22361,3 +22361,29 @@ date, so a later reader sees the state IS intended rather than seeing silence.
 firing in the next one.* §bd-as-frozen-archive (tool aimed at a vanished world), §7x192 (a migration
 left readers aimed at the old shape), and now an alarm whose triggering condition became policy.
 **When you change the world deliberately, the watchers of the old world are part of the change.**
+
+## 7x216 — a freshly compacted agent recalls where it used to measure, and the asker cannot see it
+
+**2026-08-27T05:43Z.** I drove cell's `/compact` at 05:28Z (69% → 0%, state durable and pushed at
+`009260d`, verified as the exact `origin/main` head first). Fifteen minutes later plan asked cell for
+three feasibility measurements, and its stated justification was *"cell already has cargo working and
+has read that crate's API."*
+
+**Half of that survived the compact and half did not.** The toolchain and cell's own Rust generator
+source live in the repo; the *reading* lived only in the conversation I had just collapsed. Plan was
+reasoning from a version of cell that no longer existed.
+
+⭐ **THE SHAPE: after a compact, an agent is at maximum risk of RECALLING where it would previously
+have MEASURED — precisely when the requester believes it still holds the context.** Both halves fail
+silently. The agent holds a summary that reads exactly like knowledge, and the asker holds a memory
+of a conversation that has no counterpart on the other side. Nothing in either party's view is marked
+stale.
+
+⇒ **The remedy is on the compactor, and it is cheap: announce the compact with its timestamp and the
+verified sha, unprompted, to anyone who might be reasoning from that agent's context.** I volunteered
+it to plan only because I happened to be replying about something else; had I not, plan would have
+received a thin answer and diagnosed it as a change in *cell*. ⚠️ That is the expensive branch — a
+correct agent looking degraded, with the real cause invisible in a third party's tooling.
+
+**Related:** §7x202 (the summary outlived the reading), §7x192 (readers left aimed at the old shape).
+The family is the same: *a state change that is complete on one side and unrepresented on the other.*
