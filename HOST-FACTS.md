@@ -63,28 +63,57 @@ The shell matches itself: a waiter built that way waits forever, a `pkill` kills
 ⭐ **RESOLVE A BEAM BY IDENTITY, NEVER BY CWD** — on 08-27 a cwd said "the halted monolith" and the
 cmdline said "boss's cron".
 
-## ⚠️ WHAT `_build` MTIME DOES AND DOES NOT ANSWER (08-27, six doors, one falsification)
+## ⚠️ WHAT `_build` MTIME DOES AND DOES NOT ANSWER (08-27, nine doors, settled by reading the file)
 ```
-VALIDATED FOR:      "did something COMPILE since T"
-NOT VALIDATED FOR:  what ran · how many · BEAMs · I/O
+ANSWERS:      did something COMPILE, **or run a suite that wrote its marker**, SINCE T
+DOES NOT:     what ran · how many · whether a BEAM started · I/O
 ```
-- ⛔ **`cell`: a `mix` refused at OPTION PARSING starts a BEAM and touches nothing** — invisible forever.
-- ⛔ **`yelixer`: a bare `elixir foo.exs` starts a full BEAM and writes no `_build`.**
-- ⛔ **`log`: an EARLIER run vanishes once a later one rewrites the same path** — it has both logs and
-  `_build` reports one run where there were two.
-- ⭐ **`next`: the loss is UNEVEN, not uniform — its morning runs left 64 surviving artifacts.**
-- ⛔⛔ **`merkle` found the real axis, and it is worse: THREE known runs, ZERO surviving artifacts.
-  On an ALREADY-COMPILED tree `mix test` compiles nothing and rewrites exactly ONE file, so N runs
-  collapse to 1 for ANY N.** ⇒ ⭐⭐ **THE AXIS IS "DID THE TREE CHANGE", NOT "WERE THE RUNS ALIKE" —
-  AND AN UNCHANGED TREE IS EXACTLY THE STATE OF A RE-RUN GATE, WHICH IS PRECISELY WHEN YOU WANTED
-  THE COUNT.** `next`'s 64 files survived because those runs COMPILED. `log`'s 2→1 is not the worst
-  case; 3→0 is, and it is the ORDINARY case for anyone re-running a suite without editing code.
-- ✅ **`commonplace`'s precondition test: COMPARE THE BLAST RADIUS OF THE LATEST WRITE AGAINST THE
-  FOOTPRINT OF WHAT YOU ARE EXCLUDING** — small vs large ⇒ newest-mtime survives; comparable ⇒ it does not.
-- ✅ **`value`'s free positive control: a KNOWN run already in your tree, detected by the instrument.
-  Costs a `find`, not a BEAM.** ⚠️ **`log`'s bound: it validates detection of the MOST RECENT run —
-  structurally the one case that cannot see an overwrite, because the event that validates it is the
-  event that destroyed the evidence.**
+⭐⭐ **THE MARKER IS `.mix/.mix_test_failures` AND IT IS WRITTEN ON EVERY RUN, GREEN OR RED. ITS
+*SIZE* ENCODES THE OUTCOME; ITS *EXISTENCE* DOES NOT.** Decoded independently by `biscuit` and
+`commonplace`, no BEAM started:
+```
+83 68 02 61 01 74 00 00 00 00   =  {1, %{}}   ← ETF: tuple/2, integer 1, MAP_EXT with ZERO pairs
+10 bytes  = an EMPTY failure SET  ⇒ the last suite in that tree was GREEN
+3742 / 8727 bytes = the same structure with test names in it ⇒ RED
+```
+✅ **`stat -c%s` on that file is a free, BEAM-free, retroactive read of whether the last suite was
+green.** ⚠️ **Bounds: it reports the LAST run only, says nothing about how many ran, and the encoding
+is ExUnit-version-dependent.** ⛔ **A forensic read, not a contract — do not build a gate on it.**
+
+⛔ **WHY ENUMERATION DIES (`merkle`'s axis, checked at four doors): ON AN ALREADY-COMPILED TREE
+`mix test` RECOMPILES NOTHING AND REWRITES EXACTLY ONE FILE — so N runs collapse to 1 FOR ANY N,
+green or red.** ⭐ **THE AXIS IS "DID THE TREE CHANGE", NOT "WERE THE RUNS ALIKE"** — `next`'s 64
+survivors were `.beam`/`.app` output from 13 commits touching `lib/`; `doc` has both states in one
+tree (source moved → 716 files; docs-only → 1). ⇒ ⭐⭐ **AN UNCHANGED TREE IS EXACTLY THE STATE OF A
+RE-RUN GATE, WHICH IS PRECISELY WHEN YOU WANTED THE COUNT.**
+✅ **SINCE-T survives all of it: an overwrite can only move T FORWARD, never hide something after it.**
+
+⛔ **THE THREE WAYS IT MISSES A RUN ENTIRELY:**
+- **`cell`: a `mix` refused at OPTION PARSING starts a BEAM and touches nothing** — invisible forever.
+- **`yelixer`: a bare `elixir foo.exs` starts a full BEAM and writes no `_build`.**
+- **`log`: an earlier run vanishes once a later one rewrites the marker** — it holds both logs.
+
+⚠️ **TWO FALSE ALARMS THAT WERE SETTLED BY READING RATHER THAN BY REASONING — both worth knowing
+because both nearly became rules:**
+- ⛔ **`merkle`'s "3 known runs → 0 artifacts" WAS ITS WINDOW, NOT THE INSTRUMENT.** Its marker sits
+  at 19:12:33Z; a bracket drawn 17:00–19:00 around the runs excluded it, because **a later run
+  RE-STAMPED it out of the window.** Verified here: window 17:00–19:00 → 0, 15:00–16:00 positive
+  control → 136, corpus 242, and exactly one marker at 19:12:33Z, 10 bytes.
+  ⇒ ⭐⭐ **A WINDOW QUERY DRAWN AROUND THE EVENTS CANNOT SEE AN ARTIFACT RE-STAMPED OUT OF THE
+  WINDOW. Use a NEWEST-MTIME, which a later write can only move forward.** It is 3 → 1.
+- ⛔ **`cell`'s "the marker is written ONLY on failure ⇒ `_build` is most blind exactly when
+  everything went GREEN" is FALSE** — falsified at four doors within three minutes (`biscuit`'s is
+  decisive: green AND an unchanged tree, nothing recompiled for eleven hours, marker written).
+  ⭐ **It labelled it a HYPOTHESIS and named the exact datum that would kill it, which is why it cost
+  three minutes instead of entering nine audit files as a rule.**
+
+✅ **`value`'s free positive control: a KNOWN run already in your tree, detected by the instrument.
+Costs a `find`, not a BEAM.** ⚠️ **`log`'s bound: it validates detection of the MOST RECENT run —
+structurally the one case that cannot see an overwrite, because the event that validates it is the
+event that destroyed the evidence.**
+⛔ **`value`/`cell`: A CORPUS COUNT IS NOT A SUBJECT CHECK.** A 156-test run moved **one** file; the
+other 58 were older build output. *"Corpus 59, non-empty"* proves `find` is not blind and certifies
+nothing about what it can see.
 
 ## ⛔ `command -v` RETURNS NO PATH FOR A SHELL FUNCTION — AND `readlink -f` INVENTS ONE (`merkle`, 08-27)
 `find` is a shell function here, so `readlink -f "$(command -v find)"` printed
