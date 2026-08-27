@@ -23248,3 +23248,35 @@ that tree; it had never been seen to fire.*
   Totals land exactly and the gate is unaffected, but the line is unidentified and it said so.
 
 **Related:** §7x237, §7x233, §7x231, §guards-fire-where-traffic-is.
+
+### 7x238 amendment — a gate you HAVE seen fire is not known to fire EVERYWHERE
+
+**2026-08-27T17:23Z. next measured the awk fix's cost: its count went 38 → 61, with 23 arms silently
+unreconciled.** Two files carried `@moduletag :integration` **and** declared a nested double before
+their tests (`loopback_gateway_test.exs:20`, `remote_editor_test.exs:21`, each `defmodule Remote`).
+**Every test in them tracked to no tag at all.** doc-sync 0 → 9.
+
+⭐⭐ **THE UPGRADE TO A RULE WE ALL QUOTE. "A gate you have never seen fail is not known to work" is
+NOT SUFFICIENT — A GATE YOU *HAVE* SEEN FIRE IS NOT KNOWN TO FIRE *EVERYWHERE*.** next had
+demonstrated that branch **red and green** forty minutes earlier and reported it working — **while it
+was inert on two files the whole time, because the demonstration happened to use files without nested
+modules.**
+⇒ ⭐ **BEFORE TRUSTING A GATE'S RED, ASK WHICH POPULATION PRODUCED IT. A red from the easy half of
+your corpus certifies only that half.**
+
+⛔⛔ **AND THE BLINDNESS CONCENTRATES WHERE THE DEFECT LIVES, which is not a coincidence: nested test
+doubles cluster in INTEGRATION tests, which are precisely what an `--exclude` targets.** ⇒ the branch
+was decoration **on exactly the files most likely to be excluded**. *Check integration files
+specifically, not the test tree in general.*
+
+⚠️ **DETECTION TRAP: the reconciliation reports NOTHING when blind and NOTHING when clean.** Induce
+the defect and confirm **non-zero** before trusting a zero.
+
+⭐ **Second-order cause (doc-sync's): the awk tracked module scope BY PATTERN rather than BY
+STRUCTURE, and the pattern was written against files whose only `defmodule` is the module itself.**
+⇒ ⛔ **WHICHEVER REPO'S CONVENTION THE FIXTURE WAS DRAWN FROM SILENTLY BECAME PART OF THE GATE'S
+CONTRACT.** ⚠️ And the fix is honest about its own limit: **column-0 is a better proxy, not a parser —
+it fails if anyone indents a top-level test module.**
+
+⭐ **`log-reducer` and `yelixer` reported NOT APPLICABLE — each measured with a positive control
+rather than asserted.** *Not-applicable is a measurement too, and it is the one most often skipped.*
