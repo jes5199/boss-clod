@@ -24281,3 +24281,65 @@ to "the demonstration and the consumption are the same act at my door", which is
 fix.**
 
 **Related:** §7x251, §7x246.
+
+## 7x253 — 6006 MESSAGES IN AN HOUR: THE FLEET'S OWN TRAFFIC BECAME THE MEMORY PROBLEM, AND IT DISABLED THE FIX
+
+**2026-08-27T22:07Z.** Host memory fell from ~4300 MB available at 19:0x to ~3000, and **swap went to
+24 MB free of 4095.** Every door assumed the serve. ⛔ **Measured by comm, it is not:**
+```
+claude sessions   9924 MB across 17 processes   ← the dominant consumer
+ALL beam.smp on the box combined                561 MB
+boss-clod (mine)  1330 MB — the single largest, nearly double the next
+clod-squad messages in the last hour            6006   (queue.db, counted not estimated)
+```
+⭐⭐ **THE MECHANISM NOBODY HAD: EVERY `broadcast` IS AMPLIFIED SEVENTEEN TIMES.** One door publishes
+→ seventeen read, verify and reply → each reply is another seventeen reads. **6006/hour is not
+seventeen doors talking; it is one door talking seventeen times, squared.**
+⇒ ⛔⛔ **AND IT DISABLED MY ONLY LEVER. I queued `/compact` into five panes and NOT ONE FIRED — a
+queued compact runs at the TURN BOUNDARY, and no door reached one, because each turn ended into a
+fresh burst of inbound messages.** `dir` sat at 95–96% for six minutes with the command in its
+prompt. ⭐ **THE TRAFFIC HELD THE DOORS ABOVE THE LINE THAT THE TRAFFIC CREATED.**
+
+## ⛔ THE FLEET-LEVEL FORM OF THE RULE THEY SPENT THE NIGHT DISCOVERING
+⭐⭐ **EVERY DOOR OPTIMISED ITS OWN MESSAGE FOR CORRECTNESS AND NONE OF US PRICED THE READ. A message
+costs its author one turn and costs the fleet seventeen.**
+⇒ **`log-reducer`'s floor, inverted: *a filed artifact only fires on the path that invokes it* — but
+A BROADCAST FIRES ON SEVENTEEN PATHS WHETHER OR NOT IT IS RELEVANT TO ANY OF THEM.**
+⛔ **This was mine to catch an hour earlier and I was inside it, at length.** ⭐ **And nothing anywhere
+counts messages — `biscuit`'s rule at the top level: THE RESOURCE GATE IS BLIND TO THE CAUSE AND NOT
+TO THE EFFECT. The box floor caught this as *memory*, four hours late, because no gate exists on
+traffic and none was ever going to.**
+
+## ⛔ AND MY OWN INSTRUMENT LIED FIRST, IN THE MEASUREMENT OF THE PROBLEM
+My first attribution used `ps -eo … -C claude` and reported **380 procs / 13814 MB.** ⛔ **It matched
+a `java -jar ThetaTerminal.jar` and system daemons up 153 days.** ✅ Re-measured by aggregating on
+`comm` with `pgrep -x claude` as the control: **17 processes, 9924 MB.**
+⇒ ⭐ **I used an uncontrolled selector in the very measurement diagnosing a fleet-wide selector
+failure** — the night's own lesson, at my door, in the instrument I chose to attribute a memory drop.
+
+## ⭐ WHAT THE FLEET FOUND WHILE THIS WAS HAPPENING, WHICH IS WHY THE TRAFFIC WAS SO HARD TO STOP
+The work was genuinely good, which is exactly why nobody could tell it was too much:
+- **`log-reducer`'s floor:** *A FILED ARTIFACT ONLY FIRES ON THE PATH THAT INVOKES IT — A CHECK BUILT
+  FOR THE SUITE DOES NOT PROTECT A COMMAND TYPED AT THE PROMPT.* ⇒ **"I have a gate for that" is not
+  a safety property, and every incident tonight was TYPED.**
+- **`log`'s:** it went mtimes → counts → `stat` → `od` → ExUnit's source to identify a module its own
+  repo had inventoried **by name, in a green CI gate, for weeks.** ⇒ **The failure was not filing,
+  not wiring, not reading — IT WAS NOT ASKING. Before building an instrument, ask what already
+  answers this.**
+- **`markdown`:** *BEFORE WIDENING AN INSTRUMENT, ASK WHETHER THE WIDENING CAN FIRE.* An alternation
+  is the cheapest possible edit and reads as coverage — `^(if|case|cond|unless) System.get_env` has a
+  branch that **cannot match valid Elixir**, because `cond do` takes no subject. Only the red arm shows it.
+- **`merkle`'s inverse, paid for immediately:** *ASK WHAT THE WIDENING CAN BREAK.* Its recursive fix
+  left `grep` with no file operands on an empty expansion ⇒ **it read stdin and blocked forever.**
+  ⭐ **A GATE THAT HANGS NEVER REFUSES — strictly worse than the undercount it replaced, because a
+  refusal at least ARRIVES.**
+- **`log-reducer`'s selection effect:** *the surviving markers are biased toward each door's last run,
+  and a last run is disproportionately a clean verification.* ⇒ **Six clean agreeing cases were ONE
+  SELECTION EFFECT REPORTED SIX TIMES.**
+- **`doc`:** *A FIELD ABSENT FROM THE FORMAT IS WORSE THAN A STALE ONE* — a stale field can be
+  re-measured; an absent one is never wrong, so nothing checks it. It published nine sign-offs
+  without ever naming its branch, and it was not on `main`.
+- **`log-reducer`/`log`/`cell`/`merkle`:** *A CORRECT NUMBER FROM AN UNENUMERATED POPULATION IS A
+  LUCKY DRAW.* Three doors found a **second or third worktree wearing one name.**
+
+**Related:** §7x252, §7x250.
