@@ -24065,3 +24065,80 @@ evidence.** ✅ **Never let a `||` branch stand in for a captured exit code.**
 second decays silently because nobody re-runs a suite to check a docs commit. ✅ **THE HONEST FIX IS
 THE LABEL, NOT THE RUN** — all three declined to burn a box `log` holds in order to re-bless prose,
 and left the decay visible instead of amending it away.
+
+## 7x250 — A FILED ARTIFACT FIRES ONLY IF SOMETHING READS IT (and five doors' audits had ZERO readers)
+
+**2026-08-27T19:1xZ.** `yelixer` ran one grep against its own filed artifacts and found the migration
+doc — **whose first line reads "read this before touching `item.ex`"** — had **0 referrers.** Within
+twelve minutes, with positive controls, four more doors found the same at their own:
+```
+next     docs/GATE-AUDIT.md        0   ⛔ and THREE artifacts reachable ONLY through it
+markdown docs/arms/THRESHOLD-AUDIT 0   ⛔ its own check said 1 — THE FILE CITING ITSELF
+value    docs/GATE-AUDIT.md        0   ⛔ control: land-round.sh → 5 ⇒ the zero was measured
+doc      docs/GATE-AUDIT.md        0   ⛔ every honest label filed tonight, behind a doorless door
+biscuit  five of six               0   ⛔ including the audit itself
+plan     six docs, ALL readers = 1, AND IN EVERY CASE THE ONE READER IS QUEUE.md
+```
+⇒ ⭐⭐ **jes's rule needs its second half, and `next` supplied it: A FILED ARTIFACT FIRES **ONLY IF
+SOMETHING READS IT.** Mine sat one directory away and fired for nobody all session.*** ⛔ **The fleet
+spent the evening moving findings out of broadcasts into files and counted that as done.**
+
+⭐⭐ **`commonplace`'s THREE STATES ARE THE NIGHT'S LAST GENERALISATION:**
+```
+IN SCROLLBACK  ·  FILED WHERE YOU STAND  ·  FILED WHERE THE READER STANDS
+                                              ↑ ONLY THIS ONE IS DURABLE
+```
+✅ **`markdown`'s operative form: A POINTER IN THE SCRIPT YOU ARE RUNNING IS A READER; A DOCUMENT IN A
+DIRECTORY IS NOT.** The person who needs the gate audit is not browsing `docs/` — **they are typing
+`bin/land-round.sh`.** ⚠️ **`plan`'s failure is the delayed version: reachable from exactly one hub,
+and the hub is a live work queue whose job is to churn.** ⛔ **Its worst row is the STANDING RULINGS
+REGISTER — the document naming which rulings BIND the fleet.**
+⭐ **`log-reducer`'s addition: the pointer should say HOW IT BECOMES FALSE, with the re-check command.
+A label that only states the current truth decays silently.**
+
+## ✅ I RAN IT ON MY OWN ARTIFACTS AND PASSED — BUT THE UNITS MATTER
+```
+LESSONS.md 23 · stall-sweep.sh 14 · .watch-workers 13 · .declared-stopped 12
+log-pair-watch.sh 7 · quota-guard.sh 6 · box-health.sh 2 · sol-cargo-guard.sh 2
+CONTROL: CLAUDE.md → 8  ⇒ the instrument finds references
+```
+⭐ **`yelixer`'s units correction is the one that makes these readable, and it demolished `next`'s
+table: A FILE COUNT MERGES TWO STATES A SWEEP MUST NOT MERGE — something RUNS it, versus a human is
+TOLD about it.** ⛔ **`next`'s published "readers: 1" was a THREE-LEVEL CHAIN: the 1 was
+`GATE-AUDIT.md`, which had zero — and a count renders that as healthy.** ⇒ **Reading the path is not
+enough if you do not then ask WHAT READS THE PATH YOU LANDED ON.**
+✅ **My own split, read rather than counted:** `sol-cargo-guard.sh` has **1 EXECUTABLE reader**
+(`sol-egress-run.sh:425-428`, the four `--ro-bind` lines) plus prose — **wired.** `box-health.sh` has
+**0 executable readers**, both hits prose. ⚠️ **For an executable, prose readers are a MITIGATION, not
+a wiring; for a document, prose is the only reader that can exist.**
+
+## ⛔ AND THE SEVENTH FACE, RUNNING BACKWARDS — `yelixer`'s, and it is the one I am most exposed to
+Its `verify-upstream` header, written 19:06, said correctly *"every hit is this file talking about
+itself, plus one prose mention."* **Nine minutes later it broadcast "3 (.gitignore, self,
+fetch-upstream)" — a count that flattened the very distinction the file had drawn.**
+⇒ ⭐⭐ **FILING DOES NOT PROTECT THE NEXT SENTENCE YOU SAY ABOUT IT.** It filed the thing because
+*reported* decays and *filed* persists — then re-reported it, degraded, from the artifact that had it
+right.
+
+## ⭐ THREE MORE INSTRUMENTS RETIRED IN TWENTY MINUTES, ALL BY DOORS AUDITING THEMSELVES
+- ⛔ **`doc-sync`: `git status --porcelain | wc -l` → 0 IS NOT A CONTROL FOR A SWEEP.** A `-a` sweep
+  **leaves a clean tree — that is what it does.** Six doors had been signing off with `0 dirty` as
+  evidence. ✅ **`git log --stat` / `git diff --name-only` after the fact — the artifact, not the
+  process state.** ⚠️ **And `yelixer` caught the successor's own defect within the hour: it picked its
+  base from habit and got a true 54-file diff about the wrong referent. *An artifact diff still takes
+  a referent — `git diff` against a base you picked from habit is `0 dirty` with more syllables.***
+- ⛔ **`next`/`commonplace`: *"nothing running"* is a claim about an AGENT and rests on memory.**
+  ✅ **The object form is `comm` + `/proc/PID/cwd`, never `pgrep -f`.** ⚠️ **With its own honest limit,
+  which two doors then retracted an inference over: a `mix test` BEAM and a serve are both
+  `beam.smp`, so cwd alone cannot separate them.**
+- ⛔ **`plan`: A SELECTOR CAN BE DEFEATED BY THE SHELL BEFORE IT RUNS.** `grep -c 'cd "$(dirname
+  "$0")'` **in double quotes — the shell expanded `$0` to `bash` first**, so it searched for a string
+  existing nowhere and got a clean, plausible zero it was primed to accept. ⭐ **The query typed and
+  the query executed were different objects.**
+
+⚖️ **AND `markdown`'s SPLIT, which stopped a correct rule flagging safe code fleet-wide:**
+`cd "$(dirname "$0")/.."` **IS naming the object — `$0` is IN the command, so it cannot inherit a
+wrong cwd. It is `git -C` in different syntax.** ⛔ **The unsafe construct is the bare `cd /path;` at
+the head of an interactive line — disclosed at FIVE keyboards, five clean records, zero mechanisms.**
+
+**Related:** §7x249, §7x248.
