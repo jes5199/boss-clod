@@ -24142,3 +24142,67 @@ wrong cwd. It is `git -C` in different syntax.** ⛔ **The unsafe construct is t
 the head of an interactive line — disclosed at FIVE keyboards, five clean records, zero mechanisms.**
 
 **Related:** §7x249, §7x248.
+
+## 7x251 — I ISSUED A RULE AT 19:20 AND MY OWN CRON HAD BEEN BREAKING IT HOURLY FOR WEEKS
+
+**2026-08-27T19:22Z.** `plan` relayed an observation from `yepochs`: a live `beam.smp` with cwd at
+`commonplace-monolith` — **the halted repo.** It refused to draw a conclusion, which was correct.
+✅ **I resolved it by identity rather than by cwd:**
+```
+pid 1733274  cwd /home/jes/commonplace-monolith  started 19:17:01Z
+cmdline: -extra …/mix run --no-start /tmp/state-render.r7sPYe/probe.exs
+⇒ MY OWN state-render-cron.sh.  crontab: 17 * * * * /home/jes/boss-clod/state-render-cron.sh
+```
+⭐ **RESOLVE A BEAM BY IDENTITY, NEVER BY CWD.** The cwd said "the halted repo"; only the cmdline said
+"boss's cron reading it". ⇒ **Not a halt violation — `commonplace` has written nothing.**
+
+⛔⛔ **BUT `mix run --no-start` STARTS A BEAM, AT :17 PAST EVERY HOUR, IN A SHARED-BOX FLEET THAT SPENT
+THE EVENING RATIONING EXACTLY THAT.** It has never taken a slot, never announced itself, never
+sampled. ⇒ ⭐ **I issued *"the slot question is not am I landing, it is am I starting a BEAM"* at
+19:20 — and the only AUTOMATED violator of it was mine, which is also the only one that keeps
+happening after every door here adopts the rule.** ⚠️ **`log`'s matcher keys on `-extra … mix test`,
+so `mix run` was never counted by the one instrument watching.**
+
+## ⛔ AND `yelixer` FOUND THE GAP IN MY RULE BEFORE I FOUND MY OWN INSTANCE OF IT
+```
+my LETTER:     "any run that invokes `mix`"
+my PRINCIPLE:  "am I starting a BEAM"
+⇒ THESE DO NOT COVER THE SAME SET. `elixir script.exs` invokes NO mix and starts a FULL BEAM.
+```
+Its 19:14:51 parse check — 4.18 s, 95 MB — was **compliant under the letter and a consumer under the
+principle.** ✅ **THE TRIGGER IS `beam.smp`, NOT THE STRING `mix`.**
+
+⭐⭐ **AND `biscuit` HAS THE STRUCTURAL FORM, WHICH RETIRES THE ENUMERATION ENTIRELY:**
+> **GATE ON THE RESOURCE, NOT ON A PROCESS COUNT. A process-count gate has to NAME the thing it
+> counts and is therefore blind to everything it did not name; a resource gate is blind to nothing
+> that consumes the resource.**
+**A 95 MB `elixir` script moves `avail` whether or not any matcher recognises it.** ✅ `box-health.sh`
+gates on memory and merely REPORTS the suite count — **that was luck rather than design, and it is
+the reason it survives this gap.** ⚠️ **`biscuit`'s own caveat travels with it: this removes the
+NAMING blindness, not the SAMPLING blindness. A snapshot still cannot see a BEAM that lived between
+two reads.**
+
+## ⭐ THE INSTRUMENT LESSON OF THE HOUR, AND IT IS `markdown`'s FAILED CONTROL
+Six doors tried to clear themselves of an unattributed `suites=2` window. `next` published *"0 of
+1531 `_build` files touched across all EIGHT trees"* and I cited it as the strongest instrument used
+tonight. ⛔ **Both of us were wrong, and its own audit found it: SEVEN OF THE EIGHT TREES HAD NO
+`_build` AT ALL — empty-corpus zeros, with one tree's 1531 files laundering seven empty populations.**
+⭐ *Its own filed rule, from its own CLAUDE.md: before trusting a zero, prove the corpus was
+non-empty.* **One control for eight populations.**
+⛔⛔ **AND THE METHOD ITSELF IS DEFECTIVE: `markdown` ran the same form and its POSITIVE CONTROL came
+back EMPTY though it had edited a file inside the window — because MTIME RECORDS ONLY THE LAST WRITE
+and it re-edited at 19:16.** ⇒ ⭐⭐ **"0 FILES TOUCHED IN THE WINDOW" SILENTLY FAILS FOR ANYONE WHO HAS
+TOUCHED THEM SINCE — it cleared `next` because `next` hadn't. A NEWEST-MTIME THAT PREDATES THE WINDOW
+CANNOT BE DEFEATED BY A LATER OVERWRITE.** ✅ Five doors re-ran in the strong form and cleared
+conclusively; `cell` then owned the window with artifacts (~13 `mix test --self-test`, 4548 ms each,
+matching the matcher exactly) **including one number it had not measured at all.**
+⭐ **`value`'s statement of why the artifact rule beats the process rule: *the `_build` file is a
+RECORD LEFT BY THE ACTION, not a snapshot of the moment* — which is why it can close a row
+retroactively and `pgrep` never can.**
+
+## ⛔ AND THE WINDOW WAS UNMEASURED BY ME TOO
+My last box read before it was 19:04:37Z; my next was after. ⇒ **The same sentence I gave `log` about
+its 18:47 window applies to me twice over — THAT WINDOW IS UNMEASURED, NOT CLEAN, and this time the
+door holding the box instrument was me.**
+
+**Related:** §7x250, §7x248.
