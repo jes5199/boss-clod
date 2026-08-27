@@ -23402,3 +23402,59 @@ matching form: `ps -eo pid,args | grep -E '[m]ix test'`; matching on `comm` immu
 **since prose cannot be an executable name.**
 
 **Related:** §7x239, §7x238, §gate-verification-both-arms, §a-filed-artifact-fires.
+
+## 7x241 — TWO WRONG MECHANISMS PRODUCING ONE AGREED NUMBER, and it reads exactly like corroboration
+
+**2026-08-27T17:59Z, and the claim was mine to relay: "the serve holds 2.6–2.8 GB in a standing
+allocation no test-hold reclaims."** I put it to the fleet twice and to jes twice. ⛔ **Withdrawn.**
+
+**The two sources agreed and were wrong in DIFFERENT WAYS:**
+- **`biscuit`: `VmSize 3020 MB`** — address space, reserved and never faulted in. ⛔ **Wrong quantity**,
+  costs nothing to hold, at any time.
+- **`hermes`/`commonplace`: `VmRSS 2605 MB` at 17:42** — ✅ **a TRUE measurement of what was genuinely
+  resident**, at a moment that did not last. **Same PID, never restarted: 2605 MB → 385 MB → 317 MB.**
+
+⇒ ⭐⭐ **ONE MEASURED THE WRONG THING; THE OTHER MEASURED THE RIGHT THING AT AN UNREPRESENTATIVE
+MOMENT. NEITHER CORRECTS THE OTHER, AND THEIR AGREEMENT CARRIED NO INFORMATION — but it read exactly
+like independent confirmation, which is what made the claim hard to doubt.**
+⭐ **The day's theme has been *a right-looking conclusion carrying a wrong mechanism*. This is the
+paired case: TWO WRONG MECHANISMS CONVERGING ON ONE NUMBER.** ⛔ **Cross-checking catches a lone bad
+instrument; it does not catch two bad instruments that converge — and convergence is precisely what
+we treat as licence to stop checking.**
+⇒ ✅ **The discriminator is not "do the numbers agree" but "ARE THEY THE SAME QUANTITY, TAKEN AT TIMES
+WHOSE DIFFERENCE WOULD SHOW."** That is *no count without a sha and a named population*, applied to a
+dimension nobody had named: **the quantity itself, and the clock.**
+
+⛔ **AND `biscuit`'s account of how it reached the wrong mechanism is the sharper half: `VmSize` is
+3020 and the quoted figure was 2.6–2.8 GB — close enough that FINDING VmSize LOOKED LIKE FINDING THE
+SOURCE OF THE ERROR.** ⇒ **A COINCIDENTAL NUMERIC MATCH MADE A WRONG MECHANISM LOOK CONFIRMED.** It
+had a discrepancy, found a number of about the right size, and stopped. **I relayed it inside sixty
+seconds without asking whether a decay could produce the same gap.**
+
+⭐⭐ **THE DURABLE RULE (plan's): RSS IS A MEASUREMENT WITH A HALF-LIFE AND WE ALL TREATED IT AS A
+PROPERTY.** ⭐ **`biscuit` then turned it on its own correction — "my 379 MB has a half-life too"** ⇒
+**the honest form is never a bare number but *"resident 385 MB at 17:56, having been 2605 MB at
+17:42"*.**
+
+⚠️ **`commonplace`'s corollary, which generalises past this file: THE ALARMING NUMBER IS ALWAYS
+ADJACENT TO THE CORRECT ONE.** `/proc/PID/status` offers **VmPeak 6050** (a high-water mark of address
+space, historical and unreclaimable by definition), **VmSize 2960**, **VmSwap 72** — three wrong
+figures and one right one (**RSS 317, decaying**). ⭐ **`merkle` found the same hazard in the other
+file: `free -m` column 3 (`MemFree` 2858) sits beside column 7 (`MemAvailable` 4740), 1.9 GB apart.**
+**Nobody read the wrong column tonight — recorded so the question is closed rather than assumed.**
+
+**⛔ AND THE DIAGNOSIS I GOT BACKWARDS, which the hold papered over:** top five by RSS were **four
+`claude` sessions and one `java` — ZERO `mix test`.** All BEAMs together 588 MB; the whole suite
+population ~183 MB. ⇒ **"Stop starting suites" reclaimed almost nothing. The standing footprint was
+US, sitting still.** ⭐ **The hold was still RIGHT — it stopped us ADDING ~250–500 MB per suite onto a
+downslope — but the hold being right and the diagnosis being right came apart, and only a like-for-
+like comparison separated them.**
+
+**⭐ One more control lesson, `biscuit`'s, worth more than the fix it came from:** its inventory
+scanner globbed top level only and reported **rc 0, "0 gated modules, 10 files scanned"** with the
+target sitting in a subdirectory. ⛔⛔ **ITS POSITIVE CONTROL DID NOT CATCH IT** — the control asserted
+the scanner read *something*, not the *right corpus*. ⇒ ⭐⭐ **A NON-EMPTINESS CONTROL DETECTS A
+SCANNER THAT READ NOTHING; IT CANNOT DETECT ONE READING THE WRONG POPULATION.** Necessary,
+demonstrably not sufficient.
+
+**Related:** §7x240, §7x239, §7x233, §7x237.
