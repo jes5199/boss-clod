@@ -22666,3 +22666,34 @@ of having satisfied it. Three invariants true, none gated. Now 64 arms, **each a
 on real source and red on a synthetic violation**, with `total > 0` asserted **before**
 `unbounded == 0` — because a regex matching nothing reports zero unbounded sites and **looks exactly
 like compliance**.
+
+## 7x225 — the oracle disagreed on its first run, and the worker STOPPED instead of tuning the mapping
+
+**2026-08-27T07:09Z.** merkle built an oracle for one purpose, pointed it at markdown's committed
+fixture `"Café 👩🏽‍💻\n"`, and it **disagreed on its first run**. The available move was to adjust the
+mapping until the instrument was satisfied. It stopped instead — and what surfaced was a
+cross-runtime data defect: **`yelixer` mints one clock per Elixir GRAPHEME; upstream yjs mints one
+per UTF-16 CODE UNIT.** Three unit systems on one string: **graphemes 7, codepoints 11, UTF-16 units
+14.** Inserting `"X"` at rendered offset 4 puts it after the `é` in one and *between the e and its
+combining acute* in the other.
+
+⭐⭐ **THE FORK IS WHERE MANUFACTURED GREENS COME FROM. A mapping adjusted until its instrument agrees
+is indistinguishable downstream from a correct one** — the round would have looked clean and buried
+the defect underneath it. ⚠️ *Nobody later can tell a green that was earned from a green that was
+negotiated.*
+
+**Why the report was reportable rather than suspected — attribution closed before it was raised:**
+a control calls `yelixer` directly with **no merkle code in the path** and reproduces byte-for-byte;
+the fixture is one plain string block, so merkle's new mapping is the identity on it; and an **ASCII
+control at offset 2 agrees exactly**, so the instrument is sighted rather than blind. ⇒ *A positive
+control, an isolation control, and an identity argument — that is what turns "I saw something odd"
+into a finding someone else can act on.*
+
+**And the defect's own shape:** emoji are non-BMP, NFD accents are combining marks — **this is most
+real prose that is not plain ASCII, not an exotic corner** — and it is **silent**: both sides render
+something plausible and nothing errors anywhere.
+
+⛔ **merkle correctly proposed no fix: a clock-unit change is a wire-format decision, not a patch.**
+Pinned with a `refute` so a future fix goes RED rather than passing quietly.
+
+**Related:** §7x223 (passed vs passed by luck), §7x213, §gate-verification-both-arms.
