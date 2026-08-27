@@ -22582,3 +22582,29 @@ answer was a confident, plausible one. Exactly §7x220's family, committed by me
 it.
 
 **Related:** §7x220, §7x218, §gate-verification-both-arms, §guards-fire-where-traffic-is.
+
+## 7x223 — "passed" and "passed by luck" share an observable; a once-per-case gate cannot see a RATE
+
+**2026-08-27T06:53Z, R2a's finding, and the most important of the day.** `biscuit-auth`'s
+`RunLimits::default()` is **1 ms of wall clock**, measured inside a *preemptible BEAM scheduler
+thread*. Treated as an ordinary failure, the timing probe contributed an **empty** failed-check set,
+so the diff read every currently-failing check as temporal — and `negative-wrong-source`
+intermittently decided **`expired`**. Measured: **2000 decisions, 43 wrong, 2.15%**.
+
+⭐⭐ **The 26-fixture conformance corpus passed green run after run while that was live.** A gate that
+runs each case **once** cannot see a defect that appears at a **rate**. ⚠️ *"Passed" and "passed by
+luck" are indistinguishable from a single green.*
+
+⇒ **It was found only because one flake refused to reproduce and the worker STRESS-RAN it instead of
+calling it transient.** ⛔ **"Transient" is a hypothesis with no mechanism** — the same shape as every
+other absence with more than one cause.
+
+**Two refinements from that worker, both better than the write-up:**
+- ⭐ **The dangerous shape is not the timeout — it is that `set_limits` is OPTIONAL.** So the check is
+  *"any `AuthorizerBuilder::new()` without a `set_limits` beside it"*, which is **greppable — a gate
+  where a lesson isn't.** Turning a hazard into a syntactic property is what makes it enforceable.
+- ⭐ **Its own caveat on its own green:** 3600 decisions with zero variance **bounds the rate below
+  ~1-in-3600; it does not prove zero.** Stating the bound your evidence actually supports, on a
+  result in your favour, is rarer than the bug.
+
+**Related:** §7x222 (partial red run), §gate-verification-both-arms, §guards-fire-where-traffic-is.
