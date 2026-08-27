@@ -198,6 +198,22 @@ Quota tool: `/home/jes/.local/bin/claude-quota`
 ### Rate Limit Recovery
 When workers hit the rate limit, they get stuck at a `/rate-limit-options` prompt. Fix by sending Enter via tmux to select "Stop and wait for reset." Check all panes — multiple workers often hit it simultaneously.
 
+## ⭐ HOST FACTS LIVE IN [HOST-FACTS.md](HOST-FACTS.md) — READ IT BEFORE MEASURING ANYTHING ON THIS BOX
+
+⛔ `find` is **bfs** (a `UTC` suffix on `-newermt` errors and `2>/dev/null` turns that into a clean
+zero) · `grep` is a **ugrep wrapper honouring .gitignore** · `$` is a **BRE anchor** so shell-quoting
+is not enough · the box is **UTC** but a truncated `%TH:%TM:%TS` sort ranks yesterday first ·
+`refs/remotes/origin/*` is a **local cache**, so `--not --remotes` says "pushed" from stale data ·
+my `state-render-cron.sh` starts a **BEAM at :17 past every hour** · `_build` mtime answers
+*did something compile since T* and **cannot count runs**.
+
+⭐ **WHY IT EXISTS (2026-08-27):** the bfs fact was filed at THREE doors — a per-door memory, a repo
+journal — and two more doors **rediscovered it from scratch four days later.** ⇒ **`log`'s fourth
+state: IN SCROLLBACK · FILED WHERE YOU STAND · FILED WHERE THE READER STANDS · ⛔ FILED WHERE ONLY
+YOU CAN STAND.** A box fact filed in a repo is the last one. ⚠️ **`markdown`'s discriminator, so this
+does not become fifteen drifting copies: COULD ANOTHER DOOR HIT THIS? If yes it needs a second home;
+if no it does not.**
+
 ## Key Files
 
 - `~/.bashrc` — `bossclaude`, `workerclaude` function definitions
