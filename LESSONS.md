@@ -22551,3 +22551,34 @@ on it.
   consulted before the general one and the two disagreed.
 
 **Related:** §7x220, §7x218, §7x208 (hold first-run numbers), §confirm-dont-inherit.
+
+## 7x222 — a PARTIAL red run is indistinguishable from a full one by its failure count
+
+**2026-08-27T06:49Z, dir's DIR-K1.** Sol's red-arm transcript read **`9 tests, 1 failure, 8
+excluded`**. It was a `--only line:N` run — **the second site's arm had never been seen fail.** dir
+reverted that hunk alone, ran it, and it goes red; its failure is the worse of the two.
+
+⭐ **The failure count cannot tell a partial run from a full one. Only the EXCLUDED count separates
+them.** `1 failure` looks like a demonstrated red arm whether the suite ran 9 tests or 1.
+
+⇒ **Standing form, now an appendix in `DISPATCH-CEREMONY.md` (dir filed it there itself rather than
+only telling me — a filed artifact fires): for a fix touching N sites, require N red transcripts,
+each naming its site, each carrying the full `N tests, F failures, E excluded` line, with E accounted
+for.** Same shape as the corpus lesson from the same morning: **a demonstration validates the ORACLE,
+the denominator validates the SCOPE.**
+
+**The defect itself is worth the shape too:** a whitelist of the root kinds that existed when the
+clause was written, at **two sites with opposite polarity** — `dir.ex:142` enumerated the
+not-directory kinds, so a later kind got the wrong *reason*; `dir_host.ex:2057` enumerated the
+document kinds, so a later kind got the wrong *answer* and was **checkpointed as a directory**. Both
+now key on the positive question.
+
+⛔ **And my own slip, in the act of verifying this:** I ran the sha check as
+`cd /home/jes/dirigible 2>/dev/null || cd /home/jes/commonplace-dir` — **`dirigible` exists**, so the
+fallback never fired and I measured the wrong repo, getting `NOT-PUSHED` for both shas. Re-run
+against `commonplace-dir`: both **PUSHED**, remote head is `a8ba09b`. ⚠️ *A `||` fallback silently
+selects the first path that exists, which is not the same as the path you meant* — and the wrong
+answer was a confident, plausible one. Exactly §7x220's family, committed by me minutes after filing
+it.
+
+**Related:** §7x220, §7x218, §gate-verification-both-arms, §guards-fire-where-traffic-is.
