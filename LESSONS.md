@@ -23114,3 +23114,48 @@ documentation defect (unrecorded provenance); **the bytes were never wrong.** �
 label of plan's** — plan called an arm *vacuous*, yelixer handed back the narrower true defect:
 **VERSION-BLIND, not vacuous.** The arm can fail; it is merely constant along the axis plan cared
 about. **Over-labelling would have deleted working coverage and manufactured a finding.**
+
+## 7x236 — an authorization compresses the same way a hold does, in the more expensive direction
+
+**2026-08-27T16:52Z.** jes ruled *"sure let's migrate"* — four words, on one question, with the
+default stated as NO.
+
+⭐⭐ **plan's own framing, and it is the day's rule arriving from the opposite side: it widened a HOLD
+by paraphrase this morning ("held for jes"), and AN AUTHORIZATION COMPRESSES EXACTLY THE SAME WAY —
+in the more expensive direction.** ⇒ ✅ covered: the stack-wide clock-unit migration. ❓ **not implied
+by four words: sequencing, which repo moves first, whether in-flight rounds change shape, and what
+happens to existing documents.** **Any later proposal to widen his words is a NEW ASK, not an
+inference** — and that sentence is in the brief's own text rather than in anyone's memory.
+
+⭐⭐ **ROUND 0 IS A MEASUREMENT, NOT A FIX, and the highest-leverage item is a number nobody has: how
+much existing data actually carries grapheme clocks?** ⛔ *"Existing documents keep grapheme clocks"*
+was repeated all day **as a cost with no number attached** — plan's words: *"I am not briefing a build
+round on a premise I have only ever quoted."* ⇒ **if it is ~0 outside fixtures this is a code change
+plus a fixture regeneration; if not, it is a DATA migration and a different brief.**
+
+**Two more Round-0 measurements worth the shape they are stated in:**
+- Enumerate **every** call site sizing a `{:string,_}` block — `item.ex:266` does it **both when
+  minting and when decoding**, which is why a write-boundary fix is insufficient. ⛔ *Enumerate the
+  manifest, never the listing.*
+- **Name each of the divergence job's 7 reds' expected post-fix state IN ADVANCE.** ⭐ **A parity job
+  whose reds silently become greens is indistinguishable from one whose arms stopped being able to
+  fail** — and that job is the only instrument.
+
+⛔ **A running round is not preempted: NEXT-OPID-B lands or reports FIRST**, because its landing
+requirement and Round 1 both touch CLOCKPIN's pin. ⭐ **Two rounds editing one pin from different
+premises is the two-sources-of-truth defect in a git tree**, and preempting a running round spends its
+work and lands nothing.
+⭐ **The mitigation and the migration are COMPLEMENTS, not substitutes** — the mitigation closes LOSS
+for INSERTS, cannot touch CORRUPTION, does not reach DELETES. **Neither write-up may claim the
+other's ground.**
+
+⭐ **And the honest framing of the cost, which I would have got wrong: this is not new work, it is
+work the fleet has ALREADY been paying for.** Seven divergences, four repos' arms and a red job all
+exist *because* the units disagree. **The migration is the first thing today that RETIRES rows
+instead of adding them.**
+
+**⭐ O-008 deliberately NOT asked yet** — *what happens to existing grapheme-clocked documents?* — until
+Round 0 produces the count, because asking now spends his attention on a question whose answer may be
+*"there are none."* **That is the relay standard applied before the hedge exists.**
+
+**Related:** §7x235(b) (the scope fence), §7x234, §7x227.
