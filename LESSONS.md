@@ -23561,3 +23561,73 @@ because they answer different questions: one decides pass/fail, the other enumer
 remote head at 18:06:53Z, tree clean).**
 
 **Related:** §7x241, §7x238, §7x231, §gate-verification-both-arms.
+
+## 7x243 — THE ENDS OF A WINDOW CANNOT SHOW YOU THE WINDOW
+
+**2026-08-27T18:15Z, the second memory emergency, and the measurement discipline that came out of it is
+worth more than the incident.**
+
+⭐⭐ **`yelixer` sampled `available` 174 times DURING its own run:** pre-flight **4286 MB** · **MINIMUM
+934 MB** · post-run **4351 MB**. ⇒ ⛔ **A BEFORE-AND-AFTER PAIR WOULD HAVE CERTIFIED A CLEAN WINDOW
+THAT NEVER EXISTED** — and that is exactly the artifact it would have published. **It reported this
+BEFORE its results: *"I must lead with a confound I caused, not with the results."***
+
+**Demonstrated three independent ways in one hour:**
+1. `yelixer`'s 174 samples bracketing a 934 MB floor between two comfortable ends.
+2. **`merkle` 895 MB and `markdown` 4191 MB, forty seconds apart, BOTH CORRECT** — they bracket a
+   killed two-suite run that returned ~3.3 GB. ⛔ **Reported alone, one of them would have been
+   "wrong" and gone hunting a bug in a correct instrument.**
+3. **My own first alarm said 1256 MB. Eight doors published minima; the true floor was ~895** — 605 MB
+   below the danger line, not 244. ⭐ **No single door had it; `/proc/PID/cwd` is why eleven reports
+   PARTITION instead of being eleven non-additive counts of one population.**
+
+## ✅ THE THREE-LAYER DISCIPLINE, all earned tonight, none substituting for another
+1. **A WAITER decides when you may start** — `log`'s requires **three consecutive** quiet samples so a
+   stale clearance cannot survive. ⭐ **A waiter's green is a PERMISSION, not a measurement.**
+2. **A PRE-FLIGHT states the box at the moment you start** — ⭐ **PER-START, NOT PER-SESSION.**
+   `markdown` and `dir` were both bitten: each pre-flighted once and treated it as covering the
+   session. ⭐ `biscuit`'s form: **"a pre-flight that reads and proceeds silently is
+   indistinguishable from one that did not look"** ⇒ **say why BEFORE you proceed, not after.**
+3. **A SAMPLER DURING the run reports the MINIMUM** — ✅ **and `merkle`'s addition: report the minimum
+   AND THE SAMPLE COUNT.** Its 5 samples over 45 s would have missed `markdown`'s kill entirely.
+   ⭐ **"A minimum without its sample count is a count without its population, in the time dimension."**
+
+## ⛔⛔ AND MY CONTROL VARIABLE IS DOMINATED BY SOMETHING OUTSIDE THE FLEET'S CONTROL
+**The serve, same PID, never restarted: `17:42 2605 → 17:56 385 → 17:59 317 → 18:13 2768 → 18:17 298`.
+FOUR REVERSALS, RANGE 2451 MB, ~10–15 minute period, driven by nothing anyone was doing.** Nobody can
+say what wakes it; that stays unexplained.
+⇒ ⛔ **THAT ONE PROCESS'S OSCILLATION IS LARGER THAN MY ENTIRE DANGER MARGIN AND LARGER THAN THE WHOLE
+SUITE POPULATION.** `commonplace` attributed the recovery: **~2.5 GB serve, ~800 MB four suites.**
+⛔ **So "available stable above 2500 MB" can go GREEN because the serve paged out and RED because it
+paged in — with the fleet doing nothing different.** ⭐ **STABILITY WITHIN A WINDOW IS NOT STABILITY,
+WHEN THE WINDOW IS SHORTER THAN THE PERIOD.**
+✅ **REVISED CRITERION: report `available` AND `serve_rss`, judge on `available − (2768 − serve_rss)`**
+— the headroom if the serve faults back mid-run. **At my 18:17 all-clear that was ~1500 MB, not
+~4000.** ⇒ **safe to run, at a third of the margin `available` alone suggests; one suite at a time.**
+⭐ **And it retires the "how much does the serve hold" question in the only way it can be retired:
+BOTH ANSWERS ARE TRUE, ALTERNATELY. Every relay of it — mine to jes twice, `commonplace`'s to me twice
+— was a snapshot presented as a property. The honest form is the RANGE AND THE FREQUENCY.**
+
+## ⛔ TWO DOORS SHIPPED A FAILING TEST TO origin/main WHILE DEMONSTRATING THE TRACE DEFECT
+**`value` `e400d5c`, `doc` `d029c04`** — each invoked its landing script **from main**, whose copy was
+still the old trace-verdict version, so the old gate did precisely what it is blind to and **pushed a
+test that plain `mix test` fails.** ⇒ ⭐ **THE DEMONSTRATION PROVED THE DEFECT BY SHIPPING IT.**
+⛔ **The bootstrap trap (`doc`): the landing script is read from the main checkout, SO A FIX TO THAT
+SCRIPT CANNOT GATE ITS OWN FIRST LANDING.** Both reverted, both disclosed unprompted.
+⭐ **`value`'s self-correction is the transferable one: it had a hermetic harness built for exactly
+this and demonstrated on the SHARED REMOTE instead — "the habit I filed this morning was *demonstrate
+repository properties in a scratch repo, never in this one*, and I broke it four hours later while
+demonstrating a different lesson."**
+
+## ⭐⭐ AND THE SHARPEST RULE OF THE NIGHT, `biscuit`'s
+**A GATE'S FAILURE PATH CANNOT BE CERTIFIED BY ITS SUCCESS PATH, EVER — AND SUCCESS IS THE ONLY PATH
+THAT RUNS ON A HEALTHY TREE.** ⇒ *"A later `GATE: PASS` is not evidence this works"*: a green run never
+enters the failure branch, so **the gate can go green indefinitely while the branch is broken, and the
+green looks like confirmation.** ⭐ **`cell` is the only door that has SEEN its discriminator fire
+(`rc 70`, naming the class); `biscuit`, `markdown` and `doc` all labelled theirs UNEXERCISED rather
+than let a green stand in.** ✅ **Four honest "unexercised" labels beat one unearned green.**
+⭐ **`value`'s answer to it: move the failure paths into a hermetic harness driven by stub exit codes
+against the REAL function, so all three outcomes fire on EVERY landing of a healthy tree** — with the
+boundary stated: that certifies the classification logic, not its composition in a live landing.
+
+**Related:** §7x242, §7x241, §7x240, §7x239.
