@@ -24,17 +24,13 @@
 # same absence that made them UNWATCHED made the takedown invisible. Both directions of that gap
 # are real.
 commonplace-log
-commonplace-log-reducer
-commonplace-merkle-crdt
 yepochs
 commonplace-doc
 commonplace-doc-sync
 commonplace-dir
 commonplace
 commonplace-value
-commonplace-cell
 commonplace-next
 commonplace-plan
 commonplace-markdown
-commonplace-biscuit
 yelixer
