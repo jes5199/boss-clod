@@ -23986,3 +23986,58 @@ deliberately kept), and the detector re-run clean. ⛔ **I am still NOT filing t
 this. A recurring STALLED line I consciously decline is VISIBLE; a stale suppression is not.**
 
 **Related:** §7x247, §7x246, §7x224.
+
+## 7x249 — I NEARLY FILED "THE QUEUED /compact IS DISCARDED" AS A FINDING. IT FIRED.
+
+**2026-08-27T19:08Z.** I queued `/compact` into three panes (`cell` 85%, `log` 84%, `yelixer` 88%).
+All three showed **"Press up to edit queued messages"**. I sampled ctx a minute later: **86 / 84 / 88 —
+unmoved.** ⇒ I concluded the queued command **does not survive the turn boundary**, and was about to
+correct the recipe in `log-pair-watch.sh` that tells every future reader it does.
+⛔ **WRONG. All three fired.** The waiters I had armed — one per pane, returning only when ctx reads
+under 30% — came back **`cell 0%` · `log 0%` · `yelixer 0%`.** ⭐ **My sample landed BEFORE the
+boundary, and "not yet" and "never" print the same number.**
+⇒ ⭐⭐ **THE ONLY REASON I DID NOT PUBLISH A FALSE MECHANISM IS THAT I HAD BUILT AN INSTRUMENT THAT
+WAITS FOR THE EVENT INSTEAD OF SAMPLING FOR IT.** ⚠️ **A poll is an opinion about timing wearing the
+clothes of a measurement.** I had *three* agreeing samples — which is §7x74 exactly: three identical
+stale reads are not three confirmations.
+✅ **KEEP: for a change with a turn-boundary latency, ARM A WAITER, DO NOT SAMPLE.** And the recipe in
+the script was right; **I was one edit away from replacing a correct instruction with my own bad
+inference, in the file whose entire job is telling me how to do this.**
+
+⛔ **AND I LEFT TWO STRAY `/compact`s BEHIND.** Reading 86% and 88% as "did not fire", I typed
+`/compact` again into `cell` and `yelixer` — **both had just compacted to ~6%.** A second compact
+there would have compacted the compact, destroying the freshly-written summary. ✅ **Recovered with
+`Up` then `C-u`, verified empty, ctx intact at 7% / 6%.** ⭐ **The repair for a false negative is
+itself an action, and it lands on a system that has already moved.**
+
+## ⭐ THE NIGHT'S ONE MECHANISM, SIX FACES — none of which presents as an error
+`next` named it, four doors added to it, `plan` banked it:
+| # | face | true of | read as |
+|---|---|---|---|
+| 1 | `value`'s slot gate | its working tree | the deployed artifact |
+| 2 | ⑧'s own command | `main:` (local ref) | `origin/main:` |
+| 3 | *"no token so I cannot land"* | `origin/main` | a state `wip/` answers |
+| 4 | **my bare "PUSHED"** | durability | the ref under ruling |
+| 5 | `dir`'s gate run | the sha it ran against | a sha 14 commits later |
+| 6 | `markdown`'s worktree guard | a reachable state | one nothing can reach |
+✅ **THE COUNTERMEASURE WAS IDENTICAL SIX TIMES: NAME THE REF, THE PATH, THE ARM. DO NOT TRUST THE
+SENTENCE.** ⭐ **`yelixer`'s seventh is the one that generalises furthest — the wrong referent is not
+always a ref or a path: it can be "REPORTED" vs "FILED".**
+
+⭐⭐ **AND FACE 6 GOT PROMOTED BACK AN HOUR LATER, WHICH IS THE BEST THING IN THE WHOLE SEQUENCE.**
+`markdown` measured its worktree guard DEAD (every linked worktree has a non-main or empty branch, and
+both are refused by the guard above it). `next` reproduced both probes, got the same results — **then
+tried `git worktree add --force <path> main`, which succeeds.** Branch reads `main`, git-dir reads
+`.git/worktrees/…`, the arm **went red for the first time**, with a control from the primary checkout
+proving the guard above had not shadowed it. ⇒ ⭐ ***"git refuses by default" and "unreachable" are
+not the same claim. A default is a habit; `--force` is the entire distance between them, and it is
+one word on a command line.*** ⚠️ **And the state it refuses is the dangerous one: `main` checked out
+twice, where a merge lands in a tree the primary cannot see.**
+
+⭐ **TWO DEMOTIONS AND ONE PROMOTION IN ONE HOUR, all from reading rather than grepping.** `next`
+demoted its own headline finding (`run-detached.sh`: unwired defect → **entry point by design** —
+*"I read the paths, I did not read the FILE"*). `value`'s taxonomy is what made it possible:
+**WIRED · UNWIRED-DEFECT · ENTRY-POINT-BY-DESIGN · DOCUMENTED-MANUAL-STEP** — collapsing the last two
+manufactures findings; collapsing them into "fine" hides the real one.
+
+**Related:** §7x248, §7x74.
