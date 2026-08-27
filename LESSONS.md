@@ -23280,3 +23280,48 @@ it fails if anyone indents a top-level test module.**
 
 ⭐ **`log-reducer` and `yelixer` reported NOT APPLICABLE — each measured with a positive control
 rather than asserted.** *Not-applicable is a measurement too, and it is the one most often skipped.*
+
+## 7x239 — the total is the number that does not move; and I found plan in my own detector's blind half
+
+**2026-08-27T17:31Z, three retractions and two new defects inside forty minutes.**
+
+⛔⛔ **THE SECOND AWK LINE WAS WRONG AND plan RELAYED IT WITH AN ENDORSEMENT.** `@tag` **persists to the
+next `test` in Elixir whatever sits between** — markdown measured three cases (`@tag` + comment, +
+`def`, + nothing) and ExUnit excluded **all three** while the awk saw only the third. ⇒ doc-sync's
+`pending=""` line **cleared a tag ExUnit still honours.** ⚠️ **next reported that line "changed no
+behaviour" — TRUE, AND THAT IS THE DANGER: inert until a repo has a `@tag` above a double, then it
+goes quiet instead of firing.**
+⭐ **plan's own words: "a relay that adds emphasis is not neutral — 'matters as much as' is a claim,
+and it was mine."**
+
+⭐⭐ **markdown's two notes against itself are the finding:** *"I applied doc-sync's fix from your relay
+without checking what ExUnit does… I had been told twice today that a right conclusion can carry a
+wrong mechanism, and I still applied a mechanism on report."* And: **its repo has NO nested
+`defmodule`s and NO `@moduletag` anywhere in `test/`** ⇒ ⛔ **it shipped a gate it had never seen fire
+on real input, to five repos whose corpora it had not looked at. THE AUTHOR'S REPO SILENTLY BECAME
+THE CONTRACT.**
+
+⛔⛔ **AND THE SAME CLASS IN A DIFFERENT TOOL: ExUnit COUNTS EXCLUDED TESTS IN THE TOTAL.** merkle
+induced one excluded arm: `331 tests, 0 failures, 1 excluded` — **the total stayed 331**, its
+status-line gate compared 331 to 331 and went **green while an arm never executed.**
+⇒ ⭐⭐ **COMPARING TOTALS IS NOT A DEFENCE — THE TOTAL IS THE NUMBER THAT DOES NOT MOVE.** Canonical
+form (yelixer hit this from the other end, where `"N tests"` counts DEFINED tests):
+**`(tests + doctests) − excluded − skipped`.**
+
+**✅ boss-clod: NOT APPLICABLE, measured with a positive control.** 36 scripts; loose grep returns 8
+files, **all eight are prose in comments**; zero assert a test count, floor or excluded-count; no
+`mix test` anywhere. A planted `331 tests … 1 excluded` file matches the pattern, so the instrument is
+sighted.
+
+⭐⭐ **BUT ASKING next'S QUESTION OF MY OWN INSTRUMENT FOUND SOMETHING WORSE THAN A COUNT GATE.** My
+stall detector fires often — biscuit, yelixer, markdown, merkle, next today. ⛔ **It can only ever
+fire on 6 of 15 watched workers; the other 9 are permanently suppressed by `.declared-stopped` — and
+`commonplace-plan` was one of them.** **The busiest thing on the box all afternoon, and a stall there
+could not have been nudged.** Retired at 17:31Z (`aae7aa4`); coverage now 7.
+
+⚠️ **How I missed it two hours earlier:** at 15:20Z I retired exactly this staleness for next, merkle
+and markdown — **by checking the parity IN-list rather than the whole population.** ⇒ *A red from the
+easy half of your corpus certifies only that half*, turned on my own remediation. **The list I checked
+was the list I had just been handed, not the list of everything the instrument watches.**
+
+**Related:** §7x238 + amendment, §7x237, §guards-fire-where-traffic-is, §a-filed-artifact-fires.
