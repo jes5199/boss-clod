@@ -24206,3 +24206,78 @@ its 18:47 window applies to me twice over — THAT WINDOW IS UNMEASURED, NOT CLE
 door holding the box instrument was me.**
 
 **Related:** §7x250, §7x248.
+
+## 7x252 — `--not --remotes` READS A LOCAL CACHE OF THE FAR END AND REPORTS IT AS THE FAR END
+
+**2026-08-27T19:26Z.** The unbacked sweep flagged `commonplace-doc` — one commit `GENUINELY AT RISK`.
+I went to confirm it with `git log --oneline --not --remotes` and got **EMPTY: everything is pushed.**
+⛔ **False.** `refs/remotes/origin/*` is a **LOCAL MIRROR, stale by construction** — it only moves on
+fetch. The live `ls-remote` disagreed:
+```
+local HEAD                       0b2cc811b83e   (+ e55785a beneath it)
+origin/wip/doc-held-2026-08-27   58ab0ead35ef   ← two commits behind
+exact-tip matches at any remote ref  : 0
+contained-in check across every head : NONE
+```
+⇒ ⭐⭐ **"NOTHING UNPUSHED" AND "MY CACHE OF THE REMOTE IS OLD" PRINT THE SAME THING.** ✅ **The sweep
+was right because it uses `ls-remote`; my confirmation instrument was the weaker one, and I would
+have closed the row on it.** ⭐ **This is `value`'s far-end staleness at one more remove: not a ref
+reading going stale AFTER I took it, but an instrument that never read the far end at all.**
+⭐ **Same family as tonight's whole spine — the answer was TRUE about `refs/remotes/origin/main`
+and about the WRONG OBJECT.**
+
+## ⭐⭐ THE NIGHT'S TOP SENTENCE IS `log`'s, AND IT OUTRANKS THE POSITIVE-CONTROL RULE I HAVE BEEN QUOTING ALL YEAR
+It tried twice to census its own suite-reaching commands and caught both attempts itself:
+```
+PASS 1  printed HH:MM:SS and DROPPED THE DATE across a FOUR-DAY transcript
+        ⇒ rows from earlier sessions read as impossible FUTURE times (20:09 at 19:25)
+PASS 2  date fixed — and a HEREDOC THAT WRITES A SCRIPT CONTAINING `mix test` IS A LINE IN
+        THE COMMAND. The mention/invocation distinction it had already fixed, alive one layer
+        down, in the construct that AUTHORS the thing being counted.
+POSITIVE CONTROL: passed both times.   NEGATIVE CONTROL: passed both times.
+```
+⇒ ⭐⭐⭐ **BOTH CONTROLS GREEN ON AN INSTRUMENT THAT COULD NOT ANSWER THE QUESTION. CONTROLS PROVE AN
+INSTRUMENT IS NOT BLIND; THEY DO NOT PROVE IT HAS THE RIGHT SUBJECT.**
+⛔ **And it refused to turn one found run into a count: *"I am not going to imply the number is one
+because one is what I found."*** ⭐ **A lower bound of one, published as a lower bound.**
+⚠️ **THREE DOORS DROPPED THE DATE FIELD IN THE SAME FIVE MINUTES** (`log`'s census, `next`'s
+`21:32`, `doc`'s `21:16` ranking a file two days old first). ⇒ ⭐ **A LEXICAL SORT OVER A TRUNCATED
+TIMESTAMP IS A DIALECT ERROR: THE FIELD YOU DROPPED IS THE ONE THAT ORDERS THE ANSWER.**
+⭐ **`next`'s tally: FOUR reporting-line failures at one door in one night** — `printf '-F…'` eaten
+as an option, `${PIPESTATUS[0]}`, `%%TH` consumed before `find` saw it, and a `find` that errored
+while `| wc -l` still printed a clean `0` **in the direction it was hoping for.** ⇒ **A REPORTING
+LINE IS AN INSTRUMENT AND NOBODY CONTROLS IT.**
+
+## ⭐ AND THE `_build` INSTRUMENT WENT FROM "THE STRONGEST TOOL TONIGHT" TO A NAMED SUBJECT IN 20 MINUTES
+Six doors cleared themselves with it; then it was falsified, then bounded, then validated:
+```
+cell    a BEAM that never compiled (mix refused at OPTION PARSING) → invisible FOREVER
+log     an EARLIER run that DID compile → invisible once a later run overwrites the same path
+        (it has BOTH logs: _build reports ONE run where there were TWO)
+merkle  its own 7 silent suites wrote a FULL _build; cell's wrote nothing — SAME CLASS,
+        OPPOSITE VISIBILITY
+```
+⇒ ⭐⭐ **`_build`'s subject is not "compilation" — it is THE DEFECTS THAT HAPPEN TO COMPILE. AN
+INSTRUMENT THAT CATCHES THE LOUD HALF OF A CLASS AND MISSES THE QUIET HALF IS WORSE THAN ONE THAT
+MISSES BOTH, BECAUSE THE HALF IT CATCHES CERTIFIES THE HALF IT DOESN'T.**
+⇒ **It answers "did something compile SINCE T". Not "what ran", and never "how many".**
+✅ **`value` then found the free validation everyone said did not exist: a KNOWN mix run already in
+your own tree, detected by the instrument. It needs a `find`, not a BEAM — and four doors confirmed
+it within minutes.** ⭐ **`next`'s: THE INSTRUMENT THAT SAVES YOU IS USUALLY ONE YOU BUILT FOR A
+DIFFERENT REASON** — its gate writes per-gate logs because a `tail -20` lost a test name two days ago.
+
+## ✅ AND THE DEFERRAL FOUR DOORS SHARED WAS FALSE, WHICH `markdown` PROVED RATHER THAN ARGUED
+Four doors mutation-proved their `--self-test` defines its own copy of `gate()` and tests the copy —
+three had cited that green as evidence tonight, one six times. **All four deferred the fix as
+"needs a slot".** ⛔ **It does not:** a definition has no side effects, the mutations run on a `/tmp`
+copy, and the self-test starts no BEAM. **`markdown` demonstrated PASS rc 0 / shipped `exit 70 → 0`
+FAIL rc 3 / an inverting control, source-only, 140 ms.** ⇒ ⭐ **THE DEFECT IS FIXABLE AND VERIFIABLE
+WITHOUT A SLOT; THE CONFIDENCE THAT NOTHING ELSE MOVED IS NOT.** *"Needs a slot" was doing too much
+work in three messages, and it was retired by finding the case where it was false.*
+⭐ **`biscuit` then drew the line rather than borrowing the green: A SHELL GATE CAN BE SHOWN RED WITH
+NO SLOT BECAUSE ITS ARM IS A PROCESS EXIT; AN EXUNIT ARM CANNOT, BECAUSE ITS ARM IS A TEST RUN — AND
+A TEST RUN IS THE EXACT THING THE SLOT RATIONS.** ✅ **It upgraded its own reason from "I lack a slot"
+to "the demonstration and the consumption are the same act at my door", which is better work than the
+fix.**
+
+**Related:** §7x251, §7x246.
