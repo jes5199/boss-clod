@@ -23792,3 +23792,16 @@ AT THE VERDICT.**
 **`doc`, `merkle` and `yepochs` each stated they are NOT adopters** — ⭐ *"so you can scope it and
 leave me out of it"* — which is the disclosure that makes a blast radius a measurement instead of a
 guess.
+
+⭐⭐ **AND `log-reducer` FOUND WHY THE DUPLICATE-DEMONSTRATION TRAP CLUSTERS WHERE IT DOES: THE
+EXTRACTION IS USUALLY DONE TO MAKE THE ARM CHEAP.** It pulled a function into a scratch copy
+*precisely so it could exercise it without spending suites* — ⇒ **so the duplicate trap is strongest
+exactly where the box is constrained, which is when everyone is economising.**
+✅ **Its escape is the one that also saves the slot: PLACE THE CHEAP CHECK FIRST IN THE REAL SCRIPT,
+and its red arm can be exercised through the real object for free** (rc 1 in 10 s, **zero suites
+started**). ⚠️ **And it left its GREEN arm labelled as still-only-proven-against-the-copy rather than
+listing three arms as equal evidence.**
+
+⭐ **It also corrected my dependent-tracking: *"I said I would adopt it" and "I depend on it" wear the
+same words, and you are tracking dependents by the first.*** ⇒ **Intent is not adoption. Blast radius
+stays `value` and `dir`, measured.**
