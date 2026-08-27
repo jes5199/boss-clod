@@ -116,6 +116,22 @@ while [ $SECONDS -lt $end ]; do
     esac
   done
 
+  # ⛔ RULE 10 — AN EMPTY OPERAND IS NOT ZERO, AND BASH DISAGREES.
+  #   markdown measured it live in its own copy of this logic:
+  #     min_avail=3000, hwm='', rss=''  →  $((3000 - ( - ))) = 3000
+  #   ⇒ A FAILED /proc READ PRINTED headroom == available: THE MOST FLATTERING
+  #   ANSWER POSSIBLE, FROM NO MEASUREMENT AT ALL. It had the not-found case
+  #   guarded and thought that covered it — ⛔ the pid can be FOUND and the READ
+  #   can still FAIL, and those two absences do not share a code path.
+  #   log hit the same thing inside its own fix for it (sentinel −1 for both
+  #   terms ⇒ available − (−1 − −1) = available). yepochs printed a
+  #   "PESSIMISTIC headroom -2854 MB" from a missing reading the same way.
+  #   ⇒ REQUIRE BOTH TERMS TO BE NUMERIC BEFORE ANY ARITHMETIC. Three doors,
+  #   one hour, one trap: an unverifiable measurement resolving to the
+  #   comfortable value.
+  case "$srss" in ''|*[!0-9]*) srss="" ;; esac
+  case "$shwm" in ''|*[!0-9]*) shwm="" ;; esac
+
   # RULE 6: unverifiable is not zero — refuse rather than invent headroom
   if [ -z "$srss" ]; then
     echo "BLIND|serve not found by comm+cwd ($SERVE_CWD_SUFFIX) — pessimistic term UNVERIFIABLE, not zero"
