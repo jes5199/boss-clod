@@ -23200,3 +23200,51 @@ FUTURE edits land, not where PAST ones already sit.*
   this goes**, so a veto is costed **before** the window closes rather than after.
 
 **Related:** §7x236, §7x235, §7x233, §never-emit-a-bare-count.
+
+## 7x238 — the three-number protocol beat a broadcast verdict in ten minutes
+
+**2026-08-27T17:22Z.** plan broadcast a mechanism to eighteen peers — *"the catch comes from the
+`@tag` reconciliation, NOT from `--executed`"* — with `commonplace-doc` tabled as an outlier whose
+filter matched nothing. ⛔ **Retracted minutes later. FALSE.**
+
+**The etiology is doc's own sentence and it is the day's rule again: "a red whose population I had
+not verified, because I built the population BY HAND instead of using the instrument under test."**
+doc's demonstration captured executed names with **its own ad-hoc grep** rather than the patch's
+`capture_executed` — no `\r` split, no `(excluded)` drop — yielding 168 where the patch's filter
+yields 161. ⇒ **Four trees agree, there is no outlier and no environment-sensitivity.**
+
+⭐⭐ **WHAT CAUGHT IT: `value` and `doc-sync` reported NUMBERS where plan reported a VERDICT, and the
+numbers disagreed with plan's sentence rather than with each other.** ⇒ **STANDING: report raw
+`* test` lines · `(excluded)` lines · names surviving the filter — three numbers, never one verdict.**
+⛔ *A verdict cannot distinguish "the filter worked" from "the filter matched nothing and the other
+half saved me."*
+
+⚠️ **plan's own half, stated by plan: it took a measurement from ONE door, generalised it into a
+mechanism, RELOCATED CREDIT to a different half of the patch, and broadcast it.** Fifth time that day
+a right-looking conclusion carried a wrong mechanism through it — **and the first time it reached
+eighteen peers.** ⭐ *A wrong mechanism that predicts the right outcome is the one that spreads.*
+
+**⛔ STILL STANDING and unaffected — doc-sync's awk defect is real:** the module-tag scope resets at
+**ANY** `defmodule`, so nested test doubles make a real `@moduletag` track to **zero tests** and the
+branch prints nothing while arms are silently excluded. **Fix: only a COLUMN-0 `defmodule` ends a
+scope — 9 MISMATCH where there had been 0.** *Until that line, the reconciliation was DECORATION on
+that tree; it had never been seen to fire.*
+
+**Three more worth carrying:**
+- ⭐ **THE CLEAN APPLY IS THE DANGEROUS CASE, BECAUSE NOTHING FORCES THE READ.** `value` and `cell`
+  were both protected by their land-half *refusing to apply* — *"the thing that protected me was the
+  diff FAILING, not my judgement."*
+- ⛔ **A second `trap … EXIT` SILENTLY REPLACES the first.** `value`'s cleanup disarmed its own
+  private-copy trap, and its first check missed it because the script exits **before** the second trap
+  installs. ✅ **Checked boss-clod: 36 scripts, ZERO `trap` of any kind — loose `grep -l trap` also
+  returns 0, and a planted double-trap file makes my detector report 2, so the zero is a measured
+  absence and not a blind pattern.**
+- ⭐ **AN UNWIRED GATE IS A REMEMBERED RULE** — `cell` found `check-biscuit-run-limits.sh`, filed that
+  morning and **never wired**, only because this item made it read its landing path.
+- ⚠️ **`next`: a FULLY excluded file prints "All tests have been excluded" and ZERO names, so
+  over-broadness appears only in MIXED runs** — *a demo built on a fully-excluded file proves
+  nothing.*
+- ⚠️ **`cell`'s loose thread, reported rather than smoothed: 156 raw `* test` lines against 155 tests.**
+  Totals land exactly and the gate is unaffected, but the line is unidentified and it said so.
+
+**Related:** §7x237, §7x233, §7x231, §guards-fire-where-traffic-is.
