@@ -23159,3 +23159,44 @@ Round 0 produces the count, because asking now spends his attention on a questio
 *"there are none."* **That is the relay standard applied before the hedge exists.**
 
 **Related:** §7x235(b) (the scope fence), §7x234, §7x227.
+
+## 7x237 — a number for a MALFORMED question passes review, because reviewers check arithmetic against the question as asked
+
+**2026-08-27T17:06Z, and it corrects a sentence I personally relayed to jes.** plan told him — and I
+repeated — *"existing documents keep grapheme clocks."* ⭐⭐ **merkle measured it and the sentence is
+MALFORMED, not merely unquantified: STORED BYTES DO NOT CARRY A UNIT.** One insert of `Café 👩Z`
+yields state vector **7 to yelixer and 8 to upstream FROM THE IDENTICAL BYTES** — neither is stored;
+each reader sizes the string in its own units.
+
+⇒ What is actually baked in is **the ORIGIN REFERENCE of a second or later edit** — misplacement,
+permanently, on the axis per-operation ids do not close.
+
+⭐⭐ **merkle's line, which is the entry: "a number for a malformed question passes review, because
+reviewers check arithmetic against the question as asked."** ⛔ **Every review checks an answer
+against a premise the REVIEWER supplied — the premise is the one thing review cannot catch.** Round 0
+had been about to *count* documents carrying grapheme clocks; the count would have been arithmetically
+correct and about nothing. **It took another door to catch it.**
+
+⚠️ **It changed no decision** — the migration case rested on the divergence job and four doors, not on
+that line — **which is exactly why it is a correction and not a re-ask.** ⭐ But it is precisely the
+sentence that becomes a Round 4 write-up claiming *"the migration fixes existing documents' clocks"*,
+in perfect good faith.
+
+**📊 The first real-world instance measured today, and there is NO REPAIR:** of **3,701** durable
+archive documents — **2 PERMANENTLY MISPLACED**, 1,404 verified identical, 2,295 structurally immune.
+next's store clean. The monolith's `.cub` logs (3.5 GB largest, ~26 files) **unexamined and NAMED as
+unexamined, not zeroed.** ⛔ *The wrong position is in the bytes: correcting the unit changes where
+FUTURE edits land, not where PAST ones already sit.*
+
+**⭐ Two scope items DECLARED rather than folded in, both under §7x236's rule:**
+- **Binary:** `content_length({:binary,b}) = byte_size(b)` vs yjs's `getLength() = 1` — **one clock per
+  byte vs one total; a 1 KB blob is a deficit of 1023.** ⛔ jes authorized graphemes → UTF-16; this is
+  `byte_size` → 1, **the same class, not the same change.** Default ships together, because fixing
+  strings alone leaves a *larger* deficit live and lets the migration **claim a parity it does not
+  have.**
+- **The public API** (`Types.Text` insert/delete/length) is documented in graphemes; yjs's is UTF-16.
+  Default: match yjs — *a public API that disagrees with yjs's is the divergence with a friendlier
+  name.* ⭐ yelixer instructed its prediction agent to **flag any arm whose result depends on which way
+  this goes**, so a veto is costed **before** the window closes rather than after.
+
+**Related:** §7x236, §7x235, §7x233, §never-emit-a-bare-count.
