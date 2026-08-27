@@ -48,9 +48,10 @@
 #   subtraction; the disproof was already in my own two numbers.
 #
 # Usage:  box-health.sh [seconds]     default 30, sampling every 3s
-#   rc 0  headroom >= 2500 MB   — safe to start one suite
-#   rc 1  headroom <  2500 MB   — do not start
-#   rc 2  BLIND (instrument failed; NOT "the box is fine")
+#   rc 0  SAFE  — min_available − SUITE_COST >= FLOOR; start ONE suite
+#   rc 1  DO NOT START
+#   rc 2  BLIND — instrument failed, or the criterion is unreachable.
+#         NOT "the box is fine". See RULES 5, 6 and 9.
 
 set -uo pipefail
 
@@ -71,7 +72,25 @@ set -uo pipefail
 #   LUCK that produced the 2768. If nobody had been watching at 18:13 the
 #   reserve would have been ~385 MB and the criterion would have been useless.
 SERVE_CWD_SUFFIX=commonplace-serve-pin
-FLOOR=2500                 # release margin, MB of pessimistic headroom
+# ⛔⛔ RULE 9 — A THRESHOLD MUST BE CHECKED AGAINST WHAT THE BOX CAN REACH.
+#   THIRD TIME TODAY I SHIPPED AN UNREACHABLE GREEN ARM, and this one was inside
+#   the artifact written to prevent exactly that. doc-sync did the arithmetic:
+#     MemTotal 15993 · best `available` seen all evening ~4429
+#     reserve (VmHWM 2854 − rss 382) = 2472
+#     ⇒ best achievable headroom ~1957  <  my FLOOR of 2500
+#   ⇒ VERDICT: DO NOT START on an IDLE box with ZERO suites, FOREVER.
+#   ⭐ FIX (doc-sync's, one line not a redesign): GATE ON WHAT THE RUN NEEDS,
+#   REPORT THE RESERVE AS INFORMATION. A suite costs ~180-500 MB here; the box
+#   can satisfy `available - SUITE_COST > FLOOR`. It cannot satisfy a floor set
+#   above its own ceiling.
+#   ⚠️ The reserve stays PRINTED because it is real — dir watched the serve climb
+#   295 → 1778 MB in ninety seconds with VmSwap PINNED at 74 MB throughout, which
+#   is the allocation mechanism confirmed by an independent physical consequence
+#   (a paging story REQUIRES swap to fall as rss rises; it did not move at all).
+#   ⇒ It is a judgement about work it might do, not a certainty about pages it
+#   must fault. Those deserve different sized reserves and only one was ever real.
+SUITE_COST=500             # MB a single suite adds here, measured 180-500
+FLOOR=1500                 # MB that must remain AFTER the suite starts
 SPAN="${1:-30}"
 STEP=3
 
@@ -124,14 +143,42 @@ done
 
 [ "$n" -eq 0 ] && { echo "BLIND|zero samples taken"; exit 2; }
 
+# ⛔ RULE 8 — PRINT ALL THREE OF rss, VmHWM AND THE RESERVE, so the RATCHET IS
+#   READABLE. commonplace's catch, and it lands on RULE 7: VmHWM only ever moves
+#   UP and nothing resets it short of a process restart. ⇒ a criterion built on
+#   it gets HARDER TO REACH FOREVER AND NEVER EASIER — and nobody notices it
+#   drifting, because every individual reading is defensible. This serve has
+#   been up 3d21h; if it touches 5 GB for one minute the fleet reserves 5 GB on
+#   every future quiet night. VmPeak is already 6050 MB, the ceiling VmHWM is
+#   free to climb toward.
+#   ⭐ THAT IS `swap free > 1000` ARRIVING BY ANOTHER ROUTE — the failure I
+#   corrected on myself at 17:52, recreated through a fix for a different bug.
+#   ⇒ A single number has nothing to disagree with; a reserve that only grows
+#   needs something printed beside it to show that it grew.
+#   ⚠️ HONEST LABEL: VmHWM is "the most this process has EVER held SINCE IT
+#   STARTED", not "the most it holds". Those diverge further every day it is up.
 load1=$(cut -d' ' -f1 /proc/loadavg)
-printf 'BOX|min_headroom=%sMB|min_available=%sMB|samples=%s|span=%ss|from=%s|load1=%s|suites<=%s|beams=%s|serve_rss=%sMB\n' \
-  "$min_head" "$min_avail" "$n" "$SPAN" "$started" "$load1" "$max_suites" "$max_beams" "$srss"
+reserve=$(( shwm - srss ))
+printf 'BOX|min_headroom=%sMB|min_available=%sMB|samples=%s|span=%ss|from=%s|load1=%s|suites<=%s|beams=%s|serve_rss=%sMB|serve_hwm=%sMB|reserve=%sMB\n' \
+  "$min_head" "$min_avail" "$n" "$SPAN" "$started" "$load1" "$max_suites" "$max_beams" "$srss" "$shwm" "$reserve"
 
-if [ "$min_head" -ge "$FLOOR" ]; then
-  echo "VERDICT|SAFE — one suite at a time; re-read before the NEXT start (per-start, not per-session)"
+# RULE 9: the gate is on what a suite needs; the reserve is reported, not gated.
+margin=$(( min_avail - SUITE_COST ))
+
+# ⭐ REACHABILITY SELF-CHECK — the artifact refuses to ship a criterion this box
+#   cannot satisfy. This is the guard I did not have when I published
+#   `swap free > 1000 MB`, and again when I published `headroom >= 2500`.
+memtotal=$(awk '/^MemTotal/{print int($2/1024)}' /proc/meminfo)
+if [ $(( FLOOR + SUITE_COST )) -ge "$memtotal" ]; then
+  echo "BLIND|UNREACHABLE CRITERION: FLOOR($FLOOR)+SUITE_COST($SUITE_COST) >= MemTotal($memtotal) — this gate can never go green"
+  exit 2
+fi
+
+if [ "$margin" -ge "$FLOOR" ]; then
+  echo "VERDICT|SAFE — ${margin}MB would remain after a ${SUITE_COST}MB suite. One at a time; re-read before the NEXT start (per-start, not per-session)."
+  echo "NOTE|reserve ${reserve}MB is INFORMATION, not a gate — the serve may allocate back toward VmHWM. Watch it climb; do not subtract it twice."
   exit 0
 else
-  echo "VERDICT|DO NOT START — pessimistic headroom ${min_head}MB < ${FLOOR}MB"
+  echo "VERDICT|DO NOT START — only ${margin}MB would remain after a ${SUITE_COST}MB suite (floor ${FLOOR}MB)"
   exit 1
 fi
