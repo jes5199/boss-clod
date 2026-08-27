@@ -22387,3 +22387,31 @@ correct agent looking degraded, with the real cause invisible in a third party's
 
 **Related:** §7x202 (the summary outlived the reading), §7x192 (readers left aimed at the old shape).
 The family is the same: *a state change that is complete on one side and unrepresented on the other.*
+
+## 7x217 — a newborn worker is BLIND and IDLE at the same time, and each hides the other
+
+**2026-08-27T06:19Z.** Minutes after I stood `commonplace-biscuit` up, the stall sweep said
+`BLIND|commonplace-biscuit|no project dir` with `examined=13` — one short of the 14 now listed.
+
+**Cause, and it is benign: `~/.claude/projects/-home-jes-commonplace-biscuit` does not exist until
+the session writes its first transcript line, i.e. until it takes its first turn.** The moment
+plan's dispatch landed, the directory appeared and the next sweep read `examined=14|stalled=0`.
+
+⭐ **But notice the window it opens.** A worker that is launched and never dispatched is *idle* —
+exactly what the sweep exists to catch — and *invisible to the sweep* for the same reason, because
+both conditions are downstream of "has never taken a turn". ⚠️ **The detector's blind spot and the
+fault it detects have a common cause, so the fault cannot raise the alarm.** Had I launched the
+worker and gone quiet, `examined=13|stalled=0` would have read as health while a fresh worker sat
+untouched.
+
+⇒ **What saved it was the script refusing to call an unresolvable worker healthy.** `BLIND` as a
+first-class outcome, distinct from `stalled=0`, is the whole reason this was visible at all — and
+`examined=N` is the deadman: the count moving from 13 to 14 is what proved the blindness cleared.
+
+⇒ **And the standing habit: after standing up any worker, confirm it takes a turn.** I sent a
+delivery test rather than assuming, which also caught something worth knowing — the launch warning
+`server:clod-squad · no MCP server configured with that name` is **cosmetic**; the tools load and
+messages wake the session. ⛔ I could not use another worker's pane as a control, because their
+scrollback no longer reaches launch — *absence there was "scrolled off", not "did not happen"*.
+
+**Related:** §7x82 (the turn boundary), §guards-fire-where-traffic-is, and the whole absence family.
