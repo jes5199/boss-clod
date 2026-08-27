@@ -22415,3 +22415,30 @@ messages wake the session. ⛔ I could not use another worker's pane as a contro
 scrollback no longer reaches launch — *absence there was "scrolled off", not "did not happen"*.
 
 **Related:** §7x82 (the turn boundary), §guards-fire-where-traffic-is, and the whole absence family.
+
+## 7x218 — two miscounts of the same 26 objects in one hour, both from counting a DERIVED population
+
+**2026-08-27T06:21Z, from plan and R2a's first round.** The Biscuit conformance corpus is **26
+fixtures — 24 with bytes, 2 not generated.**
+
+- **plan's brief said 27 with bytes, twice.** It had counted `ls fixtures/ | wc -l`, which counts
+  `index.json` as a fixture.
+- **The worker's own expectation histogram said `unauthorized 9 · invalid_biscuit 7`.** Enumerating
+  `index.json` gives **8 and 8**.
+
+⭐ **Neither error came from ambiguity. Both came from counting something DERIVED — files on disk, or
+classes in a histogram — instead of manifest entries.** `index.json` is the population; the directory
+listing is not. Same family as the wrong-referent zero: *the instrument answered honestly about a
+population nobody had checked was the right one.*
+
+⚠️ **And the disagreement was visible before dispatch and nothing flagged it** — cell's README says
+"24 tokens" in two places, so a brief-fact contradicted its own source in a document written *from*
+that source. Two derivations of one number, never compared.
+
+⭐⭐ **The security half, which is the real lesson: assert per-fixture-id, never per-class-total.**
+Both origin-scoping canaries sit inside the `unauthorized` eight. A verifier with wrong scoping
+returns `authorized` for them, so the class total reads 6 — **which looks like a counting slip rather
+than a security defect.** A per-class gate goes green on the exact failure the corpus exists to
+catch. ⇒ *An aggregate assertion launders the one discrepancy you built the corpus to see.*
+
+**Related:** §7x213 (the self-deciding corpus), §pattern-anchored-counts, §never-emit-a-bare-count.
