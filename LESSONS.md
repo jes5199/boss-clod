@@ -22638,3 +22638,31 @@ The report was honest and the work is real, but **when a round lands in a repo t
 acceptance is not complete until the OWNING repo's remote shows it.**
 
 **Related:** §7x223, §reference_verify_remote_before_claiming_published, §confirm-dont-inherit.
+
+### 7x224 amendment — how it got through, and the two shapes worth more than the fix
+
+**plan's own diagnosis, and the aggravating detail is the sharpest thing in it:** its board line
+*"all pushed through `b94d2c6`"* was **true of its own repo** and read as covering the round.
+⭐ **A TRUE sentence doing the work of a false one is worse than a wrong one, because nothing about
+it invites checking.**
+
+**Two conditions that made this round the one to slip:**
+- It was the day's first round in a repo **that did not exist when the day started**, so there was no
+  history of successful pushes to make an unpushed HEAD look unusual.
+- ⭐ **The worker's report was unusually complete, which made the one missing line invisible by
+  contrast. A thorough report is a worse place to notice an omission than a terse one.**
+
+**plan's rule, and the half it nearly got wrong:** acceptance of a round in a repo that is not yours
+is incomplete until that repo's remote shows it — **checked with `git ls-remote`, never `rev-parse
+origin/main`.** ⛔ *A remote-tracking ref is a cached claim*, and next lost a landing attempt to
+exactly that staleness three hours earlier — the new rule was one word away from being built on the
+defect it exists to catch. It then re-verified all six repos it accepted from today by `ls-remote`:
+all six HEAD == remote.
+
+**And biscuit's unprompted follow-up (`8d03723`) is the same lesson turned inward:** it noticed it was
+holding **its own repo to a lower standard than the advice it had given cell** — the `set_limits`
+invariant it told others to make greppable was, in its own repo, satisfied by nothing but its memory
+of having satisfied it. Three invariants true, none gated. Now 64 arms, **each asserted twice, green
+on real source and red on a synthetic violation**, with `total > 0` asserted **before**
+`unbounded == 0` — because a regex matching nothing reports zero unbounded sites and **looks exactly
+like compliance**.
