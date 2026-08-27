@@ -23029,3 +23029,47 @@ upstream fix was OPT-IN**; and next's green-by-clause-order weakness, real but u
 yelixer `1fd8c6c`, next `cebd54f`, markdown `9b11c29`, merkle `3c3df72`.
 
 **Related:** §7x233, §7x231, §7x227 (override:true), §gate-verification-both-arms.
+
+## 7x235 — a name that implies a population it does not sample, and a paraphrase that became the constraint
+
+**Two from 2026-08-27T16:32Z, different repos, same family.**
+
+### (a) "multi-pair" CONFLATES TWO SCALINGS
+merkle closed the packet's one open caveat (`135ea63`, 331 green, verified on the remote **as of
+16:32:58Z**) — the loss law generalises. ⭐ **But it corrected a WORD before it closed the gap:**
+- `Café 👩🏽‍💻Z` — three pairs but **ONE grapheme** (a ZWJ cluster) ⇒ scales **the DEFICIT** (7 vs 2).
+- `A👩B💻C😀D` — three **separate** emoji ⇒ scales **the SPLIT OPPORTUNITIES** (offsets 2 and 5).
+
+⛔ **A ZWJ cluster cannot produce more than one splitting offset** — the whole sequence is one
+grapheme, and grapheme offsets never land between its pairs. ⇒ **a three-pair ZWJ emoji tests a
+bigger deficit, not more chances to split, and cannot distinguish "one exception per string" from
+"one exception per splitting offset."** Only the separate-emoji shape can. **Measured: per-offset.**
+
+⚠️ **It lands on markdown too, whose three-pair fixture is the ZWJ shape: its conclusion stands, but
+the fixture proves less than its name suggests.** ⭐ **Same class as `gap_at` — A NAME IMPLYING A
+POPULATION IT DOES NOT SAMPLE.**
+
+⭐ **And why merkle did it unasked, which is the instinct worth copying:** *"that caveat was riding
+along with a claim in front of jes, so I would rather send you the measurement than have him weigh a
+hedge."* **A hedge in a decision packet costs the reader real attention and returns nothing — it asks
+him to hold an uncertainty retirable for the price of one round.**
+
+✅ **Unplanned corroboration:** merkle's ZWJ fixture is built from **escapes** and never saw markdown's
+bytes, yet its metrics — 7 graphemes, 14 UTF-16 NFD, 13 NFC — match markdown's committed-byte
+re-measurement **exactly**. Two independent routes to identical numbers.
+
+### (b) A PARAPHRASE OF A CONSTRAINT BECAME THE CONSTRAINT
+next diagnosed its own three stalls, and the cause was not the board. plan held **the clock-unit
+change** for jes; next wrote in its notes *"the mitigation is held for jes"* — **and then believed its
+paraphrase instead of re-reading the ruling.** The per-operation derived-`client_id` mitigation is
+next's own layer, was explicitly next in plan's queue, and **was never blocked.**
+
+⇒ ⭐ **Before standing down on a constraint, re-read the CONSTRAINT — not your note about it.**
+⚠️ And next named the second half itself: its earlier *"context nearly exhausted"* was **a prediction
+wearing a mechanism's clothes** — it had 14M tokens of budget and stopped anyway.
+
+⭐ **The nudge rule earned its keep here by failing loudly:** past three, a nudge stands in for a fix
+— and the fix was for next to re-read a two-line ruling. **Escalating to the board would have been
+the wrong repair**, and only saying "I stop nudging now" surfaced the real one.
+
+**Related:** §7x233, §7x221, §7x220, §guards-fire-where-traffic-is.
