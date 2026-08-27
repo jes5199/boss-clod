@@ -1,4 +1,22 @@
 #!/usr/bin/env bash
+# ⛔⛔ EDIT THIS FILE ATOMICALLY: temp file → `bash -n` → `mv`. NEVER IN PLACE.
+# 2026-08-27T18:38Z — `value` measured `box-health.sh` TORN TWICE in four minutes while I
+# edited it in place; `dir`'s gate exited on my syntax error; `cell` nearly filed "boss's
+# health tool does not parse" from a torn read. ⭐ A TORN READ OF A FILE SOMEONE IS ACTIVELY
+# WRITING IS INDISTINGUISHABLE FROM A DEFECT IN THEIR WORK.
+# ⛔ THIS FILE IS WORSE THAN THAT ONE. Known consumers, six and counting:
+#   markdown/next/cell/doc  — dispatch-round.sh:40 (committed, greppable)
+#   yepochs, log            — BY TYPING IT AT A PROMPT (invisible to every grep)
+# ⇒ ⭐⭐ A SELECTOR OVER COMMITTED FILES CANNOT SEE A DEPENDENCY THAT IS NEVER WRITTEN DOWN.
+#   `log`: "that is a WORSE hiding place, not a better one — markdown's dependency is at
+#   least visible at dispatch-round.sh:40; mine is in my habits and nowhere else."
+#   ⇒ ASSUME EVERY DOOR THAT DISPATCHES SOL IS EXPOSED, not the four that could prove it.
+# ⛔ AND THE ASYMMETRY `dir` NAMED: this file HAS NO VERDICT LINE. A launcher cannot tell
+#   "the fence ran and refused" from "the fence was mid-edit", the way a health call can —
+#   because the fence's contract is "it runs the round", not "it emits a verdict".
+#   ⇒ A torn read here BREAKS A DISPATCH and presents AS A SOL FAILURE, not an editing one.
+#   THIS IS THE DOOR WITH NO INTERLOCK. There is no guard on the reader's side; the only
+#   protection is that the writer never publishes a partial file.
 # ⚠️⚠️ THE FILENAME IS MISLEADING AND THIS BANNER EXISTS BECAUSE IT MISLED SOMEONE.
 #
 #   "sol-egress-run" MEANS "THE SOL RUNNER **WITH** EGRESS".
