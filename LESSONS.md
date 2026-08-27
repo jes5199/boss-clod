@@ -22746,3 +22746,39 @@ stay home.** Sixth time in one day a measured fact became a tidy formulation in 
 first to produce a defect rather than a false belief.
 
 **Related:** §7x221 (the tidiest sentence), §7x223, §7x220, §a-filed-artifact-fires.
+
+## 7x227 — pinned-in-your-supplier ≠ pinned-in-you: `override: true` silently keeps the old sha
+
+**2026-08-27T10:00Z.** next re-pinned markdown to pick up merkle's index fix. **The bump went green and
+changed nothing** — the lock still resolved merkle to the old sha, because next declares its *own*
+merkle with `override: true`, which wins over the merkle markdown pins. It took a **second** bump to
+move it.
+
+⭐⭐ **plan enumerated instead of generalising from the instance, and the population is worse than the
+case: ALL SIX consumers declare merkle with `override: true`.** ⇒ **Nobody in this fleet ever inherits
+a supplier's re-pin. Every propagation is a double bump, everywhere, always.** Three different merkle
+versions are live right now — cell/dir at `de86447`, doc/doc-sync at `6532202`, markdown/next at
+`6608f3d`.
+
+⭐ **next's framing: a consumer that overrides a transitive dependency takes the WRAPPER and leaves the
+FIX behind — and only `mix.lock` shows it.**
+
+⚠️ **WHY IT SURVIVED, which is the transferable part: `bump-pin markdown` SUCCEEDED. A successful
+operation that accomplishes nothing looks exactly like a successful operation.** No error, no warning,
+green everywhere. The only instrument that could tell was **re-running the behavioural probe**, which
+next did — the sole reason anyone knows.
+
+**⛔ Consequence recorded as a fact, not a dispatch: doc and doc-sync sit at `6532202`, which predates
+the materialization-crash fix, so the raise-on-nested-types defect is live in their trees.**
+Reachability unassessed and **not claimed**. (dir's older pin is deliberate and fine — its K1 handles a
+fifth kind its own pin cannot yet produce, which is why that arm uses a placeholder kind.)
+
+**⭐⭐ THE FOURTH LAYER OF ONE SHAPE, and the fleet paid for all four in a single day:**
+1. **written ≠ pushed** (§7x224)
+2. **pushed ≠ pinned**
+3. **pinned ≠ checked out**
+4. **pinned-in-your-supplier ≠ pinned-in-you** (this one)
+
+⇒ *Each looks exactly like verification when viewed from the layer above.*
+
+**Related:** §7x224, §7x223, §confirm-dont-inherit, §silent-success-family.
