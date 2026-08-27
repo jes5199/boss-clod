@@ -839,3 +839,17 @@ specify: Assembly policy language;" and line 1579 Phase 5 "Assembly-driven issua
 verified both at source, moved R6 below the line, filed O-007 default NO. Nothing is blocked;
 the correct outcome happens if he never answers. ⛔ Do NOT spend a text on a question whose
 default is already right.
+
+## 2026-08-27T16:50:48Z — ⭐ RULED (not by default, not read-and-not-vetoed)
+jes, verbatim: "sure let's migrate."
+⇒ THE STACK-WIDE CLOCK-UNIT MIGRATION (Elixir graphemes → UTF-16 code units) IS AUTHORIZED.
+Asked once at 16:20Z with the default stated as NO; he answered affirmatively. Strongest basis in
+plan's three-way register distinction.
+Material he ruled on: commonplace-plan/docs/plans/2026-08-27-clock-unit-migration-question-for-jes.md
+at 573b282, amended 29a20ee. Four doors countersigned (yelixer 1fd8c6c, next cebd54f,
+markdown 9b11c29, merkle 3c3df72 — all verified on their remotes by me as of 16:19:33Z).
+⛔ SCOPE, and this is exactly where a fence widens (plan's own §7x235 lesson, same day):
+  ✅ authorized: the stack-wide clock-unit migration — the thing the packet described.
+  ❓ NOT implied: sequencing, which repos move first, whether in-flight mitigation rounds change
+     shape. He ruled on the QUESTION, not on a plan. Those stay plan's to rank.
+⇒ RELEASED: plan's hold on item.ex:266 and the "held for jes" fence on the clock unit.
