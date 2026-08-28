@@ -146,15 +146,38 @@ if [ "$res_s" -le "$now_s" ]; then
   exit 2
 fi
 
+# ⭐ THE MIDDLE STATE (added 2026-08-28T14:31Z). This was a TWO-WAY verdict —
+#   >=100 EXHAUSTED, everything else RECOVERED — and "RECOVERED" carried an
+#   UNCONDITIONAL "SWITCH FABLE-INTENDED WORKERS BACK" action line.
+#   On 2026-08-28 it printed RECOVERED at percent=95 with 2d19h left on the week
+#   and quota-guard saying SLOW_DOWN at 1.59x burn. Acting on that action line
+#   would have moved the fleet onto a meter 5% from the wall.
+#   ⚠️ is_active=False means NOT CURRENTLY BLOCKING. It does not mean HEADROOM.
+#   The word "RECOVERED" was doing the work of a number nobody read.
+#   ⇒ A verdict with two states cannot say "the door is open but the room is
+#     nearly full". The band below is the third state, and the ACTION line —
+#     the only line anyone acts on — is what changes with it.
+NEAR_WALL_PCT=${NEAR_WALL_PCT:-90}
 if [ "${pct%.*}" -ge 100 ]; then
   echo "FABLE|EXHAUSTED|percent=$pct|resets_at=$resets"
   echo "FABLE|affected=${affected:-none — no running worker was launched asking for Fable}"
   echo "FABLE|action=none now; switch back AFTER $resets"
 else
-  echo "FABLE|RECOVERED|percent=$pct|resets_at=$resets"
+  if [ "${pct%.*}" -ge "$NEAR_WALL_PCT" ]; then
+    echo "FABLE|RECOVERED-NEAR-WALL|percent=$pct|resets_at=$resets|band=>=${NEAR_WALL_PCT}%"
+  else
+    echo "FABLE|RECOVERED|percent=$pct|resets_at=$resets"
+  fi
   echo "FABLE|already-on-fable=${on_fable:-none} (correct, NOT affected)"
   echo "FABLE|affected=${affected:-none}"
   [ -n "$overridden" ] && echo "FABLE|deliberate-opus=${overridden}(jes 2026-08-26T20:39Z \"we can go back to Opus now\" — NOT a fallback; see .model-overrides)"
-  echo "FABLE|action=SWITCH FABLE-INTENDED WORKERS BACK. A fresh 'workerclaude --model claude-fable-5'"
-  echo "FABLE|       launch holds better than in-session /model, but costs context — weigh per worker."
+  if [ "${pct%.*}" -ge "$NEAR_WALL_PCT" ]; then
+    echo "FABLE|action=HOLD. Not blocking, but only $((100 - ${pct%.*}))% of the Fable weekly is left"
+    echo "FABLE|       until $resets. Do NOT launch new Fable sessions or switch workers over on"
+    echo "FABLE|       this line alone — a RECOVERED that is 5% from the wall reads like headroom"
+    echo "FABLE|       and is not. Switch back after the reset, or on an explicit jes decision."
+  else
+    echo "FABLE|action=SWITCH FABLE-INTENDED WORKERS BACK. A fresh 'workerclaude --model claude-fable-5'"
+    echo "FABLE|       launch holds better than in-session /model, but costs context — weigh per worker."
+  fi
 fi

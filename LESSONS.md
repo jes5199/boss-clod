@@ -24374,3 +24374,31 @@ later: `min_available 3615 · min_headroom 1043 · suites 0 · beams 2 · VERDIC
 ⇒ ⭐⭐ **A SNAPSHOT TAKEN DURING THE REMEDY MEASURES THE REMEDY, NOT THE DISEASE.**
 
 **Related:** §7x252, §7x250.
+
+## 7x254 — a two-state verdict cannot say "the door is open but the room is nearly full"
+
+`fable-recovery-check.sh` had exactly two outcomes: `percent >= 100` ⇒ **EXHAUSTED**, everything
+else ⇒ **RECOVERED**. And RECOVERED carried an unconditional action line:
+*"SWITCH FABLE-INTENDED WORKERS BACK."*
+
+On 2026-08-28T14:28Z it printed **RECOVERED at percent=95**, with 2d19h left on the week and
+`quota-guard.sh` simultaneously saying **SLOW_DOWN, 1.59x burn**. Acting on that action line would
+have moved the fleet onto a meter 5% from the wall — the exact failure the loop exists to prevent,
+reached through the loop's own healthy-looking branch.
+
+⭐ **`is_active=False` means NOT CURRENTLY BLOCKING. It does not mean HEADROOM.** The payload says
+both things and the check only read one of them. The word *"RECOVERED"* was doing the work of a
+number nobody was made to look at.
+
+⚠️ **AND I READ IT SIX TIMES AND SAID "NOTHING TO ACT ON" EACH TIME.** `affected=none` was true, so
+every run was correctly silent — and the silence is what kept me from reading the `percent=95` on
+the same line. **A verdict that is right about the question it was asked will not volunteer that it
+is answering the wrong one.**
+
+⇒ The fix is a third band (`>= 90%` ⇒ `RECOVERED-NEAR-WALL`) whose **ACTION line** — the only line
+anyone acts on — says HOLD and names the remaining percent. Changing the label alone would have been
+decoration; the action line is the part that gets obeyed.
+
+**All four arms demonstrated with stubbed payloads before commit:** 100 ⇒ EXHAUSTED · 95 ⇒
+NEAR-WALL/HOLD · 42 ⇒ RECOVERED/SWITCH · no Fable entry ⇒ BLIND rc=2. Mode bit and shebang
+re-checked after the edit (both have been broken here before).
