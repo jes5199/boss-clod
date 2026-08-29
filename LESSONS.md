@@ -24402,3 +24402,24 @@ decoration; the action line is the part that gets obeyed.
 **All four arms demonstrated with stubbed payloads before commit:** 100 ⇒ EXHAUSTED · 95 ⇒
 NEAR-WALL/HOLD · 42 ⇒ RECOVERED/SWITCH · no Fable entry ⇒ BLIND rc=2. Mode bit and shebang
 re-checked after the edit (both have been broken here before).
+
+## 7x255 — a successful secret-bearing probe does not prove either its destination or its identity
+
+**2026-08-29.** The first live `sol-usage` probe returned the real WHAM quota and printed plausible
+windows. Its fixture proved the management key was absent from `curl` argv and that malformed quota
+responses went BLIND. ⛔ **It still accepted any caller-supplied HTTP(S) base URL and sent the
+management bearer there.** Separately, it preferred `/auth-files`' generic `account` field as the
+`ChatGPT-Account-ID`; on the live endpoint that field is the OAuth email, while the actual account ID
+is nested under `id_token.chatgpt_account_id`.
+
+The response was green because the proxy and upstream tolerated the path. **A correct artifact from
+one live input did not validate the trust boundary that carried the secret or the semantics of the
+identity field.** Shape equality would not have caught either: both values were strings and both URLs
+were syntactically valid.
+
+⇒ ⭐ **A tool carrying a secret must constrain WHERE it can send before it reads the secret, and a
+field used as identity needs source-level semantics, not a plausible name.** The durable controls now
+make non-loopback/userinfo destinations, API-key or conflicting-provider records, contradictory
+status, email-as-account-ID, conflicting response aliases, untrusted quota strings, and unknown or
+missing windows all go `BLIND` with rc=2. The green arm checks the request file contains the nested
+account ID and does not contain the email.
