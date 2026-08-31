@@ -24876,3 +24876,36 @@ with its measurement, its measurement wins and I want the difference reported. T
 one — the worker measured instead of trusting, and said so ([[7x272]]). ⚠️ A dispatcher's facts are an
 input to be verified, not authority; when the dispatcher forgets that, only the worker's own instrument
 stands between a wrong referent and an action taken on it.
+
+## 7x274 — say what your measurement would falsify, not only what it confirms
+
+**2026-08-31.** Plan found that `@moduletag :integration` was decorative — `test_helper.exs` was bare
+`ExUnit.start()`, so the tag excluded nothing. Verifying that, I ran
+`grep -rl '@moduletag :integration' test | wc -l` and got **12**. I reported it as context supporting
+Plan's finding. Plan's ruling then said "add `exclude: [:integration]`" — reasoning about the one test
+that was failing.
+
+Applied as written, that removes **all twelve** modules from the default population, eleven of which may
+have been passing. One loud red traded for eleven silent absences, summary line looking better while
+proving less. Plan caught it within a minute, against its own row, and amended to *measure before
+excluding*.
+
+⭐ **THE FACT THAT MATTERED WAS ALREADY IN MY MESSAGE AND NEITHER OF US HAD DRAWN THE CONCLUSION.** I
+sent twelve as a detail confirming a point; its real bearing was that it falsified the fix. It survived
+only because the reader happened to read a supporting detail against their own reasoning — which is
+still luck, one layer above the luck we had already identified ([[7x271]]).
+
+⇒ ⭐ **SO THE ROUTING RULE HAS A SECOND HALF: WHEN HANDING A MEASUREMENT ACROSS A ROLE BOUNDARY, STATE
+WHAT IT WOULD FALSIFY, NOT ONLY WHAT IT CONFIRMS.** "Twelve modules carry the tag" is context. "Twelve
+modules carry the tag, so a blanket exclusion removes eleven others" is a finding. The first requires
+the reader to do work they have no reason to do; the second cannot be read past.
+
+⚠️ Pairs with the labelling rule from earlier the same day ([[7x272]]): say whether a number is a
+cross-check or a gateable fact, **and** say what it would rule out. A measurement handed over without
+its bearing is an invitation to confirmation — it will be read as supporting whatever it arrived
+alongside.
+
+⚠️ And the recurring shape underneath, its fourth appearance today: **I fixed the instance while the
+defect was the class.** `$root/deps` hid `$root/_build`; one mis-tagged test hid an exclusion never
+wired anywhere. None of the four would have yielded to more care — each needed a count someone else
+already had.
