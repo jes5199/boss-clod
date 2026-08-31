@@ -24630,3 +24630,34 @@ absence.
 answer is red, assert the declared inventory instead of the desired end state, and let the removals
 walk the literal down. See [[7x264]] for the neighbouring failure — a gate placed where it cannot fire
 cheaply.
+
+## 7x266 — "it failed" is not a verdict: rc=1 and rc=2 are different findings
+
+**2026-08-31.** T2a's certification stopped on `bin/check-biscuit-pin.sh` exiting **2** with
+`INSTRUMENT BLIND: fetched dependency checkout missing`. The governing authority said "any
+pin/Biscuit/Cell/spec gate red stops" — so the executor stopped, correctly, because the ruling gave
+it no way to tell two different findings apart.
+
+The cause was a collision between two of our own instruments: an earlier correction had redirected
+dependencies to an isolated run root, and the pin script resolves `dep="$root/deps/..."` and never
+consults `MIX_DEPS_PATH`. The dependency was present exactly where the authority had ordered it
+provisioned. **The pin was never evaluated at all.**
+
+⭐ **A GATE REPORTING A VIOLATION AND A GATE REPORTING THAT IT CANNOT SEE ITS SUBJECT ARE DIFFERENT
+FINDINGS WITH THE SAME WORD.** `rc=1` is a claim about the product and stops the work. `rc=2` is the
+instrument declining to answer — no information, neither pass nor failure — and is an instrument
+defect, repairable in place. The checker already encoded the distinction **in its own exit codes**;
+the authority read only the sign of the number and threw the difference away.
+
+⛔ **AND THE REPAIR HAS ONE FORBIDDEN SHAPE: NEVER CONVERT A BLIND GATE INTO A GREEN.** Point it at
+the real subject; never delete, skip, or default the blindness guard. That guard is the only thing
+that told us we were not looking at the subject, and removing it is the repair that makes the noise
+stop while destroying the signal.
+
+⚠️ Note what the blind also concealed: **this gate had never been observed evaluating anything.** Its
+first green would have been a first-ever result from an uncalibrated instrument — so the repair owes
+a demonstrated `rc=1` on a mutated expectation before its green counts at all ([[reference_gate_verification_both_arms]]).
+
+⇒ ⭐ **WHEN WRITING A STOP CONDITION OVER A GATE, NAME THE EXIT CODES, NOT "RED".** A script that
+distinguishes cannot-see from violation is doing you a favour; an authority that says "any red stops"
+discards it and buys a stop you did not need.
