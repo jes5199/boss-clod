@@ -25113,3 +25113,34 @@ trusting that writing it recently makes it present.
 ⇒ **Mechanical fix, since exhortation demonstrably failed twice:** never pass `-maxdepth` to a `find`
 whose purpose is to prove an absence. If a bound is needed for speed, prove first that nothing sits
 beyond it.
+
+## 7x281 — one instrument, two channels, and the authoritative one was wrong
+
+**2026-08-31.** `row-referents.sh --self-test`, invoked as `bash row-referents.sh` rather than
+`./row-referents.sh`, could not re-invoke `$0` — every arm returned 127 and it printed
+`SELF-TEST FAILED: 4 arm(s)`. Plan called that a nuisance rather than a hazard, because it failed
+**loud and in the safe direction**: it reported failure rather than success.
+
+**It did not.** The run printed failure and **exited 0**, because the failing `$?` was consumed by the
+pipeline doing the printing. A human reading stdout saw red. Any caller gating on the exit code — the
+correct thing to gate on — read green.
+
+⭐ **"LOUD" IS CHANNEL-SPECIFIC, AND A FAILURE LOUD IN THE HUMAN CHANNEL WHILE SILENT IN THE MACHINE
+CHANNEL IS WORSE THAN ONE THAT IS UNIFORMLY SILENT.** A uniformly silent failure fails everyone equally
+and gets found once. This one **splits its readers**, and each one's confidence is confirmed by
+whichever channel they happen to check — CI passes while the person watching the terminal believes they
+watched it fail, and both are reading the tool correctly.
+
+⇒ ⭐ **SO NEVER ASSESS AN INSTRUMENT FROM ONE CHANNEL.** Check the text *and* the exit code, and check
+that they agree. ⚠️ Note how the error was made: assessing a failure's severity by reading its output —
+which is itself the single-channel mistake, one level up. The judgement about the instrument had the
+same defect as the instrument.
+
+⚠️ **Mechanical cause worth its own line:** a pipeline eats the status of the command that matters.
+`cmd | tail` reports `tail`'s success. Use `${PIPESTATUS[0]}`, or do not pipe the thing whose exit code
+is the verdict.
+
+⇒ **And the repair generalises [[7x266]] from gates to harnesses:** a harness that cannot start must say
+**BLIND**, not report failed arms. "Four arms failed" and "I could not run four arms" are different
+verdicts, and only one of them is about the subject. ⭐ **When every arm fails identically, suspect the
+harness, not the subject** — a real defect rarely breaks every arm the same way.
