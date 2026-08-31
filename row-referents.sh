@@ -53,12 +53,19 @@ ROW
 r1
 create the receipt at `/tmp/will-be-made-later-xyz` when the run completes.
 ROW
+  # ⭐ the false positive Plan hit on a real row: prose between two backticked items
+  cat > "$t/prose.md" <<'ROW'
+r1
+replaces the inherited line with `mktemp`/`trap`/redirection/`sed`/`grep` and keeps `/etc/hostname`.
+ROW
+  "$self" "$t/prose.md" 2 >/dev/null 2>&1
+  [ $? -eq 0 ] && echo "  ok   slash-separated prose between backticks is not a path" || { echo "  RED  prose-arm failed"; fails=$((fails+1)); }
   "$self" "$t/creates.md" 2 >/dev/null 2>&1
   [ $? -eq 0 ] && echo "  ok   ephemeral output path does not red on re-read" || { echo "  RED  ephemeral-arm failed"; fails=$((fails+1)); }
   "$self" "$t/nope.md" 2 >/dev/null 2>&1
   [ $? -eq 2 ] && echo "  ok   BLIND on missing input" || { echo "  RED  blind-arm failed"; fails=$((fails+1)); }
   rm -rf "$t"
-  [ "$fails" -eq 0 ] && { echo "SELF-TEST OK (4 arms)"; exit 0; }
+  [ "$fails" -eq 0 ] && { echo "SELF-TEST OK (5 arms)"; exit 0; }
   echo "SELF-TEST FAILED: $fails arm(s)"; exit 1
 fi
 
@@ -70,7 +77,13 @@ line=$(sed -n "${row}p" "$file")
 
 red=0
 # Absolute paths inside backticks are the citable form these rows use.
-paths=$(printf '%s' "$line" | grep -oE '`/[A-Za-z0-9._/-]+`' | tr -d '`' | sort -u)
+# ⛔ A regex anchored on backticks cannot tell an OPENING backtick from a CLOSING one.
+# `mktemp`/`trap`/redirection/`sed` matched as `/redirection/` — the closing tick of one
+# item, prose, the opening tick of the next — and red-ed a correct row. Slash-separated
+# lists are ordinary prose here, so this recurs. ⭐ Parse the delimiter structure instead:
+# split on backticks and take the INSIDE fields (even, 1-indexed). Prose between two
+# quoted items lands in an odd field and is never considered.
+paths=$(printf '%s' "$line" | awk -F'`' '{for(i=2;i<=NF;i+=2) print $i}' | grep -E '^/[A-Za-z0-9._/-]+$' | sort -u)
 for p in $paths; do
   # intent: absence language within 120 chars after the mention
   ctx=$(printf '%s' "$line" | grep -oE "\`${p//\//\\/}\`[^\`]{0,120}")
