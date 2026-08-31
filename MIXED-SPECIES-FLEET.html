@@ -117,7 +117,7 @@
     font-size: clamp(1rem, 1.8vw, 1.22rem);
     color: color-mix(in srgb, var(--ground) 86%, var(--cyan));
   }
-  .hold {
+  .temporal-hold {
     position: relative;
     z-index: 1;
     border-left: 3px solid var(--amber);
@@ -125,9 +125,9 @@
     display: grid;
     gap: 9px;
   }
-  .hold strong { font-family: "Familjen Grotesk", sans-serif; font-size: 1.4rem; }
-  .hold p { margin: 0; color: color-mix(in srgb, var(--ground) 82%, var(--cyan)); }
-  .hold code { color: var(--ground); }
+  .temporal-hold strong { font-family: "Familjen Grotesk", sans-serif; font-size: 1.4rem; }
+  .temporal-hold p { margin: 0; color: color-mix(in srgb, var(--ground) 82%, var(--cyan)); }
+  .temporal-hold code { color: var(--ground); }
   code, .mono { font-family: "IBM Plex Mono", ui-monospace, monospace; }
   .section { display: grid; gap: 22px; padding-top: clamp(46px, 8vw, 88px); }
   .section-head { display: grid; gap: 8px; max-width: 72ch; }
@@ -320,7 +320,7 @@
       <h1>Fleet<br>Switchboard</h1>
       <p class="lede">A dispatch system for Codex and Claude that assigns work by measured strength, preserves one-review cardinality, and makes quota, identity, and publication gates executable rather than conversational.</p>
     </div>
-    <aside class="hold">
+    <aside class="temporal-hold">
       <span class="eyebrow">Active temporal hold</span>
       <strong>Opus remains off</strong>
       <p>No worker, writer, reviewer, or planning route may use Opus before <code>2026-08-31 15:00 UTC</code>. That timestamp opens reassessment—not activation.</p>
