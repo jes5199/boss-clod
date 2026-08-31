@@ -24554,3 +24554,28 @@ which honouring an unresolvable referent bought nothing and cost the campaign.
 stat it. For an agent, prove the spawning session can currently address it — a transcript is a
 positive control for history, never for resume ([[7x260]]). Treat "the same X from the earlier round"
 as unresolved until proven present; require rulings to name artifacts by creation instead.
+
+## 7x263 — compressing a stop list into a location rule inverted it
+
+**2026-08-31.** Releasing T2a's instrument-repair licence, I summarised its stop test for the worker
+as *"inside the five committed paths is subject, outside is instrument."* Plan caught it before the
+successor acted. The actual rule stops on several things that live outside those paths: a seed-42
+failure, a warnings-as-errors red, a population-gate red, a Plan-arm red, a failed root claim. Under
+my wording every one of those classifies as an instrument defect and gets repaired in place and
+continued — which is precisely the abuse the licence's two bounds exist to prevent.
+
+The licence had just been widened on purpose. A compression that widens it further, silently, is the
+worst possible time to paraphrase. ⚠️ And the route mattered: a Codex worker inherits its stop
+posture from the briefing text, so **my summary, not the ruling, is what would actually have
+governed.**
+
+The real test is not location. **Is the failing thing BEING CERTIFIED, or is it the APPARATUS
+MEASURING IT?** Subject = the committed candidate paths, the browser acceptance, every certification
+gate, the root claim, the continuity literals, the candidate's structure. Instrument = checkers,
+manifests, snapshots, receipts, wrappers, provisioning and quoting scaffolding.
+
+⇒ ⭐ **SHIP A STOP LIST VERBATIM; NEVER A COMPRESSION OF ONE.** Paraphrase is fine for context and
+rationale, never for the boundary a worker is expected to halt at. If a short form is genuinely
+needed, it must be stated as a gloss *beside* the verbatim text, never in place of it — and it must
+be checked against every enumerated item before sending, because the failure mode is a summary that
+is right about the examples you thought of and wrong about the ones you did not.
