@@ -24,7 +24,13 @@
 usage() { echo "usage: $0 <queue-file> <row-number> [--at-publish]" >&2; exit 2; }
 
 if [ "${1:-}" = "--self-test" ]; then
-  self="$0"; t=$(mktemp -d); fails=0
+  # ⛔ $0 is a bare relative name under `bash row-referents.sh` and cannot be re-invoked:
+  # every arm returns 127 and the self-test reports 4/4 RED. A harness that cannot start
+  # fails every arm identically — which is the tell. ⭐ WHEN EVERY ARM FAILS THE SAME WAY,
+  # SUSPECT THE HARNESS, NOT THE SUBJECT.
+  self=$(readlink -f "$0") || { echo "SELF-TEST BLIND: cannot resolve \$0"; exit 2; }
+  [ -x "$self" ] || { echo "SELF-TEST BLIND: resolved self is not executable: $self"; exit 2; }
+  t=$(mktemp -d); fails=0
   # a row with a real path, a deliberate absence, and an ephemeral run root
   cat > "$t/good.md" <<'ROW'
 r1
