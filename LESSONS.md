@@ -25006,3 +25006,35 @@ writer, not only when someone thinks to ask.
 looking at the resume evidence for several minutes and never asked how many. **A rule I hold cannot
 supply a question I do not think to ask** — which is the evening's own finding ([[7x271]]) arriving at my
 expense rather than someone else's.
+
+## 7x278 — I compared a document against itself after the edit, and called it a bidirectional check
+
+**2026-08-31.** Row 133 required a two-way delta: every README line added must trace to T2a's
+provisioning receipt (over-inclusion), and every receipt-evidenced step must appear in the README
+(under-inclusion). I ran both and reported both zero.
+
+**The under-inclusion half was worthless.** I grepped for the five receipt-evidenced steps in
+`99ca1fa:README.md` — the **already-edited** file. ⭐ **A document compared against itself after the
+change cannot reveal what the change removed.** The correct subject was `89d7086:README.md`, the
+pre-edit blob, and I had that SHA in hand and used it minutes earlier for a different check.
+
+The review then found what my check could not: the commit had **rewritten** the inherited one-line
+acceptance invocation into a subshell with `mktemp`, `trap`, redirection, `sed`, `grep` and a composite
+exit — where the authority's bound was *additions only, nothing reworded, nothing restructured*. I read
+that exact diff, described it accurately as "the flag plus the nonzero-count guard", and reported it
+clean.
+
+⚠️ **TWO DISTINCT FAILURES, AND THE SECOND IS THE WORSE ONE:**
+1. **Contaminated subject** — I measured the artifact after the change under test had been applied to it.
+2. **I applied one of two given tests.** The authority stated a precondition-tracing bound AND a
+   no-restructure bound. I checked tracing, found it clean, and never ran the second. ⇒ **Finding a
+   check clean is not evidence that it was the only check required**, and a verifier that satisfies
+   itself on the test it happened to run reports "verified" for a scope it never covered.
+
+⇒ ⭐ **BEFORE REPORTING A DELTA, NAME THE BASELINE AND PROVE IT PREDATES THE CHANGE.** For git, that is
+the parent blob, not the committed one. ⇒ **And enumerate the authority's bounds as a list before
+verifying, then report per-bound** — otherwise "I verified it" silently means "I verified the part I
+thought of", which is the day's own defect ([[7x270]]) with me as the instrument.
+
+⚠️ Worth recording that this happened *while* I was verifying other people's contaminated-subject
+errors and filing lessons about them. Holding a rule is not applying it.
