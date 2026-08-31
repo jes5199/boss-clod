@@ -168,6 +168,33 @@ for w in "${WORKERS[@]}"; do
       echo "DEAD-SESSION|$w|no live claude process for this worker — exited, not stalled|release: relaunch only when it has ranked work"
       continue
     fi
+    # ⭐ 2026-08-31 — A NUDGE THAT DOES NOT MOVE THE TURN-END TIMESTAMP IS NOT WORKING.
+    # commonplace-plan reported STALLED three sweeps running with the SAME turn_end
+    # (19:18:51.103Z) — it had finished its turn and was waiting on a peer agent, which from a
+    # transcript is indistinguishable from being stuck. Re-nudging a worker whose turn_end has
+    # not moved is repeating a thing already observed not to work, and the loop's own rule says
+    # to stop and say so.
+    # ⛔ NOT SUPPRESSION: still printed, with the repeat count, and it SELF-CLEARS the instant the
+    # worker takes a turn. The state file records only what was already in the output.
+    _seenfile=/home/jes/boss-clod/.stall-seen
+    _turn_end=$(echo "${out#*|*|}" | cut -d'|' -f1)
+    _prev=$(grep "^${w}|" "$_seenfile" 2>/dev/null | head -1)
+    _prev_te=$(echo "$_prev" | cut -d'|' -f2)
+    _prev_n=$(echo "$_prev" | cut -d'|' -f3)
+    case "$_prev_n" in ''|*[!0-9]*) _prev_n=0 ;; esac
+    if [ "$_turn_end" = "$_prev_te" ]; then
+      _n=$((_prev_n+1))
+    else
+      _n=1
+    fi
+    if [ -w "$(dirname "$_seenfile")" ]; then
+      { grep -v "^${w}|" "$_seenfile" 2>/dev/null; echo "${w}|${_turn_end}|${_n}"; } > "${_seenfile}.tmp" 2>/dev/null \
+        && mv "${_seenfile}.tmp" "$_seenfile"
+    fi
+    if [ "$_n" -ge 3 ]; then
+      echo "NUDGE-INEFFECTIVE|$w|${out#*|*|} · unchanged turn_end across $_n sweeps — the nudge is a substitute for a fix, not a fix; find why it cannot proceed"
+      continue
+    fi
     stalled=$((stalled+1)); echo "STALLED|$w|${out#*|*|}"
       fi
       ;;
