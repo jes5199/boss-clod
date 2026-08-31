@@ -1,0 +1,496 @@
+<title>Fleet Switchboard</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Public+Sans:wght@400;500;600;700&display=swap">
+<style>
+  :root {
+    --ground: #f4f7fa;
+    --paper: #ffffff;
+    --paper-2: #eaf0f5;
+    --ink: #132236;
+    --muted: #607186;
+    --line: #cad5df;
+    --navy: #18344d;
+    --cyan: #21859b;
+    --cyan-soft: #d9eff3;
+    --amber: #b97b18;
+    --amber-soft: #fff0cf;
+    --green: #267b61;
+    --green-soft: #dcefe7;
+    --red: #ad4b4b;
+    --red-soft: #fae3e1;
+    --shadow: 0 18px 50px rgba(24, 52, 77, 0.10);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #0c1621;
+      --paper: #132131;
+      --paper-2: #1a2b3d;
+      --ink: #e7eef5;
+      --muted: #9cb0c4;
+      --line: #30465a;
+      --navy: #bdd4e5;
+      --cyan: #64c4d6;
+      --cyan-soft: #173a46;
+      --amber: #edb956;
+      --amber-soft: #44351b;
+      --green: #70c4a3;
+      --green-soft: #173b31;
+      --red: #ef9292;
+      --red-soft: #482626;
+      --shadow: 0 18px 54px rgba(0, 0, 0, 0.28);
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #0c1621;
+    --paper: #132131;
+    --paper-2: #1a2b3d;
+    --ink: #e7eef5;
+    --muted: #9cb0c4;
+    --line: #30465a;
+    --navy: #bdd4e5;
+    --cyan: #64c4d6;
+    --cyan-soft: #173a46;
+    --amber: #edb956;
+    --amber-soft: #44351b;
+    --green: #70c4a3;
+    --green-soft: #173b31;
+    --red: #ef9292;
+    --red-soft: #482626;
+    --shadow: 0 18px 54px rgba(0, 0, 0, 0.28);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: "Public Sans", ui-sans-serif, system-ui, sans-serif;
+    line-height: 1.58;
+  }
+  a { color: var(--cyan); }
+  .shell {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: clamp(24px, 5vw, 64px) clamp(18px, 4vw, 48px) 80px;
+  }
+  .masthead {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(260px, 0.46fr);
+    gap: clamp(24px, 5vw, 64px);
+    align-items: end;
+    padding: clamp(28px, 5vw, 58px);
+    background: var(--navy);
+    color: var(--ground);
+    box-shadow: var(--shadow);
+    border-radius: 3px;
+    position: relative;
+    overflow: hidden;
+  }
+  .masthead::after {
+    content: "";
+    position: absolute;
+    width: 280px;
+    height: 280px;
+    right: -120px;
+    top: -140px;
+    border: 34px solid color-mix(in srgb, var(--cyan) 42%, transparent);
+    border-radius: 50%;
+  }
+  .eyebrow, .label {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.73rem;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .masthead .eyebrow { color: color-mix(in srgb, var(--ground) 72%, var(--cyan)); }
+  h1, h2, h3 {
+    font-family: "Familjen Grotesk", ui-sans-serif, sans-serif;
+    text-wrap: balance;
+    margin: 0;
+    line-height: 1.02;
+  }
+  h1 { font-size: clamp(2.8rem, 7vw, 6.2rem); letter-spacing: -0.055em; margin-top: 12px; }
+  h2 { font-size: clamp(1.65rem, 3vw, 2.55rem); letter-spacing: -0.035em; }
+  h3 { font-size: 1.12rem; letter-spacing: -0.015em; }
+  .lede {
+    max-width: 62ch;
+    margin: 22px 0 0;
+    font-size: clamp(1rem, 1.8vw, 1.22rem);
+    color: color-mix(in srgb, var(--ground) 86%, var(--cyan));
+  }
+  .hold {
+    position: relative;
+    z-index: 1;
+    border-left: 3px solid var(--amber);
+    padding-left: 18px;
+    display: grid;
+    gap: 9px;
+  }
+  .hold strong { font-family: "Familjen Grotesk", sans-serif; font-size: 1.4rem; }
+  .hold p { margin: 0; color: color-mix(in srgb, var(--ground) 82%, var(--cyan)); }
+  .hold code { color: var(--ground); }
+  code, .mono { font-family: "IBM Plex Mono", ui-monospace, monospace; }
+  .section { display: grid; gap: 22px; padding-top: clamp(46px, 8vw, 88px); }
+  .section-head { display: grid; gap: 8px; max-width: 72ch; }
+  .section-head p { color: var(--muted); margin: 0; }
+  .label { color: var(--cyan); }
+  .species-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+  .species {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+    padding: clamp(22px, 4vw, 36px);
+    display: grid;
+    gap: 22px;
+    border-radius: 3px;
+  }
+  .species.codex { border-top: 5px solid var(--cyan); }
+  .species.claude { border-top: 5px solid var(--amber); }
+  .model-list { display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  .model-row {
+    display: grid;
+    grid-template-columns: minmax(96px, 0.3fr) minmax(0, 1fr) auto;
+    gap: 16px;
+    align-items: start;
+    padding: 15px 16px;
+    background: var(--paper);
+  }
+  .model-name { font-family: "Familjen Grotesk", sans-serif; font-size: 1.05rem; font-weight: 700; }
+  .model-role { color: var(--muted); font-size: 0.92rem; }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+  .chip.go { color: var(--green); background: var(--green-soft); }
+  .chip.hold { color: var(--amber); background: var(--amber-soft); border: 0; padding-left: 8px; }
+  .chip.watch { color: var(--cyan); background: var(--cyan-soft); }
+  .chip.block { color: var(--red); background: var(--red-soft); }
+  .routing-note {
+    background: var(--cyan-soft);
+    color: var(--ink);
+    padding: 16px 18px;
+    border-left: 4px solid var(--cyan);
+    font-size: 0.9rem;
+  }
+  .roles {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+  }
+  .role {
+    border-top: 2px solid var(--line);
+    padding: 18px 6px 0;
+    display: grid;
+    gap: 8px;
+  }
+  .role p { margin: 0; color: var(--muted); font-size: 0.93rem; }
+  .flow-wrap { overflow-x: auto; padding-bottom: 8px; }
+  .flow {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(132px, 1fr));
+    min-width: 1040px;
+    gap: 10px;
+    align-items: stretch;
+  }
+  .step {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    padding: 17px 15px;
+    position: relative;
+    min-height: 122px;
+    display: grid;
+    align-content: start;
+    gap: 8px;
+  }
+  .step:not(:last-child)::after {
+    content: "→";
+    position: absolute;
+    right: -10px;
+    top: 46px;
+    z-index: 2;
+    color: var(--cyan);
+    font-family: "IBM Plex Mono", monospace;
+    font-weight: 700;
+  }
+  .step .num { color: var(--cyan); font-family: "IBM Plex Mono", monospace; font-size: 0.72rem; }
+  .step p { margin: 0; color: var(--muted); font-size: 0.82rem; }
+  .branch {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .branch-card { padding: 18px; border: 1px solid var(--line); background: var(--paper-2); }
+  .branch-card p { margin: 8px 0 0; font-size: 0.9rem; color: var(--muted); }
+  .gap-list { display: grid; gap: 10px; }
+  .gap-item {
+    display: grid;
+    grid-template-columns: 42px minmax(0, 0.38fr) minmax(0, 1fr);
+    gap: 18px;
+    align-items: start;
+    padding: 18px 0;
+    border-top: 1px solid var(--line);
+  }
+  .gap-item:last-child { border-bottom: 1px solid var(--line); }
+  .severity {
+    width: 36px;
+    height: 36px;
+    display: grid;
+    place-items: center;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 50%;
+    background: var(--amber-soft);
+    color: var(--amber);
+  }
+  .gap-item h3 { margin-top: 6px; }
+  .gap-item p { margin: 4px 0 0; color: var(--muted); max-width: 72ch; }
+  .path { color: var(--cyan); font-family: "IBM Plex Mono", monospace; font-size: 0.78rem; overflow-wrap: anywhere; }
+  .roadmap { display: grid; gap: 0; counter-reset: phase; }
+  .phase {
+    counter-increment: phase;
+    display: grid;
+    grid-template-columns: 64px minmax(0, 0.5fr) minmax(0, 1fr);
+    gap: 20px;
+    padding: 24px 0;
+    border-top: 1px solid var(--line);
+  }
+  .phase:last-child { border-bottom: 1px solid var(--line); }
+  .phase::before {
+    content: "P" counter(phase);
+    font-family: "IBM Plex Mono", monospace;
+    font-weight: 600;
+    color: var(--cyan);
+    font-size: 0.84rem;
+    padding-top: 4px;
+  }
+  .phase p { margin: 3px 0 0; color: var(--muted); }
+  .phase ul { margin: 0; padding-left: 20px; color: var(--muted); }
+  .phase li + li { margin-top: 6px; }
+  .decision {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 24px;
+    align-items: center;
+    padding: 28px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+  }
+  .decision p { margin: 7px 0 0; color: var(--muted); max-width: 68ch; }
+  .decision-time { font-family: "IBM Plex Mono", monospace; font-size: 1.2rem; color: var(--amber); font-weight: 600; white-space: nowrap; }
+  .footer {
+    margin-top: 72px;
+    padding-top: 22px;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+    flex-wrap: wrap;
+    font-size: 0.82rem;
+  }
+  @media (max-width: 800px) {
+    .masthead, .species-grid, .roles, .branch, .decision { grid-template-columns: 1fr; }
+    .gap-item { grid-template-columns: 40px 1fr; }
+    .gap-item > div:last-child { grid-column: 2; }
+    .phase { grid-template-columns: 48px 1fr; }
+    .phase > div:last-child { grid-column: 2; }
+    .model-row { grid-template-columns: 90px 1fr; }
+    .model-row .chip { grid-column: 2; justify-self: start; }
+  }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; } }
+</style>
+
+<main class="shell">
+  <header class="masthead">
+    <div>
+      <div class="eyebrow">Mixed-species operating plan · 31 Aug 2026</div>
+      <h1>Fleet<br>Switchboard</h1>
+      <p class="lede">A dispatch system for Codex and Claude that assigns work by measured strength, preserves one-review cardinality, and makes quota, identity, and publication gates executable rather than conversational.</p>
+    </div>
+    <aside class="hold">
+      <span class="eyebrow">Active temporal hold</span>
+      <strong>Opus remains off</strong>
+      <p>No worker, writer, reviewer, or planning route may use Opus before <code>2026-08-31 15:00 UTC</code>. That timestamp opens reassessment—not activation.</p>
+    </aside>
+  </header>
+
+  <section class="section" id="species">
+    <div class="section-head">
+      <span class="label">01 · Species map</span>
+      <h2>Different strengths, explicit ownership</h2>
+      <p>The selector used to launch a model and the model that actually owns the work are separate facts. Every dispatch records both.</p>
+    </div>
+    <div class="species-grid">
+      <article class="species codex">
+        <div>
+          <span class="label">Codex family</span>
+          <h2>Luna · Terra · Sol</h2>
+        </div>
+        <div class="model-list">
+          <div class="model-row">
+            <div class="model-name">Luna</div>
+            <div class="model-role">Strong executor for well-specified bounded implementation and a useful independent review lane.</div>
+            <span class="chip go">available</span>
+          </div>
+          <div class="model-row">
+            <div class="model-name">Terra</div>
+            <div class="model-role">Between Luna and Sol, but no measured fleet niche yet. Use only for a predeclared comparison.</div>
+            <span class="chip watch">pilot only</span>
+          </div>
+          <div class="model-row">
+            <div class="model-name">Sol</div>
+            <div class="model-role">Efficient default orchestrator and implementer for Plan-ranked work.</div>
+            <span class="chip go">default</span>
+          </div>
+        </div>
+        <div class="routing-note"><strong>Identity rule:</strong> Agent selector <code>haiku</code> is a proxy route to Luna. It is not species evidence. The resulting transcript must independently show Codex Luna.</div>
+      </article>
+
+      <article class="species claude">
+        <div>
+          <span class="label">Claude family</span>
+          <h2>Fable · Opus · Sonnet · Haiku</h2>
+        </div>
+        <div class="model-list">
+          <div class="model-row">
+            <div class="model-name">Fable</div>
+            <div class="model-role">Expensive judgment lane for rare, explicitly justified questions after a live quota check.</div>
+            <span class="chip hold">reserve</span>
+          </div>
+          <div class="model-row">
+            <div class="model-name">Opus</div>
+            <div class="model-role">Claude workhorse, admitted only after the temporal hold and a fresh reassessment.</div>
+            <span class="chip block">time-locked</span>
+          </div>
+          <div class="model-row">
+            <div class="model-name">Sonnet</div>
+            <div class="model-role">Support under active monitoring; not strong enough for unmonitored stage ownership.</div>
+            <span class="chip watch">monitored</span>
+          </div>
+          <div class="model-row">
+            <div class="model-name">Haiku</div>
+            <div class="model-role">Low-risk support under active monitoring; distinct from the selector that routes to Luna.</div>
+            <span class="chip watch">monitored</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="ownership">
+    <div class="section-head">
+      <span class="label">02 · Control plane</span>
+      <h2>Priority, dispatch, and judgment stay separate</h2>
+      <p>The fleet moves quickly because each role has a narrow authority—not because one session silently absorbs the others.</p>
+    </div>
+    <div class="roles">
+      <article class="role"><h3>Plan ranks</h3><p>Owns queue order, bounded stage scope, acceptance criteria, and dependencies. It never dispatches implementation processes.</p></article>
+      <article class="role"><h3>Boss admits</h3><p>Owns health, quota, time locks, identity checks, dispatch, exact publication, and effect verification. It does not invent project counter-theories.</p></article>
+      <article class="role"><h3>Worker judges</h3><p>Owns domain decisions inside the ranked boundary, produces the artifact, and names concrete blockers. Findings return to Plan as facts.</p></article>
+    </div>
+  </section>
+
+  <section class="section" id="state-machine">
+    <div class="section-head">
+      <span class="label">03 · Stage state machine</span>
+      <h2>One artifact moves through seven gates</h2>
+      <p>Process absence never determines outcome. The artifact, its evidence, and its publication receipt do.</p>
+    </div>
+    <div class="flow-wrap">
+      <div class="flow">
+        <div class="step"><span class="num">01</span><h3>Ranked</h3><p>Immutable Plan reference, stage ID, scope, criteria, dependencies.</p></div>
+        <div class="step"><span class="num">02</span><h3>Admitted</h3><p>Boss checks quota, time, worker health, path collision, and route eligibility.</p></div>
+        <div class="step"><span class="num">03</span><h3>Identified</h3><p>Requested selector and observed provider/model both recorded.</p></div>
+        <div class="step"><span class="num">04</span><h3>Running</h3><p>Worker owns bounded execution. Checkpoints precede any reroute.</p></div>
+        <div class="step"><span class="num">05</span><h3>Evidence</h3><p>Diff/output, tests, controls, exit codes, quota snapshot, clean state.</p></div>
+        <div class="step"><span class="num">06</span><h3>Reviewed once</h3><p>One independent verdict. One same-writer fix pass; mechanical gates rerun; no re-review.</p></div>
+        <div class="step"><span class="num">07</span><h3>Published</h3><p>Exact reviewed artifact is published and live effect is independently verified.</p></div>
+      </div>
+    </div>
+    <div class="branch">
+      <div class="branch-card"><span class="chip block">blocked</span><p>Preserve worker and artifact state. Name the mechanism. Plan corrects authority only after the complete evidence corpus closes.</p></div>
+      <div class="branch-card"><span class="chip hold">finding fix</span><p>The same writer gets at most one narrow fix pass. No second reviewer. Material scope changes return to Plan.</p></div>
+      <div class="branch-card"><span class="chip watch">reroute</span><p>Never silently substitute a model. Record the previous route, reason, quota verdict, new route, and new observed identity.</p></div>
+    </div>
+  </section>
+
+  <section class="section" id="gaps">
+    <div class="section-head">
+      <span class="label">04 · Measured mechanical gaps</span>
+      <h2>The policy is ahead of the machinery</h2>
+      <p>The current fleet has strong pieces, but several critical rules still live in prose or rely on instruments that are blind to the current process shape.</p>
+    </div>
+    <div class="gap-list">
+      <div class="gap-item"><span class="severity">A</span><div><h3>Opus hold is not mechanically enforced</h3><p class="path">~/.bashrc · ~/.claude/settings.json</p></div><div><p>The default Claude setting remains Opus, and launchers do not check the 15:00 UTC time lock. Broadcast and Plan records are durable intent, not a dispatch gate.</p></div></div>
+      <div class="gap-item"><span class="severity">B</span><div><h3>Liveness checks see the wrapper, not Claude</h3><p class="path">agent-status.sh · epic-nudge.sh · sol-nudge.sh · plan-nudge.sh</p></div><div><p>Nested launcher shells leave tmux reporting <code>bash</code> while a live Claude grandchild runs. Checks that require <code>pane_current_command=claude</code> can call active workers stopped.</p></div></div>
+      <div class="gap-item"><span class="severity">C</span><div><h3>Desired model is not bound to observed model</h3><p class="path">.fleet-models · .model-overrides · statusline-command.sh</p></div><div><p>The fleet lacks a complete per-worker desired/observed manifest across Claude and Codex species. In-session model changes and proxy routing can escape the current intent ledger.</p></div></div>
+      <div class="gap-item"><span class="severity">D</span><div><h3>One-review policy has no per-stage lease</h3><p class="path">~/.claude/hooks/block-hot-review-loops.sh</p></div><div><p>The hook blocks known hot entrypoints, but does not count review consumption by stage. Reviewer agents and other review paths remain mechanically possible.</p></div></div>
+      <div class="gap-item"><span class="severity">E</span><div><h3>Codex quota is measured but not admitted</h3><p class="path">sol-usage.sh · quota-guard.sh · sol-nudge.sh</p></div><div><p><code>sol-usage.sh</code> is robust, but dispatch does not consume its verdict. A manually written sentinel still stands between quota evidence and routing.</p></div></div>
+      <div class="gap-item"><span class="severity">F</span><div><h3>Delivery can be marked before notification succeeds</h3><p class="path">clod-squad/server.ts · squad-alerts/server.ts</p></div><div><p>Queue records may move to delivered before notification success, with no retry/dead-letter route. Cooldown markers can also advance before clod-squad send confirmation.</p></div></div>
+      <div class="gap-item"><span class="severity">G</span><div><h3>Held worktrees fall outside durability sweeps</h3><p class="path">unbacked-work-sweep.sh · sol-egress-run.sh</p></div><div><p>The sweep explicitly misses linked worktrees and uncommitted content, while Codex work is intentionally held there. Dispatch does not require a durable run receipt.</p></div></div>
+    </div>
+  </section>
+
+  <section class="section" id="roadmap">
+    <div class="section-head">
+      <span class="label">05 · Mechanical rollout</span>
+      <h2>Make the cheap path the true path</h2>
+      <p>Implement controls in the order that closes the largest policy-to-machinery gaps without creating another specification loop.</p>
+    </div>
+    <div class="roadmap">
+      <article class="phase"><div><h3>Time-lock and identity admission</h3><p>First make prohibited model routes impossible to launch accidentally.</p></div><div><ul><li>Add a fail-closed Opus hold check to normal Claude launch/dispatch paths.</li><li>Create one per-worker route manifest: requested species/model, selector, observed identity, hold state.</li><li>Demonstrate pre-deadline Opus red and known-good Sol/Luna green.</li></ul></div></article>
+      <article class="phase"><div><h3>Process identity resolver</h3><p>Replace pane-command guesses with live process ancestry and captured PIDs.</p></div><div><ul><li>Resolve tmux pane → descendant Claude process from <code>/proc</code>.</li><li>Use the resolver in health, nudge, fallback, and status instruments.</li><li>Prove both nested-shell active and genuinely stopped arms.</li></ul></div></article>
+      <article class="phase"><div><h3>Unified quota admission</h3><p>Make Claude and Codex verdicts feed the same dispatch decision.</p></div><div><ul><li>Consume <code>quota-guard.sh</code> and <code>sol-usage.sh</code> machine output.</li><li>Treat blind telemetry as unavailable capacity.</li><li>Serialize on slowdown, stop new starts at hard limits, and never route Fable/Opus automatically.</li></ul></div></article>
+      <article class="phase"><div><h3>Review lease and evidence bundle</h3><p>Move one-review cardinality from convention into state.</p></div><div><ul><li>Issue one review lease per stage ID and target hash.</li><li>Record reviewer identity, verdict, and whether the one same-writer fix was consumed.</li><li>Reject duplicate review and publication without the reviewed artifact.</li></ul></div></article>
+      <article class="phase"><div><h3>Atomic delivery and worktree durability</h3><p>Close the gap between “sent,” “delivered,” and “preserved.”</p></div><div><ul><li>Acknowledge queue delivery only after notification succeeds; add retry/dead-letter state.</li><li>Advance nudge cooldown only after send receipt.</li><li>Require each isolated worktree to emit a durable run receipt and include it in sweeps.</li></ul></div></article>
+      <article class="phase"><div><h3>Terra measurement pilot</h3><p>Do not assign Terra a role by aesthetics.</p></div><div><ul><li>Pick one repeatable bounded task already completed by Sol and Luna.</li><li>Predeclare quality, wall-clock, cost, and intervention metrics.</li><li>Promote Terra only if measured advantage reveals a real niche.</li></ul></div></article>
+    </div>
+  </section>
+
+  <section class="section" id="now">
+    <div class="section-head">
+      <span class="label">06 · Operating posture</span>
+      <h2>What runs now, what waits</h2>
+    </div>
+    <div class="species-grid">
+      <article class="species codex">
+        <div><span class="chip go">run now</span></div>
+        <div class="model-list">
+          <div class="model-row"><div class="model-name">Sol</div><div class="model-role">Default admitted orchestration and implementation.</div></div>
+          <div class="model-row"><div class="model-name">Luna</div><div class="model-role">Bounded execution/review with selector plus observed identity.</div></div>
+          <div class="model-row"><div class="model-name">Planning</div><div class="model-role">Plan ranking, boss health/dispatch, evidence capture, mechanical gates.</div></div>
+        </div>
+      </article>
+      <article class="species claude">
+        <div><span class="chip hold">wait or monitor</span></div>
+        <div class="model-list">
+          <div class="model-row"><div class="model-name">Opus</div><div class="model-role">Wait for 15:00 UTC reassessment and a new explicit admission artifact.</div></div>
+          <div class="model-row"><div class="model-name">Fable</div><div class="model-role">Reserve-only while its meter remains near the wall.</div></div>
+          <div class="model-row"><div class="model-name">Sonnet / Haiku</div><div class="model-role">Only low-risk support under active monitoring.</div></div>
+        </div>
+      </article>
+    </div>
+    <div class="decision">
+      <div><h3>15:00 UTC is a decision point</h3><p>Measure Claude/Fable and OpenAI quota, inspect queue demand, and ask whether any held work actually benefits from Opus. The valid outcomes are “allow,” “allow a narrower class,” or “continue holding.”</p></div>
+      <div class="decision-time">REASSESS ≠ ENABLE</div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <span>Authority: jes model taxonomy and Opus hold · 2026-08-31</span>
+    <span>Evidence base: boss-clod launcher, dispatch, quota, alert, and review-gate audit</span>
+  </footer>
+</main>
