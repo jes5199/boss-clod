@@ -12,6 +12,29 @@
 #   rc 0 = ABSENT, and the corpus was proven reachable
 #   rc 1 = PRESENT (hits printed)
 #   rc 2 = BLIND — the traversal itself found nothing at all, so a zero means nothing
+# --self-test: the arms live HERE, not in the author's terminal. A future edit that
+# adds a fast path or drops the control trips this rather than passing quietly.
+if [ "${1:-}" = "--self-test" ]; then
+  self="$0"; fails=0
+  t=$(mktemp -d); mkdir -p "$t/a/b/c/d/e"; : > "$t/a/b/c/d/e/deep.txt"; : > "$t/shallow.txt"
+  empty=$(mktemp -d)
+  check() { # name expected_rc ; runs remaining args
+    n="$1"; want="$2"; shift 2
+    "$@" >/dev/null 2>&1; got=$?
+    if [ "$got" = "$want" ]; then echo "  ok   $n (rc=$got)"; else echo "  RED  $n expected rc=$want got rc=$got"; fails=$((fails+1)); fi
+  }
+  check "PRESENT on a file that exists"        1 "$self" "$t" -type f -name 'deep.txt'
+  check "ABSENT when corpus reachable"         0 "$self" "$t" -type f -name 'no-such-file-xyz'
+  check "BLIND refuses -maxdepth"              2 "$self" "$t" -maxdepth 4 -type f -name 'deep.txt'
+  check "BLIND on empty corpus"                2 "$self" "$empty" -type f -name 'anything'
+  check "BLIND on non-directory"               2 "$self" "$t/shallow.txt" -type f
+  # ⭐ The arm that matters: a deep file must be FOUND, so a future depth bound cannot hide it.
+  check "finds a 5-deep file (no depth bound)" 1 "$self" "$t" -type f -name 'deep.txt'
+  rm -rf "$t" "$empty"
+  [ "$fails" -eq 0 ] && { echo "SELF-TEST OK (6 arms)"; exit 0; }
+  echo "SELF-TEST FAILED: $fails arm(s)"; exit 1
+fi
+
 usage() { echo "usage: $0 DIR [find-predicates...]" >&2; exit 2; }
 [ $# -ge 1 ] || usage
 dir="$1"; shift
