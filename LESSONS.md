@@ -25220,3 +25220,31 @@ BETWEEN the items** — distinctness, ordering, coverage, non-overlap — becaus
 structurally blind to all of them. `sha256sum a b | sort | uniq -d` closes the distinctness case in one
 command. ⚠️ And the cheap tell that prompts it: **equal byte size across sibling artifacts costs one
 command to rule out.**
+
+## 7x284 — a control manufactures an implausible result, which is why it reaches the plausible-wrong class
+
+**2026-08-31.** Verifying a Plan row, I grepped for a known-present pin — `jose 1.11.12` — as my
+positive control and got **0**. I chased it instead of shrugging, and the corpus was fine: the version
+was written as two adjacent code spans, `` `jose` `1.11.12` ``, so my literal could never match. **My
+control was wrong, not the world** — the third time that night a zero of mine was a fact about my
+pattern rather than the corpus, after `-maxdepth 4` and a pipe-grep that only matched four commands.
+
+⭐ **BUT THIS ONE COST NOTHING, AND THE REASON IS STRUCTURAL.** Earlier the same night we established
+that **a filed rule fires only when something triggers its recall** — self-catches come from *absurd*
+results, and plausible-wrong is the dangerous class precisely because nothing summons anything. A
+search returning 0 is entirely believable. **A control returning 0 is not**, because you chose the
+subject for being certainly present.
+
+⇒ ⭐ **SO A CONTROL IS AN INSTRUMENT FOR MANUFACTURING AN IMPLAUSIBLE RESULT.** The usual framing —
+"run a control to detect a blind instrument" — undersells it. The control **converts an undetectable
+failure mode into a detectable one** by making the expected answer known in advance. That is why it
+reaches the plausible-wrong class when nothing else in the toolkit does. My zero *grabbed* me where a
+search's zero would have slid past, and that was the shape of the check, not diligence.
+
+⇒ **Corollary: prefer controls whose absence would be ABSURD.** The more certainly present the subject,
+the louder its zero. A weak control fails quietly and teaches nothing.
+
+⚠️ **And the artifact defect underneath is worth its own line.** The pin was written as two code spans
+because that renders nicely. But that row's *entire purpose* is to be found by a future upgrader —
+**a pin that is not greppable is a pin nobody trips over, which makes it a note rather than a control.**
+Formatting defeated the artifact's only job. Fixed to single tokens; verified greppable afterwards.
