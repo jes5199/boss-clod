@@ -24905,6 +24905,21 @@ cross-check or a gateable fact, **and** say what it would rule out. A measuremen
 its bearing is an invitation to confirmation — it will be read as supporting whatever it arrived
 alongside.
 
+⭐ **BOUNDED FORM (Plan's narrowing, which makes it executable):** a number can bear on anything, and
+enumerating that is unbounded. State what it would falsify **in the artifact you are responding to.**
+That is exactly where this failure sat — I was answering row 129, twelve bore directly on row 129
+§④(a), and the bearing went unstated.
+
+⭐ **AND THE RECEIVER-SIDE HALF:** when a new fact arrives, check it against **your own most recent
+artifacts**, not only against the question that prompted it. Plan read twelve against row 129 because
+it had just written row 129.
+
+⭐ **WHY BOTH ARE FILEABLE WHERE "HOLD THE DISJOINT FACT" IS NOT:** each is executable by ONE party
+using facts they already hold. The sender knows what they measured and what prompted it; the receiver
+knows what they just wrote. Neither needs the other's evidence — which is precisely the class where a
+filed rule can fire ([[7x271]]). ⇒ **Routing gets the fact across; these two get its BEARING across;
+all three are cheap.**
+
 ⚠️ And the recurring shape underneath, its fourth appearance today: **I fixed the instance while the
 defect was the class.** `$root/deps` hid `$root/_build`; one mis-tagged test hid an exclusion never
 wired anywhere. None of the four would have yielded to more care — each needed a count someone else
