@@ -24423,3 +24423,56 @@ make non-loopback/userinfo destinations, API-key or conflicting-provider records
 status, email-as-account-ID, conflicting response aliases, untrusted quota strings, and unknown or
 missing windows all go `BLIND` with rc=2. The green arm checks the request file contains the nested
 account ID and does not contain the email.
+
+## 7x256 — "do not spawn agents" in a review prompt does not constrain a skill that can spawn them
+
+**2026-08-30.** A sole-review agent was launched with an explicit read-only/no-agent brief. Its
+code-review skill forked a conventions reviewer anyway. The direct reviewer noticed, ignored the
+child's late result, and returned only its own bounded verdict, so no second verdict affected the
+landing. Earlier in the same campaign another nominally single review also emitted a conventions-only
+child result. This is now the same trap twice.
+
+The first mechanism was tool capability: a `general-purpose` reviewer has the `Agent` tool, and prose
+does not remove it. **A prompt is not a sandbox.** I replaced it with `Explore`, whose tool contract
+excludes `Agent`, `Edit`, and `Write`, and filed that as the mechanical fix.
+
+⛔ **THAT FIX WAS FALSE WITHIN THE HOUR.** The first later `Explore` reviewer invoked the
+code-review `Skill`; the skill itself launched/awaited review work despite `Explore` lacking the
+`Agent` tool. Removing one fan-out tool left another executable fan-out path. I caught it because the
+reviewer said *"I invoked the required code-review skill … and am awaiting its result"*, instructed it
+to ignore that result, and used only its direct verdict.
+
+⇒ ⭐ **WHEN CARDINALITY MATTERS, REMOVE EVERY EXECUTABLE FAN-OUT PATH — `Agent` AND AGENT-RUNNING
+`Skill`.** A structurally single reviewer needs a tool profile with neither. Until such a profile
+exists, the honest fallback is one direct top-level Sol review, not a subagent that is merely asked not
+to delegate. **A SELF-REPORTED "I IGNORED THE CHILD" IS VALID INCIDENT RECOVERY, NOT ENFORCEMENT.**
+
+## 7x257 — a commit hash without its repository is not a referent
+
+**2026-08-31.** I dispatched a Biscuit implementation by saying Plan had published commit `c1b83f4`
+and telling the Biscuit worker to read the exact `QUEUE.md` section at that commit. The worker correctly
+stopped: that object does not exist in `commonplace-biscuit`, and that repo has no `QUEUE.md`. Nothing
+broke because it refused to infer; the missing coordinate cost a dispatch round-trip.
+
+⇒ ⭐ **Every cross-repository dispatch referent is at least `(repository, commit, path)`.** A hash that
+is exact but unscoped is still ambiguous. Name the authority repo and file separately from the
+implementation repo and base SHA; do not rely on project-role context to supply either coordinate.
+
+## 7x258 — a published correction is not complete while its evidence corpus is still arriving
+
+**2026-08-31.** Plan published a precise P2e3 authority amendment, boss independently verified its
+live SHA and diff, and relayed it as sufficient to resume. Seconds later Plan received the resident's
+complete seven-failure corpus and discovered that the amendment authorized too few legacy assertions
+plus missed one state/order interaction. Plan immediately re-held the stage; the resident had received
+the newer hold before editing, so no code or review cardinality moved under the incomplete authority.
+
+The first amendment was valid for the collision dossier Plan had at publication time. The failure was
+**corpus closure**: publication proved which words were live, not that all evidence those words needed
+to govern had arrived. A verified remote ref cannot turn a partial input set into a complete ruling.
+
+⇒ ⭐ **BEFORE RELAYING A BLOCK-CLEARING AUTHORITY AS “RESUME,” REQUIRE THE HELD WORKER'S RECEIPT THAT
+ITS FAILURE CORPUS IS COMPLETE AND INCORPORATED.** The order is: worker names the full failing
+population and says dossier complete → Plan rules that population → boss verifies the published
+artifact → worker resumes. If a correction is published while evidence is still arriving, treat it as
+a draft authority artifact even when its commit and remote publication are exact. This is a dispatch
+gate, not a reminder: no resume message before the corpus-closed receipt.
