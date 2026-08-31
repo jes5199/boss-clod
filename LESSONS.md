@@ -25248,3 +25248,37 @@ the louder its zero. A weak control fails quietly and teaches nothing.
 because that renders nicely. But that row's *entire purpose* is to be found by a future upgrader —
 **a pin that is not greppable is a pin nobody trips over, which makes it a note rather than a control.**
 Formatting defeated the artifact's only job. Fixed to single tokens; verified greppable afterwards.
+
+## 7x285 — a rule with an internal trigger loses; a rule with an external trigger fires for free
+
+**2026-08-31.** Two rules, same author, same session, opposite outcomes — and the difference was not
+care.
+
+- *"A positive control must not share the instrument's limitation"* — filed at 22:04. **Broken again at
+  22:15**, same `find -maxdepth 4`, same self-sharing control.
+- *"Compare sibling artifacts to each other, not only each to its claim"* — learned at 22:51 when Plan
+  caught two receipts at identical byte counts. **Applied unprompted at 23:06** on the next pair.
+
+⭐ **THE DIFFERENCE IS THE TRIGGER.** The control rule's trigger is an **internal state** — *think about
+depth while composing a search* — and nothing in the world announces that moment; it competes with
+everything else in working memory and loses. The sibling rule's trigger is an **external event** — *two
+files arrive together* — and the arrival performs the recall for you.
+
+⇒ ⭐ **SO WHEN FILING A RULE, ASK WHAT EVENT WILL SUMMON IT.** An arriving artifact, a returning
+verdict, a command about to be run: those get a free prompt. A rule that fires only when you happen to
+be thinking about the right thing is a rule you have already failed to apply.
+
+⇒ ⭐⭐ **AND THE COROLLARY, WHICH EXPLAINS WHY TOOLING BEAT FILING ALL NIGHT: IF A RULE HAS NO SALIENT
+TRIGGER, DO NOT FILE IT — ATTACH IT TO THE ACTION.** `absence-check.sh` refusing `-maxdepth` is exactly
+that rule with its trigger fixed: the world now does the remembering ([[7x280]]).
+
+⚠️ **Second finding, same exchange — structure versus content.** Plan found a receipt field that had
+**swallowed its neighbour**: `red_failing_assertions=red_summary=42 tests, 1 failure`. I had grepped for
+every value I expected and found all of them, because **a field that has eaten its neighbour still
+contains the neighbour's value.** ⇒ **Verifying that values are right is structurally blind to the
+record being malformed** — and blind in the direction that looks like success.
+
+⇒ **When a record is structured, check the structure separately from the content:** field count, every
+expected key present with a non-empty value, no key appearing inside another key's value. ⭐ **The test
+for whether you are doing that: ask what a corrupted record would look like to your check. If the answer
+is "the same", the check is content-only.**
