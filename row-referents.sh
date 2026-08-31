@@ -21,6 +21,9 @@
 #                   expected to vanish, and reds on old rows are how a gate gets ignored
 #   MUST-RESOLVE    everything else -> RED if it does not resolve
 
+set -o pipefail  # ⛔ 2026-08-31: a pipeline eats the status of the command that matters —
+                 # `cmd | tail` reports tail's success. Without this, a verdict printed
+                 # through a pipe can say FAILED and exit 0. quota-guard.sh already had it.
 usage() { echo "usage: $0 <queue-file> <row-number> [--at-publish]" >&2; exit 2; }
 
 if [ "${1:-}" = "--self-test" ]; then

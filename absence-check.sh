@@ -14,6 +14,9 @@
 #   rc 2 = BLIND — the traversal itself found nothing at all, so a zero means nothing
 # --self-test: the arms live HERE, not in the author's terminal. A future edit that
 # adds a fast path or drops the control trips this rather than passing quietly.
+set -o pipefail  # ⛔ 2026-08-31: a pipeline eats the status of the command that matters —
+                 # `cmd | tail` reports tail's success. Without this, a verdict printed
+                 # through a pipe can say FAILED and exit 0. quota-guard.sh already had it.
 if [ "${1:-}" = "--self-test" ]; then
   self="$0"; fails=0
   t=$(mktemp -d); mkdir -p "$t/a/b/c/d/e"; : > "$t/a/b/c/d/e/deep.txt"; : > "$t/shallow.txt"

@@ -14,6 +14,9 @@
 # reported it every 5 minutes forever, which is how a sweep trains its reader to skim.
 # ⛔ Resolve liveness by /proc identity, NEVER `pgrep -f` — the worker name appears in this
 # script's own command line and the shell matches itself.
+set -o pipefail  # ⛔ 2026-08-31: a pipeline eats the status of the command that matters —
+                 # `cmd | tail` reports tail's success. Without this, a verdict printed
+                 # through a pipe can say FAILED and exit 0. quota-guard.sh already had it.
 _worker_session_alive() {
   local w="$1" p cmd self=$$
   for p in /proc/[0-9]*; do
