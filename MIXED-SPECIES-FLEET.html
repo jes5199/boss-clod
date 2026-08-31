@@ -321,9 +321,9 @@
       <p class="lede">A dispatch system for Codex and Claude that assigns work by measured strength, preserves one-review cardinality, and makes quota, identity, and publication gates executable rather than conversational.</p>
     </div>
     <aside class="temporal-hold">
-      <span class="eyebrow">Active temporal hold</span>
-      <strong>Opus remains off</strong>
-      <p>No worker, writer, reviewer, or planning route may use Opus before <code>2026-08-31 15:00 UTC</code>. That timestamp opens reassessment—not activation.</p>
+      <span class="eyebrow">Hold lifted &middot; 2026-08-31</span>
+      <strong>Opus is authorized</strong>
+      <p>jes lifted the temporal hold directly. Boss runs Opus; Plan moves to Opus at its next clean checkpoint. A worker&rsquo;s species is never switched mid-task.</p>
     </aside>
   </header>
 
@@ -403,6 +403,22 @@
     </div>
   </section>
 
+  <section class="section" id="risk-posture">
+    <div class="section-head">
+      <span class="label">02b &middot; Risk posture</span>
+      <h2>The instrument is not the deliverable</h2>
+      <p>Measured on T2a, 2026-08-31: six consecutive worker stops, zero product defects. Every stop was correct under the authority it was given, and the feature advanced only when a human reclassified the failure.</p>
+    </div>
+    <div class="roles">
+      <article class="role"><h3>What actually stopped the work</h3><p>A shell-quoted Python parse error. A matcher requiring a phrase to sit on one line. A checker handed the wrong input file. An authority citing an artifact that was never created. None of these are the browser test, the product code, or a gate on the subject.</p></article>
+      <article class="role"><h3>Why a Codex fleet stalls here</h3><p>Codex workers obey a stop condition almost perfectly, so they inherit the authority&rsquo;s risk posture exactly. Maximum caution in the ruling yields maximum caution in the run. The missing capability is not skill&mdash;it is permission to reclassify a red.</p></article>
+      <article class="role"><h3>Rule: repair your own instruments</h3><p>A worker may fix its own checker, manifest, snapshot, or harness scaffolding in place and continue, recording exactly what it changed. Stops are reserved for reds in the actual subject: product code, the browser acceptance, and the certification gates.</p></article>
+      <article class="role"><h3>Rule: ceremony scales with reversibility</h3><p>A held, unpushed commit is fully reversible and does not need live-money certification depth. Reserve heavyweight ceremony for irreversible acts&mdash;publication, data destruction, money.</p></article>
+      <article class="role"><h3>Who may reclassify</h3><p>Claude routes (Opus) own the judgment call &ldquo;this red is my instrument, not the product,&rdquo; and repair in flight. Codex routes own bounded implementation and keep their stop discipline. Fable is reserved for genuinely irreversible decisions.</p></article>
+      <article class="role"><h3>Consequence for Plan</h3><p>Authority text is where risk posture is set, so the planner is the leverage point. A ruling must name every artifact it requires by creation, never by back-reference to a step an earlier stop skipped.</p></article>
+    </div>
+  </section>
+
   <section class="section" id="state-machine">
     <div class="section-head">
       <span class="label">03 · Stage state machine</span>
@@ -434,7 +450,7 @@
       <p>The current fleet has strong pieces, but several critical rules still live in prose or rely on instruments that are blind to the current process shape.</p>
     </div>
     <div class="gap-list">
-      <div class="gap-item"><span class="severity">A</span><div><h3>Opus hold is not mechanically enforced</h3><p class="path">~/.bashrc · ~/.claude/settings.json</p></div><div><p>The default Claude setting remains Opus, and launchers do not check the 15:00 UTC time lock. Broadcast and Plan records are durable intent, not a dispatch gate.</p></div></div>
+      <div class="gap-item"><span class="severity">A</span><div><h3>Model route is unattested</h3><p class="path">~/.bashrc · ~/.claude/settings.json</p></div><div><p>Model routes are set by launcher environment rather than a checked manifest, so intended species and running species can diverge silently. A route manifest with per-session attestation is still absent.</p></div></div>
       <div class="gap-item"><span class="severity">B</span><div><h3>Liveness checks see the wrapper, not Claude</h3><p class="path">agent-status.sh · epic-nudge.sh · sol-nudge.sh · plan-nudge.sh</p></div><div><p>Nested launcher shells leave tmux reporting <code>bash</code> while a live Claude grandchild runs. Checks that require <code>pane_current_command=claude</code> can call active workers stopped.</p></div></div>
       <div class="gap-item"><span class="severity">C</span><div><h3>Desired model is not bound to observed model</h3><p class="path">.fleet-models · .model-overrides · statusline-command.sh</p></div><div><p>The fleet lacks a complete per-worker desired/observed manifest across Claude and Codex species. In-session model changes and proxy routing can escape the current intent ledger.</p></div></div>
       <div class="gap-item"><span class="severity">D</span><div><h3>One-review policy has no per-stage lease</h3><p class="path">~/.claude/hooks/block-hot-review-loops.sh</p></div><div><p>The hook blocks known hot entrypoints, but does not count review consumption by stage. Reviewer agents and other review paths remain mechanically possible.</p></div></div>
@@ -451,7 +467,7 @@
       <p>Implement controls in the order that closes the largest policy-to-machinery gaps without creating another specification loop.</p>
     </div>
     <div class="roadmap">
-      <article class="phase"><div><h3>Time-lock and identity admission</h3><p>First make prohibited model routes impossible to launch accidentally.</p></div><div><ul><li>Add a fail-closed Opus hold check to normal Claude launch/dispatch paths.</li><li>Create one per-worker route manifest: intended species, selector, transcript-exposed model, independent proxy-side provider attestation when available, and hold state.</li><li>Demonstrate pre-deadline Opus red and known-good Sol/Luna green.</li></ul></div></article>
+      <article class="phase"><div><h3>Instrument-repair licence</h3><p>Highest leverage: stop paying a ruling cycle for every harness bug.</p></div><div><ul><li>State in every dispatch that evidence tooling may be repaired in place and logged, without a new authority.</li><li>Restrict mandatory stops to reds in the subject: product code, browser acceptance, certification gates.</li><li>Require rulings to name each artifact by creation, never by back-reference to a skipped step.</li></ul></div></article>
       <article class="phase"><div><h3>Process identity resolver</h3><p>Replace pane-command guesses with live process ancestry and captured PIDs.</p></div><div><ul><li>Resolve tmux pane → descendant Claude process from <code>/proc</code>.</li><li>Use the resolver in health, nudge, fallback, and status instruments.</li><li>Prove both nested-shell active and genuinely stopped arms.</li></ul></div></article>
       <article class="phase"><div><h3>Unified quota admission</h3><p>Make Claude and Codex verdicts feed the same dispatch decision.</p></div><div><ul><li>Consume <code>quota-guard.sh</code> and <code>sol-usage.sh</code> machine output.</li><li>Treat blind telemetry as unavailable capacity.</li><li>Serialize on slowdown, stop new starts at hard limits, and never route Fable/Opus automatically.</li></ul></div></article>
       <article class="phase"><div><h3>Review lease and evidence bundle</h3><p>Move one-review cardinality from convention into state.</p></div><div><ul><li>Issue one review lease per stage ID and target hash.</li><li>Record reviewer identity, verdict, and whether the one same-writer fix was consumed.</li><li>Reject duplicate review and publication without the reviewed artifact.</li></ul></div></article>
@@ -475,22 +491,22 @@
         </div>
       </article>
       <article class="species claude">
-        <div><span class="chip hold">wait or monitor</span></div>
+        <div><span class="chip go">run now</span></div>
         <div class="model-list">
-          <div class="model-row"><div class="model-name">Opus</div><div class="model-role">Wait for 15:00 UTC reassessment and a new explicit admission artifact.</div></div>
+          <div class="model-row"><div class="model-name">Opus</div><div class="model-role">Authorized. Boss runs it; Plan moves to it at a clean checkpoint. Owns reclassifying a red as an instrument fault.</div></div>
           <div class="model-row"><div class="model-name">Fable</div><div class="model-role">Reserve-only while its meter remains near the wall.</div></div>
           <div class="model-row"><div class="model-name">Sonnet / Haiku</div><div class="model-role">Only low-risk support under active monitoring.</div></div>
         </div>
       </article>
     </div>
     <div class="decision">
-      <div><h3>15:00 UTC is a decision point</h3><p>Measure Claude/Fable and OpenAI quota, inspect queue demand, and ask whether any held work actually benefits from Opus. The valid outcomes are “allow,” “allow a narrower class,” or “continue holding.”</p></div>
-      <div class="decision-time">REASSESS ≠ ENABLE</div>
+      <div><h3>Species moves happen at checkpoints</h3><p>A route change is applied when a session is between units of work and its state is durable. Never switch a worker mid-task: the identity that holds the authority is part of the evidence.</p></div>
+      <div class="decision-time">CHECKPOINT ONLY</div>
     </div>
   </section>
 
   <footer class="footer">
-    <span>Authority: jes model taxonomy and Opus hold · 2026-08-31</span>
+    <span>Authority: jes model taxonomy · Opus hold lifted 2026-08-31</span>
     <span>Evidence base: boss-clod launcher, dispatch, quota, alert, and review-gate audit</span>
   </footer>
 </main>
