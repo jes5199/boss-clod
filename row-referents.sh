@@ -60,12 +60,19 @@ replaces the inherited line with `mktemp`/`trap`/redirection/`sed`/`grep` and ke
 ROW
   "$self" "$t/prose.md" 2 >/dev/null 2>&1
   [ $? -eq 0 ] && echo "  ok   slash-separated prose between backticks is not a path" || { echo "  RED  prose-arm failed"; fails=$((fails+1)); }
+  # bare top-level dir in prose must not be treated as a referent
+  cat > "$t/baredir.md" <<'ROW'
+r1
+a named `/tmp` script is sufficient; require `/tmp/nope-xyz` absent before action.
+ROW
+  "$self" "$t/baredir.md" 2 >/dev/null 2>&1
+  [ $? -eq 0 ] && echo "  ok   bare /tmp in prose is not a referent" || { echo "  RED  baredir-arm failed"; fails=$((fails+1)); }
   "$self" "$t/creates.md" 2 >/dev/null 2>&1
   [ $? -eq 0 ] && echo "  ok   ephemeral output path does not red on re-read" || { echo "  RED  ephemeral-arm failed"; fails=$((fails+1)); }
   "$self" "$t/nope.md" 2 >/dev/null 2>&1
   [ $? -eq 2 ] && echo "  ok   BLIND on missing input" || { echo "  RED  blind-arm failed"; fails=$((fails+1)); }
   rm -rf "$t"
-  [ "$fails" -eq 0 ] && { echo "SELF-TEST OK (5 arms)"; exit 0; }
+  [ "$fails" -eq 0 ] && { echo "SELF-TEST OK (6 arms)"; exit 0; }
   echo "SELF-TEST FAILED: $fails arm(s)"; exit 1
 fi
 
@@ -83,7 +90,10 @@ red=0
 # lists are ordinary prose here, so this recurs. ⭐ Parse the delimiter structure instead:
 # split on backticks and take the INSIDE fields (even, 1-indexed). Prose between two
 # quoted items lands in an odd field and is never considered.
-paths=$(printf '%s' "$line" | awk -F'`' '{for(i=2;i<=NF;i+=2) print $i}' | grep -E '^/[A-Za-z0-9._/-]+$' | sort -u)
+# ⛔ A bare top-level directory — `/tmp`, `/etc` — is prose ("a named /tmp script"), not a
+# referent. Requiring a second component keeps real paths and drops the class that red-ed a
+# correct row: `/tmp` resolves, so any nearby absence language made it a false MUST-BE-ABSENT.
+paths=$(printf '%s' "$line" | awk -F'`' '{for(i=2;i<=NF;i+=2) print $i}' | grep -E '^/[A-Za-z0-9._-]+/[A-Za-z0-9._/-]+$' | sort -u)
 for p in $paths; do
   # intent: absence language within 120 chars after the mention
   ctx=$(printf '%s' "$line" | grep -oE "\`${p//\//\\/}\`[^\`]{0,120}")
