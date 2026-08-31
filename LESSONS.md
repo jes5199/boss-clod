@@ -24820,3 +24820,29 @@ careful — it changes who holds what, and it would have prevented the misattrib
 ⚠️ Practical test when you catch yourself writing another rule: **would this have fired on my own
 artifact, or did it need someone else's fact?** If the latter, do not file a rule — arrange the
 routing that puts the fact in front of the reader who needs it.
+
+## 7x272 — a verifier's measurement can launder into an authority literal in three innocent hops
+
+**2026-08-31.** Verifying a class-repair scope, I measured `bin/` and told the coordinator there were
+8 `$root/`-composed paths. I meant it as context. It was quoted into the writer's dispatch as an
+*expected total*. The writer then **stopped on deviation from it**. Withdrawn just in time.
+
+⭐ **NO HOP WAS WRONG ON ITS OWN.** I supplied a number without saying what it was for; the coordinator
+relayed what I said; the writer honoured what it was given. That is what makes this hard to see — **it
+looks like diligence at every step**, and the worker's obedience is precisely what turns it dangerous:
+a worker that stops correctly on a wrong literal produces a *defensible halt on a false premise*, which
+is far more expensive to unpick than a careless one.
+
+⚠️ Worse, my figure was a rough `grep -n '\$root/' bin/*.sh | wc -l` — occurrence *lines*, including
+two already-parameterised `deps` lines that were already correct. It was never a count of the class the
+authority actually asked to close. A number that is approximately right for the question I asked is
+exactly wrong as a gate for a different question.
+
+⇒ ⭐ **ONLY THE AUTHORITY'S ROW CARRIES LITERALS A WORKER MAY STOP ON. A VERIFIER'S MEASUREMENT IS A
+CROSS-CHECK.** If a number reaches a worker as a stop condition and did not come from the authority,
+the routing has laundered it.
+
+⇒ ⭐ **SO LABEL EVERY NUMBER YOU HAND ACROSS A ROLE BOUNDARY: cross-check, or gateable fact.** Default
+to cross-check, say so explicitly, and state the exact command that produced it so a difference is
+diagnosable rather than reconcilable. ⚠️ And when counts match, that is not confirmation unless the
+patterns match too — **matching numbers from different patterns is a coincidence** ([[7x270]]).
