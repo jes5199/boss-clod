@@ -24599,3 +24599,34 @@ lateness is not free: it is paid again in every expensive gate that has to be re
 claim, not evidence.** `git diff -w` and reading the patch do not prove a reflow preserved behaviour —
 this same campaign shipped a checker whose predicate depended on line contiguity ([[7x263]]). After a
 formatting change, re-earn the semantic control, not just the formatter's own green.
+
+## 7x265 — a gate that will sit red for months is a broken window, not protection
+
+**2026-08-31.** Commonplace has two development-only paths reaching production: the dev-login route,
+and the authorizer carrying the entire editing path, which declares `development_only?, do: true` in
+its own source. I proposed guarding the second with a negative gate asserting the desired behaviour —
+*reachable development-only paths == 0*.
+
+Plan corrected it, and the correction is the lesson. That gate would be **red for months**, because
+the work that makes it green is most of a campaign. ⭐ **A standing red is not a gate; it is a broken
+window** — nobody reads the seventh month of a known failure, and the one time it goes red for a NEW
+reason is the time it is indistinguishable from the old one. I already had the neighbouring rule filed
+— a gate that fires on correct state is worse than no gate — and did not apply it to a gate that
+fires *correctly but hopelessly*.
+
+The form that works is a **declared inventory**: enumerate the offending population, name each member,
+and assert the count equals a literal expected value that is TRUE TODAY (authorizer 1, login route 1).
+That is green immediately so it can land and be read; it goes red the moment someone adds a new dev
+path, which is protection nothing else was providing; and it **converts by editing a literal to 0** as
+each removal lands, with no rewrite.
+
+⭐ **AND THE PROPERTY WORTH STEALING EVERYWHERE: THE CONVERSION IS THE ACCEPTANCE.** Dev-login
+removal's acceptance becomes *"flip the literal to 0 and the inventory gate stays green"* rather than
+*"the route is gone, we looked."* ⇒ **An artifact instead of an inspection.** When a slice's job is to
+remove something, the acceptance should be an existing gate changing state — not a human confirming an
+absence.
+
+⇒ ⭐ **BEFORE WRITING A NEGATIVE GATE, ASK WHICH ARM IT WILL SIT ON FOR THE NEXT MONTH.** If the
+answer is red, assert the declared inventory instead of the desired end state, and let the removals
+walk the literal down. See [[7x264]] for the neighbouring failure — a gate placed where it cannot fire
+cheaply.
