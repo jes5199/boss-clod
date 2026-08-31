@@ -24529,3 +24529,28 @@ A prompt repeating the desired wall-clock time cannot repair an incorrectly conv
 conversion to round-trip before accepting the job id. At fire time, compare the current instant to the
 authorized UTC threshold before declaring the hold eligible. A timer firing is evidence that its cron
 matched—not that the governed time has arrived.
+
+## 7x262 — an authority may pin an agent identity only while that identity carries unrecorded state
+
+**2026-08-31.** T2a stopped three times on a referent that its ruling named but the world did not
+hold: a "same frozen root-claim function" no round had ever created, a run-root name still scoped to
+a superseded candidate, and finally the retained writer id itself — resume returned `No transcript
+found for agent ID` while the 5.5 MB JSONL sat on disk in a 55-transcript corpus. Each pin was exact,
+quoted, and verified present in the authority text. None of them resolved.
+
+I verified every one of those rulings before release and passed all three. The check I was running
+was "is this referent stated in the live blob", which they all were. ⭐ **EXISTENCE IN THE AUTHORITY
+AND EXISTENCE IN THE WORLD ARE SEPARATE CHECKS**, and only the second one gates work. A back-reference
+is the dangerous shape, because it reads as continuity with an earlier round that may have stopped
+before creating the thing it refers to.
+
+Plan's rule, adopted: **an authority may pin an agent identity only while that identity is the sole
+carrier of unrecorded state; once the state is durable, pin the artifact and let the agent be
+replaceable.** The writer pin was correct while README bytes were unstaged and the commit un-amended.
+It expired the moment the candidate was committed and the instruments were frozen on disk — after
+which honouring an unresolvable referent bought nothing and cost the campaign.
+
+⇒ ⭐ **BEFORE RELEASING A RULING, RESOLVE EVERY REFERENT IT NAMES, NOT JUST READ IT.** For a path,
+stat it. For an agent, prove the spawning session can currently address it — a transcript is a
+positive control for history, never for resume ([[7x260]]). Treat "the same X from the earlier round"
+as unresolved until proven present; require rulings to name artifacts by creation instead.
