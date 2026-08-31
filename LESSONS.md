@@ -24924,3 +24924,28 @@ all three are cheap.**
 defect was the class.** `$root/deps` hid `$root/_build`; one mis-tagged test hid an exclusion never
 wired anywhere. None of the four would have yielded to more care — each needed a count someone else
 already had.
+
+## 7x275 — `origin` is not a referent, it is a lookup that depends on where you stand
+
+**2026-08-31.** A verifier checking Plan's live authority read `7308486` three times as "Plan main".
+That SHA is **commonplace-next's** main. Its `ls-remote origin` calls had run from a cwd inside
+commonplace-next, where `origin` resolves to a different repository.
+
+⚠️ **The failure returned a well-formed SHA rather than an error.** Both repositories have a branch
+called `main`, so a wrong-cwd read produces exactly the shape a correct read produces — it cannot be
+caught by inspecting the output. This is [[7x273]]'s wrong-referent class again, one level up: not a
+process identified by conspicuousness, but a *repository* identified by ambient position.
+
+⭐ **THE DECISIVE CHECK COSTS ONE COMMAND AND CANNOT BE PASSED BY A WELL-FORMED WRONG ANSWER:**
+`git -C <the repo you claim to have read> cat-file -e <sha>`. Here it settled it instantly — `7308486`
+**does not exist as an object in commonplace-plan at all**, so those reads were not stale or racing,
+they were answered by a different repository.
+
+⇒ ⭐ **PIN THE REPOSITORY, NEVER INHERIT IT.** Always `git -C <abs path>` or an explicit URL; a bare
+`origin` from an inherited cwd is a lookup with an invisible argument. ⇒ **And add the existence
+control to any cross-repo authority read:** a SHA that is not an object in the repository you claim to
+have read is a wrong-referent read, proven, not suspected.
+
+⚠️ Same family as the day's compressed finding: **a verdict without the coordinate that produced it.**
+Here the missing coordinate is *which repository answered*. A green needs its configuration, a count
+needs its pattern, a red needs its phase — and a SHA needs its repository.
