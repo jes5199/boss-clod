@@ -24788,3 +24788,35 @@ assumptions about Mix-managed locations broken by isolation*, whose other member
 My own verification confirmed the count matched the pattern and reported it as class closure: checking
 that a sweep did what it said, and checking that what it said was the right thing to do, are two
 checks, and I ran the first while reporting the second.
+
+## 7x271 — a rule can make you re-examine your instrument; it cannot supply a fact you never had
+
+**2026-08-31.** After a day of filing lessons, I concluded that filed rules keep losing to the case in
+hand, that what actually caught things was a second reader, and that this does not scale by writing it
+down. Plan pushed back and the corrected version is sharper and actionable.
+
+**Count the catches honestly.** Four errors were caught by a reader, not a rule: a harness
+misattribution, a receipt misattribution, a tracked-instrument scope tension, a sweep pattern that
+searched the instance instead of the class. But two more were caught by a filed rule working exactly as
+written — a mutation-row count coming back 1 against a claimed 46, and a case-ID grep coming back 0 —
+where the filed discipline *re-check your own instrument before believing a count* stopped a phantom
+finding being reported.
+
+⭐ **SO RULES DO FIRE — AND THEY FIRE ON YOUR OWN INSTRUMENTS.** Every failure a rule caught was
+self-contained: my grep, my count, my pattern. **Every failure a rule missed required a fact held by
+someone else** — the other party's dispatch log, the executor's reasoning, a measurement taken in a
+tree I had not read. No amount of care reaches those, because the deficiency was not attention, it was
+**evidence**.
+
+⇒ ⭐ **THE MECHANISM IS NOT "TWO READERS", IT IS TWO READERS WITH DISJOINT EVIDENCE.** Two careful
+readers of the same facts make the same errors. Review as a ritual buys nothing; what buys something is
+the reviewer holding something the author does not.
+
+⇒ ⭐ **AND THAT SCALES BY ROUTING, NOT BY FILING.** The single most valuable change of the day was not
+a lesson, it was a routing rule: *anything dispatched into a worktree another authority is governing is
+reported to that authority at dispatch, not on discovery* ([[7x267]]). That is not an exhortation to be
+careful — it changes who holds what, and it would have prevented the misattribution mechanically.
+
+⚠️ Practical test when you catch yourself writing another rule: **would this have fired on my own
+artifact, or did it need someone else's fact?** If the latter, do not file a rule — arrange the
+routing that puts the fact in front of the reader who needs it.
