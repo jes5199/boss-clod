@@ -25024,12 +25024,26 @@ exit — where the authority's bound was *additions only, nothing reworded, noth
 that exact diff, described it accurately as "the flag plus the nonzero-count guard", and reported it
 clean.
 
-⚠️ **TWO DISTINCT FAILURES, AND THE SECOND IS THE WORSE ONE:**
-1. **Contaminated subject** — I measured the artifact after the change under test had been applied to it.
-2. **I applied one of two given tests.** The authority stated a precondition-tracing bound AND a
-   no-restructure bound. I checked tracing, found it clean, and never ran the second. ⇒ **Finding a
-   check clean is not evidence that it was the only check required**, and a verifier that satisfies
-   itself on the test it happened to run reports "verified" for a scope it never covered.
+⚠️ **THE REAL FAILURE — contaminated subject:** I measured the artifact *after* the change under test
+had been applied to it.
+
+⛔ **CORRECTION, 22:00 the same night — I ORIGINALLY FILED A SECOND FAILURE HERE AND IT WAS NOT ONE.**
+I wrote that I had missed a "nothing reworded, nothing restructured" bound covering the rewrite. Plan
+corrected me and I checked the live blob: that clause's subject is *the preconditions being added* —
+"add to README exactly those preconditions the receipt PROVES were required and the README omits —
+nothing reworded, nothing restructured". It never governed the invocation line. And the rewrite was
+**compelled** by an earlier row requiring the command to "report exactly 1 test executed, 0 failures",
+which cannot be asserted without capturing output.
+
+⇒ ⭐ **A LESSON FILED AGAINST A BOUND THAT DID NOT EXIST TEACHES THE WRONG CAUTION.** Over-correction is
+its own failure mode, and it is *harder* to catch than under-correction because it looks like rigour and
+nobody argues you into less blame. **Verify the rule you are about to convict yourself under, with the
+same discipline you would apply to convicting someone else** — I had the blob and did not read it until
+someone told me to.
+
+⚠️ What does survive: **enumerate an authority's bounds as a list BEFORE verifying, and report per-bound.**
+Not because I missed one here, but because "I verified it" otherwise silently means "I verified the part
+I thought of" — and that ambiguity is what made a false self-accusation plausible to me in the first place.
 
 ⇒ ⭐ **BEFORE REPORTING A DELTA, NAME THE BASELINE AND PROVE IT PREDATES THE CHANGE.** For git, that is
 the parent blob, not the committed one. ⇒ **And enumerate the authority's bounds as a list before
