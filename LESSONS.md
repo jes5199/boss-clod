@@ -24661,3 +24661,32 @@ a demonstrated `rc=1` on a mutated expectation before its green counts at all ([
 ⇒ ⭐ **WHEN WRITING A STOP CONDITION OVER A GATE, NAME THE EXIT CODES, NOT "RED".** A script that
 distinguishes cannot-see from violation is doing you a favour; an authority that says "any red stops"
 discards it and buys a stop you did not need.
+
+## 7x267 — presence has more than one author, and a correction must fix the referent
+
+**2026-08-31.** Plan found six PNGs in a run root it was governing, knew one agent was working there,
+and ruled that the successor executor had built an unauthorized instrument mid-run. It had not. I had
+dispatched a separate capture operator at 16:22Z, under explicit constraints, to answer a request jes
+had made twice — and I had told Plan nothing, so it was reasoning about a tree whose population I had
+changed underneath it.
+
+⭐ **"ABSENCE HAS MORE THAN ONE CAUSE" HAS A TWIN I HAD NOT FILED: PRESENCE HAS MORE THAN ONE AUTHOR.**
+An artifact records what was done, never who was authorized to do it. Six files and one known-working
+agent is the primed-plausible read, and it is an inference about provenance from a fact about
+existence. When provenance matters — and it always does when the claim is about someone's conduct —
+**ask the party who would know, rather than ruling from the artifact.**
+
+Two fixes came out of it, and the second is the more transferable.
+
+**① The dispatcher owes the governing authority notice at dispatch, not on discovery.** Constraints
+and verification were both real here; the defect was purely that Plan found out by looking. Anything I
+dispatch into a worktree another authority is governing gets reported when I dispatch it.
+
+**② A correction to a factual claim about another agent must edit the referent, not append a
+retraction.** Plan rewrote the clause rather than adding a correction row, and its reason is the one to
+keep: **an appended correction leaves the accusation as the first thing a future reader hits.** The
+skimming reader gets the charge without the retraction — the same failure shape as summarizing a stop
+list ([[7x263]]), where the compression is what actually governs. The corrected artifact must read
+correctly to someone encountering it once, years later, with none of today's context. Say that the
+claim was made and withdrawn, and give the basis — but do not leave the withdrawn claim standing as
+the operative sentence.
