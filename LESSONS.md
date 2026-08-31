@@ -24978,3 +24978,31 @@ Either alone is weak; together they separate resume from re-spawn.
 ⇒ That is the cross-check convention ([[7x272]]) paying off in the direction that matters: **the
 dispatcher being confidently wrong is exactly the case it exists to catch**, and a worker that defers
 to a dispatcher's assertion over its own instrument would have lost both.
+
+## 7x277 — I authorized a second writer while the first was alive, and had no instrument to catch it
+
+**2026-08-31.** T3a's session reported its writer unreachable by name. On a false premise ([[7x276]]) I
+told it to stop recovering and **released a successor** — into a round whose governing row requires
+exactly one writer, against a worktree with nine dirty paths and an uncommitted suite fix. The original
+had already resumed successfully. For a short window, two writers were authorized.
+
+**Nothing in my process would have caught it.** I verify *that* a writer resumed; I had no check on *how
+many* are running. It closed only because the worker reported its own resume promptly and I withdrew —
+⚠️ **a more deferential worker would simply have complied**, and two agents on the same dirty tree stays
+silent until the tree disagrees with itself.
+
+⭐ **SO CARDINALITY NEEDS AN INSTRUMENT, NOT AN INTENTION.** "Exactly one writer" was written in the
+authority, honoured by everyone, and unmeasured by anyone. Two commands settle it:
+
+- **count live subagents** in the session's pane (`grep -c '◯'`);
+- **count agent transcripts appended in the last N minutes** — of 71 transcripts in the project, only
+  the one writer's had a recent mtime, and it had grown 2,674,195 → 2,962,502 bytes.
+
+⇒ The transcript-mtime count is the decisive one, because **it cannot be satisfied by an idle agent that
+merely exists** — it measures who is *writing*, not who is registered. Run both before releasing any
+writer, not only when someone thinks to ask.
+
+⚠️ And note the ordering that actually saved this: the question came from the other party. I had been
+looking at the resume evidence for several minutes and never asked how many. **A rule I hold cannot
+supply a question I do not think to ask** — which is the evening's own finding ([[7x271]]) arriving at my
+expense rather than someone else's.
