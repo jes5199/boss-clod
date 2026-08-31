@@ -25175,3 +25175,36 @@ a release confirmation looks exactly like the presence of agreement if you are o
 
 ⚠️ Honest accounting, because the productive feeling is the trap: that same exchange produced four real
 corrections. Both are true. The conversation is worth keeping and **it needs an outbound edge**.
+
+## 7x283 — a finding serious enough to block does not need inflating to justify the block
+
+**2026-08-31.** Verifying a security fix's falsifier, I described the defect it caught as: with the
+member removed, the verifier **"authenticates a caller presenting private key material."** Plan read
+the test and corrected it. `def verify(compact_jwt, kid_resolver, options)` — the JWK arrives from the
+**resolver**, the application's own argument. The caller supplies only the JWT and cannot inject a key.
+
+**Accurate:** if the application's key source returns private material, the verifier accepts it instead
+of failing closed. That requires a misconfigured or compromised **key source**, not a hostile
+**caller**. Not remote-exploitable.
+
+⭐ **AND THE REASON IT MATTERED MORE THAN AN ORDINARY IMPRECISION: SEVERITY LANGUAGE PROPAGATES FURTHER
+THAN ANY OTHER KIND.** My sentence was the one heading for the human. "Authenticates a caller presenting
+private key material" reads as an auth bypass; the true finding is trust-boundary hygiene with a
+demonstrated behavioural consequence. One step of overstatement, and it is the step that travels.
+
+⇒ ⭐ **THE TRUE CHARACTERISATION HAD ALREADY BLOCKED A LANDING.** Reaching for the stronger word added
+nothing to the decision and cost accuracy in the artifact that outlives the decision. **Inflation is
+most tempting exactly where it is least necessary** — on findings that are already sufficient.
+
+⚠️ **What made me get it wrong is worth more than the correction:** I had read the red output, seen
+`{:ok, %AuthenticatedHuman{...}}` where an error was expected, and described the *consequence*
+correctly while never asking **whose input reached the failing path.** The behavioural evidence was
+real; the threat model was assumed. ⇒ **Before assigning severity, name the party who controls the
+input** — and read the function signature rather than the failure.
+
+⚠️ Companion, from Plan's half of the same check: both falsifier receipts were **exactly 2287 bytes**,
+which is the signature of a copied file. It compared their SHA-256s to each other and proved they were
+distinct. I had compared each hash to its *reported* value and never the two files to one another —
+which would not have caught a duplicate if both reports carried the same hash. ⭐ **"I noticed it looked
+like a copy and proved it was not" is evidence; "I did not notice" and "I noticed and assumed" are
+indistinguishable afterwards.**
