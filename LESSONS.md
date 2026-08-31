@@ -24846,3 +24846,33 @@ the routing has laundered it.
 to cross-check, say so explicitly, and state the exact command that produced it so a difference is
 diagnosable rather than reconcilable. ⚠️ And when counts match, that is not confirmation unless the
 patterns match too — **matching numbers from different patterns is a coincidence** ([[7x270]]).
+
+## 7x273 — I identified a live-money process by conspicuousness and guarded the wrong one
+
+**2026-08-31.** Launching a worker into the hermes repo, I told it: *the hermes BEAM has been up 8
+days, pid 2943416, do not restart it.* Both facts were wrong. The worker measured and corrected me:
+
+- Live hermes is **pid 3985426** — cgroup `hermes.service`, holding port 9876, up 19d 22h.
+- **2943416** is a different `beam.smp`: PPID 1, orphaned into a tmux-spawn scope, no port, not in
+  `hermes.service`.
+
+How I got there: I ran `ps --sort=-pcpu | head`, saw a `beam.smp` at 200% CPU, and called it hermes
+**because it was the prominent BEAM**. ⭐ **I identified a process by name and conspicuousness rather
+than by identity** — the exact discipline already filed as *resolve live referents from `/proc`*, and I
+broke it while writing a protective instruction, which is the worst possible place.
+
+⚠️ **NOTE THE DIRECTION OF THE FAILURE.** The instruction did not merely fail to protect; it protected
+in the wrong direction — careful about an idle orphan, *unguarded on the process holding live money*. A
+wrong protective referent is worse than no instruction, because it manufactures confidence about the
+wrong object.
+
+The one extra command I did not run, and which settles it in a line:
+`ss -ltnp | grep <port>` — or `cat /proc/<pid>/cgroup`. **Ownership of the port and membership of the
+service are identity; CPU share and process name are not.**
+
+⇒ ⭐ **AND THE ROUTING FIX, which is the part that generalises past my mistake:** I told the worker that
+anything I hand it is a **cross-check, never a fact it may gate on**, and that if my number disagrees
+with its measurement, its measurement wins and I want the difference reported. That is what caught this
+one — the worker measured instead of trusting, and said so ([[7x272]]). ⚠️ A dispatcher's facts are an
+input to be verified, not authority; when the dispatcher forgets that, only the worker's own instrument
+stands between a wrong referent and an action taken on it.
