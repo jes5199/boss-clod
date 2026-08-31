@@ -356,7 +356,7 @@
             <span class="chip go">default</span>
           </div>
         </div>
-        <div class="routing-note"><strong>Identity rule:</strong> Agent selector <code>haiku</code> is a proxy route to Luna. It is not species evidence. The resulting transcript must independently show Codex Luna.</div>
+        <div class="routing-note"><strong>Identity rule:</strong> Agent selector <code>haiku</code> is the current proxy route used for Luna work. The transcript exposes <code>claude-haiku-4-5-20251001</code>; that proves the routed interface, not the upstream provider species. Literal Luna attribution needs separate proxy-side attestation.</div>
       </article>
 
       <article class="species claude">
@@ -413,7 +413,7 @@
       <div class="flow">
         <div class="step"><span class="num">01</span><h3>Ranked</h3><p>Immutable Plan reference, stage ID, scope, criteria, dependencies.</p></div>
         <div class="step"><span class="num">02</span><h3>Admitted</h3><p>Boss checks quota, time, worker health, path collision, and route eligibility.</p></div>
-        <div class="step"><span class="num">03</span><h3>Identified</h3><p>Requested selector and observed provider/model both recorded.</p></div>
+        <div class="step"><span class="num">03</span><h3>Identified</h3><p>Requested selector, transcript-exposed model, and any independent proxy-side provider attestation recorded separately.</p></div>
         <div class="step"><span class="num">04</span><h3>Running</h3><p>Worker owns bounded execution. Checkpoints precede any reroute.</p></div>
         <div class="step"><span class="num">05</span><h3>Evidence</h3><p>Diff/output, tests, controls, exit codes, quota snapshot, clean state.</p></div>
         <div class="step"><span class="num">06</span><h3>Reviewed once</h3><p>One independent verdict. One same-writer fix pass; mechanical gates rerun; no re-review.</p></div>
@@ -451,7 +451,7 @@
       <p>Implement controls in the order that closes the largest policy-to-machinery gaps without creating another specification loop.</p>
     </div>
     <div class="roadmap">
-      <article class="phase"><div><h3>Time-lock and identity admission</h3><p>First make prohibited model routes impossible to launch accidentally.</p></div><div><ul><li>Add a fail-closed Opus hold check to normal Claude launch/dispatch paths.</li><li>Create one per-worker route manifest: requested species/model, selector, observed identity, hold state.</li><li>Demonstrate pre-deadline Opus red and known-good Sol/Luna green.</li></ul></div></article>
+      <article class="phase"><div><h3>Time-lock and identity admission</h3><p>First make prohibited model routes impossible to launch accidentally.</p></div><div><ul><li>Add a fail-closed Opus hold check to normal Claude launch/dispatch paths.</li><li>Create one per-worker route manifest: intended species, selector, transcript-exposed model, independent proxy-side provider attestation when available, and hold state.</li><li>Demonstrate pre-deadline Opus red and known-good Sol/Luna green.</li></ul></div></article>
       <article class="phase"><div><h3>Process identity resolver</h3><p>Replace pane-command guesses with live process ancestry and captured PIDs.</p></div><div><ul><li>Resolve tmux pane → descendant Claude process from <code>/proc</code>.</li><li>Use the resolver in health, nudge, fallback, and status instruments.</li><li>Prove both nested-shell active and genuinely stopped arms.</li></ul></div></article>
       <article class="phase"><div><h3>Unified quota admission</h3><p>Make Claude and Codex verdicts feed the same dispatch decision.</p></div><div><ul><li>Consume <code>quota-guard.sh</code> and <code>sol-usage.sh</code> machine output.</li><li>Treat blind telemetry as unavailable capacity.</li><li>Serialize on slowdown, stop new starts at hard limits, and never route Fable/Opus automatically.</li></ul></div></article>
       <article class="phase"><div><h3>Review lease and evidence bundle</h3><p>Move one-review cardinality from convention into state.</p></div><div><ul><li>Issue one review lease per stage ID and target hash.</li><li>Record reviewer identity, verdict, and whether the one same-writer fix was consumed.</li><li>Reject duplicate review and publication without the reviewed artifact.</li></ul></div></article>
@@ -470,7 +470,7 @@
         <div><span class="chip go">run now</span></div>
         <div class="model-list">
           <div class="model-row"><div class="model-name">Sol</div><div class="model-role">Default admitted orchestration and implementation.</div></div>
-          <div class="model-row"><div class="model-name">Luna</div><div class="model-role">Bounded execution/review with selector plus observed identity.</div></div>
+          <div class="model-row"><div class="model-name">Luna</div><div class="model-role">Bounded execution/review through the haiku selector; keep transcript model and upstream-species attestation as separate evidence.</div></div>
           <div class="model-row"><div class="model-name">Planning</div><div class="model-role">Plan ranking, boss health/dispatch, evidence capture, mechanical gates.</div></div>
         </div>
       </article>
