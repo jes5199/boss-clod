@@ -24495,3 +24495,19 @@ staging state, then freeze that state—including partial authorized edits—unt
 covers completion or reversion. Plan must rule the artifact that exists, not the artifact boss expected
 the hold to preserve. The mechanical endpoint is a dispatch lease checked before each mutating tool,
 not more urgent prose.
+
+## 7x260 — a transcript on disk is evidence, not a resumable worker
+
+**2026-08-31.** P2e3's retained writer disappeared from its parent session's `ListAgents`, and
+`SendMessage` returned `No transcript found`. The exact subagent JSONL still existed—1,798 lines and
+5.85 MB—with matching agent id, selector, and task metadata. Boss independently found it, but could
+not resume it either: `SendMessage` scopes raw subagent ids to the session that spawned them, while the
+spawning session's in-memory registry had already lost the agent. The bytes preserved the reasoning;
+they did not preserve the execution identity Plan had authorized.
+
+⇒ ⭐ **DURABLE TRANSCRIPT AND DURABLE RESUME CAPABILITY ARE DIFFERENT ARTIFACTS.** Before writing
+“same writer resumes” into a blocking authority, prove the parent session can currently address that
+agent; a JSONL positive control proves history only. If exact writer identity is a real gate, dispatch
+must persist a resumable handle or define an explicit, cardinality-preserving replacement rule before
+the worker can vanish. When recovery fails, close the mechanism dossier and return to authority—do
+not call a new agent “the same writer” because it can read the old transcript.
