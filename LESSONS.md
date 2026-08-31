@@ -24511,3 +24511,21 @@ agent; a JSONL positive control proves history only. If exact writer identity is
 must persist a resumable handle or define an explicit, cardinality-preserving replacement rule before
 the worker can vanish. When recovery fails, close the mechanism dossier and return to authority—do
 not call a new agent “the same writer” because it can read the old transcript.
+
+## 7x261 — a local-time scheduler does not understand a Pacific timestamp
+
+**2026-08-31.** The Opus hold was stated as “not before 08:00 Pacific,” but its session cron was filed as
+`0 8 31 8 *` on a UTC host. It fired at 08:00 UTC—01:00 Pacific—and its prompt falsely announced that
+the earliest reassessment time had arrived. No model switch occurred, so the bad timer did not change
+fleet state; the error became visible only when a later live status request was compared against the
+actual UTC/Pacific clock. A corrected one-shot was then filed for 15:00 UTC.
+
+The cron expression was syntactically valid and fired exactly as configured. The defect was the
+referent: “local timezone” meant the scheduler/host timezone, not the timezone named in the authority.
+A prompt repeating the desired wall-clock time cannot repair an incorrectly converted trigger.
+
+⇒ ⭐ **WHEN AUTHORITY NAMES A TIMEZONE, CERTIFY THE TRIGGER IN BOTH ZONES BEFORE SCHEDULING.** Record
+`authority_time`, `authority_zone`, converted scheduler-local timestamp, and UTC timestamp; require the
+conversion to round-trip before accepting the job id. At fire time, compare the current instant to the
+authorized UTC threshold before declaring the hold eligible. A timer firing is evidence that its cron
+matched—not that the governed time has arrived.
