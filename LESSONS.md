@@ -24723,3 +24723,34 @@ about the history. Same family as shape-equality: every field matches and the cl
 FUTURE, NOT AN ACKNOWLEDGEMENT TO FILE.** I read "final restoration of tracked instrument to committed
 bytes" and moved on, then came back to it minutes later. Check a stated next step against the authority
 *when you read it* — that is the cheapest moment it will ever be stoppable.
+
+## 7x269 — name an actor from dispatch, never from proximity to the artifact
+
+**2026-08-31.** Two attribution errors in one afternoon, opposite in sign, identical in shape.
+
+**Blame:** Plan found six PNGs in a run root it governed, knew one agent was working there, and wrote
+into the Queue that the successor executor had built an unauthorized instrument mid-run. It had not —
+I had dispatched a separate capture operator and told Plan nothing ([[7x267]]).
+
+**Credit:** I told Plan a receipt practice was worth promoting; Plan filed it as coming from my audit.
+It did not. The executor chose to record its own discarded arms with their exit codes when omitting
+them would have produced a cleaner document and a stronger-looking result. I only noticed the value
+while auditing.
+
+⭐ **CREDIT AND BLAME ARE THE SAME CLAIM — "who did this" — AND CREDIT IS THE MORE DANGEROUS
+DIRECTION.** A false accusation gets contested by the accused. **A false credit is accepted by
+everyone, including its recipient; nobody argues they deserve less.** So a wrong credit survives in the
+record where a wrong accusation gets challenged out of it.
+
+"Hold credit to the same evidence bar as blame" is a good sentiment and not a mechanism — it depends on
+noticing. The checkable version is about *who may write the sentence*:
+
+⇒ ⭐ **AN ATTRIBUTION BELONGS TO THE PARTY THAT DISPATCHED THE WORK, NOT THE PARTY THAT FOUND THE
+ARTIFACT.** Plan could not have known who built the harness; I could not have known who chose to record
+the discarded arms. In both cases the correct move was to write *what was done*, leave the actor
+unnamed, and ask. **If you have no dispatch record for who did a thing, do not name them** — that costs
+one message and is verifiable, where "infer carefully" is neither.
+
+⚠️ Corollary already filed and reinforced: when a durable artifact does carry a wrong attribution, fix
+the referent rather than appending a retraction ([[7x267]]) — the skimming reader gets whichever
+sentence comes first.
