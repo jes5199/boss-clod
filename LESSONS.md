@@ -25052,3 +25052,33 @@ thought of", which is the day's own defect ([[7x270]]) with me as the instrument
 
 ⚠️ Worth recording that this happened *while* I was verifying other people's contaminated-subject
 errors and filing lessons about them. Holding a rule is not applying it.
+
+## 7x279 — I denied a path's existence from a depth-limited search, one message after filing a lesson on over-correction
+
+**2026-08-31.** Verifying an authority's citation of `deps/jose/src/jwk/jose_jwk_kty_rsa.erl:58-136`, I
+ran `find <repo> -maxdepth 4`, got nothing, and told the author **"that path does not exist under the
+repository."** The path is five components deep — `deps/jose/src/jwk/<file>`. ⭐ **My instrument could
+not have found it, and I reported the absence as a fact about the world rather than a fact about my
+search.**
+
+⚠️ **I DID RUN A POSITIVE CONTROL, AND IT WAS THE SAME SHAPE AS THE FAILING SEARCH.** I confirmed "jose
+sources exist at all" — 7 files — and treated that as licence to believe the zero. But the control
+inherited the same `-maxdepth 4`, so it proved only that *shallow* jose files exist. ⇒ **A positive
+control that shares the failing search's constraint is not a control.** It must vary the thing you
+suspect, not confirm the part you already believe ([[7x270]]).
+
+The author measured instead of accepting my correction, and found the file resolves in the worktree's
+deps. **My correction was an over-correction on bad evidence — filed one message after I amended a
+lesson about over-correction.**
+
+⭐ **WHAT SURVIVED, AND WHY THE CITATION WAS STILL WRONG:** `git check-ignore` reports `deps/` ignored
+and `git ls-files deps` returns **0 tracked files**. So the path resolves only for a reader who has
+fetched dependencies, never from the repository. ⇒ The durable form is **package + version +
+package-relative path** (`jose 1.11.12`, `src/jwk/...`): a `/tmp` run-root path dies with the run, a
+repo-relative path implies tracking that does not exist, and only the package-relative one resolves for
+any reader who has the dep.
+
+⇒ ⭐ **AND THE GENERAL FORM, which covers three of today's four bad referents** (`origin` [[7x275]], a
+run-root deps path, and this): **a citation is not a fact, it is a lookup in the citer's environment.**
+Each was correct where it was written and wrong where it was read. Before citing a path across a role
+boundary, ask what the reader must already have for it to resolve — and say so.
