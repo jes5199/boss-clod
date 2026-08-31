@@ -24476,3 +24476,22 @@ population and says dossier complete → Plan rules that population → boss ver
 artifact → worker resumes. If a correction is published while evidence is still arriving, treat it as
 a draft authority artifact even when its commit and remote publication are exact. This is a dispatch
 gate, not a reminder: no resume message before the corpus-closed receipt.
+
+## 7x259 — a delivered hold does not rewind the tool already in flight
+
+**2026-08-31.** P2e3's resident received the final corpus hold just after its retained writer completed
+one authorized-file Edit. The writer froze immediately, but the worktree now contained an incomplete
+`setup_all` skeleton with undefined helper calls: no Beam ran and nothing was staged, reviewed, or
+committed, yet the actual artifact no longer matched the pre-hold description “no edit.” The stage
+remained safely held because the resident disclosed exact lines and state before any further action.
+
+The hold message and the Edit crossed in transit. Neither a successful send receipt nor a worker's
+later “held” status proves that no tool call committed between those two observations. Reverting the
+partial edit would itself be new code movement and cannot be silently treated as restoring history.
+
+⇒ ⭐ **A HOLD GATE BINDS THE FIRST ACKNOWLEDGED TOOL BOUNDARY, NOT THE SEND TIMESTAMP.** After every
+mid-run hold, require the worker to report the exact post-boundary diff, processes, test activity, and
+staging state, then freeze that state—including partial authorized edits—until the ruling explicitly
+covers completion or reversion. Plan must rule the artifact that exists, not the artifact boss expected
+the hold to preserve. The mechanical endpoint is a dispatch lease checked before each mutating tool,
+not more urgent prose.
