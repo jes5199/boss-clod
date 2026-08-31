@@ -25208,3 +25208,15 @@ distinct. I had compared each hash to its *reported* value and never the two fil
 which would not have caught a duplicate if both reports carried the same hash. ⭐ **"I noticed it looked
 like a copy and proved it was not" is evidence; "I did not notice" and "I noticed and assumed" are
 indistinguishable afterwards.**
+
+⭐⭐ **THE STRUCTURAL FORM, which is the transferable half: VERIFYING N ARTIFACTS AGAINST N CLAIMS DOES
+NOT ESTABLISH THAT THE ARTIFACTS ARE DISTINCT.** Every edge I checked ran artifact→claim; none ran
+artifact↔artifact. **Distinctness is a property BETWEEN artifacts and a star topology cannot see it.**
+⚠️ And the claims are the wrong control anyway, because they come from the same reporter as the
+artifacts — **a duplicate reported twice is self-consistent.**
+
+⇒ **Whenever a verification takes the form "each item matches its expectation", ask what property lives
+BETWEEN the items** — distinctness, ordering, coverage, non-overlap — because a per-item check is
+structurally blind to all of them. `sha256sum a b | sort | uniq -d` closes the distinctness case in one
+command. ⚠️ And the cheap tell that prompts it: **equal byte size across sibling artifacts costs one
+command to rule out.**
