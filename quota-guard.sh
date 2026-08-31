@@ -186,6 +186,41 @@ if [ "$SCOPED_CRIT" = "1" ] && [ -s /home/jes/boss-clod/.fleet-models ]; then
   done
 fi
 
+# ⭐ 2026-08-31 — CODEX/SOL ADMISSION. The fleet is majority-Sol, and this guard was
+# Claude-only: it returned OK while having measured nothing about the species most of the
+# workers actually run on. ⛔ A guard blind to half the fleet reports the same word as a
+# healthy one. sol-usage.sh emits QUOTA|scope=..|window=..|used_percent=..|reset_after=..
+# on stdout and exits 2 with BLIND| when it cannot measure.
+# ⚠️ rc=2 is NOT "Sol is fine" — it is no information, and per our standing rule a blind
+# instrument means unavailable capacity, so it degrades the verdict rather than being ignored.
+SOL_OUT=""; SOL_RC=0
+if [ -x /home/jes/boss-clod/sol-usage.sh ]; then
+  SOL_OUT=$(/home/jes/boss-clod/sol-usage.sh --machine 2>/dev/null); SOL_RC=$?
+else
+  SOL_RC=2
+fi
+SOL_VERDICT="ok"; SOL_NOTE=""
+if [ "$SOL_RC" != "0" ]; then
+  SOL_VERDICT="blind"; SOL_NOTE="codex=BLIND(rc=$SOL_RC)"
+else
+  SOL_WORST=$(printf '%s\n' "$SOL_OUT" | awk -F'used_percent=' 'NF>1{split($2,a,"|"); if (a[1]+0>m) {m=a[1]+0; w=$0}} END{print m+0}')
+  SOL_WORST_LBL=$(printf '%s\n' "$SOL_OUT" | awk -F'used_percent=' 'NF>1{split($2,a,"|"); if (a[1]+0>=m) {m=a[1]+0; split($1,b,"scope="); split(b[2],c,"|"); l=c[1]}} END{print l}')
+  SOL_NOTE="codex worst ${SOL_WORST_LBL}=${SOL_WORST}%"
+  if [ "${SOL_WORST:-0}" -ge "$STOP_PCT" ]; then SOL_VERDICT="stop"
+  elif [ "${SOL_WORST:-0}" -ge 90 ]; then SOL_VERDICT="slow"; fi
+fi
+
+if [ "$SOL_VERDICT" = "stop" ]; then
+  echo "STOP|${SOL_NOTE} — Codex weekly at or over ${STOP_PCT}%, hard backstop${SCOPED:+ | scoped: $SCOPED}"
+  exit 2
+elif [ "$SOL_VERDICT" = "slow" ]; then
+  echo "SLOW_DOWN|${SOL_NOTE} — Codex window >=90%, the fleet is majority-Sol"
+  exit 1
+elif [ "$SOL_VERDICT" = "blind" ]; then
+  echo "GUARD_BROKEN|${SOL_NOTE} — Codex side unmeasured; treat as unavailable capacity, not as healthy"
+  exit 3
+fi
+
 if [ "$SCOPED_BINDS" = "1" ]; then
   echo "SLOW_DOWN|scoped limit critical AND IN USE by the fleet: ${SCOPED} — binding cap is not the all-models weekly"
   exit 1
@@ -196,6 +231,6 @@ elif [ "$OVER" = "1" ]; then
   echo "SLOW_DOWN|${MAX_LABEL} burning ${MAX_RATIO}x (>= ${BURN_LIMIT}) at ${MAX_UTIL}% used — would exhaust EARLY"
   exit 1
 else
-  echo "OK|worst ${MAX_LABEL} ${MAX_RATIO}x (limit ${BURN_LIMIT}) — 5h=${FIVE_UTIL}% 7d=${SEVEN_UTIL}%${SCOPED:+ | scoped: $SCOPED}"
+  echo "OK|worst ${MAX_LABEL} ${MAX_RATIO}x (limit ${BURN_LIMIT}) — 5h=${FIVE_UTIL}% 7d=${SEVEN_UTIL}%${SCOPED:+ | scoped: $SCOPED} | ${SOL_NOTE}"
   exit 0
 fi
