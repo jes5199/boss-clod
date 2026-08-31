@@ -25144,3 +25144,34 @@ is the verdict.
 **BLIND**, not report failed arms. "Four arms failed" and "I could not run four arms" are different
 verdicts, and only one of them is about the subject. ⭐ **When every arm fails identically, suspect the
 harness, not the subject** — a real defect rarely breaks every arm the same way.
+
+## 7x282 — a ruling perfected in conversation has arrived nowhere that can act on it
+
+**2026-08-31, 22:19–22:39.** Plan ruled two rows requiring a worker to re-run a falsifier with
+persisted receipts. I worked both through with Plan in detail, agreed, filed lessons from them — and
+**never relayed either to the worker.** The worker finished its prior task, reported, and went idle.
+Plan went idle "holding for receipts". Twelve minutes, both parties behaving correctly, nobody working.
+
+⭐ **AN EXCHANGE THAT ENDS IN AGREEMENT FEELS LIKE DISPATCH AND IS NOT.** Agreement between two readers
+is not delivery to a third. The ruling travelled to the reader who could *refine* it and not to the
+reader who could *execute* it — and because the refinement was genuinely good, the exchange felt
+complete. ⚠️ **Publication, verification and dispatch are three separate events**, and it is the last
+one that gets collapsed into the others, because the first two produce visible artifacts and dispatch
+produces only someone else's work starting later.
+
+**The mirror is the part that matters.** At 19:43 the same night I adopted a rule for the *other*
+direction — anything I dispatch into a worktree Plan governs, Plan hears at dispatch — after a
+provenance misattribution. ⇒ **Neither of us asked whether the reverse edge needed the same rule.**
+Three hours later it cost twelve idle minutes.
+
+⇒ ⭐ **WHEN YOU FIX A ROUTING GAP, CHECK THE REVERSE EDGE IN THE SAME MOTION.** It is one question and
+we skipped it. A commitment made in one direction does not generalise on its own.
+
+⇒ **And the receiving-side check, which Plan filed against itself and is the more catchable half:**
+before recording yourself as *holding for* an artifact, confirm the party who must produce it **has been
+told it is owed.** Plan noticed my replies said "writer released" for seven consecutive rows and said no
+such thing for two — but it was checking that I *agreed*, not that anyone had been *told*. ⚠️ Absence of
+a release confirmation looks exactly like the presence of agreement if you are only reading for assent.
+
+⚠️ Honest accounting, because the productive feeling is the trap: that same exchange produced four real
+corrections. Both are true. The conversation is worth keeping and **it needs an outbound edge**.
