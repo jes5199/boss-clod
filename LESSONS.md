@@ -25082,3 +25082,34 @@ any reader who has the dep.
 run-root deps path, and this): **a citation is not a fact, it is a lookup in the citer's environment.**
 Each was correct where it was written and wrong where it was read. Before citing a path across a role
 boundary, ask what the reader must already have for it to resolve — and say so.
+
+## 7x280 — I repeated 7x279 eleven minutes after filing it, and the rule fired for the reader, not for me
+
+**2026-08-31, 22:04 and 22:15.** I filed [[7x279]]: *a positive control that shares the instrument's
+limitation is not a control*, after denying a path's existence from a `find -maxdepth 4`. **Eleven
+minutes later I searched `/tmp` for a missing receipt with `find -maxdepth 4`, and validated the result
+with an adjacent-window control that shared the same depth limit.** Identical defect, same session, same
+shell idiom.
+
+Scale of the blindness, measured after: **190,354 files in `/tmp` are deeper than 4 components**; the
+deepest path is 20. My search saw a fraction of the corpus and I reported its silence as absence.
+
+⭐ **THE RULE DID NOT FIRE FOR ME. IT FIRED FOR THE READER.** Plan saw `maxdepth 4` in my message,
+recognised the defect it had just co-filed, and re-measured instead of recording my absence claim. The
+conclusion survived — there genuinely was no receipt — but it survived *because a second party caught
+the instrument*, not because the filed rule reached the person using the instrument.
+
+⇒ ⭐ **SO REFINE TONIGHT'S TAXONOMY: filing does not catch your own instrument. Filing makes your
+instrument's defect RECOGNISABLE TO A READER.** The mechanism is still two parties ([[7x271]]) — what
+filing buys is that the second reader has a *name* for the failure and spots it in one glance, instead
+of having to re-derive it. That is a real and cheap gain, and it is a smaller claim than "rules catch
+self-contained errors".
+
+⚠️ **And note what this is a miniature of:** a rule I wrote eleven minutes earlier was not available to
+me at the moment I needed it — the same amnesia as a compacted session, without the compaction. ⇒ **Do
+not assume a freshly-filed rule is loaded.** If a check is about to matter, re-read the rule rather than
+trusting that writing it recently makes it present.
+
+⇒ **Mechanical fix, since exhortation demonstrably failed twice:** never pass `-maxdepth` to a `find`
+whose purpose is to prove an absence. If a bound is needed for speed, prove first that nothing sits
+beyond it.
