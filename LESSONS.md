@@ -24754,3 +24754,37 @@ one message and is verifiable, where "infer carefully" is neither.
 ⚠️ Corollary already filed and reinforced: when a durable artifact does carry a wrong attribution, fix
 the referent rather than appending a retraction ([[7x267]]) — the skimming reader gets whichever
 sentence comes first.
+
+## 7x270 — a clean discriminator the instrument hands you is not the test you need
+
+**2026-08-31.** After a gate exited `rc=2` BLIND, we ruled a mechanical discriminator: `rc=2` is an
+instrument defect and repairable, `rc=1` is a subject red and stops ([[7x266]]). It was clean, it was
+encoded in the checker's own exit codes, and hours later T3a hit the case where it is wrong — a gate
+exiting `rc=1` whose finding was about **its own assumption about where `_build` lives**, not about the
+artifact under certification. Exit code said violation; substance said instrument.
+
+⭐ **A PROXY THAT IS RIGHT EVERYWHERE EXCEPT AT ITS BOUNDARY IS WORSE THAN NO PROXY, BECAUSE IT IS
+CONFIRMED EVERYWHERE YOU CHECK CASUALLY.** Every easy case ratifies it; only the boundary falsifies it,
+and the boundary is exactly where you are relying on it.
+
+⚠️ And note what made this one seductive: **we did not invent the proxy, the instrument offered it.**
+The checker already distinguished blind from violation in its exit codes, so adopting that distinction
+felt like reading the tool rather than guessing. ⇒ **An instrument's own discriminator tells you what
+IT can distinguish, not what YOU need to decide.** The real test was already written one row earlier —
+is the failing thing being certified, or the apparatus measuring it — and the exit code was only ever a
+cheap stand-in for it.
+
+The corrected rule keeps the mechanical part where it is sound and puts judgment where it belongs:
+`rc=2` is always instrument; `rc=1` is presumptively subject and **the worker must always stop on it**;
+it is instrument only when the finding is about an environmental assumption — and **that call belongs
+to the authority, never to the worker**. A worker that may self-reclassify its own red buys back the
+one stop the proxy cost, at the price of a green nobody can trust.
+
+⇒ ⭐ **AND THE SWEEP RULE THAT CAME OUT OF THE SAME STOP: A SWEEP MUST RECORD THE PATTERN IT SEARCHED
+AND THE CLASS IT CLAIMS TO CLOSE, NOT ONLY THE COUNT IT FOUND.** The earlier class fix searched
+`$root/deps`, honestly reported 2, and fixed both — while the actual class was *root-relative
+assumptions about Mix-managed locations broken by isolation*, whose other member was `$root/_build`.
+**A count of 2 from a pattern that could only ever find 2 is indistinguishable from a complete sweep.**
+My own verification confirmed the count matched the pattern and reported it as class closure: checking
+that a sweep did what it said, and checking that what it said was the right thing to do, are two
+checks, and I ran the first while reporting the second.
