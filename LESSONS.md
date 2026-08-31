@@ -24690,3 +24690,36 @@ list ([[7x263]]), where the compression is what actually governs. The corrected 
 correctly to someone encountering it once, years later, with none of today's context. Say that the
 claim was made and withdrawn, and give the basis — but do not leave the withdrawn claim standing as
 the operative sentence.
+
+## 7x268 — "the gate is green" and "the gate can now run, and is green" are different claims
+
+**2026-08-31.** T2a's Biscuit pin exited `rc=2` BLIND because it resolved `$root/deps/...` while the
+authority had provisioned dependencies to an isolated run root. The executor's plan was to patch the
+script, run the gate, and **restore the script to its committed bytes** — leaving a clean tree, a green
+receipt, and a green that no one could ever reproduce, because the script producing it would not exist.
+
+⭐ **THE WORST PROPERTY AN ARTIFACT CAN HAVE IS NOT BEING RED — IT IS MEANING LESS THAN IT LOOKS LIKE
+IT MEANS.** A red gets acted on. A green certifying an unreproducible state gets filed and believed.
+
+Three things came out of it worth keeping.
+
+**① A tracked instrument's repair is a repository change.** An instrument-repair licence silently
+assumes instruments live *outside* the repo. When the broken instrument is a tracked file, in-place
+repair collides with a clean-tree scope gate and a temporary patch evaporates — so it needs **its own
+commit**, parented on the candidate, leaving the candidate untouched. Persist-dirty and revert are a
+false binary; the third option is the one that dissolves it.
+
+**② Fix the class, not the instance.** `check-biscuit-pin.sh` and `check-cell-pin.sh` had the identical
+`$root/deps` shape, so repairing one left the other blind later in the same gate set with the receipts
+reading green. ⚠️ **And require the enumeration to record its count even when the count is zero** — a
+skipped sweep and an empty sweep produce identical silence, so the zero is the control proving the
+sweep ran. That is the absence rule promoted from a habit into a required field.
+
+**③ Say what the gate did, not just what it returned.** These gates did not pass and then get fixed —
+**they could not run.** A receipt reporting "green" would be accurate about the exit code and false
+about the history. Same family as shape-equality: every field matches and the claim is still wrong.
+
+⇒ ⭐ **AND THE PROCESS LESSON, WHICH IS MINE: A WORKER'S SUMMARY OF ITS NEXT STEP IS A CLAIM ABOUT THE
+FUTURE, NOT AN ACKNOWLEDGEMENT TO FILE.** I read "final restoration of tracked instrument to committed
+bytes" and moved on, then came back to it minutes later. Check a stated next step against the authority
+*when you read it* — that is the cheapest moment it will ever be stoppable.
