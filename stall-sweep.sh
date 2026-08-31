@@ -7,6 +7,28 @@
 # ⭐ These take NO positional arguments. Overrides are ENV VARS and are named in the
 # body; a mistyped env var still silently defaults, which is why the ones that matter
 # are echoed in the output line rather than assumed.
+
+# ⭐ 2026-08-31 — A DEAD SESSION AND A STALLED ONE LOOK IDENTICAL FROM A TRANSCRIPT.
+# commonplace-doc's last record is stop=end_turn from 2026-08-27 and its pane sits at a bash
+# prompt: the session exited days ago. The detector read that as a stall and would have
+# reported it every 5 minutes forever, which is how a sweep trains its reader to skim.
+# ⛔ Resolve liveness by /proc identity, NEVER `pgrep -f` — the worker name appears in this
+# script's own command line and the shell matches itself.
+_worker_session_alive() {
+  local w="$1" p cmd self=$$
+  for p in /proc/[0-9]*; do
+    p=${p#/proc/}
+    [ "$p" = "$self" ] && continue
+    cmd=$(tr '\0' ' ' < "/proc/$p/cmdline" 2>/dev/null) || continue
+    case "$cmd" in
+      *"mcp-config-${w}.json"*)
+        case "$cmd" in *claude*) return 0 ;; esac
+        ;;
+    esac
+  done
+  return 1
+}
+
 if [ "$#" -gt 0 ]; then
   echo "BLIND|$(basename "$0") takes no arguments (got: $*) — overrides are env vars. NOT a verdict." >&2
   exit 2
@@ -138,6 +160,12 @@ for w in "${WORKERS[@]}"; do
     [ -r "$_stopfile" ] && _stopline=$(grep -v '^#' "$_stopfile" | grep "^${w}|" | head -1)
     if [ -n "$_stopline" ]; then
       echo "STOPPED|$w|declared stop, mechanism accepted — NOT nudged|release: $(echo "$_stopline" | cut -d'|' -f2)"
+      continue
+    fi
+    if ! _worker_session_alive "$w"; then
+      # NOT suppression: printed and visible, like STOPPED. A dead session cannot be nudged,
+      # and relaunching one with no ranked work is scheduling, not unsticking.
+      echo "DEAD-SESSION|$w|no live claude process for this worker — exited, not stalled|release: relaunch only when it has ranked work"
       continue
     fi
     stalled=$((stalled+1)); echo "STALLED|$w|${out#*|*|}"
