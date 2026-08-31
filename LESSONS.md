@@ -24579,3 +24579,23 @@ rationale, never for the boundary a worker is expected to halt at. If a short fo
 needed, it must be stated as a gloss *beside* the verbatim text, never in place of it — and it must
 be checked against every enumerated item before sending, because the failure mode is a summary that
 is right about the examples you thought of and wrong about the ones you did not.
+
+## 7x264 — order gates by cost ascending, or you choose to learn late
+
+**2026-08-31.** T2a's certification ran provisioning, a Chromium install, a browser acceptance and two
+full seed runs before it reached `mix format`. Format failed — on bytes written that morning, a line
+break and a map-pattern expansion in a committed test file. The defect had survived six stops and an
+entire day, and finding it there cost a re-earn of the two most expensive gates in the set.
+
+`mix format` costs seconds and needs no provisioning. Nothing about the ordering was reasoned; the
+expensive gates were simply written first.
+
+⇒ ⭐ **ORDER GATES BY COST ASCENDING, SO THE CHEAPEST FALSIFIER RUNS FIRST.** Static checks — format,
+compile, shell syntax, population, scope — belong before provisioning, browsers, and full suites. **A
+gate that can only fail after an hour of setup is a gate you have chosen to learn from late**, and the
+lateness is not free: it is paid again in every expensive gate that has to be re-earned after the fix.
+
+⚠️ Related trap on the fix itself, worth keeping attached: **"the diff is purely mechanical" is a
+claim, not evidence.** `git diff -w` and reading the patch do not prove a reflow preserved behaviour —
+this same campaign shipped a checker whose predicate depended on line contiguity ([[7x263]]). After a
+formatting change, re-earn the semantic control, not just the formatter's own green.
