@@ -24949,3 +24949,32 @@ have read is a wrong-referent read, proven, not suspected.
 ⚠️ Same family as the day's compressed finding: **a verdict without the coordinate that produced it.**
 Here the missing coordinate is *which repository answered*. A green needs its configuration, a count
 needs its pattern, a red needs its phase — and a SHA needs its repository.
+
+## 7x276 — losing an agent's NAME is not losing its HANDLE, and I generalized one case into a false impossibility
+
+**2026-08-31, ~7 hours after [[7x260]].** T3a's session compacted and reported its writer unreachable by
+name. I told it to stop trying to recover, on the strength of the afternoon's identical-looking loss:
+raw subagent ids resolve only through the spawning session's registry, that registry had lost a622, and
+no supported restore existed. **It ignored me, recovered the raw id from its own transcript, and the
+resume succeeded.**
+
+⚠️ **I was wrong, and the wrongness has a precise shape: the two failures were not the same.** a622 was
+*unaddressable by any means* — the registry had lost the id itself. Here, only the NAME was gone; the
+durable id still resolved. **I generalized from one case to a rule and the rule was too broad**, and it
+told a worker to abandon the move that worked.
+
+⭐ **A NAME IN A SESSION'S REGISTRY IS VOLATILE; A RAW AGENT ID RECORDED DURABLY IS NOT. LOSING THE
+FIRST DOES NOT IMPLY LOSING THE SECOND.** ⇒ **Try the durable id before declaring an agent lost** —
+recovering it from your own transcript is a legitimate first move, not a workaround.
+
+**How to tell a real resume from a new agent wearing the name**, since that is the trap 7x260 warns
+about and it must not be settled by the worker's assertion: the transcript file **appends** (mtime
+current, size grown) *and* a live turn is running. I verified both from outside — 2.67 MB with mtime one
+second old against a 71-transcript corpus, and a subagent advancing 32s→38s with tokens 278.0k→279.0k.
+Either alone is weak; together they separate resume from re-spawn.
+
+⚠️ **Second wrong referent I handed the same worker in one evening** — a wrong BEAM pid earlier
+([[7x273]]), a wrong impossibility claim now. Both times its own measurement governed and was right.
+⇒ That is the cross-check convention ([[7x272]]) paying off in the direction that matters: **the
+dispatcher being confidently wrong is exactly the case it exists to catch**, and a worker that defers
+to a dispatcher's assertion over its own instrument would have lost both.
