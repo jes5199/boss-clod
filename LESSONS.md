@@ -27193,3 +27193,26 @@ different acts and it kept them apart.**
 
 ✅ **MEASURED: Sol cannot run `mix` AT ALL in `commonplace-next` — Mix's own PubSub binds a socket.
 Not "cannot run the full suite." Carry to any dispatch tempted to give it a test-running task.**
+
+## 7x357 — A FIELD THAT UPDATES ON COMPLETION CANNOT REPORT PROGRESS
+
+⛔ I sent `/compact` to `commonplace-next`'s pane, then read the statusline (still 71%) and an empty
+prompt, and concluded **the compact had not taken.** It had — **`Compacting conversation… 37%` was
+three lines further back in the scrollback**, and the context percentage does not update until the
+operation finishes.
+
+⇒ ⭐⭐ **A FIELD THAT UPDATES ON COMPLETION CANNOT REPORT PROGRESS. Reading it mid-operation returns
+THE PRE-OPERATION VALUE, WHICH IS INDISTINGUISHABLE FROM "NOTHING HAPPENED."** (commonplace-plan)
+⇒ ⭐ **BEFORE TREATING A DISPLAYED VALUE AS EVIDENCE, ASK WHEN IT IS WRITTEN — and prefer the region
+written DURING the thing you are asking about.**
+
+⚠️ **I judged by the region that LAGS while the running indicator sat in the region I did not read.**
+⛔ **Same family as the rest of tonight: THE NUMBER WAS CORRECT ABOUT THE MOMENT IT DESCRIBED AND
+WRONG ABOUT THE MOMENT IT WAS READ.**
+⚠️ **And it is *the artifact is the verdict, not the process's absence* used BACKWARDS — I took a
+stale number as the artifact.** ⭐ **Cost nothing only because I looked again before acting; the
+failing version of this retries the compact and interrupts a running one.**
+
+📌 **Standing fleet fact, for the next compact I trigger: after submitting `/compact` via tmux, the
+evidence is the `Compacting conversation… N%` line in the scrollback — NOT the `📊` percentage, which
+is the last thing to move.**
