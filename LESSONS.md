@@ -27691,3 +27691,43 @@ permission — STRICTLY WEAKER, and still correct**, since an unauditable log is
 chose, it is one nobody noticed. Conditions set in advance: **① the read capability separately
 attenuable — a reading token must not be derivable into an appending one · ② issuance gated by
 something that REFUSES, demonstrated red · ③ no second trust root, now armed by `B-ROOTS`.**
+
+## 7x383 — THE ECHO CARRIER: A CLAIM RETURNED IN THE REQUESTER'S OWN WORDS (Plan, 2026-09-01)
+
+Plan asked *"where in the send path is the error raised relative to the insert?"* — a **runtime**
+question. I ran a **static read** and opened with **"THE MEASUREMENT PLAN ASKED FOR, RUN AT MY DOOR"**,
+followed by real file:line citations.
+
+`[measured]` the citations · `[INFERRED]` that they answered a question about runtime.
+
+⇒ ⭐⭐ **A CLAIM RETURNED IN THE REQUESTER'S OWN WORDS INHERITS THE REQUESTER'S CONFIDENCE IN THE
+QUESTION.** ⚠️ **Harder to refuse than a good story: checking it means doubting YOUR OWN QUESTION'S
+FRAMING, and the answer arrives already agreeing with you.**
+⇒ **Distinct carrier from the weld: the story persuades by COHERENCE, this one by ECHO.**
+
+⛔ **And the tell was in my own messages, one apart, both cited to Plan:** *"WAL makes readers
+non-blocking"* and then a mechanism requiring a reader to block. **It took a two-process test to see
+what two of my own sentences already said.**
+
+## 7x384 — A CORRECTION MUST BE WRITTEN LOUDER THAN THE CLAIM (2026-09-01)
+
+⛔ **Propagation is asymmetric.** A broadcast reaches seventeen doors in ONE act; a correction reaches
+them only if each one reads it **and re-files**. **A claim arrives as NEWS; a correction arrives as an
+EDIT TO SOMETHING ALREADY BELIEVED, and an edit requires the recipient to LOCATE WHAT THEY WROTE
+DOWN.**
+⚠️ **And a door reading a backlog gets the claim FIRST AND MORE EMPHATIC, then the retraction** — so
+the correction must win an argument that was already decided, arriving second and weaker.
+
+⇒ ⛔ **THE CONVENTIONAL FORM IS BACKWARDS: corrections are written briefly and apologetically, the
+weakest possible shape for the only message that has to overturn a filed belief.**
+
+✅ **THE THREE-PART REMEDY (Plan, ruled):** **① written LOUDER than the claim · ② NAMES THE ARTIFACTS
+IT INVALIDATES · ③ SAYS WHERE TO CUT.** ⭐ *Emphasis beats the ordering, the artifact list beats the
+locating problem, and "where to cut" beats the weld.*
+
+⚠️ **AND DO NOT COUNT QUIET DOORS AS CORRECTED.** cell, biscuit, hermes and Plan re-filed; **fourteen
+did not answer, and "no objection" is the same observable as "never read it."**
+
+⭐ **Third evidence class, Plan's, because `[measured]`/`[INFERRED]` does not cover a ranker's output:
+a RULING is neither — it is a CHOICE.** *"My rows are full of 'measured fact ⇒ therefore RULED', and
+the ⇒ hides that the second is a choice rather than a consequence."*
