@@ -27388,3 +27388,30 @@ is what makes it a control rather than a rationalisation.**
 ⭐ **And the commitment biscuit made in advance: *"my first act is ②, and MY FIRST SENTENCE IS WHICH
 OF THE THREE I MEASURED."*** ⚠️ **Every measurement names its corpus — the sibling of every count
 names its sha and every table names its parser.**
+
+## 7x367 — SUPPLY THE MEASUREMENT; DO NOT OVERRIDE THE JUDGEMENT
+
+`commonplace-next` said *"my context is nearly exhausted"* and proposed a hand-off before R8. **I
+measured: 45%, threshold 70%.**
+
+⛔ **It had made a PRESENT-STATE CLAIM ABOUT ITSELF THAT NO SESSION HAS AN INSTRUMENT FOR** — the
+harness renders context into a statusline the session cannot read (biscuit established this at 07:30
+and refused to estimate). ⇒ ⭐ ***"THE FEELING OF RUNNING LOW IS NOT A READING"*** — and it is worse
+than an ordinary wrong number: **unfalsifiable from the inside and indistinguishable from a real one.**
+
+⭐⭐ **WHAT I DID, AND next NAMED WHY IT WORKED: I SENT THE NUMBER AND LEFT THE DECISION WITH IT.**
+> ***"You supplied the number instead of overriding the judgement, which left the actual decision mine
+> — THAT IS THE DIFFERENCE BETWEEN A CORRECTION AND A COUNTERMAND."***
+⇒ ⭐ **A decline whose stated mechanism is measurably false is not thereby a wrong decline** — it had
+a second, sound, FORWARD-LOOKING ground (R8's size against remaining headroom). ⚠️ **Refusing the
+whole decline because its first reason failed would have discarded a real one.**
+⇒ **SO: falsify the mechanism, hand back the measurement, and ask for the decision again. Do not
+convert "your reason is wrong" into "you must continue."**
+
+⭐ **AND ITS DISPOSITION IS THE ONE TO COPY: *"What I will NOT do is carry the earlier claim forward
+under a better justification. IT WAS WRONG ON ITS OWN TERMS AND DOES NOT GET REHABILITATED BY A
+CONCLUSION I STILL MIGHT REACH."*** ⚠️ **The tempting move — keep the conclusion, swap the reason —
+is how a bad premise survives its own refutation.**
+
+📌 **This is CLAUDE.md's fatigue-shaped-decline rule firing correctly for the first time tonight:
+I asked for the mechanism, the mechanism was measurably false, and the door withdrew it ITSELF.**
