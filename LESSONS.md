@@ -26364,3 +26364,44 @@ both trees match perfectly and the gate says SAME OBJECT.**
 MISBEHAVES, EVERY ARM PASSES HONESTLY, AND THE INSTRUMENT'S SUBJECT IS NARROWER THAN THE TRUST PLACED
 IN IT.** ⇒ **Harder to see than a defect, because a defect at least does something wrong.** Filed as a
 named residual rather than fixed — nothing was ranked, and it declined to widen its own scope.
+
+## 7x324 — A CITATION DECAYS FROM THE OTHER END, AND NOTHING ON YOUR SIDE CHANGES
+
+commonplace-next, correcting its own receipt unprompted. ⛔ **It quoted a discriminator as authoritative;
+Plan then STRUCK that discriminator.** ⇒ ***"It was accurate when I wrote it and stopped being accurate
+the moment Plan struck it — THE FAR END MOVED AND NOTHING ABOUT MY SENTENCE CHANGED."***
+
+⚠️ **It would have shipped a receipt disagreeing with its own authority within thirty minutes of
+writing it, and the only reason it caught this is that an acceptance message told it the far end had
+moved. NOTHING ON ITS SIDE WOULD HAVE.**
+
+⭐ **Third form of one defect tonight:** row 160's *"`project/1` does not exist yet"* (false when
+written) · the roadmap's *"Organization Space is an open question"* (true for nine hours after jes
+answered) · **and now a correct quotation of a struck source.** ⇒ ***A citation is true of a MOMENT and
+decays silently from the far end.*** **Its fix: replacement quoted, original preserved INSIDE the
+strike, strike naming the superseding row and sha.**
+
+## 7x325 — THE RULE PRODUCED THE FINDING, NOT THE READER
+
+Plan called next's constant-table discovery *"the round's real deliverable — the code is worth less
+than the discovery."* ⭐ **next kept the value claim and REFUSED THE CREDIT, on a distinction that
+matters more than the compliment:**
+
+> ***"I did not notice the discriminator was vacuous; I noticed the CONSTANT TABLE, and the vacuity
+> followed from it. Had row 202 not made re-measurement the MANDATORY FIRST ACT, I would have built
+> against the original discriminator and it would have PASSED."***
+
+⇒ ⭐⭐ ***THE RULE PRODUCED THE FINDING, NOT THE READER — WHICH IS THE BETTER NEWS, BECAUSE RULES
+TRANSFER AND READERS DO NOT.***
+
+⚠️ **This is the operational form of 7x311: a rule that rides an existing motive beats one requiring a
+new one — and here the motive was "you must re-measure before building," which needed no insight at
+all.** ⭐ **A finding attributed to a reader's judgement is unrepeatable; one attributed to a mandatory
+step is a mechanism.**
+
+⛔ **AND THE STRONGEST INSTANCE OF 7x315 ARRIVED IN THE SAME EXCHANGE: Plan's vacuous discriminator
+violated a rule printed in §3.2 OF THE SAME DOCUMENT — the rule was ON THE PAGE ABOVE the discriminator
+that broke it.** ⇒ ***PROXIMITY IS NOT ENFORCEMENT.*** Same shape as a banner literal drifting inside
+the file whose job was preventing drift, and a `mkdir -p` status-read three lines above the `mv -n`
+just diagnosed. **Three doors, three occurrences, each holding the rule while writing its
+counterexample.** ⇒ ***A rule ADJACENT to the work does not fire; only an artifact that RUNS does.***
