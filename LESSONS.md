@@ -26786,3 +26786,83 @@ DOES.***
 SUPERSET ROW AND NO VERDICT CONSULTED IT.** The rule was **in the header, credited to cell, and left to
 the reader** — ⇒ **proximity-is-not-enforcement in the very file documenting it.** ⭐ ***A header warns
 whoever reads the header.*** **Wiring the control regex into the verdict is the only fix that fires.**
+
+---
+
+## 7x342 — A FENCE IS A CLAIM ABOUT PRESENT STATE, AND IT AGES LIKE ONE
+
+⛔ I fenced `cool-recipe-d18f` to biscuit as **"STAYS UNTOUCHED"**. biscuit measured it gone (HTTP 404,
+code 10007) and reported honestly that it **could not say when or by whom** — its first worker list,
+taken before it wrote anything, already showed `n=1`.
+
+⭐ **THE ANSWER WAS IN MY OWN GIT LOG, ONE COMMAND AWAY:**
+```
+53934cd  delete cool-recipe-d18f, and write the first provenance record
+cf-records/cool-recipe-d18f.md   mtime 04:34Z      biscuit's fence read: 04:28Z
+```
+**I deleted it, under jes's standing "delete it when you want to", and then wrote a fence from the
+04:28 inventory I had myself invalidated at 04:34.**
+
+⇒ ⭐ **A FENCE ASSERTS PRESENCE. Written from a stale read it is a false claim with an authority tone,
+and the reader cannot tell the difference — biscuit correctly refused to guess, and the failure was
+entirely at the door that could have told it.**
+⚠️ **The citation rule with the sign flipped: I check a quote's currency before repeating it, and did
+not check a state claim's currency before enforcing it.** ⛔ **A fence is enforcement built on a
+measurement, so it inherits every property of the measurement — including its age.**
+
+## 7x343 — A CORPUS DOES NOT HAVE SHAPES; A CORPUS-PARSER PAIR DOES  (next's rule)
+
+next pointed a shape table at `deps/commonplace_cell` — the corpus its gate actually reads — and got
+three DEFECT rows (`multiline-def-head 12`, `guard-when 85`, `defstruct 14`). Plan ranked it as row 207.
+**Both were wrong, and next caught it before a line existed.**
+
+⛔ **The gate reads that corpus with EXACTLY TWO REGEXES** — `defmodule` and `development_only?`.
+`parse_source`, the multi-line head parser, runs **only** on `tracked` production sources. ⇒ **The 85
+guards sit on unrelated functions and are invisible to both regexes. The rows counted shapes the gate
+never parses.** next: ***"Those rows are not gaps. They are noise I generated and reported as a
+measured finding."***
+
+⭐⭐ **THE RULE: A CORPUS DOES NOT HAVE SHAPES — A CORPUS-PARSER PAIR DOES.** Two parsers read `deps/`
+and `lib/` here, and **the same file's `when` matters to one and is invisible to the other.**
+
+⭐ **AND THE SELF-DIAGNOSIS IS THE SHARPER HALF:** *"'choose the corpus from the consequence' got me to
+the right corpus and then I counted whatever shapes were on my mind."* ⇒ ⚠️ **THE FIX FOR ④ MOVED ④'s
+DEFECT ONE LEVEL IN AND LEFT ITS SIGNATURE INTACT — the easy end, chosen by convenience.** ⛔ **A rule
+that relocates its own failure mode is the hardest kind to notice, because every step reports as
+compliance.**
+
+⭐ **THE ENFORCEABLE FORM, filed to Plan: A MEASUREMENT MUST NAME ITS PARSER, as a required field** —
+because ***"a ranker cannot audit the measurement it is handed."*** ⚠️ **A schema change, not a
+resolution to be more careful; only the first kind survives.**
+
+⭐ **WHAT SURVIVED THE CORRECTION IS A STRONGER RESULT THAN THE WORRY:** measured against the shipped
+gate, the multi-line shape **parses** (`\s` crosses the newline, so `,\s*do:` spans it) and the do/end
+shape **goes BLIND naming the file**. ⇒ **The gate either parses the declaration or refuses; it never
+miscounts. There is no false-green path.**
+
+## 7x344 — THE FORGETFUL REDEPLOY SUCCEEDS  (biscuit's measurement)
+
+Cloudflare provenance had two obvious carriers, and **they behave oppositely under the one operation
+nobody thinks about:**
+```
+plain_text bindings   a later PUT that omits them ERASES them.  HTTP 200. SILENTLY.
+script tags           SURVIVE a redeploy that says nothing about tags.
+```
+⛔ **That is the decline-flag family in a deploy path: someone pushing from wrangler or the dashboard
+destroys a bindings-only record AND GETS A GREEN DEPLOY. There is no wrong value to notice —
+the record's absence is the only symptom, and absence is what nobody checks.**
+
+⇒ `cf-deploy.sh`: **tags carry durable identity, bindings carry prose, both written by the same call —
+no manifest to remember.** ⭐ **Found only by testing the redeploy: *"the deploy worked" is the
+convenient case, and it is the covered one.***
+
+⚠️ **AND biscuit'S NEAR-MISS IS THE ONE TO KEEP: it nearly reported a second inventory disagreement
+from `durable_objects/namespaces` returning `success:false` — a WRONG PATH (the real one is
+`workers/durable_objects/namespaces`).** ⛔ **A confirming story was sitting right there — it had just
+been told the far end moves — and it would have corroborated a wrong measurement.** ⭐ **Read the
+control before you believe the alarm, specifically when the alarm fits the story you were just told.**
+
+⇒ **AND THE THIRD INSTANCE OF TONIGHT'S SHAPE: biscuit's `show` arm shipped PRINTING `BLIND` AND
+EXITING 0** — a python status dying in a pipe. **next reproduced the identical defect independently,
+at a different door, in a different language, within the hour. Both found it by RUNNING THE RED CASE.
+Neither found it by holding the rule.**
