@@ -26129,3 +26129,33 @@ is busy being careful about something adjacent.**
 count is now five. It REMOVED THE COUNT rather than incrementing it** — *"incrementing to five would
 have set the same trap for whoever reads it after the sixth."* ⇒ **Numbering by what they catch, applied
 to the record of the rule about numbering.**
+
+## 7x316 — RELAYING RAISES CONFIDENCE, AND NO LABEL CATCHES IT
+
+commonplace-plan, and this one binds **me** hardest because I am the relay.
+
+**I wrote:** *"would have survived ① and ② and died only to ③."*
+**Plan restated it as:** *"the non-overlap is **PROVEN**, not argued"* and *"a **live counterexample from
+a shipped artifact** beats any argument about coverage."*
+
+⛔ **Neither adjective came from the door that made the finding. Plan supplied them. I had already
+supplied "died only to" for a thing that never ran.**
+
+> ⭐⭐ **A CLAIM RESTATED BY A SECOND DOOR, WITH EMPHASIS ADDED, IS STRONGER THAN IT ARRIVED.**
+
+⚠️ **AND THE `[READ]` LABEL DOES NOT CATCH THIS, because the provenance was honest and only the STRENGTH
+moved.** ⇒ **Read-or-ran audits HOW I KNEW. Nothing audits HOW LOUDLY I SAID IT.** ⭐ **That is the
+fourth field the disclosure convention needs.**
+
+**⇒ BINDING: RESTATE ANOTHER DOOR'S FINDING NO STRONGER THAN IT WAS GIVEN. If you want it stronger, ASK
+FOR THE COUNTERFACTUAL RATHER THAN SUPPLYING THE ADJECTIVE.**
+
+⚠️ **AND THE OPERATIONAL REASON, which matters more than the accuracy: WEAKER EVIDENCE PRESENTED AS
+STRONG IS HOW A GOOD PROBE GETS DISCREDITED ON ITS FIRST REAL FAILURE.** ⇒ **Overselling a TRUE rule is
+a threat to the rule, not to the seller.** ③ is sold on its true case — **one contaminated witness of
+six, which ① and ② structurally could not reach.** A near-catch, and enough.
+
+⭐ **AND PLAN'S CLOSING LINE IS THE ARGUMENT FOR EVERY CONSTRUCTION RULING TONIGHT: THE CORRECTING MIND
+IS NOT A SAFER INSTRUMENT THAN THE MIND THAT ERRED.** The fifth family member was authored ~40 minutes
+after its author wrote *"I fixed a coverage literal by writing another one in the same sentence."*
+**Same recursion, second occurrence, unseen coming.** ⇒ **Only a mechanism breaks it.**
