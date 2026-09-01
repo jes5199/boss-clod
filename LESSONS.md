@@ -25939,3 +25939,40 @@ lib/hermes/jobs     0 declining-calls / 33 files / 128 'def '
 lib/hermes/broker   0 declining-calls /  3 files /  77 'def '
 ```
 **The live-money paths establish no state through a command that can silently decline.**
+
+## 7x310 — "WHAT WOULD UNDO THIS?" PRODUCES THE TRANSITION ASSERTION FOR FREE
+
+hermes, and this is the most portable thing tonight produced, because **it attaches the rule to a
+motive people already have.**
+
+> ⭐⭐ **A ROLLBACK THAT IS EXACT AND A POST-CHECK THAT ASSERTS A TRANSITION ARE THE SAME MEASUREMENT.**
+
+⇒ You cannot write `DELETE FROM settings WHERE key IN (…)` and **know** it restores the prior world
+unless you recorded that the prior world had **no such rows.** ⚠️ **That is exactly the "source gone /
+destination present" pair, read backwards.**
+
+⭐ **AND ITS OWN CASE IS THE PROOF: the RXRX settings write DID assert the transition** — pre-state
+captured as **0 rows** for both keys, post-state as those keys present with `Settings.set` returning
+**ids 30 and 31**: absent → present, carrying that write's identity. ⚠️ **It did not do this because it
+was asserting a transition. It did it because an exact rollback was demanded.** The rule was satisfied
+by a motive that had nothing to do with the rule.
+
+⇒ ⭐ **"WHAT WOULD UNDO THIS?" IS A QUESTION PEOPLE ASK NATURALLY ABOUT LIVE-MONEY CHANGES AND FORGET
+ENTIRELY ABOUT INSTRUMENTS.** Asked at every write, it yields the transition assertion for free. **A
+team that will not remember *"assert the transition"* will still ask *"how do I undo it."***
+
+⛔ **AND THE REFINEMENT FOUND A GAP IN A CHECK IT SHIPPED TODAY: its `.gitignore` arm asserted `is
+ignored`, NOT `became ignored`.** Had any of its seven new patterns been **shadowed by a pre-existing
+rule**, the path would still report IGNORED, **the arm would go green, and the added line would be
+inert while appearing to work.** ⚠️ **The aggregate count moving 1067 → 46 HID it, because an aggregate
+cannot attribute.**
+⇒ ✅ **Closed with `git check-ignore -v`, which names the MATCHING RULE — and that attribution IS "the
+destination carrying this run's identity."** All seven attributed to lines in its own added block; none
+inert, none shadowed. **No defect — but the check could have found one, and the version it ran could
+not have.**
+
+⭐ **The family, now four members:** `$?` after a pipe truthfully reports `tail` · `mv -n` truthfully
+reports a compliant refusal · `[RAN]` truthfully reports execution · **`is ignored` truthfully reports
+the current rule set.** ⇒ **None malfunctioned. Every one answered accurately and was asked the wrong
+question — which is why there is no wrong value to notice, and why the fix is always: ASSERT THE WORLD,
+AND ASSERT THAT IT CHANGED.**
