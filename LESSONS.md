@@ -27216,3 +27216,52 @@ failing version of this retries the compact and interrupts a running one.**
 📌 **Standing fleet fact, for the next compact I trigger: after submitting `/compact` via tmux, the
 evidence is the `Compacting conversation… N%` line in the scrollback — NOT the `📊` percentage, which
 is the last thing to move.**
+
+## 7x358 — A SPECIFICATION THAT INVITES A SINGLE ANCHOR GETS ONE  (commonplace-plan, row 232)
+
+next offered Plan an absolution — *"the property was right, the implementation was mine"* — **and Plan
+refused it by re-reading its own wording:**
+```
+what Plan wrote:   "the spend line must appear AFTER THE GATE OUTPUT in the landing log"
+what that is:      a ONE-ANCHOR SPECIFICATION — a landmark, and a relation to it
+what walks through: A GATE MOVED DOWN
+```
+⇒ ⭐⭐ **THE SYMMETRIC FORM: *"NO GATE MAY RUN AFTER THE SPEND."* Anchor-free, catches the spend moving
+UP and a gate moving DOWN, and would not have needed the arm it got.**
+⭐ ***"The implementation was next's; THE ONE-SIDEDNESS WAS MINE."***
+⇒ ⚠️ **A correct property can still be stated in a form that only admits a recognizer. When an arm turns
+out anchor-keyed, re-read the SPEC before blaming the arm.**
+
+## 7x359 — A CORRECTION IS AN EDIT AND NEEDS THE SAME EVIDENCE BAR AS THE CLAIM IT REPLACES
+
+⛔ **FOURTH INSTANCE OF THE NO-PUSHBACK CLASS, ACROSS THREE DOORS, and one of them is mine:**
+```
+boss-clod  pessimistic ratio         nobody argues with modesty
+plan       false self-blame          nobody argues with self-criticism
+plan       permissive clearance      nobody argues with permission
+next       mode-contract downgrade   nobody argues with a self-downgrade
+```
+**next wrote *"only one of five argument shapes discriminates."* Measured: THREE of five do.**
+⇒ ⭐⭐ ***"OVER-CORRECTING UNDER REVIEW IS STILL GETTING IT WRONG — I DOWNGRADED A ROW TO LOOK RIGOROUS
+AND MADE IT FALSE."***
+⇒ ⛔ **A CORRECTION NEEDS THE SAME EVIDENCE BAR AS THE CLAIM IT REPLACES — INCLUDING WHEN IT CORRECTS
+YOU DOWNWARD.** ⚠️ **Plan: *"every one of us reached for the modest error because it FEELS like the safe
+one. It is only UNAUDITED."***
+
+## 7x360 — AN ARM'S SENSITIVITY IS ITSELF A MEASUREMENT
+
+⛔ next's concurrency arm was reported as a **deterministic** catch in two documents. **B ran the race
+40× against the mutant: 10 OF 40 WENT GREEN. ~75% sensitive.** 40/40 clean on the shipped helper, so no
+false red — **but the claim was wrong.**
+⇒ ⭐⭐ ***"MY FULL-SUITE RUN HAPPENED TO LAND ON A RED. I REPORTED AN ARM AS A GATE ON ONE SAMPLE OF A
+COIN IT FLIPS."***
+⇒ ⚠️ **A gate demonstrated red ONCE is demonstrated to be CAPABLE of red, not to be RELIABLE. For any
+arm whose subject involves timing, ordering or concurrency, THE NUMBER OF TRIALS IS PART OF THE CLAIM.**
+
+⭐ **AND `set -e`'s FOURTH INSTANCE, IN THE COMMIT DOCUMENTING THE THIRD, nine lines below the identical
+trap in the same file:** ***"A FILED ARTIFACT FIRES; A RULE I FILED IN PROSE, IN THE VERY FILE, DID NOT.
+THE COMMENT WAS NOT A CHECK."***
+
+📌 **NAMED, UNRANKED (Plan): nothing in `commonplace-next` gates any table in a receipt or in
+GATE-AUDIT — ungated prose, the same class as the round's own highest-severity finding.** ⚠️ **Real,
+and deliberately not competing with R5 on a night jes has asked three times for features.**
