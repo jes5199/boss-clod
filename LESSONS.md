@@ -25282,3 +25282,85 @@ record being malformed** — and blind in the direction that looks like success.
 expected key present with a non-empty value, no key appearing inside another key's value. ⭐ **The test
 for whether you are doing that: ask what a corrupted record would look like to your check. If the answer
 is "the same", the check is content-only.**
+
+## 7x286 — CEREMONY OVER A PROPERTY SOMETHING ELSE ALREADY ENFORCES IS PURE COST
+
+2026-09-01, T3a landing. Two verification regimes on the same night, same instinct toward rigour,
+**opposite verdicts** — and a test that separates them *in advance*:
+
+- ⛔ **Ceremony over a property something else already guarantees is pure cost.** Git refuses a
+  non-fast-forward without `--force`. The landing's comparator framework therefore added exactly one
+  delta — catching a third party publishing in a gap, a string equality on 40 hex — and **several new
+  ways to fail. It stopped three times in eight minutes and never reached the remote.** Replaced
+  rather than repaired: four clean pushes in ~6 minutes.
+- ✅ **Ceremony over an UNENFORCED property is the only thing standing there.** Nothing enforced
+  *"the gates ran at the tip you are publishing"*. That check **was** the enforcement, cost one grep,
+  and caught a seeds log that was **stale AND red** (`296 tests, 1 failure`, 20:33) which would have
+  vouched for a **failing** result on a tree **eight tests behind** the one being shipped.
+
+⭐ **"Ceremony scales with reversibility" tells you HOW MUCH. This tells you WHETHER.** Ask: *is this
+property already guaranteed by something below me?* If yes, everything I add is surface area.
+
+⚠️ **THE TELL THAT THE APPARATUS HAD BECOME THE PROBLEM: a SHA transcribed BY HAND as 62 hex instead
+of 64.** Nobody mistypes a SHA that came from `git rev-parse`. **The elaboration was not reducing
+risk; it was manufacturing a class of error the underlying operation does not have.** ⇒ When a
+process generates failures whose *shape* is impossible in the bare operation, the process is the
+defect. And stop 3 was caused by stop 1's authorized repair — **an apparatus generating its own next
+obstacle is no longer converging.**
+
+## 7x287 — A MISSING ARTIFACT AND A CLEAN ARTIFACT SHARE AN OBSERVABLE
+
+I twice reported *"empty stderr"* for a gate run. **The run writes no `.stderr` files at all** — I had
+`stat`'d a nonexistent file and rendered the absence as reassurance. Caught the third time **before**
+relaying, by tooling rather than by attention.
+
+⛔ **Four zeros in one evening were my SELECTOR, not the world:** a `-maxdepth` that hid the corpus ·
+a pipe pattern matching only four sinks · a jose pin grep · `"invocation"`/`"positional"` against a
+report that names the same arms `MALFORMED_OMITTED_VALUE_ARM` and `command=`.
+
+⚠️ **What saved the fourth was LUCK WEARING A CONTROL'S CLOTHES** — two unrelated greps happening to
+return 1. **Nothing was run to establish non-vacuity.** Had those shared my vocabulary error, *all
+four zeros would have agreed with each other* and I would have relayed a confident false absence.
+
+⇒ **Fix: `grep-count.sh` (ee83593) — the control is EXTRACTED FROM THE CORPUS**, so it cannot share
+my vocabulary error. rc0 PRESENT · rc1 ABSENT-with-proven-non-vacuous-corpus · **rc2 BLIND** (empty
+file, unreadable file, or a control taken from the data that still failed to match).
+
+⭐⭐ **AND THE TRIGGER, WHICH IS THE HARDER HALF.** `absence-check.sh` already existed for exactly this
+and I grepped by hand anyway — **correct artifact, no salient prompt.** ⛔ **A COMMIT MESSAGE IS NOT A
+TRIGGER**: it fires when someone reads the commit, and the moment you need it is when you are about
+to type a grep. ⇒ Filed in `CLAUDE.md` (`7b93cf4`) as a **relay protocol**: any relay containing
+*"no"/"none"/"zero"/"absent"* or a bare count must cite a `grep-count.sh` line. **The salient prompt
+is writing the word "no" to someone.** It also fails safe — an uncited absence is visible to the
+reader, which is a second reader instead of a habit.
+
+⭐ **The tool prevents a wrong BELIEF; the protocol prevents a wrong RELAY — and the relay is what
+another agent acts on.** A private wrong belief costs a minute; a relayed one enters someone's
+ranking as a fact.
+
+## 7x288 — A CORRECT METHOD WITH AN UNPINNED REFERENT IS NOT A CORRECT METHOD
+
+The landing executor derived its commit chain from `HEAD` ancestry — **mechanically, never
+transcribed, which was exactly right.** But it is correct **only from the T3a worktree**:
+
+```
+/home/jes/commonplace-next                     HEAD=a4903d3   ← three commits behind
+.../worktrees/agent-ac1b90b68c385067f          HEAD=f2e4bd3   ← correct basis
+```
+
+⚠️ Run from the main checkout it yields a **plausible, well-formed, WRONG** chain — and **nothing
+downstream would have flagged it**, because a valid ancestry looks like a valid ancestry. Fixed by
+pinning `-C` explicitly. ⇒ **Replacing transcription with derivation removes one error class and
+introduces another: the derivation's starting point.** Pin the referent, or you have moved the bug.
+
+## 7x289 — A FINISHED WORKER AND A HUNG ONE SHARE AN OBSERVABLE; THE REMEDIES ARE OPPOSITE
+
+Every stall flag tonight was a false positive, and the pane — not the transcript — was where they
+separated. hermes: `NUDGE-INEFFECTIVE` across **41 sweeps**, actually **done**, its remaining work
+**calendar-bound** (a market open, which no nudge moves). commonplace-next and -plan: repeatedly
+flagged while a **fork subagent was running** or while **waiting on a peer**.
+
+⭐ The detector is right to flag and I am right to look. ⛔ **What would be wrong is treating the flag
+as the verdict** — the first cost of that would have been an interrupted push sequence mid-landing.
+⚠️ **Queue state is the coordinator's to know and is invisible from a pane.** ⇒ Report AVAILABILITY to
+the ranker; never fill the gap yourself, and never nudge a worker whose queue is empty.
