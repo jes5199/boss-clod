@@ -46,6 +46,20 @@ provenance was TRUE OF THE MESSAGE AND FALSE OF ONE SENTENCE INSIDE IT** — the
 measurement-based; one of its claims was not, **and no field existed for that claim to fail.**
 ⇒ ⭐ **That is a GRANULARITY problem, not a care problem, and no message-level label can catch it.**
 
+⛔⛔ **AMENDED 17:55Z, SAME HOUR, BY ITS OWN PROPOSER BECOMING ITS FIRST CASUALTY: THE MARKER MUST
+NAME **HOW**, NOT WHICH CLASS.** biscuit marked a hand-transcribed list of 33 ids `[measured]` — a
+single pass over its own transcript, no count check, no second read — **in the message that argued
+evidence classes must travel attached to claims.** Two of the three "missing" ids were its own
+omission.
+⇒ ⭐⭐ **A BARE `[measured]` NAMES THE CLASS AND NOT THE METHOD, SO IT CANNOT BE FALSIFIED BY ITS OWN
+AUTHOR.** `[measured — hand-transcribed from my transcript, single pass, no count check]` is a marker
+**nobody can write without noticing it is not a measurement.**
+⇒ ⭐ **A bare label is ASSERTED; a label containing its method is SELF-CHECKING AT WRITE TIME.**
+⚠️ **And it removes the contradiction structurally: the label cannot disagree with the provenance
+sentence beside it WHEN THE LABEL CONTAINS THE PROVENANCE SENTENCE.**
+⛔ **A marker applied to an unreliable extraction does not make it reliable — IT MAKES IT HARDER TO
+QUESTION.**
+
 ✅ **THE CHEAP FORM — mark the INFERRED ones, because they are the minority and the burden belongs on
 the weaker claim:**
 ```
