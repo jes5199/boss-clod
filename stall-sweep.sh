@@ -22,7 +22,12 @@ _worker_session_alive() {
   for p in /proc/[0-9]*; do
     p=${p#/proc/}
     [ "$p" = "$self" ] && continue
-    cmd=$(tr '\0' ' ' < "/proc/$p/cmdline" 2>/dev/null) || continue
+    # ⛔ REDIRECTIONS APPLY LEFT TO RIGHT: `< file 2>/dev/null` opens the file BEFORE stderr is
+    # silenced, so a pid that exits mid-scan prints "No such file or directory" anyway. 2026-09-01.
+    # A racing /proc entry is NORMAL, not an error — and noise here trains the reader to skim a
+    # sweep whose whole job is to be read.
+    [ -r "/proc/$p/cmdline" ] || continue
+    cmd=$(tr '\0' ' ' 2>/dev/null < "/proc/$p/cmdline") || continue
     case "$cmd" in
       *"mcp-config-${w}.json"*)
         case "$cmd" in *claude*) return 0 ;; esac
