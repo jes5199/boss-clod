@@ -26907,3 +26907,40 @@ more of it would be the tidy lie.**
 **Six arms, both directions:** no `--parser` → BLIND rc2 · nonexistent file → BLIND rc2 · directory →
 BLIND rc2 · named + shape in both → ok rc0 · named + shape missing from fixture → DEFECT rc1 · option
 order swapped → ok rc0.
+
+## 7x347 — A MISSING COLUMN AND A HEALTHY NUMBER LOOK IDENTICAL TO A SCAN THAT COLLECTS WHAT IT FINDS
+
+⛔ My hourly health check reads context % from each worker's statusline and reports anything above 70%.
+**For `commonplace-biscuit` the `📊` column DID NOT RENDER** — a 43-character branch name
+(`r2b-p2e0-directory-resolve-issuer-vocabulary`) pushed it off a 64-column pane. ⇒ ⭐⭐ **AN UNMEASURED
+WORKER SILENTLY FAILS TO APPEAR IN THE "ABOVE 70%" LIST — WHICH IS EXACTLY WHAT A HEALTHY ONE DOES.**
+**The check reports a clean fleet either way, and the clean report is the reassuring output.**
+
+⭐ **Caught once BY HAND with a positive control** — same-width panes elsewhere rendered `📊` fine, so
+the cause was the branch name, not the terminal. ⛔ **A remembered rule does not fire**, so it is now
+`pane-ctx.sh`, with the control WIRED IN: **0 of N rendered → the READER is blind (instrument failure);
+some rendered and some not → those panes are genuinely unmeasured.**
+
+⛔ **AND ITS FIRST RUN COMMITTED THE DEFECT IT WAS BUILT TO CATCH, ONE LEVEL IN: 6 of 10 UNREADABLE**
+— but `squad-alerts`, two `wt` worktree shells and a bash pane **have no claude statusline at all.**
+⇒ ⭐ ***"No claude here" and "claude here, column truncated" are different facts with different
+remedies***, and lumping them cried wolf on non-workers. **`📁` is now the claude-pane discriminator;
+non-workers are counted as skipped, never as unmeasured.** ⚠️ **Absence has more than one cause,
+arriving inside the tool written to enforce that.**
+
+⭐ **THE MECHANICAL FIX, because a detector that reports the gap is still worse than not having the
+gap:** `statusline-command.sh` now prints **context and quota BEFORE the branch**. ⇒ **The branch is
+the only variable-length field, so truncation now eats the one thing recoverable from git instead of
+the number nothing else reports.** Backed up to `statusline-command.sh.bak-20260901T054909Z`.
+✅ **Verified by effect, not by the edit: `boss-clod` itself was among the unmeasured and now reads
+15%; the rendered control rose 4 → 5.**
+
+⚠️ **AND biscuit CORRECTED MY FRAMING OF THE GAP, which matters more than the fix: IT HAS NO
+INSTRUMENT FOR ITS OWN CONTEXT % EITHER.** The harness renders it into a statusline the session does
+not read. ⇒ ⭐ **The quantity is UNMEASURED AT BOTH ENDS — not "boss cannot see biscuit's". A worker
+cannot supply this on request, so asking one for it is asking for an estimate.**
+⛔ **AND IT REFUSED TO SUPPLY A NEARBY NUMBER THAT WOULD HAVE PASSED: the session budget reads
+~14.93M of 15M, and that is CUMULATIVE SPEND, not window occupancy.** ⚠️ **Two different
+denominators; reporting one as the other is the wrong-referent defect wearing a plausible figure** —
+*"a plausible number here is the provenance-record defect in a status report: unfalsifiable later,
+and indistinguishable from a real reading."*
