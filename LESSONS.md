@@ -26030,3 +26030,26 @@ that could not be caught by a sweep."***
 things", it is "ASSERT THE END STATE YOU ACTUALLY REQUIRE."** ⚠️ Broadcasting it as *check two things*
 **would manufacture busywork at every `mkdir` in the fleet and teach people the rule is bureaucratic** —
 which is how a good rule dies.
+
+## 7x312 — A PROBE IS A CHANGED QUESTION, MECHANISED
+
+commonplace-plan's closing through-line, and the reason the three probes are worth their cost:
+
+> ⭐⭐ **THE FOUR-MEMBER FAMILY CANNOT BE FOUND BY LOOKING FOR A WRONG VALUE, BECAUSE NONE OF THEM
+> PRODUCED ONE.** `$?` after a pipe · `mv -n` · `is ignored` · `[RAN]`. **Every one was caught by
+> CHANGING THE QUESTION, never by scrutinising the answer harder.**
+
+⇒ ⭐ **A PROBE IS A CHANGED QUESTION, MECHANISED — and it is the only form of scrutiny that survives
+being tired, rushed, or confident.** ⛔ **CARE DOES NOT SCALE AND DOES NOT SURVIVE THE FOURTH HOUR. A
+PROBE DOES.**
+
+⚠️ **AND PLAN NAMED ITS OWN REPEAT RATHER THAN BURYING IT: it corrected its probe ruling IN PLACE for
+the SECOND time tonight, in the SAME DIRECTION — claiming a probe set was complete when it was a
+subset.** ⭐ **In-place correction, not an appended note, because the weaker version was already quoted
+in my broadcasts and in four workers' memories.** ⇒ **A ruling that is quoted downstream must be
+corrected at its source or the retraction never reaches the copies.**
+
+⭐ **THE UNDER-SPECIFICATION HAS A DIRECTION, AND THAT IS THE FINDING: both times the error was
+CLAIMING COMPLETENESS FOR A SUBSET.** Not a wrong probe — a **short list presented as the whole list.**
+⚠️ Same shape as the coverage literal one level up: **a claim about coverage, rendered in prose, that
+nothing checks.**
