@@ -26270,3 +26270,52 @@ to handle.** A fix verified against them is verified against its own design.
 Its own fixture scored **0** against a real tree holding 3 multi-line aliases, 10 `as:` aliases, 11
 multi-line def heads and 222 `when` guards — **including the arms that had caught four false-greens an
 hour earlier.**
+
+## 7x320 — A CONTROL PROVES THE INSTRUMENT IS NOT BLIND; IT DOES NOT PROVE IT KNOWS ITS SUBJECT
+
+I swept 60 repos for *"does the push path assert executed-object == pushed-object?"* and planted **two**
+controls: a scratch script containing `git push` (finder fires) and one containing the
+`hash-object`/`rev-parse` pair (classifier can return the verdict it never returned on real data). Both
+fired. ⭐ **"0 of 12 assert the pair" meant something because of them.**
+
+⛔⛔ **THEN THE SECOND COLUMN RETURNED `GUARDED` FOR 12 OF 12 — INCLUDING THE REPO THAT HAD JUST TOLD
+ME, IN THE SAME MESSAGE, THAT IT RUNS NO GATE.** A known-negative handed to me, called positive.
+
+**Two distinct defects, and only the first is the obvious one:**
+1. ⛔ **PROXIMITY, NOT CAUSATION.** I counted `set -e`, any `&&`, and any `check`/`gate`/`require`
+   **anywhere earlier in the file** as a guard. **Every real script contains those.** Same shape as
+   *"the token was there and the defect was not"*, inverted.
+2. ⚠️ **MY PLANTED CONTROLS WERE THREE LINES LONG AND REAL FILES ARE THREE HUNDRED.** ⇒ **A CONTROL THAT
+   DOES NOT RESEMBLE THE CORPUS IS A CONTROL DRAWN FROM THE EASY END** — fifth instance tonight, **and
+   this one inside the sweep whose subject is instrument defects.**
+
+⭐⭐ **AND THE FINDING I DID NOT REACH, which is the sharpest of the night on controls: BOTH MY CONTROLS
+TESTED WHETHER THE FINDER COULD *SEE* A PUSH. NEITHER TESTED WHETHER IT COULD TELL A PUSH FROM A
+*MENTION* OF ONE.**
+⇒ **A CONTROL PROVES THE INSTRUMENT IS NOT BLIND; IT DOES NOT PROVE THE INSTRUMENT KNOWS ITS SUBJECT.**
+⚠️ **That is the confirmation/falsification pair, and both doors ran only the confirmation half.**
+
+**Demonstrated:** `commonplace-plan` is **not in the population at all** — both `git push` occurrences
+are inside **a comment** (recording a 2026-08-16 detached-HEAD incident) and **a `fail` message
+string**. ⇒ **The original count of 12 is unverified in the same direction: a `git push` inside a
+comment or a string is not a push.**
+
+## 7x321 — A MEASUREMENT WHOSE RESULT NOBODY WILL ACT ON IS DECORATION, EVEN WHEN IT IS CORRECT
+
+⛔ **The ruling that commissioned this sweep also ruled, four paragraphs later, that the repos found
+would be FIXED AT FIRST USE AND NOT PREEMPTIVELY.** ⇒ **If nobody acts on the rank, the measurement
+producing it cannot change what happens next.**
+
+⚠️ **The gate and the thing that made it decorative were written in the SAME ruling.** ⭐ And it was
+found only by the sweep **failing to build** — *"the defect cost you a build and me nothing until
+now."*
+
+⭐ **THE FIX IS RELOCATION, NOT ABANDONMENT: the round that lands in a given repo answers the question
+THERE, by adding the assertion AND WATCHING IT FIRE.** ⇒ **Non-vacuous and free. The sweep version was
+neither.**
+
+⛔ **AND NO RE-COUNT WAS COMMISSIONED, FOR THE SAME REASON: THE CLASS'S SIZE CHANGES NOTHING WE DO.**
+The honest carry-forward is a sentence, not a number: ***at least two repos had it, at most eleven
+could, one apparent member was a false positive found by control, and the number is not needed.***
+⇒ ⭐ **A precise count of a population nobody will act on is the same defect one level up — measuring
+because measuring feels like rigour.**
