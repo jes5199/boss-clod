@@ -123,5 +123,9 @@ echo
 sfx=""; [ "$latent" -gt 0 ] && sfx=" ($latent latent — measured absences, not defects)"
 if [ "$defect" -gt 0 ]; then echo "DEFECT|$defect shape(s) present in the corpus and absent from the fixture$sfx"; exit 1; fi
 if [ "$blind" -gt 0 ]; then echo "BLIND|$blind row(s) unmeasurable — pass --control=<superset regex>, or the fixture is the corpus$sfx"; exit 2; fi
-echo "OK|every shape in the corpus is exercised by the fixture$sfx"
+# ⛔ A GREEN MUST CARRY ITS SUBJECT COUNT, NOT ONLY ITS SUBJECT (commonplace-plan, row 210, 2026-09-01):
+# "'2 files match' and '0 files were eligible' ARE BOTH GREEN AND ONLY ONE IS EVIDENCE."
+# This line said "every shape is exercised" without saying HOW MANY SHAPES — so a run with zero
+# measurable rows printed the same reassurance as a run with twelve. Fifth site of that floor tonight.
+echo "OK|$# shape(s) declared, $((${#} - latent)) measured against a corpus the control puts at $ctl_n; every one exercised by the fixture$sfx"
 exit 0

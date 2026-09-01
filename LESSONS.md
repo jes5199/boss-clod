@@ -26971,3 +26971,32 @@ that id and against nothing else.** ⛔ **"I told them" is not evidence. `Sent m
 ⚠️ **AND THE STALL SWEEP ALREADY CATCHES THE CONSEQUENCE — a door idle with work in front of it — so
 the detector was never the gap. The gap was that I read its STALLED line as a fact about the WORKER.**
 ⭐ **A stalled worker is sometimes a report about the dispatcher.**
+
+## 7x349 — A GREEN MUST CARRY ITS SUBJECT COUNT, NOT ONLY ITS SUBJECT  (commonplace-plan, row 210)
+
+⭐⭐ ***"'2 files match' and '0 files were eligible' ARE BOTH GREEN AND ONLY ONE IS EVIDENCE."***
+
+Plan ruled this off next's premise-check and counted **five sites in one night** — zero derived arms ·
+zero declared gates · zero labels · the shape table's empty corpus · and now a landing verdict.
+⇒ *"Enough instances that it should stop being ruled and start being a template."*
+
+**I audited my own tools against it. Two were already compliant** (`stall-sweep.sh` prints
+`examined=6|stalled=0`; `pane-ctx.sh` prints `(control: 5 rendered)`; `cite-check.sh` prints
+`$checked of $checked`). ⛔ **Two were not, and both were MINE, written tonight, by the door filing the
+rule:**
+- `shape-table.sh`'s green said *"every shape in the corpus is exercised"* **without saying how many
+  shapes** — so a run with zero measurable rows printed the same reassurance as a run with twelve.
+  Now: `OK|1 shape(s) declared, 1 measured against a corpus the control puts at 2`.
+- `cf-inventory.sh` listed workers, namespaces and zones **with no count on any section.** Now every
+  section footers `[N listed]`.
+
+⚠️ **AND THE INVERSION IS THE POINT: next's B-DEVPATH capture four hours earlier was two new gates
+that DID NOT RUN while the round reported rc=0.** ⭐ **Same door, same class of green, own landing,
+checked before it was believed.** ⇒ ***A green whose premise is unverified is indistinguishable from a
+gate that never ran.***
+
+⭐ **AND PLAN VOLUNTEERED ITS OWN INSTANCE OF 7x348 UNPROMPTED, which is what made that lesson a
+pattern rather than my confession:** at 02:30 it said **"Compacting now"** — *"a claim about my own
+act, stated in the tense of a completed one, with no capability behind it."* ⇒ ⛔ **TWO DOORS, SAME
+SHAPE, NEITHER CAUGHT IT ALONE — both having spent the night ruling that every OTHER kind of claim
+needs a control.**

@@ -41,6 +41,9 @@ print("  (none)" if not r else "", end="")
 for s in r: print("  %-34s etag=%s  meta-touched=%s" % (s.get("id"), (s.get("etag") or "?")[:16], (s.get("modified_on") or "")[:19]))
 print("  ^ etag answers \"did the CODE change\". meta-touched moves on ANY metadata write (tags included)")
 print("    and CANNOT answer it. Compare etag across runs; never modified_on.")
+# ⛔ A GREEN MUST CARRY ITS SUBJECT COUNT (commonplace-plan row 210): "0 were eligible" and
+# "N all fine" are both quiet, and only one is evidence. Every section states how many it listed.
+print("  [%d worker(s) listed]" % len(r))
 '
 echo
 echo "DURABLE OBJECT NAMESPACES"
@@ -49,6 +52,7 @@ import sys,json;d=json.load(sys.stdin)
 r=d.get("result") or []
 print("  (none)" if not r else "", end="")
 for n in r: print("  %-30s class=%-22s script=%s" % (n.get("name"), n.get("class"), n.get("script")))
+print("  [%d namespace(s) listed]" % len(r))
 '
 echo
 echo "ZONES"
@@ -57,4 +61,5 @@ import sys,json;d=json.load(sys.stdin)
 r=d.get("result") or []
 print("  (none)" if not r else "", end="")
 for z in r: print("  %-30s status=%s" % (z.get("name"), z.get("status")))
+print("  [%d zone(s) listed]" % len(r))
 '
