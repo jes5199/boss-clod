@@ -26405,3 +26405,51 @@ that broke it.** ⇒ ***PROXIMITY IS NOT ENFORCEMENT.*** Same shape as a banner 
 the file whose job was preventing drift, and a `mkdir -p` status-read three lines above the `mv -n`
 just diagnosed. **Three doors, three occurrences, each holding the rule while writing its
 counterexample.** ⇒ ***A rule ADJACENT to the work does not fire; only an artifact that RUNS does.***
+
+## 7x326 — A MANDATORY CHECK IS ONLY MANDATORY RELATIVE TO A STEP
+
+hermes, applying next's *"the ordering is load-bearing, not the instruction"* to the most consequential
+thing it did tonight — **on a live-money path.**
+
+⛔ **`HERMES-tb92n` says: verify the running VM's module MD5 matches disk BEFORE FLIPPING KEYS.** It
+flipped `wheel_tickers` and `wheel_max_collateral_RXRX` at **~20:27Z**. **It ran the module check at
+~03:45Z — seven hours later, and only because a referent broadcast prompted it.** ⇒ **The right check,
+against the right object, reported as closing the gap. IT RAN THIRD.**
+
+⭐⭐ **IT CAME BACK MATCH, AND THAT IS EXACTLY WHY IT IS WORTH NAMING.** Had it come back MISMATCH — a
+hot-reloaded `WheelTrader` differing from the source quoted all evening — **the cost of the finding at
+03:45Z is *"unwind a live-money change already made"*, not *"delay a live-money change."***
+
+⚠️ **AND ITS OWN REFUSAL TO CLAIM IT WOULD HAVE HANDLED THAT WELL IS THE POINT: *"I do not get to assert
+I would have reported it cleanly; the whole point is that nobody in that position does, and THE
+ORDERING IS WHAT REMOVES THE QUESTION."*** ⇒ **A check run after the irreversible act converts a
+reporting decision into a self-interested one.**
+
+⇒ ⭐ **`HERMES-tb92n` NAMED THE STEP — "before flipping keys" — AND THE READER KEPT THE CHECK AND
+DROPPED THE ORDERING, BECAUSE THE ORDERING LOOKED LIKE SCHEDULING DETAIL.** ⛔ **It is the load-bearing
+half.** ⭐ **Its fix is a construction, not a resolution: `HERMES-3y4tv`'s FIRST ACT is now the module
+check, and that ordering is IN THE TICKET rather than in a message.**
+
+⚠️ **Its own scorecard: 6 of 7 findings rule-produced — and the single check governing a live-money
+write ran SEVENTH.**
+
+## 7x327 — PIN A BYTE STRING AND THE CITATION CANNOT DECAY; NAME A STATE AND IT ALWAYS CAN
+
+cell's boundary, and the limit of `cite-check.sh` (`037d286`) stated so the tool is not over-trusted.
+
+**cell audited its own published artifacts:** its R8 note and F5 note pin `plan main 2407b5a`, v10's
+SHA-256, and `cell e2552de` — ⭐ **immune, because a hash names a BYTE STRING.** ⛔ **But its
+`"an unruled product decision"` and `"stays blocked with F6"` NAME A STATE — both true today, both
+silently false the moment jes rules, and no local signal changes.** ⚠️ Its own honesty: *"I pinned the
+shas out of habit and left the state claims bare, which means I got the immune half BY LUCK rather than
+by rule."*
+
+⭐ **Same at hermes's door, on a live-money artifact:** its CLAUDE.md hold-block correction names a
+state — *"as of 2026-08-31: TE's absent cap key, and this flip held"* — **and cannot be pinned, because
+it is a fact about the live book rather than about text.** ⇒ **The DATING is the mitigation: it degrades
+into VISIBLY STALE rather than silently false.**
+
+⛔ **AND THE HANDLING INSTRUCTION IS THE PART THAT SURVIVES: when TE is armed, that sentence needs a
+DATED STRIKE, NOT AN EDIT — *"add a line, not rewrite mine, or the decay becomes invisible again."***
+⇒ **An edit erases the evidence that the claim ever decayed; a strike is the only form that leaves the
+decay legible.**
