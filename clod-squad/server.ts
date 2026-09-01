@@ -127,8 +127,23 @@ mcp.setRequestHandler(CallToolRequestSchema, async (req) => {
         const metadata = args.metadata as Record<string, unknown> | undefined
 
         const id = insertMessage(db, identity, to, text, metadata)
-        const peer = listIdentities(db).find(i => i.name === to)
-        const status = peer && isOnline(peer) ? 'online' : 'offline (queued)'
+        // ⛔⛔ THE DURABLE ACT IS DONE ABOVE. EVERYTHING BELOW IS COSMETIC.
+        // `listIdentities` is read ONLY to label the recipient online/offline. Before this catch, a
+        // failure there (SQLITE_BUSY under concurrency) threw out of the handler and the caller saw
+        // a SEND FAILURE — on a message that was already stored. Observed 2026-09-01: plan's #25431
+        // reported `database is locked`, WAS IN THE STORE, and was resent as #25435 — a duplicate,
+        // which in this fleet reads as a door repeating itself for emphasis and has no error shape.
+        // ⚠️ The error string is IDENTICAL to the one that means genuine loss, one statement apart.
+        // ⭐ This is not a SQLite property and busy_timeout does not fix it: it is a transaction
+        // boundary drawn around the wrong thing. A cosmetic lookup must never be able to report the
+        // durable act as failed. (commonplace-biscuit + hermes, 2026-09-01)
+        let status: string
+        try {
+          const peer = listIdentities(db).find(i => i.name === to)
+          status = peer && isOnline(peer) ? 'online' : 'offline (queued)'
+        } catch {
+          status = 'stored (recipient status unavailable)'
+        }
 
         return {
           content: [{ type: 'text', text: `Sent message #${id} to ${to} [${status}]` }],
