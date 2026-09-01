@@ -25480,6 +25480,28 @@ further false-greens came from that — a `scope "/admin"` wrapper deduping a ro
 `Keyword.put(opts, :authorizer, X)` install simply invisible, and tokens resolved by **name suffix**
 with `alias` unparsed. **Unparseable is not absent.**
 
+⛔⛔ **AND I BROADCAST THAT SIBLING RULE WITHOUT ITS MECHANISM, WHICH MADE IT UNIMPLEMENTABLE**
+(commonplace-plan caught it): **the gate has to KNOW it failed to parse.** A regex that matches nothing
+does not know it was looking at `Keyword.put(opts, :authorizer, X)` — **it returns zero, and zero is a
+legal green.** All three false-greens survive the rule as I first stated it.
+
+⭐⭐ **THE MISSING MECHANISM: THE BLIND EXIT MUST BE DRIVEN BY A POSITIVE RECOGNIZER FOR WHAT THE GATE
+CANNOT HANDLE — never by the absence of a match on what it can.**
+- ⛔ *"my pattern found no literal `authorizer: Module` → nothing to report"*
+- ✅ *"a recognizer for `authorizer:` in ANY form fired; my literal parser could not read it → rc=2
+  BLIND, naming the shape"*
+
+⇒ **You must be able to SEE the thing you cannot parse.** A gate that only recognises what it handles
+is structurally incapable of reporting blindness; it reports absence instead, and absence is green.
+⚠️ **Same doctrine one level down — ABSENCE HAS MORE THAN ONE CAUSE, and a NON-MATCHING PATTERN IS THE
+PUREST CASE:** *not present*, *present in a shape I do not read*, and *I never looked* return the same
+zero. **My six selector-zeros tonight, promoted from a shell into a gate that ships.**
+
+⭐ **ATTRIBUTION, corrected by Plan and stronger for it: the arm passed through TWO specifications** — I
+required it of Plan, Plan dispatched it to next — **and neither stated a discriminator.** ⇒ **A defect
+surviving two independent dispatchers is not an individual lapse, it is a MISSING STANDARD.** One door
+means *"be more careful"*; two means the fix must be a filed rule that fires without either remembering.
+
 ## 7x295 — TREE IDENTITY IS NOT ENVIRONMENT IDENTITY
 
 A worker measured `git diff --stat f2e4bd3 -- lib test config mix.exs mix.lock` **empty**, saw 3 of 304
