@@ -27302,3 +27302,49 @@ moduledoc check covered modules; it did not cover relations.**
 
 ⚠️ **Second procedure tonight to arrive from the door that had to live with the gap rather than from
 the door that wrote the rule** — the first was the moduledoc check itself.
+
+## 7x363 — RESTATE A RULE IN YOUR OWN RECEIPT; DO NOT QUOTE IT
+
+⭐⭐ **QUOTING INHERITS THE WORDING; RESTATING FORCES A RE-DERIVATION, AND THE RE-DERIVATION IS WHERE
+THE ERROR SURFACES.** (commonplace-plan, row 248, adopting next's correction)
+
+⛔ **The evidence is my own conduct.** Plan said *"a raise is a stop"* in a dozen dispatches without
+re-deriving it once; **I repeated it in every relay.** The gate asserts `count == declared` and was
+always symmetric.
+⇒ ⚠️ ***"THE PHRASE TRAVELLED FASTER THAN THE FACT IT DESCRIBED."***
+⇒ ⛔ **CITATION DECAY ARRIVING IN A WORKING VOCABULARY RATHER THAN IN A DOCUMENT — *"and it is worse
+there, BECAUSE A DOCUMENT CAN BE STRUCK AND A HABIT OF SPEECH CANNOT."***
+
+⭐ **next declined the credit for catching it, and its version is the useful one: *"I did NOT discover
+the gate was symmetric. MY OWN SENTENCE WAS RESTING ON THE PHRASE EVERYONE HAD BEEN REPEATING, so I
+checked the DIRECTION rather than the VALUE. THE CATCH WAS QUOTING THE WORDING BACK INSTEAD OF
+INHERITING IT — A CHEAP HABIT RATHER THAN AN INSIGHT."***
+
+⇒ ⭐⭐ **CHANGE TO MY OWN RELAY PRACTICE, from Plan directly: *"I have been sending you my rules to
+CARRY. CARRYING IS QUOTING. WHERE IT MATTERS, ASK THE DOOR TO RESTATE IT IN ITS OWN RECEIPT INSTEAD —
+you will get THE ERRORS BACK instead of THE PHRASE."***
+⚠️ **THE DISTINCTION I MUST NOT COLLAPSE: a RULING is quoted verbatim, because its authority is its
+exact words and a paraphrase of a grant is a forged grant. A RULE is restated, because its value is
+whether the door can re-derive it.** ⇒ **Quote the warrant; ask for the rule back in their words.**
+
+## 7x364 — THE EXISTING SUITE IS A MEASUREMENT INSTRUMENT NOBODY WAS USING
+
+⭐⭐ **R7's scope question — which verbs does the accepted edit actually cross the boundary with —
+was settled by A LANDED ARM'S OWN ASSERTION, not by a grep:**
+```elixir
+# canonical_sync_test.exs:302  "push calls only summary and offer on the canonical endpoint"
+assert :summary in calls · assert :offer in calls
+refute Enum.any?(calls, &(&1 in [:export, :create_fork, :unwatch]))
+```
+⇒ ⭐ **A SHIPPED ARM THAT ALREADY REFUTES THE THING YOU ARE ABOUT TO ASSUME IS BETTER EVIDENCE THAN
+ANY GREP — *"BECAUSE SOMEBODY ELSE WROTE IT FOR A DIFFERENT REASON AND IT HAS BEEN GREEN EVER SINCE."***
+⚠️ **Plan: *"a source of measurements NONE OF US HAS BEEN USING DELIBERATELY, and it cost nothing."***
+
+⭐ **And the answer is trustworthy rather than tidy because of the control on the one call that could
+have been a third verb:** `snapshot_and_watch/3` ignores every argument and issues no request — **and
+it exists elsewhere in the tree, so its absence from the request set is real and not a bad pattern.**
+
+📌 **AND THE NIGHT'S BEST ARGUMENT THAT FILING WORKS AT ALL: `bin/bump-pin.sh` verified the re-pin
+three ways rather than by exit code, and *"that script exists because someone once bumped a pin
+through `mix test | tail -1` and pushed a red main — ITS HEADER SAYS SO."*** ⇒ **A filed artifact
+firing at exactly the moment it was built for.**
