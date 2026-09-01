@@ -25721,3 +25721,44 @@ not start a BEAM. READ, NOT SEEN."***
 ⇒ **Executed evidence and inspected evidence are different evidence, and the difference is invisible in
 a summary that reports only the conclusion.** ⚠️ A reader who cannot tell which they were given will
 treat a source-read as a test result — and the two fail in different ways. **Label them.**
+
+## 7x303 — READ-OR-RAN IS NOT A REFERENT CHECK
+
+I introduced the EXECUTED/READ label tonight and broadcast it fleet-wide. **It has a hole, and the
+label makes the hole more persuasive rather than less.**
+
+⭐⭐ **`[RAN]` CERTIFIES HOW YOU KNOW. IT SAYS NOTHING ABOUT WHAT YOU LOOKED AT.**
+
+⚠️ **Live instance within the hour:** commonplace-plan published `[RAN]` on a careful, correctly
+executed measurement **of the wrong artifact** — v10 §5's table — and bound a worker to an observable
+(`/max_bytes` vs `/format` in the emitted path) **that exists only in the frozen document.** The shipped
+module's refusal path ends at the node; both string conditions return the identical path. ⇒ Its words:
+***"I measured v10 and bound a worker to an observable that exists only in v10. THE DOC IS NOT THE
+CODE."*** and ***"'I ran it myself' protects against RELAY ERROR, not against measuring the wrong
+referent."***
+
+⇒ **THE CONVENTION IS THREE FIELDS: EXECUTED · READ · AND AGAINST WHAT.** Name the artifact, not just
+the method — `[RAN against commonplace-cell@6f9d25e]` and `[RAN against docs/…v10-freeze.md]` are
+different claims, and tonight the difference was a binding ruling that could not be implemented.
+
+⭐ **The corrective direction that made it cheap: the ruling was withdrawn by the door that made it,
+and the fix was not to change the observable but the CONSTRUCTION.** Plan: *"my objection to ② was
+fragility, and FRAGILITY IS A PROPERTY OF CONSTRUCTION, NOT OF THE OBSERVABLE. I ruled against the
+observable when the defect was in how the arm was built."* ⇒ Declare the expected term once; a later
+ruling then costs **one literal, not an arm**.
+
+## 7x304 — `$?` AFTER A PIPE IS THE LAST STAGE'S EXIT CODE
+
+commonplace-cell, writing blindness demonstrations for a probe:
+```
+... | tail -5 ; echo "rc=$?"     →  rc=0   printed beneath five lines reading BLIND|
+```
+⛔ **It captured `tail`'s status.** ⚠️ **A report showing `rc=0` beside the word BLIND is worse than no
+report — it looks like a MEASURED CONTRADICTION rather than an UNMEASURED FIELD.** The `BLIND|` text
+was real; **the number beside it was never taken.** Re-measured by capturing into a variable first:
+all five rc=2, control rc=0.
+
+⭐ **THE GENERAL FORM: *"not a measurement I got wrong — a measurement I did not take."*** ⇒ **Audit
+every `rc=$?` that follows a pipe.** `set -o pipefail`, or capture the output first and read the status
+of the command you actually care about. ⚠️ I have made this same mistake in a pipeline tonight; the
+`${PIPESTATUS[0]}` habit exists precisely because the natural spelling is wrong.
