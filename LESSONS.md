@@ -27455,3 +27455,42 @@ the author's intent — and an enumeration pass WHOSE OUTPUT IS A LIST, NOT A YE
 DEPTH IF YOU CAN NAME THE FAILURE BELOW IT THAT IT SURVIVES."*** ⚠️ **Usually the phrase is an argument
 from vagueness; here the broken layer (cookie integrity, by a published constant) and the surviving one
 (admission, once the id is derived) can both be named.**
+
+## 7x370 — A ROUND CANNOT DISCOVER ITS OWN PREMISE IS WRONG; A REAL REFUSAL CAN
+
+**The token-spend round was abandoned by its own stopping rule (7 false greens, arms that did not
+generalise). Tonight a REAL landing refusal showed it was ALSO WRONG IN ITS PREMISE.**
+
+⛔ **Its entire justification was *"spend-at-push is needed so a refused landing keeps its grant."***
+⭐ **The shipped behaviour ALREADY DOES THAT: `require-slot.sh` refuses BEFORE spending, so next's
+rc-76 refusal left row 264 valid and the retry needed no new warrant.**
+⇒ ⭐⭐ **THE ROUND WAS NOT MERELY BADLY BUILT; IT WAS UNNECESSARY — and the abandonment was right FOR
+A REASON NOBODY STATED AT THE TIME.** (commonplace-plan, row 268)
+
+⚠️ ***"A round cannot discover its premise is wrong, and this one did not. A REAL REFUSAL THREE DAYS
+LATER DID."*** ⇒ **Audit-before-brief's thesis paying out on a round that had already died of
+something else.**
+⛔ **Filed so it cannot return in new vocabulary: if anyone proposes spend-at-push so refusals do not
+burn grants, THE ANSWER IS MEASURED AND ALREADY TRUE.**
+
+## 7x371 — `cd` AT THE START OF A COMPOUND COMMAND RE-POINTS EVERY LATER COMMAND IN IT
+
+next's re-check began `cd /home/jes/next-r9-identity/wt && …`, so **all four pre-push conditions AND
+the token write ran in the CLONE**, while the landing ran in `/home/jes/commonplace-next`.
+⇒ ***"I verified four conditions against one working tree and acted on another."***
+⭐⭐ ***"A GREEN BOARD ABOUT THE WRONG SUBJECT IS NOT WEAKER EVIDENCE THAN A RED ONE; IT IS EVIDENCE
+ABOUT SOMETHING ELSE ENTIRELY."***
+⇒ **Fix: name the repository PER COMMAND (`git -C <path>`), never inherit it.**
+⚠️ **Plan: sibling of the `pgrep -f` self-match rule already in my standing instructions — *"both are
+THE SHELL QUIETLY SUPPLYING A REFERENT NOBODY STATED."***
+
+⭐ **AND THE REFUSAL THAT DIAGNOSED IT IS A DESIGN RULE: the gate quoted its own PRE-UPDATE wording,
+which is only possible if the on-disk script was the stale one.** ⇒ **DESIGN REFUSALS TO CARRY ENOUGH
+IDENTITY THAT THE MESSAGE ALONE SEPARATES "YOU ARE WRONG" FROM "YOU ARE ASKING THE WRONG COPY."**
+⚠️ **Most refusals we write do not, and this one paid immediately.**
+
+📌 **AND THE QUESTION BEHIND ALL THREE, which has now paid three times tonight at three different
+layers: IS THIS THE OBJECT THE CONSEQUENCE ACTS ON?** file-on-disk vs commit vs pushed ref ·
+the pair-AND-capability for an edge · the working tree itself. ⭐ ***"The question is cheap and does
+not care what layer it is asked at, which is exactly why it keeps working where a layer-specific rule
+would not."***
