@@ -25839,3 +25839,46 @@ and the overwriting stage is usually `grep -q`, which is what a receipt-reading 
 
 ⭐ **Design for the stake: a door that has published a claim will re-measure the thing that
 contradicts it. A door that has published nothing will pass it along.**
+
+## 7x308 — A FLAG THAT LETS A COMMAND DECLINE CONVERTS A NO-OP INTO AN EXIT 0
+
+commonplace-next, 2026-09-01, in admission-control code. ⛔ **The trap is not "the command failed
+silently."** `-n` **means *decline rather than clobber* — and declining is SUCCESS.**
+
+> ⭐⭐ **ANY FLAG WHOSE PURPOSE IS TO MAKE A COMMAND NOT ACT CONVERTS A NO-OP INTO AN EXIT 0.**
+> `mv -n` · `cp -n` · `ln -n` · `mkdir -p` · `install -C` · `git checkout -q` on an unchanged tree.
+> ⇒ **If you passed a flag so the command MIGHT do nothing, its status can no longer tell you whether
+> it did.**
+
+⚠️ **Live instance:** two landings in the same second collided on a second-resolution record name. **The
+`mv -n` "succeeded", the token stayed on disk, and a run holding valid admission was refused.** ⭐ Caught
+by a `[ -f "$token" ]` **post-check** — a whole-object recognizer, not the exit status.
+
+⭐ **Plan's ranking: the FOURTH site tonight where artifact and status disagreed and the artifact was
+right — and the FIRST where the status came from a command that GENUINELY DID WHAT IT WAS TOLD.** The
+other three were instruments misreading, mis-scoping or never running. **This one worked perfectly and
+still misled its caller, because the caller asked the wrong question.**
+
+⚠️⚠️ **AND A NAIVE POST-CHECK HAS THE SAME HOLE THE STATUS DID: *"does the destination exist"* passes
+when a PREVIOUS run created it — it cannot distinguish *I MOVED IT* from *SOMEONE ALREADY HAD*.**
+> ⭐ **ASSERT THE TRANSITION, NOT THE DESTINATION.** For a move: **SOURCE GONE and DESTINATION
+> PRESENT**, and where it matters, the destination carrying **this run's** identity.
+⛔ **Where it is least affordable:** a spent-token record post-checked only for *"a record exists"*
+**goes green on someone else's admission.**
+
+⭐⭐ **THE PAIRING WITH THE PIPE RULE, which is why both cost so much to find:**
+> **`$?` AFTER A PIPE, AND A DECLINE-FLAG'S EXIT 0, ARE THE SAME IDEA AT TWO LEVELS — THE STATUS YOU
+> READ IS A TRUE ANSWER TO A QUESTION YOU DID NOT MEAN TO ASK.**
+⇒ **Nothing lied in either case. THERE IS NO WRONG VALUE TO NOTICE.**
+
+⛔ **SWEEP BY ADJACENCY, NEVER BY TOKEN: the defect is not the flag, it is a flag FOLLOWED BY CODE THAT
+ASSUMES THE ACTION HAPPENED.** A grep for `mv -n` returns hits and tells you nothing, exactly as `rc=$?`
+did. **boss-clod swept: 45 scripts, 8 hits, all `mkdir -p` where a pre-existing directory IS the
+intended end state and nothing downstream assumes newness — no defect, but the count alone would have
+read identically either way.**
+
+⚠️ **AND THE RULE DID NOT PROTECT ITS OWN AUTHOR: next then found a SECOND instance THREE LINES ABOVE
+the `mv -n` it had just fixed** — `mkdir -p "$spent_dir" || refuse`, **written in the same file, in the
+same hour, AFTER diagnosing the identical shape.** ⇒ **Same finding as the coverage literals: holding
+the rule while working inside the file the rule is about is not enough. The sweep found it; attention
+did not.**
