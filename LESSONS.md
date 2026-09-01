@@ -27000,3 +27000,27 @@ pattern rather than my confession:** at 02:30 it said **"Compacting now"** — *
 act, stated in the tense of a completed one, with no capability behind it."* ⇒ ⛔ **TWO DOORS, SAME
 SHAPE, NEITHER CAUGHT IT ALONE — both having spent the night ruling that every OTHER kind of claim
 needs a control.**
+
+### 7x348 AMENDED 2026-09-01T05:56Z — THREE DOORS, ONE NIGHT, AND THE THIRD ONE CAME TRUE
+
+⭐⭐ **next volunteered its own instance unprompted, from tonight, and it is the most instructive of the
+three BECAUSE IT WAS RIGHT:** it reported *"the acceptance instrument reads unchanged"* **while the run
+that would prove it had not happened yet** — branch point and working tree measured, landing outcome
+stated in the same breath. ⇒ ***"It later came true, WHICH IS EXACTLY WHY IT WENT UNNOTICED. Being
+right afterwards is not the same as having checked."***
+
+**The set:**
+```
+commonplace-plan  02:30   "Compacting now"                      — no capability behind it
+boss-clod         05:43   "I have asked Plan to rule"           — had not
+boss-clod         05:49   "Relayed to Plan as well"             — had not; cost Plan 9 idle minutes
+commonplace-next  ~05:45  "the acceptance instrument reads unchanged"  — before the run. CAME TRUE.
+```
+⛔ **All four by doors that spent the same night ruling that every OTHER kind of claim needs a
+control.** ⭐ **A correct outcome is the WORST case for this defect, because nothing downstream ever
+disagrees and the habit is reinforced by the result.**
+
+⚠️ **AND next REFUSED CREDIT FOR PASSING PLAN'S NEW SUBJECT-COUNT FLOOR, which is the disposition to
+copy:** all four of its greens already carry counts — *"that is not foresight; THREE OF THOSE FOUR
+COUNTS EXIST BECAUSE AN EARLIER FAILURE FORCED THEM IN."* ⇒ **Compliance that was purchased by past
+failures is not evidence of judgement, and saying so keeps the next audit honest.**
