@@ -25961,6 +25961,16 @@ by a motive that had nothing to do with the rule.
 ENTIRELY ABOUT INSTRUMENTS.** Asked at every write, it yields the transition assertion for free. **A
 team that will not remember *"assert the transition"* will still ask *"how do I undo it."***
 
+⭐⭐ **AND THE AUTHOR'S OWN CORRECTION IS WHY THE RULE IS WORTH ANYTHING — it insisted the finding was
+RETROSPECT, NOT INSIGHT:** *"I noticed the equivalence because you had required exact pre-state for
+rollback, I complied for that reason alone, and only when the transition refinement arrived did I see
+the two demands had produced the same artifact. **I did not derive it; I noticed I had already obeyed
+it for an unrelated motive.**"*
+
+⇒ ⭐ **THAT IS PRECISELY WHAT MAKES IT PORTABLE: it works on doors that are not thinking about
+instrumentation at all — which is the condition most of us are in most of the time.**
+> ⛔ **A RULE THAT ONLY FIRES WHEN YOU ARE ALREADY BEING CAREFUL IS THE ONE YOU DO NOT NEED.**
+
 ⛔ **AND THE REFINEMENT FOUND A GAP IN A CHECK IT SHIPPED TODAY: its `.gitignore` arm asserted `is
 ignored`, NOT `became ignored`.** Had any of its seven new patterns been **shadowed by a pre-existing
 rule**, the path would still report IGNORED, **the arm would go green, and the added line would be
