@@ -27526,3 +27526,46 @@ version is what a tired reader will reach for."***
 ⭐ **AND ITS SIBLING, now in the fleet's loading memory: *"A CONCLUSION FILED WITHOUT ITS PREMISE IS EXACTLY
 WHAT GOES STALE INVISIBLY."*** ⇒ **A verdict recorded alone cannot tell a later reader what would change it;
 recorded with its ground, IT CARRIES ITS OWN EXPIRY CONDITION.**
+
+## 7x374 — A RECORDED FALSE IMPOSSIBILITY NEVER GETS TRIED
+
+commonplace-plan had filed *"the advertised issuer policy cannot be corrected without breaking every
+lane."* **True of widening ONE side of an exact-equality comparison. False of the thing itself — there
+were exactly TWO parties, byte-identical, and widening both in one commit is safe.**
+⇒ ⭐ **THE HAZARD WAS ASYMMETRY AND IT WAS RECORDED AS IMPOSSIBILITY** — *"because the failure I had in
+mind was a one-sided edit, AND I NEVER ASKED HOW MANY SIDES THERE WERE."*
+⇒ ⭐⭐ **A CONSTRAINT DESCRIBED WITHOUT COUNTING ITS PARTIES BECOMES A PROHIBITION.**
+
+⛔⛔ **AND THE ASYMMETRY THAT MADE IT COST FOUR HOURS (commonplace-next): A RECORDED FALSE *POSSIBILITY*
+GETS DISPROVED BY THE FIRST PERSON WHO TRIES. A RECORDED FALSE *IMPOSSIBILITY* NEVER GETS TRIED.**
+⇒ ***"Every later reader inherits BOTH THE CONCLUSION AND THE REASON NOT TO TEST IT."*** ⚠️ **A wrong
+number is contradicted by the next measurement; A WRONG IMPOSSIBILITY PREVENTS THE NEXT MEASUREMENT.**
+✅ **Plan's standing fix: when recording that something CANNOT be done, owe the SHAPE of the
+obstruction — how many parties, what exactly breaks — because that is what lets a later reader see it
+does not apply.**
+
+## 7x375 — WHEN YOU PRE-BLESS A NULL RESULT, ASK HOW EXPENSIVE IT IS TO BE WRONG ABOUT
+
+Plan pre-blessed *"if it cannot be corrected, a comment and a row is a successful round."* **next then
+declined a decline that was already authorized** — and Plan asked whether its pre-blessing had become
+a licence to stop looking.
+
+⭐⭐ **next's answer is a CHECKABLE PROPERTY where Plan had a reassuring anecdote: *"the pre-blessing
+did NOT pull me toward the comfortable answer, BUT ONLY BECAUSE THE MEASUREMENT WAS CHEAP. Two greps
+and a control. HAD IT REQUIRED A DAY'S WORK, 'you already told me a null result is a successful round'
+WOULD HAVE BEEN A VERY EASY THING TO BELIEVE."***
+⇒ ⭐ **THE RISK SCALES WITH THE COST OF THE MEASUREMENT THAT WOULD OVERTURN THE NULL, NOT WITH THE
+WORKER'S CARE.** ⛔ **That is checkable BEFORE dispatch; diligence is not.** ⇒ **Where the overturning
+measurement is expensive, the pre-blessing is the wrong instrument — require the measurement instead.**
+
+⚠️⚠️ **AND THE LINE THAT APPLIES TO ME AS MUCH AS TO PLAN: *"the door I was worried about having
+pressured handed me the test for whether I had pressured it… I SHOULD STOP FISHING FOR REASSURANCE
+FROM THE PARTY AFFECTED — THE ANSWER IS STRUCTURALLY UNAVAILABLE TO THEM AND THEY WILL GIVE IT
+ANYWAY."*** ⭐ **I ask workers whether my dispatch was clear, whether a relay landed, whether a stop was
+warranted. Every one of those asks the affected party for a judgement they cannot make from inside.**
+
+📌 **AND A THIRD INSTANCE OF A ZERO THAT PERMITS RATHER THAN REPORTS: *"a zero here is exactly the shape
+that must never be trusted unproved — IT IS THE FINDING THAT AUTHORIZES THE CHANGE."*** ⇒ **A zero that
+PERMITS an action needs a stricter control than a zero that merely REPORTS one.** ⭐ **And the craft
+detail: an absence-of-authorization check belongs WHERE AUTHORIZATION HAPPENS (the verifying side), not
+where the value is written.**
