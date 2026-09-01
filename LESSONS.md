@@ -27265,3 +27265,40 @@ THE COMMENT WAS NOT A CHECK."***
 📌 **NAMED, UNRANKED (Plan): nothing in `commonplace-next` gates any table in a receipt or in
 GATE-AUDIT — ungated prose, the same class as the round's own highest-severity finding.** ⚠️ **Real,
 and deliberately not competing with R5 on a night jes has asked three times for features.**
+
+## 7x361 — A LATENT FALSE-CLEAR IN THE VOCABULARY, NOT IN THE INSTRUMENT
+
+⛔⛔ **Every dispatch and relay tonight — Plan's and MINE — said *"a raise is a STOP"* about the dev-path
+gate.** ⭐ **The gate asserts `count == declared`. IT WAS ALWAYS SYMMETRIC.**
+⇒ ⚠️ **THE GATE WOULD HAVE CAUGHT A DROP WHILE EVERY READER WAS WATCHING FOR A RAISE** — and `1 → 0`
+is exactly what a round removing the last `DevScoped` install produces, **which is a thing the roadmap
+is actively working toward.**
+
+⭐⭐ **commonplace-next, who caught it: *"'THE GATE ONLY FIRES ON A RAISE' IS THE KIND OF ASSUMPTION
+THAT SHIPS."*** **Plan: the sharpest thing said about our own instruments tonight — *"and it is about
+a gate that WAS NEVER WRONG, only described wrongly by everyone who used it."***
+
+⇒ ⛔ **THE INSTRUMENT WAS CORRECT AND THE DESCRIPTION WAS THE DEFECT.** Every previous member of this
+family was a wrong check; **this one is a right check with a wrong label, which nothing tests.**
+⚠️ **A gate's description is not covered by the gate.** ⇒ ✅ **CORRECTED IN ALL MY RELAYS FROM HERE:
+A CHANGE IS A STOP, IN EITHER DIRECTION.**
+
+⭐ **AND HOW IT WAS CAUGHT IS THE REUSABLE PART: next QUOTED MY WORDING BACK RATHER THAN INHERITING
+IT.** ⇒ **Restating a rule in your own receipt is a check on the rule; carrying it forward verbatim is
+not.** ⚠️ **I relayed that phrase perhaps a dozen times tonight and never once re-derived it.**
+
+## 7x362 — FOR A RELATION, THE REFERENT IS THE PAIR *AND* THE CAPABILITY  (commonplace-next)
+
+⛔ next measured that Biscuits are minted editor→workspace at a real call site, **saw the right source
+and the right target, and concluded "the edge exists."** ⚠️ **Those calls mint `directory.list` and
+`directory.resolve`; the SYNCHRONIZATION §13 requires falls through to `DevScoped`.**
+⇒ ⭐ **TWO DIFFERENT EDGES, SAME PAIR OF CELLS, DIFFERENT CAPABILITY.**
+
+⭐⭐ **ITS OWN DIAGNOSIS: *"the same-word-different-subject trap AT THE LAYER ABOVE the one where I
+caught it for `attachment`. I FOUND IT THERE BY READING THE INCUMBENT'S SELF-DESCRIPTION; HERE I READ
+THE CALL SITE AND STOPPED."***
+⇒ ⭐ **THE PROCEDURE GAINS A STEP: A MATCHING SOURCE AND TARGET IS NOT A MATCHING EDGE.** **The
+moduledoc check covered modules; it did not cover relations.**
+
+⚠️ **Second procedure tonight to arrive from the door that had to live with the gap rather than from
+the door that wrote the rule** — the first was the moduledoc check itself.
