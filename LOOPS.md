@@ -432,3 +432,30 @@ asked to hear about.
 
 ⭐ **Built-in stop condition:** if one worker stalls **three times in an hour despite this**, stop
 nudging and say so. **At that point the nudge is a substitute for a fix, not a fix.**
+
+## ONE-SHOT OBSERVER — hermes wheel fallback first live run (2026-09-02 15:13 UTC)
+
+⚠️ **SESSION-ONLY: `CronCreate` job `6b59fcfa` is NOT persisted. If this session restarts before
+2026-09-02T15:13Z, RECREATE IT FROM HERE — its absence looks exactly like health.**
+
+**Why it exists (hermes, and it is a named mechanism, not babysitting):** `HERMES-56k4v` / `320a8d5`
+deployed 2026-09-01T18:05Z is the first code that can place a live order on the new expiry-fallback
+path. ⛔ **A crash IS alerted — `run_entry_check` containment fires Telegram. A WRONG-BUT-NON-CRASHING
+SELECTION IS NOT.** ⇒ ⭐ **The system's appointment produces the DATA; it does not produce the
+READING.** The observer is for the one run where "the data exists" is insufficient. **It lapses after
+2026-09-02.**
+
+**What to ask hermes for, mechanically:**
+1. `oban_jobs` — did `WheelEntryCheck` for 2026-09-02T15:05Z complete at all?
+2. `signal_decisions` `decision_date=2026-09-02` — RXRX expiry `2026-10-16` = fallback fired as
+   designed · `2026-10-09` = did NOT fire, read details · expect
+   `details =~ fallback_from=2026-10-09(thin_credit)`. DNA unchanged, no `fallback_from`.
+3. `wheel_positions` — any NEW row (a real order placed)? Only expected if the Oct-16 monthly bid
+   still clears $0.15; it was 0.19 at 17:42Z on 2026-09-01.
+4. `WheelTrader` VM md5 — `ca2603b0…` (hot-reloaded) **and** `b21f8dd6…` (restarted, recompiled from
+   `320a8d5`) are **BOTH CORRECT**; anything else is not. ⛔ **Do NOT report `b21f8dd6` as a lost
+   hot-reload** — hermes flagged in advance that this is the reading it would most likely get wrong
+   itself twelve hours later.
+
+**Relay to jes ONLY** if the fallback behaved unexpectedly, an order was placed, or the job did not
+run. **A clean expected no-fire is internal — file it, do not text him.**
