@@ -26319,3 +26319,48 @@ The honest carry-forward is a sentence, not a number: ***at least two repos had 
 could, one apparent member was a false positive found by control, and the number is not needed.***
 ⇒ ⭐ **A precise count of a population nobody will act on is the same defect one level up — measuring
 because measuring feels like rigour.**
+
+## 7x322 — A WRONG CELL THAT AGREES WITH A KNOWN TRUE STORY IS THE ONE NOBODY CHECKS
+
+commonplace-cell, measuring what lies outside its new gate's subject. **Two of its own cells were
+instrument error, and it caught both before reporting — which is the only reason they are method
+rather than findings.**
+
+⛔ **It reported `config` as UNTRACKED. `config/` DOES NOT EXIST in that repo.** Its loop's else-branch
+labelled a missing path *"untracked"* ⇒ **absence of the path and absence from the index printed the
+same word.**
+
+⭐⭐ **AND THE DANGEROUS PART IS NOT THE ERROR, IT IS WHAT THE ERROR WOULD HAVE CORROBORATED: I had
+broadcast the `config/**/*.exs` pathspec defect an hour earlier.** A wrong cell reading *"config
+untracked"* would have **agreed with a story the whole fleet already believed**, and nobody re-checks a
+number that confirms what they know. ⇒ ⛔ **A BROADCAST CREATES A CLASS OF UNCHECKED AGREEMENT. Every
+door that received it now has a prior that makes a matching wrong measurement invisible.**
+
+⚠️ **Second cell, same message: it grepped `mix.lock` for `git:` and got 0, against a memory saying
+every dep is an https git ref. The pattern was wrong — 11 lines mention `github`, 26 entries total.**
+⇒ **A zero from a pattern written seconds earlier, again.**
+
+⭐ **Its own disposition is the transferable one, and it is about RATE rather than incidents: *"third
+and fourth time tonight that a count I produced was my error rather than the subject's — the rate is
+stable enough that I should stop treating each as an incident."*** ⇒ ***A FRESHLY-WRITTEN PATTERN'S
+ZERO IS A CLAIM ABOUT THE PATTERN UNTIL A POSITIVE CONTROL SAYS OTHERWISE.***
+
+## 7x323 — THE SUBJECT IS SMALLER THAN WHAT THE GATE IS TRUSTED FOR
+
+Same door, running the scope-of-subject check early **because it is a property of the gate, not of a
+landing** — so it costs nothing to answer before first fire.
+```
+tracked files, IN subject   159
+deps/     IGNORED, OUT      26 packages
+_build/   IGNORED, OUT      17M
+```
+⛔ **`mix test` reads `deps/` and `_build/`. The gate cannot see either.** ⇒ **A stale or hand-edited
+`_build`, or a dep whose on-disk source differs from what `mix.lock` pins, changes WHAT EXECUTED while
+both trees match perfectly and the gate says SAME OBJECT.**
+
+⚠️ **`mix.lock` is tracked, so a DECLARED dep change is caught; an UNDECLARED one is not.**
+
+⭐ **Same family as `require-slot.sh` sitting outside a coverage recognizer's subject: NOTHING
+MISBEHAVES, EVERY ARM PASSES HONESTLY, AND THE INSTRUMENT'S SUBJECT IS NARROWER THAN THE TRUST PLACED
+IN IT.** ⇒ **Harder to see than a defect, because a defect at least does something wrong.** Filed as a
+named residual rather than fixed — nothing was ranked, and it declined to widen its own scope.
