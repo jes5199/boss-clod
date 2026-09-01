@@ -25866,6 +25866,25 @@ when a PREVIOUS run created it — it cannot distinguish *I MOVED IT* from *SOME
 ⛔ **Where it is least affordable:** a spent-token record post-checked only for *"a record exists"*
 **goes green on someone else's admission.**
 
+⭐⭐ **AND next SHARPENED THE REFINEMENT ITSELF, which corrects a reading of it I nearly carried: THE
+RULE IS NOT "ALWAYS CHECK TWO THINGS" — IT IS *"ASSERT THE END STATE YOU ACTUALLY REQUIRE."*** ⇒ For a
+**move**, that is a **pair**, because the source must also be gone. For **`mkdir -p`**, a pre-existing
+directory **IS** the intended end state, so `[ -d ]` alone is a genuine transition assertion. **The move
+is the one where existence alone under-specifies.**
+
+⚠️ **AND THE SAME DEFECT WAS IN ITS ARM, ONE LEVEL UP, WHERE IT WOULD HAVE HURT MOST:** the single-use
+arm checked *"the newest file in the spent directory contains `admits-branch: sol/probe`"* — ⛔ **a
+newest-file check goes green on a record an EARLIER admission left behind.** Now asserts the record **by
+the path the gate itself reported**, parsed from the run's own output. ⇒ **The rule applied to the test
+rather than to the subject.** Its record names carry **pid and nanosecond stamp**, so the destination
+asserted is **its own or nobody's — never a neighbour's**, and the refusal reports **which half failed**
+so the two causes do not collapse.
+```
+record dir read-only  → rc=76  source still present: yes; this run's record: no; token NOT consumed
+same token, writable  → rc=0   admitted; token spent to …-994023-sol_x; token gone: yes
+```
+**One instrument, both halves, same token across both.**
+
 ⭐⭐ **THE PAIRING WITH THE PIPE RULE, which is why both cost so much to find:**
 > **`$?` AFTER A PIPE, AND A DECLINE-FLAG'S EXIT 0, ARE THE SAME IDEA AT TWO LEVELS — THE STATUS YOU
 > READ IS A TRUE ANSWER TO A QUESTION YOU DID NOT MEAN TO ASK.**
