@@ -33,7 +33,14 @@ api "accounts/$ACCT/workers/scripts" | python3 -c '
 import sys,json;d=json.load(sys.stdin)
 r=d.get("result") or []
 print("  (none)" if not r else "", end="")
-for s in r: print("  %-34s modified=%s" % (s.get("id"), (s.get("modified_on") or "")[:19]))
+# etag IS THE CODES IDENTITY; modified_on IS THE RECORDS. A tag-only write advances modified_on
+# while etag stays fixed (measured by commonplace-biscuit 2026-09-01 on a disposable worker:
+# 05:45:02 -> 05:45:06, etag identical, code never touched). Printing modified= alone invited the
+# reading "last code change", which this tools own sibling cf-deploy.sh now falsifies every time it
+# records provenance. THE PROVENANCE WRITE DESTROYS THE PROVENANCE SIGNAL.
+for s in r: print("  %-34s etag=%s  meta-touched=%s" % (s.get("id"), (s.get("etag") or "?")[:16], (s.get("modified_on") or "")[:19]))
+print("  ^ etag answers \"did the CODE change\". meta-touched moves on ANY metadata write (tags included)")
+print("    and CANNOT answer it. Compare etag across runs; never modified_on.")
 '
 echo
 echo "DURABLE OBJECT NAMESPACES"

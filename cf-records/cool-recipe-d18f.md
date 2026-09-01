@@ -37,3 +37,20 @@ were lost? If yes, it is convenience. If no, it is the record's entire job.**
 artifact is the last thing to delete, because deletion makes the unknown permanent.* ⇒ **The rule
 bought the ten minutes it took to look, then stopped applying.** It was not waived because the
 artifact seemed harmless — **it was satisfied by answering the question it was protecting.**
+
+---
+
+## ⚠️ ANNOTATION 2026-09-01T05:46Z — THIS RECORD'S "NEVER EDITED" INFERENCE IS SOUND BY LUCK
+
+This record leans on the **0.5-second create→modify gap** as evidence the worker was never edited
+after deployment. ⭐ **That inference is still true HERE — nothing ever wrote metadata to this
+worker — but it is true by accident of history, not by construction.**
+
+⛔ **`modified_on` ADVANCES ON A TAG-ONLY WRITE** (measured by commonplace-biscuit on a disposable
+worker, 2026-09-01: `05:45:02 → 05:45:06`, **`etag` identical, code never touched**). ⇒ **Under the
+`cf-deploy.sh` tooling that now exists, recording provenance would have destroyed exactly the signal
+this record cites.** It happened to `commonplace-log` within the hour:
+`modified_on 2026-08-25T20:08:52Z → 2026-09-01T05:44:39Z`, `etag b40f16a4…` unchanged.
+
+⇒ ⭐⭐ **`etag` IS THE CODE'S IDENTITY; `modified_on` IS THE RECORD'S.** Any future record asking
+*"did the code change"* must compare **`etag`**. `cf-inventory.sh` now prints `etag` first and says so.
