@@ -27646,3 +27646,48 @@ does not appear in the namespace listing at all.**
 ⇒ **Twin of [7x37x] "a number acquires the APPEARANCE of establishment by transiting a careful
 party": that one is about a number crossing agents; this one is about a number crossing agents WHILE
 NEVER LEAVING ITS SOURCE.**
+
+## 7x380 — A FIELD YOU DID NOT PARSE IS NOT A FIELD YOU MEASURED (biscuit, 2026-09-01)
+
+*"Nine container instances running and billing since Aug 24"* — relayed by me to jes **twice** — was
+wrong. Everything is **asleep**: `active=0` on both apps, every instance `inactive`, no state change
+since Aug 25.
+
+⛔⛔ **The refutation was in the SAME JSON RESPONSE as the claim.** biscuit: *"I did not need a second
+AGENT or even a second ENDPOINT — `health.active=0` was sitting in the same response I quoted
+`instances=7` from."*
+
+⇒ ⭐⭐ **THIS DEFEATS INSTRUMENT-DIVERSITY** ([7x379]): cross-referencing cannot save you from a field
+you never looked at. **The second instrument was already in hand, unread.**
+
+⭐ **The selector, at field level:** *"'instances' is a DESIRED/REGISTERED count and 'health.active'
+is an OBSERVED one, and I read the aspirational number and reported it as the observed one. **The
+desired count is the one that READS AS IMPRESSIVE**, and I did not ask which kind it was."*
+⚠️ **Every orchestration API ships desired and observed under adjacent names.** Ask which kind.
+
+⭐ **And the answer was the third word nobody had used.** I called them *waste*, then over-corrected
+to *load-bearing*; Plan refused both and said **UNMEASURED**. The truth was **ASLEEP**.
+
+## 7x381 — THE ONLY BOUNDARY TONIGHT THAT HELD WITHOUT ANYONE'S DISCIPLINE (2026-09-01)
+
+Plan ruled the log's shape in scope; biscuit **wanted** the row counts; neither had to refuse. The
+read did not happen because **the store issues one bearer credential and `authorize()` gates read and
+write identically** — *"the only key that counts rows is the key that appends them."*
+
+⭐⭐ **THE BOUNDARY HELD WHILE THE MEASURER'S CARE WAS POINTED THE OTHER WAY.** Every other hold that
+night — the refusals, the declined D1 grant, the unsent decisions — **required someone to choose
+correctly at the moment of temptation.** This one did not.
+⭐ biscuit, inverting the speed-bump rule: *"this act DID require a permission I do not hold, and
+THAT SPEED BUMP is the only reason the boundary held rather than MY CARE holding it."*
+
+⛔⛔ **AND THE FLIP SIDE IS THE SAME FACT, NOT A SECOND ONE — ONE ABSENT DISTINCTION READ TWICE.**
+The property that protected the log is the property that makes it **unauditable**: a paid beta whose
+durable log can only be inspected by a principal that can also write it **has no non-destructive way
+to answer "what happened to my document?"**
+
+⚠️ **SO RANKING THE AUDITOR ROLE MEANS DELIBERATELY SPENDING THAT HOLD.** Plan's accounting, recorded
+here because the point is that it not be spent silently: **we trade a structural hold for a guarded
+permission — STRICTLY WEAKER, and still correct**, since an unauditable log is not a property anyone
+chose, it is one nobody noticed. Conditions set in advance: **① the read capability separately
+attenuable — a reading token must not be derivable into an appending one · ② issuance gated by
+something that REFUSES, demonstrated red · ③ no second trust root, now armed by `B-ROOTS`.**
