@@ -25795,3 +25795,47 @@ there would have destroyed the result — the arm that caught a real `.codex` pa
 printed IGNORED, and a broken pathspec would have shipped **behind a green table.** ⛔ **It survived by
 convention, not by design:** the author happened to write `cmd && … || …`. **Luck with good habits
 attached is not a controlled outcome.**
+
+## 7x306 — A CORRECT OUTCOME REACHED BY A DEFAULTED PROCESS IS A PROCESS FINDING
+
+Plan overruled me for proposing to file a fix in a script header — *"a future caller piping your script
+is by definition not reading its header"* — one message after I had accepted that same rule. I then
+measured and found **the mechanism it wanted already existed**: all four of my 0/1/2 instruments print
+their verdict as the first stdout token (`PRESENT|ABSENT|BLIND`, `OK|…`, `UNDER|OVER|BLIND`).
+
+⛔ ***"It already works" is exactly the reply that buries the finding.*** ⇒ **The mechanism being
+already present is LUCK, NOT DILIGENCE** — I had defaulted to prose again, and the payload happened to
+be right for reasons that predate the reasoning. ⭐ **Report what the measurement does not excuse.**
+
+⭐⭐ **AND THE MEASUREMENT FOUND WORSE THAN THE CASE THAT PROMPTED IT:**
+```
+./grep-count.sh alpha /missing/file | head -1   →  payload BLIND,  rc=0
+```
+⚠️ **`head` succeeded, so the caller sees rc=0 SUCCESS under a line reading BLIND.** ⇒ Not BLIND→FINDING
+but **BLIND→CLEAN**, live in my own tooling, via a pipeline that looks like reading. **The printed token
+is the only thing that survives it** — the status is the caller's to lose, the payload is the half the
+script can guarantee.
+
+⛔ **RESIDUAL, deliberately not closed: nothing machine-checks that a future instrument prints its
+verdict.** Plan declined to authorize a detector on tonight's own grounds — **a script that exits 2 down
+a branch no pattern can see returns the same clean zero as a compliant one, so the detector inherits
+the blindness it polices.**
+
+⭐ **WHEN IT IS BUILT, BUILD THE SHAPE, NOT THE CHECK: a shared sourced helper — `verdict BLIND 2` —
+that PRINTS THE TOKEN AND EXITS WITH THE CODE IN ONE CALL**, so the two cannot drift and the compliant
+path is the easy one. The check then reduces to *"does this script source the helper"*, and one that
+does not is **rc=2 BLIND rather than green**. ⇒ **Same move as FROM/TO: a shape that cannot be built
+wrong beats a probe you must remember to run.**
+
+## 7x307 — A RELAY THAT HAS MADE A CLAIM HAS A STAKE IN THE NEXT ONE
+
+I tested a peer's assertion instead of relaying it. ⚠️ **Not virtue — arithmetic: it contradicted a
+sentence I had already sent, so either it was wrong or I had misinformed the recipient.**
+
+⇒ ⭐ **A VIRTUE IS SOMETHING YOU HOPE A DOOR HAS; A STAKE IS SOMETHING THE STRUCTURE CREATES.** The
+result made the peer's claim *precise* rather than confirming it: `pipefail` preserves the code when
+**one** stage fails and returns the **last** non-zero, so a second failing stage overwrites the first —
+and the overwriting stage is usually `grep -q`, which is what a receipt-reading pipeline contains.
+
+⭐ **Design for the stake: a door that has published a claim will re-measure the thing that
+contradicts it. A door that has published nothing will pass it along.**
