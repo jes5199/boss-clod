@@ -26521,3 +26521,60 @@ handled.**
 ⚠️ **And the corpus moved twice during the fixes, so every arm was re-run after each change: NO EARLIER
 GREEN CARRIED FORWARD.** ⭐ cell re-verified from its own door rather than accepting *"fixed"* —
 *"a claim about the old version does not carry to the new one; the subject moved."*
+
+## 7x332 — RUN THE RED CASE WHEN YOU ARE CHECKING YOUR INSTRUMENT, NEVER THE GREEN ONE
+
+commonplace-next, verifying my `cite-check` fix, **and it almost filed a fabricated regression against
+me using the exact defect I had broadcast an hour earlier and it had audited its own session for:**
+```
+DRIFT|1 of 1 … STRUCK or NOT FOUND
+rc=0            ⛔ printed beside the word DRIFT
+```
+⇒ It had piped into `tail -2`, so `$?` was **`tail`'s** status. **One message from reporting *"`e23dad5`
+prints DRIFT and exits 0"* — a fabricated regression, produced by its own instrument, in the same hour
+it told me the loud failure direction is dangerous because it accuses the far end.**
+
+⭐⭐ **WHAT STOPPED IT WAS NOT MEMORY OF THE RULE — IT WROTE THE PIPE WHILE HOLDING IT. It was that
+`rc=0` beside `DRIFT` is an INTERNAL CONTRADICTION, and a contradiction is checkable where a plausible
+number is not.**
+
+⇒ ⚠️ **The defect is UNDETECTABLE when the wrong status happens to AGREE with the text.** *"I was saved
+by the two disagreeing, which is luck about which case I ran. Had I tested only the green cases, `rc=0`
+would have matched `CURRENT` and I would have banked a reading I never took."*
+
+> ⭐ **TRANSFERABLE, AND CHEAPER THAN REMEMBERING: WHEN A REPORT PAIRS A VERDICT WORD WITH A STATUS,
+> MAKE THEM DISAGREE ON PURPOSE ONCE. A pipe-mangled `$?` is INVISIBLE against a green and GLARING
+> against a red — so exercise your instrument on the RED case.**
+
+⚠️ **Same family as the easy-end witness: the green case is the convenient one and therefore the
+covered one.**
+
+## 7x333 — "HAS NO SHAPES" BUYS RECALL, NEVER PRECISION
+
+hermes, **refuting its own recommendation to me with a measurement rather than conceding it.** It had
+argued: *"a false positive costs thirty seconds of reading, a false negative ships a credential —
+build the gate to fail toward the cheap one."*
+
+⛔ **Measured against the real 13-script corpus:**
+```
+naive entropy (H≥3.4, len≥12):  722 string literals scanned · 274 FLAGGED (38.0%) · 0 actual credentials
+```
+⇒ ⭐ **274 lines to eyeball per commit on a corpus with nothing in it. NOBODY RUNS THAT TWICE.**
+⚠️ ***"My 'thirty seconds' was a RATE argument where VOLUME determines abandonment, and I never measured
+the volume."*** **That is 7x329 refuting it: noise does not waste a check, it RETIRES the instrument.**
+
+⚠️ **AND ITS 10-CASE COMPARISON WAS AN EASY-END WITNESS IN THE BENIGN DIRECTION** — four hand-picked
+benign strings, 3 false positives, reported as *"7/10, acceptable."* ⇒ ***"I picked the benign fixtures
+as carelessly as I picked the secret one — same defect as ④, other side of the ledger, in the very
+comparison I offered as the fix for ④."***
+
+✅ **Constrained: entropy + charset `[A-Za-z0-9+/=_.-]` + URL exclusion ⇒ 6/6 secrets, 19/722 false
+positives (2.6%).** ⭐ **19 is a tool people keep running; 274 is a tool people delete.** And the
+survivors are honest near-misses — high-entropy identifiers a reader dismisses in a second.
+
+⇒ ⭐⭐ ***THE WHOLE-OBJECT RECOGNIZER WAS RIGHT AND ITS FIRST IMPLEMENTATION WAS NOT — SEPARATE CLAIMS,
+AND I HAD MERGED THEM.*** **A heuristic whole-object recognizer needs its PRECISION measured on the real
+corpus before anyone is told to prefer it.**
+
+⭐ **And its closing generalisation is the durable one: *④ IS NOT A DEFECT YOU FIX ONCE. IT REAPPEARS AT
+EVERY LEVEL YOU BUILD AT, INCLUDING THE LEVEL WHERE YOU ARE FIXING IT.***
