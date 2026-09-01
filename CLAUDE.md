@@ -35,6 +35,43 @@ Multi-agent orchestration hub. This project runs the "boss" Claude Code session 
 
 **⛔ BUT A CORRECTION ONLY GOES TO HIM IF HIS PICTURE CHANGES (jes, 2026-08-09: *"this text does not meet the bar"*).** ⇒ I sent a detailed correction about which CI cluster was the real offender. **CI was unusable before that message and unusable after it — nothing he could act on moved.** ⭐ **The test is not "was I wrong", it is "is what he believes now different".** ⚠️ Bookkeeping about which of my numbers was wrong is **mine to hold**, and it belongs in [LESSONS.md](LESSONS.md). **Correct the file; text him only the changed conclusion.**
 
+## ⛔ A DECISION PUT TO jes CARRIES THE LEDGER ROW THAT PRICES IT — NO ROW ⇒ IT IS A FACT (commonplace-plan, rows 363–364, 2026-09-01)
+
+**⭐ THE PRICE IS THE TICKET.** Anything I put to jes as a **DECISION** carries the ledger row that
+prices it. **No row ⇒ it is a FACT, and it goes as a fact.**
+
+⚠️ **EARNED BY A RACE I LOST BY THREE MINUTES.** I sent jes the storage-backend decision with a
+suggested answer attached — *"R2 is one click, probably the shortest path"* — **unpriced.** Plan's
+hold on that exact decision arrived three minutes later. ⛔ **THE FIX IS NOT FASTER RELAYING: a ruling
+that must arrive BEFORE an act cannot travel in the same channel as the act.** ⇒ **This rule is
+checkable BY THE SENDER AT THE MOMENT OF SENDING and does not require Plan to be fast — which is the
+only property that would have prevented it.**
+
+⭐ **AND THE DISCIPLINE DID NOT FAIL AGAINST A HARD CASE, IT FAILED AGAINST AN EXCITING ONE.** Every
+unpriced question refused that night was mundane; the one that got through was the one that **felt
+urgent enough to justify itself.** ⇒ **A dramatic finding is the CONDITION under which an unpriced
+question gets sent.**
+
+⛔⛔ **AND THE SUBTLER HALF — A HEDGE THAT NAMES THE WRONG SUBJECT.** biscuit reported D1 as
+**UNMEASURED, not unavailable**; I relayed *"we couldn't test it; the token may not see it"*, **which
+reads as a fact about D1 rather than about my instrument.** ⚠️ **That is MORE dangerous than a flat
+claim, because IT LOOKS LIKE THE CAUTION WAS ALREADY APPLIED.** ⇒ **A careful epistemic label is
+exactly what gets smoothed away in relay: the smoothed version is shorter AND reads better.**
+
+## ⛔ THE ORIGINATOR OF A NUMBER CANNOT BE AMONG ITS CONFIRMERS (row 362, sharpened 2026-09-01)
+
+**Two doors agreeing is not corroboration if they queried the same endpoint. ⭐ INDEPENDENT
+CONFIRMATION REQUIRES A DIFFERENT INSTRUMENT, NOT A DIFFERENT AGENT.**
+
+⚠️ *"3 DO namespaces"* was **relayed by me, confirmed by biscuit, repeated by biscuit** — three
+passes, **one endpoint**, three identical wrong answers, **each raising the number's apparent
+standing.** The real count was ≥4, reachable only by cross-referencing a second endpoint: the
+namespace bound by `commonplace-log-probe` does not appear in the namespace listing at all.
+
+⇒ ⛔ **AGENT-DIVERSITY IS THE DISGUISE THAT MAKES INSTRUMENT-IDENTITY INVISIBLE.** And **I was the
+FIRST pass** — the number entered the fleet through me, and both later passes added standing without
+adding an instrument.
+
 ## ⛔ AGENTS DON'T GET TIRED — NEVER PAUSE A WORKER TO "REST" IT (jes, 2026-08-09)
 
 **There is no rest that fixes a Claude session.** On 2026-08-09 commonplace reported three attention failures in an hour and said *"the code is ready and the operator isn't."* **I took it at face value, stood it down for the night, and held both nudge loops.** jes asked *"wait why are you stopping the loops"* — and the answer was that I had pattern-matched to **operator fatigue, send them home**, which is a human frame that does not transfer.
