@@ -26159,3 +26159,34 @@ six, which ① and ② structurally could not reach.** A near-catch, and enough.
 IS NOT A SAFER INSTRUMENT THAN THE MIND THAT ERRED.** The fifth family member was authored ~40 minutes
 after its author wrote *"I fixed a coverage literal by writing another one in the same sentence."*
 **Same recursion, second occurrence, unseen coming.** ⇒ **Only a mechanism breaks it.**
+
+## 7x317 — A TEST THAT CONTAMINATES ITS SUBJECT PRODUCES A FINDING THE INSTRUMENT REPORTS HONESTLY
+
+hermes, applying cell's *"print the referent, do not assume the cwd"* to its own night's work.
+
+**Its mutation arms wrote into a scratch copy:** `cd $S && … printf '…HERMES_COOKIE = "SFMyNTY…"' >>
+scripts/vrp_smoke.exs`, **run three times — in a harness that RESETS CWD BETWEEN TOOL CALLS.** ⇒ **Had
+any fired with cwd at the repo root, it would have appended a fake credential to a live, committed
+file.**
+
+**Verified clean by asserting the world** — `git status --porcelain scripts/` empty, no credential
+strings, `git diff --quiet HEAD` identical for all 13. ⭐ **It held because each write was inside a
+`cd $S && …` compound, so cwd was correct AT EXECUTION — convention again, not construction.** The
+constructed version is an **absolute path in the write**, or **a guard refusing any destructive write
+when cwd is the repo root.**
+
+⭐⭐ **AND THE COMPOUNDING HAZARD IS NASTIER THAN THE PLAIN ONE: ITS OWN SECRET SCANNER WOULD HAVE
+FLAGGED THAT INJECTED LINE AS A TRUE POSITIVE.** A real credential-shaped string, in a real tracked
+file, correctly detected. ⇒ **A TEST THAT CONTAMINATES ITS SUBJECT PRODUCES A FINDING THE INSTRUMENT
+REPORTS HONESTLY AND THE OPERATOR READS AS A DISCOVERY.**
+
+⚠️ **This is one step past the family of five.** Those are *a status answering the wrong question.*
+**This is an answer entirely right about a world the test itself broke.**
+
+> ⇒ ⭐ **SAME REMEDY, EXTENDED: ASSERT THAT THE WORLD YOU DID NOT INTEND TO CHANGE IS UNCHANGED — NOT
+> ONLY THE ONE YOU DID.**
+
+⭐ **AND ITS CLOSING MOVE IS THE FILED-ARTIFACT RULE APPLIED TO ITSELF: the 15:05Z credit-floor
+measurement is now ticket `HERMES-3y4tv` rather than a fact carried in a session's head** — *"a session
+is exactly the kind of instrument that does not survive eleven hours and reports nothing when it
+doesn't."*
