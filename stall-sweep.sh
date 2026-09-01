@@ -184,6 +184,7 @@ for w in "${WORKERS[@]}"; do
     # to stop and say so.
     # ⛔ NOT SUPPRESSION: still printed, with the repeat count, and it SELF-CLEARS the instant the
     # worker takes a turn. The state file records only what was already in the output.
+    QUEUE_DB="${QUEUE_DB:-$HOME/.claude/channels/clod-squad/queue.db}"
     _seenfile=/home/jes/boss-clod/.stall-seen
     _turn_end=$(echo "${out#*|*|}" | cut -d'|' -f1)
     _prev=$(grep "^${w}|" "$_seenfile" 2>/dev/null | head -1)
@@ -199,8 +200,30 @@ for w in "${WORKERS[@]}"; do
       { grep -v "^${w}|" "$_seenfile" 2>/dev/null; echo "${w}|${_turn_end}|${_n}"; } > "${_seenfile}.tmp" 2>/dev/null \
         && mv "${_seenfile}.tmp" "$_seenfile"
     fi
+    # ⛔⛔ 2026-09-01 — NUDGE-INEFFECTIVE FIRED FOUR TIMES TODAY ON A DOOR NOBODY HAD NUDGED.
+    # Its wording ("the nudge is a substitute for a fix") ASSERTS a nudge happened; every one of
+    # those four was a ranker sitting idle with an EMPTY INBOX, waiting on a worker mid-round.
+    # ⭐ THE DISCRIMINATOR IS FREE AND IT IS NOT IN THE TRANSCRIPT: does the queue hold anything
+    # ADDRESSED TO THIS DOOR since its turn ended? Nothing addressed to it => it is not stuck, it
+    # has NOTHING TO DO. A door with an empty inbox and a door ignoring its inbox are the same
+    # observable from a transcript and different rows in one SQL query.
+    # ⚠️ Bounded: this reads the clod-squad queue only. Work can arrive by other paths (a human at
+    # the pane, a cron, a cross-session socket), so an empty inbox is EVIDENCE, NOT PROOF — the row
+    # is still printed, never suppressed, and it says which question it answered.
+    _inbox=""
+    if [ -r "$QUEUE_DB" ]; then
+      _inbox=$(sqlite3 "$QUEUE_DB" \
+        "select count(*) from messages where to_id='${w}' and created_at > '${_turn_end}';" 2>/dev/null)
+    fi
+    case "$_inbox" in ''|*[!0-9]*) _inbox=BLIND ;; esac
     if [ "$_n" -ge 3 ]; then
-      echo "NUDGE-INEFFECTIVE|$w|${out#*|*|} · unchanged turn_end across $_n sweeps — the nudge is a substitute for a fix, not a fix; find why it cannot proceed"
+      if [ "$_inbox" = "0" ]; then
+        echo "IDLE-EMPTY-INBOX|$w|${out#*|*|} · unchanged turn_end across $_n sweeps AND 0 clod-squad messages addressed to it since — NOT stuck: it has nothing to do. Do not nudge; find who owes it work."
+      elif [ "$_inbox" = "BLIND" ]; then
+        echo "NUDGE-INEFFECTIVE|$w|${out#*|*|} · unchanged turn_end across $_n sweeps · INBOX UNREADABLE (queue db) — treat the inbox question as unanswered, not as zero"
+      else
+        echo "NUDGE-INEFFECTIVE|$w|${out#*|*|} · unchanged turn_end across $_n sweeps WITH $_inbox message(s) addressed to it since — it has work and is not taking it; nudging is a substitute for a fix"
+      fi
       continue
     fi
     stalled=$((stalled+1)); echo "STALLED|$w|${out#*|*|}"
