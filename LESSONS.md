@@ -25446,3 +25446,57 @@ one that needs the evidence.**
 ⭐⭐ **AND ESCALATE THE RULE, NOT THE INSTANCE.** I did not ask jes to ratify the commit retroactively —
 I asked where the line sits on boss writing and landing code in a worker's repo **over that worker's own
 decline**. The instance is spent; **the rule governs every next time.**
+
+## 7x294 — NAME AN ARM BY ITS DISCRIMINATOR, NEVER BY ITS SUBJECT
+
+2026-09-01. I required an arm proving a gate counts **capability** rather than **install sites**:
+*"removing one install site while the other remains must not change the authorizer count."* The writer
+implemented exactly that. ⛔ **Its reviewer stubbed the mutator to a NO-OP and the arm still passed** —
+it asserted `rc=0` and `MODULES: 1 declared=1`, **a line the HEALTHY run prints identically.**
+
+⇒ **Not a weak arm — a NON-arm.** Its result could not change what happens next, which is our own
+definition of decoration. ⚠️ **And I wrote it hours after telling two agents that a gate never seen to
+fail is not known to work.**
+
+⭐ **ROOT CAUSE: I named the arm by its SUBJECT and never by its DISCRIMINATOR.** *"Capability vs
+sites"* is what the arm is **about**. ⛔ **An arm's identity is not its subject — it is what
+distinguishes its RED from its GREEN.** Specify only the subject and a faithful writer exercises the
+subject and asserts a value the healthy path also produces. **The writer did nothing wrong.**
+
+**⇒ BINDING:**
+- Every required arm ships with its **discriminator** stated — the observable that differs between
+  mutated and unmutated.
+- **A mutation arm must assert the gate goes RED, and that the red NAMES the mutated thing.**
+- ⛔ **A mutation arm asserting GREEN is mis-specified, or is claiming the mutation is invisible — and
+  an invisible mutation is not a mutation arm.**
+
+⭐⭐ **THE FALSIFIER, one line, no domain knowledge, catches the whole class: STUB THE MUTATOR TO A
+NO-OP AND CONFIRM THE ARM FAILS.** ⇒ **It is the positive control's mirror: the control proves the
+instrument can SEE; the no-op proves it can STOP.** We were disciplined about the first all night and
+nobody was running the second.
+
+⚠️ **SIBLING, same review: A SHAPE THE GATE CANNOT PARSE MUST EXIT rc=2 BLIND, NEVER GREEN.** Three
+further false-greens came from that — a `scope "/admin"` wrapper deduping a route away, a non-literal
+`Keyword.put(opts, :authorizer, X)` install simply invisible, and tokens resolved by **name suffix**
+with `alias` unparsed. **Unparseable is not absent.**
+
+## 7x295 — TREE IDENTITY IS NOT ENVIRONMENT IDENTITY
+
+A worker measured `git diff --stat f2e4bd3 -- lib test config mix.exs mix.lock` **empty**, saw 3 of 304
+tests fail deterministically, and concluded the failures were **inherited from the base** — which would
+have blocked every landing on the fleet, since `gate "mix test"` sits above the push.
+
+⛔ **The clone simply had no `assets/node_modules`.** Three tests shell out to Node; the ESM resolve
+threw `ERR_MODULE_NOT_FOUND`, Elixir got a `MatchError`, and it **presented as a clean deterministic
+assertion failure indistinguishable from a code regression.** ⇒ **Determinism only means the missing
+thing was reliably missing.** It does not make a failure a property of the code.
+
+⭐ **WHAT REFUTED IT WAS A THREE-HOUR-OLD RECEIPT NOBODY EXPECTED TO NEED AGAIN** — the pre-landing gate
+run, still on disk, two seeds at 304/0 with its own controls. **You cannot know in advance which claim
+a receipt will have to refute; that is the entire argument for keeping them.**
+
+⚠️ **AND MY OWN CITATION WAS THE WEAK LINK: `ABSENT|0 hits` for the three test names in that receipt
+CANNOT DISTINGUISH "no failures" FROM "NEVER EXECUTED"** — ExUnit is silent on passing tests. I caught
+it before the other party built on it; had it stood, nobody would have run `--trace`, and the real
+discriminator (*are those three in the set*) would never have been asked. ⇒ **THE ABSENCE OF A FAILURE
+LINE IS NOT EVIDENCE OF EXECUTION. To claim a test passed, NAME it from `--trace`.**
