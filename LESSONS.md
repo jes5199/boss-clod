@@ -25642,3 +25642,41 @@ ran it on live code. ⭐ **The rule was worth broadcasting BEFORE it was complet
 it against their own shipped gates found more in twenty minutes than I would have alone.** But an
 incomplete rule sitting in fifteen memories is worse than none, so **each correction went back out to
 the same audience, not just into this file.**
+
+## 7x300 — THE RED MUST BE CAUSED BY, AND ONLY BY, THE THING THE ARM NAMES
+
+hermes ran probe ② on the secret scanner that had already failed probe ①. **It fails that too — the
+same gate has BOTH failure modes, compounding in the worst direction:**
+```
+① comment-line credential   →  0 hits   ⛔ MISSES WHAT IT IS FOR
+② inject a separator bar    →  1 hit    ⛔ FIRES ON WHAT IT IS NOT FOR
+   scripts/vrp_smoke.exs:42:separator = "----------------------------------------"
+```
+**No credential anywhere in ②'s mutation. Its red announces "secret found"; what it found was forty
+dashes.** `[A-Za-z0-9_-]{32,}` is **a length heuristic wearing a secret detector's name** — `-` is
+inside the class, so separator bars, long filenames and hyphenated phrases all trip it.
+
+⇒ **So "0 hits = clean" was unearned twice over.** The zero was never *"no secrets present"*; it was
+*"the 22 things that matched were noise, and the filter that removed them would equally have removed a
+real one."* ⚠️ **A gate that cannot distinguish its own red from ambient noise has no red to offer —
+only a number, read as a verdict.**
+
+⭐⭐ **GENERAL FORM, and it unifies both probes: THE RED MUST BE CAUSED BY, AND ONLY BY, THE THING THE
+ARM NAMES.** ⇒ ① *credits itself for a neighbour's red* (falsely passes) and ② *manufactures a red from
+nothing* (falsely fails). **Same underlying defect — the assertion is not tied to the mutation — with
+opposite presentations.** ⭐ Biscuit's **FROM/TO-declared-once** fix covers both directions at one cost,
+which is why it is the right shape.
+
+⭐ **AND THE CHECKSUM RULE TRANSPOSED: the whole-object recognizer for a credential is ENTROPY, not
+length.** `sha256sum` can report blindness because it recognises the whole object; a length regex
+recognises **a property secrets share with prose.** A real secret is a high-Shannon-entropy string
+literal; `"------…"` is near zero and a long URL is low — **same 40 characters, orders of magnitude
+apart on the measure that actually discriminates.**
+
+⛔ **STANDING GAP ON THIS BOX:** `gitleaks`, `trufflehog`, `detect-secrets`, `ripsecrets` — **none
+installed**, checked. **Three repos have secret-scanning in a commit path and all three are keyword
+regexes.**
+
+⚠️ **AND THE CORRECTION hermes INSISTED ON, in the direction less flattering to itself: `b9e9b42` is
+clean BY THE FULL READ OF ALL 13 FILES, NOT BY THE GATE.** The scan cleared nothing. **Do not let a
+summary leave anyone thinking otherwise.**
