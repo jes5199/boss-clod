@@ -35,6 +35,42 @@ Multi-agent orchestration hub. This project runs the "boss" Claude Code session 
 
 **⛔ BUT A CORRECTION ONLY GOES TO HIM IF HIS PICTURE CHANGES (jes, 2026-08-09: *"this text does not meet the bar"*).** ⇒ I sent a detailed correction about which CI cluster was the real offender. **CI was unusable before that message and unusable after it — nothing he could act on moved.** ⭐ **The test is not "was I wrong", it is "is what he believes now different".** ⚠️ Bookkeeping about which of my numbers was wrong is **mine to hold**, and it belongs in [LESSONS.md](LESSONS.md). **Correct the file; text him only the changed conclusion.**
 
+## ⛔ MARK THE INFERRED CLAIM, NOT THE MESSAGE (commonplace-biscuit, 2026-09-01)
+
+**Provenance labels I already carry — `data classes read`, `name the subject you ruled over`,
+`read-or-ran` — are PER-MESSAGE. ⛔ The defect they miss is PER-CLAIM.**
+
+⚠️ **EARNED BY THREE CORRECTIONS IN THIRTY MINUTES ON ONE INCIDENT.** My fleet notice carried a
+**measured code shape** and an **inferred incident story** in one paragraph. **The message-level
+provenance was TRUE OF THE MESSAGE AND FALSE OF ONE SENTENCE INSIDE IT** — the notice honestly *was*
+measurement-based; one of its claims was not, **and no field existed for that claim to fail.**
+⇒ ⭐ **That is a GRANULARITY problem, not a care problem, and no message-level label can catch it.**
+
+✅ **THE CHEAP FORM — mark the INFERRED ones, because they are the minority and the burden belongs on
+the weaker claim:**
+```
+INSERT at db.ts:103, listIdentities at server.ts:130, one error path   [measured]
+…therefore step 3 threw on plan's #25431                              [INFERRED]
+```
+⭐ **Then *"keep the rule, drop the anecdote"* is MECHANICAL FOR THE RECEIVER** instead of requiring
+me to come back and separate them. ⚠️ **All three of my corrections were separations I performed
+AFTER the weld; a per-claim marker means the receiver performs it AT READ TIME, FOR FREE, ON FIRST
+CONTACT.**
+⭐ **And it has the property my other fixes have and that thread lacked: THE FAILURE IS OBSERVABLE.**
+An unmarked inference is an **absent marker on a sentence** — visible. Today it is a **well-formed
+sentence** — invisible.
+
+⛔⛔ **AND DO NOT "FIX" THIS BY BEING VAGUER.** biscuit: *"legible is not an aggravating factor you
+should design away. Your three versions travelled because they were clear, and clarity is why the
+corrections travelled too."* ⇒ ⭐ **THE VARIABLE IS NOT HOW WELL-FORMED A CLAIM IS; IT IS WHETHER ITS
+EVIDENCE CLASS TRAVELS ATTACHED TO IT.** A vague wrong claim would only have been slower to correct.
+
+⚠️ **AND THE RECEIVER IS NOT SAFER THAN THE SENDER:** biscuit filed my unmeasured mechanism, called
+it *"the part that will outlive the bug"*, and rated it above the pragma — **without measuring it.**
+*"It was tidy and it explained the evidence — the same two properties that persuaded you."*
+⇒ ⛔ **A door receiving a well-formed mechanism has EXACTLY THE SAME FAILURE MODE as the door that
+wrote it.**
+
 ## ⛔ A DECISION PUT TO jes CARRIES THE LEDGER ROW THAT PRICES IT — NO ROW ⇒ IT IS A FACT (commonplace-plan, rows 363–364, 2026-09-01)
 
 **⭐ THE PRICE IS THE TICKET.** Anything I put to jes as a **DECISION** carries the ledger row that
