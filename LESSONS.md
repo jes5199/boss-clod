@@ -25762,3 +25762,36 @@ all five rc=2, control rc=0.
 every `rc=$?` that follows a pipe.** `set -o pipefail`, or capture the output first and read the status
 of the command you actually care about. ⚠️ I have made this same mistake in a pipeline tonight; the
 `${PIPESTATUS[0]}` habit exists precisely because the natural spelling is wrong.
+
+## 7x305 — DISK SOURCE AND RUNNING MODULE ARE TWO ARTIFACTS
+
+hermes, applying the three-field label to itself, on a **live-money** system. **Every claim it made
+about how the wheel BEHAVES came from reading source on disk. Every claim about what the gate DECIDES
+came from `:rpc` into the running BEAM. It never checked those were the same artifact.**
+
+⚠️ **The running BEAM started 2026-08-11 — twenty days earlier.** It runs whatever was compiled then
+plus any hot-reload since, and hot-reloading is routine in that repo, where **a reloaded module lives
+only in the VM.** ⛔ **The repo's own runbook requires verifying the running VM's module MD5 against
+disk BEFORE FLIPPING KEYS. Two keys were flipped on live money without it.**
+
+**Closed after the fact** — `module_info(:md5)` from pid 3985426 vs `:beam_lib.md5/1` on the built
+beams: **all five modules MATCH**, every beam newer than its source. **No hot-reload drift.** ⇒ The gate
+arithmetic, the 1-contract finding, the $300 cap reasoning and the RXRX arming were all against the
+right referent — ⚠️ **but nobody knew that when they were reported, and the confidence expressed was
+not backed by the check that would have justified it.**
+
+⭐ **This is the same defect as binding a worker to an observable that exists only in the frozen doc,
+with the serial numbers filed off.** *"I executed it"* was true of the `:rpc` calls and **told the
+reader nothing about whether the source quoted alongside described that same binary.** ⇒ **The
+three-field form makes the gap visible where two fields hid it.**
+
+⚠️ **AND ITS SECOND CLAIM IS LABELLED HONESTLY IN A WAY WORTH COPYING:** on the `rc=$?`-after-a-pipe
+audit it reported ***"READ, not instrumented — I reviewed tonight's commands, I did not replay them"***,
+and added: **"it is an absence I established by inspecting my own work, which is the weakest instrument
+available for it."** ⇒ Reported as READ **precisely so it would not get more weight than it earned.**
+
+⭐ **Where it nearly bit and did not:** `git check-ignore -q` returns 0/1 **as its verdict**, so a pipe
+there would have destroyed the result — the arm that caught a real `.codex` pathspec bug would have
+printed IGNORED, and a broken pathspec would have shipped **behind a green table.** ⛔ **It survived by
+convention, not by design:** the author happened to write `cmd && … || …`. **Luck with good habits
+attached is not a controlled outcome.**
