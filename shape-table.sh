@@ -51,12 +51,28 @@ cdir="${1-}"; fdir="${2-}"; shift 2 2>/dev/null
 ctl_n=-1
 if [ -n "$control" ]; then
   ctl_n=$(command grep -rEc -- "$control" "$cdir" 2>/dev/null | awk -F: '{s+=$NF} END{print s+0}')
-  printf 'CONTROL (superset): %s  →  %s in corpus\n' "$control" "$ctl_n"
+  ctl_f=$(command grep -rEc -- "$control" "$fdir" 2>/dev/null | awk -F: '{s+=$NF} END{print s+0}')
+  printf 'CONTROL (superset): %s  →  corpus %s   fixture %s\n' "$control" "$ctl_n" "$ctl_f"
   [ "$ctl_n" -eq 0 ] && { echo "BLIND|the CONTROL pattern matches nothing in $cdir — every row below would be unattributable"; exit 2; }
+  # ⛔⛔ SELF-COMPARISON IS A PROPERTY OF THE RUN, NOT OF A ROW — commonplace-next, 2026-09-01.
+  # Applied per row, `fixture >= corpus` fires on any shape RARE enough that a legitimate fixture
+  # matches the corpus count: its 3 `@behaviour` files against a 32-file corpus containing 3 was a
+  # FALSE BLIND. ⚠️ AND RARITY IS EXACTLY THE PROPERTY OF THE SHAPES MOST WORTH TESTING — the
+  # convenient case is the covered case, arriving inside the guard against it.
+  # ⇒ Decide it ONCE, from the control row, which is the only row that measures the whole subject.
+  if [ "$ctl_f" -ge "$ctl_n" ]; then
+    echo "BLIND|CONTROL says fixture ($ctl_f) >= corpus ($ctl_n) — you are comparing a thing to itself"; exit 2
+  fi
 fi
 printf '%-34s %8s %8s   %s\n' "SHAPE" "CORPUS" "FIXTURE" "VERDICT"
 defect=0; blind=0; latent=0
 for spec in "$@"; do
+  # ⛔ AN OPTION THAT DEGRADES INTO DATA IS THE SAME DEFECT AS A PHRASE THAT DEGRADES INTO A LINE:
+  # the parser answers a question you did not ask. commonplace-cell put `--control=` third, it became a
+  # SHAPE ROW, and the run printed "pass --control=<regex>" WHILE IT WAS BEING PASSED — dressed as the
+  # self-comparison refusal, so it read as a finding about the corpus rather than a parse of the
+  # command line. Refuse by name. (2026-09-01)
+  case "$spec" in --*) echo; echo "BLIND|'$spec' looks like an OPTION but reached the shape list. --control= must come FIRST, before <corpus> <fixture>."; exit 2;; esac
   label="${spec%%=*}"; rx="${spec#*=}"
   c=$(command grep -rEc -- "$rx" "$cdir" 2>/dev/null | awk -F: '{s+=$NF} END{print s+0}')
   f=$(command grep -rEc -- "$rx" "$fdir" 2>/dev/null | awk -F: '{s+=$NF} END{print s+0}')
@@ -67,10 +83,6 @@ for spec in "$@"; do
     v="BLIND   ← shape absent AND no control: this row is NOT a measurement"; blind=$((blind+1))
   elif [ "$f" -eq 0 ]; then
     v="DEFECT  ← fixture never exercises a shape the corpus contains"; defect=$((defect+1))
-  # ⛔ cell: "a fixture column within an order of magnitude of the corpus should itself be a REFUSAL,
-  # not a note in the header." My own first use passed a whole repo as the fixture and got `ok`.
-  elif [ "$f" -ge "$c" ]; then
-    v="BLIND   ← fixture >= corpus: you are comparing a thing to itself"; blind=$((blind+1))
   else v="ok"; fi
   printf '%-34s %8s %8s   %s\n' "$label" "$c" "$f" "$v"
 done
