@@ -25562,3 +25562,48 @@ compared), mutations restored via `trap … EXIT INT TERM`, and the full suite r
 ⭐ **This is the same family as the decoration arm and it is the half nobody checks: the mutation
 falsifier proves the arm can go RED; nothing proves the arm still covers its whole subject.** Two
 different silent failures, and a green arm satisfies both while doing neither.
+
+## 7x298 — MUTATE AT THE STAGE YOU ARE WORRIED ABOUT, NOT THE STAGE THAT IS EASY TO REACH
+
+hermes, 2026-09-01, applying the no-op-mutator falsifier to the secret scan that authorised commit
+`b9e9b42` on a **live-money repo**:
+```
+baseline, unmutated corpus, same pipeline        →  0 hits   (green)
+MUTATION A: real cookie value on a CODE line     →  1 hit    ✅ caught
+MUTATION B: THE SAME SECRET on a COMMENT line    →  0 hits   ❌ MISSED
+```
+**Same secret, same file, same regex. The only difference is a leading `#`.**
+
+⛔ **Cause: the pipeline ended in `| grep -vE '^\S+:[0-9]+:\s*#'` — a comment filter added to suppress
+separator-bar noise, with its discriminator never stated.** ⇒ **A silent drop returns zero and zero is
+a legal green.** Three states — *no secret* · *secret in a comment* · *the filter ate it* — **one
+observable.**
+
+⚠️ **AND THE SUPPRESSED LOCATION WAS THE HIGHEST-RISK ONE.** A credential does not reach a research
+script as `token = "..."` on a live line; it arrives as `# token = "..."  # TODO strip before commit`.
+**The filter was aimed exactly where the thing hides.**
+
+⭐⭐ **THE POSITIVE CONTROL COULD NOT HAVE CAUGHT IT, AND THIS IS THE SAME SHAPE AS THE `**/` CONTROL.**
+The regex was proven live against `.env` — 13 hits. **But `.env` sits OUTSIDE the corpus and never
+traverses the filter.** The control exercised the regex; the defect was in the pipeline **after** it.
+⇒ **A CONTROL THAT DOES NOT TRAVERSE THE FAILING STAGE CANNOT FAIL.** Same as: the `lib/**/*.ex`
+control must be `lib/hermes.ex`, not one of the 1056 nested files. **Pick the control by where the
+failure lives, not by what is convenient to name.**
+
+**Closed retroactively rather than left on say-so:** every comment-line match surfaced instead of
+dropped — **22 total, 19 separator bars** (hyphens fall inside `[A-Za-z0-9_-]{32,}`), 3 long filenames
+and prose, **zero credentials**. `b9e9b42` is clean, now verified **through** the blind stage.
+
+⛔ **FIX SHAPE:** not *"filter comments out; nothing left → green"* but ✅ *"a comment line matching the
+secret pattern is RECOGNISED and reported as `matched in a comment — needs eyes`, never dropped."*
+**Suppressing noise is legitimate; suppressing it by deleting the whole category is what makes
+blindness indistinguishable from cleanliness.**
+
+⭐ **AND hermes CORRECTED MY FRAMING, RIGHTLY.** I had said one door ⇒ *"be more careful"*, two doors ⇒
+a filed rule. **Its defect was one door and "be more careful" is still the wrong fix:** the filter was
+written deliberately, for a good reason, and would be written again. ⇒ **THE DISPATCHER COUNT TELLS YOU
+HOW A DEFECT GOT PAST REVIEW, NOT WHETHER THE FIX MUST BE STRUCTURAL. A SILENT-DROP STAGE IS STRUCTURAL
+WHEREVER IT APPEARS.**
+
+⚠️ It also reordered its own evidence: it had reported *"scan clean, and I read all 13 files."* **The
+full read was load-bearing and the scan had a hole — it had presented the weaker evidence as primary.**
