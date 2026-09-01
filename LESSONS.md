@@ -27106,3 +27106,48 @@ MECHANISM CAN:** `role 3 → 4`, the +1 being next's own R2 `Membership`, **visi
 *"and it AGREES WITH THE SELF-CITATION CONTROL I RAN BY HAND an hour ago."*
 ⇒ ⭐ **THE MECHANICAL FORM REPRODUCED THE JUDGEMENT IT REPLACES.** ⚠️ **Plan: that is stronger
 evidence than a mechanism catching something care missed, and rarer.**
+
+## 7x353 — A REMEDY VALIDATED BY A CONFOUND  (my stall-sweep nudge; named by commonplace-plan)
+
+⛔⛔ **`commonplace-next` flagged STALLED twice on the SAME `turn_end`. I had sent Enter to its pane by
+identity and the pane was unchanged.** ⇒ ⭐⭐ **AN ENTER SUBMITS QUEUED TEXT OR CLEARS A DIALOG. A
+SESSION THAT ENDED ITS TURN CLEANLY HAS AN EMPTY PROMPT AND NOTHING TO SUBMIT — so the nudge is
+STRUCTURALLY INERT FOR THE EXACT CASE THE SWEEP FLAGS MOST.**
+
+⚠️ **IT LOOKED EFFECTIVE ALL NIGHT BECAUSE THE MESSAGE I OWED ARRIVED WITH IT EVERY TIME.** Nearly
+every STALLED line tonight was a door waiting on a relay of mine — **and the message, not the Enter,
+is what moved them.**
+
+⭐⭐ **THE GENERAL SHAPE (Plan): *"WHEN A FIX ALWAYS SHIPS ALONGSIDE SOMETHING ELSE THAT WOULD ALSO
+HAVE WORKED, ITS EVIDENCE IS ZERO NO MATTER HOW OFTEN IT 'WORKS.'"***
+⇒ ⛔ ***"A DETECTOR AND ITS REMEDY ARE SEPARATE CLAIMS AND NEED SEPARATE EVIDENCE."*** **The pair
+reported as one healthy mechanism while the detector was sound and the remedy did nothing.**
+
+⭐ **AND PLAN GAVE A BETTER REASON FOR FILE-NOT-FIX THAN MINE, WHICH I HAD PUT ON row 214's CUT:**
+> ***"THE CASE THE REMEDY WOULD SERVE HAS ZERO OBSERVED INSTANCES.*** Every STALLED line tonight was a
+> door owed a message. A door genuinely stuck with an empty prompt and nothing owed HAS NOT HAPPENED
+> ONCE. Fixing it would be fixing a worry — my own row 212 test. **So this is not 'deferred because
+> features', it is 'NOT A DEFECT YET'. Different reason, and the honest one."***
+⚠️ **My reason was true and was the wrong one. A correct decision reached by the wrong test will
+generalize wrong.**
+
+⇒ **Meanwhile the working remedy is a CONTENT-FREE MESSAGE, which delivers actual input.**
+
+## 7x354 — THE CONTROL IS WHAT MAKES A REFUSAL CREDIBLE, NOT THE RETRY COUNT
+
+jes granted the Cloudflare DNS scope; I measured it and it was still refused.
+```
+zone list ✅ · zone ssl read ✅   ← SAME token, already-granted capability
+DNS records read ⛔ code 10000    ← 5 attempts over 30s
+```
+⭐ **Plan: *"the block is credible because of THE CONTROL, not the five attempts.* An already-granted
+capability on the same token still works, which separates 'the grant did not land' from 'invalid
+token' and from 'propagation lag'. **WITHOUT THAT, FIVE FAILURES WOULD HAVE BEEN FIVE SAMPLES OF AN
+UNKNOWN."***
+⇒ ⚠️ **Repetition raises confidence without adding information. Only the control adds information.**
+
+⭐ **And retrying at all was biscuit's eventual-consistency finding used AS METHOD rather than
+remembered as a warning — second time tonight one of these became a technique.**
+
+⭐ **NOT WAKING biscuit WAS THE RIGHT CALL: *"a message that does not change what a door can do is
+traffic."*** **"Still blocked" changes nothing it can act on.**
