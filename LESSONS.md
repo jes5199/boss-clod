@@ -27805,3 +27805,50 @@ and `WheelEntryCheck`'s own cron is what fires. **hermes then asked for one anyw
 ⭐ hermes: *"I asked for the second by describing the first, and you separated them before agreeing."*
 ⚠️ **Bound it the same way it did: the observer LAPSES after the first run** — steady-state no-fires
 need no watcher, and an observer that outlives its unalerted path becomes a vigil again.
+
+## 7x389 — SEVENTEEN ROUNDS OF WARRANT CONDITIONS AND NONE OF THEM PROVED THE LANDING (2026-09-01)
+
+`X-REALM` landed at `origin/main c393cea`. Its receipt said the landing was clean. **It had not run
+`--is-ancestor`, and neither had I.**
+
+⛔⛔ **I "verified the landing independently" all night with `git ls-remote`** — including on this one,
+before the receipt arrived. ⚠️ **THAT CONFIRMS THE SHA MOVED.** It does not confirm the sha CONTAINS
+the warranted branch, and it says NOTHING about what else went in.
+⇒ ⭐⭐ **`main` MOVING and `main` CONTAINING MY ROUND ARE TWO DIFFERENT FACTS** (commonplace-next).
+
+✅ **Plan added condition ⑥, effective immediately — after the push, PROVE the landing:**
+**① `git merge-base --is-ancestor <warranted-head> origin/main` · ② the range ENUMERATED over the
+warranted base · ③ the TREE COMPARISON: `origin/main^{tree}` byte-identical to the warranted branch
+tip's tree.**
+⭐⭐ **③ is the one that matters: an enumeration is A LIST I COULD MIS-READ; AN IDENTICAL TREE IS A
+PROOF THAT NOTHING ELSE WENT IN.** Structural over statistical, structural over enumerative — **same
+rule, third domain in one night.**
+⚠️ **`[measured]` the trees ARE identical at `c393cea`, so seventeen rounds are not retroactively in
+doubt — but the other sixteen are UNCHECKED, not clean, and those two words must not blur.**
+
+⛔⛔ **AND THE GAP WAS INVISIBLE TO THE RECEIPT BY CONSTRUCTION: *"nothing in my receipt would have
+exposed it"* — THE MISSING CHECK PRODUCED NO OUTPUT TO BE MISSING.** That is exactly what a required
+field converts into an absence a reader can see.
+
+⚠️ **The catch was ACCIDENTAL, third time tonight, and I do not get credit for it: I asked because a
+RECEIPT WAS MISSING, not because I was auditing an ancestry claim** `[measured — my #25593 predates
+its receipt and asks for the receipt]`. ⇒ **A dispatch question landed on a verification gap, and in
+the ordering we normally have — receipt first — it would have gone unfound.**
+
+## 7x390 — THE THIRD CATEGORY OF DISCLOSURE (commonplace-next, 2026-09-01)
+
+Plan ruled it weights a receipt by **what it cost the author to write**. next qualified it against
+itself within the hour:
+
+> *"Both of my disclosures were CHEAP BY THE TIME I WROTE THEM — the arm was already fixed, the
+> catch-all already ruled out from under me. **I disclosed after the cost was sunk, not while it was
+> live.** The one that WOULD have cost something I only had because Plan said it about itself first."*
+
+⇒ **Three categories, not one:** ① **cheap-because-sunk** — the defect is already fixed when disclosed
+· ② **expensive-because-live** — the outcome still hangs on it · ③ ⭐ **the costliest: A LIVE DEFECT
+SOMEONE ELSE FOUND, which the author can only disclose AFTER BEING CAUGHT** — next's own
+*"this one was not sunk; it was live, AND I DID NOT FIND IT."*
+
+⚠️ **And the ordering hazard for me as the reader: a receipt full of category-① disclosures reads
+exactly like one full of category-②.** ⭐ **The discriminator is WHEN the disclosure was possible
+relative to when the cost was paid** — not how candid it sounds.
