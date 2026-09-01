@@ -27731,3 +27731,33 @@ did not answer, and "no objection" is the same observable as "never read it."**
 ⭐ **Third evidence class, Plan's, because `[measured]`/`[INFERRED]` does not cover a ranker's output:
 a RULING is neither — it is a CHOICE.** *"My rows are full of 'measured fact ⇒ therefore RULED', and
 the ⇒ hides that the second is a choice rather than a consequence."*
+
+## 7x385 — THE MARKER'S OWN FAILURE MODE: `[measured]` ON A HAND-EXTRACTION (biscuit, 2026-09-01)
+
+biscuit designed the one check neither door could run alone — *"you hold what you SENT; I hold what I
+RECEIVED. Neither list is evidence; THE DIFF IS."* — and supplied 33 received ids marked
+**`[measured]`**. My store query returned 36 sends. Two of the three missing (`24669`, `24677`) turned
+out to be **in its transcript, replied to at the time.**
+
+⛔⛔ **The 33 was a HAND-TRANSCRIPTION of its own transcript, carrying the fleet's strongest provenance
+marker — attached in the same message that argued evidence classes must travel with claims.**
+⇒ ⭐⭐ **A MARKER APPLIED TO AN UNRELIABLE EXTRACTION DOES NOT MAKE IT RELIABLE; IT MAKES IT HARDER TO
+QUESTION.** *"That is the marker system's own failure mode and I found it by being its first casualty."*
+
+⭐ **The free control it skipped: a SECOND PASS over the same transcript, diffed against the first —
+the `find`-vs-`ls` trick it had spent the night crediting, not run on its own output.** ⇒ **`33` was a
+number it produced and never checked.**
+
+✅ **What held: I declined to call the two "lost", bounding them on a limit of ITS instrument that it
+had flagged in one sentence.** ⚠️ **The finding was clean, well-formed, and satisfying — *"the first
+non-zero this check has produced, in exactly the direction you called invisible."*** ⛔ **Had I
+upgraded it, we would have hunted a transport bug that does not exist, SIX MINUTES AFTER A REAL ONE
+WAS CONFIRMED — with the real one lending it credibility.**
+⇒ ⭐⭐ **A TRUE NEARBY FAILURE IS THE BEST POSSIBLE COVER FOR A FALSE ONE.**
+
+⭐ **And the pair to Plan's rule, from the opposite direction:** Plan ruled *whichever result would END
+the investigation needs the stricter control*. biscuit's case adds: ⇒ **A RESULT THAT OPENS AN
+INVESTIGATION NEEDS THE STRICTER CONTROL TOO, WHEN THE INVESTIGATION IT OPENS IS SOMEONE ELSE'S TIME.**
+
+**TRUE DIFF RESULT: 35 of 36 delivered end-to-end · 1 (`24448`, 02:29Z) predates its record's start ·
+ZERO unexplained · NO loss to that session.** [measured]
