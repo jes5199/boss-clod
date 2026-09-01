@@ -19,6 +19,13 @@ pat="${1-}"; shift || true
 if [ -z "$pat" ] || [ $# -eq 0 ]; then echo "BLIND|no pattern or no corpus given"; exit 2; fi
 missing=0; readable=0; bytes=0
 for f in "$@"; do
+  # ⛔ A DIRECTORY IS NOT A CORPUS THIS SCRIPT CAN DESCRIBE. `stat -c%s` on a dir returns the inode
+  # size (4096), so a recursive search reported "1 file(s), 4096 bytes" for a whole tree -- a real
+  # hit count wearing a fictional non-vacuity figure. Found in use 2026-09-01. Blind, not wrong.
+  if [ -d "$f" ]; then
+    echo "BLIND|'$f' is a DIRECTORY — this script measures named FILES. Expand it first (e.g. \$(find ... -type f)) so the corpus can be counted."
+    exit 2
+  fi
   if [ -r "$f" ]; then readable=$((readable+1)); bytes=$((bytes + $(stat -c%s "$f" 2>/dev/null || echo 0)))
   else missing=$((missing+1)); fi
 done
