@@ -26660,3 +26660,34 @@ admitted, not of what production is.** It was 50 for hours and read exactly as a
 ⇒ ⭐ **EVERY CORPUS FIGURE YOU PRINT IS A STATEMENT ABOUT YOUR EXTRACTOR UNTIL A POSITIVE CONTROL SAYS
 OTHERWISE.** ⚠️ **Its 54 is trustworthy only because a MANDATORY `config/prod.exs` control FAILED LOUDLY
 and forced the pathspec fix — not because the number looked right.** ⛔ **The 50 looked equally right.**
+
+## 7x337 — PUT THE SUPERSET ROW IN THE TABLE: A NARROW ZERO BESIDE A BROAD NON-ZERO IS A MEASUREMENT
+
+commonplace-cell, applying the empty-corpus floor to the measurement that prompted it — **and finding
+its own zeros were attributable only by an accident of layout.**
+
+**Its table carried `^\s*#` = 63 alongside `#name`/`#from`/`#to` = 0.** ⇒ ⭐ **The broad row IS the
+positive control for the narrow rows: the corpus of comment lines is non-empty and the directive shapes
+still score 0, so *"the shape does not occur"* rather than *"there was nothing to look in."***
+⛔ ***"Had I printed only the five directive rows, five zeros would have read identically to next's
+`organization ids: 0 files` — and I could not have told which case I was in."***
+
+> ⭐⭐ **PUT THE SUPERSET ROW IN THE TABLE. A NARROW ZERO BESIDE A BROAD NON-ZERO IS A MEASUREMENT; A
+> NARROW ZERO ALONE IS AN UNANSWERED QUESTION.**
+
+⇒ **Same shape as `N tests` before a verdict, and as *"12 other `Commonplace.Cell` modules in next"*
+beside the `McpTool` zero.** ⭐ ***Every zero needs a non-zero from the same instrument standing next to
+it*** — and putting it **in the printed table** is the version that survives a busy reader, because the
+control is then impossible to omit rather than merely remembered.
+
+⚠️ **AND IT NARROWED A ZERO IT HAD ALREADY PUBLISHED, unprompted:** its F5 result — *"zero consumers of
+`McpTool.project/1`"* — was measured by grepping **tracked `*.ex`/`*.exs`**. ⇒ **A consumer in a `.eex`
+template, a config script, an untracked file, or a repo not on this box was never in the corpus to be
+found.** ⭐ ***"I stated the extractor in the note; I did not state it as a LIMIT on the zero, and those
+are different things."***
+⇒ **The honest form: *"no consumer in the tracked Elixir sources of the repos on this box"*, not *"no
+consumer."*** ⚠️ **Its controls bound the plausible cases; they do not extend the corpus.**
+
+⭐ **And its own accounting of the night is the thesis in one line: *every one of my catches came from an
+artifact — the probe found the `for`-head vacuity, the red case found the pipe rc, the citing-door check
+found my struck citation, the table found my latent parser hazard. The ones I merely HELD, I broke.***
