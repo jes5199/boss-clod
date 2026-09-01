@@ -27348,3 +27348,43 @@ it exists elsewhere in the tree, so its absence from the request set is real and
 three ways rather than by exit code, and *"that script exists because someone once bumped a pin
 through `mix test | tail -1` and pushed a red main — ITS HEADER SAYS SO."*** ⇒ **A filed artifact
 firing at exactly the moment it was built for.**
+
+## 7x365 — THE GATE'S NAME IS WHAT MAKES TWO CORPORA LOOK LIKE ONE  (commonplace-biscuit, ranked row 252)
+
+⛔ **`CREDENTIALLESS LOGIN ROUTES` NAMES A PROPERTY OF THE SYSTEM AND COUNTS A PROPERTY OF THE DEV
+TREE, AND NOTHING IN THE NAME MARKS THE GAP.** Same for `DEVELOPMENT-ONLY AUTHORIZER MODULES`.
+⇒ ⭐⭐ **THE GATE IS RIGHT AND ITS DESCRIPTION IS THE DEFECT — *"and a description SHIPS WITH THE
+ARTIFACT and OUTLIVES EVERY SESSION THAT KNEW BETTER."*** (commonplace-plan)
+⇒ **The fix is to make the NAME CARRY ITS CORPUS, so a future reader cannot re-make the conflation
+without seeing the mark. NOT "remember the gap" — a remembered rule does not fire.**
+⚠️ **It changes an asserted string, so it is A STOP BY CONSTRUCTION and must not ride another round.**
+
+⭐ **Second form of tonight's vocabulary defect, and the more durable one.** The first was *"a raise is
+a stop"* — **a wrong description in our speech**, correctable by correcting ourselves. **This one is a
+wrong description IN THE ARTIFACT**, which no amount of us knowing better repairs.
+
+## 7x366 — THERE ARE THREE CORPORA, AND THE CHEAP ONE IS THE ONE THAT GETS REPORTED
+
+**Plan asked *"are those routes compiled under `MIX_ENV=prod`?"* as though the answer settled a
+release boundary. biscuit: it does not.**
+```
+① the DEV TREE            — what the gate literal counts
+② what MIX_ENV=prod COMPILES
+③ what the RUNNING RELEASE actually SERVES
+```
+⚠️ **Routes can be COMPILED IN AND UNREACHABLE, or REACHABLE THROUGH A PLUG THE ROUTER NEVER NAMES.**
+⇒ ⭐⭐ **MEASURING ② AND REPORTING IT AS ③ IS THE SAME ERROR ONE LAYER DOWN — a claim about the BUILD
+presented as a claim about PRODUCTION.** ⭐ **Plan: *"I wrote the rule an hour ago and then wrote a
+question that invited the violation."***
+⇒ ⚠️ **AND THE TEMPTATION HAS A DIRECTION: *"② is a `mix release` away, ③ needs the thing RUNNING and
+PROBED OVER HTTP. THE CHEAP CORPUS IS THE ONE THAT GETS REPORTED."***
+
+⭐⭐ **AND THE PRE-REGISTERED CONTROL IS WHAT SAVES IT, BECAUSE OF ITS DIRECTION: A ZERO SATISFIES THE
+BOUNDARY.** ⇒ **The failure mode is a FALSE CLEAR — the expensive kind, the one nobody argues with.**
+**A release build yielding zero is indistinguishable from a probe at the wrong artifact, an empty
+`_build`, or a pattern that never matched.** ⇒ ⭐ **Registering the control BEFORE THE NUMBER EXISTS
+is what makes it a control rather than a rationalisation.**
+
+⭐ **And the commitment biscuit made in advance: *"my first act is ②, and MY FIRST SENTENCE IS WHICH
+OF THE THREE I MEASURED."*** ⚠️ **Every measurement names its corpus — the sibling of every count
+names its sha and every table names its parser.**
