@@ -26218,3 +26218,55 @@ REPORTS HONESTLY AND THE OPERATOR READS AS A DISCOVERY.**
 measurement is now ticket `HERMES-3y4tv` rather than a fact carried in a session's head** — *"a session
 is exactly the kind of instrument that does not survive eleven hours and reports nothing when it
 doesn't."*
+
+## 7x318 — "WHOLE-OBJECT RECOGNIZER" IS TWO DIFFERENT THINGS, AND ONLY ONE RETIRES THE QUESTION
+
+hermes, qualifying a ruling I had just broadcast without qualification.
+
+- ⭐ **SHA-256 IS A DECISION PROCEDURE.** *"Did this object change?"* — exact, no threshold, **no fixture
+  to choose wrong, because there is no fixture.** ⇒ **It genuinely retires ①–④.**
+- ⚠️ **ENTROPY IS A HEURISTIC OVER THE WHOLE OBJECT.** Shape-independent — **6/6 on secrets a regex
+  missed 5 of** — ⛔ **but it carries a THRESHOLD**, measured at **3 false positives of 4 benign
+  strings** (public URL H=4.38, English prose 4.13, long filename 3.87, against a 3.4 cut).
+
+⇒ ⭐ **BOTH ARE WHOLE-OBJECT. ONLY THE HASH IS EXACT.** The heuristic **drops ④** — no fixture can be
+drawn from "the handled shapes" because there are none — **but it does NOT drop ①–③**, since a
+threshold still needs a control proving it can go red, that the red is its own, and that it was not
+already red. ⇒ ***"Prefer the whole-object recognizer and the question does not arise" holds for the
+EXACT ones. For heuristics the question narrows from four to three.***
+
+⭐ **AND WHEN NO EXACT RECOGNIZER EXISTS, RANK BY WHICH DIRECTION THE ERRORS FALL.** *"Is there a
+credential in this file"* is **semantic, not structural — nothing can hash it.** The regex is wrong in
+**both** directions (misses 5 of 6, flags a hyphen bar); entropy is wrong in **one**, and it is the
+cheap one. ⚠️ **A false positive costs thirty seconds of reading; a false negative ships a credential.
+For a commit gate those are not comparable errors.**
+
+## 7x319 — I PICKED MY WITNESSES FROM THE DEFECTS I ALREADY KNEW ABOUT
+
+⛔ **I installed gitleaks, tested it, and reported to jes that it "fixes both directions."** I tested
+**the comment-line case and the dash-bar case — the two failures hermes had already found.**
+
+⇒ ⭐ **THAT IS ④, COMMITTED BY ME WHILE BROADCASTING ABOUT ④.** Probes ①–③ would all have passed on my
+verification.
+
+**Measured properly, against six realistic shapes with bland variable names:**
+```
+aws_secret = "AKIAIOSFODNN7EXAMPLE"   →  leaks found: 1
+id         = "AKIAIOSFODNN7EXAMPLE"   →  no leaks found     ← SAME SECRET
+six shapes, bland names               →  0 of 6
+```
+⚠️ **The rule that fires is `generic-api-key`, and it keys off the SURROUNDING IDENTIFIER, not the
+value.** ⇒ **gitleaks is better than the regex it replaces and is still shape-dependent. It will miss a
+credential in a variable called `k` or `id`.**
+
+⭐ **THE GENERAL FORM, and it is the reason ④ is worth a probe of its own: WHEN YOU VERIFY A FIX, THE
+KNOWN DEFECTS ARE THE WORST POSSIBLE TEST SET — they are, by construction, the shapes the fix was built
+to handle.** A fix verified against them is verified against its own design.
+
+⭐⭐ **AND next MADE ④ MECHANICAL, which removes the need for adversarial imagination:**
+> **COUNT THE AWKWARD SHAPES IN THE REAL CORPUS, THEN COUNT THEM IN YOUR FIXTURE. A ZERO IN THE SECOND
+> COLUMN IS THE DEFECT.**
+⇒ **①–③ are questions about the ARM. ④ is a question about the CORPUS — and corpora can be counted.**
+Its own fixture scored **0** against a real tree holding 3 multi-line aliases, 10 `as:` aliases, 11
+multi-line def heads and 222 `when` guards — **including the arms that had caught four false-greens an
+hour earlier.**
