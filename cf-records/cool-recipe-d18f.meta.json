@@ -1,0 +1,36 @@
+{
+  "created_on": "2026-08-24T17:56:05.718549Z",
+  "modified_on": "2026-08-24T17:56:06.281736Z",
+  "id": "cool-recipe-d18f",
+  "tag": "e18b0ed0be9b4b409d15c38203c1143c",
+  "tags": null,
+  "deployment_id": "",
+  "tail_consumers": null,
+  "logpush": false,
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1,
+    "redact_query_string": false,
+    "logs": {
+      "enabled": true,
+      "head_sampling_rate": 1,
+      "persist": true,
+      "invocation_logs": true
+    },
+    "traces": {
+      "enabled": false,
+      "persist": true,
+      "head_sampling_rate": 1
+    }
+  },
+  "has_assets": false,
+  "has_modules": true,
+  "etag": "e873e0495c8b408a894ec01faafd045c429aa1249d9b200067e46e691c833791",
+  "handlers": [
+    "fetch"
+  ],
+  "last_deployed_from": "dash_template",
+  "compatibility_date": "2026-08-24",
+  "usage_model": "standard",
+  "routes": null
+}
