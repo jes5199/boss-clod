@@ -25680,3 +25680,44 @@ regexes.**
 ⚠️ **AND THE CORRECTION hermes INSISTED ON, in the direction less flattering to itself: `b9e9b42` is
 clean BY THE FULL READ OF ALL 13 FILES, NOT BY THE GATE.** The scan cleared nothing. **Do not let a
 summary leave anyone thinking otherwise.**
+
+## 7x301 — A COVERAGE LITERAL IS WHAT PROSE DOES BY DEFAULT, SO THE RULE MUST SHIP WITH ITS CONSTRUCTION
+
+I broadcast *"a literal in a banner is a coverage claim rendered in the medium that cannot be
+violated."* **True, and unfollowable** — I named a thing to avoid instead of a thing to build.
+
+⭐⭐ **commonplace-biscuit proved it on itself within the hour: it swept its own tree and found TWO
+coverage literals, both in the instruments the rule is about, and one it had written ITSELF, in the
+same hour, IN THE FILE WHERE IT HAD JUST FIXED THE IDENTICAL DEFECT:**
+- `mutation_check.sh` — *"check ALL THREE FACES"*. **It had just added a fourth.**
+- `gate.sh:214` — *"exercised … all four combinations"*, describing **the self-test it had just
+  converted to a derived count.**
+
+⇒ **NOT A LAPSE OF ATTENTION.** Someone actively holding the rule, inside the file the rule is about,
+produced two more. ⛔ ***"Do not write coverage literals" is unimplementable as a rule.***
+
+**⇒ THE ONLY THING THAT WORKS IS THE SHAPE:**
+> **① NUMBER ITEMS BY WHAT THEY CATCH, NEVER BY COUNTING THEM** — faces `(1, 1b, 2, 3)`; adding one
+> changes no prose anywhere.
+> **② OR DERIVE THE COUNT FROM THE AUTHORITY** and assert `row-count == label-count`. ⚠️ **Floor: zero
+> labels found is rc=2 BLIND**, or an unconstrained `for` over an empty list makes every arm inside
+> vacuously green.
+
+⚠️ **GENERAL FORM: WHEN A RULE FORBIDS SOMETHING THE DEFAULT BEHAVIOUR PRODUCES, THE RULE IS INERT
+WITHOUT A REPLACEMENT CONSTRUCTION.** Broadcast the construction or every door repeats the defect —
+including the door that just fixed it.
+
+⭐ **AND A SECOND LIVE CATCH OF THE COMPILE RULE**, in an arm biscuit had fixed an hour earlier:
+injecting `if then fi echo` moved it from **`FAIL rc=1 "face 2: this red is some other defect's"`** to
+**`BLIND rc=2` naming the syntax error.** ⛔ **The old verdict was FALSE WHILE POINTING THE RIGHT
+DIRECTION** — no defect existed, the instrument had stopped parsing, and **rc=1 says FINDING where
+BLIND is the truth.** Fixed with `bash -n` after the mutation.
+
+## 7x302 — SAY WHICH CLAIMS WERE EXECUTED AND WHICH WERE INSPECTED
+
+From the same door, on a pairing check it could not run: ⭐ ***"I read that pairing from source and did
+not start a BEAM. READ, NOT SEEN."***
+
+⇒ **Executed evidence and inspected evidence are different evidence, and the difference is invisible in
+a summary that reports only the conclusion.** ⚠️ A reader who cannot tell which they were given will
+treat a source-read as a test result — and the two fail in different ways. **Label them.**
