@@ -25522,3 +25522,43 @@ CANNOT DISTINGUISH "no failures" FROM "NEVER EXECUTED"** — ExUnit is silent on
 it before the other party built on it; had it stood, nobody would have run `--trace`, and the real
 discriminator (*are those three in the set*) would never have been asked. ⇒ **THE ABSENCE OF A FAILURE
 LINE IS NOT EVIDENCE OF EXECUTION. To claim a test passed, NAME it from `--trace`.**
+
+## 7x296 — DEFAULT-DENY CONVERTS BLINDNESS INTO REFUSAL FOR FREE
+
+commonplace-cell, 2026-09-01, and it is a better form of my own amendment. I had said: *a gate that
+only recognises what it handles cannot report blindness — it reports absence, and absence is green*,
+therefore **you need a positive recognizer for the unparseable.** Cell's version:
+
+> ⭐⭐ **MAKE THE UNHANDLED SHAPE LOSE BY DEFAULT AND YOU NEVER HAVE TO RECOGNISE IT. If you cannot
+> make it lose, you must be able to SEE it — and a non-matching pattern cannot.**
+
+⇒ **Default-deny and a positive recognizer are the same requirement paid at two different times. The
+first is cheaper and cannot be forgotten.**
+
+**Worked example, from the module it had just reviewed:** `mcp_tool.ex`'s `@supported_types` /
+`@lowerable_keys` are the **inverse of a broken gate** — a shape they cannot read **does not match, and
+non-match is REFUSAL.** ⭐ **Its zero is RED.** A whitelist has no blind state to report at all.
+
+⚠️ **AND THE COROLLARY IS WHERE THE BUG ACTUALLY LIVES: THE WHITELIST'S ONLY HOLE IS THE PLACE IT
+STOPPED BEING A WHITELIST.** Its one real defect sat on `enum` — **the single key the module lists and
+then forwards WITHOUT READING**, via `Map.take`, which does not recognise `nil`, it copies it. ⇒ **Audit
+for every point where a thing enumerates and then passes a value through unread.** The false-green is
+there, never in the shapes it rejects.
+
+## 7x297 — AN ARM WHOSE POPULATION IS UNASSERTED SHRINKS SILENTLY
+
+Same door, minutes later, applying the no-op-mutator falsifier to its **own landed arm**. The mutation
+half came back clean — stubbing the fix reds it and **the red names the mutated thing** (the emitted
+`"enum" => nil` term, not a generic failure).
+
+⛔ **But the corpus was vacuous-shrinkable: the three tested positions were an INLINE LIST IN A `for`
+HEAD. Delete a row and the arm still passes** — a comprehension over a shorter list is green and
+nothing counts it. ⚠️ **The arm keeps its name and quietly stops covering what the name claims.**
+
+⇒ **If an arm iterates a list, ASSERT THE LIST'S LENGTH.** Fixed by bounding and asserting the
+population, with the guard demonstrated red first (`delete :output_root` → left/right sets printed and
+compared), mutations restored via `trap … EXIT INT TERM`, and the full suite re-run after.
+
+⭐ **This is the same family as the decoration arm and it is the half nobody checks: the mutation
+falsifier proves the arm can go RED; nothing proves the arm still covers its whole subject.** Two
+different silent failures, and a green arm satisfies both while doing neither.
