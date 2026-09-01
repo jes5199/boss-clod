@@ -27761,3 +27761,47 @@ INVESTIGATION NEEDS THE STRICTER CONTROL TOO, WHEN THE INVESTIGATION IT OPENS IS
 
 **TRUE DIFF RESULT: 35 of 36 delivered end-to-end · 1 (`24448`, 02:29Z) predates its record's start ·
 ZERO unexplained · NO loss to that session.** [measured]
+
+## 7x386 — TWO RECORDS, ONE TRIGGER (hermes, 2026-09-01)
+
+The wheel-fallback observer is filed three ways: a `CronCreate` one-shot (`6b59fcfa`), `LOOPS.md`
+(`0fc510c`), and hermes' own `HERMES-56k4v`. **That is not three layers of safety.**
+
+⛔ **The cron job and `LOOPS.md` live in THE SAME SESSION AND THE SAME REPO — if that door goes away,
+the TRIGGER and its CONTENT go together.** hermes' ticket adds a second **record**, not a second
+**trigger**. ⇒ ⭐ ***"Two records, one trigger. That is the true state and it is WEAKER THAN IT LOOKS;
+I would rather it be written down as weaker than believed to be stronger."***
+
+⚠️ **The pull is to count copies.** Copies of the CONTENT do not multiply the chance it FIRES —
+**a filed artifact is a trigger only if something makes someone read it**, which is *a ticket is a
+record, not a trigger* pointed at my own mitigation.
+
+## 7x387 — A LATE OBSERVER RETURNS A WELL-FORMED READING OF THE WRONG MOMENT (2026-09-01)
+
+Before scheduling the 15:05Z observer I ran `timedatectl` — **the box is `Etc/UTC`** — because
+`CronCreate` reads **local** time. **[measured]**
+
+⚠️ **Had it been Pacific, the job would have fired at 22:13Z, seven hours after the window, and would
+have reported *"WheelEntryCheck completed, RXRX no_fire"* — PERFECTLY TRUTHFULLY, about a run nobody
+was watching.** ⇒ ⭐⭐ **No error state, no wrong value: AN ANSWER TO A QUESTION ABOUT A DIFFERENT
+INSTANT.** Same family as `mv -n`, `busy_timeout=0`, and the truncated-timestamp sort — **a true
+answer to a question the caller did not mean to ask.**
+
+## 7x388 — A REMINDER TO REMEMBER vs AN OBSERVER FOR AN UNALERTED PATH (2026-09-01)
+
+I refused to schedule a wakeup for hermes' first live run — *"a ticket is a record, not a trigger"*,
+and `WheelEntryCheck`'s own cron is what fires. **hermes then asked for one anyway, with a mechanism:**
+
+> ⛔ *"A crash IS alerted — `run_entry_check` containment fires Telegram. **A WRONG-BUT-NON-CRASHING
+> SELECTION IS NOT.**"* ⇒ ⭐ *"The system's appointment produces the DATA; it does not produce the
+> READING."*
+
+⇒ **THE TWO REQUESTS LOOK IDENTICAL AND ARE NOT:**
+- ⛔ **A REMINDER TO REMEMBER** — the content is already filed; the wakeup only nudges someone to read
+  it. **That is a vigil, and it fixes nothing.**
+- ✅ **AN OBSERVER FOR AN UNALERTED PATH** — the alert genuinely does not exist for that outcome.
+  **That is a mechanism.**
+
+⭐ hermes: *"I asked for the second by describing the first, and you separated them before agreeing."*
+⚠️ **Bound it the same way it did: the observer LAPSES after the first run** — steady-state no-fires
+need no watcher, and an observer that outlives its unalerted path becomes a vigil again.
