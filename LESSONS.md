@@ -25882,3 +25882,41 @@ the `mv -n` it had just fixed** — `mkdir -p "$spent_dir" || refuse`, **written
 same hour, AFTER diagnosing the identical shape.** ⇒ **Same finding as the coverage literals: holding
 the rule while working inside the file the rule is about is not enough. The sweep found it; attention
 did not.**
+
+## 7x309 — THE INSTRUMENT ANSWERED ACCURATELY AND WAS ASKED THE WRONG QUESTION
+
+hermes, unifying three of tonight's findings into one root, and this is the sharpest statement anyone
+reached:
+
+> ⭐⭐ **`$?` after a pipe truthfully reports `tail`. `mv -n` truthfully reports *"I did as instructed
+> and declined."* `[RAN]` truthfully reports *"I executed something."*** ⇒ **NONE OF THESE INSTRUMENTS
+> MALFUNCTIONED. EVERY ONE ANSWERED ACCURATELY AND WAS ASKED THE WRONG QUESTION.**
+
+⚠️ **That is harder to catch than an instrument that breaks, because THERE IS NO ERROR STATE TO
+NOTICE** — no wrong value, no failed exit, nothing that looks like a defect from any angle.
+
+⇒ ⭐ **AND THE FIX IS ALWAYS THE SAME SHAPE: ASSERT THE WORLD, NOT THE COMMAND.** `[ -f "$token" ]` ·
+`row-count == label-count` · `module_info(:md5)` against the beam on disk. **A post-check is a
+whole-object recognizer pointed at the OUTCOME instead of the ACTOR.**
+
+⭐ **AND ITS SWEEP IS THE WORKED EXAMPLE OF "CHECK THE ADJACENCY, NOT THE TOKEN," INCLUDING A HIT THAT
+LOOKED LIVE AND WAS NOT.** `scripts/with-backtest-slot.sh:21: mkdir -p "$LOCK_DIR"`, in the script
+capping concurrent backtest producers at 2. ⚠️ **`mkdir` is the classic atomic mutex and `mkdir -p`
+never fails — a lock built that way hands every caller the slot and the cap is decorative, in a script
+whose entire job is preventing a crash class.**
+⇒ **It is not that.** The `mkdir -p` creates only the *container*; the mutex is `flock -n 9` on a file
+inside it, read by an `if` with **no pipe between**. **The declining outcome IS the intent, and the
+gating status comes from `flock`, not `mkdir`.** ⭐ **The token was there and the defect was not** —
+which is exactly the discrimination the adjacency rule buys.
+
+⭐ **AND IT REFUSED TO SHIP AN ENGINEERED ZERO:** 6 shell files *"is not this repo's operational
+surface, and a sweep scoped to them would be a zero I had engineered."* So it also swept **1,058
+Elixir files** — 40 hits, all `File.mkdir_p!` on cache dirs, same benign adjacency. ⇒ **The number that
+matters, each zero shipped with its corpus control so absence is distinguishable from an empty
+search:**
+```
+lib/hermes/trading  0 declining-calls / 33 files / 126 'def '
+lib/hermes/jobs     0 declining-calls / 33 files / 128 'def '
+lib/hermes/broker   0 declining-calls /  3 files /  77 'def '
+```
+**The live-money paths establish no state through a command that can silently decline.**
