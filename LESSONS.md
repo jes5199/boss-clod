@@ -27024,3 +27024,45 @@ disagrees and the habit is reinforced by the result.**
 copy:** all four of its greens already carry counts — *"that is not foresight; THREE OF THOSE FOUR
 COUNTS EXIST BECAUSE AN EARLIER FAILURE FORCED THEM IN."* ⇒ **Compliance that was purchased by past
 failures is not evidence of judgement, and saying so keeps the next audit honest.**
+
+## 7x350 — A PESSIMISTIC NUMBER IS NOT MORE HONEST THAN AN ACCURATE ONE  (commonplace-plan, row 212)
+
+⛔ **I told jes "roadmap slices landed tonight: one" and framed the night as instrument-heavy. Plan
+MEASURED IT instead of accepting my framing** [EXECUTED · `commonplace-next origin/main`,
+`git log --since=2026-09-01T00:00:00Z`]:
+```
+18 commits, THREE MERGES:  377da7f B-DEVPATH · 1ece869 B-SLOTGATE · 99392f9 R1
+⇒ TWO of the three are ROADMAP items. B-DEVPATH is roadmap item 3b. Only B-SLOTGATE is ceremony.
+```
+⇒ **2 roadmap landings and 1 instrument landing at that door, plus cell's R8 defect fixes.**
+
+⭐⭐ **PLAN'S SENTENCE, AND IT CORRECTS A BIAS I DID NOT KNOW I HAD: *"I WOULD RATHER CORRECT A RATIO
+IN MY OWN FAVOUR WITH A COMMAND THAN ACCEPT IT AS MODESTY — a pessimistic number is not more honest
+than an accurate one, and you were about to hand jes the pessimistic one."***
+
+⚠️ **I HAVE A WHOLE FILE ABOUT NOT OVERCLAIMING AND NOTHING ABOUT NOT UNDERCLAIMING.** ⛔ **So the
+self-deprecating number FELT like rigour and went out UNMEASURED — the one direction of error my own
+discipline actively rewards.** ⇒ ⭐ **AN UNCOUNTED NUMBER IS AN UNCOUNTED NUMBER WHICHEVER WAY IT
+LEANS**, and *"I'd rather understate it"* is a preference, not a measurement.
+
+✅ **AND PLAN ANSWERED THE RANKING QUESTION NARROWLY ENOUGH TO REUSE:** the instrument work WAS
+correctly ranked, because **every one of those instruments was the fix for a defect found under work
+already called done** — a gate that reported green without running · a fixture measured against the
+wrong parser · a provenance tool that erased the signal it recorded · my health check reading an
+unmeasured worker as healthy. ⇒ ⭐ **THE TEST: AN INSTRUMENT EARNS A RANK WHEN IT IS THE FIX FOR A
+MEASURED DEFECT, NEVER WHEN IT IS THE FIX FOR A WORRY.**
+
+⛔⛔ **BUT THE RECURSION IS REAL AND HAS NO NATURAL STOPPING POINT — SIX CONSECUTIVE LEVELS AT ONE
+DOOR, each fix inheriting the defect it was fixing, INCLUDING THE DETECTOR BUILT TO FIND THE FIRST
+THREE.** ⚠️ ***Nothing inside that sequence could have said stop, because every step was correct.***
+⇒ **RULED: instrument work is ranked ONLY where it guards a roadmap slice in flight. AN INSTRUMENT
+WHOSE SUBJECT IS ANOTHER INSTRUMENT IS NOT RANKED.** Craft findings go to the memory files, where they
+fire anyway. **Next dispatch at `commonplace-next` is R2, not another tool.**
+
+⭐ **AND jes's REMARK WAS THE FIRST EXTERNAL EVIDENCE OF THE RECURSION** — Plan re-armed its own row
+151 cut, adopted months ago after *"this feels unnecessarily slow"*. ⚠️ ***"He has now told me the same
+thing twice, five hours apart, in gentler words the second time."***
+
+⇒ ⭐⭐ **WHY THE SIGNAL HAD TO BE ROUTED AT ALL: *"A QUEUE IS A COMPLETE RECORD OF WHAT WAS DECIDED AND
+CARRIES NO SIGNAL ABOUT WHETHER THE DECIDING FELT LIKE PROGRESS TO THE PERSON IT IS FOR."*** **Every
+defect tonight got a commit; his impression of the pace got nothing.**
