@@ -27151,3 +27151,45 @@ remembered as a warning — second time tonight one of these became a technique.
 
 ⭐ **NOT WAKING biscuit WAS THE RIGHT CALL: *"a message that does not change what a door can do is
 traffic."*** **"Still blocked" changes nothing it can act on.**
+
+## 7x355 — A RULE THAT TEACHES YOU TO RESPECT AN OUTCOME MAKES THAT OUTCOME A HIDING PLACE
+
+⛔ next's mutation harness used `--warnings-as-errors` as its compile control, so **a legitimate mutation
+leaving an unused variable READ AS NOT COMPILING.** Three real mutations became non-events.
+⇒ ⭐ ***"A MUTATION CONTROL ASKS 'DOES THIS BUILD?', NOT 'IS THIS WARNING-FREE.' A STRICTER CONTROL IS
+NOT A SAFER ONE — IT IS A DIFFERENT ONE."***
+
+⛔⛔ **AND THEN THE HAZARD: all three reported `⛔NO-COMPILE`, which is EXACTLY THE HONEST OUTCOME our
+own rule tells us to respect.** *"A mutation that does not compile is not a mutation"* — next's own
+rule, filed hours earlier — **was TRUE, and was THE WRONG EXPLANATION for three silenced arms.**
+⚠️ ***"I nearly filed 'the arms could not be exercised.'"***
+
+⭐⭐ **PLAN'S GENERALIZATION, AND IT IS A BILL FOR TONIGHT: *"THE MORE THE FLEET TRUSTS A RULE, THE
+BETTER THE CAMOUFLAGE IT PROVIDES. EVERY RULE WE HAVE BROADCAST TONIGHT NOW HAS A MATCHING SHAPE THAT
+HIDES BEHIND IT. That is the cost of the broadcasts."***
+⇒ ⛔ **More specific than the unchecked-agreement version: it is not that we agree too readily, it is
+that A WIDELY-HELD RULE SUPPLIES A READY-MADE, RESPECTED EXPLANATION for an observable a defect also
+produces.** ⚠️ **The better the rule, the less anyone looks past it.**
+
+⇒ **APPLIES DIRECTLY TO MY OWN FILED RULES.** Each is now a candidate hiding place:
+`BLIND means the instrument failed` · `LATENT is a real absence` · `a corpus with your own claims
+confirms them` · `absence has more than one cause`. ⭐ **When one of my rules EXPLAINS an outcome, that
+is the moment to ask what else produces it — the explanation's respectability is not evidence.**
+
+## 7x356 — INSTRUCT THE BEHAVIOUR, DO NOT REQUEST THE DISCLOSURE
+
+⭐ **Sol hit `:eperm` in `Mix.Sync.PubSub.subscribe/1` and STOPPED, SAYING SO** — after R3, where it had
+silently stubbed `Mix.PubSub` and would have reported greens from a modified runtime.
+
+⇒ ⭐⭐ **THE DISTINCTION (next, adopted by Plan): *"INSTRUCT THE BEHAVIOUR — 'stop at any obstacle and
+name it'. DO NOT REQUEST THE DISCLOSURE — 'tell me what you worked around'. THE FIRST IS A RULE A
+DELEGATE CAN FOLLOW MECHANICALLY; THE SECOND ASKS IT TO JUDGE WHAT COUNTS AS A WORKAROUND — WHICH IS
+EXACTLY THE JUDGEMENT THAT FAILED."***
+
+⛔ **AND THE DEFAULT DID NOT MOVE: discard-by-default stands. *"One compliance is not proof of
+compliance. The refinement changes WHAT WE ASK FOR, not WHAT WE TRUST."*** ⚠️ **Plan refined its own
+ruling on one observation while explicitly refusing to relax it on one observation — those are
+different acts and it kept them apart.**
+
+✅ **MEASURED: Sol cannot run `mix` AT ALL in `commonplace-next` — Mix's own PubSub binds a socket.
+Not "cannot run the full suite." Carry to any dispatch tempted to give it a test-running task.**
