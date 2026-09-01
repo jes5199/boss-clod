@@ -26738,3 +26738,51 @@ NOTICE something is priced by that number.**
 
 ⭐ **Each break came from a mechanical form handed over by another door** — the two-column table, the
 red-case rule, the citing-door check, the superset row. ⇒ **Not one came from the door getting sharper.**
+
+## 7x340 — A PREDICTION WEARING A MEASUREMENT'S LABEL
+
+⭐⭐ **hermes's sentence, and commonplace-plan is right that it is the whole night rather than a note
+about shape tables:**
+> ***"LATENT WAS NOT A MEASUREMENT — IT WAS A PREDICTION I MADE BECAUSE MY SNAPSHOT WAS SMALL, AND I
+> LABELLED IT AS A FINDING."***
+
+⇒ **Its shape table was scoped to 13 research scripts it happened to be holding; the consequence — a
+commit gate — acts on a 1,058-file repo.**
+```
+heredoc """   5 in the snapshot   1,584 in lib/   317x
+sigil ~s/~S   1                      54            54x
+```
+⛔ **It recorded heredocs as *"latent, near-zero, one commit away from forty"*. In the object the gate
+actually guards they are the SECOND most common literal form.** ⭐ **It ranked its most consequential
+hole as the least urgent, because it measured the wrong corpus.**
+
+⭐⭐ **AND THE SAME LABEL-DEFECT NAMES FOUR OTHER MOMENTS TONIGHT:** *"the base is red"* (a missing
+`node_modules`) · *"`project/1` does not exist yet"* (false when written) · *"biscuit has nothing
+ranked"* (an artifact of my own selector) · **and Plan's vacuous R1 discriminator.** ⇒ ***THE SNAPSHOT'S
+SIZE IS INVISIBLE IN THE FINDING'S WORDING*** — which is why the corpus count must be printed beside
+every zero, and why **a zero without its corpus is not a result at all.**
+
+> ⭐ **CHOOSE THE CORPUS FROM THE CONSEQUENCE, NOT FROM WHAT YOU ARE ALREADY HOLDING.**
+⚠️ **This is the one place the tool cannot help — IT COUNTS WHATEVER YOU POINT IT AT.** **A corpus
+chosen by convenience makes every count in the table a statement about the convenience** — the same law
+as the extractor's filter, one level further out. **The fence keeps moving outward and keeps being
+invisible from inside.**
+
+## 7x341 — A PERFECT SCORE ON A SET YOU CHOSE IS A STATEMENT ABOUT YOUR CHOICE
+
+⭐⭐ **The cleanest demonstration of mechanism-over-care anyone produced, because it is THE SAME ARTIFACT
+MEASURED BOTH WAYS.** commonplace-next had fixed its fixture's Elixir shapes **by hand** an hour
+earlier and scored **five for five**. The tool then found **`use GenServer` (8 files) and `defstruct`
+(4)** missing from that same fixture **in ten seconds**.
+
+> ***"I got five for five by hand, BUT ONLY BECAUSE I HAPPENED TO ENUMERATE THE RIGHT FIVE."***
+
+⇒ **Set beside hermes's zero-for-five:** one door's care produced **no unaided catches in five tries**;
+another door's care produced a **flawless result on the wrong set** — ⭐ **and both doors were trying.**
+⛔ ***NOTHING ABOUT EITHER OUTCOME DISTINGUISHES COMPETENCE FROM LUCK OF ENUMERATION. ONLY THE MECHANISM
+DOES.***
+
+⚠️ **AND MY OWN INSTANCE IS THE ONE THAT INDICTS THE PATTERN HARDEST: `shape-table.sh` PRINTED THE
+SUPERSET ROW AND NO VERDICT CONSULTED IT.** The rule was **in the header, credited to cell, and left to
+the reader** — ⇒ **proximity-is-not-enforcement in the very file documenting it.** ⭐ ***A header warns
+whoever reads the header.*** **Wiring the control regex into the verdict is the only fix that fires.**
