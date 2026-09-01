@@ -27415,3 +27415,43 @@ is how a bad premise survives its own refutation.**
 
 📌 **This is CLAUDE.md's fatigue-shaped-decline rule firing correctly for the first time tonight:
 I asked for the mechanism, the mechanism was measurably false, and the door withdrew it ITSELF.**
+
+## 7x368 — A DISPATCH HAS THREE PARTS: WHAT, WHEN, AND WHICH DOOR  (commonplace-plan, row 263)
+
+⛔ Plan ranked `S-SECRET` *"dispatchable now, PARALLEL to R9"*. **`commonplace-next` has ONE checkout and
+next is in it — so "parallel" was impossible.** ⇒ ***"A claim about the doors and the working checkout
+that I made WITHOUT MEASURING EITHER — same class as everything else tonight: A SCHEDULING WORD
+ASSERTED FROM A RANKING DOCUMENT RATHER THAN FROM THE BOX."***
+
+⭐⭐ **THE STANDING FORM: *"NAMING TWO AND LEAVING THE THIRD IMPLICIT IS EXACTLY HOW 'PARALLEL' GOT
+ASSERTED ABOUT A SINGLE-CHECKOUT REPO."*** **Extends rows 257–258 by one term: a queue position is not
+a dispatch · a dispatch is not a door assignment.**
+
+⭐⭐ **AND THE REASON ASKING BEAT GUESSING, WHICH IS THE PART I WOULD HAVE MISSED: *"THAT IS THE THIRD
+TIME IN TWO HOURS A DOOR HAS DECLINED TO COMPLETE ONE OF MY UNDER-SPECIFIED INSTRUCTIONS, AND EACH
+TIME THE MISSING TERM WAS MINE. I would rather have that pattern named than quietly compensated for —
+IF YOU HAD GUESSED, YOU WOULD HAVE GUESSED CORRECTLY, AND I WOULD NEVER HAVE FOUND OUT THAT I WAS
+LEAVING THE TERM OUT."***
+⇒ ⛔ **COMPETENT COMPLETION OF AN UNDER-SPECIFIED INSTRUCTION HIDES THE UNDER-SPECIFICATION.** ⚠️ **The
+better I am at inferring the missing term, the longer the defect survives — and it survives in the
+DISPATCHER, where I cannot see it.** ⭐ **Ask even when the answer is obvious, when the asking is cheap
+and the instruction came from another door.**
+
+## 7x369 — A CHECKLIST DOES NOT MARK THE DIFFERENCE BETWEEN "THE CONDITIONS" AND "THE CONDITIONS I THOUGHT OF"
+
+Plan offered next TWO branches for a provenance trace; **there were THREE.** ⇒ **Its own boundary —
+*"no publicly reachable deployment while `CREDENTIALLESS LOGIN ROUTES` is non-zero"* — WOULD HAVE GONE
+GREEN ON ITS NAMED ITEM WHILE ITS SUBJECT WAS STILL FALSE**, because a hardcoded `secret_key_base`
+forges sessions independently of that literal.
+
+⇒ ⭐⭐ **AN UNENUMERATED BOUNDARY LOOKS SATISFIED THE MOMENT ITS NAMED ITEMS GO GREEN.**
+⇒ ⭐ **A boundary stated as a list of conditions IS A CLAIM THAT THE LIST IS COMPLETE, and nothing in
+the artifact marks the difference between "these are the conditions" and "these are the conditions I
+thought of."**
+✅ **THE HONEST FORM: named conditions PLUS AN ACKNOWLEDGED REMAINDER, in the artifact rather than in
+the author's intent — and an enumeration pass WHOSE OUTPUT IS A LIST, NOT A YES.**
+
+⭐ **AND THE DEFENCE-IN-DEPTH TEST THAT CAME OUT OF THE SAME EXCHANGE: *"A LAYER IS ONLY KNOWN TO BE
+DEPTH IF YOU CAN NAME THE FAILURE BELOW IT THAT IT SURVIVES."*** ⚠️ **Usually the phrase is an argument
+from vagueness; here the broken layer (cookie integrity, by a published constant) and the surviving one
+(admission, once the id is derived) can both be named.**
