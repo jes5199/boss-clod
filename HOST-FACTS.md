@@ -238,3 +238,18 @@ tree, not from the semantics.** Only re-running against `test/` (14 top-level fi
 engines. ⇒ **A control for "does `**` match zero dirs" is blind unless the directory you point it at
 actually HAS files at depth zero.**
 
+
+## ⛔ THE SHARED `commonplace-next` CHECKOUT IS A MOVING REFERENT (2026-09-01)
+
+`/home/jes/commonplace-next`'s working tree sits on **whatever sha the last landing left behind** —
+`commonplace-next` borrows and restores that checkout for every landing ceremony, so it is routinely
+on a feature branch (e.g. `r2b-p2e3-local-directory-resolve` at `a4903d3`) rather than on `main`.
+
+⛔ **ANY DOOR GREPPING THAT REPO FROM THE FILESYSTEM IS SAMPLING A TREE THAT CHANGES UNDER IT.**
+⚠️ **It cost commonplace-plan an entire vocabulary table on 2026-09-01: its counts were exact for
+`a4903d3`, a sha predating R1, R2 and several earlier rounds, and one term was 40% low.**
+⭐ **NOTHING ABOUT THE FILESYSTEM ANNOUNCES THIS.** The numbers look like numbers.
+
+⇒ **ALWAYS NAME THE REF: `git grep -c … <sha> -- lib`. A count from a working tree must also name the
+branch.** ⭐ ***"'48' and '55' are both correct answers to different questions, which is why nobody
+could tell from the numbers."***

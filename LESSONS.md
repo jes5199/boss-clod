@@ -27066,3 +27066,43 @@ thing twice, five hours apart, in gentler words the second time."***
 ⇒ ⭐⭐ **WHY THE SIGNAL HAD TO BE ROUTED AT ALL: *"A QUEUE IS A COMPLETE RECORD OF WHAT WAS DECIDED AND
 CARRIES NO SIGNAL ABOUT WHETHER THE DECIDING FELT LIKE PROGRESS TO THE PERSON IT IS FOR."*** **Every
 defect tonight got a commit; his impression of the pace got nothing.**
+
+## 7x351 — THE SAFE DIRECTION IS THE UNAUDITED ONE  (commonplace-plan, row 223)
+
+⛔ **Plan grepped a WORKING TREE instead of a ref, and that tree sat at `a4903d3` — the shared
+checkout's sha, predating R1, R2 and several rounds. Its whole R4–R7 vocabulary table was taken at the
+wrong referent.** ⚠️ `issuer` read 3 and is 5 — **40% low on the one term it singled out as worth as
+much as the warnings.**
+
+⛔⛔ **BUT THE ROW IS THE SECOND ERROR: ITS OWN EXPLANATION OF THE FIRST WAS ALSO WRONG.** It blamed
+`lib/**/*.ex`. **Every lib file there is nested, so that pathspec returns 55 too — the pathspec was
+never the cause.** ⇒ ⭐ ***"I had a prior about my own failure modes, a symptom that fit it, and I
+matched them without checking — I FILED A DEFECT AGAINST MYSELF THAT I DID NOT COMMIT."***
+
+⭐⭐ **AND THE CLASS, WHICH PLAN NAMED FROM TWO INSTANCES INCLUDING MINE:**
+> ***"A wrong diagnosis that agrees with a story you already believe is the one nobody re-checks —
+> AND A STORY ABOUT YOUR OWN CARELESSNESS IS THE MOST BELIEVABLE STORY YOU HAVE. Nobody argues with
+> it, least of all you, AND IT READS AS RIGOUR."***
+⚠️ **Same direction as my pessimistic ratio an hour earlier: *"you underclaimed and it felt like
+honesty; I over-blamed and it felt like discipline. BOTH ARE ERRORS THE DISCIPLINE REWARDS, AND
+NEITHER GETS AUDITED."***
+⇒ ⛔ **I have a whole file about not overclaiming, and self-blame is its blind spot: the direction my
+own discipline rewards is the direction I never measure.**
+
+⭐ **AND THE TWO SENTENCES PLAN REFUSED TO COLLAPSE: *"the rulings survive, and the evidence under
+them was weaker than I presented. THOSE ARE DIFFERENT SENTENCES AND BOTH BELONG IN THE RECORD."***
+
+## 7x352 — EVERY COUNT NAMES ITS SHA  (commonplace-next, adopted row 223)
+
+⇒ **A measurement against a repo CITES A REF IN THE COMMAND — `git grep … <sha> -- lib` — never the
+working tree. A count taken from a working tree names the branch too.**
+⭐⭐ **WHY NOBODY COULD CATCH IT FROM THE NUMBERS: *"'48' and '55' are both CORRECT ANSWERS TO
+DIFFERENT QUESTIONS."*** ⇒ **Same family as the parser field: a measurement that does not name its
+referent CANNOT BE FALSIFIED BY A READER.** ⛔ **Omitting the ref silently selects whatever the last
+round left behind.**
+
+⭐⭐ **AND THE TWO-COLUMN PREMISE CHECK EARNED ITS KEEP BEFORE ITS FIRST USE, IN THE RAREST WAY A
+MECHANISM CAN:** `role 3 → 4`, the +1 being next's own R2 `Membership`, **visible without memory** —
+*"and it AGREES WITH THE SELF-CITATION CONTROL I RAN BY HAND an hour ago."*
+⇒ ⭐ **THE MECHANICAL FORM REPRODUCED THE JUDGEMENT IT REPLACES.** ⚠️ **Plan: that is stronger
+evidence than a mechanism catching something care missed, and rarer.**
