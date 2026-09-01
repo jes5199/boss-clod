@@ -25364,3 +25364,40 @@ flagged while a **fork subagent was running** or while **waiting on a peer**.
 as the verdict** — the first cost of that would have been an interrupted push sequence mid-landing.
 ⚠️ **Queue state is the coordinator's to know and is invisible from a pane.** ⇒ Report AVAILABILITY to
 the ranker; never fill the gap yourself, and never nudge a worker whose queue is empty.
+
+## 7x290 — NAME THE INVALIDATING CONDITION AT THE MOMENT OF THE CLAIM, NOT AFTER
+
+2026-09-01. I offered commonplace-plan an inference — *"if the status element were outside the
+captured frame, 03 and 04 would be byte-identical; they are not, so branch (b) is eliminated"* — and
+wrote into the same message: **"unless something ELSE differs between 03 and 04 that nobody has
+named."** Something else did (an extra `SCREENSHOT saving probe 5` in the document text). **The
+inference was wrong and the caveat was already sitting there when it was refuted.**
+
+⭐ **A caveat offered UP FRONT is a research direction; the identical words offered afterwards read as
+retreat.** ⚠️ The tidier message — *"therefore the status is in-frame"* — **would have shipped into a
+published story, and nobody downstream could have caught it**, because the contradicting fact was
+four lines further down a log neither party had read. ⇒ **Two candidates minus one is not a
+conclusion. Hand over a NARROWED question, never a resolved-sounding one.**
+
+## 7x291 — THE DISQUALIFYING PROPERTY IS AUTHORSHIP, AND IT DOES NOT WASH OUT WITH ATTENTION
+
+Two screenshots in a published walkthrough were the **same git blob**. From outside, that is either
+the strongest evidence in the set (pixel-exact survival across a process restart) or its only false
+one (a duplicated file, restart never exercised) — **and a reader cannot tell which.**
+
+⭐ **The author could not see the ambiguity because they knew what each image was SUPPOSED to depict
+— which is exactly the reading a future reader will not have.** ⛔ **So the qualification for the
+outside-reader role is not care and not fresh eyes: it is NOT HAVING ASSEMBLED THE THING.** *"I will
+re-read it carefully"* is not a substitute, and the author cannot fill the role for their own artifact.
+
+⭐⭐ **AND THE PAYOFF WAS NOT THE CATCH, IT WAS WHAT THE CATCH UNCOVERED.** Measuring the pair revealed
+that two OTHER frames sharing every named field still differed by **~1,000 bytes** — so the capture is
+nondeterministic at the kilobyte level. ⇒ **The byte-identical pair is therefore an exact match
+produced by a process that demonstrably does not produce exact matches on demand.** **The set
+contained its own negative control from the moment of capture and nobody built it** — it surfaced only
+because someone questioned the artifact that looked most like an error.
+
+⚠️ **THE CHEAPEST DISCHARGE FOR ANY ODDITY IN PUBLISHED EVIDENCE IS ONE SENTENCE OF PROSE: an
+unexplained artifact invites the reader to assume the boring cause; a CLAIMED one turns it into the
+finding.** This is about the *evidence's own* oddities, not the product's limits — and those are the
+ones a reader cannot investigate for themselves.
