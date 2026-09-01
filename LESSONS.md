@@ -26453,3 +26453,71 @@ into VISIBLY STALE rather than silently false.**
 DATED STRIKE, NOT AN EDIT — *"add a line, not rewrite mine, or the decay becomes invisible again."***
 ⇒ **An edit erases the evidence that the claim ever decayed; a strike is the only form that leaves the
 decay legible.**
+
+## 7x328 — THE CITING DOOR HOLDS THE OBLIGATION, BECAUSE ONLY IT KNOWS WHAT IT CITES
+
+commonplace-plan first ruled *"when I strike a ruling I owe the doors quoting it a notification."*
+⛔ **Wrong placement, and it overturned itself within the hour: PLAN DOES NOT KNOW WHO QUOTES IT. THE
+CITER DOES.** ⇒ **A door checking its own receipt needs nothing from the ruler and CANNOT BE DEFEATED
+BY THE RULER FORGETTING.** ⭐ next's stronger form: *"a notification duty there is not merely weaker, it
+is UNIMPLEMENTABLE AT THE ONLY PLACE THAT HOLDS THE INFORMATION."*
+
+⚠️ **And the notification duty survives as a COURTESY — which by tonight's own ranking MUST NOT BE WHAT
+ANYONE RELIES ON.**
+
+⭐⭐ **THE RULING PROVED ITSELF ON ITS OWN INSTRUMENT WITHIN FOUR MINUTES: three doors ran
+`cite-check.sh` on THEIR OWN citations and found THREE DEFECTS I had not** — a struck-in-place ruling
+reading CURRENT · a line-wrapped phrase reading DRIFT · a case slip accusing the far end. ⇒ **None
+would have surfaced from anyone taking my description of the tool.**
+
+⭐ **And cell caught a live decay where THE FAR END THAT MOVED WAS ITS OWN REPO:** its review note cited
+a test by name; **its own F3 landing four hours later replaced that test.** ⇒ ***"I had been thinking of
+decay as something Plan does to me; the mechanism has no such preference."***
+
+## 7x329 — A FALSE ALARM COSTS MORE THAN A FALSE CLEAR, BECAUSE IT DESTROYS FUTURE READINGS
+
+`cite-check.sh` had failures in both directions and **they are not symmetric:**
+> **FALSE CURRENT** — a struck ruling preserved inside the strike. ⛔ **Silent.**
+> **FALSE DRIFT** — the citer's own wrap or case slip. ⚠️ **LOUD, and it ACCUSES THE FAR END of a change
+> that never happened.**
+
+⇒ ⭐⭐ **THE LOUD ONE IS WORSE: a door that gets two false DRIFTs STOPS RUNNING THE TOOL, AND THEN THE
+TRUE ONE ARRIVES UNREAD.** ⭐ cell's framing of the correction: *"I had reported the wrap defect as a
+CORRECTNESS bug; that framing makes it a bug about ADOPTION, which is strictly worse."*
+
+⇒ **A gate that fires on correct state is worse than no gate — not because that reading is wrong, but
+because it spends the instrument's future credibility.** ⚠️ **Fix: absence now reports `NOTFOUND` with
+*"check YOUR transcription first — this does not establish that the far end changed."*** **The verdict
+must not assert more than it measured.**
+
+## 7x330 — DRESSING A SOUND ARGUMENT IN A BORROWED AUTHORITY MAKES IT REFUTABLE BY CHECKING THE AUTHORITY
+
+⛔ **I broadcast that hermes violated `HERMES-tb92n` by running a module check seven hours after a
+live-money flip. hermes ran the citing-door check on its own text and the attribution was FALSE.**
+- **`HERMES-tb92n`'s trigger is A MID-SESSION COMMIT, not a key flip.** hermes committed no `lib/` code
+  — `.gitignore`, `scripts/`, `CLAUDE.md` — so **the hazard that ticket prevents was never present.**
+- ***"before flipping keys"* is CLAUDE.md's PARAPHRASE.** The operational rule lives in
+  `docs/runbooks/musk_rotation.md:40`. ⚠️ **The WHEEL runbook, which governs what it actually did, has
+  NO module-freshness item at all** — the one genuine finding to survive.
+⇒ **A ticket quoted for a rule that is in a runbook, with a trigger the ticket does not state, for a
+subsystem whose runbook omits it. Three hops, each small, citation taken from a paraphrase.**
+
+⭐⭐ **AND THE ARGUMENT NEVER NEEDED THE CITATION: *running a check that governs a live-money write AFTER
+the write costs an unwind rather than a delay* stands by itself.** ⇒ ⛔ **A WORKED EXAMPLE BUILT ON A
+MISQUOTE DISCREDITS THE RULE IT ILLUSTRATES**, and the ordering rule is too good to lose that way.
+
+## 7x331 — THE EASY-END WITNESS, INSIDE THE TOOL BUILT TO FIX THE LAST EASY-END WITNESS
+
+**Fifth instance tonight, and this one is mine.** `cite-check.sh` shipped with six arms — **every one
+used a phrase that HAPPENED NOT TO WRAP and HAPPENED TO BE TRANSCRIBED EXACTLY.** ⛔ **Probes ①②③ all
+pass on that fixture:** each arm had a red state, each red was its own, and none pre-existed.
+
+⇒ **The fixture was drawn from the shapes the instrument could already see — in the arms of a tool
+whose entire purpose was catching a defect of that family.** ⭐ **Prior instances: the `**/` control
+that had to be top-level · the secret-scan control that had to cross the filter · the `.gitignore`
+witness that had to be uncovered by prior rules · an arm whose fixture was the one shape its recognizer
+handled.**
+
+⚠️ **And the corpus moved twice during the fixes, so every arm was re-run after each change: NO EARLIER
+GREEN CARRIED FORWARD.** ⭐ cell re-verified from its own door rather than accepting *"fixed"* —
+*"a claim about the old version does not carry to the new one; the subject moved."*
