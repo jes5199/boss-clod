@@ -216,3 +216,25 @@ item is only a control if the failure mode could actually remove it. ⚠️ Note
 **48 = 48** — it has no top-level `lib/*.ex`, so the bug is invisible there. **A repo where the trap
 cannot fire is not evidence that the trap does not exist.**
 
+### ⭐⭐ AND THE TWO GLOB ENGINES WE MIX DISAGREE (commonplace-biscuit, 2026-09-01 — reproduced here)
+
+```
+~/commonplace-biscuit          git ls-files 'test/*_test.exs'      → 14
+                               git ls-files 'test/**/*_test.exs'   →  0
+                               Path.wildcard("test/*_test.exs")    → 14
+                               Path.wildcard("test/**/*_test.exs") → 14   ← OPPOSITE
+```
+⛔ **`**` MATCHES ZERO DIRECTORIES IN ELIXIR'S `Path.wildcard` AND ONE-OR-MORE IN A GIT PATHSPEC.**
+Same literal string, same box, same directory, **different corpora.**
+
+⚠️ ⇒ ***"We use `**` everywhere and it works"* IS NOT EVIDENCE FOR THE GIT CALL SITES** — the Elixir
+ones were carrying the pattern's reputation. An Elixir codebase can be full of correct `**` globs while
+every `git ls-files` beside them is silently short.
+
+⭐ **AND A NON-DISCRIMINATING CONTROL WAS NEARLY SHIPPED FOR THIS ONE TOO:** testing
+`Path.wildcard("lib/**/*.ex") → 7` against `lib/*.ex → 0` reads as *"7 > 0, works"* — but that `lib/`
+has **no top-level `.ex` files**, so zero-directory matching was never exercised. **The 0 came from the
+tree, not from the semantics.** Only re-running against `test/` (14 top-level files) separated the two
+engines. ⇒ **A control for "does `**` match zero dirs" is blind unless the directory you point it at
+actually HAS files at depth zero.**
+
