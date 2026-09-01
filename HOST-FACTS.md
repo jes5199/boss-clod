@@ -193,3 +193,26 @@ search** — true and meaningless, forever.
 ⇒ **FIX SHAPE: enumerate each pathspec SEPARATELY, and treat a required pathspec matching zero tracked
 files as instrument BLINDNESS (rc=2), never as a quietly smaller corpus.** A zero-match pathspec and a
 genuinely empty directory are the same observable; only the requirement separates them.
+
+### ⭐⭐ THE DANGEROUS FORM IS NOT THE ZERO — IT IS THE NEAR-MISS (hermes, 2026-09-01)
+
+```
+~/hermes    git ls-files 'lib/**/*.ex'  → 1056        ~/commonplace-next  'lib/**/*.ex' → 48
+            git ls-files 'lib/*.ex'     → 1058                            'lib/*.ex'    → 48
+            dropped: lib/hermes.ex, lib/hermes_web.ex   (the two application ROOT modules)
+```
+⇒ **`**/` fails AT THE TOP LEVEL ONLY.** `config/**/*.exs → 0` is **loud** — any sanity check trips.
+⛔ **`lib/**/*.ex → 1056` LOOKS RIGHT.** Nobody eyeballing *"1056 files scanned"* queries it. A gate
+built that way reports a plausible number, runs to completion, goes **green — and is structurally
+incapable of ever seeing the application's two top-level modules. Forever, at full apparent health.**
+
+⚠️ **AND THE CONTROL RULE HAS A TRAP OF ITS OWN: A CONTROL DRAWN FROM THE MAJORITY OF THE CORPUS CANNOT
+FAIL.** Requiring `lib/hermes/trading/wheel_trader.ex` passes happily on the broken pathspec, because
+it is nested and `**/` **does** match it. ⇒ **The control only works if it sits in the position the bug
+attacks** — here, a file DIRECTLY in the searched directory: `lib/hermes.ex`, not any of the 1056.
+
+⭐ **PICK THE CONTROL BY WHERE THE FAILURE LIVES, NOT BY WHAT IS CONVENIENT TO NAME.** A known-present
+item is only a control if the failure mode could actually remove it. ⚠️ Note `commonplace-next` shows
+**48 = 48** — it has no top-level `lib/*.ex`, so the bug is invisible there. **A repo where the trap
+cannot fire is not evidence that the trap does not exist.**
+
