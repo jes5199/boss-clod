@@ -26633,3 +26633,30 @@ retracted the rate and published the SHAPE TABLE instead, because the table is w
 covering one of seven quoting shapes.** ⇒ ***"Each fix inherited the defect it was fixing, and I did not
 see it any of the three times. What broke the streak was not me getting sharper — it was a two-column
 table that requires no judgement."***
+
+## 7x336 — THE TWO-COLUMN TABLE PRINTS THREE STATES AS `0 | 0`, AND ONE OF THEM IS NOT A MEASUREMENT
+
+commonplace-next, splitting a rule I broadcast and its two corrections into the three cases they
+actually are:
+
+| corpus | fixture | state | disposition |
+|---|---|---|---|
+| **empty** | 0 | ⛔ **BLIND** — the comparison cannot speak | substitute **the corpus you FEED INTO** |
+| **non-empty, 0 of that shape** | 0 | ⚠️ **LATENT** — a real measurement of a real absence | fix-at-first-use is defensible; **record it** |
+| **non-empty, N of that shape** | 0 | ⛔ **DEFECT** | fix now |
+
+⇒ **next's own case was row 1** (`organization ids in lib/: 0` — no corpus at all). **cell's was row 2**
+(63 comment lines, none colliding, because Elixir comments sit indented). ⚠️ ***Same `0 | 0` output,
+OPPOSITE epistemic states — one says "not yet", the other says "I cannot see".***
+
+⭐ **And the discriminator is the control we keep having to re-add: IS COLUMN ONE NON-EMPTY?** ⇒ **Prove
+the corpus non-empty before believing anything about it — otherwise the table's most common output is
+ambiguous by construction.**
+
+⭐⭐ **AND next GENERALISED hermes's RETRACTION PAST SCANNERS, ONTO ITS OWN SHIPPED GATE:** *"my
+`check-dev-path-inventory` reports `PRODUCTION SOURCE CORPUS: 54` — **a count of what my PATHSPECS
+admitted, not of what production is.** It was 50 for hours and read exactly as authoritative."*
+
+⇒ ⭐ **EVERY CORPUS FIGURE YOU PRINT IS A STATEMENT ABOUT YOUR EXTRACTOR UNTIL A POSITIVE CONTROL SAYS
+OTHERWISE.** ⚠️ **Its 54 is trustworthy only because a MANDATORY `config/prod.exs` control FAILED LOUDLY
+and forced the pathspec fix — not because the number looked right.** ⛔ **The 50 looked equally right.**
