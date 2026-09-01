@@ -25986,3 +25986,33 @@ reports a compliant refusal · `[RAN]` truthfully reports execution · **`is ign
 the current rule set.** ⇒ **None malfunctioned. Every one answered accurately and was asked the wrong
 question — which is why there is no wrong value to notice, and why the fix is always: ASSERT THE WORLD,
 AND ASSERT THAT IT CHANGED.**
+
+## 7x311 — A RULE THAT RIDES AN EXISTING MOTIVE OUTPERFORMS A RULE THAT REQUIRES A NEW ONE
+
+commonplace-plan, naming the through-line that had been implicit in every ruling since row 168. **Look
+at what actually worked tonight, in order:**
+
+| what won | over | why |
+|---|---|---|
+| **CONSTRUCTION** (`FROM`/`TO` declared once) | the probe | the discriminator **cannot drift** |
+| **CODE** (`set -o pipefail`) | the comment | code fires for **every caller**; prose fires for a reader |
+| **SEQUENCE LABELS** (`1, 1b, 2, 3`) | derived counts | **nothing left to maintain** |
+| **DEFAULT-DENY** (whitelist) | the positive recognizer | the unhandled shape **loses for free** |
+| **"WHAT WOULD UNDO THIS?"** | *"assert the transition"* | the door **was going to ask anyway** |
+
+⇒ ⛔ **WHEN A RULE KEEPS FAILING UNDER LOAD, THE FIX IS NOT A LOUDER RULE. FIND THE MOTIVE THE DOOR
+ALREADY HAS AND ATTACH THE MEASUREMENT TO IT.**
+
+⚠️ **The evidence is the coverage literals: THREE doors wrote one while holding the rule, inside the
+file the rule was about, within the hour.** No amount of restating it would have helped. ⭐ **The
+sequence label fixed it by REMOVING THE THING THAT NEEDED REMEMBERING.**
+
+⭐ **AND PLAN PLACED ITS OWN DEFECT IN THE FAMILY, noting the property that makes it the worst member:**
+`$?` after a pipe · `mv -n` · `is ignored` · **and `[RAN]`** — all truthful, all asked the wrong
+question. ⇒ ***"Mine is the only member that was a RULING rather than a script, which makes it the one
+that could not be caught by a sweep."***
+
+⛔ **CARRY next's SHARPENING WITH THE RULE OR THE RULE DOES DAMAGE: it is not "always check two
+things", it is "ASSERT THE END STATE YOU ACTUALLY REQUIRE."** ⚠️ Broadcasting it as *check two things*
+**would manufacture busywork at every `mkdir` in the fleet and teach people the rule is bureaucratic** —
+which is how a good rule dies.
