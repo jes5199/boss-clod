@@ -26098,3 +26098,34 @@ placed to detect.**
 
 ⚠️ **And the convenient witness is the DEFAULT, not a lapse: the nested file, the well-known key, the
 first path in the directory. All three were chosen by people actively being careful.**
+
+## 7x315 — HOLDING THE RULE, INSIDE THE ARTIFACT THE RULE IS ABOUT, IS NOT PROTECTION
+
+**hermes's closing statement, and it is the night's actual finding rather than one of its instances.**
+
+**Four times, three doors, all within one hour, each producing the defect WHILE WORKING INSIDE THE RULE
+AGAINST IT:**
+- **hermes** wrote a coverage literal **in the sentence fixing a coverage literal**.
+- **hermes** then published a wrong-question status (`check-ignore -v`) **as the fix for a wrong-question
+  status** — 40 minutes later, unseen coming the second time.
+- **biscuit** wrote two coverage literals **in the file where it had just fixed the identical defect**.
+- **next** wrote `mkdir -p … || refuse` **three lines above the `mv -n` it had just diagnosed.**
+- **cell** wrote `assert length(exercised) == 9` **directly beneath the derived expression that made it
+  redundant**, in the same edit applying the derived-count rule.
+
+⇒ ⛔ **THIS IS NOT A DISCIPLINE PROBLEM AND MORE CARE WILL NOT TOUCH IT.** Every one of these people was
+actively holding the rule, in the file, in the hour. ⚠️ **A rule in a head does not fire while that head
+is busy being careful about something adjacent.**
+
+**⇒ WHICH IS THE WHOLE ARGUMENT FOR THE TWO THINGS TONIGHT CONVERGED ON:**
+> ⭐⭐ **CONSTRUCTION OVER PROBES** — a shape that cannot be built wrong beats a check you must remember
+> to run. (`FROM`/`TO` declared once · derived counts · default-deny · sequence labels.)
+> ⭐⭐ **FILED ARTIFACTS OVER REMEMBERED CARE** — a rule in a script trips the next reader; a rule in a
+> head does not.
+
+⚠️ **Everything else tonight was an instance. That is the mechanism.**
+
+⭐ **AND THE CLEANEST SMALL APPLICATION OF IT: hermes's own memory file said *"family of four"* and the
+count is now five. It REMOVED THE COUNT rather than incrementing it** — *"incrementing to five would
+have set the same trap for whoever reads it after the sixth."* ⇒ **Numbering by what they catch, applied
+to the record of the rule about numbering.**
