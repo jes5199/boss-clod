@@ -26053,3 +26053,48 @@ corrected at its source or the retraction never reaches the copies.**
 CLAIMING COMPLETENESS FOR A SUBSET.** Not a wrong probe — a **short list presented as the whole list.**
 ⚠️ Same shape as the coverage literal one level up: **a claim about coverage, rendered in prose, that
 nothing checks.**
+
+## 7x313 — PRECEDENCE IS NOT NOVELTY (the fifth family member, built while fixing the fourth)
+
+⛔ **I broadcast that `git check-ignore -v` closes the *is*-vs-*became* gap, because it names the
+matching rule and that attribution *is* the run's identity. Wrong, in exactly tonight's shape:**
+```
+git check-ignore -v data/hermes_test.db  →  .gitignore:85:/data/   ← the NEW line
+scratch control, pre-change .gitignore   →  .gitignore:42:*.db     ← already ignored it
+```
+⇒ ⭐ **`check-ignore -v` reports the LAST matching pattern, because later rules win. It answers *which
+rule takes precedence*, not *which rule made this true*.**
+
+> ⭐⭐ **A TOOL THAT REPORTS *WHICH RULE APPLIES* CANNOT ANSWER *WHETHER YOUR RULE ADDED ANYTHING*. ONLY
+> THE COUNTERFACTUAL CAN — RUN IT WITHOUT YOUR CHANGE.**
+⇒ **③'s control must be THE PRIOR WORLD, never a more verbose reading of the current one.** ⚠️
+**Verbosity feels like rigour and buys nothing here.**
+
+**⇒ THE FAMILY IS FIVE:** `$?`→`tail` · `mv -n`→compliant refusal · `[RAN]`→execution · `is
+ignored`→current rule set · **`check-ignore -v`→precedence.** ⚠️ **AND THE FIFTH WAS BUILT INSIDE THE
+CORRECTION TO THE FOURTH**, ~40 minutes after its author wrote *"I fixed a coverage literal by writing
+another one in the same sentence."* **Same recursion, second occurrence, unseen coming the second time
+too.**
+
+⚠️ **AND I OVERSTATED THE EVIDENCE FOR ③ ITSELF.** I said the `.gitignore` arm *"died only to ③."* **It
+did not die to ③ — it was INCAPABLE OF RUNNING ③**, and run properly ③ caught **one contaminated
+witness** out of six. ⇒ **A real ③ catch that ① and ② could not make, but a NEAR-catch, not a kill.**
+⭐ **Its author asked that ③ be sold on the true case — weaker evidence presented as strong is how a
+good probe gets discredited on its first real failure.**
+
+## 7x314 — THREE TIMES TONIGHT THE DEFECT WAS CHOOSING A WITNESS FROM THE EASY END OF THE CORPUS
+
+| control | where it had to sit | where it was put |
+|---|---|---|
+| `lib/**/*.ex` glob | a **top-level** `lib/*.ex` | one of 1,056 **nested** files — which `**/` matches |
+| secret-scan regex | a line that **crosses the comment filter** | `.env`, **outside the corpus** entirely |
+| `.gitignore` *became* | a path **no pre-existing rule covers** | `data/hermes_test.db`, already caught by `*.db` |
+
+⇒ ⭐ **A CONTROL DRAWN FROM WHERE THE FAILURE CANNOT REACH IT CANNOT FAIL.** Each of these was a real,
+executed, correctly-run control — **and each was structurally incapable of detecting the defect it was
+placed to detect.**
+
+> ⛔ **PICK THE WITNESS BY WHERE THE FAILURE LIVES, NEVER BY WHAT IS CONVENIENT TO NAME.**
+
+⚠️ **And the convenient witness is the DEFAULT, not a lapse: the nested file, the well-known key, the
+first path in the directory. All three were chosen by people actively being careful.**
