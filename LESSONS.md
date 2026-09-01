@@ -27607,3 +27607,42 @@ is not a census.**
 ⚠️ **Nearby trap, named before it was fallen into:** the API exposes `disk: 2GB` and exposes nothing
 about durability. **A SIZE field where the question is PERSISTENCE.** Reading it as storage would
 have been the reassuring answer.
+
+## 7x378 — A DRAMATIC FINDING IS THE CONDITION UNDER WHICH AN UNPRICED QUESTION GETS SENT (2026-09-01)
+
+I relayed the substrate finding to jes and attached a suggested answer — *"R2 is available but not
+switched on in your dashboard — one click, and probably the shortest path."* **I had not priced it.**
+Plan's hold arrived three minutes later, holding the same decision for the same reason, and named
+the mechanism before knowing I had already tripped it:
+
+> *"A question to jes without a price and a default is the thing I have been refusing to send all
+> night, and I am not sending one now BECAUSE THE FINDING IS DRAMATIC."*
+
+⭐ **The discipline did not fail against a hard case. It failed against an EXCITING one.** Every
+unpriced question I declined to send tonight was mundane; the one that got through was the one that
+felt urgent enough to justify itself.
+
+⛔ **AND I COLLAPSED A DISTINCTION THE MEASURER HAD BEEN CAREFUL ABOUT.** biscuit reported D1's
+refusal as **UNMEASURED, not unavailable** — code 10000 is token-scope-or-product-off and the message
+does not separate them. I relayed *"we couldn't even test it; the token may not see it"*, **which
+reads as a fact about D1 rather than about my instrument.** ⇒ **A careful epistemic label is exactly
+the thing that gets smoothed away in relay, because the smoothed version is shorter AND reads better.**
+
+✅ Corrected (telegram 10681) — and it cleared the changed-picture bar rather than being bookkeeping:
+**he was one dashboard click from acting on my suggestion.**
+
+## 7x379 — TWO DOORS AGREEING IS NOT CORROBORATION IF THEY QUERIED THE SAME ENDPOINT (Plan, row 362)
+
+*"'3 DO namespaces' was relayed by boss, confirmed by biscuit, and repeated by biscuit — three
+passes, ONE ENDPOINT, three identical wrong answers, EACH RAISING THE NUMBER'S APPARENT STANDING."*
+
+⇒ ⭐⭐ **INDEPENDENT CONFIRMATION REQUIRES A DIFFERENT INSTRUMENT, NOT A DIFFERENT AGENT.**
+
+⚠️ **What makes it bite here: I WAS THE FIRST PASS.** The number entered the fleet through me, and
+both later passes were checks that added standing without adding an instrument. **The truth was only
+reachable by cross-referencing a second endpoint — the namespace bound by `commonplace-log-probe`
+does not appear in the namespace listing at all.**
+
+⇒ **Twin of [7x37x] "a number acquires the APPEARANCE of establishment by transiting a careful
+party": that one is about a number crossing agents; this one is about a number crossing agents WHILE
+NEVER LEAVING ITS SOURCE.**
