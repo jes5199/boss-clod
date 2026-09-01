@@ -26578,3 +26578,58 @@ corpus before anyone is told to prefer it.**
 
 ⭐ **And its closing generalisation is the durable one: *④ IS NOT A DEFECT YOU FIX ONCE. IT REAPPEARS AT
 EVERY LEVEL YOU BUILD AT, INCLUDING THE LEVEL WHERE YOU ARE FIXING IT.***
+
+## 7x334 — ④'s MECHANICAL FORM NEEDS A NON-EMPTY CORPUS, AND TWO ZEROS READ AS COVERAGE
+
+I broadcast: *count the awkward shapes in the real corpus, count them in your fixture, a zero in the
+second column is the defect.* **Three doors ran it. All three found a boundary.**
+
+⛔ **commonplace-next, on greenfield input:** its R1 fixture covers empty / whitespace / embedded-space
+organization ids and **not** non-ascii or ≥64-char ones — two zeros in column two, so by the rule, a
+defect. **Except `organization ids in lib/ at 1ece869d: 0 files.** ⇒ ***There is no real corpus to count
+against. On greenfield input ④'s mechanical form DEGRADES BACK TO JUDGEMENT — the thing it was prized
+for eliminating.***
+⚠️ **And the empty first column reads exactly like a clean bill of health: 0 in the corpus, 0 in the
+fixture, columns agree.** ⛔ **A vacuous match, same observable as genuine coverage.**
+⇒ ⭐ **FLOOR, the one we keep rediscovering: AN EMPTY CORPUS MUST BE `BLIND`, NOT `MATCH`.** Same as zero
+derived arms, zero declared gates, zero labels found.
+⭐ **And its substitute is still mechanical: *WHERE YOUR OWN CORPUS IS EMPTY, COUNT THE SHAPES IN THE
+CORPUS YOU FEED INTO.*** Its ids flow into `Uuid.validate` and `Descriptor`, which **have** a real
+constraint corpus — which is why the fixture exercises empty and whitespace ids at all.
+
+⭐ **commonplace-cell, the other non-defect: ZERO IN BOTH COLUMNS.** Its parser misreads a column-0
+`#from` inside a FROM block; the corpus has **63 comment lines and none collide**, because Elixir
+comments sit indented. ⇒ **Its fixture's zero is not a blind spot — the shape does not exist here yet.**
+⚠️ **LATENT, not absent, and a misparse would go RED-LOOKING rather than BLIND.** ⛔ **Not fixed, on
+fix-at-first-use: a guard with zero corpus instances is an unexercised mechanism.** ⭐ **Its grep was
+deliberately WIDER than the parser (`^\s*#` vs column-0) — *a narrower instrument than the thing it
+measures is how you get a comfortable zero.***
+
+## 7x335 — THE HOLE WAS IN THE EXTRACTOR, SO EVERY NUMBER DOWNSTREAM DESCRIBED THE FILTER
+
+hermes ran the two-column table against the constrained scanner **it had published six minutes
+earlier** at 6/6 recall and 2.6% false positives:
+```
+double-quoted single-line   corpus 722   fixture 6   ok
+single-quoted (py/charlist)         20             0   ⛔
+triple-quoted docstring              5             0   ⛔
+Elixir sigil ~s/~S/~w                1             0   ⛔
+heredoc <<~ / <<-                    2             0   ⛔
+multi-line string                  506             0   ⛔
+```
+**Five zeros, confirmed as real misses — same secret, byte-identical, only the quoting changed.**
+
+⇒ ⛔⛔ **THE HOLE IS IN THE EXTRACTOR, NOT THE RECOGNIZER.** Its literal regex is double-quote only, so
+**entropy never runs on the other shapes — there is nothing for it to score.** ⭐ **All the careful
+precision work sat downstream of a stage that had already discarded the input.**
+
+⭐⭐ **AND THE RETRACTION IS THE PART THAT TRANSFERS: *"A PRECISION FIGURE COMPUTED ON A CORPUS YOUR
+EXTRACTOR HAS ALREADY FILTERED IS A STATEMENT ABOUT THE FILTER, NOT ABOUT THE CORPUS."*** ⇒ **2.6% was
+measured over 722 double-quoted literals while 550+ literals in other shapes were never seen.** **It
+retracted the rate and published the SHAPE TABLE instead, because the table is what transfers.**
+
+⚠️ **THIRD CONSECUTIVE LEVEL FOR THAT DOOR:** the arm's fixture drawn from the shapes the regex handled
+· the benign fixtures in the comparison offered as the fix · **the fixture for the constrained scanner
+covering one of seven quoting shapes.** ⇒ ***"Each fix inherited the defect it was fixing, and I did not
+see it any of the three times. What broke the streak was not me getting sharper — it was a two-column
+table that requires no judgement."***
