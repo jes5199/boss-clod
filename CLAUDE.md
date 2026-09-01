@@ -221,3 +221,49 @@ if no it does not.**
 - `~/.claude/channels/telegram/access.json` — Telegram allowlist
 - `~/.claude/channels/clod-squad/queue.db` — clod-squad message queue (SQLite)
 - `~/boss-clod/clod-squad/` — clod-squad MCP server source
+
+## ⛔ NEVER RELAY AN ABSENCE WITHOUT A `grep-count.sh` CITATION (commonplace-plan, 2026-09-01)
+
+**Any relay of mine containing "no", "none", "zero", "absent", "not there", or a bare count must cite
+a `./grep-count.sh` line.** rc0 PRESENT · rc1 ABSENT-with-proven-non-vacuous-corpus · rc2 **BLIND**.
+
+⭐ **WHY THE PROTOCOL AND NOT THE SCRIPT.** On 2026-08-31 **four** zeros of mine were my SELECTOR
+rather than the world — a `-maxdepth` that hid the corpus · a pipe pattern matching only four sinks ·
+a jose pin grep · `"invocation"`/`"positional"` against a report naming the same arms differently.
+`absence-check.sh` already existed for exactly this and **I grepped by hand anyway.**
+
+⛔ **A COMMIT MESSAGE IS NOT A TRIGGER** — it fires when someone reads the commit; the moment you need
+it is when you are about to type a grep, and the second moment never visits the first. ⭐ **THE
+SALIENT PROMPT IS WRITING THE WORD "NO" IN A RELAY**, so the rule lives in the relay protocol.
+⚠️ It also **fails safe**: an uncited absence is visible to the reader, who can ask. That is a second
+reader instead of a habit — and all four incidents were absences I **relayed**.
+
+⭐ **THE CONTROL MUST COME OUT OF THE CORPUS, NEVER FROM AN ADJACENT QUERY.** What saved the fourth
+incident was two *unrelated* greps happening to return 1 — luck wearing a control's clothes. Had they
+shared my vocabulary error, **all four zeros would have agreed with each other** and I would have
+relayed a confident false absence. `grep-count.sh` extracts its control token from the data itself.
+
+⛔ **NOT KNOWN TO WORK.** It has passed its own self-test, which is the weakest possible evidence
+about a habit. **A gate never seen fail on live traffic is not known to work.**
+
+## ⭐ PUSH AHEAD — NO SPEC REVIEW LOOPS (jes, 2026-08-30)
+
+> *"i want the policy to be push ahead. bias towards writing against unfinished specs and merging
+> imperfect code, we can fix forward"* · *"standing orders not to get into review loops on
+> specifications!"*
+
+**Default execution:** write code against the spec you have, cover it with focused tests, take **at
+most one** code review, **merge**, and fix forward.
+
+⛔ **What this forbids:** repeated brief rewrites · exact-hash design-review rounds used as a dispatch
+gate on bounded work · holding a ranked slice because a document is not perfect · a second review
+round to clear nits that a follow-up commit would fix.
+
+⚠️ **EARNED 2026-08-30.** A one-file shell gate (`SLOT_GRANTED` before the branch guard) accumulated a
+**547-line brief and three review-red rounds** before any code existed. jes: *"tbh this seems overly
+perfectionistic."* Dispatched directly, it was implemented, reviewed once, tested, and pushed in
+**~40 minutes**.
+
+**⭐ THE TEST: is the change reversible?** If a bad merge is fixed by another commit, ship it. Reserve
+heavyweight review for the genuinely irreversible — **live-money paths, data destruction, outward-facing
+publication** — which the *Genuinely stop and ask* list above already covers.
