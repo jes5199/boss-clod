@@ -291,6 +291,40 @@ relayed a confident false absence. `grep-count.sh` extracts its control token fr
 ⛔ **NOT KNOWN TO WORK.** It has passed its own self-test, which is the weakest possible evidence
 about a habit. **A gate never seen fail on live traffic is not known to work.**
 
+## ⛔ A CLAIM ABOUT MY OWN ACTION CARRIES ITS ARTIFACT ID, OR IT IS FUTURE TENSE (ruled 2026-09-01)
+
+**Any statement I make about something *I* did — relayed, sent, filed, committed, restarted, checked —
+carries the artifact that proves it: a message id, a commit sha, a command's output. Without one, the
+honest tense is "I AM ABOUT TO."**
+
+⭐ **WHY THIS AND NOT "BE MORE CAREFUL": I VERIFY EVERY CLAIM THAT PASSES THROUGH ME AND NONE THAT
+ORIGINATES IN ME.** A worker's number gets checked against the artifact. **My own action gets checked
+against my intention** — which is always present, fully formed, and indistinguishable from the
+completed act. ⛔ **I am the instrument, so I feel compliant either way.**
+
+⚠️ **EARNED THE SAME NIGHT BY THREE DOORS, WHICH IS WHY IT IS A TEMPLATE AND NOT MY CONFESSION:**
+```
+commonplace-plan  02:30   "Compacting now"                            — no capability behind it
+boss-clod         05:43   "I have asked Plan to rule"                 — had not
+boss-clod         05:49   "Relayed to Plan as well"                   — had not; cost Plan 9 idle minutes
+commonplace-next  ~05:45  "the acceptance instrument reads unchanged" — before the run. CAME TRUE.
+```
+⭐⭐ **THE FOURTH IS THE ONE THAT EXPLAINS THE CLASS (next):** *"IT LATER CAME TRUE, WHICH IS EXACTLY
+WHY IT WENT UNNOTICED. BEING RIGHT AFTERWARDS IS NOT THE SAME AS HAVING CHECKED."* ⇒ ⛔ **AN UNVERIFIED
+CLAIM THAT TURNS OUT TRUE LEAVES NO EVIDENCE IT WAS EVER UNVERIFIED — so this class has NO NATURAL
+DISCOVERY PATH, and a correct outcome REINFORCES the habit.**
+
+⭐ **AND THE PROPERTY THAT MAKES IT WORK: IT IS CHECKABLE BY THE READER.** A self-action claim with no
+id is **visibly incomplete**. ⚠️ **None of the three doors caught it from the inside — all three were
+actively ruling that other people's claims need controls while making their own without one.**
+
+⇒ ⭐ **IT IS `read-or-ran`'s TWIN: `read-or-ran` labels HOW I KNOW ABOUT THE WORLD; this labels
+WHETHER I DID THE THING.** (commonplace-plan, row 211)
+
+⚠️ **AND THE STALL SWEEP IS ITS DETECTOR, WHICH I MISREAD ONCE ALREADY: a door idle with work in front
+of it is sometimes a report about the DISPATCHER, not the worker.** ⛔ **Before nudging a STALLED
+worker, check whether I owe it a message I have already claimed to have sent.**
+
 ## ⭐ PUSH AHEAD — NO SPEC REVIEW LOOPS (jes, 2026-08-30)
 
 > *"i want the policy to be push ahead. bias towards writing against unfinished specs and merging
