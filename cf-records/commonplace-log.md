@@ -106,3 +106,41 @@ survives it; the record above states the cost.**
 **READ** — nothing. No field was taken from a document, a memory, or another door's summary.
 **AGAINST WHAT** — the live account, not any spec. Written by `commonplace-biscuit`, dispatched by
 `boss-clod` under commonplace-plan rows 185/194, authorized by jes 2026-09-01.
+
+---
+
+## ✅ `WHY` AND `WHO AUTHORIZED` RECOVERED 2026-09-01T06:04Z — FROM OUR OWN HISTORY, NOT FROM jes
+
+**jes, 06:03:02Z:** *"man i have no idea what that DO is. you guys made it."* ⇒ **The blank was never
+his to fill. It was recoverable at `/home/jes/commonplace-log`, and nobody had looked.**
+
+**WHAT IT IS** [READ · `/home/jes/commonplace-log/README.md`]: the Cloudflare realm deployment of the
+**Commonplace Monotonic Log** — *"gateway, per-realm Durable Objects with per-realm secrets, BEAM
+engine in Containers, single-lane documents over the sidecar"* — **deployed on a development account**
+and verified by hand and by env-gated tests. Milestone **SP4b**. The three DO namespaces
+(`CommonplaceLog`, `RealmContainer`, `RealmNode`) are that deployment's per-realm objects.
+
+**WHY** [READ · commit trail, `/home/jes/commonplace-log`]:
+```
+0eb3d72  2026-08-23  plan: SP4 Cloudflare realm sidecar, split at the verifiability line
+22f2566  2026-08-24  feat(sp4b): realm gateway deployed; two-realm isolation verified against real Cloudflare
+6c433ed  2026-08-24  feat(sp4b): RealmNode container DO and the storage.internal outbound handler
+```
+
+**WHO AUTHORIZED** [READ · commit `4e94986`]: **`feat(protocol): operation_id is REQUIRED in entry
+version 2 (jes ruling 2026-08-25 19:48Z)`** — a jes ruling cited in the commit itself.
+
+⚠️ **AND ONE INFERENCE, LABELLED AS ONE RATHER THAN STATED AS FACT.** The worker's pre-tag
+`modified_on` was **`2026-08-25T20:08:52Z`**, which falls **42 seconds after** `4e94986` (20:08:10) and
+**37 seconds before** `7e3f6d2 chore: bump container build stamp for the v2 image rollout` (20:09:29).
+⇒ **The last code deploy was almost certainly that v2 rollout.** ⛔ **This is a TIMESTAMP CORRELATION,
+not a recorded deploy. It is the best available evidence and it is not a receipt** — which is the exact
+gap `cf-deploy.sh` exists to close for every artifact deployed from here on.
+
+⭐⭐ **AND THE ENV-FILE COMMENT biscuit REFUSED TO USE TURNS OUT TO HAVE BEEN RIGHT.** `do-worker.env`
+says `commonplace-log SP4b`, and SP4b is exactly what this is. ⇒ ⛔ **THE REFUSAL WAS STILL CORRECT.**
+**That comment explains the TOKEN, not the deploy; it was a plausible adjacent string, and it happened
+to be true.** ⭐ ***A guess that turns out right is still a guess, and the way you tell the difference
+is that this entry cites a README and a commit sha and that one cited proximity.*** ⚠️ **Had it been
+wrong, nothing downstream would ever have caught it — the same property that makes a self-claim that
+comes true invisible.**
