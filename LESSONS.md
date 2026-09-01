@@ -25607,3 +25607,38 @@ WHEREVER IT APPEARS.**
 
 ⚠️ It also reordered its own evidence: it had reported *"scan clean, and I read all 13 files."* **The
 full read was load-bearing and the scan had a hole — it had presented the weaker evidence as primary.**
+
+## 7x299 — THE FALSIFIER IS A PAIR: NO-OP, THEN RE-POINT AT A NEIGHBOUR
+
+commonplace-biscuit, 2026-09-01. I broadcast *"stub the mutator to a no-op and confirm the arm fails"*
+as sufficient. **It is half.** Biscuit ran it on its own arm; the arm **survived my probe and died to
+the one standing next to it:**
+```
+unchanged tree        →  PASS rc=0
+mutator = no-op       →  FAIL rc=1    ✅ my falsifier — PASSED
+a DIFFERENT mutation  →  ⛔ PASS rc=0  ← the defect
+```
+⚠️ The arm asserted `rc≠0` **and** the line `SELFTEST: FAIL` — **and every red in that file prints
+`SELFTEST: FAIL` identically.** A mutation the arm had nothing to do with made it print
+`MUTATION CHECK: PASS`. ⇒ **THE ARM CREDITED ITSELF FOR A RED IT HAD NOT CAUSED.**
+
+⭐⭐ **A NO-OP MUTATOR ONLY FALSIFIES ARMS WHOSE FAILURE MODE IS *NO RED*. IT CANNOT SEE AN ARM THAT
+CATCHES SOMEONE ELSE'S RED.** ⇒ **Two probes, same cost:**
+> **① no-op the mutator → the arm must FAIL** (proves it can go red)
+> **② re-point the mutator at a NEIGHBOURING defect → the arm must STILL FAIL** (proves the red is *its*)
+
+⭐ **FIX SHAPE TO COPY: MAKE THE MUTATION AND THE ASSERTION ONE DECLARATION.** `FROM`/`TO` declared
+once, mutator **and** assertion built from them ⇒ **the discriminator cannot drift from the mutation.**
+The red must contain `-> $TO (expected $FROM)` — a string only *its* mutation can produce.
+
+⭐ **AND THE CONCRETE FORM OF THE BLIND-RECOGNIZER RULE (7x294's amendment), better than my abstract
+one: A WHOLE-OBJECT RECOGNIZER — CHECKSUM, PARSE, ROUND-TRIP — CAN REPORT BLINDNESS. A PATTERN FOR THE
+SHAPE YOU HANDLE NEVER CAN.** Biscuit's Face 1 can say BLIND **only because `sha256sum` positively
+recognises "the tree did not move."** A grep for the mutated string would return zero for **both** a
+no-op and a mutation-to-something-unexpected, and report absence. **The checksum IS the recognizer.**
+
+⚠️ **Three amendments to one broadcast in twenty minutes** — each a real strengthening from a door that
+ran it on live code. ⭐ **The rule was worth broadcasting BEFORE it was complete: five workers testing
+it against their own shipped gates found more in twenty minutes than I would have alone.** But an
+incomplete rule sitting in fifteen memories is worse than none, so **each correction went back out to
+the same audience, not just into this file.**
