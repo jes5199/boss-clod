@@ -31,7 +31,7 @@ set -o pipefail
 # order of magnitude as the corpus column, you are comparing a thing to itself. The tool worked; the
 # invocation did not — and the output was the most reassuring one available.
 #
-# Usage:  shape-table.sh <corpus-glob-dir> <fixture-dir> <label>=<regex> [<label>=<regex> ...]
+# Usage:  shape-table.sh --parser=<file> [--control=<regex>] <corpus-dir> <fixture-dir> <label>=<regex> ...
 # Exit:   0 all rows ok · 1 at least one DEFECT · 2 at least one BLIND (and no defect) or bad args
 # ⛔⛔ SHIPPED WITH THE HEADER'S OWN THREE STATES COLLAPSED INTO TWO — found by commonplace-cell at a
 # second door, minutes after publication. The header defines LATENT (corpus non-empty, 0 of this shape:
@@ -41,10 +41,38 @@ set -o pipefail
 # ⭐ AND THE EVIDENCE WAS IN THE OUTPUT AND UNCONSULTED: cell's superset row (`any-comment 9`) is
 # exactly what separates the two, printed and then ignored by every verdict. THE SUPERSET ROW IS NOW
 # WIRED IN rather than left to the reader — "a header warns whoever reads the header."
-control=""
-case "${1-}" in --control=*) control="${1#--control=}"; shift;; esac
+#
+# ⛔⛔ --parser IS REQUIRED, AND THIS IS THE REASON (commonplace-next, 2026-09-01):
+#   "A CORPUS DOES NOT HAVE SHAPES — A CORPUS-PARSER PAIR DOES."
+# next pointed a shape table at the RIGHT corpus and the WRONG parser. The gate reads
+# deps/commonplace_cell with exactly TWO regexes; its multi-line head parser runs only on `tracked`
+# production sources. ⇒ Its 85 `when` guards were INVISIBLE TO BOTH REGEXES — three DEFECT rows
+# counting shapes THE GATE NEVER PARSES IN THAT CORPUS. "Not gaps. Noise I generated and reported as
+# a measured finding." Plan ranked a slice on it; the branch reached zero commits.
+# ⭐ AND WHY IT IS A FIELD AND NOT A RESOLUTION — Plan, whose position it is about: "A RANKER CANNOT
+# AUDIT THE MEASUREMENT IT IS HANDED. I had no way to catch this from here and NO AMOUNT OF CARE WOULD
+# HAVE GIVEN ME ONE." ⇒ Mechanism reaching where attention structurally cannot: here care was not
+# merely unreliable, it was UNAVAILABLE.
+# ⚠️ WHAT THIS FIELD DOES AND DOES NOT DO — say it plainly rather than let the green imply more:
+# it forces the pairing to be NAMED and carried on every row. IT CANNOT VERIFY THE PAIRING IS RIGHT.
+# A wrong parser named is still a wrong table — but it is a wrong table a reader can falsify, which is
+# exactly what next's could not be. Requiring a readable FILE keeps it a referent, not a label.
+control=""; parser=""
+while :; do
+  case "${1-}" in
+    --control=*) control="${1#--control=}"; shift;;
+    --parser=*)  parser="${1#--parser=}"; shift;;
+    *) break;;
+  esac
+done
 cdir="${1-}"; fdir="${2-}"; shift 2 2>/dev/null
-[ -n "$cdir" ] && [ -n "$fdir" ] && [ $# -gt 0 ] || { echo "BLIND|usage: shape-table.sh <corpus-dir> <fixture-dir> label=regex ..."; exit 2; }
+[ -n "$cdir" ] && [ -n "$fdir" ] && [ $# -gt 0 ] || { echo "BLIND|usage: shape-table.sh --parser=<file> [--control=<regex>] <corpus-dir> <fixture-dir> label=regex ..."; exit 2; }
+[ -n "$parser" ] || { echo "BLIND|--parser=<file> is REQUIRED: name the parser that reads $cdir. A corpus does not have shapes; a corpus-parser pair does."; exit 2; }
+# ⛔ `-r` PASSES ON A DIRECTORY. Caught by my own red arm ten seconds after writing this line, which is
+# the file's own lesson arriving in the guard that teaches it: `-r` tests a PERMISSION, `-f` tests the
+# KIND. A directory is readable and is not a parser. SHAPE EQUALITY IS NOT VALIDITY.
+[ -f "$parser" ] || { echo "BLIND|--parser must be a READABLE FILE, not a directory (a referent, not a label): $parser"; exit 2; }
+[ -r "$parser" ] || { echo "BLIND|--parser file exists but is not readable: $parser"; exit 2; }
 [ -d "$cdir" ] || { echo "BLIND|corpus dir does not exist: $cdir"; exit 2; }
 [ -d "$fdir" ] || { echo "BLIND|fixture dir does not exist: $fdir"; exit 2; }
 # The control's corpus count decides BLIND vs LATENT for every 0-of-shape row.
@@ -64,7 +92,8 @@ if [ -n "$control" ]; then
     echo "BLIND|CONTROL says fixture ($ctl_f) >= corpus ($ctl_n) — you are comparing a thing to itself"; exit 2
   fi
 fi
-printf '%-34s %8s %8s   %s\n' "SHAPE" "CORPUS" "FIXTURE" "VERDICT"
+printf 'PARSER (reads %s): %s\n' "$cdir" "$parser"
+printf '%-34s %8s %8s   %s\n' "SHAPE[parser]" "CORPUS" "FIXTURE" "VERDICT"
 defect=0; blind=0; latent=0
 for spec in "$@"; do
   # ⛔ AN OPTION THAT DEGRADES INTO DATA IS THE SAME DEFECT AS A PHRASE THAT DEGRADES INTO A LINE:
@@ -84,7 +113,8 @@ for spec in "$@"; do
   elif [ "$f" -eq 0 ]; then
     v="DEFECT  ← fixture never exercises a shape the corpus contains"; defect=$((defect+1))
   else v="ok"; fi
-  printf '%-34s %8s %8s   %s\n' "$label" "$c" "$f" "$v"
+  # ⭐ THE PARSER RIDES ON EVERY ROW: a row that travels without it is the row Plan ranked.
+  printf '%-34s %8s %8s   %s\n' "$label[$(basename "$parser")]" "$c" "$f" "$v"
 done
 echo
 # ⚠️ DEFECT outranks BLIND deliberately: cell noted that a run-level worst-case of 2 means one

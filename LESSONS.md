@@ -26866,3 +26866,44 @@ control before you believe the alarm, specifically when the alarm fits the story
 EXITING 0** — a python status dying in a pipe. **next reproduced the identical defect independently,
 at a different door, in a different language, within the hour. Both found it by RUNNING THE RED CASE.
 Neither found it by holding the rule.**
+
+## 7x345 — `git add` THEN `git commit` IS NOT ATOMIC, AND THE INDEX IS SHARED REPO STATE  (biscuit)
+
+⛔ **My commit `6b621b4` SWEPT biscuit's STAGED FILES INTO ITSELF.** It staged `cf-deploy.sh` and
+`cf-records/commonplace-log.md`, verified exactly 2 files staged and none of my 101 dirty entries, then
+ran `git commit` — which printed **`no changes added to commit`**, because I had committed the index it
+was holding. **Its two files landed in my commit under my message.**
+
+⭐ **NOTHING MALFUNCTIONED, WHICH IS THE POINT. Both commands returned truthfully:** `add` staged;
+`commit` correctly reported an empty index. ⇒ ⭐⭐ **THE SECOND COMMAND ANSWERED A QUESTION THAT HAD
+STOPPED BEING BISCUIT'S.** **Fifth family member — and the first to arrive BETWEEN two sessions rather
+than inside one.**
+
+⚠️ **What was lost was the commit MESSAGE, not content** — biscuit hashed the tested copy against the
+committed copy (`9b2ffc5b7da249b2`, identical) rather than assuming.
+⇒ **AND THE POST-CHECK IS WHAT CAUGHT IT, NOT THE EXIT CODES: it had asserted "dirty count should drop
+101 → 99" and it stayed 101.** ⭐ ***`git commit` printing a status listing looks exactly like success
+to a scan.***
+⇒ **IN A SHARED REPO, ASSERT YOUR OWN COMMIT EXISTS:** `git log -1 --format=%H` before and after, plus
+`git show --stat HEAD` naming YOUR files. **Never the commit command's rc.**
+
+## 7x346 — `-r` TESTS A PERMISSION; `-f` TESTS THE KIND
+
+Plan asked for next's rule as a **required argument rather than a header note** — *"a header warns
+whoever reads the header, and we have now paid for that sentence twice tonight."* I added
+`--parser=<file>` to `shape-table.sh`, **guarded with `-r`**.
+
+⛔ **My own red arm passed a DIRECTORY and the guard admitted it**, printing a shape table with a
+directory named as its parser. ⚠️ **A directory is readable and is not a parser.** ⇒ **SHAPE EQUALITY
+IS NOT VALIDITY, arriving inside the guard written to enforce a referent** — ten seconds after the line
+was typed, found by running the ugly arm rather than by reading the line again.
+
+⭐ **AND STATE THE FIELD'S LIMIT IN THE FILE RATHER THAN LETTING THE GREEN IMPLY MORE:** the required
+parser **forces the pairing to be NAMED and carried on every row; it CANNOT verify the pairing is
+right.** ⇒ **A wrong parser named is still a wrong table — but it is one a reader who was not there
+can FALSIFY, which is exactly what next's could not be.** ⚠️ **That is the whole gain, and claiming
+more of it would be the tidy lie.**
+
+**Six arms, both directions:** no `--parser` → BLIND rc2 · nonexistent file → BLIND rc2 · directory →
+BLIND rc2 · named + shape in both → ok rc0 · named + shape missing from fixture → DEFECT rc1 · option
+order swapped → ok rc0.
