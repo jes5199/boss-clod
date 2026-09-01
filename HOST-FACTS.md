@@ -168,3 +168,28 @@ Subagents run TARGETED files only. And a targeted `mix test` across two umbrella
 - **`next`: THE INSTRUMENT THAT SAVES YOU IS USUALLY ONE YOU BUILT FOR A DIFFERENT REASON.**
 - **`markdown`: A REPORTING LINE IS AN INSTRUMENT AND NOBODY CONTROLS IT.** Four failures at one door
   in one night, every one printing a plausible number.
+
+## ⛔ `config/**/*.exs` MATCHES NOTHING — git 2.43 pathspec (2026-09-01)
+
+```
+git version 2.43.0
+git ls-files 'config/**/*.exs'  →  0
+git ls-files 'config/*.exs'     →  4   (config.exs dev.exs prod.exs test.exs)
+```
+
+**`**/` in a git pathspec requires AT LEAST ONE INTERVENING DIRECTORY.** Files directly in `config/`
+are invisible to it. ⚠️ **It returns 0 silently** — no error, no warning — so the corpus is quietly
+empty while the surrounding code still prints *"searching lib/ and config/"*.
+
+⭐ **FOUND BY:** commonplace-next, inside its own B-DEVPATH gate, which enumerated **50 lib files and
+ZERO config files** while describing its corpus as both. True count 54. Reproduced here independently.
+
+⭐⭐ **WHAT CAUGHT IT WAS A MANDATORY-VALUE CONTROL, NOT A FORBIDDEN-VALUE CHECK.** The gate *required*
+`config/prod.exs` to be reachable, and that control failed **before** any forbidden value could produce
+a verdict. ⇒ **A missing mandatory value proves the wrong referent first.** Had `prod.exs` been merely
+optional, the gate would have shipped **green on a corpus that never contained the files it claimed to
+search** — true and meaningless, forever.
+
+⇒ **FIX SHAPE: enumerate each pathspec SEPARATELY, and treat a required pathspec matching zero tracked
+files as instrument BLINDNESS (rc=2), never as a quietly smaller corpus.** A zero-match pathspec and a
+genuinely empty directory are the same observable; only the requirement separates them.
