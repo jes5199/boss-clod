@@ -128,6 +128,12 @@ mcp.setRequestHandler(CallToolRequestSchema, async (req) => {
 
         const id = insertMessage(db, identity, to, text, metadata)
         // ⛔⛔ THE DURABLE ACT IS DONE ABOVE. EVERYTHING BELOW IS COSMETIC.
+        // ⚠️⚠️ HONEST STATUS OF THE MECHANISM THIS GUARDS: UNPROVEN. Measured after I asserted it —
+        // A WAL READER DOES NOT TAKE SQLITE_BUSY FROM A CONCURRENT WRITER: a SELECT under a held
+        // BEGIN IMMEDIATE returned OK at busy_timeout=0. So "step 3 threw" is a PLAUSIBLE SITE, not
+        // a measured one, and where plan's #25431 error actually arose is still unmeasured.
+        // ⭐ The guard stays because it is an IDENTITY fix, correct regardless of frequency or
+        // cause: a cosmetic read must never be able to report the durable act as failed.
         // `listIdentities` is read ONLY to label the recipient online/offline. Before this catch, a
         // failure there (SQLITE_BUSY under concurrency) threw out of the handler and the caller saw
         // a SEND FAILURE — on a message that was already stored. Observed 2026-09-01: plan's #25431
