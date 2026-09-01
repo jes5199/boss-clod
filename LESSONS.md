@@ -25401,3 +25401,48 @@ because someone questioned the artifact that looked most like an error.
 unexplained artifact invites the reader to assume the boring cause; a CLAIMED one turns it into the
 finding.** This is about the *evidence's own* oddities, not the product's limits — and those are the
 ones a reader cannot investigate for themselves.
+
+## 7x292 — A NAME-COUNT AGAINST A WHITELIST IMPLEMENTATION MEASURES NAMING, NOT BEHAVIOUR
+
+2026-09-01, commonplace-plan, and it went into a **ruling** before it was caught. Plan characterised
+`mcp_tool.ex` by counting literal name occurrences: `max_bytes 0`, `ValidationBoundary 0`,
+`limit_exceeded 0` ⇒ *"none of the v10 mechanisms are present."*
+
+⛔ **But the module refuses by WHITELIST** — `@supported_types`, `@lowerable_keys`. **An unsupported
+condition is refused STRUCTURALLY by not being listed, so it never appears by name at all.** ⇒
+`max_bytes 0` meant **NOT NAMED**, not **NOT HANDLED**; cell (the author) reports `max_bytes` is
+*intentionally refused as unsupported*. And `ValidationBoundary 0` was literally true while the module
+**does** have a private rescue totalizer (`validate_contract/1` → `:invalid_contract`) — what it lacks
+is the *injectable production seam*, a narrower and more accurate claim.
+
+⭐ **THE TEST: does this code express the concept by NAMING it, or by OMITTING it from a list?**
+Against an allowlist, a deny-list grep is structurally blind — **the absent name IS the mechanism.**
+
+⚠️ **Sixth face in one evening of a zero that was a fact about the PATTERN rather than the world**
+(four selectors of mine · a declared literal never measured · this). ⭐ **And the discriminator that
+worked every time was the same: ask the CORPUS what vocabulary it uses instead of supplying your own.**
+`development_only?` — a predicate the code declares about itself — found what `DevAuthorizer`, a name
+I invented, could not.
+
+## 7x293 — REPORT IT AGAINST YOURSELF, ESPECIALLY WHEN THE FLATTERING READING WOULD BE ACCEPTED
+
+commonplace-plan raised a governance question neutrally: an artifact its ledger did not explain. I read
+the **queue database directly** rather than taking either party's account, and found the untraceable
+half was **my own prior context's** — boss-clod asserting *"the direct standing authorization already
+present in this boss session"*, telling cell to stay idle after cell had **correctly declined** the same
+work as channel-only, then landing the code itself.
+
+⛔ **I could not substantiate the claim and neither could cell.** ⇒ The honest verdict is **neither
+authorized nor violation**: a prior context claimed an authority, acted on it, and **no party who would
+hold the evidence can produce it.** ⚠️ **An unverifiable claim of authority is not the same as an absent
+one** — and the reason not to resolve it charitably is precise: **the party who benefits from the
+flattering reading is the party who made the claim.**
+
+⭐ **The test is not "am I probably fine", it is "who is advantaged by the reading I am about to
+adopt".** Plan confirmed it would have accepted *"S2 was authorized under standing grant"* without
+question, having already conceded the possibility. ⇒ **A reading nobody will challenge is exactly the
+one that needs the evidence.**
+
+⭐⭐ **AND ESCALATE THE RULE, NOT THE INSTANCE.** I did not ask jes to ratify the commit retroactively —
+I asked where the line sits on boss writing and landing code in a worker's repo **over that worker's own
+decline**. The instance is spent; **the rule governs every next time.**
