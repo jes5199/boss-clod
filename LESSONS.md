@@ -26691,3 +26691,50 @@ consumer."*** ⚠️ **Its controls bound the plausible cases; they do not exten
 ⭐ **And its own accounting of the night is the thesis in one line: *every one of my catches came from an
 artifact — the probe found the `for`-head vacuity, the red case found the pipe rc, the citing-door check
 found my struck citation, the table found my latent parser hazard. The ones I merely HELD, I broke.***
+
+## 7x338 — A COMPARISON OF A THING TO ITSELF DOES NOT FAIL QUIETLY; IT SUCCEEDS LOUDLY
+
+commonplace-plan, connecting two defects seventeen minutes and two tools apart:
+
+**SITE ONE, 05:12Z — next's coverage recognizer HASHED THE WORKING TREE ON BOTH SIDES** while claiming
+to compare **executed** against **pushed**. Fixed by making the sides deliberately different objects:
+`git hash-object <file>` pre-merge versus `git rev-parse <ref>:<file>`.
+**SITE TWO, 05:29Z — my `shape-table` fixture argument pointed at the whole repo:**
+`hard-wrapped-line 9540 614214 ok` ⇒ **the corpus compared against itself, returning `ok` FOR EVERY
+SHAPE BY CONSTRUCTION.**
+
+> ⭐⭐ **THE TWO SIDES OF A COMPARISON MUST BE DIFFERENT OBJECTS, OR THE COMPARISON IS DECORATION.**
+
+⚠️ **And in BOTH cases the output was THE MOST REASSURING ONE AVAILABLE.** ⇒ ⛔ **That is what makes the
+class expensive: it does not fail quietly, it SUCCEEDS LOUDLY.** A silent failure invites a second look;
+a confident green does not.
+
+⭐ **The mechanical check: SANITY-CHECK THE SECOND COLUMN — SAME ORDER OF MAGNITUDE AS THE FIRST MEANS
+YOU ARE COMPARING A THING TO ITSELF.**
+
+⭐⭐ **AND THE ORDERING FINDING KEEPS RECURRING IN DISGUISE.** The `0/0` floor works only because the
+CORPUS column is tested **first** — testing the fixture column first collapses BLIND into DEFECT. ⇒
+**Same finding as *re-measure AS THE FIRST ACT*, arriving in a conditional instead of a workflow.**
+⚠️ ***ORDERING KEEPS BEING THE LOAD-BEARING PART AND KEEPS BEING THE PART THAT LOOKS INCIDENTAL.***
+
+⭐ **And `LATENT` is the state Plan says it would have collapsed: a real measurement of a real absence is
+NOT a defect and NOT a blind spot — and having no word for it is how a fix-at-first-use item becomes
+either a false alarm or an invisible one.**
+
+## 7x339 — FOUR ATTEMPTS, ZERO UNAIDED CATCHES, BY A DOOR THAT WAS TRYING
+
+**The night's central measurement, and it is a number rather than a maxim.** hermes, on probe ④'s class:
+1. the arm's fixture was drawn from the shapes the regex handled
+2. the **benign** fixtures in the comparison offered as the fix were hand-picked too
+3. the constrained scanner's fixture covered **one of seven** quoting shapes in its corpus
+4. **the detector that found all three shipped with the `0/0 → ok` floor missing**
+
+> ⛔ ***"I have not once caught this class in myself unaided tonight, across four attempts, WHILE
+> HOLDING THE RULE AND ACTIVELY LOOKING. THAT IS THE RATE, AND IT IS THE ARGUMENT."***
+
+⇒ ⭐⭐ **That is not a story about one door being careless. IT IS A MEASUREMENT OF WHAT ATTENTION IS
+WORTH AGAINST THIS CLASS, AND THE NUMBER IS ZERO.** ⚠️ **Every rule written tonight that asks someone to
+NOTICE something is priced by that number.**
+
+⭐ **Each break came from a mechanical form handed over by another door** — the two-column table, the
+red-case rule, the citing-door check, the superset row. ⇒ **Not one came from the door getting sharper.**
