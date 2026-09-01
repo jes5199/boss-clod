@@ -25623,9 +25623,23 @@ a DIFFERENT mutation  →  ⛔ PASS rc=0  ← the defect
 `MUTATION CHECK: PASS`. ⇒ **THE ARM CREDITED ITSELF FOR A RED IT HAD NOT CAUSED.**
 
 ⭐⭐ **A NO-OP MUTATOR ONLY FALSIFIES ARMS WHOSE FAILURE MODE IS *NO RED*. IT CANNOT SEE AN ARM THAT
-CATCHES SOMEONE ELSE'S RED.** ⇒ **Two probes, same cost:**
-> **① no-op the mutator → the arm must FAIL** (proves it can go red)
-> **② re-point the mutator at a NEIGHBOURING defect → the arm must STILL FAIL** (proves the red is *its*)
+CATCHES SOMEONE ELSE'S RED.** ⇒ **THE SET IS THREE, and they do not overlap:**
+> **① NO-OP MUTATOR → the arm must FAIL.** *Can it go red at all?*
+> **② FOREIGN MUTATOR → the arm must STILL FAIL.** *Is the red its own?*
+> **③ UNMUTATED CONTROL → the arm's asserted string must be ABSENT.** *Did the red not already exist?*
+
+⭐ **PROOF OF NON-OVERLAP, not an argument: hermes's `.gitignore` arm SURVIVED ① AND ② and died only to
+③.** It had a red state, that red was its own — **but the property it asserted was already true before
+it ran** (*"is ignored"*, not *"became ignored"*). ⇒ ① catches an arm with **no** red · ② one crediting
+itself for a **neighbour's** red · ③ one crediting itself for a red that was **always there**.
+
+⚠️ **AND THE INVERSE HALF OF ③, easily missed: FOR AN ARM THAT ASSERTS GREEN, ITS FORBIDDEN TEXT MUST BE
+PRESENT UNMUTATED** — otherwise its absence after the mutation proves nothing; **the arm passes because
+the string was never there, not because the mutation removed it.**
+
+⭐ **And ship ③ the way next did, per 7x311: DO NOT WRITE THE EXPECTATIONS DOWN.** Derive them at
+runtime from the file's own case lines ⇒ **adding an arm cannot leave the control behind; there is no
+second list to fall out of step.** Deriving **zero** expectations is **rc 2 BLIND**.
 
 ⭐ **FIX SHAPE TO COPY: MAKE THE MUTATION AND THE ASSERTION ONE DECLARATION.** `FROM`/`TO` declared
 once, mutator **and** assertion built from them ⇒ **the discriminator cannot drift from the mutation.**
