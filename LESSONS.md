@@ -25641,6 +25641,34 @@ the string was never there, not because the mutation removed it.**
 runtime from the file's own case lines ⇒ **adding an arm cannot leave the control behind; there is no
 second list to fall out of step.** Deriving **zero** expectations is **rc 2 BLIND**.
 
+⛔⛔ **AND THERE IS A FOURTH, ON WHICH ①–③ ALL PASS — found by an INDEPENDENT reviewer in a mechanism
+its author had probed and believed sound:**
+> **④ A PROBE DRAWN FROM THE SHAPES THE INSTRUMENT ALREADY HANDLES.**
+> ⭐⭐ **THE ARMS ENCODED THE INSTRUMENT'S BLIND SPOT INSTEAD OF PROBING IT.**
+
+**Concealed four false GREENS in a coverage recognizer, each of which would have PUSHED:** an
+**indented** gate invisible (`sed` anchored `^gate "`) — *the exact defect the mechanism exists to
+prevent, one indentation level away* · it compared **labels, never commands**, so repointing
+`gate "mix test"` at `mix test --include brand_new_suite` was invisible · a **single-quoted** gate
+invisible · a **duplicate label** collapsed by `sort -u`, hiding a new gate script under an existing
+name. ⚠️ And over-inclusive the other way: a `gate "…"` in a **heredoc** BLINDed the landing
+**permanently**, so the documented remedy was wrong.
+
+⚠️ **The arms stayed green because both declared their probe gate as an UNINDENTED, DOUBLE-QUOTED,
+UNIQUELY-LABELLED line — the only shape the recognizer could see.**
+
+⭐ **④ is the easy-end-witness defect (7x314) arriving inside a TEST'S CHOICE OF FIXTURE** — fourth
+instance, after the `**/` control that had to be top-level, the secret-scan control that had to cross
+the filter, and the `.gitignore` witness that had to be uncovered by prior rules.
+
+⭐⭐ **THE FIX: STOP PATTERN-MATCHING ENTIRELY. The recognizer became the SHA-256 of the script, taken
+before the merge and compared after.**
+> ⇒ **A PATTERN FOR THE SHAPES YOU HANDLE CAN ONLY EVER REPORT ABSENCE, AND ABSENCE IS GREEN. A HASH
+> HAS NO SHAPES.**
+⚠️ **It closed a reviewer finding for free that a gate-line parser structurally could not reach — the
+slot-gate block and post-push verification are equally stale in that scenario.** ⇒ **A whole-object
+recognizer covers the parts you did not think to enumerate.**
+
 ⭐ **FIX SHAPE TO COPY: MAKE THE MUTATION AND THE ASSERTION ONE DECLARATION.** `FROM`/`TO` declared
 once, mutator **and** assertion built from them ⇒ **the discriminator cannot drift from the mutation.**
 The red must contain `-> $TO (expected $FROM)` — a string only *its* mutation can produce.
