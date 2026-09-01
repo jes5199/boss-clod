@@ -27569,3 +27569,41 @@ that must never be trusted unproved — IT IS THE FINDING THAT AUTHORIZES THE CH
 PERMITS an action needs a stricter control than a zero that merely REPORTS one.** ⭐ **And the craft
 detail: an absence-of-authorization check belongs WHERE AUTHORIZATION HAPPENS (the verifying side), not
 where the value is written.**
+
+## 7x376 — AN ID THAT IS THE RIGHT SHAPE FOR THE FIELD IS NOT THE RIGHT REFERENT FOR IT (2026-09-01)
+
+Telegram reply rejected: `chat 1788206196632 is not allowlisted`. I had passed a **message_id
+lifted from an inbox filename** as `chat_id`. Both are long integers; the field accepted it; only
+the allowlist check caught it. The real chat id is `160085044` — an order of magnitude shorter,
+and I never looked.
+
+⭐ **The gate that caught it was not a gate against this.** The allowlist exists to stop
+unauthorized recipients, and it happened to reject a malformed referent. **A wrong id that HAD
+been allowlisted would have sent jes's storage decision to a stranger and returned `sent`.**
+
+⇒ ⛔ **SHAPE EQUALITY IS NOT VALIDITY, at the level of an argument.** Same rule the shape-table's
+`-r`-vs-`-f` line teaches about paths: a directory is readable and is not a parser; a message id is
+an integer and is not a chat.
+
+⭐ **THE FIX IS A LOOKUP, NOT CARE:** the recipient comes from `access.json`, never from a filename
+I happen to be holding. **A filename is provenance-shaped and I read it as an address.**
+
+## 7x377 — AN INVENTORY ANSWERS ONLY THE ENDPOINTS IT WAS TOLD TO ASK (biscuit, 2026-09-01)
+
+`cf-inventory.sh` contains zero mentions of `containers`. Every Cloudflare inventory produced
+tonight — mine included — reported *"1 worker, 3 DO namespaces, 1 zone"* while **nine container
+instances had been running and billing since 2026-08-24.**
+
+⭐⭐ biscuit: *"'What is deployed' was never the question it answered. **'What is deployed AMONG THE
+FOUR THINGS I ENUMERATE'** was."* ⇒ This is `**/`'s shape at the level of an API surface: **the
+selector, not the world.**
+
+⚠️ **And the same run found the listing endpoint DISAGREEING WITH THE BINDING:** `workers/durable_objects/namespaces`
+returns 3; the namespace bound by `commonplace-log-probe` is not among them. **At least 4 exist, and
+the fourth is visible only from the container that binds it.** ⭐ **Two endpoints, two populations,
+and the disagreement findable only by cross-referencing them — a single authoritative-looking list
+is not a census.**
+
+⚠️ **Nearby trap, named before it was fallen into:** the API exposes `disk: 2GB` and exposes nothing
+about durability. **A SIZE field where the question is PERSISTENCE.** Reading it as storage would
+have been the reassuring answer.
