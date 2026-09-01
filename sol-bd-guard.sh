@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+# ⛔ pipefail: without it a pipeline reports the LAST stage, so a failing script read through
+# a filter looks green. NOTE it does NOT save 1-vs-2 when a second stage also fails -- for a
+# 0/1/2 script CAPTURE FIRST: out=$(script); rc=$?   (boss-clod, 2026-09-01)
+set -o pipefail
 # Shadows ~/.local/bin/bd INSIDE SOL'S SANDBOX ONLY (bind-mounted by
 # sol-egress-run.sh). The host binary is untouched; nothing outside the
 # bwrap namespace sees this file.

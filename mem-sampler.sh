@@ -1,4 +1,8 @@
 #!/bin/bash
+# ⛔ pipefail: without it a pipeline reports the LAST stage, so a failing script read through
+# a filter looks green. NOTE it does NOT save 1-vs-2 when a second stage also fails -- for a
+# 0/1/2 script CAPTURE FIRST: out=$(script); rc=$?   (boss-clod, 2026-09-01)
+set -o pipefail
 # Samples host memory + the top RSS consumers every 20s into a ring log.
 #
 # WHY THIS EXISTS (2026-08-18): two OOM kills 11 minutes apart, both of which

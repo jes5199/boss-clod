@@ -1,4 +1,8 @@
 #!/bin/bash
+# ⛔ pipefail: without it a pipeline reports the LAST stage, so a failing script read through
+# a filter looks green. NOTE it does NOT save 1-vs-2 when a second stage also fails -- for a
+# 0/1/2 script CAPTURE FIRST: out=$(script); rc=$?   (boss-clod, 2026-09-01)
+set -o pipefail
 # Renders commonplace's STATE.md + runs the tracker-truth scan.
 #
 # WHY: post-compact agents re-derive finished work from design docs because
