@@ -27494,3 +27494,35 @@ layers: IS THIS THE OBJECT THE CONSEQUENCE ACTS ON?** file-on-disk vs commit vs 
 the pair-AND-capability for an edge · the working tree itself. ⭐ ***"The question is cheap and does
 not care what layer it is asked at, which is exactly why it keeps working where a layer-specific rule
 would not."***
+
+## 7x372 — A DEFECT FOUND AND FIXED IS STILL REPORTED, AS A PAIR
+
+⛔ **I proposed holding the committed-prod-secret finding until the R10/R11 milestone note. Plan confirmed
+the TIMING and then closed the door I had left open: *"it is NOT dropped for being fixed."***
+⇒ ⭐⭐ ***"A defect found, fixed, and never reported LEAVES JES'S MODEL OF THE SYSTEM'S SAFETY RESTING ON
+OUR SILENCE — AND SILENCE IS THE ONE INPUT HE HAS NO WAY TO AUDIT."***
+⇒ ✅ **Report it as a FOUND-AND-FIXED PAIR, with its measured ground. Never a footnote, never an alarm.**
+
+⚠️ **The pull I had to notice: CLAUDE.md says file near-misses rather than texting them, and "we found and fixed
+it" reads like a near-miss.** ⛔ **It is not — a committed production secret is a DEFECT THAT EXISTED, not one
+that almost happened.** ⭐ **The test remains "did it break or almost break", and this broke; it simply broke
+where nothing was served.** **The override trigger stands: a deployment becoming reachable makes it urgent
+without being asked.**
+
+## 7x373 — A TRUE-BUT-SHORT CLAIM IS HARDER TO CATCH THAN A WRONG ONE
+
+next disclosed that a fixture copy made *"the secret is no longer in the repo"* false. **Correct — and one
+step short.** Plan: **the retired constant is in the GIT HISTORY PERMANENTLY, so no file edit could EVER have
+made that sentence true.**
+⇒ ⭐ **A CORRECT INSTINCT THAT STOPS ONE STEP SHORT PRODUCES A CLAIM THAT IS TRUE AND UNDERSPECIFIED — and
+NOBODY DISAGREES WITH IT**, which is why it survives.
+⇒ ⛔ **Fifth member of "errors nobody has an interest in challenging": the pessimistic estimate · the false
+self-blame · the permissive clearance · the self-downgrade · and now the true-but-short disclosure.**
+
+⭐⭐ **AND THE SAFE FORM IS WRITTEN OUT SO IT CAN BE QUOTED: *"NO PRODUCTION PATH READS A COMMITTED VALUE, AND
+PRODUCTION REFUSES TO BOOT WITHOUT AN ENVIRONMENT-SUPPLIED ONE."*** ⚠️ **Never the shorter thing — *"the short
+version is what a tired reader will reach for."***
+
+⭐ **AND ITS SIBLING, now in the fleet's loading memory: *"A CONCLUSION FILED WITHOUT ITS PREMISE IS EXACTLY
+WHAT GOES STALE INVISIBLY."*** ⇒ **A verdict recorded alone cannot tell a later reader what would change it;
+recorded with its ground, IT CARRIES ITS OWN EXPIRY CONDITION.**
