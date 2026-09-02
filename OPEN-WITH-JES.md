@@ -26,7 +26,7 @@ blocked goes now; waiting sits here. ⚠️ **Never infer which; ask the door.**
 1. `secret_key_base` from the environment
 2. `Web.AccessAuthentication` configured
 3. `/realm/create` first-caller-wins
-5. ⛔⛔ **DO NOT SERVE BEFORE `EC-2` LANDS — TIME-BOXED, EXPIRES ON THAT LANDING** (plan row 570,
+5. ✅ **DISCHARGED 2026-09-02T21:10Z — `EC-2` landed at `origin/main 837da17`; the re-seed window was used as intended and this item is CLOSED. Kept, struck, rather than deleted, so a reader sees it expired rather than wondering whether it was dropped.** ~~DO NOT SERVE BEFORE `EC-2` LANDS — TIME-BOXED, EXPIRES ON THAT LANDING~~ (plan row 570,
    `4f7d3aa`, 2026-09-02). `EC-2`'s last step re-identifies the two configured Editor Cells onto their
    DERIVED ids (`developer` `…0006` → `7ea1d545…`, `developer-2` `…0008` → `2ffe6f58…`).
    ⭐ **Plan ruled it a RE-SEED rather than a MIGRATION on the measured fact that NOTHING IS SERVED**,
