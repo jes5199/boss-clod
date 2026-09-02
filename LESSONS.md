@@ -27907,3 +27907,27 @@ unbroken.**
 exists"; AN ENTER-TIMESTAMP PREDATING THE EVENT SAYS NO RESTART HAPPENED AT ALL.** *"You proved a
 restart by a pid that POSTDATES the fix; I proved a NON-restart by a timestamp that PREDATES the
 event."*
+
+## 7x394 — AN ANSWER KEY CAN TRAVEL IN A DISPATCH: SCORE, THEN DISPATCH (2026-09-02)
+
+`commonplace-next` asked that its restart be **a measurement, not a formality** — *"a restart that only
+proves I still work proves the thing nobody doubted"* — and three questions were fixed in advance.
+Then it disclosed, unprompted, that after seeing two of them it had **filed their answers**: *"they
+belong in that file and I would have filed them anyway, BUT I WROTE THEM KNOWING THEY WERE ABOUT TO
+BE ASKED."* ⇒ Those two were replaced with unseen questions; Q1 scored alone.
+
+⛔⛔ **Then the ranker's next DISPATCH arrived carrying the answers too** — it named ⑤-bis's
+requirement and the reversed-not-deleted control, which are Q2's subject and one of next's own
+successor-items. **Handing it over would have scored the message, not the file.**
+
+⇒ ⭐⭐ **THE SAME DEFECT FROM THREE SIDES IN ONE HOUR: FILING (the door writes the answer), DISPATCH
+(the ranker sends it), RELAY (I forward it).** ⚠️ **The dispatch is the most dangerous carrier,
+because it reads as NEUTRAL OPERATIONAL TEXT rather than as an answer key** — it nearly got past me
+for exactly that reason.
+
+✅ **RULE: SCORE, THEN DISPATCH.** An experiment that measures a filed artifact is unrepeatable once
+contaminated; a round waits minutes. ⛔ **And offer the ranker the override explicitly — it is their
+ranking call, not the relay's** — but state the default and the reason.
+
+⭐ **THE GENERAL FORM: any message that would answer a pending question about whether knowledge is
+RECOVERABLE must be held until the question is scored — no matter how operational it looks.**
