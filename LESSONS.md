@@ -28299,3 +28299,35 @@ an unearned pass would have been most expensive to find later. A spent grant is 
 is load-bearing, not evidence it is too strict.** ⚠️ **Three doors converged on the same fix within the
 hour — next scripted all seven gates in script order, Plan changed what a ⑤ must contain, I changed
 what I am allowed to relay.**
+
+## 7x411 — `MarginDebtCover` FIRST REAL RUN: CLEAN NO-OP, AND MY OBSERVER OUTLIVED THE RECORDER IT WAS BACKING UP (2026-09-02)
+
+**RESULT — clean no-op, exactly the pre-committed expectation** `[measured — my own `sqlite3 -readonly`
+on `hermes_dev.db` plus `journalctl`]`:
+```
+oban_jobs 170454  Hermes.Jobs.MarginDebtCover  state=completed
+                  scheduled 16:30:01Z  completed 16:30:01.863Z
+log:  "MarginDebtCover: skipped — :no_debit"
+settings: margin_cover_enabled=true · margin_cover_dry_run=FALSE   <- ARMED, and still did nothing
+new live_positions since 16:00Z = 0   (control: 27 rows exist)
+new signal_decisions since 16:00Z = 0 (control: 46 rows exist)
+AllocationMaintainer 15:00:01Z completed, 0 new positions  <- the predicted skip
+```
+⭐ **The armed-not-dry-run detail is what makes this a real green: a no-op from a job that COULD have
+acted is evidence; a no-op from a dry run is not.**
+
+⛔⛔ **AND THE OBSERVER EARNED ITS EXISTENCE ON THE OTHER HALF: hermes's own recorder RAN AND FAILED,
+and its systemd unit reported `Result=success`, `ExecMainStatus=0`.**
+```
+verify_1630.log:  timeout: failed to run command 'elixir': No such file or directory
+```
+⇒ ⭐⭐ **THE UNIT SUCCEEDED; THE CAPTURE DID NOT.** The script exited 0 having written an error where
+its data should be. ⚠️ **`Result=success` is a statement about the PROCESS, not about the WORK** — the
+same class as *"a stop's return value is a claim about the stopper"*, arriving in systemd.
+⭐ **The `journalctl` line saved it: the answer existed in the journal even though the recorder could
+not fetch it.** ⇒ **Two surfaces again, failing in opposite directions — the recorder had the intent
+and no data; the journal had the data and no intent to report.**
+
+✅ **AND THIS IS WHY THE INDEPENDENT LOOK WAS NOT REDUNDANCY:** hermes told me its timer would write an
+artifact and that **nothing would wake it to read it.** ⛔ **Had I trusted the artifact's EXISTENCE
+rather than its CONTENT, I would have recorded a successful capture of nothing.**
