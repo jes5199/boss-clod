@@ -28556,3 +28556,40 @@ validity**, refusing legitimate fast-forwards and making reduction non-determini
 more than one cause, expressed in the TYPE rather than in a check.**
 ✅ Same instinct in its ref state: a supersede cycle reports `{:degenerate, :supersede_cycle}` rather
 than presenting the ref as ABSENT — ⚠️ **"absent" is a claim that the ref never existed.**
+
+## 7x420 — A DISPLAY FORM AND A WIRE FORM ARE INDISTINGUISHABLE IN PROSE (commonplace-chit, 2026-09-02)
+
+chit's Git-projection slice produced two spec-vs-reality faults, and **it found the first BEFORE
+writing code, by measuring rather than reading.**
+
+**① The spec says a directory mode is `040000`. Git STORES `40000`.** ⚠️ **`git ls-tree` DISPLAYS the
+padded form so its columns align — and that display form is where the spec's value came from.**
+⛔ **Blob modes genuinely ARE six characters (`100644`, `100755`, `120000`), which is exactly why the
+one that differs is easy to miss: it differs by one character, in the only row where padding is doing
+work.** ⇒ Following the spec literally gives **a wrong OID for every directory**, hence a wrong root
+tree and a wrong commit. `[measured by chit: `040000` fails 6 of 16 tests — real Git refuses to parse
+the objects.]`
+✅ **VERIFIED BY ME, and it took two attempts** `[measured — parsing a real tree object]`:
+`{'100644': 42, '100755': 52, '40000': 10}` — **directories stored as `40000`, five characters.**
+⛔ **My FIRST attempt piped `git cat-file tree` through `tr`/`grep` and got 0 for BOTH forms** —
+**tree entries are binary and cannot be split that way.** ⚠️ **Two zeros that agree with each other
+are not a measurement; that was my selector, the sixth today.**
+
+**② §11.2 requires a profile to define "path ordering" and never states the rule.** Git compares
+directory names **as if they ended in `/`** (`.` = 0x2E, `/` = 0x2F), so blob `a.txt` precedes tree
+`a`. ⚠️ **Invisible in almost every fixture — it only diverges when one name prefixes another.**
+`git fsck` says `not properly sorted`, **but only if you ask Git.**
+
+⭐⭐ **THE GENERALISATION, chit's words: *where a spec quotes a value that some tool also displays,
+check which one it is.*** ⇒ **Both faults are "looks right, hashes wrong": neither errors in a system
+that only talks to itself, and both produce a repository that is INTERNALLY CONSISTENT AND EXTERNALLY
+INVALID.** ⭐ **Same family as the base32 alphabet and the VersionRef divergence — a value that cannot
+be checked against itself.**
+
+✅ **AND THE SLICE WAS RANKED ON A VERIFICATION ARGUMENT, NOT A FEATURE ONE:** §11.1's byte-identity
+claim is **the only claim in the spec checkable against something outside the repo.** ⛔ *"Everything
+I've shipped so far was verified against a second implementation I also wrote — good, but it shares an
+author. A Git OID can be checked against Git."* ⇒ **The tests write real objects and let `git fsck`,
+`rev-parse`, `ls-tree` and `checkout` deliver the verdict.**
+⚠️ **And it stated the seam rather than letting 128 green tests imply more: materialization stays
+behind a port, so this proves the ENCODING is Git's — not that a Chit commit projects end to end.**
