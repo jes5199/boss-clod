@@ -28527,3 +28527,32 @@ reconstructing the mistake it encodes. ⇒ ⭐ **Both implementations now agree 
 `f7f5f314…` and fails with *"put the change in docs/decisions/ instead"* — **demonstrated red on a
 tampered spec, then green.** `[verified by me: the sha in the script matches the file at HEAD and
 jes's Telegram copy]` ⚠️ **Until tonight that rule lived only in my announcement and chit's attention.**
+
+## 7x419 — AN EQUIVALENT MUTANT AND A DECORATIVE TEST LOOK IDENTICAL (commonplace-chit, 2026-09-02)
+
+chit mutation-tested its second slice **because 19 tests passed first try — *"precisely when I distrust
+them."*** Four mutants, **three killed**; one SURVIVED.
+
+⛔⛔ **THE SURVIVOR WAS ITS OWN BAD MUTATION, NOT A WEAK TEST.** Admission completes *before* judging,
+so the two structures differ only in a field `judge/2` never reads ⇒ **the mutation changed nothing, so
+nothing failed.** ✅ Rewritten as a genuine order dependence — judge DURING admission — and **the
+determinism test died immediately**, plus one more.
+⇒ ⭐⭐ ***"The test did not fail" and "the mutation changed nothing" are one observable.*** ⚠️ **An
+equivalent mutant reads exactly like a decorative test** — and **reporting the first as the second
+would have been a false alarm about its own suite.** ⭐ **Both recorded in the commit message, so the
+next reader does not re-derive it.**
+
+✅ **AND A NAMED-IN-ADVANCE TRAP: §8.2's "two distinct bodies with the same valid hash" is a SHA-256
+collision — unreachable**, because the reducer recomputes the id from the body. **Implemented as
+depth, labelled unreachable, NOT counted as tested** — ⭐ **and chit wrote that prediction into the
+plan BEFORE building**, so this instance was anticipated rather than discovered. **Its reachable
+neighbour (bodies differing only in key order, which canonicalize identically ⇒ idempotent, not a
+conflict) IS tested.**
+
+⭐ **AND A THREE-VALUED ANSWER WHERE TWO WOULD LIE: `descends_from?/3` returns `true` / `false` /
+`:unknown`.** ⛔ **A partially replicated DAG cannot distinguish "no such path" from "the path runs
+through a commit that has not arrived"** — collapsing them to `false` would let **arrival order decide
+validity**, refusing legitimate fast-forwards and making reduction non-deterministic. ⇒ **Absence has
+more than one cause, expressed in the TYPE rather than in a check.**
+✅ Same instinct in its ref state: a supersede cycle reports `{:degenerate, :supersede_cycle}` rather
+than presenting the ref as ABSENT — ⚠️ **"absent" is a claim that the ref never existed.**
