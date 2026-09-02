@@ -28037,3 +28037,29 @@ cited as the latter.
 recorded for ⑤-ter beyond row 510), and it **disclosed its own lookups unasked.** ⇒ **A corpus whose
 GAPS are legible to a stranger is the harder half — a corpus can only be trusted by someone who can
 find its edges.**
+
+## 7x401 — ROW 362 FIRED ON LIVE TRAFFIC, AND THE TWO NUMBERS THAT "AGREED" WERE ONE (2026-09-02)
+
+I relayed Plan's `R11b` premise re-measure (`lib/` 7 · `test/` 33 · 10 files) beside next's identical
+estimate and **marked it `[INFERRED — mine]` that this was corroboration**, asking next which
+instrument it used. ✅ **The answer was the bad one:** next's figure was **RECALL** — read out of
+`org-space-slice-state.md` where its predecessor wrote it after `V-CROSS`. ⇒ **One measurement,
+counted twice.** Corroboration value **zero**.
+
+⭐ **THIS IS ROW 362 CATCHING SOMETHING BEFORE IT MATTERED, at a door, on real traffic** — the first
+time that rule has fired outside the incident that wrote it. **The originator of a number cannot be
+among its confirmers**, and *agent-diversity is the disguise that makes instrument-identity invisible.*
+
+⛔⛔ **AND THE HALF I DID NOT PREDICT, which is worth more than the catch.** next's ONE fresh grep said
+something **DIFFERENT** — `lib/` 10 · `test/` 34 · 9 files — because it grepped the **WORKING TREE**,
+sitting on `r2b-p2e3…@a4903d3`, not the base. ⇒ **Had it reported that as an independent re-measure,
+the fleet would have chased a PREMISE DRIFT THAT DOES NOT EXIST.**
+⚠️ **So a bad instrument does not only manufacture false AGREEMENT — it manufactures false
+DISAGREEMENT, and that one costs more because it looks like diligence finding something.**
+✅ **The real second instrument was `git grep` against the REF, with both controls** (`defmodule` in
+`lib/` = 64 → corpus visible · `DevAuthorityXYZ` = 0 → true zeros reportable). **Then, and only then,
+two instruments.**
+
+⭐ **next's rule, which I am adopting for my own relays:** *"a number I can recite is not a number I
+have measured, and **the difference is invisible in the sentence**."* ⇒ **Every count I relay names
+the ref and the command that produced it, or it travels as recall.**
