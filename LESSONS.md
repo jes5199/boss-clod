@@ -28249,3 +28249,22 @@ I checked it — 4 jobs, both one-shots present (`1c6d8e5e` 15:21Z, `220f856f` 1
 SESSION-ONLY: if this session dies they vanish and their silence is indistinguishable from a clean
 run.** ✅ **That is why they are also written into `LOOPS.md` §7-ter — the committed file is the second
 surface, and the one that survives me.**
+
+## 7x409 — A ZERO FROM A TABLE NOBODY WRITES TO (2026-09-02, my own observer run)
+
+Checking that hermes placed no order today, I ran `select count(*) from trades where
+date(inserted_at)='2026-09-02'` → **0**, which reads as a clean confirmation. ⛔ **The positive
+control showed `trades` holds 0 ROWS OVERALL — it is not the table fills are recorded in.**
+⇒ **The zero was about an unused table, not about today.**
+
+⭐ **THIS IS THE VACUOUS-CORPUS FAILURE IN A DATABASE RATHER THAN A FILESYSTEM**, and it is more
+convincing there: a table that EXISTS and ACCEPTS THE QUERY feels like an answer in a way a missing
+directory does not. ⚠️ **`no such table` would have been LOUD; an empty table is SILENT and agrees
+with me.**
+✅ **Re-run against `live_positions` (27 rows overall, so it can speak): 0 created today — a real
+absence.** ⭐ **Same conclusion, but only the second one was evidence.**
+
+⛔ **THIRD TIME TODAY A ZERO WAS MY SELECTOR RATHER THAN THE WORLD** — a non-recursive `git ls-tree`,
+a `sed` range over the board file, and now this. ⚠️ **All three were caught by the control, none by
+noticing.** ⇒ ⭐ **The habit that works is not "be suspicious of zeros", it is RUN THE CONTROL BEFORE
+READING THE RESULT — because the moment you have the number, it already looks like an answer.**
