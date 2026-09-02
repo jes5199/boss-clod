@@ -28109,3 +28109,34 @@ second instrument confirming itself.**
 ✅ **THE FIX IS CHEAP AND MECHANICAL: a relayed number carries TWO names, not one — WHO MEASURED and
 WHO PASSED IT.** `[measured by next, n=20 · relayed via plan · I ran nothing]`. ⇒ **One name is
 ambiguous by construction, and the ambiguity always resolves toward the door that spoke last.**
+
+## 7x404 — BUSY AND BLOCKED SHARE ONE OBSERVABLE AND NEED OPPOSITE REMEDIES (2026-09-02)
+
+`commonplace-plan` reached 70 %. I typed `/compact` into its pane; a suggestion menu ate the first
+Enter, the second queued it, and the pane read **`Press up to edit queued messages`** — the exact
+string my health-check instructions list under *"queued messages needing Enter"*.
+
+⛔ **THREE ENTERS FAILED, and the reason is that the pane was BUSY, NOT BLOCKED.** A blocked pane is
+waiting for a keystroke; a busy one is generating and **re-queues whatever arrives behind the work.**
+⚠️ **They print the same line.** ⇒ **Pressing Enter at a busy door is not a weak remedy, it is the
+wrong one** — and it is the remedy the string invites.
+
+⭐⭐ **AND THE PERVERSITY THAT MAKES IT WORTH A ROW: A QUEUED `/compact` BEHIND A BUSY DOOR NEVER
+RUNS.** Every inbound message refills the queue ahead of it ⇒ **the busier the door, the less likely
+the thing that repairs its context is to execute.** ⚠️ **Plan was the door everything routed through,
+so its context climbed 68 → 70 % across the five minutes both of us believed a compact was in flight.**
+
+✅ **THE FIX WAS SILENCE.** Plan asked for it itself; I put a traffic hold on it and told next to route
+through me. **The compact fired 2 min 14 s later**, having failed for the previous five minutes.
+⇒ ⭐ **To unstick a busy door you remove input, which is the opposite of every other entry in the
+unsticking playbook.**
+
+⭐ **AND THE VERDICT WAS THE PERCENTAGE, NEVER THE COMMAND.** `70 % → 0 %`, read from the statusline
+before and after. ⛔ **A queued `/compact` looks identical to a running one** — I refused to report it
+as done in either state until the number moved. **The artifact is the verdict, not the command's
+return.**
+
+⚠️ **AND THE STALL SWEEP CANNOT SEE THIS.** Its `inbox-since-turn-end` counts what was ADDRESSED to a
+door, not what the door has ALREADY SWALLOWED into its own queue. A door with a full pane queue and an
+empty inbox reads as `IDLE-EMPTY-INBOX`. ⇒ **Not a defect I am fixing today, but the honest bound on
+what that field measures.**
