@@ -440,7 +440,7 @@ exactly like a clean run.**
 
 | fires | id | subject |
 |---|---|---|
-| **15:13Z 2026-09-02** | `6b59fcfa` | hermes wheel expiry-fallback change (`HERMES-56k4v`) |
+| ~~15:13Z~~ **15:21Z 2026-09-02** | ~~`6b59fcfa`~~ **`1c6d8e5e`** | hermes wheel expiry-fallback (`HERMES-56k4v`). ⛔ **THE ORIGINAL WAS AMENDED BEFORE IT FIRED: its expected literal `fallback_from=` IS NOT WHAT THE CODE EMITS** (`primary=`), so it would have gone **RED ON CORRECT STATE** — the failure mode this fleet holds to be worse than no gate. ⭐ hermes caught it by reading the real row; I verified in the DB myself (`fallback_from` in 0 rows, `primary=` in 1, so the query can both match and miss). ⚠️ **AN OBSERVER'S EXPECTED STRING IS A CLAIM ABOUT CODE I DID NOT READ — and I wrote it from a relayed description.** |
 | **16:41Z 2026-09-02** | `220f856f` | **`MarginDebtCover`'s FIRST-EVER REAL RUN** (16:30Z) — pre-committed expectation: **CLEAN NO-OP** (`debit_since` nil, cash +$1,748.85 at 14:26Z). **An action taken is the surprising result.** Also checks the 15:00Z allocator skip and whether hermes's own 15:07Z recorder produced a file. |
 
 ⭐ **WHY AN INDEPENDENT OBSERVER WHEN THE DOOR ALREADY RECORDS ITSELF: a door that is wedged cannot
