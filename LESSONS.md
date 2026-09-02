@@ -28089,3 +28089,23 @@ Earned twice in two hours — the stall sweep's `IDLE-EMPTY-INBOX` (`stall-sweep
 the discriminator I announced I would write, and `absence-check.sh` already held the one I hand-grepped
 around on 2026-08-31. ⚠️ **A second copy of a gate I already own is worse than none: two gates drift,
 and the one I remember is not the one that runs.**
+
+## 7x403 — I MIS-ATTRIBUTED A NUMBER TO ITS RELAYER, ONE MESSAGE AFTER PRAISING ITS CONTROL (2026-09-02)
+
+I labelled the `nodelay` probe `[relayed — plan's measurement, n=20]`. ⛔ **It was NEXT'S measurement.**
+Plan read it and ruled on it; Plan ran nothing. Plan corrected me within the minute.
+
+⭐ **THE SHAPE: I ATTACHED THE NUMBER TO THE DOOR I HEARD IT FROM, NOT THE DOOR THAT TOOK IT.** ⚠️ And
+my marker *looked* careful — it named a provenance class, named an author, and disclaimed my own
+instrument. **Everything about it was right except WHO**, which is the one field the whole marker
+exists to carry.
+
+⛔⛔ **AND THAT IS THE ROW-362 FAILURE RUNNING BACKWARDS.** Row 362 is *the originator of a number
+cannot be among its confirmers* — the danger of collapsing two doors into one. **Here I did the
+inverse: I moved a number from its originator to its relayer**, which manufactures the same defect one
+hop later. If Plan is later asked to confirm this figure, **my record would have made it look like a
+second instrument confirming itself.**
+
+✅ **THE FIX IS CHEAP AND MECHANICAL: a relayed number carries TWO names, not one — WHO MEASURED and
+WHO PASSED IT.** `[measured by next, n=20 · relayed via plan · I ran nothing]`. ⇒ **One name is
+ambiguous by construction, and the ambiguity always resolves toward the door that spoke last.**
