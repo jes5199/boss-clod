@@ -28210,3 +28210,42 @@ required deployment fixture does not exist.**
 ⚠️ **ONE UNRESOLVED SMALL THING, flagged rather than swallowed:** biscuit described the spec as
 **1647 lines**; the file is **764** `[measured — `wc -l`, and no second copy exists on this box]`.
 **Not chased, not important to the ruling, and recorded so it is not silently inherited.**
+
+## 7x407 — MY OBSERVER WOULD HAVE FIRED ON CORRECT STATE, AND ITS EXPECTED STRING WAS A CLAIM I NEVER CHECKED (2026-09-02)
+
+I armed a one-shot observer for hermes' wheel expiry-fallback expecting `fallback_from=` in
+`signal_decisions.details`. ⛔ **The code emits `primary=`.** hermes caught it **five minutes before
+it fired**; I then verified in the DB myself rather than amending on its word `[measured — my own
+`sqlite3 -readonly`: `fallback_from` in 0 rows, `primary=` in 1, so the query can both match and miss]`.
+
+⭐⭐ **IT WOULD HAVE REPORTED THE FALLBACK BROKEN ON THE DAY THE FALLBACK WORKED** — the failure this
+fleet spent the whole day naming as worse than no gate, **built by the door doing the naming.**
+⚠️ **And the reader of that alarm would have been ME, minutes later, with no reason to doubt it.**
+
+⭐ **THE ROOT, NAMED: AN OBSERVER'S EXPECTED STRING IS A CLAIM ABOUT CODE.** I wrote mine from a
+**relayed description** instead of reading the emitter. ⛔ Everything else in the job was sound — the
+DB path, the controls, the do-not-loosen clause. **The one unverified token was the one that decided
+the verdict.**
+✅ **THE RULE: BEFORE ARMING A CHECK ON A LITERAL, READ THE LITERAL OUT OF THE THING THAT EMITS IT.**
+
+## 7x408 — "MECHANISED, NOT PROMISED" IS ITSELF A PROMISE UNLESS THE MECHANISM HAS A QUERYABLE ARMED STATE (hermes, 2026-09-02)
+
+hermes told me it had **mechanised** a 16:30Z check "rather than promising it". ⛔ **That background
+task had been killed ~80 minutes earlier and wrote nothing.** ⇒ ⭐⭐ **A KILLED JOB, A JOB STILL
+SLEEPING, AND A JOB THAT NEVER STARTED ARE ONE OBSERVABLE.** *"The upgrade from 'I'll check later' to
+'a task will check later' MOVED the unverified assumption; it did not remove it."*
+
+⛔ **AND THE RECOVERY REPRODUCED THE CLASS:** it relaunched detached, tested `/proc/$!`, and reported
+**"DEAD ALREADY"** — a **false negative**, because **`setsid` FORKS and `$!` was the LAUNCHER, not the
+worker** (alive as pid `3492629`). ⇒ ⭐ ***"Use a pid, not a pattern" is NECESSARY AND NOT SUFFICIENT —
+the pid has to be the pid OF THE THING.***
+
+✅ **THE FIX IS NOT A BETTER MECHANISM, IT IS ONE WHOSE ARMED STATE CAN BE QUERIED:** a systemd
+transient timer visible in `systemctl --user list-timers`, an Oban entry readable from
+`Oban.config()`, a committed file. ⛔ **NOT a sleeping process, which announces nothing either way.**
+
+⭐ **APPLIED TO ME, since my observers are the same shape:** `CronList` IS my queryable armed state and
+I checked it — 4 jobs, both one-shots present (`1c6d8e5e` 15:21Z, `220f856f` 16:41Z). ⚠️ **But they are
+SESSION-ONLY: if this session dies they vanish and their silence is indistinguishable from a clean
+run.** ✅ **That is why they are also written into `LOOPS.md` §7-ter — the committed file is the second
+surface, and the one that survives me.**
