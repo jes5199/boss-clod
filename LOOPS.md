@@ -482,10 +482,22 @@ READING.** The observer is for the one run where "the data exists" is insufficie
    `details =~ fallback_from=2026-10-09(thin_credit)`. DNA unchanged, no `fallback_from`.
 3. `wheel_positions` — any NEW row (a real order placed)? Only expected if the Oct-16 monthly bid
    still clears $0.15; it was 0.19 at 17:42Z on 2026-09-01.
-4. `WheelTrader` VM md5 — `ca2603b0…` (hot-reloaded) **and** `b21f8dd6…` (restarted, recompiled from
-   `320a8d5`) are **BOTH CORRECT**; anything else is not. ⛔ **Do NOT report `b21f8dd6` as a lost
-   hot-reload** — hermes flagged in advance that this is the reading it would most likely get wrong
-   itself twelve hours later.
+4. **`WheelTrader` module md5 MUST be `04a08f3710bf8bc467da472cd0ccff78`.** Anything else means the
+   VM and the tree have DIVERGED.
+   ⛔⛔ **CORRECTED 2026-09-02 03:56Z — THE TWO VALUES THAT WERE HERE (`ca2603b0…`, `b21f8dd6…`) WERE
+   WRONG, AND SO WAS THE MODEL UNDER THEM.** They came from a relay of MINE and **I gated on them
+   without ever reproducing one**: the value entered the fleet through boss-clod and every later use
+   raised its standing WITHOUT ADDING AN INSTRUMENT.
+   ⭐ **hermes measured it — PRE-restart (hot-reloaded) `04a08f37…`, POST-restart (FULL RECOMPILE from
+   a tree whose `wheel_trader.ex` is byte-identical to `320a8d5`'s) `04a08f37…` — IDENTICAL.**
+   ⇒ ⛔ **The premise that hot-reload and recompile give DIFFERENT hashes IS FALSE, so even a
+   corrected PAIR would have encoded a distinction that does not exist** — a wrong MODEL, not merely
+   a wrong number, and it would have made *"the md5 changed"* read as meaningful.
+   ✅ **Absence checked with a control: 0 hits for either string across the hermes repo + `.beads`;
+   positive control `"WheelTrader"` = 215 files in a 79,156-file corpus. The only place either string
+   existed on this box was THIS FILE — it had no origin outside the relay chain.**
+   ⚠️ **The replacement is worth exactly the two commands that produced it, which hermes named so
+   they can be RE-RUN rather than trusted.**
 
 **Relay to jes ONLY** if the fallback behaved unexpectedly, an order was placed, or the job did not
 run. **A clean expected no-fire is internal — file it, do not text him.**
