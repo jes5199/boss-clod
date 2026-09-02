@@ -433,7 +433,21 @@ asked to hear about.
 ⭐ **Built-in stop condition:** if one worker stalls **three times in an hour despite this**, stop
 nudging and say so. **At that point the nudge is a substitute for a fix, not a fix.**
 
-### 8. Hourly fleet health check — every hour at :38 (session-scoped)
+### 8-bis. OPEN-WITH-JES BOARD — read it during the hourly check
+
+⛔ **THE HOURLY CHECK ASKS "IS A WORKER BLOCKED?" AND MY CONTEXT IS NOT THE PLACE THAT ANSWERS IT.**
+Read **[OPEN-WITH-JES.md](OPEN-WITH-JES.md)** on every hourly fleet check, and add a row the moment a
+door says it is waiting on jes.
+
+⭐ **EARNED 2026-09-02:** biscuit closed a message *"still awaiting jes on the restart"* and I had no
+record of it — **though it was in my transcript twice, once in my own words.** ⚠️ **In context and not
+in the record**, which is the same failure the fleet had just fixed for facts, arriving in board state.
+⭐⭐ **biscuit: *"You were saved by the item being unimportant, NOT by the record."***
+
+⚠️ **Every row says BLOCKED or WAITING, and never infer which — ask the door.** **Blocked goes to
+Telegram now; waiting sits in the file.**
+
+## 8. Hourly fleet health check — every hour at :38 (session-scoped)
 
 ⛔⛔ **FOUND MISSING 2026-09-02 03:42Z BY THE CHECK ITSELF.** The stall sweep (§7) and the one-shot
 observer were both filed here; **this loop was not** — for seven hours, while it ran every hour and
