@@ -433,6 +433,36 @@ asked to hear about.
 ⭐ **Built-in stop condition:** if one worker stalls **three times in an hour despite this**, stop
 nudging and say so. **At that point the nudge is a substitute for a fix, not a fix.**
 
+### 8. Hourly fleet health check — every hour at :38 (session-scoped)
+
+⛔⛔ **FOUND MISSING 2026-09-02 03:42Z BY THE CHECK ITSELF.** The stall sweep (§7) and the one-shot
+observer were both filed here; **this loop was not** — for seven hours, while it ran every hour and
+told me each time to *"recreate from LOOPS.md if the list is missing the stall sweep."*
+⭐ **It named ONE job as the thing to check for. A loop that verifies ANOTHER loop's persistence and
+not its own is exactly the shape it exists to catch** — and it is the same defect as
+`the board that supersedes everything is the board nobody re-reads`.
+
+**EXACT PROMPT — recreate with `CronCreate`, cron `38 * * * *`, recurring:**
+```
+Hourly fleet health check. For every worker: call list_peers, then inspect each tmux pane by
+identity (never a broad pattern match). Look for and fix: a pane sitting at bash instead of claude
+(relaunch with the recipe in reference_worker_restart_recipes / LOOPS.md); a generation stuck over
+30 minutes; queued messages needing Enter; any modal dialog holding the session — drafted-feedback
+review, rate-limit prompt, permission prompt, suggestion menu; and a session whose statusline model
+is not the one it is supposed to be running. Also read each worker's context percentage from its
+statusline and note anything above 70%. Separately confirm this session's own recurring jobs still
+exist with CronList — if the list is empty or missing the stall sweep, recreate from
+/home/jes/boss-clod/LOOPS.md, because session-scoped jobs are lost on restart and that silence looks
+identical to health. Verify what you find rather than trusting a pane's own summary. Send jes a
+Telegram summary ONLY if you fixed something, something is actually broken, or a worker is genuinely
+blocked; if everything is healthy, stay silent — do not send a routine all-clear.
+```
+**Tools it uses:** `pane-ctx.sh` (reads context % by identity, reports BLIND vs UNMEASURED) ·
+`recoverability-check.sh` (does boss's own filed state survive a restart) · `CronList`.
+⚠️ **When recreating, check ALL FOUR jobs exist, not just the one the prompt names:** stall sweep
+(§7) · this check (§8) · any one-shot observer · and whatever else `CronList` showed before the
+restart.
+
 ## ONE-SHOT OBSERVER — hermes wheel fallback first live run (2026-09-02 15:13 UTC)
 
 ⚠️ **SESSION-ONLY: `CronCreate` job `6b59fcfa` is NOT persisted. If this session restarts before
