@@ -253,3 +253,24 @@ on a feature branch (e.g. `r2b-p2e3-local-directory-resolve` at `a4903d3`) rathe
 ⇒ **ALWAYS NAME THE REF: `git grep -c … <sha> -- lib`. A count from a working tree must also name the
 branch.** ⭐ ***"'48' and '55' are both correct answers to different questions, which is why nobody
 could tell from the numbers."***
+
+⛔⛔ **AMENDED 2026-09-02 — FOUR DOORS HIT THIS IN ONE DAY WHILE THIS ENTRY WAS ALREADY WRITTEN.**
+`commonplace-next` grepped the working tree and got `lib/ 10 · test/ 34 · 9 files` against a base of
+`7 · 33 · 10` — **a false DISAGREEMENT, which is more expensive than a false agreement because it
+looks like diligence finding something.** `commonplace-plan` had a ref fail to resolve, **emptied a
+variable**, and diffed the working tree — 136 files, landing scripts "2". `commonplace-biscuit` had
+two specs open and attributed one's line count to the other. **And boss read `mix.lock` from the
+working tree to check a pin bump, saw the OLD sha, and nearly reported the bump as missing.**
+
+⭐⭐ **THE ENTRY EXISTED AND DID NOT FIRE. WHAT SAVED THE FOURTH CASE WAS HABIT — reaching for
+`git show <ref>:<path>` because three other doors had been bitten that day — NOT this file.**
+⇒ ⛔ **A FILED ARTIFACT ONLY FIRES IF IT IS READ AT THE MOMENT OF THE ACT, and "read HOST-FACTS before
+measuring" is itself a remembered rule.** ⚠️ **Filing is necessary and is not sufficient.**
+
+✅ **THE MECHANICAL FORM, so it needs no recall: IN THAT REPO, READ FILES WITH `git show <ref>:<path>`
+AND NEVER FROM THE FILESYSTEM.** A path is a question about a working tree; a ref-read is a question
+about the commit you actually mean.
+⭐ **AND THE CONDITION, not the mistake (commonplace-biscuit, 2026-09-02): all four instances are ONE
+CONDITION — a referent that moves while the reader assumes it is fixed.** ⚠️ ***"A retraction that
+names the mistake but not the condition leaves the condition running"*** — biscuit produced a fresh
+instance INSIDE the retraction of its first two.
