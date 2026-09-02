@@ -449,6 +449,8 @@ Telegram now; waiting sits in the file.**
 
 ## 8. Hourly fleet health check — every hour at :38 (session-scoped)
 
+📌 **This check also READS [OPEN-WITH-JES.md](OPEN-WITH-JES.md) — see §8-bis immediately above.**
+
 ⛔⛔ **FOUND MISSING 2026-09-02 03:42Z BY THE CHECK ITSELF.** The stall sweep (§7) and the one-shot
 observer were both filed here; **this loop was not** — for seven hours, while it ran every hour and
 told me each time to *"recreate from LOOPS.md if the list is missing the stall sweep."*
