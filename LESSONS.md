@@ -27931,3 +27931,37 @@ ranking call, not the relay's** — but state the default and the reason.
 
 ⭐ **THE GENERAL FORM: any message that would answer a pending question about whether knowledge is
 RECOVERABLE must be held until the question is scored — no matter how operational it looks.**
+
+## 7x395 — A CONSTRAINT AND A QUESTION MUST NOT SHARE A LIST (jes, 2026-09-02)
+
+Asked *"what are the open questions"*, I sent four items: two genuine questions running on
+proceed-on-default, and two **serving preconditions** — constraints I enforce, requiring nothing from
+him. He replied **"1 yes 2 yes 3 is there a question ."**
+
+⇒ ⭐ **He was right to look. The list's shape said all four were questions**, so item 3 read as one
+whose question I had forgotten to write. ⛔ **A message's NEIGHBOURS change how an item reads** —
+the same shape as an answer key travelling inside an operational dispatch [7x394].
+
+✅ **Fix: constraints go under their own heading, phrased as what I will refuse rather than what he
+must decide** — *"I will not relay a ready-to-serve claim past either of these"* — and never
+interleaved with items awaiting his answer.
+
+⭐ **The useful measurement underneath: both defaults HELD.** Two questions ran proceed-on-default
+for four and five hours; **both answers matched the default.** ⚠️ `[INFERRED — n=2]` that the
+practice is calibrated: **two matching answers is not a base rate, and a default that is wrong once
+costs more than the two it saved.**
+
+## 7x396 — ON A LIVE-MONEY PATH, A 90% READING IS NOT GOOD ENOUGH (2026-09-02)
+
+jes wrote **"hermes also we can trade for real"**. The likeliest reading is *flip
+`alloc_maintainer_dry_run` from `"true"` to `"false"`* — the switch between the allocator PROPOSING
+sizes and PLACING them. It could also mean the four open `HERMES-cqa92` questions are approved.
+
+⛔ **I did not relay it.** *Default: Fix It, Don't Ask* covers work I am allowed to do; **hermes's
+live-money paths are on the short list that requires his approval, and an ambiguous approval is not
+one.** ⇒ **Asked for one specific word — "dry-run off" — and gave him the context that the wheel is
+already trading independently of that flag, so he could see what he was NOT authorising.**
+
+⭐ **The test that separates this from ordinary 90% acting: WHAT DOES THE WRONG READING COST?**
+A wrong reading of a dispatch costs a round. **A wrong reading here places real orders at sizes
+nobody chose** — and no artifact I could write afterwards would un-place them.
