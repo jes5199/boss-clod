@@ -42,7 +42,8 @@ FACTS=(
   "X-REALM"
   "R10b"
   "LogStore.Cloudflare"               # the beta storage answer
-  "realm/create|first-caller-wins"    # the serving precondition
+  "realm/create|first-caller-wins"    # serving precondition 2
+  "cross-realm workspace edge|DevScoped"  # serving precondition 1 — no public multi-BEAM while it holds
   "monthl"                            # hermes' wheel fallback, live money
   "jes-send|price is the ticket|PRICE IS THE TICKET"
   "per-claim|PER-CLAIM"
