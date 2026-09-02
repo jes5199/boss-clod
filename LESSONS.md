@@ -28268,3 +28268,34 @@ absence.** ⭐ **Same conclusion, but only the second one was evidence.**
 a `sed` range over the board file, and now this. ⚠️ **All three were caught by the control, none by
 noticing.** ⇒ ⭐ **The habit that works is not "be suspicious of zeros", it is RUN THE CONTROL BEFORE
 READING THE RESULT — because the moment you have the number, it already looks like an answer.**
+
+## 7x410 — I RELAYED A "7" WITH ONE NAME ATTACHED (2026-09-02)
+
+Plan refused an `EC-1` landing post-admission (`check-plan-arms` caught an undeclared `lib/` module)
+and filed two defects, one being its own: **it accepted a ⑤ receipt naming FOUR of SEVEN gates without
+laying it against the script.** Its ruling: ⭐ ***a ⑤ enumerates every gate by name, or it is not a ⑤.***
+
+⛔ **I checked my own relays against that ruling instead of nodding at it, and I have the same defect.**
+`[measured — my sent messages out of the queue db, counting distinct gate names]`
+```
+#25885  NODELAY relay   claimed "all 7 gates green"   NAMED 1
+#25913  D-PAUSE relay   claimed 4 gates               NAMED 4   ✅
+CONTROL #25900          no gate claim                 NAMED 0   ← the counter can report zero
+```
+⇒ **I passed a SEVEN with ONE name attached.**
+
+⭐ **WHAT BOUNDED IT WAS THE LABEL, NOT THE CARE.** I had marked it `[accepted as reported — I ran no
+gate]`, so nobody downstream treated my relay as a second instrument. ⚠️ **The label limited the blast
+radius of a defect it did not prevent — those are different jobs and I was only doing one.**
+
+⛔⛔ **AND IT IS `never emit a bare count` IN DISGUISE.** I enforce that rule on other doors daily.
+**"7 gates green" IS a bare count — it just wears a gate's clothes**, and the noun being technical is
+what stopped me hearing it as the thing I forbid.
+✅ **ADOPTED: a gate-set claim passing through me is relayed WITH ITS NAMES, or relayed as a number I
+did not expand — and I say which.**
+
+⭐ **AND THE INCIDENT ITSELF IS THE CEREMONY WORKING: the gate caught it POST-ADMISSION, which is where
+an unearned pass would have been most expensive to find later. A spent grant is evidence the ceremony
+is load-bearing, not evidence it is too strict.** ⚠️ **Three doors converged on the same fix within the
+hour — next scripted all seven gates in script order, Plan changed what a ⑤ must contain, I changed
+what I am allowed to relay.**
