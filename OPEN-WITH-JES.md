@@ -26,6 +26,15 @@ blocked goes now; waiting sits here. ⚠️ **Never infer which; ask the door.**
 1. `secret_key_base` from the environment
 2. `Web.AccessAuthentication` configured
 3. `/realm/create` first-caller-wins
+5. ⛔⛔ **DO NOT SERVE BEFORE `EC-2` LANDS — TIME-BOXED, EXPIRES ON THAT LANDING** (plan row 570,
+   `4f7d3aa`, 2026-09-02). `EC-2`'s last step re-identifies the two configured Editor Cells onto their
+   DERIVED ids (`developer` `…0006` → `7ea1d545…`, `developer-2` `…0008` → `2ffe6f58…`).
+   ⭐ **Plan ruled it a RE-SEED rather than a MIGRATION on the measured fact that NOTHING IS SERVED**,
+   so no deployment holds data under the old ids and the cost today is **zero**.
+   ⚠️ **A serve before that landing converts it into a migration round.** ⇒ **The window is the only
+   thing that makes this free, and the window closes by being used.**
+   ✅ Cost as it stands: local dev stores re-seed. **One line to jes when it lands — not a risk.**
+
 4. ⭐ **re-check the poll's cost before the FIRST SERVED MIRROR** — spec `§17`: DO duration and
    hibernation **MUST be measured in a deployment fixture**, and **no such fixture exists**
    (open question 3). Shape, from plan row 538: one Container with a held idle session at a shortened
