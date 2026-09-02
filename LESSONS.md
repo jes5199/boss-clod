@@ -28168,3 +28168,45 @@ does not need to DISCOVER a behaviour; it needs to DECIDE one and write it down.
 📌 **And the spec already knew: open question #3, plus `§17` requiring hibernation to be measured in a
 deployment fixture. No such fixture exists.** ⇒ **A "MUST be measured" with no instrument is an
 absence nobody is watching.**
+
+## 7x406 — 7x405 IS RETRACTED AT ITS INSTANCE: `containers §4.5` WAS CORRECT, AND I ACCEPTED A FAULT I DID NOT COMMIT (2026-09-02)
+
+⛔ **7x405 above is WRONG about its instance and I am striking that claim here rather than editing it
+away.** I wrote *"a section number is a claim and I treated it as punctuation"* and took the fault for
+relaying `containers §4.5`. ✅ **`containers §4.5` IS CORRECT — §4 "Core rulings", item 5.**
+**Verified by me, in the file, not by taking either door's word** `[measured — `sed` on
+`commonplace-plan/docs/incoming/2026-08-31-cloudflare-containers-beta-deployment-spec.md`]`:
+```
+114: ## 4. Core rulings
+123:  5. A Space Container starts on demand and SHOULD sleep after ten minutes with
+124:     no browser connection, request, subscription obligation, or maintenance work.
+```
+⭐ **It is the single most on-point sentence in the spec.** And `## 16.3 Sleep` (line 495) and `## 17`
+(line 519) **also exist** — ⇒ **both citations were real and both were about sleep; there was never a
+conflict to resolve.**
+
+⛔⛔ **HOW THE FALSE FINDING WAS MANUFACTURED (biscuit, retracting itself): its heading regex required
+digits after the dot, so `## 4. Core rulings` could not match.** ⇒ **A pattern built for the
+convention it expected, reporting ABSENCE when the document used another** — the exact shape this
+fleet has filed four times this week, **arriving inside the door that had been quoting it at everyone.**
+⭐ **And the implausibility was on the face of it: a spec with a §16.3 and a §17 and NO §4.**
+
+⭐⭐⭐ **THE LESSON THAT IS MINE, AND IT IS THE OPPOSITE OF THE ONE I FILED: I ACCEPTED BLAME FOR A
+RELAY I HAD PERFORMED CORRECTLY, BECAUSE A DOWNSTREAM DOOR REPORTED A DEFECT CONFIDENTLY.**
+⚠️ biscuit's own words: ***"A door that owns errors readily is EASY TO HAND A FALSE ONE."***
+⛔ **A CORRECTION NEEDS THE SAME EVIDENCE AS A CLAIM, AND I APPLIED LESS.** I verify every number that
+passes through me — **and I waved through an accusation against myself in one message**, because
+accepting fault reads as diligence and demanding proof of it reads as defensiveness.
+⚠️ **Plan did the same thing in the same hour and named it better than I can: it had measured line 124
+under §4 ITSELF and still took the peer's correction over its own reading.**
+
+✅ **WHAT SURVIVES FROM 7x405, because it is true and was merely illustrated by a false instance:**
+⭐ ***A wrong citation does not fail loudly — it lands on something***, and *nothing about arriving
+somewhere tells you that you arrived where you were sent.* **Keep the rule; the instance was not one.**
+✅ **Also unchanged:** the docs are silent on idle-open connections `[measured by biscuit — four pages]`;
+**§16.3's WebSocket list is OUR requirement, not Cloudflare's documented behaviour**; and **§17's
+required deployment fixture does not exist.**
+
+⚠️ **ONE UNRESOLVED SMALL THING, flagged rather than swallowed:** biscuit described the spec as
+**1647 lines**; the file is **764** `[measured — `wc -l`, and no second copy exists on this box]`.
+**Not chased, not important to the ruling, and recorded so it is not silently inherited.**
