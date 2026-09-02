@@ -28407,3 +28407,30 @@ one for one."*
 `chit_id == "chit:sha256:" + base32(digest)`, and the checker now ASSERTS the shapes rather than
 leaving them implicit.** ⭐ **Free now because nothing depends on the field names yet; not free in a
 week.** ⇒ **A reader's error at rate 1-of-1 is a property of the artifact, not of the reader.**
+
+## 7x415 — A REAL DEFECT CAN WEAR A KNOWN FLAKE'S SIGNATURE (commonplace-next, 2026-09-02)
+
+`SUITE-LOAD-1` verification round 1: six gates green, `mix test` **rc=2, 417 tests / 1 failure / 11
+invalid**. Cause: `test/support/remote_client.exs` had `undefined variable "bootstrap"` and **never
+compiled**, so the child died at startup and every parent saw `:econnrefused`.
+
+⛔⛔ **AND THAT IS EXACTLY THE SIGNATURE OF THE OPEN `gateway-transport-prereq-timing` FLAKE next has
+been tracking as D4.** ⚠️ ***"Had it produced one failure instead of twelve, I would have read it as
+D4's third observation and landed it."*** ⇒ ⭐⭐ **AN OPEN FLAKE IS A PLACE A REAL DEFECT CAN HIDE —
+it supplies a ready-made, already-believed explanation for the exact symptom.**
+⭐ **It was saved by the BLAST RADIUS, not by a check: 11 invalidated tests were the only reason it
+looked.** ⇒ **A defect that had been politer would have shipped.**
+
+⚠️ **AND NOTHING STATIC COULD HAVE CAUGHT IT** `[measured by next]`: these are `.exs` files the CHILD
+compiles at runtime, so `mix compile` never sees them; `Code.string_to_quoted` parses the broken file
+fine and `mix format --check-formatted` passed. ⇒ **"It compiles" was never asserted about the files
+that matter most to a two-BEAM fixture.**
+
+⭐ **THE OTHER HALF, and it generalises: THE ARM WAS GREEN THROUGHOUT.** One edit to two helper files;
+the arm exercises the *editor* helper, and **only the full suite reaches the *client* helper.**
+⇒ ***An arm proves its own path and nothing else*** — a green arm beside a broken sibling file is not
+a contradiction, it is the arm answering the question it was asked.
+
+✅ **AND THE DISCIPLINE THAT COST TIME AND WAS RIGHT: it restarted the seven gates FROM THE TOP rather
+than resuming.** *"The tree changed; six greens measured on a different tree are not evidence of this
+one."* **Round-1 results kept and renamed `…-ROUND1-CONTAMINATED` rather than deleted.**
