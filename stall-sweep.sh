@@ -226,7 +226,15 @@ for w in "${WORKERS[@]}"; do
       fi
       continue
     fi
-    stalled=$((stalled+1)); echo "STALLED|$w|${out#*|*|}"
+    # ⭐ THE INBOX COUNT IS ALREADY COMPUTED ABOVE — PRINT IT ON THE STALLED ROW TOO, not only at
+    # the >=3 escalation. It cost nothing to compute and it was being thrown away on sweeps 1-2,
+    # during which the reader ran the SAME sqlite query BY HAND three separate times today
+    # (2026-09-02, commonplace-plan). ⛔ A repeated manual check is a rule being remembered; the
+    # number belongs on the row where the decision is made.
+    # ⚠️ IT DOES NOT CHANGE THE VERDICT OR THE COUNT — a sweep-1 empty inbox is evidence, not proof
+    # (work also arrives by pane, cron, or socket), so the row still says STALLED and still counts.
+    # ✅ What it changes is the READER'S next action, which is the only thing a printed line can do.
+    stalled=$((stalled+1)); echo "STALLED|$w|${out#*|*|} · inbox-since-turn-end=$_inbox"
       fi
       ;;
   esac
