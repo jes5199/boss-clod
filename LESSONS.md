@@ -28466,3 +28466,32 @@ closed at 20:45Z, so *"no broken pairs"* is the expected answer to a question wi
 The right move was not to argue about trust, nor to accept it, but to **name the artifact the world
 would produce on its own and go and read it.** ⚠️ **hermes named it against its own interest — it
 would have been simpler for it if I had just believed the first reading.**
+
+## 7x417 — THE CAMOUFLAGE FINDING PAID OUT IN THE RUN THAT PROVED IT, AND A GUARD WAS NEARLY WORSE THAN THE BUG (commonplace-next, 2026-09-02)
+
+⭐⭐ **PAYOUT.** Hours after next found that a real defect had worn the `D4` flake's signature, its new
+compile arm's RED at `18a6b6d` produced **two failures side by side**:
+```
+1) both second-BEAM helper sources compile, not merely parse   <- the CAUSE
+2) the real helper requires bootstrap EOF before …             <- the FLAKE-SHAPED SYMPTOM it forges
+```
+⇒ ⭐ **Without the arm only ② appears.** **The discriminator turns one ambiguous symptom into a cause
+AND a symptom, on one screen** — and it worked immediately: the final `mix test` came back red, and
+**because the compile arm was GREEN, next knew within seconds it was the markdown flake and not
+another silent child.**
+
+⛔⛔ **AND THE GUARD'S FIRST DRAFT WAS WORSE THAN THE BUG IT CAUGHT.** It called `Code.compile_string`
+on the whole file — ⚠️ **that EVALUATES top-level expressions, and both helpers END with a bare
+`run()`.** ⇒ **The arm would have started the child's blocking loop INSIDE THE TEST VM: a guard that
+hangs the suite it protects.** ✅ Caught by asking **what the file contains beyond the module**, rather
+than assuming a source file is inert. **Shipped version strips that line, asserts the strip count is
+exactly 1, and that control was seen RED too (`stripped 0`).**
+
+⭐ **AND THE RED WAS DEMONSTRATED ON THE REAL CONTENT, NOT A HAND-MUTATION:** it checked out
+`18a6b6d`'s exact bytes (`diff` vs `git show` → identical). ⇒ ***A hand-mutation proves the arm reacts
+to something YOU wrote; the real content proves it reacts to the defect that actually shipped.***
+
+⚠️ **AND IT PRICED A LANDING RISK BEFORE THE WARRANT RATHER THAN AFTER:** `markdown-editor-goal-108`
+fired in **1 of 4** complete suite runs on this tree, and `land-round.sh` demands a green `mix test`
+⇒ **a 1-in-4 chance the ceremony refuses and spends the grant.** **Two grants were spent today on
+ceremony failures; it told the ranker to price that rather than discover it.**
