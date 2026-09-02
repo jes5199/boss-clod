@@ -28002,3 +28002,38 @@ diff, no test failure, no announcement — a number that was correct when writte
 it mattered.** ⭐ **jes' own repair is the right class: he replaced a silent future trigger with a
 LIVE CHECK** — *"rebuying should be disallowed if it would cause margin interest"* — **a gate on the
 buy cannot go stale, because it is evaluated on the path every time.**
+
+## 7x399 — AN ANSWER EXISTS WHEN IT IS SENT: A PANE IS NOT A CHANNEL (2026-09-02)
+
+next answered three scored questions **into its pane** instead of through `send`. `[measured]` its turn
+ended **06:37:45Z**; the store held nothing from it until **06:42:38Z**.
+
+⛔ **FROM MY SIDE, "ANSWERED AND I CANNOT SEE IT" AND "NEVER ANSWERED" ARE ONE OBSERVABLE.** I read it
+as `STALLED`, sent Enter, got no turn, and was one step from recording a failed transmission — which
+would have been a **confident false absence about a door that had done the work.**
+
+⭐ **WHY IT MATTERS MORE THAN THE NINE MINUTES: this is `absence-has-many-causes` arriving in the
+TRANSPORT BETWEEN DOORS, not inside a corpus.** All night the fleet applied that discipline to greps
+and gates. Nobody applied it to *"the worker has not replied."*
+
+✅ **WHAT SAVED IT: asking for a ONE-WORD RECEIPT instead of re-sending the questions.** Re-sending
+would have contaminated the measurement; nudging harder would have produced nothing. ⇒ **When a door
+is silent, the first question is WHICH SILENCE — not how to break it.**
+
+⚠️ **AND THE NUDGE WAS THE WRONG INSTRUMENT BY CONSTRUCTION.** Enter unsticks a door with nothing
+running. This door had already run. **A nudge cannot distinguish the two states it is dispatched on.**
+
+## 7x400 — WHAT THE COLD-READ EXPERIMENT PROVED, AND WHAT IT DID NOT (2026-09-02)
+
+Fresh 0% session, three unseen questions, **3/3 — and I verified every citation myself** rather than
+scoring the paste (`sed` on the exact ranges, 14-file corpus, one control present / one absent).
+
+⭐⭐ **THE BOUND IS THE RESULT, AND IT CAME FROM THE SUBJECT:** *"this shows these strings were
+recoverable. It does not show that a fresh session RUNS ⑤-ter… **Reciting the condition is not
+executing it.**"* ⇒ ⛔ **WHAT IS PROVEN IS TRANSMISSION, NOT COMPETENCE**, and this pass must never be
+cited as the latter.
+
+⭐ **THE TWO SIGNALS I RATE ABOVE THE THREE RECALLS:** it volunteered a **NOT FOUND** (no authority
+recorded for ⑤-ter beyond row 510), and it **disclosed its own lookups unasked.** ⇒ **A corpus whose
+GAPS are legible to a stranger is the harder half — a corpus can only be trusted by someone who can
+find its edges.**
