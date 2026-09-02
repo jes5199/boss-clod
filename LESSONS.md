@@ -28495,3 +28495,35 @@ to something YOU wrote; the real content proves it reacts to the defect that act
 fired in **1 of 4** complete suite runs on this tree, and `land-round.sh` demands a green `mix test`
 ⇒ **a 1-in-4 chance the ceremony refuses and spends the grant.** **Two grants were spent today on
 ceremony failures; it told the ranker to price that rather than discover it.**
+
+## 7x418 — THREE SHAPES OF "A CHECK THAT CANNOT FAIL", FOUND IN ONE SLICE (commonplace-chit, 2026-09-02)
+
+chit's first slice produced three instances of one family, and **all three were caught by trying to
+make the check fail rather than by reading it.**
+
+**① AN UNREACHABLE CLAUSE COUNTED AS COVERAGE.** §6.5(3) — *"no parent equals the commit's own ID"* —
+⛔ **is a SHA-256 preimage: a body containing its own digest cannot be constructed, and adding a
+parent changes the body and therefore the id, so it is unreachable by iteration either.** chit's test
+tried in good faith and **got a valid commit back.** ⇒ **The reachable form is at the DECLARED-id
+layer, where a peer supplies the id and the hash does not constrain it.** ✅ It kept the computed-id
+check as depth but **labelled it unreachable in the source and did NOT present it as tested** —
+⭐ ***an untestable check quietly counted as coverage is how a suite lies.***
+
+**② SHAPE EQUALITY IS NOT VALIDITY, with a live example.** 32 bytes = 256 bits; 52 base32 symbols
+carry **260**. ⇒ **The final symbol's low four bits must be zero, so only `a` or `q` can end a valid
+Chit ID.** `[measured — my own check: encoding 256 uniform 32-byte digests yields final symbols
+exactly {a, q}]` ⛔ **Tamper the last character and `Base.decode32` accepts it — length and alphabet
+checks both wave it through. Only the re-encode ROUND-TRIP rejects it.** ⭐ **Its test asserts the
+naive checks pass FIRST, so it is a positive control on the gate rather than a bare assertion.**
+
+**③ NEGATIVE CONTROLS THAT WERE NEARLY INERT.** Its oracle nests a `_why` prose key beside digests;
+the first loop compared a digest against a sentence — ⛔ **which "passes" forever.** ✅ Fixed by
+stripping `_`-prefixed keys, **asserting corpus size before trusting that nothing matched** (*a zero
+comparison count looks exactly like agreement*), and **proving each control reachable** by
+reconstructing the mistake it encodes. ⇒ ⭐ **Both implementations now agree on the WRONG answers too
+— which is the evidence that the vectors mean anything.**
+
+✅ **AND THE SPEC BYTE-LOCK IS NOW A GATE RATHER THAN MY ANNOUNCEMENT:** `bin/gate.sh` pins
+`f7f5f314…` and fails with *"put the change in docs/decisions/ instead"* — **demonstrated red on a
+tampered spec, then green.** `[verified by me: the sha in the script matches the file at HEAD and
+jes's Telegram copy]` ⚠️ **Until tonight that rule lived only in my announcement and chit's attention.**
