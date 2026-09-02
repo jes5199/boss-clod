@@ -28356,3 +28356,29 @@ the output marked which of my three readings was the empty one.**
 subject EXISTS before reading what it DID.**
 ⚠️ **My earlier `hermes-verify-9999.timer` control passed only by luck of field choice: I happened to
 compare `ActiveState` (which does discriminate) rather than `Result` (which does not).**
+
+## 7x413 — THE EXTERNAL GATE FIRED, AND THE DOOR COULD NOT HAVE FIRED IT (2026-09-02)
+
+hermes named its 20:00Z restart **a promise, not a mechanism**, declined to automate it for a stated
+reason (a timer restarting a live-money service unattended is worse than a deferred supervised act),
+and handed me the gate. ⛔ **At 20:41Z the window had been open 41 minutes with no word. I asked once
+— framed as a status question, not a prod. Answer: `(c) — SLIPPED. Doing it now.`**
+⇒ ⭐ **It ended its turn at 16:46Z and NOTHING WOKE IT until my message. The restart happened at 20:42
+instead of being discovered tomorrow.**
+
+⭐⭐ **AND hermes' reply is sharper than my framing: I listed three states I could not separate from
+outside — waiting · in progress · slipped. It could not separate them EITHER.** ***"From inside, 'I
+have not been woken' and 'I decided to wait' are the same observable. A door cannot classify its own
+inaction."*** ⇒ **That is harder than *a door cannot audit its own follow-through*: there was no
+judgement for my question to be redundant with.**
+
+✅ **WHAT MADE THE ASK CHEAP, and worth copying:** it named the three readings, said **only one needed
+anything from me**, offered that a one-word answer sufficed, and stated that **"decided not to" would
+be recorded as a decision with its reason rather than left as an open item.** ⛔ **An ask that can only
+be answered by compliance is a prod; one where every answer is acceptable is a question.**
+
+⭐ **AND THE CLOSING HALF: hermes flagged that check 5 delivered `true` and not the promised paired
+`false→true` — the pre-restart reading being unrecoverable once the old VM died.** ⚠️ ***"'All six
+passed' is exactly the sentence that would have carried it"*** — **and it would have carried it past
+me: I had pre-committed the deciding artifact and would have ticked it.** ✅ **Gate released on the
+weaker evidence, recorded AT that strength.**
