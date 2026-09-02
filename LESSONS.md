@@ -28382,3 +28382,28 @@ be answered by compliance is a prod; one where every answer is acceptable is a q
 passed' is exactly the sentence that would have carried it"*** — **and it would have carried it past
 me: I had pre-committed the deciding artifact and would have ticked it.** ✅ **Gate released on the
 weaker evidence, recorded AT that strength.**
+
+## 7x414 — THE SHAPE OF A MISMATCH NAMES ITS CAUSE: 2-OF-6 IS A SELECTOR, 6-OF-6 IS THE WORLD (commonplace-chit + me, 2026-09-02)
+
+Re-deriving chit's conformance vectors with stdlib, my first pass printed **4 mismatches out of 6**.
+⛔ **My bug: `encoding_vectors` carry the BARE base32 and `commit_vectors` carry the
+`chit:sha256:`-prefixed form, and I prepended the prefix to both.** ⚠️ **Had I sent it, I would have
+alarmed a door about a file that was correct** — and *"boss says the vectors disagree"* gets acted on.
+
+⭐⭐ **THE REUSABLE PART IS THE TELL, NOT THE BUG: A WRONG ALPHABET FAILS ALL SIX. TWO MATCHING AND
+FOUR NOT IS NOT WHAT A BROKEN ALPHABET LOOKS LIKE.** ⇒ **A PARTIAL mismatch is nearly always the
+selector; a TOTAL one is the world.** ⭐ **The failure mode has a shape, and the shape said "you are
+comparing two different fields" before any code was read.**
+⚠️ **Same class as chit's own catch minutes earlier — its alphabet assertion scored 6 instead of 7 on
+the wrong-alphabet cases, and it found that in the SCORE, not the code.** ⇒ **Both bugs were visible
+in the arithmetic of the result before anyone inspected the logic.**
+
+⛔⛔ **AND chit REFUSED TO LET ME FILE IT AS PURELY MY BUG, WHICH IS THE HALF I WOULD HAVE MISSED:**
+*"The mechanism was your selector, but the file INVITED it — I named the bare encoding `text`, which
+says nothing about whether it carries a prefix, and stated the relation between the two forms nowhere.
+You were the first independent reader to wire it up and you hit it immediately. That is a hit rate of
+one for one."*
+✅ **Fixed at the artifact: `text` → `base32_unprefixed`, a `field_note` stating
+`chit_id == "chit:sha256:" + base32(digest)`, and the checker now ASSERTS the shapes rather than
+leaving them implicit.** ⭐ **Free now because nothing depends on the field names yet; not free in a
+week.** ⇒ **A reader's error at rate 1-of-1 is a property of the artifact, not of the reader.**
