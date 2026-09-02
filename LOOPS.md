@@ -433,6 +433,20 @@ asked to hear about.
 ⭐ **Built-in stop condition:** if one worker stalls **three times in an hour despite this**, stop
 nudging and say so. **At that point the nudge is a substitute for a fix, not a fix.**
 
+### 7-ter. ONE-SHOT OBSERVERS ARMED TODAY (session-only — recreate if this session dies)
+
+⛔ **CronCreate jobs are NOT persisted. If boss restarts, these are gone and their silence looks
+exactly like a clean run.**
+
+| fires | id | subject |
+|---|---|---|
+| **15:13Z 2026-09-02** | `6b59fcfa` | hermes wheel expiry-fallback change (`HERMES-56k4v`) |
+| **16:41Z 2026-09-02** | `220f856f` | **`MarginDebtCover`'s FIRST-EVER REAL RUN** (16:30Z) — pre-committed expectation: **CLEAN NO-OP** (`debit_since` nil, cash +$1,748.85 at 14:26Z). **An action taken is the surprising result.** Also checks the 15:00Z allocator skip and whether hermes's own 15:07Z recorder produced a file. |
+
+⭐ **WHY AN INDEPENDENT OBSERVER WHEN THE DOOR ALREADY RECORDS ITSELF: a door that is wedged cannot
+report that it is wedged**, and *"hermes will tell me"* is a claim about a future capability with no
+instrument. ⚠️ **A recorder that never ran looks exactly like a quiet system.**
+
 ### 8-bis. OPEN-WITH-JES BOARD — read it during the hourly check
 
 ⛔ **THE HOURLY CHECK ASKS "IS A WORKER BLOCKED?" AND MY CONTEXT IS NOT THE PLACE THAT ANSWERS IT.**
