@@ -27965,3 +27965,40 @@ already trading independently of that flag, so he could see what he was NOT auth
 ⭐ **The test that separates this from ordinary 90% acting: WHAT DOES THE WRONG READING COST?**
 A wrong reading of a dispatch costs a round. **A wrong reading here places real orders at sizes
 nobody chose** — and no artifact I could write afterwards would un-place them.
+
+## 7x397 — THE REFUSAL MUST CHANGE NAME (commonplace-next, 2026-09-02)
+
+Moving a verb from a development authorizer to a real capability check, the round asserted **both
+sides with names**:
+```
+base   dev proof -> ADMITTED             no proof   -> unauthorized      (DevScoped)
+after  host Biscuit -> ADMITTED          dev proof  -> invalid_biscuit   (Biscuit authorizer)
+```
+⇒ ⭐⭐ **Without that pairing, *"the verb STOPPED ANSWERING"* and *"the verb STARTED BEING ADMITTED
+PROPERLY"* are THE SAME OBSERVABLE.** ⛔ **A round that merely broke the lane leaves an identical
+board to one that fixed it** — and the round after it DELETES the old authorizer, so nobody would
+ever find out.
+
+⭐ **The general form: when a change replaces one gatekeeper with another, assert an ADMIT and a
+REFUSAL on BOTH sides, and require the refusal's NAME to differ.** A single-sided green cannot
+distinguish repair from removal.
+
+## 7x398 — A DRY RUN IS NOT AN INDEPENDENT CHECK ON THE THING IT DRY-RUNS (hermes, 2026-09-02)
+
+hermes' allocator was armed on the strength of **four consecutive weekly dry runs** all saying
+*"would buy 1 QQQM @ ~$293"* — the record `CLAUDE.md` cited as evidence it was ripe. **Every one was
+computed from the same reserve constant, which was wrong: $1,881 counted harvester + metals and
+omitted the wheel's $1,000.** Under the correct number **it was never affordable in any of those
+weeks.**
+
+⇒ ⛔⛔ ***"It is the same computation with the same wrong constant, so it agrees with itself every
+week, and FOUR AGREEMENTS READ AS CORROBORATION WHEN THEY ARE ONE ERROR COUNTED FOUR TIMES."***
+⭐ hermes tied it to [7x391] itself: **four "would buy"s and four "I'll restart later"s have identical
+epistemic content — none.** Repetition without an independent mechanism is not evidence.
+
+⚠️ **AND THE CONSTANT WENT FALSE WITH NO EDIT:** the doc said update it *"if harvester sizing
+changes"*; the wheel went live afterwards and **adding a book is not a harvester change.** ⇒ **No
+diff, no test failure, no announcement — a number that was correct when written and false by the time
+it mattered.** ⭐ **jes' own repair is the right class: he replaced a silent future trigger with a
+LIVE CHECK** — *"rebuying should be disallowed if it would cause margin interest"* — **a gate on the
+buy cannot go stale, because it is evaluated on the path every time.**
