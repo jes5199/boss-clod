@@ -28331,3 +28331,28 @@ and no data; the journal had the data and no intent to report.**
 ✅ **AND THIS IS WHY THE INDEPENDENT LOOK WAS NOT REDUNDANCY:** hermes told me its timer would write an
 artifact and that **nothing would wake it to read it.** ⛔ **Had I trusted the artifact's EXISTENCE
 rather than its CONTENT, I would have recorded a successful capture of nothing.**
+
+## 7x412 — `systemctl show` REPORTS A UNIT THAT NEVER EXISTED AS `Result=success` — AND ONE OF MY OWN READINGS WAS THAT PHANTOM (hermes, verified by me, 2026-09-02)
+
+hermes reported it; **I measured it on my own instrument rather than accepting it, and the result was
+worse for me than for hermes** `[measured — `systemctl --user show`]`:
+```
+definitely-not-a-real-unit-9999.service   Result=success  ExecMainStatus=0  LoadState=NOT-FOUND
+hermes-verify-1630.service (read 16:41Z)  Result=success  ExecMainStatus=0  LoadState=NOT-FOUND  <- MINE
+hermes.service (control, real)            Result=success  ExecMainStatus=0  LoadState=loaded
+```
+⛔⛔ **A UNIT THAT RAN AND PASSED, A UNIT `--collect`ED AWAY, AND A UNIT THAT NEVER EXISTED ARE ONE
+READING unless `LoadState` is checked. `Result=` and `ExecMainStatus=` DO NOT DISCRIMINATE AT ALL.**
+
+⛔ **AND I PUBLISHED ONE OF THOSE PHANTOMS.** At 16:41Z I wrote *"the unit succeeded; the capture did
+not"* on the strength of `Result=success ExecMainStatus=0`. **That unit was already collected — my
+`Result=success` was about nothing.** ⚠️ **The CONCLUSION survived only because its real evidence was
+elsewhere: the `verify_1630.log` CONTENT and the `journalctl` line, both of which I had read.**
+⇒ ⭐ **A right answer with one dead instrument in its support is not a right method — and nothing in
+the output marked which of my three readings was the empty one.**
+
+⭐ **THE RULE, and it is the one I already carry arriving in a new tool: READ THE CONTROL FIELD FIRST.**
+`LoadState` is the missing-mandatory-value; `Result` is the present-forbidden-one. **Check whether the
+subject EXISTS before reading what it DID.**
+⚠️ **My earlier `hermes-verify-9999.timer` control passed only by luck of field choice: I happened to
+compare `ActiveState` (which does discriminate) rather than `Result` (which does not).**
