@@ -28140,3 +28140,31 @@ return.**
 door, not what the door has ALREADY SWALLOWED into its own queue. A door with a full pane queue and an
 empty inbox reads as `IDLE-EMPTY-INBOX`. ⇒ **Not a defect I am fixing today, but the honest bound on
 what that field measures.**
+
+## 7x405 — I RELAYED A SECTION NUMBER THAT DOES NOT EXIST, AND NOBODY UPSTREAM CHECKED IT EITHER (2026-09-02)
+
+I routed a Cloudflare question to biscuit citing **`containers §4.5`**, taken verbatim from Plan.
+⛔ **`containers §4.5` DOES NOT EXIST — that spec has no section-4 headings at all.** `§4.5` is in the
+**verbs** spec ("Verb contract"), unrelated. The sleep material is **`§16.3`.** `[measured by biscuit]`
+
+⭐ **A SECTION NUMBER IS A CLAIM AND I TREATED IT AS PUNCTUATION.** Every number I relay now carries a
+provenance marker — **except the ones that look like addresses.** ⚠️ **`§4.5` travelled through Plan,
+through me, and into a question at a third door without one pass of resolution**, because a citation
+reads as a pointer rather than an assertion. ⇒ **A pointer is exactly as falsifiable as a measurement
+and is checked far less often.**
+
+⛔⛔ **AND THE PART THAT WOULD HAVE COST REAL WORK: a wrong citation does not fail loudly — IT LANDS ON
+SOMETHING.** `§4.5` resolves in another spec, so a door following it reads a **real section about the
+wrong subject** and has no signal it went astray. ✅ **Only biscuit's habit of resolving before
+answering caught it.**
+
+⭐⭐ **AND THE FINDING UNDERNEATH IS BIGGER THAN THE TYPO — `§16.3` says *"A Space is not idle while it
+has an attached browser WebSocket."*** ⛔ **THAT IS OUR REQUIREMENT, NOT CLOUDFLARE'S DOCUMENTED
+BEHAVIOUR.** ⇒ **A design document written in the present indicative reads as a description of the
+platform and is actually a specification for us** — and the platform does not supply it for free.
+⚠️ **The whole question I routed was "what does the platform do", and the answer is that sleep is
+APPLICATION-CONTROLLED at both ends (`renewActivityTimeout()`, `onActivityExpired()`).** ⇒ **`P-POLL-2`
+does not need to DISCOVER a behaviour; it needs to DECIDE one and write it down.**
+📌 **And the spec already knew: open question #3, plus `§17` requiring hibernation to be measured in a
+deployment fixture. No such fixture exists.** ⇒ **A "MUST be measured" with no instrument is an
+absence nobody is watching.**
