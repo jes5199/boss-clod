@@ -28434,3 +28434,35 @@ a contradiction, it is the arm answering the question it was asked.
 ✅ **AND THE DISCIPLINE THAT COST TIME AND WAS RIGHT: it restarted the seven gates FROM THE TOP rather
 than resuming.** *"The tree changed; six greens measured on a different tree are not evidence of this
 one."* **Round-1 results kept and renamed `…-ROUND1-CONTAMINATED` rather than deleted.**
+
+## 7x416 — CHECK 5 UPGRADED TO TWO INSTRUMENTS, ON A ROW I FETCHED MYSELF (2026-09-02)
+
+hermes verified `PairLegIntegrityCheck`'s cron registration via `Oban.config()` **inside its own
+BEAM** — one instrument, its own; **my releasing the gate was not a second.** It proposed the fix
+itself: *"the single-instrument problem is real and it has an expiry date; it does not need to be
+argued about, only waited out."*
+
+✅ **RESOLVED AT 22:19Z, MY OWN `sqlite3 -readonly`, CONTROL RUN FIRST:**
+```
+CONTROL  %MarginDebtCover%   -> 1 row      ← the query can match
+SUBJECT  oban_jobs 170896  state=completed  Hermes.Jobs.PairLegIntegrityCheck
+                            scheduled 22:15:00Z  completed 22:15:00.563Z
+CONTROL  %NoSuchWorkerXYZ%   -> 0 rows     ← the query can also report a true zero
+journal: "PairLegIntegrityCheck: all paired positions agree — no broken pairs"
+         (control: 34 journal lines in that window, so the log is readable)
+verifier unit: LoadState=loaded READ FIRST, then Result=success
+```
+⇒ ⭐ **Two mechanisms now agree: hermes's in-BEAM config read, and a row Oban wrote that I fetched
+from the database.** ⛔ **The weaker `37→38` crontab count is superseded, and the promised
+`false→true` paired reading is still unrecoverable — the upgrade came from a DIFFERENT direction than
+the one that was lost.**
+
+⚠️ **AND THE GREEN IS ON AN EMPTY FIELD AND MUST BE READ THAT WAY:** every `pair_group_id` was fully
+closed at 20:45Z, so *"no broken pairs"* is the expected answer to a question with no candidates.
+⛔ **Tonight's silence is NOT evidence the detector works.** ✅ **The evidence is the reconstructed
+08-28 run reporting `disagreeing for 123.1h` — a red seen on real rows, in test.**
+
+⭐ **THE REUSABLE SHAPE: A SINGLE-INSTRUMENT CLAIM WITH A SCHEDULED SIDE EFFECT HAS AN EXPIRY DATE.**
+The right move was not to argue about trust, nor to accept it, but to **name the artifact the world
+would produce on its own and go and read it.** ⚠️ **hermes named it against its own interest — it
+would have been simpler for it if I had just believed the first reading.**
