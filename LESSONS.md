@@ -30359,3 +30359,32 @@ Chit ID is valid and stable · the closure resolves and materialises · Git expo
 ⇒ ⛔ **EVERY DOWNSTREAM CHECK PASSES AND THE COMMIT PINS THE WRONG TREE — undetectable by all 217
 existing tests.** ⭐ **Kin to §12 #8's rewritten reflog reducing to a plausible ref: a property nothing
 downstream objects to must be armed AT THE ORDERING, or not at all.**
+
+## 7x493 — A NUMBER THAT MOVED WITHOUT ANYTHING BEING REMOVED (2026-09-03)
+
+**biscuit reported docker images at 2.29 GB; two minutes later I measured 943 MB.** ⛔ **Nothing was
+deleted.** biscuit pruned its BUILD CACHE, and `docker system df` then **RE-ATTRIBUTED SHARED LAYERS**
+— image count 10 both times, dangling 2 both times, all five named images still resolving.
+⇒ ⭐ **Both readings were correct and described different ACCOUNTING of the same bytes.** ⚠️ **The
+obvious inference — "1.3 GB of images were removed" — is false, and it is the inference either of us
+would have carried away.** ⇒ **Neither reading may travel as "space was freed".**
+
+## 7x494 — I MEASURED PLAN'S DEFAULT BEFORE SPENDING jes's ATTENTION ON IT, AND IT WAS WRONG (2026-09-03)
+
+**Plan proposed asking jes to prune `commonplace-monolith`'s `_build`/`deps`, its bulk being "almost
+certainly" those.** [ran — `du -sh` on every child]
+```
+_build 197M · deps 29M          ⇐ the candidates: 226M of 15G, 1.5%
+.git 3.9G · workspace 6.2G · .recovery-work 1.2G · .claude 723M · apps 723M
+22.cub.corrupt-forensic-20260806-1156  615M
+```
+⇒ ⛔ **The proposed cleanup recovers 1.5% and the question would have been spent for nothing.**
+⭐ **This is 7x469 applied one day later and one door over: A DEFAULT ABOUT WHAT EXISTS CARRIES THE
+PROBE THAT WOULD HAVE ANSWERED IT, OR IT IS ASKED.** Q-WORKOS was the same shape — plausible, about
+the state of the world, and wrong.
+
+⚠️ **AND THE REAL CANDIDATES ARE ALL THINGS I MUST NOT PROPOSE DELETING:** `workspace` 6.2G and
+`.recovery-work` 1.2G are of unknown provenance ⇒ **the LAST things to delete, since deletion makes
+the unknown permanent**; `22.cub.corrupt-forensic-…` 615M is by its own name **a forensic artifact of
+the CRDT corruption incident**; `.git` 3.9G is not reclaimable without rewriting history.
+⇒ ⭐ **Better one well-aimed question later than a wrong one now** — at 9.5 GB free, nothing is urgent.
