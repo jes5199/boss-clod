@@ -28952,3 +28952,29 @@ was about to compete with the spec's.**
 ✅ **AND THE COMPACT ITSELF CONFIRMED THE STALE-GAUGE RULE AGAIN: the statusline read 63 % for the
 ENTIRE compaction and dropped to 0 % only at the end.** ⇒ **Queued, running and finished are one
 number; only the progress bar separates them.** **Third time tonight.**
+
+## 7x435 — THE NUDGE HAS BECOME A SUBSTITUTE FOR A FIX, AND THE MECHANISM IS THAT ENTER SUBMITS AN EMPTY PROMPT (2026-09-03)
+
+⛔⛔ **TALLY FOR TONIGHT — every Enter I sent to a door whose prompt was EMPTY:**
+```
+next  turn_end 01:45:19 -> nudged 01:52 -> UNCHANGED  (moved only when I ASKED)
+next  turn_end 02:11:03 -> nudged 02:17 -> UNCHANGED
+chit  turn_end 01:54:23 -> nudged 01:57 -> UNCHANGED  (moved only when I ASKED)
+plan  turn_end 06:47    -> nudged 06:38 -> UNCHANGED  (moved only when I ASKED)
+```
+⇒ ⭐⭐ **AN ENTER ON AN EMPTY INPUT LINE SUBMITS NOTHING, SO NO TURN STARTS.** `[measured — next's
+pane shows `❯ ` with nothing after it]` **The nudge only ever works when there is QUEUED INPUT
+waiting** — which is exactly the `Press up to edit queued messages` case, and that is a DIFFERENT
+state from an idle prompt.
+
+⛔ **SO THE LOOP'S OWN REMEDY IS MISMATCHED TO ITS OWN VERDICT.** `STALLED` means *ended a turn with
+work in front of it*; ⚠️ **the work is in the door's HEAD or its BRIEF, not in its input line** — and
+**an Enter cannot deliver either.** ⇒ ⭐ **What has worked, four times out of four tonight, is SENDING
+A MESSAGE**: hermes answered `(c) — slipped`, next answered `③` twice, chit answered `③`. **A message
+creates the input an Enter needs.**
+
+✅ **THE HONEST CONSEQUENCE, per the loop's own stop condition: I am not nudging these doors again on
+an empty prompt.** ⭐ **The nudge is not a weak remedy here, it is the WRONG one** — and reporting that
+is what the instruction asks for once nudging stops working.
+⚠️ **The Enter remains correct for its real case: a MODAL DIALOG or a QUEUED MESSAGE, where there IS
+something to submit.** ⛔ **Those are the states it was written for, and they still occur.**
