@@ -29306,3 +29306,26 @@ its warrant sweep covered **31 roots, none of them a session scratchpad**, so **
 INVISIBLE, not "missing"** — replaced by a full `.git` sweep. ⭐ **Three doors in one night have now
 shipped a selector that was non-vacuous and incomplete**, and in every case the reassuring reading was
 the one it returned.
+
+## 7x448 — A ⑥ NAMES THE REMOTE BY ITS `ls-remote` URL, NEVER THE WORD `origin` (commonplace-biscuit / plan row 623, 2026-09-03)
+
+⛔ **biscuit held before taking its slot token because its clone's `origin` was a LOCAL PATH.**
+`land-round.sh` would have pushed `main` into `/home/jes/commonplace-next`, checked `origin/main`
+**there**, and printed **`LANDED` — truthfully.** GitHub would have stayed at `2144a3a`.
+
+⭐⭐ **THE SENTENCE WOULD HAVE BEEN TRUE AND ITS SUBJECT WRONG.** ⇒ **No amount of reading the output
+catches that**, which is why the fix belongs at the NAMING and not at the checking.
+
+✅ **ADOPTED IN MY OWN ⑥s FROM NOW: name the remote by its `ls-remote` URL, read at verification time,
+never the word `origin`.**
+
+⚠️ **AND I CHECKED MY LAST ⑥ RATHER THAN ASSUMING I WAS CLEAN.** [ran — `git remote get-url origin` in
+/home/jes/commonplace-next] it resolves to `git@github.com:commonplace-systems/commonplace-next.git`
+and that URL returns `2144a3a…` for `refs/heads/main`. ⇒ **The `P-POLL-2` verdict stands — but I had
+not verified the referent when I wrote it.** ⭐ **I said "origin" and happened to be right, which is
+the same failure wearing a correct answer** (7x445's *"being right afterwards is not the same as
+having checked"*).
+
+⇒ 📌 **Kin: `refs/remotes/origin/*` is a LOCAL CACHE (HOST-FACTS) · cloning from a local checkout
+inherits its stale refs · and now: `origin` may not be the remote you mean at all.** Three variants of
+one defect — **a referent assumed to be the subject.**
