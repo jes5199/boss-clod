@@ -28625,3 +28625,32 @@ fails as a sentence.***
 📌 **And conflicting Git bindings are RETAINED, not resolved:** §8.5 says a conflicting projected OID
 means nondeterministic projection, a defect, or corruption — ⛔ **none of which is fixed by picking a
 winner.**
+
+## 7x422 — COMPOSITION FOUND A GATE FIRING ON CORRECT INPUT THAT FIVE SLICES OF TESTS MISSED (commonplace-chit, 2026-09-03)
+
+chit's fifth slice ran the pieces together for the first time and **immediately found
+`Dag.graph_status` reporting `{:error, :cycle}` FOR EVERY MERGE.** ⛔ **The walk tracked one
+accumulating set instead of the current DFS path, so a diamond looked like a cycle.**
+⚠️⚠️ **A gate firing on CORRECT input — worse than no gate — sitting in the one graph shape a version
+control system exists for.**
+⇒ ⭐ **Its DAG tests used linear chains, and the merge test it did have checked only the child index.**
+**Nothing was wrong with those tests; they answered the questions they were asked.** ⭐⭐ **The defect
+was in the SEAM, and a seam has no unit.** *"It surfaced the moment I ran the pieces together and not
+one second before — which is the entire argument for having built this slice."*
+
+✅ **AND THE FIX SHIPPED WITH TWO REGRESSION TESTS, NOT ONE:** a diamond is `:graph_complete`, **and** a
+genuine cycle — assembled from DECLARED parents, since computed ids cannot form one — is still caught.
+⛔ ***"Without that second test the fix is indistinguishable from DELETING the guard."*** ⭐ **That is
+the general form: any repair to an over-firing check needs the arm proving it still fires.**
+
+⭐ **AND THE DISTINCT-CAUSES DISCIPLINE HELD THROUGH THE WHOLE SLICE:** §6.5's completeness states keep
+**missing parents / unavailable content / an unrepresentable value** as three diagnoses with three
+remedies — wait for replication, wait for content, change the profile — ⛔ **a boolean merges them.**
+§8.3's refusals stay three errors: **conflicted, deleted and absent are not one "no".** And invariant
+14: **unavailable content is reported unavailable, NEVER read as an empty tree** — ⚠️ *an empty tree is
+a positive claim that the snapshot had no files.*
+
+⚠️ **AND THE HEDGE DID NOT MOVE, which it said unprompted: materialization is still a PORT.**
+`snapshot-complete` is only as true as the resolver behind it, and the demo's is in-memory. ⛔ **This
+slice did NOT close the `commonplace-dir` gap** — ⭐ **a working end-to-end demo is exactly the artifact
+that would have let it imply otherwise.**
