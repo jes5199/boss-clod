@@ -7,7 +7,14 @@
 # ⚠️ Before nudging any door that appears idle, CHECK WHETHER I OWE IT A RELEASE.
 #
 # holder | since | what
-next   | 2026-09-03T15:54Z | ORG-2a follow-on: the 5 gate block (7 gates, 5-ter x3) + B5's prod-compile read + the landing ceremony   (HOLDING — GRANT EXPIRES 17:15Z)
+cell   | 2026-09-03T17:03Z | LAND-PROOF: A1/A4 demonstrations + the landing   (HOLDING — GRANT EXPIRES 17:35Z)
+# waiting: next — three 5-ter runs + the BUMP-LOG-1 ceremony, ~25 min. GRANT TO FOLLOW, EXPLICIT.
+#   ⚠️ next has NO claim ahead of cell: it ran BUMP-LOG-1's gates TWICE without the grant — first on
+#   the habit of a grant it had just released, then via a mis-parsed `&` in a one-line launcher.
+#   Both self-reported with the mechanism, both stopped by killing the LOOP by captured pid, no
+#   beam.smp touched. ⭐ Not a door to watch more closely; a door whose reports I can use.
+# (earlier today: next 15:54-16:41Z ORG-2a follow-on + PIN-BUMP-2 landing 2ab796f, boss verified 6;
+#  chit 16:43-16:54Z slice 12 LANDED c8eaf1a, CHIT NOW HAS A WRITE PATH.)
 # (was chit 15:44-15:54Z: slice 11 LANDED, chit 2de3f2c -> 4e3ec85, 217/0, oracle green on correct
 #  vectors and RED on all eleven wrong ones. §12 now 14 of 14 armed, none weakly, none unarmed.)
 #   ⚠️ granted OVER boss's own running state-render, deliberately: chit's work is not a timing
