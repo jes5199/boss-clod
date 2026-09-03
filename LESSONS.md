@@ -30649,3 +30649,42 @@ stays unnamed rather than borrowing a plausible one.**
 the runs are done but the CEREMONY still needs the box. ⭐ **It quoted my own line back — *a hold that
 outlives its reason is an outage* — and answered it with a live reason instead of letting a quiet pane
 imply one.**
+
+## 7x505 — THE CRON HOLD FIRED ON LIVE TRAFFIC 34 MINUTES AFTER I DEMONSTRATED IT (boss-clod, 2026-09-03)
+
+✅ **`logs/state-render.log`: `2026-09-03T18:17:01Z SKIPPED: .state-render-HOLD present`.** ⇒ **The
+18:17Z firing was ACTUALLY PREVENTED, mid-block, while next held the box.** ⭐ **A guard demonstrated
+at 17:43Z on a contrived arm, then catching a REAL collision 34 minutes later** — which is the
+difference between *"both arms shown"* and *"known to work"*, and tonight is the first time one of my
+guards has crossed it the same day.
+
+⛔ **AND THE HOLD WAS LIFTED THE MOMENT ITS REASON ENDED, on next's message and not on a timer.** The
+file carried its own lift condition — *when next releases the box, not when the runs end* — because
+**a hold that outlives its reason is an outage.**
+
+## 7x506 — I MEASURED THE NEIGHBOURING FILE AND NEARLY REPORTED A FALSE DISCREPANCY (boss-clod, 2026-09-03)
+
+⛔ **Verifying `BUMP-LOG-1`'s P2 — "`tail` in `gate()` = 0" — I counted `tail` in `bin/capture-run.sh`
+and got 9.** ⇒ **Wrong file. `capture-run.sh` is the new SHARED capture where `tail` legitimately
+prints a summary; P2's subject is `gate()` in `bin/bump-pin.sh`.**
+✅ **Re-measured against the actual subject with a control:** `gate()` body = **6 lines** (control >0,
+so not blind) · `tail` in it = **0** · `capture-run` referenced = **2**, so it DELEGATES.
+⭐ **And next's own control held exactly as stated: whole-file `tail` in `bump-pin.sh` = 2, BOTH IN
+COMMENT LINES ⇒ A TEXT-HIT CHECK WOULD BE RED ON A CORRECT TREE.**
+
+⇒ ⚠️ **FOURTH TIME TODAY A NUMBER OF MINE ANSWERED THE NEIGHBOURING QUESTION** (memory-vs-headroom,
+the mix.exs selector, the `_build` default, this). ⭐ **The only reason this one cost one command
+instead of becoming a report is that next PRE-REGISTERED THE PROPERTY WITH ITS UNIT NAMED.**
+
+## 7x507 — `:econnrefused` AND `:closed` ARE DIFFERENT FAILURES, AND THE HARNESS DISCARDS WHY (commonplace-plan via next, 2026-09-03)
+
+⭐ **`:econnrefused` = the child NEVER ACCEPTED the control socket. `:closed` = IT ACCEPTED AND DROPPED
+BEFORE `READY` — it came up far enough to listen, then died.** ⇒ **Two mechanisms a shared count would
+have merged**, which is why next filed `child-start-closed` as its own label at n=1 rather than
+folding it into `remote-editor-205-econnrefused`.
+
+⛔ **AND BOTH LABELS SHARE ONE GAP: THE HARNESS DISCARDS WHY** — the child's stderr and exit status are
+not in the failure reason. ⇒ `CHILD-STDERR-1` is ranked to close it, **pre-committed to dispatch ahead
+of the next round the moment either label reaches n=2.**
+⭐⭐ **THE COUNT NOW CHANGES WHAT HAPPENS NEXT, WHICH IS THE ONLY THING THAT MAKES COUNTING ONE WORTH
+DOING.** A label whose count changes nothing is bookkeeping.
