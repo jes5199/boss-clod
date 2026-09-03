@@ -7,7 +7,12 @@
 # ⚠️ Before nudging any door that appears idle, CHECK WHETHER I OWE IT A RELEASE.
 #
 # holder | since | what
-cell   | 2026-09-03T17:07Z | LAND-PROOF's docs-only round — to exercise A4a/A4b and the wired gate FOR REAL   (HOLDING — GRANT EXPIRES 17:30Z)
+next   | 2026-09-03T17:13Z | three 5-ter runs (ter_1.log counts as 1 of 3, provenance stated) + the BUMP-LOG-1 ceremony   (HOLDING — GRANT EXPIRES 17:45Z)
+# waiting: chit — slice 13 (§10 steps 3-7). Its BRIEF needs no box and it has been told so.
+# (cell 17:07-17:12Z: LAND-PROOF VERIFIED IN SITU, cell main 1d03bdd -> 9b8a142. A4a's PRE-REGISTERED
+#  pair came back INCLUDING=2 EXCLUDING=0 exactly as written down. ⭐ ROW 672'S STEP PERFORMED FOR
+#  THE FIRST TIME: I hashed the committed gate log and compared it to the sha the receipt CLAIMS —
+#  MATCH, with a control proving the comparison can fail. Six gate rows, all rc 0.)
 #   ⛔ LAND-PROOF landed at 1d03bdd with its own arms UNEXERCISED: the round landed its machinery
 #   using the machinery it replaces. The script that RAN had 0 LAND-PROOF lines; the one that LANDED
 #   has 4; docs/landings on the landed tree = 0 (control: 31 docs/ files). Verified by boss.
@@ -331,3 +336,13 @@ chit   | ⛔ IS BOX-BOUND AND I DID NOT KNOW IT UNTIL 10:43Z. Its `land-gates.sh
 # ⇒ ⛔ MY ENUMERATION ASSERTED ITS OWN COMPLETENESS, which is the defect biscuit filed at 15:14Z when
 #   its two named causes for a stale stamp were both wrong and the real one was a fourth thing.
 #   ⚠️ Twice in one afternoon, by two different doors, against two different three-way lists.
+
+# ⭐⭐ THE ROUTE IS NOW READABLE FROM origin (cell, 2026-09-03):
+#   ungated route (A3, 16:48Z, real remote, scratch branch): range carried 0 files under
+#     docs/landings/, CONTROL 2 docs/ files ⇒ the zero was not blind.
+#   gated route (17:09Z): range carries 2.
+#   ⇒ THE TWO ROUTES NO LONGER SHARE AN OBSERVABLE. CELL-GATE-0 needed a per-clone, unpushed,
+#     expiring reflog to answer that question; it is now answerable from origin by anyone.
+# ⛔ STILL SELF-ATTESTED, and the receipt says so in its own text: it proves THE SCRIPT RAN and its
+#   log is intact — NOT that the gates were adequate. My 6 compares the claimed log hash to the
+#   committed log; that is integrity, not adequacy.
