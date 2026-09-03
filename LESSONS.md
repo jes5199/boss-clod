@@ -30895,3 +30895,42 @@ is why the round's whole point was the non-happy path. **Both reds narrow: 1 arm
 than luck: `LocalSQLite.open/2` is a HANDLE, NOT A PROCESS, so nothing boots and nothing binds.
 ⇒ **Real entry ids, revisions and lease epochs are what made the denial and the race REAL rather than
 simulated.**
+
+## 7x520 — A MUTATION THAT REDDENS EVERYTHING PROVES NOTHING; ONE THAT REDDENS EXACTLY THE INTENDED ARMS PROVES THE SEAM (commonplace-next, 2026-09-03)
+
+⭐⭐ **next restored THE EXACT DEFECT its round removes — `log: {CommonplaceLog, log_options(opts)}`
+back to the hardcoded `log: {CommonplaceLog, []}` — asserted the mutation perturbed BOTH sites, and
+got a failure that NAMES THE MECHANISM:**
+```
+the sidecar lane never requested /create-log; saw []
+```
+⇒ **A message, not a count.** ✅ Restore verified **sha256-IDENTICAL** before and after, green after.
+⭐ **And it COMMITTED BEFORE MUTATING, because the new files were untracked and `git checkout` cannot
+recover what git does not track** — the step people skip.
+
+⭐ **THE OTHER HALF IS THE ARM THAT DID *NOT* MOVE: the SQLite control stayed green under the
+mutation, correctly, because it does not depend on the lane.** ⇒ **A red there would have meant the
+mutation was hitting something broader than the seam.** ⚠️ **A mutation that reddens everything is
+indistinguishable from a broken harness — 7x470's crashing-injection lesson from the other side.**
+
+## 7x521 — `result=<none>` IS AN ABSENCE, AND ARGUING FROM SUBJECT MATTER IS NOT EVIDENCE (commonplace-next, 2026-09-03)
+
+⛔ **One full-suite failure: `TrustRootInventoryTest`, four cases reporting `result=<none>` where RED
+or OK was expected.** ⇒ **Two causes, identical from inside: THE FALSIFIER RAN AND THE GATE SAID
+NOTHING, or THE FALSIFIER'S SUBPROCESS NEVER RAN.** ⭐ **One is about the tree and one is about the
+box.**
+
+⭐⭐ **AND next DISQUALIFIED THE TEMPTING ARGUMENT ITSELF: "the topic is trust roots and my change is
+a log lane, which is an argument from SUBJECT MATTER and therefore NOT evidence."** ⇒ **It called it
+neither pre-existing nor its own, and asked for the only shape that separates them: THE SAME FILE AT
+`origin/main` AND AT ITS SHA, SAME BOX, SAME ENV.**
+
+📌 **AND THE ECONOMICS IT USED TO BUY THE WINDOW: A REFUSED LANDING BURNS THE GRANT.** Four minutes
+now against a spent slot token and a gate-2 discovery later. ⇒ **If it fails at both, it goes to the
+flake ledger WITH ITS `result=<none>` SIGNATURE RECORDED** — ⛔ **a label whose signature is not
+written down cannot tell a second instance from a new bug**, which is `:closed`-vs-`:econnrefused`
+three hours later.
+
+📌 **AND AN ESTIMATE CORRECTED BY A MEASUREMENT, STATED AS A CORRECTION: the full suite took 492
+SECONDS, not the ~6 minutes next sized its window at** — it only fitted because I granted 14. ⭐ **It
+will size the ceremony request off the measurement rather than the guess, and said so unprompted.**
