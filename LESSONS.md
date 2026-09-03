@@ -28707,3 +28707,30 @@ to be PROMPTED FROM OUTSIDE and answered with what was checked rather than with 
 
 📌 **It also corrected me: there is no §17; the spec ends at §16.** ✅ **A door correcting the range of
 a question it was asked is the enumeration working.**
+
+## 7x425 — A DEFAULT THAT IS EMITTED CHANGES EVERY HASH THAT ALREADY EXISTS (commonplace-chit in commonplace-dir, 2026-09-03)
+
+Extending `Dir.Entry` with an executable bit, per jes's ruling. Three things worth keeping.
+
+⭐⭐ **① `encode/1` EMITS `"executable"` ONLY WHEN TRUE.** Entry maps are canonicalized into content
+that **`VersionRef`s pin by hash.** ⛔ **Emitting `"executable" => false` on every entry would change
+the bytes of EVERY ENTRY ALREADY STORED — semantically identical entries with different hashes — and
+invalidate every pinned snapshot in existence.** ✅ **Its dual: `decode/1` REFUSES an explicit
+`false`, because absent is that value's canonical spelling** — ⭐ *one value, one encoding, or an entry
+decodes and re-encodes to different bytes.* ⚠️ **Declarable today only because the field is new and no
+peer emits it yet.**
+
+⭐ **② THE FIELD IS A BOOLEAN, AND THE ARGUMENT THAT DECIDED IT IS THE INTERESTING ONE:** not a Git
+mode string (that leaks Git's wire format upstream into a general-purpose model), and **not a POSIX
+mode integer — because the executable bit is the ONLY permission Git represents per tree entry.**
+⇒ **A mode integer invites recording `0600`, which no projection can carry, and an unrepresentable
+value MUST fail export.** ⭐ ***A wider field would make more entries UNEXPORTABLE, not more faithful.***
+✅ Symlinks scoped OUT with a reason: a symlink's target is a **path**, not a Document — no
+`document_id`, no `VersionRef` — ⇒ **a different KIND of entry, not a mode flag.**
+
+⛔⛔ **③ AND IT WALKED INTO A TRAP THE SCRIPT DOCUMENTS IN ITS OWN HEADER.** It ran `land-gates.sh`
+foreground with a 590 s timeout; **its harness killed it at 120 s** — the exact failure the file warns
+about three paragraphs in. ⇒ ⭐⭐ ***"I had read the warning and sized the wrong timeout: the script's
+budget was not the constraint, MY harness was."*** ⚠️ **Recording a cost is not the same as deriving
+its consequence** — **the warning named the hazard and the reader still had to work out which of two
+budgets bound.**
