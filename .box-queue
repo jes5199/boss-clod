@@ -7,7 +7,9 @@
 # ⚠️ Before nudging any door that appears idle, CHECK WHETHER I OWE IT A RELEASE.
 #
 # holder | since | what
-(FREE)  | 2026-09-03T09:56Z | cell landed STORE-1b (doc main 416b895 -> faeea17, boss verified 6 with both controls) and RELEASED ON THE ARTIFACT. next offered it for its 5-bis/5-ter block; taking it at its own pace.
+cell   | 2026-09-03T10:08Z | CELL-DEVSCOPED: 2 compiles (prod+test) + 2 suites, ~minutes   (HOLDING THE BOX NOW)
+#   granted inside next's gap: next declined twice, is mid-build, and its 5-ter block is hours out.
+# (was FREE) | 2026-09-03T09:56Z | cell landed STORE-1b (doc main 416b895 -> faeea17, boss verified 6 with both controls) and RELEASED ON THE ARTIFACT. next offered it for its 5-bis/5-ter block; taking it at its own pace.
 #   next released after G-SESSION landed; boss verified 6 at head b1842e1 with both controls.
 # waiting, in order:
 #   (nobody) — next DECLINED the box 2026-09-03T09:48Z and gave a schedule instead of a claim:
@@ -43,3 +45,13 @@ chit   | free by ranking (plan row: nothing in its repo is on the beta path)
 #   ⚠️ THE BOX HAS OTHER TENANTS. next's 5-ter this morning ran under similar load and still returned
 #   451/0 three times. ⇒ A slow run later is NOT a regression until someone checks what else was on
 #   the machine. (next, unasked, so the number does not get read as a finding by whoever comes after.)
+
+# ⛔⛔ THE UNIT OF THE BOX IS CONTENTION, NOT THE WORD "SUITE" (2026-09-03, cell asked; boss ruled).
+#   A `MIX_ENV=prod` compile loads CPU and disk exactly like a test run, and a door measuring
+#   timing-shaped behaviour is contaminated the same way. ⇒ Compiles need a window too.
+# ⭐ cell asked EVEN THOUGH two of its four steps were compiles, and named why: "the box protocol's
+#   unit is the suite and a compile is not one — and that is exactly the reasoning I would be using
+#   to talk myself into starting."
+# ⚠️ THAT IS THE TELL WORTH REMEMBERING: "this isn't technically the thing the rule names" is a
+#   CLASSIFICATION ARGUMENT, and a classification argument is how a door talks itself past a gate.
+#   The rule is about the resource, not about the vocabulary.
