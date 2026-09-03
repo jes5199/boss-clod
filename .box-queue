@@ -517,3 +517,16 @@ chit   | ⛔ IS BOX-BOUND AND I DID NOT KNOW IT UNTIL 10:43Z. Its `land-gates.sh
 #       happened. ⭐ THE DEADLINE IS THE PART THAT SURVIVED THE PLAN CHANGE; the owner is not.
 #     ⇒ A DATED ARTIFACT WHOSE CONSUMER IS CANCELLED IS THE EXACT MOMENT IT BECOMES THE UNEXPLAINED
 #       DIRECTORY THIS ROW EXISTS TO PREVENT — nobody deletes it, everybody assumes someone will.
+
+# 📌 PENDING ACTION, MINE, DEFERRED ON A LIVE WINDOW (plan row 713, 2026-09-03T23:34Z)
+#   DELETE `/tmp/commonplace-next-e2c-*` whose mtime PREDATES next's release of its current grant.
+#   26 dirs at time of ruling, mtimes 10:46Z→23:26Z [measured — ls -ld --time-style].
+#   ⛔ NOT DONE YET AND THE REASON IS RULE ⑧: next holds a live grant (write-amplification, A5, clean
+#     full-suite re-run, granted #27036 at 23:33Z). The box read FREE at 23:34Z and FREE is compatible
+#     with "between commands in a granted window" — ⇒ a delete landing between next's fixture creation
+#     and its `rm_rf!` IS the tmp-cleanup-race plan just labelled, caused by me instead of the counter.
+#   ✅ ON RELEASE: rm only that glob, only mtime < release time; report count BEFORE and AFTER plus a
+#     control that a same-named dir created afterwards is unaffected. Nothing outside the glob.
+#   ⚠️ A delete also removes the collision targets until `E2C-TMP-1` lands — plan says either is fine.
+#   ⭐ WHY THIS IS WRITTEN DOWN RATHER THAN HELD: it is a deferred act with a trigger I do not control,
+#     and "I will do it when X" held only in a context window is the class this file exists for.
