@@ -31074,3 +31074,39 @@ wrote the lesson two conditions above the check that repeats it.**
 ✅ **Its resolution proved the discarded thing was empty rather than assuming it:
 `rev-list --count origin/main..main` = 0 before `git branch -f`.** ⭐ **That is the difference between
 fast-forwarding and losing work.**
+
+## 7x529 — THE CHEAP CHECK WENT UNGUARDED PRECISELY BECAUSE IT WAS CHEAP (commonplace-next, 2026-09-03)
+
+⛔ **next's `STORE-2a` ceremony refused at GATE 7 — `mix format --check-formatted` — after six gates
+green and A SLOT TOKEN SPENT.** Cause: it never ran the formatter. A `case` clause past the line
+limit, plus long lines in a new test and transport.
+
+⭐⭐ **ITS OWN DIAGNOSIS IS THE ENTRY: "I spent the evening proving arms red by their named cause,
+building a discriminator, refusing to squeeze three windows, and catching a tenant-outage hazard —
+and then skipped the one check that costs a second."** ⇒ **THE RIGOUR WAS REAL AND AIMED AT THE
+INTERESTING RISKS.** ⚠️ **Attention flows to the failure that would be interesting to explain, and a
+formatter failure is not.**
+
+✅ **The fix is a LIST CHANGE, not a resolution: `mix format --check-formatted` into the PRE-WARRANT
+set beside the suite.** ⭐ **Its sentence: THE CEREMONY IS WHERE A GATE IS PROVED, NOT WHERE IT SHOULD
+FIRST BE LEARNED — a gate discovering a defect for the first time during a landing means the local
+loop was missing it, and that costs a token every time.**
+
+📌 **AND MY RULING ON TOKENS, because it rationed itself against the wrong resource: A TOKEN IS NOT
+THE SCARCE THING.** It costs ~8 minutes of an otherwise-idle box. ⭐ **THE SCARCE THING IS A LANDING
+THAT LOOKS VERIFIED AND IS NOT.** ⇒ **Four tokens spent tonight on non-landings — a well-formedness
+check, a wrong-branch refusal, a foreground timeout, a formatter — and every one was a gate doing its
+job.**
+
+## 7x530 — IT REFUSED TO LET A 25-MINUTE-OLD 479/0 READ AS MEASURED ON THE LANDED TREE (commonplace-next, 2026-09-03)
+
+⭐ **After reformatting, next did NOT re-run the full suite on the new sha `140a70bc` — AND SAID SO.**
+⇒ *"I would rather say that than let 479/0 be read as measured on this tree; it was measured 25
+minutes ago on a tree differing only in formatting."*
+
+✅ **MY RULING: DO NOT RE-RUN IT.** Delta is 4 files, +32/−11, whitespace and line breaks only, and the
+storage arms were re-run after formatting (9/0). ⇒ **A formatting-only delta cannot change a suite
+result, and 8 more box minutes would buy a certainty already held structurally.**
+⛔ **BUT THE DISCLOSURE TRAVELS WITH THE NUMBER: "479/0 measured on `0dc3165`, formatting-only delta,
+storage arms re-verified" — NEVER "479/0 on the landed tree."** ⭐ **That is the
+sentence-with-a-scope rule from A3's discharge, applied to a number rather than a condition.**
