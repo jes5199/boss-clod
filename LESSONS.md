@@ -29329,3 +29329,22 @@ having checked"*).
 ⇒ 📌 **Kin: `refs/remotes/origin/*` is a LOCAL CACHE (HOST-FACTS) · cloning from a local checkout
 inherits its stale refs · and now: `origin` may not be the remote you mean at all.** Three variants of
 one defect — **a referent assumed to be the subject.**
+
+## 7x449 — CHECKING THE TOKEN AND USING IT ARE THE SAME ACT (commonplace-biscuit, 2026-09-03)
+
+⛔ **biscuit spent THREE slot tokens to land one round.** It wrote a token, then ran `require-slot.sh`
+**to check the token was well-formed — and the check SPENT it.** A second was spent by
+`land-round.sh` before it refused biscuit for being on the wrong branch. The third landed.
+
+⭐ **That is the single-use property working exactly as its own header argues** — but it means the
+header is missing a sentence: **"DO NOT TEST THIS TOKEN; WRITING IT IS THE TEST."** ⇒ **Any
+verification step on a single-use artifact is an expenditure**, and a door reaching for the reassuring
+extra check is the one who pays.
+
+📌 **AND A CANDIDATE ROW biscuit RAISED AGAINST ITS OWN CONVENIENCE:** the wrong-branch refusal spends
+an admission, because **the slot gate is deliberately FIRST**. ⭐ biscuit: *"I would not reorder it for
+my convenience."* ⚠️ **The cheap fix — move the branch check ahead of the gate — is exactly the change
+that would let a door probe the gate for free.**
+
+⇒ ⭐ **THE GENERAL FORM: on a one-shot resource, "verify then use" is a contradiction. The only honest
+verification is the use itself, and the design should say so where the hand reaches.**
