@@ -18,3 +18,16 @@ next   | 2026-09-03T07:20Z | G-SESSION S5 base   (HOLDING THE BOX NOW)
 # not box-bound:
 biscuit| ACCESS-1a — Cloudflare Access app; no box, no slot token; lands via boss-clod cf-records/
 chit   | free by ranking (plan row: nothing in its repo is on the beta path)
+
+# ⛔⛔ TWO THINGS THAT ARE NOT THE SAME THING (plan row 633-bis, 2026-09-03):
+#   THE BOX WINDOW is MINE. It is not a file. I name it in a message; it says "no other door is
+#     running a suite under you". It is about CONTENTION.
+#   THE SLOT TOKEN (`.slot-granted`) is PLAN'S WARRANT. cell writes it only on plan's warrant,
+#     carrying `admits-branch` and the row, per require-slot.sh's contract. It is about AUTHORITY.
+# ⇒ Landing STORE-1b in commonplace-doc needs BOTH, and NEITHER SUBSTITUTES FOR THE OTHER.
+# ⚠️ I could grant a window all night and it would not authorise a landing; plan could warrant all
+#   night and the suite would still contend for the box. Do not let one arrive wearing the other's
+#   name — a door with a token and no window contaminates someone's measurement, and a door with a
+#   window and no token lands without a warrant.
+# 📌 doc's land-round.sh DOES read a slot token; log's landing path reads none. Different repos,
+#   different contracts — do not generalise one repo's gate to another.
