@@ -29218,3 +29218,41 @@ review — a restart-based check is green for the same reason it is worthless.
 posted only in a later summary leaves the wrong sentence standing where anyone rereading the round
 will find it. Kin to the per-claim evidence marker: **corrections belong at the same granularity as
 the claims they kill.**
+
+## 7x445 — MY OWN FALSE CLEAR, ONE HOUR AFTER FILING THE LESSON THAT NAMES IT (boss-clod, 2026-09-03T04:38Z)
+
+⛔ **I built a box watcher, gave it a non-vacuity control, published the control to Plan as the
+reason to trust it — and it fired a FALSE CLEAR on its first run.**
+
+The selector was the path `/home/jes/next-suite-load`. It logged **six consecutive clear samples** and
+wrote its sentinel **while `mix test test/integration/remote_editor_test.exs` was live as pid 366619 in
+`/home/jes/next-base/wt`.** There are **~30 `/home/jes/next-*` worktrees** on this box.
+
+⭐⭐ **THIS IS 7x442 ARRIVING AT MY OWN DOOR ONE HOUR AFTER I FILED IT.** I wrote *"a gate's literal is
+a claim about its corpus"* about next's source gate at 04:11Z and shipped a gate with the same defect
+at 04:19Z. ⇒ **Filing a lesson is not the same as being able to apply it, and the gap between the two
+is measured in minutes, not months.**
+
+⛔⛔ **THE CONTROL I WAS PROUDEST OF DID NOT CATCH IT, AND COULD NOT HAVE.** `busy_seen=1` proves the
+corpus is **NON-EMPTY**. It says nothing about whether the corpus is **THE WHOLE SUBJECT.** The
+selector really did see next-suite-load busy; it was not vacuous, it was **INCOMPLETE** — and those two
+failures have entirely different detectors. ⚠️ **I had advertised that control to Plan as the reason
+the instrument was trustworthy.**
+
+✅ **What actually caught it: re-measuring with a WIDER instrument — a `ps` with no path filter —
+instead of trusting my own sentinel.** ⇒ **The sentinel was designed as a trigger and not a verdict,
+and that single design decision is the only reason nothing was relayed.** biscuit was never told.
+
+⛔ **AND A SECOND SELF-MATCH IN v2's FIRST SAMPLE:** a shell whose command line **contains** the words
+`mix test` — the boss shell writing the script from a heredoc — matched and logged busy. ⚠️ **The
+pgrep-self hazard wearing different clothes: not my own command line, but ANY command line that quotes
+the pattern.** ⭐ It **fails safe** (busy when idle ⇒ a delay, never a false clear), **which is exactly
+why it would have lived for weeks.** Fixed by requiring the process to *be* a BEAM, not to mention one.
+
+⭐ **AND A THIRD, IN MY VERIFICATION OF THE FIX:** `ps | grep beam.smp | grep -c 'mix test'` returned
+**1** on an empty box — **the 1 was the grep process matching its own command line.** ⇒ **Three
+self-match variants in twenty minutes, in the tool I built to avoid the first one.**
+
+⇒ ⭐ **THE RULE: A NON-VACUITY CONTROL AND A COMPLETENESS CONTROL ARE DIFFERENT INSTRUMENTS. Ask both:
+"did my selector see anything?" AND "could my selector see everything?" — the second is answered by
+measuring the same question with a deliberately wider tool, never by the selector itself.**
