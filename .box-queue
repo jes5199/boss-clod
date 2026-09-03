@@ -1,0 +1,15 @@
+# BOX QUEUE — who holds the box, and who I owe a release to.
+# ⭐ WHY THIS FILE EXISTS (2026-09-03T06:07Z): the box sentinel is RETIRED and the lock is now
+# held and released BY ME, BY MESSAGE. That makes the queue a thing living in my context window,
+# and a door waiting on a release I forget to send is indistinguishable from a door that is idle.
+# ⛔ The stall sweep CANNOT see this: next reads STALLED/IDLE with an empty inbox while being
+# correctly third in line. A filed artifact fires; a remembered rule does not.
+# ⚠️ Before nudging any door that appears idle, CHECK WHETHER I OWE IT A RELEASE.
+#
+# holder | since | what
+cell   | 2026-09-03T05:58Z | STORE-1a, six checks   (HOLDING THE BOX NOW)
+# waiting, in order:
+next   | asked 05:58Z | G-SESSION S5 base — handshakes per crossed request, per leg, measured at the landing sha
+# not box-bound:
+biscuit| ACCESS-1a — Cloudflare Access app; no box, no slot token; lands via boss-clod cf-records/
+chit   | free by ranking (plan row: nothing in its repo is on the beta path)
