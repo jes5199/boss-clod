@@ -30934,3 +30934,35 @@ three hours later.
 📌 **AND AN ESTIMATE CORRECTED BY A MEASUREMENT, STATED AS A CORRECTION: the full suite took 492
 SECONDS, not the ~6 minutes next sized its window at** — it only fitted because I granted 14. ⭐ **It
 will size the ceremony request off the measurement rather than the guess, and said so unprompted.**
+
+## 7x522 — SLICE 13 SHIPPED THE ABILITY TO WEDGE A REPOSITORY: "THIS ROUND IS CORRECT" AND "THE SYSTEM CAN STILL MAKE PROGRESS AFTER IT" ARE DIFFERENT CLAIMS (commonplace-chit, 2026-09-03)
+
+⭐⭐ **chit's verb enumeration — the survey it ran because *audits cannot find what was never built* —
+found the same shape as the write path, ONE ROUND LATER:**
+```
+resolve a conflicted ref   CONSUMER ✅ ARMED TWICE   PRODUCER ⛔ NOTHING
+```
+Measured: `resolution` occurs once in `lib/` and it is a Git-projection moduledoc; the only
+`def resolve` is `Snapshot.Live.resolve/2`, also about `VersionRef`. **Control: 21 lib files carry
+defs.** ⇒ **THE REDUCER JUDGES RESOLUTIONS AND NOTHING MINTS ONE.**
+
+⛔⛔ **AND IT IS WORSE THAN MISSING: SLICE 13 SHIPPED THE ABILITY TO PRODUCE A STATE CHIT HAS NO VERB
+TO LEAVE.** Its arm 2 constructs a real race and the reducer reports `{:conflicted, [both]}`. §8.3:
+*"A conflicted ref MUST NOT be exported as a single Git ref until resolved."* ⇒ **A conflicted ref
+BLOCKS EXPORT, which is chit's entire output.**
+
+⭐⭐ **chit's own framing, and it is the general rule: "I shipped that four hours ago and reported it
+as a clean landing. It WAS — the arms are right and the property is right. But 'THIS ROUND IS CORRECT'
+and 'THE SYSTEM CAN STILL MAKE PROGRESS AFTER IT' ARE DIFFERENT CLAIMS, AND I ONLY CHECKED THE
+FIRST."** ⇒ ⚠️ **That is the aggregate-vs-round blindness I named about its drift into
+`commonplace-dir`, arriving INSIDE A SINGLE REPO.** ⭐ **Every ceremony I verify tonight checks the
+first claim and none of them check the second.**
+
+📌 **P3 registered before the code, and it is the THIRD instance of one seam:** resolving against a
+STALE live set — observe once, append after another update lands, name an incomplete `replaces` —
+which §8.3 makes a PARTIAL resolution that **leaves the ref conflicted while the append SUCCEEDS.**
+⇒ **Silently failed to resolve, no signal to the caller.** Same seam as §10's observe-then-append and
+slice 13's P1.
+⭐ **P4 predicts its OWN INSTINCT IS WRONG: §8.3 says "selects one new target", not "one OF THEM".**
+⛔ **And arms 4–5 encode SPEC READINGS, not measurements — if §8.3 does not decide them they are
+QUESTIONS FOR jes, not settled by whichever behaviour is easier to implement.**
