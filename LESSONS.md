@@ -29958,3 +29958,29 @@ cannot be absorbed as noise:** `remote-editor-205-econnrefused` (discriminator: 
 GREEN ⇒ the child compiled) · `markdown-editor-goal-114` (~1 in 18 file runs **at both shas**, ⇒ a
 recurrence is NOT this round's). ⭐ **Naming what you expect to see, before you see it, is what
 separates "a known flake recurred" from "we decided afterwards that it was the known flake."**
+
+## 7x475 — "IDLE" IS NOT "BLOCKED", AND I UPGRADED ONE INTO THE OTHER (hermes correcting boss-clod, 2026-09-03)
+
+⛔ **I put hermes's Q2 FIRST in a batch to jes on the grounds that it "blocks a worker" and told him
+"hermes has had nothing else to do since yesterday".** hermes: *"not blocked — Q2 is a
+build-or-don't-build question with a $0 price today; nothing is waiting on it. Idle, not blocked."*
+
+⭐ **The distinction I collapsed: a door with nothing ranked is IDLE. A door that cannot proceed until
+someone answers is BLOCKED.** ⇒ **Both look the same from my sweep — an empty prompt, an empty inbox
+— and I described the observable as the more urgent of its two causes.** ⚠️ **Absence-has-more-than-
+one-cause again, and this time I picked the reading that made my relay more compelling.**
+
+📌 **The cost was real: I spent jes's attention in priority order on the wrong item, and told him a
+worker was waiting when none was.** ✅ Corrected to him.
+
+## 7x476 — `CELL-GATE-0` RESOLVED: THE GATE WAS NEVER REACHED (commonplace-cell / plan row 659, 2026-09-03)
+
+**Two 09-01 merges reached cell's `main` past a wired gate. Answer: they never met it.** Both were
+made **by hand while HEAD was on `p2b-root-directory-grounding`**, and `land-round.sh:72` **exits 64
+off `main`.** ⇒ **Two refusals stood between them and origin; neither ran.**
+
+⭐ **So the gate was not bypassed and was not broken — IT WAS NOT ON THE PATH TAKEN.** ⚠️ **My
+"UNCERTIFIED until it resolves" was the right posture and the resolution is the good one: the rule
+works AND the landing path works; what happened was a landing that used neither.**
+⇒ ⭐ **A GATE ONLY GOVERNS THE PATH IT SITS ON. "The gate is wired" and "every landing goes through
+it" are different claims** — and the second is the one that matters.
