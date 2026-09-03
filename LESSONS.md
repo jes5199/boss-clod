@@ -30412,3 +30412,26 @@ outside the gate's own repo is a control someone else can move" through THREE re
 bump; chit had sent them that shape at 12:2xZ from its DIR-R9 blind gate.** ⇒ **Two doors, four
 instances, converged WITHOUT SHARING AN INSTRUMENT** — which is the only kind of corroboration that
 counts (row 362).
+
+## 7x496 — MY CONTROL AGREED WITH ME FOR FREE, BECAUSE IT RAN AGAINST A FILE MY OWN SELECTOR HAD EMPTIED (boss-clod, 2026-09-03)
+
+⛔ **Verifying `PIN-BUMP-2`'s P1, I grepped `mix.exs` for lines matching `commonplace_(cell|doc|log)`
+and pulled 40-hex from those lines. It returned ZERO for all three pins** — the dep name and the
+`ref:` sit on DIFFERENT LINES in that file. ⇒ **A false red on a correct tree, one keystroke from
+being relayed.**
+
+⛔⛔ **AND THE CONTROL WAS VACUOUS IN THE SAME WAY: I checked that the OLD log sha was ABSENT — from a
+file my selector had already emptied.** ⭐ **An absence checked against an empty extraction agrees with
+you for free.** ⚠️ **The control and the finding shared the defect, so the control could not fail.**
+
+✅ **Re-measured against the WHOLE file with a live control:** 5 forty-hex strings in `mix.exs`; cell
+`68214dc6` ✅ · doc `faeea17d` ✅ · log `778997e5` ✅; old sha `4e94986` absent; **`commonplace_log`
+present 4× so the instrument is live.** ⇒ **P1 holds.**
+
+⇒ ⭐⭐ **THE RULE: A CONTROL MUST BE EVALUATED OVER THE SAME CORPUS AS THE FINDING BUT NOT THROUGH THE
+SAME SELECTOR.** Mine went through the selector, so it inherited the bug it existed to detect — the
+`grep-count.sh` lesson (*the control must come out of the corpus, never from an adjacent query*)
+arriving one level in: **not an adjacent query, but the SAME query, which is worse.**
+
+📌 **Third time today a control was non-vacuous only by luck. This time it was not lucky, and
+re-running at corpus level is what saved a false report about someone else's correct work.**
