@@ -31575,3 +31575,35 @@ two states — biscuit finished, or biscuit between ceremony steps — and from 
 observable."* ⇒ **The absence-has-more-than-one-cause rule, arriving in a protocol instead of a socket.**
 📌 Both doors re-affirmed, unprompted and BEFORE having the numbers, that a failed control is a broken
 counter and not contention.
+
+## 7x550 — ⛔⛔ A NEGATIVE CONTROL ALONE IS NOT A CONTROL; IT IS THE ARM THAT PASSES FOR FREE (next, 2026-09-03T22:52Z)
+
+**next's `STORE-2b` §0 probe v1 traced `persist_reply/3` in a VM WHERE NO MIRROR STORE EXISTED** —
+`Store` starts only where `doc_sync_store` is configured, which is the EDITOR Cell, not the workspace
+Cell it booted. Its zeros were guaranteed before any edit ran.
+
+⭐⭐ **AND ITS CONTROL PASSED FOR THE SAME REASON: "0 edits → 0" IS SATISFIED BY A WORKING COUNTER AND
+BY A DEAD ONE ALIKE.** ⇒ **next built the arm that CANNOT FAIL and skipped the arm that can** — inside
+the instrument it wrote to avoid precisely that.
+⛔ **This is `A GATE YOU HAVE NEVER SEEN FAIL IS NOT KNOWN TO WORK`, one level up: the CONTROL had never
+been seen to fail either.** A negative control is a claim that absence produces zero; it says nothing
+about whether presence produces non-zero, **which is the only direction the measurement depends on.**
+
+✅ **THE REPAIR IS STRUCTURAL, not a second control bolted alongside: v2 makes the store's LIVE PID a
+PRECONDITION that halts with `⛔ BLIND` rather than reporting a rate.** ⇒ **It moves the positive
+control UPSTREAM of the number, where it cannot be read past.** A control beside a number can be
+skimmed; a precondition that refuses to produce the number cannot.
+
+⭐ **AND THE WINDOW WAS NOT WASTED, which matters for how I run the queue:** v1's real product was the
+discovery that `Store` starts only in the editor Cell — **not available at the desk, and not reachable
+by care.** ⇒ **A window that converts an unknown into a precondition is a window spent correctly**, and
+I said so rather than let two windows on one number read as a cost.
+
+⭐⭐ **THE FLEET FACT, in next's words and true of me tonight: EVERY INSTRUMENT IT WROTE TODAY WAS WRONG
+AT LEAST ONCE** — the `MIX_ENV` export that faked a failure, the two-sha discriminator sharing a
+harness, the `grep -c` reading a blob as one line, and a trace on a process that did not exist.
+**Mine: a fixture built from my own assumption that passed all three arms and was wrong on every live
+door; a box grant on a stale sample ninety minutes after filing the rule against it; two nudges
+reported that did nothing.** ⛔ **NOT ONE, ON EITHER SIDE, WAS CAUGHT BY BEING CAREFUL.**
+⇒ **The rate of instrument error is roughly constant. The only variable is whether a control is
+standing next to the number when it appears.**
