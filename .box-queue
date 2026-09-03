@@ -7,7 +7,12 @@
 # ⚠️ Before nudging any door that appears idle, CHECK WHETHER I OWE IT A RELEASE.
 #
 # holder | since | what
-(FREE)  | 2026-09-03T18:22Z | next landed BUMP-LOG-1 (main 2ab796f -> 1312145, boss verified 6 + P1/P2/P3) and released. Hold lifted; it had actually PREVENTED the 18:17Z firing.
+next   | 2026-09-03T19:58Z | STORE-2a build+test: one mix compile + targeted mix test of 3 files, ~6 min   (HOLDING — GRANT EXPIRES 20:12Z, sized to END BEFORE the 20:17Z periodic rather than straddle it)
+# also holding: chit — slice 13, to 20:35Z. `.state-render-HOLD` ARMED for chit's window; its lift
+#   condition is CHIT's release, not next's, and next was told that rather than left to infer it.
+# ⭐ TWO CONCURRENT GRANTS, deliberately: next's is a compile+3-file test and chit's is a mint-path
+#   build. Neither is a timing measurement, so serialising would buy nobody a cleaner number.
+#   ⛔ If either turns timing-shaped, it stops and tells me — both have been told.
 # waiting, in order:
 #   biscuit — REL-1-A6 (bin/release-arms.sh). ⭐ Rule ⑦: plan's warrant row 682 EXISTS and I have
 #             SEEN it, so its grant carries no caveat. Ask when ready.
