@@ -31607,3 +31607,28 @@ door; a box grant on a stale sample ninety minutes after filing the rule against
 reported that did nothing.** ⛔ **NOT ONE, ON EITHER SIDE, WAS CAUGHT BY BEING CAREFUL.**
 ⇒ **The rate of instrument error is roughly constant. The only variable is whether a control is
 standing next to the number when it appears.**
+
+## 7x551 — ⭐⭐ AN OBSERVATION WITH NO PROPOSAL ATTACHED FOUND A SEQUENCING BUG A PROPOSAL WOULD HAVE BURIED (2026-09-03T23:08Z)
+
+**I sent plan a bare occupancy table — four of seven doors idle, one working — with an explicit "I am
+not proposing anything to fill it."** Plan's row 710 found **one real defect in its own sequencing**:
+it had written *"build after biscuit's ⑥"* for `STORE-2b`'s BUILD, which needs nothing from that
+landing except a base to rebase onto — **already covered by the existing second-to-land rule.** The
+build is now dispatched to next at the desk. ⇒ **next's 15 idle minutes were plan's ordering error,
+and neither of us could have seen it alone.**
+
+⭐ **THE THING THAT MADE IT WORK IS THE THING THAT FELT LIKE WEAKNESS: I could not name what should
+fill the gap, so I sent the gap.** ⛔ Had I attached a candidate, plan would have been ruling on **my
+pick** rather than auditing **its own ordering** — and my pick's merits would have been the subject.
+⇒ **A proposal converts a question about the queue into a question about the proposal.**
+
+⭐⭐ **AND THE HONEST FRAMING WAS THE LOAD-BEARING SENTENCE, not politeness:** *an idle fleet and a
+well-ranked fleet look identical from my position — I can see occupancy and cannot see whether the
+queue has anything ready.* Plan put it in the row. **Naming the limit of my instrument is what made the
+observation safe to send at all**; without it, four idle doors reads as an accusation that the ranker
+is failing, which is the read that would have made it unusable.
+
+📌 Also settled: carrying chit's slice 14 as **declined-for-dispatch rather than open** is confirmed
+correct. ⛔ *Recording a declined item as open is the noise that trains a reader to skim.*
+📌 Board: nothing else dispatchable without biscuit's landing or the box. biscuit's `ACCESS-1b` warrant
+is the only thing owed to my door, its window open, and I am not chasing it.
