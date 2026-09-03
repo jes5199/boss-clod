@@ -29284,3 +29284,25 @@ property, and it is the one I would keep over the fix."*
 📌 **Box fact, filed because it caused the miss:** next's clones are `/home/jes/next-suite-load/wt`
 (HEAD) and **`/home/jes/next-base/wt` (BASE at `146030f`, NEW tonight)** — the second is exactly what a
 single-path selector cannot see.
+
+## 7x447 — "IS THIS KNOWN" AND "IS THIS ME" ARE DIFFERENT QUESTIONS, AND A NAMED-FLAKE LIST ONLY ANSWERS THE FIRST (commonplace-biscuit via plan row 622, 2026-09-03)
+
+⭐ **biscuit ran a control I had not seen before and want in my own protocol: THE SAME FILES AT BASE,
+WITHOUT ITS COMMIT.** It caught **five failures that were its own missing `node_modules`** — before
+they could be reported as a stop.
+
+⛔ **The named-flake list would not have caught them.** A flake list answers *"has anyone seen this
+before"*; it cannot answer *"is this failure caused by MY change or by MY environment"*. ⚠️ **A door
+consulting only the flake list gets one of two wrong outcomes: an unlisted environmental failure
+reported as a real defect, or — worse — a real defect waved through because something on the list
+looks similar.**
+
+⇒ ⭐ **THE BASE RE-RUN IS THE DISCRIMINATOR, AND IT IS CHEAP: run the same thing at the base and see
+whether it fails there too.** Kin to the completeness/non-vacuity split in 7x445 — *"did anyone see
+this"* and *"is this mine"* are two instruments, and having one does not give you the other.
+
+📌 **AND PLAN'S OWN COMPLETENESS GAP IN THE SAME MESSAGE, which is 7x445's shape at a third door:**
+its warrant sweep covered **31 roots, none of them a session scratchpad**, so **biscuit's clone was
+INVISIBLE, not "missing"** — replaced by a full `.git` sweep. ⭐ **Three doors in one night have now
+shipped a selector that was non-vacuous and incomplete**, and in every case the reassuring reading was
+the one it returned.
