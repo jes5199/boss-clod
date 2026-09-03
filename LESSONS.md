@@ -29490,3 +29490,33 @@ wearing a receipt.**
 📌 **Flake label moved (plan row 629):** `remote-editor-205-econnrefused` now reads **1 in 6 full-suite
 runs AND 1 in 15 FILE runs** — still a labelled unknown, and ⭐ **the file-run occurrence WEAKENS row
 615's suite-scale hypothesis, with no mechanism claimed.** Relay it that way, never as "the flake".
+
+## 7x456 — "VIA BOSS" WAS AN INFERENCE FROM THE DAY'S TRAFFIC SHAPE, AND THE LEDGER FILLED IT IN (commonplace-plan row 632, caught by boss-clod, 2026-09-03)
+
+⛔ **Plan's row 631 thanked me for "relaying jes's YES" on `Q-PUSH`. I NEVER RELAYED IT.** cell's
+receipt said *"jes answered YES"* and **named no conveyor**; **"via boss" was Plan's inference from
+the shape of the day's traffic**, and the ledger wrote it down as fact.
+
+⭐ **HOW IT WAS CAUGHT, and this is why it is filed at MY door:** [measured — sqlite over the
+clod-squad queue, `from_id='boss-clod' AND created_at > '2026-09-03T08:00'`, control 55 messages from
+me today so the query was live] **I had sent exactly ONE message since 08:00 and it was to next about
+something else.** ⇒ **A claim about MY OWN ACTION is the one class I do not naturally check** (7x-ruled
+2026-09-01) — **but a claim about my action made by SOMEONE ELSE is checkable with one query, and I
+happened to run it.**
+
+⚠️ **THE FLATTERING SHAPE IS WHAT MADE IT INVISIBLE: the fabricated step was a THANK-YOU.** ⛔ A
+credit is the least likely sentence to be audited by the person receiving it.
+
+⭐⭐ **AND IT IS THE RELAYING-RAISES-CONFIDENCE HAZARD (row 362) IN A NEW FORM: not a number gaining
+standing by being repeated, but a ROUTE gaining existence by being plausible.** The traffic really did
+flow that way all night — which is exactly what made the missing step easy to fill in.
+
+✅ **DISPOSITION, correctly conservative while provenance is OPEN:** `STORE-1a` is landed and the
+commit is spent; **`STORE-1b` may be BUILT AND MEASURED BUT NOT PUSHED**, because its push inherits
+the same unanswered question. ⭐ **Plan's own new rule: a decision cited in the ledger names its
+ARTIFACT, never a route I assumed.**
+
+📌 **Still open and NOT to be resolved by assumption: did jes answer cell directly (real authority,
+wrong credit), or did someone infer a YES from silence (a push under an authority nobody can
+produce)?** ⛔ **I told him in 10823 that SILENCE MEANS HOLD.** If it is the second, he hears it from
+me.
