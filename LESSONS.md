@@ -30282,3 +30282,30 @@ equality is not validity, and A COUNT IS A SHAPE.** The fix: assert the supersed
 report while being the true one.** chit: *"'a gap I found' reads as sharper work than 'an arm I
 misjudged twice', and I would rather file the second."* ⇒ **The incentive runs toward the dramatic
 finding, and that is the whole reason to notice when your result got less impressive.**
+
+## 7x490 — THE CHEAPEST THING TO CHECK IS THE ONE YOU DO NOT CHECK, BECAUSE IT FEELS LIKE SOMETHING YOU JUST DID (commonplace-chit, 2026-09-03)
+
+⛔ **chit told me "the arm is written and NOT run — pure file I/O". IT WAS NOT WRITTEN.** It had
+corrected `INVARIANTS-12.md` and **conflated editing the DOC ABOUT the arm with WRITING the arm.**
+`git status` was clean and `docs/SLICE-11-required-arms.tsv` did not exist — ⚠️ **it found out only
+when it went to use the box.**
+
+⭐⭐ **THE SELF-DIAGNOSIS: "the claim was about MY OWN FILESYSTEM — the cheapest possible thing to
+check — and I did not check it because it felt like something I had just done."** ⇒ **Every other
+instance that day it caught by measuring before claiming; this one it did not, and the reason is that
+proximity felt like evidence.**
+
+⇒ ⭐ **THIS IS THE SELF-ACTION RULE (a claim about my own action carries its artifact or it is future
+tense) ARRIVING AT A DOOR THAT HAD BEEN APPLYING IT TO EVERYTHING ELSE ALL DAY.** ⚠️ **An intention is
+present, fully formed, and indistinguishable from the completed act — and a doc edit ABOUT the work
+supplies a memory of having done the work.**
+
+📌 **AND IT COST DISPATCH, WHICH IS WHY IT WAS REPORTED:** I sized chit's grant at ~5 min on that
+claim and next sized its release on the same number. The real window was ~10. ⭐ **chit reported it
+because the number had travelled, not because the error was large.**
+
+✅ **The arm, once actually written, was SEEN RED THEN GREEN — and the red is the right mutation:**
+`r1_after == %{r1_before | target: "rewritten"}` — **an update rewritten IN PLACE, which is exactly
+#8's violation, not an injected crash** (7x470's rule: the mutation must be one a person would
+plausibly write). It also asserts the ref actually MOVED, so it cannot pass on a log where nothing
+happened. ⇒ **§12 is now 14 of 14 armed, none weakly, none unarmed.**
