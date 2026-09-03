@@ -7,7 +7,7 @@
 # ⚠️ Before nudging any door that appears idle, CHECK WHETHER I OWE IT A RELEASE.
 #
 # holder | since | what
-chit   | 2026-09-03T11:41Z | DIR-R9 step 8: implementation + land-gates, ~20-25 min as ONE grant   (HOLDING THE BOX NOW)
+(FREE)  | 2026-09-03T11:57Z | chit landed DIR-R9/A49 (dir 56c0149 -> 1a5187f) and released. next has PIN-BUMP-2 dispatched and takes the box at its own pace.
 # waiting: next, for PIN-BUMP-2's suite runs -- takes it at its own pace and pings me.
 # (was next 10:39-11:41Z for ORG-2a; landed f51e728, boss verified 6 + all three pre-registered properties)
 #   its build is FINISHED — it waited for the contiguous block rather than holding through editing,
