@@ -27,7 +27,13 @@
 #   ⛔ THIRD REPO, THIRD ASK. The in-session yes (~07:2x) was commonplace-LOG; 10847 was
 #   commonplace-DOC. A yes about one repo does not carry to another. cell asked rather than
 #   treating two approvals as a pattern.
-10861  | 2026-09-03T16:47Z | LAND-PROOF: (a) land in commonplace-cell + (b) ONE DELIBERATE UNGATED PUSH as the round's negative control — scratch/land-proof-control-<utc> on the REAL remote, never main, deleted after with ls-remote verification | cell | OPEN on telegram
+# CLOSED 10861 | LAND-PROOF (a)+(b) — ANSWERED 2026-09-03T16:48:03Z (id 10862) verbatim `yes to both`.
+#   ✅ (b) DONE AND CLEANED UP at 16:49Z. I VERIFIED THE CLEANUP MYSELF by URL rather than taking
+#   cell's word, because I had promised him a stray branch would be reported: scratch branches on
+#   origin = 0 · refs mentioning land-proof-control = 0 · CONTROL: 16 refs visible and main resolves
+#   to 68214dc, so ls-remote is not blind · origin/main UNCHANGED.
+#   ⇒ THE COMMITMENT I MADE ON CELL'S BEHALF IS DISCHARGED. Nothing to tell jes.
+# was: 10861 | 2026-09-03T16:47Z | LAND-PROOF: (a) land in commonplace-cell + (b) ONE DELIBERATE UNGATED PUSH as the round's negative control — scratch/land-proof-control-<utc> on the REAL remote, never main, deleted after with ls-remote verification | cell | OPEN on telegram
 #   ⛔ (b) relayed rather than ruled BY ME: it is cell pushing by hand to a real remote — the exact
 #   behaviour CELL-GATE-0 identified as the problem — and cell flagged that FIRST, before I could.
 #   ⭐ Not a thing to do on a ruling cell received rather than a person's word. Without it the round
