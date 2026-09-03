@@ -149,9 +149,20 @@ chit   | ⛔ IS BOX-BOUND AND I DID NOT KNOW IT UNTIL 10:43Z. Its `land-gates.sh
 # ② FALLBACK, so proceeding is PROTOCOL-FOLLOWING and not protocol-breaking. A queued door may take
 #    the box when ALL of these hold:
 #      a. it has waited >= 30 min with NO message from boss;
-#      b. it MEASURES the box free itself — `ps -eo pid,comm,args | awk '$2=="beam.smp"'` filtered on
-#         `comm`, NEVER on argv (an argv match counts your own command line; that has happened four
-#         times in one night), with the total BEAM count printed as the non-vacuity control;
+#      b. it MEASURES the box free itself. ⛔⛔ AMENDED 15:19Z BY biscuit — MY FIRST CONTROL WAS THE
+#         WRONG QUANTITY. I said "print the total BEAM count as the non-vacuity control". The
+#         fallback fires exactly when the box looks empty, and at that moment `total BEAMs = 0` is
+#         BOTH the green ("free, take it") AND the instrument failure ("ps produced nothing, my awk
+#         field is off by one"). ⭐ THE NUMBER YOU ARE TRYING TO LEARN CANNOT CONTROL ITSELF.
+#         ⇒ THE CONTROL COMES FROM THE CORPUS ACTUALLY SEARCHED — ALL PROCESSES:
+#             ps -eo pid,comm,args > /tmp/box.ps
+#             tot=$(grep -c . /tmp/box.ps)          # control: must be >> 1 (a real process table)
+#             beams=$(awk '$2=="beam.smp"' /tmp/box.ps | grep -c .)
+#             [ "$tot" -lt 50 ] && { echo "BLIND: ps returned $tot lines"; exit 2; }
+#         ⭐ `tot` is a number whose rough answer you ALREADY KNOW, which is what makes it a control.
+#         ⚠️ Filter on `comm`, NEVER on argv — an argv match counts your own command line, which
+#         caught four of us in one night. But `comm` is TRUNCATED TO 15 CHARS on Linux: the rule is
+#         "`comm` for `beam.smp`" (safe at 8), NOT "`comm` in general" for a future long binary.
 #      c. it BROADCASTS "TAKING THE BOX UNDER FALLBACK at <ts>, measured free: <numbers>" and waits
 #         60s for an objection;
 #      d. on a conflicting claim, THE EARLIER TIMESTAMP WINS and the later door stands down.
