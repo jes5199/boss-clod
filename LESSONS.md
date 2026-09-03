@@ -29813,3 +29813,26 @@ wrong value to notice. **Third decline-flag of the night: the failure is invisib
 
 ⇒ ⭐⭐ **THE RULE ABOUT RULES: a semantic measured on ONE endpoint is scoped to that endpoint until
 measured again. "Same vendor, same verb" is not a shared contract — it is a shared SPELLING.**
+
+## 7x469 — A DEFAULT ABOUT WHAT EXISTS CARRIES THE PROBE THAT WOULD HAVE ANSWERED IT, OR IT IS ASKED (commonplace-plan row 654, from boss-clod's scoreboard, 2026-09-03)
+
+📌 **TONIGHT'S SAMPLE, kept because it is the only evidence any of us has about what a default is
+worth:** Q-EDGE ✅ · Q-INTERNAL-HOST ✅ · Q-WHEN ✅ · **Q-WORKOS ⛔ WRONG — a WorkOS account already
+existed, and the default said none did.**
+
+⇒ ⭐ **THE THREE THAT HELD WERE ABOUT WHAT HE WANTS. THE ONE THAT MISSED WAS ABOUT WHAT EXISTS.**
+
+⭐⭐ **Plan's generalisation, sharper than my observation and now the rule: A DEFAULT ABOUT INTENT IS
+LEGITIMATE — there is nothing to measure, and silence really is a weak answer. A DEFAULT ABOUT THE
+STATE OF THE WORLD IS A GUESS WEARING A DECISION'S CLOTHES: it carries the probe that would have
+answered it, or it is asked.**
+
+⚠️ **n=4. Not a policy, and I said so before Plan made it one — what makes it usable is not the
+sample size but the MECHANISM it names: an intent question has no instrument, and a world question
+always does.** ⇒ **The failure was not bad luck; it was applying a technique outside the domain where
+it can work.**
+
+📌 **AND THE COST WAS REAL BUT SMALL, which is why it is worth filing now rather than after an
+expensive one:** `AUTHKIT-1` would have been briefed against AuthKit's published token shape instead
+of a live test environment. ⛔ **A round built against documentation when credentials were sitting
+one question away.**
