@@ -96,7 +96,11 @@ the result (telegram id 10841), verbatim and complete:**
  "iss":"https://commonplace-systems.cloudflareaccess.com"}
 ```
 ⭐ **All three fields match what was recorded BEFORE the login: `assertion_present` true · `kid`
-non-null AND equal to the first kid in this team's JWKS · `iss` byte-equal to the pinned issuer.**
+non-null AND A MEMBER OF this team's JWKS · `iss` byte-equal to the pinned issuer.**
+⛔ **NOT "the first kid" — I wrote that and it is wrong. KEY ORDER IS NOT STABLE: the same pair came
+back in OPPOSITE ORDERS at 09:15Z and 09:28Z (biscuit, plan row 644-bis).** ⇒ **The claim that holds
+is MEMBERSHIP, and any resolver must LOOK UP BY KID AND NEVER INDEX THE ARRAY.** A verifier written
+against position would pass every test today and fail whenever Cloudflare reorders.
 ⇒ **ACCESS DELIVERS THE SIGNED ASSERTION TO THE ORIGIN. The assumption spec §9.1 forbids leaving
 untested is now tested by the only instrument that could: a human at a browser.**
 ⚠️ **AND IT IS A PREDICTION CONFIRMED, NOT A VALUE READ BACK — the issuer and kid were written into
