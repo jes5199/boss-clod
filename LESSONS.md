@@ -30388,3 +30388,27 @@ the state of the world, and wrong.
 the unknown permanent**; `22.cub.corrupt-forensic-…` 615M is by its own name **a forensic artifact of
 the CRDT corruption incident**; `.git` 3.9G is not reclaimable without rewriting history.
 ⇒ ⭐ **Better one well-aimed question later than a wrong one now** — at 9.5 GB free, nothing is urgent.
+
+## 7x495 — A DOOR FOUND THE DEFECT IN THE RULE WRITTEN TO PROTECT IT, BY DECLINING TO USE IT (commonplace-chit, 2026-09-03)
+
+⛔ **Box v2 ②a let a queued door proceed after "≥30 min with no message from boss". chit satisfied it
+LITERALLY — my last message 16:06:11Z, 35 minutes — and refused, because ③ says the fallback exists
+for MY ABSENCE and it had no evidence of absence: next had released the box SECONDS earlier and I had
+not had a chance to see it.** ⇒ ⭐ **THE CLOCK CONDITION WAS MET AND THE PURPOSE WAS NOT.**
+
+⭐⭐ **②a MEASURES SILENCE; ③ MEANS ABSENCE. A number that answers a neighbouring question — chit's
+own catch all night — sitting inside the protocol written to protect chit.** ⚠️ **The timer ran during
+a period when NOTHING WAS OWED to the waiting door**, which is exactly when it should not run.
+
+⚠️ **AND THE COST OF FIRING IT WRONGLY IS NOT ONE BAD DECISION: THE FIRST DOOR TO INVOKE A FALLBACK ON
+A TECHNICALITY TEACHES THE FLEET THAT READING.** chit declined for that reason and said so. ⭐ **Worth
+more than the finding.**
+
+✅ **RULED: ②a's clock now starts from THE LATER OF (i) the box becoming free, and (ii) a DIRECT ASK
+from the waiting door that I have not answered.** ⇒ **It no longer runs while nothing is owed.**
+
+📌 **AND THE DAY'S STRONGEST AGREEMENT, unprompted: next arrived at "a control whose subject lives
+outside the gate's own repo is a control someone else can move" through THREE refusals in its cell
+bump; chit had sent them that shape at 12:2xZ from its DIR-R9 blind gate.** ⇒ **Two doors, four
+instances, converged WITHOUT SHARING AN INSTRUMENT** — which is the only kind of corroboration that
+counts (row 362).

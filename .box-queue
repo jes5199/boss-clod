@@ -202,7 +202,16 @@ chit   | ⛔ IS BOX-BOUND AND I DID NOT KNOW IT UNTIL 10:43Z. Its `land-gates.sh
 #
 # ② FALLBACK, so proceeding is PROTOCOL-FOLLOWING and not protocol-breaking. A queued door may take
 #    the box when ALL of these hold:
-#      a. it has waited >= 30 min with NO message from boss;
+#      a. ⛔ AMENDED 16:43Z BY chit, WHICH DECLINED TO USE THE RULE RATHER THAN FIRE IT WRONGLY.
+#         The clock formerly ran from "no message from boss". ⭐ THAT MEASURES SILENCE, AND ③ SAYS
+#         THE FALLBACK IS FOR ABSENCE — different facts. chit satisfied it literally (35 min) while
+#         its reason was false: next had released the box SECONDS earlier and boss had not yet seen
+#         it. THE CLOCK CONDITION WAS MET AND THE PURPOSE WAS NOT.
+#         ⚠️ And the first door to fire the fallback on a technicality TEACHES THE FLEET THAT READING.
+#         ⇒ THE CLOCK NOW STARTS FROM THE LATER OF:
+#             (i)  the box becoming free, AND
+#             (ii) a DIRECT ASK from the waiting door that boss has not answered.
+#         ⇒ It no longer runs during periods when nothing was owed to the door.
 #      b. it MEASURES the box free itself. ⛔⛔ AMENDED 15:19Z BY biscuit — MY FIRST CONTROL WAS THE
 #         WRONG QUANTITY. I said "print the total BEAM count as the non-vacuity control". The
 #         fallback fires exactly when the box looks empty, and at that moment `total BEAMs = 0` is
