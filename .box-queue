@@ -223,14 +223,18 @@ chit   | ⛔ IS BOX-BOUND AND I DID NOT KNOW IT UNTIL 10:43Z. Its `land-gates.sh
 #   found in the heartbeat — a door measuring "free" cannot see another door about to start, which is
 #   why (c) and (d) exist and why they are the parts most likely to be wrong.
 
-# ⛔ OPEN OBLIGATION — box-free.sh's GREEN ARM IS UNOBSERVED (hermes, 2026-09-03T15:21Z).
-#   Its only live run returned BUSY. ⭐ A SCRIPT THAT RETURNS BUSY UNCONDITIONALLY ALSO RETURNS BUSY,
-#   so rc 1 establishes nothing about rc 0 — and rc 0 IS THE ARM THAT GRANTS A SHARED RESOURCE.
-#   ⚠️ THIS INVERTS THE USUAL CASE: normally the unseen arm is the ALARM and failing shut is safe.
-#   Here failing shut IS safe, and the unseen arm is the one that says GO.
-#   ⇒ TODO: run `./box-free.sh` at a genuinely free moment — after next releases, BEFORE granting
-#     chit — and confirm rc 0 with its control line. Until then the script is known to work for
-#     BUSY only, and BUSY is the answer it would give if it were broken.
+# ✅ CLOSED 2026-09-03T15:46Z — box-free.sh's GREEN ARM HAS NOW FIRED. Raised by hermes at 15:21Z:
+#   its only live run had returned BUSY, and ⭐ A SCRIPT THAT RETURNS BUSY UNCONDITIONALLY ALSO
+#   RETURNS BUSY — so rc 1 established nothing about rc 0, THE ARM THAT GRANTS A SHARED RESOURCE.
+#   ⚠️ THE INVERSION WORTH KEEPING: normally the unseen arm is the ALARM and failing shut is safe.
+#   Here failing shut IS safe, so every design choice pushed toward BUSY — and the one arm none of
+#   those choices exercised was the one that says GO. My "both arms demonstrated" habit would have
+#   passed it: I had shown it could go red, on an instrument whose red is free.
+#   ⇒ OBSERVED, with its control:
+#       FREE|0 suites, hermes pid 3811749 excluded, control 239 processes visible     rc=0
+#   ⭐ Both arms of every branch now seen: BUSY-SUITE (next's runs), BUSY-PERIODIC (my state-render),
+#   and FREE. Still UNSEEN: UNKNOWN-BEAM, BLIND-on-unreadable-/proc, and BLIND-on-unresolved-hermes.
+#   ⛔ Those three remain claims, not capabilities.
 
 # 📌 PIN-BUMP-2 IS COMPLETE (next, 15:43Z): all three pins in next — log 778997e (range 24) ·
 #   doc faeea17 (81) · cell 68214dc (3), branch head bcc6ce4, artifact says 467 tests / 0 failures.
