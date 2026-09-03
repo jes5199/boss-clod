@@ -14,7 +14,6 @@
 #
 # tg-id | asked      | subject                    | also standing with | state
 10844  | 2026-09-03T09:50Z | STORE-1b push word (commonplace-doc, sol/store-1b-log-pin-and-read-rebinding @ b61c851, ff of 416b895) | ⚠️ cell, IN-SESSION SINCE ~09:36Z — DUPLICATE DECLARED BY CELL, do not read my silence as a hold | OPEN on telegram
-10838  | 2026-09-03T09:31Z | Q-WHEN only — does AuthKit land before the paid beta opens? (DEFAULTED yes) | nobody | OPEN on telegram
 10846b | 2026-09-03T09:50Z | disambiguate "correct" (10845) — CLOSED by 10847 `yes push`; kept for the record: — arrived 25s after 10844 and could answer the routing change, the no-carry remark, or the push. NOT read as authorization. | nobody | OPEN on telegram
 10749  | (earlier) | hermes Q2 — build the wheel's cash-secured check, or leave it as posture | hermes; hermes reports NO user turn has EVER reached its session ⇒ genuinely unanswered, NOT answered-elsewhere; treating this silence as a real hold is CORRECT | OPEN on telegram, HELD BACK from the current batch
 #   ⚠️ hermes had to remind me of this one: I was carrying it IN PROSE across several messages, which
@@ -66,3 +65,12 @@
 #         📌 And `internal.commonplace.st` has no DNS record yet. Creating one is an outward-facing
 #         change in his account ⇒ his to authorise, recorded in cf-records with WHY, like Phase 1's
 #         DNS row. Not live work today.
+# Q-WHEN | ANSWERED 2026-09-03T10:11:06Z (10853), verbatim: `yes authkit before beta`.
+#         AuthKit is BETA-BLOCKING. Agrees with row 651 rather than competing: "Access stays on beta
+#         until AuthKit serves" is the safe sequence precisely in the world where AuthKit lands first.
+#
+# ⭐ DEFAULT SCOREBOARD, tonight's sample, kept because it is the only evidence we have about what a
+#   default is worth: Q-EDGE ✅ · Q-INTERNAL-HOST ✅ · Q-WHEN ✅ · Q-WORKOS ⛔ WRONG (an account existed).
+#   ⇒ The three that held were about WHAT HE WANTS. The one that missed was about WHAT EXISTS.
+#   ⚠️ n=4, not a policy. But it argues: MEASURE rather than default whenever the question is about a
+#   thing that can be probed, and reserve defaults for questions about intent.
