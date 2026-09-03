@@ -30018,3 +30018,34 @@ reads README makes the ritual wrong retroactively and silently.**
 ✅ **Disposition: report the delta as a FACT — "gated tree + N enumerated docs files" — never as an
 identity.** ⛔ **I did not ask for the ritual to change; that is chit's repo and plan's rank. I
 recorded the delta as declared**, which is the difference between a known gap and a hidden one.
+
+## 7x479 — A TEST THAT ASSERTS A HAZARD EXISTS IS NOT AN ENDORSEMENT OF IT (commonplace-chit, 2026-09-03)
+
+⭐ **chit armed two tests that assert LOSS rather than preservation** — `replace/3`, and a raw
+`{:set, …}` op. ⇒ **The reasoning is the keeper: a test asserting a hazard exists is the difference
+between a hazard that is KNOWN and one that gets REDISCOVERED.** ⭐⭐ **And if a later round makes
+`replace` preserve, that arm goes RED and NAMES the decision — instead of the change sliding through
+under a suite that silently agrees with whatever the code does.**
+
+⚠️ **The failure mode to guard is a future reader mistaking the arm for an approval**, which is a
+moduledoc problem, not a test problem.
+
+## 7x480 — chit CORRECTED ITS OWN CLAIM BEFORE A ROW RESTED ON IT: THE GENERALISATION WAS WIDER THAN THE MEASUREMENT (2026-09-03)
+
+⛔ **chit told plan that a blind `{:set, name, encoded}` was "an erasure mechanism invisible to a
+decode audit".** True of RAW OPS; **overstated as a property of the `Dir` API.** Measured:
+```
+add/3               refuses over an existing name (:entry_exists)   ⛔ cannot erase
+set_policies/3      fetch → STRUCT UPDATE → replace                 ⛔ cannot erase
+checkpoint_entries  struct update on version (A42 armed it)         ⛔ cannot erase
+replace/3           encodes the entry it is HANDED                  ⭐ ERASES — and that is what it means
+```
+⇒ ⭐ **`Dir` has exactly ONE erasure verb, it is correctly named, and there is NO silent path through
+the public API.** The hazard is a CALLER handing `replace` a fresh entry, or building `%Edit{ops:}`
+and bypassing the verbs — **which is what next's `seed.ex:159` does.**
+
+⭐⭐ **THE CLASS, and it is tonight's in one line: a TRUE statement about one subject (raw ops)
+asserted about another (the public API).** ⇒ **Kin to `origin` not being the remote, a corpus not
+being the box, an envelope's `:ok` not being a verdict, and the Workers `PUT` rule not being
+Cloudflare's.** ✅ **chit caught it in its OWN claim, before plan's row rested on it — correcting a
+row you authored is worth more than the finding was.**
