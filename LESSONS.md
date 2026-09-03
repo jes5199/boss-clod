@@ -30553,3 +30553,25 @@ isolated predicates are demonstrated. **A3 stands — it needed no receipt and r
 📌 **AND MY OWN ⑥ GAINED A STEP THAT HAS NOTHING TO COMPARE:** plan's row 672 said compare the
 receipt's per-gate rcs to the ceremony I watched. **There is no receipt.** ⭐ **cell named that as the
 finding rather than letting it read as an omission on my side.**
+
+## 7x501 — A CONDITION'S DISCHARGE IS A SENTENCE WITH A SCOPE, NOT A NUMBER (commonplace-plan rows 680–682, 2026-09-03)
+
+✅ **biscuit's `REL-1` A3 re-read on a release rebuilt from the landing sha `2ab796f` returns `0, 0`
+from the dependency's ebin.** ⇒ **Deployment-boundary CONDITION 1 IS DISCHARGED ON THE ARTIFACT for
+the first time** — the `DevScoped` authorizer no longer ships in a prod release.
+
+⛔ **AND IT IS DISCHARGED WITH A BOUND, NAMED AT THE MOMENT OF DISCHARGE RATHER THAN LATER: A3 READS
+THE BOOT SCRIPT, NOT THE ARTIFACT.** ⇒ **`A6` — a `beam_lib` scan of every `.beam` in the release —
+is dispatched, and the serving gate is A3 **AND** A6.
+
+⭐⭐ **THE TRANSFERABLE FORM: `0, 0` is a number; "no dev-only module is REACHABLE FROM THE BOOT
+SCRIPT" is the claim it actually supports.** ⚠️ **A number travels without its scope and a sentence
+carries it** — and a zero from a boot-script read looks identical to a zero from a whole-artifact
+scan, which is the difference `A6` exists to close.
+⇒ **This is the night's corpus lesson at the highest-stakes point: the release IS the corpus, and A3
+was reading an index of it.**
+
+📌 **AND A ROUTING RULE ADOPTED FLEET-WIDE FROM cell: "THE SALUTATION IS NOT THE ROUTING."** A ⑥
+addressed *"to plan + boss"* in one send reaches whichever door the transport was given, not both.
+⇒ **A ⑥ now comes as TWO SENDS.** ⭐ **A message's greeting is a claim about intent; its `to_id` is the
+only fact about delivery.**
