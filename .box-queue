@@ -10,7 +10,13 @@
 cell   | 2026-09-03T09:29Z | STORE-1b in commonplace-doc: S1 base-red demo, deps.get, compile, full suite, 1-6   (HOLDING THE BOX NOW)
 #   next released after G-SESSION landed; boss verified 6 at head b1842e1 with both controls.
 # waiting, in order:
-#   (nobody)
+#   (nobody) — next DECLINED the box 2026-09-03T09:48Z and gave a schedule instead of a claim:
+#   ORG-2a is HOURS OF BUILDING punctuated by single-file runs of seconds-to-2min, which its own
+#   clone serves. It needs the box ONLY at 5-bis/5-ter: every two-BEAM file x3 plus the complete
+#   suite x3, ~30-40 min of CONTIGUOUS BEAM at the END of the round.
+#   ⭐ SO THE CHEAP ORDER IS cell-lands-first: handing it to next now would hold it through hours of
+#   editing, jes's answer would arrive mid-build, and cell would wait for a block next was not using.
+#   ⇒ Ping next when cell lands.
 # released:
 # cell released 07:19Z on the ARTIFACT (six checks rc=0, file on disk) — not on an idle pane.
 #   cell is blocked on Q-PUSH, which is a hold on the PUSH and NOT on the box; it will not ask for
@@ -32,3 +38,8 @@ chit   | free by ranking (plan row: nothing in its repo is on the beta path)
 #   window and no token lands without a warrant.
 # 📌 doc's land-round.sh DOES read a slot token; log's landing path reads none. Different repos,
 #   different contracts — do not generalise one repo's gate to another.
+
+# 📌 LOAD BASELINE (2026-09-03T09:43Z): load average 7.02 with ZERO `mix test` of ours running.
+#   ⚠️ THE BOX HAS OTHER TENANTS. next's 5-ter this morning ran under similar load and still returned
+#   451/0 three times. ⇒ A slow run later is NOT a regression until someone checks what else was on
+#   the machine. (next, unasked, so the number does not get read as a finding by whoever comes after.)
