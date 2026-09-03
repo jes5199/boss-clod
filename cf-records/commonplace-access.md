@@ -114,3 +114,32 @@ application's audience, named by Cloudflare's own handshake in a browser we do n
 📌 **C4 — DECIDED, not discovered: `/healthz` IS behind Access.** §9.4 says the origin should be
 reachable only through Access and names no exemption, so none was taken. ⚠️ **Consequence:
 `/healthz` is no longer externally pollable — any uptime check will see a 302, not a failure.**
+
+## ⚠️ THE WORKER'S SOURCE — and the gap the deploy path does not cover
+
+**Worker `commonplace-beta` serves `/access-check`, and its source is `cf-src/commonplace-beta.mjs`
+at commit `5863efa`.**
+
+⛔ **THAT COMMIT EXISTS BECAUSE THE SOURCE WAS UNTRACKED WHEN THIS RECORD WAS FIRST WRITTEN.**
+commonplace-biscuit found it on a post-landing sweep: the deployed Worker carried `/access-check`,
+the committed source did not, and this record was describing an edge behaviour that lived only in a
+working tree.
+
+⭐ **THE DESIGN RULE HELD AND STILL LEFT THE HOLE: *a provenance record written by the deploy path
+cannot drift from what is deployed* — true. But THE DEPLOY PATH WRITES TO CLOUDFLARE, NOT TO GIT, so
+the SOURCE sits outside the loop that cannot drift.** The live artifact and the API-side provenance
+agreed with each other and both disagreed with git.
+
+⚠️ **HOW IT BITES, and it is a silent one:** anyone redeploying from a clean checkout — **including
+the RESTORE path in this very record** — would have **silently reverted `/access-check` to the
+catch-all HTML.** The deploy succeeds, the site serves, Access keeps working, ⛔ **and the only thing
+lost is the arm that proves the assertion reaches the origin.**
+
+✅ **VERIFIED RATHER THAN ASSUMED before committing:** fetched the LIVE script from
+`GET /accounts/{id}/workers/scripts/commonplace-beta` and diffed it against the working tree. **The
+only difference is the multipart form wrapper the API adds** — 3 boundary/`Content-Disposition` lines
+at the head, 2 at the tail. **The body is identical.** `node --check` passes.
+
+📌 **CHECK THIS BEFORE TRUSTING ANY `cf-records` ENTRY: `git status --porcelain cf-src/` must be
+empty.** A record can be accurate about Cloudflare and wrong about the repository, and only that
+command tells the two apart.
