@@ -17,6 +17,29 @@
 set -o pipefail  # ⛔ 2026-08-31: a pipeline eats the status of the command that matters —
                  # `cmd | tail` reports tail's success. Without this, a verdict printed
                  # through a pipe can say FAILED and exit 0. quota-guard.sh already had it.
+
+# ⭐⭐ LIVE-STATE GUARD (2026-09-03T08:0xZ) — THE TRANSCRIPT'S turn_end IS A COMPLETED-TURN
+# TIMESTAMP, SO A DOOR THAT IS MID-TURN RIGHT NOW LOOKS IDENTICAL TO ONE THAT STOPPED.
+# ⛔ EARNED: commonplace-plan reported NUDGE-INEFFECTIVE — "it has work and is not taking it" —
+#    WHILE ITS PANE READ `Running 1 shell command… ✽ Fiddle-faddling (22s)`. It had taken the
+#    message 22 seconds earlier; the turn simply had not ENDED, so no new turn_end existed to see.
+# ⚠️ That verdict is the one that tells a reader to STOP nudging and escalate a door as broken.
+#    Firing it on a working door is worse than a missed stall: it manufactures a fault report.
+# ⭐ THE FIX READS LIVE STATE, WHICH IS THE ONLY THING THAT CAN DISAGREE WITH A STALE TRANSCRIPT.
+# ⛔ FAIL-SAFE BY CONSTRUCTION: no pane found, tmux absent, or capture fails => returns NOT BUSY,
+#    so the sweep falls through to its normal handling. A broken guard must never silence a stall.
+_pane_busy() {
+  # $1 = worker name; match the pane whose cwd basename IS that name (identity, never a pattern).
+  command -v tmux >/dev/null 2>&1 || return 1
+  _pb=$(tmux list-panes -a -F '#{pane_id} #{pane_current_path}' 2>/dev/null \
+        | awk -v w="$1" '{n=split($2,a,"/"); if (a[n]==w) {print $1; exit}}')
+  [ -n "$_pb" ] || return 1
+  tmux capture-pane -p -t "$_pb" 2>/dev/null | tail -20 \
+    | grep -qE '^[[:space:]]*[*✻✽✶✳·][[:space:]]+[A-Za-z]+ing|Running [0-9]+ (shell command|tool)' \
+    && return 0
+  return 1
+}
+
 _worker_session_alive() {
   local w="$1" p cmd self=$$
   for p in /proc/[0-9]*; do
@@ -216,6 +239,12 @@ for w in "${WORKERS[@]}"; do
         "select count(*) from messages where to_id='${w}' and created_at > '${_turn_end}';" 2>/dev/null)
     fi
     case "$_inbox" in ''|*[!0-9]*) _inbox=BLIND ;; esac
+    # ⭐ ASK THE LIVE PANE BEFORE ANY VERDICT: a mid-turn door is not stalled, whatever the
+    #    transcript's last completed turn says. See _pane_busy's header for the incident.
+    if _pane_busy "$w"; then
+      echo "BUSY-MIDTURN|$w|transcript's last turn_end is $_turn_end but the pane is GENERATING NOW — not a stall; the turn has not ended yet"
+      continue
+    fi
     if [ "$_n" -ge 3 ]; then
       if [ "$_inbox" = "0" ]; then
         echo "IDLE-EMPTY-INBOX|$w|${out#*|*|} · unchanged turn_end across $_n sweeps AND 0 clod-squad messages addressed to it since — NOT stuck: it has nothing to do. Do not nudge; find who owes it work."
