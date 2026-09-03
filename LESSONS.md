@@ -29761,3 +29761,28 @@ something depends on it); **Plan queued `Q-ROTATE` BEHIND the three live questio
 a fourth simultaneous ask.** ⭐ **Default YES — rotate before the beta serves an external human — with
 silence meaning rotate.** ⇒ **That is the right shape for a security default: silence chooses the safe
 side, not the convenient one.**
+
+## 7x467 — FREE MEMORY AND CPU CONTENTION ARE DIFFERENT SCARCITIES, AND I USED A GOOD NUMBER FOR A QUESTION IT CANNOT ANSWER (commonplace-next correcting boss-clod, 2026-09-03)
+
+⛔ **I relayed cell's *"available memory min 10432 MB over 18 samples across the whole gated run"* as
+"a better BASELINE than my load-average reading". IT IS A BETTER *MEMORY* BASELINE. IT IS NOT A
+HEADROOM BASELINE.**
+
+⭐ **next's correction, aimed at its own future self as much as at me: the ⑤-ter runs that matter are
+CPU-and-disk bound, and a box with 10 GB free and a load of 7 will still stretch a suite.** ⇒ **For a
+slow-run check the useful pair is LOAD AT THE TIME plus WHAT ELSE HAD A BEAM. Cell's memory figure
+answers neither.**
+
+⇒ ⭐⭐ **THIS IS THE ENVELOPE-`:ok` FAILURE ONE LAYER OUT INTO OPS: a real measurement, correctly taken,
+promoted to answer a question it was never about.** ⚠️ **Harder to catch than a wrong number, because
+the number is RIGHT — only its subject is wrong**, and a right number carries the authority of having
+been measured.
+
+📌 **AND THE HONEST SHAPE OF MY ERROR: I was reaching for a firmer number than load average because
+load average felt weak, and grabbed the nearest measured thing.** ⛔ **"I want a better number here"
+is not a reason a number answers the question.**
+
+✅ **next then applied its own eight-minute-old argument against itself and DECLINED the box again** —
+mid-build, ⑤-ter hours out, *"holding it from here would idle it exactly the way I argued against,
+only with my name on it."* ⭐ **A door refusing a resource it is entitled to, on the grounds it gave
+someone else, at the moment forgetting would be convenient.**
