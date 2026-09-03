@@ -24,8 +24,19 @@ if [ ! -f "$STAMP" ]; then
   exit 0
 fi
 age=$(( now - $(stat -c %Y "$STAMP") ))
+# ⭐⭐ SECOND INSTRUMENT (hermes, 2026-09-03): the stamp alone cannot report the fact that most often
+#    falsifies it. On 2026-09-03 this alarm claimed 2400s of silence while boss had transmitted four
+#    minutes earlier — and it took TWO OTHER DOORS to notice. The cron already holds a DB handle, so
+#    it can read boss's own last outbound message and print both lines. ⇒ A stale stamp beside a
+#    fresh transmission then CONTRADICTS ITSELF INSIDE THE ALERT.
+# ⚠️ This is not a "TEST" label, which is a CONVENTION and fails exactly when it matters (a drill
+#    whose marker is dropped). A second instrument degrades better: it stays informative when the
+#    labelling is wrong.
+LASTTX=$(sqlite3 /home/jes/.claude/channels/clod-squad/queue.db \
+  "select cast((julianday('now') - julianday(max(created_at)))*86400 as int) from messages where from_id='boss-clod';" 2>/dev/null)
+case "$LASTTX" in ''|*[!0-9]*) LASTTX=BLIND ;; esac
 if [ "$age" -gt "$MAX_AGE" ]; then
-  msg="$(date -u +%FT%TZ) SWEEP-WEDGED: last sweep stamp is ${age}s old (limit ${MAX_AGE}s)"
+  msg="$(date -u +%FT%TZ) SWEEP-WEDGED: stamp ${age}s old (limit ${MAX_AGE}s) · boss last transmitted ${LASTTX}s ago"
   echo "$msg" >> "$STAMP.log"
   echo "$msg" > "$ALERT"
   # ⛔ The alert is a FILE first: this script has no session and no channel, and a watchdog that needs
@@ -44,17 +55,22 @@ if [ "$age" -gt "$MAX_AGE" ]; then
     #    (the file appeared) while the thing the arm exists for did not happen.
     # ⭐ CAUGHT ONLY BY COUNTING ROWS BEFORE AND AFTER. The file was the observable; the row count
     #    was the measurement. Another decline-flag: success-shaped and empty.
-    AGE="$age" MAXAGE="$MAX_AGE" python3 - <<'PY' 2>>"$STAMP.log"
+    AGE="$age" MAXAGE="$MAX_AGE" LASTTX="$LASTTX" python3 - <<'PY' 2>>"$STAMP.log"
 import os, sqlite3, datetime
-body = ("\u26d4 SWEEP-HEARTBEAT (system cron, outside boss's session): boss-clod's 5-minute stall "
-        "sweep has not stamped for %ss (limit %ss). BOSS IS PROBABLY WEDGED AND CANNOT TELL YOU SO "
-        "ITSELF.\n\u21d2 DO NOT WAIT ON BOSS for a box window, a release or a relay while this "
-        "stands. If you were holding for a grant, use your own judgement about contention: check the "
-        "box directly (ps for a beam.smp running mix test) and say in your next message that you "
-        "proceeded without a grant and why.\n\u26a0\ufe0f This notice is written by a cron script "
-        "with no session. It CANNOT answer questions, and boss may be wedged for an unknown further "
-        "period. When boss returns it will say so explicitly."
-        % (os.environ["AGE"], os.environ["MAXAGE"]))
+body = ("\u26d4 SWEEP-HEARTBEAT (system cron, outside boss's session). TWO INSTRUMENTS, BOTH "
+        "PRINTED, because the first cannot falsify itself:\n"
+        "  boss's 5-minute stall sweep last stamped: %ss ago (limit %ss)\n"
+        "  boss's last outbound clod-squad message:  %ss ago\n"
+        "\u2b50 READ THEM TOGETHER. A stale stamp with a FRESH transmission means the sweep loop "
+        "stopped while the session is alive \u2014 ask boss, it can answer. A stale stamp with a "
+        "STALE transmission is the case where boss may genuinely be gone.\n"
+        "\u26d4 THIS SCRIPT MEASURES ONLY THAT THE SWEEP HAS NOT STAMPED. It does NOT establish "
+        "that boss is wedged \u2014 that is an inference with more than one cause, and on "
+        "2026-09-03 the actual cause was a drill neither of two enumerated branches contained.\n"
+        "\u21d2 DO NOT proceed without a grant on the strength of this alone. ASK BOSS; a reply "
+        "settles it in one turn. Treat SILENCE AFTER ASKING as the signal, never this notice.\n"
+        "\u26a0\ufe0f Written by a cron script with no session: it cannot answer questions."
+        % (os.environ["AGE"], os.environ["MAXAGE"], os.environ["LASTTX"]))
 now = datetime.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%S.000Z")
 db = sqlite3.connect("/home/jes/.claude/channels/clod-squad/queue.db", timeout=10)
 for who in ("commonplace-plan","commonplace-next","commonplace-chit",
@@ -67,5 +83,5 @@ PY
   fi
 else
   rm -f "$ALERT" "$ALERT.notified"   # ⭐ clearing BOTH re-arms the one-shot for the next wedge
-  echo "$(date -u +%FT%TZ) ok age=${age}s" >> "$STAMP.log"
+  echo "$(date -u +%FT%TZ) ok age=${age}s lasttx=${LASTTX}s" >> "$STAMP.log"
 fi
