@@ -8,8 +8,7 @@
 #    answer returns to BOTH, and THE RECEIVING DOOR carries that duty.
 #
 # tg-id | asked      | subject                    | also standing with | state
-10822  | 2026-09-03T06:03Z | Access allow-list identity (which email + login method) | biscuit | OPEN on telegram
-10829  | 2026-09-03T09:15Z | SCOPE GRANT: Account -> Access: Apps and Policies -> Edit (token reads Access, creates nothing) | biscuit | OPEN on telegram
+10832  | 2026-09-03T09:19Z | ZERO TRUST ORGANIZATION READ — needed to PIN the issuer, not to BUILD. Without it `commonplace-systems` stays testimony+timing and cf-records must say so. | biscuit | OPEN on telegram
 # closed:
 # 10823 | Q-PUSH: may cell push STORE-1a — ANSWERED ELSEWHERE 2026-09-03, "yes push" direct to cell
 #         in session (user-channel turn, no wrapper/id). Landed 778997e. Artifact cited, plan row 633.
@@ -24,3 +23,10 @@
 #     Had the `commonplace` 200 been read as "the name already chosen", the app would have pinned its
 #     verified issuer TO SOMEONE ELSE'S IDP — permanent and security-bearing. biscuit's attribution
 #     caveat is the only reason it did not. NEVER identify a tenant by the existence of its endpoint.
+# 10822 | ALLOW-LIST IDENTITY: ANSWERED 2026-09-03T09:25Z on telegram (id 10835), verbatim and complete:
+#         `jes5199@gmail.com`. No login method named; identity_providers n=0 so ONE-TIME PIN per the
+#         brief's own §3.2 fallback — NOT a new decision inferred by anyone.
+# 10829 | SCOPE GRANT (Access: Apps and Policies -> Edit): ANSWERED by ACT 2026-09-03T09:17Z and
+#         VERIFIED 09:19Z — POST access/apps succeeded, app created and deleted, account back to n=0.
+#         ⭐ A create succeeding in the same second as a 10000 on access/organizations rules out BOTH
+#         propagation and a failed grant ⇒ organizations is a DIFFERENT permission, hence row 10832.
