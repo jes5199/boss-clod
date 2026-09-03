@@ -29,7 +29,11 @@ next   | 2026-09-03T10:39Z | ORG-2a 5-bis (4 files x3) + 5-ter (complete suite x
 #   STORE-1b needs a commonplace-doc window LATER, and only if jes answers YES.
 # not box-bound:
 biscuit| ACCESS-1a — Cloudflare Access app; no box, no slot token; lands via boss-clod cf-records/
-chit   | free by ranking (plan row: nothing in its repo is on the beta path)
+chit   | ⛔ IS BOX-BOUND AND I DID NOT KNOW IT UNTIL 10:43Z. Its `land-gates.sh` starts 8 BEAMs and
+#          runs its own preflight load read. It had been landing every round tonight WITHOUT routing
+#          through me, on my assumption that a different repo family meant no box — an assumption I
+#          never checked with it. Its 10:21:38Z run overlapped cell's 10:08-10:30Z window.
+#          ⇒ chit NOW ASKS BEFORE land-gates.sh. Ranked work: §18 step 8, then §17.
 
 # ⛔⛔ TWO THINGS THAT ARE NOT THE SAME THING (plan row 633-bis, 2026-09-03):
 #   THE BOX WINDOW is MINE. It is not a file. I name it in a message; it says "no other door is
@@ -81,3 +85,11 @@ chit   | free by ranking (plan row: nothing in its repo is on the beta path)
 # ⛔ AND THE UNIT MATTERS MORE THAN THE PATTERN: next's first draft of a property counted TEXT HITS
 #   and would have been RED ON A CORRECT TREE — the single hit was its own comment recording the
 #   change. Ask the warranting door what the unit is; do not infer it from the name.
+
+# ⛔⛔ MY OWN ROSTER WAS THE HOLE: I tracked WHO WAS DISPATCHED, not WHO STARTS BEAMs. A door can be
+#   "free by ranking" and still be the heaviest user of the box. ⇒ THE QUESTION IS NOT "is this door
+#   on a round I granted" BUT "does this door's landing script start BEAMs" — and it is answered by
+#   asking the door, once, not by inferring from its repo.
+# ⭐ AND A PER-START LOAD READ CANNOT CLOSE IT (chit and cell, independently): "two local SAFEs
+#   cannot see each other." A sample answers "is the box busy NOW", never "is someone ABOUT to
+#   start" and never "has someone been GRANTED it". That is why the window is a message from me.
