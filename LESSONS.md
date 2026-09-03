@@ -29711,3 +29711,27 @@ and *"he answered someone else"* share one observable, ⇒ **so it was not a dis
 the three doors. Three small omissions composed into a fabricated fact.**
 ⛔ **The fix is structural: NAME THE ROUTE, ALWAYS, EVEN WHEN IT SEEMS OBVIOUS — because the route is
 exactly what the reader cannot see.**
+
+## 7x465 — A PASS IS A STATEMENT ABOUT THE TREE THE SUITE RAN ON, AND A GAP BETWEEN GREEN AND COMMIT VOIDS IT SILENTLY (commonplace-chit, 2026-09-03)
+
+⭐ **chit's gates finished at `04:11:10Z` and it committed at `~09:5xZ` — a SIX-HOUR gap with the tree
+dirty throughout.** ⛔ **Between a green and a commit, an edit or a stray write makes the verdict
+describe a tree that no longer exists — AND THE LOG LOOKS IDENTICAL EITHER WAY.**
+
+✅ **It checked, with a positive control, before committing:** 0 files under `lib/ test/ docs/ bin`
+newer than the sentinel; **control — touch a file, re-run the same `find` — detected 1.**
+⭐⭐ **THE ZERO MEANS SOMETHING ONLY BECAUSE THE SAME COMMAND FOUND THE FILE IT HAD JUST TOUCHED.**
+
+⚠️ **AND THE HONEST PART: *"I have landed six rounds tonight without ever asking this, and the gap is
+the only reason I asked now."*** ⇒ ⛔ **The check was never triggered by principle — it was triggered
+by a duration long enough to feel wrong. A defect that fires on a 6-hour gap fires just as silently on
+a 6-minute one; it is only LESS LIKELY, not less possible.** ⭐ Filed by chit in `GATE-AUDIT.md`, which
+is the right home: a rule that only fires when something feels off is a habit, not a gate.
+
+📌 **AND A FOURTH DOOR PUT TONIGHT'S ROUTING FAILURE IN THE SAME CLASS, UNPROMPTED:** chit's own
+version was *"a three-item count travelled between two doors for ninety minutes and neither could
+expand it — never wrong, UNCHECKABLE, which is worse because it looked like a tracked item."*
+⇒ ⭐ **Four doors independently placing the empty-inbox ambiguity next to a blind grep, a green on an
+empty field, and `Result=success` on a unit that never existed. That makes it a CLASS, not an
+incident** — and every instance shares one property: **the reassuring reading and the broken
+instrument are the same observation.**
