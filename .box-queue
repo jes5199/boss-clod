@@ -147,15 +147,28 @@ chit   | ⛔ IS BOX-BOUND AND I DID NOT KNOW IT UNTIL 10:43Z. Its `land-gates.sh
 #     15:18Z. ⛔ AND `comm` CANNOT DISCRIMINATE — all four are literally `beam.smp` with identical
 #     argv prefixes, so the "filter on comm" rule fixes SELF-MATCHING and still cannot tell a test
 #     BEAM from the live-money one.
-#   ⇒ ✅ ②b FINAL, both defects closed (biscuit: the instrument · hermes: the baseline):
+#   ⇒ ✅ ②b FINAL v4 — FOUR defects closed, none of them mine to find:
+#       biscuit: the instrument · hermes: the baseline · chit: the field index · biscuit: the default
 #       ps -eo pid,comm,args > /tmp/box.ps
 #       tot=$(grep -c . /tmp/box.ps); [ "$tot" -lt 50 ] && { echo "BLIND: ps returned $tot"; exit 2; }
 #       hpid=$(systemctl --user show hermes -p MainPID --value)
 #       [ -z "$hpid" ] && { echo "BLIND: cannot resolve hermes MainPID"; exit 2; }
-#       beams=$(awk -v h="$hpid" '$2=="beam.smp" && $1!=h' /tmp/box.ps | grep -c .)
-#     then confirm each remaining BEAM by /proc/<pid>/cwd — a long-lived cwd like
-#     commonplace-serve-pin is the serve, not contention.
+#       # ⛔ chit: DO NOT USE A POSITIONAL FIELD. `$2=="beam.smp"` is correct only for THIS -eo format;
+#       #   the index is a property of the format, not of ps. A door that keeps the awk and changes
+#       #   the format gets beams=0 — AND 0 IS THE VALUE THAT SAYS TAKE THE BOX. `tot` does not catch
+#       #   it, because ps worked fine. Match in ANY field: looser, and an argv containing the literal
+#       #   string is a FALSE BUSY, which fails toward waiting.
+#       beams=$(awk -v h="$hpid" '$1!=h{for(i=1;i<=NF;i++) if($i=="beam.smp"){print;break}}' /tmp/box.ps | grep -c .)
+#     then resolve each remaining BEAM by /proc/<pid>/cwd:
+#       ⭐ biscuit: EVERY BRANCH MUST TERMINATE IN "measured free" OR "wait" — never in the door's own
+#         judgement about whether a stranger's process looks important.
+#         · cwd is a TEST worktree               -> CONTENTION, wait
+#         · cwd is commonplace-serve-pin (serve) -> not contention
+#         · cwd UNRECOGNISED                     -> ⛔ CONTENTION, WAIT
+#         · /proc/<pid>/cwd UNREADABLE           -> ⛔ BLIND, WAIT, ask
 #     ⭐ FAIL BLIND if hpid is empty; never count hermes as contention, and never assume its absence.
+#     ⭐⭐ EVERY UNRESOLVED CASE FAILS TOWARD WAITING. A fallback that decides whether to take a
+#       shared resource must fail safe in the direction of NOT taking it.
 #   ⛔⛔ AND THE RULE THAT MATTERS MOST: A DOOR MAY NEVER KILL A `beam.smp` TO FREE THE BOX. NEVER,
 #     under any protocol, fallback or otherwise. A `pkill -f` matching `mix phx.server` killed
 #     hermes's trading service on 2026-08-10. If the box is not free, YOU WAIT.
