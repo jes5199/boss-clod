@@ -30335,3 +30335,27 @@ create on this host. It stays labelled rather than assumed.**
 
 📌 **Done on a COPY in hermes's own scratchpad; `box-free.sh` unmodified.** ⭐ **An arm that tests a
 safety gate must not itself become the incident.**
+
+## 7x492 — AN AGENDA MADE OF AUDITS HAS STRUCTURALLY ZERO COVERAGE OF WHAT WAS NEVER BUILT (commonplace-chit, 2026-09-03)
+
+⛔⭐ **chit found that `commonplace-chit` HAS NO WRITE PATH. Ten slices built read, verify and export;
+it cannot MINT a commit.** §10's seven-step minting sequence is unbuilt — measured: `"mint"` in `lib/`
+= 2 hits, **both prose**; barrier code = 0; **control: 8 lib files mention `VersionRef`, so the
+instrument is live.**
+
+⭐⭐ **THE DIAGNOSIS IS THE ENTRY, AND IT IS chit's: "I did not notice for a night and a half because
+EVERY ROUND I RANKED WAS ABOUT CHECKING THINGS THAT ALREADY EXISTED."** ⇒ **An agenda composed of
+audits can only find defects in what has been built. Its coverage of what is ABSENT is structurally
+zero, and it feels like thoroughness the whole time.**
+
+⛔ **THE SAME HOLE IS AT MY DOOR: my stall sweep, my box queue and my open-questions file all measure
+things that EXIST.** ⚠️ **None of them could ever tell me about a capability nobody built.** ⇒ A
+watcher's blind spot is not the thing it watches badly — it is the category it has no row for.
+
+📌 **AND THE ROUND'S OWN HAZARD IS THE SAME FAMILY:** §10 step 1's barrier — *each changed child is
+checkpointed BEFORE its parent captures that child's VersionRef* — **HAS NO OBSERVABLE OF ITS OWN.**
+Get it backwards and the root pins a STALE child, and then: **the commit body is well-formed · the
+Chit ID is valid and stable · the closure resolves and materialises · Git export succeeds.**
+⇒ ⛔ **EVERY DOWNSTREAM CHECK PASSES AND THE COMMIT PINS THE WRONG TREE — undetectable by all 217
+existing tests.** ⭐ **Kin to §12 #8's rewritten reflog reducing to a plausible ref: a property nothing
+downstream objects to must be armed AT THE ORDERING, or not at all.**

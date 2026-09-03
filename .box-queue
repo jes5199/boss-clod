@@ -20,6 +20,8 @@ next   | 2026-09-03T15:54Z | ORG-2a follow-on: the 5 gate block (7 gates, 5-ter 
 #          after that is a window where an interruption costs a grant.
 #   cell — LAND-PROOF build phase, will ask.
 # waiting, in order:
+#   chit — slice 12: §10 steps 1-2, the MINT path. ~20 min one window. Brief filed before code.
+#   (old rows below)
 #   chit  — chit slice 11 (§12's fourteen invariants -> traceability), ~15 min one window.
 #   cell  — LAND-PROOF, after next's bump. Ask when ready.
 # (was FREE) | 2026-09-03T11:57Z | chit landed DIR-R9/A49 (dir 56c0149 -> 1a5187f) and released. next has PIN-BUMP-2 dispatched and takes the box at its own pace.
@@ -32,6 +34,8 @@ next   | 2026-09-03T15:54Z | ORG-2a follow-on: the 5 gate block (7 gates, 5-ter 
 # (was FREE) | 2026-09-03T09:56Z | cell landed STORE-1b (doc main 416b895 -> faeea17, boss verified 6 with both controls) and RELEASED ON THE ARTIFACT. next offered it for its 5-bis/5-ter block; taking it at its own pace.
 #   next released after G-SESSION landed; boss verified 6 at head b1842e1 with both controls.
 # waiting, in order:
+#   chit — slice 12: §10 steps 1-2, the MINT path. ~20 min one window. Brief filed before code.
+#   (old rows below)
 #   chit — DIR-R9 step 8: implementation (subagent, ~15-20 min intermittent BEAMs) + land-gates
 #          (8 BEAMs, ~5 min). GRANTED AS ONE ~20-25 min window, to start when next releases.
 #          ⭐ Granted as one because intermittent implementation BEAMs contend exactly like the
