@@ -7,7 +7,16 @@
 # ⚠️ Before nudging any door that appears idle, CHECK WHETHER I OWE IT A RELEASE.
 #
 # holder | since | what
-next   | 2026-09-03T13:09Z | PIN-BUMP-2: gate-control fix, cell door's recorded pin, two new doors, then the gate block   (GRANTED — takes it at its own pace, pings on take/release)
+chit   | 2026-09-03T15:44Z | DIR/chit slice 11: bin/gate.sh only, ~5 min   (HOLDING — GRANT EXPIRES 16:15Z)
+#   ⚠️ granted OVER boss's own running state-render, deliberately: chit's work is not a timing
+#   measurement. box-free.sh says "boss may grant over this; a door may not" — that call is the
+#   arbiter's precisely so a waiting door never has to talk itself into ignoring something.
+# waiting, in order:
+#   next — the 5 gate block (seven gates, 5-ter x3) + B5's prod-compile read + the landing ceremony,
+#          45-60 min. GRANT EXTENDED TO 17:15Z on request. It asked BEFORE the old 16:30Z expiry
+#          rather than discovering it mid-ceremony — the token is spent at gate 1, so every second
+#          after that is a window where an interruption costs a grant.
+#   cell — LAND-PROOF build phase, will ask.
 # waiting, in order:
 #   chit  — chit slice 11 (§12's fourteen invariants -> traceability), ~15 min one window.
 #   cell  — LAND-PROOF, after next's bump. Ask when ready.
@@ -222,3 +231,15 @@ chit   | ⛔ IS BOX-BOUND AND I DID NOT KNOW IT UNTIL 10:43Z. Its `land-gates.sh
 #   ⇒ TODO: run `./box-free.sh` at a genuinely free moment — after next releases, BEFORE granting
 #     chit — and confirm rc 0 with its control line. Until then the script is known to work for
 #     BUSY only, and BUSY is the answer it would give if it were broken.
+
+# 📌 PIN-BUMP-2 IS COMPLETE (next, 15:43Z): all three pins in next — log 778997e (range 24) ·
+#   doc faeea17 (81) · cell 68214dc (3), branch head bcc6ce4, artifact says 467 tests / 0 failures.
+#   ⭐ THE CELL BUMP TOOK THREE ATTEMPTS AND EVERY REFUSAL WAS A GATE REFUSING CORRECTLY:
+#     ① the dev-path control BLINDED because the dependency relocated its subject (CELL-DEVSCOPED);
+#     ② the cell door was RED on a hardcoded sha;
+#     ③ RED AGAIN on hardcoded COUNTS beside a committed evidence file — row 552's trap surviving
+#        one level below the fix for it. Counts now come from the evidence record, so a bump
+#        regenerates one artifact instead of remembering three literals.
+# ⚠️ AND next's correction to me: a bump that finished GREEN and a bump that was KILLED leave the
+#   same absence from outside. I described its pids as having "come and went"; 1064767 SUCCEEDED.
+#   ⇒ THE RECEIPT NAMES THE COMMIT, NOT THE PID — the artifact is the verdict, not the empty table.
