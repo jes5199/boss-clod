@@ -7,7 +7,7 @@
 # ⚠️ Before nudging any door that appears idle, CHECK WHETHER I OWE IT A RELEASE.
 #
 # holder | since | what
-cell   | 2026-09-03T10:08Z | CELL-DEVSCOPED: 2 compiles (prod+test) + 2 suites, ~minutes   (HOLDING THE BOX NOW)
+(FREE)  | 2026-09-03T10:30Z | cell landed CELL-DEVSCOPED (cell main 6444a06 -> 68214dc, boss verified 6 + the PROPERTY off the remote tree) and released on the artifact. next has the standing offer.
 #   granted inside next's gap: next declined twice, is mid-build, and its 5-ter block is hours out.
 # (was FREE) | 2026-09-03T09:56Z | cell landed STORE-1b (doc main 416b895 -> faeea17, boss verified 6 with both controls) and RELEASED ON THE ARTIFACT. next offered it for its 5-bis/5-ter block; taking it at its own pace.
 #   next released after G-SESSION landed; boss verified 6 at head b1842e1 with both controls.
@@ -38,8 +38,16 @@ chit   | free by ranking (plan row: nothing in its repo is on the beta path)
 #   night and the suite would still contend for the box. Do not let one arrive wearing the other's
 #   name — a door with a token and no window contaminates someone's measurement, and a door with a
 #   window and no token lands without a warrant.
-# 📌 doc's land-round.sh DOES read a slot token; log's landing path reads none. Different repos,
-#   different contracts — do not generalise one repo's gate to another.
+# ⛔⛔ PER-REPO TOKEN CONTRACTS — THE TABLE, NOT THE SENTENCE (plan DISPATCH-TEMPLATE.md §5):
+#     next  tmp/SLOT_GRANTED   spent on use
+#     doc   .slot-granted      existence-only
+#     cell  NONE               + REFUSES ANY UNTRACKED FILE (land-round.sh:63, since 07618e3)
+#     log   no landing script
+# ⚠️ I HAD THE SENTENCE "different repos, different contracts" IN THIS FILE AND BROKE IT ANYWAY:
+#   I told cell "`.slot-granted` on the run rather than before it" for a repo that reads no token,
+#   and the token became the untracked file that refused the landing rc 71. cell quoted my rule back
+#   to me before breaking it too. ⇒ A SENTENCE SAYS "BE CAREFUL"; A TABLE SAYS WHAT THE CONTRACT IS.
+#   Look it up; do not remember it.
 
 # 📌 LOAD BASELINE (2026-09-03T09:43Z): load average 7.02 with ZERO `mix test` of ours running.
 #   ⚠️ THE BOX HAS OTHER TENANTS. next's 5-ter this morning ran under similar load and still returned
