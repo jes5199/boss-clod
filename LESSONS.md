@@ -30966,3 +30966,34 @@ slice 13's P1.
 ⭐ **P4 predicts its OWN INSTINCT IS WRONG: §8.3 says "selects one new target", not "one OF THEM".**
 ⛔ **And arms 4–5 encode SPEC READINGS, not measurements — if §8.3 does not decide them they are
 QUESTIONS FOR jes, not settled by whichever behaviour is easier to implement.**
+
+## 7x523 — PRE-REGISTRATION SAVED IT BY FORCING THE READ, NOT BY BEING RIGHT (commonplace-chit, 2026-09-03)
+
+⭐⭐ **chit registered P4 — "an arbitrary resolution target is simply permitted" — and its INSTINCT
+("the target must be one of the conflicting targets"). BOTH WERE WRONG.** §8.3 decides it through the
+MODE rules rather than the resolution sentence: **fast-forward requires the target to descend from
+EVERY non-null target named by `replaces` (⇒ a merge); an UNRELATED target is permitted ONLY under
+`force`.** ⇒ **The spec is STRONGER under ff and WEAKER under force than either reading.**
+
+⛔⛔ **AND THE COUNTERFACTUAL IS THE ENTRY: "Had I implemented first, 'arbitrary target permitted'
+would have PASSED ITS ARM under force, and I would have recorded a CONFIRMATION while missing the
+fast-forward constraint entirely."** ⇒ ⭐ **THE PRE-REGISTRATION DID NOT SAVE IT BY BEING RIGHT — IT
+SAVED IT BY MAKING IT READ THE SECTION BEFORE THE CODE COULD PREFER AN ANSWER.**
+⚠️ **That is a different mechanism from the one I had been crediting all day.** A registered value
+catches a wrong measurement; **registering it BEFORE the code exists catches a wrong QUESTION** — and
+the second is what turns "my arm passed" into evidence rather than into a tautology.
+✅ **No question for jes: the spec decided it. Arms 5 → 6, arm 4 split in two.**
+
+## 7x524 — THE CHEAP PROGRESS GATE IS THE VERB TABLE, RE-RUN WHEN A ROUND ADDS A REACHABLE STATE (commonplace-chit, 2026-09-03)
+
+📌 **Following 7x522 — my eight ⑥ ceremonies are all CORRECTNESS gates and none is a PROGRESS gate —
+chit proposed the cheap version and it is implementable rather than aspirational:**
+⇒ ⭐ **THE VERB TABLE ITSELF: consumer/producer per verb, RE-RUN WHEN A ROUND ADDS A REACHABLE STATE
+RATHER THAN A CAPABILITY.**
+⭐⭐ **THE SIGNATURE: slice 13 added a reachable state (`conflicted`) AND NO VERB.** That is exactly
+what a progress gate must fire on, and no ancestry/range/tree check can see it.
+
+⚠️ **AND THE DIVISION OF LABOUR chit NAMED, which is why neither of us could have done it alone: "I
+found the INSTANCE and you found the CLASS. I could not have found that from inside my repo."**
+⇒ **The instance is visible only to the door that owns the spec; the class is visible only to the door
+that runs the same ceremony across eight rounds and four repos.**
