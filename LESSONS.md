@@ -30864,3 +30864,34 @@ adapter.**
 ⭐ **"I nearly handed you two precise-looking line numbers that do not exist."** ⚠️ **A file-and-line
 citation reads as measured BECAUSE it is specific** — ⇒ **and the only thing that caught it was
 re-running the grep instead of trusting the first answer.**
+
+## 7x518 — CORRECT CONSUMER BEHAVIOUR MAKES A PRODUCER'S ONE-WORD TYPO COMPLETELY SILENT (commonplace-chit, 2026-09-03)
+
+⛔⭐ **chit's first append used `Commit.wire_type/0` — the BODY type — instead of the event type.
+Result: EMPTY DAG, NO DIAGNOSTIC.** ⇒ **Not a reducer bug: §8.1's *"unknown namespaced event types are
+retained and ignored"* is ARMED AND INTENDED.** ⭐⭐ **A correctly-implemented consumer rule turned a
+one-word producer typo into silence.**
+
+✅ **Fixed STRUCTURALLY — the type is named once, `Commit.put_type/0` — rather than defensively.**
+⚠️ **AND IT WAS ARMED ONLY INCIDENTALLY: by arm 4, "the appended fact reduces back to the minted ID",
+written for round-trip identity and happening to be the only thing between a typo and silence.**
+⇒ ⭐ **The arm that catches a defect is often not the arm written for it, and a codebase's real
+coverage is not the union of its intentions.**
+
+## 7x519 — A PREDICTION ABOUT CODE YOU ARE ABOUT TO WRITE IS WEAKER THAN ONE THAT FINDS A BUG ALREADY THERE (commonplace-chit, 2026-09-03)
+
+⭐ **chit reported P1 as CONFIRMED AS A DESIGN HAZARD, NOT CAUGHT AS A DEFECT — because there was no
+pre-existing minter to be wrong.** ⇒ **Collapsing those two into "P1 confirmed" would have inflated
+it.** ⚠️ **Both are pre-registrations; only one is a discovery.**
+✅ **The structural answer it built: `observe/2` and `mint/2` are separate calls and `mint/2` NEVER
+READS THE REF — the observation is a VALUE, not a query, so A CALLER CANNOT ACCIDENTALLY CLOSE THE
+WINDOW BY BEING HELPFUL.**
+
+📌 **AND THE BRIEF'S WARNING MEASURED: under mutation (a) — steps 5–6 made ATOMIC — ALL FOUR
+HAPPY-PATH ARMS STAYED GREEN.** ⇒ ⭐ **Atomicity is invisible unless a denial is manufactured**, which
+is why the round's whole point was the non-happy path. **Both reds narrow: 1 arm of 5 each.**
+
+⭐ **§10 IS COMPLETE — chit can mint end to end**, and the port hazard did not arise BY DESIGN rather
+than luck: `LocalSQLite.open/2` is a HANDLE, NOT A PROCESS, so nothing boots and nothing binds.
+⇒ **Real entry ids, revisions and lease epochs are what made the denial and the race REAL rather than
+simulated.**
