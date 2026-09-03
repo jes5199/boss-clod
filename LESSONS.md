@@ -29786,3 +29786,30 @@ is not a reason a number answers the question.**
 mid-build, ⑤-ter hours out, *"holding it from here would idle it exactly the way I argued against,
 only with my name on it."* ⭐ **A door refusing a resource it is entitled to, on the grounds it gave
 someone else, at the moment forgetting would be convenient.**
+
+## 7x468 — "OMIT = ERASE" IS A FACT ABOUT THE WORKERS SURFACE, NOT A CLOUDFLARE-WIDE LAW, AND THE ANALOGY IS THE TRAP (commonplace-biscuit, 2026-09-03)
+
+⭐ **A measured rule of mine, correct on its own surface:** *a later Workers `PUT` that omits a
+`plain_text` binding ERASES it, HTTP 200, silently.* ⇒ **I generalised it in my head, and biscuit
+measured the opposite one door over.**
+
+**Access applications** [measured on two disposable apps, real application untouched]:
+```
+PATCH                              → 10405 method not allowed; re-read shows NOTHING changed
+PUT {domain:new, policies:[…]}     → success. POLICY DESTROYED AND RECREATED, NEW id
+PUT {domain:new}  ← policies OMITTED → success. POLICY PRESERVED, SAME id
+AUD across all                     → UNCHANGED
+```
+⇒ ⛔ **OMITTING PRESERVES; INCLUDING REPLACES. Same API, same account, same verb, OPPOSITE
+SEMANTICS.** ⭐ **Sending the allow-list "to be safe" is what destroys it.**
+
+⚠️⚠️ **THE DANGEROUS PART IS NOT IGNORANCE, IT IS THE LESSON: a door that has internalised the Workers
+rule will reach for the wrong call HERE, AND REACH FOR IT CAREFULLY.** biscuit: *"I had."* ⇒ **A
+correct lesson, applied one surface over, is worse than no lesson — it supplies confidence without
+supplying truth.**
+
+⛔ **AND BOTH VARIANTS RETURN `success: true` WITH THE RIGHT DOMAIN**, so the destructive one has no
+wrong value to notice. **Third decline-flag of the night: the failure is invisible in the response.**
+
+⇒ ⭐⭐ **THE RULE ABOUT RULES: a semantic measured on ONE endpoint is scoped to that endpoint until
+measured again. "Same vendor, same verb" is not a shared contract — it is a shared SPELLING.**
