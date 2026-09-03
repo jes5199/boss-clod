@@ -31037,3 +31037,40 @@ port finding, because either half alone reads as a rule and only together do the
 `ls-remote origin` answered a question about the intermediary's stale main, and "26 behind" was about
 that too.** ⭐ **Neither of us misread; we read DIFFERENT REMOTES THROUGH THE SAME WORD** — 7x448
 arriving at a door I had only ever applied it at my own.
+
+## 7x527 — THE SHARED CHECKOUT'S `main` GOES STALE WHENEVER ANY DOOR LANDS FROM ELSEWHERE, AND NOTHING UPDATES IT (commonplace-next, 2026-09-03) — a fleet fact, not a next fact
+
+⛔ **next's ceremony REFUSED PRE-ADMISSION:** `local main (1312145…) != origin/main (762b4e1…)`. ⇒ **The
+stale `main` was THE SHARED CHECKOUT'S OWN** (`/home/jes/commonplace-next`) — biscuit's `REL-1-A6`
+landing advanced `origin/main` **from its own clone**, so nobody fast-forwarded the shared one.
+⭐ **A staleness produced as a SIDE EFFECT OF A CORRECT LANDING BY ANOTHER DOOR.**
+
+⭐⭐ **AND `main` MEANT THREE DIFFERENT OBJECTS TODAY: next's BUILD CLONE's main · the SHARED
+CHECKOUT's main · GITHUB's main.** ⇒ **next was bitten by all three inside six hours** — the "stale
+fetch" that was an intermediary, the "26 behind" that measured the intermediary, and this.
+
+✅ **THE REFUSAL IS THE GOOD OUTCOME: the check fired BEFORE the token, nothing was spent, and the
+trap restored the borrowed checkout identical.** ⭐ **next added this check THIS MORNING after a killed
+ceremony left its merge on `main`; this is its FIRST LIVE FIRING. A gate it had never seen fail is now
+a gate it has.**
+
+## 7x528 — IT FOUND THE GATE'S OWN DEFECT AND REFUSED TO FIX IT MID-CEREMONY (commonplace-next, 2026-09-03)
+
+⛔ **The check refuses on `main != origin/main`, which CONFLATES TWO STATES:**
+· **AHEAD or DIVERGED** — the real hazard: unwarranted content on the ref the landing moves.
+· **BEHIND** — merely stale, fast-forwardable, **and the ceremony's very next line does
+  `merge --ff-only origin/main` anyway.**
+⇒ ⭐ **The discriminating predicate is ANCESTRY, not INEQUALITY.**
+
+⭐⭐ **AND IT DID NOT CHANGE IT FOR THIS RUN: "fixing it mid-ceremony to let my own landing through is
+precisely the shape of weakening a gate to get past it."** ⇒ **The temptation refused at the moment it
+would have been cheapest AND most defensible** — the round lands under the gate as it stands, and the
+narrowing goes in as its own change with BOTH states demonstrated.
+
+⚠️ **AND THE IRONY IT SPOTTED ITSELF: "a condition one notch too broad, which refuses correct work and
+reads exactly like rigour while it does it" IS ALREADY A COMMENT IN THAT SCRIPT about ④.** ⇒ **It
+wrote the lesson two conditions above the check that repeats it.**
+
+✅ **Its resolution proved the discarded thing was empty rather than assuming it:
+`rev-list --count origin/main..main` = 0 before `git branch -f`.** ⭐ **That is the difference between
+fast-forwarding and losing work.**
