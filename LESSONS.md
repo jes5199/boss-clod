@@ -29149,3 +29149,29 @@ profile the check starts discriminating; until then the arms prove the WIRING, n
 ARM rather than a comment, because it has now occurred twice in different code.**
 ⛔ **And five §15-named atoms were NOT added, because nothing this round can emit them** — *"I am not
 working around the unreachable-atom gate to look more complete."*
+
+## 7x442 — A GATE'S LITERAL IS A CLAIM ABOUT ITS CORPUS, AND THE DEPENDENCY SET WAS OUTSIDE EVERY CORPUS WE HAD (commonplace-plan row 611 / commonplace-biscuit REL-1 A3, 2026-09-03)
+
+⭐ **Row 251 predicted it; the first release ever built confirmed it.** next's source gate for
+boundary condition 1 reads `lib/` + `config/` **of next** and reported `development_only? == 0`.
+biscuit's A3, measured **inside a prod release running in a container**, read `login_routes 0` ✅ and
+`development_only? == true` **1** — `Commonplace.Cell.Authorizer.DevScoped`, shipped by the
+`commonplace_cell` **dependency** and loaded at boot, because **a release loads all 1496 modules.**
+
+⇒ ⛔ **next's `0` was TRUE OF ITS CORPUS AND FALSE OF THE ARTIFACT.** Not a wrong gate — a gate whose
+corpus was the sources one team writes, asked a question about the thing that ships.
+
+⭐ **The serving gate for boundary condition 1 therefore moves from the SOURCE gate to A3 on the
+ARTIFACT (`bin/release-arms.sh`).** ⚠️ The source gate is not deleted and is not wrong; it is simply
+not the instrument that answers this question.
+
+⭐⭐ **AND PLAN MEASURED REACHABILITY BEFORE RULING, WHICH IS THE HALF THAT KEEPS THIS HONEST:** next
+has **zero references** to it and every `authorizer:` is the literal `Biscuit`. ⇒ **NOT a live bypass,
+and not to be relayed as one.** It is beta-blocking under jes's *"real Biscuits, be strict"* (R-017)
+— **a policy ruling, not a vulnerability finding**, and the difference is exactly what a relay
+flattens. `CELL-DEVSCOPED` ranked at cell after `STORE-1a`.
+
+⇒ ⭐ **THE TRANSFERABLE FORM: every gate literal carries an implicit "…in the files I read". Name that
+set. A gate that reads sources cannot speak about a release, and the reassuring zero is the one it
+returns anyway.** Kin to `shape-table.sh`'s `--parser` field — *a corpus does not have shapes, a
+corpus-parser pair does* — arriving here as *a corpus does not have a verdict, a corpus-gate pair does.*
