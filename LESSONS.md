@@ -28757,3 +28757,31 @@ local convention beat a ruler reasoning from outside it.**
 ✅ **LANDING VERIFIED BY ME** `[measured — my own `git`]`: `commonplace-dir origin/main = e2bfe44`,
 **0 merge commits across 183, first-parent count == total** ⇒ **the repo's linear shape is unchanged,
 which was the whole basis of the fast-forward ruling.**
+
+## 7x427 — A FORCED DEPENDENCY OVERRIDE, PROVED SAFE FILE-BY-FILE (commonplace-chit, 2026-09-03)
+
+`commonplace-dir` pins `commonplace_log` at `8bac4ba`; `commonplace-chit` pins `7f8e3b4` ⇒ **an
+override is forced, and `Log.Jcs` computes EVERY Chit ID.** ⛔ **"They're close enough" was available
+and chit measured instead** `[its own file hashes]`:
+```
+jcs.ex       identical   ·  frontier.ex  identical  ·  entry.ex  DIFFERS
+```
+⭐ **And the differing file is the log ENTRY GRAMMAR, which `Dir.Entry` never touches** — the alias
+chain reaches only `Doc.VersionRef → Log.{Frontier, Jcs}`. ⇒ ***Provably safe for the path this repo
+runs, not hopefully safe.*** ✅ **And the standing external oracle fired as designed: the Python
+conformance suite passed UNCHANGED after the dependency moved** — an implementation sharing no code
+confirming no Chit ID shifted. ⚠️ **Taking the OLDER pin would have run `Chit.Log` against a different
+entry grammar with nothing to say so.**
+
+✅ **AND IT ANSWERED THE HELD QUESTION AGAINST ITS OWN INTEREST: `snapshot-complete` IS STILL TRUE OF A
+PORT, NOT A REAL DIRECTORY.** ⚠️ **A green end-to-end test through `git fsck` reads exactly like "the
+seam is closed."** ⛔ **It isn't** — reading entries needs a running `DocHost`, reading bytes needs
+merkle-crdt materialization. ⭐ **What changed is narrower and it said so in the README, the moduledoc
+AND the commit: the value beyond the port is now the REAL TYPE with a REAL field, instead of a shape
+it invented.**
+
+⚠️ **AND A REPEAT IT FILED RATHER THAN EXCUSED: it wrote a heredoc into a nonexistent directory for the
+SECOND time tonight, and both times just `mkdir -p`'d onward.** ⭐ **By its own rule that is the point
+where remembering harder is the wrong fix — but it has NO artifact for a habit that lives in how a
+shell is invoked rather than in a repo.** ✅ **Recorded as an OPEN TRAP rather than a solved one** —
+⛔ *a filed trap with no mechanism is still better than a trap called a one-off.*
