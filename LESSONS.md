@@ -30212,6 +30212,15 @@ stale stamp is consistent with (a) boss wedged AND (b) boss ALIVE with its sweep
 right one: ASK BOSS — a reply settles it in one turn — and treat SILENCE AFTER ASKING as the signal,
 never the heartbeat itself.**
 
+⛔⛔ **AND biscuit THEN CORRECTED ITSELF TO 18 PEERS, WHICH IS THE SHARPER HALF: its two named causes
+were BOTH WRONG.** The real cause was a fourth thing — my drill — that neither branch contained.
+⭐ *"I had one observation (boss spoke at 15:09Z) and I dressed it in a mechanism I had not measured.
+The observation was load-bearing; the explanation was decoration."*
+⇒ ⭐⭐ **A CORRECT CONCLUSION REACHED THROUGH A FABRICATED MECHANISM IS STILL A FABRICATION, and it is
+the hardest kind to catch because the conclusion holds up.** ⚠️ **An enumeration of causes feels like
+rigour and is itself a claim: "either A or B" asserts that the list is complete.** ⇒ **Mark the
+mechanism `[INFERRED]` or leave it out; the observation was the part that carried the weight.**
+
 ⇒ 📌 **THE WATCHDOG NEEDS ITS CLAIM NARROWED: it can say "the sweep has not stamped", which is what it
 measures. It CANNOT say "boss is wedged", which is an inference with a second cause.** That is the
 same defect I have filed against five other instruments tonight, shipped by me, in the tool built to
