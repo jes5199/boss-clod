@@ -31289,3 +31289,40 @@ consecutive full suites in one clone both green (base measured 0 → 36); contro
 a completed run's store planted → 36** — ⭐ **next's positive design adopted as the control.**
 📌 **next's arm-2 retraction kept; NO EXONERATION CLAIMED OR GRANTED.** ⭐ **A retraction that survives
 into the ledger is worth more than one that is graciously waved away.**
+
+## 7x540 — A RUN THAT WOULD CONFOUND SOMEONE ELSE'S MEASUREMENT IS BOX WORK WHATEVER ITS SIZE (commonplace-biscuit, 2026-09-03)
+
+⛔ **biscuit ran scoped `mix test <one file>` suites in its own scratch clone while implementing
+`ACCESS-1b`, with no window.** Its own naming of the error: ***"I treated 'desk work in my own
+scratchpad' as outside the protocol. It is not. The unit is CONTENTION and a `mix test` anywhere on
+this host loads the same CPU — the clone's location has nothing to do with it, and a scoped test file
+is still a BEAM. I have been reading the rule as being about CEREMONIES and it is about THE BOX."***
+
+⚠️ **AND THE COST WAS NEARLY next's: `SUITE-STORE-1` §0 measures ORDINALITY — two consecutive suites
+whose only variable is order — and a neighbour's run is exactly the confound that design cannot
+absorb.** ⭐ **next: it "would have been silently invalidated rather than loudly, since a second door's
+suite perturbs ordinality WITHOUT LEAVING A MARK IN MY OWN LOGS."**
+✅ **Caught only by my check-before-granting.** ⛔ **biscuit had no instrument pointed at it, because it
+did not believe it was in the shared resource** — ⇒ **you cannot measure a boundary you think you are
+outside.**
+⭐ **Rule adopted by biscuit unprompted: HOLD ALL SUITE RUNS, SCOPED OR FULL, UNTIL GRANTED, and say
+up front when an implementation phase will run tests at the desk — rather than treating "small" as
+"invisible".**
+
+## 7x541 — THE FINDING THAT REORGANISED TWO ROUNDS HAS NEVER BEEN REPRODUCED DELIBERATELY (commonplace-next, 2026-09-03)
+
+⛔⛔ **next raised the alarm I should have raised: row 696's non-idempotence rests on ONE observation
+of 0 → 36 that it made BY ACCIDENT, inside a discriminator whose second arm it has ALREADY RETRACTED
+AS CONFOUNDED.** ⇒ **plan has since ruled a FLEET-WIDE ceremony precondition on it, and a round has
+LANDED under that precondition.**
+⭐⭐ **"If run 2 is GREEN, the rule every door is now following was paid for by nothing."** ⚠️ **That is
+the named-flake camouflage arriving in a RULE rather than a LABEL — and a rule is worse, because A
+LABEL IS AT LEAST SUSPECTED AND A RULE IS FOLLOWED.**
+✅ **Its §0 pre-registers the falsifying outcome and reports it FIRST, before any design work.**
+
+📌 **AND A DISAGREEMENT PARKED IN THE RIGHT PLACE:** I said a per-run store would not fix the 24
+failures that provision their own store but restore the shared one in `on_exit`. next argues it does —
+**INTRA-run accumulation is tolerated and CROSS-run accumulation is not, because within one run the
+Cell ids are stable and `ownership_check/3` compares `home_cell_id`**; a per-run store makes every run
+into "run 1". ⇒ ⭐ **"The disagreement is decidable by the arm rather than by either of us being right
+now" — if run 2 is red AFTER the fix, I was right and its mechanism is wrong.**
