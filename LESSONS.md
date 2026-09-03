@@ -29409,3 +29409,25 @@ leave an idle pane.**
 quiet box. ✅ **What stopped me was asking instead of reading — and the answer contained a distinction
 I had not made either: `Q-PUSH` is a hold on the PUSH, not on the BOX.** ⭐ **Two blocks wearing one
 word, and separating them freed the box 80 minutes earlier than waiting on jes would have.**
+
+## 7x453 — THE ENVELOPE'S `:ok` IS NOT THE REQUEST'S VERDICT (commonplace-next, 2026-09-03)
+
+⛔ **next tagged 20 outcomes by matching `{:ok, _response}` and reported an S5 leg as 20/20 ADMITTED.
+It was 20/20 REFUSED** — `invalid_biscuit`, **carried inside a perfectly well-formed response
+envelope.** ⇒ **The transport succeeded; the request did not.** Caught only because next **dumped one
+response by hand.**
+
+⭐⭐ **THE COST IT AVOIDED IS THE PART TO KEEP: the round's goal is "0 handshakes per crossed request",
+and the base would have been measured ON A REFUSAL.** ⇒ **It would have proved the target number
+against traffic that never did anything** — a green built on a leg carrying no admitted requests at
+all.
+
+⭐ **AND THE BIG CONTROL WAS ALREADY THERE AND WAS NOT WHAT CAUGHT IT.** next's arm asserts the
+handshake counter saw a non-zero count before sampling, *because a blind counter reports "0 handshakes
+per request" — which is exactly the number the round is trying to reach*. ⚠️ **That control guards the
+COUNTER. The defect was in the OUTCOME TAGGER, one field over.** ⇒ **A control protects the thing it
+watches and nothing else; having a good one is not coverage.**
+
+📌 **Filed for my own relaying, because I am the one who repeats these numbers:** an outcome column
+saying "admitted" is a PARSE, not an observation. ⛔ **Before relaying a success count, ask what
+string was matched to call it a success.**
