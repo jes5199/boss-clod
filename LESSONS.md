@@ -31485,3 +31485,30 @@ condition.** Sent as #26995.
   wrote that sentence in this file before I stopped measuring.
 · ⚠️ Before nudging a STALLED worker, the FIRST question is **"do I owe it a message?"** — not
   "is its pane alive". Tonight the answer was yes, for eight minutes.
+
+## 7x547 — ⛔⛔ MY FIXTURE AGREED WITH ME ON ALL THREE ARMS AND WAS WRONG ON EVERY LIVE DOOR (2026-09-03T22:40Z)
+
+**Fixing 7x546 I added `_pane_prompt_state()` to `stall-sweep.sh` — EMPTY vs DRAFT vs QUEUED, so a
+`STALLED` row says whether Enter can even apply.** I built a disposable tmux pane, wrote a `❯ ` prompt
+into it, and got **EMPTY, DRAFT, and UNKNOWN exactly as predicted. Three arms, three passes.**
+
+⛔ **THEN I RAN IT AGAINST THE LIVE PANES AND ALL FOUR READ `DRAFT` WHILE THEIR PROMPTS WERE VISIBLY
+EMPTY.** `cat -A` on a real prompt line: `M-bM-^]M-/M-BM- $` — **`❯` then C2 A0, a NON-BREAKING SPACE**,
+which `[[:space:]]` does not match. My fixture used a plain ASCII space.
+
+⭐⭐ **THE FIXTURE WAS NARROWER THAN THE CORPUS BY CONSTRUCTION, BECAUSE I BUILT IT FROM THE SAME
+ASSUMPTION THE CODE ENCODED.** ⇒ **A self-test written by the author of the thing tested shares the
+author's blind spot, and passing it is therefore NOT EVIDENCE.** It is the `shape-table.sh` lesson —
+*a precision figure computed on a corpus your extractor has already filtered is a statement about the
+filter* — arriving in my own tool, one file over, the same night.
+
+⭐ **WHAT CAUGHT IT WAS THE ONE CHECK THAT COULD DISAGREE: running the probe against the real thing.**
+Not a cleverer fixture — **a different instrument.** ⇒ **Both arms proven on the REAL prompt shape
+before commit** (`06f1eca`): NBSP-padded and bare → `EMPTY`; NBSP-padded plus text → `DRAFT`.
+
+⚠️ **AND IT WOULD HAVE FAILED SILENTLY IN THE COMFORTABLE DIRECTION.** A false `DRAFT` says *"nudging
+will work"* — which is what I already believed, and what I had just spent an entry proving false.
+**The bug's output was my prior.**
+
+📌 The sweep now prints, on the row where the decision is made: `nudge=INERT (prompt EMPTY — Enter
+submits nothing; it needs a MESSAGE, not a keystroke: check whether YOU owe it one)`.
