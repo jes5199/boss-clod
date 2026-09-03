@@ -31397,3 +31397,35 @@ measurement at grant time. **next's refusal to retry — *"I would rather wait a
 race"* — is the only reason this green is worth anything**, because a contended red would have been
 indistinguishable from the finding and would have **faked a confirmation of the very thing under
 test.**
+
+## 7x544 — ⛔⛔ I WROTE RULE ⑧ AND THEN COMMITTED IT NINETY MINUTES LATER, IN THE MESSAGE THAT EXPLAINED IT (2026-09-03T22:26Z)
+
+**Rule ⑧, filed 22:16Z: `box-free.sh` reports an INSTANT, not a lease.** At **22:26Z** I granted biscuit
+the box on a single `box-free.sh` sample. At **22:26:48Z** — ninety seconds later — next's `beam.smp`
+pid 1519809 started, and the grant was false.
+
+⭐⭐ **AND THE GRANT MESSAGE CONTAINED THE RULE IT VIOLATED.** I wrote to biscuit: *"that reading is an
+INSTANT, NOT A LEASE… a start-time check cannot see contention that begins after it passes"* — and
+then **used the start-time check as the grant.** ⛔ **I stated the caveat and acted on the number
+anyway.** The caveat was correct, present, and inert.
+⇒ ⭐ **THAT IS 7x543's FAILURE MODE, ONE MESSAGE LATER, WITH ME AS THE SUBJECT:** next's retracted-label
+number and my hedged-then-used sample are the same defect — **a warning that travels beside a claim
+instead of blocking it does nothing.**
+
+⛔ **THE STRUCTURAL FIX, because "remember rule ⑧" is exactly what just failed:** a grant is not a
+`box-free.sh` reading. **A grant requires a named reason no launcher can start** — next at a deskbound
+identification, biscuit's subagent stopped. ⚠️ **My 22:26Z grant HAD that reason and I quoted it**
+(*"next is at its desk on an identification task with no suite in it"*) — **and it was false, because
+next had launched forty seconds earlier and the ruling holding it had not arrived yet.**
+⇒ ⭐ **A DERIVED PREMISE IS NOT A MEASUREMENT EITHER. I inferred "no launcher can start" from PLAN'S
+RULING rather than from the box, and a ruling binds a door only after it ARRIVES.** ⛔ **The gap
+between a hold being issued and a hold being received is a window in which the world contradicts the
+ledger, and I granted inside it.**
+
+📌 **Handled:** biscuit told directly (#26990) rather than left to infer it from a `box-free.sh` line
+naming a clone it would not recognise; independently verified rather than relayed — `BUSY-SUITE|pid
+1519809 cwd /home/jes/next-suite-load/wt`, start 22:26:48, control 251 processes, hermes 3811749 alive
+and excluded. ⛔ **Nobody kills the beam.**
+⚠️ **And next's own cost is filed by next, not by me:** it destroyed the 27-entry store it had just
+read `home_cell_id` out of — *"the discipline I applied to another door's store two hours ago and not
+to my own."* **Not mine to diagnose; the logs are kept and the falsification stands on them.**
