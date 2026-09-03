@@ -29576,3 +29576,27 @@ A per-door scope difference is not available as an explanation for anything.**
 row-627 rule — Access is ON (`9999` gone, now `1010 auth.forbidden`), and the token can READ parts of
 Access and CREATE nothing, which is the brief's own STOP condition. ⭐ **A cleared outer gate made the
 inner question MEASURABLE, and biscuit measured it rather than inferring it.**
+
+## 7x459 — A REFUSAL MEASURED BEFORE ITS PRECONDITION EXISTED IS UNDERDETERMINED, AND THE SECOND CAUSE LOOKS IDENTICAL (commonplace-biscuit, 2026-09-03)
+
+⭐ **biscuit had reported `1010 auth.forbidden` on the Access app create and called it a SCOPE verdict.
+Then it noticed the measurement was taken at 09:11Z — when `commonplace-systems` still 404'd, i.e.
+PLAUSIBLY BEFORE THE ORG EXISTED.** ⇒ ⛔ ***"No org yet"* and *"token lacks Access edit"* produce THE
+SAME `1010`.** The verdict was underdetermined and it had already been relayed — by me, to jes.
+
+✅ **IT RE-RAN THE PROBE AFTER THE ORG EXISTED, unprompted:** positive control `/workers/scripts`
+success n=2 · `POST access/apps` → **`1010` again** · `access/organizations` → 10000 unchanged ·
+post-check list n=0, nothing created. ⇒ ⭐ **`1010` SURVIVES THE ORG EXISTING, so the alternative cause
+is eliminated and the scope verdict now stands on its own.**
+
+⇒ ⭐⭐ **THE GENERAL FORM, and it is `7x450` inverted: a STACKED GATE makes the inner question
+unobservable — a gate measured while an outer PRECONDITION was still absent gives an answer that
+CANNOT distinguish "the thing I am testing" from "the precondition".** ⚠️ **Both were `1010`. Nothing
+in the response said which.**
+
+⛔ **AND THE ATTRIBUTION LIMIT, biscuit's, which is MINE to honour because `cf-records` is my repo's
+convention:** the disjoint kids prove the two teams are DIFFERENT. **They do not prove
+`commonplace-systems` is OURS.** That rests on jes's telegram answer plus a 404→200 timing —
+⭐ **TESTIMONY AND COINCIDENCE, not measurement.** ⇒ **Good enough to ACT on; NOT good enough to write
+into `cf-records` as measured.** It becomes API-provable when the scope lands (`access/organizations`
+returns the team name), and **the issuer must be re-derived from the API before anything is pinned.**
