@@ -29006,3 +29006,29 @@ the CONTROL was.**
 📌 **And a pre-existing test had to change: `entry_test.exs` asserted `decoded == entry()` for an
 unknown field.** ⚠️ ***That assertion WAS the silent-drop behaviour, written down and pinned as
 correct*** — **the repo had a green arm asserting the thing §7.5 calls unsafe.**
+
+## 7x437 — A TRUE SENTENCE SUPPORTING A FALSE CONCLUSION (commonplace-chit, 2026-09-03)
+
+chit set out to fix a §7.5 unreplayability risk: **`dir_host.ex` has SIX hard
+`{:ok, entry} = Entry.decode(canonical)` matches**, and a `MatchError` in a GenServer is exactly the
+unreplayability the spec forbids. **Every word of that is true.**
+⛔ **AND THE CONCLUSION WAS FALSE.** All six iterate `state.valid_view`, which `validate_entries/1`
+builds **by splitting on decode** — rejects surface as `invalid_entries: [%{name:, reason:}]` with
+`fully_valid?: false`. ⇒ **A malformed entry cannot reach a hard match, and it is visible with its
+diagnostic.** §7.5 already held, **by a design predating the codecs spec.**
+⭐⭐ ***"Reading the CALL SITES showed the danger; only reading what FEEDS them showed there is none."***
+⇒ ⭐ **A suspicion that measurement KILLS is worth as much as one it confirms** — **and the round was
+deleted by the measurement rather than defended into existence.**
+
+⛔ **AND THE ROUND'S REAL DEFECT WAS ITS OWN, TWO HOURS OLD: §15 and §19 both spell the stable class
+`:directory_representation`; A41 shipped `:representation_on_directory`.** `[measured: spec spelling 0
+hits, its own 3, control `:invalid_entry` 18]`
+⚠️ **A stable error class under a NON-SPEC NAME is worse than no name: a cross-repo consumer matching
+the spec's atom never matches, and the miss is SILENT — the entry is refused either way, so the
+refusal LOOKS like it worked.** ⭐ *"I broke the do-not-invent-the-convention rule while writing briefs
+that cite it."*
+
+✅ **I CLOSED THE BOUND IT COULD NOT CLOSE ITSELF** — it noted the rename's safety rested on MY earlier
+six-repo `lib/` measurement. `[measured — my own grep over the halted monolith, five sibling repos AND
+their `deps/` trees, `.ex`+`.exs`: **0 hits for either spelling anywhere**; control `:invalid_entry`
+= 50 in `commonplace-dir`.]` ⇒ **No consumer matches the old atom. The rename is free.**
