@@ -30071,3 +30071,36 @@ struct-update implementation. ⭐ ***"The guard is not that they cannot be chang
 red first"***, so a refactor has to walk past two reds and edit them deliberately. ⇒ **A test that
 cannot prevent a change can still make the change VISIBLE, and saying which of the two it is keeps the
 next reader from over-trusting it.**
+
+## 7x482 — A CONTROL THE DEPENDENCY CAN RETIRE IS A CONTROL THAT BLINDS THE GATE ON A CORRECT BUMP (commonplace-next, 2026-09-03)
+
+⭐ **`check-dev-path-inventory.sh` went BLIND — not red — on the cell pin bump:** *"known authorizer
+property control `Commonplace.Cell.Authorizer.DevScoped=true` is absent"*. ⇒ **The gate's POSITIVE
+CONTROL required `DevScoped` to be present in the pinned cell source, and `CELL-DEVSCOPED` had just
+relocated it out of `lib/` — correctly.**
+
+⭐⭐ **So a CORRECT change in an upstream repo BLINDED a downstream gate, and the gate refused to
+report a number once its control was gone. BLIND OUTRANKS RED, and this is the good version of it.**
+⇒ **The rule: a control that lives in a DEPENDENCY can be retired by that dependency. It must move
+with the dep, or the gate goes blind on exactly the bump it exists to police.**
+
+📌 **And the second failure was `PIN-DOORS` row 552 from the inside:** `check-cell-pin.sh` RED because
+the door records the pin it expects and still named the old sha. ⛔ **A bump that forgets a hardcoded
+gate is left behind.**
+
+⚠️ **AND THE FINDING THAT MATTERS MOST, because a compile would never have caught it:** with doc moved
+and log not, `deps/commonplace_log` stayed at the old sha (next's `override: true` won), `SQLiteServer`
+files in `deps/` = 0 — **and `mix compile` stayed rc=0 through the whole red.** ⭐ **The diamond's
+damage is INVISIBLE TO A COMPILE**, which is the argument for the two new pin doors and one the brief
+did not make.
+
+## 7x483 — THE SCRIPT THAT EXISTS BECAUSE A PIPELINE HID FAILURES NOW HIDES THEIR IDENTITY (commonplace-next, 2026-09-03)
+
+⛔ **`bump-pin.sh`'s `gate()` prints only `tail -n 25` on a red — and ExUnit prints failure blocks
+BEFORE the summary.** ⇒ **The script written because a pipeline once hid 11 failures now hides the
+IDENTITY of the failures it correctly detects.** next had to re-run with full output to learn two test
+names.
+
+⭐ **rc discipline is right; the EVIDENCE is truncated.** ⚠️ **Same class as 7x474 (a counts-only log
+that could not say which assertion failed) at a second door on the same day** — ⇒ **a capture-time
+filter is irreversible, and it is only ever tested on the runs that matter.**
