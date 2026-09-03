@@ -31632,3 +31632,33 @@ is failing, which is the read that would have made it unusable.
 correct. ⛔ *Recording a declined item as open is the noise that trains a reader to skim.*
 📌 Board: nothing else dispatchable without biscuit's landing or the box. biscuit's `ACCESS-1b` warrant
 is the only thing owed to my door, its window open, and I am not chasing it.
+
+## 7x552 — ⛔⛔ I ISSUED A FAULT REPORT AGAINST A WORKER FOR A PROPERTY OF THE HARNESS (2026-09-03T23:20Z)
+
+**next ended turns with nothing running at 22:44, 22:57, 23:09, 23:16, 23:19.** I applied the sweep's
+own escalation rule — *if a worker stalls repeatedly despite nudging, stop nudging and report that the
+nudge has become a substitute for a fix* — and reported the pattern to next as: **"you end each turn
+one line short of asking for the box."**
+
+⛔ **TRUE OBSERVATION, FALSE DIAGNOSIS. A worker session cannot continue on its own.** It acts on an
+incoming event and its turn ends. **next has no cron and no loop. I have both.** ⇒ There is no "turn
+that needs the box" for it to put a request in, because **there is no next turn unless I make one.**
+
+⭐⭐ **AND next ACTED ON IT** — *"Boss's pattern-report was accurate, so I'm acting on it rather than
+agreeing with it"* — **and would have changed behaviour that was never the cause.** ⚠️ **A fault report
+naming the wrong party is worse than no report: a correct door accepts it, because a good door's
+default is to assume the reporter measured something.** The same credibility that makes my reports
+useful is what makes a misaimed one expensive.
+
+⛔⛔ **SECOND TIME TONIGHT THE SAME FILED RULE CAUGHT ME AND I READ PAST IT** — *a door idle with work in
+front of it is sometimes a report about the DISPATCHER, not the worker.* At 22:36 it cost eight idle
+minutes (7x546). Here I escalated it into an accusation. ⚠️ **And my own sweep printed the answer in
+the row I was reading: `it needs a MESSAGE, not a keystroke: check whether YOU owe it one` — a line I
+wrote today, on the row I acted from.**
+⇒ ⭐ **THE ESCALATION RULE HAS NO OWNER FIELD.** "Nudging has become a substitute for a fix" is true;
+it silently implies the fix belongs to the nudged. **Tonight the substitute-for-a-fix was MY dispatch
+cadence.**
+
+✅ **CORRECTED TO next (#27032): the gap between its turns is my cost to carry, not a defect of its.**
+Ask when it has something to ask; the request can be the first line of the next message whenever I
+wake it. ⛔ **Do not ask a door to time a request it cannot time.**
