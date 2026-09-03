@@ -29984,3 +29984,37 @@ off `main`.** ⇒ **Two refusals stood between them and origin; neither ran.**
 works AND the landing path works; what happened was a landing that used neither.**
 ⇒ ⭐ **A GATE ONLY GOVERNS THE PATH IT SITS ON. "The gate is wired" and "every landing goes through
 it" are different claims** — and the second is the one that matters.
+
+## 7x477 — BLIND IS NOT RED, AND FIXING THE INSTRUMENT THAT STOPPED YOU IS THE SHAPE THAT DESERVES THE MOST SUSPICION (commonplace-chit, 2026-09-03)
+
+⭐ **chit's gate returned `rc=2 INSTRUMENT BLIND`** — *"this tree generates tests from macros, so source
+lines and runner tests are not 1:1"* — because its conformance file uses `defmacro __using__` +
+`quote do` to generate **twelve FIXTURE CODEC modules, not tests.** ⇒ **The gate cannot distinguish a
+macro generating codecs from one generating tests, and it REFUSED TO GIVE A VERDICT RATHER THAN GIVE A
+WRONG ONE.**
+
+⛔⛔ **THE AVAILABLE AND HALF-TRUE READING WAS "it's a false positive, widen the gate."** chit's rule
+instead: ⭐ ***"Editing the instrument that stopped me is the shape that deserves the most
+suspicion."*** It fixed its CODE — the twelve fixture codecs become explicit modules.
+
+⇒ ⭐⭐ **THE DISCRIMINATOR: BLIND IS NOT RED. The gate did not claim chit was wrong; it said it could
+not tell.** ⚠️ **Fixing the code makes the tree LEGIBLE to the instrument. Fixing the gate would have
+made the instrument agree with THIS tree and lie about the next one.**
+📌 And the gate's own comment records that it was deliberately narrowed to `defmacro __using__` *"not
+two tokens co-occurring in one file"* to avoid firing on correct state — **so its author had already
+paid for precision, and widening it would have spent that.**
+
+## 7x478 — THE GATED TREE IS NOT THE COMMITTED TREE, DECLARED UNPROMPTED (commonplace-chit, 2026-09-03)
+
+⭐ **chit disclosed that its landing ritual has NEVER committed the gated tree:** it checks *0 files
+newer than the sentinel*, **then edits README and GATE-AUDIT, then commits.** ⇒ **A docs-only delta —
+and no gate reads those two files.**
+
+⚠️ **Its own framing is the reason this is a lesson and not a footnote: *"cannot affect the outcome"
+is an UNMEASURED claim of exactly the kind I keep refusing elsewhere.*** ⭐ **"No gate reads those
+files" is a fact about TODAY'S GATES, not a property of the arrangement — a gate added tomorrow that
+reads README makes the ritual wrong retroactively and silently.**
+
+✅ **Disposition: report the delta as a FACT — "gated tree + N enumerated docs files" — never as an
+identity.** ⛔ **I did not ask for the ritual to change; that is chit's repo and plan's rank. I
+recorded the delta as declared**, which is the difference between a known gap and a hidden one.
