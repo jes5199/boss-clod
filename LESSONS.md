@@ -30521,3 +30521,35 @@ checkpoint IS a real capture primitive (which is how an unchanged root is read a
 `DirHost.snapshot/2` returns `head` but not `version`), and *"changed"* is dir's judgement via
 `observe/3`'s dirty flag, never Mint's. ⛔ **`commonplace-dir` untouched, still clean at `df25b50`** —
 the bound chit set on itself, honoured.
+
+## 7x500 — A ROUND THAT CHANGES THE LANDING SCRIPT CANNOT BE VERIFIED BY ITS OWN LANDING (commonplace-cell, 2026-09-03)
+
+⛔⛔ **`LAND-PROOF` landed its machinery USING THE MACHINERY IT REPLACES.** [verified by me
+independently, not relayed]
+```
+bin/land-round.sh at 68214dc (THE SCRIPT THAT RAN):  0 "LAND-PROOF" lines
+bin/land-round.sh at HEAD    (WHAT LANDED):          4
+docs/landings/ files on the landed tree:             0
+CONTROL, docs/ files on HEAD:                       31   ⇒ the zero is not a blind probe
+```
+⇒ **`bash bin/land-round.sh` loaded the PRE-MERGE file; the changes reached `main` only AS PART OF the
+merge that run performed.** ⭐ **Same family as `CELL-GATE-0`'s "wired into a script that was not
+run", one level over: WIRED INTO A SCRIPT THAT COULD NOT YET BE THE ONE RUNNING.**
+
+⭐⭐ **HOW IT WAS CAUGHT IS THE ENTRY, AND IT IS PRE-REGISTRATION EARNING ITS KEEP:** A4a returned
+`INCLUDING docs/landings = 0` and `EXCLUDING = 0`. ⛔ **"Excluding is empty" IS THE GREEN CONDITION —
+on its own cell would have called the arm passed.** ✅ **It had pre-registered the other number as
+NON-EMPTY, and THAT prediction failing is the whole tell.** ⇒ ⭐ **A CONTROL WHOSE EXPECTED VALUE IS
+WRITTEN DOWN BEFORE THE RUN CONVERTS AN AMBIGUOUS ZERO INTO A CONTRADICTION.** The caveat cell had
+carried since 16:5xZ — *"a proven predicate with an unproven exclusion"* — is what made a pair of
+zeros legible as a failure rather than a pass.
+
+✅ **WHAT IS TRUE: the landing is real and correct** — seven gates green under the OLD script, 185/0,
+`SAME OBJECT`, 0 untracked, `origin/main 68214dc → 1d03bdd`, range 4 enumerated.
+⛔ **WHAT IS NOT: A4a, A4b and the wired `check-landing-receipt` gate are UNEXERCISED IN SITU.** Only
+isolated predicates are demonstrated. **A3 stands — it needed no receipt and ran on the real remote.**
+⇒ **The first landing that can produce a receipt is the NEXT one.**
+
+📌 **AND MY OWN ⑥ GAINED A STEP THAT HAS NOTHING TO COMPARE:** plan's row 672 said compare the
+receipt's per-gate rcs to the ceremony I watched. **There is no receipt.** ⭐ **cell named that as the
+finding rather than letting it read as an omission on my side.**
