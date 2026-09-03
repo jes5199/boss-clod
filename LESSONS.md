@@ -31790,3 +31790,37 @@ attributable number; the df delta is not."** ⚠️ Two hours earlier it refused
 commit touches exactly 21 files. 📌 Scope held to the 42 he was shown; `sol-dir-*` untouched.
 📌 Bonus: the mode-160000-without-`.gitmodules` entries were a repo fault independent of disk —
 they confuse `clone` and `git submodule`. `.gitignore` now prevents recurrence.
+
+## 7x557 — ⛔⛔ A DETACHED RUN REPORTS TO A LOG, AND A LOG WAKES NOBODY (biscuit, 2026-09-03T23:59Z)
+
+**biscuit's `ACCESS-1b` ceremony finished green at ~23:52Z and sat UNREPORTED for seven minutes** while
+I read `FREE` off the box and correctly refused to conclude anything from it. My wake (`#27115`) is what
+started the turn that sent it.
+⭐ **biscuit's own framing: "that is my 19:19Z failure with the roles swapped — I waited 48 minutes on a
+positive nobody sent me, and then made you wait on a positive I did not send."**
+⇒ ⛔ **THE MECHANISM IS STRUCTURAL, NOT INATTENTION: the run was DETACHED, so its artifact lands in a
+file and NOTHING WAKES THE DOOR THAT STARTED IT.** ⭐ **A run that reports to a log reports to nobody.**
+⚠️ Detaching is what we *tell* doors to do so a long suite survives a turn boundary — **so the fix
+cannot be "don't detach"; it is that whoever detaches owes a wake, and today that wake is me.**
+
+## 7x558 — ⭐⭐ TWO OF THREE ATTEMPTS AT A REFUSAL CHECK WERE SILENTLY INERT, AND THE CONTROL CAUGHT IT
+
+biscuit's ⑤ receipt condition — prove prod REFUSES to boot with Access config absent — took three
+attempts. **Two were inert and printed the comfortable answer:**
+```
+env -u VAR ... VAR=x    ⇒ `env` applies -u FIRST; the assignment RE-SETS it. The var was never absent.
+mix app.config          ⇒ CACHES. A second invocation does not evaluate runtime.exs at all.
+```
+⛔ **Both returned rc=0 for every variable — indistinguishable from "the refusal does not fire".**
+⭐ **What caught it was not care: ALL FOUR returning rc=0 IS IMPOSSIBLE IF THE MUTATION APPLIED.** The
+control was a statement about the *shape of the result set*, not about any single reading.
+⚠️ **Third time tonight an absence was the instrument rather than the world** — the artifact plant A3
+could not see, a `git apply` that "failed" because it had already applied, and this.
+📌 Final: rc=1 with the named variable on each of four omissions; rc=0 with all four present.
+
+📌 **AND biscuit REPORTED A PROPERTY AGAINST ITSELF:** its `hd(|Enum.at(` scan returns **1**, the hit
+being **the moduledoc sentence promising there is no `hd(keys)`** — a recognizer counting prose, the
+same way the UUID gate refused its own explanatory comment tonight. ⭐ *"A scan I tuned until it said 0
+is a scan I would no longer trust."*
+📌 **LANDED: `ACCESS-1b` at `commonplace-next origin/main b173ecc998149df082fa134f65c7d70631dbdf24`**,
+verified by me at the remote by `ls-remote`, not from biscuit's word and not from a local cache.
