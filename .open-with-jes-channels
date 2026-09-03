@@ -20,6 +20,10 @@
 #   is the state that decays into "someone is probably tracking that". Filed now because a door asked.
 #   ⛔ NOT re-raised at 09:5xZ deliberately: three of his questions are already live (10844, 10838,
 #   10846). A fourth simultaneous ask is what trains him to skim. Raise it when those clear.
+10854  | 2026-09-03T10:17Z | CELL-DEVSCOPED push word (commonplace-cell, sol/cell-devscoped-out-of-prod @ 4135f9b, ff of 6444a06, plan row 655) | cell — and cell holds NO duplicate: it WITHDREW its old in-session ask (that one was STORE-1b/doc, superseded by 10847) and reported the withdrawal | OPEN on telegram
+#   ⛔ THIRD REPO, THIRD ASK. The in-session yes (~07:2x) was commonplace-LOG; 10847 was
+#   commonplace-DOC. A yes about one repo does not carry to another. cell asked rather than
+#   treating two approvals as a pattern.
 10832  | 2026-09-03T09:19Z | ZERO TRUST ORGANIZATION READ — needed to PIN the issuer, not to BUILD. Without it `commonplace-systems` stays testimony+timing and cf-records must say so. | biscuit | OPEN on telegram
 # closed:
 # 10823 | Q-PUSH: may cell push STORE-1a — ANSWERED ELSEWHERE 2026-09-03, "yes push" direct to cell
@@ -74,3 +78,6 @@
 #   ⇒ The three that held were about WHAT HE WANTS. The one that missed was about WHAT EXISTS.
 #   ⚠️ n=4, not a policy. But it argues: MEASURE rather than default whenever the question is about a
 #   thing that can be probed, and reserve defaults for questions about intent.
+# ⭐ AN ABANDONED QUESTION IS THE SAME HAZARD AS AN UNREPORTED ANSWER, FROM THE OTHER SIDE (cell,
+#   2026-09-03): it sits open on a channel nobody is watching, and later it reads as a decision that
+#   was never made rather than one made elsewhere. ⇒ WITHDRAWALS GET REPORTED, not left to lapse.
