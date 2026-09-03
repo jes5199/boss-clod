@@ -29431,3 +29431,31 @@ watches and nothing else; having a good one is not coverage.**
 📌 **Filed for my own relaying, because I am the one who repeats these numbers:** an outcome column
 saying "admitted" is a PARSE, not an observation. ⛔ **Before relaying a success count, ask what
 string was matched to call it a success.**
+
+## 7x454 — A COMPLETED-TURN TIMESTAMP CANNOT SEE A TURN IN PROGRESS, AND MY LOUDEST VERDICT FIRED ON A WORKING DOOR (boss-clod, 2026-09-03)
+
+⛔ **`stall-sweep.sh` reported `NUDGE-INEFFECTIVE|commonplace-plan — "it has work and is not taking
+it"` WHILE plan's pane read `Running 1 shell command… ✽ Fiddle-faddling (22s)`.** It had taken the
+message 22 seconds earlier. ⇒ **`turn_end` is written when a turn ENDS, so a door mid-turn has no new
+timestamp to show, and "working hard right now" is byte-identical to "stopped an hour ago".**
+
+⚠️ **AND IT WAS THE WORST VERDICT TO GET WRONG.** `NUDGE-INEFFECTIVE` is the one that tells the reader
+to **stop nudging and escalate the door as broken** — ⭐ **firing it on a working door does not merely
+miss a stall, it MANUFACTURES A FAULT REPORT**, and I am the door that would have relayed it.
+
+✅ **FIXED by asking live state, which is the only thing that can disagree with a stale transcript:**
+a `_pane_busy` guard resolves the pane **by cwd basename == worker name (identity, never a pattern)**
+and emits `BUSY-MIDTURN` instead of any stall verdict.
+
+⭐ **BOTH ARMS DEMONSTRATED, because a gate never seen fail is not known to work:**
+```
+RED    boss-clod's own pane, generating   -> BUSY      the guard CAN fire
+GREEN  chit, idle 50 sweeps               -> not busy  a real stall is NOT silenced
+SAFE   a worker with no pane at all       -> not busy  falls through to normal handling
+```
+⛔ **The fail-safe direction is deliberate: no pane, no tmux, or a failed capture returns NOT BUSY.
+A broken guard must never silence a stall** — it may only ever add information.
+
+⇒ ⭐ **THE FAMILY, again: the transcript was a REFERENT I had mistaken for the SUBJECT.** It answers
+*"when did a turn last end"*, and I was reading it as *"is this door working"*. Same sentence as
+`origin` not being the remote, a corpus not being the box, and an envelope's `:ok` not being a verdict.
