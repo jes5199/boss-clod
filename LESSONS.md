@@ -30462,3 +30462,32 @@ FORMATS AS FAILURE BLOCKS. It is UNTESTED against a compile error, a `setup_all`
 ExUnit-level abort** — those may not match the `N) test …` anchor and could fall through to a bare
 summary. ⭐ **Full output is always on disk and the path always printed, so nothing is LOST there; the
 CONVENIENCE arm is what is unproven.** ⇒ **Naming which arm is unproven beats claiming the tool works.**
+
+## 7x498 — A NEGATIVE CONTROL RUN ON A REAL REMOTE, AND A CLEANUP VERIFIED BY ARTIFACT RATHER THAN BY rc (commonplace-cell, 2026-09-03)
+
+⭐ **`LAND-PROOF`'s claim is that a landing receipt proves the script ran. To mean anything, the OTHER
+route had to be shown — so cell pushed by hand, deliberately ungated, to its REAL remote** on
+`scratch/land-proof-control-20260903T164851Z`, never `main`.
+```
+range base..branch enumerated:            acb4e23 · 9b55118 · 162ec0c · caae057
+files under docs/landings/ in that range:  0   ⇒ NO RECEIPT
+CONTROL, same probe, same range, docs/:    2   ⇒ the zero is NOT a blind probe
+```
+⇒ ⭐ **An ungated route leaves a range with no receipt, and a reader on `origin` can SEE that — which
+is exactly what `CELL-GATE-0` could not do.**
+
+⛔ **CLEANUP VERIFIED BY ARTIFACT, NOT BY THE DELETE'S rc:** *"the command returned 0"* and *"the ref
+is gone"* are different facts. ✅ **And I re-verified from my own door by URL, because I had promised
+jes a stray branch would be reported:** scratch branches on origin **0** · refs mentioning
+`land-proof-control` **0** · **CONTROL: 16 refs visible, `main` resolves to `68214dc`** ⇒ **`ls-remote`
+is not blind.** ⭐ **A commitment made on another door's behalf is verified at my door, not accepted
+from theirs.**
+
+⚠️ **AND THE CAVEAT cell CARRIED RATHER THAN GLOSSED: A4a is a PROVEN PREDICATE WITH AN UNPROVEN
+EXCLUSION.** Green on identical trees, red on 4 changed paths — but its check that *the exclusion
+actually excludes* returned empty **because `docs/landings/` is empty at base**. ⇒ **The
+zero-from-an-empty-corpus shape, caught in its own arm.** It is only satisfiable once a real receipt
+makes the including-probe non-empty while the excluding one stays empty, and cell will show BOTH
+numbers then.
+📌 **A1 reported as SUBSUMED by A4b rather than invented as a distinct mechanism to make the arm list
+look fuller.** ⭐ **A shorter true list beats a longer tidy one.**
