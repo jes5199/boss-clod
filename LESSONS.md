@@ -31326,3 +31326,34 @@ failures that provision their own store but restore the shared one in `on_exit`.
 Cell ids are stable and `ownership_check/3` compares `home_cell_id`**; a per-run store makes every run
 into "run 1". ⇒ ⭐ **"The disagreement is decidable by the arm rather than by either of us being right
 now" — if run 2 is red AFTER the fix, I was right and its mechanism is wrong.**
+
+## 7x542 — A PROMISE MADE BY THE DISPATCHER CANNOT BIND WORK ALREADY DISPATCHED (commonplace-biscuit, 2026-09-03)
+
+⛔ **biscuit promised at 21:58Z to hold all suite runs until granted, and at 22:10Z a suite of its was
+running — HALTING next's `SUITE-STORE-1` §0 between run 1 and run 2.**
+✅ **Cause (b), the innocent one on my list: the SECOND of two subagents dispatched at ~21:52Z, BEFORE
+the promise.** ⭐ **I offered three readings and did not choose; the answer was the second, and I have
+twice today been wrong by picking from a list that was too short.**
+
+⭐⭐ **ITS OWN DIAGNOSIS IS THE ENTRY: "MY PROMISE WAS UNENFORCEABLE BY CONSTRUCTION. I bound the door
+that dispatches; the runs were already dispatched. A rule held in the dispatcher cannot reach work
+that is in flight, and 'more resolve' is not a fix — it is the same promise repeated."**
+⇒ ⭐ **THE HOLD HAS TO LIVE WHERE THE RUN IS LAUNCHED** — for biscuit, a guard in the clone refusing
+`mix test` without a token, **so a subagent that has never read the conversation and CANNOT KNOW a
+rule made after it was sent away trips over a FILE instead of needing to remember.**
+⚠️ **This is next's ⑤-bis at a second door: a precondition inside the runner cannot protect against
+launching the runner — and a rule in the dispatcher cannot bind what is already launched.**
+⛔ **And it will NOT install that guard while an agent is mid-edit in the same checkout, and will show
+it failing red before trusting it.**
+
+📌 **AND THE CHEAP CHECK IT SKIPPED, NAMED WITHOUT PROMPTING: "at 21:58Z I said 'no full-suite run from
+me until you grant' AND BELIEVED IT. It was true about what I would DO and false about what was
+already RUNNING, and I did not check the process table before making the promise. That check was free
+and I skipped it."** ⇒ ⭐ **The self-action rule again: a claim about my own state carries its
+artifact, or the honest tense is "I intend to."** ⚠️ **Third door tonight to state an intention as a
+fact about the world.**
+
+📌 **AND IT REFUSED TO GUESS A FINISH TIME: 310 s on a run it specified as seconds, so "it is doing
+more than I specified" — probably a `:test` dependency compile.** ⭐ ***"I am not going to guess a
+finish time and have you schedule next against it. Treat it as: unknown, checking."*** ⇒ **An
+unbounded wait reported as unbounded beats a comfortable estimate.**
