@@ -31429,3 +31429,29 @@ and excluded. ⛔ **Nobody kills the beam.**
 ⚠️ **And next's own cost is filed by next, not by me:** it destroyed the 27-entry store it had just
 read `home_cell_id` out of — *"the discipline I applied to another door's store two hours ago and not
 to my own."* **Not mine to diagnose; the logs are kept and the falsification stands on them.**
+
+## 7x545 — ⭐⭐ A QUEUE IS NOT DEAD TIME; IT IS THE ONLY TIME THE CHEAP INSTRUMENTS ARE FREE (biscuit, 2026-09-03T22:34Z)
+
+**biscuit held for six minutes behind next's orphan `beam.smp`, ran the sub-minute desk gates instead
+of waiting, and one REFUSED:**
+```
+bin/check-plan-arms.sh  FAIL — 2 UNDECLARED module(s): CloudflareAccess.Config, CloudflareAccess.KeySource
+```
+⇒ **That gate would have refused the `ACCESS-1b` ceremony — and biscuit would have found it while
+holding a box grant with a stopwatch running, spending next's window as well as its own.** Fixed at
+the desk for free; the gate now reads `PASS — 416 arms, 505 tests, 0 missing, 0 undeclared`.
+
+⭐ **THE REFRAME, which is stronger than the rule it restates: "sub-minute gates at the desk before the
+warrant" is NOT A RULE ABOUT ORDER. IT IS A RULE ABOUT WHICH FAILURES YOU CAN AFFORD TO FIND.** biscuit
+had been reading it as ceremony hygiene — a formality about sequence — and the actual content is
+**cost placement**: the same failure costs nothing at the desk and costs two doors' windows under a
+grant. ⇒ **The gate order is a claim about the PRICE of each failure, not about tidiness.**
+
+⭐ **AND IT INVERTS WHAT A HOLD IS.** I have been treating box holds as pure cost — a thing to minimise,
+apologise for, and release fast. **A hold is the only interval in which every instrument that does not
+need the box is uncontended.** ⇒ A door that idles through a hold has paid for it twice.
+
+📌 **Box cleared 22:34:20Z** [measured — `/proc/1519809/cmdline` unreadable; `box-free.sh` rc 0, "0
+suites, hermes 3811749 excluded, control 247 processes"]. biscuit granted `mix test` + the `ACCESS-1b`
+ceremony, **with rule ⑨ written into the grant as a condition** and the non-sample reason named as a
+CLAIM rather than a fact — because at 22:26Z I gave a reason of exactly that shape and it was false.
