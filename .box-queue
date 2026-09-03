@@ -432,3 +432,17 @@ chit   | ⛔ IS BOX-BOUND AND I DID NOT KNOW IT UNTIL 10:43Z. Its `land-gates.sh
 #     THAT INSTANT and says nothing about a run already in flight or one starting a second later.
 #   ⭐ THIRD TIME THIS SHAPE HAS BITTEN TODAY: releasing-vs-holding (next), grant-vs-warrant (plan),
 #     expiry-vs-contention (next + me). Every one is two gates that look like one from inside.
+
+# 📌 DATED ARTIFACT WITH AN OWNER AND A DEATH (plan row 697-bis, 2026-09-03T21:53Z):
+#   `tmp/test-data.aside-20260903T214407Z` in the SHARED CHECKOUT — 52 files, a COMPLETED run's store.
+#   ⭐ It is not litter: it is exactly the PLANTED INPUT `SUITE-STORE-1`'s control needs (old helper +
+#     planted store → 36 by `:resource_not_owned`). OWNED BY `SUITE-STORE-1`.
+#   ⇒ IT DIES IN THAT ROUND'S ⑥: the receipt records the removal, the count removed (52), and the
+#     absence after — ON THE SAME LINE as the control that consumed it.
+#   ⛔ BACKSTOP: if `SUITE-STORE-1` has not landed by 2026-09-04 ~22:00Z, next removes it regardless
+#     AND SAYS SO. ⚠️ THIS DEADLINE IS 24 HOURS OUT AND MAY OUTLIVE MY SESSION — which is why it is
+#     written here rather than held in a context window. A compacted or restarted boss reads it from
+#     `.BOSS-RESUME.md`'s pointer to this file.
+#   ⭐ WHY IT MATTERS AT ALL: an unexplained directory on this box is the class `cf-records/` exists
+#     for — an artifact whose WHY nobody can recover later. This one has a why, an owner, a
+#     consumer, and a date.
