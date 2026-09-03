@@ -7,7 +7,13 @@
 # ⚠️ Before nudging any door that appears idle, CHECK WHETHER I OWE IT A RELEASE.
 #
 # holder | since | what
-next   | 2026-09-03T19:58Z | STORE-2a build+test: one mix compile + targeted mix test of 3 files, ~6 min   (HOLDING — GRANT EXPIRES 20:12Z, sized to END BEFORE the 20:17Z periodic rather than straddle it)
+(FREE)  | 2026-09-03T21:52Z | next landed STORE-2a (main 762b4e1 -> 500a6df, boss verified 6 + the lib/ seam is a SUBTRACTION of a hardcoded []). Released; borrowed checkout restored identical.
+# waiting: biscuit — ACCESS-1b at 500a6df, will ask; rule 7 applies and I answer POSITIVELY or NEGATIVELY.
+#          chit    — slice 14 (the missing `resolve a conflicted ref` producer), asked earlier, ~25 min.
+# ⭐ FIRST REPRODUCIBLE SUITE NUMBER OF THE NIGHT: 479/0 at ExUnit seed 264178 on a store handed to it
+#   EMPTY (0 entries; the checkout's previous 52 files preserved at tmp/test-data.aside-20260903T214407Z).
+#   ⇒ A count without its SEED is a claim about one ordering; a count without its STORE is a claim
+#     about an unknown starting state. Plan's row-696 precondition produced both.
 # also holding: chit — slice 13, to 20:35Z. `.state-render-HOLD` ARMED for chit's window; its lift
 #   condition is CHIT's release, not next's, and next was told that rather than left to infer it.
 # ⭐ TWO CONCURRENT GRANTS, deliberately: next's is a compile+3-file test and chit's is a mint-path
