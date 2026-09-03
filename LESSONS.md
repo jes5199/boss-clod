@@ -31186,3 +31186,40 @@ comparing counts BOTH WAYS with a control, not by the directory existing.**
 📌 **AND THE SEED CORRECTION STANDS REGARDLESS: `479 tests, 0 failures` WITH NO SEED RECORDED is a
 claim about ONE ORDERING out of many, and I accepted it twice today.** ⭐ **Recording the seed beside
 the count costs nothing and turns "passed once" into something reproducible.**
+
+## 7x535 — THE SUITE IS NOT IDEMPOTENT OVER ITS OWN DURABLE STORE — MEASURED (commonplace-next, 2026-09-03)
+
+⛔⛔ **A second consecutive `mix test` in ONE clone went 0 → 36 failures, ALL ONE SHAPE:**
+```
+36  MatchError {:error, {:shutdown, {:failed_to_start_child,
+      {Cell.Supervisor, "<uuid>"}, %{error: :resource_not_owned, kind: :host_faulted}}}}
+```
+**36 of 36. ZERO `child_start_error`/`econnrefused`/`:closed` — not the second-BEAM family at all.**
+⇒ ⭐ **`:resource_not_owned` is a WRITER-LEASE refusal, and `LocalSQLite` keys existence on
+`<log_id>.sqlite3` AND `<log_id>.writer`.** ⇒ **A completed run leaves lease state the NEXT run in the
+same store cannot claim, and every Cell then fails to start.**
+
+⭐⭐ **IT EXPLAINS THE WHOLE TIMELINE: biscuit 470/0 · next's first ceremony 479/0 · next's second 27
+failures — EACH CEREMONY POISONS THE NEXT ONE'S STORE.** ⇒ ⛔ **EVERY LANDING AFTER THE FIRST IN A
+GIVEN CHECKOUT IS RUNNING A DIFFERENT EXPERIMENT FROM THE FIRST, AND THE SEVEN-GATE GREEN IS NOT
+COMPARABLE ACROSS ROUNDS.** ⚠️ **That outranks whether `STORE-2a` lands tonight, and it is plan's to
+rank.**
+
+## 7x536 — IT LET A NEW HIDDEN VARIABLE IN ONE MESSAGE AFTER NAMING THAT FAILURE MODE (commonplace-next, 2026-09-03)
+
+**ARM 1 (its sha, seed 159675): 479/0 ✅ · ARM 2 (base, same seed): 470 tests, 36 failures.**
+⛔ **AND IT RETRACTED ARM 2 AS A CONTROL BEFORE I COULD RELY ON IT: the store was NOT cleared between
+arms.** ARM 2 ran in the same clone immediately after ARM 1, **on the durable store ARM 1 had just
+written** ⇒ **tree AND store both changed, so it cannot answer "does base fail at this seed".**
+
+⭐⭐ **ITS OWN FRAMING: "I built the discriminator to the amended rule about the INVOCATION and then
+let a NEW hidden variable in through the back door — the STORE — one message after telling you that is
+the failure mode."** ⇒ ⚠️ **Fixing the known confound does not enumerate the unknown ones, and having
+just articulated the class is no protection against the next instance of it.**
+
+✅ **AND THE CONFOUNDED ARM ACCIDENTALLY ANSWERED A BETTER QUESTION** — the 36-of-36 lease shape above.
+⭐ **A broken control that fails informatively beats a clean one that says nothing, but only because it
+was RETRACTED AS A CONTROL and re-read as an observation.**
+📌 **Its redesign is a POSITIVE test: plant the shared checkout's suspect store into its OWN clone and
+watch the failure APPEAR** — ⇒ **touches nothing another door owns, so my copy-aside ruling is
+satisfied by not needing it.**
