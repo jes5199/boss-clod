@@ -15,7 +15,10 @@ next   | 2026-09-03T10:39Z | ORG-2a 5-bis (4 files x3) + 5-ter (complete suite x
 # (was FREE) | 2026-09-03T09:56Z | cell landed STORE-1b (doc main 416b895 -> faeea17, boss verified 6 with both controls) and RELEASED ON THE ARTIFACT. next offered it for its 5-bis/5-ter block; taking it at its own pace.
 #   next released after G-SESSION landed; boss verified 6 at head b1842e1 with both controls.
 # waiting, in order:
-#   (nobody) — next DECLINED the box 2026-09-03T09:48Z and gave a schedule instead of a claim:
+#   chit — DIR-R9 step 8: implementation (subagent, ~15-20 min intermittent BEAMs) + land-gates
+#          (8 BEAMs, ~5 min). GRANTED AS ONE ~20-25 min window, to start when next releases.
+#          ⭐ Granted as one because intermittent implementation BEAMs contend exactly like the
+#          gate's 8 do; splitting it buys a second ask and nothing else. — next DECLINED the box 2026-09-03T09:48Z and gave a schedule instead of a claim:
 #   ORG-2a is HOURS OF BUILDING punctuated by single-file runs of seconds-to-2min, which its own
 #   clone serves. It needs the box ONLY at 5-bis/5-ter: every two-BEAM file x3 plus the complete
 #   suite x3, ~30-40 min of CONTIGUOUS BEAM at the END of the round.
