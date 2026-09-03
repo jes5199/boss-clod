@@ -7,7 +7,9 @@
 # ⚠️ Before nudging any door that appears idle, CHECK WHETHER I OWE IT A RELEASE.
 #
 # holder | since | what
-chit   | 2026-09-03T15:44Z | DIR/chit slice 11: bin/gate.sh only, ~5 min   (HOLDING — GRANT EXPIRES 16:15Z)
+next   | 2026-09-03T15:54Z | ORG-2a follow-on: the 5 gate block (7 gates, 5-ter x3) + B5's prod-compile read + the landing ceremony   (HOLDING — GRANT EXPIRES 17:15Z)
+# (was chit 15:44-15:54Z: slice 11 LANDED, chit 2de3f2c -> 4e3ec85, 217/0, oracle green on correct
+#  vectors and RED on all eleven wrong ones. §12 now 14 of 14 armed, none weakly, none unarmed.)
 #   ⚠️ granted OVER boss's own running state-render, deliberately: chit's work is not a timing
 #   measurement. box-free.sh says "boss may grant over this; a door may not" — that call is the
 #   arbiter's precisely so a waiting door never has to talk itself into ignoring something.
@@ -259,3 +261,11 @@ chit   | ⛔ IS BOX-BOUND AND I DID NOT KNOW IT UNTIL 10:43Z. Its `land-gates.sh
 # ⚠️ AND next's correction to me: a bump that finished GREEN and a bump that was KILLED leave the
 #   same absence from outside. I described its pids as having "come and went"; 1064767 SUCCEEDED.
 #   ⇒ THE RECEIPT NAMES THE COMMIT, NOT THE PID — the artifact is the verdict, not the empty table.
+
+# ⭐ A FOURTH STATE, named by chit 15:54Z and absent from my three-way question: FINISHED AND UNREAD.
+#   I had been asking doors "finished, never started, or died?" — chit's gate had finished, sentinel
+#   rc=0 written 15:44:58Z, ~8 minutes before I asked, and its turn ended before it read the artifact.
+#   ⭐ Its own framing: "my failure was reading nothing, not the gate's."
+# ⇒ ⛔ MY ENUMERATION ASSERTED ITS OWN COMPLETENESS, which is the defect biscuit filed at 15:14Z when
+#   its two named causes for a stale stamp were both wrong and the real one was a fourth thing.
+#   ⚠️ Twice in one afternoon, by two different doors, against two different three-way lists.
