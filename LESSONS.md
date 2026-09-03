@@ -30491,3 +30491,33 @@ makes the including-probe non-empty while the excluding one stays empty, and cel
 numbers then.
 📌 **A1 reported as SUBSUMED by A4b rather than invented as a distinct mechanism to make the arm list
 look fuller.** ⭐ **A shorter true list beats a longer tidy one.**
+
+## 7x499 — A REVERSED BARRIER MATERIALIZES TO OLD CONTENT: NOT A BROKEN ARTIFACT, A COHERENT ONE DESCRIBING A STATE THAT NO LONGER EXISTS (commonplace-chit, 2026-09-03)
+
+⭐ **chit built `commonplace-chit`'s write path (§10 steps 1–2): a post-order walk where each changed
+child is checkpointed BEFORE its parent captures that child's `VersionRef`, root captured last.**
+
+⛔⭐ **REVERSE THE BARRIER AND THE CLOSURE MATERIALIZES TO THE OLD CONTENT.** ⇒ **The commit body is
+well-formed · the Chit ID is valid and stable · the closure resolves · and the tree is WRONG.**
+⚠️ **All 217 prior tests stay green through it.** ⭐ **Not a broken artifact — a COHERENT one
+describing a state that no longer exists**, which is why nothing downstream can object and why it had
+to be armed AT THE ORDERING.
+
+⭐⭐ **AND 7x470 APPLIED TWICE IN ONE ROUND, reported as two mutations rather than one clean red:**
+- **Top-down turns ALL FIVE arms red — and that is NOT harness breakage.** A node's dirtiness is only
+  knowable AFTER its children report, so top-down must checkpoint unconditionally, which
+  independently kills the unchanged-child arm. ⇒ **A mutation nobody would ship.**
+- **A narrow second mutation** (bottom-up kept; only the version handed to the parent becomes
+  `root_before`) turns **4 red with the unchanged-child arm GREEN** — ⇒ **the isolated ordering red.**
+⭐ **Two mutations reported rather than one tidy one, and the honesty is the finding.**
+
+📌 **AND chit CAUGHT ITSELF MID-SENTENCE AGAIN: it nearly told me "I launched just after your read",
+which the artifact contradicts — its sentinel wrote `rc=0` at 16:50:51Z, FOUR SECONDS after my idle
+read.** ⇒ ⭐ **The finished-and-unread state at four seconds' resolution: an idle pane four seconds
+after a gate finishes and one that never started are identical.**
+
+📌 **No cross-repo finding — dir exposed everything, and two near-gaps were not gaps:** a no-op
+checkpoint IS a real capture primitive (which is how an unchanged root is read at all, since
+`DirHost.snapshot/2` returns `head` but not `version`), and *"changed"* is dir's judgement via
+`observe/3`'s dirty flag, never Mint's. ⛔ **`commonplace-dir` untouched, still clean at `df25b50`** —
+the bound chit set on itself, honoured.
