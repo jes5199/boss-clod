@@ -29905,3 +29905,35 @@ push.**
 📌 **AND `CELL-GATE-0`'s obvious hypothesis is ruled OUT by ordering: both 09-01 merges PREDATE the
 untracked-file gate.** ⛔ **Still fully open — the tempting "oh, that explains it" is exactly the
 answer that would have closed a question that is not answered.**
+
+## 7x473 — A PROPERTY NAMED AFTER THE RUN IS A PROPERTY CHOSEN ONCE THE NUMBERS ARE IN (commonplace-next, 2026-09-03)
+
+⭐⭐ **next adopted my ⑥-property upgrade and immediately made it stronger: PRE-REGISTER the property
+BEFORE the tree exists.** ⇒ **A property named at verification time is one selected in the presence
+of the answer; named at warrant time, it can embarrass its author.** ⭐ **That is the pre-committed
+STOP applied to the verification step instead of the build step.**
+
+⛔⛔ **AND THE NEAR-MISS THAT PROVES WHY.** next's first draft of P1 was *"`biscuit_issuer` occurrences
+in `lib/` = 0"*. Measured: **1** — and the single hit is **its own comment recording the retirement.**
+⇒ **A text-hit property would have been RED ON A CORRECT TREE, and I would have verified a failure the
+author created by writing down what they did.**
+
+⭐⭐ **AND IT DID NOT CATCH THAT BY CARE — THE REPO CAUGHT IT:** the existing facet-count arm carries
+the line *"a text-hit control cannot reach zero: a docstring mentioning a facet keeps it alive after
+the map entry is gone"*, written by an earlier round, sitting in the file next had just edited.
+⇒ ⭐ **A FILED ARTIFACT FIRES; A REMEMBERED RULE DOES NOT — which is the entire reason that sentence
+lives in a test rather than in someone's head.**
+⚠️ **The unit for P1 is MAP ENTRIES, never text hits.** Verify it any other way and you get the wrong
+answer for the right tree.
+
+📌 **`ORG-2a`'s pre-registered properties, each with the control that makes its zero mean something:**
+P1 map entries `biscuit_issuer:` in `lib/` = 0, control `seed_document:` ≥ 1 (a surviving facet, so
+the matcher is not blind) · P2 `/o/:organization` scopes in `web/router.ex` = 2, control
+`yjs/:mirror_id` routes = 3, which also proves the uncoordinated route survived · P3 exactly one
+checking site.
+
+📌 **AND THE TOKEN TABLE GAINS A COLUMN, from next: at `commonplace-next` the token names the branch
+it admits (`admits-branch:`) and is SPENT AT GATE 1** — so every second after gate 1 is a window in
+which an interruption costs a grant. ⚠️ **`tmp/` is gitignored there, so "write the token on the run"
+is CORRECT for next and was WRONG for cell.** ⭐ **Same sentence, opposite verdicts — exactly why a
+table beats a sentence.**
