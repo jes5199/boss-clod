@@ -1,4 +1,9 @@
 #!/usr/bin/env bash
+# ⭐ STAMP FIRST, BEFORE ANY WORK: sweep-heartbeat.sh (system cron, outside this session) reads this
+#    file's mtime to answer "is the in-session sweep still running at all". Stamping at the TOP means
+#    a sweep that starts and then dies still records that it started — the heartbeat's question is
+#    "did the loop fire", not "did the sweep succeed". (2026-09-03, after a ~2h wedge nobody saw.)
+touch /home/jes/boss-clod/.sweep-heartbeat 2>/dev/null || true
 
 # ⛔ REFUSE UNKNOWN ARGUMENTS — exit 2 (BLIND), never a normal verdict.
 # ⚠️ Found 2026-08-23: all four of these scripts SILENTLY IGNORED any argument and
