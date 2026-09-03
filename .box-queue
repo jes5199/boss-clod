@@ -7,7 +7,7 @@
 # ⚠️ Before nudging any door that appears idle, CHECK WHETHER I OWE IT A RELEASE.
 #
 # holder | since | what
-(FREE)  | 2026-09-03T12:14Z | chit landed DIR-R10/A50 (dir 1a5187f -> df25b50) and released. ⛔ BOX IS FREE BUT HELD BY THE QUOTA HOLD until the 5h reset (~13:00Z) — no new rounds, gate blocks or subagents. next takes it for PIN-BUMP-2 AFTER the reset.
+next   | 2026-09-03T13:09Z | PIN-BUMP-2: gate-control fix, cell door's recorded pin, two new doors, then the gate block   (GRANTED — takes it at its own pace, pings on take/release)
 # waiting: next, for PIN-BUMP-2, at its own pace.
 # (was FREE) | 2026-09-03T11:57Z | chit landed DIR-R9/A49 (dir 56c0149 -> 1a5187f) and released. next has PIN-BUMP-2 dispatched and takes the box at its own pace.
 # waiting: next, for PIN-BUMP-2's suite runs -- takes it at its own pace and pings me.
@@ -107,3 +107,15 @@ chit   | ⛔ IS BOX-BOUND AND I DID NOT KNOW IT UNTIL 10:43Z. Its `land-gates.sh
 # ⭐ EXACTLY RIGHT. The release tells ME the box is free; only the GRANT carries the queue. next
 #   released truthfully and that still would not have told chit whether cell or biscuit was ahead
 #   of it. ⇒ Doors wait for the grant, never for the observable.
+
+# 📌 QUOTA HOLD 2026-09-03 12:04-13:09Z — RECORDED SO THE NEXT ONE CAN BE JUDGED RATHER THAN TRUSTED.
+#   Trigger: 5h at 91%, burning 1.12x, 56 min to reset ⇒ projected wall ~12:37Z, before the refill.
+#   Named mechanism (a hold without one is not a hold): a wall STOPS A ROUND MID-CEREMONY — spends a
+#   token, leaves a merge in a local main, costs a re-run. Not "rest", not a stand-down.
+#   Scope: finish in-flight, start no round/gate block/subagent. Reading, measuring, briefs FREE.
+#   Outcome: burn 1.44 -> 1.12 -> 1.10 -> 1.07 -> 1.04 -> 0.96x; window ended at 94% without hitting
+#   the wall; chit's DIR-R10 landed inside it; nothing interrupted.
+# ⚠️ [INFERRED] that the hold prevented a wall — the slowdown IS the hold, so the counterfactual is
+#   unobservable by construction. [measured] is only: we ended under the cap with everything intact.
+# ⭐ LIFT CONDITION WAS AN OBSERVATION, NOT A CLOCK: waited for `claude-quota` to read 5h=0%, not for
+#   the estimated reset time to arrive. The estimate was 13:00Z; the reset landed at ~13:09Z.
