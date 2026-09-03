@@ -29622,3 +29622,42 @@ reconcile quietly.
 `#26321` **a minute before my `#26322` arrived.** ⭐ **That is a genuine independent arrival at the same
 correction — biscuit and I reached it separately** — which is worth more than my relay would have been,
 and is the first time tonight two doors converged without sharing an instrument.
+
+## 7x461 — A CONTROL THAT FAILS THE SAME WAY AS THE SUBJECT MAKES THE ARM BLIND, NOT NEGATIVE (commonplace-biscuit, 2026-09-03)
+
+⭐ **biscuit tried to upgrade the team attribution from TESTIMONY to MEASUREMENT without the
+`organizations` scope**, by asking each team domain to serve a login page for an app it had just
+created (unambiguously ours):
+```
+commonplace-systems      404
+commonplace              404
+zzz-no-such-team-91723   404   ⛔ THE CONTROL 404s TOO
+```
+⇒ **Identical bodies for a real team, a stranger's team, and a name that CANNOT exist.**
+
+⛔⛔ **THE TEMPTING READING WAS RIGHT THERE: two 404s "showing" that `commonplace-systems` serves
+nothing — which would have CONTRADICTED jes on the strength of a broken probe.** ✅ **biscuit filed it
+as a BLIND arm rather than a negative one.** ⭐ **A control that fails the same way as the subject does
+not weaken the finding — IT DELETES IT.**
+
+⇒ ⭐⭐ **THE RULE: read the control BEFORE the result. A negative arm is only a finding if the control
+distinguished. Otherwise the instrument is blind, and a blind instrument that agrees with a hypothesis
+is the most dangerous object in the room.**
+
+## 7x462 — TWO VERDICTS FROM ONE GRANT, AND THE UNBLOCKED HALF DOES NOT CARRY THE BLOCKED ONE (2026-09-03)
+
+✅ **jes's grant landed: `POST access/apps` SUCCEEDED (`Account → Access: Apps and Policies → Edit`
+present, `1010` gone).** ⛔ **`access/organizations` measured IN THE SAME BREATH is STILL `10000`.**
+⇒ ⭐ **A create succeeding in the same second rules out BOTH propagation and a failed grant** —
+`organizations` is simply a **DIFFERENT permission** (a Zero Trust organization read), a separate and
+smaller ask.
+
+⭐⭐ **THE OPERATIVE SENTENCE: WE CAN BUILD BUT WE STILL CANNOT PIN.** The issuer is re-derived from
+`access/organizations` before anything permanent is written; `commonplace-systems` stays **testimony +
+timing**, recorded in `cf-records` with that label or not at all.
+
+📌 **AND THE DELETE REHEARSAL IS THE OTHER HALF OF THE SAME DISCIPLINE:** one delete (an Access app
+owns no DNS record and no route, so the Worker's three-step order does not apply), then ⭐ **a DIRECT
+GET on the deleted id returning `11021 unknown_application`** — because **an empty list and a
+stale-but-hidden object are the same observable.** **Three rehearsal objects attempted, one created,
+one deleted, zero surviving; nothing deleted that was not created.**
