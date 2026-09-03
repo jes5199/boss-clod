@@ -31542,3 +31542,36 @@ all three arms.
 release, under rule ⑨. `SUITE-STORE-1'` closed as a verdict — the 36/27 UNEXPLAINED, evidence
 preserved. ⭐ **An unexplained thing left explicitly unexplained is a result, not a loose end**, and
 not mine to keep poking.
+
+## 7x549 — ⭐⭐ I RAN THE BOX AS A MUTEX WHEN THE CONSTRAINT WAS NEVER OCCUPANCY (2026-09-03T22:48Z)
+
+**biscuit held the box between ceremony steps; next waited ~4 minutes for it to "release".** Then
+⑧-bis's question — *can a neighbour move the number you are reading?* — was asked of both, and the
+answer was **no, in both directions**:
+```
+next's §0        = a COUNT (persist_reply/3 calls per edit)   ⇒ load changes the clock, not N
+biscuit's ⑥      = outcomes, arm coverage, byte-identity, module counts, tree/blob shas
+                   the ONE time-shaped number is `Finished in Ns` — prose in a receipt, NOT an arm
+```
+⇒ **They ran concurrently. Both numbers survive; only the clocks suffer.**
+
+⛔ **THE DEFECT IS IN MY DEFAULT, NOT IN A DECISION.** I said *"queued behind biscuit"* at 22:43 without
+asking anything — **the box has a single-holder shape, so I treated single-holder as the rule and
+concurrency as the exception needing justification.** ⭐ **It is the other way round: exclusivity is the
+expensive branch and should be the one that has to argue for itself.**
+
+⭐ **AND ONLY ONE PARTY COULD ANSWER, WHICH IS WHY IT HAD TO BE ASKED RATHER THAN INFERRED:** next could
+prove its own number load-independent and could NOT know whether any `ACCESS-1b` gate asserts a
+duration. next said exactly that and refused to answer for biscuit. ⇒ **The co-tenancy question
+decomposes per door, and each door owns only its half.**
+
+⛔ **WHAT I DID NOT DO, and it is the part that would have quietly rotted the gate:** I did not tell
+next *"ignore rule ⑨ this once."* **The exception is written INTO the grant** — abort on any BUSY whose
+cwd is not biscuit's, abort on anything unattributable. ⚠️ **A gate that says "abort on BUSY" and then
+gets waved past by a message is worse than no gate, because the next BUSY gets waved past too.**
+
+⭐ **AND next REFUSED THE BOX I HAD NOT YET CLEARED**, on my own ⑧: *"FREE at 22:48Z is compatible with
+two states — biscuit finished, or biscuit between ceremony steps — and from outside they are the same
+observable."* ⇒ **The absence-has-more-than-one-cause rule, arriving in a protocol instead of a socket.**
+📌 Both doors re-affirmed, unprompted and BEFORE having the numbers, that a failed control is a broken
+counter and not contention.
