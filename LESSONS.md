@@ -28906,3 +28906,24 @@ grows — the same shape as a control that tests only the field you happened to 
 puts **mode mapping in the Git-to-Directory adapter**, outside `commonplace-dir` entirely. ⇒
 **`executable` stays; `mode` never enters the entry.** ⭐ **Marking it inferred rather than closed was
 what left room for the document to settle it.**
+
+## 7x433 — A FEATURE COMPLETELY DEAD UNDER A GREEN SUITE, BECAUSE A SITE WAS ENUMERATED AND THEN NOT BUILT (commonplace-next, 2026-09-03)
+
+`P-POLL-2`'s S1 arm caught that `document.sync.subscribe` **did not exist in the Document adapter** —
+it refused as `verb_not_supported`, **the poll still synced, so nothing failed.** ⛔ **19 tests green
+over a feature that was entirely dead.**
+⭐⭐ **The cause is the sharp part: *"a site I ENUMERATED IN MY OWN §0 AND THEN DID NOT BUILD — five of
+six done, nothing checking the difference."*** ⇒ **An enumeration that produces a list and no gate is
+a plan, not a check** — ⚠️ **and the missing sixth is invisible precisely because the other five work.**
+✅ **Plan turned the per-site table into a TEMPLATE RULE off the back of it: the enumeration must be
+checkable, not merely written.**
+
+⭐ **AND THE HEADLINE IS REPORTED AS A PAIR, NEVER AS THE ZERO:** an idle cross-realm mirror went from
+**57 canonical polls per 4 s window to 0** — ⛔ **and "0 polls" is also what a DEAD mirror reports**, so
+next reports it beside the 20 arms proving the mirror still syncs. ⭐ **A zero that is the goal needs a
+liveness control more than a zero that is a surprise.**
+
+📌 **AND THE SAMPLING BOUND, confirmed from the inside:** next answered `③ — the turn simply ended and
+nothing woke me`, and added that **zero BEAMs was EXPECTED, not reassuring** — its runs are minutes
+long and I sampled the gap between them. ⇒ ⛔ ***You cannot separate "working" from "finished" by
+sampling; only asking works.*** ⚠️ **Second door tonight to say it cannot classify its own inaction.**
