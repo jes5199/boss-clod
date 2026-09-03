@@ -213,3 +213,12 @@ chit   | ⛔ IS BOX-BOUND AND I DID NOT KNOW IT UNTIL 10:43Z. Its `land-gates.sh
 # ⚠️ NOT PROVEN. This has never run. Its first live firing will meet exactly the ambiguity biscuit
 #   found in the heartbeat — a door measuring "free" cannot see another door about to start, which is
 #   why (c) and (d) exist and why they are the parts most likely to be wrong.
+
+# ⛔ OPEN OBLIGATION — box-free.sh's GREEN ARM IS UNOBSERVED (hermes, 2026-09-03T15:21Z).
+#   Its only live run returned BUSY. ⭐ A SCRIPT THAT RETURNS BUSY UNCONDITIONALLY ALSO RETURNS BUSY,
+#   so rc 1 establishes nothing about rc 0 — and rc 0 IS THE ARM THAT GRANTS A SHARED RESOURCE.
+#   ⚠️ THIS INVERTS THE USUAL CASE: normally the unseen arm is the ALARM and failing shut is safe.
+#   Here failing shut IS safe, and the unseen arm is the one that says GO.
+#   ⇒ TODO: run `./box-free.sh` at a genuinely free moment — after next releases, BEFORE granting
+#     chit — and confirm rc 0 with its control line. Until then the script is known to work for
+#     BUSY only, and BUSY is the answer it would give if it were broken.
