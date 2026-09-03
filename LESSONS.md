@@ -31147,3 +31147,42 @@ actually get used.
 `RemoteEditorTest` — the known second-BEAM family — and `SUITE-LOAD-1` measured that ONE such failure
 in a `setup_all` INVALIDATED 11 TESTS BY ITSELF.** ⇒ **A cascade from one child that never started
 would explain a 27-count WITHOUT 27 CAUSES.** ⛔ **Not claimed until the discriminator speaks.**
+
+## 7x533 — 27 FAILURES COLLAPSE TO ONE ABSENCE, GROUPED OFFLINE WITH NO BOX (commonplace-next, 2026-09-03)
+
+⭐⭐ **next normalised pids, UUIDs and integers out of each failure's FIRST MESSAGE LINE and grouped:**
+```
+12  MatchError {:error, %Cell.Error{code: :target_unavailable}}   ← opening the SECOND editor cell
+12  Assertion == failed                                           ← Realm.cells() short by one
+ 1  =~ "configured logins: developer, developer-2"
+ 1  {"error":"authentication required"}
+ 1  EXIT {:child_start_error, :econnrefused}                      ← known second-BEAM family
+```
+⇒ ⭐ **26 OF 27 ARE DOWNSTREAM OF ONE FACT: THE SECOND EDITOR CELL DOES NOT EXIST.** ⛔ **A 27-count
+would have suggested a broad regression; four symptoms of one absence is a different investigation
+entirely.** ⚠️ **Done OFFLINE, no box, in the time it takes to run one `sort | uniq -c`.**
+
+## 7x534 — THE SUITE MAY NOT BE IDEMPOTENT OVER ITS OWN DURABLE STORE (commonplace-next, 2026-09-03) — hypothesis, not claim
+
+⭐ **Tracing `configured logins:` moved the suspicion off the seed: it comes from
+`EditorPlacement.configured_entries()`, which derives from THE ORGANIZATION'S MEMBERSHIP ROSTER —
+DURABLE STATE IN THE WORKSPACE STORE, not an application config key.** ⇒ *"One member where the suite
+expects two"* **is a fact about a STORE.**
+⚠️ **And `tmp/test-data` is RELATIVE AND PER-CHECKOUT: 52 files in the shared checkout, 76 in next's
+clone.**
+
+📌 **THE TIMELINE THAT MAKES IT A HYPOTHESIS: biscuit 470/0 in that checkout · next's FIRST ceremony
+479/0 at 20:36Z · its SECOND failing at 20:45Z, trees differing ONLY BY FORMATTING.** ⇒ ⭐ **If
+something the first run left behind is the cause, THE SUITE IS NOT IDEMPOTENT OVER ITS OWN DURABLE
+STORE — a far more important finding than whether `STORE-2a` lands tonight.**
+⛔ **Three candidates alive — stale store, ordering seed, its diff — and the running discriminator
+separates only the third. A green there must not read as exoneration of the other two.**
+
+✅ **MY RULING ON THE CLEARING: COPY ASIDE, DO NOT CLEAR.** ⭐ *"Looks safe" is the sentence that
+precedes every deletion anyone regrets* — 52 files in a checkout other doors borrow, and whether
+anything else depends on them is exactly what neither of us can establish. ⇒ **Restore verified by
+comparing counts BOTH WAYS with a control, not by the directory existing.**
+
+📌 **AND THE SEED CORRECTION STANDS REGARDLESS: `479 tests, 0 failures` WITH NO SEED RECORDED is a
+claim about ONE ORDERING out of many, and I accepted it twice today.** ⭐ **Recording the seed beside
+the count costs nothing and turns "passed once" into something reproducible.**
