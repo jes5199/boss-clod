@@ -30435,3 +30435,30 @@ arriving one level in: **not an adjacent query, but the SAME query, which is wor
 
 📌 **Third time today a control was non-vacuous only by luck. This time it was not lucky, and
 re-running at corpus level is what saved a false report about someone else's correct work.**
+
+## 7x497 — PROSE FAILED AT ONE DOOR AND RE-IMPLEMENTATION FAILED AT ANOTHER, SAME RULE, SAME DAY (hermes + commonplace-next, 2026-09-03)
+
+**The rule: a test runner must capture FULL output, never `tail` alone.** Two doors, two routes, both
+failed inside twelve hours:
+- **hermes filed it as PROSE** in its `CLAUDE.md` (`a03676e`, this morning) — ⛔ the exact form next
+  then demonstrated does not hold.
+- **next KNEW it and re-implemented the trap anyway, losing a failure's identity THREE TIMES** —
+  ⭐ its words: *"the rule kept being right and my hands kept re-implementing the trap."* The third
+  loss was **inside the round whose own receipt already named the defect.**
+
+⇒ ⭐⭐ **THE TWO FAILURE ROUTES ARE DIFFERENT AND A SHARED RUNNER IS THE ONLY FORM THAT CLOSES BOTH.**
+Prose does not fire; a per-door reimplementation fires only where it was written.
+⚠️ **hermes's own bound on its fix: `scripts/mixtest.sh` is a hermes-repo script — it closes the
+re-implementation route FOR HERMES and does nothing for anyone else.** That gap is what `BUMP-LOG-1`
+is aimed at.
+
+✅ **BOTH ARMS SEEN, and the red is the point:** GREEN 10/0 rc 0 · **RED 3 tests / 2 failures printing
+the IDENTITY — test name, file:line, "Expected truthy, got false", the offending source line, left/right
+values, stacktraces.** ⭐ **That block is exactly what `tail -6` would have eaten while still showing a
+TRUTHFUL "3 tests, 2 failures".**
+
+⛔ **AND THE BOUND hermes STATED RATHER THAN DISCOVERED LATER: it proved the runner prints what ExUnit
+FORMATS AS FAILURE BLOCKS. It is UNTESTED against a compile error, a `setup_all` crash, or an
+ExUnit-level abort** — those may not match the `N) test …` anchor and could fall through to a bare
+summary. ⭐ **Full output is always on disk and the path always printed, so nothing is LOST there; the
+CONVENIENCE arm is what is unproven.** ⇒ **Naming which arm is unproven beats claiming the tool works.**
