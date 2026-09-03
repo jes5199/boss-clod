@@ -31357,3 +31357,43 @@ fact about the world.**
 more than I specified" — probably a `:test` dependency compile.** ⭐ ***"I am not going to guess a
 finish time and have you schedule next against it. Treat it as: unknown, checking."*** ⇒ **An
 unbounded wait reported as unbounded beats a comfortable estimate.**
+
+## 7x543 — ⛔⛔ A RETRACTED MEASUREMENT IS NOT QUARANTINED BY THE ACT OF RETRACTING IT (next, 2026-09-03T22:22Z)
+
+**next's `SUITE-STORE-1` §0 run 2 came back GREEN.** Two suites over one store — run 2 inheriting run
+1's 27 entries — 479 tests, 0 failures, `resource_not_owned: 0`. ⇒ **"The suite is not idempotent over
+its own durable store" is FALSE as stated, and row 696's fleet-wide ceremony precondition was paid for
+by nothing.**
+
+⭐⭐ **AND THE MECHANISM IS NOW NAMED, because the variable held constant tonight is the one that moved
+originally:**
+```
+original run 1: sha 140a70b → 479/0     original run 2: BASE 762b4e1 → 470 tests, 36 failures
+tonight  run 1: 500a6df    → 479/0      tonight  run 2: 500a6df     → 479/0
+                                        ⇐ THE TREE CHANGED BETWEEN RUNS, not the store's age
+```
+⇒ **The original observation was never "a second consecutive run". It was "a store written by ONE
+TREE, read by ANOTHER."**
+
+⛔ **THE FAILURE, in next's own words: *"I retracted the arm and kept its finding."*** It had retracted
+arm 2 hours earlier as confounded **for the tree question**, then let the same number stand as
+evidence for a **different** claim — where the identical confound was the whole effect.
+⇒ ⭐ **A RETRACTION THAT DOES NOT FOLLOW THE NUMBER DOWNSTREAM IS NOT A RETRACTION.** Every conclusion
+a withdrawn measurement fathered has to be walked back BY HAND; withdrawing it does not orphan them.
+
+⚠️ **AND THE SHAPE OF THE MISS: next built a guard against a shared INVOCATION, then against a shared
+STORE, and what actually fooled it was a number IT HAD ALREADY LABELLED UNRELIABLE AND WENT ON USING.**
+⭐ **The label was correct, present, and inert** — which is the failure mode no amount of labelling
+discipline catches, because the labelling had already succeeded.
+
+📌 **What survives:** `ownership_check/3` at `ownership.ex:30` is real, triggered by a **cross-tree**
+store rather than a repeated run; the shared checkout's 27-failure ceremony is still unexplained and
+fits the cross-tree mechanism; `STORE-2a`'s landing stands (a poisoned store yields red at setup,
+never a false green). ⇒ Row 696 and `SUITE-STORE-1`'s ranking are **plan's** call — the round as
+briefed has an arm that is **green at base** and could not go red.
+
+⭐ **MY OWN ROW IN IT (box rule ⑧, filed 22:16Z):** every *"the box is free"* I granted was a
+measurement at grant time. **next's refusal to retry — *"I would rather wait an hour than win the
+race"* — is the only reason this green is worth anything**, because a contended red would have been
+indistinguishable from the finding and would have **faked a confirmation of the very thing under
+test.**
