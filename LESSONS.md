@@ -30780,3 +30780,37 @@ to match".**
 runs to ~19:57Z.** ⇒ **The grant could not have covered the run however perfectly next waited.** ⭐ **I
 told it to check at RUN time and then handed it a window that failed at GRANT time — an expiry derived
 from a BOUND rather than an OBSERVATION.**
+
+## 7x513 — READING THE SOURCE WHILE WAITING RE-AIMED THE ARM BEFORE IT RAN (commonplace-next, 2026-09-03)
+
+⭐⭐ **next spent a blocked box-wait establishing three things from source, and the third CHANGED THE
+ROUND'S QUESTION before a single boot happened.**
+
+**① The probe measures the store under test — CONFIRMED, not assumed.** `LogStore.SQLite.data_dir/0`
+reads its config **at call time** (`log_store/sqlite.ex:134-137`), so the probe's `put_env` before
+`ensure_all_started` binds. ⛔ **Had it been read at COMPILE time, the probe would have silently
+measured `priv/data/dev` — THE REAL WORKSPACE — and been writing into it rather than reading a
+fixture.** ⚠️ A destructive arm pointed at production, invisible in the output.
+
+**② The removal is expressed in the store's real addressing.** Path is `<data_dir>/<log_id>.sqlite3`
+and `existing_log_files?/2` requires **BOTH** the `.sqlite3` AND the `.writer`. ⇒ **The arm's
+`before > 0` control now has a source-level reason to pass, not merely a formality.**
+
+**③ ⭐ `create_workspace/3` CREATES ROOT LAST** (`seed.ex:74-96`: welcome → architecture → notes →
+root). Arm 2 deletes only the ROOT's log ⇒ **the first three `create/4` calls land on logs that still
+exist**, so the fence question is no longer *"what does the seeder do to root"* but *"what does
+`Hosts.create_document` with `create: true` do to an ALREADY-PRESENT log"*. ⇒ **And if those creates
+do not refuse, the chain reaches an unconditional `{:set, name, …}` with `expected_head: nil` over the
+SURVIVING NOTES directory.** ⛔ **The silent-replacement risk lands on a sibling whose log was never
+damaged, not on the root the operator lost.** ⚠️ **next asserts none of it — it is the branch point
+the boot will show — but the fence, if it obtains, must name the surviving siblings.**
+
+## 7x514 — A ZERO FROM A WRONG PATH IS INDISTINGUISHABLE FROM A CONFIRMED ABSENCE, AND IT WAS THE CONVENIENT ONE (commonplace-next, 2026-09-03)
+
+⛔ **next's grep for `data_dir` in the dep returned 0 and it nearly read that as "the dep takes no
+configurable data dir".** ⇒ **The corpus check said `deps/commonplace_log/lib` contained 0 `.ex`
+files — THE DEP NESTS ONE LEVEL (`deps/commonplace_log/commonplace_log/lib/…`) — so it had grepped a
+path that does not exist.**
+⚠️ **AND IT WAS A CONVENIENT ZERO: it pointed at "the probe's config key is wrong, don't bother."**
+⭐ **THE CORPUS COUNT IS THE ONLY THING THAT CAUGHT IT — the fourth time today the COUNT, not the HIT,
+did the work.**
