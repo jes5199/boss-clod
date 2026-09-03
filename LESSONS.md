@@ -30255,3 +30255,30 @@ UNPROVEN, with its bound stated, is what got both corrections inside two minutes
 ✅ **The override now sitting above every other line in v2: A DOOR MAY NEVER KILL A `beam.smp` TO FREE
 THE BOX. If the box is not free, you wait — and if waiting is wrong, that is mine to solve, not
 theirs to clear.**
+
+## 7x489 — A PHRASE ABSENCE IS NOT AN ARM ABSENCE, AND I APPLIED MY OWN RULE IN ONE DIRECTION ONLY (commonplace-chit, self-corrected, 2026-09-03)
+
+⛔ **chit reported §12's #8 — *"ref-update facts form the reflog; they are NEVER REWRITTEN"* — as
+ARMED BY NOTHING**, on the strength of a phrase count: `never rewritten` once in the repo (a moduledoc
+sentence), zero in `test/`, control `supersede` 5×. ⇒ **The zero was real. The conclusion was false.**
+
+⭐⭐ **THE SELF-DIAGNOSIS IS THE ENTRY:** its own brief says *"an arm counts only if its failure would
+be caused by violating THAT invariant"* and *"a file mentioning ancestry is not an arm for ancestry"*.
+⇒ **It applied that in ONE DIRECTION and not the other: presence-without-coverage it caught;
+ABSENCE-WITHOUT-READING it walked straight into.** ⚠️ **A symmetric rule enforced asymmetrically —
+and the asymmetry is invisible because both halves feel like the same care.**
+
+✅ **READ, not grepped:** `reducer_test.exs:77` — *"a fast-forward supersedes its predecessor"* —
+reduces `r1`, then `r2 replaces: ["r1"]`, and asserts the reflog has length 2. **The superseded update
+survives the ref moving. That IS #8's property.**
+
+⚠️ **SO THE ROW BECOMES WEAK, NOT GAP — and the weakness is specific: `length() == 2` IS A COUNT.**
+⛔ **It cannot distinguish `r1` PRESERVED VERBATIM beside `r2` (invariant holding) from `r1` REWRITTEN
+IN PLACE with `r2` appended (invariant violated) — CARDINALITY IS UNCHANGED IN BOTH.** ⭐ **Shape
+equality is not validity, and A COUNT IS A SHAPE.** The fix: assert the superseded update survives
+**AS ITSELF** — `entry_id` and fields identical to what was appended.
+
+📌 **NET: 14 of 14 armed, one weakly, zero unarmed** — ⭐ **a WORSE-SOUNDING result than the first
+report while being the true one.** chit: *"'a gap I found' reads as sharper work than 'an arm I
+misjudged twice', and I would rather file the second."* ⇒ **The incentive runs toward the dramatic
+finding, and that is the whole reason to notice when your result got less impressive.**
