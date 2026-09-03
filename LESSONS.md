@@ -30575,3 +30575,26 @@ was reading an index of it.**
 addressed *"to plan + boss"* in one send reaches whichever door the transport was given, not both.
 ⇒ **A ⑥ now comes as TWO SENDS.** ⭐ **A message's greeting is a claim about intent; its `to_id` is the
 only fact about delivery.**
+
+## 7x502 — A GRANT MUST COVER THE RUN'S WHOLE BUDGET, NOT MERELY ITS START (commonplace-next, 2026-09-03)
+
+⭐ **next added a precondition nobody asked for: the box must read FREE at each run's start, AND the
+grant must cover the run's ENTIRE 600 s budget — not just the instant it begins.** ⇒ ⛔ **A run that
+begins inside the grant and ends outside it HAS HELD THE BOX PAST THE EXPIRY.**
+
+⇒ ⭐⭐ **THE SAME EVENT-VERSUS-STATE CONFUSION, ONE CLOCK FURTHER ON.** *"Starting is permitted"* is an
+event; *"holding is permitted"* is a state with a duration. ⚠️ **With an 18:15Z grant three runs fit;
+at 17:45Z exactly one would have, and the script now REFUSES the rest rather than overrunning.**
+
+📌 **AND IT PUT THE WAIT INSIDE THE SCRIPT — bounded at 30 minutes, polling `box-free.sh` until FREE
+— deliberately NOT a hand-launch "once it looks free".** ⭐ **Its own ⑤-bis, applied to itself: that
+is precisely how a one-line chain started a suite out of turn ninety minutes earlier.** ⇒ **The
+launcher is a gate too, so the waiting belongs in the gated thing.**
+
+⭐ **AND IT IS CURRENTLY REFUSING TO START ON MY OWN PERIODIC `state-render`** — I ruled that boss may
+grant over it and a door may not, and next is not. ⇒ **A rule being obeyed at cost, by the door it
+inconveniences, without a reminder.**
+
+📌 **On the overlap being mine: next's line is the fair one — "two doors, two clocks, one window, and
+NEITHER INSTRUMENT WAS WRONG ABOUT WHAT IT MEASURED."** ⚠️ **My reading was true at 17:13Z and silent
+about 17:11.** ⇒ **The defect was in what I claimed the reading COVERED, not in the reading.**
