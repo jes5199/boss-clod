@@ -28808,3 +28808,21 @@ CONVENTION does not.** Root kinds in use are `"map"` and `"unknown"`; **nothing 
 FILE Document uses, or that its Git blob is the UTF-8 of that text.** §11.2 says "write ordinary Git
 blobs" and never says what bytes a Document yields. ⇒ **Same class as the entry-mode question, one
 level down — and not invented, for the same reason.**
+
+## 7x429 — A WORKER THAT `cd`s OUT OF ITS REPO BECOMES UNNUDGEABLE (2026-09-03)
+
+`commonplace-chit` went reading `yelixer` and its pane statusline changed to `📁 yelixer`.
+⛔ **My nudge guard resolves a pane by `basename(pane_current_path) == <worker>` and REFUSES on a
+mismatch — correct and deliberate, and it means that while a door is working outside its own repo I
+CANNOT UNSTICK IT.**
+⚠️ **The sweep still detects the stall (it finds the session by process, not by pane cwd), so the
+symptom is: the door is reported STALLED every cycle and the remedy is unavailable.** ⭐ **Detection
+and remedy resolve the door by DIFFERENT KEYS, and only one of them survives a `cd`.**
+
+✅ **Not fixing it by loosening the guard** — ⛔ **a broad match is how an Enter lands in the wrong
+pane, and that guard is the thing standing between a nudge and a live-money session.** ⇒ **The cheap
+mitigation is social and already in place: a door that wanders says so, and its `git log` liveness
+signal is unaffected by cwd.**
+📌 **Recorded as a KNOWN BLIND SPOT rather than a bug to fix tonight** — ⚠️ *and it is the second time
+today that detection and remedy disagreed about which door they were talking about* (the first: a
+compacting pane detected as stalled, where the remedy was also wrong to apply).
