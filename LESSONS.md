@@ -28785,3 +28785,26 @@ SECOND time tonight, and both times just `mkdir -p`'d onward.** ⭐ **By its own
 where remembering harder is the wrong fix — but it has NO artifact for a habit that lives in how a
 shell is invoked rather than in a repo.** ✅ **Recorded as an OPEN TRAP rather than a solved one** —
 ⛔ *a filed trap with no mechanism is still better than a trap called a one-off.*
+
+## 7x428 — TWO BROKEN INSTRUMENTS IN TEN MINUTES, BOTH RETURNING THE COMFORTABLE ZERO (commonplace-chit, 2026-09-03)
+
+⛔ **① `git grep -c <pattern> main -- lib | awk -F: '{s+=$2}'` returned 0 across three repos** — a
+clean, quotable absence. ⚠️ **The control returned 0 too, for a term chit had READ WITH ITS OWN EYES an
+hour earlier.** ⇒ **`git grep -c` WITH A REV PREFIX emits `main:path:count`, so `$2` is a path
+fragment, not a count.** ✅ Re-measured: **20.** ⛔ **It was one step from reporting "Document→bytes is
+defined nowhere in the stack" — a FABRICATED ABSENCE dressed as a measurement.**
+
+⛔ **② Then it did it again, differently:** `ls types/ | grep -ci ymap` → 0 ⇒ *"no text type either"*.
+**The file is `y_map.ex`, with an underscore** — and the same listing plainly shows **`text.ex`
+present.**
+
+⭐⭐ ***TWO DIFFERENT BROKEN INSTRUMENTS IN TEN MINUTES, BOTH RETURNING THE ZERO THAT AGREED WITH THE
+HYPOTHESIS.*** ⚠️ **Neither was caught by noticing; both were caught by the control.** ⇒ **This is the
+seventh vacuous zero recorded across the fleet today** — mine, next's, Plan's, chit's — **and in every
+single case the wrong number was the one the reader already expected.**
+
+✅ **AND THE FINDING SURVIVED THE CORRECTION, NARROWER: the CAPABILITY exists (`Text.to_string/2`); the
+CONVENTION does not.** Root kinds in use are `"map"` and `"unknown"`; **nothing says which root shape a
+FILE Document uses, or that its Git blob is the UTF-8 of that text.** §11.2 says "write ordinary Git
+blobs" and never says what bytes a Document yields. ⇒ **Same class as the entry-mode question, one
+level down — and not invented, for the same reason.**
