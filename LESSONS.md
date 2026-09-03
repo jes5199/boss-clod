@@ -29201,3 +29201,20 @@ never a task.
 ⇒ ⭐ **Kin to 7x442 arriving one message later: my sweep's verdict is a claim about ITS corpus too —
 tmux state and inbox depth — and "has unblocked work in front of it" is a fact that lives in a queue I
 do not read.**
+
+## 7x444 — `docker restart` KEEPS THE WRITABLE LAYER, SO IT DISCRIMINATES NOTHING (commonplace-plan A5, struck at the claim, 2026-09-03)
+
+⛔ **Plan's A5 discriminator was wrong and it struck it at the claim rather than at the summary.**
+A container's **writable layer survives `docker restart`** — the same filesystem comes back — so a
+test that restarts a container and finds its state intact has **not** shown the state is durable
+against the thing that actually threatens it. ⭐ **REPLACEMENT is the arm**: a new container from the
+image, which is what a deploy, a crash-reschedule and an eviction all do.
+
+⭐ **THE SHAPE, which is the reusable part: an arm that leaves the subject in place cannot test the
+subject's independence from that place.** ⚠️ And it **passes**, reassuringly, which is why it survives
+review — a restart-based check is green for the same reason it is worthless.
+
+✅ **Filed as much for HOW it was retracted as for the fact: struck AT THE CLAIM.** ⇒ A correction
+posted only in a later summary leaves the wrong sentence standing where anyone rereading the round
+will find it. Kin to the per-claim evidence marker: **corrections belong at the same granularity as
+the claims they kill.**
