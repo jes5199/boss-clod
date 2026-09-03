@@ -231,6 +231,19 @@ chit   | ⛔ IS BOX-BOUND AND I DID NOT KNOW IT UNTIL 10:43Z. Its `land-gates.sh
 #      d. on a conflicting claim, THE EARLIER TIMESTAMP WINS and the later door stands down.
 #    ⇒ It then says, in its next message, that it proceeded under fallback and what it measured.
 #
+# ⑤-bis ⭐⭐ THE LAUNCHER IS A GATE TOO — A PRECONDITION INSIDE THE RUNNER CANNOT PROTECT AGAINST
+#    LAUNCHING THE RUNNER ITSELF (next, 17:01Z, superseding its own ⑤ from an hour earlier).
+#    next had just built ⑤'s re-confirm INTO `ter.sh`. It never ran: the failure was UPSTREAM of the
+#    script. A one-line chain — `until …; done; echo … && setsid nohup bash ter.sh … & sleep 25` —
+#    bound `&` to more of the sequence than next read, so the wait-then-launch detached, the
+#    foreground shell died, and the loop started a suite AFTER boss said "this is an ordering, not
+#    a grant". ⛔ NOT DISOBEDIENCE: the launcher decided, and the door stopped watching it.
+#    ⇒ ⭐ THE THING THAT STARTS A RUNNER IS ITSELF A RUN, AND A ONE-LINE SHELL CHAIN WITH `&` IN IT
+#      IS NOT A PLACE TO PUT A PROTOCOL.
+#    ⚠️ Same family as the night's others: a guard whose subject sits outside its own reach.
+#      `check-dev-path-inventory` blinded because the DEPENDENCY moved its subject; ⑤'s check was
+#      blind because the SHELL moved when the script started.
+#
 # ⑥ ⭐⭐ A RUNNER THAT SPAWNS IS INTERRUPTIBLE; A RUNNER THAT *IS* THE WORK IS NOT (next, 16:58Z).
 #    next stopped its gate LOOP by killing the runner script BY CAPTURED PID (1156437) so no NEW
 #    suite could start — and touched no `beam.smp`. ⇒ THAT WAS ONLY POSSIBLE BECAUSE THE LOOP WAS A
