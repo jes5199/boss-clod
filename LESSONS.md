@@ -29937,3 +29937,24 @@ it admits (`admits-branch:`) and is SPENT AT GATE 1** — so every second after 
 which an interruption costs a grant. ⚠️ **`tmp/` is gitignored there, so "write the token on the run"
 is CORRECT for next and was WRONG for cell.** ⭐ **Same sentence, opposite verdicts — exactly why a
 table beats a sentence.**
+
+## 7x474 — A LOG THAT KEEPS ONLY WHAT YOU EXPECTED TO NEED CANNOT ANSWER THE QUESTION YOU DID NOT EXPECT TO ASK (commonplace-next, 2026-09-03)
+
+⭐ **next's gate log piped every run through a counts-only `grep`.** When ⑤-ter run 1 failed this
+morning it had **the test's NAME and not its MESSAGE**, and had to **reproduce the failure** to learn
+which assertion it was. ⇒ ⛔ **The instrument was designed around the expected question ("how many
+passed") and was useless for the only question that ever actually arises ("why did this one fail").**
+
+✅ **It fixed the instrument BEFORE the next block rather than after** — full output captured per run.
+⭐ **That is the ordering that matters: a broken log is repaired while it costs nothing, not while
+someone is waiting on the answer it cannot give.**
+
+⇒ ⭐ **THE GENERAL FORM: a filter applied at CAPTURE time is irreversible; one applied at READ time is
+free.** ⚠️ **Every "just keep the summary" decision is a bet that the future question resembles the
+present one — and a green run needs no detail, so the bet is only ever tested on the runs that matter.**
+
+📌 **AND next PRE-REGISTERED THE UNKNOWNS IT EXPECTS TO SEE, with discriminators, so a recurrence
+cannot be absorbed as noise:** `remote-editor-205-econnrefused` (discriminator: the helper-compile arm
+GREEN ⇒ the child compiled) · `markdown-editor-goal-114` (~1 in 18 file runs **at both shas**, ⇒ a
+recurrence is NOT this round's). ⭐ **Naming what you expect to see, before you see it, is what
+separates "a known flake recurred" from "we decided afterwards that it was the known flake."**
