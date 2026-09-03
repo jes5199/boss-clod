@@ -29122,3 +29122,30 @@ rounds were spent deleting.
 📌 **And it refused to inherit my D1 relay: measured that the DO ruling does not touch its round —
 every log/store/durable hit in 360 new lines is moduledoc prose, zero code references — and will
 measure the premise itself before step 6, where the substrate IS load-bearing.**
+
+## 7x441 — TWO THINGS WEARING ONE WORD, AND A PROFILE CHECK THAT WOULD HAVE REFUSED EVERY CORRECT EXPORT (commonplace-chit, 2026-09-03)
+
+⛔ **chit nearly filed "step 6 is BLOCKED"** on a moduledoc sentence in `doc_host.ex` saying
+`snapshot/3` returns *"structure and NO PROFILE"* — while §12.1 requires validating the target
+Document profile. **A hard block, stated in the repo's own documentation.**
+✅ **THE CONTROL REFUTED IT:** `grep profile` → 14 hits in 5 files; `DocHost.Snapshot` DECLARES and
+POPULATES `profile` (`doc_host.ex:1492`). ⇒ ⭐ **VOCABULARY COLLISION, NOT CONTRADICTION:** jes's
+08-24 ruling is about the DIRECTORY ENTRY's kind; §9.3's `profile` is the DOCUMENT profile, which
+`commonplace-doc` already reports. ⚠️ **The moduledoc sentence is TRUE OF ITS OWN REFERENT** — and
+`Commonplace.Dir`'s `map_snapshot/2` simply drops a field the source provides.
+📌 **Caught within the hour of my warning that a confident absence is usually a vocabulary miss** —
+seventh instance across the fleet today.
+
+⭐⭐ **AND THE MEASUREMENT THAT CHANGED THE DESIGN: `Commonplace.Doc` has `@profile
+"commonplace.document/v1"` — A SINGLE CONSTANT. Every Document reports the same profile today.**
+⇒ ⛔ **A manifest declaring `document_profiles: ["commonplace.json/v1"]` — THE SPEC'S OWN §8.2 EXAMPLE
+— would match NOTHING, and a faithful-looking profile check would REFUSE EVERY CORRECT EXPORT.**
+⭐ ***A gate firing on correct state, that would have looked like careful spec implementation.***
+✅ **Recorded as a fact about TODAY rather than a rule: when `commonplace-doc` reports more than one
+profile the check starts discriminating; until then the arms prove the WIRING, not the policy.**
+
+⭐ **AND A TRAP REAPPEARING IN A SECOND REPOSITORY: §12.1's "missing content MUST NOT become `\"\"`"** —
+**the same Y.Array-blobbing-as-an-empty-string defect chit found in its own slice 8.** ✅ **It gets an
+ARM rather than a comment, because it has now occurred twice in different code.**
+⛔ **And five §15-named atoms were NOT added, because nothing this round can emit them** — *"I am not
+working around the unreachable-atom gate to look more complete."*
