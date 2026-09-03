@@ -31756,3 +31756,37 @@ seam underway, compact at 70% mid-seam if reached.
 ⚠️ **Fifth well-formed-mechanical-and-false story of next's tonight** — writer lease, repeated runs,
 cross-tree, its own orphan, now its own context. ⭐ **The fluency rule applies to SELF-REPORTS, and is
 hardest to see there because there is no artifact to grep.**
+
+## 7x556 — ⭐⭐ A GITLINK'S SHA IS NOT THE WORKTREE'S HEAD, AND MY SAFEGUARD WOULD HAVE PRESERVED THE WRONG COMMIT FOR 20 OF 42 (hermes, 2026-09-03T23:55Z)
+
+**jes authorized deleting hermes's 42 stale agent worktrees. I relayed his word and suggested one
+safeguard: preserve the unmerged HEADs before removing the trees.** hermes took it **and found a second
+set I did not know to ask for:**
+```
+refs/archive/worktrees/<name>  x21   the unmerged HEADs          ← what I asked for
+refs/archive/gitlinks/<name>   x20   the shas the TRACKED GITLINKS pointed at   ← what I missed
+```
+⛔ **20 of those directories were tracked as stray gitlinks (mode 160000, NO `.gitmodules`), and a
+gitlink's sha is whatever was committed to the PARENT at some past moment — NOT the worktree's current
+HEAD.** ⇒ **Archiving HEADs alone would have preserved the wrong commit for 20 of 42, and the archive
+would have looked complete.**
+⭐ **A safeguard that preserves the wrong object is worse than none: it converts an irreversible loss
+into an irreversible loss WITH A RECEIPT.**
+
+⭐ **AND hermes IMPROVED MY SUGGESTION AGAINST ITSELF: I said push to origin; it made them LOCAL refs.**
+Its reason: *"pushing publishes commits that were local-only — an outward action nobody asked for, on
+jes's repo."* ⇒ **Local refs are reachable, gc-proof, fully reversible, and a push stays available.**
+⛔ **I proposed an OUTWARD action as a safety measure**, which is on the fleet's stop-and-ask list, and
+the door I proposed it to caught it. **Durability and publication are different goals and I conflated
+them.**
+
+⭐ **AND IT REFUSED CREDIT IN THE DIRECTION THAT COSTS IT:** freed 2,989,128 KB by directory delta;
+`df` moved only +2.84G ⇒ ~150M consumed elsewhere in the same minutes. **"The directory delta is the
+attributable number; the df delta is not."** ⚠️ Two hours earlier it refused credit for cell's 804M —
+**same discipline, opposite direction, both times unprompted.**
+
+📌 Controls it ran on what it meant to KEEP: `origin/main` unchanged · Theta cache still 1438 MB ·
+`hermes_dev.db` present · **live trading service `active`, MainPID 3811749 UNCHANGED throughout** ·
+commit touches exactly 21 files. 📌 Scope held to the 42 he was shown; `sol-dir-*` untouched.
+📌 Bonus: the mode-160000-without-`.gitmodules` entries were a repo fault independent of disk —
+they confuse `clone` and `git submodule`. `.gitignore` now prevents recurrence.
