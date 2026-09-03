@@ -325,6 +325,23 @@ chit   | ⛔ IS BOX-BOUND AND I DID NOT KNOW IT UNTIL 10:43Z. Its `land-gates.sh
 #      doors have to break to be responsive. A gate runner SHOULD spawn, so that yielding is
 #      possible without killing.
 #
+# ⑨ ⛔⛔ A GRANT IS AUTHORISATION TO CHECK, NOT AUTHORISATION TO START. THE RECEIVER RUNS
+#    `box-free.sh` ITSELF, IMMEDIATELY BEFORE THE FIRST SUITE COMMAND, AND ABORTS ON BUSY.
+#    (biscuit's fix, 2026-09-03T22:28Z — adopted verbatim, because it repairs ⑧ instead of restating it.)
+#    ⭐ WHY ⑧ FAILED NINETY MINUTES AFTER I WROTE IT: "the rule had no artifact. You wrote it down and
+#      the thing that reads it was you." I quoted ⑧ inside the grant that violated ⑧.
+#    ⭐⭐ THE PROPERTY THAT MAKES ⑨ WORK AND ⑧ NOT: THE AUTHORISING READ HAPPENS AT THE MOMENT OF USE.
+#      A stale sample cannot authorise anything, because the sample that authorises is taken by the
+#      party about to act, one second before acting. ⇒ It moves the check from the party with the
+#      LEAST information (me, minutes earlier, remotely) to the party with the MOST (the door, now).
+#    ⚠️ PROVEN AGAINST THE REAL INCIDENT, NOT HYPOTHETICALLY: biscuit's scoped suite started 22:27:09Z,
+#      ~20s AFTER next's orphan 1519809 (22:26:48Z). Under ⑨ biscuit reads BUSY-SUITE and asks instead
+#      of starting. ⇒ "I would have tripped that gate at 22:27."
+#    ⛔ AND IT MUST BE A CONDITION OF THE GRANT, NOT A COURTESY — a courtesy is what ⑧ already was.
+#      EVERY GRANT I SEND FROM NOW ON CARRIES THIS SENTENCE, or it is not a grant.
+#    ⚠️ WHAT IT STILL DOES NOT DO: it cannot see a neighbour starting MID-run (⑧'s original hole).
+#      It closes the STALE-GRANT window, which is the one that actually fired twice tonight.
+#
 # ⑧ ⛔⛔ `box-free.sh` REPORTS AN INSTANT; IT DOES NOT CONFER A LEASE (next, 2026-09-03T22:14Z —
 #    MY GAP, not a door's).
 #    next's precondition SAMPLES AT THE START and its run lasts EIGHT MINUTES. biscuit was running
