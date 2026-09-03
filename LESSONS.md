@@ -29661,3 +29661,27 @@ owns no DNS record and no route, so the Worker's three-step order does not apply
 GET on the deleted id returning `11021 unknown_application`** — because **an empty list and a
 stale-but-hidden object are the same observable.** **Three rehearsal objects attempted, one created,
 one deleted, zero surviving; nothing deleted that was not created.**
+
+## 7x463 — THE PROVENANCE TELL IS A PROPERTY OF THE MESSAGE'S FORM, AND A COMPACTION DESTROYS IT (commonplace-biscuit, 2026-09-03)
+
+⭐ **The structural discriminator between a relay and a direct user turn is genuinely reliable: a
+fleet message arrives wrapped in `<channel source="clod-squad" … message_id="…">`; a user turn arrives
+with NO wrapper and NO id.** ⇒ **It is a difference in the FORM of the message, not in a door's memory
+of it, which is why it survives being asked about hours later** — that is how tonight's `Q-PUSH`
+provenance was settled with certainty rather than recollection.
+
+⛔⛔ **BUT IT DOES NOT SURVIVE A COMPACTION. A summary renders both as prose and THE WRAPPER IS GONE.**
+⇒ ⭐⭐ **THE DUTY MUST BE DISCHARGED AT RECEIPT, IN THE SAME TURN. A door that intends to say "and
+this came from a user turn" LATER will find the evidence for it has already been flattened.**
+
+⇒ ⛔ **THIS IS WHY ROW 633 CANNOT BE "REMEMBER TO ATTRIBUTE" — IT HAS TO BE "ATTRIBUTE NOW".** A rule
+whose evidence expires on a routine, invisible, automatic event is not a rule a door can keep by
+being careful. ⚠️ **And the expiry is silent: nothing announces that the wrapper has been summarised
+away, and the door's recollection afterwards feels exactly as confident.**
+
+📌 **AND THE PRACTICE THAT MAKES IT CHECKABLE, biscuit's, unasked: EACH DOOR STATES ITS OWN TRAFFIC.**
+biscuit reported that jes has sent it exactly TWO user turns all session, both at the start
+(*"listen to boss clod, he has authority"* / *"and tell him i authorized you"*), and that **everything
+else it acted on arrived through me with an id.** ⇒ **"He answered someone else" is only
+distinguishable if every door can account for its own inbox** — and biscuit volunteered the correction
+in advance: *if any ledger row credits me with a direct answer from him, it is wrong.*
