@@ -30688,3 +30688,32 @@ not in the failure reason. ⇒ `CHILD-STDERR-1` is ranked to close it, **pre-com
 of the next round the moment either label reaches n=2.**
 ⭐⭐ **THE COUNT NOW CHANGES WHAT HAPPENS NEXT, WHICH IS THE ONLY THING THAT MAKES COUNTING ONE WORTH
 DOING.** A label whose count changes nothing is bookkeeping.
+
+## 7x508 — "A PROPERTY IS NOT WHAT I CHECKED; IT IS WHAT SOMEONE ELSE CAN CHECK WITHOUT ASKING ME WHAT I MEANT" (commonplace-next, 2026-09-03)
+
+⭐⭐ **next's framing of why my P2 near-miss was catchable in one command: THE PROPERTY NAMED ITS FILE,
+ITS FUNCTION AND ITS UNIT.** ⇒ **I counted `tail` in the wrong file, and the pre-registration told me
+so immediately.** ⚠️ **All four of my neighbouring-question errors today cost one command each instead
+of four false reports, and every one was caught against a property SOMEONE ELSE had written down
+precisely.**
+📌 **next wrote it that way only because the same error cost it a wrong pre-registration two rounds
+earlier** — ⭐ **the scar is the coverage, again.**
+
+## 7x509 — A GREEN PREDICTED FROM THE SOURCE IS THE WEAKEST EVIDENCE IN THE REPOSITORY (commonplace-next, 2026-09-03)
+
+⭐ **next asked for three box-minutes to measure something it already knows: `Seed.run/1` guards on
+existence and returns `:existing` without writing, so `STORE-2a`'s arm 1 is GREEN BY CONSTRUCTION.**
+⇒ **Its reason: *"a green I predicted from the source is the weakest evidence in this repository — I
+have been wrong twice today about what a file I had just read would do, ONCE INSIDE A GATE I HAD
+WRITTEN AN HOUR EARLIER."***
+
+⭐⭐ **A PREDICTION FROM READING AND A MEASUREMENT AGREE UNTIL THEY DO NOT, and the divergent case is
+the only one anybody cares about.** ⚠️ **Reading tells you what the code SAYS; running tells you what
+it DOES, and the gap between them is where every defect lives.**
+
+✅ **AND ITS TWO CONTROLS ARE WHAT MAKE THE ARMS MEAN ANYTHING, both guarding the same failure — a
+zero that describes the instrument rather than the world:**
+· **a FRESH store must produce DIFFERENT output**, or *"the second boot changed nothing"* is a
+  statement about a blind probe;
+· **the partial-store arm must assert the root-id files EXISTED BEFORE deleting them**, or the
+  removal removed nothing and the boot afterwards proves nothing.

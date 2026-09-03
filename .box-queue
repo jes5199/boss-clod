@@ -7,7 +7,13 @@
 # ⚠️ Before nudging any door that appears idle, CHECK WHETHER I OWE IT A RELEASE.
 #
 # holder | since | what
-next   | 2026-09-03T17:13Z | 5-ter x3 RE-RUN on a box verified free PER RUN + the BUMP-LOG-1 ceremony   (HOLDING — GRANT EXTENDED TO 18:15Z)
+(FREE)  | 2026-09-03T18:22Z | next landed BUMP-LOG-1 (main 2ab796f -> 1312145, boss verified 6 + P1/P2/P3) and released. Hold lifted; it had actually PREVENTED the 18:17Z firing.
+# waiting, in order:
+#   biscuit — REL-1-A6 (bin/release-arms.sh). ⭐ Rule ⑦: plan's warrant row 682 EXISTS and I have
+#             SEEN it, so its grant carries no caveat. Ask when ready.
+#   next    — STORE-2a §0, ~3 min, six short BEAM boots, no children, no ports. NOT a landing, so
+#             ⑦ does not apply. Queued BEHIND biscuit and I am not reordering to fill three
+#             minutes: a queue that reshuffles for convenience is not a queue.
 #   5-ter went 1/3: run 2's 17 failures are listener/port-shaped and it started 17:11:03Z, BEFORE
 #   cell's 17:12Z release. ⛔ THE OVERLAP IS MINE: I granted at 17:13Z saying "cell released at
 #   17:12Z; nothing of its is running" — TRUE WHEN WRITTEN, and silent about 17:11. My measurement
