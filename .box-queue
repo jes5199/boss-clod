@@ -147,8 +147,15 @@ chit   | ⛔ IS BOX-BOUND AND I DID NOT KNOW IT UNTIL 10:43Z. Its `land-gates.sh
 #     15:18Z. ⛔ AND `comm` CANNOT DISCRIMINATE — all four are literally `beam.smp` with identical
 #     argv prefixes, so the "filter on comm" rule fixes SELF-MATCHING and still cannot tell a test
 #     BEAM from the live-money one.
-#   ⇒ ✅ FREE = (beam.smp whose cwd is a TEST worktree) == 0. Identify by /proc/<pid>/cwd, and
-#     EXCLUDE hermes by the pid systemd reports — an identity you own, not a property you inspect.
+#   ⇒ ✅ ②b FINAL, both defects closed (biscuit: the instrument · hermes: the baseline):
+#       ps -eo pid,comm,args > /tmp/box.ps
+#       tot=$(grep -c . /tmp/box.ps); [ "$tot" -lt 50 ] && { echo "BLIND: ps returned $tot"; exit 2; }
+#       hpid=$(systemctl --user show hermes -p MainPID --value)
+#       [ -z "$hpid" ] && { echo "BLIND: cannot resolve hermes MainPID"; exit 2; }
+#       beams=$(awk -v h="$hpid" '$2=="beam.smp" && $1!=h' /tmp/box.ps | grep -c .)
+#     then confirm each remaining BEAM by /proc/<pid>/cwd — a long-lived cwd like
+#     commonplace-serve-pin is the serve, not contention.
+#     ⭐ FAIL BLIND if hpid is empty; never count hermes as contention, and never assume its absence.
 #   ⛔⛔ AND THE RULE THAT MATTERS MOST: A DOOR MAY NEVER KILL A `beam.smp` TO FREE THE BOX. NEVER,
 #     under any protocol, fallback or otherwise. A `pkill -f` matching `mix phx.server` killed
 #     hermes's trading service on 2026-08-10. If the box is not free, YOU WAIT.
