@@ -7,7 +7,7 @@
 # ⚠️ Before nudging any door that appears idle, CHECK WHETHER I OWE IT A RELEASE.
 #
 # holder | since | what
-chit   | 2026-09-03T12:04Z | DIR-R10 erasure surface: implementation + land-gates, ~15 min as ONE window   (HOLDING THE BOX NOW)
+(FREE)  | 2026-09-03T12:14Z | chit landed DIR-R10/A50 (dir 1a5187f -> df25b50) and released. ⛔ BOX IS FREE BUT HELD BY THE QUOTA HOLD until the 5h reset (~13:00Z) — no new rounds, gate blocks or subagents. next takes it for PIN-BUMP-2 AFTER the reset.
 # waiting: next, for PIN-BUMP-2, at its own pace.
 # (was FREE) | 2026-09-03T11:57Z | chit landed DIR-R9/A49 (dir 56c0149 -> 1a5187f) and released. next has PIN-BUMP-2 dispatched and takes the box at its own pace.
 # waiting: next, for PIN-BUMP-2's suite runs -- takes it at its own pace and pings me.

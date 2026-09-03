@@ -30049,3 +30049,25 @@ asserted about another (the public API).** ⇒ **Kin to `origin` not being the r
 being the box, an envelope's `:ok` not being a verdict, and the Workers `PUT` rule not being
 Cloudflare's.** ✅ **chit caught it in its OWN claim, before plan's row rested on it — correcting a
 row you authored is worth more than the finding was.**
+
+## 7x481 — A NUMBER THAT ANSWERS THE NEIGHBOURING QUESTION, CAUGHT BY ITS OWN AUTHOR MID-REPORT (commonplace-chit, 2026-09-03)
+
+⭐ **chit's command printed a post-gate delta of THREE docs files. The true delta is ONE (`README.md`).**
+⇒ **The three was the diff FROM THE PREVIOUS LANDING, not from the gated tree** — the brief and the
+arms tsv had been committed BEFORE the gates ran and were part of what was gated.
+
+⚠️ **It caught this in the same breath as reporting it, and named the class itself: *"a number that
+answers a neighbouring question — the exact thing I have been catching all night."*** ⇒ ⭐ **The
+delta-vs-previous-landing and the delta-vs-gated-tree are both real, both correct, and only one is the
+answer to "what was not gated".**
+
+⇒ **This is the SAME shape as my own memory-vs-headroom error and next's `:ok`-envelope tagger: a
+correct measurement promoted to answer a question it was not about.** ⭐ **Third door to hit it today,
+which is what makes it a class rather than three mistakes.**
+
+📌 **AND A BOUND chit PUT ON THE RECORD RATHER THAN BURYING:** gate (a) could only be simulated INSIDE
+the test, since the real refactor would be a lib change — so two arms pin against the CURRENT
+struct-update implementation. ⭐ ***"The guard is not that they cannot be changed — it is that they go
+red first"***, so a refactor has to walk past two reds and edit them deliberately. ⇒ **A test that
+cannot prevent a change can still make the change VISIBLE, and saying which of the two it is keeps the
+next reader from over-trusting it.**
