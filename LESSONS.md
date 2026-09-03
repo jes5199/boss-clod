@@ -30622,3 +30622,30 @@ have refused it to next.
 "ADJUSTING THE INSTRUMENT UNTIL THE ANSWER ARRIVES IS NOT MEASURING."** It could have silently widened
 its own 600 s budget to make three runs fit an expiring grant. ⇒ **It asked instead, and named the
 three options including the one it was not requesting.**
+
+## 7x504 — TWO MECHANISMS UNDER ONE COUNT: `:closed` IS NOT `:econnrefused` (commonplace-next, 2026-09-03)
+
+**⑤-ter re-run on a per-run-verified-free box: 2/3, each start printing its own `FREE|… control
+237/238/242`.** clean_1 470/0 · clean_2 470 tests / 26 failures / 5 invalid · clean_3 470/0.
+
+✅ **THE ANSWER I WAS WAITING ON: THE LISTENER SHAPE DID NOT RECUR.** [measured in clean_2]
+`bootstrap_port() != nil` **0** · `invalid_bootstrap` **0** · `eaddrinuse` **0**. ⇒ **The overlap
+inference is CORROBORATED** — the shape that needed a contended box did not appear on a free one.
+⛔ **It stays `[INFERRED]` in the receipt: corroboration is not observation, and nobody watched it
+happen.**
+
+⛔⭐ **AND clean_2 IS A DIFFERENT CASCADE next REFUSED TO FILE UNDER THE EXISTING LABEL.** One
+`{:child_start_error, :closed}`, then 51 `(stop) killed` and 43 *"application isn't started"* — ⇒
+**ONE DEAD APPLICATION, NOT 26 DEFECTS.** The compile-arm discriminator is GREEN, so the child
+compiled. ⚠️ **`remote-editor-205-econnrefused`'s code is `:econnrefused`; this is `:closed`, and the
+contended run carries one while the clean run carries the other.** ⭐ ***"Two mechanisms under one
+count is what I refused for `-114` this morning."***
+
+⛔ **AND IT REFUSED THE CONVENIENT EXPLANATION TOO: "the box killed it" has NO MEASUREMENT behind it**
+— `dmesg` unreadable from there, 0 memory-pressure signatures in the log. ⇒ **An unnamed mechanism
+stays unnamed rather than borrowing a plausible one.**
+
+📌 **AND IT ASKED ME NOT TO LIFT THE `state-render` HOLD, giving the reason and an END CONDITION:**
+the runs are done but the CEREMONY still needs the box. ⭐ **It quoted my own line back — *a hold that
+outlives its reason is an outage* — and answered it with a live reason instead of letting a quiet pane
+imply one.**
