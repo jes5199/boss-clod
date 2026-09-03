@@ -20,7 +20,10 @@
 #   is the state that decays into "someone is probably tracking that". Filed now because a door asked.
 #   ⛔ NOT re-raised at 09:5xZ deliberately: three of his questions are already live (10844, 10838,
 #   10846). A fourth simultaneous ask is what trains him to skim. Raise it when those clear.
-10854  | 2026-09-03T10:17Z | CELL-DEVSCOPED push word (commonplace-cell, sol/cell-devscoped-out-of-prod @ 4135f9b, ff of 6444a06, plan row 655) | cell — and cell holds NO duplicate: it WITHDREW its old in-session ask (that one was STORE-1b/doc, superseded by 10847) and reported the withdrawal | OPEN on telegram
+# CLOSED 10854 | CELL-DEVSCOPED push word — ANSWERED 10:25:43Z (id 10855) verbatim `yes land`;
+#   landed, cell main 6444a06 -> 68214dc, boss verified 6 + the property off the remote tree.
+# (stale row retired 16:48Z — a tracker listing a closed item as open is the decay it exists to prevent)
+# was: 10854  | 2026-09-03T10:17Z | CELL-DEVSCOPED push word (commonplace-cell, sol/cell-devscoped-out-of-prod @ 4135f9b, ff of 6444a06, plan row 655) | cell — and cell holds NO duplicate: it WITHDREW its old in-session ask (that one was STORE-1b/doc, superseded by 10847) and reported the withdrawal | OPEN on telegram
 #   ⛔ THIRD REPO, THIRD ASK. The in-session yes (~07:2x) was commonplace-LOG; 10847 was
 #   commonplace-DOC. A yes about one repo does not carry to another. cell asked rather than
 #   treating two approvals as a pattern.
