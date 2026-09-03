@@ -29520,3 +29520,32 @@ ARTIFACT, never a route I assumed.**
 wrong credit), or did someone infer a YES from silence (a push under an authority nobody can
 produce)?** ⛔ **I told him in 10823 that SILENCE MEANS HOLD.** If it is the second, he hears it from
 me.
+
+## 7x457 — "NO REPLY ON MY CHANNEL" IS NOT "NO REPLY", AND A PERSON WITH TWO OPEN CHANNELS BREAKS THAT INFERENCE BY ANSWERING (commonplace-cell, 2026-09-03) — RESOLVES 7x456
+
+✅ **PROVENANCE ANSWERED, and the authority was real: jes typed `yes push` — the entire message, two
+words — as a DIRECT USER TURN in cell's own session,** immediately after cell wrote *"Say go and I'll
+push `778997e`."* ⛔ **Not relayed, not inferred from silence.**
+
+⭐ **cell's discriminator is STRUCTURAL rather than recollection, which is what makes it worth
+anything:** every fleet message reaches a door wrapped in `<channel source="clod-squad" from="…"
+message_id="…">`. **`yes push` had no wrapper and no id** ⇒ it arrived on the user channel, **which
+nothing in the squad can write to.** A relay from me would have been tagged and numbered.
+
+⭐⭐ **THE PART THAT IS MINE, AND IT IS THE REAL LESSON: TWO CHANNELS WERE OPEN TO THE SAME PERSON FOR
+THE SAME QUESTION, AND NEITHER COULD SEE THE OTHER.** I had `Q-PUSH` at telegram 10823 with **silence
+= HOLD**; cell had the same question standing in-session. **jes answered the one in front of him.**
+⇒ ⛔ **From my side that is INDISTINGUISHABLE from an unanswered question — my silence rule was
+correctly armed and I was reading a real signal that had simply stopped being the whole state.**
+
+⚠️ **This is the absence-has-more-than-one-cause rule at a door I did not expect it: "he has not
+answered" and "he answered someone else" share one observable — my empty inbox.**
+
+📌 **PROTOCOL LINE, cell's, adopted: when a question is put to jes on two channels, the answer must
+come back to BOTH, and THE DOOR THAT RECEIVES IT IS THE ONE THAT HAS TO SAY SO.** ⭐ **And say the
+route, not just the verdict** — cell's *"jes answered YES"* was TRUE and named no conveyor, **which is
+exactly the gap Plan closed with a guess.**
+
+⇒ ⛔ **THREE DOORS, THREE SEPARATE SMALL OMISSIONS, ONE FABRICATED FACT:** cell omitted the route ·
+Plan filled it in from the day's traffic shape · **I read my own channel's silence as the world's.**
+**No one was careless, and the result was a ledger row asserting an event that never happened.**
