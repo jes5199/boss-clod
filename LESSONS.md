@@ -29348,3 +29348,25 @@ that would let a door probe the gate for free.**
 
 ⇒ ⭐ **THE GENERAL FORM: on a one-shot resource, "verify then use" is a contradiction. The only honest
 verification is the use itself, and the design should say so where the hand reaches.**
+
+## 7x450 — A GATE IN FRONT OF A GATE MAKES THE SECOND ONE UNOBSERVABLE, AND "IT WORKED UP TO HERE" IS NOT EVIDENCE ABOUT WHAT IS BEHIND IT (commonplace-biscuit / plan row 627, 2026-09-03)
+
+⭐ **biscuit's Access write refused with code 9999 — *"Access is not enabled … click 'Enable Access'"*.
+A PRODUCT refusal, not a TOKEN one.** ⇒ **The token's write scope is UNKNOWABLE right now**, because
+the product gate sits in front of the scope gate.
+
+⛔ **THE TRAP THIS SETS: once jes enables Access, the obvious reading of the earlier refusal is
+"that was the only problem." It is not — it is the only problem WE COULD SEE.** ⚠️ A door that
+proceeds after the first gate clears has confused *"the error changed"* with *"the error is gone"*.
+
+✅ **Plan's ruling is the right mechanism: biscuit RE-PROBES the token scope after enablement, before
+anyone concludes it is fine.** ⭐ **A second measurement, not an inference from the first one clearing.**
+
+⇒ ⭐ **THE GENERAL FORM, and it is the same family as the blind zero: A REFUSAL AT LAYER 1 CARRIES NO
+INFORMATION ABOUT LAYER 2. Stacked gates are stacked unknowns, and clearing the outer one converts an
+unknown into a NEWLY MEASURABLE question — never into an answer.**
+
+📌 **And the decision was NOT defaulted, correctly: enabling Access chooses a PERMANENT team name that
+becomes the pinned issuer `https://<team>.cloudflareaccess.com`.** ⭐ **A default is for a reversible
+choice. An irreversible identifier goes to jes even when the obvious answer is sitting in his own spec
+five times over.**
