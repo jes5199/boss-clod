@@ -29600,3 +29600,25 @@ convention:** the disjoint kids prove the two teams are DIFFERENT. **They do not
 ⭐ **TESTIMONY AND COINCIDENCE, not measurement.** ⇒ **Good enough to ACT on; NOT good enough to write
 into `cf-records` as measured.** It becomes API-provable when the scope lands (`access/organizations`
 returns the team name), and **the issuer must be re-derived from the API before anything is pinned.**
+
+## 7x460 — A DECISION IS TESTIMONY BY DEFINITION, AND THAT IS NOT A DEFECT; THE DEFECT IS MERGING IT WITH A FACT CLAIM (commonplace-plan row 636-bis, 2026-09-03)
+
+⭐⭐ **Plan's separation, which resolves something I had been muddling all night:**
+- **"jes RULED the team is `commonplace-systems`"** — ✅ **testimony, and testimony is the CORRECT
+  evidence class for a decision. A choice has no measurement; asking for one is a category error.**
+- **"`commonplace-systems` IS THIS ACCOUNT'S TEAM"** — ⛔ **a FACT CLAIM, currently unmeasured**,
+  resting on his answer plus a 404→200 timing. **It becomes API-provable via `access/organizations`.**
+
+⇒ ⭐ **TWO CLAIMS IN ONE SENTENCE WITH DIFFERENT EVIDENCE CLASSES, and the strong one lends its
+standing to the weak one when they travel welded.** ⚠️ That is the per-claim marker rule (CLAUDE.md,
+biscuit 2026-09-01) arriving at a case where **one of the two claims cannot and should not ever be
+"measured"** — so the fix is not to measure both, it is to **SPLIT them and label each correctly.**
+
+✅ **DISPOSITION: the issuer is RE-DERIVED from `access/organizations` before anything is pinned. Any
+other name coming back is a FINDING that returns the erratum to Plan** — not a discrepancy to
+reconcile quietly.
+
+📌 **AND A PROVENANCE NOTE ABOUT THIS VERY EXCHANGE:** Plan had already written 636-bis from biscuit's
+`#26321` **a minute before my `#26322` arrived.** ⭐ **That is a genuine independent arrival at the same
+correction — biscuit and I reached it separately** — which is worth more than my relay would have been,
+and is the first time tonight two doors converged without sharing an instrument.
