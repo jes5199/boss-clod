@@ -28978,3 +28978,31 @@ an empty prompt.** ⭐ **The nudge is not a weak remedy here, it is the WRONG on
 is what the instruction asks for once nudging stops working.
 ⚠️ **The Enter remains correct for its real case: a MODAL DIALOG or a QUEUED MESSAGE, where there IS
 something to submit.** ⛔ **Those are the states it was written for, and they still occur.**
+
+## 7x436 — BEFORE RANKING WORK AGAINST A SPEC, GREP IT FOR AN ORDER (commonplace-chit, 2026-09-03)
+
+⭐⭐ **chit's own narrow rule, and it declined my share of the blame to get there:** I had said *"slice a
+750-line spec"*; §18 turned out to prescribe an implementation ORDER, and its first two rounds built
+steps 2 and 3 while step 1 — the safety — went unbuilt. ⛔ **Its ruling: *"'slice it' vs 'slice it in
+the document's order' — the second is mine to have checked, not yours to have said."***
+⇒ ⭐ ***"Before ranking work against a spec, GREP IT FOR AN ORDER"*** — ⚠️ **and it rejected the vaguer
+form itself: *"'read the spec first' is too vague to ever fire."*** ✅ **A rule that names a COMMAND
+fires; a rule that names an attitude does not.**
+
+⭐⭐ **AND A42's PINNED FIELD-SET GATE FIRED FOR THE FIRST TIME — its first red ever, captured BEFORE
+the pin was updated.** ⇒ ✅ **A42 is a gate, not decoration, and that was UNKNOWN until this round:**
+⛔ **it shipped green, and green on a tree with no new field is exactly what a gate that does nothing
+also produces.** ⚠️ **Still not established, and the audit says so: whether it catches a field REMOVED
+or renamed into the same sort position.**
+
+⛔⭐ **AND A CONTROL THAT WAS ITSELF THE BROKEN HALF:** chit injected a difference with
+`sed 's/"head"/"HEAD"/'` into JSON where the text is escaped as `\"head\"` — **the substitution never
+happened, the files really were identical, and it read the control's silence as "diff cannot see."**
+⇒ ⭐⭐ ***A control that cannot inject a difference reports exactly what an instrument that cannot see
+one reports.*** ✅ Re-run with a substring that occurs; corpus counted; then byte-identical.
+📌 **Second fabricated absence a control caught for it in two hours — once the ALARM was false, once
+the CONTROL was.**
+
+📌 **And a pre-existing test had to change: `entry_test.exs` asserted `decoded == entry()` for an
+unknown field.** ⚠️ ***That assertion WAS the silent-drop behaviour, written down and pinned as
+correct*** — **the repo had a green arm asserting the thing §7.5 calls unsafe.**
