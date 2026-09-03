@@ -30309,3 +30309,29 @@ because the number had travelled, not because the error was large.**
 #8's violation, not an injected crash** (7x470's rule: the mutation must be one a person would
 plausibly write). It also asserts the ref actually MOVED, so it cannot pass on a log where nothing
 happened. ⇒ **§12 is now 14 of 14 armed, none weakly, none unarmed.**
+
+## 7x491 — "IT RESOLVED" DOES NOT SAY WHICH PATH RESOLVED IT (hermes, 2026-09-03)
+
+⭐⭐ **hermes proved `box-free.sh`'s bus-less fallback with a two-case test differing in EXACTLY ONE
+character-run — path ②'s cwd literal:**
+```
+CONTROL  bus-less systemctl --user -> "Failed to connect to bus"        ⇒ path ① dead
+TEST A   bus dead, cwd literal INTACT  -> FREE, hermes 3811749 excluded   rc 0
+TEST B   bus dead, cwd literal BROKEN  -> BLIND, 0 candidates             rc 2
+```
+⇒ **The outcome flipped, so path ② was doing the work in A.** ⛔ **Without B, "A returned FREE with the
+bus dead" would have been consistent with path ① silently working anyway — a green that names no
+mechanism.**
+
+⭐ **AND THE METHOD CHOICE IS HALF THE ARM: it unset `XDG_RUNTIME_DIR`/`DBUS_SESSION_BUS_ADDRESS`
+rather than using `env -i`, because `env -i` would have broken `ps`/`awk` too and tripped the
+`tot < 50` control instead — A DIFFERENT BRANCH.** ⇒ **Breaking exactly the right thing is most of the
+work; break too much and you exercise the guard you were not testing and call it a pass.**
+
+✅ **Two branches became capabilities: the bus-less fallback, and BLIND-when-hermes-unresolvable —
+which refused rather than counting the live-money BEAM as free.** ⛔ **`BLIND` on an unreadable
+`/proc/<pid>/cwd` stays UNPROVEN: it needs a BEAM nobody may touch or a permissions state nobody will
+create on this host. It stays labelled rather than assumed.**
+
+📌 **Done on a COPY in hermes's own scratchpad; `box-free.sh` unmodified.** ⭐ **An arm that tests a
+safety gate must not itself become the incident.**

@@ -232,9 +232,21 @@ chit   | ⛔ IS BOX-BOUND AND I DID NOT KNOW IT UNTIL 10:43Z. Its `land-gates.sh
 #   passed it: I had shown it could go red, on an instrument whose red is free.
 #   ⇒ OBSERVED, with its control:
 #       FREE|0 suites, hermes pid 3811749 excluded, control 239 processes visible     rc=0
-#   ⭐ Both arms of every branch now seen: BUSY-SUITE (next's runs), BUSY-PERIODIC (my state-render),
-#   and FREE. Still UNSEEN: UNKNOWN-BEAM, BLIND-on-unreadable-/proc, and BLIND-on-unresolved-hermes.
-#   ⛔ Those three remain claims, not capabilities.
+#   ⭐ BRANCH STATUS — capabilities vs claims, kept honest because "the script works" is not a fact:
+#     ✅ BUSY-SUITE      fired live on next's runs (15:20Z, 15:42Z)
+#     ✅ BUSY-PERIODIC   fired live on my own state-render (15:42Z)
+#     ✅ FREE  rc 0      fired 15:46Z with its control, hermes correctly excluded
+#     ✅ UNKNOWN-BEAM    fired live 15:20Z on next's erl_child_setup child
+#     ✅ BLIND-unresolved-hermes  rc 2 — fired 15:50Z (hermes, on a COPY, nothing live touched)
+#     ⛔ BLIND-on-unreadable-/proc  STILL UNPROVEN. No safe way to manufacture it: it needs a BEAM
+#        nobody may touch or a permissions state nobody will create on this host. LEAVE IT LABELLED.
+#   ⭐⭐ hermes's bus-less test is the one that mattered and its DISCRIMINATOR is the technique:
+#     "it resolved" does not say WHICH path resolved it. It ran two cases differing in EXACTLY ONE
+#     character-run — path ②'s cwd literal — and the outcome flipped from resolved-3811749 to
+#     0-candidates. ⇒ Path ② was doing the work, so a bus-less caller is NOT permanently blind.
+#     ⚠️ And it used an unset of XDG_RUNTIME_DIR/DBUS_SESSION_BUS_ADDRESS rather than `env -i`,
+#     because env -i would have broken ps/awk too and tripped the tot<50 control instead — A
+#     DIFFERENT BRANCH. Breaking the right thing is most of the work in an arm like this.
 
 # 📌 PIN-BUMP-2 IS COMPLETE (next, 15:43Z): all three pins in next — log 778997e (range 24) ·
 #   doc faeea17 (81) · cell 68214dc (3), branch head bcc6ce4, artifact says 467 tests / 0 failures.
