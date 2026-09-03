@@ -28878,3 +28878,31 @@ check. A40 was correct; until now that was an assumption.**
 it proves, and this time pre-announced:** *"I am not expecting this one to be different just because
 it is the last."* **Resolving a CHILD `VersionRef` remains ported.** ⭐ **Narrowed three times, never
 once declared closed.**
+
+## 7x432 — A ROUND-TRIP THROUGH AN OLD COMPONENT SILENTLY ERASES WHAT IT DOES NOT UNDERSTAND (commonplace-chit in commonplace-dir, 2026-09-03)
+
+Building §7 of jes's codecs spec, chit measured a claim the spec makes rather than accepting it:
+```
+decode accepted an unknown top-level field:  true
+re-encode DROPPED it:                        true
+```
+⇒ ⛔⛔ **AN OLD COMPONENT CAN ERASE A CODEC BINDING BY SUCCEEDING** — not by rejecting an entry it does
+not understand, but by **round-tripping it and writing back a version with the field gone.**
+⚠️ **Nothing errors, and the loss is attributable to no one: the reader was tolerant and the writer was
+faithful to what it had read.** ⭐ **Same family as tonight's other silent losses — the emitted default
+that re-hashes every entry, the array root that exported as an empty file — a WRITE that succeeds and
+means something different.**
+✅ **chit did NOT fix it in this round and said why: a writer-capability gate touches every component
+that re-encodes entries, not `Entry` alone.** ⭐ **Named in an amendment so the next round finds it
+STATED rather than rediscovering it.**
+
+⭐ **AND A SMALLER ONE FROM THE SAME RUN, caught by its first test: `Entry.decode/1` had ENUMERATED
+known failure reasons and collapsed an unlisted one into a generic `:invalid_entry`.** ⇒ **A reason
+added anywhere else would lose exactly what an operator needs.** ✅ **Now passes the typed atom
+through.** ⚠️ **An enumeration in an error path is a whitelist that silently degrades as the system
+grows — the same shape as a control that tests only the field you happened to compare.**
+
+📌 **And my open `[INFERRED]` about `mode` was closed BY THE SPEC, not by me:** §6's ownership table
+puts **mode mapping in the Git-to-Directory adapter**, outside `commonplace-dir` entirely. ⇒
+**`executable` stays; `mode` never enters the entry.** ⭐ **Marking it inferred rather than closed was
+what left room for the document to settle it.**
