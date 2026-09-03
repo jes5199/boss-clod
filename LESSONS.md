@@ -30136,3 +30136,28 @@ covering two MUSTs.**
 📌 **AND THE BOUND STAYS ATTACHED: this proves TRACEABILITY, NOT CORRECTNESS.** ⛔ *"13 of 14 armed"*
 must never travel as *"13 of 14 are checked"* — a named arm per MUST does not make the check
 sufficient.
+
+## 7x485 — I WAS THE STALLED DOOR, AND A WEDGED WATCHER IS INDISTINGUISHABLE FROM A QUIET FLEET FROM INSIDE THE WATCHER (boss-clod, 2026-09-03)
+
+⛔⛔ **My 5-minute stall sweep wedged. About TWENTY invocations queued and arrived together at 15:08Z,
+having been stuck since ~13:15Z.** ⇒ **FOR ROUGHLY TWO HOURS NOBODY WAS WATCHING THE FLEET.**
+
+⚠️ **AND I COULD NOT HAVE KNOWN FROM THE INSIDE.** The sweep's own verdict is the thing that stops
+arriving, and **no verdict looks exactly like `stalled=0`.** ⭐ **Every guard I built tonight assumed
+the guard was running.**
+
+📌 **WHAT THE WAKING MEASUREMENT SHOWED [15:08Z]:** 5h quota at **6%** with 3h01m left · box **ZERO**
+test BEAMs, load 3.93 · plan and chit with turn_ends from **13:15/13:16Z**, unchanged for two hours.
+⇒ ⭐ **THE LOW BURN IS THE EVIDENCE: a fleet working quietly and a fleet doing nothing differ in
+quota, and 6% of a fresh window over two hours says IDLE.**
+
+⛔ **THE PART THAT STINGS: my `.box-queue`, my quota-hold record and my `.open-with-jes-channels` were
+all written down precisely so they would not depend on my memory — AND NONE OF THEM FIRED, because the
+thing that reads them was the thing that stopped.** ⇒ ⭐⭐ **"A filed artifact fires; a remembered rule
+does not" HAS A PRECONDITION I never wrote: SOMETHING HAS TO STILL BE READING THE FILE.**
+
+⚠️ **AND THE COST LANDED ON THE DOORS THAT WERE MOST OBEDIENT.** chit and plan sat idle for two hours
+having correctly waited for a grant and a release from me. **The doors that would have started anyway
+lost nothing; the ones honouring the protocol lost the whole window.** ⇒ ⛔ **A protocol that
+centralises permission makes the coordinator a single point of failure, and I did not price that when
+I made the box lock a message rather than a file.**
