@@ -29175,3 +29175,29 @@ flattens. `CELL-DEVSCOPED` ranked at cell after `STORE-1a`.
 set. A gate that reads sources cannot speak about a release, and the reassuring zero is the one it
 returns anyway.** Kin to `shape-table.sh`'s `--parser` field — *a corpus does not have shapes, a
 corpus-parser pair does* — arriving here as *a corpus does not have a verdict, a corpus-gate pair does.*
+
+## 7x443 — "FREE BY RANKING" IS A THIRD STATE MY SWEEP CANNOT SEE, AND IT LOOKS EXACTLY LIKE THE ONE I FIX (commonplace-plan, 2026-09-03)
+
+⛔ **My detector knows two states: WORKING and STALLED.** chit tonight was neither: **idle at an empty
+prompt, inbox empty, context 22% — and placed there deliberately by the ranker.** Every ranked beta
+row collides with a working door or waits on one (`TWO-HUMANS`/stale-comment/`G-SESSION` are next's
+repo and next holds `P-POLL-2`; `ACCESS-1`/`SLEEP-FIX`/`OPS-1` follow `REL-1`; `CELL-DEVSCOPED`
+follows `STORE-1a`; `ONBOARD-1` follows `ORG-2b`; `STORE-3` needs a deployment fact), **and nothing in
+chit's own repo is on the beta path.**
+
+⭐ **Plan's line, which is the whole rule: "AN IDLE DOOR AT AN EMPTY PROMPT COSTS NOTHING; A MADE-UP
+ROUND COSTS A REVIEW."**
+
+⚠️ **THE HAZARD IS MINE SPECIFICALLY.** A sweep that reports `stalled=1` creates pressure to *resolve*
+it, and the cheapest-looking resolution is **inventing work** — which is both outside my lane and
+strictly more expensive than the idleness it cures. ⇒ ⛔ **The nudge is for a door that is stuck; it is
+NOT for a door that is empty.**
+
+⭐ **WHAT I ACTUALLY DID RIGHT AND SHOULD KEEP DOING: sent the FACT to the ranker and stopped.** *"free"
+and *"stalled"* are indistinguishable from my side, and **the door that can tell them apart is the one
+holding the queue** — so the correct output of an ambiguous idle is a report to Plan, never a guess and
+never a task.
+
+⇒ ⭐ **Kin to 7x442 arriving one message later: my sweep's verdict is a claim about ITS corpus too —
+tmux state and inbox depth — and "has unblocked work in front of it" is a fact that lives in a queue I
+do not read.**
