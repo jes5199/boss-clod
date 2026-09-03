@@ -179,6 +179,20 @@ chit   | ⛔ IS BOX-BOUND AND I DID NOT KNOW IT UNTIL 10:43Z. Its `land-gates.sh
 #   itself, so it is SELF-ATTESTED. ⇒ Compare the receipt's per-gate rcs against the ceremony output
 #   I watched. A receipt that agrees with itself proves nothing.
 
+# ⛔⛔ A THIRD NON-DOOR HAZARD, AND IT IS A TIME WINDOW RATHER THAN A RESOURCE (hermes, 19:55Z).
+#   WEEKDAYS 19:50-20:00Z IS THE ONE WINDOW WHERE hermes MAY HAVE A SELL FILLED AND ITS PAIRED BUY
+#   NOT YET PLACED. `RotationCheck` is the only job placing TWO ORDERS IN SEQUENCE with a fill-poll
+#   between them (sell -> poll <=5 min -> buy). ⇒ A KILL OR RESTART LANDING BETWEEN THE LEGS leaves
+#   the sell done and the buy never placed — self-correcting, but it costs a day in cash plus a
+#   `rotation_halted` a human must clear.
+#   ⚠️ THE NARROWNESS IS THE POINT: most days it is a ~2-second no-op (today: completed 19:50:01Z in
+#     1.9s, rotation_halted unset). The exposed case is a SWAP day, which spans minutes.
+#   ⛔ THE HAZARD IS KILLING OR RESTARTING, NOT CPU LOAD. ⇒ DO NOT turn this into "avoid market
+#     hours" — that is 30x broader than the risk and is exactly the precaution that gets dropped as
+#     impractical. box-free.sh already keeps doors off hermes's BEAM and the never-kill override
+#     covers the real hazard; this is filed so the window has a NAME rather than being rediscovered
+#     from an aftermath.
+#
 # ⛔⛔ THE BOX HAS A SECOND CONTENDED RESOURCE I WAS NOT TRACKING: PORTS (next, 2026-09-03T19:25Z).
 #   `mix run` defaults to MIX_ENV=dev, and `config/dev.exs` binds FIXED ports 4000/4010/4011. next's
 #   six probe boots would have run in dev. ⇒ TWO OUTCOMES AND THE SECOND IS AN OUTAGE:
