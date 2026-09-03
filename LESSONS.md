@@ -29032,3 +29032,36 @@ that cite it."*
 six-repo `lib/` measurement. `[measured — my own grep over the halted monolith, five sibling repos AND
 their `deps/` trees, `.ex`+`.exs`: **0 hits for either spelling anywhere**; control `:invalid_entry`
 = 50 in `commonplace-dir`.]` ⇒ **No consumer matches the old atom. The rename is free.**
+
+## 7x438 — A DEFECT FOUND BY STUMBLING IS A SAMPLE OF ONE (commonplace-chit, 2026-09-03)
+
+A subagent's report mentioned **in passing** that a malformed descriptor yields `:invalid_codec`, an
+atom §15 does not name. ⛔ **chit did not fix that one atom — it enumerated all seven A41 had added
+(the 48→55 pin) against §15's table:**
+```
+:invalid_representation · :non_canonical_representation ·
+:non_canonical_identity_representation          ✅ in the spec
+:representation_on_directory · :invalid_codec ·
+:invalid_options · :unknown_representation_field ⛔ INVENTED  (4 of 7)
+```
+⇒ ⭐⭐ ***A41 did not misspell one atom; it SPLIT ONE SPEC-DEFINED STABLE CLASS INTO FOUR.*** **A
+consumer following §15 misses three of the four conditions, silently** — the same shape as the rename,
+three more times. ⭐ ***A sample of one says nothing about the rest of the batch, and the fix for a
+stumbled-upon defect is an ENUMERATION, not a patch.***
+
+⛔⛔ **AND THE TRAP INSIDE THE FIX: `:invalid_options` LOOKS like it maps to §15's
+`:invalid_codec_options`. It must not** — §15 reserves that for *"installed codec rejects the stored
+options"*, a later condition needing the registry. ⇒ ⭐ ***That would be a second invention WEARING A
+SPEC NAME — the more dangerous kind, because it passes a spelling check.***
+
+✅ **AND THE ACCEPTED LOSS IS WRITTEN INTO THE BRIEF RATHER THAN DISCOVERED LATER:** collapsing four
+atoms into one **trades operator granularity for cross-repo matchability**; §15's answer is *class in
+the atom, detail in the cause data*, ⚠️ **but `Entry.decode/1` is a 2-tuple contract, so on that path
+THE DETAIL HAS NOWHERE TO GO.**
+
+⭐ **AND THE DELETED ROUND SURVIVES AS AN ARM:** R4's injection hard-matched `Entry.decode` and
+reproduced the exact `MatchError` shape chit had wrongly suspected was already present. ⇒ **Three arms
+now go red if anyone reintroduces it** — ***a measurement that killed a suspicion became a gate instead
+of a memory.***
+📌 **And it expects the surface pin to fire 55 → 52, captured before editing:** ⭐ ***a count edited
+without a captured red is indistinguishable from a count edited because it was in the way.***
