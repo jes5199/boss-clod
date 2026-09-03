@@ -134,6 +134,25 @@ chit   | ⛔ IS BOX-BOUND AND I DID NOT KNOW IT UNTIL 10:43Z. Its `land-gates.sh
 #   itself, so it is SELF-ATTESTED. ⇒ Compare the receipt's per-gate rcs against the ceremony output
 #   I watched. A receipt that agrees with itself proves nothing.
 
+# ⛔⛔⛔ SAFETY AMENDMENT 15:19Z, hermes — READ THIS BEFORE ANY FALLBACK MEASUREMENT.
+#   "THE BOX IS FREE" CAN NEVER MEAN "0 beam.smp ON THIS HOST." There is a PERMANENT baseline, and
+#   one of them is hermes's LIVE TRADING SERVICE. [verified by boss 15:19Z, systemd not argv]
+#     systemctl --user show hermes -p MainPID  ->  MainPID=3811749   (LoadState=loaded, active)
+#   Measured 15:19Z, four beam.smp, none of which a door may touch:
+#     1039260  etimes 310s     cwd /home/jes/next-suite-load/wt      <- next's suite (transient)
+#     1045920  etimes 110s     cwd /home/jes/commonplace-monolith    <- transient
+#     2943416  etimes 933218s  cwd /home/jes/commonplace-serve-pin   <- the serve, ~10.8 days
+#     3811749  etimes 66954s   cwd /home/jes/hermes                  <- LIVE MONEY. NEVER touch.
+#   ⚠️ THE BASELINE IS NOT A CONSTANT A DOOR CAN MEMORISE: I read 3 at 15:17Z and hermes read 4 at
+#     15:18Z. ⛔ AND `comm` CANNOT DISCRIMINATE — all four are literally `beam.smp` with identical
+#     argv prefixes, so the "filter on comm" rule fixes SELF-MATCHING and still cannot tell a test
+#     BEAM from the live-money one.
+#   ⇒ ✅ FREE = (beam.smp whose cwd is a TEST worktree) == 0. Identify by /proc/<pid>/cwd, and
+#     EXCLUDE hermes by the pid systemd reports — an identity you own, not a property you inspect.
+#   ⛔⛔ AND THE RULE THAT MATTERS MOST: A DOOR MAY NEVER KILL A `beam.smp` TO FREE THE BOX. NEVER,
+#     under any protocol, fallback or otherwise. A `pkill -f` matching `mix phx.server` killed
+#     hermes's trading service on 2026-08-10. If the box is not free, YOU WAIT.
+#
 # ═══ BOX PROTOCOL v2 — RULED BY BOSS 2026-09-03T15:18Z, after chit named the defect ═══
 # ⛔ THE DEFECT: my grant-and-release protocol made COMPLIANCE STRICTLY DOMINATED WHEN I AM ABSENT.
 #   On 2026-09-03 I wedged for ~2h; chit and plan waited correctly and lost the window, while a door
