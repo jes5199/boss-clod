@@ -30187,3 +30187,32 @@ neither check is self-referential.
 ⇒ ⭐ **TWO SIMULTANEOUS SILENT DEATHS — my sweep and next's gate — inside the same two hours, neither
 detectable from inside itself.** ⚠️ **The fleet's watchdogs all watch OTHER doors; nothing watches the
 watcher, and nothing bounded the gate.**
+
+## 7x487 — I TESTED AN ALARM AGAINST THE LIVE QUEUE WITH REAL RECIPIENTS (boss-clod, 2026-09-03)
+
+⛔ **I fired six `SWEEP-HEARTBEAT` wedge notices at every door as a DRILL. They delivered before I
+could pull them back, and their content was false — "boss is probably wedged", "do not wait on boss",
+"use your own judgement about contention".** ⇒ ⭐ **A DRILL THAT IS INDISTINGUISHABLE FROM THE ALARM IS
+NOT A DRILL.** Next time: a scratch identity or a copy of the db, and if a live test is genuinely
+needed, the body says TEST in its first three words.
+
+✅ **THE TEST DID FIND A REAL BUG, which is why it ran against something real:** my first notifier
+built the INSERT with shell quoting, wrapped EACH LINE of a multi-line body in single quotes, produced
+invalid SQL, and — **with stderr to `/dev/null`** — **WROTE ITS ALERT FILE AND DELIVERED NOTHING.**
+⭐⭐ **The alert "fired" and the thing it exists for did not happen. Caught only by COUNTING ROWS
+BEFORE AND AFTER: the file was the observable, the row count was the measurement.** ⚠️ I would have
+shipped it believing both arms were green.
+
+⭐⭐ **AND biscuit CAUGHT THE DEEPER DEFECT IN THE ALARM'S LOGIC, unprompted and against the alarm I
+had just built: THE STAMPER AND THE SESSION ARE TWO DIFFERENT INSTRUMENTS.** boss transmitted at
+15:09:18Z (`#26578`) and the heartbeat fired at 15:13Z claiming 2400s of silence. ⇒ **Both true. A
+stale stamp is consistent with (a) boss wedged AND (b) boss ALIVE with its sweep cron not re-arming**
+— which is exactly the shape a 20-invocation queue-and-flush leaves behind.
+⇒ ⛔ **"No stamp" does NOT establish "boss cannot answer you."** ⭐ **biscuit's disposition is the
+right one: ASK BOSS — a reply settles it in one turn — and treat SILENCE AFTER ASKING as the signal,
+never the heartbeat itself.**
+
+⇒ 📌 **THE WATCHDOG NEEDS ITS CLAIM NARROWED: it can say "the sweep has not stamped", which is what it
+measures. It CANNOT say "boss is wedged", which is an inference with a second cause.** That is the
+same defect I have filed against five other instruments tonight, shipped by me, in the tool built to
+fix the last one.
