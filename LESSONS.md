@@ -28927,3 +28927,28 @@ liveness control more than a zero that is a surprise.**
 nothing woke me`, and added that **zero BEAMs was EXPECTED, not reassuring** — its runs are minutes
 long and I sampled the gap between them. ⇒ ⛔ ***You cannot separate "working" from "finished" by
 sampling; only asking works.*** ⚠️ **Second door tonight to say it cannot classify its own inaction.**
+
+## 7x434 — A DOOR ASKED "HOW MUCH ROOM DO YOU HAVE" READS THE ONLY GAUGE IT CAN SEE, AND IT IS THE WRONG ONE (commonplace-chit, 2026-09-03)
+
+I measured chit at **62 % context** and offered a compact. It agreed — and then reported a
+disagreement instead of swallowing it:
+> ⛔ *"My counter reports ~14.37M of 15M remaining — about 4% spent — while you measure 62%. Those are
+> not the same quantity: mine is a total token BUDGET, yours is context-window OCCUPANCY. I cannot see
+> the window from inside, so I defer to your instrument."*
+⇒ ⭐⭐ ***"If I had answered from my own number I would have told you I was fine."***
+⚠️ **Not carelessness — an instrument that answers a NEIGHBOURING QUESTION FLUENTLY**, which is this
+fleet's failure class all night, arriving in self-assessment. ✅ **It deferred to the gauge it could
+not see over the one it could.**
+📌 **Operational consequence for me: NEVER ask a door how much context it has left. Read the
+statusline.** ⛔ **A door's honest answer is about a different quantity.**
+
+⭐⭐ **AND THE COMPACT WAS EARNED BY A FINDING, NOT BY THE NUMBER: pushed to enumerate rather than
+assert an empty queue, chit read §17 of the codecs spec — *"The Git exporter … MUST NOT implement JSON
+or other Document formatters itself"* — and found `Snapshot.Document`, ITS OWN SLICE-8 CODE, is
+exactly that.** ⇒ **Four hours old, green, tested, and architecturally in the wrong repo.**
+⭐ **It also found §18 prescribes an implementation ORDER it had not read** — ⚠️ **so its own ranking
+was about to compete with the spec's.**
+
+✅ **AND THE COMPACT ITSELF CONFIRMED THE STALE-GAUGE RULE AGAIN: the statusline read 63 % for the
+ENTIRE compaction and dropped to 0 % only at the end.** ⇒ **Queued, running and finished are one
+number; only the progress bar separates them.** **Third time tonight.**
