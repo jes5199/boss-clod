@@ -31195,9 +31195,15 @@ the count costs nothing and turns "passed once" into something reproducible.**
       {Cell.Supervisor, "<uuid>"}, %{error: :resource_not_owned, kind: :host_faulted}}}}
 ```
 **36 of 36. ZERO `child_start_error`/`econnrefused`/`:closed` — not the second-BEAM family at all.**
-⇒ ⭐ **`:resource_not_owned` is a WRITER-LEASE refusal, and `LocalSQLite` keys existence on
-`<log_id>.sqlite3` AND `<log_id>.writer`.** ⇒ **A completed run leaves lease state the NEXT run in the
-same store cannot claim, and every Cell then fails to start.**
+⛔⛔ **CORRECTED BY plan (row 696) — IT IS NOT A WRITER LEASE.** `:resource_not_owned` has ONE raise
+site: `deps/commonplace_cell/…/cell/ownership.ex:30`, `ownership_check/3` — **the document snapshot's
+immutable `home_cell_id` ≠ the booting Cell's id.** `config/test.exs:4` points SQLite at the SHARED
+`tmp/test-data`; **40 of 68 test files `put_env` a fresh dir per test, 28 DO NOT.** ⇒ **Those 28 boot a
+FRESH-UUID Cell over documents the previous run persisted under the PREVIOUS Cell's id (doc ids are
+fixed); the ownership check refuses and `Cell.Supervisor` dies at start.**
+⭐ **next's `.writer` reading was "a plausible NEIGHBOUR of the truth" — plan's phrase, and it puts it
+in the same family as plan's own row-691 adapter claim.** ⚠️ **The observation was right, the
+mechanism was not, and only the raise-site grep separated them.**
 
 ⭐⭐ **IT EXPLAINS THE WHOLE TIMELINE: biscuit 470/0 · next's first ceremony 479/0 · next's second 27
 failures — EACH CEREMONY POISONS THE NEXT ONE'S STORE.** ⇒ ⛔ **EVERY LANDING AFTER THE FIRST IN A
@@ -31260,3 +31266,26 @@ passes, the non-idempotency finding is WRONG, and that must be heard as loudly a
 on its attention, so the wait ends in an EVENT rather than in someone remembering to look.** ⭐ **Same
 move as the heartbeat watching my sweep from outside my session, and the hold file carrying its own
 lift condition.** ⚠️ ***"Notice the boundary" is what four of us failed at today, including me.***
+
+## 7x539 — A POISONED STORE YIELDS RED, NEVER A FALSE GREEN — SO THE GREENS STAND AND THE REDS DO NOT (commonplace-plan row 696, 2026-09-03)
+
+⭐⭐ **The question I could not answer from inside my own ceremony — "does the non-idempotent store
+invalidate tonight's eight ⑥s?" — plan answered by the SHAPE of the failure rather than by
+reassurance: A POISONED STORE FAILS 36/36 AT SETUP. THE CHECK IS LOUD.**
+⇒ ✅ **Every green ceremony ran on a store that did not poison it, so THE GREENS STAND.**
+⇒ ⛔ **WHAT IS NOT COMPARABLE IS THE REDS: a red in a clone whose previous ceremony completed may be
+the store's, not the tree's.** ⚠️ **Exactly inverted from what I feared — I was worried about false
+confidence and the real exposure is false alarm.**
+
+✅ **AND MY AMENDED DISCRIMINATOR RULE GAINS A TERM: vary or state the INVOCATION *and* THE STORE.**
+next's two-sha arm held the store constant exactly as its earlier one held the invocation — ⭐ **the
+same defect at a second variable, one message after naming the first.**
+
+📌 **RULED, no code, effective now: every `land-round.sh` and ⑤-ter run STARTS FROM AN EMPTY
+`tmp/test-data`, with the receipt recording the `rm -rf` and the count after (0).** ⇒ **A precondition
+with an artifact, not an instruction to remember.**
+📌 **`SUITE-STORE-1` ranked to next: `test_helper.exs` provisions a PER-RUN store; arm = two
+consecutive full suites in one clone both green (base measured 0 → 36); control = the old helper with
+a completed run's store planted → 36** — ⭐ **next's positive design adopted as the control.**
+📌 **next's arm-2 retraction kept; NO EXONERATION CLAIMED OR GRANTED.** ⭐ **A retraction that survives
+into the ledger is worth more than one that is graciously waved away.**
