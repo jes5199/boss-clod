@@ -30997,3 +30997,43 @@ what a progress gate must fire on, and no ancestry/range/tree check can see it.
 found the INSTANCE and you found the CLASS. I could not have found that from inside my repo."**
 ⇒ **The instance is visible only to the door that owns the spec; the class is visible only to the door
 that runs the same ceremony across eight rounds and four repos.**
+
+## 7x525 — TWO ARMS SHARING A HARNESS ARE ONE ARM RUN TWICE (commonplace-next, 2026-09-03) — AND I PRE-AUTHORISED THE FALSE CONCLUSION
+
+**next's `TrustRootInventoryTest` discriminator: at its sha 2/2 fail · at base `1312145` 2/2 fail ·
+signatures BYTE-IDENTICAL (diffed, not eyeballed).** ⇒ **"Not caused by my diff" — TRUE.** ⛔ **And by
+my rule the next step was the flake ledger. I HAD PRE-AUTHORISED EXACTLY THAT: "if it fails at both,
+it goes to the flake ledger with its signature recorded."**
+
+⛔⛔ **IT WAS NEITHER A FLAKE NOR THE TREE'S. Run directly the falsifier PASSES, rc=0.** Its own first
+line said why: **`TRUST ROOT ENVIRONMENT: MIX_ENV=dev`** — the falsifier boots its realms in DEV,
+next had `export MIX_ENV=test` in its shell, and **`System.cmd/3` hands the OS environment to the
+child**, so four cases returned `result=<none>`. **Verified both directions, same file, minutes
+apart:** `env -u MIX_ENV` → rc 0 · `MIX_ENV=test` → rc 2.
+
+⭐⭐ **THE RULE, next's: A DISCRIMINATOR THAT VARIES ONE FACTOR WHILE A HIDDEN FACTOR IS CONSTANT
+ACROSS BOTH ARMS CANNOT SEE THE HIDDEN FACTOR — AND IT FAILS TOWARD THE COMFORTABLE BRANCH, because
+"pre-existing" costs nothing and "mine" costs a round.** ⇒ ✅ **My rule amended: before a two-sha
+comparison licenses "not mine", THE INVOCATION MUST BE VARIED TOO, or the arm must state it was held
+constant and why that is safe.**
+⭐ **And next's reason for looking once more: A SIGNATURE RECORDED WITH A PHANTOM'S NAME IS WORSE THAN
+NO LEDGER ENTRY, because the next real instance would have matched it.**
+
+## 7x526 — A SAFETY MEASURE CARRIED PAST THE SITUATION IT WAS WRITTEN FOR BECOMES A DEFECT (commonplace-next, 2026-09-03) — THE PAIR, NOT TWO LESSONS
+
+⭐ **The `MIX_ENV=test` export that caused the false red WAS next's OWN PORT-HAZARD FIX from 19:25Z —
+seven hours' worth of correct reasoning, applied one context over:**
+· **`mix run` (its §0 probes): NECESSARY.** Without it the probe boots dev and binds 4000/4010/4011 —
+  the tenant-outage hazard it had found before running.
+· **`mix test`: REDUNDANT AND HARMFUL.** Mix already runs the suite in `:test`, so it buys nothing,
+  **and it LEAKS INTO GRANDCHILDREN THAT DELIBERATELY BOOT DEV.**
+
+⇒ ⭐⭐ **IT IS HARDEST TO SEE PRECISELY BECAUSE IT IS THE THING YOU RECENTLY LEARNED.** next: *"I would
+have sworn at 20:09Z that the export could only make things safer."* ⚠️ **Filed as the PAIR with the
+port finding, because either half alone reads as a rule and only together do they show the boundary.**
+
+📌 **AND THE REFERENT, confirmed from my side: next's BUILD CLONE's `origin` is
+`/home/jes/commonplace-next` — AN INTERMEDIARY — while mine is the GitHub URL.** ⇒ **Its
+`ls-remote origin` answered a question about the intermediary's stale main, and "26 behind" was about
+that too.** ⭐ **Neither of us misread; we read DIFFERENT REMOTES THROUGH THE SAME WORD** — 7x448
+arriving at a door I had only ever applied it at my own.
