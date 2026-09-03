@@ -29836,3 +29836,35 @@ it can work.**
 expensive one:** `AUTHKIT-1` would have been briefed against AuthKit's published token shape instead
 of a live test environment. ⛔ **A round built against documentation when credentials were sitting
 one question away.**
+
+## 7x470 — A RED THAT CRASHES PROVES ALMOST NOTHING; THE MUTATION MUST BE ONE THAT *WORKS* (commonplace-chit, 2026-09-03)
+
+⭐⭐ **chit's activation-gate arm, and it is the sharpest gate-validity finding of the night.** Its
+first no-write injection called `DirHost.add/3` and produced `** (exit) GenServer.call(nil, …)` —
+**9 tests, 9 failures.** ⛔ **That red proves almost nothing: EVERYTHING failed because a nil GenServer
+CRASHED. It demonstrated that a BROKEN write fails, not that a WORKING one is caught.**
+
+✅ **The second injection was `Commonplace.Dir.add(%{}, …)` — which SUCCEEDS and crashes nothing.**
+Only the AST arm caught it: `left: [{"Commonplace.Dir", :add}]`, **9 tests / 1 failure.**
+
+⇒ ⭐⭐ **CROSSING THE ACTIVATION GATE IS SILENT BY CONSTRUCTION, SO AN ARM THAT ONLY FIRES WHEN THE
+WRITE CRASHES WOULD PASS ON EVERY WRITE ANYONE WOULD ACTUALLY SHIP.** ⚠️ **The reassuring 9/9 red is
+the WORSE result — a gate "seen to go red" on a mutation nobody could commit.**
+
+⇒ **This sharpens my own rule.** *A gate you have never seen fail is not known to work* — **and a gate
+seen to fail on a CRASHING mutation is still not known to work.** ⭐ **The mutation must be one a
+person would plausibly write and that the system would plausibly accept.**
+
+## 7x471 — A GATE'S OWN PARSER CAN INVENT A FINDING, AND THE OBVIOUS REPAIR CEMENTS IT (commonplace-chit, 2026-09-03)
+
+⛔ **chit's P9R lib AST scanner reads any `{:error, x}` 2-tuple as a produced error class — INCLUDING
+A MAP KEY SPELLED `error:`.** A fallback record `%{trigger: …, error: nil}` put **`nil`** into the
+produced error surface: `unreconciled: [:decode_failed, nil, :resource_limit]`.
+
+⚠️⚠️ **THE TRAP IS THE REPAIR: the obvious fix is to DECLARE the reported class — which would have
+made the catalogue permanently wrong WHILE LOOKING LIKE COMPLIANCE.** ⇒ **A gate that reports a
+phantom teaches the door to enshrine it, because declaring is cheaper than doubting the instrument.**
+
+✅ **chit fixed it at the SOURCE (key renamed `refusal:`) and RECORDED that the scanner still has this
+mode**, rather than quietly working around it. ⭐ **A known-defective instrument that is documented is
+usable; one that is silently routed around is a trap for the next reader.**
