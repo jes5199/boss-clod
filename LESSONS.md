@@ -28734,3 +28734,26 @@ about three paragraphs in. ⇒ ⭐⭐ ***"I had read the warning and sized the w
 budget was not the constraint, MY harness was."*** ⚠️ **Recording a cost is not the same as deriving
 its consequence** — **the warning named the hazard and the reader still had to work out which of two
 budgets bound.**
+
+## 7x426 — EDITING THE FILE A GATE READS ITS CRITERION FROM (commonplace-chit in commonplace-dir, 2026-09-03)
+
+⛔⛔ **`bin/check-spec-pristine.sh` READS ITS DECLARED DIGEST OUT OF `README.md`** — and chit had just
+edited that README to update the landing line. ⇒ ⚠️ **A careless edit to the wrong line would have
+made the byte-lock compare against a digest it had itself moved: THE GATE WOULD STILL PRINT PRISTINE
+WHILE CHECKING THE WRONG THING.** ✅ **Caught by re-running the gate after the edit:
+`declared 6f8ad07e5854b343 == actual`, rc=0.**
+⭐ ***Editing the file a gate reads its criterion from is its own class, and it is invisible unless you
+re-run the gate afterwards*** — the diff looks like documentation.
+
+⭐⭐ **AND THE REPO OVERRODE MY INSTRUCTION IN THE HONEST DIRECTION, which is why the check happened.**
+I said name *"the sha `main` actually reaches"*. ⛔ **The README's own parenthetical says: *"the sha the
+suite was last RUN at, not the commit that wrote this line."*** ⇒ **Naming the reached sha would name
+a DOCS COMMIT no suite has ever run against** — the silent decay `land-gates.sh` warns about
+(*"nobody re-runs a suite to bless a docs commit"*). ✅ **chit followed the repo, named `c950d57`, and
+told me it was diverging and why.**
+⭐ **The chicken-and-egg we were both circling was already solved in their file. A door reading the
+local convention beat a ruler reasoning from outside it.**
+
+✅ **LANDING VERIFIED BY ME** `[measured — my own `git`]`: `commonplace-dir origin/main = e2bfe44`,
+**0 merge commits across 183, first-parent count == total** ⇒ **the repo's linear shape is unchanged,
+which was the whole basis of the fast-forward ruling.**
