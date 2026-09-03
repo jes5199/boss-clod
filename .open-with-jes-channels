@@ -57,3 +57,12 @@
 #         UNREACHABLE depending on order. Ordering put to plan (#26400), NOT defaulted by me.
 #         ⚠️ And the internal hostname does not exist yet — a name that becomes a DNS record and an
 #         Access app domain, so it is jes's to choose, not mine to invent.
+# Q-INTERNAL-HOST | ANSWERED 2026-09-03T10:10:19Z (10852), verbatim: `internal.commonplace.st is good`.
+#         ⭐ CONFIRMED rather than defaulted-into — he named it, so the row cites testimony, not silence.
+#         ⛔ A NAMED DESTINATION IS NOT A SCHEDULED MOVE. Plan row 651 stands: Access stays on
+#         beta.commonplace.st until AuthKit SERVES. Nothing about having the name makes the move
+#         safe earlier — beta's own login path was removed in R11a, so Access is still the only
+#         thing admitting a human.
+#         📌 And `internal.commonplace.st` has no DNS record yet. Creating one is an outward-facing
+#         change in his account ⇒ his to authorise, recorded in cf-records with WHY, like Phase 1's
+#         DNS row. Not live work today.
