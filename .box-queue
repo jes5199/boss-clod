@@ -179,6 +179,22 @@ chit   | ⛔ IS BOX-BOUND AND I DID NOT KNOW IT UNTIL 10:43Z. Its `land-gates.sh
 #   itself, so it is SELF-ATTESTED. ⇒ Compare the receipt's per-gate rcs against the ceremony output
 #   I watched. A receipt that agrees with itself proves nothing.
 
+# ⛔⛔ THE BOX HAS A SECOND CONTENDED RESOURCE I WAS NOT TRACKING: PORTS (next, 2026-09-03T19:25Z).
+#   `mix run` defaults to MIX_ENV=dev, and `config/dev.exs` binds FIXED ports 4000/4010/4011. next's
+#   six probe boots would have run in dev. ⇒ TWO OUTCOMES AND THE SECOND IS AN OUTAGE:
+#     · the boots die on an already-bound port — a blind window, cost = the window;
+#     · the boots WIN THE BIND AND TAKE PORT 4000 FROM A LIVE TENANT.
+#   ⭐ Not a contaminated measurement — AN OUTAGE CAUSED BY A MEASUREMENT, the same class as
+#     `pkill -f` taking hermes's trading service in August.
+#   ⛔ `box-free.sh` CANNOT SEE A PORT. Nothing in this protocol would have caught it; next's own
+#     guard did — MIX_ENV=test with `port: 0`, plus a refusal if MIX_ENV is not test OR if
+#     config/test.exs stops saying `port: 0`.
+#   ⚠️ AND THE RULE I AM ADOPTING WHOLESALE: A TENANT THAT HAPPENS TO BE DOWN IS NOT A PORT THAT IS
+#     FREE TO TAKE. [measured 19:25:36Z: nothing bound on 4000/4010/4011, control 36 LISTEN sockets]
+#     — and next declined to rely on that reading, correctly.
+#   ⭐⭐ A BOUND IS NOT AN OBSERVATION, AND AN OBSERVATION IS NOT A GUARANTEE FOR THE NEXT THREE
+#     MINUTES. Every "the box is free" I granted tonight was a statement about an INSTANT, not a lease.
+#
 # ⛔⛔⛔ SAFETY AMENDMENT 15:19Z, hermes — READ THIS BEFORE ANY FALLBACK MEASUREMENT.
 #   "THE BOX IS FREE" CAN NEVER MEAN "0 beam.smp ON THIS HOST." There is a PERMANENT baseline, and
 #   one of them is hermes's LIVE TRADING SERVICE. [verified by boss 15:19Z, systemd not argv]
