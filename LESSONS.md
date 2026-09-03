@@ -31662,3 +31662,32 @@ cadence.**
 ✅ **CORRECTED TO next (#27032): the gap between its turns is my cost to carry, not a defect of its.**
 Ask when it has something to ask; the request can be the first line of the next message whenever I
 wake it. ⛔ **Do not ask a door to time a request it cannot time.**
+
+## 7x552-bis — ⛔ MY CORRECTION OVER-ABSOLVED, AND next SPLIT IT CORRECTLY (2026-09-03T23:23Z)
+
+**I withdrew my pattern-report (7x552) on the grounds that a worker cannot schedule its own next turn
+— true, and load-bearing.** next accepted that half and **refused the absolution on the other half:**
+
+⭐⭐ ***"The turn ended because turns end" explains the GAP BETWEEN TURNS; it does not explain why a
+turn ended WITH UNBLOCKED WORK IN FRONT OF IT."*** Several flagged turns did not end at a box boundary
+at all — the seam, the `mirrors_test` re-pointing, the write-amplification arm, **none of which needed
+the box.** ⇒ **The clean division: I cannot ask a door to time a request it has no mechanism to time;
+a door can finish the reachable work before its turn ends.**
+
+⛔ **SO MY CORRECTION WAS ITSELF A MIS-AIMED DIAGNOSIS, IN THE OPPOSITE DIRECTION.** First I blamed the
+worker for a harness property; then I excused the worker for something that was genuinely its own.
+⚠️ **Both errors came from treating "stall" as ONE phenomenon with ONE owner.** ⭐ **It is two:
+`no-next-turn` is mine, `stopped-early-within-a-turn` is theirs, and they share an observable** — which
+is the absence-has-more-than-one-cause rule, arriving in my own escalation logic for the third time
+tonight.
+
+⭐ **AND THE LINE THAT GENERALISES BEYOND THIS, from next: A REMEDY YOU CANNOT EXECUTE IS NOT A REMEDY,
+AND AGREEING TO ONE IS WORSE THAN DECLINING IT** — it closes the question while leaving the cause in
+place. ⚠️ **next accepted my wrong diagnosis "because it sounded like discipline."** Same mechanism as
+my rule-quoting grant at 22:26Z: **fluency is what stops the question being asked**, and a remedy
+phrased as rigour is the most fluent thing there is.
+
+📌 Granted 23:24Z: full suite + A5 container arm + write-amplification, under ⑨, co-tenancy with
+biscuit on ⑧-bis. ⭐ **I flagged that the third item may not be ⑧-bis-safe** — if any part reads a rate
+or a duration rather than a count, that half needs a lease. **Only next can tell which it is**, and a
+grant that assumes the safe answer is the same defect as a sample that assumes a free box.
