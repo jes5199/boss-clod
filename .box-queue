@@ -7,9 +7,14 @@
 # ⚠️ Before nudging any door that appears idle, CHECK WHETHER I OWE IT A RELEASE.
 #
 # holder | since | what
-cell   | 2026-09-03T05:58Z | STORE-1a, six checks   (HOLDING THE BOX NOW)
+next   | 2026-09-03T07:20Z | G-SESSION S5 base   (HOLDING THE BOX NOW)
 # waiting, in order:
-next   | asked 05:58Z | G-SESSION S5 base — handshakes per crossed request, per leg, measured at the landing sha
+#   (nobody)
+# released:
+# cell released 07:19Z on the ARTIFACT (six checks rc=0, file on disk) — not on an idle pane.
+#   cell is blocked on Q-PUSH, which is a hold on the PUSH and NOT on the box; it will not ask for
+#   the box back for STORE-1a (the push is a fast-forward starting no BEAM; 6 is git-only).
+#   STORE-1b needs a commonplace-doc window LATER, and only if jes answers YES.
 # not box-bound:
 biscuit| ACCESS-1a — Cloudflare Access app; no box, no slot token; lands via boss-clod cf-records/
 chit   | free by ranking (plan row: nothing in its repo is on the beta path)
