@@ -39,7 +39,11 @@ chit   | free by ranking (plan row: nothing in its repo is on the beta path)
 #   name — a door with a token and no window contaminates someone's measurement, and a door with a
 #   window and no token lands without a warrant.
 # ⛔⛔ PER-REPO TOKEN CONTRACTS — THE TABLE, NOT THE SENTENCE (plan DISPATCH-TEMPLATE.md §5):
-#     next  tmp/SLOT_GRANTED   spent on use
+#     next  tmp/SLOT_GRANTED   names the branch it admits (admits-branch:), SPENT AT GATE 1,
+#                              moved to tmp/slot-spent/. tmp/ IS GITIGNORED there, so "write the
+#                              token on the run" is CORRECT for next and was WRONG for cell.
+#                              ⚠️ Spend at gate 1 ⇒ every second after gate 1 is a window in which
+#                              an interruption costs a grant. next lost one that way this morning.
 #     doc   .slot-granted      existence-only
 #     cell  NONE               + REFUSES ANY UNTRACKED FILE (land-round.sh:63, since 07618e3)
 #     log   no landing script
@@ -63,3 +67,12 @@ chit   | free by ranking (plan row: nothing in its repo is on the beta path)
 # ⚠️ THAT IS THE TELL WORTH REMEMBERING: "this isn't technically the thing the rule names" is a
 #   CLASSIFICATION ARGUMENT, and a classification argument is how a door talks itself past a gate.
 #   The rule is about the resource, not about the vocabulary.
+
+# ⭐ ⑥ NOW HAS A FOURTH ELEMENT, and it is PRE-REGISTERED (cell gave it, next sharpened it):
+#   ancestry + range + tree prove the right BYTES ARRIVED. They do NOT prove the landing DID THE
+#   THING. So a warrant may name a PROPERTY checkable from the PUSHED TREE, with a control that
+#   makes its zero non-vacuous — and it must be named BEFORE the tree exists, because a property
+#   named at verification time is one chosen in the presence of the answer.
+# ⛔ AND THE UNIT MATTERS MORE THAN THE PATTERN: next's first draft of a property counted TEXT HITS
+#   and would have been RED ON A CORRECT TREE — the single hit was its own comment recording the
+#   change. Ask the warranting door what the unit is; do not infer it from the name.
