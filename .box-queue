@@ -7,7 +7,8 @@
 # ⚠️ Before nudging any door that appears idle, CHECK WHETHER I OWE IT A RELEASE.
 #
 # holder | since | what
-next   | 2026-09-03T07:20Z | G-SESSION S5 base   (HOLDING THE BOX NOW)
+cell   | 2026-09-03T09:29Z | STORE-1b in commonplace-doc: S1 base-red demo, deps.get, compile, full suite, 1-6   (HOLDING THE BOX NOW)
+#   next released after G-SESSION landed; boss verified 6 at head b1842e1 with both controls.
 # waiting, in order:
 #   (nobody)
 # released:
