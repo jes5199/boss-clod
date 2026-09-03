@@ -8,7 +8,9 @@
 #
 # holder | since | what
 next   | 2026-09-03T13:09Z | PIN-BUMP-2: gate-control fix, cell door's recorded pin, two new doors, then the gate block   (GRANTED — takes it at its own pace, pings on take/release)
-# waiting: next, for PIN-BUMP-2, at its own pace.
+# waiting, in order:
+#   chit  — chit slice 11 (§12's fourteen invariants -> traceability), ~15 min one window.
+#   cell  — LAND-PROOF, after next's bump. Ask when ready.
 # (was FREE) | 2026-09-03T11:57Z | chit landed DIR-R9/A49 (dir 56c0149 -> 1a5187f) and released. next has PIN-BUMP-2 dispatched and takes the box at its own pace.
 # waiting: next, for PIN-BUMP-2's suite runs -- takes it at its own pace and pings me.
 # (was next 10:39-11:41Z for ORG-2a; landed f51e728, boss verified 6 + all three pre-registered properties)
@@ -119,3 +121,15 @@ chit   | ⛔ IS BOX-BOUND AND I DID NOT KNOW IT UNTIL 10:43Z. Its `land-gates.sh
 #   unobservable by construction. [measured] is only: we ended under the cap with everything intact.
 # ⭐ LIFT CONDITION WAS AN OBSERVATION, NOT A CLOCK: waited for `claude-quota` to read 5h=0%, not for
 #   the estimated reset time to arrive. The estimate was 13:00Z; the reset landed at ~13:09Z.
+
+# ⛔⛔ AN AGGREGATE NOBODY DECIDED (chit, 2026-09-03T13:14Z) — MY FAILURE MODE, NOT A DOOR'S.
+#   chit spent the ENTIRE NIGHT in `commonplace-dir` because two cross-repo mandates routed there.
+#   ⭐ EACH ROUTING WAS CORRECT. The cumulative effect — a door drifting wholly out of its own repo,
+#   against jes's "chit should figure out what to build first and build it" — was a decision nobody
+#   made. ⚠️ It is INVISIBLE ROUND-BY-ROUND and obvious only in aggregate, and NOTHING in the sweep
+#   or this file looks at aggregate. ⇒ When a door has not touched its own repo in a long stretch,
+#   that is a fact for plan, and I am the one who can see it because I hold the sequence.
+
+# 📌 ⑥ GAINS A STEP WHEN `LAND-PROOF` LANDS (plan row 672): the receipt is written by the ceremony
+#   itself, so it is SELF-ATTESTED. ⇒ Compare the receipt's per-gate rcs against the ceremony output
+#   I watched. A receipt that agrees with itself proves nothing.
