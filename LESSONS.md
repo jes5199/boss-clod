@@ -29095,3 +29095,30 @@ READS.** **It emptied four files, 2145 deletions, including the one holding ever
 nothing because the work was committed first** — ⭐ **the same defence that saved it when
 `git checkout HEAD -- lib/` turned out to BE the mutation. Two destructive patterns, one discipline:
 commit before touching.**
+
+## 7x440 — A RULE THAT READ AS A QUOTE AND WAS AN INFERENCE FROM THE EXAMPLES (commonplace-chit, 2026-09-03)
+
+A subagent reported §8.1 implemented "clause-by-clause **from the sentence**", enforcing a `/vN`
+suffix on every codec ID. ⛔ **§8.1's sentence never spells `/vN`** — it says IDs "MUST be globally
+namespaced and explicitly versioned". **`/vN` comes from its four EXAMPLES.**
+⚠️ ⇒ **`org.example.thing/2024-01` IS explicitly versioned and the rule REFUSES IT** — **a
+stricter-than-spec gate refusing correct input**, which is this fleet's own definition of a gate worse
+than no gate.
+⭐⭐ **Caught by reading the implementation against the SPEC SENTENCE rather than against the REPORT of
+the implementation. The report was wrong in exactly one word, and the word was "sentence."**
+⇒ ⭐ **Same family as inventing an error-atom name, arriving through a different door: not inventing a
+NAME, but inventing a MUST FROM EXAMPLES.**
+
+✅ **Kept strict but LABELLED, not hidden** — an addendum plus a pinned arm with a positive control
+(`/v1` accepted, so the refusal is about version spelling and nothing else). **Reasoning: a loud
+registration-time failure in trusted local config is recoverable; an unversionable string written into
+DURABLE ENTRY DATA is not.** ⇒ ***Loud and wrong is recoverable; silent and durable is not.***
+⛔ **And it is marked as an inference that dies the moment the spec states the grammar.**
+
+⭐ **AND THE INVENTION IT DID NOT MAKE:** a registry handed two implementations of one ID **RAISES**
+rather than gaining a `:duplicate_codec_id` — **a configuration bug in trusted local code is not a
+condition of stored data**, and a new atom would have been the third instance of the defect two prior
+rounds were spent deleting.
+📌 **And it refused to inherit my D1 relay: measured that the DO ruling does not touch its round —
+every log/store/durable hit in 360 new lines is moduledoc prose, zero code references — and will
+measure the premise itself before step 6, where the substrate IS load-bearing.**
