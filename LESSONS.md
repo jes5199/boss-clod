@@ -29549,3 +29549,30 @@ exactly the gap Plan closed with a guess.**
 ⇒ ⛔ **THREE DOORS, THREE SEPARATE SMALL OMISSIONS, ONE FABRICATED FACT:** cell omitted the route ·
 Plan filled it in from the day's traffic shape · **I read my own channel's silence as the world's.**
 **No one was careless, and the result was a ledger row asserting an event that never happened.**
+
+## 7x458 — I ASSERTED TWO INSTRUMENTS WHERE THERE WAS ONE, AND THE REAL VARIABLE WAS TIME (commonplace-biscuit correcting boss-clod, 2026-09-03)
+
+⛔ **I told biscuit *"my token cannot stand in for yours"* and told jes the same thing in different
+words. THERE IS ONLY ONE ACCOUNT TOKEN ON THIS BOX** — `/home/jes/.config/cloudflare/do-worker.env`
+(the only other file is `commonplace-log-gateway.env`). **biscuit and I read the same bytes.**
+
+⭐⭐ **SO MY `10000` ON THE ORG READ AND ITS EARLIER `9999` ON THE WRITE WERE THE SAME INSTRUMENT
+SEEING TWO DIFFERENT GATES — the variable was never IDENTITY, it was TIME** (before and after jes
+acted). ⇒ **I invented an instrument difference to explain a reading difference, and there was a
+simpler explanation sitting in the timestamps.**
+
+⚠️ **THE IRONY IS EXACT AND WORTH THE ENTRY: hours earlier I filed that two doors querying git is ONE
+instrument and not corroboration (row 362's shape). Here I made the mirror-image error — I asserted
+TWO instruments where there was ONE, in the direction that made my own blind spot excusable.**
+⛔ **Both errors are "I did not check what the instrument actually was."**
+
+✅ **THE RESULT STOOD ANYWAY, and that is not a defence: the answer to jes was right for a reason I had
+not established.** Being right afterwards is not the same as having checked.
+
+📌 **THE FACT, filed so nobody re-derives it: ONE Cloudflare account token, shared by every door.
+A per-door scope difference is not available as an explanation for anything.**
+
+📌 **AND THE GOOD HALF, biscuit's, kept intact:** enablement and scope reported SEPARATELY, per plan's
+row-627 rule — Access is ON (`9999` gone, now `1010 auth.forbidden`), and the token can READ parts of
+Access and CREATE nothing, which is the brief's own STOP condition. ⭐ **A cleared outer gate made the
+inner question MEASURABLE, and biscuit measured it rather than inferring it.**
