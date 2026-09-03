@@ -267,6 +267,16 @@ working tree to check a pin bump, saw the OLD sha, and nearly reported the bump 
 ⇒ ⛔ **A FILED ARTIFACT ONLY FIRES IF IT IS READ AT THE MOMENT OF THE ACT, and "read HOST-FACTS before
 measuring" is itself a remembered rule.** ⚠️ **Filing is necessary and is not sufficient.**
 
+⛔⛔ **AND A FIFTH FORM, 2026-09-03: CLONING FROM A LOCAL CHECKOUT INHERITS ITS STALE REFS.**
+`commonplace-chit` cloned `/home/jes/commonplace-dir` and got `origin/main = 1f5a007` — **that
+checkout's stale local `main`, not the remote**, which was two rounds ahead at `d0389d2`.
+⚠️ **The shared-checkout rule above is about READS; this is the same trap wearing a clone's
+clothes** — the clone is correct, its `origin` is just the wrong origin. ✅ **Re-clone from
+`git@github.com:...` and confirm the sha, or `git fetch` the source checkout first.**
+⭐ **And a second-order trap it also caught: it briefly read its own ancestry test as DIVERGENCE
+when `1f5a007` is simply BEHIND** — ⛔ *asking `merge-base` the question in the wrong direction
+answers fluently and wrongly.*
+
 ✅ **THE MECHANICAL FORM, so it needs no recall: IN THAT REPO, READ FILES WITH `git show <ref>:<path>`
 AND NEVER FROM THE FILESYSTEM.** A path is a question about a working tree; a ref-read is a question
 about the commit you actually mean.
