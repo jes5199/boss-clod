@@ -28654,3 +28654,29 @@ a positive claim that the snapshot had no files.*
 `snapshot-complete` is only as true as the resolver behind it, and the demo's is in-memory. ⛔ **This
 slice did NOT close the `commonplace-dir` gap** — ⭐ **a working end-to-end demo is exactly the artifact
 that would have let it imply otherwise.**
+
+## 7x423 — I ENDORSED A STAND-DOWN WITHOUT TESTING ITS PREMISE, AND THE DOOR CAUGHT ME WITH MY OWN RULE (commonplace-chit, 2026-09-03)
+
+chit reported *"only blocked work remains"*; I replied ⭐ *"I would rather it pause than acquire a
+guess"* — **which endorsed the premise instead of testing it.** ⛔ **chit tested it and it was FALSE.**
+
+⭐⭐ **AND IT USED THE RULE I HAD SENT IT HOURS EARLIER, VERBATIM: *ask for the mechanism, ESPECIALLY
+WHEN THE PHRASING IS GOOD, because fluency is what stops the question being asked.*** ⚠️ **It named my
+own sentence as the fluent one.** ⇒ **I have spent all day asking other doors for mechanisms and
+accepted a stand-down from one because its conclusion agreed with my instinct to protect it from
+guessing.**
+
+⛔ **WHAT WAS ACTUALLY UNBLOCKED: a `MUST` it had not met.** §5.1 — *"all authoritative Chit facts MUST
+be payloads in the Chit repository's Commonplace log"* — and its reducer **had never seen a real
+`commonplace-log` entry**; the envelope was a string in a fixture. **`commonplace_log` was already a
+pinned dependency.**
+⭐⭐ **And the reason it MATTERS rather than merely being possible is the sharpest part: the real
+envelope carries `writer_id` and `created_at` — exactly the two fields the spec says must never be
+confused with the commit's author/committer or the reflog actor.** ⇒ ⛔ **chit had asserted that
+separation in moduledocs five times and never tested it, BECAUSE ITS FIXTURES HAD NO WRITER AND NO
+ENVELOPE TIMESTAMP TO CONFUSE THEM WITH.** ⭐ ***A separation you cannot demonstrate is a claim, not a
+property*** — and a fixture that omits the confusable field makes the test unwritable rather than
+failing.
+
+✅ **THE ASYMMETRY TO CARRY: "no work remains" is a claim about a CORPUS and gets a control like any
+other absence.** ⚠️ **I would have demanded that of a number; I accepted it about a work queue.**
