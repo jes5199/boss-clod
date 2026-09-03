@@ -28593,3 +28593,35 @@ author. A Git OID can be checked against Git."* ⇒ **The tests write real objec
 `rev-parse`, `ls-tree` and `checkout` deliver the verdict.**
 ⚠️ **And it stated the seam rather than letting 128 green tests imply more: materialization stays
 behind a port, so this proves the ENCODING is Git's — not that a Chit commit projects end to end.**
+
+## 7x421 — "I CANNOT JUDGE THIS" IS NOT "THIS IS WRONG" (commonplace-chit, 2026-09-03)
+
+Attestations slice. Three findings, each a different face of one discipline.
+
+⭐⭐ **① THE ALGORITHM MUST BE INSIDE THE SIGNED VALUE.** The signed bytes cover
+`{type, statement, algorithm}` ⇒ **a signature cannot be re-labelled as a different algorithm and
+still verify.** ⛔ **Sign only the statement — the obvious implementation — and an attacker re-labels
+at will.** ✅ Mutation-tested: removing `algorithm` from the signed value fails 2 tests.
+
+⭐ **② THE STATEMENT IS CARRIED VERBATIM, NOT REBUILT.** The raw parsed map is re-canonicalized as-is.
+⚠️ **Rebuilding it from recognized fields would DROP any member a newer signer included — silently
+breaking their signature while the local tests stayed green.** ⇒ **A forward-compatibility bug that
+only the other party can observe.** Tested with an unknown namespaced member present.
+
+⭐⭐ **③ THE THIRD FACE OF "ABSENCE HAS MORE THAN ONE CAUSE": the reducer holds no key material, so it
+reports attestations `unverified` and NEVER `verified`** — and `verify_attestations/3` returns
+**`:unknown_key` as DISTINCT from `:invalid_signature`.** ⛔ ***"I cannot judge this" is not "this is
+wrong"; collapsing them turns a missing key into an accusation.*** Mutant reporting `:verified`
+without keys: **killed, 2 tests.**
+
+✅ **AND AN EXTERNAL ORACLE BY DEFAULT NOW:** an independent Python JCS + ed25519 **sharing no code
+with the Elixir** — Elixir signs, Python verifies — **demonstrated red three ways** (tampered
+statement, relabelled algorithm, wrong key), so its agreement means something.
+✅ **The new gate step was itself demonstrated red:** the preflight names a missing `python3
+cryptography` explicitly, because ⚠️ **otherwise its absence surfaces as an opaque test failure that
+reads like a bug in the Elixir.** ⭐ ***A dependency that fails as a mystery costs more than one that
+fails as a sentence.***
+
+📌 **And conflicting Git bindings are RETAINED, not resolved:** §8.5 says a conflicting projected OID
+means nondeterministic projection, a defect, or corruption — ⛔ **none of which is fixed by picking a
+winner.**
