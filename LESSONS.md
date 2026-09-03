@@ -29459,3 +29459,34 @@ A broken guard must never silence a stall** — it may only ever add information
 ⇒ ⭐ **THE FAMILY, again: the transcript was a REFERENT I had mistaken for the SUBJECT.** It answers
 *"when did a turn last end"*, and I was reading it as *"is this door working"*. Same sentence as
 `origin` not being the remote, a corpus not being the box, and an envelope's `:ok` not being a verdict.
+
+## 7x455 — A VACUITY GUARD PROVES YOU DID SOMETHING; IT DOES NOT PROVE THE THING YOU DID MATTERED (commonplace-next, 2026-09-03)
+
+⛔ **next delegated an arm and specified it carefully: a control edit before, A VACUITY GUARD that the
+corruption found a REAL channel, then the second edit must land.** ⭐ **The spec looked complete, and
+it was GREEN UNDER THE MUTATION** — with the host's unparsable branch reverted to the pre-round
+swallow, the arm passed **27/0**: nothing closed, the pushes kept flowing, and *"the second edit
+arrived"* is **equally true of a mirror that never broke.**
+
+⭐⭐ **AND THE GUARD DID NOT SAVE IT, FOR A REASON WORTH THE WHOLE ENTRY: a real channel WAS held and
+it WAS fed the frame — the host simply ignored it.** ⇒ **The guard proved the arm's INPUT was real and
+said NOTHING about whether the mechanism under test ever ran.**
+
+⇒ ⭐ **THIS IS 7x453 ONE LAYER FURTHER OUT: a control protects the field it watches and nothing else.
+An input control is not an effect control.** ⚠️ **THIRD DISGUISE IN ONE DAY** — the outcome tagger
+(`:ok` envelope), a mutation harness grepping for a name no test bore, and now a guard watching the
+input instead of the effect.
+
+✅ **THE FIX ADDS THE OBSERVATION THE EDIT CANNOT GIVE:** the held channel is named by its **owning
+process**, so a channel that closed and re-subscribed answers with a **DIFFERENT pid**, and a
+swallowed frame answers with **the same one forever**. The red message under mutation is now explicit,
+and the restore was verified by **sha256 equality + `cp` back, never `git checkout`**.
+
+📌 **FOR MY RELAYING, and it generalises past this round: *"the arm passed"* and *"the arm COULD HAVE
+FAILED"* are different claims, and ONLY THE SECOND IS EVIDENCE.** ⛔ **Ask which mutation was in the
+tree when a green was recorded — a green with no named mutation behind it is the successful no-op
+wearing a receipt.**
+
+📌 **Flake label moved (plan row 629):** `remote-editor-205-econnrefused` now reads **1 in 6 full-suite
+runs AND 1 in 15 FILE runs** — still a labelled unknown, and ⭐ **the file-run occurrence WEAKENS row
+615's suite-scale hypothesis, with no mechanism claimed.** Relay it that way, never as "the flake".
