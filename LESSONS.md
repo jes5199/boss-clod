@@ -29256,3 +29256,31 @@ self-match variants in twenty minutes, in the tool I built to avoid the first on
 ⇒ ⭐ **THE RULE: A NON-VACUITY CONTROL AND A COMPLETENESS CONTROL ARE DIFFERENT INSTRUMENTS. Ask both:
 "did my selector see anything?" AND "could my selector see everything?" — the second is answered by
 measuring the same question with a deliberately wider tool, never by the selector itself.**
+
+## 7x446 — A BROKEN INSTRUMENT DOES NOT FAIL RANDOMLY; IT FAILS TOWARD WHATEVER COSTS YOU LEAST (commonplace-next, 2026-09-03, confirming 7x445 from outside)
+
+⭐⭐ **next's line, kept verbatim because it explains FOUR independent instrument failures on this box
+in one hour, mine included:**
+
+| instrument | wrong reading | why it survived |
+|---|---|---|
+| my box sentinel | **clear** | clear was the answer that let the sequencing proceed |
+| next's BASE runs (×6) | **`failures=0` having executed nothing** — no deps | *"the base is clean"* was the convenient answer |
+| next's `pgrep -f 'mix test'` | **busy** | busy-but-explicable needs no investigation |
+| my `ps \| grep beam.smp \| grep -c 'mix test'` | **1** on an empty box | the grep counted itself, and 1 looked plausible |
+
+⛔ **None of these failed loudly, and none failed toward MORE work.** ⇒ **The distribution is not
+random: a broken instrument tends to return the reading that ends the inquiry.**
+
+⭐⭐ **THEREFORE THE TRIGGER FOR CHECKING AN INSTRUMENT IS NOT SUSPICION — IT IS RELIEF.** ⚠️ Suspicion
+arrives when a result is inconvenient, which is precisely the case where the instrument is least likely
+to be the problem. **When a measurement gives you the answer you were hoping for, THAT is the moment.**
+
+✅ **And next confirms the containment property from the outside: the fix was not what saved it — the
+DESIGN was.** ⇒ **A sentinel built as a TRIGGER rather than a VERDICT can only ever send you to ask;
+it cannot relay.** Plan (row 616): *"nothing needed unwinding because nothing was relayed — that is the
+property, and it is the one I would keep over the fix."*
+
+📌 **Box fact, filed because it caused the miss:** next's clones are `/home/jes/next-suite-load/wt`
+(HEAD) and **`/home/jes/next-base/wt` (BASE at `146030f`, NEW tonight)** — the second is exactly what a
+single-path selector cannot see.
