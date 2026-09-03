@@ -45,6 +45,44 @@ _pane_busy() {
   return 1
 }
 
+# ⛔⛔ CAN THE REMEDY EVEN APPLY? `tmux send-keys Enter` SUBMITS NOTHING ON AN EMPTY PROMPT.
+# Earned 2026-09-03 (LESSONS 7x546): I nudged commonplace-next and commonplace-plan, `send-keys`
+# returned 0 for both, and the NEXT sweep showed the SAME turn_end — 22:28:04.592Z and 22:26:35.975Z,
+# unchanged. Both panes sat at an empty `❯`. The keystroke was delivered and there was nothing to submit.
+# ⭐ THE COMMAND SUCCEEDED AND THE EFFECT DID NOT HAPPEN — the exact split this file exists to police,
+#   committed by the file's own reader against his own instrument, twice in eight minutes.
+# ⭐⭐ TWO DIFFERENT WORLDS SHARE THE `STALLED` VERDICT AND ONLY ONE HAS A KEYSTROKE REMEDY:
+#     queued/drafted text present  → Enter SUBMITS it. Nudging is the fix.
+#     prompt empty                 → Enter is INERT. The door is awaiting input, and the missing
+#                                    thing is a MESSAGE, usually from the dispatcher. Nudging it
+#                                    forever is the definition of a nudge substituting for a fix.
+# ⛔ FAIL-SAFE: anything unreadable returns UNKNOWN, never "empty" — a broken probe must not talk a
+#    reader out of a nudge that would have worked.
+_pane_prompt_state() {
+  command -v tmux >/dev/null 2>&1 || { echo UNKNOWN; return; }
+  _pp=$(tmux list-panes -a -F '#{pane_id} #{pane_current_path}' 2>/dev/null \
+        | awk -v w="$1" '{n=split($2,a,"/"); if (a[n]==w) {print $1; exit}}')
+  [ -n "$_pp" ] || { echo UNKNOWN; return; }
+  _cap=$(tmux capture-pane -p -t "$_pp" 2>/dev/null) || { echo UNKNOWN; return; }
+  [ -n "$_cap" ] || { echo UNKNOWN; return; }
+  # A queued-message banner is unambiguous evidence there IS something to submit.
+  printf '%s' "$_cap" | grep -qiE 'press up to edit queued|queued message' && { echo QUEUED; return; }
+  # Otherwise: the prompt line is the last line beginning with the ❯ marker. Text after it => draft.
+  _pl=$(printf '%s\n' "$_cap" | grep -E '^[[:space:]]*❯' | tail -1)
+  [ -n "$_pl" ] || { echo UNKNOWN; return; }
+  # ⛔⛔ THE REAL PROMPT PADS WITH U+00A0 NON-BREAKING SPACE, WHICH `[[:space:]]` DOES NOT MATCH.
+  # Caught by a positive control on live panes minutes after writing this (2026-09-03): my fixture
+  # used a plain space, passed EMPTY/DRAFT/UNKNOWN cleanly, and then ALL THREE live doors read DRAFT
+  # while their prompts were visibly empty. `cat -A` on the real line: `M-bM-^]M-/M-BM- $` — ❯ then
+  # C2 A0 then end-of-line. ⭐ A FIXTURE I BUILT FROM MY OWN ASSUMPTION IS NARROWER THAN THE CORPUS
+  # BY CONSTRUCTION, and it agreed with me on all three arms. The live check is the only one that
+  # could disagree — run the probe against the real thing before believing its self-test.
+  case "$(printf '%s' "$_pl" | sed 's/^[[:space:]]*❯[[:space:]\xc2\xa0]*//' | tr -d '\302\240' | sed 's/[[:space:]]*$//')" in
+    '') echo EMPTY ;;
+    *)  echo DRAFT ;;
+  esac
+}
+
 _worker_session_alive() {
   local w="$1" p cmd self=$$
   for p in /proc/[0-9]*; do
@@ -268,7 +306,14 @@ for w in "${WORKERS[@]}"; do
     # ⚠️ IT DOES NOT CHANGE THE VERDICT OR THE COUNT — a sweep-1 empty inbox is evidence, not proof
     # (work also arrives by pane, cron, or socket), so the row still says STALLED and still counts.
     # ✅ What it changes is the READER'S next action, which is the only thing a printed line can do.
-    stalled=$((stalled+1)); echo "STALLED|$w|${out#*|*|} · inbox-since-turn-end=$_inbox"
+    # ⭐ AND SAY WHETHER THE REMEDY CAN APPLY AT ALL — see _pane_prompt_state's header.
+    case "$(_pane_prompt_state "$w")" in
+      EMPTY)   _nud="nudge=INERT (prompt EMPTY — Enter submits nothing; it needs a MESSAGE, not a keystroke: check whether YOU owe it one)" ;;
+      DRAFT)   _nud="nudge=EFFECTIVE (unsent draft at the prompt — Enter will submit it)" ;;
+      QUEUED)  _nud="nudge=EFFECTIVE (queued-message banner — Enter will submit it)" ;;
+      *)       _nud="nudge=UNKNOWN (pane unreadable — try it, and re-read turn_end after)" ;;
+    esac
+    stalled=$((stalled+1)); echo "STALLED|$w|${out#*|*|} · inbox-since-turn-end=$_inbox · $_nud"
       fi
       ;;
   esac
