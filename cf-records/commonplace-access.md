@@ -88,11 +88,25 @@ team domain.
 Worker (`kid: FORGED-KID`, `iss: https://evil.example`). ⭐ **That is a real positive baseline: it
 proves the arm CAN go red and that `/access-check` genuinely reads the header.** The same forged
 request now never reaches the Worker.
-⛔ **C3, the other half — NOT DONE, and it needs a human.** *"After an interactive login,
-`/access-check` reports `assertion_present: true`, `kid` non-null, `iss` == the recorded issuer"*
-requires a browser and a one-time PIN to `jes5199@gmail.com`. ⚠️ **Until jes runs it, the claim that
-Access DELIVERS the header to the origin is UNTESTED — the exact assumption spec §9.1 forbids leaving
-untested. The round must not read as complete without it.**
+✅ **C3, the other half — DONE 2026-09-03T09:39Z. jes ran the interactive login himself and pasted
+the result (telegram id 10841), verbatim and complete:**
+```json
+{"assertion_present":true,
+ "kid":"482f151d1077188e58747ed89c7f36542dc470a82a6c92f946f2608465ac328a",
+ "iss":"https://commonplace-systems.cloudflareaccess.com"}
+```
+⭐ **All three fields match what was recorded BEFORE the login: `assertion_present` true · `kid`
+non-null AND equal to the first kid in this team's JWKS · `iss` byte-equal to the pinned issuer.**
+⇒ **ACCESS DELIVERS THE SIGNED ASSERTION TO THE ORIGIN. The assumption spec §9.1 forbids leaving
+untested is now tested by the only instrument that could: a human at a browser.**
+⚠️ **AND IT IS A PREDICTION CONFIRMED, NOT A VALUE READ BACK — the issuer and kid were written into
+this record before anyone logged in, so the match is evidence rather than bookkeeping.**
+
+📌 **A FOURTH, INDEPENDENT CONFIRMATION OF THE ATTRIBUTION arrived on the way (telegram 10839):** the
+`state` parameter of jes's mid-login redirect decodes to `authDomain
+commonplace-systems.cloudflareaccess.com`, `hostname beta.commonplace.st`, `aud 9eab32ce…` — **our
+application's audience, named by Cloudflare's own handshake in a browser we do not control.**
+⛔ That URL carries a nonce and is credential-shaped; it was decoded locally and is not reproduced here.
 📌 **C4 — DECIDED, not discovered: `/healthz` IS behind Access.** §9.4 says the origin should be
 reachable only through Access and names no exemption, so none was taken. ⚠️ **Consequence:
 `/healthz` is no longer externally pollable — any uptime check will see a 302, not a failure.**
