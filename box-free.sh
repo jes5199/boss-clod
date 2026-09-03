@@ -42,7 +42,7 @@ n=$(printf '%s\n' "$hpid" | command grep -c .)
 # ⚠️ Bound, cell's own: this is a PREDICATE OVER A KNOWN INVOCATION SHAPE, not a definition of
 #   "suite". A suite started some other way would not match — so an unrecognised BEAM counts as
 #   contention below rather than being waved through.
-suites=0; unknown=0; blind=0
+suites=0; unknown=0; blind=0; periodic=0
 for p in $(awk '$2=="beam.smp"{print $1}' "$PS"); do
   [ "$p" = "$hpid" ] && continue
   cwd=$(readlink "/proc/$p/cwd" 2>/dev/null) || { blind=$((blind+1)); continue; }
@@ -52,6 +52,13 @@ for p in $(awk '$2=="beam.smp"{print $1}' "$PS"); do
     *-extra*mix*test*) suites=$((suites+1)); echo "BUSY-SUITE|pid $p cwd $cwd" ;;
     *) case "$cwd" in
          /home/jes/commonplace-serve-pin) : ;;                       # the serve — known, not contention
+         /home/jes/commonplace-monolith)
+           # ⭐ BOSS'S OWN HOURLY state-render (cron at :17, `bash bin/state-render`). It is a real
+           #   mix run and DOES load the box, so it still counts as contention — but it is NAMED,
+           #   because "UNKNOWN" sends a door to ask about a process the arbiter itself started.
+           #   ⚠️ Design envelope: inner timeout 2400s and runtime scales with ticket count, so
+           #   ~25 min is normal, not stuck. Confirm by STATE.md's mtime, not by elapsed time.
+           periodic=$((periodic+1)); echo "BUSY-PERIODIC|pid $p state-render (boss's hourly, cwd $cwd)" ;;
          *) unknown=$((unknown+1)); echo "UNKNOWN-BEAM|pid $p cwd $cwd" ;;
        esac ;;
   esac
@@ -61,6 +68,10 @@ done
 [ "$blind" -gt 0 ] && { echo "BLIND|$blind BEAM(s) whose /proc cwd could not be read"; exit 2; }
 [ "$suites" -gt 0 ] && { echo "BUSY|$suites suite(s) running (control: $tot processes visible)"; exit 1; }
 [ "$unknown" -gt 0 ] && { echo "BUSY|$unknown unrecognised BEAM(s) — an unrecognised cwd is CONTENTION, not permission"; exit 1; }
+# ⭐ A NAMED periodic job still blocks the fallback — a door must not decide on its own that boss's
+#   housekeeping is ignorable. But BOSS may grant over it deliberately for work that is not a timing
+#   measurement, which is a judgement only the arbiter should make.
+[ "$periodic" -gt 0 ] && { echo "BUSY|$periodic known periodic job(s) — boss may grant over this; a door may not"; exit 1; }
 # 📌 OBSERVED ON THE FIRST LIVE RUN (15:20Z): a running suite shows as TWO BEAMs — the suite itself
 #   (matched by cmdline) and a CHILD through `erl_child_setup` whose cmdline does not match, which
 #   lands in UNKNOWN-BEAM. ⭐ cell filed that overcount as `suites()` counting BEAMs not doors.
