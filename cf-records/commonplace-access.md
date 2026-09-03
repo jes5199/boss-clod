@@ -143,3 +143,35 @@ at the head, 2 at the tail. **The body is identical.** `node --check` passes.
 📌 **CHECK THIS BEFORE TRUSTING ANY `cf-records` ENTRY: `git status --porcelain cf-src/` must be
 empty.** A record can be accurate about Cloudflare and wrong about the repository, and only that
 command tells the two apart.
+
+## ⛔⛔ THE RE-TARGET WRITE SHAPE — AND IT INVERTS THE WORKERS RULE
+
+**When Access moves off `beta.commonplace.st` to the internal hostname (plan row 651: ordering (a),
+Access stays until AuthKit serves, the move is the LAST act before the front door opens), the write is
+a `PUT` — and the SAFE shape OMITS `policies`.** [measured by commonplace-biscuit, 2026-09-03T10:03Z,
+on two DISPOSABLE apps; the real application untouched, account back to n=1]
+
+```
+PATCH /access/apps/{id}                  → 10405 "Method not allowed for this authentication scheme"
+                                           independent re-read: NOTHING changed
+PUT  {…, domain:new, policies:[…]}       → success. POLICY DESTROYED AND RECREATED, NEW id
+PUT  {…, domain:new}   ← policies OMITTED → success. POLICY PRESERVED, SAME id
+AUD across all of these                  → UNCHANGED
+```
+
+⇒ ⭐ **One write verb. Sending the allow-list "to be safe" is what destroys it.**
+
+⛔⛔ **THIS IS THE OPPOSITE OF THE WORKERS FINDING, AND THE ANALOGY IS THE TRAP.** The measured Workers
+rule is *a later PUT that omits a `plain_text` binding ERASES it, HTTP 200, silently*. Access
+applications: **omitting PRESERVES, including REPLACES.** ⇒ **Same API, same account, same verb,
+OPPOSITE SEMANTICS — so "omit = erase" is a fact about the WORKERS SURFACE, not a Cloudflare-wide
+law.** ⚠️ **Anyone who has internalised the Workers lesson will reach for the wrong call here, and
+reach for it CAREFULLY** — which is why this is a section and not a footnote.
+
+⚠️ **AND BOTH VARIANTS RETURN `success: true` WITH THE RIGHT DOMAIN**, so the destructive one has no
+wrong value to notice. **Decline-flag family: the failure is invisible in the response.**
+
+📌 **Relation to the RESTORE trap above, which remains the sharper one:** delete-and-recreate
+regenerates the AUD and silently invalidates the pinned `COMMONPLACE_ACCESS_AUDIENCE`. ✅ **The
+re-target does NOT need a recreate — a `PUT` with `policies` absent moves the domain while preserving
+BOTH the AUD and the policy id.**
