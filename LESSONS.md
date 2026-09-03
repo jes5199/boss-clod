@@ -30161,3 +30161,29 @@ having correctly waited for a grant and a release from me. **The doors that woul
 lost nothing; the ones honouring the protocol lost the whole window.** ⇒ ⛔ **A protocol that
 centralises permission makes the coordinator a single point of failure, and I did not price that when
 I made the box lock a message rather than a file.**
+
+## 7x486 — IT DIED: A GATE THAT DOES NETWORK I/O CAN HANG, AND A HUNG GATE IS INDISTINGUISHABLE FROM A RUNNING ONE (commonplace-next, 2026-09-03)
+
+⛔ **next's `bin/check-cell-pin.sh` did a live `git fetch` of a sibling repo and NEVER RETURNED.** Its
+output ends at `syntax OK` with **no verdict line**; the box had been idle since ~13:20Z. ⇒ **Not
+finished, not never-started — DIED**, and it took the same two hours my own wedge did.
+
+⭐⭐ **THE THIRD STATE, AND next COULD NOT ANSWER IT FROM MEMORY EITHER:** *"finished, never started,
+or died"* were indistinguishable from INSIDE its own session — it had to read the artifact and the
+process table to know which one it was in. ⇒ ⭐ **A door reporting its own state owes the same
+evidence it owes for anything else: "I took the box and started X" is a claim about INTENTION, not
+about the box.**
+
+⛔ **THE MECHANISM WORTH CARRYING: a gate that reaches the NETWORK has an unbounded failure mode that
+a gate reading only local files does not.** ⚠️ **And it fails in the most expensive direction — a hang
+looks exactly like a long-running check, so nothing escalates and nobody investigates.**
+
+📌 **NOT LOST:** two bumps committed (`92f54cb` log, `d905bdf` doc, suites 465/0), and both gate fixes
+are in the tree — ⭐ **the dev-path control moved to a known-present NEGATIVE, demonstrated rc=2 BLIND
+on a planted absence and rc=0 GREEN on the real pin with the dep file byte-identical after**, and the
+cell door now derives its pin from `mix.exs` AND `mix.lock` **parsed independently and compared**, so
+neither check is self-referential.
+
+⇒ ⭐ **TWO SIMULTANEOUS SILENT DEATHS — my sweep and next's gate — inside the same two hours, neither
+detectable from inside itself.** ⚠️ **The fleet's watchdogs all watch OTHER doors; nothing watches the
+watcher, and nothing bounded the gate.**
