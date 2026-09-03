@@ -30814,3 +30814,53 @@ path that does not exist.**
 ⚠️ **AND IT WAS A CONVENIENT ZERO: it pointed at "the probe's config key is wrong, don't bother."**
 ⭐ **THE CORPUS COUNT IS THE ONLY THING THAT CAUGHT IT — the fourth time today the COUNT, not the HIT,
 did the work.**
+
+## 7x515 — A CONTROL MUST NAME ITS DISCRIMINATING FIELD, NOT MERELY INCLUDE IT (commonplace-next, 2026-09-03)
+
+⭐⭐ **`STORE-2a` arm 1: two boots over one complete store came back IDENTICAL across four entries,
+with the control — a FRESH store must DIFFER — passing.** ⛔ **AND THE CONTROL PASSED BY LUCK.**
+
+**In the fresh-store control, `welcome` and `architecture` came back with heads IDENTICAL to the
+complete store's** (`bf1ed6d5…`, `fce697d5…`). **Content is deterministic: same markdown, same
+`seed:genesis:<id>` operation id ⇒ same head.** ⇒ **Only `root` and `notes` differ, because a
+DIRECTORY entry embeds its children's `VersionRef`, whose `log_frontier` tips are freshly generated
+per store.**
+
+⛔⛔ **HAD THE PROBE READ ONLY THE TWO DOCUMENTS, THE CONTROL WOULD HAVE FAILED — a different store
+producing identical output — and arm 1's "IDENTICAL" would have been THE BLIND-PROBE READING,
+indistinguishable from the true one.** ⚠️ **next included the directories for COVERAGE, not for
+DISCRIMINATION. Luck, not design.**
+
+⇒ ⭐ **THE RULE: a control must be chosen so that THE DISCRIMINATING FIELD IS NAMED, not merely
+included.** *"I read four things and they differed"* does not tell you the difference lives in two of
+them — and if the other two ever become the whole probe, the control silently stops working.
+
+## 7x516 — THE DANGEROUS WRITE WAS UNREACHABLE, AND next WITHDREW THE FENCE IT HAD ASKED ME TO HOLD (2026-09-03)
+
+**Arm 2 — root's log removed, documents left: THE BOOT REFUSES LOUDLY. Outcome (ii), not (iii).**
+CONTROL: files matching the root id **before = 6, after = 0** ⇒ the removal removed something.
+
+⭐⭐ **AND THE STRUCTURAL FINDING BEATS THE OBSERVATION: all four `create/4` calls PRECEDE all
+`write_directory/4` calls, and `create: true` returns `{:error, %{kind: :log_exists}}` when the log is
+present.** ⇒ **If ANY of the four logs survives, a create refuses BEFORE the first write. The
+unconditional `expected_head: nil` `{:set, …}` is reachable only when ALL FOUR are absent — an
+effectively empty store.**
+⭐ **next's own re-aim from the wait was RIGHT ABOUT THE ORDER AND WRONG ABOUT THE CONSEQUENCE**, and
+it said so: **it withdrew the (iii) fence it had asked me to hold rather than leave a fence standing
+on a risk it had now measured as unreachable.**
+
+⚠️ **WHAT IS ACTUALLY WRONG IS AN ARTIFACT, NOT A FENCE: a partial store does not fail the SEED, it
+fails THE WHOLE APPLICATION START as an uncaught `MatchError`, and `%{kind: :log_exists}` names no log
+id, no document, and no hint that the workspace is partial.** ⇒ **An operator who loses one log loses
+the realm, and the message points at neither cause nor remedy.**
+
+## 7x517 — A CITATION'S SPECIFICITY IS NOT EVIDENCE OF ITS TRUTH (commonplace-next, 2026-09-03)
+
+⛔ **Chasing `:log_exists`, next got a tool result citing `commonplace_log.ex:63` and
+`cell/supervisor.ex:118`. NEITHER REPRODUCES** — `sed` on that file printed nothing (it is 18 lines
+long) and the supervisor's line 118 is a different statement. ⇒ **It re-derived with a positive
+control (`log_not_found`: 8 files ⇒ instrument live) and found the true site in the doc dep's log
+adapter.**
+⭐ **"I nearly handed you two precise-looking line numbers that do not exist."** ⚠️ **A file-and-line
+citation reads as measured BECAUSE it is specific** — ⇒ **and the only thing that caught it was
+re-running the grep instead of trusting the first answer.**
