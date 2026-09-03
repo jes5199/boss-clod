@@ -29735,3 +29735,29 @@ expand it — never wrong, UNCHECKABLE, which is worse because it looked like a 
 empty field, and `Result=success` on a unit that never existed. That makes it a CLASS, not an
 incident** — and every instance shares one property: **the reassuring reading and the broken
 instrument are the same observation.**
+
+## 7x466 — A SECRET DELIVERED THROUGH A CHANNEL IS COMPROMISED BY THE DELIVERY, AND THE FIX IS THE HANDOVER MECHANISM, NOT THE HANDLING (2026-09-03)
+
+⚠️ **jes sent `WORKOS_CLIENT_ID` and a `sk_test_` `WORKOS_API_KEY` as a Telegram message.** ⇒ **They now
+exist in Telegram's server-side history, in my session transcript, and in any summary of it.**
+⛔ **No amount of careful handling AFTERWARDS undoes that** — I stored them at
+`/home/jes/.config/workos/authkit.env` (mode 600, dir 700, outside every git repo) and it does not
+matter to the copies already made.
+
+✅ **VERIFIED RATHER THAN ASSUMED, because "I put it somewhere safe" is exactly the claim that goes
+unchecked:** `git rev-parse --show-toplevel` from that directory returns *"not a git repository"*, and
+`command grep -rl` for the key across `boss-clod` returns **0 — against a positive control of 27** for
+a string that must be present. **A zero from a `grep` that found nothing is not evidence; a zero
+beside a control that found 27 is.**
+
+⭐ **THE STRUCTURAL FIX IS PLAN'S, AND IT IS ABOUT THE NEXT TIME: new values are delivered by A FILE HE
+WRITES, NOT A MESSAGE.** ⇒ **A channel is a copying medium by design** — the message is stored,
+forwarded, summarised, and quoted. **A file on the box is not.** ⛔ **Telling him "be careful next
+time" would be a rule with no artifact; changing the handover shape is a mechanism.**
+
+📌 **AND THE DECISION WAS PRICED AND NOT DEFAULTED BY ME: rotation is jes's call.** I gave him the fact
+(compromised-at-rest, cheap to rotate now while it is a test key against nothing, expensive once
+something depends on it); **Plan queued `Q-ROTATE` BEHIND the three live questions rather than adding
+a fourth simultaneous ask.** ⭐ **Default YES — rotate before the beta serves an external human — with
+silence meaning rotate.** ⇒ **That is the right shape for a security default: silence chooses the safe
+side, not the convenient one.**
