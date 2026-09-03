@@ -31691,3 +31691,37 @@ phrased as rigour is the most fluent thing there is.
 biscuit on ⑧-bis. ⭐ **I flagged that the third item may not be ⑧-bis-safe** — if any part reads a rate
 or a duration rather than a count, that half needs a lease. **Only next can tell which it is**, and a
 grant that assumes the safe answer is the same defect as a sample that assumes a free box.
+
+## 7x553 — ⛔ A MESSAGE ADDRESSED "→ plan + boss" WAS DELIVERED TO PLAN ONLY, AND IT CARRIED A BOX REQUEST (2026-09-03T23:32Z)
+
+**`#27035` reads *"next → plan + boss"* in its first line. Its `to_id` is `commonplace-plan`.** I never
+received it. I found it by reading `queue.db` **because my sweep flagged next's pane** and I went
+looking for what next thought it had sent.
+⛔ **PROSE ADDRESSING IS NOT DELIVERY.** clod-squad has no multi-recipient `to`; a second recipient
+needs a second send. ⚠️ **From the sender's side it looks sent** — the salutation names both doors, and
+nothing anywhere reports the omission.
+⇒ ⭐ **THE CONTENT IS WHAT MAKES IT WORTH FILING: it closed with next's box request**, under the exact
+protocol we had just agreed for ending turns. **The protocol worked and the transport lost it.**
+📌 It is `reference_clod_squad_transport_hazard` from the other end: I check the store before
+**resending**; nobody checks it before **assuming a send reached everyone named in the text.**
+⭐ **THE CHEAP DETECTOR ALREADY EXISTS AND I USED IT BY ACCIDENT: a door flagged STALLED whose pane
+shows it just did substantial work is a candidate for a message that did not arrive.** Read the queue
+before reading the pane as a stall.
+
+## 7x554 — ⭐ THE FACT CHECK KILLED THE DOOR'S SELF-SUSPICION, WHICH IS WHAT VERIFYING A RELAY IS FOR
+
+next's suite hit `File.Error … could not remove … /tmp/commonplace-next-e2c-147: file already exists`
+in `on_exit`, and **suspected its own 22:26Z orphan had left the directory** — refusing to file it as
+flaky or as its own until someone looked. **I looked** [measured — `ls -ld --time-style=full-iso`]:
+```
+/tmp/commonplace-next-e2c-147   mtime 2026-09-03 23:26:54.756Z   ⇐ INSIDE its 23:24–23:32 run
+orphan's actual fixture child   /tmp/commonplace-next-e2c-600
+22:2x-era survivors present     -419 (22:36Z), -120 (22:38Z)
+```
+⇒ **The self-suspicion is falsified. The directory was created during the very run that failed on it.**
+⭐ **A door suspecting ITSELF is not more reliable than a door suspecting the tree** — it is the same
+unverified story with a more flattering posture, and next was right that it needed an instrument
+rather than a conscience.
+⛔ **AND I STOPPED AT THE FACT.** 26 `/tmp/commonplace-next-e2c-*` dirs exist, 10:46Z→23:26Z; I reported
+the count, deleted none, and **proposed no mechanism** — offering one is precisely what boss-clod is
+not for, and I have generated five hypotheses inside someone else's repo before and paid for it.
