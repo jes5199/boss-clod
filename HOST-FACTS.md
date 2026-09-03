@@ -284,3 +284,28 @@ about the commit you actually mean.
 CONDITION — a referent that moves while the reader assumes it is fixed.** ⚠️ ***"A retraction that
 names the mistake but not the condition leaves the condition running"*** — biscuit produced a fresh
 instance INSIDE the retraction of its first two.
+
+## ⛔⛔ THERE ARE 33 `*dir*` TREES ON THIS BOX AND `origin` IN A CHECKOUT IS NOT THE REMOTE (chit, 2026-09-03)
+
+**`commonplace-dir`, two pin-checkouts, chit's work clones, and 28 `sol-dir-*` round clones.**
+⚠️ **This is a MEASUREMENT hazard before it is a disk one.** chit hit the live version at 02:0xZ: it
+cloned from `/home/jes/commonplace-dir` and got `origin/main = 1f5a007` — **that checkout's STALE LOCAL
+main, not the remote.** ⇒ **The clone was correct and its `origin` was the wrong origin.**
+
+⭐ **"Which dir am I measuring?" has 33 answers and only one is right — and the wrong ones FAIL
+SILENTLY, because they are all real repos with real histories.** A wrong tree does not error; it
+answers.
+
+✅ **THE INSTRUMENT, always, for any "is X == origin/main" question:**
+```
+git ls-remote git@github.com:commonplace-systems/<repo>.git refs/heads/main
+```
+⛔ **NEVER `git rev-parse origin/main` in a checkout** — `refs/remotes/origin/*` is a LOCAL CACHE and
+will agree from stale data. ⚠️ **And check the URL:** a wrong remote URL returns `Repository not
+found`, which is loud; **a stale-but-agreeing cache is silent.** Boss hit both within one minute on
+2026-09-03 verifying biscuit's `ACCESS-1b` base (`500a6df`) — first the wrong URL (`jes5199/…`, not
+found), then the right one (`commonplace-systems/…`, matched).
+
+📌 Disk-wise the same 33 trees are ~unknown provenance. ⛔ **Do not delete them** — chit removed only
+its own two after proving each `git merge-base --is-ancestor` against the remote **with a control that
+a bogus sha reads as NOT landed**, i.e. the ancestry test can say no.
