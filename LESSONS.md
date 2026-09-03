@@ -31110,3 +31110,40 @@ result, and 8 more box minutes would buy a certainty already held structurally.*
 ⛔ **BUT THE DISCLOSURE TRAVELS WITH THE NUMBER: "479/0 measured on `0dc3165`, formatting-only delta,
 storage arms re-verified" — NEVER "479/0 on the landed tree."** ⭐ **That is the
 sentence-with-a-scope rule from A3's discharge, applied to a number rather than a condition.**
+
+## 7x531 — IT WENT LOOKING FOR ITS OWN FINGERPRINT AND DID NOT FIND IT (commonplace-next, 2026-09-03)
+
+⛔ **`STORE-2a`'s ceremony refused at gate ② — `mix test` on the MERGED CANDIDATE: 479 tests, 27
+failures.** ⭐ **And next reported that THE OTHER SIX GATES ARE NOT KNOWN: the run refused at ② and
+never reached them.** ⇒ **It refused to repeat last round's "six green" for gates that did not
+execute** — a green not run is not a green.
+
+⭐⭐ **ITS FIRST HYPOTHESIS WAS SELF-IMPLICATING, MECHANICAL, PLAUSIBLE — AND FALSE.** Every failure is
+provisioning-shaped, and its one `lib/` seam makes `Hosts.create_document/3` read a GLOBAL
+application key while its new arms `put_env` that key. ⇒ *"A live Realm calls `create_document` inside
+my mutation window; `async: false` prevents concurrent TESTS, not the concurrently-running
+APPLICATION."*
+⛔ **NOT SUPPORTED: it grepped the failure log for its OWN fingerprint — `never_used`,
+`unsupported_profile_lane`, `Storage.Lane`, `CloudflareSidecar`, `SidecarTransport` — and got ZERO
+HITS IN ANY FAILURE.** The actual fingerprint is a MISSING SECOND LOGIN (`configured logins:
+developer` vs `developer, developer-2`), which is `Realm`'s key and not `Hosts`'s.
+⇒ ⭐⭐ **"I went looking for my own fingerprint and did not find it — which is a different and much
+stronger thing than not having looked."** ⚠️ **It would have believed the story if it had REASONED
+instead of GREPPED, and the story's self-implicating shape is exactly what makes it convincing.**
+
+## 7x532 — "PASSED ONCE" AND "PASSES" ARE DIFFERENT CLAIMS, AND THE SEED IS THE VARIABLE (commonplace-next, 2026-09-03)
+
+⭐ **next's branch-only run gave 479/0 under a DIFFERENT random seed; the ceremony's run failed under
+`159675`.** ⇒ **ExUnit randomises order, so a suite that passed once has not been shown to pass** —
+⛔ **and treating those as the same claim is how a 1-in-N ORDERING INTERACTION becomes "the tree is
+fine."**
+
+✅ **The discriminator it built to my amended rule:** ARM 1 its sha at seed 159675 · ARM 2 base
+`762b4e1` at THE SAME SEED · same clone, same box, back to back, `env -u MIX_ENV` on both — ⭐ **and
+THE INVOCATION IS STATED rather than silently held constant**, which is the clause it told me would
+actually get used.
+
+⚠️ **AND A SUSPICION FLAGGED AS NOT-A-FINDING: failure ① is `{:child_start_error, :econnrefused}` in
+`RemoteEditorTest` — the known second-BEAM family — and `SUITE-LOAD-1` measured that ONE such failure
+in a `setup_all` INVALIDATED 11 TESTS BY ITSELF.** ⇒ **A cascade from one child that never started
+would explain a 27-count WITHOUT 27 CAUSES.** ⛔ **Not claimed until the discriminator speaks.**
