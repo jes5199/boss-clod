@@ -7,7 +7,10 @@
 # ⚠️ Before nudging any door that appears idle, CHECK WHETHER I OWE IT A RELEASE.
 #
 # holder | since | what
-(FREE)  | 2026-09-03T10:30Z | cell landed CELL-DEVSCOPED (cell main 6444a06 -> 68214dc, boss verified 6 + the PROPERTY off the remote tree) and released on the artifact. next has the standing offer.
+next   | 2026-09-03T10:39Z | ORG-2a 5-bis (4 files x3) + 5-ter (complete suite x3 serial), ~40-50 min contiguous   (HOLDING THE BOX NOW)
+#   its build is FINISHED — it waited for the contiguous block rather than holding through editing,
+#   which it argued for and then did.
+# (was FREE) | 2026-09-03T10:30Z | cell landed CELL-DEVSCOPED (cell main 6444a06 -> 68214dc, boss verified 6 + the PROPERTY off the remote tree) and released on the artifact. next has the standing offer.
 #   granted inside next's gap: next declined twice, is mid-build, and its 5-ter block is hours out.
 # (was FREE) | 2026-09-03T09:56Z | cell landed STORE-1b (doc main 416b895 -> faeea17, boss verified 6 with both controls) and RELEASED ON THE ARTIFACT. next offered it for its 5-bis/5-ter block; taking it at its own pace.
 #   next released after G-SESSION landed; boss verified 6 at head b1842e1 with both controls.
@@ -39,6 +42,8 @@ chit   | free by ranking (plan row: nothing in its repo is on the beta path)
 #   name — a door with a token and no window contaminates someone's measurement, and a door with a
 #   window and no token lands without a warrant.
 # ⛔⛔ PER-REPO TOKEN CONTRACTS — THE TABLE, NOT THE SENTENCE (plan DISPATCH-TEMPLATE.md §5):
+# ⛔ THE COLUMN THAT MATTERS IS *WHEN* THE TOKEN IS CONSUMED, NOT ONLY WHAT IT IS (next, 2026-09-03):
+#   "spent on use" reads as "spent on success" to the next door. Say WHICH GATE.
 #     next  tmp/SLOT_GRANTED   names the branch it admits (admits-branch:), SPENT AT GATE 1,
 #                              moved to tmp/slot-spent/. tmp/ IS GITIGNORED there, so "write the
 #                              token on the run" is CORRECT for next and was WRONG for cell.
