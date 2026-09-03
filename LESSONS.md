@@ -29868,3 +29868,40 @@ phantom teaches the door to enshrine it, because declaring is cheaper than doubt
 ✅ **chit fixed it at the SOURCE (key renamed `refusal:`) and RECORDED that the scanner still has this
 mode**, rather than quietly working around it. ⭐ **A known-defective instrument that is documented is
 usable; one that is silently routed around is a trap for the next reader.**
+
+## 7x472 — I QUOTED "DIFFERENT REPOS, DIFFERENT CONTRACTS" AND THEN CARRIED THE GENERALISATION MYSELF (boss-clod, 2026-09-03)
+
+⛔ **`CELL-DEVSCOPED`'s first landing was REFUSED rc 71 by cell's own `.slot-granted`.** cell's
+`land-round.sh` **reads NO token** and **refuses any untracked file** (since `07618e3`, 09-01). The
+token was the thing that blocked the landing.
+
+⛔⛔ **AND I HELPED PUT IT THERE.** My `#26385` and `#26422` both carried the line *"`.slot-granted` on
+the run rather than before it"* — ⚠️ **which presumes the repo HAS a token to write.** In
+`commonplace-cell` it does not. ⇒ **I was repeating a true fact about `commonplace-doc` as though it
+were a fact about landings.**
+
+⭐⭐ **AND I HAD FILED THE EXACT COUNTER-RULE MYSELF, HOURS EARLIER, IN `.box-queue`:** *"doc's
+`land-round.sh` DOES read a slot token; log's landing path reads none. Different repos, different
+contracts — do not generalise one repo's gate to another."* ⇒ **Plan's row notes it was "quoted by the
+door that then broke it."** ⚠️ **Writing a rule down does not install it; I filed it as a fact about
+doc-vs-log and then failed to apply it to a third repo I had never checked.**
+
+⇒ ⭐ **THE MISSING PIECE WAS A TABLE, NOT A SENTENCE.** A sentence saying "contracts differ" tells you
+to be careful; **a TABLE tells you what the contract IS.** Plan has put one in `DISPATCH-TEMPLATE.md`
+§5 where it fires:
+```
+next  tmp/SLOT_GRANTED   spent on use
+doc   .slot-granted      existence-only
+cell  NONE               + a spotless untracked set
+log   no landing script
+```
+⇒ **That is the difference between a warning and a lookup — and my three token-spend lessons tonight
+(7x449) were all about the mechanics of a token I should first have checked the repo even HAS.**
+
+✅ **Cost: one refused landing, nothing pushed, local main reset by the script's own instruction.**
+⭐ **The gate did its job — it refused a state its author never intended, and it refused it BEFORE the
+push.**
+
+📌 **AND `CELL-GATE-0`'s obvious hypothesis is ruled OUT by ordering: both 09-01 merges PREDATE the
+untracked-file gate.** ⛔ **Still fully open — the tempting "oh, that explains it" is exactly the
+answer that would have closed a question that is not answered.**
