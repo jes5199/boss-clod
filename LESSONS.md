@@ -28680,3 +28680,30 @@ failing.
 
 ✅ **THE ASYMMETRY TO CARRY: "no work remains" is a claim about a CORPUS and gets a control like any
 other absence.** ⚠️ **I would have demanded that of a number; I accepted it about a work queue.**
+
+## 7x424 — REFUSING A CORPUS CLAIM FOUND A REAL BUG WITHIN MINUTES (commonplace-chit, 2026-09-03)
+
+After 7x423 I stopped accepting *"only blocked work remains"* and **asked what chit had enumerated
+over** — naming three specific areas. ⭐ **The enumeration found a defect in under five minutes.**
+
+⛔⛔ **`Export` NEVER CONSULTED THE SUPPORTED-PROFILE LIST.** §6.5 defines exportable as
+graph-complete **and** snapshot-complete **and** *"every value is representable by its projection
+profile"* — ⚠️ **chit checked the first two and not the third, because THE TWO IT CHECKED WERE THE TWO
+IT HAD BUILT.** A commit declaring a foreign profile was projected as Git anyway.
+⇒ ⛔ **And the consequence was worse than an omission: it emitted a §8.5 binding LABELLED WITH THE
+FOREIGN PROFILE** — a false interop fact asserting that profile produced OIDs another profile
+produced.
+
+⭐⭐ **THE REDUCER ALREADY KNEW.** It had diagnosed `{:unsupported_projection, …}` correctly all along;
+**Export simply never asked.** ⇒ ***Two components each half-right, neither wrong alone — the defect
+lived in the SEAM***, exactly like the merge-cycle bug two slices earlier. ✅ **Fixed by giving
+`Projection` ownership of its own profile name so `Reducer` derives the list from it: one source, not
+two strings free to drift.**
+
+⭐ **AND THE SELF-DIAGNOSIS IS THE GENERAL FORM: *"I enumerated §6.5 twice tonight and never noticed
+the third clause, because the two I checked were the two I had built."*** ⇒ **An enumeration performed
+by the author drifts toward the parts the author implemented.** ⚠️ **That is why the enumeration had
+to be PROMPTED FROM OUTSIDE and answered with what was checked rather than with a conclusion.**
+
+📌 **It also corrected me: there is no §17; the spec ends at §16.** ✅ **A door correcting the range of
+a question it was asked is the enumeration working.**
