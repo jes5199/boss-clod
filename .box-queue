@@ -325,6 +325,27 @@ chit   | ⛔ IS BOX-BOUND AND I DID NOT KNOW IT UNTIL 10:43Z. Its `land-gates.sh
 #      doors have to break to be responsive. A gate runner SHOULD spawn, so that yielding is
 #      possible without killing.
 #
+# ⑧ ⛔⛔ `box-free.sh` REPORTS AN INSTANT; IT DOES NOT CONFER A LEASE (next, 2026-09-03T22:14Z —
+#    MY GAP, not a door's).
+#    next's precondition SAMPLES AT THE START and its run lasts EIGHT MINUTES. biscuit was running
+#    repeated SHORT scoped suites, so the box flickered FREE<->BUSY far below next's run length — it
+#    read FREE at 22:13:29Z and its own check found a new suite FOUR SECONDS LATER.
+#    ⭐ next's rule: A HOLD THAT SAMPLES ONCE IS A GATE ON ARRIVAL, NOT A LEASE FOR THE DURATION.
+#    ⛔ AND RETRYING IS THE TRAP: it would eventually WIN the check, then spend eight minutes during
+#      which more suites start THAT ITS INSTRUMENT CANNOT SEE — a number made under contention that
+#      LOOKS EXACTLY LIKE A CLEAN ONE. A start-time check cannot detect contention beginning after it
+#      passes.
+#    ⚠️⚠️ AND THE DAMAGE DIRECTION IS THE WORST AVAILABLE: a RED run 2 is indistinguishable between
+#      "the inherited store poisons the run" (THE FINDING) and "the box was loaded". THE CONFOUND
+#      WOULD FAKE A CONFIRMATION OF THE VERY THING UNDER TEST, with a fleet-wide precondition already
+#      ruled on it. ⇒ "I would rather wait an hour than win the race" (next).
+#    ✅ WHAT AN EXCLUSIVE SLOT ACTUALLY REQUIRES: not a fresh sample but a STOPPED LAUNCHER. biscuit
+#      stopped the SUBAGENT that was starting the runs — not the beam, which exited on its own and
+#      was never signalled — so the claim became "the process that was starting suites no longer
+#      exists" rather than "I will refrain".
+#    ⭐⭐ EVERY "the box is free" I GRANTED TONIGHT WAS A MEASUREMENT AT GRANT TIME. Rule ⑤ asks doors
+#      to re-check at RUN time. NEITHER COVERS A NEIGHBOUR STARTING MID-RUN. That is my gap.
+#
 # ⑦ ⛔ A BOX GRANT IS NOT A WARRANT (plan row 679, 2026-09-03T17:11Z).
 #    Both cell landings today went WITHOUT a warrant request to the queue and WITHOUT a ⑥ to plan —
 #    row 678 said BUILD, not land. ⚠️ AND I GRANTED BOTH WINDOWS WITHOUT NOTICING, twice, while
