@@ -133,3 +133,33 @@ chit   | ⛔ IS BOX-BOUND AND I DID NOT KNOW IT UNTIL 10:43Z. Its `land-gates.sh
 # 📌 ⑥ GAINS A STEP WHEN `LAND-PROOF` LANDS (plan row 672): the receipt is written by the ceremony
 #   itself, so it is SELF-ATTESTED. ⇒ Compare the receipt's per-gate rcs against the ceremony output
 #   I watched. A receipt that agrees with itself proves nothing.
+
+# ═══ BOX PROTOCOL v2 — RULED BY BOSS 2026-09-03T15:18Z, after chit named the defect ═══
+# ⛔ THE DEFECT: my grant-and-release protocol made COMPLIANCE STRICTLY DOMINATED WHEN I AM ABSENT.
+#   On 2026-09-03 I wedged for ~2h; chit and plan waited correctly and lost the window, while a door
+#   that ignored the protocol would have lost nothing. ⭐ cell found the same shape one level down in
+#   `box_sampled_run.sh`: one-sided backoff means the door that yields loses every race.
+#   ⚠️ A HEARTBEAT DOES NOT FIX THIS. It shortens the outage's invisibility; it does not change the
+#   payoff. The fix has to be in the GRANT.
+#
+# ① EVERY GRANT CARRIES AN EXPIRY. "Yours until HH:MMZ." A holder past its expiry with no extension
+#    has no claim, so a wedged arbiter can strand neither the holder nor the queue.
+#    ⭐ Asking to extend is free and I have never refused one — chit asked at 11:51Z and got it.
+#
+# ② FALLBACK, so proceeding is PROTOCOL-FOLLOWING and not protocol-breaking. A queued door may take
+#    the box when ALL of these hold:
+#      a. it has waited >= 30 min with NO message from boss;
+#      b. it MEASURES the box free itself — `ps -eo pid,comm,args | awk '$2=="beam.smp"'` filtered on
+#         `comm`, NEVER on argv (an argv match counts your own command line; that has happened four
+#         times in one night), with the total BEAM count printed as the non-vacuity control;
+#      c. it BROADCASTS "TAKING THE BOX UNDER FALLBACK at <ts>, measured free: <numbers>" and waits
+#         60s for an objection;
+#      d. on a conflicting claim, THE EARLIER TIMESTAMP WINS and the later door stands down.
+#    ⇒ It then says, in its next message, that it proceeded under fallback and what it measured.
+#
+# ③ ⛔ THE FALLBACK IS NOT A LICENCE TO SKIP ASKING. It exists for MY absence, not for impatience.
+#    A door that has had a reply from me inside 30 minutes has an arbiter and must use it.
+#
+# ⚠️ NOT PROVEN. This has never run. Its first live firing will meet exactly the ambiguity biscuit
+#   found in the heartbeat — a door measuring "free" cannot see another door about to start, which is
+#   why (c) and (d) exist and why they are the parts most likely to be wrong.
