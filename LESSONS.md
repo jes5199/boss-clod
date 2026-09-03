@@ -29065,3 +29065,33 @@ now go red if anyone reintroduces it** — ***a measurement that killed a suspic
 of a memory.***
 📌 **And it expects the surface pin to fire 55 → 52, captured before editing:** ⭐ ***a count edited
 without a captured red is indistinguishable from a count edited because it was in the way.***
+
+## 7x439 — I REPORTED A DOOR AS IDLE WHILE IT WAS WORKING, AND A ROUND CAN BLIND A GATE IT NEVER TOUCHED (2026-09-03)
+
+⛔ **I told jes `commonplace-next` was "idle with `P-POLL-2` partly built".** ✅ **It was nearly done —
+seven gates green, 425 tests, only ⑤-ter left.** ⚠️ **Its runs are long enough that `turn_end` moves
+and then looks frozen between them, so the sweep's picture and mine were an hour stale.** ⭐ **Same gap
+that hid Plan's 95-minute modal block: a door doing long work and a door stopped are one observable.**
+📌 **Corrected to jes within the hour, because "nearly done" vs "idle" is material to the roadmap
+conversation he was having.**
+
+⭐⭐ **AND THE ROUND'S OWN FINDING IS BETTER THAN MINE: A ROUND CAN BLIND A GATE IT NEVER TOUCHED.**
+next's code took `check-dev-path-inventory` **BLIND** — **a comment placed between a function head's
+trailing comma and its `do:`**, which that gate's line-window parser cannot join. ⇒ ⛔ **Only RUNNING
+the gate says so; nothing in the diff suggests it.** ✅ **Now demonstrated in ALL THREE states:
+BLIND → GREEN → RED on a real third mint site → GREEN.**
+⚠️ **And its FIRST diagnosis was wrong AND already acted on** — it blamed a `?` in a function name and
+renamed across four files before the gate stayed blind on the identical head. **Reverted the churn.**
+⭐ **Two of the eleven failures were arms that invoke the gate and CORRECTLY REFUSE A BLIND VERDICT as
+non-passing** — *"blind is not green"* already built into a test by someone else.
+
+⭐ **AND THE SEVEN "IDENTICAL" COPIES WERE NOT: four are deliberate MISMATCH FIXTURES, each differing
+in exactly ONE dimension** (order · purpose · realm · truncated membership). ⇒ **Three gain the new
+operation so each still differs in one dimension; the truncated one MUST NOT, or it stops testing
+membership.** ⛔ ***A blanket `sed` either way quietly weakens the suite and nothing fails.***
+
+⛔ **NEW DESTRUCTIVE SHAPE FOR THE BOX: `open(p,"w").write(open(p).read()…)` TRUNCATES BEFORE IT
+READS.** **It emptied four files, 2145 deletions, including the one holding every arm.** ✅ **Cost
+nothing because the work was committed first** — ⭐ **the same defence that saved it when
+`git checkout HEAD -- lib/` turned out to BE the mutation. Two destructive patterns, one discipline:
+commit before touching.**
