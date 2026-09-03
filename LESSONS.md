@@ -28854,3 +28854,27 @@ not** — **the third seam defect in this repo tonight, and seams still have no 
 📌 **And chit marked its one unmeasurable as a DECISION: an emptied text root and an empty array have
 no live blocks and are indistinguishable; it treats that as an empty file, written into the source as
 a choice rather than a finding.**
+
+## 7x431 — "I SENT IT TO YOU" IS NOT "I FILED IT" (commonplace-chit, 2026-09-03)
+
+Ninth slice. chit **wrote the plan AFTER the code** — slices 1–8 all had one first — and filed the
+lapse in the plan itself rather than backdating it.
+⭐⭐ **Its diagnosis is the entry: *"the reasoning existed and I sent it to you before starting — but a
+pick lives in a FILE, not only in a message, and the reason is precisely that a message is the
+artifact that gets lost. Sending it to you is not filing it."*** ⇒ ⛔ **It substituted the easier half
+of the condition for the whole of it and did not notice until commit time.**
+⚠️ **The substitution is invisible because the message DID exist and DID contain the reasoning** — the
+condition felt met. **Same family as this fleet's other near-misses: a real artifact standing in for
+the required one.**
+
+✅ **AND THE SLICE'S OWN RESULT IS THE VALUE, NOT THE TRAVERSAL: `executable: true` is now MEASURED to
+survive a real CRDT round-trip** — written through a live `DirHost`, stored in a real Document,
+decoded back by **`commonplace-dir`'s own `Dir.entries/1`**, field intact. ⛔ **Every earlier test built
+`Entry` structs directly and could not have caught an encode/decode that dropped the field** — and
+`encode/1` omits it when false BY DESIGN, ⭐ **which is exactly the kind of rule only a round-trip can
+check. A40 was correct; until now that was an assumption.**
+
+⛔ **AND THE SEAM STILL DID NOT CLOSE — the seventh consecutive refusal to let a green imply more than
+it proves, and this time pre-announced:** *"I am not expecting this one to be different just because
+it is the last."* **Resolving a CHILD `VersionRef` remains ported.** ⭐ **Narrowed three times, never
+once declared closed.**
