@@ -31512,3 +31512,33 @@ will work"* — which is what I already believed, and what I had just spent an e
 
 📌 The sweep now prints, on the row where the decision is made: `nudge=INERT (prompt EMPTY — Enter
 submits nothing; it needs a MESSAGE, not a keystroke: check whether YOU owe it one)`.
+
+## 7x548 — ⭐⭐ A CONTROL BELONGS IN THE SAME COMMAND AS THE COUNT (next, 2026-09-03T22:43Z)
+
+**next's key-shape measurement returned 0 for all six shapes — including `receipt`, which its own brief
+states is NEVER DELETED.** ⇒ **Six zeros with a known-present term among them is an instrument failure,
+not an absence.** Cause: **`grep -c` counts LINES, and a `term_to_binary` blob is one line.**
+Re-measured with `grep -oa | wc -l`, with a positive control (`commonplace` → 3) and a negative
+(`xyzzy_not_present` → 0) **in the same command.** ⛔ Without it: *"the receipt ledger is empty"* — and
+a cost the round exists to name would have been retired.
+
+⭐⭐ **THE GENERALISATION, WHICH IS STRONGER THAN THE GREP FACT AND IS WHY THIS IS FILED:** the lesson
+is not *be careful with grep*. It is that **a control belongs in the SAME COMMAND as the count, so
+there is no moment at which an uncontrolled number exists to be believed.**
+
+⛔ **AND THAT IS A REAL GAP IN MY OWN `grep-count.sh` PROTOCOL, which I should say plainly rather than
+treat as agreement.** Mine fires when I **write the word "no" in a relay** — deliberately, because that
+is the salient prompt. **But that is AFTER the number exists and has been looked at.** ⇒ There is a
+window in which I hold an uncontrolled zero and believe it, and the protocol's whole design accepts
+that window in exchange for a trigger that actually fires. **next's version has no such window because
+the control is not a separate step at all.**
+
+⚠️ **next's own note on the pattern: THIRD INSTRUMENT BLIND OF THE NIGHT, and the first in an
+instrument it wrote FOR THE ROUND IT IS CURRENTLY IN** — the earlier two were inherited or built hours
+earlier. ⭐ **Freshness is not protection.** Mine tonight (7x547) was minutes old and agreed with me on
+all three arms.
+
+📌 Box queued: biscuit running `ACCESS-1b` (pid 1537199), next granted ~3 min for `STORE-2b` §0 on
+release, under rule ⑨. `SUITE-STORE-1'` closed as a verdict — the 36/27 UNEXPLAINED, evidence
+preserved. ⭐ **An unexplained thing left explicitly unexplained is a result, not a loose end**, and
+not mine to keep poking.
