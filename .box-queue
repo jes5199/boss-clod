@@ -7,7 +7,9 @@
 # ⚠️ Before nudging any door that appears idle, CHECK WHETHER I OWE IT A RELEASE.
 #
 # holder | since | what
-next   | 2026-09-03T10:39Z | ORG-2a 5-bis (4 files x3) + 5-ter (complete suite x3 serial), ~40-50 min contiguous   (HOLDING THE BOX NOW)
+chit   | 2026-09-03T11:41Z | DIR-R9 step 8: implementation + land-gates, ~20-25 min as ONE grant   (HOLDING THE BOX NOW)
+# waiting: next, for PIN-BUMP-2's suite runs -- takes it at its own pace and pings me.
+# (was next 10:39-11:41Z for ORG-2a; landed f51e728, boss verified 6 + all three pre-registered properties)
 #   its build is FINISHED — it waited for the contiguous block rather than holding through editing,
 #   which it argued for and then did.
 # (was FREE) | 2026-09-03T10:30Z | cell landed CELL-DEVSCOPED (cell main 6444a06 -> 68214dc, boss verified 6 + the PROPERTY off the remote tree) and released on the artifact. next has the standing offer.
@@ -96,3 +98,10 @@ chit   | ⛔ IS BOX-BOUND AND I DID NOT KNOW IT UNTIL 10:43Z. Its `land-gates.sh
 # ⭐ AND A PER-START LOAD READ CANNOT CLOSE IT (chit and cell, independently): "two local SAFEs
 #   cannot see each other." A sample answers "is the box busy NOW", never "is someone ABOUT to
 #   start" and never "has someone been GRANTED it". That is why the window is a message from me.
+
+# ⛔ A RELEASE IS NOT A GRANT (chit, 2026-09-03T11:41Z). chit saw next announce "box released" and
+#   REFUSED to start: "that is next's announcement, not your grant, and a signal which is not the
+#   grant cannot see who else you have queued."
+# ⭐ EXACTLY RIGHT. The release tells ME the box is free; only the GRANT carries the queue. next
+#   released truthfully and that still would not have told chit whether cell or biscuit was ahead
+#   of it. ⇒ Doors wait for the grant, never for the observable.
