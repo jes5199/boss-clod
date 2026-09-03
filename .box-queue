@@ -231,6 +231,16 @@ chit   | ⛔ IS BOX-BOUND AND I DID NOT KNOW IT UNTIL 10:43Z. Its `land-gates.sh
 #      d. on a conflicting claim, THE EARLIER TIMESTAMP WINS and the later door stands down.
 #    ⇒ It then says, in its next message, that it proceeded under fallback and what it measured.
 #
+# ⑥ ⭐⭐ A RUNNER THAT SPAWNS IS INTERRUPTIBLE; A RUNNER THAT *IS* THE WORK IS NOT (next, 16:58Z).
+#    next stopped its gate LOOP by killing the runner script BY CAPTURED PID (1156437) so no NEW
+#    suite could start — and touched no `beam.smp`. ⇒ THAT WAS ONLY POSSIBLE BECAUSE THE LOOP WAS A
+#    SEPARATE PROCESS FROM THE WORK. Had the runner been the thing running `mix test` directly,
+#    "stop starting new suites" and "kill a running suite" would have been THE SAME ACT — and the
+#    second is forbidden without exception.
+#    ⇒ ⭐ THIS IS WHAT MAKES THE NEVER-KILL-A-BEAM RULE SURVIVABLE IN PRACTICE rather than a rule
+#      doors have to break to be responsive. A gate runner SHOULD spawn, so that yielding is
+#      possible without killing.
+#
 # ⑤ ⭐⭐ A DOOR RE-CONFIRMS IT HOLDS THE BOX IN THE SAME BREATH AS STARTING ANYTHING THAT PUTS A
 #    BEAM ON IT — not at grant time, not at take time, but IMMEDIATELY BEFORE THE RUN.
 #    ⛔ RULED 2026-09-03T16:58Z from next's own diagnosis after it ran BUMP-LOG-1's gate block while
