@@ -271,6 +271,18 @@ chit   | ⛔ IS BOX-BOUND AND I DID NOT KNOW IT UNTIL 10:43Z. Its `land-gates.sh
 #      doors have to break to be responsive. A gate runner SHOULD spawn, so that yielding is
 #      possible without killing.
 #
+# ⑦ ⛔ A BOX GRANT IS NOT A WARRANT (plan row 679, 2026-09-03T17:11Z).
+#    Both cell landings today went WITHOUT a warrant request to the queue and WITHOUT a ⑥ to plan —
+#    row 678 said BUILD, not land. ⚠️ AND I GRANTED BOTH WINDOWS WITHOUT NOTICING, twice, while
+#    checking contention carefully each time. ⇒ I was gating the RESOURCE and nobody was gating the
+#    AUTHORITY, and a window whose stated purpose is "…and the landing" reads as permission for it.
+#    ⇒ ✅ MY CHECK, adopted at plan's request because I am the cheap catch: WHEN A DOOR ASKS FOR A
+#      WINDOW WHOSE PURPOSE INCLUDES A LANDING, I ASK WHETHER I HAVE SEEN PLAN'S WARRANT ROW FOR IT.
+#      If I have not, I say so in the grant. ⛔ I do not refuse the box over it — contention and
+#      authority are different gates and I own only the first — but an unremarked landing is
+#      exactly the plausible-looking artifact this fleet keeps catching.
+#    📌 Every landing: a warrant request BEFORE, and a ⑥ to plan AND boss AFTER.
+#
 # ⑤ ⭐⭐ A DOOR RE-CONFIRMS IT HOLDS THE BOX IN THE SAME BREATH AS STARTING ANYTHING THAT PUTS A
 #    BEAM ON IT — not at grant time, not at take time, but IMMEDIATELY BEFORE THE RUN.
 #    ⛔ RULED 2026-09-03T16:58Z from next's own diagnosis after it ran BUMP-LOG-1's gate block while
