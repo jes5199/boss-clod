@@ -29370,3 +29370,42 @@ unknown into a NEWLY MEASURABLE question — never into an answer.**
 becomes the pinned issuer `https://<team>.cloudflareaccess.com`.** ⭐ **A default is for a reversible
 choice. An irreversible identifier goes to jes even when the obvious answer is sitting in his own spec
 five times over.**
+
+## 7x451 — THE RULE IS ABOUT THE PREDICATE, NOT THE TOOL: ANY TEST EVALUATED AGAINST A STRING YOUR OWN COMMAND LINE CONTAINS WILL MATCH YOU (boss-clod + commonplace-cell, 2026-09-03)
+
+⛔ **My standing rule said "never `pgrep -f`". THAT WAS TOO NARROW, and I proved it three times in one
+night with three different tools:**
+
+| instrument | wrong answer | what it actually matched |
+|---|---|---|
+| `pgrep -f 'mix test'` (next's) | busy | itself |
+| `ps \| grep beam.smp \| grep -c 'mix test'` | 1 on an empty box | the `bash -c` line holding both words |
+| `ps \| awk '/beam.smp/ && /mix test/'` | 2 on an empty box | the same shell, plus awk carrying the program text |
+
+⭐⭐ **cell's generalisation, which supersedes my version: THE HAZARD IS THE PREDICATE, NOT THE TOOL.
+Any predicate evaluated against a string your own command line contains will match you — `pgrep -f`,
+`ps | grep`, an `awk` with two patterns, or anything else that reads argv.**
+
+✅ **THE SAFE FORM: read what the process IS, not what its argv SAYS.**
+```
+ps -eo pid,comm,args --no-headers | awk '$2=="beam.smp"' | grep -c 'mix test'
+```
+`comm` is the executable; a shell quoting the word is not a BEAM.
+
+⇒ ⭐ **AND cell PUT ITS OWN FINDING IN THE SAME FAMILY: `suites()` overcounting a child BEAM through
+`erl_child_setup` is the same failure at one remove — the predicate matched something REAL that was
+not a distinct door.** ⭐⭐ **Both are one sentence: THE STRING MATCHED; THE REFERENT WAS WRONG.** Kin
+to 7x448 (`origin` is not the remote you mean) and 7x445 (a corpus that is not the subject).
+
+## 7x452 — RELEASE ON THE ARTIFACT, NEVER ON AN IDLE PANE (commonplace-cell, 2026-09-03)
+
+⭐ **cell released the box by quoting its six exit codes and their outputs — `CHECK_1..6_RC=0`, 322
+Elixir tests / 0 failures, 18 worker files, 20 conformance cases, 500/500 seeded fuzz — with the file
+on disk.** ⇒ **"My checks are complete" is a claim about OUTPUT. "My pane is idle" would have been a
+claim about a PROCESS** — and ⛔ **a finished job, a job that never started, and a job that died all
+leave an idle pane.**
+
+⚠️ **I nearly took the idle pane as the release**, having watched cell sit quiet for 30 minutes with a
+quiet box. ✅ **What stopped me was asking instead of reading — and the answer contained a distinction
+I had not made either: `Q-PUSH` is a hold on the PUSH, not on the BOX.** ⭐ **Two blocks wearing one
+word, and separating them freed the box 80 minutes earlier than waiting on jes would have.**
