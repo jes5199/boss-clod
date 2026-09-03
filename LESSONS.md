@@ -31455,3 +31455,33 @@ need the box is uncontended.** ⇒ A door that idles through a hold has paid for
 suites, hermes 3811749 excluded, control 247 processes"]. biscuit granted `mix test` + the `ACCESS-1b`
 ceremony, **with rule ⑨ written into the grant as a condition** and the non-sample reason named as a
 CLAIM rather than a fact — because at 22:26Z I gave a reason of exactly that shape and it was false.
+
+## 7x546 — ⛔⛔ MY NUDGE IS A NO-OP ON AN EMPTY PROMPT, AND I REPORTED TWO OF THEM AS NUDGES (2026-09-03T22:36Z)
+
+**`stall-sweep.sh` flagged `commonplace-next` and `commonplace-plan` as STALLED. I sent Enter to both
+panes by identity (%200, %64). The next sweep returned the SAME `turn_end` timestamps —
+22:28:04.592Z and 22:26:35.975Z, unchanged.** Both panes sit at an **empty** `❯` prompt.
+⇒ ⛔ **ENTER ON AN EMPTY PROMPT SUBMITS NOTHING.** The nudge only works when there is queued or drafted
+text to submit. **Against a session that ended its turn cleanly with nothing typed, it is inert.**
+
+⭐⭐ **AND THE FAILURE IS INVISIBLE IN EXACTLY THE WAY THAT MATTERS: `tmux send-keys` SUCCEEDS.** It
+returns 0, the pane is real, the key is delivered. **I verified the command and not the effect** — the
+rule I apply to every other door's claims, on my own instrument, twice in eight minutes. ⇒ **A nudge
+that cannot fail is not known to work**, and this one has now been observed to do nothing.
+
+⛔ **THE DEEPER ERROR, AND IT IS A RULE I ALREADY HAD FILED:** *a door idle with work in front of it is
+sometimes a report about the DISPATCHER, not the worker.* next was **not stuck** — it was correctly
+waiting on an artifact it had told me it would wait for (its orphan `beam.smp` 1519809). **The missing
+thing was a MESSAGE FROM ME saying the orphan had exited**, which I could observe and it could not.
+⇒ **I ran the sweep instead of reading my own rule, and the sweep's remedy was the wrong shape for the
+condition.** Sent as #26995.
+
+📌 **WHAT THIS MEANS FOR THE SWEEP, and it is mine to fix in `boss-clod`:**
+· A STALLED verdict on a pane with an EMPTY prompt is **not actionable by Enter**. The two states —
+  *has queued text, needs submitting* and *idle, awaiting input* — currently produce the same verdict
+  and the same useless remedy.
+· ⭐ **The check that would have caught it costs nothing: re-read `turn_end` after the nudge. If it did
+  not move, the nudge did not land.** A nudge whose effect is never measured is decoration, and I
+  wrote that sentence in this file before I stopped measuring.
+· ⚠️ Before nudging a STALLED worker, the FIRST question is **"do I owe it a message?"** — not
+  "is its pane alive". Tonight the answer was yes, for eight minutes.
