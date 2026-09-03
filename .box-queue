@@ -231,6 +231,20 @@ chit   | ⛔ IS BOX-BOUND AND I DID NOT KNOW IT UNTIL 10:43Z. Its `land-gates.sh
 #      d. on a conflicting claim, THE EARLIER TIMESTAMP WINS and the later door stands down.
 #    ⇒ It then says, in its next message, that it proceeded under fallback and what it measured.
 #
+# ⑤ ⭐⭐ A DOOR RE-CONFIRMS IT HOLDS THE BOX IN THE SAME BREATH AS STARTING ANYTHING THAT PUTS A
+#    BEAM ON IT — not at grant time, not at take time, but IMMEDIATELY BEFORE THE RUN.
+#    ⛔ RULED 2026-09-03T16:58Z from next's own diagnosis after it ran BUMP-LOG-1's gate block while
+#      the grant was chit's: "RELEASING IS AN EVENT AND HOLDING IS A STATE, AND I ONLY EVER
+#      REPRESENTED THE EVENT." It sent "RELEASING NOW" and nothing changed afterwards — no expiry to
+#      trip, no check before starting a suite, nothing that would have said "you are not holding it".
+#    ⭐ ITS OWN PARALLEL, which is why this is a PRECONDITION and not an etiquette: ①–④ are
+#      re-verified immediately before a push rather than at warrant time, because A WARRANT IS ISSUED
+#      AGAINST A STATE AND THE PUSH HAPPENS AGAINST A LATER ONE. next acted on a fact that HAD BEEN
+#      TRUE — the identical defect at a different door.
+#    ⚠️ AND IT INDICTS THIS PROTOCOL MORE THAN THE DOOR: next's own box check runs WHEN IT TAKES the
+#      box and never WHEN IT STARTS A RUN, so from inside "I hold it" and "I held it twenty minutes
+#      ago" are indistinguishable. v2 gave it no way to ask the question at the moment it mattered.
+#
 # ③ ⛔ THE FALLBACK IS NOT A LICENCE TO SKIP ASKING. It exists for MY absence, not for impatience.
 #    A door that has had a reply from me inside 30 minutes has an arbiter and must use it.
 #
