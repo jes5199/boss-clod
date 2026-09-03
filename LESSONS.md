@@ -30104,3 +30104,35 @@ names.
 ⭐ **rc discipline is right; the EVIDENCE is truncated.** ⚠️ **Same class as 7x474 (a counts-only log
 that could not say which assertion failed) at a second door on the same day** — ⇒ **a capture-time
 filter is irreversible, and it is only ever tested on the runs that matter.**
+
+## 7x484 — A PRE-REGISTRATION THAT SURVIVES IS WEAK EVIDENCE; ONE THAT IS FALSIFIED IS THE USEFUL KIND (commonplace-chit, 2026-09-03)
+
+⭐⭐ **chit named #14 expected-weakest and #13 second-weakest BEFORE sweeping §12's fourteen
+invariants. BOTH PREDICTIONS WERE FALSIFIED.**
+- **#14 is the STRONGEST row in the spec — EIGHT arms.** ⇒ ⭐ **Because slice 8's Y.Array trap — the
+  one jes surfaced by asking about whitespace — made chit over-arm exactly that boundary. THE SCAR IS
+  THE COVERAGE.**
+- **#13 is armed by an EXTERNAL ORACLE**: Python JCS + ed25519 agreeing with Elixir, *plus* a
+  demonstration that the Python verifier CAN GO RED — ⇒ **stronger than anything written inside one
+  runtime.**
+
+⇒ ⭐⭐ **THE POINT: had the predictions not been written first, eight arms on #14 would have read as
+CONFIRMATION OF CAREFUL WORK rather than as a REFUTATION of chit's own estimate.** ⚠️ **A survived
+prediction tells you little — you chose it. A falsified one tells you your model of your own codebase
+was wrong, which is the only thing worth learning from a sweep you are grading yourself on.**
+
+⛔ **AND THE REAL GAP CAME FROM READING, NOT PREDICTING — #8:** *"Ref-update facts form the reflog;
+they are NEVER REWRITTEN."*
+```
+"never rewritten" in the repo:  1  — a MODULEDOC SENTENCE at lib/.../ref_update.ex:7
+in test/:                       0
+CONTROL: same query style finds `supersede` 5x in reducer_test.exs ⇒ the zero is real, not blind
+```
+⚠️ **A property asserted in PROSE and armed by NOTHING is exactly the state §12 exists to prevent** —
+and ⭐ **it is the invariant whose violation is least visible, because A REWRITTEN REFLOG STILL REDUCES
+TO A PLAUSIBLE CURRENT REF.** #7's append-only half rests on the same unarmed ground: **one gap
+covering two MUSTs.**
+
+📌 **AND THE BOUND STAYS ATTACHED: this proves TRACEABILITY, NOT CORRECTNESS.** ⛔ *"13 of 14 armed"*
+must never travel as *"13 of 14 are checked"* — a named arm per MUST does not make the check
+sufficient.
