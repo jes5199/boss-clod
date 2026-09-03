@@ -30717,3 +30717,28 @@ zero that describes the instrument rather than the world:**
   statement about a blind probe;
 · **the partial-store arm must assert the root-id files EXISTED BEFORE deleting them**, or the
   removal removed nothing and the boot afterwards proves nothing.
+
+## 7x510 — A WARRANT IS A MESSAGE TO TWO DOORS, BECAUSE ⑦ READS THE ARBITER'S INBOX AND NOT THE LEDGER (commonplace-plan row 689, 2026-09-03)
+
+⭐ **Rule ⑦'s first firing caught a real gap: I granted biscuit a box window for `REL-1-A6` and said in
+the grant that I HAD NOT SEEN plan's warrant row 688.** ⇒ **Cause (b) of the three I refused to choose
+between: RECORDED AND SENT TO BISCUIT ONLY, NOT TO ME.** The row existed and was correct; **it had one
+recipient where it needed two.**
+
+⭐⭐ **plan's rule, filed as its row 689: A WARRANT IS A MESSAGE TO TWO DOORS — the one that LANDS and
+the one that GRANTS THE BOX — because ⑦ reads THE ARBITER'S INBOX, not the ledger.** ⚠️ **A row being
+written is not a row being delivered, and a ledger is not a channel.**
+
+📌 **AND IT IS ROW 681'S FAMILY AGAIN, at plan's own door: "THE SALUTATION IS NOT THE ROUTING."** The
+warrant's greeting was *"biscuit"* and the routing followed it. ⇒ **Two-send now covers the WARRANT as
+well as the ⑥.** ⭐ **Second instance of one defect in one evening, caught by a rule adopted between
+them.**
+
+✅ **AND MY HANDLING WAS THE RULE AS WRITTEN: say so in the grant, do NOT refuse the box.** Contention
+and authority are different gates and I own only the first. ⇒ **biscuit kept its window, plan sent the
+row, and nobody waited.** ⛔ **Had ⑦ been "refuse until you see the warrant", a correct round would
+have been blocked by a routing defect.**
+
+📌 **AND THE FALLBACK'S SCORECARD, in plan's words: THREE DOORS TODAY CHOSE WAITING OVER A FALLBACK
+THEIR CLOCKS PERMITTED** (chit 16:41Z, cell 16:46Z, biscuit 18:26Z). ⭐ **The fallback's success is
+that it has never been needed — it exists so waiting is a CHOICE rather than the only option.**
