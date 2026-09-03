@@ -32,6 +32,24 @@ set -o pipefail
 # STATE.md untouched since 01:45. The reader-side banner correctly reported
 # stale the whole time — the writer side was simply not running. Caught by
 # this script's own output capture, which is why the capture exists.
+
+# ⛔⛔ BOX HOLD (boss-clod, 2026-09-03T17:43Z). THE BOX PROTOCOL GOVERNS DOORS, AND THIS IS A CRON.
+#   A door asks boss for a window; a cron reads no protocol and takes the box regardless. On
+#   2026-09-03 this job took the box out from under next's 5-ter block twice — once contributing to
+#   17 listener-shaped failures, once making it wait 10+ minutes — and a box GRANT could not have
+#   stopped it, because a grant is addressed to doors.
+#   ⭐ THE BOX HAS NON-DOOR TENANTS: this cron, hermes's live trading service, the serve. The queue
+#     is not the box's owner; it is ONE TENANT'S ETIQUETTE.
+#   ⇒ So the cron gets an off-switch a door can rely on. `touch .state-render-HOLD` and this job
+#     skips its firing, logging the skip rather than exiting silently. Remove the file to resume.
+#   ⚠️ A HOLD THAT IS NEVER LIFTED IS AN OUTAGE: the file carries the reason and boss lifts it.
+HOLDF=/home/jes/boss-clod/.state-render-HOLD
+if [ -f "$HOLDF" ]; then
+  echo "$(date -u +%FT%TZ) SKIPPED: $HOLDF present — $(head -1 "$HOLDF" 2>/dev/null)" \
+    >> /home/jes/boss-clod/logs/state-render.log 2>/dev/null || true
+  exit 0
+fi
+
 export PATH="$HOME/.asdf/shims:$HOME/.asdf/bin:/usr/local/bin:/usr/bin:/bin"
 [ -f "$HOME/.asdf/asdf.sh" ] && . "$HOME/.asdf/asdf.sh" 2>/dev/null
 
