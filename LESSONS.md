@@ -28826,3 +28826,31 @@ signal is unaffected by cwd.**
 📌 **Recorded as a KNOWN BLIND SPOT rather than a bug to fix tonight** — ⚠️ *and it is the second time
 today that detection and remedy disagreed about which door they were talking about* (the first: a
 compacting pane detected as stalled, where the remedy was also wrong to apply).
+
+## 7x430 — A MUSING FOUND A SILENT DATA-LOSS BUG THAT EIGHT SLICES OF TESTS HAD NOT (2026-09-03)
+
+jes thought aloud: *"that implies some lossiness of whitespace when JSON or XML round trip to git."*
+⛔ **I relayed it as a THOUGHT, NOT A RULING** — told chit not to build in response and not to propose
+a design — ✅ **and asked instead for the one thing only it could supply: WHICH STEP, measured, with
+its bounds.**
+
+⭐⭐ **SEPARATING THE STEPS IS WHAT FOUND THE BUG.** ①  CRDT→text **byte-exact** (58 bytes in, 58 out;
+tabs, CRLF, trailing spaces, no final newline, multi-byte UTF-8 — nothing normalised) · ② text→blob
+**byte-exact by construction**, confirmed against `git hash-object` · ③ blob→CRDT **does not exist**,
+so nothing measured and nothing reasoned.
+⇒ **The suspected lossiness is in NONE of them — it can only enter one level up, in whether a document
+is STORED as text at all.** ⭐ **A storage question wearing a projection question's clothes.**
+
+⛔⛔ **AND CHECKING IT FOUND THE REAL DEFECT: a `Y.Array` root was misclassified as text and exported as
+an EMPTY FILE.** An array is a *sequence*, so the "sequence roots minus map roots" rule admitted it;
+its non-string blocks are skipped, so the render was `""`. ⇒ **A structured Document SUCCEEDING as an
+empty file — the exact silent-meaning-change §11.2 forbids, and nothing errored.** ✅ Fixed: a text
+root now requires **every live block be `{:string, _}`**, with regression tests for a pure array and a
+mixed sequence.
+
+⭐ **THE TRANSFERABLE PART: a question aimed at a PROPERTY OF THE WHOLE found what eight slices of
+component tests did not.** ⚠️ **Every component was right; the classification rule spanning them was
+not** — **the third seam defect in this repo tonight, and seams still have no unit.**
+📌 **And chit marked its one unmeasurable as a DECISION: an emptied text root and an empty array have
+no live blocks and are indistinguishable; it treats that as an empty file, written into the source as
+a choice rather than a finding.**
