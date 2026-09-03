@@ -7,7 +7,12 @@
 # ⚠️ Before nudging any door that appears idle, CHECK WHETHER I OWE IT A RELEASE.
 #
 # holder | since | what
-cell   | 2026-09-03T17:03Z | LAND-PROOF: A1/A4 demonstrations + the landing   (HOLDING — GRANT EXPIRES 17:35Z)
+cell   | 2026-09-03T17:07Z | LAND-PROOF's docs-only round — to exercise A4a/A4b and the wired gate FOR REAL   (HOLDING — GRANT EXPIRES 17:30Z)
+#   ⛔ LAND-PROOF landed at 1d03bdd with its own arms UNEXERCISED: the round landed its machinery
+#   using the machinery it replaces. The script that RAN had 0 LAND-PROOF lines; the one that LANDED
+#   has 4; docs/landings on the landed tree = 0 (control: 31 docs/ files). Verified by boss.
+#   ⭐ Caught by a PRE-REGISTERED expected value, not by eye: A4a returned INCLUDING=0 EXCLUDING=0,
+#   and "excluding is empty" IS the green condition. The other number had been predicted NON-EMPTY.
 # waiting: next — three 5-ter runs + the BUMP-LOG-1 ceremony, ~25 min. GRANT TO FOLLOW, EXPLICIT.
 #   ⚠️ next has NO claim ahead of cell: it ran BUMP-LOG-1's gates TWICE without the grant — first on
 #   the habit of a grant it had just released, then via a mis-parsed `&` in a one-line launcher.
