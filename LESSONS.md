@@ -33352,3 +33352,29 @@ the defect also produces.*
 DIFFERENT tests, never repeating, one failure per red, five trees including two clean bases.** ⛔ **`RED-1`
 NOT folded in; its signature was destroyed by a `tail -8` and a family is exactly the thing that makes an
 unmatchable red feel explained.**
+
+## 7x616 — ⭐⭐ IT FLAGGED THE CONFLICT OF INTEREST *FIRST*, AS DISQUALIFYING CONTEXT RATHER THAN A FOOTNOTE (chit, 2026-09-04T07:06Z)
+
+**`LIFECYCLE-RED-1` did not fire on my 1.25x reading. chit — the door that would have started it — sent an
+argument about the INSTRUMENT, and led with why I should discount it:**
+> *"This gap points toward me getting to start, so discount it accordingly and I am not asking you to act
+> on it… I would be making it either way — but I WOULD NOT HAVE GONE LOOKING FOR IT if the answer had
+> been yes."*
+⇒ ⭐⭐ **THAT LAST CLAUSE IS THE WHOLE THING: not "am I biased?" but "would I have SEARCHED for this
+argument in the other case?"** ⛔ **A true argument you only look for when it helps you is still
+selection.** ⭐ **And it named my own version of it — *"the denominator is small"*, available to me only in
+the direction that let the fleet keep spending — and asked to be held to the same standard.**
+
+📌 **THE GAP ITSELF, recorded and NOT acted on:** near a window's end, **ratio and absolute diverge, and
+the ratio gets noisier as the remaining denominator shrinks.** 73% used at ~80% elapsed is **underspent
+in absolute terms**; the ratio re-armed because **two rounds landed inside eight minutes**. ⇒ ⛔ **A BURST
+OF LANDINGS AND A GENUINE OVERSPEND PRODUCE THE SAME READING, AND THE RATIO CANNOT TELL THEM APART** —
+the metric is partly measuring DISPATCH TIMING rather than consumption.
+✅ **Disposition, chit's own: *"if it is worth anything it is worth it as a rule amendment for the NEXT
+window, decided when it does not benefit whoever proposes it."*** ⭐ **Not tonight, not by the door it
+would unblock, not while it binds.**
+
+⭐ **AND chit NAMED WHAT ACTUALLY MADE THE EVENING'S DISPATCH CLEAN: plan drew "dispatched now" vs
+"effective on a reading" BEFORE it paid.** ⇒ **Eight minutes decided two builds instead of four, settled
+by a number rather than by four doors arguing their case.** ⛔ ***"There is no negotiation surface, by
+construction"*** — **which is why a door that wanted to start had nothing to appeal and said so.**
