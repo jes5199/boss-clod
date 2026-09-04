@@ -21,7 +21,7 @@ ps -eo pid,comm,args > "$PS" 2>/dev/null
 # the green and the instrument failure, so the control is the CORPUS — all processes, a number whose
 # rough answer we already know.
 tot=$(command grep -c . "$PS")
-[ "$tot" -lt 50 ] && { echo "BLIND|ps returned $tot lines — not a machine's process table"; exit 2; }
+[ "$tot" -lt 50 ] && { echo "BLIND|ps returned $tot lines — not a machine's process table"; echo "EXIT=2 ⇐ the rc this script INTENDS. If your \$? disagrees you read a PIPELINE, not this script."; exit 2; }
 
 # hermes's live-money pid, by TWO paths that fail in different directions (hermes):
 #  ① systemd — an identity we own. ⚠️ but `systemctl --user` needs the session bus, so it returns
@@ -35,7 +35,7 @@ if [ -z "$hpid" ]; then
            [ "$(readlink "/proc/$p/cwd" 2>/dev/null)" = "/home/jes/hermes" ] && echo "$p"; done)
 fi
 n=$(printf '%s\n' "$hpid" | command grep -c .)
-[ "$n" -ne 1 ] && { echo "BLIND|hermes MainPID unresolved ($n candidates) — refusing to guess which BEAM is live money"; exit 2; }
+[ "$n" -ne 1 ] && { echo "BLIND|hermes MainPID unresolved ($n candidates) — refusing to guess which BEAM is live money"; echo "EXIT=2 ⇐ the rc this script INTENDS. If your \$? disagrees you read a PIPELINE, not this script."; exit 2; }
 
 # SUITES, not BEAMs (cell): after excluding hermes there are still the serve and other long-lived
 # BEAMs. The criterion is a running test suite, and the discriminator is the pid's own cmdline.
@@ -218,17 +218,17 @@ _hot=$(awk -v l="${_load1:-0}" -v c="${_cores:-4}" 'BEGIN{print (l > c/2) ? 1 : 
 
 # ⭐⭐ EVERY UNRESOLVED CASE FAILS TOWARD WAITING (biscuit). A fallback that decides whether to take a
 #   shared resource must fail safe in the direction of NOT taking it.
-[ "$blind" -gt 0 ] && { echo "BLIND|$blind BEAM(s) whose /proc cwd could not be read"; exit 2; }
-[ "$suites" -gt 0 ] && { echo "BUSY|$suites suite(s) running (control: $tot processes visible)"; exit 1; }
-[ "$nonbeam" -gt 0 ] && { echo "BUSY|$nonbeam non-BEAM process(es) — node/npm/vitest/tsc load the box and no BEAM term can see them (control: $tot processes visible)"; exit 1; }
+[ "$blind" -gt 0 ] && { echo "BLIND|$blind BEAM(s) whose /proc cwd could not be read"; echo "EXIT=2 ⇐ the rc this script INTENDS. If your \$? disagrees you read a PIPELINE, not this script."; exit 2; }
+[ "$suites" -gt 0 ] && { echo "BUSY|$suites suite(s) running (control: $tot processes visible)"; echo "EXIT=1 ⇐ the rc this script INTENDS. If your \$? disagrees you read a PIPELINE, not this script."; exit 1; }
+[ "$nonbeam" -gt 0 ] && { echo "BUSY|$nonbeam non-BEAM process(es) — node/npm/vitest/tsc load the box and no BEAM term can see them (control: $tot processes visible)"; echo "EXIT=1 ⇐ the rc this script INTENDS. If your \$? disagrees you read a PIPELINE, not this script."; exit 1; }
 # ⚠️ WORDING: this counter now holds BOTH unrecognised BEAMs AND named container releases, so the old
 #   "unrecognised BEAM(s)" summary CONTRADICTED the BUSY-CONTAINER line printed above it. A summary
 #   that disagrees with its own detail lines is how a reader learns to stop reading one of them.
-[ "$unknown" -gt 0 ] && { echo "BUSY|$unknown non-suite BEAM(s) loading the box — see the lines above for which; an unrecognised cwd is CONTENTION, not permission"; exit 1; }
+[ "$unknown" -gt 0 ] && { echo "BUSY|$unknown non-suite BEAM(s) loading the box — see the lines above for which; an unrecognised cwd is CONTENTION, not permission"; echo "EXIT=1 ⇐ the rc this script INTENDS. If your \$? disagrees you read a PIPELINE, not this script."; exit 1; }
 # ⭐ A NAMED periodic job still blocks the fallback — a door must not decide on its own that boss's
 #   housekeeping is ignorable. But BOSS may grant over it deliberately for work that is not a timing
 #   measurement, which is a judgement only the arbiter should make.
-[ "$periodic" -gt 0 ] && { echo "BUSY|$periodic known periodic job(s) — boss may grant over this; a door may not"; exit 1; }
+[ "$periodic" -gt 0 ] && { echo "BUSY|$periodic known periodic job(s) — boss may grant over this; a door may not"; echo "EXIT=1 ⇐ the rc this script INTENDS. If your \$? disagrees you read a PIPELINE, not this script."; exit 1; }
 # 📌 OBSERVED ON THE FIRST LIVE RUN (15:20Z): a running suite shows as TWO BEAMs — the suite itself
 #   (matched by cmdline) and a CHILD through `erl_child_setup` whose cmdline does not match, which
 #   lands in UNKNOWN-BEAM. ⭐ cell filed that overcount as `suites()` counting BEAMs not doors.
@@ -250,4 +250,5 @@ if [ "$_hot" = "1" ]; then
   echo "NOTE-LOAD|load1 ${_load1} on ${_cores} cores; NOTHING IN THE GATING SET accounts for it. Top CPU incl. EXCLUDED tenants: ${_excl:-none over 5%}. ⇒ known-and-excluded (serve/hermes) is NOT the same as invisible — read the list before concluding anything is unnameable."
 fi
 echo "FREE|0 suites, hermes pid $hpid excluded, control $tot processes visible"
+echo "EXIT=0 ⇐ the rc this script INTENDS. If your \$? disagrees you read a PIPELINE, not this script."
 exit 0
