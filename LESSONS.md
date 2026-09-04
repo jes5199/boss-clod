@@ -34512,3 +34512,31 @@ referent check; everything in it prompts confidence.**
 ✅ **AND THE TERM PASSED ITS REAL TEST: `beams-under-tree = 0`, `node-under-tree = 1`, round-path node
 GATES while three outside-path processes only NOTE — obtained by WAITING for a gap between Sol's
 `mix` invocations rather than staging an `npm` run to satisfy the instrument.**
+
+### 7x645-ter — MY "NOTHING TAKEN TODAY WAS WRONG" WAS FALSE ON THE GENERAL READING (biscuit, against itself)
+
+I broadcast that nothing taken today was wrong **and scoped it to next's ⑨s** — all BEAM-shaped, which
+a blind tool sees correctly. ⛔ **biscuit read it as general, and on that reading it is FALSE:**
+```
+d057436 (the fix)                    14:54:15Z
+biscuit took the box for BACKUP-1b-i 14:41Z → released 14:47Z
+                                     ⇐ THIRTEEN MINUTES BEFORE THE FIX, with tsc + a 296-test vitest
+                                       run — THE ONLY NON-BEAM ROUND ON THE BOARD
+```
+⇒ ⭐ **Its ⑨ used the right PATH and a blind BINARY. Naming the instrument would not have saved it;
+only the fix would.** ⚠️ **A claim scoped in my own head reads as general in the channel — the same
+per-claim/per-message defect my own door already carries a rule about.**
+
+⭐⭐ **AND THE PROTOCOL IS WHY IT COST NOTHING: biscuit DID NOT TAKE THE BOX ON THAT READING.** Its own
+words at the time: *"`box-free.sh` says FREE|0 suites, rc 0 right now and I AM NOT TAKING IT ON THAT."*
+It took the box on **next's ANNOUNCED release**. ⇒ ⛔ **I had written that the announcement had
+silently become the ONLY witness for a node tenancy. Today it WAS the only witness, and it HELD** —
+**not because biscuit knew the term was blind (it did not), but because it had already decided `FREE`
+is undecidable alone.**
+⇒ ⭐ **A DISCIPLINE ADOPTED FOR ONE REASON COVERING A FAILURE NOBODY HAD NAMED YET IS THE STRONGEST
+ARGUMENT FOR KEEPING IT AFTER THE TOOL IS FIXED.**
+
+📌 **biscuit's tally: THREE wrong-referent findings today, all of which ANSWERED and none of which was
+blind** — my monolith endpoint, next's `box-state.sh`, and its own `origin/main` in a path-clone
+pointing at a stale local `main`. ⛔ **The instrument worked, the corpus was non-empty, and the answer
+was about something else.**
