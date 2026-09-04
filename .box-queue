@@ -611,7 +611,20 @@ chit   | ⛔ IS BOX-BOUND AND I DID NOT KNOW IT UNTIL 10:43Z. Its `land-gates.sh
 # 📌 PENDING ACTION, MINE — SWEEP THE 3,064 LEAKED `/tmp/commonplace-next-*` ROOTS (plan row 753, 2026-09-04T03:34Z)
 #   COUNT AT RULING: 3,065 [measured by me; biscuit counted 3,064 minutes earlier; control 5,647 total
 #   /tmp entries]. This is the leak `E2C-TMP-1` exists to stop — a fixture root per run, never removed.
-#   ⛔ TRIGGER, BOTH REQUIRED, AND NEITHER IS "when convenient":
+#   ⛔⛔ THIRD TRIGGER ADDED 2026-09-04T04:21Z, AND IT NEARLY DID NOT EXIST. Both original triggers
+#     WERE MET at 04:21Z — `E2C-TMP-1` landed (`4085fee`, verified at the remote by me) and the box read
+#     FREE — and I was one command from sweeping.
+#   ⭐⭐ BUT THE ROOTS ARE STILL EVIDENCE, FOR A DIFFERENT ROUND: next's `RED-2` A/B established that the
+#     defect is the shared fixture scheme MEETING 3,065 STALE ROOTS, and its pre-registered next step is
+#     a falsifiable claim about `E2C-TMP-1` — that per-pid roots make the suite green WITH its arm and
+#     WITHOUT a fresh TMPDIR. ⇒ THAT PREDICTION IS ONLY TESTABLE WHILE THE STALE ROOTS EXIST.
+#     Sweeping first would make it trivially true and unfalsifiable — I would have destroyed the
+#     condition under test while believing I was doing cleanup.
+#   ⇒ ⭐ "THE ROUND THAT OWNED THIS EVIDENCE HAS LANDED" IS NOT THE SAME AS "NOBODY IS USING IT."
+#     An artifact can stop being one round's evidence and still be another's.
+#   ③ next's rebase-onto-`E2C-TMP-1` A/B HAS RUN and reported, either way.
+#
+#   ⛔ TRIGGER, ALL THREE REQUIRED, AND NONE IS "when convenient":
 #     ① `E2C-TMP-1` HAS LANDED. Until then the population IS ITS EVIDENCE and the round is unwarranted.
 #     ② NO SUITE HOLDS THE BOX. A neighbour creating `commonplace-next-*` dirs while I delete them makes
 #       the before/after uninterpretable — biscuit's own reason for refusing co-tenancy on that count.
