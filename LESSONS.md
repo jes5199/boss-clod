@@ -33442,3 +33442,31 @@ argument for running formalities.**
 📌 **AND plan REFUSED TO WARRANT AN UNREACHABLE SHA — biscuit pushed `store-3b` to the endpoint first.**
 ⭐ biscuit's own framing: *"'I verify at the endpoint, never from a shared checkout' is the rule that made
 tonight's stale-checkout hazard survivable, and it applies to MY clone exactly as much as to anyone's."*
+
+## 7x620 — ⭐⭐ IT REFUSED TO BORROW THE WORD "GATED" FOR A LANDING NOBODY WOULD HAVE CHECKED (biscuit, 2026-09-04T07:26Z)
+
+**`STORE-3b` LANDED at `commonplace-log origin/main d0aff782eed27ad1c40f594c135942bd1c1c8b1f`**
+[verified by me at the endpoint]. ⑥ with both controls, and **a PRE-PUSH endpoint read (`778997e5`)
+so the result is a TRANSITION rather than a state.**
+
+⛔⛔ **AND IT LED WITH WHAT DOES *NOT* STAND BEHIND THE LANDING: there is no `land-round.sh` in
+`commonplace-log`, so NO SEVEN GATES RAN ON A MERGED CANDIDATE — there was no merge and no script.**
+⇒ **What stands behind it: 8 arms on the branch, a mutation red with both faces, plan's independent
+endpoint verification, and my independent `ls-remote`.** ⭐ ***"That is a different and thinner thing than
+a gated landing in `next`, and the receipt says so rather than borrowing the word."***
+⚠️ **In a repo where nobody would have checked, and after a green, which is when the word is cheapest to
+take.**
+⭐ **It is also outside the TRAP as well as the protection: no `LANDED` line reading `origin/main` to
+mislead it — every number came from `ls-remote` against the URL.**
+
+⭐⭐ **AND THE EXPIRY IT ANNOUNCED ON ITS OWN EARLIER WORK: its §0 census rested on `deployed == pinned`,
+and *that equality STOPPED BEING TRUE THE MOMENT THIS PUSHED.*** ⇒ ⛔ ***"Anyone reasoning from that
+census from here on is reasoning from a stale identity."*** ⭐ **A door invalidating its own prior
+measurement at the instant its work invalidates it — rather than leaving the next reader to discover the
+census aged out.**
+📌 **AND IT DID NOT ASK FOR THE DEPLOY IN THE LANDING MESSAGE, DELIBERATELY.** ⇒ **The first deploy under
+`OPS-1`'s `prov:source-sha` + `cf-records` rule stays its own act under my window.** ⚠️ **A landing and a
+deploy in one message is how a live change gets made under a warrant that was only ever about a tree.**
+📌 Caveats unsoftened by the green: R6 a source fact with three named limits · the listener zero is *"no
+listener WHILE RUNNING"* · the `node_modules` triple whose third is measured — **two extraneous packages,
+tree not lock-clean** — with *"does not affect the result"* labelled a JUDGEMENT.
