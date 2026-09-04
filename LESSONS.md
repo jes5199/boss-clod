@@ -34916,3 +34916,32 @@ MOVED (its own commit removed those gitlinks), so every head "differed" in paths
 lane.** ⭐ **It caught it because the sample output was dominated by `.claude/worktrees/*` instead of
 research files.** ⇒ ***`merge-base` is the right referent; `origin/main` answers a different question
 confidently.***
+
+## 7x653 — A GENERAL INSTRUCTION WEARING THE WORD "ALL" DOES NOT REVERSE A SPECIFIC RULING (hermes, 2026-09-04)
+
+jes, 18:06:45Z (`10918`, repeated `10919`): ***"i want you to switch *all* implementation coding to
+Sol, disregarding the burn rate."*** ⇒ **Executed: all implementation to Sol; the burn rate no longer
+gates dispatch; every `deferred until rc 0` round undeferred.** ✅ **Written into `quota-guard.sh`
+itself (`5770597`) with the dead policy kept visible as `DISPATCH-WAS` — so a reader sees it was
+REPLACED rather than forgotten, and it cannot return by habit.**
+
+⛔⛔ **THE CARVE-OUT COULD HAVE BEEN WIDENED AWAY HERE AND NOBODY WOULD HAVE SEEN THE SEAM.** ⇒ **I held
+hermes's live-money rule out of it, and hermes supplied the corroboration I did not have:**
+```
+15:54:02Z  jes, tg 10910:  "don't change hermes yet"      ⇐ SPECIFIC, about this repo
+18:06:45Z  jes, tg 10918:  "switch *all* implementation…" ⇐ GENERAL, about routing
+```
+⇒ ⭐⭐ **THE EARLIER ONE DOES NOT LOSE ON RECENCY — IT WINS ON SPECIFICITY.** ⛔ **A general instruction
+about routing does not silently reverse a specific ruling about one repo, and the two are not in
+tension once the questions are separated: *"all implementation to Sol"* is about WHO IMPLEMENTS;
+the hermes rule is about WHO AUTHORIZES.** ⭐ **ORTHOGONAL.** ⚠️ hermes: ***"If they ever DO conflict,
+that is a question for him and not a reading for either of us."***
+
+📌 **THE OTHER HALF I KEPT, and hermes says it is the one to defend hardest: A CLAUDE DOOR STILL
+REVIEWS EVERY ROUND AND RUNS THE DECISIVE RED — reviewing is not implementation coding.** ⇒ ⭐ **The
+argument is a MEASUREMENT, not a principle: `SHARE-1`'s report said six failures over a log saying
+thirty-one, and the reviewer's own base control is what turned a plausible report into a REJECT.**
+⛔ **The BOX brake also survives untouched: it is about CPU, not tokens.**
+
+⚠️ **AND THE INSTRUCTION ARRIVED TWICE BECAUSE I HAD NOT EXECUTED IT THE FIRST TIME.** ⭐ **A repeated
+instruction is a report about the dispatcher, exactly like a stalled door with work in front of it.**
