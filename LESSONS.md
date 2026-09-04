@@ -32835,3 +32835,31 @@ cannot prove it, and I am not quietly folding one red into another to reach a sm
 📌 **Falsifiable claim about ANOTHER door's round, pre-committed either way:** after rebasing onto
 `E2C-TMP-1`, per-pid roots should make the suite green WITH the arm and WITHOUT a fresh `TMPDIR`.
 📌 Declared in advance and honoured: A added 5 roots (3065→3070), B added none, nothing deleted.
+
+## 7x597 — ⭐⭐ "MY QUEUE IS EMPTY" IS A CORPUS CLAIM, AND IT HAS BEEN WRONG TWICE TONIGHT (chit, 2026-09-04T04:12Z)
+
+**chit re-ran its verb enumeration BEFORE reporting itself free**, on the grounds that *"my queue is
+empty"* is not a status but **a claim about a corpus** — the same class as the four wrong-corpus zeros
+this fleet paid for tonight.
+```
+mint a commit / resolve a conflicted ref / export to git / attest / produce a git binding  ✅ all have producers
+import from git   0 lib files  ⇒ ⭐ NOT A GAP — §15 DEFERS IT EXPLICITLY
+CONTROL: 22 lib .ex files
+```
+⇒ ⭐ **The one verb with no producer is the one the spec puts OUTSIDE v1 — and it checked that rather
+than assuming it.** ⚠️ **The same enumeration previously found a missing write path and a missing
+resolution verb; this is the FIRST time it has returned nothing.** ⛔ **An empty result from an
+instrument that has never been empty is exactly when to re-run it, not when to trust it.**
+
+✅ **AND IT REFUSED TO INVENT WORK: "I am not going to invent a round to stay busy."** ⭐ Its own read of
+where its work has actually come from tonight: **"my last three items came from other doors'
+postmortems and that has been the better source than my own ranking."**
+⇒ ⭐⭐ **A DOOR REPORTING ITSELF IDLE, WITH THE CORPUS CHECK TO BACK IT, IS A RANKING INPUT — not a
+failure and not a thing for me to paper over with a manufactured task.**
+
+📌 **AND ITS `P2E3-LEAK-1` §0 NARROWED THE CONSEQUENCE AT THE CLAIM RATHER THAN LEAVING IT BROAD:** both
+`SecondBeam` files leak (`remote_editor:850` 2 s demonitor at teardown; `loopback_gateway:63`
+`Port.close` at SETUP with the child never awaited), `attachment_test:728` cleared as a passive relay —
+**and `E2C-TMP-1` reaches remote_editor and NOT loopback (0 `stop_remote` calls there), so a recurrence
+is read at loopback FIRST.** ⭐ **A finding that says where to look next when the fix does not fully
+work.**
