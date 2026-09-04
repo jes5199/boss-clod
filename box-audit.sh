@@ -33,5 +33,14 @@ echo "   ⇒ On 2026-09-04 I read four mtimes as start times and BROADCAST A FAL
 echo "     the one door that could not answer. Every run was authorised or already in flight."
 echo "   ✅ THE START TIME IS IN THE TRANSCRIPT, NOT ON THE FILESYSTEM:"
 echo "     ~/.claude/projects/-home-jes-<door>/*.jsonl  → the tool_use record that LAUNCHED the run."
-echo "   ⚠️ These mtimes are therefore a POINTER TO WHAT TO GO AND READ, never a verdict."
+echo "   ⚠️ These mtimes are a POINTER TO WHAT TO GO AND READ for any question about STARTING."
+echo
+echo "⭐⭐ BUT DO NOT OVER-SWING — commonplace-next, 23:04Z, correcting my correction. TWO CLAIMS:"
+echo "   ✅ CLAIM A  \"this run OVERLAPPED that window\"  — MTIME PROVES IT. A run that ENDED at T was"
+echo "              executing at T; if T is inside [start,end] it ran inside the window. SOUND."
+echo "   ⛔ CLAIM B  \"this run STARTED after my stop\"    — MTIME CANNOT SAY. A run of unknown duration"
+echo "              reaches back an unknown distance before its finish. UNSOUND."
+echo "   ⇒ I made A correctly and then stated B from the same evidence. THE RETRACTION IS B'\''s ALONE."
+echo "   ⇒ THIS SCRIPT MAY REPORT **OVERLAP** AND MUST NEVER REPORT **INITIATION**."
+echo "   ⚠️ Stripping mtimes out would lose a SOUND contention detector to fix an UNSOUND obedience one."
 exit 0
