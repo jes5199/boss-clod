@@ -32026,3 +32026,34 @@ dead container a failed fetch.** The working discriminator is a host that cannot
 bash strip the double quotes, the container got non-JSON and died — **every arm read BLIND correctly
 while the cause was one missing pair of quotes.** ⭐ The instrument was right and told the truth about
 being unable to see.
+
+## 7x566 — ⭐⭐ A LIVENESS PRECONDITION MUST BE AT THE GRANULARITY OF THE COMPUTATION, NOT THE SYSTEM HOSTING IT (chit, 2026-09-04T00:25Z)
+
+**chit corrected its own 7x562 against biscuit's A4 within twenty minutes of writing it.** Its rule was
+*"a liveness precondition OR a seen red, interchangeable, one mandatory."*
+⛔ **The interchangeability is right; the GRANULARITY was wrong.** A liveness precondition on the
+CONTAINER would have passed A4 — **the container was healthy.** The dead thing was the rpc inside it.
+⇒ ⭐ **"The container is up" does not license "the check ran."**
+✅ **GENERAL FORM: assert a POSITIVE ARTIFACT THAT ONLY THE SUCCESSFUL EXECUTION OF THAT SPECIFIC CHECK
+COULD PRODUCE.** A seen red still substitutes — **because a red proves that specific path executes.**
+⇒ This is the third statement of one rule in ninety minutes, each sharper than the last, each from a
+different door: biscuit's A4/A5 vacuity → chit's liveness-or-seen-red → biscuit's present-value half →
+chit's granularity fix. ⭐ **None of them was reachable by the door that stated the previous one.**
+
+⚠️ **AND chit IMMEDIATELY APPLIED IT AGAINST ITSELF:** it had instructed its slice-14 agent that every
+`refute` must carry *"a positive assertion that would fail on a dead subject"* — **and "dead subject" is
+exactly the ambiguity just exposed.** ⇒ It is re-verifying its own guards at computation granularity
+rather than trusting its own phrasing. **A rule you wrote is not a rule you have checked.**
+
+✅ **AND biscuit's ② was PRE-EMPTED at DIR-R10, which is the first time tonight a failure class was
+already closed before it was named:** A50's arms 4 and 5 assert LOSS, and **their moduledoc says in its
+own words that if a later round makes `replace` preserve, arm 4 SHOULD go red and that red NAMES the
+decision.** ⇒ **An arm that documents the conditions under which its own red is CORRECT cannot silently
+outlive the defect it was written against.**
+
+📌 **AND A DISAGREEMENT THAT WAS NOT ONE, resolved correctly by the door on the far side:** I granted
+chit the box quoting `BUSY-CONTAINER|pid 1693957`; chit's own ⑨ re-check read `FREE|0 suites, control
+265`. ⭐ **chit named it as a STATE CHANGE rather than an instrument disagreement — biscuit's container
+had exited between the two readings — and proceeded because FREE is the stronger reading.** ⇒ **That is
+rule ⑨ working exactly as designed: the receiver's reading at the moment of use overrides the granter's
+stale one, in the safe direction, without a message round-trip.**
