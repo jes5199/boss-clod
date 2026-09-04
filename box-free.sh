@@ -241,13 +241,44 @@ _hot=$(awk -v l="${_load1:-0}" -v c="${_cores:-4}" 'BEGIN{print (l > c/2) ? 1 : 
 #   remedies: unknown means LOOK HARDER, excluded means the exclusion is doing its job and the
 #   SENTENCE is wrong. So the line now NAMES the excluded tenants and their CPU.
 if [ "$_hot" = "1" ]; then
-  # ⛔ AND THE EXPLANATION LINE MATCHED ITS OWN MEASURING COMMAND: the first live output listed
-  #   `ps 3121045(100%)` — the `ps` taking the sample, at 100% because it was running when it looked.
-  #   Self-matching, in the family that has bitten this box all day (pgrep -f, comm=MainThread,
-  #   a /proc scan reading its own comments). Excluded BY PID, never by name.
-  _mypid=$$
-  _excl=$(ps -eo pcpu,pid,comm --sort=-pcpu 2>/dev/null | awk -v me="$_mypid" 'NR>1 && $1+0 > 5 && $2 != me && $3 != "ps" {printf "%s %s(%s%%) ", $3, $2, $1}' | head -c 200)
-  echo "NOTE-LOAD|load1 ${_load1} on ${_cores} cores; NOTHING IN THE GATING SET accounts for it. Top CPU incl. EXCLUDED tenants: ${_excl:-none over 5%}. ⇒ known-and-excluded (serve/hermes) is NOT the same as invisible — read the list before concluding anything is unnameable."
-fi
+  # ⛔⛔ AND BOTH NUMBER SOURCES WERE WRONG FOR THIS PURPOSE (measured 2026-09-04T19:2xZ):
+  #   `ps -eo pcpu` is a LIFETIME AVERAGE. The serve's "196%" is its average over 11 DAYS of uptime,
+  #   not what it is using now — measured instantaneously over 3 s it was 107.5%, and the whole box
+  #   summed to 137.6% of 400% while load1 read 5.46.
+  #   ⇒ ⭐ SO cell's ATTRIBUTION ("the serve accounts for the load") RESTED ON A LIFETIME AVERAGE.
+  #     Plausible, and NOT established — the same shape as every other wrong-referent finding today.
+  #   ⚠️ load1 is itself a 1-minute DECAYING average and lags bursty suites, so the two numbers
+  #     disagree BY CONSTRUCTION and neither is "the current load".
+  # ✅ SAMPLE INSTANTANEOUSLY, and only on the hot path so the cost is bounded (~1 s, rarely).
+  #   Excluded BY PID ($$), never by pattern — a `ps` in its own output is this box's fourth
+  #   self-match of the day.
+  if [ "$_hot" = "1" ]; then
+    _inst=$(python3 - "$$" <<'PYEOF' 2>/dev/null
+import time,os,sys
+me=sys.argv[1]
+def snap():
+    d={}
+    for pid in os.listdir('/proc'):
+        if not pid.isdigit() or pid==me: continue
+        try:
+            f=open(f'/proc/{pid}/stat').read().rsplit(') ',1)[1].split()
+            d[pid]=int(f[11])+int(f[12])
+        except Exception: pass
+    return d
+a=snap(); t=time.time(); time.sleep(1.0); b=snap(); dt=time.time()-t
+hz=os.sysconf('SC_CLK_TCK'); rows=[]
+for pid,v in b.items():
+    if pid in a:
+        p=(v-a[pid])/hz/dt*100
+        if p>3:
+            try: c=open(f'/proc/{pid}/comm').read().strip()
+            except Exception: c='?'
+            rows.append((p,pid,c))
+rows.sort(reverse=True)
+print(' '.join(f"{c} {pid}({p:.0f}%)" for p,pid,c in rows[:5]) + f" | sum {sum(r[0] for r in rows):.0f}% of {os.cpu_count()*100}%")
+PYEOF
+)
+    echo "NOTE-LOAD|load1 ${_load1} on ${_cores} cores; NOTHING IN THE GATING SET accounts for it. INSTANTANEOUS cpu (1s sample, incl. EXCLUDED tenants): ${_inst:-unmeasured}. ⇒ load1 is a 1-min DECAYING average and lags; ps %CPU is a LIFETIME average and misleads. Neither alone is the current load — and known-and-excluded is not the same as invisible."
+  fi
 echo "FREE|0 suites, hermes pid $hpid excluded, control $tot processes visible"
 exit 0
