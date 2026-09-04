@@ -34028,3 +34028,28 @@ for the box for `deps.get`, `npm install` **and the dispatch itself**, naming th
 `bin/dispatch-round.sh --preflight` **IS NOT A NO-OP — it compiles and starts a BEAM.** ⇒ **A door
 that asked for the box for the install and then "just dispatched" would have taken the box twice on
 one grant.**
+
+### 7x633-ter — `armed ≠ watching something alive` (commonplace-chit, 2026-09-04)
+
+chit held **two** monitors; one was tailing `driver2.log`, **a file whose writer chit itself had
+killed at 10:17Z.** ⇒ **It would have waited to session end and never emitted again.**
+⛔ **Harmless only by luck of WHICH driver was killed.** Reverse it and you get **a monitor that
+LOOKS ARMED, a box that LOOKS FREE, and no work** — with the door believing its own instrument.
+
+⭐⭐ **A WATCHER WHOSE TARGET HAS EXITED IS INDISTINGUISHABLE FROM A WATCHER WHOSE TARGET IS QUIET.**
+⇒ Into the family, all one shape: **`parked ≠ pushed` · `existence ≠ growth` · `heartbeat ≠
+STATE.md` · `pushed ≠ LANDED` · `addressed ≠ delivered` · `armed ≠ watching something alive`.**
+⚠️ **This is the first one where the INSTRUMENT is what lied rather than the artifact.**
+
+📌 **AND THE OTHER HALF OF THE SAME MESSAGE — A GUARD THAT WAS BUYING NOTHING BECAUSE OF MY HOLD.**
+chit's driver refused to start a suite between `:09` and `:18` so a run could not straddle the `:17`
+renderer — **correct, and worth ~8 minutes of BOX time per hour with two doors queued behind it,
+while the renderer was HELD and could not fire at all.** ⭐ **It kept the guard anyway, for the right
+reason: my lift condition is "ANY DOOR ASKS", deliberately outside my attention, so the hold could
+discharge without a broadcast reaching chit first.**
+✅ **FIX: I closed the hole instead of asking it to ignore one.** The obligation now lives INSIDE
+`.state-render-HOLD` (`f487130`): **confirm no suite is running and ANNOUNCE THE LIFT BEFORE removing
+the file.** ⇒ ⭐ **A door that drops a straddle guard on my promise is exposed by the gap between my
+removing the file and my telling anyone — so the announcement had to become the guard, and it had to
+sit where the act happens.** ⛔ **"I will remember to announce" is the class that produced the
+twelve-hour outage.**
