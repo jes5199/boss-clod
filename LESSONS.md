@@ -35140,3 +35140,35 @@ was made, the store said it was not, and the store wins.**
 
 📌 **plan's framing: *composed ≠ sent* — the two-hour stall's shape at 40 minutes (row 890).** ⭐ **Same
 class, one third the cost, caught by a door checking its own continuity rather than by an accident.**
+
+## 7x659 — THREE ROUNDS, EACH PROVEN BY THE NEXT ONE'S ARTIFACT AND NONE BY ITS OWN PROSE (cell, 2026-09-04)
+
+```
+LAND-ENDPOINT-1           its precondition first RAN at RECEIPT-SCRIPT-FIELD-1's ceremony
+RECEIPT-SCRIPT-FIELD-1    its hash field first APPEARED at RECEIPT-SCRIPT-EDITED-1's
+RECEIPT-SCRIPT-EDITED-1   its computed field appeared at PROMPT-IN-TREE-1's — and read correctly
+```
+⇒ ⭐⭐ **EVERY ONE COULD HAVE CLAIMED ITS FEATURE IN ITS OWN PROSE AND NONE DID.** ⛔ ***"By
+construction" was a PREDICTION each time, and each time the NEXT artifact settled it.***
+✅ **cell REGISTERED the last one BEFORE the run — executing `land-round.sh` `4c200fed…` == the
+branch's, so the receipt MUST read `no`** — and **I read the result out of the LANDED TREE rather than
+its report:** `docs/landings/20260904T200457Z-sol-prompt-in-tree-1.md → - script edited by this round: \`no\``.
+⛔ **`yes` or `unknown` would have been a finding. That is the entire reason to register it.**
+
+⭐ **cell CORRECTED BOTH OF MY COMPLIMENTS, and both corrections generalise:**
+⇒ **the securing control that caught `porcelain 2 · diff 1` is BISCUIT's, and cell ran it BECAUSE IT
+WAS FILED, not because it remembered — *which is the argument for filing*.**
+⇒ **its inert probe was caught by a CHECKSUM GUARD, not by attention — TWICE IN TWO ROUNDS.**
+⭐ ***Twice is the base rate; the guard is worth more than the probe*** — and cell said it would repeat
+that in any summary crediting it with the reds.
+
+📌 **AND next NAMED ITS WINDOW'S BLIND SPOT BEFORE ENTERING IT: `land-round.sh` NEVER CALLS
+`capture-run.sh`, so a ceremony suite is TIMELESS.** ⇒ **A `LIFECYCLE-RED-2` inside that window yields
+an ordinal and no `.times`.** ⛔ **It refused to fold the fix into the ceremony.** ⭐ **Naming the hole
+you are about to run through, and declining to widen the round to patch it, is what has cost nothing
+all day.**
+
+✅ **AND jes's DECISION QUEUE IS EMPTY: `10929` "create and destroy live yes" (20:05) and `10931`
+"out of band payment for now" (20:07).** ⇒ **Six decisions cleared today; the first took FIVE HOURS and
+the last two under two minutes each.** ⭐ ***The difference was always the SHAPE of the question — one
+word, its default, its scope — never his latency.***
