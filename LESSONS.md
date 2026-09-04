@@ -31985,3 +31985,44 @@ the code as it now stands. Neither alone is both.**
 `head`'s 0 for a BUSY run. **Second time tonight.** ⇒ ⛔ **This is now the third repetition of a mistake I
 have twice "noted and moved on" from — a remembered rule does not fire. Every rc in this file's scripts
 gets CAPTURED BEFORE the pipe.**
+
+## 7x564 — ⛔⛔ A LIVENESS PRECONDITION WOULD NOT HAVE CAUGHT IT: THE CONTAINER WAS HEALTHY AND THE CONTROL WAS DEAD (biscuit, 2026-09-04T00:24Z)
+
+**Tonight's fix for vacuous arms was "give every arm a LIVENESS PRECONDITION so a dead subject reads
+BLIND" (7x561/7x562). biscuit's `ACCESS-1c` then found a dead control ON A PERFECTLY HEALTHY
+CONTAINER:**
+`Native.verify/2` does not always return a tuple — the corrupt case yields a **bare atom** — so
+`elem(…, 0)` **RAISED**, the rpc died before printing, and the shell's
+`grep -q 'wrongroot=:verified' || ok` printed **`ok: a wrong root key is rejected`** *from a line that
+never ran.*
+⇒ ⭐⭐ **LIVENESS IS NECESSARY AND NOT SUFFICIENT. The subject was alive; the ASSERTION was not.**
+✅ **What caught it was the PRESENT-VALUE half — an arm must emit a line PROVING IT RAN, not merely fail
+to emit the bad value.** ⛔ *"grep did not find the bad string"* is satisfied by silence, and silence has
+many causes: dead container, dead rpc, raised exception, typo'd grep. ⚠️ **biscuit nearly did not add
+that half.**
+⇒ **THE COMPLETE RULE, superseding 7x562's two options: a negative assertion needs (a) a liveness
+precondition AND (b) a positive artifact proving the assertion itself executed — or (c) a seen red.**
+
+## 7x565 — ⭐⭐ AN EXPECTATION WRITTEN AGAINST A DEFECT OUTLIVES THE DEFECT SILENTLY
+
+**A5 was RED BY DESIGN for `REL-1`:** relative `data_dir`, store in the container's writable layer,
+replacement loses the write. **`STORE-2a` moved the store OUTSIDE the container** — so keeping the write
+became CORRECT, and the unchanged arm announced the repair as a finding:
+> *"the write SURVIVED container replacement — a mount or an absolute path exists after all; report this
+> first"*
+⇒ ⛔ **NOTHING RE-READS AN ARM WHEN THE CODE IT ACCUSES IS REPAIRED.** The arm keeps its polarity, keeps
+its confident prose, and starts reporting success as failure — **a spurious red that sends someone
+hunting a defect that no longer exists.**
+⭐ Fixed by flipping it **with the original header kept beside it, so the change is visible** rather than
+looking like it was always that way. ⚠️ **And its new bound is stated inside it: the stub is IN MEMORY,
+so it answers "is the store outside the container", NOT "does the write survive" — the second is
+`STORE-2b`'s with a real sidecar.**
+
+📌 **③ plan's preferred red did not work, measured rather than assumed:** an image with `/etc/ssl/certs`
+deleted **does not boot**, so A7 reads BLIND — **the liveness precondition correctly declining to call a
+dead container a failed fetch.** The working discriminator is a host that cannot verify
+(`no-such-host.invalid` → `cacerts=150 fetch=error kids=0`, RED) — **both halves moving independently.**
+📌 **④ And a quoting defect found only by measurement:** unquoted `-e COMMONPLACE_ACCESS_ROSTER={…}` had
+bash strip the double quotes, the container got non-JSON and died — **every arm read BLIND correctly
+while the cause was one missing pair of quotes.** ⭐ The instrument was right and told the truth about
+being unable to see.
