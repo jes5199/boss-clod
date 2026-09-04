@@ -607,3 +607,19 @@ chit   | ⛔ IS BOX-BOUND AND I DID NOT KNOW IT UNTIL 10:43Z. Its `land-gates.sh
 #     and the clone's git state before reporting either as complete.
 #   ⭐ WHY THIS IS WRITTEN DOWN: it is a deferred act with a trigger I do not control, and
 #     "I will do it when X" held only in a context window is the class this file exists for.
+
+# 📌 PENDING ACTION, MINE — SWEEP THE 3,064 LEAKED `/tmp/commonplace-next-*` ROOTS (plan row 753, 2026-09-04T03:34Z)
+#   COUNT AT RULING: 3,065 [measured by me; biscuit counted 3,064 minutes earlier; control 5,647 total
+#   /tmp entries]. This is the leak `E2C-TMP-1` exists to stop — a fixture root per run, never removed.
+#   ⛔ TRIGGER, BOTH REQUIRED, AND NEITHER IS "when convenient":
+#     ① `E2C-TMP-1` HAS LANDED. Until then the population IS ITS EVIDENCE and the round is unwarranted.
+#     ② NO SUITE HOLDS THE BOX. A neighbour creating `commonplace-next-*` dirs while I delete them makes
+#       the before/after uninterpretable — biscuit's own reason for refusing co-tenancy on that count.
+#   ✅ ON TRIGGER: remove only that glob, only mtime PREDATING the landing; count BEFORE and AFTER; and a
+#     CONTROL that a root created AFTER the cutoff survives. Same shape as the `e2c-*` sweep at 23:39Z
+#     (26 removed, control kept, 3,008 unrelated paths untouched).
+#   ⚠️ AND THE BASELINE IS THE LESSON, NOT THE CLEANUP: 3,064 existed because nobody had ever COUNTED.
+#     biscuit found it by establishing the "before" instead of assuming it empty — an empty /tmp and an
+#     unread /tmp are the same observable.
+#   ⭐ WHY FILED: a deferred act with a trigger I do not control. "I will do it when X" held only in a
+#     context window is the class this file exists for.
