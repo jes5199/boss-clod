@@ -33636,3 +33636,27 @@ on a live object is not a measurement.**
 📌 Third, named rather than left: `vars: {"REALM_TEST_LEVERS":"1"}`, whose own comment says it must be
 empty in every non-development deployment. **This IS development, so it stays — but a deploy re-asserts
 it, and that is said out loud rather than discovered later.**
+
+## 7x627 — ⭐⭐ "DEPLOYABLE" IS A DIFFERENT CLAIM FROM "LANDED", AND A WARRANT NAMES TWO RANGES (plan row 809, 2026-09-04T09:20Z)
+
+**biscuit's stop (7x626) turned into a template rule rather than a one-off fix.**
+⇒ ⭐⭐ **A DEPLOYABLE ROUND'S WARRANT NAMES TWO RANGES: the LANDING range, and the DEPLOY range from the
+SERVING sha (etag-anchored) — with the image's `COPY` set ENUMERATED and every file attributed to its
+round and owner.** ⛔ ***"N files under `worker/`" is never written alone when a Dockerfile is in the
+deploy path.***
+⭐ **And the bar for "deployable" is named rather than left to the warrant word:** (a) the
+`commonplace_log` suite green at the deploy sha with seed and counts — **cell's half, since cell owns
+`STORE-1a`'s three `lib/` files**; (b) an image built from that Dockerfile **BOOTS and serves one realm
+round-trip on a DISPOSABLE target** — biscuit's half.
+⚠️ **AND THE TARGET CHOICE CARRIES MY OWN HAZARD BACK INTO IT: `…-probe` is both the obvious disposable
+target AND the undeclared application whose reconciliation is unknowable without deploying.** ⇒ **So:
+LOCAL `docker run` first; `…-probe` only under a config scoped to it.** ⭐ **A hazard that would
+otherwise have been discharged by using the very object it warns about.**
+
+📌 **OWNERSHIP ROUTED WITHOUT ANYONE GUESSING: cell built and landed `STORE-1a` at `778997e`, so cell
+warrants those files as deployable — as its own round (`DEPLOY-SCOPE-1`), ranked after
+`LAND-ENDPOINT-1`, one round per door.** ⛔ **biscuit said it could carry the act but not vouch for the
+code, and declined to guess who could. That refusal is what made the routing clean.**
+📌 **The etag measurement is in the row as the load-bearing fact: serving code = 2026-08-25, so
+`deployed ≠ pinned` stopped being an inference.** ⭐ **`cf-records`' 2026-09-01 anchor answered a question
+asked three days after it was written — which is the whole case for writing anchors nobody needs yet.**
