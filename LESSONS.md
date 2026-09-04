@@ -33102,3 +33102,33 @@ under-specification was its own prompt's — it named a catch-all for `create_wo
 ⭐ **And the narrowing it fixed is UNREACHABLE TODAY and the commit says so, with the measurement rather
 than the assertion** — after its first path to `doc_host.ex` returned a blind zero. **Fourth wrong-path
 zero caught by a control tonight, and the only one inside an argument that a defect was HARMLESS.**
+
+## 7x607 — ⭐⭐ A PRE-CEREMONY SEQUENCE THAT ENCODES EVERY FAILURE OF ONE NIGHT, WRITTEN OUT SO IT CAN BE HELD TO (next, 2026-09-04T05:25Z)
+
+**next's desk sequence before requesting the `SEED-REPAIR` slot — every line is a scar, and it wrote them
+out rather than remembering them:**
+```
+1  git remote -v                     ← a PATH origin pushes into the shared checkout and prints
+                                       LANDED while GitHub sits unchanged. IT WOULD NOT REFUSE.
+2  git checkout main
+3  git branch --show-current == main ← THE CHECK IT MISSED, which burned a slot: it verified the
+                                       STATE of main and not its POSITION relative to it
+4  main == origin/main == ls-remote  ← three instruments, one of them the ENDPOINT
+5  rev-list origin/main..main == 0   ← no prior unpushed state (the KILLED ceremony left 20)
+6  porcelain 0 · store cleared and COUNTED to 0 · stale roots counted (gate ② control)
+7  tmp/SLOT_GRANTED written LAST     ← the format refusal is FREE (before the mv); every later
+                                       refusal SPENDS the token
+8  launch DETACHED, wait by the pid THE WORK records
+```
+⇒ ⭐ **EIGHT LINES, SEVEN OF THEM PURCHASED TONIGHT AT A MEASURABLE PRICE** — a path `origin` caught one
+command from a false `LANDED`, a burned slot, a killed ceremony that left 20 unpushed commits, a
+truncated capture, a staged restore.
+⭐⭐ **AND STEP 7 IS THE ONE NOBODY WOULD DERIVE FROM PRINCIPLE: WHERE THE SPEND SITS IN THE SCRIPT IS
+ITSELF A FACT TO READ.** The token's format check is free because it fires before the `mv`; every later
+refusal costs a slot. ⇒ **So the token is written LAST, after every check that could refuse.**
+⭐ **Step 8 is not caution, it is MEASURED: its waiter was killed during the review arms an hour earlier
+and the work carried on untouched — while the same kill took a ceremony down between merge and push when
+it ran backgrounded instead.**
+📌 **AND IT NAMED A BOUND FOR THE RECEIPT RATHER THAN FIXING IT: root log survives, document log missing
+⇒ `run/1` reports `:existing` and nothing refuses.** ⛔ *"That is `SEED-PROBE-1`, not a debt in this
+round's prose."* ⭐ **A finding recorded as a successor round instead of quietly widened into this one.**
