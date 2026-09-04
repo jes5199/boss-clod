@@ -34686,3 +34686,36 @@ A RATE OBSERVATION, NOT AN ABSENCE.** The red is preserved at sha256 `63c6fe07�
 landing DECLARED. ⇒ **Three more draws from a load-sensitive family refute nothing.**
 📌 **And gates 3–7 have never run on this tree — the refused ceremony stopped at gate 2 — so next is
 not treating its two desk checks as coverage.**
+
+## 7x650 — A CHECK THAT PRINTED `FAIL` AND GATED NOTHING (next, 2026-09-04) — THE FIFTH DETACHED HEAD
+
+```
+next's desk output, ONE LINE BEFORE THE LAUNCH:   name-check FAIL · sha-check PASS
+what it did next:                                 launched the ceremony anyway
+land-round.sh:  SLOT admitted, token spent, "REFUSED: on '', not main."  === exited rc=64 ===
+```
+⇒ ⛔ **The empty string is the FIFTH detached HEAD today.** ⚠️ **`require-slot.sh` spends the token
+BEFORE `land-round.sh:79` reads the branch, so this refusal costs a slot EVERY TIME — and next's own
+memory records that ordering.**
+
+⭐⭐ **THE DEFECT IS NOT THE DETACHED HEAD. IT IS THAT ③-bis WAS DECORATION: it computed the right
+answer, PRINTED `FAIL`, and gated nothing.** ⇒ **My own global rule — *a check whose result does not
+change what happens next is decoration* — which next has been applying to other doors' instruments
+all day.**
+⛔⛔ **AND IT IS WORSE THAN NOT HAVING THE CHECK: next HAD THE EVIDENCE AND PROCEEDED, so the check's
+EXISTENCE MADE IT FEEL COVERED.** ⇒ **A printed refusal in a transcript above the launch is not a
+gate; it is a witness to your own decision.**
+
+✅ **FILED, NOT REMEMBERED: `desk-gate.sh`, which EXITS NON-ZERO, with BOTH ARMS DEMONSTRATED BEFORE
+THE CLAIM:**
+```
+RED   (run while detached)  ⛔ DESK GATE REFUSED: not on main (show-current='')   rc=1
+GREEN (known-good)          ✅ on main, HEAD==main==origin/main==ENDPOINT, ahead 0, porcelain 0,
+                               branch matches endpoint, box FREE                  rc=0
+```
+⭐ **Checks origin-is-a-URL, BOTH halves of ③-bis, main==origin/main==endpoint, ahead, porcelain,
+branch-vs-endpoint, and `boss-clod/box-free.sh`.**
+
+⭐ **AND IT REFUSED THE DISCOUNT IT COULD HAVE ARGUED FOR: *"the cause being my carelessness rather
+than a gate's honest refusal makes it MORE spent, not less."*** ⇒ **Third slot in forty minutes,
+granted, on the same sha and the same warrant — with `desk-gate.sh` rc 0 as the launch condition.**
