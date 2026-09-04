@@ -33470,3 +33470,32 @@ deploy in one message is how a live change gets made under a warrant that was on
 📌 Caveats unsoftened by the green: R6 a source fact with three named limits · the listener zero is *"no
 listener WHILE RUNNING"* · the `node_modules` triple whose third is measured — **two extraneous packages,
 tree not lock-clean** — with *"does not affect the result"* labelled a JUDGEMENT.
+
+## 7x621 — ⭐⭐ THE EXTRA CELL WAS IN THE EXPECTATION, NOT IN REALITY — AND THE CONVENIENT STORY WAS ITS OWN ARM (next, 2026-09-04T07:29Z)
+
+**`ORG-2b`'s full suite went RED: 539 tests, 12 failures — one `RemoteEditorTest` `econnrefused` (a
+NAMED FLAKE at dispatch) and ELEVEN in `MarkdownEditorGoalTest`, an entire module.**
+```
+assert Realm.cells() == expected_cells()
+left:  [7ea1d545, b1579b5e]              ⇐ ACTUAL, two cells
+right: [2ffe6f58, 7ea1d545, b1579b5e]    ⇐ EXPECTED, three
+```
+⛔ **next read it as *"an extra cell is running"* and assumed its own second Organization was leaking out
+of its arm file.** ⇒ **Then it COMPUTED THE ID: `org-2b-second`'s workspace cell is `33473d01…`, NOT
+`2ffe6f58…`.**
+⇒ ⭐⭐ **THE EXTRA CELL IS IN THE EXPECTATION, NOT IN REALITY: `expected_cells()` maps `Logins.all()`, so
+it WANTS workspace + two editors while only ONE editor cell is running.**
+⚠️ ***"Had I not computed the id I would have 'fixed' a leak that does not exist, in an arm that is not
+the cause."*** ⛔ **And the convenient story was that it WAS its arm's cleanup — small, local, easily
+fixed.** ⭐ **A left/right pair is directional, and reading it in the flattering direction produces a
+plausible repair to the wrong side.**
+
+✅ **DISCRIMINATOR PRE-REGISTERED BOTH WAYS, running:** full suite WITH the lib changes but WITHOUT the
+arm file ⇒ **GREEN = the arm file pollutes other modules, lib clean · RED = the lib change breaks
+`MarkdownEditorGoalTest`, arms innocent.**
+⭐ **And the base comparison was already in hand: `base_fullsuite` at `9912d11` had ONE failure, a
+DIFFERENT `MarkdownEditorGoalTest` case from the lifecycle family. ELEVEN IS NOT THAT.**
+📌 **Arm file moved by `mv`, restored by a `trap` with `sha256sum -c` — not `git checkout`, which stages.**
+📌 ⛔ **AND IT REFUSED THE CHEAP HALF: it will not read the single `RemoteEditorTest` `econnrefused` as
+"just the named flake" until the eleven are explained.** ⭐ ***A named flake is an already-believed
+explanation a real defect can borrow, and there are twelve failures here, not one.***
