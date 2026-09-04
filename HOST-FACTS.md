@@ -531,8 +531,20 @@ container (cwd `/app` + a `docker-<id>.scope` cgroup) DOES gate as `BUSY-CONTAIN
 `containerd-shim*` / `runc` / `buildkitd` is plausible — those exist only during container work,
 unlike the always-on daemons — **but `comm` is the field that LIED for node, and I would be shipping
 a red arm I have never seen fire, which is exactly today's mistake.**
-⇒ ✅ **PLAN: measure during biscuit's NEXT REAL BUILD rather than staging one — the box is busy with
-Sol's round and a synthetic build would be contention I invented to test my own instrument.**
+⇒ ⛔ **FIRST PLAN WAS WRONG AND biscuit CAUGHT IT: "measure during biscuit's next real build" is a
+condition waiting on someone else's future act that NOBODY HAS SCHEDULED — the same shape as the
+`.state-render-HOLD` that cost twelve hours.** biscuit has NO `docker build` queued and may not for
+weeks (`1b-ii` is a Worker script; `1c` is HTTP).
+⇒ ✅ **THE NEXT REAL CONTAINER BUILD ON THIS BOX IS MINE: `BACKUP-1b-i`'s DEPLOY.** `wrangler deploy`
+on `commonplace-log` BUILDS AND PUSHES THE BEAM IMAGE — that is hazard 1, the thing that took
+`commonplace-log-realm` v5 → v6. ⭐ **So the measurement happens during MY OWN act, on real work, with
+nothing staged, while I am holding the box anyway.**
+⚠️ **CAVEAT so the reading is not misused (biscuit): `wrangler` drives the build through the SAME
+dockerd/buildkit but may use its own builder invocation. If the population differs from a plain
+`docker build`, THAT DIFFERENCE IS DATA, NOT NOISE** — and biscuit's 12:50Z run is the plain-build
+comparison point.
+⛔ **biscuit OFFERED a throwaway rebuild and explicitly refused to propose it: "that is inventing
+contention to measure contention, and I am not going to talk you into it sideways." DECLINED.**
 
 ⚠️ **UNTIL THEN, STATE IT PLAINLY: for a `docker build`, THE ANNOUNCEMENT IS NOT A SECOND WITNESS —
 IT IS THE ONLY ONE.** ⭐ **Twice today a non-BEAM tenancy was carried entirely by an announcement
