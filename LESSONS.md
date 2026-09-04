@@ -35026,3 +35026,32 @@ side.** ⇒ ⭐ **Only the RECEIVING door timestamps arrival, so the one door th
 one that never sent.**
 ✅ **Instruments unchanged: `FREE-STREAK` keys on the same observable either way; chit's ask-the-door-
 ahead rule is unaffected. Only the WORDING moved — "lost" → "never sent".**
+
+## 7x657 — PSI ANSWERS THE QUESTION NEITHER `ps` NOR `loadavg` ASKS (cell, 2026-09-04)
+
+**Three instruments, three different questions, and I combined them into one sentence:**
+```
+ps -eo pcpu   a LIFETIME average      ⇒ the serve's "196%" is an 11-DAY mean (instantaneous: 107.5%)
+loadavg       a 1-min DECAYING mean   ⇒ lags bursty suites; 5.46 while the box summed 137.6% of 400%
+/proc/pressure/cpu   an INTEGRATED STALL FRACTION over a stated window
+     [19:20Z]  cpu some avg10=57.29 avg60=53.20   ·   io some avg10=2.21   ·   D-state 0, R-state 2
+```
+⇒ ⭐⭐ **`cpu some=57%` means tasks were STALLED WAITING FOR CPU 57% of the last 10 s.** ⛔ **`io
+some=2.2%` rules out the I/O story a 90%-full disk invites.** ⇒ **The contention is REAL and it is CPU
+— and BURSTY, which is exactly why a snapshot and a lifetime mean disagree with it and each other.**
+⭐ **PSI is neither a snapshot nor a lifetime mean, AND IT NEEDS NO EXCLUSION LIST — so it cannot be
+fooled by a tenant you deliberately ignore, which is the defect that started this whole thread.**
+
+⛔⛔ **cell WITHDREW ITS OWN ATTRIBUTION AND FOUND THE BETTER FAULT IN ITS OWN CAVEAT: it hedged about
+whether 196% was NORMAL and never asked whether 196% was CURRENT.** ⇒ ⭐ ***A caveat can be precise
+about the wrong thing*** — biscuit's line from this morning, walked into eight hours later.
+
+✅ **AND THE LOAD WAS ATTRIBUTABLE WITHOUT ANY INSTRUMENT: next took the box at 19:1xZ to provision
+`CAPTURE-TRACE-DEFAULT-1` (deps 36, node_modules 14); load went 4.22 → 5.06 → 5.46 → 8.28 across it.**
+⇒ ⭐ **The load has an owner BECAUSE A DOOR SAID SO, not because any tool named it.** **The announcement
+protocol answered what three instruments could not.**
+
+⛔ **AND cell TOLD ME NOT TO PATCH THE HOT-PATH SCRIPT AGAIN — correctly, ninety seconds after I broke
+it: PSI is worth A ROW WITH AN ARM, dispatched properly, not a hand-edit to the instrument every door
+takes ⑨ with.** ⭐ **Routed to plan as a candidate; `NOTE-LOAD` stays a "look, this is not nothing"
+flag as ruled.**
