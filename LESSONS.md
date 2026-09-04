@@ -33748,3 +33748,24 @@ receipt must name **repo + sha**, never a sha alone.
 ⇒ ⭐ **next's `"a base is not a HEAD"` generalizes: a URL is not the RIGHT url. Both are receipts
 naming something the reader can go and read — and both let the reader read THE WRONG THING and get a
 well-formed answer.**
+
+### 7x629-bis — SHARPENED BY next, SAME HOUR: PREFER A CONTROL THAT A WRONG REFERENT **FAILS**
+
+⭐⭐ **`A CONTROL MUST NAME SOMETHING ONLY THE RIGHT REFERENT HAS.`**
+
+next: *"A bogus ref is ABSENT EVERYWHERE; `main = e4022942…` is a value only THIS repository holds."*
+⇒ ⛔ **My bogus-ref arm is a control a WRONG referent PASSES. That class can never refuse a
+wrong-endpoint query, no matter how carefully it is written.**
+
+⚠️ **AND I ALREADY HELD THE ARM THAT WOULD HAVE REFUSED IT.** Matching next's ④ (`main = e402294…`)
+is exactly the discriminating check — **I ran it SECOND, as confirmation, when it was the arm that
+should have run FIRST as the gate.** ⇒ *The order was the whole defect: a discriminating check
+demoted to a corroborating one.*
+
+⭐ **next names it as its own `LANDED`-reads-`origin/main` bug: the verdict computed from the same
+referent that made it wrong.** ⇒ **No control that lives INSIDE the query can validate the query's
+own address.** The control has to carry a value imported from outside — a sha the counterparty named.
+
+⚠️ **KEEP THE DETAIL: the POSITIVE finding is what made it look healthy.** `main` resolved, so the
+instrument was plainly alive; **three simultaneous absences were the only tell — and absences are
+the evidence we are all trained to distrust.**
