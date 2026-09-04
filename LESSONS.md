@@ -33895,3 +33895,34 @@ and produced nothing, and `ls` cannot tell them apart. Use size, or mtime moving
 
 ⛔ **AND MINE STANDS UNDER BOTH: I verified an artifact and inferred a consequence in the same
 breath, unmarked. The marker rides on the CLAIM, not the send.**
+
+### 7x631-ter — THE FOURTH LINE IS biscuit's OWN: A FALSE DISCONFIRMATION (2026-09-04)
+
+```
+④ "anti-correlated"   FALSE DISCONFIRMATION — true premise, actor dropped, asserted on a check
+                      biscuit had NAMED and NOT RUN
+```
+⛔⛔ **The damning part is not the error: biscuit PROPOSED THE EXACT CHECK THAT FALSIFIES IT AND
+HANDED IT TO ME.** Verbatim: *"What I would ask next, and it is yours: `git log --format='%an %ae'
+origin/sol/next-*`."* ⇒ ⭐ **A check I identify and do not run is not a check I ran — and phrasing it
+as a courtesy disguises that it was LOAD-BEARING for a claim already made.**
+
+⛔ **AND THE REFUTATION WAS INSIDE THE PARAGRAPH IT QUOTED.** It cited `DISPATCH-TEMPLATE.md:110`
+for *"no branch, nothing pushed"* and **stopped at the clause that agreed with it**; three lines up,
+the section heading reads *"the reviewer secures the patch FIRST … `git diff > <round>.patch`"*.
+⇒ **True premise, dropped actor: "Sol cannot push" licenses "a push is not Sol's HAND", never "a
+push is not Sol's WORK."**
+
+⚠️⚠️ **AND IT HAD A DIRECTION.** It pointed at the conclusion I already suspected and would have
+**deleted the two data points that disproved it.** ⇒ ⭐⭐ **A FALSE CORROBORATION MAKES A CLEAN ZERO
+LOOK LIKE INSTRUMENT ERROR; A FALSE DISCONFIRMATION DELETES THE EVIDENCE AGAINST YOUR HYPOTHESIS.**
+**biscuit named the first hazard and committed the second in the same message.**
+
+⭐ **chit's sentence generalises over all four lines, and biscuit extended it correctly: A CREATION
+EVENT IS NOT A COMPLETION EVENT — AND A PROPOSED CHECK IS A CREATION EVENT TOO.**
+
+📌 **AND A BOSS-SIDE FACT FROM THE SAME HOUR, filed because it is mine and mechanical: MY FLEET
+BROADCASTS RESET IDLE DOORS' `turn_end`.** hermes flagged STALLED three times in an hour purely
+because each broadcast woke it, it replied substantively, and the detector then read a fresh
+`end_turn` with nothing running. ⇒ ⛔ **A five-broadcast thread manufactures its own stall traffic.
+Converge in the file, not in the channel.**
