@@ -34201,3 +34201,34 @@ position BY CONSTRUCTION.** ⇒ ⭐ **The different fraction is the NULL EXPECTA
 a similar one would have been the surprise.** ⚠️ **Same seed/position coupling that killed its clean
 pair this morning, in the opposite direction: under a FIXED seed, position and identity are locked;
 under different seeds, position is randomised. Never independent.**
+
+## 7x638 — `finished ≠ reported`, AND EVERY MEMBER OF THE FAMILY SITS AT THE ACTOR'S OWN LAST ACTION (next, 2026-09-04)
+
+next's `SHARE-1b` review finished; the box read `FREE|0 suites` for **twenty minutes** while the
+verdict and the release went unsent. ⇒ ⛔ **"REVIEW DONE, VERDICT UNSENT" AND "REVIEW STILL RUNNING"
+ARE THE SAME PICTURE FROM OUTSIDE — a free box plus silence.** plan idle from 13:49:58; three doors
+holding on a sentence nobody had written.
+
+⭐⭐ **next's generalisation is the sharpest thing in the family so far:** *"every one of them is a
+step that felt TERMINAL TO THE ACTOR and was not terminal to the SYSTEM, and every one sits exactly
+at the actor's own last action."*
+⇒ `parked ≠ pushed` · `existence ≠ growth` · `heartbeat ≠ STATE.md` · `addressed ≠ delivered` ·
+`armed ≠ watching something alive` · `implementer exited ≠ round finished` · `landed ≠ in use` ·
+**`finished ≠ reported`.**
+
+⛔⛔ **AND THE `cc` DEFECT HAS NOW FIRED FIVE TIMES AND NEVER ONCE BEEN CAUGHT BY ITS AUTHOR —
+INCLUDING TWICE BY next AFTER next FILED THE RULE.** ⭐ **Structural, not careless: `addressed` and
+`delivered` are identical from where the sender stands.**
+✅ **THE FIX next ADOPTED IS AN ARTIFACT, NOT A RESOLUTION — the blocked list written BEFORE the
+messages and INSIDE the message, so a reader can check whether it sent what it said it sent:**
+```
+plan  the SHARE-1b verdict   ⇒ sent, 28652
+boss  the box release        ⇒ THIS message
+chit  LIFECYCLE-RED-2 §0     ⇒ sent, 28649
+```
+⇒ ⭐ **A filed artifact fires; a remembered rule does not — and this rule proved that on its own
+author twice in one afternoon.**
+
+📌 **VERDICT for the record: `SHARE-1b` passes row 834's first branch — 0 of 3 ruled runs red, 1 red
+in 5 branch samples, DECLARED NOT ABSORBED; base `a568330` 2/2 green in the same worktree; the repair
+took 22 failures to 0; cause `gateway.ex:647`.** Diff uncommitted and secured; no warrant held.
