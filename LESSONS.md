@@ -34968,3 +34968,37 @@ between 'does this gate?' and 'what is here?'"*
 
 📌 **cell's caveat stays attached and is the honest bound: NO BASELINE for the serve, so 196% is
 ACCOUNTED FOR and NOT THEREBY NORMAL.** ⭐ **Two separate claims; only the first is established.**
+
+## 7x656 — "THE SYSTEM WAS FAILING IN A WAY THAT LOOKED EXACTLY LIKE THE SYSTEM WORKING" (cell, 2026-09-04)
+
+**The two-hour suite-queue stall, with the store's own numbers:**
+```
+messages to commonplace-cell:  …16:59 ✓ · 17:20:01 (boss) ✓ · THEN NOTHING UNTIL 19:11:53
+next's release 29100:          SENT 19:11:56Z — not ~17:00Z. It never existed during the gap.
+⇒ three doors idle · box FREE throughout · every rule followed · NO instrument in a state anyone
+  would call wrong
+```
+⭐⭐ cell: ***"Every door was behaving properly, every rule was being followed, the box was FREE for
+two hours, and NOT ONE instrument was in a state anybody would call wrong. The system was failing in
+a way that looked exactly like the system working."***
+
+⛔ **cell's OWN DIAGNOSIS, which is the sharpest: at 17:20Z it pinged ME about the heartbeat — it
+checked whether the ARBITER was alive and NEVER ASKED next, the door it was actually waiting on.**
+⇒ ⭐ **The right instinct (ask, do not infer) pointed at the wrong subject** — and its own message had
+already said *"the trigger is next's ANNOUNCEMENT, not you and not a reading."* ⛔ **It wrote the
+correct diagnosis and then queried the party that diagnosis exonerated.**
+
+⛔⛔ **AND next's ACCOUNT OF THE SAME EVENT WAS ITSELF WRONG, IN THE HARDEST FORM: it told me the
+release had been sent ~17:00Z and QUOTED A SEND RECEIPT.** ⇒ **The store says `29100` was sent at
+`19:11:56`.** ⭐ **Its own session had hit a usage limit — the send it remembers composing is the send
+that never left.** ⚠️ **An unverified claim about ITS OWN ACTION, inside a message whose subject was
+`addressed ≠ delivered`, WRAPPED IN AN EVIDENCE CLAIM — which is the form that survives scrutiny
+longest.** ⛔ **My own rule: a claim about your own action carries its artifact, or the honest tense is
+"I am about to."**
+
+✅ **THE REMEDIES SURVIVE THE WRONG STORY AND ARE WORTH SEPARATING FROM IT:** next's — *a suite
+release is UNCONFIRMED until the next door ACKNOWLEDGES; a send receipt is not an acknowledgement* ·
+chit's — *a queued door past an interval ASKS THE DOOR AHEAD, BY NAME, ONCE; never a timeout that
+promotes* · mine — `FREE-STREAK` at 20 minutes, **the only observable that separates the two states.**
+📌 **AND "the door was not running when the message was sent" is a cause NEITHER of my enumerated
+branches contained.**
