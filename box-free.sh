@@ -138,20 +138,45 @@ done
 #   ⭐ It needs the same treatment as the trading BEAM: EXCLUDED BY IDENTITY, never by path.
 #   ⚠️ AND DO NOT PRINT ITS ARGV ANYWHERE — that command line carries a credential in plaintext.
 #   This script prints cwd and never `$cmd`, and it must stay that way.
+# ⛔⛔⛔ THE SELECTOR WAS WRONG AND THREE DOORS PROVED IT ON LIVE PROCESSES (2026-09-04).
+#   `pgrep -x node` SELECTS ON `comm`, AND NODE v24 NAMES ITS MAIN THREAD `MainThread` — so
+#   /proc/PID/comm NEVER SAYS "node" and pgrep returns EMPTY FOR A HEALTHY PROCESS.
+#   ⇒ The term added FOR `npx`, `tsc` and `vitest` could not see the interpreter those commands run.
+#   ⛔ "the process died" and "the process cannot be matched by comm" ARE THE SAME OBSERVABLE through
+#     pgrep -x — absence with more than one cause, inside the instrument built to catch exactly that.
+#   ⚠️ AND MY GREEN ARM IS WHY IT LOOKED ALIVE: `esbuild` is a compiled Go binary whose comm IS
+#     `esbuild`, so ONE entry worked and the ones that mattered could not. cell: "a list where some
+#     entries fire and others cannot is worse than one that fires for none — the working entry is the
+#     evidence people cite for the whole list."
+#   ✅ SELECT BY THE EXECUTABLE: basename(readlink /proc/PID/exe). It is the real binary, immune to a
+#     runtime renaming its main thread, and harder to spoof than a 15-byte comm.
+#   ✅ BOTH ARMS NOW PROVEN LIVE (2026-09-04, after the fix):
+#       RED   a real `node` (comm=MainThread) with cwd /home/jes/sol-boxtest-tmp ⇒ BUSY-NONBEAM, rc 1
+#       GREEN the same population outside round-work paths ⇒ NOTE only, rc 0
+#     The pre-fix gate had a proven GREEN arm and an unproven RED one, and the RED was the broken half.
+#     ⛔ A GREEN ARM CAN PASS ON A SELECTOR THAT MATCHES NOTHING — it proves the PATH TEST and says
+#       nothing about the SELECTOR. Prove the arm that requires the selector to WORK.
+# ⛔ AND THE GATING PATHS ARE NARROWER THAN THE BEAM TERM'S ON PURPOSE: every Claude session on this
+#   box runs its own `node` harness, with cwd in its REPO DIR or its scratchpad. Gating on
+#   /home/jes/commonplace* or /tmp/claude-* would mark the box BUSY FOREVER — the voucher-gate
+#   failure again, but permanent and fleet-wide. ⇒ Gate ONLY on round-work paths; NOTE everything else.
 nonbeam=0
-for _c in node npm npx vitest tsc esbuild; do
-  for _p in $(pgrep -x "$_c" 2>/dev/null); do
-    _cwd=$(readlink "/proc/$_p/cwd" 2>/dev/null || echo UNREADABLE)
-    case "$_cwd" in
-      /home/jes/sol-*|/home/jes/commonplace*|/home/jes/*-wt|/home/jes/*-wt/*|/home/jes/*-suite-load*|/tmp/claude-*|/tmp/commonplace-*)
-        nonbeam=$((nonbeam+1)); echo "BUSY-NONBEAM|pid $_p $_c cwd $_cwd" ;;
-      UNREADABLE)
-        # opaque AND non-BEAM: cannot attribute, so it must not gate — but it must not vanish either
-        echo "NOTE-NONBEAM|pid $_p $_c cwd UNREADABLE — not gating, cannot attribute" ;;
-      *)
-        echo "NOTE-NONBEAM|pid $_p $_c cwd $_cwd — outside fleet work paths, not gating" ;;
-    esac
-  done
+for _pid in $(ls /proc 2>/dev/null | grep -E '^[0-9]+$'); do
+  _exe=$(readlink "/proc/$_pid/exe" 2>/dev/null) || continue
+  case "$(basename "$_exe" 2>/dev/null)" in
+    node|npm|npx|vitest|tsc|esbuild) ;;
+    *) continue ;;
+  esac
+  _b=$(basename "$_exe")
+  _cwd=$(readlink "/proc/$_pid/cwd" 2>/dev/null || echo UNREADABLE)
+  case "$_cwd" in
+    /home/jes/sol-*|/home/jes/*-wt|/home/jes/*-wt/*|/home/jes/*-suite-load*|/tmp/commonplace-*)
+      nonbeam=$((nonbeam+1)); echo "BUSY-NONBEAM|pid $_pid $_b cwd $_cwd" ;;
+    UNREADABLE)
+      echo "NOTE-NONBEAM|pid $_pid $_b cwd UNREADABLE — not gating, cannot attribute" ;;
+    *)
+      echo "NOTE-NONBEAM|pid $_pid $_b cwd $_cwd — outside round-work paths (harness/dev), not gating" ;;
+  esac
 done
 
 # ⭐⭐ EVERY UNRESOLVED CASE FAILS TOWARD WAITING (biscuit). A fallback that decides whether to take a
