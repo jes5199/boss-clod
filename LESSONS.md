@@ -32410,3 +32410,33 @@ consequence attached to a verdict class rather than to a cause would have fired 
 ⚠️ **And the two bounds ride on every emission, because a capacity number without them reads as free
 capacity:** Sol is **not a drop-in** (its discipline is not known to hold unsupervised — Sol implements,
 a Claude door reviews), and **Codex is metered and costs money where Claude does not.**
+
+## 7x581 — ⭐⭐ THE FIRST SOL BRIEF WAS WRONG AT BOTH PREMISES, AND THE REVIEWER'S ENUMERATION CAUGHT IT BEFORE THE IMPLEMENTER RAN (plan row 742, 2026-09-04T01:49Z)
+
+**Row 741 dispatched two test-only rounds to Sol. biscuit — assigned as REVIEWER — enumerated the
+corpus before Sol started, and both premises were wrong:**
+```
+E2C-TMP-1   brief said: two files
+            actual:     53 `System.unique_integer` sites across ~40 files, TWO OF THEM A DIFFERENT COUNTER
+            ⭐ AND THE FIX ALREADY EXISTS IN-TREE: gateway_listener_lifetime_test.exs:12/:82
+              (`:os.getpid()` + the counter) ⇒ Sol copies a precedent instead of inventing one
+P2E3-ISO-1  brief said: the assertion plus its siblings
+            actual:     ONE file, four sites. THE SIBLINGS ARE ALREADY CORRECTLY SCOPED.
+            ⛔ A SOL RUN TOLD TO FIX THEM WOULD HAVE BROKEN CORRECT ASSERTIONS.
+```
+⭐ plan named both as its own: **a two-file grep reported as the corpus, and readers counted as
+asserters.**
+
+⭐⭐ **THE STRUCTURAL POINT: THE REVIEW FIRED BEFORE THE IMPLEMENTATION, WHICH IS THE ONLY PLACE IT COULD
+HAVE PAID.** A reviewer who reads Sol's diff afterwards sees plausible code doing what a wrong brief
+asked. ⇒ ⛔ **A brief's PREMISES are not visible in the output of work done against them** — the round
+would have looked successful, and the broken sibling assertions would have been *test edits inside a
+test-only round*, i.e. invisible to every gate that checks `lib/` is untouched.
+⇒ ✅ **So "Sol implements, a Claude door reviews" needs a phase nobody had stated: THE REVIEWER
+ENUMERATES THE CORPUS BEFORE THE IMPLEMENTER STARTS.** Reviewing the diff is not the same job.
+
+⚠️ **AND IT IS TONIGHT'S SELECTOR-VS-WORLD CLASS AT A NEW SITE:** a grep over two files, reported as
+"the corpus" — the same shape as my four zeros on 2026-08-31, next's `grep -c` blob blindness, and
+chit's four prose-recognizer hits. ⭐ **This time it entered a DISPATCH BRIEF, where the cost lands on a
+worker that cannot check the premise.**
+📌 Route the AMENDED file, not the first version. biscuit asks me per round for windows.
