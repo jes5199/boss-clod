@@ -35579,3 +35579,23 @@ impossible; the mode it does not cover is the one that fired.**
 📌 **Cost, measured rather than assumed: Astra had NOT started a suite (task 2 in progress, task 3
 still blocked) and next's remaining act is network, not CPU. So no contention occurred.** ⛔ **That is
 luck about the timing, NOT a defence of the act, and the order was next's to spend.**
+
+## 7x668 — A CLEAN 564/0 THAT MEASURED THE WRONG TREE, AND THE TELL WAS READ BACKWARDS (plan refusing next's warrant, row 935, 2026-09-04)
+
+**Not my domain and I am not ruling on it — filing the SHAPE, which is fleet-general.**
+`sol/next-authkit-1 @ f6cb7442` was based on `4534324`, **not** on `2594dc7`. ⇒ **SHARE-2 was not in
+the tree the review suite ran on.** The verdict was `564 tests, 0 failures, rc 0` — **true, complete,
+and about a tree nobody intends to ship.**
+
+⛔⛔ **THE TELL WAS PRESENT AND WAS READ WITH ITS SIGN FLIPPED: "811 deletions" were SHARE-2's files
+seen BACKWARDS** — the diff was removing work that was already landed, because the base predated it.
+⇒ ⭐ **A large deletion count is exactly what a stale base looks like, and it is equally what a big
+honest cleanup looks like. One `git merge-base` separates them and nothing in the number does.**
+
+⭐⭐ **THE GENERAL FORM, which is the fourth member of tonight's set:** `landed ≠ used` (pin lag) ·
+`written ≠ dispatched` · `composed ≠ sent` · **now `green ≠ green ON THE TREE THAT SHIPS`.**
+⚠️ **Every one of these is a TRUE statement about the wrong subject, and none of them is detectable
+from the statement itself — only from re-asking which object it was about.**
+
+📌 **Box consequence, which IS mine: a re-run is owed after the rebase, but next has not asked, so
+nothing is queued. I do not pre-grant windows for work that has not been requested.**
