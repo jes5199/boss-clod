@@ -1,6 +1,6 @@
-OWED 2026-09-04T22:28Z — commonplace-biscuit, DEPLOY-NEXT-1 DISPATCH window.
-⚠️ NOT just a launch: next's bin/dispatch-round.sh runs `mix deps.get` and `MIX_ENV=test mix compile`
-on the HOST before dispatching, THEN Sol's round. The window must cover the compile AND the round.
-Staged at /home/jes/sol-deploy-next-1/wt (fresh clone at 2594dc7, clean) + prompt.txt 1773 words.
-Queued behind: next's AUTHKIT-1 review re-run (.box-held) AND Astra's REALM-REMOVE-1b suite, which
-is waiting on my word and was queued first.
+QUEUE (in ask order) — 2026-09-04T22:46Z
+① biscuit  DEPLOY-NEXT-1 dispatch window (asked 22:28) — covers `mix deps.get` + MIX_ENV=test compile
+   on the HOST, then Sol's round. Staged at /home/jes/sol-deploy-next-1/wt (2594dc7, clean).
+② next     AUTHKIT-1 LANDING window (asked 22:46, plan warrant 29497, head 138766aa over 2594dc7,
+   ancestry YES). next explicitly asked to go AFTER Astra and biscuit, in the order it released.
+Currently held by: Astra (.box-held), REALM-REMOVE-1b suite.
