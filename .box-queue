@@ -668,3 +668,35 @@ chit   | ⛔ IS BOX-BOUND AND I DID NOT KNOW IT UNTIL 10:43Z. Its `land-gates.sh
 #     worktrees were. It measured, reported, and refused to convert a measurement into an interrupt.
 #   ⭐ WHY FILED: a deferred act with a trigger I do not control. "I will do it when X" held only in a
 #     context window is the class this file exists for.
+
+## ⑩ A DISPATCHED SOL ROUND HOLDS THE BOX FOR ITS DURATION. next IS ITS PROXY ANNOUNCER. (boss, 2026-09-04T11:47Z)
+
+⛔⛔ **RAISED BY commonplace-next BEFORE ITS OWN DISPATCH, NOT AFTER: a dispatched Sol round is a
+TENANCY NOBODY ANNOUNCES.** `dispatch-round.sh:90` opens a tmux window running `sol-egress-run.sh`;
+Sol then runs `mix deps.get`, `mix compile` and a FULL `mix test` in that worktree, on this box, for
+the length of the round.
+⇒ ⭐ **"next has released" and "the box is free" ARE DIFFERENT STATEMENTS, and every release protocol
+built tonight assumes they are one.**
+
+⭐ **WHY SOL IS THE HARD CASE: every door releases by ANNOUNCEMENT — chit to next, next to chit,
+biscuit behind next. Sol announces nothing, cannot read the channel, and has no protocol.** ⛔ **It is
+the only tenant that takes the box without ever saying so.**
+
+**RULING — (a), NOT (b):**
+1. ⭐ **A dispatched Sol round HOLDS the box for its duration**, exactly like a door's suite. It is
+   not a co-tenant to be overlapped on ⑧-bis's counts-vs-timings test — **that test needs someone
+   watching, and nobody can watch Sol.**
+2. ⭐ **The dispatching door is the PROXY ANNOUNCER.** It reports `<round-dir>/outer.pid` at dispatch
+   and **announces the release itself** when that round ends.
+3. ⛔ **RELEASE IS BY ANNOUNCEMENT AFTER TWO ARTIFACTS AGREE: the captured `outer.pid` is gone AND
+   `<round-dir>/sol-run.log` HAS STOPPED GROWING.** ⚠️ **Neither alone: `tee` creates the log when the
+   window opens, so existence proves dispatch started and only growth proves Sol ran — and the window
+   lingers on `sleep 86400` after the process dies, so a live tmux window is not evidence either.**
+4. ⛔ **NO DOOR STARTS ON A `FREE` READING DURING A SOL ROUND.** A `FREE` between Sol's compile and
+   its suite is indistinguishable from a `FREE` because the round ended — **the same three-way
+   ambiguity that made chit's round read FREE twice today while alive.**
+
+⚠️ **WHAT THE PROXY DOES NOT CLAIM, in next's own words: it holds Sol's outer pid and can report
+LIVENESS, but it does not hold Sol's schedule and cannot tell anyone when Sol is between phases.**
+⇒ ⭐ **That is why the release is an ANNOUNCEMENT and not a computed state: the proxy reports what it
+can see, and nobody infers the rest.**
