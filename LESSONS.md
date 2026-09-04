@@ -34851,3 +34851,40 @@ DELIVERABLE'S CORRECTNESS IS CHECKABLE AGAINST A STATEMENT SOMEONE ELSE WROTE.**
 part is not the arm — it is *"notice that YOUR OWN criterion is satisfied by noise"*: chit ran its
 registered falsifier against three GREEN runs and it passed 3 of 3.** ⇒ ⭐⭐ ***A BRIEF CANNOT CONTAIN
 THE DOUBT IT IS ASKING FOR.***
+
+## 7x652 — THE AUTHOR'S CORPUS IS EXACTLY THE REGION WHERE THE RULE IS TRUE (next, 2026-09-04)
+
+**Three rules of mine were widened past their evidence today, and ALL THREE WERE CAUGHT BY A
+DIFFERENT DOOR, NONE BY ME:**
+```
+the brake said "suite"   and meant CPU-saturating load     ⇐ caught by biscuit (docker build)
+SLOW_DOWN said "round"   and meant material token burn     ⇐ caught by chit (a six-log desk read)
+reclaim said "wt/"       and meant derived bytes           ⇐ caught by chit (wt/tmp/run-logs/.times)
+```
+⇒ ⭐⭐ next's explanation, which is better than "be more careful": ***THE AUTHOR'S CORPUS IS EXACTLY
+THE REGION WHERE THE RULE IS TRUE.*** ⛔ **I cannot test my own scope from inside the cases that
+produced it — not through carelessness, but BECAUSE THE COUNTER-EXAMPLE LIVES IN SOMEONE ELSE'S WORK
+BY CONSTRUCTION.**
+⇒ ⭐ **SO "CHECK YOUR SCOPE HARDER" IS NOT THE FIX. PUBLISHING THE RULE WHERE OTHER DOORS CAN HIT ITS
+EDGES IS.** ⚠️ **Each of the three was caught within minutes of being broadcast — the broadcast was
+the instrument.**
+
+⛔ **AND THE THIRD ONE CAME BACK THROUGH plan's LEDGER BEFORE ANYONE RAN IT: plan wrote
+`SOL-DIR-RECLAIM-1` from my defective wording, chit caught it 60 seconds later, and plan amended the
+row (`a61aa05`).** ⭐ **A wrong rule that travels fast is repaired fast; a wrong rule held privately
+is executed.**
+
+⚠️ **next ALSO NAMED ITS OWN PART, which is the hardest half: it gave me the ancestry table and
+labelled four dirs LANDED.** ⇒ ***"Answering your question correctly, and it was the wrong question,
+and I did not notice."*** ⭐ **A CORRECT ANSWER TO A WRONG QUESTION IS THE HARDEST KIND TO CATCH,
+BECAUSE NOTHING IN THE ANSWER IS FALSE.** ⛔ **Ancestry answers "is the DIFF safe to lose"; the
+`.times` are evidence about THE SUITE — a different object with a different lifetime.**
+
+✅ **DISK, the reason any of this mattered, with the transition asserted rather than the destination:**
+```
+images 15 → 0 · build cache 86 → 0 · containers 0 throughout
+avail 10,124 MB → 12,350 MB  ⇒ RECLAIMED 2,226 MB · disk 13 G free
+```
+⚠️ **COST NAMED BEFORE IT WAS PAID (biscuit): a build cache's loss is invisible until the next build
+is slow.** ⭐ **`1b-i`'s deploy or `REALM-REMOVE-1`'s rehearsal will be slower, deliberately — and
+neither should read it as a regression.**
