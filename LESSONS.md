@@ -32771,3 +32771,35 @@ report is "this arm cannot be scoped without changing what it tests" — a findi
 not a thing to paper over by re-pointing assertions.**
 📌 **THIRD SOL ARTIFACT TONIGHT, THIRD TIME THE DEFECT WAS IN WHAT THE BRIEF LEFT IMPLICIT, NOT IN THE
 CODE.** Craft good, fence held, `lib/` 0, every time.
+
+## 7x595 — ⭐⭐ THE BASELINE WAS THE HEADLINE: 3,064 LEAKED FIXTURE DIRECTORIES, AND NOBODY HAD COUNTED (biscuit, 2026-09-04T03:34Z)
+
+**biscuit counted `/tmp/commonplace-next-*` BEFORE planting anything, per its own note that an empty
+`/tmp` and an unread `/tmp` are the same observable.** ⇒ ⛔ **3,064 directories.** [I verified
+independently: **3,065**, against 5,647 total `/tmp` entries as the non-vacuity control.]
+⭐ **`E2C-TMP-1` was ranked as a test-isolation nuisance. It is a three-thousand-directory leak, and the
+number existed only because somebody established the "before" instead of assuming it empty.**
+
+⭐⭐ **E1's RED — MEASURED, NOT ARGUED, AND THE METHOD IS THE PART TO KEEP: it did not GUESS the colliding
+number, it ran the fixture and CAPTURED THE ROOT WHILE THE RUN WAS LIVE** (`/tmp/commonplace-next-p3-5`),
+**because a passing run deletes it on the way out.**
+```
+BASE ee7fb94  plant the dir + STALE_MARKER → 24 tests 0 failures, PLANTED DIR GONE, marker with it
+              ⇒ mkdir_p succeeded on an existing dir, the run adopted it, and its cleanup deleted a
+                directory it did not create. Row 726's mechanism, reproduced.
+SOL'S TREE    identical plant, identical number, same fixture → 24/0, STALE_MARKER INTACT ✅
+```
+⇒ ⭐ **Same plant, same number, same command: adopted at base, untouched on the fix.** ⛔ **Sol's own
+"2 tests, 0 failures" could never have shown this — a green is what the defect produces too.**
+
+⚠️ **E2 REPORTED AS [INFERRED], NOT MEASURED:** the wait exists and is read from source (captured
+`os_pid`, TERM → poll `/proc` → KILL → **raise** on outliving the grace) and `remote_editor_test.exs` is
+27/0 with zero `"already exists"`. ⛔ **But the original race was NOT reproduced at base with a planted
+slow child, and biscuit says so plainly rather than dressing the absence as a pass** — which the brief
+explicitly permitted.
+⭐ **AND IT REFUSED TO LET ITS OWN 14 NEW DIRS READ AS A LEAK:** its first E2 attempt ran in the
+FOREGROUND and its own 2-minute tool limit killed it mid-run, so `on_exit` never fired. **Count before
+the detached run 14, after 14 — zero new.** ⇒ **Same lesson as the 00:34 ceremony: run it detached and
+judge by the artifact, or your own harness becomes the finding.**
+📌 **③'s full form (two consecutive suites, before/after) DID NOT FIT the window, and it is not reporting
+a partial as the arm.** ⭐ *"The plant is the stronger evidence, the count is the broader one."*
