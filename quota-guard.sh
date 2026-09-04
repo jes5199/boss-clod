@@ -267,6 +267,10 @@ _dispatch_line() {
   #   ⚠️ AND ALL THREE SOL REFUSALS TONIGHT WERE DEFECTS IN WHAT THE BRIEF LEFT IMPLICIT, NEVER
   #     IN THE CODE: craft good, fence held, lib/ 0, every time.
   printf 'DISPATCH-CONTROL|test-only round: every assertion the round did NOT target must be BYTE-IDENTICAL before/after. An expectation edited to match what the code now does goes green and stops testing its property.\n'
+  # ⛔ ADDED 2026-09-04 BY commonplace-next, FROM TWO DEFECTS IT FOUND THE SAME HOUR THAT THIS
+  # CONTROL WOULD HAVE PASSED: an arm asserting a DEFAULT never run under the non-default ancestor,
+  # and a guard on `nil` for a case that arrives as `0`. NEITHER WAS A CHANGED ASSERTION.
+  printf 'DISPATCH-CONTROL-BIS|byte-identity is NECESSARY, NOT SUFFICIENT: an UNCHANGED assertion can still be VACUOUS. Identity is cheap to check, RELEVANCE is not -- what found both of next 2026-09-04 defects was COUNTING (549 rows declared vs 548 run) and running the harness AS an instance of its own subject.\n'
   printf 'DISPATCH-VERIFY|dispatcher re-derives what the sandbox CANNOT check: base sha by ls-remote at the URL, and every credentialed gate from outside. Sol has no GitHub credential and a read-only .git.\n'
   printf 'DISPATCH-TEST|route by WHAT THE DELIVERABLE IS MADE OF: code-against-a-spec -> Sol (arms check it). If the deliverable IS the arm, keep it on a Claude door -- that is the part bound (1) says does not transfer.\n'
   printf 'DISPATCH-EXCEPT|hermes live-money paths (lib/hermes/jobs/, lib/hermes/trading/) are NOT routable to any implementer: they need jes'"'"'s own word PER CHANGE, cited. A review does not substitute for an authorization.\n'
