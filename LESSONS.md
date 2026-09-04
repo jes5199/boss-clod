@@ -34388,7 +34388,12 @@ self-report as strengthening the conclusion; they strengthen it only within the 
 the set is exactly the population most likely to be alike.**
 
 ✅ **ROUND 56 VERIFIED BY ME at the endpoint:** `main c369e2d0e948883c774e5c51c5416fdec47574ed`,
-warranted `8e98c57…` an ancestor, range 3 over `a568330`, bogus-ref control 0.
+warranted `8e98c57…` an ancestor, bogus-ref control 0.
+⛔ **AND I MIS-WROTE THE RANGE IN THE FIRST VERSION OF THIS ENTRY: I measured `a568330..main` = **4**
+and typed **3**, because 3 is the WARRANT's range (`a568330..8e98c57`) and I carried it across.**
+⇒ ⭐ **The landed range is 4 — the ceremony adds its merge/receipt commit. TWO TRUE NUMBERS ABOUT
+DIFFERENT SPANS, and the wrong one was the one I already had in my head.** ⚠️ **Caught by reading my
+own output against my own sentence, which is the only place this class ever gets caught.**
 
 📌 **AND next REFUSED AN EXCEPTION IT COULD HAVE TAKEN QUIETLY: `CAPTURE-TRACE-DEFAULT-1` is `bin/`-only
 and takes minutes — *"exactly the shape that tempts an exception, and the exception is not mine to
