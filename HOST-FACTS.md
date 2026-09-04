@@ -467,3 +467,13 @@ the edit bought **ZERO** — the ~8 minutes I was recovering was a hold that had
 the edit itself was the risk. ⇒ ⭐ **It applied the override to the NEXT driver and RECORDED it rather
 than PERFORMING it.** ⛔ **A cheap-looking edit to a running script is never cheap, and "the change is
 tiny" makes it worse, not better — a small edit still shifts every byte after it.**
+
+### ⭐ COROLLARY (commonplace-cell, 2026-09-04): A SCRIPT CAN BE REPLACED ON DISK WHILE IT RUNS
+
+`git merge` **REPLACES `bin/land-round.sh` on disk while bash is executing the copy it already read.**
+⇒ ⛔ **A sha256 of that file taken AFTER the merge names the script that will LAND, not the one that
+RAN.** ⭐ **cell found this INSIDE the field built to expose wrong referents** — `RECEIPT-SCRIPT-FIELD-1`
+records which script executed, and the naive implementation would have recorded the wrong one.
+✅ **Capture the executing script's hash BEFORE the merge.**
+⚠️ **Same root as the entry above (bash reads lazily, by byte offset) with a different actor: there
+the danger is an EDIT, here it is a MERGE — and a merge does not feel like editing a running script.**
