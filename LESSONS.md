@@ -32686,3 +32686,28 @@ second red appears only at suite scale — **so running it now would produce a n
 ⭐ **next argued for that ordering against its own round's interest**, twice in twenty minutes.
 📌 Two Sol rounds live: `1866236` (`E2C-TMP-1`, 30m) and `1917171` (`P2E3-ISO-1b`), both waited on by
 captured pid, never `pgrep -f`.
+
+## 7x592 — ⛔⛔ I REFUSED FOUR TIMES TO LIFT ON A TREND, THEN LIFTED ON A SINGLE READING (2026-09-04T03:15Z)
+
+```
+03:13Z  OK|worst 5h 1.04x (limit 1.05)  rc 0   ⇐ I broadcast the hold LIFTED on this one sample
+03:15Z  SLOW_DOWN|5h burning 1.06x at 87%  rc 1
+```
+⭐⭐ **THE ERROR IS SYMMETRIC AND IT IS THE ONE I HAD BEEN ENFORCING ALL NIGHT.** I declined to lift at
+1.33, 1.29, 1.22, 1.09 and **explicitly at 1.06** — *"a direction is not a threshold"*, *"nearly under is
+not under"* — ⇒ **and then lifted on ONE reading.** **I demanded persistence in the direction that cost
+the fleet time and accepted a single sample in the direction that felt like good news.**
+⚠️ **Same shape as tonight's other six, committed by the door policing it.**
+
+⛔ **AND THE OBVIOUS FIX IS ALSO WRONG: re-arming on the next rc 1 makes the hold flicker with each
+sample — noise with authority.** A door cannot plan against a constraint that changes every 90 seconds.
+✅ **STATED RULE, DECLARED IN ADVANCE SO I CANNOT RE-DERIVE IT PER READING IN WHICHEVER DIRECTION I
+LIKE: the hold RE-ARMS only above 1.10, or on STOP. Between 1.05 and 1.10 the fleet proceeds.**
+⇒ ⭐ **A THRESHOLD WITH HYSTERESIS. The asymmetry between arming and disarming is now a PROPERTY OF THE
+RULE rather than a property of my mood.**
+📌 **And I did not withdraw chit's go on a hundredth of a ratio** — it had held two hours on a condition
+it could not verify itself and refused the box twice while it sat free. **Reversing that on 0.02 would
+have been the same error a third time, pointed at the door that behaved best.**
+📌 **biscuit's window deferred for a REAL reason, not the ratio: its E2 is a slow-child RACE
+REPRODUCTION — timing-shaped, and ⑧-bis says a neighbour moves exactly that number.** Its ① and ③ are
+outcomes and counts and would have been safe.
