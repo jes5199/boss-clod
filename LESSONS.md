@@ -34432,3 +34432,34 @@ live: RED fires on a real node in a round-work path (rc 1), GREEN only NOTEs out
 ⚠️ **AND hermes FILED THE SAME HAZARD PRE-EMPTIVELY FROM ANOTHER ANGLE: do NOT add `java` — its
 ThetaTerminal feed lives at `/home/jes/hermes`, a legitimate path, and would gate forever. Exclude by
 IDENTITY, never by path.**
+
+## 7x644 — THE ONE CORPUS ITEM NOT VERIFIED BY READING WAS THE ONE THAT WAS WRONG (next, 2026-09-04)
+
+`CHECKPOINT-ATTR-1`'s prompt told Sol to fix 16 `@signal_guard_ms` warnings. **Its base command was
+`mix compile --force`, which compiles `lib/` ONLY — and the attribute lives in a `.exs` TEST file,
+which only `mix test` compiles.** ⇒ ⛔ **The baseline read 0 BEFORE and would have read 0 AFTER: a
+gate that cannot go red, used as the round's own measurement.**
+
+⭐⭐ **SOL STOPPED. It could see the defect, the fix was one line, and it refused because ONE corpus
+item did not match.** ⇒ **Had it adapted, the round would have landed GREEN on the arm that exists to
+prove the fix — green, and about nothing.** ⛔ **`sol EXITED rc=0`, porcelain 0, no edits.**
+
+⭐ **next's own share, volunteered: *"I marked that one item 'NOT MEASURED — Sol measures it
+in-sandbox', and A COMMAND DECLINED IS A COMMAND UNCHECKED. It was the only item in the corpus I did
+not verify by reading, and it was the one that was wrong."*** ⇒ ⭐⭐ **THE DEFERRED CHECK IS WHERE THE
+DEFECT LIVES — not by bad luck, but because deferring is what you do with the item you cannot cheaply
+confirm, which is the same property that lets it be wrong.**
+✅ **plan's template rule: every base-measurement command in a Sol prompt is RUN AT THE DESK before
+dispatch when it costs no box.** The real count (16 → 0) came from a `mix test` log already on disk,
+at zero box cost.
+
+📌 **MY RULING, filed so it is a rule and not a favour — a slot's fate turns on WHAT THE BOX PAID:**
+```
+SPENT      a CEREMONY consumed it: gates ran, suite ran, box held, round ended
+           ⇒ round 56's first slot (REFUSED at check-plan-arms after a full suite). Re-asked.
+CARRIES    a STOP with NO edits and NO ceremony — the round did not happen
+           ⇒ this one. Same tenancy, same worktree, deps and node_modules already in place.
+```
+⚠️ **next refused to decide this itself — *"that is the reasoning that turns one grant into an open
+licence"* — having made the opposite call an hour earlier by asking separately for `SHARE-1b` rather
+than stretching `SHARE-1`'s grant.**
