@@ -245,7 +245,10 @@ etag   b40f16a4ab5be14dcda736cd56ff98bdb91341c4fec8282b346fa5c7374b0582   (pre, 
    →   8cb2680e52ed585245b22ef4f007f3f9cc4c675fb90e34762513fd43b51891a4   ⇒ THE CODE MOVED
 container image  …commonplace-log-realm@sha256:97a89b1bd518…
              →   commonplace-log-realm@sha256:a899f622c250a93a3df9cbce8ac5fd22a610c78557d5c57817139812e1c53865
-tags   4 → 5, the four pre-existing SURVIVED, prov:source-sha READ BACK FROM THE API
+tags   4 → 5, the four pre-existing SURVIVED. THE VALUE, READ BACK FROM THE API, NOT FROM WHAT I SENT:
+       prov:source-sha=d0aff782eed27ad1c40f594c135942bd1c1c8b1f
+       (also present: prov:managed-by-cf-deploy · prov:record=cf-records/commonplace-log.md ·
+        prov:why=UNKNOWN-predates-tracking · prov:live-do-not-delete)
 ```
 
 ### Closing controls — what must NOT have moved
