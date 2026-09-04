@@ -593,3 +593,17 @@ chit   | ⛔ IS BOX-BOUND AND I DID NOT KNOW IT UNTIL 10:43Z. Its `land-gates.sh
 #   ⚠️ A delete also removes the collision targets until `E2C-TMP-1` lands — plan says either is fine.
 #   ⭐ WHY THIS IS WRITTEN DOWN RATHER THAN HELD: it is a deferred act with a trigger I do not control,
 #     and "I will do it when X" held only in a context window is the class this file exists for.
+
+# 📌 PENDING ACTION, MINE — WAKE next WHEN SOL'S ROUNDS EXIT (2026-09-04T02:35Z)
+#   Sol dispatched by next at 02:33Z: E2C-TMP-1 outer pid 1866236 (tmux sol-e2c-tmp1),
+#   P2E3-ISO-1 outer pid 1869763 (tmux sol-p2e3-iso1). next waits BY CAPTURED PID.
+#   ⛔ BUT next's TURN HAS ENDED — a worker cannot wait; it can only be woken. ⇒ Nobody is
+#     actually watching those pids except my 5-minute sweep. If I do not check them, the rounds
+#     finish into silence and biscuit's review never starts.
+#   ✅ EACH SWEEP: `[ -d /proc/1866236 ]` / `[ -d /proc/1869763 ]`. When either is GONE, wake next
+#     and tell biscuit (it reviews and warrants; P2E3-ISO-1 carries the SEEN RED condition).
+#   ⚠️ AND JUDGE BY THE ARTIFACT, NOT BY THE PROCESS'S ABSENCE: a finished round, a round that
+#     never started, and a round that died all leave no process. Read the tmux session's output
+#     and the clone's git state before reporting either as complete.
+#   ⭐ WHY THIS IS WRITTEN DOWN: it is a deferred act with a trigger I do not control, and
+#     "I will do it when X" held only in a context window is the class this file exists for.
