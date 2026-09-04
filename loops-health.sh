@@ -110,7 +110,17 @@ _state=${STATE_MD:-/home/jes/commonplace/STATE.md}
 if [ -f "$_state" ]; then
   _sage=$(( (NOW - $(stat -c %Y "$_state")) / 60 ))
   if [ "$_sage" -gt 120 ]; then
-    printf '%-22s %-10s %s\n' "STATE.md" "${_sage}m" "⛔ STALE ARTIFACT — renderer has not COMPLETED (heartbeat proves start only)"
+    # ⛔⛔ SAY *WHICH* STALE (commonplace-biscuit, 2026-09-04, one turn after the *-hold finding).
+    # A gate whose red is EXPECTED and CORRECT, firing every run, trains the reader to skip the line.
+    # ⇒ The twelve-hour outage failed as SILENCE; an undifferentiated red fails as NOISE, and both
+    # deliver the next REAL staleness invisibly.
+    # ⭐ NOT SUPPRESSION — suppression is how the twelve hours happened. It still prints, still red,
+    # and it NAMES WHICH: two states sharing one observable, separated by a file that already exists.
+    if [ -f /home/jes/boss-clod/.state-render-HOLD ]; then
+      printf '%-22s %-10s %s\n' "STATE.md" "${_sage}m" "⛔ STALE — HELD, reason on file, lift is any door's ask (EXPECTED)"
+    else
+      printf '%-22s %-10s %s\n' "STATE.md" "${_sage}m" "⛔ STALE ARTIFACT, NO HOLD FILE — renderer died quietly (THE ALARM)"
+    fi
     fail=1
   else
     printf '%-22s %-10s %s\n' "STATE.md" "${_sage}m" "✅ rendered"
