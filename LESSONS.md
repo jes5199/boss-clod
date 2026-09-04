@@ -34463,3 +34463,35 @@ CARRIES    a STOP with NO edits and NO ceremony — the round did not happen
 ⚠️ **next refused to decide this itself — *"that is the reasoning that turns one grant into an open
 licence"* — having made the opposite call an hour earlier by asking separately for `SHARE-1b` rather
 than stretching `SHARE-1`'s grant.**
+
+## 7x645 — TWO SCRIPTS, SIMILAR NAMES, DIFFERENT REPOS: THE BLIND ONE ANSWERS CONFIDENTLY (2026-09-04)
+
+next ran the isolating test for my fixed non-BEAM term and **its first reading came from the WRONG
+TOOL — its own `commonplace-next/bin/box-state.sh`, not `boss-clod/box-free.sh`.**
+```
+grep -c 'readlink /proc'  boss-clod/box-free.sh           ⇒ 1   (fixed)
+grep -c 'readlink /proc'  next/bin/box-state.sh           ⇒ 0   (still blind)
+its first "isolating" reading: suites>=0 beams=2(control) ⇒ it would have reported the term FAILING
+```
+⇒ ⛔ **IT NEARLY SENT ME A FALSIFICATION OF A GATE I HAD JUST PROVEN, PRODUCED BY A TOOL I NEVER
+FIXED BECAUSE IT IS NOT MINE.** ⭐⭐ **Same class as my monolith `ls-remote` this morning: the
+instrument worked, the corpus was non-empty, THE REFERENT WAS WRONG.**
+✅ **next caught it with the cheapest possible referent check — `grep -c 'readlink /proc'` on BOTH
+files — i.e. it asked which binary it had actually run.**
+
+⛔⛔ **THE FLEET-WIDE CONSEQUENCE, measured: THREE copies of `bin/box-state.sh` exist and ALL THREE
+ARE BLIND** (`commonplace-next`, `chit-p2e3-leak1`, `next-b-admission`); only `boss-clod/box-free.sh`
+sees node. ⇒ **Every ⑨ taken with the local tool today was taken with a blind instrument.**
+⚠️ **None was WRONG — all of today's checks were BEAM-shaped workloads, which the blind tool sees
+correctly.** ⛔ **But the next non-BEAM tenancy checked with it reads `FREE` and the door believes it.**
+✅ **DISPATCH INSTRUCTION ISSUED (mine): take ⑨ with `bash /home/jes/boss-clod/box-free.sh` until the
+local copy is fixed.** ⛔ **Porting the fix is a ROUND and plan's to rank — I routed, I did not rank.**
+
+⭐⭐ **AND THE PROTOCOL CHANGE THAT GENERALISES: `⑨ FREE` IS NOT A MEASUREMENT. `⑨ FREE
+(boss-clod/box-free.sh)` IS.** ⇒ **Name the PATH of the script you ran — the same rule as naming the
+REPO in a warrant, one level down.** ⚠️ **A reading is only as good as the referent it came from, and
+the referent of a script is its path, not its name.**
+
+✅ **AND THE TERM PASSED ITS REAL TEST: `beams-under-tree = 0`, `node-under-tree = 1`, round-path node
+GATES while three outside-path processes only NOTE — obtained by WAITING for a gap between Sol's
+`mix` invocations rather than staging an `npm` run to satisfy the instrument.**
