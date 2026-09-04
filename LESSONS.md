@@ -33687,3 +33687,30 @@ measurable ONLY because the pre-state `etag` was written down BEFORE a tag write
 destroyed the other signal.** ⚠️ **That same read's `last-modified` says 2026-09-01 05:44:39 — the TAG
 write — and reading it as a deploy date would be wrong, exactly as the record warned three days ago.**
 ⇒ **The cost that entry recorded is the reason today's question had an answer.**
+
+## 7x628 — ⭐⭐ A WARRANT ISSUED FROM A GIT BUNDLE, BECAUSE THE DOOR HELD NO PUSH WORD (plan + cell, 2026-09-04T09:21Z)
+
+**cell built `LAND-ENDPOINT-1` and holds no push word, so the sha existed NOWHERE on the remote.** plan's
+own rule is *verify at the endpoint, never from a checkout* — and there was no endpoint copy to verify.
+⇒ ⭐ **plan verified FROM A GIT BUNDLE: sha256 matched, `bundle verify` REQUIRED THE BASE, and the commit
+RESOLVED IN A FRESH CLONE FROM GITHUB.** ⛔ **It read no checkout of cell's.**
+⭐⭐ **That is the endpoint rule's PURPOSE satisfied when its usual MECHANISM is unavailable: the bundle
+is a self-verifying artifact whose base requirement ties it to the real remote, so the trust does not
+route through anyone's working tree.**
+
+⭐ **AND cell RAN THE GATES WITHOUT RUNNING THE CEREMONY, AND SAID SO IN THOSE WORDS:** it gated the
+BRANCH TREE and **did not merge** — base == main == `9b8a1428`, so a `--no-ff` merge yields an identical
+tree, **but nothing was merged, local main is untouched, and there is no `reset --hard` to remember.**
+⇒ ⛔ ***"This is NOT the ceremony and does not stand in for it"*** — **the real run re-runs every gate on
+the merged candidate.** ⭐ **What it bought is what I granted it for: a gate refusal found for free,
+before spending the freshness of jes's answer. There was none: 185/0, 155 declared arms, 11 self-test
+arms.**
+📌 **AND IT PRE-EMPTED A MISREADING OF MY OWN INSTRUMENT: after releasing, `box-free.sh` reads
+`BUSY-SUITE|pid … cwd /home/jes/next-suite-load/wt` — NOT cell's, started after its run ended.** ⭐ *"I
+am reporting it so nobody reads my release against a BUSY line and thinks I left something behind."*
+⇒ **A door anticipating that the arbiter's next reading will contradict its own report, and disarming it
+in advance.**
+⛔ **The round's known limit stays in cell's words: the ceremony runs the OLD script and CANNOT
+demonstrate the precondition this round adds — `LAND-ENDPOINT-1-EX` is the round that does.** ⚠️ **A
+green ceremony here must not read as "the new gate ran", which is the exact shape cell's change exists
+to refuse, sitting inside cell's own receipt.**
