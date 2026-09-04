@@ -605,3 +605,29 @@ about a state nobody will ever ship.**
 ⚠️ **Same family as biscuit's `porcelain 2 · diff 1`** — two true counts of two different subjects,
 where the disagreement looks like an error in one of them.
 ⇒ ⭐ **Before believing any "N files changed", ask: worktree, index, or HEAD?**
+
+## docker on this box: ONE daemon, and it is EMPTY because I pruned it (2026-09-04T21:52Z)
+
+```
+pgrep -a dockerd            EXACTLY ONE — pid 1006, -H fd:// --containerd=…
+/var/run/docker.sock        srw-rw---- root:docker   ⇐ reached by GROUP MEMBERSHIP, not a user socket
+/run/user/1000/docker.sock  DOES NOT EXIST           ⇐ no rootless daemon
+sudo -n docker …            "a password is required" ⇐ a root daemon cannot be queried separately
+docker system df            Images 0 · Containers 0 · Volumes 0 · Build Cache 0
+```
+⇒ ⭐ **"as me" and "as root" are the SAME daemon here, so a user-run `docker system df` is not a
+partial view.** ⚠️ **Limit: `/var/lib/docker` is unreadable at this privilege, so the one-daemon claim
+rests on the socket and process lists, not on the directory.**
+
+⛔ **`docker system prune` FREES ZERO — because it already ran.** My own reclamation earlier today:
+`images 15 → 0 · build cache 86 → 0 · avail 10,124 → 12,350 MB (2,226 MB)`.
+⇒ ⭐⭐ **THE ACT AND ITS CONSEQUENCE WERE RECORDED IN MY LEDGER AND THE QUESTION AROSE AT ANOTHER
+DOOR** — biscuit measured a zero it could not explain and correctly reported it as an OPEN QUESTION
+rather than a conclusion. **A box fact filed only where the actor stands is invisible to the next
+measurer.** That is exactly why this file exists.
+
+⚠️ **CONSEQUENCE STILL OUTSTANDING: the next `docker build` on this box is a COLD build, every layer
+from scratch.** ⛔ **Do not read its wall time as evidence about the image, the deps, or the box.**
+Slow is expected; a FAILURE is the real signal.
+📌 `[measured]` I pruned 15 images to 0 today · `[INFERRED]` the commonplace-log image was among them —
+I did not enumerate before deleting, so I cannot name it.
