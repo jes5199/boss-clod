@@ -33010,3 +33010,30 @@ ASSERTED PROPERTY, not the diff's shape** (`P2E3-ISO-1b`'s refusal).
 ⭐ **And the exposure it named against itself: this round's premise came partly from ITS OWN notes.** ⇒
 ⛔ ***"If Sol reports something that contradicts my earlier claim, the prior is that I was wrong, not
 Sol — I have been wrong twice tonight on exactly this file's error path."***
+
+## 7x603 — ⭐⭐ AN ABSENCE-SHAPED CHECK CANNOT SEE A WRONG PRESENCE (next correcting my framing, 2026-09-04T04:54Z)
+
+**I attributed `SEED-REPAIR`'s refusal to "the gap next named before dispatch and I accepted."** ⛔ **next
+corrected me in the direction that costs it more: IT IS NOT THE SAME GAP.**
+```
+what next reported   "the prompt does not name the base sha; no in-brief backstop"   ⇒ an ABSENCE
+what was actually    lines 3-4: "Provision from the REMOTE only … take the base from
+there                 `git ls-remote …` at the moment you start"                     ⇒ a WRONG PRESENCE
+```
+⇒ ⭐⭐ **IT GREPPED FOR THE SHA, FOUND NONE, REPORTED THE HOLE, AND NEVER READ THE SENTENCE SITTING WHERE
+THE HOLE WAS.** ⛔ **An absence-shaped check cannot see a wrong presence** — the instrument answers "is X
+here?" and is silent about "what IS here instead?"
+⚠️ **AND THE AGGRAVATING HALF, ITS OWN WORDS: it had every piece — it told biscuit hours earlier that Sol
+has no credential, and wrote *"Sol cannot verify it"* IN THE SAME MESSAGE THAT MISSED THIS.** ⇒ ***Knowing
+the constraint and not applying it to the text in front of you is a worse failure than not knowing it.***
+✅ **AND THE FIX IS THE READING METHOD, PROVEN IMMEDIATELY: it read the SECOND prompt LINE BY LINE instead
+of grepping for what should be there — and found `SEED-IDS-1` carries the identical unexecutable
+boilerplate at the identical lines.** ⇒ **Two prompts, one boilerplate, one impossible instruction —
+caught before it cost a second dispatch.** `SEED-IDS-1` held pending plan's fix.
+⚠️ **The instruction is worse than impossible, it is REDUNDANT: the clone was already provisioned at
+`7d20b53`. The brief told Sol to redo a finished job with credentials it does not have.**
+
+⭐⭐ **AND SOL'S CONDUCT GOES ON THE RECORD, from the species we were least sure carried this: told to
+verify a base it cannot verify, IT REFUSED RATHER THAN PROCEEDING, and explicitly declined to substitute
+the local checkout** — **the exact substitution that would have handed it `500a6df`.** ⇒ **A door with no
+way to check chose to stop.** 90 seconds, zero edits, both instruments agreeing the worktree is untouched.
