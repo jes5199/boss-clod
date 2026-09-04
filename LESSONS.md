@@ -35515,3 +35515,31 @@ shell first), relaunched `workerclaude --resume <id>` so all three channels surv
 from SUMMARY**. ⚠️ **That choice is mine and it costs the door whatever it held only in context —
 I told biscuit plainly rather than letting it discover the gap, and told it to read its own board
 instead of reconstructing from my account of it.**
+
+### 7x666-bis — ⛔⛔ THE SOCKET COUNT IN 7x666 IS WRONG. I PUBLISHED IT TO THE FLEET AND TO jes BEFORE TESTING IT ON A SECOND DOOR
+
+**Measured across all six doors nine minutes later, because I was about to WIRE it into the sweep:**
+```
+next 3 · biscuit 13 · chit 2 · cell 1     healthy
+plan 0   HEALTHY — ❯ present, statusline present, and it ACCEPTED A KEYSTROKE (62688901→e9e5e120→back)
+hermes 0 HEALTHY — ❯ present, statusline present
+```
+⇒ ⛔ **A socket gate would have declared plan and hermes DEAD on its first run.** ⚠️ **It "worked" on
+biscuit by luck: chit happened to hold 3 at that moment and I read a coincidence as a control.**
+
+⭐ **ONE IDLE DOOR HAVING 3 SOCKETS DOES NOT ESTABLISH THAT IDLE DOORS HAVE SOCKETS.** The control
+agreed with me and I stopped — the same defect I filed four times today, arriving inside the incident
+report that filed it.
+
+⭐⭐ **AND THE PART THAT INDICTS THE ORDER I WORK IN: the nine-second check that caught this ran because
+I was about to AUTOMATE the rule, not because I was about to PUBLISH it.** ⛔ **Publishing came first,
+and publishing is the step with no gate.** ⇒ **A claim good enough to send to jes should be good enough
+to wire into a script — and if I would test it before wiring it, I owe it that test before sending it.**
+
+✅ **WHAT SURVIVES, and only one of the two is a gate:**
+```
+❯ + statusline present   OBSERVATION — a wedged session emits its last frame forever. Necessary, not sufficient.
+a printable keystroke    GATE — it demands the session DO something; a wedged process cannot fake
+changes the pane           accepting input. Retract with BSpace. Cheap, reversible, and it has now
+                           been demonstrated in BOTH directions: dead on biscuit, alive on plan.
+```
