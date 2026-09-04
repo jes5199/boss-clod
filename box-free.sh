@@ -172,6 +172,27 @@ for _pid in $(ls /proc 2>/dev/null | grep -E '^[0-9]+$'); do
   case "$_cwd" in
     /home/jes/sol-*|/home/jes/*-wt|/home/jes/*-wt/*|/home/jes/*-suite-load*|/tmp/commonplace-*)
       nonbeam=$((nonbeam+1)); echo "BUSY-NONBEAM|pid $_pid $_b cwd $_cwd" ;;
+    # ⭐⭐ THE SCRATCHPAD SPLIT (commonplace-chit, 2026-09-04, reported not probed): the LEAK THAT
+    #   MOTIVATED THIS WHOLE FIX — biscuit's two orphaned node children — lived at
+    #   `/tmp/claude-*/…/scratchpad/cl-d0aff78`, and a blanket exclusion of /tmp/claude-* means it
+    #   STILL WOULD NOT GATE. ⛔ But gating the whole prefix marks the box BUSY FOREVER: every
+    #   session's own harness node runs there too.
+    #   ⇒ THE DISCRIMINATOR IS DEPTH, and it is measured rather than assumed:
+    #       harness node   cwd = the scratchpad ROOT            (…/scratchpad)
+    #       workload node  cwd = a WORK SUBDIR under it         (…/scratchpad/cl-<sha>, /log-deploy)
+    #   ⭐ Separates the two cases in every sample any door has produced today.
+    #   ⚠️ Bound: it is a shape, not a proof of ownership. A harness that chdir'd into a subdir would
+    #     gate falsely — which fails SAFE (a wait), unlike the reverse.
+    #   ✅ BOTH ARMS PROVEN LIVE, and by accident rather than by design — I LEAKED TWO FIXTURES doing
+    #     it (`cd X && nohup node &` makes `$!` the SUBSHELL, cell's own finding, committed by me
+    #     while testing the fix for a leak). The leak is what proved it:
+    #       pid 2804338  cwd …/scratchpad            ALIVE and did NOT gate   ⇐ ROOT arm, GREEN
+    #       pid 2805367  cwd …/scratchpad/cl-testfix ALIVE and DID gate       ⇐ SUBDIR arm, RED
+    #     Both killed afterwards by VERIFIED cwd, with the four surviving harness nodes as the control.
+    */scratchpad)
+      echo "NOTE-NONBEAM|pid $_pid $_b cwd $_cwd — scratchpad ROOT (session harness), not gating" ;;
+    /tmp/claude-*/scratchpad/*)
+      nonbeam=$((nonbeam+1)); echo "BUSY-NONBEAM|pid $_pid $_b cwd $_cwd (work subdir under a scratchpad)" ;;
     UNREADABLE)
       echo "NOTE-NONBEAM|pid $_pid $_b cwd UNREADABLE — not gating, cannot attribute" ;;
     *)
