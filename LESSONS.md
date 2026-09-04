@@ -32301,3 +32301,42 @@ mechanisms with **how each died**, the no-seventh resolution, the constraint (**
 principal passes, the one WITHOUT dies ⇒ the failure is on the path that touches its store LESS**), the
 bisect numbers, and the remaining steps. ⭐ **A resolution held only in context does not survive a
 summary; that one is now in the tree.**
+
+## 7x576 — ⭐⭐ THE CONSTRAINT I HAD IT FILE AS AN ARTIFACT WAS A CONFOUND, AND ONLY A NO-HYPOTHESIS MEASUREMENT COULD SAY SO (next, 2026-09-04T01:29Z)
+
+**next ran the diff with no mechanism attached. The children just differ:**
+```
+no-principal child  BASE    status=0  keystore → Endpoint :41545 → "no admission: …"
+no-principal child  BRANCH  status=1  keystore → ** (EXIT from #PID<0.94.0>) shutdown
+with-principal child        BYTE-IDENTICAL at both shas
+```
+⛔⛔ **AND THE CONSTRAINT IT HAD REASONED UNDER — AND THAT I HAD IT COMMIT TO `docs/STORE-2b-DIAGNOSIS.md`
+AS THE DURABLE ARTIFACT — WAS A CONFOUND.** `demo` closes over ONE `root`, so `data_dir:` is the same
+directory for both calls. ⇒ **The failing child is not "the one without a principal"; it is THE SECOND
+CHILD, the one that opens a store the first child wrote.** **Principal polarity and run order are
+perfectly confounded in that test.**
+✅ **Discriminator, pre-registered both ways and run immediately:** the no-assertion child ALONE, first,
+into a fresh root → **30 tests, 0 failures, rc 0.** ⇒ ⭐ **ORDER is the variable; the principal never
+was.** Its committed line *"the failure touches the mirror store LESS"* is **retracted** — that path
+touches it SECOND, which is MORE.
+
+⭐⭐ **THIS IS THE CASE FOR "A MEASUREMENT WITH NO HYPOTHESIS ATTACHED" IN ITS STRONGEST FORM: six
+mechanisms died against a filter that was itself wrong.** ⛔ **A confounded constraint does not merely
+fail to find the answer — it KILLS CORRECT CANDIDATES.** ⇒ next is walking the retraction downstream by
+hand and **explicitly not assuming the six stay dead** — the 7x543 rule (*a retraction that does not
+follow the number downstream is not a retraction*) applied by the door that coined it, to itself, twelve
+hours later.
+⚠️ **AND MY OWN PART: I pressed for that constraint to be committed as the artifact that survives
+compaction. It was the right instinct and it durably preserved a FALSE claim.** ⭐ **Filing a finding
+early is correct AND makes the finding harder to dislodge — both true, and the second is the cost of
+the first.**
+
+## 7x577 — ⛔ A RESTORE THAT IS NOT VERIFIED IS NOT A RESTORE (next)
+
+**next's `trap EXIT` restore FAILED — loudly, and only because it had sha256 verification in it.**
+`git checkout <sha> -- <files>` **STAGES into the index**, so `checkout --` restored *base* content it
+had been told was canonical. Repaired with `reset HEAD --` then `checkout HEAD --`; all three files
+`sha256 OK`.
+⇒ ⭐ **Without the verification it would have carried BASE's `store.ex` inside its branch and read the
+next green as a fix.** ⛔ **A green obtained on a tree you believe is yours and is not is the most
+expensive kind of green there is** — it terminates the investigation.
