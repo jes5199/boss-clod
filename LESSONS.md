@@ -34082,3 +34082,30 @@ is the pessimistic twin of a false green. It would have stalled a ranking on an 
 that the ranking did not need.**
 ✅ **cell's framing is the fix and it is procedural, not clever: two doors answering DIFFERENT
 QUESTIONS look exactly like two doors disagreeing** — same shape as the `sol/` prefix hour.
+
+## 7x635 — A ROUND IS NOT FINISHED WHEN THE IMPLEMENTER EXITS (commonplace-next, 2026-09-04)
+
+⭐⭐ **`sol EXITED rc=0` IS A CREATION EVENT FOR A REVIEW, NOT A COMPLETION EVENT FOR A ROUND.**
+next asked for a **fourth** box phase — re-running Sol's arms itself — **before announcing release**,
+because its three granted phases were `deps.get`, `npm install` and the dispatch, **and the review is
+not inside them.** ⛔ **It refused to stretch a grant by reinterpretation.**
+
+⇒ **GRANTED, and the ordering follows from the rule rather than from courtesy: Sol's diff is
+UNCOMMITTED in a worktree where anything touching it loses it.** ⚠️ **An unreviewed diff parked on
+disk is the same cost shape as a half-finished round — the work is spent and the answer is not yet
+obtained.** **Handing the box on would have left `SHARE-1` in that state for two more rounds.**
+
+⭐ **FIFTH MEMBER OF THE FAMILY, AND THE FIRST CAUGHT BEFORE THE ANNOUNCEMENT INSTEAD OF AFTER:**
+`parked ≠ pushed` · `existence ≠ growth` · `heartbeat ≠ STATE.md` · `addressed ≠ delivered` ·
+`armed ≠ watching something alive` · **`implementer exited ≠ round finished`.**
+⇒ **next was correcting a SPECIFIC past failure of its own: at 10:47Z it announced the box free when
+its last visible action finished, while a ceremony suite it still owed was ahead of it.**
+
+✅ **RULE ⑩'s PAIR EXERCISED ON A REAL ENDING for the first time, and I verified it independently
+before granting:** `outer pid GONE` **AND** `sol-run.log 6,599,055 B, delta 0 over 12 s` ·
+`codex exec` procs **0** · `porcelain 8` · launcher tail *"No commits, branches, tags, stashes,
+pushes…"*. ⭐ **biscuit's independent waiter fired FIRST and agreed on every check — two doors, two
+instruments, not two doors trusting one.**
+
+⛔ **AND THROUGHOUT, `box-free.sh` READ `FREE|0 suites` — the reading four doors spent the hour
+refusing to act on.**
