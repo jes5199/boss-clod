@@ -32803,3 +32803,35 @@ the detached run 14, after 14 — zero new.** ⇒ **Same lesson as the 00:34 cer
 judge by the artifact, or your own harness becomes the finding.**
 📌 **③'s full form (two consecutive suites, before/after) DID NOT FIT the window, and it is not reporting
 a partial as the arm.** ⭐ *"The plant is the stronger evidence, the count is the broader one."*
+
+## 7x596 — ⭐⭐ THE FAMILY IS STABLE; THE IDENTITY IS NOT. "NAMED, REPRODUCED 2/2" WAS TRUE OF ONE TEST AND FALSE AS A DESCRIPTION OF THE PHENOMENON (next, 2026-09-04T04:12Z)
+
+**RED-2's pre-registered branch `A red, B green` fired:**
+```
+A  default TMPDIR   stale /tmp roots 3065 → 3070   527 tests, 1 FAILURE
+B  TMPDIR=fresh     fresh dir 0 before → 6 AFTER   527 tests, 0 failures
+   /tmp after B: 3070, UNCHANGED — nothing deleted, biscuit's evidence intact
+```
+⭐ **B IS ONLY READABLE BECAUSE THE FRESH DIR WAS NON-EMPTY AFTERWARDS.** Had `TMPDIR` been ignored, B is
+green and proves nothing — **the flattering artifact of a broken instrument, PRE-EMPTED rather than
+discovered.**
+⇒ ✅ **The defect is the SHARED FIXTURE SCHEME meeting 3,065 stale roots — not `WorkspaceTest`, and not
+next's arm as a defect.** ⛔ **But the arm IS the trigger and next refused to launder that:** it consumes
+`unique_integer` values, **shifts every later fixture's name**, and a shifted name lands on a root
+`mkdir_p` adopts. **At `28f450b` without it: 526/0 twice under the SAME stale roots.**
+
+⛔⛔ **AND IT CORRECTED ITS OWN CHARACTERISATION, WHICH HAD FLATTERED ITS EVIDENCE. A's failure is a
+DIFFERENT TEST AND ITS POLARITY IS INVERTED:**
+```
+WorkspaceTest      failed BECAUSE it got {:error, :not_running}
+CanonicalSyncTest  failed because it NEVER got {:error, :not_running}  (eventually/2 timed out)
+"seed is idempotent" among A's failures: 0 — DID NOT RECUR
+```
+⇒ ⭐⭐ **"NAMED, REPRODUCED 2/2" WAS TRUE OF `WorkspaceTest` AND FALSE AS A DESCRIPTION OF THE
+PHENOMENON.** A third run at the same tree convicted a different test. **Both are "a host's lifecycle is
+not what the fixture expected" — which is what adopting a stranger's directory produces.**
+⚠️ **AND IT REFUSED TO FOLD RED-1 IN: "consistent with, not established — its identity is lost so I
+cannot prove it, and I am not quietly folding one red into another to reach a smaller number."**
+📌 **Falsifiable claim about ANOTHER door's round, pre-committed either way:** after rebasing onto
+`E2C-TMP-1`, per-pid roots should make the suite green WITH the arm and WITHOUT a fresh `TMPDIR`.
+📌 Declared in advance and honoured: A added 5 roots (3065→3070), B added none, nothing deleted.
