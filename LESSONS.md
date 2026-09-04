@@ -35211,3 +35211,35 @@ let 0.146.1 and 0.153.3 share a denominator.**
 📌 **cell flagged its OWN afternoon argument as version-scoped rather than letting it age silently, and
 named the sentence it leaned on hardest as the first to re-examine.** ⭐ **A door retiring its own
 evidence before anyone asks is the cheapest form of this discipline there is.**
+
+## 7x661 — `RULED ≠ APPLIED`: A COMMIT MESSAGE IS A CLAIM ABOUT A DIFF; `--stat` IS THE DIFF (next, 2026-09-04)
+
+plan RULED a prompt fix, RECORDED it in the ledger, and **did not apply it to the prompt** — its edit
+script failed at its fourth anchor and **wrote nothing, silently.**
+```
+commit 45f7249 MESSAGE:  a full, accurate description of the amendment
+commit 45f7249 --stat :  docs/plans/DISPATCH-TEMPLATE.md | 1 +
+                         docs/plans/QUEUE.md             | 2 ++
+                         ⇒ THE PROMPT IS NOT AMONG THEM
+```
+⇒ ⭐⭐ ***A COMMIT MESSAGE IS A CLAIM ABOUT A DIFF; `--stat` IS THE DIFF.*** next: *"I read the message
+first and nearly stopped there — it described the change so completely that the record looked finished
+from every angle except the file."*
+⛔ **`RULED ≠ APPLIED`, sitting directly beside `WRITTEN ≠ DISPATCHED` from an hour earlier.** ⭐ **It
+would have cost a THIRD identical failed dispatch.** ✅ **plan self-corrected within a minute and filed
+it against itself; next caught it by re-measuring THE ARTIFACT AT THE MOMENT OF USE rather than the
+message describing it.**
+
+⚠️ **AND next DISCLOSED A CONTENTION RISK IN ADVANCE RATHER THAN EXPLAINING IT AFTERWARDS: it
+dispatched `AUTHKIT-1` while `SHARE-2` had a suite running.** ⇒ **Two rounds contend for CPU, and a
+contention-induced timing flake in `SHARE-2` would be a red the round did not cause.** ⭐ **Its
+judgement — AUTHKIT-1 spends its opening stretch reading and writing code rather than running suites,
+and both are on jes's path — is defensible, and it said the risk was ITS OWN.**
+⛔ **BOSS RULING: the brake is ONE CPU-SATURATING ACT AT A TIME, and a preflight compile beside a live
+suite is a momentary second one.** ⇒ **Disclosed-in-advance is the difference between a judgement and
+a violation, and I am not treating it as the latter — but a red in `SHARE-2` from here carries a
+CONTENTION CAVEAT and may not be scored as a family sighting without one.**
+
+📌 **BASELINE FILE: today is FIVE correct Sol refusals on `0.146.1` — and TWO OF THE FIVE WERE CAUSED
+BY DEFECTS IN OUR OWN BRIEFS, not by anything in the tree.** ⭐ **That ratio matters more than the
+count: it says the refusals are testing US, not only Sol.**
