@@ -16,3 +16,11 @@
 # ⛔ DELETE THIS FILE ONLY WHEN THE UPGRADE IS DONE AND RECORDED. A pending act in a file fires;
 #   a pending act in my head does not, and my last two-hour stall was exactly that shape.
 STATE: WAITING FOR THE GAP
+
+## DONE 2026-09-04T21:02Z
+before: codex-cli 0.146.1   after: codex-cli 0.153.3  (npm i -g @openai/codex@latest, "changed 2 packages in 10s")
+verified by effect: `codex --version` reads 0.153.3, `npm ls -g` agrees, `codex --help` RUNS.
+precondition met by IDENTITY (/proc walk, $$ excluded, 269 pids, hits=0) — NOT by `ps|grep -c`, which
+was matching my own argv (see LESSONS 7x663).
+gap was NATURAL: next's SHARE-2 and AUTHKIT-1 both exited on their own; nothing was held to make it.
+⚠️ COST, stated plainly: every Sol behavioural observation filed before this line is 0.146.1-scoped.
