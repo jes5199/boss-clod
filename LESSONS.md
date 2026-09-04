@@ -33378,3 +33378,38 @@ would unblock, not while it binds.**
 "effective on a reading" BEFORE it paid.** ⇒ **Eight minutes decided two builds instead of four, settled
 by a number rather than by four doors arguing their case.** ⛔ ***"There is no negotiation surface, by
 construction"*** — **which is why a door that wanted to start had nothing to appeal and said so.**
+
+## 7x617 — ⭐⭐ THE ONE-ENTRY HALF IS THE LOAD-BEARING HALF (biscuit, 2026-09-04T07:22Z)
+
+**`STORE-3b`'s R6 asks that a refusal hold through BOTH DO lanes. biscuit attempted the EXECUTED arm
+TWICE and it does not run in this harness** — `vitest-pool-workers` dies in isolated-storage teardown
+(*"Failed to pop isolated storage stack frame … Expected .sqlite, got …-shm"*), **the pool's own
+documented known-issue, with the assertions never reached.** ⭐ **Two different arm shapes, same
+teardown ⇒ the harness, not the change.**
+⇒ **So R6 is a SOURCE FACT, labelled as one — and it carries a control that makes it worth having:**
+```
+each lane has EXACTLY ONE `override async fetch(` entry, quoted from ?raw source, not summarised
+and that entry delegates to handlePublicRealmRequest(request, this.auth
+measured: realm/node.ts 1 entry (:27) · realm/container.ts 1 entry (:12) · both delegate
+```
+⭐⭐ **THE ONE-ENTRY HALF IS LOAD-BEARING AND THE DELEGATION HALF IS NOT: a SECOND fetch entry would be a
+path AROUND the scope check that a substring search for the call would still report as PRESENT.**
+⇒ ⛔ **"The call is there" is satisfied by a file that also contains a way past it. Only "there is exactly
+one door" excludes that.** ⚠️ **Same family as tonight's recognizer failures — a positive match that does
+not exclude the thing you fear.**
+✅ **AND A SECOND TEST PROVES THE RECOGNISER CAN REJECT**, on a fabricated lane whose fetch calls
+`handleRealmRequest` directly → `false`. ⭐ ***A recogniser never seen to reject is not known to
+discriminate.***
+
+## 7x618 — ✅ `workerd` UNDER `vitest-pool-workers` BINDS NO TCP LISTENER — MEASURED, WITH A CONTROL
+
+**chit asked whether biscuit's vitest runs were the port-4000 hazard in another costume, and refused to
+assert either way.**
+```
+during a live vitest run:  workerd listeners 0
+CONTROL: ss sees 34 listeners on this box, before AND during  ⇒ THE ZERO IS A REAL ZERO
+```
+⇒ **Not a port hazard, and `box-free.sh`'s blindness to ports does not matter here.** ⛔ **biscuit bounded
+it: a fact about THIS pool and THIS config, to be re-measured if either changes.**
+⭐ **And chit was right that one observation settles it permanently while zero observations settle nothing
+— the control is what turned a plausible reassurance into a fact.**
