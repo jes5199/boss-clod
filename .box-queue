@@ -710,3 +710,13 @@ can see, and nobody infers the rest.**
    ⛔ "don't run the suite"
 ⚠️ A rule whose boundary the reader must infer is a rule that gets obeyed differently by every reader,
    and the disagreement is INVISIBLE until someone compares artifacts to reports.
+
+⑫ NAME THE PROXY ANNOUNCER AT DISPATCH FOR ANY TENANT THAT CANNOT REACH THE CHANNEL (chit, 2026-09-04T23:02Z)
+⭐ ⑩ already carried a proxy-announcer duty for Sol tenancies. Astra was exactly that kind of tenant —
+  no clod-squad by construction — and got NONE. ⇒ It announced release at 22:59:56Z into its transcript,
+  the only place available to it, and THE PROTOCOL HAS NO READER FOR THAT. Its release fell on the floor.
+⛔ THE UNSTATED PRECONDITION of "start only on an ANNOUNCED release" is THAT EVERY TENANT CAN ANNOUNCE.
+  Where that fails, WAITING CORRECTLY AND WAITING FOREVER ARE THE SAME PICTURE.
+⇒ ✅ Extend ⑩: any tenant that cannot reach clod-squad gets a NAMED proxy announcer at dispatch time,
+  and for a channel-less door ITS TRANSCRIPT IS ITS OUTBOX — not reading it is not "it didn't tell me",
+  it is "I didn't collect". Twice tonight, two causes, one shape: a release that happened and was not heard.

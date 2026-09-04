@@ -25,5 +25,13 @@ echo "  --- artifact mtimes ---"
 for f in $PAT; do [ -e "$f" ] || continue
   printf '    %s  %8s B  %s\n' "$(stat -c %y "$f" | cut -c1-19)" "$(stat -c %s "$f")" "$(basename "$f")"
 done
-echo "⚠️ COMPARE BY HAND AND WRITE THE RECEIPT LINE: every mtime must fall inside a granted window."
+echo
+echo "⛔⛔ READ THIS BEFORE COMPARING — THIS SCRIPT ENCODED MY OWN ERROR UNTIL 23:04Z 2026-09-04:"
+echo "   AN MTIME IS A **FINISH** TIME. It bounds when a run ENDED, never when it BEGAN."
+echo "   ⇒ A run whose mtime falls INSIDE a window may have STARTED OUTSIDE it, and vice versa."
+echo "   ⇒ On 2026-09-04 I read four mtimes as start times and BROADCAST A FALSE ACCUSATION against"
+echo "     the one door that could not answer. Every run was authorised or already in flight."
+echo "   ✅ THE START TIME IS IN THE TRANSCRIPT, NOT ON THE FILESYSTEM:"
+echo "     ~/.claude/projects/-home-jes-<door>/*.jsonl  → the tool_use record that LAUNCHED the run."
+echo "   ⚠️ These mtimes are therefore a POINTER TO WHAT TO GO AND READ, never a verdict."
 exit 0
