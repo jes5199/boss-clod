@@ -550,3 +550,15 @@ contention to measure contention, and I am not going to talk you into it sideway
 IT IS THE ONLY ONE.** ⭐ **Twice today a non-BEAM tenancy was carried entirely by an announcement
 (biscuit's build at 12:50Z, its `1b-i` round at 14:41Z), and both times it held — because biscuit had
 already ruled `FREE` undecidable alone and took the box on another door's ANNOUNCED release.**
+
+## ⛔⛔ A DOOR'S LAUNCH WORKTREE HAS ONE WRITER — `git checkout` IS A WRITE (plan, against itself, 2026-09-04)
+
+**`git checkout --detach <sha>` in ANOTHER door's worktree WRITES HEAD.** ⇒ **plan read shas that way
+in `/home/jes/next-suite-load/wt` and caused at least two of the day's detached-HEAD incidents —
+including one that cost a ceremony slot, and one next blamed on itself.**
+✅ **Verified in that worktree's own reflog:** `HEAD@{16:11:20}: checkout: moving from main to c369e2d`
+followed by next moving back.
+✅ **RULE: read another door's tree with `show` / `grep` / `cat-file` / `diff` BY SHA. NEVER
+`checkout`.** ⛔ **It belongs on the ban list beside `pkill -f`: both look like reads and are not.**
+⚠️ **AND THE DETECTION PROBLEM IS THE REAL ONE: the writer sees a successful read; the OWNER sees an
+unexplained state change in its own tree and blames itself.**

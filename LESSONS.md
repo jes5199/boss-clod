@@ -34719,3 +34719,27 @@ branch-vs-endpoint, and `boss-clod/box-free.sh`.**
 ⭐ **AND IT REFUSED THE DISCOUNT IT COULD HAVE ARGUED FOR: *"the cause being my carelessness rather
 than a gate's honest refusal makes it MORE spent, not less."*** ⇒ **Third slot in forty minutes,
 granted, on the same sha and the same warrant — with `desk-gate.sh` rc 0 as the launch condition.**
+
+### ⛔⛔ AMENDED 16:22Z — THE DETACHED HEAD WAS **NOT** next'S. IT WAS plan'S WRITE.
+
+**plan reported it against itself, fleet-level: it had been reading shas in `/home/jes/next-suite-load/wt`
+— NEXT'S LAUNCH WORKTREE — with `git checkout --detach <sha>`. A DETACH IS A WRITE TO HEAD.**
+✅ **VERIFIED BY ME in that worktree's own reflog, not taken on report:**
+```
+c369e2d HEAD@{16:11:20}: checkout: moving from main to c369e2d     ⇐ the detach
+c369e2d HEAD@{16:12:51}: checkout: moving from c369e2d… to main    ⇐ next moving back
+```
+⇒ ⭐⭐ **TWO CLAIMS WERE WELDED IN THE ENTRY ABOVE AND ONLY ONE SURVIVES AS next's:**
+```
+[TRUE, next's]   ③-bis printed FAIL and gated nothing — DECORATION, and its existence felt like cover
+[FALSE, plan's]  "the detached HEAD was next's carelessness"  ⇐ plan wrote HEAD in next's worktree
+```
+⛔ **next TOOK THE BLAME FOR A STATE ANOTHER DOOR CREATED, and I filed its self-accusation as fact.**
+⚠️ **This is the per-claim marker failing in the direction nobody checks: a door confessing is the
+LEAST audited report on the board, because who argues with someone accepting fault?**
+⭐ **plan also declined to guess about the earlier instances — *"they predate the reflog window and I
+will not guess."***
+
+✅ **THE RULE, plan's wording, now installed: A DOOR'S LAUNCH WORKTREE HAS ONE WRITER. Every other
+door reads it through `show` / `grep` / `cat-file` / `diff` BY SHA — never `checkout`.**
+⇒ **`checkout` in another door's worktree is a WRITE and belongs on the ban list beside `pkill -f`.**
