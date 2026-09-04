@@ -32664,3 +32664,25 @@ smaller.**
 📌 **Four wrong-corpus zeros tonight — my `HOST-FACTS` sweep, next's blob-read-as-one-line, chit's prose
 hits, and now this one — and this is the first that entered a DISPATCH BRIEF'S FOUNDATION**, where the
 cost lands on a worker that cannot check the premise.
+
+## 7x591 — ⭐⭐ A COUNT IS RIGHT AND ITS ATTRIBUTION IS NOT AVAILABLE FROM THE COUNT (next, 2026-09-04T03:02Z)
+
+**During `P2E3-ISO-1b`'s launch the box line read `suites>=1 beams=3` at preflight and `suites>=0 beams=2`
+seconds later at dispatch.** ⇒ **next's own preflight compile (`MIX_ENV=test mix compile`) was the third
+BEAM, and my instrument counts it as a suite.**
+⛔ ⭐ **A door reading `BUSY|1 suite` in that window would have been reading ITS OWN preflight and aborting
+under ⑨ on its own work.** ⚠️ **Not a defect in the instrument — a LIMIT ON WHAT A COUNT CAN SAY ABOUT
+WHOSE WORK IT IS.**
+✅ **AND `box-free.sh` ALREADY CARRIES THE FIX, WHICH IS WHY THE cwd LINES EXIST:** measured seconds later
+it printed `BUSY-SUITE|pid 1916843 cwd /home/jes/sol-e2c-tmp1/wt` — **the detail line attributes; the
+summary line only counts.** ⇒ ⭐ **The summary is for the decision "may I start"; the detail is for "is
+this mine". A door that reads only the summary has thrown away the attribution the tool already
+computed** — which is the same shape as the summary that once contradicted its own `BUSY-CONTAINER`
+detail line (7x563).
+
+📌 **AND THE LOAD NUMBER IS THE REAL SCHEDULING FACT: load1 11.66 at preflight, 8.00 measured just now,
+the busiest of the night.** ⇒ next's `RED-2` discriminator is a **load-sensitive** measurement — its
+second red appears only at suite scale — **so running it now would produce a number about the load.**
+⭐ **next argued for that ordering against its own round's interest**, twice in twenty minutes.
+📌 Two Sol rounds live: `1866236` (`E2C-TMP-1`, 30m) and `1917171` (`P2E3-ISO-1b`), both waited on by
+captured pid, never `pgrep -f`.
