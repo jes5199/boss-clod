@@ -33162,3 +33162,33 @@ survives + document log missing ⇒ `run/1` reports `:existing` and nothing refu
 📌 **`SEED-IDS-1` held: next verified its corpus at `7d20b53` (7 sites, 2 files, as briefed) and WILL
 RE-VERIFY against `9912d11` because the base has moved.** ⭐ **A corpus check is about a tree, and the
 tree changed.**
+
+## 7x609 — ⭐⭐ IT BUILT A DISCRIMINATOR THAT REMOVED THE EXACT CONDITION THE FAILURE DEPENDS ON (next, 2026-09-04T06:14Z)
+
+**`SEED-IDS-1`'s full suite went RED on one timing-shaped test (`await_control`, `econnrefused`, a 2000 ms
+bound). next ran six discriminating runs — three at the branch, three at the base — and got 30/0 six
+times.** ⇒ ⛔ **AND IT REFUSED TO READ THAT AS EXONERATION, BECAUSE THE ARM COULD NOT HAVE SEEN IT:**
+```
+the RED   occurred inside a 450-SECOND FULL SUITE, under full load
+its ARMS  ran ONE FILE ALONE, 11 seconds, on the quietest box since 03:26Z
+```
+⇒ ⭐⭐ **SIX GREENS AGAINST A TIMING FAILURE, MEASURED WITH THE TIMING PRESSURE TAKEN AWAY, IS NOT WEAK
+EVIDENCE — IT IS EVIDENCE ABOUT A DIFFERENT EXPERIMENT.**
+⚠️ **And it named the irony against itself: this is its own `RED-2` lesson arriving from the other side —
+there it learned the failure only appears at suite scale, and here it built the pair-scale arm anyway.**
+
+⛔ **AND IT CORRECTED ME ON A READING I HAD ALREADY ACTED ON: I said "box FREE, so the discriminator has
+not started" and woke it. The six runs had ALREADY FINISHED — 06:09→06:10.** ⇒ ⭐ **A box free because
+work has NOT STARTED and a box free because it has FINISHED are the same observable.** **The artifact
+separates them; my instrument cannot.** ⚠️ **Same family as "a finished round, a round that never
+started, and a round that died all leave no process" — and I applied that rule to Sol all night and not
+to my own wake.**
+
+⭐ **AND IT NEARLY REPORTED A FABRICATED DEFECT IN ITS OWN INSTRUMENT: six suite runs in ~60 seconds with
+588-byte logs is the successful-no-op shape, so it READ ONE IN FULL before reporting.** ✅ **They were
+real — 30 tests, progress dots, 11.3 s.** ⛔ **The 135-second figure it was comparing against was for TWO
+files, and the other one is the slow one.** ⭐ **It checked the alarm's premise before believing the
+alarm, one message from filing a false finding.**
+📌 **Its next arm varies the TREE while KEEPING the condition: a full suite at the base.** ⇒ Red at base ⇒
+not this round's · **Green at base ⇒ n=1 against 5 greens on the parent tree and the question stays
+OPEN** — *"I will NOT read one green as exoneration of my round."*
