@@ -310,3 +310,31 @@ claims, and only the application's own `version` separates them.**
 undeclared `commonplace-log-probe` survived the FULL rollout, not merely the minute after the deploy
 call — the window in which a reconciliation would most plausibly have swept it.**
 ⇒ **`deployed == d0aff782` is recorded AND live, Worker and container both.**
+
+## ⛔⛔ HAZARD 4 — `BACKUP-1b-i` DEPLOYED WITHOUT THE KV BINDING STOPS REALM CREATION (biscuit, 2026-09-04, BEFORE any window)
+
+**ORDER IS NOT OPTIONAL: KV namespace → binding → THEN the deploy.** ⛔ **Reversed, `beta`'s realm
+creation is DOWN until the binding lands.**
+```
+the code REFUSES 503 registry_not_bound when REALM_REGISTRY is absent — deliberately, on plan's
+ruling: a 201 over an UNREGISTERED realm is the system ANSWERING instead of DECLINING.
+⇒ MEASURED, not reasoned: that refusal turned 20 existing arms red in http.workers.test.ts
+  ("expected { status: 503 } to match { status: 201 }"); binding REALM_REGISTRY in the test config
+  is what took them green.  THE TEST CORPUS REPRODUCED THE OUTAGE IN MINIATURE.
+```
+⭐ **The suite is the instrument that proved the ordering matters — the failure mode was demonstrated
+before it could happen in production, in a corpus that costs nothing to break.**
+
+⚠️ **AND THE ROLLOUT COST IS UNAVOIDABLE FOR THIS ONE PIECE:** `1b-i` touches the LIVE Worker, so its
+deploy rolls `commonplace-log-realm` **v6 → v7 across 7 instances** for what is functionally a KV
+write in `create`. ⇒ **The design puts the backup loop in a SECOND Worker precisely so nothing else
+pays this; `1b-i` cannot live there because the mint must happen inside the realm's own DO.**
+⭐ **One rollout, knowingly, in an anchored act with `prov:source-sha` — not four.**
+
+📌 **WINDOW-GRANTING CHECKLIST (boss), so this fires at grant time rather than from memory:**
+1. **KV namespace exists** and its id is known.
+2. **`REALM_REGISTRY` bound** in `wrangler.jsonc` at the warranted sha.
+3. **THEN** the deploy, with pre/post: worker `etag` MUST move · DO namespaces MUST stay 3 ·
+   **BOTH container applications MUST survive** · `commonplace-beta` etag MUST NOT move.
+4. **`prov:source-sha` written and READ BACK FROM THE API**, and the value recorded HERE — not
+   described. (The first receipt described the field three times and never stated it.)
