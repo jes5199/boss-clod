@@ -35337,3 +35337,45 @@ it infers it from the prose of the last message.
 SQL line, and I ran it by hand twice tonight. That is the 7x-class signature: a habit worth
 moving into the script.** Not doing it in this turn — noting that it is the fix, so the next
 reader trips over it rather than re-deriving it.
+
+## 7x663 — MY OWN PRECONDITION CHECK MATCHED MY OWN COMMAND LINE, AND IT WOULD HAVE HELD THE GAP SHUT FOREVER
+
+**2026-09-04T21:01Z. next reported `codex exec processes: 0`. My check said `2`, stable across
+three samples seven seconds apart.** A stable disagreement reads like next being wrong.
+
+⛔ **Both numbers were about different things, and mine was measuring ME.**
+```
+ps -eo cmd | grep -c '[c]odex'                 → 2   ← 2 = my own shell, twice
+ps -eo pid,etimes,cmd | grep '[c]odex'         → (nothing)
+/proc/*/cmdline scan, printing instead of counting → ONE hit: PID 3379508 = my own bash
+```
+⭐ **The bracket trick did not save me, and this is the part worth carrying: `[c]odex` only
+defeats a self-match when the pattern is THE ONLY occurrence of the word in your command line.**
+Mine also contained `*codex*`, `.codex-upgrade-pending`, and `codex --version` **as ordinary
+text** — so the process's own argv genuinely contained "codex" several times over, and `grep`
+was answering correctly about a corpus that included the question.
+
+⚠️ **The global rule is already written — *never grep a pattern that appears in your own command
+line* — and I broke it while executing the precondition of a change I had promised not to make
+without it.** ⇒ **The rule is filed against `pgrep -f`/`pkill -f`, and I was using neither; I was
+using `ps | grep`, which is the same instrument wearing different clothes.**
+
+⭐⭐ **WHAT ACTUALLY BROKE THE TIE: PRINTING INSTEAD OF COUNTING.** `-c` collapses *what matched*
+into *how many*, and **a count cannot be inspected.** The instant I printed the matches the
+answer was obvious in one line. ⇒ **A disputed count must be re-run as a listing before either
+side is believed.**
+
+⛔⛔ **AND THE FAILURE DIRECTION IS THE DANGEROUS ONE — IT FAILS CLOSED, WHICH LOOKS LIKE
+CAUTION.** A permanent phantom `2` never swaps a binary under a running round; it just means
+**the gap never opens, next holds its two reviews indefinitely, and every five minutes the sweep
+prints a responsible-sounding `Precondition NOT met`.** ⚠️ **A stuck-safe instrument produces no
+incident, no alarm, and no end** — I would have read my own reflection as a busy fleet for as
+long as I kept asking.
+
+✅ **Resolved by IDENTITY, which is what the rule says to do everywhere else:** walk `/proc`,
+match on `exec -m gpt-5.6-sol`, and **skip `$$` explicitly**. `hits = 0`, control `269 pids
+walked` so the scan is not blind. **Then, and only then, the upgrade.**
+
+📌 **The five-minute sweep term was NOT affected** — `stall-sweep.sh` greps a pattern that lives
+in the script FILE, not in its argv, so its 8 → 4 → 0 series was true throughout. **The defect
+was in my ad-hoc console check, i.e. exactly where no gate protects me.**
