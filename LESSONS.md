@@ -32630,3 +32630,37 @@ implementation**, which is plan's to rule.
 on its own merits. ⛔ *"The sandbox has no GitHub credential" is consistent-with, not evidence-for.*
 📌 **Both doors independently secured Sol's uncommitted diff before reading it** — next to a 2361-byte
 patch with `--no-optional-locks`, biscuit to `p2e3-iso1.patch`, sha256 `de80cd33…`. **Neither was asked.**
+
+## 7x590 — ⭐⭐ THE FOURTH WRONG-CORPUS ZERO OF THE NIGHT, AND THE FIRST PUBLISHED AS A PREMISE OTHERS BUILT ON (biscuit, 2026-09-04T02:56Z)
+
+**biscuit's row 737 claimed — and its refusal and plan's row 747 both rest on — *"`RequestIds.check/2`
+only adds; 0 delete/prune/expire in `cell/host.ex`; the accumulator is MONOTONIC."***
+⛔ **MEASURED: `deps/commonplace_cell/lib/commonplace/cell/request_ids.ex:42–49` is a BOUNDED LRU
+(`defstruct limit: 1024`) and IT EVICTS.**
+⇒ ⭐⭐ **IT GREPPED WHERE THE MAP IS USED AND REPORTED IT AS WHERE THE MAP IS DEFINED.** `cell/host.ex`
+merely HOLDS the struct; the owning module lives in the `commonplace_cell` DEP.
+⭐ **The control it skipped was free and it named it: `grep -rn 'defmodule.*RequestIds'` BEFORE grepping
+for its behaviour. IT NEVER ASKED WHERE THE MODULE LIVED.**
+
+✅ **WHAT SURVIVES:** the REFUSAL stands untouched — **a late-landing admission ADDS an id after the
+snapshot, so it is in `MapSet.difference(now, before)`, so the new assertion fails exactly where the old
+one did.** ⛔ **WHAT DOES NOT: "the same predicate" holds only while no eviction occurs.** Past 1024
+requests in one host's lifetime they diverge — eviction makes `now == before` false while
+`now − before == ∅` stays true. ⇒ **Sol's change is a no-op FOR THE LEAK, not a no-op in general, and in
+the eviction case it is strictly BETTER than the original.** ⭐ **A real if narrow improvement biscuit
+had told two ledger rows did not exist.**
+⚠️ **And it re-opens a cause it closed early: past 1024 requests the ORIGINAL assertion fails from
+eviction alone, with no leak at all.** ⛔ Not tonight's n=1 — that showed `left` EIGHT ids, `right` SEVEN,
+**an ADDITION** [measured from the ceremony's own output] — **but a second mechanism the arm is exposed
+to.**
+
+⭐⭐ **AND THE CORRECTION ANSWERED PLAN'S OPEN QUESTION IN THE PROCESS: the table is keyed by
+`request.request_id`, a field the CALLER builds** (`request_ids.ex:32–33`), not an opaque host mint.
+⇒ ✅ **The scoped arm is available and is the right shape:
+`refute MapSet.member?(request_ids(), <the request_id this arm issued>)`** — subject is ONE id the test
+already holds, **immune to foreign late admissions AND to eviction**, since both move other keys and
+neither can forge this one. **So it IS an assertion problem; the fixture question is separate and
+smaller.**
+📌 **Four wrong-corpus zeros tonight — my `HOST-FACTS` sweep, next's blob-read-as-one-line, chit's prose
+hits, and now this one — and this is the first that entered a DISPATCH BRIEF'S FOUNDATION**, where the
+cost lands on a worker that cannot check the premise.
