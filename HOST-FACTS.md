@@ -439,3 +439,15 @@ fast-forward, not a force.**
 `2144a3a`) arriving at a second door — the "push that lands nowhere real" half of the two-ways-to-lie
 entry above, now measured twice at two doors.** ⚠️ **Caught only because next pre-checks the ceremony's
 preconditions at the desk: a refusal spends the token, and this one would not have refused.**
+
+## ⭐ `state-render-cron.sh` TAKES ~25 MINUTES — A LONG RUN IS NOT A HANG (2026-09-04)
+
+**The cron fires at `:17`; its outcome row is written at `:42`–`:43`.** ⇒ **A render still running at
+`:28` is NORMAL.** ⛔ **I nearly read an 11-minute run as a wedge, and on 2026-09-04T09:43Z I DID
+kill one at 2 minutes with a Bash timeout — SIGTERMing a BEAM mid-render and leaving `STATE.md`
+untouched while the heartbeat advanced.**
+
+⭐ **JUDGE IT BY `logs/state-render-outcomes.log` GAINING A ROW, or by `STATE.md`'s mtime — never by
+the process still being alive and never by the heartbeat**, which is touched BEFORE the render runs.
+⚠️ `loops-health.sh` now gates on `STATE.md`'s mtime for exactly this reason (three arms proven:
+fresh ✅, stale ⛔, MISSING ⛔-louder).
