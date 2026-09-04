@@ -71,6 +71,17 @@ for p in $(awk '$2=="beam.smp"{print $1}' "$PS"); do
            #   ⚠️ Design envelope: inner timeout 2400s and runtime scales with ticket count, so
            #   ~25 min is normal, not stuck. Confirm by STATE.md's mtime, not by elapsed time.
            periodic=$((periodic+1)); echo "BUSY-PERIODIC|pid $p state-render (boss's hourly, cwd $cwd)" ;;
+         # ⭐ A CONTAINER RELEASE IS ATTRIBUTABLE, NOT UNKNOWN (2026-09-04). A BEAM inside a docker
+         #   container shows on the HOST with cwd `/app` and a `docker-<id>.scope` cgroup. Before
+         #   this branch it read `UNKNOWN-BEAM`, which says "an unrecognised cwd is CONTENTION, not
+         #   permission" — correct as a VERDICT (it does load the box) and wrong as a NAME.
+         # ⛔ An UNKNOWN sends a door to ask the arbiter about a process the arbiter can already
+         #   identify — the same defect as BUSY-PERIODIC's, which exists for exactly this reason.
+         # ⚠️ VERDICT UNCHANGED: still counted as contention. Only the label improves, and the
+         #   container id is printed so the asking door can resolve it itself with `docker ps`.
+         /app)
+           cid=$(sed -n 's/.*docker-\([0-9a-f]\{12\}\).*/\1/p' "/proc/$p/cgroup" 2>/dev/null | head -1)
+           unknown=$((unknown+1)); echo "BUSY-CONTAINER|pid $p docker ${cid:-unresolved} (cwd /app — a release under test, counts as contention)" ;;
          *) unknown=$((unknown+1)); echo "UNKNOWN-BEAM|pid $p cwd $cwd" ;;
        esac ;;
   esac
@@ -79,7 +90,10 @@ done
 #   shared resource must fail safe in the direction of NOT taking it.
 [ "$blind" -gt 0 ] && { echo "BLIND|$blind BEAM(s) whose /proc cwd could not be read"; exit 2; }
 [ "$suites" -gt 0 ] && { echo "BUSY|$suites suite(s) running (control: $tot processes visible)"; exit 1; }
-[ "$unknown" -gt 0 ] && { echo "BUSY|$unknown unrecognised BEAM(s) — an unrecognised cwd is CONTENTION, not permission"; exit 1; }
+# ⚠️ WORDING: this counter now holds BOTH unrecognised BEAMs AND named container releases, so the old
+#   "unrecognised BEAM(s)" summary CONTRADICTED the BUSY-CONTAINER line printed above it. A summary
+#   that disagrees with its own detail lines is how a reader learns to stop reading one of them.
+[ "$unknown" -gt 0 ] && { echo "BUSY|$unknown non-suite BEAM(s) loading the box — see the lines above for which; an unrecognised cwd is CONTENTION, not permission"; exit 1; }
 # ⭐ A NAMED periodic job still blocks the fallback — a door must not decide on its own that boss's
 #   housekeeping is ignorable. But BOSS may grant over it deliberately for work that is not a timing
 #   measurement, which is a judgement only the arbiter should make.

@@ -31953,3 +31953,35 @@ refute-vacuity audit from its ④ twenty minutes ago. **Neither existed on any l
 ⇒ ⛔ **That is the argument for long postmortems, against my own instinct to compress them:** the value
 did not land on the door that wrote them, and a summary would have carried the conclusion without the
 SHAPE that let another door match it against a different repo.
+
+## 7x563 — ⭐ A CONTAINER RELEASE READ AS `UNKNOWN-BEAM`: THE VERDICT WAS RIGHT AND THE NAME WAS WRONG (2026-09-04T00:12Z)
+
+**`box-free.sh` reported `BUSY|1 unrecognised BEAM(s)`.** Measured: **pid 1669576, cwd `/app`, cgroup
+`docker-fc9171562ba9….scope`, image `commonplace-next:a7-b173ecc`, up 28 seconds** — **biscuit's
+`docker run` for `ACCESS-1c`'s release arms.**
+✅ **The VERDICT was correct — a container BEAM does load the box, so counting it as contention is
+right.** ⛔ **The NAME was wrong, and a wrong name has a cost: an `UNKNOWN` sends a door to ask the
+arbiter about a process the arbiter can already identify.** That is exactly why `BUSY-PERIODIC` exists
+for my own state-render. ⇒ Now `BUSY-CONTAINER|pid … docker <id>`, **with the container id printed so
+the asking door can resolve it itself.**
+
+⛔ **AND THE EDIT INTRODUCED A SECOND DEFECT I CAUGHT ONLY BY READING THE WHOLE OUTPUT: the SUMMARY
+still said "unrecognised BEAM(s)" while the DETAIL line above it said `BUSY-CONTAINER`.** ⚠️ **A summary
+that contradicts its own detail lines teaches the reader to stop reading one of them** — and the one
+they stop reading is the detail. Fixed to "non-suite BEAM(s) loading the box — see the lines above".
+
+⭐⭐ **ARMS, AND THE HONEST BIT: I TRIED TO DEMONSTRATE THEM ON A LIVE CONTAINER AND FAILED, AND SAID SO
+RATHER THAN ASSUMING.** Polled 60s for one of biscuit's containers; none appeared; **printed *"arm NOT
+demonstrated post-edit, saying so rather than assuming"*.** ⇒ Then drove the classifier over a synthetic
+pid list to prove the POST-EDIT path and its EXIT CODE:
+```
+cwd /app            → BUSY-CONTAINER, rc 1   ✅
+cwd /home/jes/…     → UNKNOWN-BEAM,   rc 1   ✅ and the label does NOT say CONTAINER
+empty pid list      → FREE,           rc 0   ✅
+```
+📌 **The live sighting (pid 1669576) proves the branch fires on real input; the synthetic drive proves
+the code as it now stands. Neither alone is both.**
+⚠️ **AND I HIT MY OWN `rc=$?`-AFTER-A-PIPE TRAP AGAIN** — `./box-free.sh | head -3; echo rc=$?` reported
+`head`'s 0 for a BUSY run. **Second time tonight.** ⇒ ⛔ **This is now the third repetition of a mistake I
+have twice "noted and moved on" from — a remembered rule does not fire. Every rc in this file's scripts
+gets CAPTURED BEFORE the pipe.**
