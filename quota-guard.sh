@@ -242,6 +242,20 @@ _dispatch_line() {
   #   ⚠️ A round whose remaining work is "a test that must be SEEN RED on a mutation a real
   #     defect would produce" tests the transfer at its weakest point AND is worth almost
   #     nothing if it succeeds. Send code-shaped rounds first.
+  # ⭐⭐ next, 2026-09-04T02:57Z — ONE WORD STRONGER THAN "the reviewer verifies":
+  #   A REVIEWER MUST RE-DERIVE EVERY CLAIM THE IMPLEMENTER **COULD NOT HAVE CHECKED**,
+  #   not merely every claim it did not check.
+  #   ⛔ MEASURED PROPERTY OF THE SOL SANDBOX, so it is knowable IN ADVANCE and is a
+  #     PROVISIONING CHECKLIST rather than a per-round judgement call:
+  #       `git ls-remote` -> Permission denied (publickey)   ⇒ CANNOT verify its own base
+  #       `.git` mounted read-only                            ⇒ CANNOT create a branch or push
+  #       every credentialed gate                             ⇒ fails BLIND, not RED
+  #   ⇒ ⭐ THE DISPATCHER IS THE ONLY DOOR POSITIONED TO RUN IT: the implementer structurally
+  #     cannot, and the reviewer arrives AFTER the work.
+  #   ⚠️ AND A CREDENTIAL-BLIND DOOR CANNOT TELL "the pin is wrong" FROM "I cannot see the
+  #     pin" — BOTH PRINT A FAILURE. Verified 2026-09-04: all six pin gates rc 0 against SOL'S
+  #     OWN TREE from outside, so its self-dismissal named a BLINDNESS, not a defect.
+  printf 'DISPATCH-VERIFY|dispatcher re-derives what the sandbox CANNOT check: base sha by ls-remote at the URL, and every credentialed gate from outside. Sol has no GitHub credential and a read-only .git.\n'
   printf 'DISPATCH-TEST|route by WHAT THE DELIVERABLE IS MADE OF: code-against-a-spec -> Sol (arms check it). If the deliverable IS the arm, keep it on a Claude door -- that is the part bound (1) says does not transfer.\n'
   printf 'DISPATCH-EXCEPT|hermes live-money paths (lib/hermes/jobs/, lib/hermes/trading/) are NOT routable to any implementer: they need jes'"'"'s own word PER CHANGE, cited. A review does not substitute for an authorization.\n'
 }
