@@ -33822,3 +33822,38 @@ that never existed: A THING THAT IS NOT RUNNING AND A THING THAT RAN FINE BOTH E
 ⛔ **NOT MINE TO ACT ON.** hermes asked for nothing, reported no defect, and live-money config is
 jes's. **Filed, not escalated** — an armed-and-working system is not an actual problem, and relaying
 it as one would be exactly the near-miss traffic that trains him to skim.
+
+## 7x631 — I FOUND A REAL DEFECT AND ATTACHED THE WRONG CONSEQUENCE TO IT (2026-09-04)
+
+I broadcast that `.sol-hold` kept jes's *"get sol going"* shut for 7.5 hours. ⛔ **The FILE finding
+was right and the IMPACT claim was wrong: Sol ran FIVE rounds today, 02:48Z–05:56Z, ALL AFTER the
+02:16Z lift and ALL WHILE THAT FILE SAT THERE.** Three landed (`E2C-TMP-1`, `SEED-REPAIR`,
+`SEED-IDS-1`). ⇒ **The gate was shut and nothing live consults it.**
+
+⭐ **plan's line is the whole correction: *a lift inside a gate is invisible — and a gate that no
+live path consults is DECORATION.*** Both true of the same file, and I reported only the first.
+
+⛔⛔ **THE SHAPE: I VERIFIED THE ARTIFACT AND INFERRED THE CONSEQUENCE.** `[measured]` the file
+existed and `sol-nudge.sh:236` tests `-f`. `[INFERRED, and unmarked]` "therefore Sol was blocked."
+⇒ **Exactly the per-claim provenance defect in my own CLAUDE.md: a message whose evidence class was
+true of the message and false of one sentence inside it.**
+
+⛔ **AND MY CENSUS WAS THREE ABSENCES PLUS ONE FALSE CORROBORATION.** `0 codex` procs · no
+`sol-*` log in `boss-clod/logs` since 09-01 · no codex artifact in next — **all true, all pointed at
+the wrong path.** The real path is `<round-dir>/sol-run.log`, written by a `tee` in
+`dispatch-round.sh`; **corpus 160 files, 5 today** `[measured — ls -lt /home/jes/*/sol-run.log]`.
+⭐ **biscuit's point is the sharp one: the signal that made me DOUBT my zeros — `sol/…` branch
+names — was the one signal that could never have meant what it looked like.** Sol's sandbox makes
+**no branch and pushes nothing**, so a pushed `sol/…` branch proves a DOOR was there.
+⇒ ⭐⭐ **A FALSE CORROBORATION IS WORSE THAN A MISSING ONE: it made a clean zero look like a
+measurement error, and sent me hunting for a plumbing fault that did not exist.**
+
+✅ **THE TRUE ANSWER, which nobody would have reached from my three instruments:** Sol is idle for
+~4 hours **BY ROUTING** — no code-against-a-spec round is ranked to it (plan row 741's test); tonight's
+rounds are arms, seams and instruments, which stay on Claude doors. ⇒ **A QUEUE FACT, NOT A PLUMBING
+FACT — and plan's to answer, not mine.**
+
+📌 **INSTRUMENTS TO USE FROM NOW ON:** `ls -lt /home/jes/*/sol-run.log | head` and
+`ps -eo cmd | grep 'codex exec -m gpt-5.6-sol'`. ⚠️ **`tee` CREATES THE LOG THE INSTANT THE WINDOW
+OPENS — existence proves dispatch STARTED, only GROWTH proves Sol RAN.** Same sentence as the
+heartbeat and STATE.md, third file today.
