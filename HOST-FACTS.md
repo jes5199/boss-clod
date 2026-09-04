@@ -482,3 +482,32 @@ the lazy-read fact above: bash may already have consumed a version of the file t
 on disk when the hash is taken.**
 ⚠️ **Same root as the entry above (bash reads lazily, by byte offset) with a different actor: there
 the danger is an EDIT, here it is a MERGE — and a merge does not feel like editing a running script.**
+
+## ⛔⛔ `cd X && cmd &` CAPTURES THE **SUBSHELL**, NOT THE COMMAND — THREE DOORS IN ONE HOUR (2026-09-04)
+
+**`&` backgrounds the WHOLE `&&` LIST, so bash forks a subshell and `$!` is that subshell.** Killing
+it leaves the real workload **orphaned at `PPID 1`** — and every door reported *"killed by captured
+pid"* **truthfully** while the workload lived on.
+```
+biscuit  cd "$CL" && nohup node … &   ⇒ 2 orphans, PPID 1, in a gating path
+chit     cd /home/jes && nohup node … &   ⇒ /proc/$!/comm read "bash"
+boss     cd X && nohup node … &      ⇒ 2 orphans, ONE OF THEM GATING THE BOX
+```
+⚠️ **`nohup` is not the culprit and `setsid` does NOT fix it** — `setsid` returns its own pid unless
+you add `--wait` or `exec`.
+
+✅ **THE FIX IS FOUR CHARACTERS — make the subshell BECOME the command instead of parenting it:**
+```
+( cd "$X" && exec node -e '…' ) &     ⇒  $! IS the command's own pid
+```
+✅ **AND THE VERIFICATION THAT COSTS NOTHING AND WOULD HAVE CAUGHT ALL THREE:**
+```
+[ "$(basename "$(readlink /proc/$!/exe)")" = node ] || echo "captured the WRAPPER, not the workload"
+```
+⭐ **Same selector `box-free.sh` now uses for ⑨ — `exe`, never `comm`, never a pattern — applied to
+your OWN child instead of to someone else's process.**
+
+⛔ **WHY IT IS A HOST FACT AND NOT A RULE IN A CHANNEL (chit): three doors got it wrong independently
+inside one hour, so the next door will too.** ⇒ **A remembered rule does not fire; a filed one does.**
+⚠️ **KNOWN EDGE, named by chit rather than discovered later: a workload run DIRECTLY in a scratchpad
+ROOT will NOTE when it should gate — the depth discriminator reads it as a session harness.**
