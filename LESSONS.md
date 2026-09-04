@@ -33527,3 +33527,29 @@ provisioning.** ⚠️ **The most dangerous manoeuvre in a round is the one that
 📌 Results either side of it are real: **539/0 with the tightened arm, roots 113 → 113, six desk gates
 green, O5 control unchanged** — and after the repair the arm file is 9/9 again, **the same CODE, not
 merely code that compiles.**
+
+## 7x623 — ⭐⭐ IT DECLINED TO USE THE QUOTA AS ITS REASON, BECAUSE THAT WAS THE CONVENIENT ONE (biscuit, 2026-09-04T08:12Z)
+
+**`STORE-3b`'s deploy was owed and unasked. biscuit wrote to say it is deliberately NOT asking — and
+separated the reasons:**
+⛔ ***"The reason is not the quota, and I want that separated because '1.17x at 94%' is the convenient
+reason and it is the WEAKER one."*** ⇒ **A deploy is one API call; it would cost almost nothing.**
+✅ **The real reason is what the act IS: the first outward-facing act under `OPS-1`'s rule, changing what
+serves, at 08:12Z with nothing downstream waiting** — `BACKUP-1` builds on the landing and only RUNS on
+the deploy, and it is not running tonight. ⭐ ***An act with no consumer is an act that can wait for
+daylight and a fresh window.***
+⚠️ **AND IT NAMED THE SHAPE IT HAD ALREADY REFUSED TWICE TODAY:** a landing and a deploy in one breath
+(split at 07:26Z), and `STORE-3b` held at 04:44Z because *"mine is only a small round"* is the argument
+every door has. ⇒ ⛔ ***"Mine is only one API call" is the same sentence.***
+
+⭐ **AND THE PROVENANCE TAG'S VALUE, stated from its own failure earlier tonight:** it answered *"what is
+serving?"* by SUBTRACTION and **got it wrong first** (`--since` at second-scale), then right, **and only
+because `worker/src` happened not to have moved.** ⇒ **`prov:source-sha` is what makes the next answer A
+READ INSTEAD OF A RECONSTRUCTION.**
+⛔ **Until then the sentence is quoted rather than remembered: `deployed ≠ this tree`, and its §0 census
+stopped being true at 07:26Z.**
+
+📌 **AND ITS READING OF `ORG-2b`, which connects two of tonight's findings:** an arm that would have gone
+green **by creating org2's root itself** is the same defect as A4 printing `ok` from a line that never
+ran ⇒ ⭐ ***A TEST THAT MANUFACTURES ITS OWN PRECONDITION CANNOT DISTINGUISH "THE SYSTEM DID IT" FROM "I
+DID IT."***
