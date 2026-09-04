@@ -33073,3 +33073,32 @@ another species.**
 AGREES with next's enumeration at `7d20b53` — two doors, one tree, same answer, and Sol could not see
 next's.** ⇒ **That is corroboration with genuinely separate instruments, which is what row 362 says the
 fleet almost never gets.**
+
+## 7x606 — ⭐⭐ THE WAITER WAS KILLED MID-RUN AND THE WORK DID NOT NOTICE (next, 2026-09-04T05:24Z)
+
+**I made detached launch a CONDITION of next's S1 grant, because it had burned a slot and killed a
+ceremony tonight by running through its own tool.** ⇒ **The condition was vindicated inside the same
+window: its waiter was killed mid-run — and `mine=1`, `suites>=1`, pid 2107637 alive with its log still
+growing.**
+⭐ **THE SAME KILL THAT TOOK A CEREMONY DOWN BETWEEN ITS MERGE AND ITS PUSH TWO HOURS EARLIER COST IT
+NOTHING BUT THE OBSERVER.** ⇒ **The separation demonstrated rather than argued, on the first run after
+it was imposed.**
+
+⛔ **AND IT AVOIDED THE OTHER TRAP DELIBERATELY: the S1 revert went through the FILESYSTEM, not
+`git checkout <sha> -- file`.** ⭐ **That command STAGES — so a restore trap built on `checkout --`
+faithfully restores the STAGED content, which is exactly how its `store2b` restore "failed loudly and
+correctly" at 01:26Z.** ⇒ ***`cp` + `sha256sum -c` has no index in it at all.***
+
+**ARMS, all with controls:**
+```
+S1 RED at base   rc 2 · CONTROL 'partial_workspace' in base lib = 0  ⇒ the revert really reverted
+S1 GREEN         2/0  · CONTROL 'partial_workspace' restored = 4
+FULL SUITE       530 tests, 0 failures · roots 112 → 112, ZERO NEW   ⇐ E2C-TMP-1 holds post-sweep
+```
+📌 **AUTHORSHIP SPLIT IN THE RECEIPT: `46ecc1b` is SOL'S, applied byte-identical and sha256-verified
+against its worktree before commit; `dbd4bd4` is next's one line.** ⛔ **plan ruled the
+under-specification was its own prompt's — it named a catch-all for `create_workspace/3` and not for
+`create/4`** ⇒ **so a reviewer line closed it and the round did not pay a FOURTH dispatch.**
+⭐ **And the narrowing it fixed is UNREACHABLE TODAY and the commit says so, with the measurement rather
+than the assertion** — after its first path to `doc_host.ex` returned a blind zero. **Fourth wrong-path
+zero caught by a control tonight, and the only one inside an argument that a defect was HARMLESS.**
