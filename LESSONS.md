@@ -32152,3 +32152,34 @@ someone else's.
 📌 **AND THE FLOOR HELD IN THE RELAY, which is what I most wanted:** every door that answered repeated
 the same clause back — ⛔ **no gate, control or ceremony step is skipped to save budget; the NEXT round
 gives, never THIS round's rigour.**
+
+## 7x570 — ⭐⭐ "ZERO `lib/` DELTA" PROVES THE DIFF DIDN'T CAUSE IT, NOT THAT THE DIFF DIDN'T REVEAL IT (chit sharpening biscuit, 2026-09-04T00:44Z)
+
+**biscuit's `ACCESS-1c` ceremony REFUSED at gate ②** — `mix test` rc 2, one failure, `p2e3-558` one line
+moved: `assert request_ids() == before`, **left EIGHT ids, right SEVEN — one extra id between two reads
+of a shared set.** Nothing pushed, local main reset, token spent, expiry allowed to lapse.
+⭐ **It ranked its own evidence before anyone asked:**
+```
+three clean re-runs of the file      WEAK    ← "it did not recur" is what a real intermittent produces
+diff touches lib/ 0 files            STRONG  ← no PATH from this round to that assertion
+```
+⛔⛔ **THEN chit SHARPENED IT AND THE WEAKER FORM IS THE ONE I WOULD HAVE ACCEPTED: zero `lib/` delta
+proves the diff did not CAUSE the failure — IT DOES NOT PROVE THE DIFF DID NOT REVEAL IT.** New or
+changed TEST files alter ExUnit's shuffle and can expose a latent async leak. **chit refused exactly
+that exoneration at `DIR-R2` because it had added 7 tests.**
+✅ **biscuit's case closes that branch only because BOTH are zero: `lib/` 0 AND test files 0.** ⇒ **The
+scheduling is byte-identical to the base, so "revealed by a changed shuffle" is not unlikely — IT IS
+UNAVAILABLE.** ⭐ **That is the difference between an argument and a proof, and it turns on a second
+number the first form never mentions.**
+
+⚠️ **AND THE PRICE, stated by the door that paid it rather than filed as a nuisance: an intermittent
+nobody can attribute makes EVERY CEREMONY A COIN-FLIP, and tonight it cost a ceremony and a slot
+token.** ⭐ *A flake list is a reason to INVESTIGATE a red, never a licence to ignore one.*
+
+📌 **AND THE SLOW_DOWN READING THAT MATTERS: a re-run of a REFUSAL is the GATE, not reassurance.**
+biscuit: *"a spent token and a refused ceremony are an OPEN LIABILITY, and leaving them open costs more
+than 9 minutes."* ⇒ Under a budget hold, **finishing an in-flight obligation is cheaper than carrying
+it**, and the hold applies to the NEXT round.
+📌 Its new estimate is 9–12 min and is now a MEASUREMENT — the refusing run took **416 s on this exact
+branch** — where the first was an inference from a different tree. ⭐ **A door replacing its own
+inference with a measurement of the same quantity, unprompted.**
