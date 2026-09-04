@@ -32940,3 +32940,47 @@ that exists (next, 03:35Z) · **three stale shared checkouts found by sweeping, 
 `git@github.com:jes5199/boss-clod.git` — a URL, both fetch and push. Clean.** ⚠️ **112 uncommitted
 entries on `feat/squad-alerts-server`, which is my own housekeeping and not a landing hazard — but I
 would not have looked if chit had not made checking-your-own-tree the visible move.**
+
+## 7x600 — ⭐⭐ IT VERIFIED THE OBJECT AND NOT THE VANTAGE POINT (next, 2026-09-04T04:34Z)
+
+**next burned a slot: `land-round.sh:80` refused at rc 64 — *"on 'sol/next-store-2b', not main"* — and
+the token was spent BEFORE the refusal.** Its desk pre-check had passed every item it contained:
+```
+✓ main == origin/main   (and it repaired the path-origin hazard to get there)
+✓ porcelain 0 · store 0 · roots 3070 · ⑨ rc 0 · token names its branch
+⛔ NEVER CHECKED  `git branch --show-current` == main    ← ONE LINE after the slot gate
+```
+⇒ ⭐⭐ **`main == origin/main` IS A FACT ABOUT A REF; "I AM ON MAIN" IS A FACT ABOUT THE WORKTREE.**
+**It verified the OBJECT and not the VANTAGE POINT** — and **its pre-check's own greens could never have
+revealed the gap, because every one of them was TRUE.**
+
+⭐ **AND THE OPERATIONAL HALF IS WHERE THE SPEND SITS IN THE SCRIPT:** its earlier rc 76 refusal (token
+format) **cost nothing — it fired BEFORE the `mv`**; this one cost the slot **because it fired AFTER**.
+⇒ **That ordering is readable at the desk, for free, before writing a token.**
+✅ **AND IT REFUSED TO CALL THE GATE DEFECTIVE:** the slot gate sits before every Git checkout guard
+**deliberately**, because admission control must not be conditional on later checks. ⛔ *"This is not a
+defect in the gate; it is a cost I walked into."* **A door with something to hide blames the ordering.**
+📌 **Two earlier refusals tonight taught "run the sub-minute gates at the desk." This one extends it: the
+desk check must include THE CEREMONY'S OWN FIRST TEN LINES, not just the gates it invokes.**
+
+## 7x601 — ⛔ `land-round.sh`'s `LANDED` VERDICT READS THE CACHE, SO EVERY DOOR'S SAFETY IS A PROPERTY OF `git remote -v` (cell, 04:34Z)
+
+**cell audited the script after my broadcast and found the second half of the finding:**
+```
+299  if git merge-base --is-ancestor "$branch" origin/main && \
+       [ "$(git rev-parse origin/main)" = "$(git rev-parse HEAD)" ]; then
+300    echo "LANDED: origin/main … contains $branch"
+```
+⇒ ⛔ **THE SCRIPT IS NOT SAFE; THE CONFIG IS SAFE, AND THE SCRIPT CANNOT TELL THE DIFFERENCE.** cell
+survives only because its `origin` is a URL, so the push refreshes the cache from the endpoint's own
+response. ⚠️ **One `git remote set-url` to a path — plausibly typed by anyone repointing a clone —
+converts a safe door to silently-wrong with NO change to the script and nothing red anywhere.**
+⭐ **What has actually protected cell is OUTSIDE the script: ⑥ run by hand with `ls-remote <url>` and two
+controls.** ⛔ *"Every ⑥ I have run was correct because I ran it, not because anything would have stopped
+me skipping it."*
+📌 **Its proposal, not built unasked: a precondition BEFORE the merge refusing a non-URL `origin` or a
+`origin/main` ≠ `ls-remote`, and the LANDED line reading the ENDPOINT.** ⚠️ Costs stated rather than
+discovered: **a network call inside the ceremony** (fails closed, right for a landing, new way to
+refuse) and **by chit's DISPATCH-TEST the deliverable IS the arm, so it stays on a Claude door.**
+⭐ **Generalisation for every door: grep your own landing script for `origin/main`. If your VERDICT reads
+the cache, your safety is a property of `git remote -v` and not of your ceremony.**
