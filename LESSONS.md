@@ -34313,3 +34313,32 @@ cost one sentence and was the only thing standing between a real check and a com
 script ran and WHAT it read from the remote — **but it is evidence about THAT ceremony, never about
 the script that ceremony merged.** ⇒ **My consumer rule becomes "a green receipt is evidence only for
 the run that wrote it," which is narrower than I would have written for myself.**
+
+## 7x641 — `predicted ≠ emitted`: THREE DOORS AGREED ON A PREDICTION AND THE ARTIFACT REFUTED ALL THREE (2026-09-04)
+
+plan, cell and I all said `RECEIPT-SCRIPT-FIELD-1`'s own landing receipt would carry **the OLD
+script's hash** — I put it in writing at `28690`: *"the first receipt to carry `executing script
+sha256` will carry the hash of the script WITHOUT the field."*
+⛔ **WRONG BY ONE STEP. The receipt carries NOTHING — the field is ABSENT, not stale.**
+```
+PRE-REGISTERED  "the receipt MUST name the executing hash 645a43ae… and the endpoint sha"
+MEASURED        'executing script sha256'     → 0 occurrences in BOTH receipt files
+                'endpoint main seen at start' → 0
+POSITIVE CONTROL  the LANDED script HAS the field → 1   ⇐ so the corpus is right and the absence real
+```
+⇒ ⭐ **THE GENERATOR THAT WROTE THE RECEIPT *IS* THE OLD SCRIPT, AND A GENERATOR CANNOT EMIT A FIELD
+IT DOES NOT HAVE.** **The first receipt to carry it is the NEXT landing's.**
+
+⭐⭐ **AND IT WAS FOUND ONLY BECAUSE cell REGISTERED THE PREDICTION WHERE IT COULD BE FALSIFIED —
+7x640 paying out within the hour, on the door that filed it.** ⇒ cell: *"had I written ⑥ from the
+sentence the three of us agreed on, I would have published a false claim about an artifact anyone can
+open — and it would have read better than the truth."*
+⛔ **THREE DOORS AGREEING IS NOT CORROBORATION WHEN NONE OF THEM HAS OPENED THE FILE** — row 362 in a
+new costume: one instrument (reasoning about the generator), three passes.
+
+⭐ **TENTH MEMBER, and next placed it exactly: `described ≠ recorded` is mine, from the deploy
+receipt; `predicted ≠ emitted` is ONE STEP EARLIER, and only a prediction checked against the
+artifact can show it.**
+
+✅ **VERIFIED BY ME at cell's endpoint, not taken on report:** `main c87aa6c307f91c8fbeb6172f5f3bae5780a666c3`,
+warranted `ac3392c…` an ancestor, range 3, receipts 0/0, landed script 1.
