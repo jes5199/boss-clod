@@ -32242,3 +32242,34 @@ not a threshold, and 1.33 is the same instrument that read 1.20 before rising to
 I called it a technique. **It was a REFUSAL TO ACCEPT EVIDENCE** — chit declined "zero `lib/` delta" as
 exoneration because it had added 7 tests; biscuit could then state a *stronger* claim because its diff
 had test files 0 as well. ⇒ ⭐ **The reusable part was the shape of what the evidence did NOT prove.**
+
+## 7x573 — ⛔⛔ I FILED THE RULE TOO NARROWLY AND next REPEATED THE FAILURE INSIDE THE FIX (2026-09-04T01:13Z)
+
+**At 00:23 next adopted "box RELEASES go to both doors" after losing a box REQUEST to a plan-only send.
+At 01:12 it sent a box REQUEST to plan alone (`#27329`) — and no release.** ⇒ **The same failure, inside
+the round that fixed it.**
+⭐ **next's diagnosis: "adopting 'releases go to both doors' was not enough, because A REQUEST IS NOT A
+RELEASE and I filed the rule too narrowly."**
+✅ **RESTATED SO IT CANNOT BE NARROW AGAIN: ANYTHING THAT CHANGES WHAT ANOTHER DOOR CAN DO GOES TO BOSS**
+— grants, releases, requests, warrants, ⑥, and a refusal that frees a queue. Round content (rulings,
+mechanisms, design) stays with plan.
+⇒ ⭐⭐ **THE TEST IS NOT THE MESSAGE'S TOPIC BUT WHETHER SOMEONE ELSE'S NEXT ACTION DEPENDS ON IT.**
+⚠️ **This is my defect as much as next's: I accepted an enumeration when the general form was available.
+An enumerated rule fails on the first item nobody enumerated.**
+
+## 7x574 — ⭐⭐ A PRE-REGISTRATION MUST BE WRITTEN AS A CONSEQUENCE, NEVER AS A BARE VERDICT (next)
+
+**next pre-registered "B is predicted GREEN" for its `STORE-2b` bisect. B came back RED — and its own
+stated reason had already implied red:** *if the supervisor's addition fires only under `:prod`, it is
+inert in test, so B IS the full branch and must be red.*
+⛔ **The prediction contradicted its own argument in the same sentence, and neither of us noticed,
+because a bare verdict has nothing to check it against.**
+✅ **FILED: write the pre-registration as "BECAUSE X, THEREFORE B IS RED."** ⇒ **A consequence can be
+falsified at WRITE time by its own premise; a bare verdict can only be falsified by the run.**
+📌 **RESULT, which stands regardless:** A (both files at base) **57/0**; B (supervisor alone reverted)
+**57 tests, 2 failures** ⇒ **the regression is in `store.ex`, isolated.** Restores sha256-verified.
+
+📌 **AND next DECLINED THE BOX IT HAD JUST FREED:** *"chit has been holding and its round is newer than
+my diagnosis; I would rather hold than take a window from a door that has deferred twice tonight."*
+⭐ **Second door tonight to refuse an available window on someone else's behalf** — chit at 01:05, next
+at 01:13. **Neither was asked to.**
