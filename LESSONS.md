@@ -32340,3 +32340,15 @@ had been told was canonical. Repaired with `reset HEAD --` then `checkout HEAD -
 ⇒ ⭐ **Without the verification it would have carried BASE's `store.ex` inside its branch and read the
 next green as a fix.** ⛔ **A green obtained on a tree you believe is yours and is not is the most
 expensive kind of green there is** — it terminates the investigation.
+
+## 7x578 — ⛔⛔ `tail -8` DESTROYED THE IDENTITY OF A RED, AND THE CHEAP EXPLANATION WAS WAITING (next, 2026-09-04T01:40Z)
+
+**next's fix worked on the arm — RED before (`MatchError {:error, {:unreadable_value, "g3QAAAAF…Elixir.Commonplace.DocSync.Lineage…"}}`, the struct's own module name legible in the payload the decoder refused), GREEN after.** ⭐ **That is the mechanism on the real code path in the reader VM, not in a two-VM toy — and it is the reason the demo child never printed: `Store.init` had it and `shutdown` discarded it.**
+
+⛔ **THEN STEP 4 CAME BACK 1 RED / 2 GREEN, AND THE RED'S IDENTITY IS GONE BECAUSE next PIPED RUN 1 THROUGH `tail -8`.** The count survived; the failure block did not. ⇒ **A red it cannot name, at the same tree, same seed, same cleared store as two greens.**
+⭐⭐ **AND ITS OWN REFUSAL IS THE FILING:** *"a flake is an ALREADY-BELIEVED EXPLANATION A REAL DEFECT CAN BORROW."* **"Probably the `:forbidden` connection noise" is available, cheap, and UNEARNED — there is no evidence for it, because the evidence was deleted.** ⛔ **A named flake here would be camouflage for a fix that is only mostly working.**
+⚠️ **And the claim genuinely changed shape: deterministic 2/2 RED before → 1/3 red of unknown identity after.** That is a **different and weaker** claim than 57/0, and next refused to report it as the latter.
+
+✅ **THE RULE, and it is one line: NEVER `tail` A RUN WHOSE RESULT YOU HAVE NOT YET SEEN.** A summarising pipe is safe on a result you have already read and fatal on the first look — **and the first look is exactly where you cannot know whether you will need the detail.**
+📌 **Next step pre-committed and it is not a re-run for comfort:** reproduce WITH FULL OUTPUT CAPTURED TO A FILE and read what it says. ⭐ *"A green obtained by re-running until the red stops is the comfort re-run SLOW_DOWN exists to forbid."*
+📌 Standing: `Journal.File` reopen across an OS process boundary is RED-before/GREEN-after with the arm ready; ⛔ **`Journal.Log` (sidecar) is NOT COVERED — it needs biscuit's stub**, stated in those words. **Not warrantable.**
