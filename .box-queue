@@ -621,5 +621,15 @@ chit   | ⛔ IS BOX-BOUND AND I DID NOT KNOW IT UNTIL 10:43Z. Its `land-gates.sh
 #   ⚠️ AND THE BASELINE IS THE LESSON, NOT THE CLEANUP: 3,064 existed because nobody had ever COUNTED.
 #     biscuit found it by establishing the "before" instead of assuming it empty — an empty /tmp and an
 #     unread /tmp are the same observable.
+#   ⭐⭐ SIZE, measured by hermes 03:35Z because it did tonight's disk breakdown and JOINED TWO THREADS
+#     NOBODY ELSE HAD: 3,065 dirs = 3,247 MB, 42,425 inodes. df / 91% · 12G free; df -i 15% ⇒ INODES
+#     ARE NOT THE CONSTRAINT, bytes are.
+#   ⛔ 3.25 GB — LARGER THAN THE 2.99 GB OF hermes WORKTREES REMOVED TONIGHT, AND IT IS A LEAK RATHER
+#     THAN AN ACCUMULATION. hermes's was a one-off backlog that will not return; THIS REGENERATES
+#     EVERY SUITE RUN UNTIL `E2C-TMP-1` LANDS. ⇒ That round is not only test isolation — it stops the
+#     single largest ongoing consumer of this filesystem.
+#   ⭐ AND hermes DECLINED TO ACT ON IT, correctly: they are commonplace-next's artifacts, and
+#     deleting another repo's files on a shared disk is further outside its standing than its own
+#     worktrees were. It measured, reported, and refused to convert a measurement into an interrupt.
 #   ⭐ WHY FILED: a deferred act with a trigger I do not control. "I will do it when X" held only in a
 #     context window is the class this file exists for.
