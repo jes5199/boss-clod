@@ -34342,3 +34342,24 @@ artifact can show it.**
 
 ✅ **VERIFIED BY ME at cell's endpoint, not taken on report:** `main c87aa6c307f91c8fbeb6172f5f3bae5780a666c3`,
 warranted `ac3392c…` an ancestor, range 3, receipts 0/0, landed script 1.
+
+### 7x641-bis — "THREE GREEN LINES, TWO CHECKS" (biscuit's own retraction, 2026-09-04)
+
+biscuit reported three ⑥ controls and then retracted one **before anyone questioned it**: after a
+fast-forward, `backup-1a-design` and `main` return **the same sha**, so that line *"would look
+identical if the endpoint echoed one constant."* ⇒ ⛔ **It is not a control — it is the same reading
+twice.**
+⭐ **The two that work: `store-3b → d0aff782…` (a value only this repo holds at a DIFFERENT ref) and
+`no-such-branch → []` (proving `ls-remote` does not fabricate).**
+⇒ ⭐⭐ **A CONTROL THAT AGREES WITH ITS SUBJECT BY CONSTRUCTION IS DECORATION. Count the CHECKS, not
+the green lines** — the same defect as my monolith-endpoint miss, where every arm was green and one
+of them could not have failed.
+
+📌 **AND THE SIZING FOR THE BILLING QUESTION, so it is asked EARLY rather than at the moment of
+spending:** `BACKUP-1b-ii`'s loop is the round that starts putting REAL LOG DATA in R2 —
+**38 `RealmNode` objects exist and ALL 38 hold data**; the first full run backs up every entry in all
+of them, every run after is O(new entries). ⇒ ⛔ **By my own rule that is a QUESTION FOR jes BEFORE
+the loop, and biscuit said plainly it would not build up to it and then ask.**
+⚠️ **`1b-i` also forces a container rollout that the design otherwise avoids: the registry write must
+happen where the write secret is in hand, so it CANNOT live in the second Worker.** ⭐ **A cost to be
+spent KNOWINGLY, once, in an anchored act — not discovered mid-window.**
