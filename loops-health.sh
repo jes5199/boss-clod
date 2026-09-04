@@ -98,6 +98,29 @@ for h in $_gates; do
   printf '%-22s %-10s %s\n' "${h#.}" "${age}m" "$state"
 done
 
+# ⛔⛔ THE ARTIFACT, NOT THE HEARTBEAT (2026-09-04, LESSONS 7x630/7x631). state-render's heartbeat
+# is touched BEFORE the render runs, so it proves the script STARTED and never that STATE.md was
+# written. On 09-04 the heartbeat read 09:43Z while STATE.md was still 12 HOURS OLD — I had
+# SIGTERMed the render mid-run and the heartbeat said nothing about it.
+# ⭐ A creation event is not a completion event. Judge this job by its OUTPUT's mtime.
+# ⭐ OVERRIDABLE SO BOTH ARMS ARE DEMONSTRABLE ON THE REAL CODE — a hard-coded path makes the
+# GREEN arm untestable, and a gate never seen pass on known-good input is half-unproven.
+# (Same fix as quota-guard.sh's BURN_LIMIT, 2026-09-03.)
+_state=${STATE_MD:-/home/jes/commonplace/STATE.md}
+if [ -f "$_state" ]; then
+  _sage=$(( (NOW - $(stat -c %Y "$_state")) / 60 ))
+  if [ "$_sage" -gt 120 ]; then
+    printf '%-22s %-10s %s\n' "STATE.md" "${_sage}m" "⛔ STALE ARTIFACT — renderer has not COMPLETED (heartbeat proves start only)"
+    fail=1
+  else
+    printf '%-22s %-10s %s\n' "STATE.md" "${_sage}m" "✅ rendered"
+  fi
+else
+  # ⛔ A MISSING FILE IS NOT A FRESH ONE. Absence here must be louder than staleness, not quieter.
+  printf '%-22s %-10s %s\n' "STATE.md" "-" "⛔ MISSING — not the same as stale; the renderer has never produced it here"
+  fail=1
+fi
+
 if [ "$fail" -ne 0 ]; then
   echo
   echo "⇒ Re-arm with CronCreate. The exact prompts are in LOOPS.md — that file is"
