@@ -34232,3 +34232,35 @@ author twice in one afternoon.**
 📌 **VERDICT for the record: `SHARE-1b` passes row 834's first branch — 0 of 3 ruled runs red, 1 red
 in 5 branch samples, DECLARED NOT ABSORBED; base `a568330` 2/2 green in the same worktree; the repair
 took 22 failures to 0; cause `gateway.ex:647`.** Diff uncommitted and secured; no warrant held.
+
+## 7x639 — A CEREMONY LANDED BY A VERDICT IT DOES NOT TRUST (cell, 2026-09-04)
+
+⭐⭐ **`LAND-ENDPOINT-1` — the round that REPLACES `land-round.sh`'s `LANDED` line, because that line
+resolves `origin/main`, a local cache — was landed by the OLD script, which printed
+`LANDED: origin/main b31d7bd` from exactly that cache.** ⇒ **It happened to be TRUE.**
+⛔ **cell said so in its own ⑥ rather than letting the green stand: *"`LAND-ENDPOINT-1` is landed by a
+verdict it does not trust, and that is precisely why ⑥ exists and why `-EX` is a separate row."***
+⚠️ **A round that edits the script that lands it CANNOT demonstrate its own precondition — and the
+correct response is a SEPARATE EXERCISE ROUND, not a louder claim.**
+
+⛔⛔ **AND A GAP BETWEEN ITS PRE-REGISTRATION AND THE ARTIFACT, WHICH cell REPORTED AGAINST ITSELF:**
+it had said the receipt would name which script ran. **It does not — `grep` = 0.** The receipt is
+machine-generated and has no field for it.
+✅ **What it did instead is the part worth copying: it MEASURED the limit rather than asserting it.**
+```
+ran (main's, pre-merge)  sha256 eb6381611b8a3bb1   assert_origin_endpoint 0
+landed (b31d7bd)                                   assert_origin_endpoint 7
+```
+⇒ ⭐ **"The ceremony cannot demonstrate the precondition" is now a MEASUREMENT, not a claim.**
+⛔⛔ **AND IT REFUSED TO HAND-EDIT THE LANDED RECEIPT TO INSERT THE SENTENCE: *"a record you can amend
+afterwards is a story."*** ⇒ **If the statement belongs in a receipt, the fix is A FIELD IN THE
+GENERATOR — a row for plan, not a text edit by the door that wants it there.**
+
+✅ **VERIFIED INDEPENDENTLY BY ME at `commonplace-cell`'s endpoint before relaying any of it:**
+`main b31d7bd3edbae19edb208e58fcf6ccd751232bd8` · warranted `3854242…` **is an ancestor** · range over
+the declared base **3** · bogus-ref control **0**.
+
+📌 **AND THE SCOPE HELD ON BOTH SIDES.** jes's *"cell push yes"* was relayed narrowly — that repo,
+that round, push and landing — and cell restated the same scope back unprompted: **"Nothing else, and
+I will ask again for the next one."** ⭐ **A grant restated by its recipient in the same words is the
+only cheap check that it was not widened in transit.**
