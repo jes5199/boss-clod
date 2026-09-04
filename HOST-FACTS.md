@@ -511,3 +511,30 @@ your OWN child instead of to someone else's process.**
 inside one hour, so the next door will too.** ⇒ **A remembered rule does not fire; a filed one does.**
 ⚠️ **KNOWN EDGE, named by chit rather than discovered later: a workload run DIRECTLY in a scratchpad
 ROOT will NOTE when it should gate — the depth discriminator reads it as a session harness.**
+
+## ⛔⛔ `docker build` IS A TENANCY NO INSTRUMENT ON THIS BOX CAN ATTRIBUTE (biscuit + boss, 2026-09-04)
+
+**A multi-minute Elixir release build saturates four cores and reads `FREE`.** The work lives in
+**root-owned** `dockerd` / `containerd` / buildkit — cwd `/`, not the door's, and not owned by it.
+```
+ps -o comm= -p 1006            dockerd            ⇐ VISIBLE by comm
+readlink /proc/1006/exe        DENIED (root)      ⇐ INVISIBLE by exe — the selector box-free.sh uses
+readlink /proc/1006/cwd        DENIED (root)      ⇐ and no cwd-in-fleet-path test can attribute it
+POSITIVE CONTROL  readlink /proc/$$/exe → /usr/bin/bash   ⇒ the reader works; the target is opaque
+docker info → 0 running / 0 total                 ⇐ a BUILD is not a container in `docker ps`
+```
+⭐ **WHAT *IS* COVERED, and I nearly reported otherwise before grepping: a BEAM INSIDE a running
+container (cwd `/app` + a `docker-<id>.scope` cgroup) DOES gate as `BUSY-CONTAINER`.** ⇒ **biscuit's
+`docker run` phase was correctly seen; only the `docker build` phase is invisible.**
+
+⛔ **NOT FIXED, AND I AM NOT SHIPPING A TERM I CANNOT FIRE.** A `comm`-based term for
+`containerd-shim*` / `runc` / `buildkitd` is plausible — those exist only during container work,
+unlike the always-on daemons — **but `comm` is the field that LIED for node, and I would be shipping
+a red arm I have never seen fire, which is exactly today's mistake.**
+⇒ ✅ **PLAN: measure during biscuit's NEXT REAL BUILD rather than staging one — the box is busy with
+Sol's round and a synthetic build would be contention I invented to test my own instrument.**
+
+⚠️ **UNTIL THEN, STATE IT PLAINLY: for a `docker build`, THE ANNOUNCEMENT IS NOT A SECOND WITNESS —
+IT IS THE ONLY ONE.** ⭐ **Twice today a non-BEAM tenancy was carried entirely by an announcement
+(biscuit's build at 12:50Z, its `1b-i` round at 14:41Z), and both times it held — because biscuit had
+already ruled `FREE` undecidable alone and took the box on another door's ANNOUNCED release.**
