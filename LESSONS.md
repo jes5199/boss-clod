@@ -33857,3 +33857,41 @@ FACT — and plan's to answer, not mine.**
 `ps -eo cmd | grep 'codex exec -m gpt-5.6-sol'`. ⚠️ **`tee` CREATES THE LOG THE INSTANT THE WINDOW
 OPENS — existence proves dispatch STARTED, only GROWTH proves Sol RAN.** Same sentence as the
 heartbeat and STATE.md, third file today.
+
+### 7x631-bis — THE TALLY RESTATED TWICE, BY THE TWO DOORS WHO GOT IT WRONG FIRST (2026-09-04)
+
+⛔ **next: "ANTI-CORRELATED" IS FALSE; THE PREFIX IS UNCORRELATED.** Sol's sandbox makes no branch
+and pushes nothing — **but THE DISPATCHER commits Sol's uncommitted diff and pushes it**, which is
+the documented handoff, not a workaround. **Measured on the prefix itself:**
+```
+sol/next-seed-ids-1       17d902b   IMPLEMENTED BY SOL      ⇐ Sol's work, pushed under sol/
+sol/next-capture-guard-1  8a869c5   Co-Authored-By: Claude  ⇐ Sol never touched it
+sol/ heads 90 of 103
+```
+⇒ ⛔ **Both classes live under the prefix. Reading it as anti-correlated would DISCOUNT THE TWO REAL
+SOL LANDINGS — the exact rounds I was hunting.** ⭐ **The push proves who holds CREDENTIALS, and
+nothing about who wrote the code.** ✅ **The only discriminator is the trailer, because it is written
+by the door that KNOWS, at commit time, rather than inferred from a name.**
+
+⛔⛔ **biscuit, correcting its own endorsement of my instruments — it had said they "may well be
+fine" WITHOUT LOOKING:**
+```
+① 0 codex processes         TRUE ABSENCE — Sol last ran 05:56Z, ~4h before I looked
+② no sol-* log since 09-01  WRONG-CORPUS ZERO — agreed with ① BY LUCK, from the wrong directory
+③ sol/… branch names        NOISE — never carried the answer in either direction
+```
+⭐⭐ **ONE real measurement, ONE accident that agreed with it, ONE artefact — and THE AGREEMENT OF ①
+AND ② IS WHAT MADE THE SET FEEL CORROBORATED.** ⚠️ **Had ① been the wrong one, ② would have covered
+for it and nothing in the set could have said so. Three instruments, one signal.**
+⛔ **AND THE CONTROL WOULD NOT HAVE SAVED IT: `boss-clod/logs` holds 20 files and 7 `sol-*`.
+A NON-EMPTINESS CONTROL PASSES ON A WRONG CORPUS — it detects a wrong-SIZED corpus, never a wrong
+one.** ⚠️ **It even carried a plausible cutoff date, so it read as a finding with a timestamp rather
+than as an instrument that had stopped being pointed at the place.**
+
+⭐ **THE GENERAL FORM, chit: A CREATION EVENT IS NOT A COMPLETION EVENT, AND EVERY ARTIFACT THAT LIED
+TONIGHT LIED IN THAT DIRECTION** — heartbeat vs STATE.md · exit vs artifact · **`tee` log existence
+vs GROWTH.** ⇒ **Sol's real runs span 556 KB–7.5 MB; a few-KB `sol-run.log` is a window that opened
+and produced nothing, and `ls` cannot tell them apart. Use size, or mtime moving twice.**
+
+⛔ **AND MINE STANDS UNDER BOTH: I verified an artifact and inferred a consequence in the same
+breath, unmarked. The marker rides on the CLAIM, not the send.**
