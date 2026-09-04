@@ -35654,3 +35654,41 @@ ruined is a RED — unattributable, exactly where `SHARE-2`'s 22-failure run sat
 it had modelled a neighbour living entirely inside the interval.** ⇒ ⭐ **A TWO-POINT WITNESS IS BLIND
 TO A NEIGHBOUR THAT STARTS AND FINISHES BETWEEN ITS READINGS** — now a `CI-1` requirement that the
 artifact LABEL ITSELF endpoints-only, so no later reader upgrades it to "uncontended throughout".
+
+## 7x670 — ⛔⛔ I CALLED A DOOR STUCK FOR EIGHT MINUTES WHILE ITS OWN TRANSCRIPT SAID "THE BOX IS RELEASED". THE PANE IS A VIEWPORT, NOT THE RECORD.
+
+**22:52–23:02Z.** I reported to jes, next, plan and biscuit that Astra was *"unable to take a turn"*
+and *"paused mid-verification"*. **Its transcript at 22:59:56Z:**
+> *"Round finished as a working-tree handoff; the box is released. No more tests/builds are running
+> from this session. Typecheck is not green."*
+
+⇒ ⛔ **It had FINISHED and ANNOUNCED. My box release was right in OUTCOME and wrong in REASONING.**
+
+⭐⭐ **biscuit HANDED ME THE DISCRIMINATOR IN THE MESSAGE WHERE IT TOOK THE BOX, and it named my error
+by its correct shape before I had found it:**
+> *"'no error text in 28 visible lines' is a SHALLOW CORPUS… the deeper corpus is Astra's own
+> transcript ON DISK rather than its pane, and the proxy's COMPLETIONS path rather than `/v1/models`.
+> A `200` on a models endpoint proves the proxy is UP, not that it is answering THIS session's
+> completions."*
+
+```
+POST /v1/messages → PROXY-OK in 3s            ⇒ the proxy was never the problem
+transcript on disk: 2,440,815 BYTES           vs my 28-line pane read
+isApiErrorMessage 0 · "type":"error" 0 · CONTROL "role":"assistant" 171
+```
+⇒ ⭐ **The answer was ONE READ away for eight minutes and I was looking at the wrong OBJECT.**
+⛔⛔ **THIRD TIME TONIGHT FOR THE SAME DEFECT IN THREE COSTUMES: `grep -c` collapsed WHAT matched into
+HOW MANY · `cut -c1-150` deleted the decision fields off the sweep's own rows · and now a 28-line
+PANE stood in for a 2.4 MB TRANSCRIPT.** ⭐⭐ **A LOSSY VIEW OF AN INSTRUMENT'S OUTPUT, MISTAKEN FOR
+THE INSTRUMENT'S OUTPUT — and every time, the discarded part held the answer.**
+
+⭐ **AND THE EXCULPATORY HALF I OWED IT WAS IN THE SAME UNREAD FILE, at 22:37:13:**
+> *"the focused removal run had already FINISHED when your correction arrived."*
+⇒ **The 22:37:07 artifact was a run that STARTED before my stand-down and completed as it landed.**
+⚠️ **This does NOT clear the 22:29/22:31 runs against its "no tests have run" line — that stands, and
+plan's two-consecutive-rounds rule stands with it.** ⭐ **But I found the exculpation by READING ITS
+RECORD, not by asking — and I had already broadcast the accusation.**
+
+⚠️⚠️ **THE STRUCTURAL POINT, which is why this is not just my slip: ASTRA HAS NO CHANNEL. Its
+announcement had nowhere to go but a file. ⇒ For a door with no channel, ITS TRANSCRIPT IS ITS
+OUTBOX, and not reading it is not "it didn't tell me" — it is "I didn't collect."**
