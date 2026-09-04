@@ -200,6 +200,22 @@ for _pid in $(ls /proc 2>/dev/null | grep -E '^[0-9]+$'); do
   esac
 done
 
+# ⭐⭐ UNATTRIBUTED LOAD — biscuit, 2026-09-04, AFTER the concurrency change made the gap load-bearing.
+# The brake is now "CPU-saturating box work", which correctly INCLUDES container builds — but nothing
+# here can SEE one: dockerd/containerd are root-owned, /proc/PID/exe and cwd both DENIED.
+# ⇒ For that half, the ANNOUNCEMENT is the ENTIRE mechanism. It works for a door that knows the rule
+#   and FAILS SILENTLY for one that does not, or for a turn that ends mid-build.
+# ⭐ `/proc/loadavg` is readable, unprivileged, and does not care who owns the process. It CANNOT
+#   attribute, so IT MUST NOT GATE — but it separates the two states that share one observable:
+#       FREE … load 0.4   ⇒ genuinely idle
+#       FREE … load 7.8   ⇒ NOT idle. Something is loading this box that no term can name.
+# ⇒ Same shape as NOTE-NONBEAM: VISIBLE, ATTRIBUTABLE-AS-UNATTRIBUTABLE, NOT GATING.
+# 📌 THRESHOLD FROM MEASUREMENT, NOT TASTE: 4 cores; load 7.75 measured during ONE Sol round; an idle
+#   box sits near 0.4. Half the core count (2.0) is comfortably above idle and far below one suite.
+_load1=$(awk '{print $1}' /proc/loadavg 2>/dev/null)
+_cores=$(nproc 2>/dev/null || echo 4)
+_hot=$(awk -v l="${_load1:-0}" -v c="${_cores:-4}" 'BEGIN{print (l > c/2) ? 1 : 0}')
+
 # ⭐⭐ EVERY UNRESOLVED CASE FAILS TOWARD WAITING (biscuit). A fallback that decides whether to take a
 #   shared resource must fail safe in the direction of NOT taking it.
 [ "$blind" -gt 0 ] && { echo "BLIND|$blind BEAM(s) whose /proc cwd could not be read"; exit 2; }
@@ -218,5 +234,6 @@ done
 #   lands in UNKNOWN-BEAM. ⭐ cell filed that overcount as `suites()` counting BEAMs not doors.
 #   ⚠️ I am NOT "fixing" it: the child makes the box read BUSY, which is the safe direction, and any
 #   narrowing risks the unsafe one. The UNKNOWN line names the pid so a reader can see what it is.
+[ "$_hot" = "1" ] && echo "NOTE-LOAD|load1 ${_load1} on ${_cores} cores with NOTHING attributed — this box is NOT idle; something no term can name is loading it (announcement is the only witness for a docker build)"
 echo "FREE|0 suites, hermes pid $hpid excluded, control $tot processes visible"
 exit 0
