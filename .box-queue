@@ -389,6 +389,28 @@ chit   | ⛔ IS BOX-BOUND AND I DID NOT KNOW IT UNTIL 10:43Z. Its `land-gates.sh
 #      a DIFFERENT tree. ⇒ AN OVERRUN WOULD BE INDISTINGUISHABLE FROM A SLOW TREE, with no instrument
 #      able to separate them after the fact. THAT is why the hold is worth its cost.
 #
+# ⑨-bis ⛔⛔ ⑨ IS A CHECK ON CONTENTION, NOT A GRANT — A GREEN PRECONDITION IS NOT PERMISSION.
+#    (next, 2026-09-04T00:34Z, diagnosing its own breach and refusing the two exculpatory readings
+#     I offered it.)
+#    ⚠️ THE INCIDENT: next released at 00:23:44Z, then started a 525-test full suite 101 seconds later
+#      WITHOUT RE-ASKING. It DID run ⑨ first and ⑨ read FREE. ⇒ IT LET A GREEN PRECONDITION STAND IN
+#      FOR PERMISSION IT NO LONGER HAD. Cost: eight minutes of biscuit's hold on a warranted ceremony.
+#    ⭐⭐ THE RULE: A DOOR THAT RELEASES HAS **NO** WINDOW. The next run needs a NEW ASK, and "the box
+#      happens to be free" is not one. Not even when ⑨ is green · not even for a three-minute run ·
+#      not even when nobody appears to be waiting. SOMEBODY WAS.
+#    ⭐ AND IT IS ⑧-ter's EXACT MIRROR: I read a FREE box as "released"; next read a FREE box as
+#      "still granted". ⇒ BOTH ARE THE SAME SUBSTITUTION — A MEASUREMENT OF THE RESOURCE STANDING IN
+#      FOR A FACT ABOUT AUTHORITY. The box can tell you whether it is busy. It cannot tell you whose
+#      turn it is.
+#    ⇒ ⛔ CONTENTION AND AUTHORITY ARE DIFFERENT GATES (⑦'s own words, applied to the party I own).
+#      ⑨ answers "is anyone else using it". A GRANT answers "may I". A green ⑨ under an expired grant
+#      is a correct answer to the wrong question.
+#    ✅ next's own adoption, unprompted: after a release it holds NOTHING, and the next thing that
+#      needs the box is a REQUEST rather than a precondition.
+#    📌 AND THE HONEST HANDLING OF ITS RESULT: the ungranted run gave 525 tests / 2 failures. next
+#      REFUSES TO ATTRIBUTE THEM from a run it should not have made and will re-run under a grant.
+#      ⭐ A number obtained outside the protocol is not a number you get to keep.
+#
 # ⑨ ⛔⛔ A GRANT IS AUTHORISATION TO CHECK, NOT AUTHORISATION TO START. THE RECEIVER RUNS
 #    `box-free.sh` ITSELF, IMMEDIATELY BEFORE THE FIRST SUITE COMMAND, AND ABORTS ON BUSY.
 #    (biscuit's fix, 2026-09-03T22:28Z — adopted verbatim, because it repairs ⑧ instead of restating it.)
