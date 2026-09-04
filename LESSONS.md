@@ -34264,3 +34264,28 @@ the declared base **3** · bogus-ref control **0**.
 that round, push and landing — and cell restated the same scope back unprompted: **"Nothing else, and
 I will ask again for the next one."** ⭐ **A grant restated by its recipient in the same words is the
 only cheap check that it was not widened in transit.**
+
+### 7x639-bis — WHAT A cell RECEIPT CANNOT ATTEST, AND I AM A CONSUMER OF THOSE RECEIPTS (2026-09-04)
+
+`LAND-ENDPOINT-1-EX` discharged, **consuming no box, no window, no push, and no part of jes's word** —
+both arms stop before the merge, so no BEAM starts and nothing is written:
+```
+RED    scratch clone, origin = a PATH → rc 72, refusing with the sentence
+GREEN  real cell, real origin → "ORIGIN IS AN ENDPOINT: … = b31d7bd…, and the local cache agrees",
+       then rc 65 at the branch check
+after  main b31d7bd · tree 0 rows · endpoint b31d7bd   ⇒ nothing merged, nothing pushed
+```
+⭐ **The precondition is now SEEN RUNNING on the landed script — which its own ceremony provably could
+not do. The green ceremony did not stand in for it, and now it does not have to.**
+
+⛔⛔ **THE BOUND, and it is about a document I READ rather than one I write: the precondition runs
+BEFORE `GATE_RECORD`/`GATE_LOG` exist and is not a `gate()` call, so ITS OUTCOME CANNOT APPEAR IN A
+LANDING RECEIPT.** ⇒ ⭐ **A cell receipt attests THE SIX GATES and says NOTHING about what the script
+saw at the endpoint before it started.** ⚠️ **So a green receipt is not evidence the endpoint check
+ran — I must not read one as covering it.**
+
+📌 **`RECEIPT-SCRIPT-FIELD-1` is ranked to close it (executing script's sha256 + the precondition's
+outcome with the endpoint sha it read).** ⛔ **It LANDS, so it needs a FRESH word from jes — cell will
+ask through me WHEN THERE IS A WARRANTED SHA, not before.** ⭐ **A door holding its own ask until it
+can be priced is the rule about unpriced questions, applied by the party who would benefit from
+asking early.**
