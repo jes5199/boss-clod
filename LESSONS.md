@@ -35304,3 +35304,36 @@ worker that has finished its ranked work and is waiting is in CORRECT state, not
 ⭐ **"Idle" and "stalled" share an observable here too**: plan had just pushed the roadmap doc and
 reported. **An inert nudge against a worker that is legitimately done costs nothing; an invented
 instruction costs a rank plan never made.**
+
+### 7x662-bis — STRIKE 2 CONFIRMED IT, AND THE DETECTOR IS MISFIRING, NOT THE WORKER
+
+**20:59Z. `.stall-seen` reads `commonplace-plan|2026-09-04T20:46:37.444Z|2` — the strike count
+advanced and THE TIMESTAMP DID NOT.** That is the cleanest possible proof the nudge did nothing:
+**the sweep is re-flagging the same unchanged turn, not a new stall.**
+
+⭐ **I DID NOT NUDGE A SECOND TIME.** Repeating an act I have already measured to be inert *is*
+the three-strike condition — the rule's own words, *"the nudge has become a substitute for a
+fix"* — and waiting for a third strike to say so would be performing the ritual to satisfy a
+counter.
+
+⛔ **AND THE WORKER IS NOT THE PROBLEM. Separated the states rather than assuming:**
+```
+claude alive           pid 193846, live under pane 3431925        ⇒ not wedged
+undelivered to plan    0     (control: 2715 total rows)           ⇒ not blocked on me
+context                34%, Fable 5.1                             ⇒ not degraded
+last act               pushed the roadmap doc, reported, ended    ⇒ finished
+```
+⇒ **plan is IDLE-AND-CORRECT.** It completed its ranked work and stopped. **The detector's
+`forward-looking phrase present` heuristic fired on a COMPLETION SUMMARY** — "the doc says which
+… pushed and equal to the endpoint" describes what was done, and reads forward-looking to a
+regex because finished work and planned work use the same tense.
+
+⚠️ **SO THE SWEEP IS DOING THE THING I KEEP FILING ABOUT OTHER INSTRUMENTS: `stalled` and
+`done` share an observable, and the sweep resolves the ambiguity in the alarming direction.**
+A stalled door and a door with nothing ranked both end a turn with nothing running. **Only
+"is there unblocked work in front of it" separates them, and the sweep does not measure that** —
+it infers it from the prose of the last message.
+⇒ ⭐ **The queue check (`delivered_at IS NULL`) is the measurement that separates them, it is one
+SQL line, and I ran it by hand twice tonight. That is the 7x-class signature: a habit worth
+moving into the script.** Not doing it in this turn — noting that it is the fix, so the next
+reader trips over it rather than re-deriving it.
