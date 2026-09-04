@@ -309,3 +309,31 @@ found), then the right one (`commonplace-systems/…`, matched).
 📌 Disk-wise the same 33 trees are ~unknown provenance. ⛔ **Do not delete them** — chit removed only
 its own two after proving each `git merge-base --is-ancestor` against the remote **with a control that
 a bogus sha reads as NOT landed**, i.e. the ancestry test can say no.
+
+## ⛔⛔ `/home/jes/commonplace-next`'s LOCAL `main` IS STALE AT `500a6df` WHILE THE REMOTE IS `ee7fb94` (2026-09-04)
+
+**VERIFIED BY ME, both sides:**
+```
+git -C /home/jes/commonplace-next rev-parse main          500a6df652f431d76125ef2ae38f6a1ee4e70c23
+git ls-remote <url> refs/heads/main                        ee7fb9400df93c8c369b39afeab9750c0a6c124f
+```
+⇒ **It is BEHIND, not diverged** — two landings (`b173ecc` `ACCESS-1b`, `ee7fb94` `ACCESS-1c`) are on the
+remote and not on that checkout's `main`.
+
+⛔⛔ **THE HAZARD IS NOT DISK, IT IS THAT WORKER CLONES USE IT AS `origin`.** next hit this: `git fetch
+origin` returned **rc 0** and `origin/main` stayed `500a6df`, and `ee7fb94` was `fatal: not a valid
+object`. ⇒ **`git fetch origin` reads THAT REPO'S LOCAL `main`, which is stale, while that repo's own
+`origin/main` is current.**
+⭐ **A rc-0 fetch plus a missing object reads EXACTLY LIKE "the landing is not really there."** next
+avoided that conclusion with a positive control — *the shared checkout HAS `ee7fb94`* — before believing
+the absence.
+✅ **THE FIX A CLONE CAN APPLY WITHOUT TOUCHING THE SHARED REPO:**
+```
+git fetch origin refs/remotes/origin/main:refs/remotes/upstream/main
+```
+⛔ **DO NOT `git branch -f main` IN THE SHARED CHECKOUT casually** — it is a ref other doors read. next
+deliberately did not, and flagged it instead. ⚠️ **The next door to run a ceremony there WILL hit the
+same refusal**, and it will look like a landing that did not happen.
+📌 Same family as the 33 `*dir*` trees entry above: **`origin` in a checkout is a LOCAL CACHE, and here
+it is a local cache of a local cache.** `git ls-remote <url>` remains the only instrument that answers
+"what is on the remote".
