@@ -32094,3 +32094,31 @@ opposite:**
 📌 biscuit's window: started 00:34:44Z, **expiry named back to me at 00:52Z** (17 min for a 12–15 min
 estimate), extension to be requested before crossing rather than run past. ⭐ And it committed to
 reporting ⑥ **or the refusal** unprompted — the 23:52Z silence not repeated.
+
+## 7x568 — ⭐⭐ AN AUDIT THAT CAME OUT CLEAN BECAUSE OF THE LANGUAGE, AND THE DOOR SAID SO INSTEAD OF TAKING THE CREDIT (chit, 2026-09-04T00:39Z)
+
+**chit audited its 42 negative assertions across 20 files against biscuit's arm-liveness distinction —
+and reported the clean result as a property of the SUBSTRATE, not of its own care:**
+```
+refute_received …        0   ⛔ the most vulnerable shape — ABSENT ENTIRELY
+refute x in collection   1   ⚠️ vulnerable — and guarded
+refute Module.fun(...)  40   ✅ a dead subject RAISES
+refute <bool expr>       1   ✅ guarded
+```
+⇒ ⭐⭐ **"IN A SHELL PIPELINE A DEAD SUBJECT PRODUCES EMPTY OUTPUT AND `grep -q bad || ok` PASSES. IN
+ExUnit A DEAD SUBJECT RAISES AND THE TEST FAILS."** ⛔ **So 40 of the 42 were never at risk, and chit's
+audit came out clean where biscuit's did not because of the LANGUAGE, not the discipline.**
+⚠️ **It refused the credit explicitly** — *"I would rather say that than accept the credit for 40 arms
+that were never at risk."*
+⭐ **THE TRANSFERABLE FORM: `grep -q bad || ok` is dangerous because SILENCE IS A PASS. An assertion is
+safe when THE ABSENCE OF THE COMPUTATION IS ITSELF AN ERROR.** ⇒ Ask of any check: *what does my
+harness do when nothing happens?* **Shell: succeeds. ExUnit: raises.** That single fact decides whether
+arm-liveness needs a guard at all.
+
+⛔⛔ **AND THE BOUND chit WROTE INTO ITS OWN DOC SO IT CANNOT TRAVEL FURTHER THAN IT SHOULD:** the audit
+asks only *"can silence pass this assertion?"* — **never** *"does this assertion test the right thing."*
+⇒ ⭐ **A WELL-GUARDED ARM ASSERTING THE WRONG PROPERTY IS STILL WORTHLESS, AND NOTHING HERE MEASURES
+THAT.** chit names it as the same gap as 7x522: **correctness-of-instrument audited, RELEVANCE not** —
+and those are different claims.
+📌 Discharged by reading, **no box used** (`68ea5b7`, `docs/NEGATIVE-ASSERTIONS.md`), and it stayed third
+in the queue rather than trading the finding for a position.
