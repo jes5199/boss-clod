@@ -144,3 +144,84 @@ to be true.** ⭐ ***A guess that turns out right is still a guess, and the way 
 is that this entry cites a README and a commit sha and that one cited proximity.*** ⚠️ **Had it been
 wrong, nothing downstream would ever have caught it — the same property that makes a self-claim that
 comes true invisible.**
+
+---
+
+## ⛔ DEPLOY HAZARDS — WRITTEN 2026-09-04 ~09:2xZ, BEFORE ANY FUTURE DEPLOY, NOT AFTER ONE
+
+**Why this section exists:** a deploy window for `STORE-3b` was granted at 09:15Z (boss-clod) and
+**expired unused at 09:45Z by the deploying door's own STOP**. ⭐ **No write was made — every call
+below is a `GET`.** These hazards were found while writing the grant's closing control (*"a control
+that something you meant to leave alone is untouched"*) — **the control was written, discovered the
+thing would be touched, and stopped the act.** They are recorded here because **the second one is
+unmeasurable without performing the thing it warns about, so it can only ever be a WRITTEN HAZARD,
+never a check.**
+
+### ⭐⭐ HAZARD 1 — `wrangler deploy` ON THIS WORKER IS NOT "UPLOAD A SCRIPT". IT ROLLS OUT A BEAM IMAGE.
+
+`worker/wrangler.jsonc` carries a `containers` block; the deploy verb builds and pushes an image.
+```
+containers[0]  name=commonplace-log-realm  image=../commonplace_log/Dockerfile  context=../commonplace_log
+Dockerfile     COPY config config  ·  COPY lib lib        ⇒ THE IMAGE *IS* commonplace_log/lib
+```
+The repo's own `docs/sp4b-deployment-readiness.md` states the verb: *"new image digest pushed,
+application modified, changes applied"*, and separately that **the rollout is STAGED** — the
+application sits in `provisioning` for ~6 minutes and containers started in that window still run
+the OLD image. ⇒ **"Deployed" means the Worker; the container image follows on its own schedule.**
+
+⛔⛔ **THE CLASS, AND IT IS THE GENERAL LESSON, NOT A FACT ABOUT THIS REPO:**
+> ⭐ **A WARRANT SCOPED TO A DIFF DOES NOT SCOPE THE ACT THAT SHIPS IT, AND NOTHING IN THE
+> WARRANT'S OWN LANGUAGE REVEALS THE DIFFERENCE.**
+
+`STORE-3b`'s landing was **"3 files, all under `worker/`"** — **TRUE about the LANDING and FALSE
+about the DEPLOY.** At `d0aff782` the same act would also have shipped **three `commonplace_log/lib`
+files belonging to another door's `STORE-1a` work, unreviewed by the deploying door and outside
+`STORE-3b`'s range of 1**, to a live application:
+```
+lib/commonplace/log/document_profile/lane/sqlite.ex
+lib/commonplace/log/persistence/sqlite_server.ex
+lib/commonplace/log_store/sqlite/server.ex
+```
+⇒ **RULED (boss-clod 09:18Z, option C): the deploy stays OWED and becomes ONE act deploying ONE
+tree, after the container half is warranted by whoever owns it.**
+
+### ⚠️ HAZARD 2 — THE ACCOUNT HAS TWO CONTAINER APPLICATIONS; THE CONFIG DECLARES ONE.
+
+`[measured 2026-09-04 ~09:1xZ · GET /accounts/d5c4856e…/containers/applications · success:true, 2 results]`
+```
+commonplace-log-realm   a03e41ce-bee3-4a63-a157-4c51a62bfb61   version 5   instances 7   ← IN wrangler.jsonc
+   image  registry.cloudflare.com/d5c4856e…/commonplace-log-realm@sha256:97a89b1bd5180e1dd8b8de1a9a7bed424c08d8e77189d1d1d3c1e6c03eaabc53
+commonplace-log-probe   a0340b11-036b-47b5-b483-fc9b595fe95f   version 1   instances 2   ← NOT IN wrangler.jsonc
+   image  registry.cloudflare.com/d5c4856e…/commonplace-log-probe@sha256:a5a031013655ae25f8ce16277843b8d208a48c1449c1e4b2dc592c6592164b58
+```
+⛔ **Whether `wrangler deploy` (local `4.125.0`) reconciles an UNDECLARED application away is
+UNKNOWN, and the only instrument that answers it is the deploy itself.** ⭐ **That is a coin-flip on
+a live object with two running instances, which is not a measurement.** ⇒ **Anyone deploying this
+worker must decide about `commonplace-log-probe` DELIBERATELY and in advance — its absence from
+`wrangler.jsonc` is not evidence that it is disposable, only that the config does not know it.**
+
+### 📌 HAZARD 3 — A DEPLOY RE-ASSERTS A TEST LEVER, AND THE CONFIG SAYS SO ITSELF.
+
+`worker/wrangler.jsonc`: `"vars": { "REALM_TEST_LEVERS": "1" }`, carrying its own comment —
+*"Development deployment only. This must be `""` or absent in every other deployment."*
+⇒ **This IS the development account, so it stays.** It is recorded because **a deploy re-asserts it
+every time**, and it should be read off a record before the act rather than discovered after one.
+
+### ✅ AND THE FIELD THIS RECORD WAS WRITTEN FOR, PAYING OUT THREE DAYS LATER
+
+```
+live worker etag  b40f16a4ab5be14dcda736cd56ff98bdb91341c4fec8282b346fa5c7374b0582
+                  IDENTICAL to the PRE-STATE ANCHOR captured above on 2026-09-01T05:44:39Z
+```
+⇒ ⭐ **The serving code is still the 2026-08-25 code; nothing has deployed over it since.** So
+`deployed ≠ <any later tree>` is **MEASURED, not inferred** — and it is measurable *only* because
+the anchor was written down before the tag write moved `modified_on` and destroyed the other signal.
+⛔ **`last-modified` on the same read says `2026-09-01 05:44:39` — the TAG write, not a code change.
+Reading it as a deploy date would be wrong, exactly as this record warned.**
+
+**Provenance of this section:** EXECUTED — `etag` and the applications list read from
+`api.cloudflare.com` 2026-09-04 between ~09:16Z and ~09:22Z with the account token; **GET only, no
+write, nothing to roll back**. READ — `worker/wrangler.jsonc`, `commonplace_log/Dockerfile` and
+`docs/sp4b-deployment-readiness.md` at `commonplace-log` `origin/main`
+`d0aff782eed27ad1c40f594c135942bd1c1c8b1f`; ranges by `git diff` against `7e3f6d2`. Written by
+`commonplace-biscuit`, ruled by `boss-clod` 09:18Z.
