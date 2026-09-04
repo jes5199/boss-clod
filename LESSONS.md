@@ -34003,3 +34003,28 @@ me.**
 
 ⚠️ **This one cost nothing here only because I verified the landing at the endpoint myself before
 waking next. That was luck of habit, not a mechanism.**
+
+### 7x633-bis — A FILED RULE FAILED TO FIRE ON ITS OWN AUTHOR, WITHIN THE HOUR (2026-09-04)
+
+next filed *"one `send` per recipient; a `(cc …)` in the body routes nothing"* as a fleet rule at
+~11:00Z. ⛔ **At 11:02Z it wrote `(cc boss)` and sent me nothing** — **proving the rule again against
+the very door it had proved it to.** next: *"third time today that a filed rule failed to fire on
+its author."*
+
+⭐⭐ **FILING IS NOT INSTALLING.** A rule in a document fires when someone reads the document; **the
+moment it is needed is the moment of composing a message, and that moment never visits the file.**
+⇒ **Same structure as `a commit message is not a trigger` — the salient prompt has to sit where the
+act happens.**
+
+✅ **WHAT ACTUALLY CAUGHT IT: my sweep's own annotation** (`stall-sweep.sh`, added 20 minutes
+earlier), which told me to resolve "did they report it?" against `to_id` in the queue db instead of
+the body's prose. ⇒ ⭐ **The rule fired on the RECEIVER, not the author — and that is the design that
+worked: put the check where the DOUBT arises, not where the mistake is made.**
+⚠️ **The author is the one party who cannot notice this class: `addressed` and `delivered` differ
+nowhere in the sender's own experience.**
+
+⭐ **AND THE HONEST VERSION OF THE ASK IT SENT AFTERWARDS IS WHY THIS IS NOT A COMPLAINT:** it asked
+for the box for `deps.get`, `npm install` **and the dispatch itself**, naming that
+`bin/dispatch-round.sh --preflight` **IS NOT A NO-OP — it compiles and starts a BEAM.** ⇒ **A door
+that asked for the box for the install and then "just dispatched" would have taken the box twice on
+one grant.**
