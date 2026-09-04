@@ -102,10 +102,55 @@ for p in $(awk '$2=="beam.smp"{print $1}' "$PS"); do
        esac ;;
   esac
 done
+# ⛔⛔ NON-BEAM TENANCY — STRUCTURAL BLINDNESS, FOUND BY commonplace-next 2026-09-04.
+# This script enumerated `beam.smp` ONLY, so a round made of `cp -a` (510 MB), `npx tsc --noEmit`
+# and `vitest` — biscuit's BACKUP-1b-i — read `FREE|0 suites` FOR ITS ENTIRE DURATION.
+# ⛔ THIS IS NOT THE TIMING GAP EVERY DOOR ALREADY MANAGES. The instrument had NO TERM for that
+#   workload, so re-sampling could never help: `suites>=0` proves no BEAM suite is running, it has
+#   never proved the box is idle. (next: the same shape as a bogus-ref control proving the endpoint
+#   ANSWERS but not that it is the RIGHT one.)
+# ⚠️ AND IT MADE THE ANNOUNCEMENT PROTOCOL LOAD-BEARING WITHOUT ANYONE DECIDING THAT: for a BEAM
+#   tenancy ⑨ is a SECOND WITNESS; for a node tenancy the announcement was the ONLY witness, so a
+#   door whose turn ended mid-round would leave every reader seeing FREE with nothing to contradict it.
+# ⭐ OVER-REPORTING CONTENTION IS THE SAFE DIRECTION: a false BUSY costs a wait, a false FREE costs
+#   a collision inside someone else's measurement.
+# ⛔⛔ AND IT FIRED FALSE ON ITS FIRST RUN, WHICH IS WHY THE cwd TEST EXISTS: a long-lived `esbuild`
+#   in /home/jes/hyperstition/voucher-gate — an UNRELATED project's dev server — would have reported
+#   BUSY forever. ⭐ A gate that fires on correct state is worse than no gate: the fleet would have
+#   learned to ignore this line within a day. ⇒ GATE only on fleet work paths; PRINT the others as
+#   NOTE lines so they stay visible and attributable without blocking anyone.
+# ⚠️⚠️ WHAT IS AND IS NOT PROVEN ABOUT THIS TERM, 2026-09-04, stated because a gate nobody has seen
+#   fire is not known to work:
+#     ✅ GREEN ARM, LIVE: an unrelated `esbuild` in /home/jes/hyperstition/voucher-gate prints
+#        NOTE-NONBEAM and does NOT gate — verified on the real process.
+#     ✅ DISCRIMINATOR, on REAL cwd strings taken from today's rounds: sol-share1b/wt, a /tmp/claude-*
+#        scratch clone and next-suite-load/wt all GATE; voucher-gate and UNREADABLE only NOTE.
+#     ⛔ RED ARM, LIVE: NOT PROVEN. Three attempts to hold a detached `node` in a fleet path exited
+#        immediately (node IS on PATH — /usr/bin/node — so the cause is unexplained), so the gating
+#        branch has never been seen firing on a real process.
+#   ⇒ The FIRST real non-BEAM round is this term's first live test. If it reads FREE through one,
+#     the term is wrong and the announcement protocol is still the only witness.
+nonbeam=0
+for _c in node npm npx vitest tsc esbuild; do
+  for _p in $(pgrep -x "$_c" 2>/dev/null); do
+    _cwd=$(readlink "/proc/$_p/cwd" 2>/dev/null || echo UNREADABLE)
+    case "$_cwd" in
+      /home/jes/sol-*|/home/jes/commonplace*|/home/jes/*-wt|/home/jes/*-wt/*|/home/jes/*-suite-load*|/tmp/claude-*|/tmp/commonplace-*)
+        nonbeam=$((nonbeam+1)); echo "BUSY-NONBEAM|pid $_p $_c cwd $_cwd" ;;
+      UNREADABLE)
+        # opaque AND non-BEAM: cannot attribute, so it must not gate — but it must not vanish either
+        echo "NOTE-NONBEAM|pid $_p $_c cwd UNREADABLE — not gating, cannot attribute" ;;
+      *)
+        echo "NOTE-NONBEAM|pid $_p $_c cwd $_cwd — outside fleet work paths, not gating" ;;
+    esac
+  done
+done
+
 # ⭐⭐ EVERY UNRESOLVED CASE FAILS TOWARD WAITING (biscuit). A fallback that decides whether to take a
 #   shared resource must fail safe in the direction of NOT taking it.
 [ "$blind" -gt 0 ] && { echo "BLIND|$blind BEAM(s) whose /proc cwd could not be read"; exit 2; }
 [ "$suites" -gt 0 ] && { echo "BUSY|$suites suite(s) running (control: $tot processes visible)"; exit 1; }
+[ "$nonbeam" -gt 0 ] && { echo "BUSY|$nonbeam non-BEAM process(es) — node/npm/vitest/tsc load the box and no BEAM term can see them (control: $tot processes visible)"; exit 1; }
 # ⚠️ WORDING: this counter now holds BOTH unrecognised BEAMs AND named container releases, so the old
 #   "unrecognised BEAM(s)" summary CONTRADICTED the BUSY-CONTAINER line printed above it. A summary
 #   that disagrees with its own detail lines is how a reader learns to stop reading one of them.
