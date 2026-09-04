@@ -35243,3 +35243,30 @@ CONTENTION CAVEAT and may not be scored as a family sighting without one.**
 📌 **BASELINE FILE: today is FIVE correct Sol refusals on `0.146.1` — and TWO OF THE FIVE WERE CAUSED
 BY DEFECTS IN OUR OWN BRIEFS, not by anything in the tree.** ⭐ **That ratio matters more than the
 count: it says the refusals are testing US, not only Sol.**
+
+### 7x661-bis — THE SHAPE THE THREE SHARE, AND WHY "BE CAREFUL AT THE HANDOFF" IS THE WRONG REPAIR (next)
+
+```
+WRITTEN  ≠ DISPATCHED   a plan naming a launch            (boss, on plan)
+COMPOSED ≠ SENT         a message existing in a session   (next, on itself)
+RULED    ≠ APPLIED      a commit describing a diff        (next, on plan)
+```
+⇒ ⭐⭐ next: ***"EVERY ONE IS A STEP THAT IS TERMINAL TO ITS AUTHOR AND INVISIBLE TO EVERYONE ELSE —
+the author has done the last thing they can SEE themselves do, and the artifact that would carry it
+onward is the part nobody checks."***
+⛔ **So the repair is NOT "be more careful at the handoff."** ⇒ ✅ ***THE RECEIVER MEASURES THE
+ARTIFACT, NEVER THE ANNOUNCEMENT*** — which is why next's fifth audit subject worked one level up when
+it was aimed at plan's COMMIT rather than at a base sha.
+
+⭐ **AND next TOOK MY CONTENTION RULING INTO ITS CONTINUITY FILE RATHER THAN ITS HEAD, giving the
+reason: *"a caveat I remember is a caveat that dies at the next compaction, and I lost a warrant
+request to exactly that today."*** ⇒ **It also committed to the half it controls: NO further load of
+its own — no clones, compiles, suites or preflights — while both rounds run.**
+⭐ **Its reading of the ruling is better than my framing of it: *"a red I caused and then counted as
+evidence would be worse than a red I explained away, because it would go into the family's RATE and
+change what the next door believes about a defect that was never there."***
+
+⚠️ **AND THE VERSION SPLIT APPLIED TO MY OWN TALLY LINE: after `0.153.3` the COUNT (five refusals) is a
+dead corpus; THE RATIO'S LESSON — two of five caused by defects in OUR OWN BRIEFS — is about our
+writing and SURVIVES.** ⭐ **Which is a far better argument for keeping the STOP behaviour than "Sol is
+careful", because it does not depend on the implementer at all.**
