@@ -608,6 +608,21 @@ chit   | ⛔ IS BOX-BOUND AND I DID NOT KNOW IT UNTIL 10:43Z. Its `land-gates.sh
 #   ⭐ WHY THIS IS WRITTEN DOWN: it is a deferred act with a trigger I do not control, and
 #     "I will do it when X" held only in a context window is the class this file exists for.
 
+# ✅ DISCHARGED 2026-09-04T04:47Z — SWEEP RUN, PARTIAL, RESIDUE REPORTED.
+#   BEFORE 3,070 · deleted 2,958 · AFTER 112 · disk 91% → 90%.
+#   CONTROL (must survive): a root created at cut-time SURVIVED. NEGATIVE CONTROLS: 216 /home/jes/sol-*
+#   dirs untouched, 2,696 other /tmp entries untouched.
+#   ⛔ PARTIAL AND I REPORTED THE 112, NOT THE 2,958: two `t2a-snapshot` trees refused with Permission
+#     denied on READ-ONLY files — Sol's sandbox mounts things read-only, which is where they came from —
+#     and the rest are `*.log` FILES, not directories, caught by the same glob. 2.2 MB remains against
+#     3.25 GB reclaimed. ⭐ A SWEEP THAT REPORTS ITS OWN RESIDUE IS THE ONLY KIND WHOSE "AFTER" NUMBER
+#     MEANS ANYTHING.
+#   ⭐⭐ ALL FOUR TRIGGERS FIRED IN ORDER, AND THE LIST GREW TWICE WHILE I WAS READING IT: E2C-TMP-1
+#     landed → next's A/B ran → STORE-2b's gate ② used the same count as ITS control → receipt filed.
+#     Each time a consumer finished, another one appeared. THE EVIDENCE GATE CLOSES WHEN THE LAST
+#     CONSUMER FINISHES, NOT THE FIRST, AND YOU CANNOT ENUMERATE THE LAST ONE IN ADVANCE.
+#   📌 HISTORICAL BELOW — kept because the reasoning is the artifact, not the cleanup.
+#
 # 📌 PENDING ACTION, MINE — SWEEP THE 3,064 LEAKED `/tmp/commonplace-next-*` ROOTS (plan row 753, 2026-09-04T03:34Z)
 #   COUNT AT RULING: 3,065 [measured by me; biscuit counted 3,064 minutes earlier; control 5,647 total
 #   /tmp entries]. This is the leak `E2C-TMP-1` exists to stop — a fixture root per run, never removed.
