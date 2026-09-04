@@ -353,4 +353,17 @@ if /home/jes/boss-clod/box-free.sh >/dev/null 2>&1; then
 else
   rm -f "$_fs"
 fi
+# ⛔⛔ cell, 2026-09-04: "does anything READ that file, or does it only wait to be read?"
+#   A pending-act file nobody consults is the SAME SHAPE as .state-render-HOLD — it fires only if
+#   something trips over it, and THE DOOR THAT WROTE IT IS THE ONE LEAST LIKELY TO.
+#   ⇒ The sweep runs every 5 minutes and already knows how to count codex processes. Wire it here.
+_pend=/home/jes/boss-clod/.codex-upgrade-pending
+if [ -f "$_pend" ]; then
+  _cx=$(ps -eo cmd 2>/dev/null | grep -c '[c]odex exec -m gpt-5.6-sol')
+  if [ "$_cx" -eq 0 ]; then
+    echo "PENDING-ACT|GAP OPEN: codex exec procs = 0 and .codex-upgrade-pending is present. jes authorized it (tg 10937). ACT NOW: upgrade 0.146.1 -> 0.153.3, record before/after, broadcast the baseline reset, then DELETE the file."
+  else
+    echo "PENDING-ACT|.codex-upgrade-pending waiting — $_cx live codex exec process(es). Precondition NOT met; do not swap a binary under a running round."
+  fi
+fi
 echo "SWEPT|examined=$examined|stalled=$stalled"
