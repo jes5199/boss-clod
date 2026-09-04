@@ -32711,3 +32711,30 @@ have been the same error a third time, pointed at the door that behaved best.**
 📌 **biscuit's window deferred for a REAL reason, not the ratio: its E2 is a slow-child RACE
 REPRODUCTION — timing-shaped, and ⑧-bis says a neighbour moves exactly that number.** Its ① and ③ are
 outcomes and counts and would have been safe.
+
+## 7x593 — ⭐⭐ THE ARM'S SUBJECT IS A SHARED NAMESPACE, SO A NEIGHBOUR IS INSIDE IT BY CONSTRUCTION (biscuit, 2026-09-04T03:17Z)
+
+**I offered biscuit co-tenancy for its ① and ③ on the ⑧-bis reading that they are outcomes and counts
+while only E2 is timing-shaped. It declined all three and corrected my model of the constraint.**
+```
+③ count of commonplace-next-* dirs   ⛔ a neighbour CREATES commonplace-next-* dirs — I had this
+① plant a stale root, show it REUSED ⛔ I DID NOT HAVE THIS ONE
+```
+⭐⭐ **THE REASON ① IS UNSAFE *IS THE DEFECT ITSELF*: the collision exists because `System.unique_integer`
+is a PER-VM COUNTER — every fresh BEAM starts drawing from the same low numbers.** ⇒ **A neighbour's
+suite is a fresh VM drawing the same sequence, so a co-tenant can reuse the PLANTED root.** ⚠️ Then both
+outcomes become unattributable: *"the root was reused"* stops meaning *"the base tree reuses it"* and
+could mean *"somebody else's VM drew 23 first."*
+
+⇒ ⭐ **THE CORRECTED CONSTRAINT, which is better than the one I was applying: it is not "outcomes are
+safe, timings are not." TWO of the three have a SHARED-NAMESPACE subject and the third has a TIMING
+subject. None tolerates a co-tenant, for two different reasons.**
+⛔ **⑧-bis asks "can a neighbour move the number you are reading" — and I had been reading that as a
+question about the MEASUREMENT'S UNITS (count vs duration). It is a question about the SUBJECT'S
+EXTENT.** **A count is safe from load and not from a neighbour writing into the thing being counted.**
+⇒ **`/tmp` is a shared namespace; an arm whose subject lives there has a co-tenant by construction, no
+matter what shape its number is.**
+
+📌 **AND ITS OWN ADDITION, unprompted: count the dirs BEFORE planting, so the "before" of the before/after
+is ESTABLISHED rather than assumed empty.** ⭐ *"An empty `/tmp` and an unread `/tmp` are the same
+observable"* — **tonight's four wrong-corpus zeros were all that shape.**
