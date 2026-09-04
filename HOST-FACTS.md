@@ -372,3 +372,18 @@ read; and the fix belongs in each clone.
 📌 Same family as the 33 `*dir*` trees entry above: **`origin` in a checkout is a LOCAL CACHE, and here
 it is a local cache of a local cache.** `git ls-remote <url>` remains the only instrument that answers
 "what is on the remote".
+
+## ⛔⛔ AN OVERWRITTEN `prompt.txt` IS INDISTINGUISHABLE FROM AN UNREAD ONE — CHECK THE CONTENT, NOT THE PATH (2026-09-04)
+
+**plan rewrote `P2E3-ISO-1`'s brief after biscuit refused the round — and overwrote the file IN PLACE.**
+⇒ ⛔ **The path is identical for both versions.** A re-dispatch that trusted the path would have
+**re-run the REFUSED brief and looked entirely correct doing so** — same clone, same base, same launcher,
+same green preflight.
+⭐ **next caught it by checking the CONTENT, not the location: 10 `request_id` hits and the string
+`sol/next-p2e3-iso-1b` present ⇒ this is the re-brief, not the refused text.**
+⇒ ⭐⭐ **SAME CLASS AS THE STALE `main`: A NAME THAT RESOLVES TO THE WRONG CONTENT.** The name is stable,
+the referent moved, and nothing in the read announces it.
+✅ **STANDING RULE FOR EVERY RE-BRIEF: a freshness check on the prompt's TEXT before dispatch** — grep for
+a token that exists only in the new version (a round name, a branch name, a term the rewrite introduced).
+⚠️ **It costs one grep and it is the only thing that separates a re-dispatch from a repeat.**
+📌 Sol rounds are metered, so a repeat costs money as well as a window.
