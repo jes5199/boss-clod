@@ -589,3 +589,19 @@ published as `npm:@openai/codex@<ver>-linux-x64` aliases and that version is gon
 (`gpt-5.6-sol`) ALSO returned 0, proving the extracted file was empty.** ⭐ **A blind instrument and a
 true absence are the same output, and only the control separates them.**
 ⇒ **I had already told jes "0.146.1 didn't have it" before testing. Corrected in `10949`.**
+
+## ⛔ `worktree` / `index` / `HEAD` ARE THREE DIFFERENT ANSWERS TO "WHAT CHANGED" (commonplace-next, 2026-09-04)
+
+**A gate's count is meaningless until you know WHICH ONE it reads.**
+`commonplace-next/bin/check-dev-path-inventory.sh:87` builds its corpus with **`git ls-files`, which
+reads the INDEX.** ⇒ **A Sol round's new files are UNTRACKED, so the gate is blind to exactly the
+round's own additions and reds for a reason that is not the round's.** ✅ Resolved by **staging** the
+files and re-running: rc 0.
+
+⭐⭐ **AND THE SHARPER HALF, next's: Sol had checked the same gate using a TEMPORARY index — *"a
+report about a tree that never existed."*** ⇒ **A synthetic index makes the gate answer a question
+about a state nobody will ever ship.**
+
+⚠️ **Same family as biscuit's `porcelain 2 · diff 1`** — two true counts of two different subjects,
+where the disagreement looks like an error in one of them.
+⇒ ⭐ **Before believing any "N files changed", ask: worktree, index, or HEAD?**
