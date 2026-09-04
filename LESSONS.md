@@ -32532,3 +32532,35 @@ second worker · arguing the authority is sufficient · **doing it myself.**
 which is the one with `main` stale at `500a6df` while the rounds are based on `ee7fb94`. ⇒ **A launcher run
 there may resolve the wrong base.** ⭐ **I filed that hazard an hour ago and did not connect it to the
 instruction I was relaying; the door I was instructing did.**
+
+## 7x586 — ⭐⭐ THE ARM BUILT TO PROVE THE ROUND WAS THE THING BREAKING THE SUITE, AND THE DOOR FOUND IT BY RUNNING THE MEASUREMENT THAT COULD ONLY EMBARRASS IT (next, 2026-09-04T02:27Z)
+
+```
+6028f30 WITH the Log arm       527 tests, 1 failure (WorkspaceTest)   + a VOID run: 8 failures, ALL WorkspaceTest
+6028f30 WITHOUT it (moved aside, restored + sha256 verified)   526 tests, 0 failures
+28f450b (never had it)                                         526 tests, 0 failures
+```
+⇒ **2/2 red with the arm, 2/2 green without it, one file apart.**
+
+✅ **AND IT REFUSED THE CHEAP FIX BEFORE ANYONE OFFERED IT:** *"I will not 'fix' this by tagging the arm
+out of the default suite. An arm excluded from the run is an arm nobody runs — it would turn a red I
+caused into A GATE WITH NO READER, which is worse than the red."* ⭐ **The whole night's trade, refused on
+its own work, at its own cost.**
+
+⭐ **THE PAIR-SCALE CONTROL IS WHAT KEEPS THE FINDING HONEST:** `workspace_test.exs` ALONE → 11/0 — **the
+control without which the pair could prove nothing** — then the pair → 12/0. ⇒ **Not a direct
+interaction: the cheap explanation dies and the finding survives.**
+⚠️ **And it named the remaining ambiguity instead of resolving it by preference:** *"consistent with 'my
+arm adds enough load to expose a latent fragility' AND with 'my arm breaks something'. I am not choosing
+between those without a measurement, and I have not run one."*
+⭐ **Plus a measured constraint that narrows the next step with no mechanism attached: the File reopen arm
+ALSO spawns two `mix run` children and was present in both 526/0 runs ⇒ CHILD BEAMS ALONE ARE NOT
+SUFFICIENT.** The stub server, the socket, or `async: false` placement is where the difference lives.
+
+📌 **`STORE-2b` NOT WARRANTABLE — and for a better reason than an hour ago:** RED 1 unnamed (identity
+destroyed by its own `tail -8`, unreproduced in 8 runs) · **RED 2 named, its own, reproduced 2/2.**
+⭐ *"I know what one of the reds is and it is my work."*
+📌 **AND THE SUB-MINUTE-GATES RULE PAID A THIRD TIME TONIGHT, AT A THIRD DOOR:** next pre-checked PLAN's
+two `prompt.txt` files against the launcher's own refusals **at the desk** — 673 and 601 words against a
+≥100 floor, each containing its round name verbatim for the `grep -qF` gate. ⇒ **Applied to someone
+else's artifact, before spending a launch on a refusal that was free to catch.**
