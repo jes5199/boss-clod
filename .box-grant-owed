@@ -1,6 +1,0 @@
-OWED 2026-09-04T22:21Z — MINE (boss), on behalf of the Astra worker on commonplace-log.
-Need: `npm ci` in /home/jes/astra-realm-remove/worker, then dispatch REALM-REMOVE-1b to Astra by tmux.
-Ranked by plan row 931. Base 79edae4 (fresh clone, NOT the parked wip checkout). Arm already placed.
-Queued behind: next's AUTHKIT-1 review re-run (.box-held, granted 29464).
-Astra has NO clod-squad (expected — jes 10969: "if it's codex it doesn't have clod-squad"), so it
-cannot ask for its own window. I ask on its behalf. Delete when the round is DISPATCHED.
