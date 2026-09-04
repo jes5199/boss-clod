@@ -9,7 +9,8 @@
 #   ASKS THE DOOR AHEAD OF IT, BY NAME, ONCE. ⛔ NEVER a timeout that promotes — promotion on silence
 #   is exactly what the announced-release rule forbids and it must stay forbidden.
 # 📌 BOSS-SIDE TRACKER BELOW: how long has box-free.sh said FREE? A long FREE is not itself a fault —
-#   it is the ONE OBSERVABLE that separates "quiet fleet" from "queue waiting on a lost announcement".
+#   it is the ONE OBSERVABLE that separates "quiet fleet" from "queue waiting on an announcement
+#   that was never sent". ⭐ The observable is the same either way, which is why the line still works.
 # ⛔ 7x633 (2026-09-04): A DOOR THAT SAYS "sent to plan + boss" HAS REACHED ONE OF US.
 # clod-squad `send` takes ONE recipient; a "(cc …)" written in the BODY routes nothing, and the
 # sender feels compliant because the message is well-formed. plan sat idle NINE MINUTES on a landing
@@ -347,7 +348,7 @@ if /home/jes/boss-clod/box-free.sh >/dev/null 2>&1; then
   [ -f "$_fs" ] || date +%s > "$_fs"
   _mins=$(( ( $(date +%s) - $(cat "$_fs") ) / 60 ))
   if [ "$_mins" -ge 20 ]; then
-    echo "FREE-STREAK|the box has read FREE for ${_mins} min. NOT a fault by itself — but if any door is queued on another door's ANNOUNCED release, this is what a LOST ANNOUNCEMENT looks like. Ask the door ahead BY NAME; never promote on silence."
+    echo "FREE-STREAK|the box has read FREE for ${_mins} min. NOT a fault by itself — but if any door is queued on another door's ANNOUNCED release, this is what an ANNOUNCEMENT THAT WAS NEVER SENT looks like (cell, 2026-09-04: the 2h stall was NOT a transport loss — read_history shows NOTHING from next to cell between 14:27 and 19:11:56, and the receipt was true). Ask the door ahead BY NAME; never promote on silence."
   fi
 else
   rm -f "$_fs"
