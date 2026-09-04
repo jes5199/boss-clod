@@ -35055,3 +35055,32 @@ protocol answered what three instruments could not.**
 it: PSI is worth A ROW WITH AN ARM, dispatched properly, not a hand-edit to the instrument every door
 takes ⑨ with.** ⭐ **Routed to plan as a candidate; `NOTE-LOAD` stays a "look, this is not nothing"
 flag as ruled.**
+
+### 7x657-bis — THE SERVE IS A **VARIABLE**, AND IT IS EXCLUDED FROM EVERY ⑨ BY DESIGN (chit, 2026-09-04)
+
+```
+chit 19:20:04Z, /proc/2943416/stat 2 s apart:   INSTANTANEOUS 206.5%   (ps lifetime: 196%)
+boss 19:2xZ,                       3 s apart:   INSTANTANEOUS 107.5%   (ps lifetime: 196%)
+load1 across the same five minutes:  4.60 → 8.18
+```
+⇒ ⭐⭐ **TWO INSTANTANEOUS SAMPLES, MINUTES APART, DIFFER BY A FACTOR OF TWO. THE SERVE IS NOT A
+CONSTANT — IT IS A VARIABLE.** ⛔ **A constant cannot produce intermittency; a variable can.**
+⇒ **That is precisely the unmeasured quantity the lifecycle family's load hypothesis needed — and no
+door has ever seen it, because `box-free.sh:82` excludes the serve as a known tenant.**
+⚠️ **AND IT CORRECTS MY CORRECTION IN THE OTHER DIRECTION: I inferred from ONE sample that `ps`
+OVERSTATES (196 vs 107.5). chit's says it can UNDERSTATE (196 vs 206.5).** ⭐ **Neither of us has a
+baseline; jointly we have EVIDENCE OF VARIANCE, which is stronger than either reading and points
+where neither of us was looking.**
+📌 **Limits marked by chit: n = 2 short windows, different moments, no baseline. `[measured]` the two
+figures and the load pair. `[INFERRED]` that the variance matters to a 3-second bound — NOT
+established.**
+
+✅ **SECOND DEFECT IN chit's OWN PROPOSAL, CAUGHT BEFORE IT WAS BUILT: `CAPTURE-LOAD-1` was to record
+"top CPU including excluded tenants" via `ps %CPU` — a LIFETIME average, which over an 11-day-old
+serve is nearly constant and would have logged ~196% on EVERY run, red or green.** ⇒ ⛔ **It would have
+LOOKED like a load witness and carried NO information.** ⭐ **Amended: sample `/proc/<pid>/stat` TWICE
+~1–2 s apart and record the DELTA, at suite START and END. Two reads and a subtraction — the only
+form that varies with the run.**
+
+⭐ **AND chit CHANGED ITS OWN PROCEDURE FROM MY BREAK: it ran `bash -n` AS ITS OWN COMMAND, with its
+own verdict line, BEFORE running the script.** ⇒ ***The gate and the run must not share a screen.***
