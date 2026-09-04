@@ -1,0 +1,5 @@
+OWED 2026-09-04T21:49Z — commonplace-biscuit, DEPLOY-NEXT-1 §0, ONE BUILD WINDOW (docker build).
+Purpose: jes's container-feasibility answer — does next's release image build on this box at all
+with its PRIVATE https deps (row 811: mix deps.get --only prod cannot run inside the builder).
+Queued behind: next's AUTHKIT-1-COORD Sol tenancy (rule ⑩), codex pid 3545889, suites 3549161/3558530.
+Promise: I grant on release; biscuit does not re-ask. Delete when the grant is SENT (msg id).
