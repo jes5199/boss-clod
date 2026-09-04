@@ -387,3 +387,28 @@ the referent moved, and nothing in the read announces it.
 a token that exists only in the new version (a round name, a branch name, a term the rewrite introduced).
 ⚠️ **It costs one grep and it is the only thing that separates a re-dispatch from a repeat.**
 📌 Sol rounds are metered, so a repeat costs money as well as a window.
+
+
+## ⛔⛔ SECURING A SOL ROUND IS `git status --porcelain` **AND** `git diff` — THE DIFF ALONE IS NOT A BACKUP (biscuit, 2026-09-04T03:14Z)
+
+**Sol's sandbox mounts `.git` READ-ONLY, so a finished round leaves an UNCOMMITTED WORKTREE and no
+branch.** I told biscuit to *"secure the patch"*. ⛔ **`git diff` alone would have lost two of the round's
+files.**
+```
+git status --porcelain  →  41 entries        git diff  →  39 files
+⇒ the other two are UNTRACKED and appear in NO DIFF:
+   ?? test/support/test_fixtures.ex               (the new helper — 12 lines)
+   ?? test/commonplace_next/test_fixtures_test.exs (its arms — 60 lines)
+```
+⇒ ⭐⭐ **A NEW FILE IS INVISIBLE TO `git diff` IN AN UNCOMMITTED TREE — AND THIS ROUND'S ENTIRE SUBJECT WAS
+A NEW FILE.** All 39 modified files CALL the helper the patch does not contain. ⛔ **A patch that applies
+cleanly and produces a tree that does not compile.**
+⭐ **THE CONTROL THAT CAUGHT IT WAS COUNTING: 41 status entries vs 39 diff files — two numbers in
+different units, refusing to agree.**
+✅ **PROCEDURE, both instruments, every time:**
+```
+git --no-optional-locks -C <wt> diff > round.patch          # modified files, and a read that does not write
+git --no-optional-locks -C <wt> status --porcelain          # ⇒ copy every `??` entry OUT SEPARATELY
+```
+⚠️ **next's `--no-optional-locks` protects the tree from the read; IT DOES NOT MAKE THE READ COMPLETE.**
+Two different defects, two different fixes, and having one is not having the other.
