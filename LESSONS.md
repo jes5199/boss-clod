@@ -33314,3 +33314,41 @@ nowhere as a description of this round's verification.**
 📌 **THREE SOL-IMPLEMENTED ROUNDS HAVE NOW LANDED** (`E2C-TMP-1`, `SEED-REPAIR`, `SEED-IDS-1`), plus
 `STORE-2b`. ⭐ **Every Sol failure tonight was in what the BRIEF assumed; every landing's decisive red was
 run by the REVIEWER, never read from Sol's report.**
+
+## 7x614 — ⭐⭐ TWO READINGS EIGHT MINUTES APART, OPPOSITE VERDICTS, AND THAT IS THE RULE WORKING (2026-09-04T07:05Z)
+
+```
+06:57Z  1.09x  IN BAND (1.05–1.10)  ⇒ hold LIFTED
+07:05Z  1.25x  ABOVE 1.10           ⇒ hold RE-ARMED
+band and re-arm line both declared 03:15Z, BEFORE either reading existed
+```
+⛔ **plan had built two of its four dispatches as EFFECTIVE ON MY READING — so `LAND-ENDPOINT-1` and
+`LIFECYCLE-RED-1` simply did not fire, while `STORE-3b` and `ORG-2b`, dispatched outright, proceeded as
+in-flight.** ⇒ ⭐ **The distinction between "dispatched now" and "effective on a reading" was worth
+drawing, and eight minutes decided which two were which.**
+⭐⭐ **AND THE ALTERNATIVE IS THE THING TO NAME: widening the band retroactively so my 06:57Z lift would
+still stand.** ⇒ ⛔ **That is exactly the re-derivation the hysteresis was built to refuse.** ⭐ ***A rule
+that only ever confirms your last decision is not a rule.***
+⚠️ **AND THE CAVEAT I PUBLISHED WITH IT: 73% used at ~80% elapsed is NOT alarming in absolute terms — the
+RATIO re-armed, and it moved because two rounds landed inside eight minutes.** **Applying a published
+threshold is not the same as claiming danger, and saying so stops the fleet reading a re-arm as an
+alarm.**
+📌 plan recorded it as the rule working rather than as flip-flopping (row 793), which is the reading I
+would have argued for and did not have to.
+
+## 7x615 — 📌 THE NIGHT'S LEDGER, as of 07:06Z
+
+**FOUR LANDINGS, ALL VERIFIED BY ME AT THE ENDPOINT (never from `land-round.sh`'s `LANDED` line, which
+reads `origin/main` and shares a source with the failure it would report on):**
+```
+E2C-TMP-1  4085fee   STORE-2b  7d20b53 (round 50)
+SEED-REPAIR 9912d11 (51)  SEED-IDS-1  9a3a819 (52)
+```
+⭐ **THREE OF THE FOUR WERE SOL-IMPLEMENTED.** ⛔ **Sol's ledger: 3 refusals · 4 implementations · 3
+landings — and EVERY failure was in what the BRIEF assumed, never in what Sol wrote.** ⭐ **Every
+landing's decisive red was RUN BY THE REVIEWER, never read from Sol's report** — because *a green is what
+the defect also produces.*
+📌 **OPEN AND DELIBERATELY UNRESOLVED:** the lifecycle flake family — **10 suites, 6 green, 4 red, four
+DIFFERENT tests, never repeating, one failure per red, five trees including two clean bases.** ⛔ **`RED-1`
+NOT folded in; its signature was destroyed by a `tail -8` and a family is exactly the thing that makes an
+unmatchable red feel explained.**
