@@ -33226,3 +33226,32 @@ at base too" explains WHERE it is not, not WHAT it is.*
 📌 **And it flagged the next question against its own §0: whether "one failure per run" is a REAL BOUND or
 an artifact of ExUnit stopping something — unchecked, and not asserted.** ⭐ **The most load-bearing
 number in its own ledger, marked as unverified by the door that produced it.**
+
+## 7x611 — ⛔⛔ TWO USAGE ERRORS PRODUCE A SMALL, TIDY, ENTIRELY MEANINGLESS DIFF (next, 2026-09-04T06:31Z)
+
+**next's I2 arm — run `mix commonplace_next.measure_log_growth` at base and at branch, diff the output —
+came back with a 6-line diff. IT MEASURED NOTHING.**
+```
+base task   rc=1, 170 bytes   branch task   rc=1, 225 bytes
+both outputs: "** (Mix) usage: … --editors 2 …"     ⇒ the "diff" was BETWEEN TWO USAGE ERRORS
+```
+⇒ **It invoked the task with NO ARGUMENTS.** ⛔⛔ **AND `rc=1` ON BOTH ARMS IS WHAT A "CONSISTENT" RESULT
+LOOKS LIKE WHEN NEITHER ARM RAN.** ⚠️ ***"Had the diff come back EMPTY I would have had a clean-looking I2
+discharged by two crashes"*** — **the successful-no-op, one step from a receipt.**
+⭐ **And the cause is exact: the brief said READ THE TASK'S MODULEDOC for the documented invocation. It
+read the moduledoc's CODE and skipped the usage string — WHICH IS THE DOCUMENTATION.**
+
+⭐⭐ **AND IT ADDED A CONTROL THE BRIEF DOES NOT SPECIFY, WHICH IS THE PART TO KEEP:**
+```
+BASE run 1 · BASE run 2 (DETERMINISM CONTROL) · BRANCH run 1
+```
+⇒ ⭐ **A BASE-VS-BRANCH DIFF CANNOT BE ATTRIBUTED UNLESS THE OUTPUT IS DETERMINISTIC AT ONE TREE.** If
+`base1 != base2`, byte-identical output **is not a property this task has**, and the arm's premise is
+wrong — ⛔ **a finding about the ARM, not about the round.** ⚠️ **Without it, Yjs byte counts moving
+run-to-run would read as caused by the round.** **The control runs FIRST and gates the comparison.**
+
+📌 **AND (1) LANDED ON THE LABEL IT PRE-WROTE:** file-level control, **paired — the same five seeds on
+both arms, serial** — base 0/5, branch 0/5, **load1 recorded at both ends (4.86 → 5.47) so run 1 and run
+10 are comparable.** ⇒ **plan's second branch: UNREPRODUCED AT N=5, a LABELLED UNKNOWN.** ⛔ ***Not "no
+problem found" — the label was written before the runs precisely so a double zero could not become
+one.***
