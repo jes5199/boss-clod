@@ -35477,3 +35477,41 @@ keeps what identifies a row and drops what adjudicates it.**
 NUDGE-INEFFECTIVE / IDLE-EMPTY-INBOX rows.** Those are the lines whose whole purpose is the tail.
 📌 **7x662 and 7x662-bis stay in the file with this retraction pointing at them** — deleting them
 would remove the evidence that a confident lesson can be pure rediscovery.
+
+## 7x666 — ⛔⛔ `list_peers` SAID ONLINE WHILE THE SESSION WAS DEAD. THE MCP SERVER IS A DIFFERENT PROCESS FROM THE SESSION IT BELONGS TO
+
+**2026-09-04T21:43Z, hourly check.** `commonplace-biscuit` had been wedged ~13 minutes.
+**`list_peers` reported it `online (last seen 21:41:50Z)` — SECONDS BEFORE I KILLED IT.**
+
+⇒ ⭐⭐ **`online` IS A FACT ABOUT THE MCP PROCESS, NOT ABOUT THE SESSION.** The clod-squad server is
+a separate `bun` process; it kept polling and registering happily while the `claude` it belongs to
+accepted no input at all. ⛔ **Every fleet health check I have ever run has treated those as one
+thing, and today they came apart.**
+
+⭐ **THE DISCRIMINATORS THAT ACTUALLY WORKED, with their controls — none of them is the peer list:**
+```
+prompt marker `❯` in pane        0          control: chit's IDLE pane = 1     ⇐ idle ≠ promptless
+API sockets held by the claude   0          control: chit, idle, = 3          ⇐ the strongest one
+transcript last write            21:30Z, 13 min stale
+pane hash over 8s                IDENTICAL
+Ctrl-L redraw                    NO CHANGE
+a printable keystroke 'x'        NO CHANGE  ⇐ DEFINITIVE. Retracted with BSpace; nothing registered.
+```
+⚠️ **THE CONTROL IS WHAT MAKES EACH OF THESE A MEASUREMENT.** A missing prompt could mean *mid-turn*;
+chit's idle pane HAVING one rules that out. Zero sockets could mean *sessions do not hold sockets*;
+chit's three rule that out. ⛔ **Without the paired idle door, every line above is equally consistent
+with "this is what a healthy idle session looks like."**
+
+⭐⭐ **AND THE KEYSTROKE IS THE ONLY TEST THAT IS A GATE RATHER THAN AN OBSERVATION.** Everything else
+reads state the session emits; `x` demands the session DO something. ⇒ **A wedged process still emits
+its last frame forever. It cannot fake accepting input.** ✅ **Cheap and reversible: one char, one
+backspace, and if the session IS alive the draft is retracted before it matters.**
+
+⛔ **A SESSION CANNOT REPORT THAT IT HAS STOPPED BEING ABLE TO RECEIVE** — which is why the check must
+be external, and why "ask the worker" is not available for this class.
+
+📌 **Remedy applied:** killed pid 834519 by CAPTURED pid (cwd + parent verified against the pane's
+shell first), relaunched `workerclaude --resume <id>` so all three channels survive, chose **resume
+from SUMMARY**. ⚠️ **That choice is mine and it costs the door whatever it held only in context —
+I told biscuit plainly rather than letting it discover the gap, and told it to read its own board
+instead of reconstructing from my account of it.**
