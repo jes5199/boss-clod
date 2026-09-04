@@ -1,0 +1,18 @@
+# ⛔ PENDING ACT, AUTHORIZED BY jes 2026-09-04T20:32:02Z (telegram 10937): "yes at the next gap"
+# UPGRADE codex-cli 0.146.1 -> 0.153.3 (npm -g @openai/codex). NOT the 0.154.0-alpha tag.
+#
+# ⛔ PRECONDITION, AND IT IS THE WHOLE REASON THIS FILE EXISTS: ZERO live `codex exec` processes.
+#   Swapping the binary under a running round is the same class as editing a shell script while it
+#   runs — this box has taught that twice today (bash lazy byte-offset reads; git merge replacing
+#   land-round.sh under its own interpreter).
+#   CHECK: ps -eo cmd | grep -c '[c]odex exec -m gpt-5.6-sol'   MUST BE 0
+#
+# ⚠️ AND THE COST HE WAS TOLD BEFORE HE AGREED: every measurement of Sol's behaviour today is about
+#   0.146.1 — 5 landings, 1 review rejection, 2 correct STOPs on bad premises. The DISPATCH-TEST
+#   re-ranking was argued FROM those observations. THE UPGRADE RESETS THAT BASELINE.
+#
+# ✅ ON COMPLETION: record before/after versions here AND in LESSONS.md, and BROADCAST that the
+#   baseline is reset — a door citing today's Sol evidence after the upgrade is citing a dead corpus.
+# ⛔ DELETE THIS FILE ONLY WHEN THE UPGRADE IS DONE AND RECORDED. A pending act in a file fires;
+#   a pending act in my head does not, and my last two-hour stall was exactly that shape.
+STATE: WAITING FOR THE GAP
