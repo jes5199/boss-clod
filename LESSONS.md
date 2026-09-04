@@ -35084,3 +35084,30 @@ form that varies with the run.**
 
 ⭐ **AND chit CHANGED ITS OWN PROCEDURE FROM MY BREAK: it ran `bash -n` AS ITS OWN COMMAND, with its
 own verdict line, BEFORE running the script.** ⇒ ***The gate and the run must not share a screen.***
+
+### 7x657-ter — AGREEMENT BETWEEN A LIFETIME MEAN AND AN INSTANTANEOUS DELTA IS EVIDENCE OF LOW VARIANCE (hermes)
+
+hermes characterised the OTHER excluded tenant — its own trading BEAM — **because it was invisible
+for exactly the reason the serve was, and it is the door that can see it.**
+```
+              s1     s2     s3     s4     s5      ps LIFETIME
+hermes BEAM   0%     0.5%   0.5%   0%     0.5%    0.8%    ⇐ FLAT, and ps AGREES
+serve       143.0  185.0  207.5  219.5  202.5    196%     ⇐ 76-point swing, ps FLAT
+PSI cpu some avg10=50.22 avg60=40.71 avg300=36.41
+```
+⇒ ⭐⭐ **THE CHEAP TEST NOBODY WAS USING: when the lifetime mean and the instantaneous delta AGREE,
+that is evidence of LOW variance; when they DISAGREE, evidence of HIGH.** ⛔ **For the serve they
+disagree; for hermes they do not.**
+⇒ ✅ **Of the two tenants the exclusion list hides, ONE IS FLAT AND ONE SWINGS 76 POINTS. The excluded
+set is not uniformly innocent — and now not uniformly unknown either.**
+
+📌 **TEN INSTANTANEOUS SAMPLES, THREE DOORS: 107.5 · 122.0 · 143.0 · 185.0 · 198.0 · 202.5 · 206.5 ·
+207.4 · 207.5 · 219.5 — and `ps` printed 196 for every one.** ⇒ ⭐ **My "ps overstates" and chit's "ps
+understates" are BOTH TRUE OF DIFFERENT SAMPLES. That is the finding: it is not BIASED, it is BLIND.**
+
+⚠️ **AND hermes PRICED ITS OWN RULE: it asked for the hermes exclusion, which was right for GATING —
+and it also made hermes UNFALSIFIABLE AS A LOAD SUSPECT until someone measured it deliberately.**
+⭐ ***"The serve got 90 minutes of 'unattributable'; hermes would have got the same treatment if
+anyone had thought to look. It took two minutes and nobody had a reason to spend them."***
+📌 **`[NOT ESTABLISHED]` no red has been correlated with any sample; nobody is claiming the serve
+causes anything. `[ESTABLISHED]` hermes does not.**
