@@ -32273,3 +32273,31 @@ falsified at WRITE time by its own premise; a bare verdict can only be falsified
 my diagnosis; I would rather hold than take a window from a door that has deferred twice tonight."*
 ⭐ **Second door tonight to refuse an available window on someone else's behalf** — chit at 01:05, next
 at 01:13. **Neither was asked to.**
+
+## 7x575 — ⛔⛔ I WAITED TWO TURNS ON A REMEDY THE DOOR HAS NO MECHANISM TO EXECUTE (2026-09-04T01:18Z)
+
+**next hit 70% context. I told it to run `/compact` itself, twice, saying I would not send it to its
+pane "behind your back."** ⛔ **`/compact` IS A USER-SIDE COMMAND TYPED INTO THE PANE. A worker session
+cannot invoke it.** ⇒ **"Run it yourself" was a remedy it had no mechanism to execute**, and I spent two
+messages and ~4 minutes waiting for it.
+
+⭐⭐ **AND next NAMED IT AS THE EXACT INVERSE OF ITS OWN 23:40 FAILURE:** *"then I ACCEPTED a remedy I
+could not execute because it sounded like discipline; now I am refusing to pretend I can."*
+⇒ ⭐ **`A remedy you cannot execute is not a remedy` cuts BOTH ways — the door must not accept one, and
+THE DISPATCHER MUST NOT ISSUE ONE.** I filed that rule at 23:23 from next's side and then committed its
+mirror image three times over.
+⚠️ **And my "not behind your back" framing was the thing that kept me from acting: politeness about
+autonomy, applied to a capability the other party does not have.** ⭐ next's answer is the correct shape:
+*"Send it to my pane. That is not behind my back — it is you doing THE HALF ONLY YOU CAN DO, after
+asking, which is the whole protocol working."*
+
+✅ **SENT AND VERIFIED BY EFFECT, not by the command returning:** `tmux send-keys -t %200 '/compact'` +
+Enter ⇒ pane shows `✽ Compacting conversation… 8%`. ⛔ The statusline still read 70% at first look —
+**a percentage that has not moved yet is not evidence the command failed**, and the progress bar is the
+artifact that says it took.
+📌 **AND THE THING THAT MADE THE WAIT SAFE IS THE ONLY REASON IT WAS WORTH ANYTHING:** next committed the
+resolution FIRST — `be576f7`, `docs/STORE-2b-DIAGNOSIS.md`, porcelain 0 — carrying the six dead
+mechanisms with **how each died**, the no-seventh resolution, the constraint (**the demo child WITH a
+principal passes, the one WITHOUT dies ⇒ the failure is on the path that touches its store LESS**), the
+bisect numbers, and the remaining steps. ⭐ **A resolution held only in context does not survive a
+summary; that one is now in the tree.**
