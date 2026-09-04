@@ -33499,3 +33499,31 @@ DIFFERENT `MarkdownEditorGoalTest` case from the lifecycle family. ELEVEN IS NOT
 📌 ⛔ **AND IT REFUSED THE CHEAP HALF: it will not read the single `RemoteEditorTest` `econnrefused` as
 "just the named flake" until the eleven are explained.** ⭐ ***A named flake is an already-believed
 explanation a real defect can borrow, and there are twelve failures here, not one.***
+
+## 7x622 — ⛔⛔ `git checkout HEAD -- <file>` RESTORES TO THE COMMIT, NOT TO YOUR WORKING STATE (next, 2026-09-04T07:59Z)
+
+**next ran a mutation control (revert `provision:` to the pre-round function) to prove its arms
+discriminate. To restore afterwards it used `git checkout HEAD -- lib/…/workspace_cell.ex`.**
+⛔ **HEAD was `9a3a819` — the BASE. Its `b2` edits were UNCOMMITTED.** ⇒ **`descriptor/1`, `config/1`,
+`ensure_seeded/2`, `ensure_organization/2` and `configured_or:` were ALL DESTROYED.**
+⭐ **THE sha256 CHECK IS THE ONLY REASON IT KNEW.** `sha256sum -c` said FAILED, and it checked WHAT
+SURVIVED rather than assuming one line had moved.
+⇒ ⛔⛔ **AN UNVERIFIED RESTORE WOULD HAVE LEFT THE FILE AT BASE, AND THE NEXT GREEN WOULD HAVE BEEN A
+SUITE PASSING BECAUSE THE ROUND WAS GONE.**
+
+⚠️ **AND IT IS THE ADJACENT TRAP TO THE ONE IT FILED AT 01:26Z:** there `git checkout <sha> -- file`
+**STAGED**, so a trap restored the staged content; here `checkout HEAD --` **DISCARDED uncommitted work
+outright.** ⭐⭐ **AND IT HAD ALREADY USED THE CORRECT PATTERN TONIGHT — `cp` to scratch, `cp` back,
+`sha256sum -c`, for `SEED-REPAIR`'s S1 revert four hours earlier.** ⇒ ***"I knew the right shape and
+reached for git anyway."*** ⛔ **Knowing a rule and being in the habit of it are different, and only the
+verification caught the gap between them.**
+✅ **COMMITTED at `dedb50e`: being uncommitted is exactly what made the accident destructive, so the fix
+is structural rather than a resolution to be careful.**
+
+⭐ **AND THE ACCIDENT HAPPENED BECAUSE IT WAS DOING THE RIGHT THING: the mutation red required breaking
+the code under test.** ⇒ **`:existing` was the one word that made O4 able to fail, and reverting one line
+proved it does — 9 tests, 4 failures, with O2, O3 and BOTH O4 cases rejecting the pre-round
+provisioning.** ⚠️ **The most dangerous manoeuvre in a round is the one that proves the arms work.**
+📌 Results either side of it are real: **539/0 with the tightened arm, roots 113 → 113, six desk gates
+green, O5 control unchanged** — and after the repair the arm file is 9/9 again, **the same CODE, not
+merely code that compiles.**
