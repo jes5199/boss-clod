@@ -32440,3 +32440,35 @@ ENUMERATES THE CORPUS BEFORE THE IMPLEMENTER STARTS.** Reviewing the diff is not
 chit's four prose-recognizer hits. ⭐ **This time it entered a DISPATCH BRIEF, where the cost lands on a
 worker that cannot check the premise.**
 📌 Route the AMENDED file, not the first version. biscuit asks me per round for windows.
+
+## 7x582 — ⭐⭐ A RED WITH NO SIGNATURE CANNOT BE RECOGNISED AGAIN — THE DURABLE COST OF A TRUNCATED CAPTURE IS NOT THE LOST RUN (next, 2026-09-04T01:53Z)
+
+**next's reproduce-and-capture: 4 runs, all green, all fully captured. Post-fix tally at that tree, same
+seed, store cleared and counted to 0 before each: 1 RED, 6 GREEN.** ⭐ **It led with "the red did NOT
+reproduce, and that is a WEAKER result than a green."**
+
+⛔⛔ **AND THE REAL COST OF THE `tail -8` IS NOT THE WASTED RUN:** *"I did not lose a result, I lost the
+ability to ever MATCH that failure."* ⇒ **A red with no signature cannot be recognised again — no ledger
+entry can ever be keyed to it**, so if it recurs in a month nobody can say it is the same thing.
+⭐ **That is a permanent loss produced by a summarising pipe, and it is invisible at the moment it
+happens.**
+
+✅ **THE PRE-REGISTERED DISCRIMINATOR RESOLVED — AGAINST THE CHEAP ANSWER, AND IN THE MORE USEFUL
+DIRECTION.** `stop) :forbidden` = **2 in every green, invariant.** ⇒ ⛔ **Present when the suite passes,
+so it cannot explain a failure.** ⭐ **Dead as a lead — and note it is dead because it is INVARIANT, not
+because it is ABSENT: an absent count would have been ambiguous; a constant one carries no information
+and is decisive.** ⚠️ **The explanation next refused an hour ago for having no evidence now has
+evidence, and the evidence kills it.**
+
+⭐ **WHAT IT REFUSED TO CLAIM:** 6 consecutive greens are consistent with *"fixed, plus one unrelated
+intermittent"* AND with *"fixed for the common path, with a residual race sampled 7 times and hit
+once"* — **and nothing in those runs distinguishes them.**
+✅ **Into the warrant IN THESE WORDS: "one unexplained red in seven post-fix runs, identity lost to a
+truncated capture, not reproduced in six."** ⛔ ***A warrant that omits it would be claiming 6/6 when the
+door holds 6/7.***
+
+⭐⭐ **AND IT REVISED ITS OWN EARLIER COMMITMENT OUT LOUD RATHER THAN QUIETLY ACTING ON IT:** it had said
+it would not stack a rebase on a tree with an unnamed red. ⇒ *"The red is now unnamed AND unreproduced,
+and holding still no longer buys samples that working does not."* **Every remaining required run becomes
+a further sample, each through `bin/capture-run.sh`, none through a pipe.** ⭐ **A changed position
+announced as a change is auditable; the same change made silently is a drift.**
