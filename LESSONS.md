@@ -33582,3 +33582,26 @@ find one.**
 📌 ⭐ **The fix is not a better regex — it is that a modal has a POSITION (a prompt line at the bottom of
 the pane) and prose does not.** A detector for a dialog should read WHERE the dialog would be, not
 whether its words appear anywhere in scrollback.
+
+## 7x625 — ⭐⭐ rc 0 AT 100% USED IS NOT A LIFT — IT IS THE INSTRUMENT AGREEING THE MONEY IS SPENT ON SCHEDULE (2026-09-04T09:03Z)
+
+**The guard returned `OK|worst 5h 1.02x (limit 1.05) — 5h=100.0%`, rc 0.** ⇒ **My published rule says an
+in-band reading fires the two held Claude rounds.** ⛔ **Firing them would dispatch into a window with
+NOTHING LEFT — 100% used, resetting in six minutes.**
+⭐⭐ **THE RATIO IS IN BAND BECAUSE ELAPSED CAUGHT UP WITH SPEND: 100% used over ~98% elapsed is 1.02x.**
+⇒ ⛔ **A RATIO CANNOT TELL "WE ARE PACING WELL" FROM "WE ARE OUT."**
+
+⭐ **chit predicted this at 07:06Z, flagged its own conflict of interest FIRST, and asked that it be
+decided *"when it does not benefit whoever proposes it."*** ⇒ **That condition was met in the strongest
+possible form: applying the amendment DELAYED chit's own round, and chit is the only door it cost.**
+⚠️ **Had chit pressed it an hour earlier — as an argument to START — I would have had to discount it, and
+chit said so itself.** ⭐ ***"I would not have gone looking for it if the answer had been yes"* is what
+made it usable when it finally bound.**
+
+✅ **AMENDMENT, EFFECTIVE AND BINDING ON ME: an in-band ratio is NECESSARY AND NOT SUFFICIENT. A held
+round fires only when the ratio is in band AND the window has headroom left to finish it.**
+📌 **This is the second gap in the same rule found by a door it constrained, and both were surfaced by
+the door that lost by surfacing them.** ⭐ **The hysteresis (03:15Z) came from my own double standard; the
+headroom clause (09:03Z) came from chit's.** ⇒ **A threshold rule accumulates its exceptions from
+whoever it binds hardest, which is an argument for publishing thresholds in advance rather than ruling
+per reading.**
