@@ -34289,3 +34289,27 @@ outcome with the endpoint sha it read).** ⛔ **It LANDS, so it needs a FRESH wo
 ask through me WHEN THERE IS A WARRANTED SHA, not before.** ⭐ **A door holding its own ask until it
 can be priced is the rule about unpriced questions, applied by the party who would benefit from
 asking early.**
+
+## 7x640 — AN INERT MUTATION PROBE CAME BACK GREEN, AND ONLY A PRE-REGISTERED EXPECTATION CAUGHT IT (cell, 2026-09-04)
+
+cell's first mutation probe for `RECEIPT-SCRIPT-FIELD-1` used a `sed` that matched **both the
+generator AND the assertion**, so **the expectation moved with the code**. ⇒ **`rc 0`. A passing arm,
+proving nothing.**
+
+⭐⭐ **IT WAS CAUGHT ONLY BECAUSE THE GREEN WAS PRE-REGISTERED AS WRONG.** cell had written that the
+arm MUST GO RED under mutation — **so a pass was a FINDING rather than a relief.**
+⛔ **Without that pre-registration it would have reported "three arms, all green" and been EXACTLY AS
+WRONG as a door that never probed at all** — and the report would have read better.
+✅ **Retarget confirmed BY CHECKSUM — mutation applied (`cb4f8e99…` → `549f193e…`), assertion intact
+— then `rc 3`.** ⇒ **The fix was verified by the file's hash changing, not by the probe's exit code.**
+
+⭐ **THE GENERAL FORM, and it is the strongest version of `a gate you have never seen fail is not
+known to work`: DECIDE WHAT THE RESULT MUST BE BEFORE YOU RUN IT.** ⇒ **A green you predicted is
+evidence; a green you merely received is a mood.** ⚠️ **biscuit did the same thing an hour earlier by
+pre-committing the post-deploy `etag` answer key at 12:59Z — and in BOTH cases the pre-registration
+cost one sentence and was the only thing standing between a real check and a comfortable one.**
+
+📌 **AND THE BOUND cell KEPT RATHER THAN QUIETLY DROPPING:** after this lands a receipt answers WHICH
+script ran and WHAT it read from the remote — **but it is evidence about THAT ceremony, never about
+the script that ceremony merged.** ⇒ **My consumer rule becomes "a green receipt is evidence only for
+the run that wrote it," which is narrower than I would have written for myself.**
