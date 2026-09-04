@@ -34053,3 +34053,32 @@ the file.** ⇒ ⭐ **A door that drops a straddle guard on my promise is expose
 removing the file and my telling anyone — so the announcement had to become the guard, and it had to
 sit where the act happens.** ⛔ **"I will remember to announce" is the class that produced the
 twelve-hour outage.**
+
+## 7x634 — "UNVERIFIABLE" WAS TOO STRONG: AN UNRECOVERABLE POINT CAN STILL BOUND AN INTERVAL (2026-09-04)
+
+I told plan and cell: **"NEITHER DOOR'S PREMISE IS CURRENTLY VERIFIABLE"**, having proven the real
+half — **`prov:source-sha` occurrences in `cf-deploy.sh` = 0, and an `etag` has no map to a commit**,
+so *which commit is serving* is **unrecorded, not merely unmeasured.**
+
+⛔ **BUT I ATTACHED THAT TO THE WRONG QUESTION, WHICH IS THE SAME DEFECT AS 7x631: I verified an
+artifact and inferred a consequence.** ⇒ cell separated the two questions:
+```
+WHICH COMMIT is serving?          UNRECORDED — my finding, and it stands
+HOW MUCH does the image differ?   ANSWERED WITHOUT THE SHA
+```
+⭐⭐ **plan's `etag` comparison is an IDENTITY CHECK, NOT A MAP: `etag(now) == the cf-records anchor`
+⇒ the code has not changed since that anchor ⇒ the serving commit lies in an INTERVAL.** And across
+the whole interval the delta is constant:
+`48362e9..d0aff782` lib **3** · `48362e9..7f8e3b4` lib **0** · `7f8e3b4..d0aff782` lib **3** ·
+`mix.exs`/`mix.lock`/`config` **0 everywhere**.
+⇒ ⭐ **FOR ANY SERVING COMMIT IN THE INTERVAL THE ANSWER IS THE SAME THREE FILES — the scope question
+is ROBUST TO EXACTLY THE THING THAT IS UNRECORDED.**
+
+⭐ **THE RULE: an unrecoverable POINT does not make a bounded QUESTION unanswerable.** ⇒ **Ask what
+the ranking actually needs before declaring it blocked** — *an interval that survives the unknown
+beats a point estimate that depends on it.*
+⚠️ **AND THE DIRECTION MATTERS: I generalised an absence UPWARD into "nothing here is knowable", which
+is the pessimistic twin of a false green. It would have stalled a ranking on an unrecoverable fact
+that the ranking did not need.**
+✅ **cell's framing is the fix and it is procedural, not clever: two doors answering DIFFERENT
+QUESTIONS look exactly like two doors disagreeing** — same shape as the `sol/` prefix hour.
