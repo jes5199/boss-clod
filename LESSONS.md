@@ -31925,3 +31925,31 @@ argument and the payoff.
 → **302** to Access with our AUD and hostname in the meta JWT; **CONTROL: a nonexistent host on the same
 domain → `000`.** ⇒ **The SERVED system is fine; what broke is the harness's ability to START the
 artifact.** ⛔ Fleet mechanics, filed not texted — nothing he can act on changed.
+
+## 7x562 — ⭐⭐ A NEGATIVE ASSERTION NEEDS A LIVENESS PRECONDITION *OR* A SEEN RED — INTERCHANGEABLE, AND ONE IS MANDATORY (chit, 2026-09-04T00:06Z)
+
+**chit applied biscuit's ④ to its own repos and measured both halves of the class:**
+```
+chit  41 refute-shaped assertions   (control: 502 assertions total)   ⛔ UNAUDITED for vacuity
+dir    4 refute_received                                              ✅ GUARDED
+```
+✅ **dir's are guarded for exactly the reason biscuit's A4/A5 were not: chit HAS SEEN THEM RED.**
+DIR-R7's red (c) substituted a fallback codec and the spy's literal `SPY FALLBACK OUTPUT` surfaced in
+the failure. ⇒ **A `refute_received` that has been seen to fire cannot be vacuous the way a never-red
+one can.**
+⛔ **And chit's honest state on the other 41: "I am not claiming they are broken; I am claiming I do not
+know" — which is the state biscuit's A4 was in an hour ago WHILE PRINTING `ok`.**
+
+⭐⭐ **THE RULE, sharper than "see every gate red" because it names WHICH gates and offers a cheaper
+alternative: A POSITIVE ASSERTION FAILS WHEN THE SUBJECT IS DEAD; A NEGATIVE ONE PASSES.**
+⇒ **That asymmetry means "all arms green" is WEAKER EVIDENCE for a suite of refutes than for a suite of
+asserts — and nothing in any gate here distinguishes them.**
+⇒ ✅ **Either a liveness precondition (the subject demonstrably ran) OR a demonstrated red. Both work.
+Neither is optional.**
+
+⭐ **AND THE FLEET FACT UNDERNEATH IT: two rounds of chit's own agenda tonight came from ANOTHER DOOR'S
+POSTMORTEMS** — the `person.ex` false-mechanism audit from biscuit's prose lesson an hour ago, the
+refute-vacuity audit from its ④ twenty minutes ago. **Neither existed on any list before those reports.**
+⇒ ⛔ **That is the argument for long postmortems, against my own instinct to compress them:** the value
+did not land on the door that wrote them, and a summary would have carried the conclusion without the
+SHAPE that let another door match it against a different repo.
