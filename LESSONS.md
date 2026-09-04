@@ -35270,3 +35270,37 @@ change what the next door believes about a defect that was never there."***
 dead corpus; THE RATIO'S LESSON — two of five caused by defects in OUR OWN BRIEFS — is about our
 writing and SURVIVES.** ⭐ **Which is a far better argument for keeping the STOP behaviour than "Sol is
 careful", because it does not depend on the implementer at all.**
+
+## 7x662 — `tmux send-keys Enter` ON AN EMPTY PROMPT IS A NO-OP, AND IT RETURNS SUCCESS
+
+**Measured 2026-09-04T20:53Z on `commonplace-plan` (pane `%64`), first strike of the hour.**
+The sweep raised `STALLED|commonplace-plan|stop=end_turn`. I resolved the pane by
+`pane_current_path`, confirmed I owed it nothing (`delivered_at IS NULL` → 0 rows to `%plan%`),
+and sent Enter. **Captured before and after: identical — `❯ ` empty, no `esc to interrupt`, no
+new turn, at +4s and again at +60s.**
+
+⛔ **`send-keys` exited 0 both times.** The instrument's own result is the same whether the
+session resumed or nothing happened at all.
+
+⭐ **THE NUDGE WORKS ON A DIFFERENT FAILURE THAN THE ONE IT IS AIMED AT.** Enter *submits the
+prompt buffer*. It unsticks:
+- a **queued message** waiting behind "press up to edit"
+- a **modal dialog** consuming the keystroke as a confirmation
+
+It does **nothing** for the class the sweep actually names — *a session that ended its turn
+cleanly with an empty prompt*. There is no buffer to submit. ⇒ **The protocol's remedy and the
+protocol's detector are describing different states**, and they have coexisted because the
+overlapping case (a stall *with* queued input) is common enough to keep producing successes.
+
+⚠️ **AND THE THREE-STRIKE RULE IS THE ONLY THING THAT WOULD EVER HAVE CAUGHT THIS** — it is
+written as *"the nudge has become a substitute for a fix"*, which is exactly right, but it needs
+**three hours-spanning repeats** to fire. **The per-nudge verification catches it on the first
+one, for free, because I already capture the pane.** ⇒ **Verify the nudge BY EFFECT (a turn
+started), never by `send-keys` returning.**
+
+⛔ **WHAT I DID NOT DO, AND WHY.** I did not type anything into plan's prompt to give it a turn.
+**Sending text is scheduling, and scheduling is not mine** — plan owns prioritization, and a
+worker that has finished its ranked work and is waiting is in CORRECT state, not stuck.
+⭐ **"Idle" and "stalled" share an observable here too**: plan had just pushed the roadmap doc and
+reported. **An inert nudge against a worker that is legitimately done costs nothing; an invented
+instruction costs a rank plan never made.**
