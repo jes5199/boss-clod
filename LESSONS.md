@@ -33800,3 +33800,25 @@ SIGTERMed a BEAM mid-render, and STATE.md still did not update.** The heartbeat 
 ⛔ **so the heartbeat proves the script STARTED, never that the render FINISHED.** Verified no BEAM
 was orphaned (only the long-lived serve and hermes remain). **Judge by STATE.md's mtime, not by the
 heartbeat and not by exit alone.**
+
+### 7x630-bis — hermes's INVERSE: "WHOSE ATTENTION DOES THE **ARMED** STATE DEPEND ON?" (2026-09-04)
+
+hermes checked itself against 7x630 and came back **negative on my class and positive on its mirror**
+`[measured — all 31 settings rows]`: **zero stale suppressions** (`wheel_halted=false`, no
+`rotation_halted`, seven `*_enabled` true, four `*_dry_run`/`*_preview_only` false).
+
+⛔ **Its report is better than a clean bill because it refuses to be one:** *"nothing is
+OFF-AND-FORGOTTEN; several things are ON-AND-UNEXAMINED"* — `tiny_tranche` + `auto_trade` live with
+two active candidates, `shadow_live_*` armed at $1,000 collateral. ⚠️ **It states plainly it has
+touched none of them and has NO evidence anything is wrong — these are jes's configured systems
+running as designed.** ⭐ **The observation is structural, not a finding: my discriminator asks
+whose attention a LIFT waits on; the same question about an ARMED state has the same answer and
+NO EQUIVALENT PROMPT TO ASK IT.** A hold at least advertises itself as temporary.
+
+⭐⭐ **AND ITS SHARPENING OF MY OWN HALF IS THE LINE TO KEEP: *"the suppression's own success looked
+like the job's success."*** ⇒ **Same family as `systemctl show` returning `Result=success` for a unit
+that never existed: A THING THAT IS NOT RUNNING AND A THING THAT RAN FINE BOTH EXIT 0.**
+
+⛔ **NOT MINE TO ACT ON.** hermes asked for nothing, reported no defect, and live-money config is
+jes's. **Filed, not escalated** — an armed-and-working system is not an actual problem, and relaying
+it as one would be exactly the near-miss traffic that trains him to skim.
