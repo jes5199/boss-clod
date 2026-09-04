@@ -227,6 +227,14 @@ fi
 #   hold unsupervised. (2) CODEX IS METERED AND COSTS MONEY WHERE CLAUDE DOES NOT.
 _dispatch_line() {
   printf 'DISPATCH|new rounds -> SOL; Claude doors finish IN-FLIGHT only (jes 2026-09-04T01:44:50Z). Reverses on rc 0. Sol implements + a Claude door reviews; Codex is metered.\n'
+  # ⛔⛔ CARVE-OUT, hermes 2026-09-04T01:47Z, BEFORE it was ever load-bearing:
+  #   A REVIEWER'S APPROVAL IS NOT A SUBSTITUTE FOR AN OWNER'S AUTHORIZATION.
+  #   "Sol implements + a Claude door reviews" is sufficient for ordinary repos and NOT for
+  #   hermes's live-money paths — order placement, sizing, capital limits, arming flags — which
+  #   need jes's OWN WORD PER CHANGE, cited to a message with a timestamp. Five changes there in
+  #   two days each trace to a verbatim quote; THAT CHAIN IS THE ARTIFACT, and an implementer
+  #   that cannot produce it should not be editing lib/hermes/jobs/ or lib/hermes/trading/.
+  printf 'DISPATCH-EXCEPT|hermes live-money paths (lib/hermes/jobs/, lib/hermes/trading/) are NOT routable to any implementer: they need jes'"'"'s own word PER CHANGE, cited. A review does not substitute for an authorization.\n'
 }
 
 if [ "$SOL_VERDICT" = "stop" ]; then
