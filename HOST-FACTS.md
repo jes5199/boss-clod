@@ -562,3 +562,30 @@ followed by next moving back.
 `checkout`.** ⛔ **It belongs on the ban list beside `pkill -f`: both look like reads and are not.**
 ⚠️ **AND THE DETECTION PROBLEM IS THE REAL ONE: the writer sees a successful read; the OWNER sees an
 unexplained state change in its own tree and blames itself.**
+
+## codex 0.153.3 — MODEL IDS MEASURED 2026-09-04T21:09Z
+
+**Invoked, not read off a list. `codex --help` does NOT enumerate models — `-m` is a free string,
+so the only instrument that answers "is this model available" is calling it.**
+```
+gpt-5.6-sol      answers   ⇐ POSITIVE CONTROL, run FIRST so a probe failure is attributable
+gpt-6-astra      answers   NEW in 0.153.3's binary
+gpt-5.6-terra    answers   NEW
+gpt-5.6-luna     unchanged
+gpt-6-astra-mini 400 "not supported when using Codex with a ChatGPT account"  ⇐ NEGATIVE CONTROL
+```
+⭐ **The negative control is what makes the two greens mean anything: the endpoint DISCRIMINATES.**
+Without it, "both answered" is equally consistent with an endpoint that accepts any string.
+
+⛔ **`codex exec` OUTSIDE A GIT REPO REFUSES AND EXITS 0.** *"Not inside a trusted directory and
+--skip-git-repo-check was not specified."* — **rc=0, no work done.** Another member of the
+rc=0-with-empty-result family. Pass `--skip-git-repo-check` for scratchpad probes.
+
+⛔⛔ **AND A CLAIM I COULD NOT TEST, RECORDED SO NOBODY REPEATS IT AS FACT: whether `gpt-6-astra`
+was ALSO present in 0.146.1 is UNKNOWABLE FROM THIS BOX NOW.** `npm install -g` overwrote the old
+binary, and `@openai/codex-linux-x64@0.146.1` **404s from the registry** (the platform packages are
+published as `npm:@openai/codex@<ver>-linux-x64` aliases and that version is gone).
+⚠️ **My first attempt LOOKED like a clean absence — `grep -c astra` → 0 — until the positive control
+(`gpt-5.6-sol`) ALSO returned 0, proving the extracted file was empty.** ⭐ **A blind instrument and a
+true absence are the same output, and only the control separates them.**
+⇒ **I had already told jes "0.146.1 didn't have it" before testing. Corrected in `10949`.**
