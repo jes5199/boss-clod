@@ -1,0 +1,18 @@
+HELD 2026-09-04T10:53Z by boss — the renderer STARTS AND DOES NOT COMPLETE. The 10:17Z firing ran
+30:11, CPU flat (0 ticks/6s against a +405 positive control), wrote no outcome row, left STATE.md at
+2026-09-03 21:43, and held the box as BUSY-PERIODIC the whole time. Killed by captured PID.
+⛔ THIS IS A NEW HOLD FOR A NEW REASON. Nothing is inherited from the 09-03T21:58Z hold, which was a
+suite-collision courtesy and which I let outlive its condition by twelve hours.
+⛔ WHY HOLD RATHER THAN LET IT FIRE: an hourly job that hangs for 30+ minutes holds the box against
+every ceremony, and rounds 55+ plus chit's five remaining runs are queued on that box. It produces
+NOTHING while doing it, so the hold costs no freshness that the fault has not already cost.
+LIFT CONDITION — ANNOUNCED, NOT NOTICED (this is the thing the last hold got wrong):
+  ⇒ ANY DOOR ASKS FOR A FRESH STATE.md, or
+  ⇒ the erpc/serve-read block is diagnosed and fixed, or
+  ⇒ jes asks about STATE.md.
+The fleet was told this hold exists and why, so the lift can be requested by someone other than me.
+⚠️ AND IT CANNOT HIDE THIS TIME: loops-health.sh now gates on STATE.md's MTIME (not the heartbeat),
+so this outage prints ⛔ STALE ARTIFACT on every run instead of failing as silence.
+[INFERRED, marked] leading candidate is a blocked serve read — the 09:45Z run died on
+Commonplace.Bd.Comment.list/3 {:erpc, :noconnection} and serve BEAM 2943416 is alive on :5199.
+Not proven. Diagnosing the monolith's erpc surface is not boss-clod's lane.
