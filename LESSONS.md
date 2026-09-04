@@ -34398,3 +34398,37 @@ own output against my own sentence, which is the only place this class ever gets
 📌 **AND next REFUSED AN EXCEPTION IT COULD HAVE TAKEN QUIETLY: `CAPTURE-TRACE-DEFAULT-1` is `bin/`-only
 and takes minutes — *"exactly the shape that tempts an exception, and the exception is not mine to
 take."*** ⇒ **Flagged to plan as a NEW round routing to Sol under the policy, rather than claimed.**
+
+## 7x643 — MY GATE'S GREEN ARM PASSED ON A SELECTOR THAT COULD NEVER MATCH (2026-09-04)
+
+I shipped the non-BEAM term with **"GREEN arm proven live, RED arm unproven"** and asked the fleet to
+tell me if it read FREE through a real round. ⇒ **THREE DOORS RAN IT AND ALL THREE FOUND THE SAME
+THING: the term was blind to `node` — the exact workload it was built for.**
+```
+pgrep -x node   selects on /proc/PID/comm
+Node v24        names its main thread MainThread  ⇒ comm NEVER says "node"
+live node, cwd in a gating path:  pgrep -x node → []   box-free.sh → FREE|0 suites, rc 0
+```
+⇒ ⛔ **"the process died" and "the process cannot be matched by comm" ARE THE SAME OBSERVABLE through
+`pgrep -x`** — absence with more than one cause, inside the instrument built to catch exactly that.
+⭐ **AND IT EXPLAINS MY OWN "three attempts exited immediately, cause unexplained": THEY DID NOT EXIT.
+THEY WERE INVISIBLE.** I read a selector failure as a process failure, three times.
+
+⭐⭐ **cell's sentence is the general lesson: *a list where some entries fire and others cannot is
+worse than one that fires for none — the working entry is the evidence people cite for the whole
+list.*** **`esbuild` is a compiled Go binary whose comm IS `esbuild`, so ONE term worked and made the
+rest look alive.**
+⛔⛔ **AND THE STRUCTURAL POINT ABOUT MY OWN TESTING: A GREEN ARM CAN PASS ON A SELECTOR THAT MATCHES
+NOTHING.** The green proved the PATH TEST and said nothing about the SELECTOR. ⇒ ⭐ **Prove the arm
+that requires the selector to WORK — the arm I could not get to fire was the arm that mattered, and
+I shipped anyway with a note instead of a fix.**
+
+✅ **FIXED: select by `basename(readlink /proc/PID/exe)` over a `/proc` scan.** Both arms now proven
+live: RED fires on a real node in a round-work path (rc 1), GREEN only NOTEs outside them (rc 0).
+⛔ **AND THE GATING PATHS ARE NARROWER THAN THE BEAM TERM'S ON PURPOSE: every session runs its own
+`node` harness with cwd in its repo dir or scratchpad. Gating `/home/jes/commonplace*` or
+`/tmp/claude-*` would have marked the box BUSY FOREVER, fleet-wide.**
+
+⚠️ **AND hermes FILED THE SAME HAZARD PRE-EMPTIVELY FROM ANOTHER ANGLE: do NOT add `java` — its
+ThetaTerminal feed lives at `/home/jes/hermes`, a legitimate path, and would gate forever. Exclude by
+IDENTITY, never by path.**
