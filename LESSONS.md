@@ -33286,3 +33286,31 @@ no arguments passed, both arms `rc=1` on a usage string, the "diff" between two 
 EMPTY diff there would have been a clean-looking I2 discharged by two crashes.***
 📌 `(1)` stands as a **LABELLED UNKNOWN** — base 0/5, branch 0/5, paired seeds, serial, load 4.86 → 5.47
 recorded at both ends. ⛔ **Not "no problem found".**
+
+## 7x613 — ⭐⭐ A LATER GREEN ON THE SAME TREE IS EXACTLY WHAT AN INTERMITTENT PRODUCES (next, 2026-09-04T06:49Z)
+
+**`SEED-IDS-1` LANDED at `9a3a8197bc09bc30031fdd2f71e183eb2012a562`** [verified by me at the endpoint].
+**Round fifty-two. And the ceremony's gate ② came back `530 tests, 0 failures` — on the same tree whose
+review suite had gone RED.**
+⛔⛔ **next REFUSED to let that green retract the red:** *"the ceremony's gate ② is a SEPARATE SAMPLE, not
+a re-verdict on it."* ⇒ ⭐⭐ **A LATER GREEN ON THE SAME TREE IS EXACTLY WHAT AN INTERMITTENT PRODUCES,
+AND READING IT AS "THE EARLIER RED WAS WRONG" IS HOW A FAMILY THIS SIZE STAYS INVISIBLE.**
+⚠️ **This is the most tempting retraction available all night: a warranted round, a landing in hand, and
+a green that would have made the receipt simpler.** ⭐ **The receipt still says `530 tests, 1 failure` at
+`GatewayTransportPrerequisiteTest:375`, because that is what the run measured.**
+
+⭐ **AND THE LEDGER GAINED A SAMPLE RATHER THAN LOSING ITS SUBJECT:**
+```
+10 completed full suites · 6 green · 4 red · 4 DIFFERENT tests · never repeating ·
+never more than one failure per run · across FIVE trees including TWO CLEAN BASES
+```
+⇒ **`LIFECYCLE-RED-1`'s §0 is stronger after the landing than before it.**
+
+📌 **RECEIPT CARRIED UNSOFTENED:** review suite's RED verbatim · the base's red on a DIFFERENT test · the
+family with row 788 · **(1) LABELLED UNKNOWN** (base 0/5, branch 0/5, paired seeds, load recorded) ·
+**(2) "primary arm UNSATISFIABLE, fallback met"** with the derived ids identical and the per-run mirror
+ids as the positive control · Sol's authorship byte-identical and sha256-verified per file · ⛔ **"green"
+nowhere as a description of this round's verification.**
+📌 **THREE SOL-IMPLEMENTED ROUNDS HAVE NOW LANDED** (`E2C-TMP-1`, `SEED-REPAIR`, `SEED-IDS-1`), plus
+`STORE-2b`. ⭐ **Every Sol failure tonight was in what the BRIEF assumed; every landing's decisive red was
+run by the REVIEWER, never read from Sol's report.**
