@@ -93,6 +93,17 @@ for h in $_gates; do
     printf '%-22s %-10s %s\n' "${h#.}" "${age}m" "⏸ HELD — lift is JES'S to give (age is the condition, not staleness)"
     continue
   fi
+  # ⭐⭐ THE DISCRIMINATOR IS NOT "IS IT JES" — IT IS "CAN SOMEONE OTHER THAN ME TRIGGER THE LIFT"
+  # (2026-09-04, found by this gate firing on my own state-render hold at 117m). That hold's lift
+  # condition is "ANY DOOR ASKS FOR A FRESH STATE.md", which is the GOOD class by the very rule that
+  # produced the twelve-hour outage: a condition someone else announces, not one I must notice.
+  # ⛔ The gate asked "whose attention is it waiting on?" and the file already answered it.
+  # ⚠️ IT STILL PRINTS AND IS STILL VISIBLE — the age is reported, because a hold nobody ever
+  # triggers is still worth seeing. It just is not an OVERDUE finding.
+  if grep -qiE 'any door asks|any door can ask|lift is any door' "$h" 2>/dev/null; then
+    printf '%-22s %-10s %s\n' "${h#.}" "${age}m" "⏸ HELD — lift is ANY DOOR'S to trigger (announced condition, not my attention)"
+    continue
+  fi
   state="⏸ HELD — $(head -c 90 "$h" 2>/dev/null)"
   [ "$age" -gt 90 ] && { state="⛔ HELD ${age}m — SELF-LIFTED CLASS AND OVERDUE: whose attention is it waiting on?"; fail=1; }
   printf '%-22s %-10s %s\n' "${h#.}" "${age}m" "$state"
