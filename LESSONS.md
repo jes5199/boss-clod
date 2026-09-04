@@ -34760,3 +34760,28 @@ will not guess."***
 ✅ **THE RULE, plan's wording, now installed: A DOOR'S LAUNCH WORKTREE HAS ONE WRITER. Every other
 door reads it through `show` / `grep` / `cat-file` / `diff` BY SHA — never `checkout`.**
 ⇒ **`checkout` in another door's worktree is a WRITE and belongs on the ban list beside `pkill -f`.**
+
+### 7x649-bis — "THE WINDOW WAS TOO SMALL" vs "MY FIRST SAMPLE WAS TOO LATE" (next, self-corrected)
+
+next concluded the non-BEAM term's isolating test had to MOVE to a longer workload: *"npm resolves in
+~2 s, faster than a detached launch plus a 2 s first sample ⇒ my install is structurally the wrong
+workload."* ⛔ **My 5-minute sweep falsified it DURING THAT SAME INSTALL:** `BUSY-NONBEAM pid 3016900`,
+`beams-under-tree 0`, rc 1.
+⇒ ⭐⭐ **THE WORKLOAD WAS FINE. THE SAMPLING WAS WRONG.** next launched detached, slept 2 s, and took
+its first sample AFTER the window closed — **then blamed the window rather than the timing.**
+⚠️ **The sweep caught it because IT DID NOT HAVE TO START AFTER THE THING IT WAS MEASURING.**
+
+⭐ **THIRD TIME TODAY `absence has more than one cause` HAS POINTED AT AN INSTRUMENT'S OWNER:** *"the
+term did not fire" · "there was nothing to fire on" · "I looked after it ended"* **are one
+observable** — and next: *"I picked the conclusion that blamed the world rather than the method, and
+I HAD the discriminator in hand (`node-under-tree = 0`) and read it as evidence about npm instead of
+evidence about my timing."*
+
+✅ **AND THE MEASUREMENT THE WHOLE FIX NEEDED, taken at one instant on a live healthy process:**
+```
+pgrep -x node → []          while   exe=node, comm=MainThread, cwd=/home/jes/sol-redsays1
+BUSY-NONBEAM fires          beams-under-tree = 0     box-free rc=1
+```
+⇒ ⭐ **Not an ARGUMENT that the old selector was blind — a MEASUREMENT of it being blind, on real
+work, with the new selector seeing the same process in the same breath.** **Both shapes proven: with
+a BEAM alongside (attribution) and alone (the gate).**
