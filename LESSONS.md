@@ -33926,3 +33926,35 @@ BROADCASTS RESET IDLE DOORS' `turn_end`.** hermes flagged STALLED three times in
 because each broadcast woke it, it replied substantively, and the detector then read a fresh
 `end_turn` with nothing running. ⇒ ⛔ **A five-broadcast thread manufactures its own stall traffic.
 Converge in the file, not in the channel.**
+
+## 7x632 — LIFTING THE HOLD REVEALED A SECOND, INDEPENDENT FAULT (2026-09-04)
+
+**The `:17` render started on time — the hold lift worked — and then DID NOT COMPLETE.** Killed at
+30 minutes by captured PID.
+```
+pid 2454953  etime 30:11  RSS 97 MB  state Sl   cwd /home/jes/commonplace-monolith
+CPU 0 ticks / 6s      CONTROL: known-busy pid +405 ticks / 3s  ⇒ instrument NOT blind
+outcomes rows 500 (unchanged)   STATE.md 2026-09-03 21:43:30 (unchanged)
+measured envelope: a :17 firing writes its outcome row at :42–:43 (~25 min, six runs)
+```
+⭐⭐ **chit's framing is the one to keep: DISCHARGING THE GATE FIXED THE GATE AND EXPOSED A FAULT
+UNDERNEATH IT. A fix that turns a silent failure loud is working correctly — this is the LOUD
+version of what was silent for twelve hours.** ⇒ **Twelve hours of `SKIPPED` hid a renderer that
+would not have completed anyway; the hold was concealing TWO things.**
+
+⛔ **AND THE ENVELOPE IS WHAT MADE THE CALL POSSIBLE, not judgement.** At 09:43Z I killed a render at
+**2 minutes** with a Bash timeout — inside the envelope, and wrong. **At 30 minutes it is outside a
+measured range of six runs, with CPU flat and a positive control proving the CPU instrument sees
+other processes.** ⭐ **Same action, opposite correctness, and the only thing separating them is a
+number I did not have this morning.**
+
+⚠️ **`[INFERRED, marked]` the leading candidate is a blocked serve read** — the 09:45Z run died on
+`Commonplace.Bd.Comment.list/3 error: {:erpc, :noconnection}`, and the serve BEAM `2943416` IS alive
+and LISTENING on `:5199`. ⛔ **Not proven, and I am not chasing it: the renderer is mine, the serve's
+erpc surface is not.**
+
+✅ **KILL DISCIPLINE, both arms:** target proven by `/proc/PID/cwd` = `/home/jes/commonplace-monolith`
+**BEFORE** the signal, distinct from hermes `3811749` (`/home/jes/hermes`, LIVE MONEY) and the serve
+`2943416` (`/home/jes/commonplace-serve-pin`); killed by captured PID, never a pattern.
+**CONTROLS AFTER: both survivors verified still running.** ⇒ **A post-check asking only "is it gone?"
+passes equally if EVERYTHING is gone.**
