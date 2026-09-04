@@ -364,7 +364,14 @@ _held=/home/jes/boss-clod/.box-held
 if [ -f "$_held" ]; then echo "BOX-HELD|$(head -1 "$_held") — DO NOT GRANT A SECOND WINDOW"; fi
 _owed=/home/jes/boss-clod/.box-grant-owed
 if [ -f "$_owed" ]; then
-  if /home/jes/boss-clod/box-free.sh >/dev/null 2>&1; then
+  # ⛔⛔ 7x667's SECOND HALF, FOUND ONE SWEEP LATER BY MY OWN TERMS DISAGREEING: this used to gate
+  # on box-free.sh ALONE and was BLIND to .box-held. A holder between two acts reads FREE, so the
+  # term said "SEND THE GRANT NOW" while the box was held for someone else — i.e. it would have told
+  # me to commit the exact double-grant I had just filed. ⭐ A HOLD IS AN ANNOUNCEMENT; `FREE` means
+  # NO SUITE IS RUNNING, never NOBODY IS HOLDING.
+  if [ -f /home/jes/boss-clod/.box-held ]; then
+    echo "GRANT-OWED|HELD by someone else — NOT grantable however free the box reads: $(head -1 "$_owed")"
+  elif /home/jes/boss-clod/box-free.sh >/dev/null 2>&1; then
     echo "GRANT-OWED|BOX IS FREE AND A WINDOW IS OWED — SEND THE GRANT NOW: $(head -1 "$_owed")"
   else
     echo "GRANT-OWED|still queued (box busy) — $(head -1 "$_owed")"
