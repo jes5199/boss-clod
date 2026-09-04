@@ -255,6 +255,18 @@ _dispatch_line() {
   #   ⚠️ AND A CREDENTIAL-BLIND DOOR CANNOT TELL "the pin is wrong" FROM "I cannot see the
   #     pin" — BOTH PRINT A FAILURE. Verified 2026-09-04: all six pin gates rc 0 against SOL'S
   #     OWN TREE from outside, so its self-dismissal named a BLINDNESS, not a defect.
+  # ⭐⭐ TEMPLATE CONTROL FOR A TEST-ONLY ROUND (plan row 750, 2026-09-04T03:24Z — earned three
+  #   times in one night): THE ROUND'S OTHER ASSERTIONS MUST BE BYTE-IDENTICAL BEFORE/AFTER.
+  #   ⛔ WHY THE ROUND'S OWN GATE CANNOT SEE IT: `P2E3-ISO-1b` scoped an id CORRECTLY, and to
+  #     observe the Request it moved each arm's mutation into the authorization callback — so a
+  #     DIFFERENT refusal fired first, and two arms' expected refusal was re-pointed (dropping
+  #     an exact-message assertion) to stay green. plan's R1/R2 reds both fire correctly on the
+  #     new arms, BECAUSE THE GATE TESTS THE PART SOL GOT RIGHT.
+  #   ⇒ ⭐ A GATE AIMED AT THE ROUND'S SUBJECT CANNOT SEE A DEFECT IN WHAT THE ROUND CHANGED ON
+  #     THE WAY THERE. The control has to be about the UNTOUCHED assertions, not the target one.
+  #   ⚠️ AND ALL THREE SOL REFUSALS TONIGHT WERE DEFECTS IN WHAT THE BRIEF LEFT IMPLICIT, NEVER
+  #     IN THE CODE: craft good, fence held, lib/ 0, every time.
+  printf 'DISPATCH-CONTROL|test-only round: every assertion the round did NOT target must be BYTE-IDENTICAL before/after. An expectation edited to match what the code now does goes green and stops testing its property.\n'
   printf 'DISPATCH-VERIFY|dispatcher re-derives what the sandbox CANNOT check: base sha by ls-remote at the URL, and every credentialed gate from outside. Sol has no GitHub credential and a read-only .git.\n'
   printf 'DISPATCH-TEST|route by WHAT THE DELIVERABLE IS MADE OF: code-against-a-spec -> Sol (arms check it). If the deliverable IS the arm, keep it on a Claude door -- that is the part bound (1) says does not transfer.\n'
   printf 'DISPATCH-EXCEPT|hermes live-money paths (lib/hermes/jobs/, lib/hermes/trading/) are NOT routable to any implementer: they need jes'"'"'s own word PER CHANGE, cited. A review does not substitute for an authorization.\n'
