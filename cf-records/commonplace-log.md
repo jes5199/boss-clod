@@ -296,3 +296,17 @@ not built. ⇒ ✅ **THE GATE IS: `git status --porcelain --ignored -- commonpla
 ⭐ **plan (row 831): *the first recorded source sha must not be the first false one.*** Four doors
 each caught a different failure in an earlier plan to build in the shared checkout; **none of them
 objected on the ground boss was guarding.**
+
+### ✅ ROLLOUT COMPLETED — measured 14:22Z, GET only
+
+```
+commonplace-log-realm   v5 → v6   instances 7   image …10c78557d5c57817139812e1c53865   ⇐ the deploy's digest
+commonplace-log-probe   v1        instances 2   image …a48c1449c1e4b2dc592c6592164b58   ⇐ UNCHANGED
+```
+⭐ **THE VERSION ADVANCING IS THE DISCRIMINATOR, NOT THE CLOCK.** Hazard 1 says a staged rollout sits
+in `provisioning` ~6 minutes; ⛔ **"six minutes have passed" and "the rollout finished" are different
+claims, and only the application's own `version` separates them.**
+⭐ **AND THE CLOSING CONTROL HOLDS ON THE SECOND READ, which matters more than the first: the
+undeclared `commonplace-log-probe` survived the FULL rollout, not merely the minute after the deploy
+call — the window in which a reconciliation would most plausibly have swept it.**
+⇒ **`deployed == d0aff782` is recorded AND live, Worker and container both.**
