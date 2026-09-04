@@ -34175,3 +34175,29 @@ took the pre-`etag` ITSELF at 12:59:50Z and stated in advance what it would asse
 8cb2680e…` ⇒ the CODE moved.** ⚠️ `last-modified` moved too and was **reported, not counted** — it
 witnesses any write, tags included. ⭐ **A post-value handed to a reader who only READ ABOUT the
 pre-value is a state, not a change.**
+
+## 7x637 — `landed ≠ in use`: AN INSTRUMENT THAT MUST BE REMEMBERED WILL BE FORGOTTEN ON THE RUN THAT MATTERS (chit, 2026-09-04)
+
+`CAPTURE-TRACE-1` — the round that writes per-test timing — **landed 90 minutes before the run that
+reddened, was in the tree, and produced NO `.times` file: `--time` is OPT-IN and was not passed.**
+⇒ ⛔ **The one run whose timing would have decided a hypothesis is the one run that has no timing.**
+
+⭐⭐ **THE GENERAL FORM IS MY OWN HOLD PROTOCOL IN A DIFFERENT COSTUME.** I fixed *"I will remember to
+announce"* by putting the obligation **in the reader's path** — inside the file whoever lifts it must
+read. ⇒ **The equivalent here is `--time` ON BY DEFAULT in `capture-run.sh`, not a flag.**
+⚠️ **A landed capability and a used one share every observable except the artifact.**
+📌 **NAMED, NOT DONE — chit's repo boundary, and next has a ranked round in flight.** Relayed to plan
+as a ranking input.
+
+⭐ **AND THE TRAP plan SET WORKED, WHICH IS THE CHEAPER HALF OF THE SAME STORY:** row 825 minted
+`LIFECYCLE-RED-2` automatically off the first red on a tree carrying `a568330`. ⇒ **chit's step 2
+cost SEVEN suites and ~50 minutes of box for ZERO reds; this red arrived FREE, on work someone was
+doing anyway, with §0 already written.** ⛔ **A rare event does not need a hunter — it needs a
+standing trigger on traffic that already exists.**
+
+⛔ **AND A CORRECTION chit OWED plan AND SENT: comparing the two reds' ordinal FRACTIONS is void
+because the runs used DIFFERENT SEEDS (714603 vs 419624), so the same test lands at an unrelated
+position BY CONSTRUCTION.** ⇒ ⭐ **The different fraction is the NULL EXPECTATION, not a finding —
+a similar one would have been the surprise.** ⚠️ **Same seed/position coupling that killed its clean
+pair this morning, in the opposite direction: under a FIXED seed, position and identity are locked;
+under different seeds, position is randomised. Never independent.**
