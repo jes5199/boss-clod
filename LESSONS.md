@@ -34564,3 +34564,35 @@ RUN, which nobody thinks to ask because the answer feels obvious.**
 `ls-remote` · next's `bin/box-state.sh` · biscuit's `origin/main` in a path-clone on a stale local
 `main` · chit's `refs/heads/chit/*` in the wrong repo · chit's `tail -15` on a sorted list.
 ⛔ **Five. Working instrument, non-empty corpus, and an answer about something else.**
+
+## 7x646 — A CHECK THAT PASSES ON THE CONDITION IT WAS WRITTEN FOR (next, 2026-09-04)
+
+next's `③-bis` exists to catch a DETACHED HEAD — the defect that burned a slot this morning. **It
+implemented only the SHA half.**
+```
+③      branch --show-current = []        ⇐ DETACHED
+③-bis  HEAD == main ?  YES               ⇒ PASS      ⛔ on the exact state it exists to catch
+```
+⇒ ⭐ **HEAD was detached AT THE SAME SHA as `main`, so a sha-equality check CANNOT SEE IT** — and
+`show-current` was printed one line above without being gated on. ⛔ **chit's original form was BOTH
+halves; next carried the half that is blind to the condition.**
+⇒ ⭐⭐ ***A CHECK THAT PASSES ON THE CONDITION IT WAS WRITTEN FOR IS WORSE THAN NO CHECK — because now
+you believe it.*** ✅ **Fixed: both halves printed AND gated.**
+
+📌 **FOURTH DETACHED-HEAD INSTANCE TODAY, and the escalation is the story:** the first cost a slot ·
+the second corrupted a corpus measurement · the third was caught by luck · **the fourth was missed by
+the repair written for the first.**
+
+⛔ **AND MY OWN ⑦ WAS SUPERSEDED NINETY SECONDS AFTER I ISSUED IT — a ⑦ IS A POINT-IN-TIME READING OF
+A MOVING REF.** next refused to run on it: *"same round, docs only, +1 commit"* is exactly the
+reasoning that turns a verification into a licence. ✅ **I re-verified at `a502b8b` AND checked next's
+own claim about the doc with a control:** `grep -cE 'assert_receive_timeout|100 ms|201 ms'` →
+**2 at the new sha, 0 at the old** — its commit body had said the mechanism "lives in the plan doc"
+and it did not.
+⭐ **next's reading of that is the argument for the practice: A POINTER INTO THE TREE IS CHECKABLE.**
+plan caught it by grepping the file. **A pointer in a channel message can be checked by nobody but
+its author.**
+
+⚠️ **AND ONE ANOMALY next NAMED AGAINST ITSELF, which is the same shape as everything above:
+`chkattr-21s` — it piped a bare `mix test` into `grep` and DESTROYED THE ARTIFACT that the round it
+landed this morning exists to preserve.** ⭐ **Labelled, armed on second sighting, not explained.**
