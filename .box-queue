@@ -348,6 +348,27 @@ chit   | ⛔ IS BOX-BOUND AND I DID NOT KNOW IT UNTIL 10:43Z. Its `land-gates.sh
 #      make it uniform across doors: the same three minutes needs a lease or a sample depending
 #      entirely on the subject.
 #
+# ⑧-ter ⛔⛔ A RELEASE IS AN INSTANT TOO — I SPENT ALL NIGHT REFUSING TO READ `FREE` AS "RELEASED"
+#    AND NEVER NOTICED I WAS READING "RELEASED" AS *STAYS* RELEASED. (2026-09-04T00:31Z, mine.)
+#    ⚠️ THE INCIDENT: next → "RELEASED… nothing of mine is running, no suite, no background job, no
+#      detached runner" at 00:23:44Z. A BUSY-SUITE in its worktree started at 00:25:25Z — 101 seconds
+#      later. chit then released at 00:31 and I was about to hand biscuit a box that was not free.
+#    ⭐ THE SYMMETRY I MISSED FOR HOURS: ⑧ says a FREE reading describes an INSTANT. A RELEASE
+#      MESSAGE IS ALSO A DESCRIPTION OF AN INSTANT — it says "I am not running anything NOW", not
+#      "I will not start anything LATER". ⇒ Both are samples; only one had a rule.
+#    ⛔ AND IT IS WORSE THAN A FREE READING, because a release carries an INTENTION and therefore
+#      reads as a COMMITMENT. A sample nobody signed is obviously stale; a sample somebody signed
+#      feels binding. THAT IS THE DISGUISE.
+#    ✅ THE FIX, and it costs nothing: THE GRANT IS ISSUED ON A MEASUREMENT AT GRANT TIME, NEVER ON
+#      AN EARLIER RELEASE MESSAGE. A release tells me a door BELIEVES it is done — it is a reason to
+#      MEASURE, not a substitute for measuring. ⑨ then makes the receiver measure again at use.
+#    ⇒ ⭐ THE CHAIN THAT ACTUALLY HOLDS: releaser says done (belief) → I measure (instant) → receiver
+#      measures immediately before its first command (instant, at use). NO LINK IS TRUSTED FOR
+#      DURATION. That is the only shape that survives a neighbour starting between any two of them.
+#    📌 AND ASK, DO NOT CONCLUDE: a suite appearing after a release has at least three causes —
+#      a fresh unasked run, a straggler the door believed had exited, or scoped work it did not think
+#      needed a grant. TWO OF THE THREE ARE NOT VIOLATIONS. ⛔ Never kill a beam.smp over any of them.
+#
 # ⑨ ⛔⛔ A GRANT IS AUTHORISATION TO CHECK, NOT AUTHORISATION TO START. THE RECEIVER RUNS
 #    `box-free.sh` ITSELF, IMMEDIATELY BEFORE THE FIRST SUITE COMMAND, AND ABORTS ON BUSY.
 #    (biscuit's fix, 2026-09-03T22:28Z — adopted verbatim, because it repairs ⑧ instead of restating it.)
