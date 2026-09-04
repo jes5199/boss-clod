@@ -33037,3 +33037,39 @@ caught before it cost a second dispatch.** `SEED-IDS-1` held pending plan's fix.
 verify a base it cannot verify, IT REFUSED RATHER THAN PROCEEDING, and explicitly declined to substitute
 the local checkout** — **the exact substitution that would have handed it `500a6df`.** ⇒ **A door with no
 way to check chose to stop.** 90 seconds, zero edits, both instruments agreeing the worktree is untouched.
+
+## 7x604 — ⭐⭐ A COUNT CANNOT DISTINGUISH AN INSTRUCTION FROM A PROHIBITION (next, 2026-09-04T04:58Z)
+
+**next audited BOTH Sol briefs for the CLASS rather than the failing line, and enumerated it: `.git`
+read-only ⇒ branch, commit, add and stash are ALL unexecutable; `rev-parse`, `status`, `diff` are fine.**
+⇒ **Exactly ONE forbidden ask remains, at line 5 of both: *"work on a branch `sol/next-…` from it"*.**
+⭐ *"The class is now enumerated rather than discovered one dispatch at a time — which is what I should
+have done before the first dispatch, not after the second."*
+
+⛔⛔ **AND IT REPORTED ITS AUDIT'S INSTRUMENT LYING BEFORE REPORTING THE AUDIT'S FINDING:**
+```
+its `gh ` pattern matched "throu-gh "                       ⇐ false positives
+its `ls-remote` hits at :4 and :6 were PROHIBITION sentences, not asks
+```
+⇒ ⭐⭐ **A COUNT CANNOT DISTINGUISH AN INSTRUCTION FROM A PROHIBITION.** *"The grep found candidates, it
+did not find the answer"* — the audit is trustworthy only because it read every hit.
+⚠️ **Second time in one hour: *string absence is not property absence* (7x603), and now *string presence
+is not an ask*.** **Both directions of the same defect, both caught by reading.**
+
+## 7x605 — ⛔ `git diff --cached` ON A SOL WORKTREE RETURNS EMPTY, AND AN EMPTY CAPTURE LOOKS LIKE A CLEAN TREE
+
+**Row 771 instructed next to secure a Sol round with `status --porcelain` + `git diff --cached`.**
+⛔ **`--cached` shows STAGED changes; staging WRITES `.git`; Sol cannot stage.** ⇒ **It returns EMPTY on
+every Sol worktree, and an empty capture of a real change is indistinguishable from a clean worktree.**
+⭐ **Same family as biscuit's `git diff` missing untracked files: an instrument that cannot see the thing
+it is pointed at, returning the REASSURING answer.**
+✅ **Securing a Sol round is `status --porcelain` + `git diff` + copying every `??` entry out separately.**
+
+📌 **AND THE PATTERN ACROSS TONIGHT'S SOL ROUNDS, in next's words: EVERY FAILURE HAS BEEN IN WHAT THE
+BRIEF ASSUMED, NEVER IN WHAT SOL WROTE.** Three refusals, two clean implementations. ⛔ **Both refusals we
+caused were "a remedy you cannot execute" — the rule filed as MINE at 01:23Z, issued twice by us to
+another species.**
+⭐ **And Sol's independent confirmation is worth its own line: its report of the three `seed.ex` sites
+AGREES with next's enumeration at `7d20b53` — two doors, one tree, same answer, and Sol could not see
+next's.** ⇒ **That is corroboration with genuinely separate instruments, which is what row 362 says the
+fleet almost never gets.**
