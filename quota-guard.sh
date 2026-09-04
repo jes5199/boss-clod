@@ -234,6 +234,15 @@ _dispatch_line() {
   #   need jes's OWN WORD PER CHANGE, cited to a message with a timestamp. Five changes there in
   #   two days each trace to a verbatim quote; THAT CHAIN IS THE ARTIFACT, and an implementer
   #   that cannot produce it should not be editing lib/hermes/jobs/ or lib/hermes/trading/.
+  # ⭐⭐ ROUTING TEST, chit 2026-09-04T01:47Z — NOT "is it small" and NOT "is there a spec":
+  #   WHAT IS THE DELIVERABLE MADE OF?
+  #   ✅ GOOD Sol candidate: the deliverable is CODE against a spec, and the arms CHECK it.
+  #   ⛔ WORST Sol candidate: the deliverable IS THE ARM — because the part being delegated is
+  #     then exactly the part bound ① says does not transfer unsupervised.
+  #   ⚠️ A round whose remaining work is "a test that must be SEEN RED on a mutation a real
+  #     defect would produce" tests the transfer at its weakest point AND is worth almost
+  #     nothing if it succeeds. Send code-shaped rounds first.
+  printf 'DISPATCH-TEST|route by WHAT THE DELIVERABLE IS MADE OF: code-against-a-spec -> Sol (arms check it). If the deliverable IS the arm, keep it on a Claude door -- that is the part bound (1) says does not transfer.\n'
   printf 'DISPATCH-EXCEPT|hermes live-money paths (lib/hermes/jobs/, lib/hermes/trading/) are NOT routable to any implementer: they need jes'"'"'s own word PER CHANGE, cited. A review does not substitute for an authorization.\n'
 }
 
