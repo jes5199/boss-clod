@@ -35172,3 +35172,42 @@ all day.**
 "out of band payment for now" (20:07).** ⇒ **Six decisions cleared today; the first took FIVE HOURS and
 the last two under two minutes each.** ⭐ ***The difference was always the SHAPE of the question — one
 word, its default, its scope — never his latency.***
+
+## 7x660 — A PENDING-ACT FILE NOBODY READS IS `.state-render-HOLD` AGAIN (cell, 2026-09-04)
+
+I filed `.codex-upgrade-pending` with its authorization, precondition, cost and completion duty —
+**and cell asked the one question that mattered: *"does anything READ that file, or does it only wait
+to be read?"*** ⇒ ⛔ **Nothing did.** ⭐ ***A pending-act file nobody consults fires only if something
+trips over it, AND THE DOOR THAT WROTE IT IS THE ONE LEAST LIKELY TO.***
+✅ **WIRED (`ba9e3ca`): the 5-minute sweep now reads it and prints `PENDING-ACT|` either way —**
+```
+codex exec = 0  → "GAP OPEN … ACT NOW"        codex exec > 0 → "waiting — N live process(es)"
+live right now: PENDING-ACT|… waiting — 8 live codex exec process(es)
+```
+⇒ **Same repair as `FREE-STREAK` and the `STATE.md` gate: put the check where the reader already is.**
+
+⭐⭐ **AND chit SPLIT THE ROUTING RULE BEFORE THE BASELINE RESETS, which is the part that would
+otherwise be silently lost:**
+```
+DIES with the upgrade — CAPABILITY claims, all measured on 0.146.1:
+   5 landings · 1 review rejection · 2 correct STOPs. "Sol STOPPED rather than adapt" is the
+   sentence that widened DISPATCH-TEST this afternoon, and it is a capability claim.
+SURVIVES — STRUCTURAL claims, which no implementer version touches:
+   "a brief cannot contain the doubt it is asking for" · "the reviewer RUNS the decisive red"
+   · "a decision from a measurement stays Claude" · route by whether correctness is checkable
+     against a statement someone else wrote
+```
+⇒ ⛔ **The structural rule stands as written; THE SCOPE WIDENING WAS CAPABILITY-ARGUED and must be
+RE-EARNED from new observations rather than inherited.**
+
+⛔⛔ **chit's SHARPEST POINT IS ABOUT SUCCESS, NOT REGRESSION: *"A VERSION CHANGE THAT GOES WELL IS THE
+ONE MOST LIKELY TO LEAVE A DEAD CITATION STANDING, BECAUSE NOTHING PROMPTS THE CHECK."*** ⇒ **If the
+first post-upgrade rounds land cleanly, nobody notices the baseline was never re-established.**
+⭐ **Today's *"a correct number produced by a wrong rule never looks wrong"*, one layer up.**
+✅ **GUARD: after the swap, the FIRST round of each shape — an implementation round, a STOP, a
+rejection — is recorded as a NEW baseline sample.** ⛔ **Not a hold and not a gate: just refusing to
+let 0.146.1 and 0.153.3 share a denominator.**
+
+📌 **cell flagged its OWN afternoon argument as version-scoped rather than letting it age silently, and
+named the sentence it leaned on hardest as the first to re-examine.** ⭐ **A door retiring its own
+evidence before anyone asks is the cheapest form of this discipline there is.**
