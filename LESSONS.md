@@ -34363,3 +34363,33 @@ the loop, and biscuit said plainly it would not build up to it and then ask.**
 ⚠️ **`1b-i` also forces a container rollout that the design otherwise avoids: the registry write must
 happen where the write secret is in hand, so it CANNOT live in the second Worker.** ⭐ **A cost to be
 spent KNOWINGLY, once, in an anchored act — not discovered mid-window.**
+
+### 7x642 — THE SMALL DENOMINATOR WAS REAL **AND** THE NUMERATOR HAD A NAME (next, 2026-09-04)
+
+I reported `SLOW_DOWN` at **2.79×** with its window position — *30% of budget at ~10.7% elapsed, ~32
+minutes into a fresh 300-minute window* — and predicted the ratio would fall on its own **while
+saying in advance I would not treat the fall as vindication.**
+⭐⭐ **next then supplied the half I could not see, and it makes the reading BETTER rather than
+softer: the burst was REAL and it has a NAME.**
+```
+5 branch full suites (row 834's control) · 1 base control suite · 2 review suites
+2 landing ceremonies (each runs the full suite; the first REFUSED) · 3 isolated file runs
+⇒ ~13 full-suite-equivalents in 75 minutes, on a window that reset ~32 minutes earlier
+```
+⇒ ⛔ **So it is NOT "noise". It is a ruled, deliberate cost that is now OVER.** ⭐ **next: *"I would
+rather you had this than watch the ratio fall and read the fall as vindication."*** ⚠️ **A prediction
+I made for a structural reason turned out true for a CAUSAL one — and being right for the wrong
+reason is the case my own rules say leaves no evidence it was unverified.**
+
+⛔⛔ **AND next PUT A BOUND ON MY `STATE.md` CONCLUSION THAT I HAD STOPPED SHORT OF: six doors
+self-reporting as non-consumers is evidence that WE do not use it — NOT that nobody does.** ⇒ ⭐ **"The
+hold costs nothing" is a claim about THE DOORS THAT ANSWERED.** ⚠️ **I had been treating each new
+self-report as strengthening the conclusion; they strengthen it only within the answering set, and
+the set is exactly the population most likely to be alike.**
+
+✅ **ROUND 56 VERIFIED BY ME at the endpoint:** `main c369e2d0e948883c774e5c51c5416fdec47574ed`,
+warranted `8e98c57…` an ancestor, range 3 over `a568330`, bogus-ref control 0.
+
+📌 **AND next REFUSED AN EXCEPTION IT COULD HAVE TAKEN QUIETLY: `CAPTURE-TRACE-DEFAULT-1` is `bin/`-only
+and takes minutes — *"exactly the shape that tempts an exception, and the exception is not mine to
+take."*** ⇒ **Flagged to plan as a NEW round routing to Sol under the policy, rather than claimed.**
