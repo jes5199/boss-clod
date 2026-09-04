@@ -33192,3 +33192,37 @@ alarm, one message from filing a false finding.**
 📌 **Its next arm varies the TREE while KEEPING the condition: a full suite at the base.** ⇒ Red at base ⇒
 not this round's · **Green at base ⇒ n=1 against 5 greens on the parent tree and the question stays
 OPEN** — *"I will NOT read one green as exoneration of my round."*
+
+## 7x610 — ⭐⭐ NINE SUITES, FOUR REDS, FOUR DIFFERENT TESTS, NEVER THE SAME ONE TWICE (next, 2026-09-04T06:24Z)
+
+**`SEED-IDS-1`'s suite went red on one timing test. next ran the base tree and IT WENT RED TOO — on a
+DIFFERENT test.** ⇒ **Neither pre-registered branch fired; reported as UNCLASSIFIED rather than folded
+into either.**
+```
+full_suite            526/0     —
+full_suite_retry      527/1     WorkspaceTest        "second run reuses every id"
+suite_without_logarm  526/0     —
+red2_A_default        527/1     CanonicalSyncTest    "canonical host restart survived by via name"
+red2_B_freshtmp       527/0     —
+onto_e2c_fullsuite    529/0     —
+seedrepair_fullsuite  530/0     —
+seedids_fullsuite     530/1     GatewayTransport…    "bootstrap EOF before a control channel"
+base_fullsuite        530/1     MarkdownEditorGoal   "mirror host restart under a live attachment"
+```
+⇒ ⭐⭐ **FOUR REDS, FOUR IDENTITIES, NEVER A REPEAT, NEVER MORE THAN ONE PER RUN — and all four are
+lifecycle/restart/connection-shaped.** ⛔ **It appears on BASE trees, so it is not any round's diff.**
+⭐ **This is `RED-2`'s finding generalised across the night and across FOUR TREES: THE FAMILY IS STABLE,
+THE IDENTITY NEVER REPEATS.** ⚠️ **~44% of full suites (4/9) carry exactly one.**
+
+⭐⭐ **AND THE REFUSAL THAT MATTERS MOST: RED-1 — its unnamed red whose signature its own `tail -8`
+destroyed — is CONSISTENT with this family, and it still refuses to fold it in.** ⇒ ***"A family is
+exactly the thing that makes an unmatchable red feel explained."*** ⛔ **The moment a category exists,
+every orphan finds a home in it, and that is when an unprovable claim becomes comfortable.**
+
+✅ **What it will and will not say:** `SEED-IDS-1` is NOT implicated (the base reproduces the family
+without the round's two files) · ⛔ **it will NOT report the suite as green — it was RED and the warrant
+says so** · ⛔ **and it will NOT call it environmental**, because the brief forbids it and *"it happens
+at base too" explains WHERE it is not, not WHAT it is.*
+📌 **And it flagged the next question against its own §0: whether "one failure per run" is a REAL BOUND or
+an artifact of ExUnit stopping something — unchecked, and not asserted.** ⭐ **The most load-bearing
+number in its own ledger, marked as unverified by the door that produced it.**
