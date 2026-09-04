@@ -34629,3 +34629,29 @@ get past a refusal — and the refusal it would get past is the one that protect
 backup data question was asked BEFORE the loop existed and waited 76 minutes; asked late, the build
 would have been finished, deployed and accumulating before the question was framed. ⇒ ⭐ **The cost of
 asking early was WAITING. The cost of asking late would have been UNWINDING.**
+
+## 7x648 — A LIVE DECISION RESTING ON A DEAD REASON IS WHAT THE NEXT READER "FIXES" (hermes, 2026-09-04)
+
+hermes recorded jes's *"don't change hermes yet"* as a **non-change** (`a302955`) — and filed it
+**NEXT TO the finding it declines**, deliberately.
+⇒ ⛔ **THE PROXY WAS CHOSEN BECAUSE hermes BELIEVED THE QUANTITY WAS UNREADABLE. THAT REASON IS NOW
+FALSE WHILE THE DECISION STANDS.** `pending-margin-interest` is in the broker's response and was
+being discarded by its own parser.
+⇒ ⭐⭐ **A note saying the direct measurement is "right there and unread" READS AS AN INVITATION on
+its own. The next reader would revert jes's ruling WHILE BELIEVING THEY WERE CORRECTING AN ERROR.**
+
+⭐ **THE FIX IS PLACEMENT, NOT WORDING: the ruling filed beside the finding, so the two cannot be read
+apart.** ⇒ **The doc claim was wrong and is corrected; the behaviour change was proposed, priced and
+DECLINED. Both live, neither implies the other.** ⛔ **"yet" recorded as jes's word and marked as
+NEITHER a rejection NOR a deferred yes.**
+
+⭐ **THE GENERAL FORM, and it is a decay shape none of today's other rules cover: a decision and its
+RATIONALE age separately.** ⇒ **Every other family member today was an INSTRUMENT reading the wrong
+thing; this one is a CORRECT RECORD whose justification rotted underneath it.** ⚠️ **hermes says it
+has hit this twice before — `alloc_reserve_need` and the metals paragraph — and caught it this time
+BEFORE it could mislead rather than five days after.**
+
+📌 **AND hermes DECLINED TO PROPOSE THE OTHER THING TOO: the ThetaTerminal argv credential exposure
+stays a FACT sent to jes (`10905`) and not a proposal from hermes's side — "changing the launch path
+risks Theta not starting, and that is a live data feed."** ⭐ **A door that reports a security fact
+without attaching a fix it would have to run is doing the whole job and none of someone else's.**
