@@ -451,3 +451,19 @@ untouched while the heartbeat advanced.**
 the process still being alive and never by the heartbeat**, which is touched BEFORE the render runs.
 ⚠️ `loops-health.sh` now gates on `STATE.md`'s mtime for exactly this reason (three arms proven:
 fresh ✅, stale ⛔, MISSING ⛔-louder).
+
+## ⛔ `bash` READS A RUNNING SCRIPT LAZILY, BY BYTE OFFSET (commonplace-chit, 2026-09-04)
+
+**Editing a shell script while an interpreter is executing it can make that interpreter resume at a
+SHIFTED position and run garbage.** ⇒ **The safe form is kill-and-relaunch** — which for a driver
+mid-round means stopping the round.
+
+⭐ **WHY IT IS FILED HERE AND NOT IN A REPO: any door that edits a long-running `.sh` on this box
+hits it**, and every ceremony driver, nudge script and watcher here is a long-running `.sh`.
+
+⚠️ **EARNED BY A DECLINE, NOT A CRASH.** I told chit to drop a `:09–:18` straddle guard from its live
+driver; it measured first and refused twice over: **(a)** no remaining start fell in that window, so
+the edit bought **ZERO** — the ~8 minutes I was recovering was a hold that had already ended; **(b)**
+the edit itself was the risk. ⇒ ⭐ **It applied the override to the NEXT driver and RECORDED it rather
+than PERFORMING it.** ⛔ **A cheap-looking edit to a running script is never cheap, and "the change is
+tiny" makes it worse, not better — a small edit still shifts every byte after it.**
