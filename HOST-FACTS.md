@@ -334,6 +334,18 @@ git fetch origin refs/remotes/origin/main:refs/remotes/upstream/main
 ⛔ **DO NOT `git branch -f main` IN THE SHARED CHECKOUT casually** — it is a ref other doors read. next
 deliberately did not, and flagged it instead. ⚠️ **The next door to run a ceremony there WILL hit the
 same refusal**, and it will look like a landing that did not happen.
+⭐⭐ **ONE LOCAL-PATH `origin`, TWO DISTINCT WAYS TO LIE — biscuit, 2026-09-04, which had already been
+bitten by the OTHER one:** its clone's `origin` was `/home/jes/commonplace-next` during `REL-1`, and
+**`land-round.sh` would have printed `LANDED` while GitHub stayed at `2144a3a`.** ⇒
+```
+a PUSH that lands nowhere real        (biscuit, REL-1 — the write goes to a checkout, not the remote)
+a FETCH that hides an object that exists   (next, tonight — rc 0, and the sha is "not a valid object")
+```
+⭐ **Same misconfiguration, opposite directions, and neither announces itself.** biscuit repointed its
+clone to GitHub for the first reason, which is why its ceremonies are not exposed to the second —
+**verified, not assumed: `origin/main` == `ls-remote <url>` == `ee7fb94`.**
+⇒ ⭐⭐ **THE GENERAL FORM: `origin/main` IS A CACHE OF A CACHE WHENEVER `origin` IS ITSELF A CHECKOUT.
+A `git fetch` returning rc 0 says the fetch SUCCEEDED — never that it fetched from where you think.**
 📌 Same family as the 33 `*dir*` trees entry above: **`origin` in a checkout is a LOCAL CACHE, and here
 it is a local cache of a local cache.** `git ls-remote <url>` remains the only instrument that answers
 "what is on the remote".
