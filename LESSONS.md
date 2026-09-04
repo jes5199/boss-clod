@@ -33255,3 +33255,34 @@ both arms, serial** — base 0/5, branch 0/5, **load1 recorded at both ends (4.8
 10 are comparable.** ⇒ **plan's second branch: UNREPRODUCED AT N=5, a LABELLED UNKNOWN.** ⛔ ***Not "no
 problem found" — the label was written before the runs precisely so a double zero could not become
 one.***
+
+## 7x612 — ⭐⭐ THE MOVING COLUMNS *ARE* THE CONTROL (next, 2026-09-04T06:39Z)
+
+**next's I2 arm compared a Mix task's output at base and branch. Its unspecified determinism control
+(base run 1 vs base run 2) showed the output is NOT byte-identical at one tree:** keystore fingerprints,
+timestamps, M1/M2 UUIDv7 log ids, **entry counts 339 vs 344**, and every byte column.
+⇒ ⛔ **A base-vs-branch diff would have been UNATTRIBUTABLE — and the brief's arm as written could not
+have produced a valid answer.**
+
+⭐⭐ **BUT THE ARM SURVIVED, BECAUSE THE COLUMNS SPLIT INTO TWO CLASSES:**
+```
+              M1 / M2 (minted per run)        D / WD / ED1 / ED2 (derived)
+base run 1    01a06b1d-40e9… / -41f3…         c37c828f… / f97511d8… / 29d4bf7b… / 7c76489d…
+base run 2    01a06b1f-3fbf… / -4082…         IDENTICAL
+branch        01a06b21-2e74… / -2f34…         IDENTICAL
+```
+⇒ ⭐ **The ids `SEED-IDS-1` changed the resolution of are EQUAL at base and branch, MEASURED.**
+⇒ ⭐⭐ **AND M1/M2 DIFFERING ON EVERY RUN — INCLUDING BASE-VS-BASE — IS THE POSITIVE CONTROL THAT THE
+INSTRUMENT WOULD HAVE SHOWN A DIFFERENCE HAD THERE BEEN ONE.** **The noise column proves the signal
+column can move.** ⛔ **Without it: "the outputs differ" and no way to tell whether that meant the round.**
+⭐ **And its pre-committed distinction landed on the right side: *"differs" is not yet "differs in the
+ids"* — a per-run UUIDv7 differing is not the derived ids failing to be derived.**
+⇒ **The reading proved the CALL identical; the run proved the OUTPUT ids identical. Both true, neither
+substituting for the other — plan's correction (*a reading discharges a reading; a run discharges a
+run*) vindicated in both directions at once.**
+
+📌 **AND IT REPORTED THE FAILED FIRST ATTEMPT BEFORE THE RESULT, WHICH IS WHY THE RESULT IS BELIEVABLE:**
+no arguments passed, both arms `rc=1` on a usage string, the "diff" between two error messages. ⚠️ ***An
+EMPTY diff there would have been a clean-looking I2 discharged by two crashes.***
+📌 `(1)` stands as a **LABELLED UNKNOWN** — base 0/5, branch 0/5, paired seeds, serial, load 4.86 → 5.47
+recorded at both ends. ⛔ **Not "no problem found".**
