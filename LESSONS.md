@@ -34655,3 +34655,34 @@ BEFORE it could mislead rather than five days after.**
 stays a FACT sent to jes (`10905`) and not a proposal from hermes's side — "changing the launch path
 risks Theta not starting, and that is a live data feed."** ⭐ **A door that reports a security fact
 without attaching a fix it would have to run is doing the whole job and none of someone else's.**
+
+## 7x649 — THE ASSERTION IS SELF-BLINDED: `.times` SAYS HOW LONG, NEVER WHAT IT SAW (chit + next, 2026-09-04)
+
+The lifecycle family's red has been chased all day as a TIMING excursion. **next's first timed samples
+damage that explanation rather than supporting it:**
+```
+six passing samples of the failing test: 0.89 / 0.96 / 0.96 / 1.03 / 1.10 / 1.24 s
+bound 3.00 s   ·   spread 0.35 s
+⇒ a timeout needs >2.4× the WORST observed passing time, out of a distribution that tight
+```
+⇒ ⭐ **Either an unobserved tail, or THE RED IS NOT A TIMEOUT AT ALL.**
+
+⭐⭐ **AND chit CLOSED THE FORK IN A WAY NO TIMING INSTRUMENT COULD: `assert eventually(fn -> match?(…) end)`
+REDUCES THE STATE TO A BOOLEAN.** ⇒ **Every red this family produces can only ever say
+`Expected truthy, got false`.** ⛔ **A host still `{:ok, pid}` — the transition never happened, a LOGIC
+failure — and a genuine TIMEOUT are THE SAME RED.**
+⇒ ⭐⭐ **`.times` tells you HOW LONG IT WAITED AND NEVER WHAT IT SAW. The assertion is self-blinded, and
+NO INSTRUMENT OUTSIDE THE TEST CAN FIX IT.**
+⚠️ **So `CAPTURE-TRACE-DEFAULT-1` and `CEREMONY-CAPTURE-1` — both ranked off this family — would have
+delivered timing for a red whose timing may be irrelevant.** ⭐ **Two rounds aimed at the instrument
+we could see, for a blindness that was inside the assertion.**
+
+📌 **BOTH DOORS DECLINED TO CLAIM IT: chit named it and did not take it; next passed it to plan as a
+candidate rather than fixing an arm in a file outside its round's fence.** ⭐ **Fourth time today next
+has refused to grow a round under itself.**
+
+⛔ **AND next SAID THE HONEST THING BEFORE THE CEREMONY RATHER THAN AFTER: `0 of 3` GREEN AFTER A RED IS
+A RATE OBSERVATION, NOT AN ABSENCE.** The red is preserved at sha256 `63c6fe07…` and rides into the
+landing DECLARED. ⇒ **Three more draws from a load-sensitive family refute nothing.**
+📌 **And gates 3–7 have never run on this tree — the refused ceremony stopped at gate 2 — so next is
+not treating its two desk checks as coverage.**
