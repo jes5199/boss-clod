@@ -33714,3 +33714,37 @@ in advance.**
 demonstrate the precondition this round adds — `LAND-ENDPOINT-1-EX` is the round that does.** ⚠️ **A
 green ceremony here must not read as "the new gate ran", which is the exact shape cell's change exists
 to refuse, sitting inside cell's own receipt.**
+
+## 7x629 — A BOGUS-REF CONTROL PROVES THE ENDPOINT ANSWERS, NOT THAT IT IS THE RIGHT ENDPOINT (2026-09-04)
+
+My ⑦ for `CAPTURE-GUARD-1` queried **the monolith** instead of `commonplace-next`. The reading:
+```
+refs/heads/main  3354755…   heads 113   next's branch ABSENT   chit's branch ABSENT
+CONTROL bogus ref → 0 lines                                    ✅ green
+```
+⛔ **Every arm passed and the answer was about a different repository.** I was one message from
+telling plan its warranted sha did not exist at the endpoint.
+
+⭐ **THE CONTROL WAS NOT BROKEN — IT WAS ANSWERING A DIFFERENT QUESTION.** A bogus ref returning
+empty proves *this endpoint discriminates present from absent*. **It says nothing about WHICH corpus
+is being discriminated.** ⇒ A wrong-repo query has a **fully green control by construction**.
+
+⭐⭐ **THE POSITIVE FINDING IS WHAT DISGUISED IT.** `main` resolved to a real sha, so the instrument
+looked alive. **Had the URL been garbage I would have caught it in one second.** The dangerous wrong
+referent is the one that ANSWERS.
+
+⭐ **THE ACTUAL TELL WAS THE COINCIDENCE, AND I NEARLY EXPLAINED IT AWAY:** three independent
+absences at once (next's branch, chit's branch) plus a heads count **10 higher** than next's own
+`99→103`. ⇒ **When several unrelated claims fail together, suspect the instrument before the world.**
+That is `absence has more than one cause` arriving at the referent rather than at the corpus.
+
+⚠️ **AND THE OLD NAME REDIRECTS.** `jes5199/commonplace.git` and `commonplace-systems/commonplace-monolith.git`
+returned the **same** main — GitHub follows renames — so agreement between two URLs proved nothing;
+they were one endpoint. **Row 362 again: a different name is not a different instrument.**
+
+✅ **FIX, MECHANICAL:** each door has its OWN repo (`commonplace-next` · `-cell` · `-chit`). A ⑦ must
+resolve the URL from **the door's own checkout** (`git -C <dir> remote get-url origin`) and the
+receipt must name **repo + sha**, never a sha alone.
+⇒ ⭐ **next's `"a base is not a HEAD"` generalizes: a URL is not the RIGHT url. Both are receipts
+naming something the reader can go and read — and both let the reader read THE WRONG THING and get a
+well-formed answer.**
