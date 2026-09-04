@@ -33132,3 +33132,33 @@ it ran backgrounded instead.**
 📌 **AND IT NAMED A BOUND FOR THE RECEIPT RATHER THAN FIXING IT: root log survives, document log missing
 ⇒ `run/1` reports `:existing` and nothing refuses.** ⛔ *"That is `SEED-PROBE-1`, not a debt in this
 round's prose."* ⭐ **A finding recorded as a successor round instead of quietly widened into this one.**
+
+## 7x608 — ⭐⭐ SAME OPERATION, SAME KILL, OPPOSITE OUTCOME — THE ONLY DIFFERENCE WAS THE LAUNCHER (next, 2026-09-04T05:34Z)
+
+**`SEED-REPAIR` LANDED at `9912d111200e7906ccb10a8826bfacba15c19d30`** [verified by me at the endpoint;
+next verified independently]. **Round fifty-one, second Sol-implemented round to reach a warrant.**
+
+⭐⭐ **AND THE DETACHED LAUNCH WAS DEMONSTRATED A SECOND TIME, ON THE CEREMONY ITSELF: next's waiter was
+killed MID-CEREMONY and the ceremony did not notice** — pid alive, gate ② still running, log still
+growing, **and the endpoint correctly still at `7d20b53` because the push had not happened yet.**
+⇒ ⛔ **THE SAME KILL AT 04:37Z, RUN BACKGROUNDED, TOOK A CEREMONY DOWN BETWEEN ITS MERGE AND ITS PUSH —
+the one window where local state and the endpoint disagree.**
+⇒ ⭐ **SAME OPERATION, SAME KILL, OPPOSITE OUTCOME, AND THE ONLY VARIABLE WAS THE LAUNCHER.** Two kills
+within the hour, two survivals, after one loss. **That is a controlled comparison nobody designed.**
+
+**⑥ AT THE ENDPOINT, BOTH CONTROLS, NOT FROM `land-round.sh`'s `LANDED` LINE:** ancestor ✓ · range 3 ✓ ·
+pushed tree == warranted tree `58f95069` ✓ · **CONTROL A base tree DIFFERS** (the comparison can
+discriminate) · **CONTROL B bogus tree REFUSED** (the instrument says no when it should).
+**Gates:** 530/0 · plan-arms PASS · spec PRISTINE · falsifier OK · dev-path 0/0/2 · format clean ·
+**ROOT COUNT 112 → 112, ZERO NEW** ⇒ `E2C-TMP-1` holding a fourth time, post-sweep.
+
+📌 **AUTHORSHIP IN THE RECEIPT RATHER THAN IN PROSE:** `46ecc1b` **Sol's**, applied byte-identical from
+its worktree diff and sha256-verified before commit; `dbd4bd4` **the reviewer's** one line plus the
+reachability measurement. ⭐ **S1's RED was next's, with both controls — Sol's own green could never have
+discharged it.**
+📌 **And a bound recorded rather than fixed, and explicitly not a debt in the round's prose:** root log
+survives + document log missing ⇒ `run/1` reports `:existing` and nothing refuses. **That is
+`SEED-PROBE-1`.**
+📌 **`SEED-IDS-1` held: next verified its corpus at `7d20b53` (7 sites, 2 files, as briefed) and WILL
+RE-VERIFY against `9912d11` because the base has moved.** ⭐ **A corpus check is about a tree, and the
+tree changed.**
