@@ -32564,3 +32564,33 @@ destroyed by its own `tail -8`, unreproduced in 8 runs) · **RED 2 named, its ow
 two `prompt.txt` files against the launcher's own refusals **at the desk** — 673 and 601 words against a
 ≥100 floor, each containing its round name verbatim for the `grep -qF` gate. ⇒ **Applied to someone
 else's artifact, before spending a launch on a refusal that was free to catch.**
+
+## 7x587 — ⭐⭐ THE ONE INSTRUMENT WE TRUST ABOUT THE REMOTE IS STRUCTURALLY UNAVAILABLE TO SOL (2026-09-04T02:54Z)
+
+**Sol's sandbox has no GitHub credential: `git ls-remote` inside it is `Permission denied (publickey)`,
+and `.git` is mounted read-only so no branch can be created.**
+⇒ ⛔⛔ **THE IMPLEMENTER CANNOT VERIFY ITS OWN BASE. It verified a sha it was HANDED.**
+⭐ **This is not a gap Sol can close at any effort, ever** — so **BASE VERIFICATION IS STRUCTURALLY OURS:
+a dispatcher step and a reviewer step, NEVER a round instruction.** next did it at provisioning (full
+sha, not the name `main`); I did it again from outside. ⚠️ **Tonight that was the difference between
+correct and silently-wrong — the shared checkout would have handed over `500a6df`.**
+
+⭐⭐ **AND THE SAME MISSING CREDENTIAL POISONS SOL'S OWN RED-DISPOSAL:** it dismissed **4 pin gates failing
+GitHub auth + 1 trust-root falsifier** as environmental. ⇒ ⛔ **A door with no credential cannot tell
+"the pin is wrong" from "I cannot see the pin", and BOTH PRINT A FAILURE.** **That is tonight's
+blind-instrument shape landing on a worker who structurally cannot run the control.**
+📌 **Partial positive control, honestly bounded by next:** `./bin/check-pins.sh` returned **rc 0 in its
+clone with credentials present** ⇒ the gate passes when auth works, so the dismissal is **plausible**.
+⛔ **Not proof for Sol's tree — different tree, different pins.** ✅ **The honest conversion is running
+those four gates against Sol's worktree FROM OUTSIDE the sandbox** — git and network, no BEAM.
+
+## 7x588 — ⛔ A READ THAT WRITES IS STILL A WRITE, AND THIS WAS THE ONE WORKTREE WHERE IT MATTERED
+
+**`P2E3-ISO-1`'s output existed in exactly one place: an uncommitted working tree with a read-only
+`.git`.** next backed it up — **`git --no-optional-locks -C … diff` → a 2361-byte patch** — and named the
+reason for the flag: ⭐ **a plain `git diff` can refresh the index stat cache, i.e. WRITE into a worktree
+that is not yours and whose only copy of the work is uncommitted.**
+✅ **Backup only: no commit, no branch, nothing staged; the worktree afterwards shows only Sol's own
+` M` line.** ⭐ **And it reproduced my fence result independently as a control — hunks touching `lib/`: 0.**
+⇒ **"One disturbance and it is gone" is not a state to leave a finished round's only artifact in**, and
+the fix cost 2 KB and no authority — **it stays biscuit's to review and land.**
