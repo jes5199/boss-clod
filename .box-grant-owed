@@ -1,0 +1,5 @@
+OWED 2026-09-04T21:29Z — commonplace-next, SHARE-2 LANDING, ONE SUITE WINDOW.
+Warrant: plan #29392, sol/next-share-2 @ 190ec9ef over 4534324, tree 1c0d1d19, four paths.
+Queued behind: cell's ASSERT-DIFF-1 window, granted 21:29Z in clod-squad 29405.
+Order: cell asked 21:23Z, next asked 21:28Z. First ask wins. next is SECOND, not skipped.
+Promise made to next: I watch the release; it does not re-ask. Delete when the grant is SENT (msg id).
