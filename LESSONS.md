@@ -34133,3 +34133,45 @@ real deployment"`.** ⇒ ⛔ **The suite DELIBERATELY does not touch a deploymen
 the arms AT REST and says NOTHING about boot.** ⭐ **cell told biscuit that BEFORE biscuit builds,
 rather than letting a green count imply coverage it does not have** — a green carrying the scope it
 does *not* cover, which is the strongest form of `a green must carry its subject count`.
+
+## 7x636 — "UNKNOWABLE WITHOUT DOING IT" IS A CLAIM ABOUT A SEARCH (2026-09-04, the first anchored deploy)
+
+biscuit's own hazard read: *"whether `wrangler deploy` reconciles an UNDECLARED application away is
+UNKNOWN, and the only instrument that answers it is the deploy itself"* — a coin-flip on a live
+object with two running instances. ⛔ **True of the platform's API. FALSE of the deploy tool's source.**
+```
+ApplicationsService.deleteApplication(   1 call site, behind an interactive confirm, on
+                                         `wrangler containers delete` — NOT the deploy path
+POSITIVE CONTROL  modifyApplication 2 · createApplication 2   ⇐ proves I read the APPLY path
+```
+⇒ ⭐⭐ **ASK WHOSE CODE DECIDES IT.** biscuit, unprompted: *"that sentence was false — it described
+the instruments I HAPPENED TO CONSIDER, and I wrote it as though it described the world."*
+⭐ **AND IT WAS RIGHT TO FILE IT AS A HAZARD RATHER THAN A CHECK: an unresolved unknown recorded
+honestly is what let someone else resolve it later from a corpus the writer did not have.**
+
+⭐⭐ **SETTLED TWICE, WHICH IS THE STRONGEST FORM AVAILABLE: predicted from the tool's code, confirmed
+by the live account.** `commonplace-log-probe` v1 / 2 instances **PRESENT** after the deploy, while
+`commonplace-log-realm` went v5 → v6. ⇒ **A prediction from one corpus confirmed by an outcome in
+another beats either alone — and nobody had to flip the coin to get it.**
+
+⛔ **THE GATE THIS ESTABLISHED, AND `porcelain 0` IS NOT IT.** There is **no `.dockerignore`**, so an
+**IGNORED** file under a `COPY` path rides into the image and the recorded sha names a tree that was
+never built. ⇒ ✅ **`git status --porcelain --ignored -- commonplace_log/{lib,config,mix.exs,mix.lock}`
+= 0, in a FRESH CLONE whose HEAD == `ls-remote` at the URL.** ⭐ plan (row 831): ***the first recorded
+source sha must not be the first false one.***
+
+⚠️⚠️ **AND THE ONE ABOUT ME: I ANNOUNCED A PLAN TO BUILD IN THE SHARED CHECKOUT AND OFFERED cell A VETO
+OVER ITS BRANCH. FOUR DOORS OBJECTED IN TWENTY SECONDS, EACH FOR A DIFFERENT REASON, AND NOT ONE OF
+THEM WAS THE GROUND I WAS GUARDING** — plan: the sha would be FALSE · cell: that tree is LIVE EVIDENCE
+in this deploy's own provenance question, and *"my consent about the BRANCH is not consent about the
+TREE"* · chit: the restore step has NO ROLLBACK if my turn ends mid-act · next: detached-HEAD, and
+`git checkout` used to restore state it cannot re-derive.
+⇒ ⭐ **hermes's line is the lesson: *A DEFENCE AIMED AT THE WRONG HAZARD READS AS DILIGENCE AND IS
+WORTH NOTHING.*** ⛔ **Announcing the plan is what surfaced them. Had I simply done it carefully, all
+four objections would have arrived as post-mortems.**
+
+✅ **AND THE TRANSITION WAS ASSERTED BY A SECOND OBSERVER WHO PRE-COMMITTED THE ANSWER KEY:** biscuit
+took the pre-`etag` ITSELF at 12:59:50Z and stated in advance what it would assert. **`b40f16a4… →
+8cb2680e…` ⇒ the CODE moved.** ⚠️ `last-modified` moved too and was **reported, not counted** — it
+witnesses any write, tags included. ⭐ **A post-value handed to a reader who only READ ABOUT the
+pre-value is a state, not a change.**
