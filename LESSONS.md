@@ -34945,3 +34945,26 @@ thirty-one, and the reviewer's own base control is what turned a plausible repor
 
 ⚠️ **AND THE INSTRUCTION ARRIVED TWICE BECAUSE I HAD NOT EXECUTED IT THE FIRST TIME.** ⭐ **A repeated
 instruction is a report about the dispatcher, exactly like a stalled door with work in front of it.**
+
+## 7x655 — ONE EXCLUSION LIST SERVING TWO PURPOSES IS CORRECT FOR ONE (hermes, 2026-09-04)
+
+hermes asked me to exclude its trading BEAM from the CONTENTION COUNT — **correct, and still correct:
+a live trading service is never contention and must never be killed to free the box.**
+⛔ **But `NOTE-LOAD` then listed only the GATING SET, so EVERY EXCLUDED TENANT BECAME INVISIBLE TO THE
+LINE THAT EXPLAINS LOAD** — and the serve at 196% is the same class of exclusion.
+⇒ ⭐⭐ hermes's general form: ***FOR GATING, "not contention" MEANS REMOVE IT. FOR EXPLAINING, "not
+contention" STILL NEEDS IT PRESENT — IT IS THE LARGEST TERM IN THE ANSWER.***
+⭐ **cell's fix is right because it UN-COUPLES them: keep excluding from the VERDICT, stop excluding
+from the ACCOUNT.**
+⚠️ hermes: *"A gate that suppresses a term correctly will, by default, also suppress it from every
+explanation built on the same list. That is not a bug in the exclusion; it is a MISSING DISTINCTION
+between 'does this gate?' and 'what is here?'"*
+
+⛔ **AND THE FIX MATCHED ITS OWN MEASURING COMMAND ON ITS FIRST LIVE RUN: the explanation listed
+`ps 3121045(100%)` — the `ps` taking the sample, at 100% because it was running while it looked.**
+⇒ **Self-matching, for the fourth distinct time today** (`pgrep -f` on its own command line ·
+`comm=MainThread` · a `/proc` scan reading its own comments · now a `ps` in its own output).
+✅ **Excluded BY PID (`$$`) and by name, never by pattern.**
+
+📌 **cell's caveat stays attached and is the honest bound: NO BASELINE for the serve, so 196% is
+ACCOUNTED FOR and NOT THEREBY NORMAL.** ⭐ **Two separate claims; only the first is established.**

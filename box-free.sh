@@ -241,7 +241,12 @@ _hot=$(awk -v l="${_load1:-0}" -v c="${_cores:-4}" 'BEGIN{print (l > c/2) ? 1 : 
 #   remedies: unknown means LOOK HARDER, excluded means the exclusion is doing its job and the
 #   SENTENCE is wrong. So the line now NAMES the excluded tenants and their CPU.
 if [ "$_hot" = "1" ]; then
-  _excl=$(ps -eo pcpu,pid,comm --sort=-pcpu 2>/dev/null | awk 'NR>1 && $1+0 > 5 {printf "%s %s(%s%%) ", $3, $2, $1}' | head -c 200)
+  # ⛔ AND THE EXPLANATION LINE MATCHED ITS OWN MEASURING COMMAND: the first live output listed
+  #   `ps 3121045(100%)` — the `ps` taking the sample, at 100% because it was running when it looked.
+  #   Self-matching, in the family that has bitten this box all day (pgrep -f, comm=MainThread,
+  #   a /proc scan reading its own comments). Excluded BY PID, never by name.
+  _mypid=$$
+  _excl=$(ps -eo pcpu,pid,comm --sort=-pcpu 2>/dev/null | awk -v me="$_mypid" 'NR>1 && $1+0 > 5 && $2 != me && $3 != "ps" {printf "%s %s(%s%%) ", $3, $2, $1}' | head -c 200)
   echo "NOTE-LOAD|load1 ${_load1} on ${_cores} cores; NOTHING IN THE GATING SET accounts for it. Top CPU incl. EXCLUDED tenants: ${_excl:-none over 5%}. ⇒ known-and-excluded (serve/hermes) is NOT the same as invisible — read the list before concluding anything is unnameable."
 fi
 echo "FREE|0 suites, hermes pid $hpid excluded, control $tot processes visible"
