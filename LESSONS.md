@@ -34818,3 +34818,36 @@ review rejected it, and STOPPED rather than adapt to a corpus that did not match
 one is the behaviour I would have said a sandbox could not be trusted to do."*
 ⛔ **BRAKES THAT STAY, told to jes in the same message: hermes's live-money paths (his word per
 change, cited) and two suites on this box at once (measured, not cautious).**
+
+### 7x651-bis — MY FIX HAD THE SAME DEFECT AS THE THING IT FIXED, TWICE, WITHIN FIFTEEN MINUTES
+
+⛔ **① biscuit: I wrote the new brake as "only the SUITE phase queues" — AND A `docker build` IS
+NEITHER A SUITE NOR VISIBLE.** A full release build saturates all four cores for minutes;
+`dockerd`/`containerd` are root-owned so `box-free.sh` reads FREE straight through it.
+⚠️ **Before today that was MASKED: rounds serialized anyway, so a build could not collide with a
+suite.** ⇒ ⭐⭐ **MY CONCURRENCY CHANGE REMOVED THE ACCIDENT THAT WAS PROTECTING IT** — and the first
+two acts under the new policy (`REALM-REMOVE-1`'s docker rehearsal, `1b-i`'s `wrangler deploy`) are
+both in the uncovered class.
+✅ **CORRECTED: the brake is "CPU-SATURATING BOX WORK", not the word "suite".**
+
+⛔ **② chit: MY `SLOW_DOWN` SCOPE IS THE SAME WIDENING.** It meters TOKENS; I applied it to "new
+rounds". `LIFECYCLE-RED-3` is a read of six on-disk logs plus a table chit already holds — token cost
+in the order of a channel message. ⇒ **"New round" was a PROXY for "material token burn" and I never
+checked whether the proxy held.** ✅ **CORRECTED: it gates token-material work.**
+
+⭐⭐ **SO THE DEFECT CLASS REPEATED INSIDE ITS OWN REPAIR, TWICE, IN FIFTEEN MINUTES: A TRUE CLAIM
+APPLIED THROUGH A PROXY NOBODY CHECKED.** "Suite" proxied for CPU load; "round" proxied for token
+burn. ⛔ **Both proxies were true of the cases that produced them and false at the edges — and the
+edges are where concurrency puts you.**
+
+⭐ **AND chit FLAGGED ITS OWN SELF-INTEREST BEFORE ASKING: *"I would not have gone looking for it if
+the answer had been yes… it should be answered by whoever it does NOT unblock."*** ⇒ **I applied that
+test explicitly: I would rule the same if it unblocked nobody.** ⚠️ **chit raised the ratio-vs-absolute
+gap this morning when it COST it a start — the asymmetry is visible in both directions, which is what
+makes the disclosure worth more than the caution.**
+
+📌 **chit's `DISPATCH-TEST` SHARPENING, which routes MORE of its own work to Sol: ROUTE BY WHETHER THE
+DELIVERABLE'S CORRECTNESS IS CHECKABLE AGAINST A STATEMENT SOMEONE ELSE WROTE.** ⛔ **The un-briefable
+part is not the arm — it is *"notice that YOUR OWN criterion is satisfied by noise"*: chit ran its
+registered falsifier against three GREEN runs and it passed 3 of 3.** ⇒ ⭐⭐ ***A BRIEF CANNOT CONTAIN
+THE DOUBT IT IS ASKING FOR.***
