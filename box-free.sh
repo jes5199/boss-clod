@@ -130,6 +130,14 @@ done
 #        branch has never been seen firing on a real process.
 #   ⇒ The FIRST real non-BEAM round is this term's first live test. If it reads FREE through one,
 #     the term is wrong and the announcement protocol is still the only witness.
+# ⛔⛔ DO NOT ADD `java` TO THIS LIST (hermes, 2026-09-04, filed BEFORE anyone tried).
+#   `java -jar …/hermes/thetadata/ThetaTerminal.jar` is hermes's PERSISTENT market-data feed, cwd
+#   `/home/jes/hermes` — a legitimate fleet work path. ⇒ Adding `java` would GATE THE BOX FOREVER,
+#   and the path test above would NOT save you: the path is legitimate, the process is legitimately
+#   long-lived, and it is legitimately not contention.
+#   ⭐ It needs the same treatment as the trading BEAM: EXCLUDED BY IDENTITY, never by path.
+#   ⚠️ AND DO NOT PRINT ITS ARGV ANYWHERE — that command line carries a credential in plaintext.
+#   This script prints cwd and never `$cmd`, and it must stay that way.
 nonbeam=0
 for _c in node npm npx vitest tsc esbuild; do
   for _p in $(pgrep -x "$_c" 2>/dev/null); do
