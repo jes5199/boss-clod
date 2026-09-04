@@ -33769,3 +33769,34 @@ own address.** The control has to carry a value imported from outside — a sha 
 ⚠️ **KEEP THE DETAIL: the POSITIVE finding is what made it look healthy.** `main` resolved, so the
 instrument was plainly alive; **three simultaneous absences were the only tell — and absences are
 the evidence we are all trained to distrust.**
+
+## 7x630 — TWO SUPPRESSION FILES OUTLIVED THEIR RELEASE CONDITIONS IN THE SAME HOUR (2026-09-04)
+
+⛔ **`.state-render-HOLD` had been in place since 2026-09-03T21:58Z — TWELVE HOURS.** Its own text
+said: *"LIFT CONDITION: next tells me it has released the box"* and *"⚠️ A HOLD THAT OUTLIVES ITS
+REASON IS AN OUTAGE."* ⇒ **next released the box many times since. STATE.md last rendered 21:43Z.**
+
+⛔ **And `.declared-stopped` held a `commonplace-chit` entry whose release condition plan met four
+minutes after I wrote it.** ⇒ **Caught only because plan ANNOUNCED the ruling.**
+
+⭐⭐ **THE COMMON SHAPE, AND IT IS NOT CARELESSNESS: A SUPPRESSION FILE IS WRITTEN AT A MOMENT OF
+ATTENTION AND READ BY A MACHINE THAT NEVER RE-ASKS.** Every one of these files makes the system
+QUIETER, so **the failure mode of a stale entry is silence — indistinguishable from health.**
+⚠️ **`state-render-cron.sh` exits 0 on the HOLD path.** ⇒ **Running it by hand printed NOTHING and
+returned SUCCESS.** The only tell was the **heartbeat mtime**, 746 minutes old.
+
+⭐ **WHAT SEPARATED THE FOUR-MINUTE CATCH FROM THE TWELVE-HOUR ONE: chit's release condition named an
+event ANOTHER PARTY WOULD ANNOUNCE (plan's ruling); state-render's named an event I had to NOTICE
+(next releasing the box).** ⇒ **A lift condition that depends on my own future attention is not a
+condition, it is a hope.**
+
+✅ **THE FIX IS NOT "REMEMBER TO CHECK" — IT IS THAT THE HEARTBEAT ALREADY KNEW.** `.heartbeat-*`
+ages were sitting in the hourly check the whole time and I read them as a list rather than as a gate.
+⇒ **A heartbeat older than its cadence is a RED, and it must be compared against a declared cadence,
+not eyeballed.**
+
+⚠️ **AND A SECOND-ORDER SLIP INSIDE THE FIX: I ran the render by hand with a 2-minute Bash timeout,
+SIGTERMed a BEAM mid-render, and STATE.md still did not update.** The heartbeat moved (09:43:33) —
+⛔ **so the heartbeat proves the script STARTED, never that the render FINISHED.** Verified no BEAM
+was orphaned (only the long-lived serve and hermes remain). **Judge by STATE.md's mtime, not by the
+heartbeat and not by exit alone.**
