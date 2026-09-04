@@ -1,4 +1,15 @@
 #!/usr/bin/env bash
+# ⛔ 7x654 (2026-09-04): AN IDLE BOX WITH A QUEUE BEHIND IT IS A STALL NOTHING HERE CAN SEE.
+# The suite queue stalled ~2 HOURS: cell's window was effective on next's ANNOUNCED release, which
+# never arrived; chit waited on cell; cell waited on next. Three doors idle, box FREE throughout,
+# and NO instrument reported a problem — because "waiting correctly" and "waiting on an event that
+# will never arrive" are THE SAME PICTURE. It was resolved BY ACCIDENT: chit's usage-limit suspension
+# ended, it noticed a 2-hour hole, and asked.  ⇒ A USAGE LIMIT DETECTED IT. NOBODY ELSE DID.
+# ⭐ THE FIX IS chit's AND IT IS AN ASK, NOT A TIMEOUT: a queued door that has waited past an interval
+#   ASKS THE DOOR AHEAD OF IT, BY NAME, ONCE. ⛔ NEVER a timeout that promotes — promotion on silence
+#   is exactly what the announced-release rule forbids and it must stay forbidden.
+# 📌 BOSS-SIDE TRACKER BELOW: how long has box-free.sh said FREE? A long FREE is not itself a fault —
+#   it is the ONE OBSERVABLE that separates "quiet fleet" from "queue waiting on a lost announcement".
 # ⛔ 7x633 (2026-09-04): A DOOR THAT SAYS "sent to plan + boss" HAS REACHED ONE OF US.
 # clod-squad `send` takes ONE recipient; a "(cc …)" written in the BODY routes nothing, and the
 # sender feels compliant because the message is well-formed. plan sat idle NINE MINUTES on a landing
@@ -330,4 +341,15 @@ done
 # ⭐ Vacuity keyed to the READ, not the count: zero stalls is the healthy state and
 # must stay legal. examined==0 means the sweep could not look.
 [ "$examined" -eq 0 ] && { echo "BLIND|examined 0 workers — NOT 'nobody is stalled'"; exit 2; }
+# ⭐ FREE-STREAK: cheap, stateful, and it is the only line that can see a lost announcement.
+_fs=/home/jes/boss-clod/.box-free-since
+if /home/jes/boss-clod/box-free.sh >/dev/null 2>&1; then
+  [ -f "$_fs" ] || date +%s > "$_fs"
+  _mins=$(( ( $(date +%s) - $(cat "$_fs") ) / 60 ))
+  if [ "$_mins" -ge 20 ]; then
+    echo "FREE-STREAK|the box has read FREE for ${_mins} min. NOT a fault by itself — but if any door is queued on another door's ANNOUNCED release, this is what a LOST ANNOUNCEMENT looks like. Ask the door ahead BY NAME; never promote on silence."
+  fi
+else
+  rm -f "$_fs"
+fi
 echo "SWEPT|examined=$examined|stalled=$stalled"
