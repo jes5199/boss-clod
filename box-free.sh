@@ -45,8 +45,20 @@ n=$(printf '%s\n' "$hpid" | command grep -c .)
 suites=0; unknown=0; blind=0; periodic=0
 for p in $(awk '$2=="beam.smp"{print $1}' "$PS"); do
   [ "$p" = "$hpid" ] && continue
-  cwd=$(readlink "/proc/$p/cwd" 2>/dev/null) || { blind=$((blind+1)); continue; }
-  [ -z "$cwd" ] && { blind=$((blind+1)); continue; }
+  # ⛔⛔ AN UNREADABLE cwd HAS TWO CAUSES AND THEY ARE OPPOSITE VERDICTS (2026-09-04, LESSONS 7x560):
+  #   the process EXITED between the `ps` snapshot and this readlink  ⇒ NOT contention. Skip it.
+  #   the process EXISTS and its /proc is unreadable (permissions)    ⇒ genuinely BLIND. Refuse.
+  # ⚠️ Conflating them made the whole instrument return rc=2 THREE TIMES IN A ROW while the box was
+  #   merely busy with SHORT-LIVED fixture BEAMs that spawn and exit constantly. A separate loop over
+  #   the SAME pids read all four cwds fine one second later — the race, not a permission wall.
+  # ⭐ AND THE COST IS ASYMMETRIC IN THE DIRECTION THAT MATTERS: BLIND means "no information, do not
+  #   act", so a racing exit — the most benign event on the box — was DISABLING THE ARBITER. A gate
+  #   that goes blind whenever the thing it watches is busiest is worst exactly when it is needed.
+  if ! cwd=$(readlink "/proc/$p/cwd" 2>/dev/null) || [ -z "$cwd" ]; then
+    # THE DISCRIMINATOR: does the pid still exist at all?
+    if [ -d "/proc/$p" ]; then blind=$((blind+1)); fi   # alive but opaque ⇒ BLIND
+    continue                                            # gone ⇒ it is not using the box
+  fi
   cmd=$(tr '\0' ' ' < "/proc/$p/cmdline" 2>/dev/null)
   case "$cmd" in
     *-extra*mix*test*) suites=$((suites+1)); echo "BUSY-SUITE|pid $p cwd $cwd" ;;

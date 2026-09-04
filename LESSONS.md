@@ -31857,3 +31857,39 @@ correct the reason.**
 LESSONS.md). What I relayed to jes was the ⑤ receipt, which biscuit measured four ways.
 ⚠️ **The false half never travelled through me BY LUCK OF WHAT I CHOSE TO QUOTE, not by any check I
 ran** — and I passed ① to plan verbatim, which is how it reached the ledger.
+
+## 7x560 — ⛔⛔ MY BOX INSTRUMENT WENT BLIND EXACTLY WHEN THE BOX WAS BUSIEST, AND "BLIND" MEANS "DO NOT ACT" (2026-09-04T00:03Z)
+
+**`box-free.sh` returned `BLIND|1 BEAM(s) whose /proc cwd could not be read` THREE TIMES IN A ROW.**
+A separate loop over the same pids read **all four cwds fine** one second later:
+```
+1649932 /home/jes/next-suite-load/wt   1657819 /tmp/commonplace-next-e2c-425/remote
+2943416 /home/jes/commonplace-serve-pin  3811749 /home/jes/hermes   ← all readable, all owner jes
+```
+⇒ ⛔ **Not a permission wall — a RACE.** The pid list comes from a `ps` snapshot; short-lived fixture
+BEAMs spawn and exit constantly during next's suite, so a pid is gone by the time `readlink` runs.
+
+⭐⭐ **AN UNREADABLE `cwd` HAS TWO CAUSES AND THEY DEMAND OPPOSITE VERDICTS:**
+```
+process EXITED between snapshot and readlink   ⇒ NOT contention. Skip it.
+process EXISTS and /proc is opaque             ⇒ genuinely BLIND. Refuse.
+```
+**I had conflated them, so the most benign event on the box — a fixture finishing — was DISABLING THE
+ARBITER.** ⚠️ **And the cost is asymmetric in the worst direction: `BLIND` means "no information, do not
+act", so the gate went dark precisely when the box was most contended.** ⭐ **A gate that fails blind
+whenever its subject is busiest is broken exactly when it is needed.**
+
+✅ **THE DISCRIMINATOR IS ONE LINE — does `/proc/$p` still exist at all — AND ALL FOUR ARMS ARE PROVEN,
+not asserted:**
+```
+ARM 1  pid 1 (root's init: alive, cwd opaque)   → BLIND=1   ⭐ the RED arm, and it can still fire
+ARM 2  pid 999999 (never existed)               → blind=0, skipped
+ARM 3  a live readable process                  → readable, blind=0
+ARM 4  a pid that EXITS mid-check (the real race)→ blind=0   ⭐ the exact incident, reproduced
+```
+⭐ **`/proc/1` is the positive control I did not expect to have: a process that is alive AND opaque,
+available on every Linux box, needing no privilege to test.** ⇒ The BLIND branch is **known to work**
+rather than merely present — and this file's own rule is that a gate never seen fail is not known to
+work.
+📌 Live after the fix: `BUSY|2 suite(s) running (control: 270 processes)` — **the true state, which the
+instrument had been unable to report for three consecutive readings.**
