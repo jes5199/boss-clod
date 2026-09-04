@@ -56,7 +56,23 @@ for p in $(awk '$2=="beam.smp"{print $1}' "$PS"); do
   #   that goes blind whenever the thing it watches is busiest is worst exactly when it is needed.
   if ! cwd=$(readlink "/proc/$p/cwd" 2>/dev/null) || [ -z "$cwd" ]; then
     # THE DISCRIMINATOR: does the pid still exist at all?
-    if [ -d "/proc/$p" ]; then blind=$((blind+1)); fi   # alive but opaque ⇒ BLIND
+    if [ -d "/proc/$p" ]; then
+      # ⭐⭐ SECOND DISCRIMINATOR, ADDED 2026-09-04: AN OPAQUE cwd IS USUALLY A CONTAINER, NOT A
+      # MYSTERY. A BEAM inside a docker container has an unreadable /proc/PID/cwd (different mount
+      # namespace, and /proc/1/cwd is unreadable to this user too — so the reader is unprivileged,
+      # NOT the target being strange). But /proc/PID/cgroup IS readable and NAMES THE CONTAINER.
+      # ⛔ WHY IT MATTERS: BLIND means "no information, do not act" and STOPS EVERY DOOR. Reporting
+      # biscuit's own DEPLOY-SCOPE-1 build as BLIND would have halted the queue on a tenancy that is
+      # announced, expected, and attributable in one read.
+      # ⇒ An identified container is CONTENTION (a real tenant, named) — never an absence of data.
+      cg=$(cat "/proc/$p/cgroup" 2>/dev/null)
+      case "$cg" in
+        *docker-*) cid=${cg##*docker-}; cid=${cid%%.scope*}
+                   unknown=$((unknown+1))
+                   echo "BUSY-CONTAINER|pid $p docker ${cid:0:12} (cwd opaque: container namespace, cgroup read instead)" ;;
+        *)         blind=$((blind+1)) ;;                # genuinely opaque ⇒ BLIND
+      esac
+    fi
     continue                                            # gone ⇒ it is not using the box
   fi
   cmd=$(tr '\0' ' ' < "/proc/$p/cmdline" 2>/dev/null)
