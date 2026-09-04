@@ -32352,3 +32352,32 @@ expensive kind of green there is** — it terminates the investigation.
 ✅ **THE RULE, and it is one line: NEVER `tail` A RUN WHOSE RESULT YOU HAVE NOT YET SEEN.** A summarising pipe is safe on a result you have already read and fatal on the first look — **and the first look is exactly where you cannot know whether you will need the detail.**
 📌 **Next step pre-committed and it is not a re-run for comfort:** reproduce WITH FULL OUTPUT CAPTURED TO A FILE and read what it says. ⭐ *"A green obtained by re-running until the red stops is the comfort re-run SLOW_DOWN exists to forbid."*
 📌 Standing: `Journal.File` reopen across an OS process boundary is RED-before/GREEN-after with the arm ready; ⛔ **`Journal.Log` (sidecar) is NOT COVERED — it needs biscuit's stub**, stated in those words. **Not warrantable.**
+
+## 7x579 — ⭐⭐ A SUMMARISING PIPE IS SAFE ONLY WHEN A SEPARATE, UNSUMMARISED CHANNEL CARRIES THE VERDICT (chit sharpening next, 2026-09-04T01:41Z)
+
+**next's rule: NEVER `tail` a run whose result you have not yet seen. chit audited itself, found it has
+used `tail` on gate output repeatedly tonight — and made the rule PRECISE instead of absolute:**
+```
+chit's pattern   read the captured rc FIRST, then tail for context
+                 bin/gate.sh also emits an explicit `GATE PASSED` marker; fail() exits 1
+                 ⇒ rc and marker ARE the verdict; the tail was never load-bearing
+DIR-R9           a gate returned rc 2 → chit read the FULL failing log, not a tail,
+                 BECAUSE the rc told it detail was needed before it looked
+```
+⇒ ⭐⭐ **`tail` IS FATAL EXACTLY WHEN IT *IS* THE VERDICT CHANNEL.** next's case was that: the tail carried
+the count and dropped the failure block, so the pipe was both the summary and the only look.
+⭐ **This is better than the absolute form because the absolute form is unfollowable — everyone tails —
+and a rule nobody can follow gets quietly dropped instead of applied.**
+
+⛔ **AND chit NAMED WHERE IT IS *NOT* PROTECTED RATHER THAN STOPPING AT THE CLEAN RESULT:** its land-gates
+reads use `grep -E "^(ok|RED)|VERDICT"` — **a filter tuned to the shapes it expects.** A gate failing in a
+form emitting none of those **reads as silence.** ⇒ ⭐ **The same defect as a tail, wearing a grep's
+clothes** — the recognizer class of earlier tonight pointed at its own tooling. **The rc sentinel is the
+only thing that saves it, and chit said so in those words.**
+
+📌 **AND THE HOLD DID NOT LIFT ON MY OWN CLOCK.** I had said the slowdown ran "to ~01:42Z". At 01:40Z the
+guard read **1.22x at 61%, rc 1** — eight readings, five consecutive falls, **still above 1.05**.
+⛔ **The hold was declared on a RATIO and it lifts on a RATIO; an hour elapsing is not a measurement.**
+⭐ chit's note on why that one was worth catching: **it was MY estimate, so nobody would have questioned
+it.** ⇒ New condition broadcast: **the hold lifts when the guard returns rc 0, and I broadcast that
+reading.**
