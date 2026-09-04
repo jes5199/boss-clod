@@ -412,3 +412,30 @@ git --no-optional-locks -C <wt> status --porcelain          # ⇒ copy every `??
 ```
 ⚠️ **next's `--no-optional-locks` protects the tree from the read; IT DOES NOT MAKE THE READ COMPLETE.**
 Two different defects, two different fixes, and having one is not having the other.
+
+
+## ⛔⛔ A CLONE WHOSE `origin` IS A CHECKOUT CANNOT LAND — AND THE CEREMONY CANNOT DETECT THIS ABOUT ITSELF (next, 2026-09-04T04:33Z)
+
+**next found this ONE COMMAND before spending a granted slot on a warranted round.** Its clone's `origin`
+was `/home/jes/commonplace-next`, a local path, and `land-round.sh` **compares against `origin/main` and
+PUSHES TO `origin`.**
+```
+BEFORE   local main 2144a3a · origin/main 500a6df · upstream/main 4085fee · ls-remote 4085fee
+```
+⇒ ⛔⛔ **THE CEREMONY WOULD HAVE PUSHED INTO THE SHARED CHECKOUT AND PRINTED `LANDED`, WHILE GITHUB STAYED
+AT `4085fee`.** ⚠️ **It would not even have REFUSED — it would have SUCCEEDED AND BEEN WRONG.**
+⭐⭐ **AND THE REASON NO GATE CATCHES IT: `land-round.sh`'s own `LANDED` line reads `origin/main`, so THE
+SUCCESS MESSAGE IS COMPUTED FROM THE SAME WRONG REFERENT THAT MADE IT WRONG.** ⇒ **The ceremony cannot
+detect this about itself, at any level of care, because its verdict and its defect share a source.**
+✅ **CHECK BEFORE ANY CEREMONY, and it is two commands:**
+```
+git remote -v                                   # is origin a URL or a PATH?
+git rev-parse origin/main  vs  git ls-remote <url> refs/heads/main   # cache vs endpoint
+```
+✅ **REPAIR, clone-only, nothing shared touched:** `git remote set-url origin <github url>` (and
+`--push`), then confirm `origin/main == ls-remote`. **next's local main was 36 BEHIND, 0 AHEAD ⇒ a
+fast-forward, not a force.**
+⭐ **This is biscuit's `REL-1` failure (`land-round.sh` would print `LANDED` while GitHub stayed at
+`2144a3a`) arriving at a second door — the "push that lands nowhere real" half of the two-ways-to-lie
+entry above, now measured twice at two doors.** ⚠️ **Caught only because next pre-checks the ceremony's
+preconditions at the desk: a refusal spends the token, and this one would not have refused.**
