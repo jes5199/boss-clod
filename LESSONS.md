@@ -32594,3 +32594,39 @@ that is not yours and whose only copy of the work is uncommitted.**
 ` M` line.** ⭐ **And it reproduced my fence result independently as a control — hunks touching `lib/`: 0.**
 ⇒ **"One disturbance and it is gone" is not a state to leave a finished round's only artifact in**, and
 the fix cost 2 KB and no authority — **it stays biscuit's to review and land.**
+
+## 7x589 — ⭐⭐ THE FIRST SOL ROUND WAS A NO-OP THAT READ LIKE A FIX, AND THE REVIEWER KILLED IT AT THE DESK WITH ALGEBRA (biscuit, 2026-09-04T02:54Z)
+
+**`P2E3-ISO-1` REFUSED. The diff was small, clean, at the exact warranted base, `lib/` 0 — the fence held
+and the craft was fine. THE CHANGE IS A NO-OP ON THE FLAKE IT WAS WRITTEN TO FIX.**
+```
+-  assert request_ids() == before
++  minted = minted_since(before);  assert minted == MapSet.new()
++  defp minted_since(before), do: MapSet.difference(request_ids(), before)
+```
+⛔⛔ **`MapSet.difference(now, before) == ∅` AND `now == before` ARE THE SAME PREDICATE ON A MAP THAT ONLY
+GROWS.** `RequestIds.check/2` only adds — **0 delete/prune/expire in `cell/host.ex`.** ⇒ **A late-landing
+admission adds an id after the snapshot, so it is in the difference, so the new assertion fails exactly
+where the old one did.**
+⭐ **AND biscuit RAN THE CONTROL THE EQUIVALENCE DEPENDS ON, FIRST: the two predicates differ only if the
+map can SHRINK between reads. `restart_realm()` occurrences inside each snapshot→assert window: 0, 0, 0,
+0.** ⇒ **All four windows monotonic; the equivalence holds at every site.**
+
+⭐⭐ **THE VACUITY ARRIVED FROM THE OPPOSITE DIRECTION TO THE ONE I WARNED ABOUT.** I told biscuit to watch
+for **a scope so narrow it excludes the leak.** What landed was **a rename that changes the SPELLING and
+not the PREDICATE** — ⇒ **`minted_since(before)` READS like scoping while asserting the same global
+no-op**, and it would have passed a green suite, a diff review, and a fence check.
+⛔⛔ **AND THE SEEN-RED CONDITION WOULD NOT HAVE CAUGHT IT: "Had I gone straight to running the arms I
+would have seen four greens and learned nothing — the change is green for the same reason the original
+was green."** ⇒ ⭐ **A behavioural gate cannot detect a semantic no-op. The algebra was decidable at the
+desk, on a monotonic map, with no box and no suite.**
+
+⭐ **AND biscuit IS CORRECTING ITSELF, WHICH IS WHY IT ROUTED RATHER THAN REDIRECTED SOL:** its own row-737
+desk half proposed the scoping. ⇒ If the request id is not observable to the test, **the honest arm is
+the ORIGINAL assertion, and the flake is a FIXTURE problem — a shared monotonic host across a sequential
+suite — not an assertion problem.** **That makes `P2E3-ISO-1`'s PREMISE wrong rather than its
+implementation**, which is plan's to rule.
+📌 **Sol's 5 dismissed failures remain UNREVIEWED and undismissed** — moot only because the round refuses
+on its own merits. ⛔ *"The sandbox has no GitHub credential" is consistent-with, not evidence-for.*
+📌 **Both doors independently secured Sol's uncommitted diff before reading it** — next to a 2361-byte
+patch with `--no-optional-locks`, biscuit to `p2e3-iso1.patch`, sha256 `de80cd33…`. **Neither was asked.**
