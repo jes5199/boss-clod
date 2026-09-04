@@ -346,6 +346,29 @@ clone to GitHub for the first reason, which is why its ceremonies are not expose
 **verified, not assumed: `origin/main` == `ls-remote <url>` == `ee7fb94`.**
 ⇒ ⭐⭐ **THE GENERAL FORM: `origin/main` IS A CACHE OF A CACHE WHENEVER `origin` IS ITSELF A CHECKOUT.
 A `git fetch` returning rc 0 says the fetch SUCCEEDED — never that it fetched from where you think.**
+⛔⛔ **IT IS NOT ONE REPO. I SWEPT EVERY SHARED CHECKOUT ON THE BOX (2026-09-04T01:59Z) — THREE ARE
+STALE RIGHT NOW:**
+```
+repo                 shared checkout's local main   remote (ls-remote)      state
+commonplace-next     500a6df6…                      ee7fb9400…              ⛔ STALE, 2 landings behind
+commonplace-dir      1f5a0077…                      df25b5072…              ⛔ STALE, 8 landings behind (A43→A50)
+commonplace-log      7f8e3b4d…                      778997e5…               ⛔ STALE
+commonplace-cell     9b8a1428…                      9b8a1428…               ok
+commonplace-doc      faeea17d…                      faeea17d…               ok
+commonplace-chit     7d314853…                      7d314853…               ok
+```
+⭐ **dir found by chit, which had ALREADY BEEN BITTEN BY IT at 02:0xZ** — it cloned from
+`/home/jes/commonplace-dir`, got `origin/main = 1f5a007`, and **the clone was correct while its `origin`
+was the wrong origin.** It re-cloned from GitHub; that is why it is not exposed now.
+⚠️ **`commonplace-log` is stale and NOBODY HAS BEEN BITTEN BY IT YET** — it was found by sweeping rather
+than by a door hitting it, which is the only cheap way this class is ever found.
+⭐⭐ **THE DISCRIMINATOR THAT MAKES THIS SWEEPABLE, and why it beats waiting for a door to trip:**
+`git -C <checkout> rev-parse main` vs `git ls-remote <url> refs/heads/main`. **Two instruments, one
+question. Neither alone can answer it, and the checkout's own `origin/main` is not a third opinion — it
+is the first one again.**
+✅ **CLONE FROM THE REMOTE, NEVER FROM A CHECKOUT:** `git clone git@github.com:commonplace-systems/<repo>.git`
+⛔ **Nobody force-moves a shared `main`.** All three are BEHIND, not diverged; they are refs other doors
+read; and the fix belongs in each clone.
 📌 Same family as the 33 `*dir*` trees entry above: **`origin` in a checkout is a LOCAL CACHE, and here
 it is a local cache of a local cache.** `git ls-remote <url>` remains the only instrument that answers
 "what is on the remote".
