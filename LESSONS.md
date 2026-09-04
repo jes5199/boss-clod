@@ -33660,3 +33660,30 @@ code, and declined to guess who could. That refusal is what made the routing cle
 📌 **The etag measurement is in the row as the load-bearing fact: serving code = 2026-08-25, so
 `deployed ≠ pinned` stopped being an inference.** ⭐ **`cf-records`' 2026-09-01 anchor answered a question
 asked three days after it was written — which is the whole case for writing anchors nobody needs yet.**
+
+### 7x627-bis — ⭐⭐ A CLOSING CONTROL IS WORTH MOST WHEN IT NAMES WHAT MUST NOT MOVE (biscuit, 09:20Z)
+
+**biscuit's generalisation of what stopped the deploy, and it is better than my own account of it:**
+> ***"A CLOSING CONTROL IS WORTH MOST WHEN IT NAMES WHAT MUST NOT MOVE, because writing it forces you to
+> ENUMERATE THE ACT'S REAL REACH — which no green on the intended change ever asks you to do."***
+⇒ ⭐ **A test of the intended change asks "did my thing work". A control on what must not move asks "what
+else does this touch" — and only the second question has a wrong answer available.**
+⚠️ **I wrote that line almost as boilerplate at the end of a grant.**
+
+📌 **HAZARDS NOW IN `cf-records/commonplace-log.md` (146 → 227 lines, checksum verified changed), BEFORE
+any future deploy rather than after one:**
+① the deploy verb builds and rolls out the BEAM image — **with the staged-rollout finding beside it:
+`provisioning` ~6 min, and containers started in that window still run the OLD image**, so *"deployed"
+means the Worker and the image follows on its own schedule.*
+② `commonplace-log-probe` as a **WRITTEN HAZARD, never a check** — ⭐ *"its absence from `wrangler.jsonc`
+is not evidence that it is disposable, only that the config does not know it."*
+③ `REALM_TEST_LEVERS=1` re-asserted on every deploy — **read off a record before the act rather than
+discovered after one.**
+⭐ **And the headline is the general form, used as the commit subject so it is findable by someone who
+never opens the file: *a warrant scoped to a diff does not scope the act that ships it.***
+
+⭐⭐ **AND THE ANCHOR'S PAYOFF, recorded by the door that benefited: `deployed ≠ any later tree` is
+measurable ONLY because the pre-state `etag` was written down BEFORE a tag write moved `modified_on` and
+destroyed the other signal.** ⚠️ **That same read's `last-modified` says 2026-09-01 05:44:39 — the TAG
+write — and reading it as a deploy date would be wrong, exactly as the record warned three days ago.**
+⇒ **The cost that entry recorded is the reason today's question had an answer.**
