@@ -225,3 +225,71 @@ write, nothing to roll back**. READ — `worker/wrangler.jsonc`, `commonplace_lo
 `docs/sp4b-deployment-readiness.md` at `commonplace-log` `origin/main`
 `d0aff782eed27ad1c40f594c135942bd1c1c8b1f`; ranges by `git diff` against `7e3f6d2`. Written by
 `commonplace-biscuit`, ruled by `boss-clod` 09:18Z.
+
+---
+
+## ✅ DEPLOY 2026-09-04T13:01Z — THE FIRST ANCHORED DEPLOY. `prov:source-sha` WRITTEN.
+
+| field | value |
+|---|---|
+| **WHAT** | `wrangler deploy` 4.125.0 from a FRESH CLONE of `git@github.com:commonplace-systems/commonplace-log.git` at `d0aff782eed27ad1c40f594c135942bd1c1c8b1f`. Version ID `0fe5520a-f83a-40bc-876b-63868a645056`. |
+| **WHY** | `STORE-3b`'s owed deploy, ruled option (C) 2026-09-04T09:18Z: **ONE act deploying ONE tree**, after both halves of `DEPLOY-SCOPE-1` warranted their files deployable. |
+| **WHO AUTHORIZED** | **commonplace-plan row 829 + its explicit 12:55Z sentence** *"`STORE-3b` IS FINISHED… TAKE THE ACT"*, asked for and given rather than inferred. Acted by boss-clod under jes's standing deploy authorization (2026-08-05). |
+
+### The transition, asserted — pre-values held by a SECOND observer
+
+⭐ **commonplace-biscuit took the pre-value ITSELF at 12:59:50Z and pre-committed the answer key
+BEFORE the act**, so the post-read could not be fitted to the result.
+```
+etag   b40f16a4ab5be14dcda736cd56ff98bdb91341c4fec8282b346fa5c7374b0582   (pre, biscuit's own read)
+   →   8cb2680e52ed585245b22ef4f007f3f9cc4c675fb90e34762513fd43b51891a4   ⇒ THE CODE MOVED
+container image  …commonplace-log-realm@sha256:97a89b1bd518…
+             →   commonplace-log-realm@sha256:a899f622c250a93a3df9cbce8ac5fd22a610c78557d5c57817139812e1c53865
+tags   4 → 5, the four pre-existing SURVIVED, prov:source-sha READ BACK FROM THE API
+```
+
+### Closing controls — what must NOT have moved
+
+```
+commonplace-log-probe   PRESENT, v1, instances 2      ⇐ HAZARD 2 ANSWERED, ON A LIVE OBJECT
+DO namespaces           3, unchanged
+commonplace-beta etag   db37a1f0… unchanged           ⇐ the OTHER worker untouched
+```
+⭐ **HAZARD 2 WAS RESOLVED BEFORE THE ACT, NOT BY IT.** Its own text said *"the only instrument that
+answers it is the deploy itself."* ⛔ **That was true of the API and FALSE of `wrangler`'s own source:**
+`ApplicationsService.deleteApplication(` has **ONE call site, behind an interactive confirm, on
+`wrangler containers delete`** — with `modifyApplication`/`createApplication` (2 each, the apply
+path) as the positive control. ⇒ ⭐⭐ ***"Unknowable without doing it" is a claim about the corpora
+someone thought to look in. ASK WHOSE CODE DECIDES IT.***
+
+### The deploy range, by Dockerfile line — the ZEROS are the evidence the COPY set was complete
+
+```
+:8   COPY mix.exs mix.lock ./   changed 0        :11  COPY config config   changed 0
+:12  COPY lib lib               changed 3        :29  COPY --from=builder  (stage 2)
+     document_profile/lane/sqlite.ex  6689b4a831de6fdf
+     persistence/sqlite_server.ex     e02df0e5f55319ae
+     log_store/sqlite/server.ex       1cc8a6c246e8d037
+robust base: plan's interval [48362e9, 7f8e3b4] gives the SAME 3/0/0/0 — the scope never needed the
+             serving sha, which is exactly the field that was UNRECORDED until this deploy.
+```
+
+### Hazards, restated as they stand AFTER the act
+
+⚠️ **HAZARD 1 (staged rollout) IS LIVE RIGHT NOW:** the Worker is deployed; the container application
+was **Modified** with a new digest, and the rollout is staged — an application sits in
+`provisioning` ~6 minutes and containers started in that window still run the OLD image.
+⇒ ⛔ **"Deployed" means the Worker. The container image follows on its own schedule.**
+📌 **HAZARD 3:** `REALM_TEST_LEVERS=1` re-asserted, as expected — this IS the development account.
+⛔ **DO NOT compare `commonplace-log-realm@sha256:a899f622c250a93a3df9cbce8ac5fd22a610c78557d5c57817139812e1c53865` to biscuit's local `docker build` id `sha256:f89894a2fe1f…`:
+a registry manifest digest and a local image id are DIFFERENT IDENTIFIER SPACES.** ⭐ The field that
+IS comparable across both is `prov:source-sha`.
+
+### The pre-deploy gate this act established
+
+⛔ **`git status --porcelain` = 0 IS NOT THE CHECK.** There is **no `.dockerignore`**, so an
+**IGNORED** file under a `COPY` path rides into the image and the recorded sha names a tree that was
+not built. ⇒ ✅ **THE GATE IS: `git status --porcelain --ignored -- commonplace_log/{lib,config,mix.exs,mix.lock}` = 0 lines, in a FRESH CLONE whose HEAD equals `ls-remote` at the URL.**
+⭐ **plan (row 831): *the first recorded source sha must not be the first false one.*** Four doors
+each caught a different failure in an earlier plan to build in the shared checkout; **none of them
+objected on the ground boss was guarding.**
