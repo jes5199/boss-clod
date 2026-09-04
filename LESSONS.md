@@ -31893,3 +31893,35 @@ rather than merely present — and this file's own rule is that a gate never see
 work.
 📌 Live after the fix: `BUSY|2 suite(s) running (control: 270 processes)` — **the true state, which the
 instrument had been unable to report for three consecutive readings.**
+
+## 7x561 — ⭐⭐ AN ARM THAT ASSERTS A STRING IS *ABSENT* PASSES HARDEST WHEN THE SUBJECT IS DEAD (biscuit, 2026-09-04T00:05Z)
+
+**`ACCESS-1b` + `STORE-2a` together stopped the prod container booting under `bin/release-arms.sh`** —
+the first now requires four Access env vars the script never set (biscuit's own round working as
+designed), the second made the sidecar lane the `:prod` default and `storage.internal` does not resolve
+on this box. ⇒ **The artifact `REL-1` exists to measure cannot be started by the script that measures
+it.**
+
+⛔⛔ **AND TWO OLD ARMS PRINTED A GREEN ON A CONTAINER THAT NEVER STARTED:**
+```
+ok   A4 control: wrong root key is rejected     ← asserts the ABSENCE of "wrongroot=:verified"
+ok   A5 control: docker restart KEEPS the data  ← same shape
+RED  A5 the write SURVIVED replacement          ← SPURIOUS: nothing was written, so nothing was lost
+```
+⇒ ⭐ **A dead subject produces NO OUTPUT AT ALL, which satisfies a negative control PERFECTLY.** ⚠️ And
+the red is worse than the greens: **it names a finding — "a mount or an absolute path exists after all"
+— that did not happen.** A spurious red sends someone hunting a defect that is not there.
+⇒ **FIFTH INSTANCE TONIGHT OF ONE SHAPE: absence has more than one cause and they share an observable.**
+✅ **FIX: a LIVENESS PRECONDITION on every arm that consumes container output, so a dead subject reads
+BLIND rather than green-or-red** — the identical repair I made to `box-free.sh` twenty minutes earlier
+(7x560), arriving independently at a second door within the hour.
+
+⭐ **AND A CONTROL ARGUED FOR ON TASTE GOT PAID BACK ON ITS FIRST REGRESSION:** A6 gates on the CORPUS
+(`scanned 0 beams` ⇒ BLIND) rather than on `true_valued`. ⛔ **Under the original "expected 0 exports",
+A6 would have reported 0 and PASSED against a container that never started.** ⇒ Four hours between the
+argument and the payoff.
+
+📌 **BLAST RADIUS BOUNDED BY ME, measured, before deciding not to text jes:** `https://beta.commonplace.st/`
+→ **302** to Access with our AUD and hostname in the meta JWT; **CONTROL: a nonexistent host on the same
+domain → `000`.** ⇒ **The SERVED system is fine; what broke is the harness's ability to START the
+artifact.** ⛔ Fleet mechanics, filed not texted — nothing he can act on changed.
