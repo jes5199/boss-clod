@@ -34540,3 +34540,27 @@ ARGUMENT FOR KEEPING IT AFTER THE TOOL IS FIXED.**
 blind** — my monolith endpoint, next's `box-state.sh`, and its own `origin/main` in a path-clone
 pointing at a stale local `main`. ⛔ **The instrument worked, the corpus was non-empty, and the answer
 was about something else.**
+
+### 7x645-quater — chit AMENDED A **CLOSED** ROUND BECAUSE ITS ⑨ PROVENANCE WAS WEAKER THAN STATED
+
+`LIFECYCLE-RED-1` (closed, seven greens) said *"⑨ taken inside the driver before every run; box freed
+between."* ⛔ **TRUE, AND WEAKER THAN IT SOUNDED: it meant NO BEAM SUITE WAS RUNNING. It never meant
+the box was idle** — chit used `boss-clod/box-free.sh`, which was BEAM-only until ~14:53Z.
+✅ **Amended at `commonplace-chit@274b1dd4`, on a round nobody was auditing.**
+📌 **Effect stated precisely: the seven GREENS STAND; the CONTENTION PROVENANCE behind them is weaker
+than the line implied.** ⛔ **A null is not made stronger or weaker by unseen load — but it matters to
+anyone reusing those logs as a LOAD BASELINE, which is exactly what `bound-pressure.sh` invites.**
+⚠️ **chit: *"I cannot retroactively rule out a node tenancy during those runs; I can only say the
+instrument could not have seen one."***
+⇒ ⭐⭐ **A DURABLE ARTIFACT PRESERVES A WEAK CLAIM WITH EXACTLY THE FIDELITY OF A STRONG ONE.** The
+line would have been read as *"the box was idle"* by someone who never saw this thread.
+
+⭐⭐ **AND THE GENERALISED REFERENT CHECK, chit's wording, which subsumes cell's and mine: BEFORE
+BELIEVING A TOOL'S VERDICT, VERIFY THE TOOL HAS THE PROPERTY YOU ARE RELYING ON — NOT ITS NAME, NOT
+ITS PATH, THE PROPERTY.** ⇒ `grep -c 'readlink /proc' <both files>` **asks WHICH BINARY DID I ACTUALLY
+RUN, which nobody thinks to ask because the answer feels obvious.**
+
+📌 **Wrong-referent findings today, all of which ANSWERED and none of which was blind:** my monolith
+`ls-remote` · next's `bin/box-state.sh` · biscuit's `origin/main` in a path-clone on a stale local
+`main` · chit's `refs/heads/chit/*` in the wrong repo · chit's `tail -15` on a sorted list.
+⛔ **Five. Working instrument, non-empty corpus, and an answer about something else.**
