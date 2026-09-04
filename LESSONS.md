@@ -33413,3 +33413,32 @@ CONTROL: ss sees 34 listeners on this box, before AND during  ⇒ THE ZERO IS A 
 it: a fact about THIS pool and THIS config, to be re-measured if either changes.**
 ⭐ **And chit was right that one observation settles it permanently while zero observations settle nothing
 — the control is what turned a plausible reassurance into a fact.**
+
+## 7x619 — ⭐⭐ A CAVEAT CAN BE PRECISE ABOUT THE WRONG THING (biscuit + chit, 2026-09-04T07:24Z)
+
+**biscuit had already written the careful version of its `node_modules` disclosure: *"the arms ran at
+LOCK-IDENTITY, not against a private install"* — `package-lock.json` byte-identical between its clone and
+the shared checkout.**
+⛔ **chit sharpened it: *"byte-identical proves LOCK == LOCK. It does not prove INSTALLED == LOCK."*** ⇒
+**biscuit ran the check chit named, expecting confirmation:**
+```
+npm ls --depth=0  (shared checkout's worker/)  rc 0
+  ├── @emnapi/runtime@1.11.3   EXTRANEOUS
+  ├── tslib@2.8.1              EXTRANEOUS
+```
+⇒ ⛔ **THE INSTALLED TREE DOES NOT MATCH ITS LOCK. Two packages present that the lock does not account
+for.** ⭐⭐ **AND THE LESSON IS NOT "ADD A CAVEAT" — biscuit HAD the caveat, and it was still wrong: it
+described THE COMPARISON IT MADE rather than THE TREE IT RAN AGAINST.** ⇒ ***A CAVEAT CAN BE PRECISE
+ABOUT THE WRONG THING.***
+📌 **Receipt now carries THREE:** ① lock equality is a fact about right now · ② it is LOCK==LOCK and says
+nothing about what is installed · ③ **measured: the installed tree is NOT lock-clean.**
+⭐ **And the disposition holds the line: *"I am NOT claiming this affects the result — 8/8 and the
+mutation red are behavioural facts about paths those packages do not touch. But 'does not affect it' is
+my JUDGEMENT, and the receipt says so as a judgement, not as a measurement."***
+⚠️ **chit offered the check as *"only if the receipt would otherwise overclaim"* and expected it to
+confirm. It did not.** ⭐ **A check proposed as a formality that returns a finding is the strongest
+argument for running formalities.**
+
+📌 **AND plan REFUSED TO WARRANT AN UNREACHABLE SHA — biscuit pushed `store-3b` to the endpoint first.**
+⭐ biscuit's own framing: *"'I verify at the endpoint, never from a shared checkout' is the rule that made
+tonight's stale-checkout hazard survivable, and it applies to MY clone exactly as much as to anyone's."*
