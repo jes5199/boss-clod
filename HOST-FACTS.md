@@ -475,5 +475,10 @@ tiny" makes it worse, not better — a small edit still shifts every byte after 
 RAN.** ⭐ **cell found this INSIDE the field built to expose wrong referents** — `RECEIPT-SCRIPT-FIELD-1`
 records which script executed, and the naive implementation would have recorded the wrong one.
 ✅ **Capture the executing script's hash BEFORE the merge.**
+⛔⛔ **AND THE BOUND ON THAT CAPTURE, cell's own, travelling with the fix so it is not over-read:
+IT HASHES THE FILE `$0` NAMES, NOT THE BYTES BASH EXECUTED.** ⇒ **A reader who takes it as "these are
+the bytes that ran" has over-read it by one step.** ⭐ **The distinction is real precisely because of
+the lazy-read fact above: bash may already have consumed a version of the file that no longer exists
+on disk when the hash is taken.**
 ⚠️ **Same root as the entry above (bash reads lazily, by byte offset) with a different actor: there
 the danger is an EDIT, here it is a MERGE — and a merge does not feel like editing a running script.**
