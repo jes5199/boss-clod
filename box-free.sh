@@ -234,6 +234,15 @@ _hot=$(awk -v l="${_load1:-0}" -v c="${_cores:-4}" 'BEGIN{print (l > c/2) ? 1 : 
 #   lands in UNKNOWN-BEAM. ⭐ cell filed that overcount as `suites()` counting BEAMs not doors.
 #   ⚠️ I am NOT "fixing" it: the child makes the box read BUSY, which is the safe direction, and any
 #   narrowing risks the unsafe one. The UNKNOWN line names the pid so a reader can see what it is.
-[ "$_hot" = "1" ] && echo "NOTE-LOAD|load1 ${_load1} on ${_cores} cores with NOTHING attributed — this box is NOT idle; something no term can name is loading it (announcement is the only witness for a docker build)"
+# ⛔⛔ "NOTHING attributed" WAS TRUE OF THE TOOL AND FALSE OF THE BOX (commonplace-cell, 2026-09-04).
+# Three doors spent ninety minutes unable to name a load that ONE `ps` attributed: the serve at 196%
+# — a tenant this script DELIBERATELY EXCLUDES (line ~82) — plus five Claude sessions.
+# ⇒ ⭐ "NOTHING attributed" reads as UNKNOWN; the truth was EXCLUDED. Different facts, different
+#   remedies: unknown means LOOK HARDER, excluded means the exclusion is doing its job and the
+#   SENTENCE is wrong. So the line now NAMES the excluded tenants and their CPU.
+if [ "$_hot" = "1" ]; then
+  _excl=$(ps -eo pcpu,pid,comm --sort=-pcpu 2>/dev/null | awk 'NR>1 && $1+0 > 5 {printf "%s %s(%s%%) ", $3, $2, $1}' | head -c 200)
+  echo "NOTE-LOAD|load1 ${_load1} on ${_cores} cores; NOTHING IN THE GATING SET accounts for it. Top CPU incl. EXCLUDED tenants: ${_excl:-none over 5%}. ⇒ known-and-excluded (serve/hermes) is NOT the same as invisible — read the list before concluding anything is unnameable."
+fi
 echo "FREE|0 suites, hermes pid $hpid excluded, control $tot processes visible"
 exit 0
