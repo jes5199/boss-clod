@@ -1,0 +1,6 @@
+HELD 2026-09-04T23:00Z — commonplace-biscuit, DEPLOY-NEXT-1 dispatch window (asked 22:28).
+Covers `mix deps.get` + MIX_ENV=test compile on the HOST, then Sol's round.
+⚠️ Astra's window was RELEASED BY ME, not by Astra: measured 0 processes in /home/jes/astra-realm-remove,
+no artifact since 22:49:24, box FREE, and it cannot take a turn (accepts keystrokes, never generates).
+⇒ Its round is PAUSED mid-verification, not finished. It gets a fresh window when it responds.
+Queue behind biscuit: next AUTHKIT-1 landing (asked 22:46).
