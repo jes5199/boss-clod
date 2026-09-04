@@ -69,7 +69,11 @@ fi
 #   7d >= 99%      => STOP       (jes 2026-08-09: "no hard stop under 99%")
 # ⭐ Finishing a window AT the limit is success. Only finishing it EARLY is a
 # problem — that is the one this is allowed to interrupt work for.
-BURN_LIMIT=1.05
+# ⛔ ENV-OVERRIDABLE SO THE GREEN ARM CAN BE DEMONSTRATED. Found 2026-09-04: I 'proved' the OK
+#   branch with `BURN_LIMIT=99 ./quota-guard.sh` and it printed SLOW_DOWN anyway, because this
+#   line hard-set it. ⭐ MY GREEN ARM TESTED NOTHING AND LOOKED LIKE IT PASSED A CHECK.
+#   The default is unchanged; only the ability to exercise the other branch is added.
+BURN_LIMIT=${BURN_LIMIT:-1.05}
 STOP_PCT=99
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -210,11 +214,28 @@ else
   elif [ "${SOL_WORST:-0}" -ge 90 ]; then SOL_VERDICT="slow"; fi
 fi
 
+# ⭐⭐ DISPATCH CONSEQUENCE, AUTHORIZED BY jes 2026-09-04T01:44:50Z ("sounds good to me") ON THE RULE
+#   HE PROPOSED AT 01:42:59Z: "we should switch to Sol workers when the quota gets above some threshold."
+#   ⇒ THE THRESHOLD IS THIS GUARD'S OWN VERDICT, not a second number nobody maintains: SLOW_DOWN or STOP
+#     ⇒ NEW ROUNDS GO TO SOL. Claude doors finish IN-FLIGHT work only. Reverses on rc 0.
+# ⛔ WHY IT IS PRINTED HERE AND NOT REMEMBERED: a remembered rule does not fire. This session has paid
+#   for that four separate times tonight. The consequence rides on the measurement that triggers it.
+# ⚠️ AND THE TWO BOUNDS GO WITH IT EVERY TIME, because a capacity number without them reads as free
+#   capacity: (1) SOL IS NOT A DROP-IN — its demonstrated strength is orchestrated implementation
+#   against a written spec WITH A CLAUDE DOOR REVIEWING; the verification discipline (pre-registered
+#   arms, seen reds, controls in the same command) is carried by the Claude doors and is NOT known to
+#   hold unsupervised. (2) CODEX IS METERED AND COSTS MONEY WHERE CLAUDE DOES NOT.
+_dispatch_line() {
+  printf 'DISPATCH|new rounds -> SOL; Claude doors finish IN-FLIGHT only (jes 2026-09-04T01:44:50Z). Reverses on rc 0. Sol implements + a Claude door reviews; Codex is metered.\n'
+}
+
 if [ "$SOL_VERDICT" = "stop" ]; then
   echo "STOP|${SOL_NOTE} — Codex weekly at or over ${STOP_PCT}%, hard backstop${SCOPED:+ | scoped: $SCOPED}"
+  # ⛔ NOT here: the Codex side is the one exhausted, so routing TO Sol is the wrong remedy.
   exit 2
 elif [ "$SOL_VERDICT" = "slow" ]; then
   echo "SLOW_DOWN|${SOL_NOTE} — Codex window >=90%, the fleet is majority-Sol"
+  # ⛔ NOT here either, and for the same reason: this verdict is ABOUT Sol being short.
   exit 1
 elif [ "$SOL_VERDICT" = "blind" ]; then
   echo "GUARD_BROKEN|${SOL_NOTE} — Codex side unmeasured; treat as unavailable capacity, not as healthy"
@@ -223,12 +244,15 @@ fi
 
 if [ "$SCOPED_BINDS" = "1" ]; then
   echo "SLOW_DOWN|scoped limit critical AND IN USE by the fleet: ${SCOPED} — binding cap is not the all-models weekly"
+  _dispatch_line
   exit 1
 elif [ "$SEVEN_INT" -ge "$STOP_PCT" ]; then
   echo "STOP|7d at ${SEVEN_UTIL}% — over ${STOP_PCT}%, hard backstop"
+  _dispatch_line
   exit 2
 elif [ "$OVER" = "1" ]; then
   echo "SLOW_DOWN|${MAX_LABEL} burning ${MAX_RATIO}x (>= ${BURN_LIMIT}) at ${MAX_UTIL}% used — would exhaust EARLY"
+  _dispatch_line
   exit 1
 else
   echo "OK|worst ${MAX_LABEL} ${MAX_RATIO}x (limit ${BURN_LIMIT}) — 5h=${FIVE_UTIL}% 7d=${SEVEN_UTIL}%${SCOPED:+ | scoped: $SCOPED} | ${SOL_NOTE}"

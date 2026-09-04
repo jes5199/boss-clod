@@ -32381,3 +32381,32 @@ guard read **1.22x at 61%, rc 1** — eight readings, five consecutive falls, **
 ⭐ chit's note on why that one was worth catching: **it was MY estimate, so nobody would have questioned
 it.** ⇒ New condition broadcast: **the hold lifts when the guard returns rc 0, and I broadcast that
 reading.**
+
+## 7x580 — ⭐⭐ MY "GREEN ARM" TESTED NOTHING AND LOOKED LIKE IT PASSED A CHECK (2026-09-04T01:46Z)
+
+**jes, 01:42:59Z: *"we should switch to Sol workers when the quota gets above some threshold."* Approved
+at 01:44:50Z (*"sounds good to me"*) on the form I proposed:** the threshold is **the guard's own
+verdict** — SLOW_DOWN or STOP ⇒ **new rounds go to Sol, Claude doors finish in-flight only, reverses on
+rc 0.** ⭐ **A second number nobody maintains would have drifted; the guard already computes this one.**
+✅ Wired into `quota-guard.sh` so **the consequence rides on the measurement that triggers it** — *a
+remembered rule does not fire*, which this session has paid for four times tonight.
+
+⛔⛔ **THEN I TRIED TO PROVE THE GREEN ARM WITH `BURN_LIMIT=99 ./quota-guard.sh` AND IT PRINTED SLOW_DOWN
+ANYWAY — because line 72 hard-set `BURN_LIMIT=1.05`.** ⇒ **The env override was inert. My green arm
+exercised nothing, and the output looked exactly like a test I had run.**
+⭐ **THE FAILURE SHAPE: I asserted a branch was reachable without checking that my lever reached it.**
+Same family as biscuit's `env -u VAR … VAR=x` (the assignment re-set the variable) and its cached
+`mix app.config` — **two inert mutations that printed the comfortable answer.** Third instance tonight,
+mine.
+✅ **FIX: `BURN_LIMIT=${BURN_LIMIT:-1.05}` — default unchanged, the other branch now DEMONSTRABLE.**
+**Both arms, run:**
+```
+real limit     SLOW_DOWN|5h burning 1.21x (>= 1.05) at 63% used   rc 1   DISPATCH line PRESENT
+BURN_LIMIT=99  OK|worst 5h 1.21x (limit 99) — 5h=63.0% 7d=40.0%   rc 0   DISPATCH lines: 0
+```
+⛔ **AND THE DISPATCH LINE IS DELIBERATELY ABSENT FROM TWO SLOW_DOWN/STOP BRANCHES: the ones whose
+subject is CODEX being short.** ⇒ **Routing TO Sol is the wrong remedy for a verdict ABOUT Sol.** A
+consequence attached to a verdict class rather than to a cause would have fired backwards there.
+⚠️ **And the two bounds ride on every emission, because a capacity number without them reads as free
+capacity:** Sol is **not a drop-in** (its discipline is not known to hold unsupervised — Sol implements,
+a Claude door reviews), and **Codex is metered and costs money where Claude does not.**
