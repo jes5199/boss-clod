@@ -1,6 +1,3 @@
-QUEUE (in ask order) — 2026-09-04T22:46Z
-① biscuit  DEPLOY-NEXT-1 dispatch window (asked 22:28) — covers `mix deps.get` + MIX_ENV=test compile
-   on the HOST, then Sol's round. Staged at /home/jes/sol-deploy-next-1/wt (2594dc7, clean).
-② next     AUTHKIT-1 LANDING window (asked 22:46, plan warrant 29497, head 138766aa over 2594dc7,
-   ancestry YES). next explicitly asked to go AFTER Astra and biscuit, in the order it released.
-Currently held by: Astra (.box-held), REALM-REMOVE-1b suite.
+QUEUE — 2026-09-04T23:00Z
+① next  AUTHKIT-1 LANDING (asked 22:46, warrant 29497, head 138766aa over 2594dc7, ancestry YES)
+② Astra REALM-REMOVE-1b verification — PAUSED, gets a fresh window the moment it takes a turn again.
