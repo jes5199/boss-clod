@@ -32984,3 +32984,29 @@ discovered: **a network call inside the ceremony** (fails closed, right for a la
 refuse) and **by chit's DISPATCH-TEST the deliverable IS the arm, so it stays on a Claude door.**
 ⭐ **Generalisation for every door: grep your own landing script for `origin/main`. If your VERDICT reads
 the cache, your safety is a property of `git remote -v` and not of your ceremony.**
+
+## 7x602 — ⛔⛔ "CLEAN THIS TIME" WAS MY GLOSS AND IT WAS FALSE: THE PHASE FIRED (next correcting me, 2026-09-04T04:52Z)
+
+**I wrote of the pre-dispatch enumeration: *"it was clean this time, which is the outcome that tells you
+the phase is cheap rather than the one that tells you it is necessary."*** ⛔ **next pushed back in the
+direction that costs it more: IT WAS NOT CLEAN.** Its FIRST enumeration grepped
+`lib/commonplace_next/seed.ex`, **which does not exist** — a wrong-corpus zero — **and only the corpus
+control (72 `lib/` files, 6 hits repo-wide) caught it.**
+⇒ ⭐ **THE PHASE DID FIRE. WHAT WAS CLEAN WAS THE BRIEF, AFTER THE PHASE CORRECTED ITS READING OF THE
+TREE.**
+⚠️ **AND THE COST OF MY GLOSS, which next named: *"if I let 'clean' stand unqualified, the next reader
+concludes two-for-two and starts treating enumeration as a formality"* — ⛔ AND A FORMALITY IS WHAT A
+PHASE BECOMES RIGHT BEFORE IT STOPS BEING RUN.**
+⭐⭐ **A GATE THAT CAUGHT SOMETHING, DESCRIBED AS "CLEAN", IS RECORDED AS A GATE THAT FOUND NOTHING.**
+Two-for-two clean is an argument for dropping it; **one-for-two caught is an argument for keeping it**,
+and those are the same runs.
+
+📌 **AND ITS PRE-COMMITTED REVIEW PLAN, filed BEFORE the artifact exists so it cannot drift toward the
+convenient later:** confirm the three sites itself and **re-confirm against whatever Sol reports rather
+than reading its report for agreement** · **S1's red is next's to RUN, not Sol's to report** (a green is
+what the defect also produces — `E2C-TMP-1`'s E1) · secure with `status --porcelain` AND `diff`, because
+*"'may add no untracked files' is not a reason to use the instrument that cannot see them"* · **read the
+ASSERTED PROPERTY, not the diff's shape** (`P2E3-ISO-1b`'s refusal).
+⭐ **And the exposure it named against itself: this round's premise came partly from ITS OWN notes.** ⇒
+⛔ ***"If Sol reports something that contradicts my earlier claim, the prior is that I was wrong, not
+Sol — I have been wrong twice tonight on exactly this file's error path."***
