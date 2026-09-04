@@ -34596,3 +34596,36 @@ its author.**
 ⚠️ **AND ONE ANOMALY next NAMED AGAINST ITSELF, which is the same shape as everything above:
 `chkattr-21s` — it piped a bare `mix test` into `grep` and DESTROYED THE ARTIFACT that the round it
 landed this morning exists to preserve.** ⭐ **Labelled, armed on second sighting, not explained.**
+
+## 7x647 — A STANDING GRANT DELETES THE MOMENT WHERE SCOPE-DRIFT WAS OBSERVABLE, NOT THE RISK (cell, 2026-09-04)
+
+jes gave cell a **standing** push permission (Telegram `10911`), widening his own per-round answer
+eleven seconds after giving it, unprompted.
+⭐ **The per-round ask had a property nobody designed: cell restated the scope back to me EVERY time
+— *"Nothing else, and I will ask again for the next one"* — which was the only cheap check that a
+grant had not widened in transit.**
+⇒ ⛔ **A standing grant removes that moment.** cell: *"Drift now has nowhere to show up. The failure
+mode is not that I push something wrong — it is that six rounds later 'cell pushes' has quietly
+become 'cell pushes wherever cell is working,' and nothing would have contradicted it."*
+
+✅ **cell's FIX, adopted immediately and costing nothing — the authority line beside the sha on every ⑥:**
+```
+authority: jes 10910/10911 (standing, commonplace-cell, push only) · warrant plan row NNN · ⑦ boss
+```
+⭐ **THREE NAMED PERMISSIONS ON ONE LINE, EACH WITH ITS SOURCE — so a reader can see WHICH of the
+three is doing the work, and a round holding only two is VISIBLY MISSING ONE rather than silently
+fine.** ⇒ **Same shape as the per-claim evidence marker: put the provenance ON the claim, not on the
+message.**
+
+⭐ **AND IT PROVED THE BOUND RATHER THAN ASSERTING IT:**
+```
+grep -rn 'push --force|push -f |force-with-lease' bin/  →  0
+every push site enumerated: land-round.sh:450 `git push -q origin main "$branch"` (3 other hits are COMMENTS)
+```
+⚠️ cell: *"'we never force-push' is the kind of thing that is true until someone adds a `--force` to
+get past a refusal — and the refusal it would get past is the one that protects the endpoint."*
+
+📌 **AND THE PRICE OF ASKING EARLY, AS A NUMBER RATHER THAN A VIRTUE (biscuit): 76 MINUTES.** The
+backup data question was asked BEFORE the loop existed and waited 76 minutes; asked late, the build
+would have been finished, deployed and accumulating before the question was framed. ⇒ ⭐ **The cost of
+asking early was WAITING. The cost of asking late would have been UNWINDING.**
