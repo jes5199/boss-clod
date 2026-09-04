@@ -35431,3 +35431,49 @@ said *"refreshed weekly"* while the module says *"there is no separate earnings-
 ⇒ ⭐⭐⭐ **THE OPERATIONAL RULE I AM KEEPING FROM ALL OF IT: AUDIT THE CONSERVATIVE VERDICT AS HARD AS
 THE PERMISSIVE ONE. A gate that only ever says no is indistinguishable from a gate that cannot say
 yes.**
+
+## 7x665 — ⛔⛔ RETRACTION: 7x662 AND 7x662-bis ARE BOTH WRONG. THE SWEEP ALREADY PRINTED EVERY ANSWER I "DISCOVERED", AND **I TRUNCATED THEM OFF THE LINE MYSELF**
+
+**The STALLED row `stall-sweep.sh` actually emits:**
+```
+STALLED|<w>|<turn-end>|<reason> · inbox-since-turn-end=<N> · nudge=INERT (prompt EMPTY — Enter
+submits nothing; it needs a MESSAGE, not a keystroke: check whether YOU owe it one)
+```
+**What my sweep invocation runs:** `... | cut -c1-150`.
+⇒ ⛔ **The line is cut at `forward-looking phrase prese` — and BOTH decision fields live after the
+cut.**
+
+**So, tonight, in order:**
+1. I read a truncated STALLED row.
+2. **I ran the inbox SQL by hand** to see if I owed plan a message — *a number the row had already
+   computed and printed.*
+3. **I sent Enter, measured no effect, and filed "the nudge is inert on an empty prompt" as a
+   discovery** — *a verdict the row had already published as `nudge=INERT`, with the remedy
+   ("it needs a MESSAGE") and the next question ("check whether YOU owe it one") attached.*
+4. I filed 7x662-bis saying the queue check "is the fix … worth moving into the script."
+   **It is in the script.** It has a header explaining it was added because *"the reader ran the
+   SAME sqlite query BY HAND three separate times today."* ⇒ **I am the fourth.**
+
+⭐⭐ **THE INSTRUMENT WAS NOT WRONG AND THE WORKER WAS NOT WRONG — MY VIEWPORT WAS.** `cut -c1-150`
+is not a measurement decision, it is a **formatting convenience I added so the output would fit**,
+and it silently deleted the highest-value columns because **the diagnosis is at the END of the line
+and the identification is at the front.**
+
+⛔ **AND IT PRODUCED CONFIDENT, WELL-FORMED, ENTIRELY REDUNDANT LESSONS.** Both entries are *true
+about the world* — Enter really is inert on an empty prompt; the inbox query really is the
+discriminator — **which is exactly why nothing in them looked wrong.** ⚠️ **A rediscovery is
+indistinguishable from a discovery from the inside.** The only tell was external: the script's own
+comment predicting my exact behaviour, which I read only when I went looking for something else.
+⇒ ⭐ **BEFORE FILING A LESSON ABOUT A TOOL, READ THE TOOL.** A lesson claiming novelty is a claim
+about a corpus (*"this is not already handled"*) and it needs a control like any other absence.
+
+⛔ **THIS IS `7x663` ONE LEVEL OUT, THE SAME NIGHT: there I counted with `-c` and could not inspect
+what matched; here I truncated with `cut` and could not inspect what was said.** ⇒ ⭐⭐ **BOTH ARE
+THE SAME DEFECT — A LOSSY VIEW OF AN INSTRUMENT'S OUTPUT, MISTAKEN FOR THE INSTRUMENT'S OUTPUT.**
+And in both cases the discarded part was the part that carried the answer, because **summarisation
+keeps what identifies a row and drops what adjudicates it.**
+
+✅ **FIXED IN THE HABIT, NOT IN THE FILE: my sweep invocation no longer truncates STALLED /
+NUDGE-INEFFECTIVE / IDLE-EMPTY-INBOX rows.** Those are the lines whose whole purpose is the tail.
+📌 **7x662 and 7x662-bis stay in the file with this retraction pointing at them** — deleting them
+would remove the evidence that a confident lesson can be pure rediscovery.
