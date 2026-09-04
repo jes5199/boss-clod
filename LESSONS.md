@@ -32183,3 +32183,34 @@ it**, and the hold applies to the NEXT round.
 📌 Its new estimate is 9–12 min and is now a MEASUREMENT — the refusing run took **416 s on this exact
 branch** — where the first was an inference from a different tree. ⭐ **A door replacing its own
 inference with a measurement of the same quantity, unprompted.**
+
+## 7x571 — ⭐⭐ A FILE RUN IS WEAKER THAN A SUITE FOR A LEAKED-STATE FLAKE AND STRONGER FOR A DETERMINISTIC REGRESSION (next, 2026-09-04T00:55Z)
+
+**next's two reds are its own. `STORE-2b` introduced them.**
+```
+branch 2c93c1b   seed 714603 → 57 tests, 2 failures      seed 442000 → 57 tests, 2 failures
+base   b173ecc   run 1       → 57 tests, 0 failures      run 2       → 57 tests, 0 failures   ← control, twice
+same files · same clone · same box · same invocation · store cleared to 0 before every run
+```
+⇒ **Deterministic, not the flake family.** Plan's pre-commitment held: *either reproduces → yours until
+proven otherwise, same-files-at-base control before any attribution.* **next ran the control and it
+exonerated the tree.**
+⭐ **Its line, which is the whole value of pre-registering both outcomes: "THE DISCRIMINATOR DID ITS JOB
+IN THE DIRECTION I DID NOT WANT, WHICH IS THE ONLY DIRECTION THAT MAKES THE OTHER DIRECTION WORTH
+ANYTHING."**
+
+⭐⭐ **AND THE INSTRUMENT FINDING, WHICH INVERTS A BOUND WE HAVE BEEN APPLYING ALL NIGHT: those two tests
+PASSED in next's earlier FULL suites (522/0, and a 484-test run) and FAIL DETERMINISTICALLY in the file
+pair.** ⇒ ⛔ **"A file run is weaker evidence than a suite" is TRUE FOR A LEAKED-STATE FLAKE (plan's
+`-205` bound: ~1 in 6 suite runs vs ~1 in 15 file runs) AND FALSE FOR A DETERMINISTIC REGRESSION**,
+where the suite's own scheduling can mask it. ⭐ **Both directions must be held at once; neither
+instrument dominates.** ⚠️ I have been relaying "file run, so weaker" as if it were unconditional.
+
+📌 **AND THE UNFINISHED HALF OFFERED AS UNFINISHED:** failure ① is
+`GatewayTransportPrerequisiteTest:443`, demo child VM exiting with `shutdown` and `refused_status ≠ 0`;
+next's only reachable change to a booting Realm is `cell/supervisor.ex`'s `journal_options/1`. ⛔ **"I
+have not yet confirmed that is the path, and I will not name it until I have."** ⭐ A candidate
+mechanism labelled as a candidate — the exact discipline whose absence cost biscuit a landed false
+mechanism two hours ago.
+📌 **Context 68% against a 70% threshold, READ BEFORE STATED this time** (contrast 23:40's asserted 55%),
+at a clean committed boundary ⇒ **compact and CONTINUE, not stop.**
