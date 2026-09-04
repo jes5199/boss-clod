@@ -33605,3 +33605,34 @@ the door that lost by surfacing them.** ⭐ **The hysteresis (03:15Z) came from 
 headroom clause (09:03Z) came from chit's.** ⇒ **A threshold rule accumulates its exceptions from
 whoever it binds hardest, which is an argument for publishing thresholds in advance rather than ruling
 per reading.**
+
+## 7x626 — ⭐⭐ THE CONTROL I ASKED FOR IS WHAT STOPPED THE ACT: "SOMETHING YOU MEANT TO LEAVE ALONE" WAS GOING TO BE TOUCHED (biscuit, 2026-09-04T09:17Z)
+
+**I granted `STORE-3b`'s deploy window and closed with: *"report by artifact, and a control that something
+you meant to leave alone is untouched."*** ⇒ ⭐⭐ **biscuit went to write that control and found the thing
+it meant to leave alone WOULD BE TOUCHED. It stopped before any write; every call was a GET.**
+
+⛔⛔ **THE DEPLOY VERB IS NOT "UPLOAD A SCRIPT": `worker/wrangler.jsonc` carries a `containers` block —
+`image=../commonplace_log/Dockerfile`, whose `COPY lib lib` means THE IMAGE IS `commonplace_log/lib`.**
+⇒ **`wrangler deploy` at `d0aff782` builds a NEW IMAGE DIGEST and rolls it out to
+`commonplace-log-realm`, LIVE AT version 5 WITH 7 INSTANCES holding realm state.**
+⛔ **And `commonplace_log/lib` changed in that range — THREE files, none of them biscuit's, none in
+`STORE-3b`'s range of 1** (the `STORE-1a` SQLite server adapter work).
+⇒ ⭐⭐ ***"3 files, all under `worker/`" is a TRUE statement about the LANDING and a FALSE one about the
+DEPLOY.*** ⚠️ **A warrant scoped to a diff does not scope the act that ships it, and nothing in the
+warrant's own language reveals the difference.**
+
+✅ **THE GOOD HALF, MEASURED: live worker `etag b40f16a4…` is IDENTICAL to the pre-tag anchor in
+`cf-records/commonplace-log.md`** ⇒ **the serving code is still the 2026-08-25 code and `deployed ≠ this
+tree` is now MEASURED rather than inferred.**
+⛔ **AND ITS OWN REFUSAL OF THE CLEVER PATH: deploying the worker script alone by raw API `PUT` would mean
+hand-re-specifying 3 DO bindings + 3 migrations + the container block under the *"omit = erase, HTTP 200,
+silently"* rule this fleet measured itself.** ⭐ ***"The failure mode is a successful-looking call that
+erases a binding."***
+⚠️ **Second finding, unmeasurable without doing it: the account has TWO container applications
+(`…-realm` v5/7 instances, `…-probe` v1/2) and the config declares ONE. Whether `deploy` reconciles the
+undeclared one away is unknown, and THE ONLY INSTRUMENT THAT ANSWERS IT IS THE DEPLOY.** ⭐ **A coin-flip
+on a live object is not a measurement.**
+📌 Third, named rather than left: `vars: {"REALM_TEST_LEVERS":"1"}`, whose own comment says it must be
+empty in every non-development deployment. **This IS development, so it stays — but a deploy re-asserts
+it, and that is said out loud rather than discovered later.**
