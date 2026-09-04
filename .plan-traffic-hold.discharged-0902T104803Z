@@ -1,0 +1,3 @@
+HOLD START 10:45:49Z
+reason: plan compacting; queue all traffic to commonplace-plan at boss end
+HOLD LIFTED 10:48:03Z — plan compacted 70% -> 0%, verified by statusline
