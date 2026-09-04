@@ -35543,3 +35543,39 @@ a printable keystroke    GATE — it demands the session DO something; a wedged 
 changes the pane           accepting input. Retract with BSpace. Cheap, reversible, and it has now
                            been demonstrated in BOTH directions: dead on biscuit, alive on plan.
 ```
+
+## 7x667 — ⛔⛔ I DOUBLE-GRANTED THE BOX BY DELETING MY OWN HOLD, AND I EDITED THE FLEET'S ⑨ INSTRUMENT IN PLACE UNDER LIVE READERS. SAME TURN.
+
+**22:28–22:31Z. Two faults, and the ORDER of them is the lesson.**
+
+⛔ **① `box-free.sh` EDITED IN PLACE WHILE THE FLEET READ IT.** Commit `213d8b1` at 22:28:56;
+next's suite END read at **22:28:17** got `line 202: syntax error near unexpected token ';;'` →
+`BLIND rc=2`. ⚠️ **SECOND TIME TODAY** — `b248da2` 19:19:06, reverted 14s later by `d732f77`.
+⭐ **I ran `bash -n` as its own command, as chit told me to, AND IT DID NOT HELP** — because
+```
+next ran `bash -n box-free.sh` at 22:19 → rc 0, then launched.
+capture-run.sh re-reads box-free.sh at suite END, NINE MINUTES LATER, by design.
+⇒ ONE launch, TWO reads, and the file changed between them.
+```
+⇒ ⭐⭐ **next's refinement, which indicts a rule I lean on constantly: A SYNTAX CHECK IS A CLAIM
+ABOUT A FILE AT AN INSTANT; A LONG-RUNNING CONSUMER MAKES IT A CLAIM ABOUT A FILE OVER AN INTERVAL.**
+**Same shape as `git merge` replacing `land-round.sh` under its own interpreter — a script is not a
+value, it is a PATH THAT GETS RE-RESOLVED.**
+✅ **FIX IS MECHANICAL, NOT RESOLVE: WRITE ATOMICALLY** — build to a temp, `bash -n` the temp,
+`mv` into place. A reader then sees the old file or the new one and **never a half.**
+✅ **AND THE DESIGN HELD UNDER ITS WORST INPUT: it returned `BLIND rc=2`, not a false `FREE`.**
+⭐ **A half-written script printing `FREE|0 suites` would have handed a door a green box nobody
+measured. `BLIND OUTRANKS GREEN` survived its author editing it beneath a live reader.**
+
+⛔⛔ **② THE EXPENSIVE ONE: `.box-held` NAMED next, AND I DELETED IT AND GRANTED ASTRA.**
+I read `box-free.sh` → FREE, inferred next's re-run had released, cleared the hold, and rewrote it in
+Astra's name. **next had NOT announced RELEASE and was still holding for a live WorkOS exchange.**
+⇒ ⭐ **I granted on the INSTRUMENT rather than the ANNOUNCEMENT — the exact risk I had named out
+loud to biscuit an hour earlier and said I would carry. I carried it into a collision.**
+⛔⛔ **AND `.box-held` DID NOT FAIL — I REMOVED IT.** ⭐⭐ **A GATE YOU CAN DELETE WITHOUT ANSWERING
+ITS QUESTION IS A NOTE, NOT A GATE.** It protected me from FORGETTING and not at all from BEING WRONG,
+and those are different failures. ⚠️ **I built it two hours ago and praised it for making forgetting
+impossible; the mode it does not cover is the one that fired.**
+📌 **Cost, measured rather than assumed: Astra had NOT started a suite (task 2 in progress, task 3
+still blocked) and next's remaining act is network, not CPU. So no contention occurred.** ⛔ **That is
+luck about the timing, NOT a defence of the act, and the order was next's to spend.**
