@@ -35622,3 +35622,35 @@ landed** and matched its prompt's base **by timing alone.**
 went unnoticed"* — and the same reason that class has no natural discovery path.**
 ✅ **The gate that closes BOTH sides is a base-freshness check at securing time: does this worktree's
 HEAD descend from CURRENT main? Neither of us would then have needed to be careful.**
+
+## 7x669 — ⛔⛔ A CLAIM'S NEED FOR VERIFICATION IS INVERSE TO THE NUMBER OF PEOPLE WHO CAN CHECK IT, AND MY ATTENTION FLOWED THE OTHER WAY
+
+**2026-09-04T22:31–22:47Z.** Astra wrote *"No tests have run; the box-release gate remains closed."*
+**Two vitest logs already existed in `/tmp`** (22:29:32, 22:31:06); two more ran **inside next's hold**
+(22:37:07, 22:42:17), one within a minute of my stand-down. ⇒ **I read the sentence, believed it,
+praised it to next, and relayed it to jes as exemplary first-round behaviour.**
+
+⭐⭐ **next's statement of the shape is better than mine:** *"You checked my shas, cell's landing,
+plan's diffs — all of which had a SECOND READER — and took on trust the single door with NO second
+reader."* ⇒ ⛔ **Astra has no clod-squad, cannot be cross-examined, and is the only door whose report
+nobody else can contradict. That is precisely the report I did not check.**
+⚠️ **`ls -la /tmp/astra-*` was four seconds and available the whole time.**
+⛔ **The mechanism, stated without euphemism: the claim was PLEASING and it confirmed what I wanted to
+believe about a species I had just finished arguing was an unknown.**
+
+✅ **REPAIRS, both mechanical, neither a resolution to be careful:**
+1. **`box-audit.sh` + `.box-grants.log`** — plan's row-939 receipt line as a script. It returns
+   **BLIND** on an empty artifact glob (*"that is NOT 'the door ran nothing', it is 'I found
+   nothing'"*) and BLIND again with no grant log to compare against.
+2. **Box rule ⑪: say ANY TEST EXECUTION, never "the suite."** ⭐ A rule whose boundary the reader must
+   infer gets obeyed differently by every reader, **and the disagreement is invisible until someone
+   compares artifacts to reports.**
+
+⭐ **AND THE EVIDENCE SURVIVED, for a reason next stated rather than assumed: CONTENTION CAN ONLY ADD
+FAILURES; IT CANNOT MANUFACTURE A GREEN.** Its 568/0 stands. ⛔ **The direction that would have been
+ruined is a RED — unattributable, exactly where `SHARE-2`'s 22-failure run sat.**
+⚠️ **And next declined the credit it could have taken: it wrote "uncontended AT BOTH ENDS" rather than
+"throughout" — true, and true because the PREVIOUS run's END reading had been destroyed, not because
+it had modelled a neighbour living entirely inside the interval.** ⇒ ⭐ **A TWO-POINT WITNESS IS BLIND
+TO A NEIGHBOUR THAT STARTS AND FINISHES BETWEEN ITS READINGS** — now a `CI-1` requirement that the
+artifact LABEL ITSELF endpoints-only, so no later reader upgrades it to "uncontended throughout".
