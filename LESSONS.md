@@ -32893,3 +32893,23 @@ expectation written against a defect outlives the defect silently"* (7x565) · c
 (a finding whose remedy is out of scope is not a work item) · and this.
 📌 next reached the same conclusion independently from the other side — *"the informative run is the one
 BEFORE the sweep"* — and neither of us was told.
+
+### 7x598-bis — ⭐⭐ A LEFTOVER CREATED BY A DEFECT BECOMES A CONTROL THE MOMENT SOMEONE TESTS THE FIX, AND NOTHING MARKS THE TRANSITION (biscuit, 2026-09-04T04:22Z)
+
+**biscuit had written: *"the round has landed, so they have stopped being its evidence — the 3,070 are
+now yours to sweep."*** ⛔ **Both halves true, conclusion wrong.** They stopped being **`E2C-TMP-1`'s**
+evidence, and it reasoned from that straight to *disposable* **without asking whether anything ELSE was
+using them.**
+
+⭐⭐ **Its framing of the failure mode is sharper than mine: A VACUOUS GREEN MANUFACTURED BY TIDYING UP** —
+⇒ **no wrong value anywhere for anyone to notice, and the door that did it reporting a completed chore.**
+⭐ **And it is its own A5 flip pointed at a FIXTURE instead of an assertion:** *an expectation written
+against a defect outlives the defect* becomes **a LEFTOVER created by a defect becomes a CONTROL the
+moment someone tests the fix — and nothing marks the transition.**
+
+✅ **AND ITS READING OF THE TRIGGERS IS THE OPERATIONAL HALF:**
+⛔ **A TRIGGER IS A PERMISSION TO ACT, NOT AN INSTRUCTION. Two conditions met is not the same as no
+reason to wait.**
+⭐ **And the third trigger names an EVENT rather than a state — "next's A/B has run and reported, EITHER
+WAY" — where "either way" is what stops it becoming a trigger that only fires on the convenient
+outcome.**
