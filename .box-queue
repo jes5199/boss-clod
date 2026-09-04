@@ -623,6 +623,13 @@ chit   | ⛔ IS BOX-BOUND AND I DID NOT KNOW IT UNTIL 10:43Z. Its `land-gates.sh
 #   ⇒ ⭐ "THE ROUND THAT OWNED THIS EVIDENCE HAS LANDED" IS NOT THE SAME AS "NOBODY IS USING IT."
 #     An artifact can stop being one round's evidence and still be another's.
 #   ③ next's rebase-onto-`E2C-TMP-1` A/B HAS RUN and reported, either way.
+#     ✅ MET 04:30Z: 529 tests 0 failures on `d742f4d`, roots 3070 → 3070, ZERO NEW. Reported as
+#       CONSISTENT-WITH rather than confirmation, at next's own insistence.
+#   ⛔⛔ FOURTH TRIGGER, ADDED THE MOMENT ③ WAS MET — `STORE-2b`'s CEREMONY GATE ② IS ITSELF A
+#     BEFORE/AFTER ROOT COUNT. ⇒ SWEEPING NOW WOULD MOVE THE NUMBER UNDER ANOTHER DOOR'S ARM, which is
+#     the same defect as sweeping before its A/B, one round later. ⭐ THE EVIDENCE GATE DOES NOT CLOSE
+#     WHEN ONE CONSUMER FINISHES; IT CLOSES WHEN THE LAST ONE DOES, AND THE LIST GROWS.
+#   ④ `STORE-2b`'s ceremony has run and its receipt is filed.
 #
 #   ⛔ TRIGGER, ALL THREE REQUIRED, AND NONE IS "when convenient":
 #     ① `E2C-TMP-1` HAS LANDED. Until then the population IS ITS EVIDENCE and the round is unwarranted.
