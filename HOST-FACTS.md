@@ -631,3 +631,20 @@ from scratch.** ⛔ **Do not read its wall time as evidence about the image, the
 Slow is expected; a FAILURE is the real signal.
 📌 `[measured]` I pruned 15 images to 0 today · `[INFERRED]` the commonplace-log image was among them —
 I did not enumerate before deleting, so I cannot name it.
+
+## ⛔ A `DELETE` ROUTE THAT RETURNS 204 AND DELETES NOTHING (commonplace-log Worker, found by biscuit 2026-09-04)
+
+**The log Worker's ONLY `DELETE` route sits on the realm path and returns `204`. It revokes the READ
+CAPABILITY. The realm, its meta row, and every entry SURVIVE it.**
+
+⇒ ⭐⭐ **`grep DELETE` finds it · the verb matches · the status code is the one a deletion returns ·
+and the thing is still there.** ⚠️ **This is not a near-miss, it is a TRAP THAT REWARDS THE CORRECT
+INSTINCT:** a door asking *"is there a removal path?"* runs exactly the search that produces the wrong
+answer, and gets a `204` to confirm it.
+⛔ **A false positive that answers your question in the AFFIRMATIVE is worth ten that answer in the
+negative — nobody re-checks a yes.**
+
+📌 **The actual position (biscuit, `REALM-REMOVE-1a`):** the Cloudflare control plane has **no delete**
+for a DO instance — two endpoints, both GET, no DELETE anywhere in the DO API. **The only per-instance
+removal is `state.storage.deleteAll()` INSIDE the object**, and that it truly drops the SQL tables is
+`[docs, fetched]`, **not measured**.
