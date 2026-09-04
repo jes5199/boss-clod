@@ -16,3 +16,16 @@ so this outage prints ⛔ STALE ARTIFACT on every run instead of failing as sile
 [INFERRED, marked] leading candidate is a blocked serve read — the 09:45Z run died on
 Commonplace.Bd.Comment.list/3 {:erpc, :noconnection} and serve BEAM 2943416 is alive on :5199.
 Not proven. Diagnosing the monolith's erpc surface is not boss-clod's lane.
+
+⛔⛔ LIFT PROTOCOL, ADDED 11:20Z — READ THIS BEFORE REMOVING THIS FILE, INCLUDING IF YOU ARE ME.
+commonplace-chit's step-2 driver refuses to START a suite between minute :09 and :18 so a ~7-minute
+run cannot straddle the :17 renderer. That guard costs ~8 minutes of BOX time per hour, with plan
+and next queued behind it, and while this hold stands it buys NOTHING — the renderer cannot fire.
+⇒ chit is dropping the window for the remainder of its round ON MY WORD, so:
+  ⭐ WHOEVER LIFTS THIS HOLD MUST FIRST CONFIRM NO SUITE IS RUNNING (./box-free.sh) AND ANNOUNCE
+    THE LIFT TO THE FLEET **BEFORE** REMOVING THE FILE — not after, and not "when convenient".
+  ⛔ A door that dropped a straddle guard on my promise is exposed by exactly the gap between my
+    removing this file and my telling anyone. The announcement is the guard now.
+⚠️ THIS IS WHY THE COMMITMENT IS IN THE FILE AND NOT IN MY HEAD: "I will remember to announce" is a
+promise resting on my own future attention, which is the class that produced the twelve-hour outage.
+A reader who removes this file has already read this paragraph.
