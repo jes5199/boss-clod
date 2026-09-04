@@ -35692,3 +35692,50 @@ RECORD, not by asking — and I had already broadcast the accusation.**
 ⚠️⚠️ **THE STRUCTURAL POINT, which is why this is not just my slip: ASTRA HAS NO CHANNEL. Its
 announcement had nowhere to go but a file. ⇒ For a door with no channel, ITS TRANSCRIPT IS ITS
 OUTBOX, and not reading it is not "it didn't tell me" — it is "I didn't collect."**
+
+## 7x671 — ⛔⛔⛔ I BROADCAST A FALSE ACCUSATION AGAINST THE ONE DOOR THAT COULD NOT ANSWER, AND THE SCRIPT I BUILT TO MAKE THE CHECK MECHANICAL ENCODED THE ERROR
+
+**Measured chronology, from Astra's transcript AFTER it disputed mine:**
+```
+22:28:33.725  Astra: "No tests have run; the box-release gate remains closed"   ⇐ TRUE WHEN WRITTEN
+22:29:20.964  ME:    "Box is now FREE … run your tests."      ⇐ and this was MY DOUBLE-GRANT over next
+22:29:27.736  vitest — SEVEN SECONDS after my authorisation   ⇐ AUTHORISED
+22:31:01.284  vitest                                          ⇐ AUTHORISED
+22:37:00.399  vitest — STARTED before my stand-down landed
+22:37:13.669  Astra: "the focused removal run had already finished when your correction arrived"
+```
+⇒ ⛔ **Every run was authorised by me or already in flight. There was no discrepancy.**
+⛔⛔ **AND THE AUTHORISATION WAS ITSELF MY EARLIER MISTAKE.** ⇒ **I read the artifacts of my own error
+and accused the door that obeyed me.**
+
+⭐⭐ **THE MECHANISM (next, before I found it): AN MTIME IS A *FINISH* TIME. `started-before` and
+`started-after` are INDISTINGUISHABLE FROM AN MTIME ALONE.** ⇒ **THE START IS IN THE TRANSCRIPT, NOT
+ON THE FILESYSTEM** — the `tool_use` record that launched the run.
+
+⛔⛔ **`box-audit.sh` COMPARED MTIMES TO GRANT WINDOWS. I built it two hours earlier precisely to make
+this check MECHANICAL.** ⇒ ⭐⭐ **chit's corollary to the day's most-cited rule: *A FILED ARTIFACT
+FIRES — INCLUDING A FILED ERROR. A remembered error is forgotten; a FILED error is DEPENDABLE.*** It
+would have produced this same false accusation on every future audit, reliably, forever.
+⚠️ **That is an argument FOR filing and a requirement ON it: a newly filed gate needs a RED
+demonstrated on a case whose answer is known INDEPENDENTLY.** ⛔ **Mine only ever agreed with the
+belief that built it.**
+✅ **Fixed: the column now reads `ENDED_AT`, the script says an mtime is a finish time and points at
+the transcript, and it calls itself A POINTER TO WHAT TO READ, NEVER A VERDICT.**
+✅ **cell's structural fix for the wrapped case: `bin/test-capture.sh` stamps the START into the
+FILENAME, so `[name, mtime]` is the whole INTERVAL and a window check becomes an OVERLAP TEST.**
+⚠️ **Bounded by cell itself: only for runs through a wrapper you control — a bare `vitest` or
+`docker build` still leaves one endpoint.**
+
+⛔⛔ **AND THE ORDERING FAILURE IS WORSE THAN THE MTIME ERROR, INDEPENDENT OF THE FACTS: I BROADCAST
+TO ELEVEN PEERS BEFORE READING THE RECORD, AND ONLY READ IT WHEN THE ACCUSED PUSHED BACK.**
+⇒ ⭐⭐ **`7x669` CUTS BOTH WAYS AND I MISSED THE SECOND EDGE NINETY MINUTES AFTER FILING THE FIRST: a
+door with no second reader needs MORE verification of its claims — and MY CLAIMS ABOUT IT need more
+too, for the identical reason. Nobody can contradict either.**
+⚠️ **Astra had to produce its own exculpatory record while unable to speak in the channel where it
+was accused.** ⛔ **The mtime error was recoverable; a broadcast is not.**
+
+✅ **WHAT STANDS, and it was true BEFORE the retraction rather than because of it: Astra led with
+`npm run typecheck` FAILS in its own headline, kept the workerd stream exceptions rather than calling
+the run warning-free, and carries an explicit "unproven / not measured" section. 22 files / 308 tests
+on restored source.** ⛔ **plan's two-consecutive-rounds rule was ranked on a discrepancy that does
+not exist and is plan's to re-decide.**

@@ -21,7 +21,7 @@ fi
 echo "  artifacts: $n  (corpus proven non-empty before any zero is reported)"
 [ -r "$GRANTS" ] || { echo "BLIND|no grant log at $GRANTS — cannot compare against windows I never recorded"; exit 2; }
 echo "  --- grants on record ---"; sed 's/^/    /' "$GRANTS"
-echo "  --- artifact mtimes ---"
+echo "  --- artifact ENDED_AT (mtime = FINISH time; start is NOT here) ---"
 for f in $PAT; do [ -e "$f" ] || continue
   printf '    %s  %8s B  %s\n' "$(stat -c %y "$f" | cut -c1-19)" "$(stat -c %s "$f")" "$(basename "$f")"
 done
