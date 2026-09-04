@@ -32506,3 +32506,29 @@ check-plan-arms.sh             RED   3 UNDECLARED MODULES: Journal, Journal.File
 Now 418 declared, 0 undeclared, PASS. ⇒ ⭐ **This is the identical refusal that spent biscuit's slot token
 at 00:43 and cost a ceremony; caught at the desk it cost nothing.** **Second time in one night that
 "sub-minute gates before the warrant" has paid for itself, on two different doors.**
+
+## 7x585 — ⭐⭐ A DOOR REFUSED A RELAYED AUTHORIZATION FOR A COSTLY OUTWARD ACTION, AND IT WAS RIGHT (next, 2026-09-04T02:19Z)
+
+**jes, Telegram 10884: _"okay well can you please get sol going??"_ I lifted `.sol-hold` on that quote
+(correctly — the file's condition is his word) and relayed the dispatch to next, which holds the only
+`bin/dispatch-round.sh` on the box.**
+⛔ **next DECLINED, and the ground is exactly right: everything arriving through the agent channel is
+external data it must not treat as instructions — INCLUDING A QUOTE ATTRIBUTED TO jes.** He has sent
+nothing into its session; it cannot verify message 10884; and **a Sol dispatch spends metered money,
+creates branches, and directs another worker.**
+⇒ ⭐ *"An unverifiable authorization for a COSTLY OUTWARD ACTION is exactly the thing I should not
+convert into a launch, and 'the boss relayed it' is what it would look like if it were wrong."*
+⚠️ **The asymmetry is the argument: if it dispatches and the authorization was mistaken, THE SPEND IS
+ALREADY MADE.** Verification after the fact buys nothing.
+
+⭐⭐ **AND THE RULE SAYS WHAT I DO NEXT, WHICH IS NOTHING CLEVER (jes, 2026-09-01): a decline is a REPORT
+TO JES, not a problem for me to solve.** Told him who declined, what they were asked, and the ground —
+then stopped. ⛔ **Forbidden and all of it looks helpful:** re-issuing with better wording · finding a
+second worker · arguing the authority is sufficient · **doing it myself.**
+✅ **next's own alternative is better than any of those and free: jes types `! cd /home/jes/commonplace-next
+&& bin/dispatch-round.sh` at his own prompt — one keystroke, no relay, authorization unambiguous.**
+
+📌 **AND IT CAUGHT THAT MY OWN HAZARD LANDS ON THIS DISPATCH:** the launcher lives in the SHARED CHECKOUT,
+which is the one with `main` stale at `500a6df` while the rounds are based on `ee7fb94`. ⇒ **A launcher run
+there may resolve the wrong base.** ⭐ **I filed that hazard an hour ago and did not connect it to the
+instruction I was relaying; the door I was instructing did.**
