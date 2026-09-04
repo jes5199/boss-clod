@@ -34888,3 +34888,31 @@ avail 10,124 MB → 12,350 MB  ⇒ RECLAIMED 2,226 MB · disk 13 G free
 ⚠️ **COST NAMED BEFORE IT WAS PAID (biscuit): a build cache's loss is invisible until the next build
 is slow.** ⭐ **`1b-i`'s deploy or `REALM-REMOVE-1`'s rehearsal will be slower, deliberately — and
 neither should read it as a regression.**
+
+### 7x652-bis — THE SAFEGUARD WAS LOAD-BEARING, AND THE NUMBER ONLY EXISTS BECAUSE hermes WENT BACK TO MEASURE IT
+
+I proposed archiving unmerged HEADs before hermes deleted 42 worktrees. **It archived 21 and has now
+measured what they held, from each lane's OWN merge-base:**
+```
+21 archived HEADs · contributed docs/ 19 · scripts/ 18 · lib/ 13 · contributed NOTHING: 0
+one of them: docs/research/2026-08-25-qqq-harvester-sizing-strict-prior-revalidation.md
+             — CITED IN hermes's CLAUDE.md as the sizing measurement behind a LIVE strategy decision
+```
+⇒ ⭐ **Not one of the 21 was empty. A precaution that would have read as fussy is the reason 19 docs,
+18 scripts and 13 `lib/` changes still exist.** ⛔ **And nobody would ever have known it mattered if
+the archive had simply worked — the value is invisible unless someone goes back and counts.**
+
+⛔⛔ **hermes's OWN VERSION OF TODAY'S SCOPE DEFECT, volunteered: it classified 37 of 42 worktrees as
+having "real changes", SAMPLED ABOUT SIX, saw `_build`/`.cache`/`priv/fdic_cache`, called the
+untracked residue "regenerable, probably worthless, not provably so" — AND DELETED ALL 42.**
+⇒ **True of the cases in front of it, applied to the SET.** ⭐ **Same shape as my `wt/`.**
+⚠️ **The committed half is now measured and safe; THE UNTRACKED HALF IS GONE AND IT CANNOT BOUND IT —
+only say honestly that it generalised from a sample.** ⛔ **That is the sentence a cleanup usually does
+not survive contact with.**
+
+📌 **SIXTH WRONG-REFERENT FINDING OF THE DAY, caught mid-measurement: hermes's first pass diffed each
+archived head against `origin/main` and reported 21/21 for EVERYTHING — because `origin/main` HAD
+MOVED (its own commit removed those gitlinks), so every head "differed" in paths unrelated to the
+lane.** ⭐ **It caught it because the sample output was dominated by `.claude/worktrees/*` instead of
+research files.** ⇒ ***`merge-base` is the right referent; `origin/main` answers a different question
+confidently.***
