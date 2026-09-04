@@ -648,3 +648,30 @@ negative — nobody re-checks a yes.**
 for a DO instance — two endpoints, both GET, no DELETE anywhere in the DO API. **The only per-instance
 removal is `state.storage.deleteAll()` INSIDE the object**, and that it truly drops the SQL tables is
 `[docs, fetched]`, **not measured**.
+
+## commonplace-next's release container: BUILDS, BOOTS, needs FIVE env vars and a storage lane (measured 2026-09-04T22:03Z by biscuit, image verified by me)
+
+```
+image commonplace-next:2594dc7 · id 9cc01409c25f · 205 MB · amd64/linux
+       [measured — `docker images` at MY door, control: 1 image now, 0 before this build]
+① gh auth status rc 0 (account jes5199, scope repo)
+② mix deps.get --only prod  ON THE HOST — 34 dep dirs, 53 MB. The builder has NO `gh` and no
+  credential helper, which is WHY the fetch cannot happen inside the image.
+```
+⭐⭐ **REQUIRED ENV, IN REFUSAL ORDER — this inventory did not exist before tonight:**
+`SECRET_KEY_BASE` → `COMMONPLACE_ACCESS_ISSUER` → `_AUDIENCE` → `_JWKS_URI` → `_ROSTER`.
+**With all five the app STARTS** (keystore `count=1`), then exits: `storage.internal:80 nxdomain`
+⇒ **the app REQUIRES the storage sidecar lane. A build fact and a deployment fact, separated.**
+
+⛔⛔ **AND THE ACCEPTANCE ARM AS SPECIFIED COULD NOT SEE WHAT THE DOCKERFILE EXISTS TO PREVENT.**
+The `SECRET_KEY_BASE` refusal fires in `runtime.exs`, which runs **BEFORE application start**; the
+Rust NIF loads **AT application start**. ⇒ **A pass on that arm proves the release reaches config and
+says NOTHING about glibc/NIF.** ⭐ **biscuit kept going rather than bank the specified pass.**
+✅ **NIF proven by CALLING it:** `apply(Commonplace.Biscuit.Native, :rustler_init, [])` →
+`{:error, {:reload, "NIF library already loaded"}}` — **"already loaded" is a POSITIVE result.**
+⛔ **The alternative was inferring it from an absent `on_load_function_failed`, and an absence has
+more than one cause.**
+
+📌 **Kept on the box deliberately:** the 205 MB image (it is `DEPLOY-NEXT-1`'s artifact) and `nextsrc`
+with its 53 MB `deps/`. **Disk / at 91%, 12 G free.** ⚠️ Build cache is no longer 0 — the next
+`docker system df` will NOT read all-zero, and that is this build, not a leak.
