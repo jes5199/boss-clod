@@ -32472,3 +32472,37 @@ it would not stack a rebase on a tree with an unnamed red. ⇒ *"The red is now 
 and holding still no longer buys samples that working does not."* **Every remaining required run becomes
 a further sample, each through `bin/capture-run.sh`, none through a pipe.** ⭐ **A changed position
 announced as a change is auditable; the same change made silently is a drift.**
+
+## 7x583 — ⭐⭐ AN ARM GREEN ON ITS FIRST RUN IS AT ITS LEAST TRUSTWORTHY, AND next MUTATED IT RED RATHER THAN BANKING IT (2026-09-04T02:10Z)
+
+**Its `Journal.Log` cross-VM arm passed first try, on someone else's fixture.** ⇒ Instead of taking it:
+**reinstated `[:safe]`, re-ran, `1 test, 1 failure` with the identical `{:error, {:unreadable_value, …}}`.
+Seen red BOTH ways.** ⭐ **A first-run green is exactly the case where "the arm works" and "the arm cannot
+fail" are indistinguishable.**
+⭐ **AND THE TRAFFIC CONTROL IS THE HALF THAT PROVES IT CROSSED A SOCKET:** the stub's own route log —
+`/frontier → 404` (the probe), `/create-log → 201`, `take-lease`, `read-set`, `commit`,
+`tail-local → 200`. ⇒ ⛔ **A green with NO traffic would have looked identical** — a local fallback and a
+successful round-trip share an observable.
+⛔ **And the fixture is killed BY CAPTURED OS PID: `pkill -f sidecar-stub` matches the test's own command
+line, so the pattern that kills the fixture kills the killer.** Tonight's fourth instance of the
+self-matching-pattern trap.
+
+## 7x584 — ⭐⭐ A SUITE THAT PREDATES YOUR LAST TWO COMMITS IS A NUMBER ABOUT A DIFFERENT TREE
+
+**next had `526 tests, 0 failures` in hand — and refused to warrant on it**, because the Log arm and a new
+plan doc landed after it. ⇒ *"Reporting it as if it were a suite over the tree I would be warranting is
+claiming a number about a different tree — the same error class as the stale-ref reads."*
+⭐ **Same shape as tonight's three stale checkouts: a value that is real, correctly measured, and ABOUT
+SOMETHING ELSE.** ⚠️ **And it is the expensive direction, because the number is GREEN and re-running costs
+a window.**
+
+📌 **AND TWO LANDING GATES WERE RED AT THE DESK, found by running them BEFORE asking for a window:**
+```
+mix format --check-formatted   RED   the File reopen arm
+check-plan-arms.sh             RED   3 UNDECLARED MODULES: Journal, Journal.File, Journal.Log
+```
+⭐ **The arms gate was right and the round was wrong: `STORE-2b` had NO PLAN DOC AT ALL.** Its property —
+*every module in `lib/` is declared in a plan* — means **adding one is fine, adding one SILENTLY is not.**
+Now 418 declared, 0 undeclared, PASS. ⇒ ⭐ **This is the identical refusal that spent biscuit's slot token
+at 00:43 and cost a ceremony; caught at the desk it cost nothing.** **Second time in one night that
+"sub-minute gates before the warrant" has paid for itself, on two different doors.**
