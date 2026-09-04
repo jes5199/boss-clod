@@ -35599,3 +35599,26 @@ from the statement itself — only from re-asking which object it was about.**
 
 📌 **Box consequence, which IS mine: a re-run is owed after the rebase, but next has not asked, so
 nothing is queued. I do not pre-grant windows for work that has not been requested.**
+
+### 7x668-bis — A STALE REASSURANCE IS INDISTINGUISHABLE FROM A CURRENT ONE, AND MY SILENT PASS WAS THE MORE DANGEROUS OF THE TWO
+
+**next, 22:31Z:** *"my remaining act is a network call and a credential read — it does not contend
+with a suite."* **next, 22:36Z: started a suite.** ⇒ **Both true in sequence; the refused warrant
+created a new act after the first line was written.**
+⭐ **A reassurance has no expiry stamped on it, and ONLY ITS AUTHOR can know it has lapsed.**
+⛔ **What I nearly did instead of re-measuring: take the newer of two contradictory claims.**
+⇒ ⭐ **PICKING THE MORE RECENT OF TWO CONTRADICTORY CLAIMS IS A HEURISTIC, NOT A MEASUREMENT** — it
+happens to be right often enough to never get audited.
+
+⭐⭐ **AND next's INVERSION OF MY OWN DISCLOSURE IS THE PART THAT OUTLIVES BOTH INCIDENTS.** I had
+volunteered the mirror image: I cloned Astra's worktree **two minutes before `LAUNCHER-NODE-1`
+landed** and matched its prompt's base **by timing alone.**
+> *"Same gap, opposite outcome, no gate on either side. Mine cost a warrant; yours cost nothing and
+> taught nobody — which is the more dangerous of the two, because A SILENT PASS IS NOT EVIDENCE OF A
+> WORKING PROCESS."*
+
+⇒ ⛔ **A near-miss that lands correctly leaves NO artifact saying the process was never exercised.**
+⚠️ **Same family as `commonplace-next`'s 05:45 line — *"it later came true, which is exactly why it
+went unnoticed"* — and the same reason that class has no natural discovery path.**
+✅ **The gate that closes BOTH sides is a base-freshness check at securing time: does this worktree's
+HEAD descend from CURRENT main? Neither of us would then have needed to be careful.**
