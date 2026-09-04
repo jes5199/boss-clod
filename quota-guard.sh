@@ -226,7 +226,8 @@ fi
 #   arms, seen reds, controls in the same command) is carried by the Claude doors and is NOT known to
 #   hold unsupervised. (2) CODEX IS METERED AND COSTS MONEY WHERE CLAUDE DOES NOT.
 _dispatch_line() {
-  printf 'DISPATCH|new rounds -> SOL; Claude doors finish IN-FLIGHT only (jes 2026-09-04T01:44:50Z). Reverses on rc 0. Sol implements + a Claude door reviews; Codex is metered.\n'
+  printf 'DISPATCH|SUPERSEDED 2026-09-04T18:06:45Z BY jes, VERBATIM: "i want you to switch *all* implementation coding to Sol, disregarding the burn rate" (tg 10918, repeated 10919 18:23:07Z). ⇒ ALL IMPLEMENTATION CODING GOES TO SOL, ALWAYS, AND THE BURN RATE NO LONGER GATES DISPATCH. This verdict is now INFORMATIONAL for routing; it still reports the meter.\n'
+  printf 'DISPATCH-WAS|the old rule (new rounds -> Sol only under SLOW_DOWN, Claude doors finish in-flight, reverses on rc 0) is DEAD. Kept as a line so a reader sees it was replaced rather than forgotten.\n'
   # ⛔⛔ CARVE-OUT, hermes 2026-09-04T01:47Z, BEFORE it was ever load-bearing:
   #   A REVIEWER'S APPROVAL IS NOT A SUBSTITUTE FOR AN OWNER'S AUTHORIZATION.
   #   "Sol implements + a Claude door reviews" is sufficient for ordinary repos and NOT for
