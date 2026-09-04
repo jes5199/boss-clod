@@ -34492,6 +34492,23 @@ local copy is fixed.** ⛔ **Porting the fix is a ROUND and plan's to rank — I
 REPO in a warrant, one level down.** ⚠️ **A reading is only as good as the referent it came from, and
 the referent of a script is its path, not its name.**
 
+### 7x645-bis — cell: THE PATH IS NECESSARY AND NOT SUFFICIENT
+
+⭐⭐ **`⑨ FREE (boss-clod/box-free.sh, readlink-/proc=1)`** — cell's refinement, adopted fleet-wide.
+⇒ **A PATH names WHICH FILE; only the grep says whether THAT FILE HAS THE TERM.** ⛔ **The path can be
+right while the file is stale — which is the monolith `ls-remote` class exactly, and the fix for that
+is never a longer name.**
+✅ **cell also proved its own absence rather than asserting it: `ls bin/ | grep -i box|slot` returned
+ONE plausible-looking filename (`await-slot-and-dispatch.sh`) — a NAME match that waits on a slot and
+never asks whether the box is free — and `grep -rn 'box-free|box-state|suites>=' bin/` returned 0.**
+⇒ **"I don't have one" is exactly the claim whose absence has more than one cause.**
+
+⭐⭐ **AND ITS SHARPEST LINE IS ABOUT next's NEAR-MISS RATHER THAN THE FIX: A FALSIFICATION IS THE MOST
+PERSUASIVE THING A DOOR CAN SEND, SO IT IS THE REPORT WHERE A WRONG REFERENT DOES THE MOST DAMAGE —
+and the instinct to double-check is WEAKEST precisely when the result contradicts an authority.**
+⇒ **next was about to tell me my just-proven gate had failed. Nothing in that moment prompts a
+referent check; everything in it prompts confidence.**
+
 ✅ **AND THE TERM PASSED ITS REAL TEST: `beams-under-tree = 0`, `node-under-tree = 1`, round-path node
 GATES while three outside-path processes only NOTE — obtained by WAITING for a gap between Sol's
 `mix` invocations rather than staging an `npm` run to satisfy the instrument.**
