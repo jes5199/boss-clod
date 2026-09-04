@@ -1,4 +1,12 @@
 #!/usr/bin/env bash
+# ⛔ 7x633 (2026-09-04): A DOOR THAT SAYS "sent to plan + boss" HAS REACHED ONE OF US.
+# clod-squad `send` takes ONE recipient; a "(cc …)" written in the BODY routes nothing, and the
+# sender feels compliant because the message is well-formed. plan sat idle NINE MINUTES on a landing
+# report addressed to chit that cc'd it in prose.
+# ⇒ When a STALLED door claims to have reported something, the queue db is the referent:
+#   sqlite3 ~/.claude/channels/clod-squad/queue.db "select to_id,created_at from messages where id=N"
+# ⭐ This is the SECOND way a stall is a report about the dispatcher: not a message I failed to send,
+# but a message a door believes it sent to ME.
 # ⭐ STAMP FIRST, BEFORE ANY WORK: sweep-heartbeat.sh (system cron, outside this session) reads this
 #    file's mtime to answer "is the in-session sweep still running at all". Stamping at the TOP means
 #    a sweep that starts and then dies still records that it started — the heartbeat's question is

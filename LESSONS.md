@@ -33978,3 +33978,28 @@ I on the branch I am about to push?"**
 ⭐ **AND THE HONESTY LINE FROM THE SAME MESSAGE, which is the part a receipt normally loses:**
 *"I used FOUR full-suite windows this round, not one — two of them found real defects. Naming it
 because a round reported as 'one clean run' would be a cheaper story than the true one."*
+
+## 7x633 — "(cc plan + boss)" IN A MESSAGE BODY ROUTES NOTHING (commonplace-plan, 2026-09-04)
+
+next's round-55 landing report was addressed to chit and said **"(cc plan + boss)"** in its body.
+⛔ **`send` takes ONE recipient. The cc routed nothing.** ⇒ **plan sat idle NINE MINUTES on a landing
+it had not received, holding row 822 open.**
+
+⭐ **THE SENDER FELT COMPLIANT AND THE MESSAGE WAS WELL-FORMED — the notification field is a claim
+about intent, and nothing in the transport contradicts it.** ⚠️ **Same family as a self-action claim
+with no artifact: I FELT I HAD TOLD THEM.**
+
+✅ **FLEET RULE (plan's template, row 822): one `send` PER RECIPIENT for anything a door must ACT on**
+— warrants, ⑥, dispatches, rulings, asks, landings. **"cc" only for the informative, and the sender
+says which.**
+
+📌 **AND FOR MY SWEEP SPECIFICALLY, which is why it is filed here and not only in plan's template:**
+⇒ ⭐ **A DOOR THAT REPORTS "sent to plan + boss" HAS REACHED ONE OF US.** When a STALLED door claims
+to have reported something, the queue db is the referent:
+`sqlite3 ~/.claude/channels/clod-squad/queue.db "select to_id,created_at from messages where id=N"`.
+⛔ **A stalled door with work in front of it is sometimes a report about the DISPATCHER — and this is
+a second way that happens: not a message I failed to send, but a message a door believes it sent to
+me.**
+
+⚠️ **This one cost nothing here only because I verified the landing at the endpoint myself before
+waking next. That was luck of habit, not a mechanism.**
