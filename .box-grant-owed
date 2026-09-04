@@ -1,0 +1,6 @@
+OWED 2026-09-04T21:23Z — commonplace-cell, ASSERT-DIFF-1, ONE SUITE WINDOW.
+Warrant: plan row 914, branch sol-assert-diff-1 @ 10a7f65 over f5ffc93, tree 0c33451e.
+Queued behind: next's AUTHKIT-1 REVIEW suite (driver pid 3442792, beam 3443930 in sol-authkit1/wt).
+Order ruled: cell is AHEAD of next's SHARE-2 window — cell's ask is IN HAND, next has not asked yet.
+I told cell: "I will grant it the moment the box reads FREE, without you asking again. I am watching
+the release, not you." ⇒ THAT PROMISE IS THIS FILE. Delete it when the grant is SENT (with msg id).
