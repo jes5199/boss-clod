@@ -360,6 +360,8 @@ fi
 # ⭐ A PROMISE TO WATCH IS A PROMISE ONLY IF SOMETHING WATCHES. I told cell I would grant its
 # window "the moment the box reads FREE, without you asking again" — a remembered rule does not
 # fire, so the undertaking lives here. It prints ONLY when the box is actually free.
+_held=/home/jes/boss-clod/.box-held
+if [ -f "$_held" ]; then echo "BOX-HELD|$(head -1 "$_held") — DO NOT GRANT A SECOND WINDOW"; fi
 _owed=/home/jes/boss-clod/.box-grant-owed
 if [ -f "$_owed" ]; then
   if /home/jes/boss-clod/box-free.sh >/dev/null 2>&1; then
