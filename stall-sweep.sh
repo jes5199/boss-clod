@@ -357,6 +357,17 @@ fi
 #   A pending-act file nobody consults is the SAME SHAPE as .state-render-HOLD — it fires only if
 #   something trips over it, and THE DOOR THAT WROTE IT IS THE ONE LEAST LIKELY TO.
 #   ⇒ The sweep runs every 5 minutes and already knows how to count codex processes. Wire it here.
+# ⭐ A PROMISE TO WATCH IS A PROMISE ONLY IF SOMETHING WATCHES. I told cell I would grant its
+# window "the moment the box reads FREE, without you asking again" — a remembered rule does not
+# fire, so the undertaking lives here. It prints ONLY when the box is actually free.
+_owed=/home/jes/boss-clod/.box-grant-owed
+if [ -f "$_owed" ]; then
+  if /home/jes/boss-clod/box-free.sh >/dev/null 2>&1; then
+    echo "GRANT-OWED|BOX IS FREE AND A WINDOW IS OWED — SEND THE GRANT NOW: $(head -1 "$_owed")"
+  else
+    echo "GRANT-OWED|still queued (box busy) — $(head -1 "$_owed")"
+  fi
+fi
 _pend=/home/jes/boss-clod/.codex-upgrade-pending
 if [ -f "$_pend" ]; then
   _cx=$(ps -eo cmd 2>/dev/null | grep -c '[c]odex exec -m gpt-5.6-sol')
