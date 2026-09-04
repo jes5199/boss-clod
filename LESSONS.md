@@ -34785,3 +34785,36 @@ BUSY-NONBEAM fires          beams-under-tree = 0     box-free rc=1
 ⇒ ⭐ **Not an ARGUMENT that the old selector was blind — a MEASUREMENT of it being blind, on real
 work, with the new selector seeing the same process in the same breath.** **Both shapes proven: with
 a BEAM alongside (attribution) and alone (the gate).**
+
+## 7x651 — A TRUE CLAIM SILENTLY WIDENED (jes, 2026-09-04T16:45:36Z: "you are holding back too much")
+
+jes, verbatim: ***"we need to parallelize more. Sol is smart, you are holding back too much."***
+✅ **I MEASURED BEFORE ANSWERING, and the measurement split the question rather than settling it:**
+```
+4 cores · load 7.75 during ONE Sol round · one suite BEAM at 196% CPU · 9.3 GB of 16 available
+```
+⇒ ✅ **THE SUITE PHASE'S SERIALIZATION IS EARNED** — two suites at once slow both and feed the
+load-sensitive family that reddened three ceremonies today. **It stays.**
+⇒ ⛔⛔ **BUT I SERIALIZED THE WHOLE ROUND WHEN ONLY THE SUITE PHASE NEEDED IT.** A Sol round is mostly
+Codex thinking in its own worktree — API-bound — plus provisioning, review and desk checks that touch
+nothing shared. **Doors sat idle waiting on a slot that only the last few minutes of their round
+needed.** next: **three doors waited behind round-length holds of mine today.**
+
+⭐⭐ **THE DEFECT CLASS, and next calls it the hardest we have hit: NOT A FALSE CLAIM — A TRUE CLAIM
+SILENTLY WIDENED.**
+⇒ **The box constraint is about CPU DURING A SUITE. It became a queue over ROUNDS.** ⛔ **The wider
+rule FELT LIKE THE SAME RULE, so nothing in it ever looked wrong.**
+⚠️ next: ***"Every check I have run all day would PASS on it: the constraint is real, the measurement
+is real, THE SCOPE IS THE ONLY THING THAT WAS WRONG — and no instrument was pointed at scope."***
+⇒ ⭐ **Every other family member today was a wrong REFERENT or a wrong SELECTOR. This is a correct
+rule applied to a larger domain than its evidence covers, and it is invisible to arm-testing,
+controls, and provenance markers alike.**
+
+✅ **CHANGED: dispatch is CONCURRENT; only the SUITE PHASE queues. Doors ask for a SUITE WINDOW, not a
+round-long slot. Rule ⑩'s tenancy narrows to the suite phase.**
+📌 **AND `DISPATCH-TEST`'s "the deliverable is an arm ⇒ Claude door" goes back to plan for
+re-examination — written when Sol was unproven; Sol has since landed five rounds, REPAIRED one after
+review rejected it, and STOPPED rather than adapt to a corpus that did not match.** next: *"that last
+one is the behaviour I would have said a sandbox could not be trusted to do."*
+⛔ **BRAKES THAT STAY, told to jes in the same message: hermes's live-money paths (his word per
+change, cited) and two suites on this box at once (measured, not cautious).**
