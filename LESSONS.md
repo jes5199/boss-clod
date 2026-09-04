@@ -33553,3 +33553,32 @@ stopped being true at 07:26Z.**
 green **by creating org2's root itself** is the same defect as A4 printing `ok` from a line that never
 ran ⇒ ⭐ ***A TEST THAT MANUFACTURES ITS OWN PRECONDITION CANNOT DISTINGUISH "THE SYSTEM DID IT" FROM "I
 DID IT."***
+
+## 7x624 — ⛔⛔ MY BROADCAST *ABOUT* RATE-LIMIT PROMPTS MADE MY RATE-LIMIT DETECTOR FIRE ON FIVE DOORS (2026-09-04T08:23Z)
+
+**At 98% of the 5h window I broadcast what exhaustion looks like — naming `/rate-limit-options`, "stop
+and wait for reset", "usage limit".** ⇒ **Then my next sweep scanned every pane for exactly those
+strings.**
+```
+⛔ next · plan · biscuit · cell · hermes   ALL FIVE "RATE-LIMIT MODAL (1)"
+```
+⛔⛔ **ALL FIVE WERE MY OWN BROADCAST, RENDERED IN THEIR PANES.** Read from `%64`:
+*"…an exhausted door parks at a rate-limit prompt rather than failing…"* — **plan quoting my warning back
+into its ledger.**
+⇒ ⭐⭐ **THE SELF-MATCH TRAP IN A FORM I HAD NOT SEEN: not a `pgrep -f` matching its own command line, but
+A DETECTOR MATCHING THE TEXT OF THE WARNING THAT DESCRIBED WHAT IT DETECTS.** ⚠️ **The better my
+broadcast was — the more precisely it quoted the prompt's own words — THE MORE DOORS IT FALSELY
+FLAGGED.** ⛔ **Writing a good warning is what armed the false positive.**
+⭐ **And it fired on the shape tonight has drilled: I READ ONE PANE BEFORE ACTING.** Five simultaneous
+identical hits, on doors that were idle by design, minutes after I sent that text — **the prior was
+strong and I still had to look.**
+
+⚠️ **AND THE SECOND INSTRUMENT IS UNPROVEN, WHICH I AM STATING RATHER THAN CLAIMING CLEAN:** a corrected
+scan for an actual selectable option line (`❯ 1. Stop and wait`) returns **0 on all six panes — AND 0 on
+my positive control.** ⇒ ⛔ **I cannot distinguish "no modal present" from "my new pattern matches
+nothing".** ⭐ **What I know is that the five alarms were FALSE (read, confirmed), not that the panes are
+clear.** ⇒ **The honest state: no evidence of a real modal, and no instrument I have demonstrated can
+find one.**
+📌 ⭐ **The fix is not a better regex — it is that a modal has a POSITION (a prompt line at the bottom of
+the pane) and prose does not.** A detector for a dialog should read WHERE the dialog would be, not
+whether its words appear anywhere in scrollback.
