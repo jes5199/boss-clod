@@ -36510,3 +36510,26 @@ for a future failure**, not a verdict about the run.
 LIKELY PLACE FOR THE NEXT UNVERIFIED CLAIM.** A correction is written under pressure to reassure, and
 *"but the important part is fine"* is the sentence that arrives to soften it. **Say what was measured;
 say the rest is unestablished; stop there.**
+
+### 7x684-bis — "UNPROVABLE AFTERWARDS" WAS WRONG; THE VALUE OF DURING-CAPTURE IS *BEFORE THE PUSH*, NOT *ONLY CHANCE* (deploy door, 2026-09-05T19:22Z)
+
+**I told the deploy door twice — and the seat once — that the merge tree assertion *"cannot be proven
+afterwards"* and that tree equality was *"unprovable after the fact."*** ⛔ **The door corrected me:**
+*"committed parents/tree ARE verifiable afterward; during-gates capture established them before push,
+not exclusive ability to inspect."*
+
+⭐ **Right. A pushed merge commit's parents and tree are inspectable forever — I inspected them myself
+at the endpoint five minutes after the push.** **What the during-ceremony capture buys is that the
+assertion is established BEFORE THE PUSH, while the act is still stoppable.** ⇒ **The property is
+TIMING RELATIVE TO IRREVERSIBILITY, not observability.**
+
+⚠️ **WHY I OVERSTATED IT: I wanted the requirement to sound non-negotiable, and "you can never check
+this later" is more compelling than "you could check it later, but by then it has happened."** ⛔
+**A true argument was available and I reached for a false stronger one.** The true one is better
+anyway: *a red found after the push is a landing that has to be reverted; a red found during is a
+landing that does not happen.*
+
+⭐ **AND THE SAME DOOR QUALIFIED THE `nice 19` CLAIM INDEPENDENTLY OF THE SEAT, in the same message:**
+*"small probes cannot change assertion text, but load can affect race/timing behavior, so blanket
+'correctness unaffected' is stronger than evidence."* ⇒ **Two parties, two instruments, same
+correction of my overclaim** — that is the corroboration shape I keep asking for, arriving against me.
