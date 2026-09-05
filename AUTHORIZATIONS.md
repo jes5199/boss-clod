@@ -124,3 +124,26 @@ rule, arriving in a handover. **I carried the path to the successor by message i
 ⭐ And I nearly reported a different, false version of this: the repo's own `MEMORY.md` has 0 hits for
 the handover doc, which looked like the pointer was simply missing. **Reading the control first showed
 the pointer exists and is in the wrong PLACE, not absent.** Ninth costume of the day's one defect.
+
+## REPO CREATED — `commonplace-sync-cli`, 2026-09-05T17:04:16Z
+
+**Grant:** jes, Telegram 11097 (*"i think i want to call the new one commonplace-sync-cli"*) then
+**11099 verbatim: *"yes, private, empty"*** — answering my explicit ask for the two decisions that were
+his: visibility, and whether to seed it. ⛔ **I did not create it on 11097 alone.** *He named a repo;
+naming is not authorizing, and a repo under his org is a durable outward-facing artifact.*
+
+**Verified by read-back, not by the create command's output:**
+```
+PRE   gh repo view … → "Could not resolve to a Repository"   ⇒ it did not already exist
+POST  name commonplace-sync-cli · isPrivate True · isEmpty True
+      url https://github.com/commonplace-systems/commonplace-sync-cli · createdAt 2026-09-05T17:04:16Z
+CONTROL  org repo count 16 → 17, and commonplace-doc-sync STILL PRESENT
+```
+⭐ **The pre-state check is the one that matters and it is easy to skip:** `gh repo create` against an
+existing name **fails**, but a create-or-adopt flow would silently hand back the wrong repo — and
+`commonplace-doc-sync` is **one hyphen away**. ⇒ **The control asserts the create hit ONLY its target**,
+which is the half a "does it exist now?" check cannot see: *a post-check that asks "is it there?" passes
+equally if everything is there.*
+
+⚠️ **Empty means EMPTY: no README, no licence, no gitignore, no default branch.** Nothing presumes a
+shape he has not chosen. **Nobody has been told it exists except him.**
