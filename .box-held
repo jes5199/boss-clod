@@ -1,0 +1,8 @@
+HELD 2026-09-05T03:42Z — codex-commonplace-next, LAND 1 PREPARATION + RETRY.
+`npm ci` in assets, MIX_ENV=dev mix compile, the six failed tests as a targeted setup check, then a
+fresh-token ceremony rerun on the retained local merge. NO reset, NO history rewrite, NO gate edits.
+⭐ Its preparation SUBSUMES my PIN-DELTA-1: the three "red on an equal pin" gates run a nested
+  `mix run --no-start --no-deps-check` that defaults to DEV and cannot find Plug/Phoenix — so a
+  prepared tree is the only place that measurement means anything. I withdrew my own run: it was
+  made in the PARKED wip checkout against a 285-line variant of a 352-line script (LESSONS 7x674).
+⛔ DO NOT GRANT A SECOND WINDOW until it announces RELEASE by name.

@@ -1,8 +1,0 @@
-OWED 2026-09-05T03:28Z — MINE (boss): PIN-DELTA-1 measurement, plan row 976.
-Run bin/check-doc-pin.sh, check-biscuit-pin.sh and the doc-sync gate ONE EACH, keep the output,
-and answer why a gate reds on a pin that EQUALS its sibling's current main (doc faeea17, biscuit
-1044bc35, doc-sync 9d8aba81 — all equal; only cell and log are behind).
-⛔ NOT NOW. These gates spawn a BEAM — I learned that at 03:26 when box-free.sh caught pid 4038245
-as an UNKNOWN-BEAM and the codex door correctly refused to start its landing over it. That was me
-taking an unannounced tenancy on the box I hold for everyone else.
-⇒ WAIT for the codex door's RELEASE, then announce the tenancy BY NAME like any other door.
