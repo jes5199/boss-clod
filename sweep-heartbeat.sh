@@ -55,12 +55,19 @@ if [ "$age" -gt "$MAX_AGE" ]; then
     #    (the file appeared) while the thing the arm exists for did not happen.
     # ⭐ CAUGHT ONLY BY COUNTING ROWS BEFORE AND AFTER. The file was the observable; the row count
     #    was the measurement. Another decline-flag: success-shaped and empty.
-    AGE="$age" MAXAGE="$MAX_AGE" LASTTX="$LASTTX" python3 - <<'PY' 2>>"$STAMP.log"
+    # ⭐⭐ chit, 2026-09-05: FREE-STREAK lives INSIDE the sweep, and the sweep is what died —
+    # A WATCHDOG THAT LIVES INSIDE THE PROCESS IT WATCHES CANNOT DETECT THAT PROCESS STOPPING.
+    # It reported 135 idle minutes AT MINUTE 135, the instant the sweep returned. ⇒ The box-idle
+    # number belongs HERE, outside the session, where it survives the sweep's death.
+    BOXLINE=$(/home/jes/boss-clod/box-free.sh 2>/dev/null | grep -E '^(FREE|BUSY|BLIND)' | head -1 | cut -c1-90)
+    [ -n "$BOXLINE" ] || BOXLINE="UNREAD — box-free.sh gave no verdict line (treat as BLIND, not free)"
+    AGE="$age" MAXAGE="$MAX_AGE" LASTTX="$LASTTX" BOXLINE="$BOXLINE" python3 - <<'PY' 2>>"$STAMP.log"
 import os, sqlite3, datetime
 body = ("\u26d4 SWEEP-HEARTBEAT (system cron, outside boss's session). TWO INSTRUMENTS, BOTH "
         "PRINTED, because the first cannot falsify itself:\n"
         "  boss's 5-minute stall sweep last stamped: %ss ago (limit %ss)\n"
         "  boss's last outbound clod-squad message:  %ss ago\n"
+        "  the box: %s\n"
         "\u2b50 READ THEM TOGETHER. A stale stamp with a FRESH transmission means the sweep loop "
         "stopped while the session is alive \u2014 ask boss, it can answer. A stale stamp with a "
         "STALE transmission is the case where boss may genuinely be gone.\n"
@@ -70,10 +77,17 @@ body = ("\u26d4 SWEEP-HEARTBEAT (system cron, outside boss's session). TWO INSTR
         "\u21d2 DO NOT proceed without a grant on the strength of this alone. ASK BOSS; a reply "
         "settles it in one turn. Treat SILENCE AFTER ASKING as the signal, never this notice.\n"
         "\u26a0\ufe0f Written by a cron script with no session: it cannot answer questions."
-        % (os.environ["AGE"], os.environ["MAXAGE"], os.environ["LASTTX"]))
+        % (os.environ["AGE"], os.environ["MAXAGE"], os.environ["LASTTX"], os.environ.get("BOXLINE","UNREAD")))
 now = datetime.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%S.000Z")
 db = sqlite3.connect("/home/jes/.claude/channels/clod-squad/queue.db", timeout=10)
-for who in ("commonplace-plan","commonplace-next","commonplace-chit",
+# ⛔⛔ hermes, 2026-09-05: THE NOTICE TOLD DOORS WHAT TO DO AND TOLD THE ARBITER NOTHING.
+# It fired 23:20Z; boss learned at 01:01Z FROM DOORS ASKING. ⇒ "ask boss" was load-bearing in a
+# direction the notice never stated: the ask is the ONLY channel by which boss finds out, and a door
+# that correctly concludes it needs nothing has correctly opted out of boss's only detector.
+# ⚠️ Four asked. Had all five reasoned as hermes did — mechanically correctly — the sweep stays
+# dead and the box stays idle. ✅ So boss-clod is now ADDRESSED DIRECTLY and first.
+for who in ("boss-clod",
+            "commonplace-plan","commonplace-next","commonplace-chit",
             "commonplace-cell","commonplace-biscuit","hermes"):
     db.execute("INSERT INTO messages (from_id,to_id,body,created_at) VALUES (?,?,?,?)",
                ("boss-clod", who, body, now))
