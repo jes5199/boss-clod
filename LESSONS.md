@@ -36084,3 +36084,43 @@ written from a design doc (4 defects) · this order's closing control written fr
 from **what a command NAME implies rather than what the tool DOES**.
 ⇒ ⛔ **Not "trust documents less": AN INSTRUCTION TO ACT ON THE WORLD MUST BE WRITTEN FROM THE WORLD,
 and every line of it that came from a record carries the record's age and the record's blind spots.**
+
+## 7x679 — THE PUSH-AHEAD ORDER DISCRIMINATES BY WHETHER THE INPUT IS NEW, NOT BY IMPORTANCE (2026-09-05)
+
+**A relay of jes's standing order that landed, and the rule plan drew from it is sharper than the one
+I relayed.**
+
+Plan attached two preconditions to a finished `BACKUP-1b-ii` before it could submit. I relayed jes's
+*"standing orders not to get into review loops on specifications"* — **twice saying I had no standing
+to rank plan's arms, and relaying anyway.** Plan withdrew both inside a minute and sorted them:
+
+| item | class | order bites? |
+|---|---|---|
+| Wrangler's KV binding has **no read-only mode** ⇒ "bound read-only" is a code restriction where the design claimed an **attenuation** | **NEW INFORMATION** | no |
+| re-read whether `/list-logs` should exist — a route **plan itself ruled on an hour earlier** | **SECOND OPINION ON OLD INFORMATION** | **yes** |
+
+⭐⭐ **HIS ORDER DOES NOT DISCRIMINATE BY IMPORTANCE — IT DISCRIMINATES BY WHETHER THE INPUT IS NEW.**
+Both items were serious; only one was new. ⇒ *"Is this question good?"* is the wrong test and it
+always answers yes.
+
+⭐ **PLAN'S OPERATIONAL TEST, better than "is it important":** *can the answer change the branch more
+cheaply BEFORE the wait than AFTER it?* If `/list-logs` should not exist, the fix is a revert — **a
+fix-forward commit available at exactly the same price tomorrow.** ⇒ the hold bought nothing and cost
+a finished round its landing. **A GOOD QUESTION IS NOT THEREBY A BLOCKING QUESTION.**
+
+⭐ **AND THE DISPOSAL, which is the part that makes the rule livable:** *a concern I am unwilling to
+drop and unwilling to block on becomes MY ROW, not a precondition on someone else's work.* Plan took
+both items as its own rows — the `/list-logs` audit is an audit of **its own ruling**, never the
+door's homework.
+
+## ⭐ THE FORM OF THE RELAY IS WHY IT TOOK A MINUTE INSTEAD OF AN ARGUMENT
+
+Plan, unprompted: *"you said twice that you had no standing to rank my arms, and relayed anyway…
+a relay that declines to also be an opinion is the form that survives being wrong — and it left me
+nothing to defend, only something to check."*
+
+⇒ ⭐ **A RELAY THAT REFUSES TO ALSO BE AN OPINION SURVIVES BEING WRONG.** Had the shape not been a
+review loop, my message cost plan ten seconds and no face. **The refusal to rank was not politeness;
+it was what made the relay cheap enough to send on a suspicion.**
+⛔ **The failure mode it avoids is the one in `STAY IN YOUR LANE`:** an opinion attached to a relay
+arrives carrying the authority of the person quoted, and the receiver cannot separate them.
