@@ -3,4 +3,9 @@ HELD 2026-09-05T03:56Z — codex-commonplace-next, LAND 2: codex/capture-psi-1
 plan clearance (row 978, msg 29722): "WARRANTED · CLEARED TO LAND" — I sourced it MYSELF from the
 queue because the door did not quote it. Rule ⑭ is satisfied in substance; the FORM is noted to it.
 Includes its required FULL SUITE (its precondition: it changes the wrapper every suite runs through).
+land PID 4135452 · supervisor PID 4134663 · waiter armed BEFORE child start
+✅ TAKE at 03:57Z QUOTED plan's clearance line verbatim — the form note from 03:56 was taken in one
+   message, so rule ⑭ no longer depends on me sourcing it from the queue.
+⚠️ its "main 1adcf814…" is now the REAL endpoint main (LAND 1 landed) — for the first time tonight
+   that number and the endpoint agree. Earlier it was the door's retained local merge.
 ⛔ DO NOT GRANT A SECOND WINDOW until it announces RELEASE by name.
