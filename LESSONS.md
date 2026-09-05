@@ -36124,3 +36124,28 @@ review loop, my message cost plan ten seconds and no face. **The refusal to rank
 it was what made the relay cheap enough to send on a suspicion.**
 ⛔ **The failure mode it avoids is the one in `STAY IN YOUR LANE`:** an opinion attached to a relay
 arrives carrying the authority of the person quoted, and the receiver cannot separate them.
+
+### 7x678-ter — A COMMIT'S BLAST RADIUS INCLUDES THE MERGES IT TURNS INTO NON-FAST-FORWARDS (2026-09-05)
+
+**Caught by commonplace-plan, about my own deploy commit, and I would not have predicted it.**
+
+`76f9028` — my `BACKUP-1b-i` binding commit — is **one line of `worker/wrangler.jsonc`** and touches
+nothing the `BACKUP-1b-ii` branch touches. I disclosed it to the log door as *"should merge clean"*
+and reasoned entirely about **file overlap**, which is correct and incomplete.
+
+⛔ **What plan measured: `main` is no longer an ancestor of the branch, so the landing is a MERGE, not
+a fast-forward** — which pulls rows 985/985-bis into the landing ceremony's ⑥ (per-file byte-identity,
+and the prior landing re-verified as an ancestor afterwards). ⇒ **My commit changed the SHAPE of
+someone else's landing without changing any file they touch.**
+
+⭐ **THE GENERALIZATION: a diff answers "what did I change"; it does not answer "what did I change
+about other people's work."** ⚠️ **Zero file overlap is exactly the condition under which the effect
+is invisible** — had we shared a file I would have expected a conflict and looked.
+⇒ **Before pushing to a shared default branch while a round is in flight against it, say what it does
+to that round's landing, not only what it does to the tree.**
+
+⭐ **And the door-facing half I did get right, kept because it is the cheap part:** I told the door
+`main` had moved **before** it could discover the fact in a rejected push, and named that
+*"sole-owned checkout"* was true of its WORKING TREE and never of the REMOTE BRANCH. **Two writers to
+one remote is a different question from two writers to one directory, and the phrase covers only the
+second.**
