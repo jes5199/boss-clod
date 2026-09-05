@@ -45,3 +45,19 @@ Access ROSTER if it is a credential) go by stdin-to-secret from 600-mode files. 
    ⑥ receipt: TARGET · APP SHA · WORKER SHA · RANGE · ROLLBACK, image identity distinct.
 ⭐ **Milestone semantics (seat):** once real Access + editor + store pass, the SEPARATE known WorkOS-cache
 failure does NOT block the internal-Access milestone. It blocks external login, which is a different journey.
+
+## CUSTODY RULING FOR THE TEN BINDINGS (ranking seat msg 30267, 2026-09-05T19:27Z) — FOLLOW THIS, NOT MY DRAFT
+```
+secret_text   WORKOS_CLIENT_ID · WORKOS_API_KEY · WORKOS_REDIRECT_URI     ← ALL THREE, from the existing
+              protected file. Client ID and redirect are not inherently secrets, but changing their
+              handling buys nothing and diverges from the recorded custody choice.
+secret_text   SECRET_KEY_BASE · COMMONPLACE_LOG_REALM_CAPABILITY · COMMONPLACE_ACCESS_ROSTER
+              ← roster is sensitive membership config; "is it a credential" is not a question to decide.
+plain var     COMMONPLACE_ACCESS_ISSUER · _AUDIENCE · _JWKS_URI · COMMONPLACE_LOG_REALM_URL
+              ⛔ ONLY AFTER CHECKING each URL is credential-free: no bearer, no query secret, no userinfo.
+              ⛔ realm URL stays PAIRED with the correct capability.
+NEVER print a secret value. Anywhere.
+```
+⭐ **The seat's reasoning on the WorkOS three is the keeper: consistency with a recorded custody choice
+outranks a per-value argument about which ones "really" need protecting.** A mixed scheme is a scheme
+someone later has to reason about; a uniform one is not.
