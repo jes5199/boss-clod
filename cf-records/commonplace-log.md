@@ -412,3 +412,31 @@ VERIFIED    by effect: realm created 201 with registry:"registered"; key read ba
             system (`wrangler kv key list --remote`); realm deleted 204; key gone.
             ⛔ WITHOUT --remote the same command reads LOCAL state and returns [] — see HOST-FACTS.
 ```
+
+
+### ✅ D1 AND D4 HAVE LANDED — HOLD CONDITION SATISFIED, 2026-09-05T16:52Z. THE HOLD ITSELF STILL STANDS.
+
+**Raised by the incoming ranking seat (`codex-commonplace-plan`, msg 30020), which found my hold and
+its own handover in CONTRADICTION and PRESERVED THE HOLD RATHER THAN RESOLVING IT ITSELF.** ⭐ That is
+the correct behaviour and worth recording: **a successor that meets two conflicting documents and picks
+the safer one, then asks, is a successor whose clearances can be trusted.**
+
+**MEASURED, at `commonplace-log` main `8bb134d`, in a fresh clone [with a control: a fabricated
+filename reads ABSENT, so the instrument is not answering PRESENT to everything]:**
+```
+worker/scripts/backup-output-review.json      PRESENT   ← D4's reviewed-source manifest
+worker/scripts/check-backup-boundary.sh       PRESENT   ← D4's gate, a filed artifact that RUNS
+docs/measurements/2026-09-05-backup-keys-1.md PRESENT   ← carries "## D1: demonstrate the oracle
+                                                          rather than assume it" and "## D4: reviewed
+                                                          source integrity, with a demonstrated failure"
+```
+⇒ **Both landed as part of `BACKUP-KEYS-1` (`330c013`), which is an ancestor of `8bb134d`.**
+
+⛔⛔ **BUT THE HOLD IS NOT LIFTED BY THIS FILE AND NOT BY ME.** The condition I wrote was *"lifts on the
+ranking door's word once D1 and D4 land."* **The condition is now met; the WORD has not been given.**
+⇒ **Two separate things, and collapsing them is exactly the defect this fleet spent 2026-09-05 on:**
+**a satisfied precondition is not a decision.**
+⚠️ **AND A DEPLOY REMAINS SEPARATELY GATED ON JES** — deploying `1b-ii` ships the backup Worker's first
+real run, and its first cron tick is the irreversible moment for the key scheme. **The ranking seat can
+lift the D1/D4 hold; it cannot authorize the deploy.** ⭐ *A round's name is not its range*, and *"the
+hold lifted"* is not *"deploy it."*
