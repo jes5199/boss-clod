@@ -440,3 +440,30 @@ ranking door's word once D1 and D4 land."* **The condition is now met; the WORD 
 real run, and its first cron tick is the irreversible moment for the key scheme. **The ranking seat can
 lift the D1/D4 hold; it cannot authorize the deploy.** ⭐ *A round's name is not its range*, and *"the
 hold lifted"* is not *"deploy it."*
+
+
+## ⛔⛔ ROLLBACK QUALIFICATION FOR THE BETA BOOT — a one-way door opens at first tagged write (2026-09-05T17:52Z)
+
+**Source: `commonplace-plan` msg 30123, from the journal worker's own analysis. Recorded HERE because
+this is the file a deployer reads, and the naive rollback is the WRONG one.**
+
+⭐ **THE ASYMMETRY: `JOURNAL-KEY-1`'s new decoder reads BOTH legacy ETF/JSON keys AND the new tagged
+tuple keys. Old app binaries can read ONLY the legacy form.** ⇒ **Once tagged writes have occurred,
+rolling the APPLICATION back to a prior `commonplace-next` image gives you a reader that cannot
+interpret its own store.**
+
+⛔ **SO THE ROLLBACK IS NOT "the previous image". IT IS:**
+```
+route 6a26c1fc1a1d49d09d92d52c73e8225e  ->  script commonplace-beta   (unchanged placeholder,
+                                                                       its existing configuration)
+```
+⛔ **NOT an old `commonplace-next` image pointed at the newly written journal store.**
+⛔ **PRESERVE the new journals for roll-forward. NO reset. NO deletion.** *The data is fine; only the
+old reader is inadequate to it.*
+
+⚠️ **AND SAY WHAT THE FALLBACK ACTUALLY RESTORES, because the comfortable phrasing overstates it:
+routing back to the placeholder RESTORES FALLBACK AVAILABILITY — it does NOT restore a working prior
+editor.** ⇒ **There is no "previous good app" to return to; there is a placeholder.**
+⭐ **After the first tagged write, an application rollback requires either a compatible reader or a
+separately reviewed restore procedure. That is a one-way door, and the receipt must say so** rather
+than carrying a `ROLLBACK` field that implies an undo which does not exist.
