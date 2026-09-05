@@ -188,3 +188,23 @@ EFFECT      new version ⇒ DO reset ⇒ container cold boot on next request (~1
 ACCEPTANCE  (seat) known safe application emission at the sink + correlated real-browser status/reason OR authenticated success. Tail armed 22:22Z (Monitor bysof0z77). jes asked (tg 11190). NOT PREDICTED.
 ```
 ACCEPTANCE RESULT 22:51–22:53Z — **NOT MET.** jes ×3 through Access: GET / → 200 each, assertion header present at the Worker; DO cold boot 88.8 s; container egress: Access JWKS ×2 (200), storage.internal frontier/take-lease/tail-local ×34 (200); **page still "Authentication required."** Diagnostic emission NOT observed: tail logs [] on all 38 events; telemetry API 0 events for the service (15 m) and **0 account-wide (60 m, unfiltered) ⇒ sink has no positive control — UNPROVEN.** JWT repair is in the served image and the refusal persists. My Telegram read "shape of a session" (11192) was an inference and was wrong within a minute (11191) — LESSONS.
+
+## CONTAINER-APP LOGS ENABLED — 2026-09-05T23:17Z, seat #30666/#30668 option (A): same image, config-only
+```
+finding    wrangler 4.125.0 writes container-log enablement to the CONTAINER APPLICATION's configuration.observability.logs.enabled — a
+           different object from the Worker script settings (app door, cli.js:271480/270075/270098). Live read-back: ABSENT on app a03286c5 v2.
+shape      PATCH /containers/applications/a03286c5 with wrangler's modify body (configuration + max_instances/constraints/scheduling_policy/
+           rollout_active_grace_period, ALL copied from the snapshot; only delta: observability {logs:{enabled:true}}) → success, but v2
+           unchanged until → POST …/rollouts {strategy rolling, step_percentage 100, kind full_auto, target_configuration = same} →
+           rollout afe7badd-ddc8-4ad5-854e-d998887dcfc6 progressing → COMPLETED 23:17:59Z
+result     app version 2 → 3 · configuration.observability {logs:{enabled:true}} · image sha256:aec7ee6f… UNCHANGED · no other config key changed
+           · instance 3851d2df now inactive (was already stopped for inactivity 23:02); next request cold-boots a NEW instance
+controls   Worker untouched: deployment d15d1d80 / version 5a2a608c · 10 secret_text + DO · worker observability enabled/logs/invocation=false
+           · routes 6a26c1fc→beta, d1a19822→next · workers_dev/previews false
+snapshot   access-snapshots/commonplace-next-app-a03286c5-before-obs-20260905T2316Z.json
+rollback   same PATCH+rollout with observability {logs:{enabled:false}} — config only; NOT a redeploy of an older app (seat #30668)
+⛔ persist  a future `wrangler deploy` from a wrangler.jsonc WITHOUT observability would REVERT this (observabilityToConfiguration → logs.enabled=false
+           when previously enabled). d2db7ff (observability in wrangler.jsonc) must ride every future deploy.
+acceptance the Bandit startup line in Container Logs on the next cold boot — ⚠️ STRUCTURAL: a cold boot needs a request that passes Access,
+           and only jes's browser can produce one (no service token, seat rule). So the startup-line control and the correlated login are the SAME request.
+```
