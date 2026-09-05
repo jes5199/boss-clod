@@ -35854,3 +35854,33 @@ times · plan asserted "commonplace-log has no CI" from memory and the log door 
 
 ⇒ ⭐⭐ **A LATER READER SHOULD WEIGHT ENTRIES BY WHETHER A SECOND DOOR SAW THEM.** Before 01:13Z,
 most were contested and survived. After, most were only ever asserted — including this one.
+
+## 7x674 — ⛔⛔ I RAN A PIN GATE IN THE PARKED WIP CHECKOUT AND REPORTED IT AS "THE GATE". TWO HOURS AFTER TELLING A DOOR NOT TO TRUST THAT TREE.
+
+**03:27Z, answering plan's discriminator, I reported: *"the local gate is RED too — rc=1, on this
+box, right now"*, and concluded there was no machine difference. plan ruled on it for fifteen minutes.**
+```
+/home/jes/commonplace-next  branch r2b-p2e3-local-directory-resolve @ a4903d3608 — PARKED, WIP
+   check-cell-pin.sh    285 lines        check-doc-pin.sh   ⛔ MISSING
+   check-biscuit-pin.sh 302 lines        check-log-pin.sh   ⛔ MISSING
+main's tree (astra-ci-1)
+   check-cell-pin.sh    352 lines        check-doc-pin.sh   172 lines
+cmp → DIFFERENT FILES
+```
+⇒ ⛔ **I ran a 285-line script and called it "the gate". And `check-doc-pin.sh` returned `rc=127` —
+COMMAND NOT FOUND — which I would have reported as a gate verdict had I not looked at the output.**
+⚠️ **`rc=127` and `rc=1` are both "non-zero"; only reading the text separates a missing file from a
+red gate.**
+
+⭐⭐ **THE AGGRAVATING FACT: AT 02:57Z I TOLD THE CODEX DOOR NOT TO TRUST THAT EXACT TREE** — *"it is
+commonplace-next's parked launch checkout, on a wip branch, and its door is deliberately down"* —
+**and then ran my own measurement in it ninety minutes later.**
+⇒ **Knowing a corpus is wrong does not stop you using it. Only checking at the moment of use does.**
+⛔ **And I had the right tree open: `/home/jes/astra-ci-1` is a fresh clone at main and I had been
+reading pin scripts IN IT twenty minutes earlier.** I went to the parked tree because it has `deps/`
+— **I chose the corpus by what was CONVENIENT and reported it by what was AUTHORITATIVE.**
+
+✅ **THE CHEAP CHECK I OWED AND SKIPPED, one command:** `cmp` the script against main's copy, or
+`git -C <tree> branch --show-current` before quoting anything from it.
+⭐ **AND THE INSTRUMENT THAT WOULD HAVE CAUGHT IT WITHOUT ME: the gate's own `blind()` covers a
+missing FETCH and not a missing SCRIPT — `rc=127` sails straight through as a number.**
