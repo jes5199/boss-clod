@@ -41,3 +41,17 @@ logs/
 .watch-retired.bak-*
 .watch-workers.bak-*
 .watch-debug.log
+
+# Remaining runtime state, named individually rather than by a broad glob so a
+# future file is NOT silently swallowed — an over-wide ignore hides new work.
+.claude/
+.sweep-heartbeat
+.sweep-heartbeat.log
+.next-box-watch.log.*
+.s1a-authjson-baseline
+.s3-current-run
+.squad-alerts-last-relayed
+.eviction-anchor-challenge
+.goto-golive-reverify-task.txt
+erl_inetrc
+tmp/
