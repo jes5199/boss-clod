@@ -1,0 +1,73 @@
+
+────────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────
+───────────────────────────────────────
+  WARNING: Loading development channels
+
+  --dangerously-load-development-channels is for local channel d
+evelopment only. Do not use this option to run channels you have
+ downloaded off the internet.
+
+  Please use --channels to run a list of approved channels.
+
+  Channels: server:clod-squad, server:claude-chat, server:squad-
+alerts
+
+  ❯ 1. I am using this for local development ✔
+Resume this session with:
+claude --resume c96e07a6-983c-447f-9270-fa7f10af16c0
+jes@commonplace:~/hermes$ cd ~/hermes && workerclaude --model cl
+aude-fable-5
+
+────────────────────────────────────────────────────────────────
+  WARNING: Loading development channels
+
+  --dangerously-load-development-channels is for local channel
+  development only. Do not use this option to run channels
+  you have downloaded off the internet.
+
+  Please use --channels to run a list of approved channels.
+
+  Channels: server:clod-squad, server:claude-chat,
+  server:squad-alerts
+
+  ❯ 1. I am using this for local development
+Resume this session with:
+claude --resume 93506f15-fe2d-4ed9-963c-a8c3dd39a3ae
+jes@commonplace:~/hermes$ cd /home/jes/hermes && source ~/.bashr
+c && workerclaude
+
+────────────────────────────────────────────────────────────────
+  WARNING: Loading development channels
+
+  --dangerously-load-development-channels is for local channel
+  development only. Do not use this option to run channels
+  you have downloaded off the internet.
+
+  Please use --channels to run a list of approved channels.
+
+  Channels: server:clod-squad, server:claude-chat,
+  server:squad-alerts
+
+  ❯ 1. I am using this for local development
+Resume this session with:
+claude --resume 32d5349d-bfab-4a7b-a258-afc47a8f1c25
+jes@commonplace:~/hermes$ workerclaude
+
+────────────────────────────────────────────────────────────────
+  WARNING: Loading development channels
+
+  --dangerously-load-development-channels is for local channel
+  development only. Do not use this option to run channels
+  you have downloaded off the internet.
+
+  Please use --channels to run a list of approved channels.
+
+  Channels: server:clod-squad, server:claude-chat,
+  server:squad-alerts
+
+  ❯ 1. I am using this for local development
+Resume this session with:
+claude --resume 7d029003-2f2b-4365-b562-a86ab83adc13
+jes@commonplace:~/hermes$ o cancel
+

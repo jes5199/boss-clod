@@ -1,0 +1,1887 @@
+{"method":"notifications/claude/channel","params":{"content":"[T
+heta Terminal hang detected] Probe failed ({:transport, :timeout
+}). Auto-restart in progress.","meta":{"severity":"warn","publis
+her":"hermes","source":"hermes:theta_watchdog","message_id":"290
+","ts":"2026-07-05T18:00:27.417Z","related_bead":"HERMES-45zj","
+reply_via":"none","dedup_key":"theta-hang"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+heta Terminal recovered] Killed old pid, spawned fresh ThetaTerm
+inal.jar, post-restart probe OK.","meta":{"severity":"info","pub
+lisher":"hermes","source":"hermes:theta_watchdog","message_id":"
+291","ts":"2026-07-05T18:01:00.705Z","related_bead":"HERMES-45zj
+","reply_via":"none","dedup_key":"theta-recovery"}},"jsonrpc":"2
+.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+heta Terminal hang detected] Probe failed ({:transport, :econnre
+fused}). Auto-restart in progress.","meta":{"severity":"warn","p
+ublisher":"hermes","source":"hermes:theta_watchdog","message_id"
+:"292","ts":"2026-07-06T16:00:07.782Z","related_bead":"HERMES-45
+zj","reply_via":"none","dedup_key":"theta-hang"}},"jsonrpc":"2.0
+"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+heta Terminal recovered] Killed old pid, spawned fresh ThetaTerm
+inal.jar, post-restart probe OK.","meta":{"severity":"info","pub
+lisher":"hermes","source":"hermes:theta_watchdog","message_id":"
+293","ts":"2026-07-06T16:00:41.063Z","related_bead":"HERMES-45zj
+","reply_via":"none","dedup_key":"theta-recovery"}},"jsonrpc":"2
+.0"}
+{"method":"notifications/claude/channel","params":{"content":"[D
+aily live trading summary] Today's activity (2026-07-06):\n  Ope
+ns: 1 (QQQ)\n  Closes: 0 (realized P&L $0.0)\n  Open positions:
+1\n\n","meta":{"severity":"info","publisher":"hermes","source":"
+hermes:live_backtest_tracker","message_id":"294","ts":"2026-07-0
+6T22:00:01.036Z","related_bead":"HERMES-live-vs-backtest","reply
+_via":"none","dedup_key":"daily-summary-2026-07-06"}},"jsonrpc":
+"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×0 ~$0.0] Signal: Capitulation+Bounce (
+Shares) (Sharpe 0.45)\nEntry order: 9999\nExit policy: per-posit
+ion monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"seve
+rity":"info","publisher":"hermes","source":"hermes:signal_auto_t
+rader","message_id":"295","ts":"2026-07-07T12:53:31.895Z","relat
+ed_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×3 ~$750.0] Signal: Capitulation+Bounce
+ (Shares) (Sharpe 0.45)\nEntry order: 4242\nExit policy: per-pos
+ition monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"se
+verity":"info","publisher":"hermes","source":"hermes:signal_auto
+_trader","message_id":"296","ts":"2026-07-07T12:53:31.917Z","rel
+ated_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×3 ~$750.0] Signal: Capitulation+Bounce
+ (Shares) (Sharpe 0.45)\nEntry order: 4242\nExit policy: per-pos
+ition monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"se
+verity":"info","publisher":"hermes","source":"hermes:signal_auto
+_trader","message_id":"297","ts":"2026-07-07T12:55:27.114Z","rel
+ated_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×0 ~$0.0] Signal: Capitulation+Bounce (
+Shares) (Sharpe 0.45)\nEntry order: 9999\nExit policy: per-posit
+ion monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"seve
+rity":"info","publisher":"hermes","source":"hermes:signal_auto_t
+rader","message_id":"298","ts":"2026-07-07T12:55:27.141Z","relat
+ed_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+astytrade auth chain FAILED] Pre-market auth check failed. Signa
+lAutoTrader and LiveOrderMonitor cannot route until restored.\n\
+n*Detail:* No refresh token in DB — re-authentication required.\
+n\nRe-authenticate: https://commonplace.astrolab.ist:9876/auth",
+"meta":{"severity":"critical","publisher":"hermes","source":"her
+mes:auth_check","message_id":"299","ts":"2026-07-07T12:55:43.898
+Z","related_bead":"HERMES-c7sl","reply_via":"none","dedup_key":"
+auth-check-fail-2026-07-07"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[E
+xpiry reconciled SPY $640/$635] Put spread — underlying closed $
+745.64, entry credit $0.42, realized P&L $42.0.","meta":{"severi
+ty":"info","publisher":"hermes","source":"hermes:live_order_moni
+tor","message_id":"300","ts":"2026-07-07T12:55:48.292Z","related
+_bead":"HERMES-wnxy","reply_via":"none","dedup_key":"expiry-reco
+ncile-1"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×0 ~$0.0] Signal: Capitulation+Bounce (
+Shares) (Sharpe 0.45)\nEntry order: 9999\nExit policy: per-posit
+ion monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"seve
+rity":"info","publisher":"hermes","source":"hermes:signal_auto_t
+rader","message_id":"301","ts":"2026-07-07T12:55:48.591Z","relat
+ed_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×3 ~$750.0] Signal: Capitulation+Bounce
+ (Shares) (Sharpe 0.45)\nEntry order: 4242\nExit policy: per-pos
+ition monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"se
+verity":"info","publisher":"hermes","source":"hermes:signal_auto
+_trader","message_id":"302","ts":"2026-07-07T12:55:48.597Z","rel
+ated_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×3 ~$750.0] Signal: Capitulation+Bounce
+ (Shares) (Sharpe 0.45)\nEntry order: 4242\nExit policy: per-pos
+ition monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"se
+verity":"info","publisher":"hermes","source":"hermes:signal_auto
+_trader","message_id":"303","ts":"2026-07-07T13:00:14.313Z","rel
+ated_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×0 ~$0.0] Signal: Capitulation+Bounce (
+Shares) (Sharpe 0.45)\nEntry order: 9999\nExit policy: per-posit
+ion monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"seve
+rity":"info","publisher":"hermes","source":"hermes:signal_auto_t
+rader","message_id":"304","ts":"2026-07-07T13:00:14.389Z","relat
+ed_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[E
+xpiry reconciled SPY $640/$635] Put spread — underlying closed $
+745.64, entry credit $0.42, realized P&L $42.0.","meta":{"severi
+ty":"info","publisher":"hermes","source":"hermes:live_order_moni
+tor","message_id":"305","ts":"2026-07-07T13:00:42.432Z","related
+_bead":"HERMES-wnxy","reply_via":"none","dedup_key":"expiry-reco
+ncile-1"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+astytrade auth chain FAILED] Pre-market auth check failed. Signa
+lAutoTrader and LiveOrderMonitor cannot route until restored.\n\
+n*Detail:* No refresh token in DB — re-authentication required.\
+n\nRe-authenticate: https://commonplace.astrolab.ist:9876/auth",
+"meta":{"severity":"critical","publisher":"hermes","source":"her
+mes:auth_check","message_id":"306","ts":"2026-07-07T13:00:44.206
+Z","related_bead":"HERMES-c7sl","reply_via":"none","dedup_key":"
+auth-check-fail-2026-07-07"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×3 ~$750.0] Signal: Capitulation+Bounce
+ (Shares) (Sharpe 0.45)\nEntry order: 4242\nExit policy: per-pos
+ition monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"se
+verity":"info","publisher":"hermes","source":"hermes:signal_auto
+_trader","message_id":"307","ts":"2026-07-07T13:00:45.245Z","rel
+ated_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×0 ~$0.0] Signal: Capitulation+Bounce (
+Shares) (Sharpe 0.45)\nEntry order: 9999\nExit policy: per-posit
+ion monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"seve
+rity":"info","publisher":"hermes","source":"hermes:signal_auto_t
+rader","message_id":"308","ts":"2026-07-07T13:00:45.250Z","relat
+ed_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+heta Terminal hang detected] Probe failed ({:transport, :econnre
+fused}). Auto-restart in progress.","meta":{"severity":"warn","p
+ublisher":"hermes","source":"hermes:theta_watchdog","message_id"
+:"309","ts":"2026-07-09T17:00:07.554Z","related_bead":"HERMES-45
+zj","reply_via":"none","dedup_key":"theta-hang"}},"jsonrpc":"2.0
+"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+heta Terminal recovered] Killed old pid, spawned fresh ThetaTerm
+inal.jar, post-restart probe OK.","meta":{"severity":"info","pub
+lisher":"hermes","source":"hermes:theta_watchdog","message_id":"
+310","ts":"2026-07-09T17:00:40.836Z","related_bead":"HERMES-45zj
+","reply_via":"none","dedup_key":"theta-recovery"}},"jsonrpc":"2
+.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+heta Terminal hang detected] Probe failed ({:transport, :econnre
+fused}). Auto-restart in progress.","meta":{"severity":"warn","p
+ublisher":"hermes","source":"hermes:theta_watchdog","message_id"
+:"311","ts":"2026-07-09T20:00:07.719Z","related_bead":"HERMES-45
+zj","reply_via":"none","dedup_key":"theta-hang"}},"jsonrpc":"2.0
+"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+heta Terminal recovered] Killed old pid, spawned fresh ThetaTerm
+inal.jar, post-restart probe OK.","meta":{"severity":"info","pub
+lisher":"hermes","source":"hermes:theta_watchdog","message_id":"
+312","ts":"2026-07-09T20:00:40.979Z","related_bead":"HERMES-45zj
+","reply_via":"none","dedup_key":"theta-recovery"}},"jsonrpc":"2
+.0"}
+{"method":"notifications/claude/channel","params":{"content":"[D
+aily live trading summary] Today's activity (2026-07-09):\n  Ope
+ns: 0 ()\n  Closes: 1 (realized P&L $28.0)\n  Open positions: 0\
+n\nCloses:\n  QQQ short_spread → $28.0","meta":{"severity":"info
+","publisher":"hermes","source":"hermes:live_backtest_tracker","
+message_id":"313","ts":"2026-07-09T22:00:00.692Z","related_bead"
+:"HERMES-live-vs-backtest","reply_via":"none","dedup_key":"daily
+-summary-2026-07-09"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+astytrade auth chain FAILED] Pre-market auth check failed. Signa
+lAutoTrader and LiveOrderMonitor cannot route until restored.\n\
+n*Detail:* No refresh token in DB — re-authentication required.\
+n\nRe-authenticate: https://commonplace.astrolab.ist:9876/auth",
+"meta":{"severity":"critical","publisher":"hermes","source":"her
+mes:auth_check","message_id":"314","ts":"2026-07-10T12:55:09.409
+Z","related_bead":"HERMES-c7sl","reply_via":"none","dedup_key":"
+auth-check-fail-2026-07-10"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×0 ~$0.0] Signal: Capitulation+Bounce (
+Shares) (Sharpe 0.45)\nEntry order: 9999\nExit policy: per-posit
+ion monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"seve
+rity":"info","publisher":"hermes","source":"hermes:signal_auto_t
+rader","message_id":"315","ts":"2026-07-10T12:55:10.135Z","relat
+ed_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×3 ~$750.0] Signal: Capitulation+Bounce
+ (Shares) (Sharpe 0.45)\nEntry order: 4242\nExit policy: per-pos
+ition monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"se
+verity":"info","publisher":"hermes","source":"hermes:signal_auto
+_trader","message_id":"316","ts":"2026-07-10T12:55:10.143Z","rel
+ated_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[E
+xpiry reconciled SPY $640/$635] Put spread — underlying closed $
+745.64, entry credit $0.42, realized P&L $42.0.","meta":{"severi
+ty":"info","publisher":"hermes","source":"hermes:live_order_moni
+tor","message_id":"317","ts":"2026-07-10T12:55:14.116Z","related
+_bead":"HERMES-wnxy","reply_via":"none","dedup_key":"expiry-reco
+ncile-1"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×3 ~$750.0] Signal: Capitulation+Bounce
+ (Shares) (Sharpe 0.45)\nEntry order: 4242\nExit policy: per-pos
+ition monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"se
+verity":"info","publisher":"hermes","source":"hermes:signal_auto
+_trader","message_id":"318","ts":"2026-07-10T12:56:27.254Z","rel
+ated_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×0 ~$0.0] Signal: Capitulation+Bounce (
+Shares) (Sharpe 0.45)\nEntry order: 9999\nExit policy: per-posit
+ion monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"seve
+rity":"info","publisher":"hermes","source":"hermes:signal_auto_t
+rader","message_id":"319","ts":"2026-07-10T12:56:27.260Z","relat
+ed_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[E
+xpiry reconciled SPY $640/$635] Put spread — underlying closed $
+745.64, entry credit $0.42, realized P&L $42.0.","meta":{"severi
+ty":"info","publisher":"hermes","source":"hermes:live_order_moni
+tor","message_id":"320","ts":"2026-07-10T12:56:27.719Z","related
+_bead":"HERMES-wnxy","reply_via":"none","dedup_key":"expiry-reco
+ncile-1"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+astytrade auth chain FAILED] Pre-market auth check failed. Signa
+lAutoTrader and LiveOrderMonitor cannot route until restored.\n\
+n*Detail:* No refresh token in DB — re-authentication required.\
+n\nRe-authenticate: https://commonplace.astrolab.ist:9876/auth",
+"meta":{"severity":"critical","publisher":"hermes","source":"her
+mes:auth_check","message_id":"321","ts":"2026-07-10T12:56:27.816
+Z","related_bead":"HERMES-c7sl","reply_via":"none","dedup_key":"
+auth-check-fail-2026-07-10"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×0 ~$0.0] Signal: Capitulation+Bounce (
+Shares) (Sharpe 0.45)\nEntry order: 9999\nExit policy: per-posit
+ion monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"seve
+rity":"info","publisher":"hermes","source":"hermes:signal_auto_t
+rader","message_id":"322","ts":"2026-07-10T13:30:49.180Z","relat
+ed_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×3 ~$750.0] Signal: Capitulation+Bounce
+ (Shares) (Sharpe 0.45)\nEntry order: 4242\nExit policy: per-pos
+ition monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"se
+verity":"info","publisher":"hermes","source":"hermes:signal_auto
+_trader","message_id":"323","ts":"2026-07-10T13:30:49.193Z","rel
+ated_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+astytrade auth chain FAILED] Pre-market auth check failed. Signa
+lAutoTrader and LiveOrderMonitor cannot route until restored.\n\
+n*Detail:* No refresh token in DB — re-authentication required.\
+n\nRe-authenticate: https://commonplace.astrolab.ist:9876/auth",
+"meta":{"severity":"critical","publisher":"hermes","source":"her
+mes:auth_check","message_id":"324","ts":"2026-07-10T13:30:49.546
+Z","related_bead":"HERMES-c7sl","reply_via":"none","dedup_key":"
+auth-check-fail-2026-07-10"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[E
+xpiry reconciled SPY $640/$635] Put spread — underlying closed $
+745.64, entry credit $0.42, realized P&L $42.0.","meta":{"severi
+ty":"info","publisher":"hermes","source":"hermes:live_order_moni
+tor","message_id":"325","ts":"2026-07-10T13:30:50.386Z","related
+_bead":"HERMES-wnxy","reply_via":"none","dedup_key":"expiry-reco
+ncile-1"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×3 ~$750.0] Signal: Capitulation+Bounce
+ (Shares) (Sharpe 0.45)\nEntry order: 4242\nExit policy: per-pos
+ition monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"se
+verity":"info","publisher":"hermes","source":"hermes:signal_auto
+_trader","message_id":"326","ts":"2026-07-10T13:32:25.609Z","rel
+ated_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×0 ~$0.0] Signal: Capitulation+Bounce (
+Shares) (Sharpe 0.45)\nEntry order: 9999\nExit policy: per-posit
+ion monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"seve
+rity":"info","publisher":"hermes","source":"hermes:signal_auto_t
+rader","message_id":"327","ts":"2026-07-10T13:32:25.620Z","relat
+ed_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+astytrade auth chain FAILED] Pre-market auth check failed. Signa
+lAutoTrader and LiveOrderMonitor cannot route until restored.\n\
+n*Detail:* No refresh token in DB — re-authentication required.\
+n\nRe-authenticate: https://commonplace.astrolab.ist:9876/auth",
+"meta":{"severity":"critical","publisher":"hermes","source":"her
+mes:auth_check","message_id":"328","ts":"2026-07-10T13:32:30.019
+Z","related_bead":"HERMES-c7sl","reply_via":"none","dedup_key":"
+auth-check-fail-2026-07-10"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[E
+xpiry reconciled SPY $640/$635] Put spread — underlying closed $
+745.64, entry credit $0.42, realized P&L $42.0.","meta":{"severi
+ty":"info","publisher":"hermes","source":"hermes:live_order_moni
+tor","message_id":"329","ts":"2026-07-10T13:32:30.762Z","related
+_bead":"HERMES-wnxy","reply_via":"none","dedup_key":"expiry-reco
+ncile-1"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×3 ~$750.0] Signal: Capitulation+Bounce
+ (Shares) (Sharpe 0.45)\nEntry order: 4242\nExit policy: per-pos
+ition monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"se
+verity":"info","publisher":"hermes","source":"hermes:signal_auto
+_trader","message_id":"330","ts":"2026-07-10T13:34:21.371Z","rel
+ated_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×0 ~$0.0] Signal: Capitulation+Bounce (
+Shares) (Sharpe 0.45)\nEntry order: 9999\nExit policy: per-posit
+ion monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"seve
+rity":"info","publisher":"hermes","source":"hermes:signal_auto_t
+rader","message_id":"331","ts":"2026-07-10T13:34:21.379Z","relat
+ed_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+astytrade auth chain FAILED] Pre-market auth check failed. Signa
+lAutoTrader and LiveOrderMonitor cannot route until restored.\n\
+n*Detail:* No refresh token in DB — re-authentication required.\
+n\nRe-authenticate: https://commonplace.astrolab.ist:9876/auth",
+"meta":{"severity":"critical","publisher":"hermes","source":"her
+mes:auth_check","message_id":"332","ts":"2026-07-10T13:34:21.930
+Z","related_bead":"HERMES-c7sl","reply_via":"none","dedup_key":"
+auth-check-fail-2026-07-10"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[E
+xpiry reconciled SPY $640/$635] Put spread — underlying closed $
+745.64, entry credit $0.42, realized P&L $42.0.","meta":{"severi
+ty":"info","publisher":"hermes","source":"hermes:live_order_moni
+tor","message_id":"333","ts":"2026-07-10T13:34:22.612Z","related
+_bead":"HERMES-wnxy","reply_via":"none","dedup_key":"expiry-reco
+ncile-1"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+astytrade auth chain FAILED] Pre-market auth check failed. Signa
+lAutoTrader and LiveOrderMonitor cannot route until restored.\n\
+n*Detail:* No refresh token in DB — re-authentication required.\
+n\nRe-authenticate: https://commonplace.astrolab.ist:9876/auth",
+"meta":{"severity":"critical","publisher":"hermes","source":"her
+mes:auth_check","message_id":"334","ts":"2026-07-10T14:26:02.981
+Z","related_bead":"HERMES-c7sl","reply_via":"none","dedup_key":"
+auth-check-fail-2026-07-10"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[E
+xpiry reconciled SPY $640/$635] Put spread — underlying closed $
+745.64, entry credit $0.42, realized P&L $42.0.","meta":{"severi
+ty":"info","publisher":"hermes","source":"hermes:live_order_moni
+tor","message_id":"335","ts":"2026-07-10T14:26:07.844Z","related
+_bead":"HERMES-wnxy","reply_via":"none","dedup_key":"expiry-reco
+ncile-1"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×0 ~$0.0] Signal: Capitulation+Bounce (
+Shares) (Sharpe 0.45)\nEntry order: 9999\nExit policy: per-posit
+ion monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"seve
+rity":"info","publisher":"hermes","source":"hermes:signal_auto_t
+rader","message_id":"336","ts":"2026-07-10T14:26:08.433Z","relat
+ed_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×3 ~$750.0] Signal: Capitulation+Bounce
+ (Shares) (Sharpe 0.45)\nEntry order: 4242\nExit policy: per-pos
+ition monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"se
+verity":"info","publisher":"hermes","source":"hermes:signal_auto
+_trader","message_id":"337","ts":"2026-07-10T14:26:08.451Z","rel
+ated_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+astytrade auth chain FAILED] Pre-market auth check failed. Signa
+lAutoTrader and LiveOrderMonitor cannot route until restored.\n\
+n*Detail:* No refresh token in DB — re-authentication required.\
+n\nRe-authenticate: https://commonplace.astrolab.ist:9876/auth",
+"meta":{"severity":"critical","publisher":"hermes","source":"her
+mes:auth_check","message_id":"338","ts":"2026-07-10T14:32:19.854
+Z","related_bead":"HERMES-c7sl","reply_via":"none","dedup_key":"
+auth-check-fail-2026-07-10"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×0 ~$0.0] Signal: Capitulation+Bounce (
+Shares) (Sharpe 0.45)\nEntry order: 9999\nExit policy: per-posit
+ion monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"seve
+rity":"info","publisher":"hermes","source":"hermes:signal_auto_t
+rader","message_id":"339","ts":"2026-07-10T14:32:21.019Z","relat
+ed_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×3 ~$750.0] Signal: Capitulation+Bounce
+ (Shares) (Sharpe 0.45)\nEntry order: 4242\nExit policy: per-pos
+ition monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"se
+verity":"info","publisher":"hermes","source":"hermes:signal_auto
+_trader","message_id":"340","ts":"2026-07-10T14:32:21.024Z","rel
+ated_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[E
+xpiry reconciled SPY $640/$635] Put spread — underlying closed $
+745.64, entry credit $0.42, realized P&L $42.0.","meta":{"severi
+ty":"info","publisher":"hermes","source":"hermes:live_order_moni
+tor","message_id":"341","ts":"2026-07-10T14:32:21.491Z","related
+_bead":"HERMES-wnxy","reply_via":"none","dedup_key":"expiry-reco
+ncile-1"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+astytrade auth chain FAILED] Pre-market auth check failed. Signa
+lAutoTrader and LiveOrderMonitor cannot route until restored.\n\
+n*Detail:* No refresh token in DB — re-authentication required.\
+n\nRe-authenticate: https://commonplace.astrolab.ist:9876/auth",
+"meta":{"severity":"critical","publisher":"hermes","source":"her
+mes:auth_check","message_id":"342","ts":"2026-07-10T14:33:24.717
+Z","related_bead":"HERMES-c7sl","reply_via":"none","dedup_key":"
+auth-check-fail-2026-07-10"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[E
+xpiry reconciled SPY $640/$635] Put spread — underlying closed $
+745.64, entry credit $0.42, realized P&L $42.0.","meta":{"severi
+ty":"info","publisher":"hermes","source":"hermes:live_order_moni
+tor","message_id":"343","ts":"2026-07-10T14:33:25.629Z","related
+_bead":"HERMES-wnxy","reply_via":"none","dedup_key":"expiry-reco
+ncile-1"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×3 ~$750.0] Signal: Capitulation+Bounce
+ (Shares) (Sharpe 0.45)\nEntry order: 4242\nExit policy: per-pos
+ition monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"se
+verity":"info","publisher":"hermes","source":"hermes:signal_auto
+_trader","message_id":"344","ts":"2026-07-10T14:33:25.881Z","rel
+ated_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×0 ~$0.0] Signal: Capitulation+Bounce (
+Shares) (Sharpe 0.45)\nEntry order: 9999\nExit policy: per-posit
+ion monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"seve
+rity":"info","publisher":"hermes","source":"hermes:signal_auto_t
+rader","message_id":"345","ts":"2026-07-10T14:33:25.886Z","relat
+ed_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+astytrade auth chain FAILED] Pre-market auth check failed. Signa
+lAutoTrader and LiveOrderMonitor cannot route until restored.\n\
+n*Detail:* No refresh token in DB — re-authentication required.\
+n\nRe-authenticate: https://commonplace.astrolab.ist:9876/auth",
+"meta":{"severity":"critical","publisher":"hermes","source":"her
+mes:auth_check","message_id":"346","ts":"2026-07-10T14:39:12.552
+Z","related_bead":"HERMES-c7sl","reply_via":"none","dedup_key":"
+auth-check-fail-2026-07-10"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×0 ~$0.0] Signal: Capitulation+Bounce (
+Shares) (Sharpe 0.45)\nEntry order: 9999\nExit policy: per-posit
+ion monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"seve
+rity":"info","publisher":"hermes","source":"hermes:signal_auto_t
+rader","message_id":"347","ts":"2026-07-10T14:39:13.663Z","relat
+ed_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×3 ~$750.0] Signal: Capitulation+Bounce
+ (Shares) (Sharpe 0.45)\nEntry order: 4242\nExit policy: per-pos
+ition monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"se
+verity":"info","publisher":"hermes","source":"hermes:signal_auto
+_trader","message_id":"348","ts":"2026-07-10T14:39:13.672Z","rel
+ated_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[E
+xpiry reconciled SPY $640/$635] Put spread — underlying closed $
+745.64, entry credit $0.42, realized P&L $42.0.","meta":{"severi
+ty":"info","publisher":"hermes","source":"hermes:live_order_moni
+tor","message_id":"349","ts":"2026-07-10T14:39:14.426Z","related
+_bead":"HERMES-wnxy","reply_via":"none","dedup_key":"expiry-reco
+ncile-1"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×3 ~$750.0] Signal: Capitulation+Bounce
+ (Shares) (Sharpe 0.45)\nEntry order: 4242\nExit policy: per-pos
+ition monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"se
+verity":"info","publisher":"hermes","source":"hermes:signal_auto
+_trader","message_id":"350","ts":"2026-07-10T14:40:37.551Z","rel
+ated_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×0 ~$0.0] Signal: Capitulation+Bounce (
+Shares) (Sharpe 0.45)\nEntry order: 9999\nExit policy: per-posit
+ion monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"seve
+rity":"info","publisher":"hermes","source":"hermes:signal_auto_t
+rader","message_id":"351","ts":"2026-07-10T14:40:37.558Z","relat
+ed_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+astytrade auth chain FAILED] Pre-market auth check failed. Signa
+lAutoTrader and LiveOrderMonitor cannot route until restored.\n\
+n*Detail:* No refresh token in DB — re-authentication required.\
+n\nRe-authenticate: https://commonplace.astrolab.ist:9876/auth",
+"meta":{"severity":"critical","publisher":"hermes","source":"her
+mes:auth_check","message_id":"352","ts":"2026-07-10T14:40:38.088
+Z","related_bead":"HERMES-c7sl","reply_via":"none","dedup_key":"
+auth-check-fail-2026-07-10"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[E
+xpiry reconciled SPY $640/$635] Put spread — underlying closed $
+745.64, entry credit $0.42, realized P&L $42.0.","meta":{"severi
+ty":"info","publisher":"hermes","source":"hermes:live_order_moni
+tor","message_id":"353","ts":"2026-07-10T14:40:39.098Z","related
+_bead":"HERMES-wnxy","reply_via":"none","dedup_key":"expiry-reco
+ncile-1"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×3 ~$750.0] Signal: Capitulation+Bounce
+ (Shares) (Sharpe 0.45)\nEntry order: 4242\nExit policy: per-pos
+ition monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"se
+verity":"info","publisher":"hermes","source":"hermes:signal_auto
+_trader","message_id":"354","ts":"2026-07-11T04:30:53.998Z","rel
+ated_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×0 ~$0.0] Signal: Capitulation+Bounce (
+Shares) (Sharpe 0.45)\nEntry order: 9999\nExit policy: per-posit
+ion monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"seve
+rity":"info","publisher":"hermes","source":"hermes:signal_auto_t
+rader","message_id":"355","ts":"2026-07-11T04:30:54.052Z","relat
+ed_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+astytrade auth chain FAILED] Pre-market auth check failed. Signa
+lAutoTrader and LiveOrderMonitor cannot route until restored.\n\
+n*Detail:* No refresh token in DB — re-authentication required.\
+n\nRe-authenticate: https://commonplace.astrolab.ist:9876/auth",
+"meta":{"severity":"critical","publisher":"hermes","source":"her
+mes:auth_check","message_id":"356","ts":"2026-07-11T04:31:11.368
+Z","related_bead":"HERMES-c7sl","reply_via":"none","dedup_key":"
+auth-check-fail-2026-07-11"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×3 ~$750.0] Signal: Capitulation+Bounce
+ (Shares) (Sharpe 0.45)\nEntry order: 4242\nExit policy: per-pos
+ition monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"se
+verity":"info","publisher":"hermes","source":"hermes:signal_auto
+_trader","message_id":"357","ts":"2026-07-11T04:31:13.008Z","rel
+ated_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×0 ~$0.0] Signal: Capitulation+Bounce (
+Shares) (Sharpe 0.45)\nEntry order: 9999\nExit policy: per-posit
+ion monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"seve
+rity":"info","publisher":"hermes","source":"hermes:signal_auto_t
+rader","message_id":"358","ts":"2026-07-11T04:31:13.018Z","relat
+ed_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[E
+xpiry reconciled SPY $640/$635] Put spread — underlying closed $
+745.64, entry credit $0.42, realized P&L $42.0.","meta":{"severi
+ty":"info","publisher":"hermes","source":"hermes:live_order_moni
+tor","message_id":"359","ts":"2026-07-11T04:31:13.257Z","related
+_bead":"HERMES-wnxy","reply_via":"none","dedup_key":"expiry-reco
+ncile-1"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[E
+xpiry reconciled SPY $640/$635] Put spread — underlying closed $
+745.64, entry credit $0.42, realized P&L $42.0.","meta":{"severi
+ty":"info","publisher":"hermes","source":"hermes:live_order_moni
+tor","message_id":"360","ts":"2026-07-11T06:26:50.637Z","related
+_bead":"HERMES-wnxy","reply_via":"none","dedup_key":"expiry-reco
+ncile-1"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+astytrade auth chain FAILED] Pre-market auth check failed. Signa
+lAutoTrader and LiveOrderMonitor cannot route until restored.\n\
+n*Detail:* No refresh token in DB — re-authentication required.\
+n\nRe-authenticate: https://commonplace.astrolab.ist:9876/auth",
+"meta":{"severity":"critical","publisher":"hermes","source":"her
+mes:auth_check","message_id":"361","ts":"2026-07-11T06:26:54.710
+Z","related_bead":"HERMES-c7sl","reply_via":"none","dedup_key":"
+auth-check-fail-2026-07-11"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×0 ~$0.0] Signal: Capitulation+Bounce (
+Shares) (Sharpe 0.45)\nEntry order: 9999\nExit policy: per-posit
+ion monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"seve
+rity":"info","publisher":"hermes","source":"hermes:signal_auto_t
+rader","message_id":"362","ts":"2026-07-11T06:26:55.435Z","relat
+ed_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×3 ~$750.0] Signal: Capitulation+Bounce
+ (Shares) (Sharpe 0.45)\nEntry order: 4242\nExit policy: per-pos
+ition monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"se
+verity":"info","publisher":"hermes","source":"hermes:signal_auto
+_trader","message_id":"363","ts":"2026-07-11T06:26:55.442Z","rel
+ated_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×0 ~$0.0] Signal: Capitulation+Bounce (
+Shares) (Sharpe 0.45)\nEntry order: 9999\nExit policy: per-posit
+ion monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"seve
+rity":"info","publisher":"hermes","source":"hermes:signal_auto_t
+rader","message_id":"364","ts":"2026-07-11T06:28:14.986Z","relat
+ed_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×3 ~$750.0] Signal: Capitulation+Bounce
+ (Shares) (Sharpe 0.45)\nEntry order: 4242\nExit policy: per-pos
+ition monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"se
+verity":"info","publisher":"hermes","source":"hermes:signal_auto
+_trader","message_id":"365","ts":"2026-07-11T06:28:15.003Z","rel
+ated_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+astytrade auth chain FAILED] Pre-market auth check failed. Signa
+lAutoTrader and LiveOrderMonitor cannot route until restored.\n\
+n*Detail:* No refresh token in DB — re-authentication required.\
+n\nRe-authenticate: https://commonplace.astrolab.ist:9876/auth",
+"meta":{"severity":"critical","publisher":"hermes","source":"her
+mes:auth_check","message_id":"366","ts":"2026-07-11T06:28:19.615
+Z","related_bead":"HERMES-c7sl","reply_via":"none","dedup_key":"
+auth-check-fail-2026-07-11"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[E
+xpiry reconciled SPY $640/$635] Put spread — underlying closed $
+745.64, entry credit $0.42, realized P&L $42.0.","meta":{"severi
+ty":"info","publisher":"hermes","source":"hermes:live_order_moni
+tor","message_id":"367","ts":"2026-07-11T06:28:20.579Z","related
+_bead":"HERMES-wnxy","reply_via":"none","dedup_key":"expiry-reco
+ncile-1"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+astytrade auth chain FAILED] Pre-market auth check failed. Signa
+lAutoTrader and LiveOrderMonitor cannot route until restored.\n\
+n*Detail:* No refresh token in DB — re-authentication required.\
+n\nRe-authenticate: https://commonplace.astrolab.ist:9876/auth",
+"meta":{"severity":"critical","publisher":"hermes","source":"her
+mes:auth_check","message_id":"368","ts":"2026-07-11T06:32:23.500
+Z","related_bead":"HERMES-c7sl","reply_via":"none","dedup_key":"
+auth-check-fail-2026-07-11"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[E
+xpiry reconciled SPY $640/$635] Put spread — underlying closed $
+745.64, entry credit $0.42, realized P&L $42.0.","meta":{"severi
+ty":"info","publisher":"hermes","source":"hermes:live_order_moni
+tor","message_id":"369","ts":"2026-07-11T06:32:24.363Z","related
+_bead":"HERMES-wnxy","reply_via":"none","dedup_key":"expiry-reco
+ncile-1"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×3 ~$750.0] Signal: Capitulation+Bounce
+ (Shares) (Sharpe 0.45)\nEntry order: 4242\nExit policy: per-pos
+ition monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"se
+verity":"info","publisher":"hermes","source":"hermes:signal_auto
+_trader","message_id":"370","ts":"2026-07-11T06:32:28.133Z","rel
+ated_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×0 ~$0.0] Signal: Capitulation+Bounce (
+Shares) (Sharpe 0.45)\nEntry order: 9999\nExit policy: per-posit
+ion monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"seve
+rity":"info","publisher":"hermes","source":"hermes:signal_auto_t
+rader","message_id":"371","ts":"2026-07-11T06:32:28.141Z","relat
+ed_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[E
+xpiry reconciled SPY $640/$635] Put spread — underlying closed $
+745.64, entry credit $0.42, realized P&L $42.0.","meta":{"severi
+ty":"info","publisher":"hermes","source":"hermes:live_order_moni
+tor","message_id":"372","ts":"2026-07-11T06:33:29.962Z","related
+_bead":"HERMES-wnxy","reply_via":"none","dedup_key":"expiry-reco
+ncile-1"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×0 ~$0.0] Signal: Capitulation+Bounce (
+Shares) (Sharpe 0.45)\nEntry order: 9999\nExit policy: per-posit
+ion monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"seve
+rity":"info","publisher":"hermes","source":"hermes:signal_auto_t
+rader","message_id":"373","ts":"2026-07-11T06:33:30.149Z","relat
+ed_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×3 ~$750.0] Signal: Capitulation+Bounce
+ (Shares) (Sharpe 0.45)\nEntry order: 4242\nExit policy: per-pos
+ition monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"se
+verity":"info","publisher":"hermes","source":"hermes:signal_auto
+_trader","message_id":"374","ts":"2026-07-11T06:33:30.156Z","rel
+ated_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+astytrade auth chain FAILED] Pre-market auth check failed. Signa
+lAutoTrader and LiveOrderMonitor cannot route until restored.\n\
+n*Detail:* No refresh token in DB — re-authentication required.\
+n\nRe-authenticate: https://commonplace.astrolab.ist:9876/auth",
+"meta":{"severity":"critical","publisher":"hermes","source":"her
+mes:auth_check","message_id":"375","ts":"2026-07-11T06:33:30.289
+Z","related_bead":"HERMES-c7sl","reply_via":"none","dedup_key":"
+auth-check-fail-2026-07-11"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[E
+xpiry reconciled SPY $640/$635] Put spread — underlying closed $
+745.64, entry credit $0.42, realized P&L $42.0.","meta":{"severi
+ty":"info","publisher":"hermes","source":"hermes:live_order_moni
+tor","message_id":"376","ts":"2026-07-11T06:39:06.722Z","related
+_bead":"HERMES-wnxy","reply_via":"none","dedup_key":"expiry-reco
+ncile-1"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+astytrade auth chain FAILED] Pre-market auth check failed. Signa
+lAutoTrader and LiveOrderMonitor cannot route until restored.\n\
+n*Detail:* No refresh token in DB — re-authentication required.\
+n\nRe-authenticate: https://commonplace.astrolab.ist:9876/auth",
+"meta":{"severity":"critical","publisher":"hermes","source":"her
+mes:auth_check","message_id":"377","ts":"2026-07-11T06:39:10.217
+Z","related_bead":"HERMES-c7sl","reply_via":"none","dedup_key":"
+auth-check-fail-2026-07-11"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×3 ~$750.0] Signal: Capitulation+Bounce
+ (Shares) (Sharpe 0.45)\nEntry order: 4242\nExit policy: per-pos
+ition monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"se
+verity":"info","publisher":"hermes","source":"hermes:signal_auto
+_trader","message_id":"378","ts":"2026-07-11T06:39:11.021Z","rel
+ated_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×0 ~$0.0] Signal: Capitulation+Bounce (
+Shares) (Sharpe 0.45)\nEntry order: 9999\nExit policy: per-posit
+ion monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"seve
+rity":"info","publisher":"hermes","source":"hermes:signal_auto_t
+rader","message_id":"379","ts":"2026-07-11T06:39:11.031Z","relat
+ed_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×0 ~$0.0] Signal: Capitulation+Bounce (
+Shares) (Sharpe 0.45)\nEntry order: 9999\nExit policy: per-posit
+ion monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"seve
+rity":"info","publisher":"hermes","source":"hermes:signal_auto_t
+rader","message_id":"380","ts":"2026-07-11T06:43:57.990Z","relat
+ed_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×3 ~$750.0] Signal: Capitulation+Bounce
+ (Shares) (Sharpe 0.45)\nEntry order: 4242\nExit policy: per-pos
+ition monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"se
+verity":"info","publisher":"hermes","source":"hermes:signal_auto
+_trader","message_id":"381","ts":"2026-07-11T06:43:57.997Z","rel
+ated_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+astytrade auth chain FAILED] Pre-market auth check failed. Signa
+lAutoTrader and LiveOrderMonitor cannot route until restored.\n\
+n*Detail:* No refresh token in DB — re-authentication required.\
+n\nRe-authenticate: https://commonplace.astrolab.ist:9876/auth",
+"meta":{"severity":"critical","publisher":"hermes","source":"her
+mes:auth_check","message_id":"382","ts":"2026-07-11T06:44:02.046
+Z","related_bead":"HERMES-c7sl","reply_via":"none","dedup_key":"
+auth-check-fail-2026-07-11"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[E
+xpiry reconciled SPY $640/$635] Put spread — underlying closed $
+745.64, entry credit $0.42, realized P&L $42.0.","meta":{"severi
+ty":"info","publisher":"hermes","source":"hermes:live_order_moni
+tor","message_id":"383","ts":"2026-07-11T06:44:02.942Z","related
+_bead":"HERMES-wnxy","reply_via":"none","dedup_key":"expiry-reco
+ncile-1"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+heta Terminal hang detected] Probe failed ({:transport, :econnre
+fused}). Auto-restart in progress.","meta":{"severity":"warn","p
+ublisher":"hermes","source":"hermes:theta_watchdog","message_id"
+:"384","ts":"2026-07-11T16:00:07.768Z","related_bead":"HERMES-45
+zj","reply_via":"none","dedup_key":"theta-hang"}},"jsonrpc":"2.0
+"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+heta Terminal recovered] Killed old pid, spawned fresh ThetaTerm
+inal.jar, post-restart probe OK.","meta":{"severity":"info","pub
+lisher":"hermes","source":"hermes:theta_watchdog","message_id":"
+385","ts":"2026-07-11T16:00:41.072Z","related_bead":"HERMES-45zj
+","reply_via":"none","dedup_key":"theta-recovery"}},"jsonrpc":"2
+.0"}
+{"method":"notifications/claude/channel","params":{"content":"[W
+eekly drift summary] Trailing 7 days (2026-07-04..2026-07-11):\n
+\n*QQQ Harvester (VIX9D<VIX)*\n  trades: 1 | realized: $28.0 | m
+ean: $28.0 | win_rate: 100.0%\n  expected: $5.07 ± $9.28 (baseli
+ne mean $5.07, WR 61.5%)\n  ⚠️  DRIFT z=2.47\n\n*Total realized:
+ $28.0* across 1 closes.","meta":{"severity":"info","publisher":
+"hermes","source":"hermes:live_backtest_tracker","message_id":"3
+86","ts":"2026-07-11T22:00:00.275Z","related_bead":"HERMES-live-
+vs-backtest","reply_via":"none","dedup_key":"weekly-summary-2026
+-07-11"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[D
+aily live trading summary] Today's activity (2026-07-13):\n  Ope
+ns: 1 (QQQ)\n  Closes: 0 (realized P&L $0.0)\n  Open positions:
+1\n\n","meta":{"severity":"info","publisher":"hermes","source":"
+hermes:live_backtest_tracker","message_id":"387","ts":"2026-07-1
+3T22:00:00.348Z","related_bead":"HERMES-live-vs-backtest","reply
+_via":"none","dedup_key":"daily-summary-2026-07-13"}},"jsonrpc":
+"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+heta Terminal hang detected] Probe failed ({:transport, :timeout
+}). Auto-restart in progress.","meta":{"severity":"warn","publis
+her":"hermes","source":"hermes:theta_watchdog","message_id":"388
+","ts":"2026-07-14T18:00:27.757Z","related_bead":"HERMES-45zj","
+reply_via":"none","dedup_key":"theta-hang"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+heta Terminal recovered] Killed old pid, spawned fresh ThetaTerm
+inal.jar, post-restart probe OK.","meta":{"severity":"info","pub
+lisher":"hermes","source":"hermes:theta_watchdog","message_id":"
+389","ts":"2026-07-14T18:01:01.042Z","related_bead":"HERMES-45zj
+","reply_via":"none","dedup_key":"theta-recovery"}},"jsonrpc":"2
+.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+heta Terminal hang detected] Probe failed ({:transport, :timeout
+}). Auto-restart in progress.","meta":{"severity":"warn","publis
+her":"hermes","source":"hermes:theta_watchdog","message_id":"390
+","ts":"2026-07-17T02:00:27.153Z","related_bead":"HERMES-45zj","
+reply_via":"none","dedup_key":"theta-hang"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+heta Terminal recovered] Killed old pid, spawned fresh ThetaTerm
+inal.jar, post-restart probe OK.","meta":{"severity":"info","pub
+lisher":"hermes","source":"hermes:theta_watchdog","message_id":"
+391","ts":"2026-07-17T02:01:00.416Z","related_bead":"HERMES-45zj
+","reply_via":"none","dedup_key":"theta-recovery"}},"jsonrpc":"2
+.0"}
+{"method":"notifications/claude/channel","params":{"content":"[D
+aily live trading summary] Today's activity (2026-07-17):\n  Ope
+ns: 0 ()\n  Closes: 1 (realized P&L $24.0)\n  Open positions: 0\
+n\nCloses:\n  QQQ short_spread → $24.0","meta":{"severity":"info
+","publisher":"hermes","source":"hermes:live_backtest_tracker","
+message_id":"392","ts":"2026-07-17T22:00:00.525Z","related_bead"
+:"HERMES-live-vs-backtest","reply_via":"none","dedup_key":"daily
+-summary-2026-07-17"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[W
+eekly drift summary] Trailing 7 days (2026-07-11..2026-07-18):\n
+\n*QQQ Harvester (VIX9D<VIX)*\n  trades: 1 | realized: $24.0 | m
+ean: $24.0 | win_rate: 100.0%\n  expected: $5.07 ± $9.28 (baseli
+ne mean $5.07, WR 61.5%)\n  ⚠️  DRIFT z=2.04\n\n*Total realized:
+ $24.0* across 1 closes.","meta":{"severity":"info","publisher":
+"hermes","source":"hermes:live_backtest_tracker","message_id":"3
+93","ts":"2026-07-18T22:00:00.748Z","related_bead":"HERMES-live-
+vs-backtest","reply_via":"none","dedup_key":"weekly-summary-2026
+-07-18"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+heta Terminal hang detected] Probe failed ({:transport, :timeout
+}). Auto-restart in progress.","meta":{"severity":"warn","publis
+her":"hermes","source":"hermes:theta_watchdog","message_id":"394
+","ts":"2026-07-19T10:00:27.836Z","related_bead":"HERMES-45zj","
+reply_via":"none","dedup_key":"theta-hang"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+heta Terminal recovered] Killed old pid, spawned fresh ThetaTerm
+inal.jar, post-restart probe OK.","meta":{"severity":"info","pub
+lisher":"hermes","source":"hermes:theta_watchdog","message_id":"
+395","ts":"2026-07-19T10:01:01.103Z","related_bead":"HERMES-45zj
+","reply_via":"none","dedup_key":"theta-recovery"}},"jsonrpc":"2
+.0"}
+{"method":"notifications/claude/channel","params":{"content":"[D
+aily live trading summary] Today's activity (2026-07-20):\n  Ope
+ns: 3 (QQQ, GDX, GLD)\n  Closes: 0 (realized P&L $0.0)\n  Open p
+ositions: 3\n\n","meta":{"severity":"info","publisher":"hermes",
+"source":"hermes:live_backtest_tracker","message_id":"396","ts":
+"2026-07-20T22:00:00.570Z","related_bead":"HERMES-live-vs-backte
+st","reply_via":"none","dedup_key":"daily-summary-2026-07-20"}},
+"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+heta Terminal hang detected] Probe failed ({:transport, :timeout
+}). Auto-restart in progress.","meta":{"severity":"warn","publis
+her":"hermes","source":"hermes:theta_watchdog","message_id":"397
+","ts":"2026-07-21T22:00:27.876Z","related_bead":"HERMES-45zj","
+reply_via":"none","dedup_key":"theta-hang"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+heta Terminal recovered] Killed old pid, spawned fresh ThetaTerm
+inal.jar, post-restart probe OK.","meta":{"severity":"info","pub
+lisher":"hermes","source":"hermes:theta_watchdog","message_id":"
+398","ts":"2026-07-21T22:01:01.217Z","related_bead":"HERMES-45zj
+","reply_via":"none","dedup_key":"theta-recovery"}},"jsonrpc":"2
+.0"}
+{"method":"notifications/claude/channel","params":{"content":"[D
+aily live trading summary] Today's activity (2026-07-23):\n  Ope
+ns: 0 ()\n  Closes: 1 (realized P&L $38.0)\n  Open positions: 2\
+n\nCloses:\n  QQQ short_spread → $38.0","meta":{"severity":"info
+","publisher":"hermes","source":"hermes:live_backtest_tracker","
+message_id":"399","ts":"2026-07-23T22:00:00.584Z","related_bead"
+:"HERMES-live-vs-backtest","reply_via":"none","dedup_key":"daily
+-summary-2026-07-23"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+heta Terminal hang detected] Probe failed ({:transport, :timeout
+}). Auto-restart in progress.","meta":{"severity":"warn","publis
+her":"hermes","source":"hermes:theta_watchdog","message_id":"400
+","ts":"2026-07-24T06:00:27.926Z","related_bead":"HERMES-45zj","
+reply_via":"none","dedup_key":"theta-hang"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+heta Terminal recovered] Killed old pid, spawned fresh ThetaTerm
+inal.jar, post-restart probe OK.","meta":{"severity":"info","pub
+lisher":"hermes","source":"hermes:theta_watchdog","message_id":"
+401","ts":"2026-07-24T06:01:01.321Z","related_bead":"HERMES-45zj
+","reply_via":"none","dedup_key":"theta-recovery"}},"jsonrpc":"2
+.0"}
+{"method":"notifications/claude/channel","params":{"content":"[W
+eekly drift summary] Trailing 7 days (2026-07-18..2026-07-25):\n
+\n*QQQ Harvester (VIX9D<VIX)*\n  trades: 1 | realized: $38.0 | m
+ean: $38.0 | win_rate: 100.0%\n  expected: $5.07 ± $9.28 (baseli
+ne mean $5.07, WR 61.5%)\n  ⚠️  DRIFT z=3.55\n\n*Total realized:
+ $38.0* across 1 closes.","meta":{"severity":"info","publisher":
+"hermes","source":"hermes:live_backtest_tracker","message_id":"4
+02","ts":"2026-07-25T22:00:00.498Z","related_bead":"HERMES-live-
+vs-backtest","reply_via":"none","dedup_key":"weekly-summary-2026
+-07-25"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+heta Terminal hang detected] Probe failed ({:transport, :timeout
+}). Auto-restart in progress.","meta":{"severity":"warn","publis
+her":"hermes","source":"hermes:theta_watchdog","message_id":"403
+","ts":"2026-07-26T14:00:27.245Z","related_bead":"HERMES-45zj","
+reply_via":"none","dedup_key":"theta-hang"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+heta Terminal recovered] Killed old pid, spawned fresh ThetaTerm
+inal.jar, post-restart probe OK.","meta":{"severity":"info","pub
+lisher":"hermes","source":"hermes:theta_watchdog","message_id":"
+404","ts":"2026-07-26T14:01:00.497Z","related_bead":"HERMES-45zj
+","reply_via":"none","dedup_key":"theta-recovery"}},"jsonrpc":"2
+.0"}
+{"method":"notifications/claude/channel","params":{"content":"[E
+xpiry reconciled SPY $640/$635] Put spread — underlying closed $
+745.64, entry credit $0.42, realized P&L $42.0.","meta":{"severi
+ty":"info","publisher":"hermes","source":"hermes:live_order_moni
+tor","message_id":"405","ts":"2026-07-30T14:19:38.932Z","related
+_bead":"HERMES-wnxy","reply_via":"none","dedup_key":"expiry-reco
+ncile-1"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[E
+xpiry reconciled SPY $640/$635] Put spread — underlying closed $
+745.64, entry credit $0.42, realized P&L $42.0.","meta":{"severi
+ty":"info","publisher":"hermes","source":"hermes:live_order_moni
+tor","message_id":"406","ts":"2026-07-30T14:19:50.386Z","related
+_bead":"HERMES-wnxy","reply_via":"none","dedup_key":"expiry-reco
+ncile-1"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[E
+xpiry reconciled SPY $640/$635] Put spread — underlying closed $
+745.64, entry credit $0.42, realized P&L $42.0.","meta":{"severi
+ty":"info","publisher":"hermes","source":"hermes:live_order_moni
+tor","message_id":"407","ts":"2026-07-30T14:20:00.338Z","related
+_bead":"HERMES-wnxy","reply_via":"none","dedup_key":"expiry-reco
+ncile-1"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[E
+xpiry reconciled SPY $640/$635] Put spread — underlying closed $
+745.64, entry credit $0.42, realized P&L $42.0.","meta":{"severi
+ty":"info","publisher":"hermes","source":"hermes:live_order_moni
+tor","message_id":"408","ts":"2026-07-30T14:22:00.176Z","related
+_bead":"HERMES-wnxy","reply_via":"none","dedup_key":"expiry-reco
+ncile-1"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[E
+xpiry reconciled SPY $640/$635] Put spread — underlying closed $
+745.64, entry credit $0.42, realized P&L $42.0.","meta":{"severi
+ty":"info","publisher":"hermes","source":"hermes:live_order_moni
+tor","message_id":"409","ts":"2026-07-30T14:29:28.613Z","related
+_bead":"HERMES-wnxy","reply_via":"none","dedup_key":"expiry-reco
+ncile-1"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[E
+xpiry reconciled SPY $640/$635] Put spread — underlying closed $
+745.64, entry credit $0.42, realized P&L $42.0.","meta":{"severi
+ty":"info","publisher":"hermes","source":"hermes:live_order_moni
+tor","message_id":"410","ts":"2026-07-30T14:29:44.596Z","related
+_bead":"HERMES-wnxy","reply_via":"none","dedup_key":"expiry-reco
+ncile-1"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[E
+xpiry reconciled SPY $640/$635] Put spread — underlying closed $
+745.64, entry credit $0.42, realized P&L $42.0.","meta":{"severi
+ty":"info","publisher":"hermes","source":"hermes:live_order_moni
+tor","message_id":"411","ts":"2026-07-30T14:30:13.671Z","related
+_bead":"HERMES-wnxy","reply_via":"none","dedup_key":"expiry-reco
+ncile-1"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+astytrade auth chain FAILED] Pre-market auth check failed. Signa
+lAutoTrader and LiveOrderMonitor cannot route until restored.\n\
+n*Detail:* No refresh token in DB — re-authentication required.\
+n\nRe-authenticate: https://commonplace.astrolab.ist:9876/auth",
+"meta":{"severity":"critical","publisher":"hermes","source":"her
+mes:auth_check","message_id":"412","ts":"2026-07-30T14:30:31.033
+Z","related_bead":"HERMES-c7sl","reply_via":"none","dedup_key":"
+auth-check-fail-2026-07-30"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×0 ~$0.0] Signal: Capitulation+Bounce (
+Shares) (Sharpe 0.45)\nEntry order: 9999\nExit policy: per-posit
+ion monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"seve
+rity":"info","publisher":"hermes","source":"hermes:signal_auto_t
+rader","message_id":"413","ts":"2026-07-30T14:30:33.805Z","relat
+ed_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×3 ~$750.0] Signal: Capitulation+Bounce
+ (Shares) (Sharpe 0.45)\nEntry order: 4242\nExit policy: per-pos
+ition monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"se
+verity":"info","publisher":"hermes","source":"hermes:signal_auto
+_trader","message_id":"414","ts":"2026-07-30T14:30:33.812Z","rel
+ated_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[E
+xpiry reconciled SPY $640/$635] Put spread — underlying closed $
+745.64, entry credit $0.42, realized P&L $42.0.","meta":{"severi
+ty":"info","publisher":"hermes","source":"hermes:live_order_moni
+tor","message_id":"415","ts":"2026-07-30T14:30:34.322Z","related
+_bead":"HERMES-wnxy","reply_via":"none","dedup_key":"expiry-reco
+ncile-1"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+astytrade auth chain FAILED] Pre-market auth check failed. Signa
+lAutoTrader and LiveOrderMonitor cannot route until restored.\n\
+n*Detail:* No refresh token in DB — re-authentication required.\
+n\nRe-authenticate: https://commonplace.astrolab.ist:9876/auth",
+"meta":{"severity":"critical","publisher":"hermes","source":"her
+mes:auth_check","message_id":"416","ts":"2026-07-30T14:30:47.557
+Z","related_bead":"HERMES-c7sl","reply_via":"none","dedup_key":"
+auth-check-fail-2026-07-30"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[E
+xpiry reconciled SPY $640/$635] Put spread — underlying closed $
+745.64, entry credit $0.42, realized P&L $42.0.","meta":{"severi
+ty":"info","publisher":"hermes","source":"hermes:live_order_moni
+tor","message_id":"417","ts":"2026-07-30T14:30:50.208Z","related
+_bead":"HERMES-wnxy","reply_via":"none","dedup_key":"expiry-reco
+ncile-1"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×3 ~$750.0] Signal: Capitulation+Bounce
+ (Shares) (Sharpe 0.45)\nEntry order: 4242\nExit policy: per-pos
+ition monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"se
+verity":"info","publisher":"hermes","source":"hermes:signal_auto
+_trader","message_id":"418","ts":"2026-07-30T14:30:50.531Z","rel
+ated_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×0 ~$0.0] Signal: Capitulation+Bounce (
+Shares) (Sharpe 0.45)\nEntry order: 9999\nExit policy: per-posit
+ion monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"seve
+rity":"info","publisher":"hermes","source":"hermes:signal_auto_t
+rader","message_id":"419","ts":"2026-07-30T14:30:50.539Z","relat
+ed_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[E
+xpiry reconciled SPY $640/$635] Put spread — underlying closed $
+745.64, entry credit $0.42, realized P&L $42.0.","meta":{"severi
+ty":"info","publisher":"hermes","source":"hermes:live_order_moni
+tor","message_id":"420","ts":"2026-07-30T14:31:13.965Z","related
+_bead":"HERMES-wnxy","reply_via":"none","dedup_key":"expiry-reco
+ncile-1"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[E
+xpiry reconciled SPY $640/$635] Put spread — underlying closed $
+745.64, entry credit $0.42, realized P&L $42.0.","meta":{"severi
+ty":"info","publisher":"hermes","source":"hermes:live_order_moni
+tor","message_id":"421","ts":"2026-07-30T15:12:59.831Z","related
+_bead":"HERMES-wnxy","reply_via":"none","dedup_key":"expiry-reco
+ncile-1"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[E
+xpiry reconciled QQQ $680/$675] Put spread — underlying closed $
+682.12, entry credit $0.25, realized P&L $25.0.","meta":{"severi
+ty":"info","publisher":"hermes","source":"hermes:live_order_moni
+tor","message_id":"422","ts":"2026-07-30T15:12:59.914Z","related
+_bead":"HERMES-wnxy","reply_via":"none","dedup_key":"expiry-reco
+ncile-1"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[E
+xpiry reconciled QQQ $680/$675] Put spread — underlying closed $
+682.12, entry credit $0.25, realized P&L $25.0.","meta":{"severi
+ty":"info","publisher":"hermes","source":"hermes:live_order_moni
+tor","message_id":"423","ts":"2026-07-30T15:13:18.349Z","related
+_bead":"HERMES-wnxy","reply_via":"none","dedup_key":"expiry-reco
+ncile-1"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[E
+xpiry reconciled SPY $640/$635] Put spread — underlying closed $
+745.64, entry credit $0.42, realized P&L $42.0.","meta":{"severi
+ty":"info","publisher":"hermes","source":"hermes:live_order_moni
+tor","message_id":"424","ts":"2026-07-30T15:13:18.516Z","related
+_bead":"HERMES-wnxy","reply_via":"none","dedup_key":"expiry-reco
+ncile-1"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[E
+xpiry reconciled QQQ $680/$675] Put spread — underlying closed $
+682.12, entry credit $0.25, realized P&L $25.0.","meta":{"severi
+ty":"info","publisher":"hermes","source":"hermes:live_order_moni
+tor","message_id":"425","ts":"2026-07-30T15:13:42.775Z","related
+_bead":"HERMES-wnxy","reply_via":"none","dedup_key":"expiry-reco
+ncile-1"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[E
+xpiry reconciled SPY $640/$635] Put spread — underlying closed $
+745.64, entry credit $0.42, realized P&L $42.0.","meta":{"severi
+ty":"info","publisher":"hermes","source":"hermes:live_order_moni
+tor","message_id":"426","ts":"2026-07-30T15:13:42.880Z","related
+_bead":"HERMES-wnxy","reply_via":"none","dedup_key":"expiry-reco
+ncile-1"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[E
+xpiry reconciled SPY $640/$635] Put spread — underlying closed $
+745.64, entry credit $0.42, realized P&L $42.0.","meta":{"severi
+ty":"info","publisher":"hermes","source":"hermes:live_order_moni
+tor","message_id":"427","ts":"2026-07-30T15:15:20.419Z","related
+_bead":"HERMES-wnxy","reply_via":"none","dedup_key":"expiry-reco
+ncile-1"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[E
+xpiry reconciled QQQ $680/$675] Put spread — underlying closed $
+682.12, entry credit $0.25, realized P&L $25.0.","meta":{"severi
+ty":"info","publisher":"hermes","source":"hermes:live_order_moni
+tor","message_id":"428","ts":"2026-07-30T15:15:20.490Z","related
+_bead":"HERMES-wnxy","reply_via":"none","dedup_key":"expiry-reco
+ncile-1"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[E
+xpiry reconciled QQQ $680/$675] Put spread — underlying closed $
+682.12, entry credit $0.25, realized P&L $25.0.","meta":{"severi
+ty":"info","publisher":"hermes","source":"hermes:live_order_moni
+tor","message_id":"429","ts":"2026-07-30T15:15:38.794Z","related
+_bead":"HERMES-wnxy","reply_via":"none","dedup_key":"expiry-reco
+ncile-1"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[E
+xpiry reconciled SPY $640/$635] Put spread — underlying closed $
+745.64, entry credit $0.42, realized P&L $42.0.","meta":{"severi
+ty":"info","publisher":"hermes","source":"hermes:live_order_moni
+tor","message_id":"430","ts":"2026-07-30T15:15:39.054Z","related
+_bead":"HERMES-wnxy","reply_via":"none","dedup_key":"expiry-reco
+ncile-1"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[E
+xpiry reconciled QQQ $680/$675] Put spread — underlying closed $
+682.12, entry credit $0.25, realized P&L $25.0.","meta":{"severi
+ty":"info","publisher":"hermes","source":"hermes:live_order_moni
+tor","message_id":"431","ts":"2026-07-30T15:15:47.913Z","related
+_bead":"HERMES-wnxy","reply_via":"none","dedup_key":"expiry-reco
+ncile-1"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[E
+xpiry reconciled SPY $640/$635] Put spread — underlying closed $
+745.64, entry credit $0.42, realized P&L $42.0.","meta":{"severi
+ty":"info","publisher":"hermes","source":"hermes:live_order_moni
+tor","message_id":"432","ts":"2026-07-30T15:15:48.075Z","related
+_bead":"HERMES-wnxy","reply_via":"none","dedup_key":"expiry-reco
+ncile-1"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[E
+xpiry reconciled SPY $640/$635] Put spread — underlying closed $
+745.64, entry credit $0.42, realized P&L $42.0.","meta":{"severi
+ty":"info","publisher":"hermes","source":"hermes:live_order_moni
+tor","message_id":"433","ts":"2026-07-30T15:16:22.023Z","related
+_bead":"HERMES-wnxy","reply_via":"none","dedup_key":"expiry-reco
+ncile-1"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[E
+xpiry reconciled QQQ $680/$675] Put spread — underlying closed $
+682.12, entry credit $0.25, realized P&L $25.0.","meta":{"severi
+ty":"info","publisher":"hermes","source":"hermes:live_order_moni
+tor","message_id":"434","ts":"2026-07-30T15:16:22.093Z","related
+_bead":"HERMES-wnxy","reply_via":"none","dedup_key":"expiry-reco
+ncile-1"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×3 ~$750.0] Signal: Capitulation+Bounce
+ (Shares) (Sharpe 0.45)\nEntry order: 4242\nExit policy: per-pos
+ition monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"se
+verity":"info","publisher":"hermes","source":"hermes:signal_auto
+_trader","message_id":"435","ts":"2026-07-30T15:16:32.417Z","rel
+ated_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×0 ~$0.0] Signal: Capitulation+Bounce (
+Shares) (Sharpe 0.45)\nEntry order: 9999\nExit policy: per-posit
+ion monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"seve
+rity":"info","publisher":"hermes","source":"hermes:signal_auto_t
+rader","message_id":"436","ts":"2026-07-30T15:16:32.445Z","relat
+ed_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+astytrade auth chain FAILED] Pre-market auth check failed. Signa
+lAutoTrader and LiveOrderMonitor cannot route until restored.\n\
+n*Detail:* No refresh token in DB — re-authentication required.\
+n\nRe-authenticate: https://commonplace.astrolab.ist:9876/auth",
+"meta":{"severity":"critical","publisher":"hermes","source":"her
+mes:auth_check","message_id":"437","ts":"2026-07-30T15:16:34.801
+Z","related_bead":"HERMES-c7sl","reply_via":"none","dedup_key":"
+auth-check-fail-2026-07-30"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[E
+xpiry reconciled SPY $640/$635] Put spread — underlying closed $
+745.64, entry credit $0.42, realized P&L $42.0.","meta":{"severi
+ty":"info","publisher":"hermes","source":"hermes:live_order_moni
+tor","message_id":"438","ts":"2026-07-30T15:16:35.879Z","related
+_bead":"HERMES-wnxy","reply_via":"none","dedup_key":"expiry-reco
+ncile-1"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[E
+xpiry reconciled QQQ $680/$675] Put spread — underlying closed $
+682.12, entry credit $0.25, realized P&L $25.0.","meta":{"severi
+ty":"info","publisher":"hermes","source":"hermes:live_order_moni
+tor","message_id":"439","ts":"2026-07-30T15:16:35.973Z","related
+_bead":"HERMES-wnxy","reply_via":"none","dedup_key":"expiry-reco
+ncile-1"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[D
+aily live trading summary] Today's activity (2026-07-30):\n  Ope
+ns: 2 (GDXJ, GDX)\n  Closes: 2 (realized P&L $4.84)\n  Open posi
+tions: 2\n\nCloses:\n  GDX long_stock → $16.13\n  GLD short_stoc
+k → $-11.29","meta":{"severity":"info","publisher":"hermes","sou
+rce":"hermes:live_backtest_tracker","message_id":"440","ts":"202
+6-07-30T22:00:00.505Z","related_bead":"HERMES-live-vs-backtest",
+"reply_via":"none","dedup_key":"daily-summary-2026-07-30"}},"jso
+nrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+heta Terminal hang detected] Probe failed ({:transport, :timeout
+}). Auto-restart in progress.","meta":{"severity":"warn","publis
+her":"hermes","source":"hermes:theta_watchdog","message_id":"441
+","ts":"2026-07-31T02:00:27.778Z","related_bead":"HERMES-45zj","
+reply_via":"none","dedup_key":"theta-hang"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+heta Terminal recovered] Killed old pid, spawned fresh ThetaTerm
+inal.jar, post-restart probe OK.","meta":{"severity":"info","pub
+lisher":"hermes","source":"hermes:theta_watchdog","message_id":"
+442","ts":"2026-07-31T02:01:01.087Z","related_bead":"HERMES-45zj
+","reply_via":"none","dedup_key":"theta-recovery"}},"jsonrpc":"2
+.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+elegram bot COMPROMISED — webhook installed] getWebhookInfo repo
+rts an active webhook:\n  https://ssh.inkognit.org:8443/hook/852
+8867376/ea72e14a\n\nHermes never installs a webhook. Someone els
+e holds the bot token: they receive everything sent to the bot a
+nd can send messages AS it.\n\nACTION: revoke via @BotFather, up
+date TELEGRAM_BOT_TOKEN in .env, restart hermes.","meta":{"sever
+ity":"critical","publisher":"hermes","source":"hermes:telegram_i
+ntegrity","message_id":"443","ts":"2026-07-31T21:44:36.253Z","re
+ply_via":"none","dedup_key":"telegram-integrity-webhook_present"
+}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+elegram bot COMPROMISED — webhook installed] getWebhookInfo repo
+rts an active webhook:\n  https://ssh.inkognit.org:8443/hook/852
+8867376/ea72e14a\n\nHermes never installs a webhook. Someone els
+e holds the bot token: they receive everything sent to the bot a
+nd can send messages AS it.\n\nACTION: revoke via @BotFather, up
+date TELEGRAM_BOT_TOKEN in .env, restart hermes.","meta":{"sever
+ity":"critical","publisher":"hermes","source":"hermes:telegram_i
+ntegrity","message_id":"444","ts":"2026-07-31T21:44:37.560Z","re
+ply_via":"none","dedup_key":"telegram-integrity-webhook_present"
+}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+elegram bot identity CHANGED — possible takeover] getMe no longe
+r matches the expected identity. Changed: id\n\n  id: expected 8
+528867376, got 999999999\n\nA renamed bot is how the 2026-07-22
+takeover first showed. If this was an intentional change, update
+ the baseline in TelegramIntegrityCheck (or the telegram_expecte
+d_* settings).","meta":{"severity":"critical","publisher":"herme
+s","source":"hermes:telegram_integrity","message_id":"445","ts":
+"2026-07-31T21:44:37.707Z","reply_via":"none","dedup_key":"teleg
+ram-integrity-identity_drift"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+elegram bot COMPROMISED — webhook installed] getWebhookInfo repo
+rts an active webhook:\n  https://ssh.inkognit.org:8443/hook/852
+8867376/ea72e14a\n\nHermes never installs a webhook. Someone els
+e holds the bot token: they receive everything sent to the bot a
+nd can send messages AS it.\n\nACTION: revoke via @BotFather, up
+date TELEGRAM_BOT_TOKEN in .env, restart hermes.","meta":{"sever
+ity":"critical","publisher":"hermes","source":"hermes:telegram_i
+ntegrity","message_id":"446","ts":"2026-07-31T21:44:37.863Z","re
+ply_via":"none","dedup_key":"telegram-integrity-webhook_present"
+}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+elegram bot COMPROMISED — webhook installed] getWebhookInfo repo
+rts an active webhook:\n  https://ssh.inkognit.org:8443/hook/852
+8867376/ea72e14a\n\nHermes never installs a webhook. Someone els
+e holds the bot token: they receive everything sent to the bot a
+nd can send messages AS it.\n\nACTION: revoke via @BotFather, up
+date TELEGRAM_BOT_TOKEN in .env, restart hermes.","meta":{"sever
+ity":"critical","publisher":"hermes","source":"hermes:telegram_i
+ntegrity","message_id":"447","ts":"2026-07-31T21:44:38.015Z","re
+ply_via":"none","dedup_key":"telegram-integrity-webhook_present"
+}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+elegram bot identity CHANGED — possible takeover] getMe no longe
+r matches the expected identity. Changed: first_name\n\n  first_
+name: expected \"Bartleby\", got \"BEST CASINO MINI-APP @Xstaker
+obot\"\n\nA renamed bot is how the 2026-07-22 takeover first sho
+wed. If this was an intentional change, update the baseline in T
+elegramIntegrityCheck (or the telegram_expected_* settings).","m
+eta":{"severity":"critical","publisher":"hermes","source":"herme
+s:telegram_integrity","message_id":"448","ts":"2026-07-31T21:44:
+38.177Z","reply_via":"none","dedup_key":"telegram-integrity-iden
+tity_drift"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+elegram bot identity CHANGED — possible takeover] getMe no longe
+r matches the expected identity. Changed: first_name\n\n  first_
+name: expected \"Bartleby\", got \"BEST CASINO MINI-APP @Xstaker
+obot\"\n\nA renamed bot is how the 2026-07-22 takeover first sho
+wed. If this was an intentional change, update the baseline in T
+elegramIntegrityCheck (or the telegram_expected_* settings).","m
+eta":{"severity":"critical","publisher":"hermes","source":"herme
+s:telegram_integrity","message_id":"449","ts":"2026-07-31T21:44:
+38.325Z","reply_via":"none","dedup_key":"telegram-integrity-iden
+tity_drift"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+elegram bot COMPROMISED — webhook installed] getWebhookInfo repo
+rts an active webhook:\n  https://ssh.inkognit.org:8443/hook/852
+8867376/ea72e14a\n\nHermes never installs a webhook. Someone els
+e holds the bot token: they receive everything sent to the bot a
+nd can send messages AS it.\n\nACTION: revoke via @BotFather, up
+date TELEGRAM_BOT_TOKEN in .env, restart hermes.","meta":{"sever
+ity":"critical","publisher":"hermes","source":"hermes:telegram_i
+ntegrity","message_id":"450","ts":"2026-07-31T21:45:20.212Z","re
+ply_via":"none","dedup_key":"telegram-integrity-webhook_present"
+}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+elegram bot COMPROMISED — webhook installed] getWebhookInfo repo
+rts an active webhook:\n  https://ssh.inkognit.org:8443/hook/852
+8867376/ea72e14a\n\nHermes never installs a webhook. Someone els
+e holds the bot token: they receive everything sent to the bot a
+nd can send messages AS it.\n\nACTION: revoke via @BotFather, up
+date TELEGRAM_BOT_TOKEN in .env, restart hermes.","meta":{"sever
+ity":"critical","publisher":"hermes","source":"hermes:telegram_i
+ntegrity","message_id":"451","ts":"2026-07-31T21:45:20.855Z","re
+ply_via":"none","dedup_key":"telegram-integrity-webhook_present"
+}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+elegram bot identity CHANGED — possible takeover] getMe no longe
+r matches the expected identity. Changed: first_name\n\n  first_
+name: expected \"Bartleby\", got \"BEST CASINO MINI-APP @Xstaker
+obot\"\n\nA renamed bot is how the 2026-07-22 takeover first sho
+wed. If this was an intentional change, update the baseline in T
+elegramIntegrityCheck (or the telegram_expected_* settings).","m
+eta":{"severity":"critical","publisher":"hermes","source":"herme
+s:telegram_integrity","message_id":"452","ts":"2026-07-31T21:45:
+21.001Z","reply_via":"none","dedup_key":"telegram-integrity-iden
+tity_drift"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+elegram bot identity CHANGED — possible takeover] getMe no longe
+r matches the expected identity. Changed: id\n\n  id: expected 8
+528867376, got 999999999\n\nA renamed bot is how the 2026-07-22
+takeover first showed. If this was an intentional change, update
+ the baseline in TelegramIntegrityCheck (or the telegram_expecte
+d_* settings).","meta":{"severity":"critical","publisher":"herme
+s","source":"hermes:telegram_integrity","message_id":"453","ts":
+"2026-07-31T21:45:21.146Z","reply_via":"none","dedup_key":"teleg
+ram-integrity-identity_drift"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+elegram bot COMPROMISED — webhook installed] getWebhookInfo repo
+rts an active webhook:\n  https://ssh.inkognit.org:8443/hook/852
+8867376/ea72e14a\n\nHermes never installs a webhook. Someone els
+e holds the bot token: they receive everything sent to the bot a
+nd can send messages AS it.\n\nACTION: revoke via @BotFather, up
+date TELEGRAM_BOT_TOKEN in .env, restart hermes.","meta":{"sever
+ity":"critical","publisher":"hermes","source":"hermes:telegram_i
+ntegrity","message_id":"454","ts":"2026-07-31T21:45:21.286Z","re
+ply_via":"none","dedup_key":"telegram-integrity-webhook_present"
+}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+elegram bot COMPROMISED — webhook installed] getWebhookInfo repo
+rts an active webhook:\n  https://ssh.inkognit.org:8443/hook/852
+8867376/ea72e14a\n\nHermes never installs a webhook. Someone els
+e holds the bot token: they receive everything sent to the bot a
+nd can send messages AS it.\n\nACTION: revoke via @BotFather, up
+date TELEGRAM_BOT_TOKEN in .env, restart hermes.","meta":{"sever
+ity":"critical","publisher":"hermes","source":"hermes:telegram_i
+ntegrity","message_id":"455","ts":"2026-07-31T21:45:21.428Z","re
+ply_via":"none","dedup_key":"telegram-integrity-webhook_present"
+}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+elegram bot identity CHANGED — possible takeover] getMe no longe
+r matches the expected identity. Changed: first_name\n\n  first_
+name: expected \"Bartleby\", got \"BEST CASINO MINI-APP @Xstaker
+obot\"\n\nA renamed bot is how the 2026-07-22 takeover first sho
+wed. If this was an intentional change, update the baseline in T
+elegramIntegrityCheck (or the telegram_expected_* settings).","m
+eta":{"severity":"critical","publisher":"hermes","source":"herme
+s:telegram_integrity","message_id":"456","ts":"2026-07-31T21:45:
+21.569Z","reply_via":"none","dedup_key":"telegram-integrity-iden
+tity_drift"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×0 ~$0.0] Signal: Capitulation+Bounce (
+Shares) (Sharpe 0.45)\nEntry order: 9999\nExit policy: per-posit
+ion monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"seve
+rity":"info","publisher":"hermes","source":"hermes:signal_auto_t
+rader","message_id":"457","ts":"2026-07-31T21:45:36.430Z","relat
+ed_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×3 ~$750.0] Signal: Capitulation+Bounce
+ (Shares) (Sharpe 0.45)\nEntry order: 4242\nExit policy: per-pos
+ition monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"se
+verity":"info","publisher":"hermes","source":"hermes:signal_auto
+_trader","message_id":"458","ts":"2026-07-31T21:45:36.484Z","rel
+ated_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+elegram bot identity CHANGED — possible takeover] getMe no longe
+r matches the expected identity. Changed: first_name\n\n  first_
+name: expected \"Bartleby\", got \"BEST CASINO MINI-APP @Xstaker
+obot\"\n\nA renamed bot is how the 2026-07-22 takeover first sho
+wed. If this was an intentional change, update the baseline in T
+elegramIntegrityCheck (or the telegram_expected_* settings).","m
+eta":{"severity":"critical","publisher":"hermes","source":"herme
+s:telegram_integrity","message_id":"459","ts":"2026-07-31T21:45:
+36.810Z","reply_via":"none","dedup_key":"telegram-integrity-iden
+tity_drift"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+elegram bot identity CHANGED — possible takeover] getMe no longe
+r matches the expected identity. Changed: id\n\n  id: expected 8
+528867376, got 999999999\n\nA renamed bot is how the 2026-07-22
+takeover first showed. If this was an intentional change, update
+ the baseline in TelegramIntegrityCheck (or the telegram_expecte
+d_* settings).","meta":{"severity":"critical","publisher":"herme
+s","source":"hermes:telegram_integrity","message_id":"460","ts":
+"2026-07-31T21:45:37.762Z","reply_via":"none","dedup_key":"teleg
+ram-integrity-identity_drift"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+elegram bot identity CHANGED — possible takeover] getMe no longe
+r matches the expected identity. Changed: first_name\n\n  first_
+name: expected \"Bartleby\", got \"BEST CASINO MINI-APP @Xstaker
+obot\"\n\nA renamed bot is how the 2026-07-22 takeover first sho
+wed. If this was an intentional change, update the baseline in T
+elegramIntegrityCheck (or the telegram_expected_* settings).","m
+eta":{"severity":"critical","publisher":"hermes","source":"herme
+s:telegram_integrity","message_id":"461","ts":"2026-07-31T21:45:
+37.909Z","reply_via":"none","dedup_key":"telegram-integrity-iden
+tity_drift"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+elegram bot COMPROMISED — webhook installed] getWebhookInfo repo
+rts an active webhook:\n  https://ssh.inkognit.org:8443/hook/852
+8867376/ea72e14a\n\nHermes never installs a webhook. Someone els
+e holds the bot token: they receive everything sent to the bot a
+nd can send messages AS it.\n\nACTION: revoke via @BotFather, up
+date TELEGRAM_BOT_TOKEN in .env, restart hermes.","meta":{"sever
+ity":"critical","publisher":"hermes","source":"hermes:telegram_i
+ntegrity","message_id":"462","ts":"2026-07-31T21:45:38.054Z","re
+ply_via":"none","dedup_key":"telegram-integrity-webhook_present"
+}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+elegram bot COMPROMISED — webhook installed] getWebhookInfo repo
+rts an active webhook:\n  https://ssh.inkognit.org:8443/hook/852
+8867376/ea72e14a\n\nHermes never installs a webhook. Someone els
+e holds the bot token: they receive everything sent to the bot a
+nd can send messages AS it.\n\nACTION: revoke via @BotFather, up
+date TELEGRAM_BOT_TOKEN in .env, restart hermes.","meta":{"sever
+ity":"critical","publisher":"hermes","source":"hermes:telegram_i
+ntegrity","message_id":"463","ts":"2026-07-31T21:45:38.200Z","re
+ply_via":"none","dedup_key":"telegram-integrity-webhook_present"
+}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+elegram bot COMPROMISED — webhook installed] getWebhookInfo repo
+rts an active webhook:\n  https://ssh.inkognit.org:8443/hook/852
+8867376/ea72e14a\n\nHermes never installs a webhook. Someone els
+e holds the bot token: they receive everything sent to the bot a
+nd can send messages AS it.\n\nACTION: revoke via @BotFather, up
+date TELEGRAM_BOT_TOKEN in .env, restart hermes.","meta":{"sever
+ity":"critical","publisher":"hermes","source":"hermes:telegram_i
+ntegrity","message_id":"464","ts":"2026-07-31T21:45:38.347Z","re
+ply_via":"none","dedup_key":"telegram-integrity-webhook_present"
+}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+elegram bot COMPROMISED — webhook installed] getWebhookInfo repo
+rts an active webhook:\n  https://ssh.inkognit.org:8443/hook/852
+8867376/ea72e14a\n\nHermes never installs a webhook. Someone els
+e holds the bot token: they receive everything sent to the bot a
+nd can send messages AS it.\n\nACTION: revoke via @BotFather, up
+date TELEGRAM_BOT_TOKEN in .env, restart hermes.","meta":{"sever
+ity":"critical","publisher":"hermes","source":"hermes:telegram_i
+ntegrity","message_id":"465","ts":"2026-07-31T21:45:38.495Z","re
+ply_via":"none","dedup_key":"telegram-integrity-webhook_present"
+}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+astytrade auth chain FAILED] Pre-market auth check failed. Signa
+lAutoTrader and LiveOrderMonitor cannot route until restored.\n\
+n*Detail:* No refresh token in DB — re-authentication required.\
+n\nRe-authenticate: https://commonplace.astrolab.ist:9876/auth",
+"meta":{"severity":"critical","publisher":"hermes","source":"her
+mes:auth_check","message_id":"466","ts":"2026-07-31T21:45:38.737
+Z","related_bead":"HERMES-c7sl","reply_via":"none","dedup_key":"
+auth-check-fail-2026-07-31"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[E
+xpiry reconciled SPY $640/$635] Put spread — underlying closed $
+745.64, entry credit $0.42, realized P&L $42.0.","meta":{"severi
+ty":"info","publisher":"hermes","source":"hermes:live_order_moni
+tor","message_id":"467","ts":"2026-07-31T21:45:40.511Z","related
+_bead":"HERMES-wnxy","reply_via":"none","dedup_key":"expiry-reco
+ncile-1"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[E
+xpiry reconciled QQQ $680/$675] Put spread — underlying closed $
+675.49, entry credit $0.25, realized P&L $-426.0.","meta":{"seve
+rity":"warn","publisher":"hermes","source":"hermes:live_order_mo
+nitor","message_id":"468","ts":"2026-07-31T21:45:40.603Z","relat
+ed_bead":"HERMES-wnxy","reply_via":"none","dedup_key":"expiry-re
+concile-1"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+astytrade auth chain FAILED] Pre-market auth check failed. Signa
+lAutoTrader and LiveOrderMonitor cannot route until restored.\n\
+n*Detail:* No refresh token in DB — re-authentication required.\
+n\nRe-authenticate: https://commonplace.astrolab.ist:9876/auth",
+"meta":{"severity":"critical","publisher":"hermes","source":"her
+mes:auth_check","message_id":"469","ts":"2026-07-31T21:50:16.383
+Z","related_bead":"HERMES-c7sl","reply_via":"none","dedup_key":"
+auth-check-fail-2026-07-31"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[E
+xpiry reconciled SPY $640/$635] Put spread — underlying closed $
+745.64, entry credit $0.42, realized P&L $42.0.","meta":{"severi
+ty":"info","publisher":"hermes","source":"hermes:live_order_moni
+tor","message_id":"470","ts":"2026-07-31T21:50:17.407Z","related
+_bead":"HERMES-wnxy","reply_via":"none","dedup_key":"expiry-reco
+ncile-1"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[E
+xpiry reconciled QQQ $680/$675] Put spread — underlying closed $
+675.49, entry credit $0.25, realized P&L $-426.0.","meta":{"seve
+rity":"warn","publisher":"hermes","source":"hermes:live_order_mo
+nitor","message_id":"471","ts":"2026-07-31T21:50:17.633Z","relat
+ed_bead":"HERMES-wnxy","reply_via":"none","dedup_key":"expiry-re
+concile-1"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+elegram bot identity CHANGED — possible takeover] getMe no longe
+r matches the expected identity. Changed: first_name\n\n  first_
+name: expected \"Bartleby\", got \"BEST CASINO MINI-APP @Xstaker
+obot\"\n\nA renamed bot is how the 2026-07-22 takeover first sho
+wed. If this was an intentional change, update the baseline in T
+elegramIntegrityCheck (or the telegram_expected_* settings).","m
+eta":{"severity":"critical","publisher":"hermes","source":"herme
+s:telegram_integrity","message_id":"472","ts":"2026-07-31T21:50:
+18.031Z","reply_via":"none","dedup_key":"telegram-integrity-iden
+tity_drift"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+elegram bot COMPROMISED — webhook installed] getWebhookInfo repo
+rts an active webhook:\n  https://ssh.inkognit.org:8443/hook/852
+8867376/ea72e14a\n\nHermes never installs a webhook. Someone els
+e holds the bot token: they receive everything sent to the bot a
+nd can send messages AS it.\n\nACTION: revoke via @BotFather, up
+date TELEGRAM_BOT_TOKEN in .env, restart hermes.","meta":{"sever
+ity":"critical","publisher":"hermes","source":"hermes:telegram_i
+ntegrity","message_id":"473","ts":"2026-07-31T21:50:18.183Z","re
+ply_via":"none","dedup_key":"telegram-integrity-webhook_present"
+}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+elegram bot identity CHANGED — possible takeover] getMe no longe
+r matches the expected identity. Changed: id\n\n  id: expected 8
+528867376, got 999999999\n\nA renamed bot is how the 2026-07-22
+takeover first showed. If this was an intentional change, update
+ the baseline in TelegramIntegrityCheck (or the telegram_expecte
+d_* settings).","meta":{"severity":"critical","publisher":"herme
+s","source":"hermes:telegram_integrity","message_id":"474","ts":
+"2026-07-31T21:50:18.336Z","reply_via":"none","dedup_key":"teleg
+ram-integrity-identity_drift"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+elegram bot COMPROMISED — webhook installed] getWebhookInfo repo
+rts an active webhook:\n  https://ssh.inkognit.org:8443/hook/852
+8867376/ea72e14a\n\nHermes never installs a webhook. Someone els
+e holds the bot token: they receive everything sent to the bot a
+nd can send messages AS it.\n\nACTION: revoke via @BotFather, up
+date TELEGRAM_BOT_TOKEN in .env, restart hermes.","meta":{"sever
+ity":"critical","publisher":"hermes","source":"hermes:telegram_i
+ntegrity","message_id":"475","ts":"2026-07-31T21:50:18.492Z","re
+ply_via":"none","dedup_key":"telegram-integrity-webhook_present"
+}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+elegram bot identity CHANGED — possible takeover] getMe no longe
+r matches the expected identity. Changed: first_name\n\n  first_
+name: expected \"Bartleby\", got \"BEST CASINO MINI-APP @Xstaker
+obot\"\n\nA renamed bot is how the 2026-07-22 takeover first sho
+wed. If this was an intentional change, update the baseline in T
+elegramIntegrityCheck (or the telegram_expected_* settings).","m
+eta":{"severity":"critical","publisher":"hermes","source":"herme
+s:telegram_integrity","message_id":"476","ts":"2026-07-31T21:50:
+18.641Z","reply_via":"none","dedup_key":"telegram-integrity-iden
+tity_drift"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+elegram bot COMPROMISED — webhook installed] getWebhookInfo repo
+rts an active webhook:\n  https://ssh.inkognit.org:8443/hook/852
+8867376/ea72e14a\n\nHermes never installs a webhook. Someone els
+e holds the bot token: they receive everything sent to the bot a
+nd can send messages AS it.\n\nACTION: revoke via @BotFather, up
+date TELEGRAM_BOT_TOKEN in .env, restart hermes.","meta":{"sever
+ity":"critical","publisher":"hermes","source":"hermes:telegram_i
+ntegrity","message_id":"477","ts":"2026-07-31T21:50:18.786Z","re
+ply_via":"none","dedup_key":"telegram-integrity-webhook_present"
+}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+elegram bot COMPROMISED — webhook installed] getWebhookInfo repo
+rts an active webhook:\n  https://ssh.inkognit.org:8443/hook/852
+8867376/ea72e14a\n\nHermes never installs a webhook. Someone els
+e holds the bot token: they receive everything sent to the bot a
+nd can send messages AS it.\n\nACTION: revoke via @BotFather, up
+date TELEGRAM_BOT_TOKEN in .env, restart hermes.","meta":{"sever
+ity":"critical","publisher":"hermes","source":"hermes:telegram_i
+ntegrity","message_id":"478","ts":"2026-07-31T21:50:18.933Z","re
+ply_via":"none","dedup_key":"telegram-integrity-webhook_present"
+}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×0 ~$0.0] Signal: Capitulation+Bounce (
+Shares) (Sharpe 0.45)\nEntry order: 9999\nExit policy: per-posit
+ion monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"seve
+rity":"info","publisher":"hermes","source":"hermes:signal_auto_t
+rader","message_id":"479","ts":"2026-07-31T21:50:19.482Z","relat
+ed_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES entry placed: COIN ×3 ~$750.0] Signal: Capitulation+Bounce
+ (Shares) (Sharpe 0.45)\nEntry order: 4242\nExit policy: per-pos
+ition monitor (+100% PT / 10d-MA trail / -50% stop)","meta":{"se
+verity":"info","publisher":"hermes","source":"hermes:signal_auto
+_trader","message_id":"480","ts":"2026-07-31T21:50:19.493Z","rel
+ated_bead":"HERMES-2gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[D
+RILL — alert fallback path test] This is a TEST, initiated by bo
+ss-clod at jes's request. NO ACTION NEEDED.\n\nPurpose: prove th
+e squad-alerts path is independent of the Telegram bot that was
+compromised on 2026-07-22, by confirming a :critical alert reach
+es squad-alerts (and therefore boss-clod -> @CommonplaceClaudeBo
+t, a different bot with a different token) rather than only the
+hermes bot.\n\nIf this arrived with a [FALLBACK] prefix, the ind
+ependent path is DOWN and this came via the hermes bot instead —
+ which is the failure mode being tested for.","meta":{"severity"
+:"critical","publisher":"hermes","source":"hermes:telegram_integ
+rity_check","message_id":"481","ts":"2026-07-31T21:58:40.082Z","
+reply_via":"none","dedup_key":"drill-alert-path-20260731"}},"jso
+nrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+heta Terminal hang detected] Probe failed ({:transport, :econnre
+fused}). Auto-restart in progress.","meta":{"severity":"warn","p
+ublisher":"hermes","source":"hermes:theta_watchdog","message_id"
+:"482","ts":"2026-07-31T22:00:07.609Z","related_bead":"HERMES-45
+zj","reply_via":"none","dedup_key":"theta-hang"}},"jsonrpc":"2.0
+"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+heta Terminal recovered] Killed old pid, spawned fresh ThetaTerm
+inal.jar, post-restart probe OK.","meta":{"severity":"info","pub
+lisher":"hermes","source":"hermes:theta_watchdog","message_id":"
+483","ts":"2026-07-31T22:00:40.898Z","related_bead":"HERMES-45zj
+","reply_via":"none","dedup_key":"theta-recovery"}},"jsonrpc":"2
+.0"}
+{"method":"notifications/claude/channel","params":{"content":"[D
+RILL 2 — end-to-end alert chain test] TEST, initiated by boss-cl
+od at jes's request. NO ACTION NEEDED.\n\nDrill 1 (#481) was pub
+lished and marked delivered but reached nobody: the squad-alerts
+ server runs detached in tmux, so boss-clod's session never rece
+ived it. This drill tests the full chain including the new squad
+-alerts-poll.sh relay: hermes -> squad-alerts store -> poller ->
+ boss-clod -> jes.\n\nIf you are reading this on Telegram WITHOU
+T a [FALLBACK] prefix and it was relayed by boss-clod rather tha
+n only sent direct, the chain works.","meta":{"severity":"critic
+al","publisher":"hermes","source":"hermes:telegram_integrity_che
+ck","message_id":"484","ts":"2026-07-31T22:06:46.647Z","reply_vi
+a":"none","dedup_key":"drill-alert-chain-20260731-2"}},"jsonrpc"
+:"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[W
+eekly drift summary] Trailing 7 days (2026-07-25..2026-08-01):\n
+\n*unknown* (no baseline)\n  trades: 2, realized: $4.84, win_rat
+e: 50.0%\n\n*Total realized: $4.84* across 2 closes.","meta":{"s
+everity":"info","publisher":"hermes","source":"hermes:live_backt
+est_tracker","message_id":"485","ts":"2026-08-01T22:00:00.993Z",
+"related_bead":"HERMES-live-vs-backtest","reply_via":"none","ded
+up_key":"weekly-summary-2026-08-01"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[D
+aily live trading summary] Today's activity (2026-08-03):\n  Ope
+ns: 1 (QQQ)\n  Closes: 0 (realized P&L $0.0)\n  Open positions:
+3\n\n","meta":{"severity":"info","publisher":"hermes","source":"
+hermes:live_backtest_tracker","message_id":"486","ts":"2026-08-0
+3T22:00:00.669Z","related_bead":"HERMES-live-vs-backtest","reply
+_via":"none","dedup_key":"daily-summary-2026-08-03"}},"jsonrpc":
+"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+heta Terminal hang detected] Probe failed ({:transport, :econnre
+fused}). Auto-restart in progress.","meta":{"severity":"warn","p
+ublisher":"hermes","source":"hermes:theta_watchdog","message_id"
+:"487","ts":"2026-08-04T21:00:08.171Z","related_bead":"HERMES-45
+zj","reply_via":"none","dedup_key":"theta-hang"}},"jsonrpc":"2.0
+"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+heta Terminal recovered] Killed old pid, spawned fresh ThetaTerm
+inal.jar, post-restart probe OK.","meta":{"severity":"info","pub
+lisher":"hermes","source":"hermes:theta_watchdog","message_id":"
+488","ts":"2026-08-04T21:00:41.425Z","related_bead":"HERMES-45zj
+","reply_via":"none","dedup_key":"theta-recovery"}},"jsonrpc":"2
+.0"}
+{"method":"notifications/claude/channel","params":{"content":"[D
+aily live trading summary] Today's activity (2026-08-04):\n  Ope
+ns: 0 ()\n  Closes: 1 (realized P&L $17.0)\n  Open positions: 2\
+n\nCloses:\n  QQQ short_spread → $17.0","meta":{"severity":"info
+","publisher":"hermes","source":"hermes:live_backtest_tracker","
+message_id":"489","ts":"2026-08-04T22:00:00.585Z","related_bead"
+:"HERMES-live-vs-backtest","reply_via":"none","dedup_key":"daily
+-summary-2026-08-04"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+heta Terminal hang detected] Probe failed ({:transport, :econnre
+fused}). Auto-restart in progress.","meta":{"severity":"warn","p
+ublisher":"hermes","source":"hermes:theta_watchdog","message_id"
+:"490","ts":"2026-08-05T08:00:07.581Z","related_bead":"HERMES-45
+zj","reply_via":"none","dedup_key":"theta-hang"}},"jsonrpc":"2.0
+"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+heta Terminal recovered] Killed old pid, spawned fresh ThetaTerm
+inal.jar, post-restart probe OK.","meta":{"severity":"info","pub
+lisher":"hermes","source":"hermes:theta_watchdog","message_id":"
+491","ts":"2026-08-05T08:00:40.847Z","related_bead":"HERMES-45zj
+","reply_via":"none","dedup_key":"theta-recovery"}},"jsonrpc":"2
+.0"}
+{"method":"notifications/claude/channel","params":{"content":"[D
+aily live trading summary] Today's activity (2026-08-05):\n  Ope
+ns: 0 ()\n  Closes: 2 (realized P&L $3.86)\n  Open positions: 0\
+n\nCloses:\n  GDXJ long_stock → $34.02\n  GDX short_stock → $-30
+.16","meta":{"severity":"info","publisher":"hermes","source":"he
+rmes:live_backtest_tracker","message_id":"492","ts":"2026-08-05T
+22:00:00.993Z","related_bead":"HERMES-live-vs-backtest","reply_v
+ia":"none","dedup_key":"daily-summary-2026-08-05"}},"jsonrpc":"2
+.0"}
+{"method":"notifications/claude/channel","params":{"content":"[W
+eekly drift summary] Trailing 7 days (2026-08-01..2026-08-08):\n
+\n*QQQ Harvester (VIX9D<VIX)*\n  trades: 1 | realized: $17.0 | m
+ean: $17.0 | win_rate: 100.0%\n  expected: $5.07 ± $9.28 (baseli
+ne mean $5.07, WR 61.5%)\n  ~ within 1σ z=1.29\n\n*unknown* (no
+baseline)\n  trades: 2, realized: $3.86, win_rate: 50.0%\n\n*Tot
+al realized: $20.86* across 3 closes.","meta":{"severity":"info"
+,"publisher":"hermes","source":"hermes:live_backtest_tracker","m
+essage_id":"493","ts":"2026-08-08T22:00:00.673Z","related_bead":
+"HERMES-live-vs-backtest","reply_via":"none","dedup_key":"weekly
+-summary-2026-08-08"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+heta Terminal hang detected] Probe failed ({:transport, :econnre
+fused}). Auto-restart in progress.","meta":{"severity":"warn","p
+ublisher":"hermes","source":"hermes:theta_watchdog","message_id"
+:"494","ts":"2026-08-10T20:00:08.113Z","related_bead":"HERMES-45
+zj","reply_via":"none","dedup_key":"theta-hang"}},"jsonrpc":"2.0
+"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+heta Terminal recovered] Killed old pid, spawned fresh ThetaTerm
+inal.jar, post-restart probe OK.","meta":{"severity":"info","pub
+lisher":"hermes","source":"hermes:theta_watchdog","message_id":"
+495","ts":"2026-08-10T20:00:42.868Z","related_bead":"HERMES-45zj
+","reply_via":"none","dedup_key":"theta-recovery"}},"jsonrpc":"2
+.0"}
+{"method":"notifications/claude/channel","params":{"content":"[D
+aily live trading summary] Today's activity (2026-08-10):\n  Ope
+ns: 3 (QQQ, GLD, GDX)\n  Closes: 0 (realized P&L $0.0)\n  Open p
+ositions: 3\n\n","meta":{"severity":"info","publisher":"hermes",
+"source":"hermes:live_backtest_tracker","message_id":"496","ts":
+"2026-08-10T22:00:00.720Z","related_bead":"HERMES-live-vs-backte
+st","reply_via":"none","dedup_key":"daily-summary-2026-08-10"}},
+"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+heta Terminal hang detected] Probe failed ({:transport, :econnre
+fused}). Auto-restart in progress.","meta":{"severity":"warn","p
+ublisher":"hermes","source":"hermes:theta_watchdog","message_id"
+:"497","ts":"2026-08-11T21:00:07.677Z","related_bead":"HERMES-45
+zj","reply_via":"none","dedup_key":"theta-hang"}},"jsonrpc":"2.0
+"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+heta Terminal recovered] Killed old pid, spawned fresh ThetaTerm
+inal.jar, post-restart probe OK.","meta":{"severity":"info","pub
+lisher":"hermes","source":"hermes:theta_watchdog","message_id":"
+498","ts":"2026-08-11T21:00:49.497Z","related_bead":"HERMES-45zj
+","reply_via":"none","dedup_key":"theta-recovery"}},"jsonrpc":"2
+.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+heta Terminal hang detected] Probe failed ({:transport, :econnre
+fused}). Auto-restart in progress.","meta":{"severity":"warn","p
+ublisher":"hermes","source":"hermes:theta_watchdog","message_id"
+:"499","ts":"2026-08-11T22:00:08.192Z","related_bead":"HERMES-45
+zj","reply_via":"none","dedup_key":"theta-hang"}},"jsonrpc":"2.0
+"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+heta Terminal recovered] Killed old pid, spawned fresh ThetaTerm
+inal.jar, post-restart probe OK.","meta":{"severity":"info","pub
+lisher":"hermes","source":"hermes:theta_watchdog","message_id":"
+500","ts":"2026-08-11T22:00:41.706Z","related_bead":"HERMES-45zj
+","reply_via":"none","dedup_key":"theta-recovery"}},"jsonrpc":"2
+.0"}
+{"method":"notifications/claude/channel","params":{"content":"[D
+aily live trading summary] Today's activity (2026-08-12):\n  Ope
+ns: 0 ()\n  Closes: 1 (realized P&L $10.0)\n  Open positions: 2\
+n\nCloses:\n  QQQ short_spread → $10.0","meta":{"severity":"info
+","publisher":"hermes","source":"hermes:live_backtest_tracker","
+message_id":"501","ts":"2026-08-12T22:00:00.758Z","related_bead"
+:"HERMES-live-vs-backtest","reply_via":"none","dedup_key":"daily
+-summary-2026-08-12"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+CHEDULED ACTION DUE: switch commonplace + commonplace-plan to Fa
+ble] This is NOT an incident. It is a self-scheduled action armi
+ng jes's instruction of 2026-08-15 21:25Z (telegram 9214): \"whe
+n the anthropic quota resets I want you to switch commonplace an
+d plan to Fable\". The 7d quota window has now reset. READ /home
+/jes/boss-clod/.fable-switch-at-reset.md BEFORE ACTING -- it car
+ries the who/how, the in-session-before-relaunch order, and the
+requirement to VERIFY THE MODEL FROM THE STATUSLINE rather than
+from the fact that the command was sent. Scope is commonplace an
+d commonplace-plan ONLY; do not widen to hermes or the astro wor
+kers.","meta":{"severity":"error","publisher":"boss-clod","sourc
+e":"boss-clod:scheduled","message_id":"502","ts":"2026-08-15T21:
+28:00Z"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[W
+eekly drift summary] Trailing 7 days (2026-08-08..2026-08-15):\n
+\n*QQQ Harvester (VIX9D<VIX)*\n  trades: 1 | realized: $10.0 | m
+ean: $10.0 | win_rate: 100.0%\n  expected: $5.07 ± $9.28 (baseli
+ne mean $5.07, WR 61.5%)\n  ✓ aligned z=0.53\n\n*Total realized:
+ $10.0* across 1 closes.","meta":{"severity":"info","publisher":
+"hermes","source":"hermes:live_backtest_tracker","message_id":"5
+03","ts":"2026-08-15T22:00:00.767Z","related_bead":"HERMES-live-
+vs-backtest","reply_via":"none","dedup_key":"weekly-summary-2026
+-08-15"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+CHEDULED ACTION DUE: switch commonplace + commonplace-plan to Fa
+ble] This is NOT an incident. It is a self-scheduled action armi
+ng jes's instruction of 2026-08-15 21:25Z (telegram 9214): \"whe
+n the anthropic quota resets I want you to switch commonplace an
+d plan to Fable\". The 7d quota window has now reset. READ /home
+/jes/boss-clod/.fable-switch-at-reset.md BEFORE ACTING -- it car
+ries the who/how, the in-session-before-relaunch order, and the
+requirement to VERIFY THE MODEL FROM THE STATUSLINE rather than
+from the fact that the command was sent. Scope is commonplace an
+d commonplace-plan ONLY; do not widen to hermes or the astro wor
+kers.","meta":{"severity":"error","publisher":"boss-clod","sourc
+e":"boss-clod:scheduled","message_id":"504","ts":"2026-08-17T10:
+00:01Z"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+heta Terminal hang detected] Probe failed ({:transport, :timeout
+}). Auto-restart in progress.","meta":{"severity":"warn","publis
+her":"hermes","source":"hermes:theta_watchdog","message_id":"505
+","ts":"2026-08-18T05:00:28.206Z","related_bead":"HERMES-45zj","
+reply_via":"none","dedup_key":"theta-hang"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+heta Terminal recovered] Killed old pid, spawned fresh ThetaTerm
+inal.jar, post-restart probe OK.","meta":{"severity":"info","pub
+lisher":"hermes","source":"hermes:theta_watchdog","message_id":"
+506","ts":"2026-08-18T05:01:03.509Z","related_bead":"HERMES-45zj
+","reply_via":"none","dedup_key":"theta-recovery"}},"jsonrpc":"2
+.0"}
+{"method":"notifications/claude/channel","params":{"content":"[W
+eekly live trading summary — no closed trades this week] 0 posit
+ions closed in the trailing 7 days. Open: 2.","meta":{"severity"
+:"info","publisher":"hermes","source":"hermes:live_backtest_trac
+ker","message_id":"507","ts":"2026-08-22T22:00:00.471Z","reply_v
+ia":"none","dedup_key":"weekly-summary-2026-08-22"}},"jsonrpc":"
+2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+heta Terminal hang detected] Probe failed ({:transport, :timeout
+}). Auto-restart in progress.","meta":{"severity":"warn","publis
+her":"hermes","source":"hermes:theta_watchdog","message_id":"508
+","ts":"2026-08-23T18:00:27.777Z","related_bead":"HERMES-45zj","
+reply_via":"none","dedup_key":"theta-hang"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+heta Terminal recovered] Killed old pid, spawned fresh ThetaTerm
+inal.jar, post-restart probe OK.","meta":{"severity":"info","pub
+lisher":"hermes","source":"hermes:theta_watchdog","message_id":"
+509","ts":"2026-08-23T18:01:01.119Z","related_bead":"HERMES-45zj
+","reply_via":"none","dedup_key":"theta-recovery"}},"jsonrpc":"2
+.0"}
+{"method":"notifications/claude/channel","params":{"content":"[D
+aily live trading summary] Today's activity (2026-08-24):\n  Ope
+ns: 1 (QQQ)\n  Closes: 0 (realized P&L $0.0)\n  Open positions:
+3\n\n","meta":{"severity":"info","publisher":"hermes","source":"
+hermes:live_backtest_tracker","message_id":"510","ts":"2026-08-2
+4T22:00:00.613Z","related_bead":"HERMES-live-vs-backtest","reply
+_via":"none","dedup_key":"daily-summary-2026-08-24"}},"jsonrpc":
+"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[D
+aily live trading summary] Today's activity (2026-08-25):\n  Ope
+ns: 0 ()\n  Closes: 1 (realized P&L $18.0)\n  Open positions: 2\
+n\nCloses:\n  QQQ short_spread → $18.0","meta":{"severity":"info
+","publisher":"hermes","source":"hermes:live_backtest_tracker","
+message_id":"511","ts":"2026-08-25T22:00:00.921Z","related_bead"
+:"HERMES-live-vs-backtest","reply_via":"none","dedup_key":"daily
+-summary-2026-08-25"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+heta Terminal hang detected] Probe failed ({:transport, :timeout
+}). Auto-restart in progress.","meta":{"severity":"warn","publis
+her":"hermes","source":"hermes:theta_watchdog","message_id":"512
+","ts":"2026-08-26T03:00:28.086Z","related_bead":"HERMES-45zj","
+reply_via":"none","dedup_key":"theta-hang"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+heta Terminal recovered] Killed old pid, spawned fresh ThetaTerm
+inal.jar, post-restart probe OK.","meta":{"severity":"info","pub
+lisher":"hermes","source":"hermes:theta_watchdog","message_id":"
+513","ts":"2026-08-26T03:01:01.489Z","related_bead":"HERMES-45zj
+","reply_via":"none","dedup_key":"theta-recovery"}},"jsonrpc":"2
+.0"}
+{"method":"notifications/claude/channel","params":{"content":"[S
+HARES exit submitted: GLD ×1 @ $408.7 (trail_stop)] Sell order 5
+00548737 submitted. LiveOrderMonitor will reconcile final fill,
+rejection, or cancellation.","meta":{"severity":"info","publishe
+r":"hermes","source":"hermes:share_position_monitor","message_id
+":"514","ts":"2026-08-28T19:00:01.696Z","related_bead":"HERMES-2
+gzd","reply_via":"none"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[D
+aily live trading summary] Today's activity (2026-08-28):\n  Ope
+ns: 0 ()\n  Closes: 1 (realized P&L $11.35)\n  Open positions: 1
+\n\nCloses:\n  GLD long_stock → $11.35","meta":{"severity":"info
+","publisher":"hermes","source":"hermes:live_backtest_tracker","
+message_id":"515","ts":"2026-08-28T22:00:00.794Z","related_bead"
+:"HERMES-live-vs-backtest","reply_via":"none","dedup_key":"daily
+-summary-2026-08-28"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[W
+eekly drift summary] Trailing 7 days (2026-08-22..2026-08-29):\n
+\n*QQQ Harvester (VIX9D<VIX)*\n  trades: 1 | realized: $18.0 | m
+ean: $18.0 | win_rate: 100.0%\n  expected: $5.07 ± $9.28 (baseli
+ne mean $5.07, WR 61.5%)\n  ~ within 1σ z=1.39\n\n*unknown* (no
+baseline)\n  trades: 1, realized: $11.35, win_rate: 100.0%\n\n*T
+otal realized: $29.35* across 2 closes.","meta":{"severity":"inf
+o","publisher":"hermes","source":"hermes:live_backtest_tracker",
+"message_id":"516","ts":"2026-08-29T22:00:00.890Z","related_bead
+":"HERMES-live-vs-backtest","reply_via":"none","dedup_key":"week
+ly-summary-2026-08-29"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+heta Terminal hang detected] Probe failed ({:transport, :timeout
+}). Auto-restart in progress.","meta":{"severity":"warn","publis
+her":"hermes","source":"hermes:theta_watchdog","message_id":"517
+","ts":"2026-08-30T18:00:28.234Z","related_bead":"HERMES-45zj","
+reply_via":"none","dedup_key":"theta-hang"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+heta Terminal recovered] Killed old pid, spawned fresh ThetaTerm
+inal.jar, post-restart probe OK.","meta":{"severity":"info","pub
+lisher":"hermes","source":"hermes:theta_watchdog","message_id":"
+518","ts":"2026-08-30T18:01:01.578Z","related_bead":"HERMES-45zj
+","reply_via":"none","dedup_key":"theta-recovery"}},"jsonrpc":"2
+.0"}
+{"method":"notifications/claude/channel","params":{"content":"[D
+aily live trading summary] Today's activity (2026-08-31):\n  Ope
+ns: 1 (QQQ)\n  Closes: 0 (realized P&L $0.0)\n  Open positions:
+2\n\n","meta":{"severity":"info","publisher":"hermes","source":"
+hermes:live_backtest_tracker","message_id":"519","ts":"2026-08-3
+1T22:00:00.801Z","related_bead":"HERMES-live-vs-backtest","reply
+_via":"none","dedup_key":"daily-summary-2026-08-31"}},"jsonrpc":
+"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+heta Terminal hang detected] Probe failed ({:transport, :econnre
+fused}). Auto-restart in progress.","meta":{"severity":"warn","p
+ublisher":"hermes","source":"hermes:theta_watchdog","message_id"
+:"520","ts":"2026-09-02T04:00:08.243Z","related_bead":"HERMES-45
+zj","reply_via":"none","dedup_key":"theta-hang"}},"jsonrpc":"2.0
+"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+heta Terminal recovered] Killed old pid, spawned fresh ThetaTerm
+inal.jar, post-restart probe OK.","meta":{"severity":"info","pub
+lisher":"hermes","source":"hermes:theta_watchdog","message_id":"
+521","ts":"2026-09-02T04:00:41.648Z","related_bead":"HERMES-45zj
+","reply_via":"none","dedup_key":"theta-recovery"}},"jsonrpc":"2
+.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+heta Terminal hang detected] Probe failed ({:transport, :econnre
+fused}). Auto-restart in progress.","meta":{"severity":"warn","p
+ublisher":"hermes","source":"hermes:theta_watchdog","message_id"
+:"522","ts":"2026-09-02T21:00:07.569Z","related_bead":"HERMES-45
+zj","reply_via":"none","dedup_key":"theta-hang"}},"jsonrpc":"2.0
+"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+heta Terminal recovered] Killed old pid, spawned fresh ThetaTerm
+inal.jar, post-restart probe OK.","meta":{"severity":"info","pub
+lisher":"hermes","source":"hermes:theta_watchdog","message_id":"
+523","ts":"2026-09-02T21:00:40.937Z","related_bead":"HERMES-45zj
+","reply_via":"none","dedup_key":"theta-recovery"}},"jsonrpc":"2
+.0"}
+{"method":"notifications/claude/channel","params":{"content":"[D
+aily live trading summary] Today's activity (2026-09-02):\n  Ope
+ns: 0 ()\n  Closes: 1 (realized P&L $-80.78)\n  Open positions:
+1\n\nCloses:\n  GDX short_stock → $-80.78","meta":{"severity":"w
+arn","publisher":"hermes","source":"hermes:live_backtest_tracker
+","message_id":"524","ts":"2026-09-02T22:00:01.355Z","related_be
+ad":"HERMES-live-vs-backtest","reply_via":"none","dedup_key":"da
+ily-summary-2026-09-02"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[D
+aily live trading summary] Today's activity (2026-09-03):\n  Ope
+ns: 0 ()\n  Closes: 1 (realized P&L $8.0)\n  Open positions: 0\n
+\nCloses:\n  QQQ short_spread → $8.0","meta":{"severity":"info",
+"publisher":"hermes","source":"hermes:live_backtest_tracker","me
+ssage_id":"525","ts":"2026-09-03T22:00:00.979Z","related_bead":"
+HERMES-live-vs-backtest","reply_via":"none","dedup_key":"daily-s
+ummary-2026-09-03"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+heta Terminal hang detected] Probe failed ({:transport, :timeout
+}). Auto-restart in progress.","meta":{"severity":"warn","publis
+her":"hermes","source":"hermes:theta_watchdog","message_id":"526
+","ts":"2026-09-04T06:00:30.472Z","related_bead":"HERMES-45zj","
+reply_via":"none","dedup_key":"theta-hang"}},"jsonrpc":"2.0"}
+{"method":"notifications/claude/channel","params":{"content":"[T
+heta Terminal recovered] Killed old pid, spawned fresh ThetaTerm
+inal.jar, post-restart probe OK.","meta":{"severity":"info","pub
+lisher":"hermes","source":"hermes:theta_watchdog","message_id":"
+527","ts":"2026-09-04T06:01:04.517Z","related_bead":"HERMES-45zj
+","reply_via":"none","dedup_key":"theta-recovery"}},"jsonrpc":"2
+.0"}
+{"method":"notifications/claude/channel","params":{"content":"[D
+aily live trading summary] Today's activity (2026-09-04):\n  Ope
+ns: 2 (GLD, GDX)\n  Closes: 0 (realized P&L $0.0)\n  Open positi
+ons: 2\n\n","meta":{"severity":"info","publisher":"hermes","sour
+ce":"hermes:live_backtest_tracker","message_id":"528","ts":"2026
+-09-04T22:00:01.712Z","related_bead":"HERMES-live-vs-backtest","
+reply_via":"none","dedup_key":"daily-summary-2026-09-04"}},"json
+rpc":"2.0"}
+

@@ -1,0 +1,122 @@
+jes@commonplace:~/commonplace-next$ workerclaude --model claude-
+fable-5
+
+────────────────────────────────────────────────────────────────
+────────────────
+  WARNING: Loading development channels
+
+  --dangerously-load-development-channels is for local channel d
+evelopment
+  only. Do not use this option to run channels you have download
+ed off the
+  internet.
+
+  Please use --channels to run a list of approved channels.
+
+  Channels: server:clod-squad, server:claude-chat, server:squad-
+alerts
+
+  ❯ 1. I am using this for local development
+Resume this session with:
+claude --resume c638fc38-4d05-4c27-ad96-f30b8890bb97
+jes@commonplace:~/commonplace-next$ source ~/.bashrc && workercl
+audesol
+workerclaudesol: base=http://127.0.0.1:8317 model=gpt-5.6-sol
+"gpt-5.6-sol" is not a model this version of Claude Code recogni
+zes, so auto-compact will keep this session within 200k tokens (
+the context window it assumes). If the model accepts more, appen
+d [1m] to the model name for 1M, or set CLAUDE_CODE_MAX_CONTEXT_
+TOKENS to its real window; to make it recognized, map it in the
+modelOverrides setting or update Claude Code; CLAUDE_CODE_DISABL
+E_UNKNOWN_MODEL_WINDOW_ENFORCEMENT=1 restores the previous wait-
+for-the-API behavior.
+
+────────────────────────────────────────────────────────────────
+────────────────
+  WARNING: Loading development channels
+
+  --dangerously-load-development-channels is for local channel d
+evelopment
+  only. Do not use this option to run channels you have download
+ed off the
+  internet.
+
+  Please use --channels to run a list of approved channels.
+
+  Channels: server:clod-squad, server:claude-chat, server:squad-
+alerts
+
+  ❯ 1. I am using this for local development
+Resume this session with:
+claude --resume f32e2877-f12a-4962-8af1-7d11b97e3f0f
+jes@commonplace:~/commonplace-next$ source ~/.bashrc && workercl
+aude
+
+────────────────────────────────────────────────────────────────
+  WARNING: Loading development channels
+
+  --dangerously-load-development-channels is for local channel
+  development only. Do not use this option to run channels
+  you have downloaded off the internet.
+
+  Please use --channels to run a list of approved channels.
+
+  Channels: server:clod-squad, server:claude-chat,
+  server:squad-alerts
+
+  ❯ 1. I am using this for local development
+Resume this session with:
+claude --resume 96fa0672-c593-4002-bf3e-360507dbc7d5
+jes@commonplace:~/commonplace-next$ workerclaude
+
+────────────────────────────────────────────────────────────────
+  WARNING: Loading development channels
+
+  --dangerously-load-development-channels is for local channel
+  development only. Do not use this option to run channels
+  you have downloaded off the internet.
+
+  Please use --channels to run a list of approved channels.
+
+  Channels: server:clod-squad, server:claude-chat,
+  server:squad-alerts
+
+  ❯ 1. I am using this for local development
+Resume this session with:
+claude --resume 8e91f1af-b730-48b7-bf47-13d0f00df87c
+jes@commonplace:~/commonplace-next$ workerclaude
+
+────────────────────────────────────────────────────────────────
+  WARNING: Loading development channels
+
+  --dangerously-load-development-channels is for local channel
+  development only. Do not use this option to run channels
+  you have downloaded off the internet.
+
+  Please use --channels to run a list of approved channels.
+
+  Channels: server:clod-squad, server:claude-chat,
+  server:squad-alerts
+
+  ❯ 1. I am using this for local development
+Resume this session with:
+claude --resume ab7d0168-b7f0-410b-b6e8-792bd3cee990
+jes@commonplace:~/commonplace-next$ workerclaude
+
+────────────────────────────────────────────────────────────────
+  WARNING: Loading development channels
+
+  --dangerously-load-development-channels is for local channel
+  development only. Do not use this option to run channels
+  you have downloaded off the internet.
+
+  Please use --channels to run a list of approved channels.
+
+  Channels: server:clod-squad, server:claude-chat,
+  server:squad-alerts
+
+  ❯ 1. I am using this for local development
+Resume this session with:
+claude --resume 8ae44291-e006-48c9-8b52-ab02ae7c7b4f
+jes@commonplace:~/commonplace-next$
+

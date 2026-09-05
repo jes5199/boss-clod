@@ -1,0 +1,57 @@
+jes@commonplace:~/commonplace$ workerclaude
+
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  WARNING: Loading development channels
+
+  --dangerously-load-development-channels is for local channel development only. Do not use this option to run channels you have downloaded off the internet.
+
+  Please use --channels to run a list of approved channels.
+
+  Channels: server:clod-squad, server:claude-chat, server:squad-alerts
+
+  ❯ 1. I am using this for local development ✔
+Resume this session with:
+claude --resume b21bc109-a99d-4c0e-8d45-e0d5c7c4f9d8
+jes@commonplace:~/commonplace$ workerclaude --model claude-fable-5
+
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  WARNING: Loading development channels
+
+  --dangerously-load-development-channels is for local channel development only. Do not use this option to run channels you have downloaded off the internet.
+
+  Please use --channels to run a list of approved channels.
+
+  Channels: server:clod-squad, server:claude-chat, server:squad-alerts
+
+  ❯ 1. I am using this for local development
+Resume this session with:
+claude --resume 3f15d7db-3b2e-4d2a-af51-2b2672a96d3c
+jes@commonplace:~/commonplace$ cel
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

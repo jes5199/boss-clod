@@ -1,0 +1,69 @@
+source ~/.bashrc && workerclaudesol
+jes@commonplace:~/commonplace-biscuit$ source ~/.bashrc && worke
+rclaudesol
+workerclaudesol: base=http://127.0.0.1:8317 model=gpt-5.6-sol
+"gpt-5.6-sol" is not a model this version of Claude Code recogni
+zes, so auto-compact will keep this session within 200k tokens (
+the context window it assumes). If the model accepts more, appen
+d [1m] to the model name for 1M, or set CLAUDE_CODE_MAX_CONTEXT_
+TOKENS to its real window; to make it recognized, map it in the
+modelOverrides setting or update Claude Code; CLAUDE_CODE_DISABL
+E_UNKNOWN_MODEL_WINDOW_ENFORCEMENT=1 restores the previous wait-
+for-the-API behavior.
+
+────────────────────────────────────────────────────────────────
+────────────────
+  WARNING: Loading development channels
+
+  --dangerously-load-development-channels is for local channel d
+evelopment
+  only. Do not use this option to run channels you have download
+ed off the
+  internet.
+
+  Please use --channels to run a list of approved channels.
+
+  Channels: server:clod-squad, server:claude-chat, server:squad-
+alerts
+
+  ❯ 1. I am using this for local development
+Resume this session with:
+claude --resume 85c65f93-eef5-4efc-9d7e-cdc84890a43e
+jes@commonplace:~/commonplace-biscuit$ source ~/.bashrc && worke
+rclaude
+
+────────────────────────────────────────────────────────────────
+  WARNING: Loading development channels
+
+  --dangerously-load-development-channels is for local channel
+  development only. Do not use this option to run channels
+  you have downloaded off the internet.
+
+  Please use --channels to run a list of approved channels.
+
+  Channels: server:clod-squad, server:claude-chat,
+  server:squad-alerts
+
+  ❯ 1. I am using this for local development
+Resume this session with:
+claude --resume 3080c8f2-80e1-4d3b-9b6f-20247820b482
+jes@commonplace:~/commonplace-biscuit$ workerclaude --resume 308
+0c8f2-80e1-4d3b-9b6f-20247820b482
+
+Resume this session with:
+claude --resume 3080c8f2-80e1-4d3b-9b6f-20247820b482
+jes@commonplace:~/commonplace-biscuit$
+
+
+
+
+
+
+
+
+
+
+
+
+
+

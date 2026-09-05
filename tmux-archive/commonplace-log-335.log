@@ -1,0 +1,28 @@
+WORKERCLAUDE_SOL_MODEL=gpt-6-astra workerclaudesol
+jes@commonplace:~/commonplace-log$ WORKERCLAUDE_SOL_MODEL=gpt-6-astra workerclau
+desol
+workerclaudesol: base=http://127.0.0.1:8317 model=gpt-6-astra
+"gpt-6-astra" isn't described by this version's model catalog; update Claude Cod
+e, or map it with behavesAs on a modelPicker row (or modelOverrides, if it is a
+provider id of a model this version knows). Until then auto-compact keeps this s
+ession within 200k tokens (the context window it assumes); if the model accepts
+more, append [1m] to the model name for 1M, or set CLAUDE_CODE_MAX_CONTEXT_TOKEN
+S to its real window; CLAUDE_CODE_DISABLE_UNKNOWN_MODEL_WINDOW_ENFORCEMENT=1 res
+tores the previous wait-for-the-API behavior.
+
+Resume this session with:
+claude --resume d08535e9-f06b-4529-8cd2-027e2cc942a6
+jes@commonplace:~/commonplace-log$
+
+
+
+
+
+
+
+
+
+
+
+
+
