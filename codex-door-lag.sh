@@ -41,7 +41,30 @@ for lk in /home/jes/.codex/thread-writer-locks/*.lock; do
     # and the reader is me, every five minutes. The real signal is SILENCE ACROSS A TURN BOUNDARY, and
     # a turn takes minutes. 15m is chosen to sit above a normal turn and far below the 75m that cost us
     # the incident — it is a threshold I can defend, not a round number.
-    if [ "$owed" -lt "${LAG_ASK_MINUTES:-15}" ]; then
+    # ⛔⛔ QUEUE SUPPRESSION, ADDED 19:08Z AFTER THIS GATE CRIED WOLF THREE TIMES IN ONE HOUR.
+    #   UNANSWERED fired on codex-commonplace-log (26m) and codex-commonplace-next (32m) while BOTH were
+    #   QUEUED FOR A BOX WINDOW I HAD NOT GRANTED. Each time I read the pane and found: only bun +
+    #   codex-code-mode children, a coherent last turn, and an explicit "awaiting handover without polling".
+    #   ⇒ THE DOORS WERE DOING EXACTLY WHAT I ASKED. The gate was measuring "I spoke last", which was TRUE
+    #   and was not a finding.
+    # ⭐ A GATE THAT FIRES ON KNOWN-GOOD STATE TRAINS ITS ONLY READER TO SKIM, AND THAT READER IS ME, EVERY
+    #   FIVE MINUTES. Same defect I fixed with the 15m threshold at 16:22Z, one layer out: the threshold
+    #   stopped it firing on a door I had JUST messaged; it did not stop it firing on a door that is
+    #   CORRECTLY WAITING FOR ME.
+    # ⛔ THE DISCRIMINATOR IS NOT TIME, IT IS WHETHER I OWE THE DOOR SOMETHING: a door named in .box-waiting
+    #   is silent BECAUSE OF ME. Nudging it would be the "stall sweep as substitute for a fix" failure.
+    # ⚠️ FAILS SAFE AND VISIBLY: it still PRINTS the door with its silence, as QUEUED-QUIET. It suppresses
+    #   the ASK verb, not the row — an unqueued door crossing the threshold still says UNANSWERED.
+    # ⛔⛔ MATCH THE LINE START, NOT THE LINE. Caught within 60 SECONDS of writing the suppression above:
+    #   a bare `grep "$name"` marked the HOLDER (yelixer) as QUEUED, because a queue line of MY OWN PROSE
+    #   said "waiting only on the yelixer window". ⇒ THE FILE DESCRIBES THE HOLDER IN ORDER TO EXPLAIN THE
+    #   WAIT, so the holder's name is ALWAYS liable to appear in it.
+    # ⭐ Same defect as `ls-remote | grep sha` (7x682) and `.licenseInfo.spdxId` (7x681): A GENERIC TEXT
+    #   MATCH STANDING IN FOR A STRUCTURAL QUESTION. The question is "is this door AN ENTRY", not "does
+    #   its name OCCUR". Entries begin at column 1; prose does not.
+    if [ -f /home/jes/boss-clod/.box-waiting ] && command grep -q "^codex-[^ |]*${name}" /home/jes/boss-clod/.box-waiting 2>/dev/null; then
+      echo "QUEUED-QUIET|$name (pid $pid): silent ${owed}m, and it is QUEUED IN .box-waiting for a window I have not granted. ⇒ waiting on ME. NOT a finding, and NOT to be nudged."
+    elif [ "$owed" -lt "${LAG_ASK_MINUTES:-15}" ]; then
       echo "PENDING|$name (pid $pid): I wrote to it ${owed}m ago, no reply yet. NORMAL — under the ${LAG_ASK_MINUTES:-15}m ask-threshold. Not a finding."
     else
       echo "UNANSWERED|$name (pid $pid): I sent it something ${owed}m ago and it has not spoken since (last voice ${lag}m ago, thread ${th:0:8}). ⇒ ASK IT whether the dispatch reached its turn. Do NOT assume working, and do NOT assume stalled."
