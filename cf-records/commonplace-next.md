@@ -84,3 +84,28 @@ AUTHORIZED  jes tg 11101 "can we boot the beta app on cloudflare ASAP" + standin
 HAVE: WORKOS_CLIENT_ID, WORKOS_API_KEY (custody) · ACCESS_ISSUER, _JWKS_URI (public), _AUDIENCE 9eab32ce… (Access app AUD)
 MISSING: WORKOS_REDIRECT_URI (path is the app's) · SECRET_KEY_BASE (generate) · ACCESS_ROSTER (⛔ a DECISION: who may
 enter — jes's) · LOG_REALM_URL + _CAPABILITY (no realm exists for next; I can mint one on commonplace-log)
+
+## ③ DONE 2026-09-05T20:18Z — ALL TEN BINDINGS SET, in one pass, read back by name
+```
+secret_text ×10 on commonplace-next (values NEVER returned by the API; read-back is NAMES + count):
+  SECRET_KEY_BASE (generated, 64 random bytes b64) · COMMONPLACE_ACCESS_{ISSUER,AUDIENCE,JWKS_URI,ROSTER}
+  WORKOS_{CLIENT_ID,API_KEY,REDIRECT_URI} · COMMONPLACE_LOG_REALM_{URL,CAPABILITY}
+CONTROL after set: durable_object_namespace COMMONPLACE_NEXT_CONTAINER still present (the erase hazard did not fire)
+```
+⭐ **Set ALL ten as secret_text deliberately** — the four "may be plain var" values included — because the
+only way to add plain vars without a redeploy is a settings PUT, and this file already records that
+*a later PUT that omits bindings ERASES them, HTTP 200, silently.* Uniform secret_text via `wrangler
+secret put` (stdin) touches nothing else. The non-secret values are recorded here in plaintext:
+  ISSUER https://commonplace-systems.cloudflareaccess.com · AUDIENCE 9eab32ce…80a6 (Access app AUD)
+  JWKS_URI …/cdn-cgi/access/certs · REALM_URL …/realms/36917f12-ac1c-4cba-806b-7ec5648b6214
+  REDIRECT_URI https://beta.commonplace.st/auth/workos/callback · ROSTER {"0a97249d-…":"jes"} (1 owner, jes's word tg 11165)
+**DURABLE CUSTODY: `/home/jes/.config/commonplace-next/` (700), one 600 file per binding — the seat ruled
+the generated secrets must SURVIVE for restarts, not be shredded as the only copy.**
+**REALM 36917f12… is RETAINED BETA STATE from first write. Never delete/reset. Its capability is WRITE authority.**
+
+## ④ READINESS — STRUCTURAL FACT BEFORE MEASURING: THE WORKER HAS NO HOSTNAME
+`workers_dev=false`, `preview_urls=false`, and NO route ⇒ **nothing outside Cloudflare can send it a request,
+so nothing can boot the container to measure it.** Instances read 1/1 after deploy but boot happens on the
+first DO request. ⇒ ④ needs a PROTECTED PRE-CUTOVER PATH (the seat's own phrase): a staging hostname on
+the SAME Access app (same AUD 9eab32ce — a second app would have a different AUD and fail the assertion),
+routed to commonplace-next, measured, then route 6a26c1fc flipped. Proposed to the seat; not built.
