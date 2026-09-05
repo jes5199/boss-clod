@@ -563,6 +563,17 @@ done < <(find /run -maxdepth 2 -type s 2>/dev/null | sort -u)
 #   Not zero. Small enough to be worth the exchange, and stated rather than pretended away.
 # ⭐ Reserve BEFORE releasing. This is the whole fix: the next dispatcher counts this round even
 #   though nothing of it is running yet. Retired by the purge above once it is visible.
+# ⭐ MODEL IS OVERRIDABLE VIA $SOL_MODEL (default gpt-5.6-sol), added 2026-09-05T01:47Z.
+# ⛔ WHY: RED-SAYS-WHAT-3 was dispatched to Astra with a BARE `codex exec` and its integration arms
+# died on `:eperm` opening a TCP socket — a BEAM cannot start without egress. The egress lives HERE,
+# on the `sandbox_workspace_write.network_access=true` line below, TOGETHER WITH THE MASKS.
+# ⚠️ THE MASKS ARE THE REASON NOT TO COPY THE EGRESS FLAG ELSEWHERE: this file's own header records
+# that inside a plain `--sandbox workspace-write` run Sol could read ~/.ssh/id_ed25519 and saw
+# LETTA_API_KEY and SQUAD_ALERTS_PUBLISHER_TOKEN in its environment. ⇒ THE COST WAS NEVER THE
+# NETWORK BOOLEAN ALONE — it is the boolean COMPOSED WITH BROAD READS. Route other species THROUGH
+# this wrapper; do not lift one flag out of it.
+# ⛔ $SOL_MODEL is read by THIS shell before `env -i`, so it is NOT subject to the env allowlist
+# below — set it on the dispatch command, unlike every other variable, which must go in the brief.
 printf '%s' "$WORKDIR" > "$RESERVE_DIR/$(printf '%s' "$WORKDIR" | tr -c 'A-Za-z0-9._-' '_').reserved"
 exec 9>&-
 exec env -i \
@@ -570,7 +581,7 @@ exec env -i \
   TERM=xterm-256color LANG="${LANG:-C.UTF-8}" LC_ALL="${LC_ALL:-C.UTF-8}" \
   ASDF_DIR="${ASDF_DIR:-}" SOL_WORKDIR="$WORKDIR" \
   bwrap --dev-bind / / --unshare-pid --proc /proc "${MASK[@]}" "${SYS_SOCKET_MASK[@]}" -- \
-  codex exec -m gpt-5.6-sol \
+  codex exec -m "${SOL_MODEL:-gpt-5.6-sol}" \
     --sandbox workspace-write \
     -c 'sandbox_workspace_write.network_access=true' \
     -C "$WORKDIR" \
