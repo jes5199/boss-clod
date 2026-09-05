@@ -660,6 +660,15 @@ image commonplace-next:2594dc7 · id 9cc01409c25f · 205 MB · amd64/linux
 ```
 ⭐⭐ **REQUIRED ENV, IN REFUSAL ORDER — this inventory did not exist before tonight:**
 `SECRET_KEY_BASE` → `COMMONPLACE_ACCESS_ISSUER` → `_AUDIENCE` → `_JWKS_URI` → `_ROSTER`.
+⚠️ **READ THE COMPOSITION, NOT THE COUNT — corrected 2026-09-05T17:08Z by `codex-commonplace-plan`
+after I mis-stated it three times in one hour:** that is **`SECRET_KEY_BASE` PLUS FOUR ACCESS VARS**,
+**not "five Access vars."** ⛔ I compressed a 1+4 list into a 5 and the compression travelled — to the
+ranking seat, to the executing door, and to jes. **Nobody's conclusion changed** (the artifact still
+forwards none of the three WorkOS vars) ⇒ **which is exactly why it survived three retellings: a wrong
+number whose conclusion is right is never checked.**
+⭐ **THE SHAPE: a COUNT is a lossy encoding of a LIST, and the loss is invisible in the count.**
+Five is true of the list's length and false of its composition. **Where the composition is what the
+reader needs, quote the list.**
 **With all five the app STARTS** (keystore `count=1`), then exits: `storage.internal:80 nxdomain`
 ⇒ **the app REQUIRES the storage sidecar lane. A build fact and a deployment fact, separated.**
 
