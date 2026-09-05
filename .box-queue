@@ -745,3 +745,20 @@ can see, and nobody infers the rest.**
 ⛔ `~/reponame` checkouts are stale scratch space, NOT homes. A measurement taken in one is a
   measurement of the WRONG CORPUS until proven otherwise — `git -C <tree> branch --show-current` first.
 ⛔ A CHECKOUT HAS EXACTLY ONE WRITER, and that is the rule every 2026-09-04 mess came from breaking.
+
+⑯ ⛔⛔ A GRANT IS NOT GRANTED UNTIL THE DOOR IS TOLD. `.box-held` IS MY RECORD, NOT A MESSAGE.
+⚠️ TWICE IN ONE NIGHT, both mine, both costing a door idle time it did not know it was spending:
+```
+04:11Z  LAND 3 granted into .box-held · door waited · it asked · "the window has been granted since
+        04:11, and I should have said so in your channel"          — ~3 minutes
+04:35Z  R4-POSTREPAIR granted into .box-held · door asked TWICE (#29797, #29804) · I answered neither
+        · it sat BLOCKED refusing to assume ownership              — ~19 minutes
+```
+⇒ ⭐ **The door was RIGHT both times: it refused to take a box on an unconfirmed grant, which is the
+same discipline that makes the protocol work at all.** ⛔ **I wrote the record and mistook it for the act.**
+⇒ ⭐⭐ **THE ORDER IS: SEND THE GRANT, THEN WRITE `.box-held`.** The message is the grant; the file is
+the audit trail. Writing the file first leaves a state where I believe a door is authorised and the
+door correctly believes it is not — and NOTHING in my instruments shows the difference, because
+`.box-held` reads identically either way.
+⚠️ **DETECTOR, since I have now missed it twice: a door that ASKS TWICE for the same window has not
+received it. Treat a repeated ask as a delivery failure, not as impatience.**
