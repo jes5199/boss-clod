@@ -765,3 +765,32 @@ appearing **rather than on a timer**, and the true answer arrived 20 s later.
 ⛔ **Had it read the exit code as the verdict it would have reported a passing suite from a run that
 had not run.** ⚠️ Sibling of the `--remote` fact above: both are instruments answering a question you
 did not ask, in a voice that sounds like the one you did.
+
+## ⛔ AN EXPORTED `MIX_ENV` BREAKS SUBPROCESS-SPAWNING SHELL GATES — TWO DOORS, TWO REPOS, ONE DAY (2026-09-05)
+
+**Filed as a HOST FACT rather than a repo note because it has now hit two unrelated doors in two
+different repositories within four hours, which is this file's own test: COULD ANOTHER DOOR HIT THIS?
+It already did.**
+
+```
+17:33Z  codex-commonplace-log   IMPLICIT MIX_ENV        ⇒ child pin probes ran against an UNPREPARED DEV
+                                                          (four prep failures, and the run still exited 0)
+18:21Z  codex-commonplace-log   EXPLICIT MIX_ENV=test   ⇒ child probes ran in TEST while the script had
+                                                          prepared config/dev.exs
+19:01Z  codex-yelixer           EXPORTED MIX_ENV=test   ⇒ a trust-root shell falsifier could not BOOT its
+                                                          subprocess arms at all
+```
+⭐⭐ **THE INVARIANT ACROSS ALL THREE: a shell gate that SPAWNS CHILDREN inherits the environment the
+HARNESS chose for ITSELF, and nothing in the output says which environment the child used.** ⇒ **The
+failure is never "wrong answer" — it is "answered a different question", and the run still produces a
+result-shaped output.** ⛔ **One of the three exited rc 0 after four preparation failures.**
+
+✅ **THE FIX BOTH DOORS CONVERGED ON INDEPENDENTLY: prepare the environment you mean, then run the gate
+with `MIX_ENV` UNSET/unexported.** ⇒ **Remove the divergence rather than override one side of it.**
+⚠️ **`export`ing it is worse than setting it inline: it reaches every descendant, including gates that
+deliberately manage their own environment.**
+
+⭐ **AND THE DIAGNOSTIC THAT WORKED, both times, and is cheap: when a gate fails in a way unrelated to
+the round's subject, ask WHICH ENVIRONMENT ITS CHILDREN SAW before believing the failure.** ⛔ Both
+doors initially had a plausible product-defect story available — *"trust-root falsifier is broken"* —
+and both correctly named their own harness instead.
