@@ -75,3 +75,21 @@ confidentiality one inside a durability feature* — **explicitly a recommendati
 priced, not a ruling.**
 
 ⛔ **UNTIL A FINAL RULING EXISTS, THE DEPLOY HOLD IN `cf-records/commonplace-log.md` STANDS.**
+
+### ⚠️ CORRECTION TO THE PRICING ABOVE, 2026-09-05T16:03Z — the cost of option A was mis-stated
+
+**Source: `codex-commonplace-log` msg 29913, accepted by `commonplace-plan` (its msg 29910).**
+Corrected **before** the posture reached any decision owner, which is the only reason it costs nothing.
+
+⛔ **WRONG (do not carry):** that a missing mapping under opaque keys causes **inevitable duplication**.
+✅ **RIGHT:** under **fail-closed** handling, a missing mapping causes a **NAMED BACKUP OUTAGE** — the
+backup stops and says so.
+
+⭐ **THE TWO ARE NOT THE SAME KIND OF COST AND THEY RANK DIFFERENTLY:** duplication is **silent data
+growth** discovered later; a named outage is **loud and immediate**, and a loud failure in a durability
+feature is the *good* failure — it is exactly what "frontier written last" buys elsewhere in this
+system. ⇒ **The corrected pricing makes option A less bad than the original framing implied**, so
+anyone who accepted B on the strength of the duplication claim accepted it on a wrong number.
+
+**Whoever rules on D2 must be given the AVAILABILITY cost, not the duplication claim.** Carried here
+so the file cannot hand a stale price to a later reader.
