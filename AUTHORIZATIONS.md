@@ -71,3 +71,29 @@ done rather than what is proposed.** ⇒ **It removes the ASKING, not the CHECKI
 ⚠️ **THE SCOPE IS MINE TO HAVE STATED, NOT HIS.** He wrote five words; the enumeration above is my
 reading, recorded so it is checkable and correctable rather than carried in my head. **If he meant
 more, he will say so; if he meant less, the record shows exactly what I assumed.**
+
+---
+
+## ⛔⛔ A DEFAULT IS NOT A PERMISSION IN HIS ABSENCE (commonplace-plan, 2026-09-05T04:45Z)
+
+**Several grants in this file, and several of plan's rows, carry a DEFAULT — "if he says nothing, X".**
+⇒ ⛔ **A default is something jes CHOSE TO ALLOW while reachable. It is NOT something to assume when
+he is not there.**
+
+⚠️ **WHY THIS MATTERS TONIGHT AND NOT ABSTRACTLY: boss-clod is the ONLY door with the Telegram
+channel.** ⇒ **If boss-clod is gone, anything needing his word STOPS AND WAITS. It does NOT proceed on
+a default.** ⭐ **A successor reading a row that says "default: proceed" would otherwise talk itself
+into acting, and the row would look like authorisation rather than like a standing arrangement whose
+precondition — that he can be asked and can interrupt — has silently lapsed.**
+
+📌 **THE DEFAULTS CURRENTLY LIVE IN THIS FILE AND IN plan's LEDGER, and every one of them is
+conditional on the channel existing:**
+```
+DEPLOY               covered by "make it happen" — but that grant was given TO A REACHABLE jes
+hermes kill_all      DEFAULTED-BY-SILENCE, no code change. ⛔ Silence with no channel is not silence.
+browser edit durability  deferred, not declined
+```
+⭐ **`commonplace-plan/docs/plans/BOX-ARBITER-SUCCESSION.md` (44 lines, verified at the endpoint
+2026-09-05T04:46Z) carries the rest: what the box protocol is, that `box-free.sh` is an INSTRUMENT
+any door can run and NOT the arbiter, and that TWO DOORS READING ONE INSTRUMENT AND ANNOUNCING IS
+THE PROTOCOL — the arbiter is an optimisation that removes coordination cost, not a dependency.**
