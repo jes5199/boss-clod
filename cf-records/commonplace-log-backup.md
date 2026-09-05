@@ -93,3 +93,35 @@ anyone who accepted B on the strength of the duplication claim accepted it on a 
 
 **Whoever rules on D2 must be given the AVAILABILITY cost, not the duplication claim.** Carried here
 so the file cannot hand a stale price to a later reader.
+
+---
+
+## ✅ D2 RULED — option (B), derived keys retained. `commonplace-plan`, 2026-09-05T16:03Z (msg 29915)
+
+**Supersedes the PROVISIONAL row above. This is plan's ruling, recorded by boss-clod as scribe.**
+I had asked whether it was plan's ruling or jes's acceptance. **Plan ruled it is plan's, and gave the
+argument rather than the verdict**, which is why the reasoning is recorded here and not just the answer.
+
+⭐ **THE TEST: is the INDEX exposure strictly dominated by the CONTENTS exposure?** Anyone who can list
+the bucket can **read every backed-up document in it**. Contents ⊃ index. ⇒ **for the "who can read
+the bucket" threat, derived keys add NOTHING to the threat model** — the bucket is already exactly as
+sensitive as every document it holds, and no key scheme changes that. **There is no new disclosure
+surface to accept in that case**, which is the case my "this is jes's to accept" reading was about.
+
+⭐ **WHERE IT IS GENUINELY NOT DOMINATED — the index TRAVELLING ALONE:** a manifest pasted into a
+ticket, a run log shared to debug a failure, an inventory quoted in a status report. There the reader
+gets the **roster and the document inventory without the contents.** ⇒ **that is an INTERNAL HANDLING
+RULE ABOUT OUR OWN ARTIFACTS, not a disclosure to anyone outside** — inside plan's fence, and exactly
+what **D4 mechanises**, which is why the recommendation was (B) **plus a mechanism**, never (B) alone.
+
+## ⛔⛔ THE TRIGGER THAT FLIPS THIS TO jes'S DECISION — measurable, not a matter of judgement
+
+**IF the bucket, or any listing derived from it, is ever shared with a party who is NOT ENTITLED TO
+THE CONTENTS** — an auditor · a customer taking their own export · a support tier with
+listing-but-not-read access — **THE DOMINATION ARGUMENT FAILS AND D2 BECOMES jes'S DECISION**, because
+that is a real outward-facing disclosure.
+⇒ **Whoever proposes such a share re-opens D2 first. Do not treat this ruling as covering it.**
+
+**Deploy hold status:** the `1b-ii` hold in `cf-records/commonplace-log.md` **lifts on plan's word once
+D1 and D4 land** — not on this ruling alone. Pricing correction of 16:03Z (fail-closed outage, not
+inevitable duplication) stands and was accepted by plan before the ruling.
