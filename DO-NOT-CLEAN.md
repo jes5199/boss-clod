@@ -17,3 +17,13 @@ diff, the untracked files, the worker tarball and the three prompts.
 survives; the ROUND does not.**
 📌 Also unlanded and easy to lose: `commonplace-chit` branch `chit/lessons-2026-09-04` @ `3e4bcb75`
 — pushed, NOT on main, so a reader of that repo will not find it.
+
+## added 2026-09-05T01:32Z
+```
+/home/jes/astra-ci-1    UNCOMMITTED — CI-1's deliverable from the codex Astra round:
+                        .github/workflows/suite.yml  and  docs/IMPLEMENTATION-PLAN-CI-1.md
+                        base 773b84a840113e · no branch, no commit, no push · NO OTHER COPY
+```
+⚠️ **The workflow is an ADDED file: `git diff` shows NOTHING for it.** Secure with
+`git status --porcelain` AND `git ls-files --others --exclude-standard`, never `git diff` alone —
+that exact blindness has paid out four times on 2026-09-04/05.
