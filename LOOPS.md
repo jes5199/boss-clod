@@ -532,3 +532,32 @@ READING.** The observer is for the one run where "the data exists" is insufficie
 
 **Relay to jes ONLY** if the fallback behaved unexpectedly, an order was placed, or the job did not
 run. **A clean expected no-fire is internal — file it, do not text him.**
+
+## Window health check — every 30 minutes at :13 and :43 (added 2026-09-05T18:53Z, jes tg 11138)
+
+**Job `62631a57`, cron `13,43 * * * *`.** ⛔ **SESSION-ONLY like every other job here — this file is the
+only durable copy, which is why it is written down at creation rather than when someone notices.**
+
+⭐ **WHY :13/:43 and not :00/:30 —** the stall sweep runs at `2,7,12,…,57` and the hourly fleet check at
+`:38`. **:13 and :43 collide with neither**, so a window check never contends with a sweep for the same
+idle moment. ⚠️ Off-minute also keeps it off the top-of-hour API crowd.
+
+```
+Window health check across every tmux window, by identity. For each window/pane: resolve it by pane id
+(never a broad pattern match), read its current command and cwd, and check for (a) a pane sitting at a
+shell where an agent should be running, (b) a permission prompt, approval dialog, rate-limit prompt,
+queued-message prompt or suggestion menu holding the session, (c) a generation or captured run stuck
+over 30 minutes, (d) a statusline model that is not what that door should be running. Cross-check the
+live codex doors against their writer locks with codex-door-lag.sh so a door that has appeared or
+disappeared since the last check is noticed rather than assumed. Clear any modal dialog you find —
+clearing a dialog is safe; restarting is not, and never restart a door mid-ceremony or mid-suite.
+Verify what you find rather than trusting a pane's own summary. Telegram jes ONLY if you fixed
+something, something is actually broken, or a door is genuinely blocked; if everything is healthy,
+stay silent.
+```
+⭐ **Two clauses in it were earned today and are not decoration:**
+⛔ *"clearing a dialog is safe; restarting is not, and never restart a door mid-ceremony or mid-suite"* —
+jes asked for a relaunch at 18:01 while that door was mid-landing-ceremony with 121 tests recorded;
+restarting then would have destroyed a warranted run with a pre-declared script hash.
+⛔ *"cross-check against writer locks"* — a fifth door appeared at 17:43 that no list of mine knew about,
+and the lock walk found it in four minutes. **A hand-maintained window list cannot notice a new door.**
