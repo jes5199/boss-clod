@@ -77,5 +77,16 @@ commonplace-plan
 #                       ⚠️ It burns OpenAI quota, NOT Anthropic — so it was not part of the burn
 #                       problem. I took it down anyway on "all other than boss and plan"; that is my
 #                       reading of his words and it is reversible.
+#   ⛔⛔ CORRECTION 2026-09-05T01:26Z — I RECORDED A FALSE PREMISE ABOVE AND IN BOX RULE ⑫.
+#   "Astra has NO clod-squad by construction" is WRONG. Measured from its transcript:
+#       clod-squad messages RECEIVED 6 (first 23:02:08) · tool calls SENT 3 (mcp__clod-squad__send)
+#   Its corrections to me came THROUGH clod-squad and I read them as channel messages at the time.
+#   ⇒ What I actually saw was `server:clod-squad · no MCP server configured with that name` at
+#     launch — that flag governs PUSH NOTIFICATIONS, not the tools. The tools attached and worked.
+#   ⚠️ WHAT IS TRUE: no push notification, so it does not WAKE on an arriving message. Its 22:59:56
+#     release plausibly sat unread for that reason. "Cannot announce" and "will not be interrupted"
+#     are DIFFERENT FAILURES and I welded them.
+#   ⛔ jes said "if it's codex it doesn't have clod-squad" and it matched what I already believed,
+#     so I stopped checking. A CONFIRMING AUTHORITY IS EXACTLY WHERE A CHECK GETS SKIPPED.
 # WAKE: jes's word. Nothing else.
 # RELAUNCH: cd ~/<repo> && workerclaude   (Astra: WORKERCLAUDE_SOL_MODEL=gpt-6-astra workerclaudesol)
