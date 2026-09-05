@@ -414,4 +414,9 @@ if [ -n "$_cxdoors" ]; then
 else
   echo "UNWATCHED|no live codex doors found by writer-lock walk — if you believe one is running, THIS WALK IS BLIND, not the fleet empty."
 fi
+# ⭐ THE SECOND HALF, ADDED 16:18Z: the UNWATCHED line above says WHICH doors I cannot see.
+# This says whether each has SPOKEN since I last wrote to it — the only evidence of a turn boundary
+# available from outside a codex door. It is evidence, not proof: a door mid-round is legitimately
+# silent. ⇒ its verdict is ASK, never nudge.
+/home/jes/boss-clod/codex-door-lag.sh 2>&1 | sed 's/^/  /'
 echo "SWEPT|examined=$examined|stalled=$stalled"
