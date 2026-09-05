@@ -54,3 +54,19 @@ main 60715aacc2ccb616f112651685ec71358380e803 UNMOVED · bogus-ref control 0 row
 in a working tree. **The guard on it is fully discharged.**
 ⚠️ **Still NOT LANDED and NOT WARRANTED.** The arms now EXIST; plan rules on them. ⛔ Do not read a
 published review branch as a landed one.
+
+## ✅ RECLAIMED 2026-09-05T05:43Z — seven finished round clones removed, 1,187 MB
+```
+astra-ci-1 · astra-rsw3 · astra-realm-remove · astra-design-review
+codex-capture-psi-1 · codex-realm-arms · codex-commonplace-landing
+avail 8,900 MB → 10,088 MB · / 93% → 92%
+```
+⛔ **NOT swept — each was checked individually before deletion, and the check was not "is it dirty"
+but "IS ITS HEAD REACHABLE AT AN ENDPOINT".** ⇒ **A clean clone whose commit exists only locally is
+NOT reclaimable; `dirty=0` says nothing about durability.** All six commits confirmed by `ls-remote`;
+`astra-design-review`'s one dirty file confirmed `cmp`-identical to the copy committed in
+`boss-clod/inbox-docs/`.
+✅ **CONTROLS AFTER: the two paths this file still guards were verified PRESENT** —
+`commonplace-biscuit/docs/plans/` and `sol-deploy-next-1/wt`. **A reclamation that also asks "did I
+destroy what I was protecting?" is the only kind worth doing at 05:43.**
+⚠️ **STILL GUARDED, both still the only copy of their contents:** those two paths.
