@@ -347,7 +347,13 @@ _fs=/home/jes/boss-clod/.box-free-since
 if /home/jes/boss-clod/box-free.sh >/dev/null 2>&1; then
   [ -f "$_fs" ] || date +%s > "$_fs"
   _mins=$(( ( $(date +%s) - $(cat "$_fs") ) / 60 ))
-  if [ "$_mins" -ge 20 ]; then
+  # ⛔ FREE-STREAK fires on "the box READS FREE", which is NOT "nobody is holding" — the same
+  # conflation behind my 22:31 double-grant and the GRANT-OWED bug one sweep later. A codex round
+  # reading files holds the box and runs no suite, so the streak climbs while the tenancy is
+  # legitimate. ⇒ Name the HOLDER instead of implying an unheard release. (2026-09-05T01:38Z)
+  if [ "$_mins" -ge 20 ] && [ -f /home/jes/boss-clod/.box-held ]; then
+    echo "FREE-STREAK|${_mins} min of FREE, but the box IS HELD — $(head -1 /home/jes/boss-clod/.box-held) ⇒ a holder between acts reads FREE; this is NOT an unheard release."
+  elif [ "$_mins" -ge 20 ]; then
     echo "FREE-STREAK|the box has read FREE for ${_mins} min. NOT a fault by itself — but if any door is queued on another door's ANNOUNCED release, this is what an ANNOUNCEMENT THAT WAS NEVER SENT looks like (cell, 2026-09-04: the 2h stall was NOT a transport loss — read_history shows NOTHING from next to cell between 14:27 and 19:11:56, and the receipt was true). Ask the door ahead BY NAME; never promote on silence."
   fi
 else
