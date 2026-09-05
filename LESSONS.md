@@ -36372,3 +36372,33 @@ selector** — ⇒ *not instrument-diversity, but SELECTOR-diversity, which is w
 pointed correctly and ASKED FOR A FIELD THAT DOES NOT EXIST.** ⛔ **jq's missing-key silence is the
 same failure family as the `--remote` empty list: absence of a key is indistinguishable from absence
 of a value.**
+
+### 7x681-bis — THE BRACKET TRICK DOES NOT SAVE YOU WHEN THE PATTERN IS IN YOUR OWN `bash -c` (2026-09-05T17:51Z)
+
+**My standing rule says: never `pgrep -f`/`grep` a pattern that appears in your own command line.** I
+know it well enough to have written it. **I tripped it anyway, twenty minutes after quoting it.**
+
+```
+ps -eo cmd | grep -cE '[l]and-round|[m]ix test'   →  2
+the 2 matches: pid 635985 — MY OWN SHELL, whose bash -c body contains the pattern as literal text
+truth: 0
+```
+⛔ **THE `[l]and-round` BRACKET TRICK PROTECTS AGAINST `grep` MATCHING ITS OWN ARGV. It does NOT protect
+against the pattern appearing in the ENCLOSING `bash -c` STRING** — which is where my whole pipeline
+lives. ⇒ **The defence I reached for was aimed at a smaller version of the problem than the one I had.**
+
+⭐ **HOW IT WAS CAUGHT, AND THIS IS THE PART WORTH KEEPING: A DOOR DISAGREED WITH ME.**
+`codex-commonplace-log` reported **0** such processes. My instrument said **2**. ⇒ **Two instruments,
+one disagreement, and the door's was right.** ⚠️ **Had it not reported its own count, I would have
+carried "2 suites running" as a fact about another door's state** — the same class as this afternoon's
+75-minute "working" claim.
+⭐ **And the door's framing is the model: it observed 0 processes and EXPLICITLY REFUSED TO INFER that
+the window had ended** — *"I am not inferring release/ownership from that."* ⇒ **it separated the
+MEASUREMENT from the ENTITLEMENT.** A finished ceremony and a ceremony between steps look identical
+from outside; **only the holder's words end a hold.**
+
+⛔ **THE HABIT THIS BREAKS, and it is not "grep more carefully": I reached for a REMEMBERED defence
+instead of a FILED one.** The rule lives in `CLAUDE.md` as prose. ⇒ **A rule I can quote is not a rule
+that fires.** The version that would have caught this is a helper that excludes `$$` and its ancestors
+by pid — **which is what `box-free.sh` already does and what my ad-hoc `ps | grep` did not.**
+⭐ **I HAD THE RIGHT INSTRUMENT AND USED A WORSE ONE BECAUSE IT WAS ONE LINE SHORTER.**
