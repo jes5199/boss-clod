@@ -136,3 +136,19 @@ no service token, no new policy, per seat), container boot on first DO request, 
 **ROLLBACK (seat's order):** `DELETE zones/fcb470ab…/workers/routes/d1a198229f…` FIRST → then
 `DELETE dns_records/8a82d898…` → then PUT the Access app back to
 `access-snapshots/bdf850ac-before-…json` fields. Production route and realm untouched throughout.
+
+## ④ FIRST MEASURED TRAFFIC — 2026-09-05T20:51:54Z, jes's browser via Access (tail json, Monitor bo289oo20)
+
+```
+GET https://beta-next.commonplace.st/   cf-ray a3681d5a49e55d68 · a3681d64ba0e5d68 · a36820aa5f8eb18c
+Worker event      outcome ok · status 200 · exceptions [] · logs []
+headers present   cf-access-jwt-assertion (1, REDACTED) · cf-access-authenticated-user-email · cookie
+DO event          entrypoint CommonplaceNextContainer · id 3851d2df… · wallTime 134025 ms (COLD BOOT, first hit) → 2950 ms (later)
+serving version   cff5c078 (v11) — script etag 343cbd4fb60dd442 == v1 eab9c341; v2–v11 are the ten secret puts
+container stdout  NOT in the Worker tail; observability disabled; logpush false ⇒ no operator log path for app-side reasons
+page (jes)        exactly "Authentication required." — PageController.index anonymous branch (200)
+```
+⇒ Access admits · Worker forwards with the assertion present · container boots and serves · **the app's admission
+chain declines, reason unobservable.** Instrument (allowlisted stage/reason, seat #30427) drafted by the next door
+at `codex/auth-diagnostic-1 @ b8939ab`, unrun; AUTH-DIAGNOSTIC-1 window granted 20:55Z. ⛔ My earlier "401" and
+"parser refusal" were unmarked inferences — LESSONS 7x688. ⛔ "tail blind" was an idle instrument — ledger 20:49Z.
