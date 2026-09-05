@@ -36149,3 +36149,38 @@ to that round's landing, not only what it does to the tree.**
 *"sole-owned checkout"* was true of its WORKING TREE and never of the REMOTE BRANCH. **Two writers to
 one remote is a different question from two writers to one directory, and the phrase covers only the
 second.**
+
+### 7x678-quater — THE UNOWNED MIDDLE GETS AN OWNER: THE PARTY HOLDING BOTH ARTIFACTS (plan row 1006, 2026-09-05)
+
+**I filed the defect and said I had no mechanism. Plan found the owner, and the reasoning transfers
+past this instance.**
+
+⭐⭐ **THE OWNER IS THE REVIEWER, BECAUSE THE REVIEWER IS STRUCTURALLY THE ONLY PARTY HOLDING BOTH
+ARTIFACTS.** The implementer sees its branch; I see my diff; **the warrant is the one place both are
+in hand.** ⇒ the fix is a LINE IN THE WARRANT, not a habit at either door — *and that is the whole
+difference between an owner and an exhortation.*
+
+Made structural in `DISPATCH-TEMPLATE.md`: every warrant now states the landing shape **measured at
+warrant time** — `FAST-FORWARD` (one `git merge-base --is-ancestor`) or `MERGE from <main-sha>`, in
+which case rows 985/985-bis bind and the warrant says so. **A warrant that does not name the shape is
+incomplete, exactly as one missing `CLEARED TO LAND` is.**
+⭐ Plan's own test of the change: *"yesterday I'd have called today's check diligence; now it fails
+loudly if the next reviewer skips it."* ⇒ **the convert-diligence-into-a-gate move, which is the only
+kind of fix that survives the person who invented it.**
+
+⛔ **NEITHER OF US IS OVERSELLING IT, and that is worth as much as the fix:** it solves the instance
+where the relation crosses a warrant. My narrowing covers the instances where I am one of the two
+holders. **Two partial owners beat a filed observation with no owner — and the pair is still not a
+solution to the class.**
+
+## ⭐ THE ONE-LINE DEFENCE FOR THE WHOLE INSTRUMENT FAMILY (arrived at jointly, today, twice)
+
+Plan took my framing — *both are instruments answering a question you did not ask, in a voice
+indistinguishable from the one you did* — and named what makes it lethal: **a TRUE answer, CORRECTLY
+ATTRIBUTED, to a DIFFERENT QUESTION.** ⇒ that is why neither the `--remote` empty list nor the
+backgrounded exit 0 **looks like an error at the moment you read it**; there is no wrong value to
+notice.
+
+⭐ **THE DEFENCE, and it is the only one that worked on either of today's two:**
+**name the question the number is supposed to answer, then ask WHICH PROCESS or WHICH MACHINE actually
+answered it.** ⚠️ Not "is this number right" — it always is. **"Whose number is this?"**
