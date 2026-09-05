@@ -36533,3 +36533,26 @@ landing that does not happen.*
 *"small probes cannot change assertion text, but load can affect race/timing behavior, so blanket
 'correctness unaffected' is stronger than evidence."* ⇒ **Two parties, two instruments, same
 correction of my overclaim** — that is the corroboration shape I keep asking for, arriving against me.
+
+### 7x685 — "FAST-FORWARD POSSIBLE" IS NOT "LANDING IS FAST-FORWARD" (ranking seat, 2026-09-05T19:42Z)
+
+I told the seat that because the JWT door merged `a538fa18` into its round, making `main` an ancestor of
+its head, the landing *"lands as a FAST-FORWARD, not a merge"* — and that a warrant naming MERGE would
+make the ceremony write a *"gratuitous"* merge commit.
+
+⛔ **Wrong. The seat: *"fast-forward POSSIBLE does not mean selected landing is FAST-FORWARD. We explicitly
+chose shipped normal `--no-ff` for deploy even when main is an ancestor, and the same applies to JWT. An
+ancestor-inclusive round under that ceremony lands as MERGE from `a538fa18` with parents main + reviewed
+head and tree equal to the reviewed head. That is actual procedure, not stale shape."***
+
+⭐ **I confused a PROPERTY OF THE GRAPH with a CHOICE OF THE CEREMONY.** Whether a fast-forward is
+*possible* is a fact about ancestry. Whether one is *performed* is a decision the ceremony encodes —
+and this repo's ceremony encodes `--no-ff` deliberately, so that every landing has a merge commit whose
+tree can be asserted equal to the reviewed head. ⇒ **The merge commit is not gratuitous; it is the
+artifact the tree-equality assertion is made against.**
+
+⚠️ **AND THE OVERCORRECTION SHAPE:** at 18:33 I learned that `--no-ff` turns fast-forwards into merges
+and the `ORG-2c` door built a workaround for a warrant that named FAST-FORWARD. **I then generalized
+"fast-forward-able ⇒ should be fast-forward" — the exact inverse of the lesson.** The `ORG-2c`
+workaround existed because THAT warrant chose FF; the deploy warrant chose MERGE with main an ancestor,
+and I had relayed that ruling myself at 18:35. **I had the rule in my own ledger and argued against it.**
