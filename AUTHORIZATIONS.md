@@ -178,3 +178,28 @@ repositories — set by the same stdin-to-secret path as the original (`gh secre
 **synthetic-credential no-leak controls** — i.e. a test that plants a fake token and asserts it does
 NOT appear in any artifact. ⭐ **That control is the only thing that turns "we redacted" into "we cannot
 leak this class again."**
+
+### RE-EXPOSURE CONTAINMENT, 2026-09-05T19:47–19:48Z — the rotated token met the old workflow once
+
+⚠️ **The CI door (msg 30313/30315) flagged a PROSPECTIVE risk and then found one instance: run
+`33987785351` on `codex/jwt-json-1 @ 17de3667`, created 19:39:49Z — AFTER the 19:37:51Z rotation — on
+the OLD workflow revision with the OLD leaking pin diagnostics.** ⇒ That run consumed the NEW token with
+the leak path still open. **Its artifact `9975776036` and logs deleted → both read back 404.**
+⛔ **Whether the new value was actually printed into that artifact is NOT established** — nobody
+downloaded it (the door explicitly did not), and it is gone. **Treated as EXPOSURE with cause/effect
+unestablished, per the seat's rule; no fresh-leak claim, no automatic second rotation.**
+
+**CONTROL CHOSEN — TEMPORARY SECRET WITHHOLDING, the seat's "as supported" option:**
+`gh secret delete DEPS_READ_TOKEN -R commonplace-next` at 19:47Z → read-back: **0 secrets of that name**
+(and 0 secrets total on the repo — it was the only one).
+⭐ **WHY THIS AND NOT CANCELLATION:** a run reads secrets at job start, so cancelling is a race against
+whatever job is already running. **An ABSENT secret cannot be leaked by any revision of any workflow on
+any branch.** ⇒ old-workflow runs now fail dependency fetch harmlessly instead of printing a credential.
+✅ **The patched candidate `33987899476` was already past "Fetch dependencies SUCCESS" when the secret
+was withdrawn; its remaining jobs are tests and do not read it.** Left running, in_progress.
+**RESIDUAL SCOPE:** every branch carrying the old workflow revision stays VULNERABLE by construction
+until it carries the fix; the seat has amended landing order so **`CI-BETA-1` lands BEFORE any further
+main/JWT push** (msg 30317, superseding JWT-first), and requires the workflow fix in any branch before
+secret-bearing runs are re-enabled for it.
+⛔ **COST:** the value is shredded at my end. **Re-enabling hosted dependency fetch requires jes to supply
+the token once more** — that is the price of the leaking workflow, not a defect in the rotation.
