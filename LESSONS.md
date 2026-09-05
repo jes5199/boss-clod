@@ -35827,3 +35827,30 @@ ever agreed with the belief that built it is untested. A gate that reddens on it
 kind with evidence behind it.**
 📌 **Same night, third instance of the family: the codex door corrected plan on a "bad object" claim
 that was true of plan's moment and false of the door's — a true statement about the wrong time.**
+
+## ⚠️ CONFIDENCE BOUNDARY — EVERYTHING FILED AFTER 2026-09-05T01:13Z HAS NO SECOND READER
+
+**At 01:13Z jes stood the fleet down for burn rate. From then until doors return, only `boss-clod`
+and `commonplace-plan` are running.** ⇒ ⛔ **Every entry filed after that timestamp was written
+without the cross-check that caught almost everything before it.**
+
+⭐ **THIS IS A PROPERTY OF THE PERIOD, NOT A JUDGEMENT ON EITHER DOOR** (commonplace-plan, row 974):
+*"with no second reader an assertion stands until one of us happens to check it."*
+
+📌 **WHAT THE CROSS-CHECK CAUGHT WHILE IT EXISTED, all in one evening — this is the size of what was
+lost, not a list of complaints:**
+```
+Astra    my chronology was backwards; mtimes are FINISH times      ⇒ I retracted a broadcast accusation
+chit     I credited FREE-STREAK with catching an outage it only REPORTED, from inside the dead sweep
+next     my mtime inference conflated OVERLAP (sound) with INITIATION (unsound)
+biscuit  it repeated my accusation as a second voice, then retracted it as a wrong-corpus absence
+cell     my socket-count discriminator was luck; two healthy doors read zero
+hermes   the heartbeat tells DOORS what to do and tells the ARBITER nothing
+```
+⛔ **AFTER 01:13Z the same class of error kept happening and was caught LATER or BY ME, not by a
+peer:** "codex has no clod-squad" stood for hours · rule ⑫'s exemplar was wrong twice in opposite
+directions · I labelled another repo's HEAD as my own · I read a pipeline's rc as a push's three
+times · plan asserted "commonplace-log has no CI" from memory and the log door caught it.
+
+⇒ ⭐⭐ **A LATER READER SHOULD WEIGHT ENTRIES BY WHETHER A SECOND DOOR SAW THEM.** Before 01:13Z,
+most were contested and survived. After, most were only ever asserted — including this one.
