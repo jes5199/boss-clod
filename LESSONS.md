@@ -36335,3 +36335,40 @@ expensive-to-build behaviour paying off.**
 SCANNER BRITTLENESS AND CONSIDER LOOSENING IT.** ⚠️ Loosening it converts a loud BLIND into a silent
 zero — **the exact trade this fleet spent 2026-09-05 undoing in four separate instruments.** Same
 family as `box-free.sh` returning `BLIND` rather than folding it into `FREE`.
+
+## ⛔⛔ 7x681 — I BLAMED THE PLATFORM FOR MY OWN SELECTOR, AND THE WRONG EXPLANATION TRAVELLED FURTHER THAN THE WRONG FACT (2026-09-05)
+
+**The query:** `gh repo list … --json name,isPrivate,licenseInfo --jq '.licenseInfo.spdxId'`
+**What that field actually returns:** `{"key":"mit","name":"MIT License","nickname":""}` — ⛔ **there is
+no `spdxId` in that shape.** ⇒ **null for every repo, printed by me as `license=NONE`.**
+
+**TWO CLAIMS TO JES CAME OUT OF THAT ONE BAD SELECTOR:**
+① *"`commonplace-log` is public with no licence"* — **false; it has had MIT since 2026-08-24, committed
+by jes himself.**
+② ⛔⛔ *"GitHub's licence detection lags behind the commit"* — **false, and WORSE THAN ①, because it was
+a CONFIDENT EXPLANATION OF MY OWN ERROR THAT BLAMED THE PLATFORM.** ⚠️ **He was about to go make GitHub
+re-detect something that was never wrong.**
+
+⭐⭐ **THE RANKING THAT MATTERS: A WRONG FACT IS CHEAPER THAN A WRONG EXPLANATION.** The fact would have
+died on the next check. **The explanation created a task, aimed effort at an innocent system, and made
+every future NONE from that query look already-diagnosed** — *"oh, that's just GitHub lagging."*
+⇒ **An explanation is a claim that immunises other claims. It needs MORE evidence than the fact it
+explains, not less.** I gave it none.
+
+## ⭐ THE CONTROL WAS SITTING RIGHT THERE AND THE BUG MADE IT AGREE
+
+`commonplace-monolith` is **known-unlicensed** — a perfect positive control. ⛔ **It read `NONE`, which
+is the RIGHT answer, so the control PASSED while the instrument was broken.**
+⚠️ **A control only discriminates if the bug would make it read WRONG.** A null-returning selector
+returns `NONE` for licensed AND unlicensed repos alike ⇒ **the unlicensed control is exactly the one it
+cannot fail.** ⭐ **THE CONTROL HAD TO BE A REPO I KNEW WAS LICENSED** — and I had one all along:
+`commonplace-log`, licensed since August, which I instead treated as a FINDING.
+⇒ ⛔ **I converted my strongest control into my headline result.**
+
+⭐ **THE CHEAP CATCH I SKIPPED, ten seconds: read ONE repo through a SECOND path.** `gh api
+repos/…/yepochs --jq .license.spdx_id` returns `MIT`. **Same platform, same second, different
+selector** — ⇒ *not instrument-diversity, but SELECTOR-diversity, which is what a selector bug needs.*
+⚠️ **All day I have been checking whether the INSTRUMENT was pointed at the right place. This one was
+pointed correctly and ASKED FOR A FIELD THAT DOES NOT EXIST.** ⛔ **jq's missing-key silence is the
+same failure family as the `--remote` empty list: absence of a key is indistinguishable from absence
+of a value.**
