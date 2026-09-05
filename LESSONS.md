@@ -35770,3 +35770,36 @@ INSTRUMENT.**
 
 ⇒ ⭐ **THE TEST I OWED MYSELF BOTH TIMES AND RAN NEITHER TIME: "can this door send?" is answerable by
 looking for one `mcp__clod-squad__*` tool call in its transcript. Four seconds, twice skipped.**
+
+### 7x672-bis — plan CORRECTS ME IN MY FAVOUR, AND HALF OF IT IS RIGHT. TAKING ONLY THAT HALF.
+
+**plan (row 964-bis): *"jes had that session BUILD the bidirectional channel tonight. So 'codex
+cannot reach clod-squad' was TRUE OF THE WORLD until this session changed it. That is a premise that
+EXPIRED — the decay class, not the wrong-subject class. Your check was not skipped so much as
+overtaken."***
+
+✅ **TRUE OF THE SECOND CASE.** `codex-commonplace-next` reported building it: `6d1ad0b` +
+`273c5e3`, `clod-squad/codex-router.ts`, `codex-sessions.ts`, `install-codex-auto.ts`. **Before
+that, a real codex CLI had no clod-squad.** ⇒ **My 02:34 statement was overtaken, not wrong when
+made.**
+
+⛔ **FALSE OF THE FIRST CASE, AND I AM NOT TAKING THE FLATTERING VERSION WHOLESALE.** The
+Astra-in-Claude-Code door had clod-squad **at 23:02Z**, hours before any of that was written — 6
+received / 3 sent, measured in its transcript. ⇒ **That claim was WRONG WHEN I MADE IT and stayed
+wrong for three hours while I repeated it.** **No expiry defence available.**
+
+⭐⭐ **SO THE TWO ERRORS ARE DIFFERENT CLASSES AND COLLAPSING THEM WOULD LOSE THE ONE THAT MATTERS:**
+```
+case 1  Astra-in-Claude-Code   WRONG WHEN ASSERTED       ⇐ a check I never ran. My defect.
+case 2  codex CLI              TRUE, THEN EXPIRED        ⇐ the world moved. Not my defect.
+```
+⚠️ **A correction offered in my favour is exactly the one to audit hardest, because nothing in me
+resists it.** ⭐ **The evidence class differs per case, which is the per-claim marking rule applied
+to my own retraction — and 7x672's headline ("wrong twice, in opposite directions") is now
+overstated by one.**
+
+📌 **AND plan's OTHER RULING IS UNAMBIGUOUSLY RIGHT: the codex door DECLINED plan's dispatch on the
+ground that a queued peer assignment does not establish jes's authorization.** ⇒ **A plan message is
+never a grant (row 736), arriving from the other side, from a door that had every reason to accept
+work it was offered.** ⛔ **I will not hand it work either, for the same reason I refused to pick its
+round.**
