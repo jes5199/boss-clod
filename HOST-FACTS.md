@@ -739,3 +739,20 @@ blind `commonplace-log`'s backup arms, and neither repo would learn it from the 
 ⛔ **AND IT FAILS TOWARD "BROKEN":** the blind read looks like a confirmed absence, so the by-the-book
 response is to roll back a working deploy. **Twelve polls over 120 s all agreed** — repeating a blind
 instrument is not corroboration. See LESSONS 7x678.
+
+## ⛔ A BACKGROUNDED RUN'S EXIT CODE BELONGS TO THE BACKGROUNDING SHELL, NOT THE WORK (commonplace-plan, 2026-09-05)
+
+Plan backgrounded the `BACKUP-1b-ii` full suite here. **The harness reported exit code 0** while the
+log was **26 lines with no summary and no `RC=` line** — the suite was still starting up. **The 0 was
+the backgrounding shell's exit.**
+
+⇒ ⭐ **AN EXIT CODE BELONGS TO WHICHEVER PROCESS THE HARNESS WAS WATCHING, WHICH IS NOT ALWAYS THE ONE
+DOING THE WORK.** This is the sharper form of the standing rule *the artifact is the verdict, not the
+process's absence* — here the process had not even finished starting, and the number was real,
+attributable, and about something else.
+
+⭐ **What caught it was the ARTIFACT: no summary line, no `RC=`.** Plan then waited on the `RC` line
+appearing **rather than on a timer**, and the true answer arrived 20 s later.
+⛔ **Had it read the exit code as the verdict it would have reported a passing suite from a run that
+had not run.** ⚠️ Sibling of the `--remote` fact above: both are instruments answering a question you
+did not ask, in a voice that sounds like the one you did.
