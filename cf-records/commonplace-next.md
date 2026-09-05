@@ -165,3 +165,4 @@ commonplace-next AFTER   bindings identical by (type,name): 10 secret_text + DO 
                          only other settings key changed: annotations (deployment message)
 ```
 ⛔ Seat's caveat, carried: `invocation_logs=false` does NOT make the sink emit only the allowlisted event — existing container stdout may appear. No public export; Dashboard/`wrangler tail` only. **Sink is NOT yet proven to receive a container line: a known application emission must arrive before silence is trusted.**
+⚠️ **EFFECT OBSERVED 21:00:13Z (tail):** the DO's alarm handler threw `Durable Object reset because its code was updated` — the settings write, by minting a new version, **RESET the Durable Object and therefore the container instance.** Same bytes, but a restart. A settings-only write is not free of runtime effect on a Container-backed Worker; on production this would be a cold boot (~134 s measured today).
