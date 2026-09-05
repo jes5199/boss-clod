@@ -152,3 +152,16 @@ page (jes)        exactly "Authentication required." — PageController.index an
 chain declines, reason unobservable.** Instrument (allowlisted stage/reason, seat #30427) drafted by the next door
 at `codex/auth-diagnostic-1 @ b8939ab`, unrun; AUTH-DIAGNOSTIC-1 window granted 20:55Z. ⛔ My earlier "401" and
 "parser refusal" were unmarked inferences — LESSONS 7x688. ⛔ "tail blind" was an idle instrument — ledger 20:49Z.
+
+## OBSERVABILITY ENABLED — 2026-09-05T20:59Z, seat #30460/#30463 (sink for the AUTH-DIAGNOSTIC-1 instrument)
+
+**Shape: `PATCH …/scripts/commonplace-next/settings` with ONLY `{"observability":{"enabled":true,"logs":{"enabled":true,"invocation_logs":false}}}`.** Snapshot first: `access-snapshots/commonplace-next-settings-before-obs-20260905T2059Z.json`.
+**Proven on a disposable worker `boss-obs-probe` (secret binding DUMMY) first — Arm A: setting took AND the binding survived. Arm B (PATCH with `bindings: []`) did NOT erase the binding either** — so PATCH does not reproduce the PUT erase hazard recorded 09-01; that hazard stays filed as PUT-specific and was not re-tested here. Probe deleted; scripts back to {beta, log, next}.
+```
+commonplace-next AFTER   bindings identical by (type,name): 10 secret_text + DO COMMONPLACE_NEXT_CONTAINER (11)
+                         observability enabled=true · logs.enabled=true · invocation_logs=false · traces disabled · persist true
+                         script etag 343cbd4fb60dd442 unchanged · routes 6a26c1fc→beta, d1a19822→next unchanged
+                         ⚠️ settings write minted a NEW version/deployment: aa542c30 → version 20887173 (100%) — same bytes, new id
+                         only other settings key changed: annotations (deployment message)
+```
+⛔ Seat's caveat, carried: `invocation_logs=false` does NOT make the sink emit only the allowlisted event — existing container stdout may appear. No public export; Dashboard/`wrangler tail` only. **Sink is NOT yet proven to receive a container line: a known application emission must arrive before silence is trusted.**

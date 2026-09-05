@@ -1,0 +1,67 @@
+{
+  "result": {
+    "placement": {},
+    "compatibility_date": "2026-09-04",
+    "compatibility_flags": [
+      "nodejs_compat"
+    ],
+    "usage_model": "standard",
+    "tags": [],
+    "tail_consumers": [],
+    "logpush": false,
+    "annotations": {
+      "workers/triggered_by": "secret"
+    },
+    "bindings": [
+      {
+        "name": "COMMONPLACE_ACCESS_AUDIENCE",
+        "type": "secret_text"
+      },
+      {
+        "name": "COMMONPLACE_ACCESS_ISSUER",
+        "type": "secret_text"
+      },
+      {
+        "name": "COMMONPLACE_ACCESS_JWKS_URI",
+        "type": "secret_text"
+      },
+      {
+        "name": "COMMONPLACE_ACCESS_ROSTER",
+        "type": "secret_text"
+      },
+      {
+        "name": "COMMONPLACE_LOG_REALM_CAPABILITY",
+        "type": "secret_text"
+      },
+      {
+        "name": "COMMONPLACE_LOG_REALM_URL",
+        "type": "secret_text"
+      },
+      {
+        "class_name": "CommonplaceNextContainer",
+        "name": "COMMONPLACE_NEXT_CONTAINER",
+        "namespace_id": "581ccdd5223f4adeb4b4175b5759e363",
+        "type": "durable_object_namespace"
+      },
+      {
+        "name": "SECRET_KEY_BASE",
+        "type": "secret_text"
+      },
+      {
+        "name": "WORKOS_API_KEY",
+        "type": "secret_text"
+      },
+      {
+        "name": "WORKOS_CLIENT_ID",
+        "type": "secret_text"
+      },
+      {
+        "name": "WORKOS_REDIRECT_URI",
+        "type": "secret_text"
+      }
+    ]
+  },
+  "success": true,
+  "errors": [],
+  "messages": []
+}
