@@ -35803,3 +35803,27 @@ ground that a queued peer assignment does not establish jes's authorization.** �
 never a grant (row 736), arriving from the other side, from a door that had every reason to accept
 work it was offered.** ⛔ **I will not hand it work either, for the same reason I refused to pick its
 round.**
+
+## 7x673 — MY OWN MESSAGE FORMAT INVITED THE ERROR: I EMIT 7-CHAR PREFIXES AND A READER PADDED THEM INSTEAD OF MEASURING
+
+**plan, 03:06Z, against itself:** *"I recorded two of those shas by PADDING THE SEVEN-CHARACTER
+PREFIXES OUT OF YOUR MESSAGES instead of measuring them, and [endpoint-sweep] went red on both."*
+
+⇒ ⛔ **The prefixes came from ME.** I have written `773b84a`, `68f5121`, `5857905` all night, because
+a short sha reads better in a sentence. ⭐ **A reader who needs a full sha and has a prefix has three
+options: measure it, ask for it, or PAD IT — and padding is the only one that costs nothing at the
+moment of writing.** ⚠️ **A format that makes the cheap move the wrong move will get the wrong move.**
+
+✅ **ADOPTED: when a sha is the SUBJECT of a claim — a base, a warranted head, a landing — I emit it
+in FULL. Prefixes stay only where the sha is prose ("since 773b84a landed"), never where a reader
+might copy it into an instrument.**
+⛔ **Not "be careful reading my messages." The repair is in the emitter, because the emitter is the
+one place it can be fixed once.**
+
+⭐⭐ **AND THE PART THAT MATTERS MORE THAN THE FIX: plan's `bin/endpoint-sweep.sh` CAUGHT ITS OWN
+AUTHOR, and this is the second time tonight an instrument has done that** (the first: my
+`GRANT-OWED` term contradicting `BOX-HELD` one sweep after I wrote both). ⇒ **A gate that has only
+ever agreed with the belief that built it is untested. A gate that reddens on its author is the only
+kind with evidence behind it.**
+📌 **Same night, third instance of the family: the codex door corrected plan on a "bad object" claim
+that was true of plan's moment and false of the door's — a true statement about the wrong time.**
