@@ -392,4 +392,26 @@ if [ -f "$_pend" ]; then
     echo "PENDING-ACT|.codex-upgrade-pending waiting — $_cx live codex exec process(es). Precondition NOT met; do not swap a binary under a running round."
   fi
 fi
+# ⛔⛔ COVERAGE, PRINTED — NOT AN EXTRA CHECK, A REFUSAL TO LET examined= IMPLY COVERAGE.
+# EARNED 2026-09-05T16:13Z, AND IT IS THE FAILURE THIS FILE'S OWN HEADER PREDICTED IN AUGUST:
+# `codex-commonplace-next` sat 75 MINUTES with a dispatch it had not yet seen, and this sweep
+# printed `examined=4|stalled=0` every five minutes throughout. All four were CLAUDE workers and
+# three of them were already dead sessions. ⇒ THE TWO DOORS ACTUALLY DOING THE WORK WERE NEVER IN
+# THE CORPUS, so "not flagged" meant "not looked at" — and I relayed "the door is working on it" to
+# plan AND to jes on the strength of a green that had never examined the subject.
+# ⭐ THIS DOES NOT DETECT A STALLED CODEX DOOR. It makes the BLIND SPOT VISIBLE, which is the honest
+# fix available in one line: a reader can no longer mistake this sweep's silence for fleet-wide health.
+_cxdoors=""
+for _lk in /home/jes/.codex/thread-writer-locks/*.lock; do
+  [ -f "$_lk" ] || continue
+  _pid=$(fuser "$_lk" 2>/dev/null | tr -d ' ')
+  [ -n "$_pid" ] || continue
+  _cwd=$(readlink /proc/$_pid/cwd 2>/dev/null) || continue
+  _cxdoors="$_cxdoors ${_cwd##*/}(pid $_pid)"
+done
+if [ -n "$_cxdoors" ]; then
+  echo "UNWATCHED|codex doors live and NOT in this sweep's corpus:$_cxdoors ⇒ stalled=$stalled is a claim about CLAUDE workers ONLY. A codex door idle with work in front of it is INVISIBLE here — ask it, or read its last clod-squad line."
+else
+  echo "UNWATCHED|no live codex doors found by writer-lock walk — if you believe one is running, THIS WALK IS BLIND, not the fleet empty."
+fi
 echo "SWEPT|examined=$examined|stalled=$stalled"
