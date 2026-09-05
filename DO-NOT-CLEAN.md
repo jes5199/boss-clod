@@ -40,3 +40,17 @@ message says so in its own paragraph, because a preserved branch that does not s
 gets read as reviewed by whoever finds it later.
 📌 The directory may now be deleted safely if disk pressure demands it. **The other two guards below
 still stand.**
+
+## ✅ RESOLVED 2026-09-05T04:35Z — the realm-remove work is now in THREE durable places
+```
+commonplace-log  preserve/realm-remove-1b            9ff2646517543ae6fb39ef1063ae2beb6bb90ead
+commonplace-log  review/realm-remove-1b-arms-2026-09-05  629efde171f8305dbdb8e607c23ccecc7fc9ab95
+                 ⇒ the ARMS evidence: three mutations seen RED, the test-only row guards, and a
+                   checksummed raw-evidence directory
+commonplace-plan docs/incoming/2026-09-05-fleet-takedown-state/   (the original capture)
+main 60715aacc2ccb616f112651685ec71358380e803 UNMOVED · bogus-ref control 0 rows
+```
+⭐ `/home/jes/astra-realm-remove` reads 0 uncommitted paths at `9ff264651754` — nothing is left only
+in a working tree. **The guard on it is fully discharged.**
+⚠️ **Still NOT LANDED and NOT WARRANTED.** The arms now EXIST; plan rules on them. ⛔ Do not read a
+published review branch as a landed one.
