@@ -125,3 +125,35 @@ that is a real outward-facing disclosure.
 **Deploy hold status:** the `1b-ii` hold in `cf-records/commonplace-log.md` **lifts on plan's word once
 D1 and D4 land** — not on this ruling alone. Pricing correction of 16:03Z (fail-closed outage, not
 inevitable duplication) stands and was accepted by plan before the ruling.
+
+### ⚠️ AMENDMENT 2026-09-05T16:10Z — the ACCEPTED EXPOSURE was recorded OVERSIZED. Ruling unchanged; its SIZE corrected.
+
+**Source: `commonplace-plan` row 1014, plan `6645541`, correcting its own row 1004 after the log door
+measured the finding's true size. Amended here BEFORE any reader inherited the exaggeration.**
+
+⛔ **WRONG (as recorded above): the key listing is "a membership roster."**
+✅ **RIGHT: it is a HISTORICAL roster.** `editor_cell_id` is keyed on `membership_epoch`, which carries
+`membership_generation` — **a member removed and re-added derives a DIFFERENT id**, and the backup
+retains historical objects. ⇒ **the oracle answers *"did `(org, member, generation)` exist at some
+point"*, NOT *"is this member in the organization now."***
+
+⚠️ **THIS REVERSES NOTHING.** A historical roster is still a roster, and the `document_id == log_id`
+**document-inventory** half is untouched. The **flip trigger** and the **deploy hold** are unaffected.
+⭐ **But it changes what the ruling is on the hook for:** an **oversized finding accepted by a ruling
+makes the ruling look more permissive than it is**, and the next reader inherits the exaggeration as
+the baseline.
+
+## ⭐ AND A DEFECT IN THE **REJECTED** OPTION'S SPEC — recorded because nobody ever tests a rejected option
+
+Plan's option **(A) was INCOMPLETE AS WRITTEN**: it described an opaque **key** mapping and **never
+said the MANIFEST must be opaque too.** ⇒ an implementer following (A) faithfully would ship **opaque
+keys plus a manifest leaking the same inventory** — a confidentiality change that **costs idempotence
+and buys nothing.** The cheap variant (a random realm prefix) leaves raw log ids visible for the same
+reason.
+
+⭐⭐ **AUDITING THE OPTION THAT LOST COSTS NOTHING TO SKIP, WHICH IS EXACTLY WHY IT GETS SKIPPED.**
+A rejected option is never built, so **its specification is never tested by anyone** — nobody would
+have noticed (A) was unimplementable, **and a future round reversing this ruling would have inherited
+it as a plan.**
+⛔ **Recorded as a defect in the rejected option's spec, explicitly NOT as a further argument for (B).**
+**(B) does not get credit for (A) having been described badly.**
