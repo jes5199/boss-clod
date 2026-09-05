@@ -6,7 +6,7 @@ import {
 } from '@modelcontextprotocol/sdk/types.js'
 import { Database } from 'bun:sqlite'
 import { homedir } from 'os'
-import { join, basename } from 'path'
+import { join, basename, dirname } from 'path'
 
 // A message older than this at DELIVERY time is labelled stale. Chosen
 // against how this fleet actually behaves: workers restart, crash and
@@ -30,17 +30,21 @@ import {
 
 // --- Identity ---
 
-const projectDir = process.env.CLAUDE_PROJECT_DIR || process.cwd()
-const identity = basename(projectDir)
-const fullPath = projectDir
+const codexMode = process.env.CLOD_SQUAD_TRANSPORT === 'codex'
+const projectDir = process.env.CLOD_SQUAD_PROJECT_DIR || process.env.CLAUDE_PROJECT_DIR || process.cwd()
+const identity = process.env.CLOD_SQUAD_IDENTITY || (codexMode ? `codex-${basename(projectDir)}` : basename(projectDir))
+// The legacy schema makes full_path unique. Namespace Codex registrations so
+// Claude and Codex can occupy the same actual working directory.
+const fullPath = codexMode ? `codex:${identity}:${projectDir}` : projectDir
 
 // --- Database ---
 
-const dbDir = join(homedir(), '.claude', 'channels', 'clod-squad')
+const dbPath = process.env.CLOD_SQUAD_DB || join(homedir(), '.claude', 'channels', 'clod-squad', 'queue.db')
+const dbDir = dirname(dbPath)
 mkdirSync(dbDir, { recursive: true })
-const db = new Database(join(dbDir, 'queue.db'))
+const db = new Database(dbPath)
 initDb(db)
-pruneStaleIdentities(db)
+if (!codexMode) pruneStaleIdentities(db)
 registerIdentity(db, identity, fullPath)
 
 process.stderr.write(`clod-squad: registered as "${identity}" (${fullPath})\n`)
@@ -52,12 +56,12 @@ const mcp = new Server(
   {
     capabilities: {
       tools: {},
-      experimental: {
+      ...(!codexMode && { experimental: {
         'claude/channel': {},
-      },
+      } }),
     },
     instructions: [
-      `Messages from other Claude instances arrive as <channel source="clod-squad" from="..." message_id="...">. Reply with the send tool. Use list_peers to see who's online.`,
+      `You are ${identity}. Messages from peers arrive through clod-squad. Reply with the send tool to the sender. Use list_peers to see who's online.`,
     ].join('\n'),
   },
 )
@@ -68,7 +72,7 @@ mcp.setRequestHandler(ListToolsRequestSchema, async () => ({
   tools: [
     {
       name: 'send',
-      description: 'Send a message to another Claude instance.',
+      description: 'Send a message to another Claude or Codex instance.',
       inputSchema: {
         type: 'object' as const,
         properties: {
@@ -84,7 +88,7 @@ mcp.setRequestHandler(ListToolsRequestSchema, async () => ({
     },
     {
       name: 'list_peers',
-      description: 'List all registered Claude instances with online/offline status.',
+      description: 'List all registered Claude and Codex instances with online/offline status.',
       inputSchema: { type: 'object' as const, properties: {} },
     },
     {
@@ -127,8 +131,29 @@ mcp.setRequestHandler(CallToolRequestSchema, async (req) => {
         const metadata = args.metadata as Record<string, unknown> | undefined
 
         const id = insertMessage(db, identity, to, text, metadata)
-        const peer = listIdentities(db).find(i => i.name === to)
-        const status = peer && isOnline(peer) ? 'online' : 'offline (queued)'
+        // ⛔⛔ THE DURABLE ACT IS DONE ABOVE. EVERYTHING BELOW IS COSMETIC.
+        // ⚠️⚠️ HONEST STATUS OF THE MECHANISM THIS GUARDS: UNPROVEN. Measured after I asserted it —
+        // A WAL READER DOES NOT TAKE SQLITE_BUSY FROM A CONCURRENT WRITER: a SELECT under a held
+        // BEGIN IMMEDIATE returned OK at busy_timeout=0. So "step 3 threw" is a PLAUSIBLE SITE, not
+        // a measured one, and where plan's #25431 error actually arose is still unmeasured.
+        // ⭐ The guard stays because it is an IDENTITY fix, correct regardless of frequency or
+        // cause: a cosmetic read must never be able to report the durable act as failed.
+        // `listIdentities` is read ONLY to label the recipient online/offline. Before this catch, a
+        // failure there (SQLITE_BUSY under concurrency) threw out of the handler and the caller saw
+        // a SEND FAILURE — on a message that was already stored. Observed 2026-09-01: plan's #25431
+        // reported `database is locked`, WAS IN THE STORE, and was resent as #25435 — a duplicate,
+        // which in this fleet reads as a door repeating itself for emphasis and has no error shape.
+        // ⚠️ The error string is IDENTICAL to the one that means genuine loss, one statement apart.
+        // ⭐ This is not a SQLite property and busy_timeout does not fix it: it is a transaction
+        // boundary drawn around the wrong thing. A cosmetic lookup must never be able to report the
+        // durable act as failed. (commonplace-biscuit + hermes, 2026-09-01)
+        let status: string
+        try {
+          const peer = listIdentities(db).find(i => i.name === to)
+          status = peer && isOnline(peer) ? 'online' : 'offline (queued)'
+        } catch {
+          status = 'stored (recipient status unavailable)'
+        }
 
         return {
           content: [{ type: 'text', text: `Sent message #${id} to ${to} [${status}]` }],
@@ -207,6 +232,9 @@ let polling = true
 
 const pollInterval = setInterval(() => {
   if (!polling) return
+  // Codex app-server bridge owns inbound delivery and liveness. An MCP tool
+  // process must never drain its queue into unsupported Claude notifications.
+  if (codexMode) return
   try {
     const messages = getUndelivered(db, identity)
     for (const msg of messages) {

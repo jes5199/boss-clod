@@ -2,6 +2,13 @@ import { Database } from 'bun:sqlite'
 
 export function initDb(db: Database): void {
   db.exec('PRAGMA journal_mode=WAL')
+  // ⛔ WAL ALONE DOES NOT MAKE CONCURRENT WRITERS SAFE — it makes readers non-blocking.
+  // With busy_timeout at its default 0, a second WRITER gets SQLITE_BUSY IMMEDIATELY and the
+  // caller sees "database is locked". Observed 2026-09-01: commonplace-plan's send to boss-clod
+  // FAILED TO DELIVER on a locked db while ~9 sessions shared this file (55 MB, 5 MB WAL, 16879
+  // messages). ⚠️ THE MESSAGE WAS LOST, NOT QUEUED — a dropped ruling looks exactly like a door
+  // that had nothing to say, which is the failure shape this fleet spends its time hunting.
+  db.exec('PRAGMA busy_timeout=5000')
   db.exec('PRAGMA foreign_keys=ON')
 
   db.exec(`
