@@ -36595,3 +36595,15 @@ caught the first (the page is served **200**, and its exact text is "Authenticat
 per-claim marker rule (CLAUDE.md) would have made the first one visible: `401 [INFERRED from his
 wording]` is a sentence nobody writes without noticing it is not a measurement. ⛔ **And a status code
 is the most status-shaped thing there is — it reads as measured even when it was never read.**
+
+## 7x689 — I READ TRAFFIC SHAPE AS OUTCOME, AGAIN, ONE HOUR AFTER 7x688 (2026-09-05T22:52Z)
+
+Tail showed the container fetching Access keys and making 34 store calls after jes's GET. I texted him
+*"that's the shape of a session being established and a document being opened."* He replied
+*"Authentication required." again.* ⭐ **I did ask rather than assert — the sentence ended in a question —
+but the inference travelled first and the question second, so he read a conclusion.** The store calls
+were the app's own background work; they carried no information about HIS session. ⛔ **Same class as
+7x688 (status code from page text): an observable that is *consistent with* success got reported as
+*evidence of* it.** The discipline that held was the one that mattered — I did not tell the doors it
+succeeded — but the operator got a wrong picture for 60 s and had to correct me. Next time: report the
+observable and its class (`egress ×34 [measured] — meaning unknown`), and put the question alone.
