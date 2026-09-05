@@ -164,13 +164,26 @@ nonbeam=0
 for _pid in $(ls /proc 2>/dev/null | grep -E '^[0-9]+$'); do
   _exe=$(readlink "/proc/$_pid/exe" 2>/dev/null) || continue
   case "$(basename "$_exe" 2>/dev/null)" in
-    node|npm|npx|vitest|tsc|esbuild) ;;
+    # ⭐ chrome/chromium/headless_shell ADDED 2026-09-05T18:11Z, BEFORE it bit: codex-yelixer's round
+    #   adds a REAL CHROMIUM durability acceptance. A browser run is as CPU-heavy as any suite and
+    #   was not in this list at all.
+    node|npm|npx|vitest|tsc|esbuild|chrome|chromium|chromium-browser|headless_shell) ;;
     *) continue ;;
   esac
   _b=$(basename "$_exe")
   _cwd=$(readlink "/proc/$_pid/cwd" 2>/dev/null || echo UNREADABLE)
   case "$_cwd" in
-    /home/jes/sol-*|/home/jes/*-wt|/home/jes/*-wt/*|/home/jes/*-suite-load*|/tmp/commonplace-*)
+    # ⭐⭐ `*-compat*` ADDED 2026-09-05T18:11Z, BEFORE IT BIT, by asking what a NEW door's paths look
+    #   like rather than waiting for an incident. codex-yelixer works in /home/jes/yelixer-compat-old,
+    #   /home/jes/yepochs-compat, /home/jes/commonplace-merkle-crdt-compat, /home/jes/commonplace-next-compat
+    #   — NONE matched any pattern here, so its baseline would have run while this script said FREE.
+    #   ⛔ THAT IS THIS FILE'S OWN HEADER FAILURE REPEATING: biscuit's vitest read `FREE|0 suites` FOR
+    #   ITS ENTIRE DURATION.
+    # ⚠️ AND MY FIRST ATTEMPT AT THIS PATCH SILENTLY FAILED: python asserted on a mis-remembered
+    #   indent, `bash -n` passed on the UNCHANGED file, and my red-arm probe then read FREE — which I
+    #   could have filed as 'the gate does not work' instead of 'the patch never applied'.
+    #   ⇒ grep for the change before testing it. A test of a patch that did not land tests nothing.
+    /home/jes/sol-*|/home/jes/*-compat|/home/jes/*-compat/*|/home/jes/*-compat-*|/home/jes/*-wt|/home/jes/*-wt/*|/home/jes/*-suite-load*|/tmp/commonplace-*)
       nonbeam=$((nonbeam+1)); echo "BUSY-NONBEAM|pid $_pid $_b cwd $_cwd" ;;
     # ⭐⭐ THE SCRATCHPAD SPLIT (commonplace-chit, 2026-09-04, reported not probed): the LEAK THAT
     #   MOTIVATED THIS WHOLE FIX — biscuit's two orphaned node children — lived at
