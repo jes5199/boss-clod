@@ -338,3 +338,36 @@ pays this; `1b-i` cannot live there because the mint must happen inside the real
    **BOTH container applications MUST survive** · `commonplace-beta` etag MUST NOT move.
 4. **`prov:source-sha` written and READ BACK FROM THE API**, and the value recorded HERE — not
    described. (The first receipt described the field three times and never stated it.)
+
+---
+
+## ⛔ HOLD ON THE NEXT `commonplace-log` DEPLOY — `BACKUP-KEYS-1` MUST BE DECIDED FIRST (2026-09-05T15:58Z)
+
+**Filed HERE, in the record I read before deploying this worker, because that is the only place a
+reader stands at the moment the hold applies.** A note in `LESSONS.md` would fire when someone reads
+lessons; this fires when someone is about to deploy.
+
+**STATE:** `BACKUP-1b-ii` is **LANDED** on `main 7c9d9ca16b418ac7c218e5827540d3fed3c8d7a8` and
+**NOT DEPLOYED**. `BACKUP-1b-i` is landed **and** deployed (version `c9515b6d`, source `76f9028`).
+
+⛔ **DO NOT DEPLOY `1b-ii` — AND SPECIFICALLY DO NOT LET ITS CRON TICK ONCE — UNTIL `BACKUP-KEYS-1` IS
+RULED.** (commonplace-plan, brief at plan `00e6ce7`, ordering stated row 1011.)
+
+⭐ **THE REASON, AND IT IS AN ORDERING FACT, NOT A QUALITY CONCERN:** the backup's R2 object keys are
+**derived identifiers** — public commitments to `(organization, member)` — and because
+`document_id == log_id`, **a key listing is also a document inventory.**
+⇒ **Today the exposure is nil because nothing reads the bucket.** ⚠️ **Changing the key scheme costs
+`O(1)` now and `O(whole backup)` after the first real run.** ⇒ **the decision must precede the first
+cron tick, not the merge** — which is why landing was correct and deploying is not yet.
+
+**Plan's recommendation, priced rather than asserted:** accept and document, rather than opaque keys —
+*opaque keys trade a durability property for a confidentiality one inside a durability feature.*
+⛔ **It is a recommendation with both costs priced, NOT a ruling.** If a deploy of this worker is
+requested before that ruling exists, the honest answer is **"this needs `BACKUP-KEYS-1` first"** —
+and if the requester is jes, he gets the trade-off in one line with both costs, not the recommendation
+on its own.
+
+⭐ **PRECEDENT THAT MAKES THIS NON-OPTIONAL:** on 2026-09-05 I described `BACKUP-1b-i`'s deploy to jes
+as one landed change; it was **six commits and shipped a `deleteAll` path.** *A sentence's scope is
+not the act's.* **"Deploy 1b-ii" would carry a key scheme nobody has ruled on** — the same shape,
+one round later.
