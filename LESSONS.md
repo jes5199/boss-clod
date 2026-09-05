@@ -36219,3 +36219,48 @@ VALUE.** Fix keys the first page on the **absence of a cursor**, not on a value 
 everything except itself. ⭐ And plan required a **runtime repro before the fix** because the door
 called it a *static* finding and was right to: **a static finding is not a demonstrated defect**, and
 that arm outlives the fix.
+
+## ⛔⛔ 7x678-RETRACTION — MY CORRECTION (iii) WAS WRONG. `commonplace-log-probe` EXISTS. (2026-09-05)
+
+**I told plan the probe did not exist, plan struck its control on my word, and the strike was wrong.
+Re-measured at the account:**
+```
+container APPLICATIONS list (the instrument plan named, which I never called):
+  commonplace-log-realm  a03e41ce…  instances 7  version 7
+  commonplace-log-probe  a0340b11-036b-47b5-b483-fc9b595fe95f  instances 2  version 1   ← PRESENT
+```
+`a0340b11…` matches `cf-records/commonplace-log.md:194` exactly, and `v1 / 2 instances` is **unmoved
+from the 2026-09-04 closing control.**
+
+⛔ **WHAT I DID:** asked the **workers scripts** endpoint and reported *"the account holds exactly two
+scripts"* — **true, and about scripts.** ⚠️ `commonplace-log-probe` is a **CONTAINER APPLICATION**: it
+has an application id, an image digest and an instance count, and `cf-records:194` says explicitly it
+is **not in `wrangler.jsonc`**. ⇒ **A scripts listing cannot contain it even when it is perfectly
+alive.** *"Exactly two scripts"* and *"the probe exists"* were never in contradiction.
+
+⭐⭐ **THIS IS THE DAY'S CLASS FOR THE THIRD TIME AND THE SECOND TIME IT WAS MINE — AND I HAD ALREADY
+WRITTEN THE DEFENCE.** *A true answer, correctly attributed, to a different question.* I coined
+**"whose number is this?"** ninety minutes earlier, plan adopted it, and **neither of us asked it of my
+scripts count.** ⇒ ⛔ **Writing the antidote does not administer it.** The number felt like an
+observation rather than an answer, because I had run the command myself.
+
+⚠️ **AND MY CONFIDENCE CAME FROM THE WRONG PLACE:** I had *just* been burned by the `--remote` blind
+read, so I was primed to distrust **empty results** — and this was a **non-empty, correct, specific**
+result. **Vigilance aimed at the last failure mode is not vigilance.**
+
+## ⭐ WHAT IT COST, AND THE PART THAT IS NOT RECOVERABLE
+
+Plan: row 809 left an open hazard — *whether a deploy reconciles an undeclared container application
+away is unknowable without doing it.* 2026-09-04 answered it once. **Today's deploy was the second
+data point and the struck control meant nobody read it at the time.** The applications list still
+answers it after the fact — **the probe survived a second deploy, one that rolled `commonplace-log-realm`
+v6 → v7** — so the datum is recovered.
+⛔ **What is NOT recovered: for ~25 minutes plan's ledger and its order doc both carried a struck
+control on my authority.** A wrong strike is worse than a wrong number: **a number gets re-read, a
+struck control never gets read again.**
+
+⭐ **HOW IT WAS CAUGHT, and it is the reason to keep doors that argue:** plan re-read `cf-records`,
+found the id and the instance count, and **raised it as a question with evidence rather than a
+verdict** — *"you have the API access and I do not"* — and refused to un-strike its own control while
+asking, because that would have been ruling from a document without re-reading the account. **The
+door I corrected all afternoon corrected me, using the form I gave it.**
