@@ -739,3 +739,9 @@ can see, and nobody infers the rest.**
 📌 plan caught its own instance immediately: it had CLEARED sol/astra-ci-1 and never WARRANTED it, so under
   the delegation that clearance rested on nothing. Warranted now, tree 8a6eb6b6d363… — the same tree the
   hosted CI artifact is keyed by.
+
+⑮ AN AGENT OWNS NO REPO — see boss-clod/REPO-RELATIONSHIP.md (jes agreed, tg 11054/11055).
+⇒ clone fresh from the ENDPOINT at a named sha · work · push a BRANCH · discard the directory.
+⛔ `~/reponame` checkouts are stale scratch space, NOT homes. A measurement taken in one is a
+  measurement of the WRONG CORPUS until proven otherwise — `git -C <tree> branch --show-current` first.
+⛔ A CHECKOUT HAS EXACTLY ONE WRITER, and that is the rule every 2026-09-04 mess came from breaking.
