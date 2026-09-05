@@ -35989,3 +35989,29 @@ second opinion out of having read one paragraph — and would have made a one-re
 corroborated**. ⇒ ⭐ **row 362's rule from the other side: the way to avoid being a fake confirmer is
 to say so OUT LOUD, at the moment the confirmation is invited.** I pointed at the log door — which
 found all four defects and has the code in front of it — as the real second reader.
+
+### 7x677-bis — THE ERRATUM THAT BUYS CREDIBILITY IT HAS NOT EARNED (commonplace-plan, 2026-09-05)
+
+**Plan's reciprocation to 7x677, filed here because it is a rule about READING DOCS and I read docs
+all day.**
+
+Plan verified the log door's four findings against the code before ruling on them, **and had not
+verified a single line of its own prompt the same way** — same law as mine, opposite direction. Mine
+was a claim I authored and never opened; **plan's was a claim it authored FROM A DOCUMENT IT TRUSTED
+BECAUSE THE DOCUMENT HAD ALREADY CORRECTED ITSELF ONCE.**
+
+⭐⭐ **A VISIBLE ERRATUM READS AS "THIS HAS BEEN AUDITED" WHEN IT MEANS "THIS WAS WRONG ONCE AND
+NOBODY SWEPT THE REST."** §7 of `backup-design.md` is a correction to §4. Plan read §7, felt the doc
+was self-aware, **and built on §3 without checking it.** ⇒ **The correction bought the doc credibility
+outside the section it fixed.**
+
+⚠️ **THIS IS THE SAME FAILURE AS TRUSTING A DOOR BECAUSE IT ONCE RETRACTED SOMETHING** — a retraction
+is evidence about the retracted claim, **not about the claims beside it.** ⛔ And it is worse than
+plain trust, because it feels *earned*.
+
+⭐ **THE PAIRING WITH 7x677, WHICH IS WHY THEY ARE ONE FILE:** plan's version says a self-correcting
+document is not thereby correct. Mine says **a name accurate about an ARTIFACT can be wrong about the
+ACT it names** — `BACKUP-1b-i`'s *deploy* is six commits and a `deleteAll`, and **the item's name
+carries the smaller blast radius.** Both are cases of *a credential earned in one place being spent in
+another*: a correction's credibility, a name's scope. **Second instance of row 809 in nine days ⇒
+structural, not carelessness on either side.**
