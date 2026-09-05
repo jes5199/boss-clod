@@ -721,3 +721,21 @@ available there. ⇒ **It stops being a nicety and becomes the thing that makes 
 interpretable at all.**
 ⚠️ **A witness that is present on the machine you control and absent on the machine you are trying to
 learn about is a witness for the case you already understood.**
+
+## ⛔ `wrangler kv key list` READS LOCAL STATE BY DEFAULT — `--remote` OR IT IS A SIMULATION (2026-09-05)
+
+**wrangler 4.129.0 on this box.** `npx wrangler kv key list --namespace-id <id>` returns `[]` against a
+remote namespace that **demonstrably holds the key**. Adding `--remote` returns it on the first try.
+
+⚠️ **`kv namespace create` PRINTS `Resource location: remote` AND `kv key list` PRINTS NOTHING** — so
+the one command that announces its locality is the one that never needed to, and the reader carries
+"this tool talks to the account" into the command where it is false.
+
+⭐ **WHY IT IS A HOST FACT AND NOT A NOTE IN ONE REPO'S ORDER:** it is a property of the wrangler on
+this machine, and **any door verifying any KV write will hit it.** It was hit executing
+`commonplace-plan`'s deploy order, which spelled the check without `--remote`; the same spelling would
+blind `commonplace-log`'s backup arms, and neither repo would learn it from the other.
+
+⛔ **AND IT FAILS TOWARD "BROKEN":** the blind read looks like a confirmed absence, so the by-the-book
+response is to roll back a working deploy. **Twelve polls over 120 s all agreed** — repeating a blind
+instrument is not corroboration. See LESSONS 7x678.
