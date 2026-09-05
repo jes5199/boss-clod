@@ -208,3 +208,22 @@ rollback   same PATCH+rollout with observability {logs:{enabled:false}} — conf
 acceptance the Bandit startup line in Container Logs on the next cold boot — ⚠️ STRUCTURAL: a cold boot needs a request that passes Access,
            and only jes's browser can produce one (no service token, seat rule). So the startup-line control and the correlated login are the SAME request.
 ```
+
+## STAGING PAIRED DEPLOY — 2026-09-05T23:39Z, seat #30698 "CLEARED STAGING PAIRED BUILD/DEPLOY AUTH-DIAGNOSTIC-RELAY"
+```
+TARGET      commonplace-next via route d1a19822 (beta-next) · prod route 6a26c1fc → commonplace-beta UNTOUCHED [read back]
+APP SHA     5557f4b50d18387f3fbfa334e2ee7046e1a048c1   tree 5ff14a8b740299753078ae18d7b3196352403a61   (local codex/auth-diagnostic-relay-1, UNPUSHED; fresh clone)
+            lineage d8191cf4 (served) → d2db7ff (wrangler.jsonc observability) → 42f5a2b (focused-tested: app 22/0, Worker 17/0 — door's numbers) → 5557f4b (docs-only)
+            exec-path diff 42f5a2b..5557f4b = 0 lines [measured]
+WORKER SHA  version 4d626658-0ae4-4ed4-8c24-6f559874a132 · script etag eab350f7482fa023 (CHANGED from 343cbd4f — new Worker code: authentication-diagnostic.js relay/strip)
+            deployment f50c3e5b · image commonplace-next@sha256:adc8731792ba1d3c63bd14ebbaffad848ae48582006a3d0fe703b0e01d9864ed (tag 4d626658)
+            container app a03286c5 version 3 → 4 · rollout 441e23ae COMPLETED · configuration.observability {logs:{enabled:true}} SET BY THE DEPLOY (wrangler.jsonc block) ← persistence path PROVEN
+RANGE       d8191cf4..5557f4b — exec paths changed: lib/…/web/authentication_diagnostic.ex · test/…/authentication_diagnostic_test.exs · worker/src/authentication-diagnostic.js · worker/src/index.js · worker/wrangler.jsonc
+            COPY set: mix.exs 06a855d8 · mix.lock 29d61e15 · config c028506a · priv a3360df2 (== a538) · lib 23f967ba (was cd460ad4) · worker/src 24bbbc2e (was 151558d1)
+            deps = ①'s fetched set (locks identical) · gate: porcelain --ignored on COPY+worker/src 0, red arm 1, 0
+PAIRING     wrangler uploaded the Worker FIRST (18: Uploaded), then built/pushed the image and rolled the app — so the "new app + old Worker" header-exposure window never existed; the "new Worker + old app" window lasted the rollout only. Both now active.
+READ-BACK   10 secret_text + DO ✅ · worker observability enabled/logs/invocation=false ✅ (preserved — config carries it now) · app logs.enabled ✅ · routes ✅ · workers_dev/previews false ✅
+EFFECT      new Worker version ⇒ DO reset; instance 3851d2df inactive → next request cold-boots the new image
+ROLLBACK    redeploy from the d8191cf4 clone (Worker + image together — pairing matters in reverse too) — untested path; config-only changes revert with config
+ACCEPTANCE  (seat #30698) one correlated real request → Worker-console event `authentication_rejected_from_app stage=<fixed> reason=<fixed> status=<actual>` OR authenticated success; `x-commonplace-auth-diagnostic` header ABSENT at the browser. Tail armed (b3wgiy0b7). NOT PREDICTED.
+```
