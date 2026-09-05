@@ -1,0 +1,13 @@
+HELD 2026-09-05T04:11Z — codex-commonplace-next, LAND 3: codex/ci-1-landing-doc
+32d374ebad27b4dc3294eb498ccbc3701f1dbd86, parent 5857905cb2ee390c18f39f669c8ecdad4ced1b3f.
+Includes its full suite.
+⚠️⚠️ THE LANDING SHA IS NOT THE WARRANTED SHA. plan warranted 5857905…; the door lands 32d374eb…,
+   which is 5857905 + ONE commit adding plan's required paragraph.
+   I VERIFIED THE DIFFERENCE MYSELF rather than accept the description:
+     parent of 32d374eb == 5857905                          ✅
+     diff: docs/IMPLEMENTATION-PLAN-CI-1.md, 4 insertions, 1 file, nothing else   ✅
+     .github/workflows/suite.yml sha256 IDENTICAL at both commits (8e3ef8b38858c34ec12fff8d) ✅
+   ⇒ The reviewed artifact is untouched; only the required doc text was added.
+⛔ plan has been NOTIFIED of the exact endpoint by the door and should re-issue or confirm the
+   clearance NAMES 32d374eb. Granting the BOX is mine; blessing the SHA is plan's.
+⛔ DO NOT GRANT A SECOND WINDOW until it announces RELEASE by name.
