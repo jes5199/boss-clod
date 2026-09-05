@@ -203,3 +203,16 @@ main/JWT push** (msg 30317, superseding JWT-first), and requires the workflow fi
 secret-bearing runs are re-enabled for it.
 ⛔ **COST:** the value is shredded at my end. **Re-enabling hosted dependency fetch requires jes to supply
 the token once more** — that is the price of the leaking workflow, not a defect in the rotation.
+
+### TOKEN #3 SET · #2 REVOKED — incident closed at the credential layer (2026-09-05T19:59Z)
+- **#1** (created 2026-09-04, leaked in 20 runs' artifacts) — revoked by jes ~19:36Z.
+- **#2** (set 19:37:51Z) — reached one old-workflow run (`33987785351`) before the secret was withdrawn at
+  19:47Z; treated as exposed. **REVOKED by jes, confirmed tg 11160 at 19:59:02Z: "yes revoked".**
+- **#3** — set 19:57:43Z **INTO ENVIRONMENT `ci-dependencies` ONLY** (id 21319828576), by stdin from a
+  600 temp, shredded. Repo-scope secrets: **0**. Allowed refs: **exactly `work/ci-beta-1-2026-09-05`**.
+  Negative proof: disallowed ref denied BEFORE steps (`33988515721`, `steps=[]`, no runner). Positive:
+  allowed ref reaches steps. Fetch-with-credential positive PENDING (CI door running it).
+⛔ **Still OPEN at the workflow layer, per the seat's review of `ba7acb94`: artifact upload runs
+`if: always`, so a scanner exception ahead of a secret-bearing file lets it upload unscanned. No warrant
+until upload is gated on a COMPLETE successful scan with ± controls.** ⇒ *the credential cannot reach an
+old ref; the redactor is correct; the upload gate is the last hole.*
