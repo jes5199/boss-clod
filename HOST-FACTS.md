@@ -699,3 +699,25 @@ anything that must RUN A BEAM SUITE               →  MUST go through sol-egres
 ⚠️ **The failure is legible only because the round named the arms UNPROVEN and attributed the cause
 to the environment rather than to its own change — the easy move was to call F1/F2 covered.**
 ⛔ **I chose the launcher, so this cost is mine, not the implementer's.**
+
+## ⛔ ON A HOSTED RUNNER THERE IS NO `box-free.sh` — THE CONTENTION WITNESS IS BLIND THERE (measured 2026-09-05T02:16Z)
+
+**`CI-1`'s first hosted run uploaded `ci_5857905.load`, and its START block reads:**
+```
+START 2026-09-05T02:02:35Z
+[box-free]
+ABSENT
+[lifetime-avg] ps -eo pcpu,pid,comm --sort=-pcpu | head -12   → top entry Runner.Worker 4.5%
+```
+⇒ ⭐ **`box-free.sh` is a boss-clod file. A GitHub runner has never heard of it, so the `.load` witness
+on foreign hardware degrades to the `ps` LIFETIME-AVERAGE block alone** — the instrument I already
+filed as unable to attribute instantaneous load.
+⛔ **So a red on a hosted runner arrives with NO usable contention context**, which is exactly the
+question anyone will ask about it first.
+
+⭐⭐ **THIS IS THE SECOND AND STRONGER MOTIVE FOR `CAPTURE-PSI-1`** (ranked 2026-09-0x row 887, never
+built): **`/proc/pressure/cpu` EXISTS on a Linux runner** and is the only real contention witness
+available there. ⇒ **It stops being a nicety and becomes the thing that makes a hosted red
+interpretable at all.**
+⚠️ **A witness that is present on the machine you control and absent on the machine you are trying to
+learn about is a witness for the case you already understood.**
