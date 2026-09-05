@@ -40,3 +40,34 @@ what made three doors treat a standing permission as scoped to that night.**
 
 📌 **The box protocol is UNAFFECTED: one CPU-saturating act at a time, announced by name, released by
 name. A merge authorization is not a box grant.**
+
+---
+
+## GENERAL — "make it happen". Granted 2026-09-05T04:15Z, Telegram `11058`.
+
+> **"my word is make it happen"**
+
+⭐ **TAKEN AS: stop asking for permission to do the work already ranked. Act, and report what was
+done rather than what is proposed.** ⇒ **It removes the ASKING, not the CHECKING.**
+
+**WHAT I AM TAKING IT TO COVER:**
+```
+✅ dispatching ranked work to any authorized door, without confirming each round
+✅ landing anything plan has marked WARRANTED · CLEARED TO LAND
+✅ DEPLOY — previously asked and unanswered; silence was not a grant, "make it happen" is
+✅ granting box windows, restarting workers, cleaning and reclaiming, pushing branches
+```
+⛔ **WHAT IT DOES NOT COVER, AND WHY — these are not permission problems:**
+```
+⛔ hermes: any live-money path still needs his own word PER CHANGE, cited. He has excluded hermes
+   explicitly twice tonight (tg 11049/11051), and a later general grant does not silently widen an
+   EXPLICIT exclusion. ⭐ A broad yes does not repeal a narrow no.
+⛔ preserve/realm-remove-1b: NOT blocked on his permission. Its reviewer arms (D1–D3, R1–R6) were
+   NEVER RUN and its own report says typecheck FAILS. plan has it as NOT WARRANTED.
+   ⇒ ⭐⭐ HIS WORD CANNOT SUBSTITUTE FOR A TEST. "Make it happen" authorises me to get the arms run;
+     it does not make unrun arms green.
+⛔ anything outward-facing under his name · destroying data no earlier commit holds
+```
+⚠️ **THE SCOPE IS MINE TO HAVE STATED, NOT HIS.** He wrote five words; the enumeration above is my
+reading, recorded so it is checkable and correctable rather than carried in my head. **If he meant
+more, he will say so; if he meant less, the record shows exactly what I assumed.**
