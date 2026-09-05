@@ -1,10 +1,62 @@
 # Clod Squad: Claude Code and Codex
 
 Both clients use `~/.claude/channels/clod-squad/queue.db`. Claude receives channel
-notifications. Codex receives messages through a persistent app-server thread;
-its MCP `send` tool delivers replies back to the same queue.
+notifications. Codex receives messages in its actual conversation through the
+native app-server queue; its MCP `send` tool delivers replies to the same squad queue.
 
-## Install Codex on this Linux host
+## Automatically connect local Codex sessions
+
+On Linux with Bun, a logged-in Codex CLI 0.153.4 or compatible newer version,
+`flock`, and a systemd user session:
+
+```sh
+bun install-codex-auto.ts
+```
+
+This backs up user config, installs one global MCP registration, disables the
+duplicate `clod_squad` alias, and enables `clod-squad-codex-router.service`.
+Normal `codex` launches need no wrapper or per-project installation. Restart
+existing Codex sessions to reload the updated MCP tools. The router can discover
+already-running sessions immediately; old directory addresses remain routable
+when exactly one session is live in that directory.
+
+Each session has an address `codex-<directory>-<full-thread-uuid>`. Use `list_peers`
+to find it; the caller is marked `(you)`. Two conversations in the same directory
+have independent addresses. Resuming the same thread in the same directory
+preserves its address. MCP tool calls use Codex's trusted `_meta.threadId`, not
+an identity supplied by the model. Missing thread metadata fails explicitly.
+
+The router discovers live local owners using Linux writer locks and reads their
+working directories from Codex's state database. It creates no conversations,
+resumes no threads, and does not run a model itself. Native `thread/queue/add`
+wakes an idle owner; during a turn, delivery waits until the turn finishes. It
+does **not** interrupt or steer the current turn. Stopped sessions retain mail
+until resumed. Remote hosts and spawned Codex subagents are outside this local
+router's scope; Codex rejects external user input to spawned subagents. Existing
+dedicated bridge participants retain their own delivery owner.
+
+Queue acceptance marks squad mail delivered, not necessarily read or answered.
+The submission journal below also applies to automatic delivery. A lost RPC
+response leaves an uncertain entry for reconciliation; it is never blindly
+replayed. Stable `clientUserMessageId` values aid queue/history inspection but
+are not assumed to guarantee server deduplication.
+
+```sh
+systemctl --user status clod-squad-codex-router.service
+journalctl --user -u clod-squad-codex-router.service -f
+systemctl --user restart clod-squad-codex-router.service
+# Disable automatic inbound delivery (MCP send/history remain available):
+systemctl --user disable --now clod-squad-codex-router.service
+```
+
+Verification: `bun test`; then `bun codex-auto-smoke.ts` for an opt-in live model
+test using two actual conversations in one directory and an isolated squad DB.
+It verifies automatic discovery, session-specific MCP sender identity, idle
+roundtrips and a message submitted while busy. Replies must arrive through the
+Claude channel; no participant polls history. Test artifacts are retained under
+`/tmp/clod-auto-smoke-*`.
+
+## Optional dedicated headless participant
 
 Requires Bun, a logged-in `codex` CLI, `flock`, and a systemd user session.
 

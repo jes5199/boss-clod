@@ -15,6 +15,7 @@ import { join, basename, dirname } from 'path'
 // it, and still decides. The point is that it cannot arrive looking fresh.
 const STALE_AFTER_MINUTES = 30
 import { mkdirSync } from 'fs'
+import { registerSession } from './codex-sessions'
 import {
   initDb,
   registerIdentity,
@@ -31,6 +32,7 @@ import {
 // --- Identity ---
 
 const codexMode = process.env.CLOD_SQUAD_TRANSPORT === 'codex'
+const automaticCodex = codexMode && !process.env.CLOD_SQUAD_IDENTITY
 const projectDir = process.env.CLOD_SQUAD_PROJECT_DIR || process.env.CLAUDE_PROJECT_DIR || process.cwd()
 const identity = process.env.CLOD_SQUAD_IDENTITY || (codexMode ? `codex-${basename(projectDir)}` : basename(projectDir))
 // The legacy schema makes full_path unique. Namespace Codex registrations so
@@ -45,9 +47,11 @@ mkdirSync(dbDir, { recursive: true })
 const db = new Database(dbPath)
 initDb(db)
 if (!codexMode) pruneStaleIdentities(db)
-registerIdentity(db, identity, fullPath)
+if (!automaticCodex) registerIdentity(db, identity, fullPath)
 
-process.stderr.write(`clod-squad: registered as "${identity}" (${fullPath})\n`)
+process.stderr.write(automaticCodex
+  ? 'clod-squad: automatic Codex identity binding enabled\n'
+  : `clod-squad: registered as "${identity}" (${fullPath})\n`)
 
 // --- MCP Server ---
 
@@ -61,7 +65,9 @@ const mcp = new Server(
       } }),
     },
     instructions: [
-      `You are ${identity}. Messages from peers arrive through clod-squad. Reply with the send tool to the sender. Use list_peers to see who's online.`,
+      automaticCodex
+        ? 'Your clod-squad identity is bound automatically to this Codex thread. Use list_peers to see your identity (you) and online peers. Incoming messages wake idle sessions or queue after an active turn. Use send to reply; do not acknowledge acknowledgments automatically.'
+        : `You are ${identity}. Messages from peers arrive through clod-squad. Reply with the send tool to the sender. Use list_peers to see who's online.`,
     ].join('\n'),
   },
 )
@@ -124,6 +130,9 @@ mcp.setRequestHandler(ListToolsRequestSchema, async () => ({
 mcp.setRequestHandler(CallToolRequestSchema, async (req) => {
   const args = (req.params.arguments ?? {}) as Record<string, unknown>
   try {
+    const identity = automaticCodex
+      ? registerSession(db, { cwd: projectDir, threadId: String(req.params._meta?.threadId || process.env.CODEX_THREAD_ID || '') })
+      : (process.env.CLOD_SQUAD_IDENTITY || (codexMode ? `codex-${basename(projectDir)}` : basename(projectDir)))
     switch (req.params.name) {
       case 'send': {
         const to = args.to as string
