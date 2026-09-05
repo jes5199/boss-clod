@@ -61,3 +61,26 @@ NEVER print a secret value. Anywhere.
 ⭐ **The seat's reasoning on the WorkOS three is the keeper: consistency with a recorded custody choice
 outranks a per-value argument about which ones "really" need protecting.** A mixed scheme is a scheme
 someone later has to reason about; a uniform one is not.
+
+## ①+② EXECUTED 2026-09-05T20:05Z — CREATE, from EXACT a538fa18. NOTHING USER-VISIBLE CHANGED.
+```
+TARGET      commonplace-next Worker (CREATE — no prior script) · route 6a26c1fc UNTOUCHED (still → commonplace-beta)
+APP SHA     a538fa18ccfc5ab50fd9adcf1a69dfa75c08d616   tree 3c3828229ea4604d26b2d0036d4f2975b4e1a3d6
+WORKER SHA  version eab9c341-5678-403c-af10-b97707d37726
+            image commonplace-next@sha256:299207be0c8b7d4a1e7b3adc2b58c9ce553a2cf21dccdbb1062ced0ceeaf3537 (tag eab9c341)
+            container app a03286c5-d425-45b6-8d23-6c9a450b6bfb · instances 0 / max 1 · DO ns 581ccdd5223f4adeb4b4175b5759e363
+RANGE       94abc915..a538fa18 (7 commits + the merge). ⛔ IMAGE INPUTS ARE A DIFFERENT OBJECT:
+            COPY set = mix.exs 06a855d8 · mix.lock 29d61e15 · config c028506a · lib ffc53b5f · priv a3360df2
+            + deps/ 34 dirs fetched --only prod on the host (identity = mix.lock + fetched set)
+            Pins IN the image: yelixer bc35a0e9 · yepochs fdc808f · merkle 6608f3d  ⇐ OLD; Unicode defect ships, per seat
+ROLLBACK    none needed — nothing routed. If ever routed: route field back to commonplace-beta (see rollback qualification)
+GATE        --porcelain --ignored on COPY paths 0 · red arm proven (probe → 1) · 0 again
+CONTROLS    scripts 2→3 · container apps 2→3 · DO ns 3→4 · route unmoved · beta etag db37a1f0 unmoved · beta.commonplace.st 302
+            workers_dev=false previews=false read back from /subdomain
+AUTHORIZED  jes tg 11101 "can we boot the beta app on cloudflare ASAP" + standing DEPLOY EARLY; seat 30264/30267
+            scope: ordinary boot, no route switch before measured readiness
+```
+## ③ BLOCKED on values that do not exist — put to the seat (msg 30356). NO PARTIAL BINDING SET.
+HAVE: WORKOS_CLIENT_ID, WORKOS_API_KEY (custody) · ACCESS_ISSUER, _JWKS_URI (public), _AUDIENCE 9eab32ce… (Access app AUD)
+MISSING: WORKOS_REDIRECT_URI (path is the app's) · SECRET_KEY_BASE (generate) · ACCESS_ROSTER (⛔ a DECISION: who may
+enter — jes's) · LOG_REALM_URL + _CAPABILITY (no realm exists for next; I can mint one on commonplace-log)
