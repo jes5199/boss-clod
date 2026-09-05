@@ -26,7 +26,6 @@
 yepochs
 commonplace-doc
 commonplace
-commonplace-next
 commonplace-plan
 # ⛔⛔ 2026-09-05T01:10Z — hermes REMOVED ON PURPOSE. jes, Telegram 10993: "i want to take hermes
 # claude offline for the weekend". ⚠️ A DELIBERATE TAKEDOWN LOOKS EXACTLY LIKE A CRASH: left in this
@@ -59,9 +58,24 @@ commonplace-plan
 # cell has landed five rounds today, also unwatched. ⭐ Meanwhile yepochs, commonplace and
 # commonplace-doc — all offline for a week — WERE watched. The list had drifted to the exact
 # inverse of the fleet. ⚠️ examined=7 was TRUE and described the wrong seven.
-commonplace-biscuit
-commonplace-cell
 # The Astra worker (gpt-6-astra via CLIProxyAPI). ⛔ NO clod-squad by construction — jes 10969:
 # "if it's codex it doesn't have clod-squad" — so it cannot report and cannot ask for a box window.
 # ⇒ It is the door MOST in need of an external watcher, being the only one that cannot speak.
-commonplace-log
+# ⛔⛔ 2026-09-05T01:14Z — FLEET STOOD DOWN ON PURPOSE. jes, Telegram 11000: "our burn rate has
+# been completely insane. let's take down all of the claudes other than boss and plan".
+# ⚠️ ALL OF THESE ARE DELIBERATE TAKEDOWNS AND MUST NOT BE RELAUNCHED BY A WATCHER.
+#   commonplace-next    down 01:14Z — AUTHKIT-1 LANDED FIRST: main 773b84a8, 138766aa an ancestor,
+#                       verified at the endpoint with a bogus-ref control. I held the kill until its
+#                       `git push` completed; killing mid-push is the one destructive window.
+#   commonplace-cell    down 01:13Z — idle, main 13e8eea, nothing in flight
+#   commonplace-biscuit down 01:13Z — was generating; deliverables already secured on disk under
+#                       /home/jes/commonplace-biscuit/docs/plans/sol/REALM-REMOVE-1b/astra-artifact/
+#                       and /home/jes/sol-deploy-next-1/wt. TWO REVIEWS UNFINISHED (REALM-REMOVE-1b
+#                       test half, DEPLOY-NEXT-1). Neither is landed; nothing is half-landed.
+#   commonplace-log     down 01:14Z — the Astra worker (gpt-6-astra via CLIProxyAPI). Its round was
+#                       DELIVERED as an uncommitted tree at /home/jes/astra-realm-remove.
+#                       ⚠️ It burns OpenAI quota, NOT Anthropic — so it was not part of the burn
+#                       problem. I took it down anyway on "all other than boss and plan"; that is my
+#                       reading of his words and it is reversible.
+# WAKE: jes's word. Nothing else.
+# RELAUNCH: cd ~/<repo> && workerclaude   (Astra: WORKERCLAUDE_SOL_MODEL=gpt-6-astra workerclaudesol)
