@@ -34,7 +34,18 @@ for lk in /home/jes/.codex/thread-writer-locks/*.lock; do
   [ "$lag" -gt "$worst" ] && worst=$lag
   if [ "$li" -gt "$lo" ]; then
     owed=$(( (now - li) / 60 ))
-    echo "UNANSWERED|$name (pid $pid): I sent it something ${owed}m ago and it has not spoken since (last voice ${lag}m ago, thread ${th:0:8}). ⇒ ASK IT whether the dispatch reached its turn. Do NOT assume working, and do NOT assume stalled."
+    # ⛔⛔ THRESHOLD, ADDED 16:22Z ON ITS FIRST LIVE RUN — WITHOUT IT THIS GATE FIRES ON CORRECT STATE.
+    # I message a door, and one second later "inbound newer than outbound" is TRUE and says UNANSWERED.
+    # Both doors read UNANSWERED at owed=0m while both were healthy and mid-turn.
+    # ⭐ A GATE THAT FIRES ON KNOWN-GOOD INPUT IS WORSE THAN NO GATE: it trains its only reader to skim,
+    # and the reader is me, every five minutes. The real signal is SILENCE ACROSS A TURN BOUNDARY, and
+    # a turn takes minutes. 15m is chosen to sit above a normal turn and far below the 75m that cost us
+    # the incident — it is a threshold I can defend, not a round number.
+    if [ "$owed" -lt "${LAG_ASK_MINUTES:-15}" ]; then
+      echo "PENDING|$name (pid $pid): I wrote to it ${owed}m ago, no reply yet. NORMAL — under the ${LAG_ASK_MINUTES:-15}m ask-threshold. Not a finding."
+    else
+      echo "UNANSWERED|$name (pid $pid): I sent it something ${owed}m ago and it has not spoken since (last voice ${lag}m ago, thread ${th:0:8}). ⇒ ASK IT whether the dispatch reached its turn. Do NOT assume working, and do NOT assume stalled."
+    fi
   else
     echo "SPOKE-LAST|$name (pid $pid): last voice ${lag}m ago, after anything I sent. Its turn has run since my last message."
   fi
