@@ -1,0 +1,1838 @@
+The environment has no SSH agent/key, GitHub CLI login, or HTTPS
+ credential, and `.git` is mounted read-only. Changes therefore
+remain in the worktree on `main`, not on `sol/next-e2c-tmp-1`.
+
+### Implementation
+
+Added [test_fixtures.ex](/home/jes/sol-e2c-tmp1/wt/test/support/
+test_fixtures.ex:1), defining `CommonplaceNext.TestFixtures.uniq
+ue_tmp_root/1,2`. It follows the existing precedent exactly:
+
+```elixir
+unique = "#{:os.getpid()}-#{System.unique_integer([:positive, :m
+onotonic])}"
+```
+
+The human-readable tag remains in every path.
+
+Enhanced [second_beam.ex](/home/jes/sol-e2c-tmp1/wt/test/support
+/second_beam.ex:66):
+
+- `wait_gone!/2` polls the captured OS pid with a bounded timeou
+t.
+- Timeout raises loudly with the pid.
+- `reap/1` now waits after KILL rather than returning immediatel
+y.
+
+`remote_editor`, `loopback_gateway`, and `two_organization` now
+retain the child OS pid outside the GenServer wrapper and wait u
+nconditionally before deleting the fixture root—even if the wrap
+per has already died.
+
+The listener-lifetime fixtures also now move the application awa
+y from their store paths and remove both fixture directories wit
+h `File.rm_rf!/1`.
+
+### Changed fixture-root sites
+
+Initial inventory: exactly 53 `System.unique_integer` sites acro
+ss 41 files. Forty-one original counter sites allocated fixture
+roots; they are now represented by these helper calls:
+
+```text
+test/commonplace_next/canonical_sync_test.exs:58
+test/commonplace_next/capture_run_test.exs:18
+test/commonplace_next/checkpoint_worker_test.exs:299
+test/commonplace_next/host_local_session_test.exs:39
+test/commonplace_next/mirrors_test.exs:26
+test/commonplace_next/organization/derived_login_end_to_end_test
+.exs:38
+test/commonplace_next/organization/editor_placement_agreement_te
+st.exs:32
+test/commonplace_next/organization/editor_placement_restriction_
+test.exs:32
+test/commonplace_next/organization/editor_placement_test.exs:31
+test/commonplace_next/organization/membership_test.exs:178
+test/commonplace_next/organization/provisioner_test.exs:14
+test/commonplace_next/organization/second_member_test.exs:215
+test/commonplace_next/organization/wiring_test.exs:30
+test/commonplace_next/r7_two_edge_issuance_test.exs:51
+test/commonplace_next/realm/keystore_test.exs:180
+test/commonplace_next/realm_test.exs:34
+test/commonplace_next/storage/sidecar_lane_test.exs:17
+test/commonplace_next/telemetry_table_test.exs:46
+test/commonplace_next/web/yjs_socket_test.exs:22
+test/commonplace_next/workspace_test.exs:24
+test/commonplace_next/yjs/attachment_test.exs:26
+test/integration/browser_markdown_durability_test.exs:24
+test/integration/g_session_channel_test.exs:39
+test/integration/gateway_listener_lifetime_test.exs:12,13,89,90
+test/integration/gateway_nodelay_test.exs:53
+test/integration/gateway_transport_prerequisite_test.exs:452
+test/integration/loopback_gateway_test.exs:131
+test/integration/markdown_editor_goal_test.exs:38
+test/integration/merge_policy_test.exs:24
+test/integration/organization_coordinate_test.exs:47
+test/integration/propagate_test.exs:23
+test/integration/r8_session_dataflow_test.exs:80
+test/integration/r9_identity_login_test.exs:83
+test/integration/remote_editor_test.exs:150,785
+test/integration/seam_mandatory_admission_test.exs:45
+test/integration/second_editor_test.exs:25
+test/integration/two_organization_test.exs:157
+test/integration/x_realm_cell_open_grant_test.exs:55,345
+```
+
+The gateway precedent originally used one counter for two roots
+in each test, explaining why two original counter sites became f
+our helper calls.
+
+Twelve original counter uses remain; all are non-root IDs, edit
+markers, secrets, store names, or the first-failure log filename
+.
+
+The specifically requested `[:positive]`-only sites were read an
+d intentionally left unchanged:
+
+```text
+test/integration/remote_editor_test.exs:1416  e2c-admission
+test/integration/g_session_channel_test.exs:314  s5-accepts
+```
+
+Both are in-VM telemetry handler IDs, not filesystem roots.
+
+### Child-cleanup sites
+
+```text
+test/integration/remote_editor_test.exs:39,63,177-198,683-704,85
+3-882
+test/integration/loopback_gateway_test.exs:34,53,69-76,146-155
+test/integration/two_organization_test.exs:42,65,95-102,194-216,
+382-411
+test/support/second_beam.ex:66-114
+```
+
+### E1/E2 red
+
+Added [test_fixtures_test.exs](/home/jes/sol-e2c-tmp1/wt/test/co
+mmonplace_next/test_fixtures_test.exs:1).
+
+Before the fix:
+
+```text
+Running ExUnit with seed: 0
+
+1) fixture roots do not collide across fresh VMs
+   Refute with == failed, both sides are exactly equal
+   left: "/tmp/commonplace-next-collision-arm-1"
+
+2) cleanup waits for a captured child pid before removing its ro
+ot
+   cleanup returned while child pid 1576 was still alive
+
+2 tests, 2 failures
+```
+
+E1 deterministically showed two fresh VMs selecting the same roo
+t while the stale marker remained.
+
+E2 showed `File.rm_rf!/1` returning while the planted slow child
+ was still alive. I did not reproduce an actual `File.rm_rf!/1`
+exception in the plant, so I do not claim that part of E2 red.
+
+A full-suite diagnostic later reproduced the underlying race mor
+e directly: a current pid-prefixed `e2c` root was deleted and th
+en recreated by a child whose wrapper had already died. That led
+ to retaining the pid in the outer fixture context and waiting u
+nconditionally.
+
+### E1/E2 green
+
+```text
+Running ExUnit with seed: 0
+
+..
+Finished in 2.0 seconds
+2 tests, 0 failures
+```
+
+The stale E1 root remains untouched, the new VM selects another
+root, and E2 removal occurs only after the planted child pid is
+gone.
+
+Relevant integration validation:
+
+```text
+remote_editor + loopback_gateway + two_organization:
+41 tests, 0 failures
+
+remote_editor + two_organization after unconditional-pid fix:
+30 tests, 0 failures
+
+gateway_listener_lifetime:
+4 tests, 0 failures
+directory count: 2948 -> 2948
+```
+
+### Full-suite controls
+
+The repository-local `tmp/test-data` was cleared before the suit
+e using `File.rm_rf!/1` because the sandbox rejected the request
+ed literal `rm -rf`. No host `/tmp` entry was deleted.
+
+There were 2,950 pre-existing `commonplace-next-*` directories b
+y the final controls:
+
+```text
+Control 1, seed 104729: 2950 before -> 2950 after
+Control 2, seed 130363: 2950 before -> 2950 after
+```
+
+Thus both runs left zero new matching directories.
+
+The normal second full run result was:
+
+```text
+513 tests, 5 failures, 1 excluded
+```
+
+All five failures were environmental repository gates:
+
+- four private-origin pin checks could not authenticate to GitHu
+b;
+- the trust-root falsifier could not restore `config/dev.exs` be
+cause `.git` is read-only.
+
+The falsifier’s added config stanza was manually restored afterw
+ard. No task-related functional test failed.
+
+Final checks:
+
+```text
+mix format --check-formatted: PASS
+git diff --check: PASS
+E1/E2 targeted tests: 2 tests, 0 failures
+lib/ changes: none
+```
+diff --git a/config/dev.exs b/config/dev.exs
+index 3945d398723efaa029dd4cff73e2f5d42ff874ba..264045e7e55a7606
+754a5f69f59131330d0674b3
+--- a/config/dev.exs
++++ b/config/dev.exs
+@@ -26,18 +26,3 @@
+   realm_id: "commonplace-next"
+
+ config :logger, level: :warning
+-
+-config :commonplace_next, CommonplaceNext.Realm.Keystore,
+-  roots: [
+-    %{
+-      root_key_id: 1,
+-      algorithm: "ed25519",
+-      public_key: String.duplicate("ab", 32),
+-      status: "active",
+-      issuer: %{
+-        "purpose" => "realm.capability",
+-        "realm" => "somewhere-else",
+-        "operations" => ["directory.list", "directory.resolve",
+ "cell.open", "document.sync.summary", "document.sync.offer"]
+-      }
+-    }
+-  ]
+diff --git a/test/commonplace_next/canonical_sync_test.exs b/tes
+t/commonplace_next/canonical_sync_test.exs
+index fbf77566f2c89d8025e6058f00947eea71f22434..29466a9d46a3083c
+d11f68325703dcdb6c7124e2
+--- a/test/commonplace_next/canonical_sync_test.exs
++++ b/test/commonplace_next/canonical_sync_test.exs
+@@ -55,11 +55,7 @@
+     :ok = stop_realm()
+     stop_sqlite_children()
+
+-    data_dir =
+-      Path.join(
+-        System.tmp_dir!(),
+-        "commonplace-next-p6-#{System.unique_integer([:positive
+, :monotonic])}"
+-      )
++    data_dir = CommonplaceNext.TestFixtures.unique_tmp_root("p6
+")
+
+     File.mkdir_p!(data_dir)
+     previous_log = Application.get_env(:commonplace_log, SQLite
+)
+diff --git a/test/commonplace_next/capture_run_test.exs b/test/c
+ommonplace_next/capture_run_test.exs
+index c97e7e03291bcd45420b6cc9b15cb997b696b3b6..69f5ad43f745286d
+f869c10013e05e4c8291bc05
+--- a/test/commonplace_next/capture_run_test.exs
++++ b/test/commonplace_next/capture_run_test.exs
+@@ -15,7 +15,7 @@
+   @script Path.expand("../../bin/capture-run.sh", __DIR__)
+
+   setup do
+-    dir = Path.join(System.tmp_dir!(), "capture-run-#{System.un
+ique_integer([:positive])}")
++    dir = CommonplaceNext.TestFixtures.unique_tmp_root("capture
+-run")
+     on_exit(fn -> File.rm_rf!(dir) end)
+     %{dir: dir}
+   end
+diff --git a/test/commonplace_next/checkpoint_worker_test.exs b/
+test/commonplace_next/checkpoint_worker_test.exs
+index c50c6831902f86dbef771d1ca5ca6e4759e6f5b3..71a15fb1fb1d407c
+6cdd61fe72c55d7f34eff0ec
+--- a/test/commonplace_next/checkpoint_worker_test.exs
++++ b/test/commonplace_next/checkpoint_worker_test.exs
+@@ -296,11 +296,7 @@
+     terminate_realm()
+     stop_sqlite_children()
+
+-    data_dir =
+-      Path.join(
+-        System.tmp_dir!(),
+-        "commonplace-next-d13a-#{System.unique_integer([:positi
+ve, :monotonic])}"
+-      )
++    data_dir = CommonplaceNext.TestFixtures.unique_tmp_root("d1
+3a")
+
+     File.mkdir_p!(data_dir)
+     previous = Application.get_env(:commonplace_log, SQLite)
+diff --git a/test/commonplace_next/host_local_session_test.exs b
+/test/commonplace_next/host_local_session_test.exs
+index 48e96325853d8f0c23e7d39c27b7a688d662882c..97a64235f1c46de0
+b63e786578ca1bd0f9b51a8d
+--- a/test/commonplace_next/host_local_session_test.exs
++++ b/test/commonplace_next/host_local_session_test.exs
+@@ -36,11 +36,7 @@
+     :ok = stop_realm()
+     stop_sqlite_children()
+
+-    data_dir =
+-      Path.join(
+-        System.tmp_dir!(),
+-        "commonplace-next-hlocal-#{System.unique_integer([:posi
+tive, :monotonic])}"
+-      )
++    data_dir = CommonplaceNext.TestFixtures.unique_tmp_root("hl
+ocal")
+
+     File.mkdir_p!(data_dir)
+     previous_log = Application.get_env(:commonplace_log, SQLite
+)
+diff --git a/test/commonplace_next/mirrors_test.exs b/test/commo
+nplace_next/mirrors_test.exs
+index 046fb2cd4fe5f3731b7d6f9f91cd98c17a8a6f83..11bea1baa27e3ed5
+b98b6c157cbce990da2f6d26
+--- a/test/commonplace_next/mirrors_test.exs
++++ b/test/commonplace_next/mirrors_test.exs
+@@ -23,11 +23,7 @@
+     :ok = stop_realm()
+     stop_sqlite_children()
+
+-    data_dir =
+-      Path.join(
+-        System.tmp_dir!(),
+-        "commonplace-next-p3-#{System.unique_integer([:positive
+, :monotonic])}"
+-      )
++    data_dir = CommonplaceNext.TestFixtures.unique_tmp_root("p3
+")
+
+     File.mkdir_p!(data_dir)
+     previous = Application.get_env(:commonplace_log, SQLite)
+diff --git a/test/commonplace_next/organization/derived_login_en
+d_to_end_test.exs b/test/commonplace_next/organization/derived_l
+ogin_end_to_end_test.exs
+index b070c893a5be926efd507c5552792cee93326929..24f05a10b53f43af
+5ce78ad5323cbac4d87fc644
+--- a/test/commonplace_next/organization/derived_login_end_to_en
+d_test.exs
++++ b/test/commonplace_next/organization/derived_login_end_to_en
+d_test.exs
+@@ -35,11 +35,7 @@
+     terminate_realm()
+     stop_sqlite_children()
+
+-    data_dir =
+-      Path.join(
+-        System.tmp_dir!(),
+-        "commonplace-next-ec2-#{System.unique_integer([:positiv
+e, :monotonic])}"
+-      )
++    data_dir = CommonplaceNext.TestFixtures.unique_tmp_root("ec
+2")
+
+     File.mkdir_p!(data_dir)
+     previous_log = Application.get_env(:commonplace_log, SQLite
+)
+diff --git a/test/commonplace_next/organization/editor_placement
+_agreement_test.exs b/test/commonplace_next/organization/editor_
+placement_agreement_test.exs
+index 848389ab4d1dfeb065d85e90c4f6d1451dd41369..6a18c98fd1edf4ae
+23f7bc2fc815944ef423ff07
+--- a/test/commonplace_next/organization/editor_placement_agreem
+ent_test.exs
++++ b/test/commonplace_next/organization/editor_placement_agreem
+ent_test.exs
+@@ -29,11 +29,7 @@
+     terminate_realm()
+     stop_sqlite_children()
+
+-    data_dir =
+-      Path.join(
+-        System.tmp_dir!(),
+-        "commonplace-next-ec2a-#{System.unique_integer([:positi
+ve, :monotonic])}"
+-      )
++    data_dir = CommonplaceNext.TestFixtures.unique_tmp_root("ec
+2a")
+
+     File.mkdir_p!(data_dir)
+     previous_log = Application.get_env(:commonplace_log, SQLite
+)
+diff --git a/test/commonplace_next/organization/editor_placement
+_restriction_test.exs b/test/commonplace_next/organization/edito
+r_placement_restriction_test.exs
+index 9709d2931cbc8406a341a3f8848f1a84c1477185..8e2737e130f3aa17
+e23930be07302de068e8f325
+--- a/test/commonplace_next/organization/editor_placement_restri
+ction_test.exs
++++ b/test/commonplace_next/organization/editor_placement_restri
+ction_test.exs
+@@ -29,11 +29,7 @@
+   @excluded_login "developer-2"
+
+   setup do
+-    data_dir =
+-      Path.join(
+-        System.tmp_dir!(),
+-        "commonplace-next-ec1r-#{System.unique_integer([:positi
+ve, :monotonic])}"
+-      )
++    data_dir = CommonplaceNext.TestFixtures.unique_tmp_root("ec
+1r")
+
+     File.mkdir_p!(data_dir)
+     previous_sqlite = Application.get_env(:commonplace_log, SQL
+ite)
+diff --git a/test/commonplace_next/organization/editor_placement
+_test.exs b/test/commonplace_next/organization/editor_placement_
+test.exs
+index 5fb39915f4939907d42ee93a47c4a60b740e8775..854a4051ef0179a7
+f3720d927d7ad1659d6a037a
+--- a/test/commonplace_next/organization/editor_placement_test.e
+xs
++++ b/test/commonplace_next/organization/editor_placement_test.e
+xs
+@@ -28,11 +28,7 @@
+   @outsider "outsider"
+
+   setup do
+-    data_dir =
+-      Path.join(
+-        System.tmp_dir!(),
+-        "commonplace-next-ec1-#{System.unique_integer([:positiv
+e, :monotonic])}"
+-      )
++    data_dir = CommonplaceNext.TestFixtures.unique_tmp_root("ec
+1")
+
+     File.mkdir_p!(data_dir)
+     previous = Application.get_env(:commonplace_log, SQLite)
+diff --git a/test/commonplace_next/organization/membership_test.
+exs b/test/commonplace_next/organization/membership_test.exs
+index 9cc5550b3512331bee1bb7d955a92f56667de02d..cc8585c93e52a083
+e424a74579ba7e3c601ee2b2
+--- a/test/commonplace_next/organization/membership_test.exs
++++ b/test/commonplace_next/organization/membership_test.exs
+@@ -175,11 +175,7 @@
+   end
+
+   defp tmp_dir(label) do
+-    path =
+-      Path.join(
+-        System.tmp_dir!(),
+-        "commonplace-next-r2-#{label}-#{System.unique_integer([
+:positive, :monotonic])}"
+-      )
++    path = CommonplaceNext.TestFixtures.unique_tmp_root("r2-#{l
+abel}")
+
+     File.mkdir_p!(path)
+     path
+diff --git a/test/commonplace_next/organization/provisioner_test
+.exs b/test/commonplace_next/organization/provisioner_test.exs
+index e78ef70d57af3dc24f0440c22381a680c6468292..0fe86fdd910a42cb
+2a5b82ac1c4f14713192e6eb
+--- a/test/commonplace_next/organization/provisioner_test.exs
++++ b/test/commonplace_next/organization/provisioner_test.exs
+@@ -11,11 +11,7 @@
+     terminate_realm()
+     stop_sqlite_children()
+
+-    data_dir =
+-      Path.join(
+-        System.tmp_dir!(),
+-        "commonplace-next-r1-#{System.unique_integer([:positive
+, :monotonic])}"
+-      )
++    data_dir = CommonplaceNext.TestFixtures.unique_tmp_root("r1
+")
+
+     File.mkdir_p!(data_dir)
+     previous = Application.get_env(:commonplace_log, SQLite)
+diff --git a/test/commonplace_next/organization/second_member_te
+st.exs b/test/commonplace_next/organization/second_member_test.e
+xs
+index 2f022b8cfddcabacfd72760297eaf4a422466754..e57c6f99dc11a4f0
+a2c5df61b424cb72d87b4464
+--- a/test/commonplace_next/organization/second_member_test.exs
++++ b/test/commonplace_next/organization/second_member_test.exs
+@@ -212,11 +212,7 @@
+   end
+
+   defp tmp_dir(label) do
+-    path =
+-      Path.join(
+-        System.tmp_dir!(),
+-        "commonplace-next-r10a-#{label}-#{System.unique_integer
+([:positive, :monotonic])}"
+-      )
++    path = CommonplaceNext.TestFixtures.unique_tmp_root("r10a-#
+{label}")
+
+     File.mkdir_p!(path)
+     path
+diff --git a/test/commonplace_next/organization/wiring_test.exs
+b/test/commonplace_next/organization/wiring_test.exs
+index 70dbc95b1b773cb65aca67e068d73fa9a1d69f2e..fb8536d1599a1ccb
+32fcb3bbbee8bdb0625abcb4
+--- a/test/commonplace_next/organization/wiring_test.exs
++++ b/test/commonplace_next/organization/wiring_test.exs
+@@ -27,11 +27,7 @@
+     terminate_realm()
+     stop_sqlite_children()
+
+-    data_dir =
+-      Path.join(
+-        System.tmp_dir!(),
+-        "commonplace-next-r6-#{System.unique_integer([:positive
+, :monotonic])}"
+-      )
++    data_dir = CommonplaceNext.TestFixtures.unique_tmp_root("r6
+")
+
+     File.mkdir_p!(data_dir)
+     previous = Application.get_env(:commonplace_log, SQLite)
+diff --git a/test/commonplace_next/r7_two_edge_issuance_test.exs
+ b/test/commonplace_next/r7_two_edge_issuance_test.exs
+index 3f0e4fc64f38c5e4f03da4770a503d5840ff6687..bea64685dce22055
+28e8f0d21363d1a3606bd2b6
+--- a/test/commonplace_next/r7_two_edge_issuance_test.exs
++++ b/test/commonplace_next/r7_two_edge_issuance_test.exs
+@@ -48,11 +48,7 @@
+     :ok = stop_realm()
+     stop_sqlite_children()
+
+-    data_dir =
+-      Path.join(
+-        System.tmp_dir!(),
+-        "commonplace-next-r7-#{System.unique_integer([:positive
+, :monotonic])}"
+-      )
++    data_dir = CommonplaceNext.TestFixtures.unique_tmp_root("r7
+")
+
+     File.mkdir_p!(data_dir)
+     previous_log = Application.get_env(:commonplace_log, SQLite
+)
+diff --git a/test/commonplace_next/realm/keystore_test.exs b/tes
+t/commonplace_next/realm/keystore_test.exs
+index 241264b2a534da1c00427edc5503bf6e8bd349df..151d84d1df81bca2
+b9960ee93d925a3bfab21047
+--- a/test/commonplace_next/realm/keystore_test.exs
++++ b/test/commonplace_next/realm/keystore_test.exs
+@@ -177,11 +177,7 @@
+   defp restore_keystore_env(value), do: Application.put_env(:co
+mmonplace_next, Keystore, value)
+
+   defp temporary_path(name) do
+-    path =
+-      Path.join(
+-        System.tmp_dir!(),
+-        "commonplace-next-keystore-#{System.unique_integer([:po
+sitive, :monotonic])}-#{name}"
+-      )
++    path = CommonplaceNext.TestFixtures.unique_tmp_root("keysto
+re-#{name}")
+
+     on_exit(fn -> File.rm(path) end)
+     path
+diff --git a/test/commonplace_next/realm_test.exs b/test/commonp
+lace_next/realm_test.exs
+index 8cacb11512fe2a7b259a0dc05270be92c2d56bbe..23ec80b471034afa
+e68be55b23aa50c841bf473b
+--- a/test/commonplace_next/realm_test.exs
++++ b/test/commonplace_next/realm_test.exs
+@@ -31,11 +31,7 @@
+     :ok = stop_realm()
+     stop_sqlite_children()
+
+-    data_dir =
+-      Path.join(
+-        System.tmp_dir!(),
+-        "commonplace-next-p2-#{System.unique_integer([:positive
+, :monotonic])}"
+-      )
++    data_dir = CommonplaceNext.TestFixtures.unique_tmp_root("p2
+")
+
+     File.mkdir_p!(data_dir)
+     previous = Application.get_env(:commonplace_log, SQLite)
+diff --git a/test/commonplace_next/storage/sidecar_lane_test.exs
+ b/test/commonplace_next/storage/sidecar_lane_test.exs
+index b84b8d68bfd220476f8302599bd5699f1bfc7229..850c0017a3486918
+169f7350fedab6696f13af7d
+--- a/test/commonplace_next/storage/sidecar_lane_test.exs
++++ b/test/commonplace_next/storage/sidecar_lane_test.exs
+@@ -14,11 +14,7 @@
+   setup do
+     # A data_dir of this test's own, EMPTY at the start, so "no
+ file appeared" is a statement
+     # about this run rather than about a directory that was alr
+eady tidy.
+-    data_dir =
+-      Path.join(
+-        System.tmp_dir!(),
+-        "commonplace-next-store2a-#{System.unique_integer([:pos
+itive, :monotonic])}"
+-      )
++    data_dir = CommonplaceNext.TestFixtures.unique_tmp_root("st
+ore2a")
+
+     File.mkdir_p!(data_dir)
+     previous = Application.get_env(:commonplace_log, Commonplac
+e.LogStore.SQLite)
+diff --git a/test/commonplace_next/telemetry_table_test.exs b/te
+st/commonplace_next/telemetry_table_test.exs
+index 4fcb9f3364d16b3444cc5d4ed6a111bc00158c1b..d9c11e3f91be010c
+cbd61ffd8ebb4e15d2fed20a
+--- a/test/commonplace_next/telemetry_table_test.exs
++++ b/test/commonplace_next/telemetry_table_test.exs
+@@ -43,11 +43,7 @@
+     :ok = stop_realm()
+     stop_sqlite_children()
+
+-    data_dir =
+-      Path.join(
+-        System.tmp_dir!(),
+-        "commonplace-next-telemetry-table-#{System.unique_integ
+er([:positive, :monotonic])}"
+-      )
++    data_dir = CommonplaceNext.TestFixtures.unique_tmp_root("te
+lemetry-table")
+
+     File.mkdir_p!(data_dir)
+     previous_log = Application.get_env(:commonplace_log, SQLite
+)
+diff --git a/test/commonplace_next/test_fixtures_test.exs b/test
+/commonplace_next/test_fixtures_test.exs
+new file mode 100644
+index 0000000000000000000000000000000000000000..89fd02b3510ccfdc
+c3e9e80193274bf69ce03d16
+--- /dev/null
++++ b/test/commonplace_next/test_fixtures_test.exs
+@@ -0,0 +1,60 @@
++defmodule CommonplaceNext.TestFixturesTest do
++  use ExUnit.Case, async: true
++
++  alias CommonplaceNext.{SecondBeam, TestFixtures}
++
++  test "fixture roots do not collide across fresh VMs" do
++    first = root_from_fresh_vm("collision-arm")
++    File.mkdir_p!(first)
++    marker = Path.join(first, "stale-marker")
++    File.write!(marker, "from the old run")
++
++    on_exit(fn -> File.rm_rf!(first) end)
++
++    second = root_from_fresh_vm("collision-arm")
++
++    refute second == first
++    assert File.read!(marker) == "from the old run"
++  end
++
++  test "cleanup waits for a captured child pid before removing
+its root" do
++    root = TestFixtures.unique_tmp_root("wait-arm")
++    File.mkdir_p!(root)
++    executable = System.find_executable("sh") || raise "sh exec
+utable missing"
++
++    {port, os_pid} =
++      SecondBeam.spawn_and_pid(executable, [
++        :binary,
++        :exit_status,
++        {:args, ["-c", "sleep 0.5"]}
++      ])
++
++    true = Port.close(port)
++
++    on_exit(fn ->
++      SecondBeam.reap(os_pid)
++      File.rm_rf!(root)
++    end)
++
++    SecondBeam.wait_gone!(os_pid, 2_000)
++    File.rm_rf!(root)
++
++    refute SecondBeam.alive?(os_pid),
++           "cleanup returned while child pid #{os_pid} was stil
+l alive"
++
++    refute File.exists?(root)
++  end
++
++  defp root_from_fresh_vm(tag) do
++    executable = System.find_executable("elixir") || raise "eli
+xir executable missing"
++    helper = Path.expand("../support/test_fixtures.ex", __DIR__
+)
++
++    expression = """
++    Code.require_file(#{inspect(helper)})
++    IO.write(CommonplaceNext.TestFixtures.unique_tmp_root(#{ins
+pect(tag)}))
++    """
++
++    {root, 0} = System.cmd(executable, ["-e", expression])
++    root
++  end
++end
+diff --git a/test/commonplace_next/web/yjs_socket_test.exs b/tes
+t/commonplace_next/web/yjs_socket_test.exs
+index 907c061e603615f23e4d8cf277d9d9924b63eb34..60207c6313ef84bf
+869abe6f9a41bbd589834fac
+--- a/test/commonplace_next/web/yjs_socket_test.exs
++++ b/test/commonplace_next/web/yjs_socket_test.exs
+@@ -19,11 +19,7 @@
+     :ok = stop_realm()
+     stop_sqlite_children()
+
+-    data_dir =
+-      Path.join(
+-        System.tmp_dir!(),
+-        "commonplace-next-web-#{System.unique_integer([:positiv
+e, :monotonic])}"
+-      )
++    data_dir = CommonplaceNext.TestFixtures.unique_tmp_root("we
+b")
+
+     File.mkdir_p!(data_dir)
+     previous = Application.get_env(:commonplace_log, SQLite)
+diff --git a/test/commonplace_next/workspace_test.exs b/test/com
+monplace_next/workspace_test.exs
+index 770386c714e5e881cc4291e45ed5a62f86fd581b..600ca54342ff0f38
+9120a14ff1e88828a005f819
+--- a/test/commonplace_next/workspace_test.exs
++++ b/test/commonplace_next/workspace_test.exs
+@@ -21,11 +21,7 @@
+     terminate_realm()
+     stop_sqlite_children()
+
+-    data_dir =
+-      Path.join(
+-        System.tmp_dir!(),
+-        "commonplace-next-p1-#{System.unique_integer([:positive
+, :monotonic])}"
+-      )
++    data_dir = CommonplaceNext.TestFixtures.unique_tmp_root("p1
+")
+
+     File.mkdir_p!(data_dir)
+     previous = Application.get_env(:commonplace_log, SQLite)
+diff --git a/test/commonplace_next/yjs/attachment_test.exs b/tes
+t/commonplace_next/yjs/attachment_test.exs
+index df4b34cda3fc9c6d7f1a04d773162ca1df45be32..b152714266f8ce8d
+a0a4acc64f6d2640947297d7
+--- a/test/commonplace_next/yjs/attachment_test.exs
++++ b/test/commonplace_next/yjs/attachment_test.exs
+@@ -23,11 +23,7 @@
+     :ok = stop_realm()
+     stop_sqlite_children()
+
+-    data_dir =
+-      Path.join(
+-        System.tmp_dir!(),
+-        "commonplace-next-p4-#{System.unique_integer([:positive
+, :monotonic])}"
+-      )
++    data_dir = CommonplaceNext.TestFixtures.unique_tmp_root("p4
+")
+
+     File.mkdir_p!(data_dir)
+     previous = Application.get_env(:commonplace_log, SQLite)
+diff --git a/test/integration/browser_markdown_durability_test.e
+xs b/test/integration/browser_markdown_durability_test.exs
+index 645aa571055a158a592d612c5b601ea86a989f0c..9f99b42aa0289bec
+144e8e0cac02071722abaa79
+--- a/test/integration/browser_markdown_durability_test.exs
++++ b/test/integration/browser_markdown_durability_test.exs
+@@ -21,11 +21,7 @@
+     :ok = stop_realm()
+     stop_sqlite_children()
+
+-    data_dir =
+-      Path.join(
+-        paths.sqlite_root,
+-        "run-#{System.unique_integer([:positive, :monotonic])}"
+-      )
++    data_dir = CommonplaceNext.TestFixtures.unique_tmp_root("ru
+n", paths.sqlite_root)
+
+     File.rm_rf!(data_dir)
+     File.mkdir_p!(data_dir)
+diff --git a/test/integration/g_session_channel_test.exs b/test/
+integration/g_session_channel_test.exs
+index 710b8a8817b95c5fe0ec923070f9a9d57a2fb65a..1e2bbbed4edf074a
+85a116076a3feeb2e8f1f41e
+--- a/test/integration/g_session_channel_test.exs
++++ b/test/integration/g_session_channel_test.exs
+@@ -36,11 +36,7 @@
+   setup do
+     :ok = stop_realm()
+
+-    data_dir =
+-      Path.join(
+-        System.tmp_dir!(),
+-        "commonplace-next-g-session-#{System.unique_integer([:p
+ositive, :monotonic])}"
+-      )
++    data_dir = CommonplaceNext.TestFixtures.unique_tmp_root("g-
+session")
+
+     File.mkdir_p!(data_dir)
+     previous_log = Application.get_env(:commonplace_log, SQLite
+)
+diff --git a/test/integration/gateway_listener_lifetime_test.exs
+ b/test/integration/gateway_listener_lifetime_test.exs
+index 2fc456260dc2c0ef941b99b89ab3167ffbabf5f5..40d2f81869b452fa
+0bca3e2ce2b9ca26f7207f32
+--- a/test/integration/gateway_listener_lifetime_test.exs
++++ b/test/integration/gateway_listener_lifetime_test.exs
+@@ -9,9 +9,9 @@
+   alias CommonplaceNext.EditorPlacementTestHelper
+
+   test "when the application stops the listener stops" do
+-    unique = "#{:os.getpid()}-#{System.unique_integer([:positiv
+e, :monotonic])}"
+-    data_dir = Path.join(System.tmp_dir!(), "commonplace-next-p
+ort-b-lifetime-#{unique}")
+-    handoff_dir = Path.join(System.tmp_dir!(), "commonplace-nex
+t-port-b-handoff-#{unique}")
++    data_dir = CommonplaceNext.TestFixtures.unique_tmp_root("po
+rt-b-lifetime")
++    handoff_dir = CommonplaceNext.TestFixtures.unique_tmp_root(
+"port-b-handoff")
++    previous_log = Application.get_env(:commonplace_log, SQLite
+)
+
+     File.mkdir_p!(data_dir)
+     File.mkdir_p!(handoff_dir)
+@@ -20,6 +20,13 @@
+       Application.put_env(:commonplace_log, SQLite, data_dir: d
+ata_dir)
+       {:ok, _started} = Application.ensure_all_started(:commonp
+lace_next)
+       Application.put_env(:commonplace_log, SQLite, data_dir: h
+andoff_dir)
++      :ok = Application.stop(:commonplace_next)
++      {:ok, _started} = Application.ensure_all_started(:commonp
+lace_next)
++      :ok = Application.stop(:commonplace_next)
++      restore_env(:commonplace_log, SQLite, previous_log)
++      File.rm_rf!(data_dir)
++      File.rm_rf!(handoff_dir)
++      {:ok, _started} = Application.ensure_all_started(:commonp
+lace_next)
+     end)
+
+     port = Listener.port()
+@@ -79,9 +86,9 @@
+   end
+
+   test "after the application stops the gateway port does not a
+ccept a connection" do
+-    unique = "#{:os.getpid()}-#{System.unique_integer([:positiv
+e, :monotonic])}"
+-    data_dir = Path.join(System.tmp_dir!(), "commonplace-next-p
+ort-b-lifetime-#{unique}")
+-    handoff_dir = Path.join(System.tmp_dir!(), "commonplace-nex
+t-port-b-handoff-#{unique}")
++    data_dir = CommonplaceNext.TestFixtures.unique_tmp_root("po
+rt-b-lifetime")
++    handoff_dir = CommonplaceNext.TestFixtures.unique_tmp_root(
+"port-b-handoff")
++    previous_log = Application.get_env(:commonplace_log, SQLite
+)
+
+     File.mkdir_p!(data_dir)
+     File.mkdir_p!(handoff_dir)
+@@ -90,6 +97,13 @@
+       Application.put_env(:commonplace_log, SQLite, data_dir: d
+ata_dir)
+       {:ok, _started} = Application.ensure_all_started(:commonp
+lace_next)
+       Application.put_env(:commonplace_log, SQLite, data_dir: h
+andoff_dir)
++      :ok = Application.stop(:commonplace_next)
++      {:ok, _started} = Application.ensure_all_started(:commonp
+lace_next)
++      :ok = Application.stop(:commonplace_next)
++      restore_env(:commonplace_log, SQLite, previous_log)
++      File.rm_rf!(data_dir)
++      File.rm_rf!(handoff_dir)
++      {:ok, _started} = Application.ensure_all_started(:commonp
+lace_next)
+     end)
+
+     Enum.each(1..50, fn iteration ->
+@@ -178,4 +192,7 @@
+       1_000
+     )
+   end
++
++  defp restore_env(application, key, nil), do: Application.dele
+te_env(application, key)
++  defp restore_env(application, key, value), do: Application.pu
+t_env(application, key, value)
+ end
+diff --git a/test/integration/gateway_nodelay_test.exs b/test/in
+tegration/gateway_nodelay_test.exs
+index a19cff29a206f6c602f2f5f05b456db360ed5ce0..24d7a4af93aceed4
+cfdabb27ca9560fccfcd244b
+--- a/test/integration/gateway_nodelay_test.exs
++++ b/test/integration/gateway_nodelay_test.exs
+@@ -50,11 +50,7 @@
+   setup do
+     :ok = stop_realm()
+
+-    data_dir =
+-      Path.join(
+-        System.tmp_dir!(),
+-        "commonplace-next-cepoch-probe-#{System.unique_integer(
+[:positive, :monotonic])}"
+-      )
++    data_dir = CommonplaceNext.TestFixtures.unique_tmp_root("ce
+poch-probe")
+
+     File.mkdir_p!(data_dir)
+     previous_log = Application.get_env(:commonplace_log, SQLite
+)
+diff --git a/test/integration/gateway_transport_prerequisite_tes
+t.exs b/test/integration/gateway_transport_prerequisite_test.exs
+index 439d76277e59bfb6b5dcfdd865f1a5428585017f..d1549287e0a43ee3
+55a372f2f99ced3313c4d92d
+--- a/test/integration/gateway_transport_prerequisite_test.exs
++++ b/test/integration/gateway_transport_prerequisite_test.exs
+@@ -449,11 +449,7 @@
+     previous_access = TestAccess.configure!()
+     on_exit(fn -> TestAccess.restore!(previous_access) end)
+
+-    root =
+-      Path.join(
+-        System.tmp_dir!(),
+-        "commonplace-next-demo-child-#{System.unique_integer([:
+positive, :monotonic])}"
+-      )
++    root = CommonplaceNext.TestFixtures.unique_tmp_root("demo-c
+hild")
+
+     File.mkdir_p!(root)
+     on_exit(fn -> File.rm_rf!(root) end)
+diff --git a/test/integration/loopback_gateway_test.exs b/test/i
+ntegration/loopback_gateway_test.exs
+index 2364f1971a64b1882fca607f7ffadcaae0dc2aa7..b11d37e98127c896
+b0e022302ba386d83e51b6c8
+--- a/test/integration/loopback_gateway_test.exs
++++ b/test/integration/loopback_gateway_test.exs
+@@ -31,6 +31,8 @@
+     def command(remote, command),
+       do: GenServer.call(remote, {:command, command}, 15_000)
+
++    def os_pid(remote), do: GenServer.call(remote, :os_pid)
++
+     @impl true
+     def init(options) do
+       executable = System.find_executable("elixir") || raise "e
+lixir executable missing"
+@@ -48,8 +50,8 @@
+         :code.get_path()
+         |> Enum.flat_map(fn path -> ["-pa", List.to_string(path
+)] end)
+
+-      port =
+-        CommonplaceNext.SecondBeam.spawn(executable, [
++      {port, os_pid} =
++        CommonplaceNext.SecondBeam.spawn_and_pid(executable, [
+           :binary,
+           :exit_status,
+           {:packet, 4},
+@@ -64,13 +66,16 @@
+       with {:ok, control} <-
+              await_control(control_port, System.monotonic_time(
+:millisecond) + 15_000),
+            {:ok, "READY"} <- :gen_tcp.recv(control, 0, 15_000)
+do
+-        {:ok, %{control: control, bootstrap: bootstrap}}
++        {:ok, %{control: control, bootstrap: bootstrap, os_pid:
+ os_pid}}
+       else
+         {:error, reason} -> {:stop, {:child_start_error, reason
+}}
+       end
+     end
+
+     @impl true
++    def handle_call(:os_pid, _from, state), do: {:reply, state.
+os_pid, state}
++
++    @impl true
+     def handle_call({:command, command}, _from, state) do
+       :ok = :gen_tcp.send(state.control, command)
+
+@@ -123,11 +128,7 @@
+     :ok = stop_realm()
+     stop_sqlite_children()
+
+-    data_dir =
+-      Path.join(
+-        System.tmp_dir!(),
+-        "commonplace-next-e2b-#{System.unique_integer([:positiv
+e, :monotonic])}"
+-      )
++    data_dir = CommonplaceNext.TestFixtures.unique_tmp_root("e2
+b")
+
+     File.mkdir_p!(data_dir)
+     previous_log = Application.get_env(:commonplace_log, SQLite
+)
+@@ -142,9 +143,12 @@
+     {:ok, remote} =
+       Remote.start_link(gateway_port: Gateway.port(), cell_id:
+e1.cell_id, token: token)
+
++    remote_os_pid = Remote.os_pid(remote)
++
+     on_exit(fn ->
+       _ = Remote.command(remote, "stop")
+       if Process.alive?(remote), do: GenServer.stop(remote, :no
+rmal)
++      CommonplaceNext.SecondBeam.wait_gone!(remote_os_pid)
+       :ok = stop_realm()
+       stop_sqlite_children()
+       restore_env(:commonplace_log, SQLite, previous_log)
+diff --git a/test/integration/markdown_editor_goal_test.exs b/te
+st/integration/markdown_editor_goal_test.exs
+index 57093be83f64404008272a291989a392fe4c73c0..8630b7a40bdde7ec
+032d8111a7d69ae948cb5de4
+--- a/test/integration/markdown_editor_goal_test.exs
++++ b/test/integration/markdown_editor_goal_test.exs
+@@ -35,11 +35,7 @@
+     :ok = stop_realm()
+     stop_sqlite_children()
+
+-    data_dir =
+-      Path.join(
+-        System.tmp_dir!(),
+-        "commonplace-next-p7-#{System.unique_integer([:positive
+, :monotonic])}"
+-      )
++    data_dir = CommonplaceNext.TestFixtures.unique_tmp_root("p7
+")
+
+     File.mkdir_p!(data_dir)
+     previous_log = Application.get_env(:commonplace_log, SQLite
+)
+diff --git a/test/integration/merge_policy_test.exs b/test/integ
+ration/merge_policy_test.exs
+index 7eb70162dd8a1cd5f84532c7179792af1a5fad61..6197d460d17229d6
+74850f6787009a0ac486e2bd
+--- a/test/integration/merge_policy_test.exs
++++ b/test/integration/merge_policy_test.exs
+@@ -21,11 +21,7 @@
+     :ok = stop_realm()
+     stop_sqlite_children()
+
+-    data_dir =
+-      Path.join(
+-        System.tmp_dir!(),
+-        "commonplace-next-merge-policy-#{System.unique_integer(
+[:positive, :monotonic])}"
+-      )
++    data_dir = CommonplaceNext.TestFixtures.unique_tmp_root("me
+rge-policy")
+
+     File.mkdir_p!(data_dir)
+     previous_log = Application.get_env(:commonplace_log, SQLite
+)
+diff --git a/test/integration/organization_coordinate_test.exs b
+/test/integration/organization_coordinate_test.exs
+index 5e675ec1b2b9e7cfbcc8af75a698f6b9bb69fd80..ebefdbcf413eef32
+b66f2284128289ea9737dbd8
+--- a/test/integration/organization_coordinate_test.exs
++++ b/test/integration/organization_coordinate_test.exs
+@@ -44,11 +44,7 @@
+     :ok = stop_realm()
+     stop_sqlite_children()
+
+-    data_dir =
+-      Path.join(
+-        System.tmp_dir!(),
+-        "commonplace-next-org-coordinate-#{System.unique_intege
+r([:positive, :monotonic])}"
+-      )
++    data_dir = CommonplaceNext.TestFixtures.unique_tmp_root("or
+g-coordinate")
+
+     File.mkdir_p!(data_dir)
+     previous = Application.get_env(:commonplace_log, SQLite)
+diff --git a/test/integration/propagate_test.exs b/test/integrat
+ion/propagate_test.exs
+index 703792bb63f1c41184d7a36c72130660fd9bf872..e3ac1f6ed3099637
+08ffedc0123d6b24d45c6278
+--- a/test/integration/propagate_test.exs
++++ b/test/integration/propagate_test.exs
+@@ -20,11 +20,7 @@
+     :ok = stop_realm()
+     stop_sqlite_children()
+
+-    data_dir =
+-      Path.join(
+-        System.tmp_dir!(),
+-        "commonplace-next-propagate-#{System.unique_integer([:p
+ositive, :monotonic])}"
+-      )
++    data_dir = CommonplaceNext.TestFixtures.unique_tmp_root("pr
+opagate")
+
+     File.mkdir_p!(data_dir)
+     previous_log = Application.get_env(:commonplace_log, SQLite
+)
+diff --git a/test/integration/r8_session_dataflow_test.exs b/tes
+t/integration/r8_session_dataflow_test.exs
+index 587e35b3df5a64c9d8c436415fc558c432d7469b..a3005106f9a4e377
+0c70c76de3eb9b82a17b66a4
+--- a/test/integration/r8_session_dataflow_test.exs
++++ b/test/integration/r8_session_dataflow_test.exs
+@@ -77,11 +77,7 @@
+     :ok = stop_realm()
+     stop_sqlite_children()
+
+-    data_dir =
+-      Path.join(
+-        System.tmp_dir!(),
+-        "commonplace-next-r8-#{System.unique_integer([:positive
+, :monotonic])}"
+-      )
++    data_dir = CommonplaceNext.TestFixtures.unique_tmp_root("r8
+")
+
+     File.mkdir_p!(data_dir)
+     previous_log = Application.get_env(:commonplace_log, SQLite
+)
+diff --git a/test/integration/r9_identity_login_test.exs b/test/
+integration/r9_identity_login_test.exs
+index 1f976954300b11423cb2931e1cd08197aed9b25e..5882fd4a601d0b40
+5cbebbc282bdd80b087ec44f
+--- a/test/integration/r9_identity_login_test.exs
++++ b/test/integration/r9_identity_login_test.exs
+@@ -80,11 +80,7 @@
+     :ok = stop_realm()
+     stop_sqlite_children()
+
+-    data_dir =
+-      Path.join(
+-        System.tmp_dir!(),
+-        "commonplace-next-r9-#{System.unique_integer([:positive
+, :monotonic])}"
+-      )
++    data_dir = CommonplaceNext.TestFixtures.unique_tmp_root("r9
+")
+
+     File.mkdir_p!(data_dir)
+     previous_log = Application.get_env(:commonplace_log, SQLite
+)
+diff --git a/test/integration/remote_editor_test.exs b/test/inte
+gration/remote_editor_test.exs
+index f44228fc52d35d87a2cee88d2c5013be494f227f..0de4c21cab46bf52
+ffcc5023ab73e04b68c18d1c
+--- a/test/integration/remote_editor_test.exs
++++ b/test/integration/remote_editor_test.exs
+@@ -36,6 +36,7 @@
+
+     def start_link(options), do: GenServer.start_link(__MODULE_
+_, options)
+     def command(remote, command), do: GenServer.call(remote, {:
+command, command}, 20_000)
++    def os_pid(remote), do: GenServer.call(remote, :os_pid)
+
+     @impl true
+     def init(options) do
+@@ -59,8 +60,8 @@
+
+       args = code_path_args ++ [Path.join(root, "test/support/r
+emote_editor.exs")]
+
+-      port =
+-        CommonplaceNext.SecondBeam.spawn(executable, [
++      {port, os_pid} =
++        CommonplaceNext.SecondBeam.spawn_and_pid(executable, [
+           :binary,
+           :exit_status,
+           {:packet, 4},
+@@ -84,13 +85,16 @@
+       with {:ok, control} <-
+              await_control(control_port, System.monotonic_time(
+:millisecond) + 20_000),
+            {:ok, "READY"} <- :gen_tcp.recv(control, 0, 20_000)
+do
+-        {:ok, %{control: control}}
++        {:ok, %{control: control, os_pid: os_pid}}
+       else
+         {:error, reason} -> {:stop, {:child_start_error, reason
+}}
+       end
+     end
+
+     @impl true
++    def handle_call(:os_pid, _from, state), do: {:reply, state.
+os_pid, state}
++
++    @impl true
+     def handle_call({:command, command}, _from, state) do
+       :ok = :gen_tcp.send(state.control, command)
+
+@@ -143,11 +147,7 @@
+     :ok = stop_realm()
+     stop_sqlite_children()
+
+-    root =
+-      Path.join(
+-        System.tmp_dir!(),
+-        "commonplace-next-e2c-#{System.unique_integer([:positiv
+e, :monotonic])}"
+-      )
++    root = CommonplaceNext.TestFixtures.unique_tmp_root("e2c")
+
+     parent_dir = Path.join(root, "parent")
+     remote_dir = Path.join(root, "remote")
+@@ -173,12 +173,14 @@
+     # blind. The watch is a second channel; a test that wants a
+ blind mirror must close both.
+     subscribe? = Map.get(test_context, :canonical_subscribe, tr
+ue)
+     token = Base.url_encode64(:crypto.strong_rand_bytes(32), pa
+dding: false)
+-    remote = start_remote!(remote_dir, poll_ms, e2.cell_id, tok
+en, subscribe?)
++    {remote, remote_os_pid} =
++      start_remote!(remote_dir, poll_ms, e2.cell_id, token, sub
+scribe?)
++
+     remote_port = remote_port(remote)
+
+     on_exit(fn ->
+       TestAccess.restore!(previous_access)
+-      stop_remote(remote)
++      stop_remote(remote, remote_os_pid)
+       :ok = stop_realm()
+       stop_sqlite_children()
+       restore_env(:commonplace_log, SQLite, previous.log)
+@@ -192,6 +194,7 @@
+       e1: e1,
+       e2: e2,
+       remote: remote,
++      remote_os_pid: remote_os_pid,
+       remote_port: remote_port,
+       remote_dir: remote_dir,
+       parent_dir: parent_dir,
+@@ -676,8 +679,11 @@
+     old_remote_id = remote.opened["mirror_document_id"]
+     old_parent_id = parent.opened["mirror_document_id"]
+
+-    stop_remote(context.remote)
+-    restarted = start_remote!(context.remote_dir, 50, context.e
+2.cell_id, context.token)
++    stop_remote(context.remote, context.remote_os_pid)
++
++    {restarted, restarted_os_pid} =
++      start_remote!(context.remote_dir, 50, context.e2.cell_id,
+ context.token)
++
+     restarted_port = remote_port(restarted)
+     reopened_remote = login_and_open(restarted_port, context.e2
+.login)
+     assert reopened_remote.opened["mirror_document_id"] == old_
+remote_id
+@@ -694,7 +700,7 @@
+     assert remote_text(parent_port(), reopened_parent.cookie, o
+ld_parent_id, 8_204) =~
+              "E1 durable"
+
+-    stop_remote(restarted)
++    stop_remote(restarted, restarted_os_pid)
+   end
+
+   test "a realm restart does not re-bind the gateway and the re
+mote editor stays connected",
+@@ -775,8 +781,7 @@
+
+     orphan_control_port = orphan_free_port()
+
+-    dir =
+-      Path.join(System.tmp_dir!(), "cn-orphan-#{System.unique_i
+nteger([:positive, :monotonic])}")
++    dir = CommonplaceNext.TestFixtures.unique_tmp_root("orphan"
+)
+
+     File.mkdir_p!(dir)
+
+@@ -844,10 +849,10 @@
+         access_config: TestAccess.verifier_config_json()
+       )
+
+-    remote
++    {remote, Remote.os_pid(remote)}
+   end
+
+-  defp stop_remote(remote) do
++  defp stop_remote(remote, os_pid) do
+     if Process.alive?(remote) do
+       monitor = Process.monitor(remote)
+
+@@ -872,6 +877,8 @@
+           end
+       end
+     end
++
++    CommonplaceNext.SecondBeam.wait_gone!(os_pid)
+   end
+
+   defp restart_realm(attempts \\ 20)
+diff --git a/test/integration/seam_mandatory_admission_test.exs
+b/test/integration/seam_mandatory_admission_test.exs
+index 3b4f2138572e94b90f333e814c09430225efc47c..fccfaab9c7e22635
+0aea9c47dbb1ed70bb86adb7
+--- a/test/integration/seam_mandatory_admission_test.exs
++++ b/test/integration/seam_mandatory_admission_test.exs
+@@ -42,11 +42,7 @@
+     :ok = stop_realm()
+     stop_sqlite_children()
+
+-    data_dir =
+-      Path.join(
+-        System.tmp_dir!(),
+-        "commonplace-next-seam-#{System.unique_integer([:positi
+ve, :monotonic])}"
+-      )
++    data_dir = CommonplaceNext.TestFixtures.unique_tmp_root("se
+am")
+
+     File.mkdir_p!(data_dir)
+     previous_log = Application.get_env(:commonplace_log, SQLite
+)
+diff --git a/test/integration/second_editor_test.exs b/test/inte
+gration/second_editor_test.exs
+index f649a932e691f2c7f38a639e3a92b816f2129a7c..62341e5d7575c992
+6f2bac154557c0b655bed01e
+--- a/test/integration/second_editor_test.exs
++++ b/test/integration/second_editor_test.exs
+@@ -22,11 +22,7 @@
+     :ok = stop_realm()
+     stop_sqlite_children()
+
+-    data_dir =
+-      Path.join(
+-        System.tmp_dir!(),
+-        "commonplace-next-e2a-#{System.unique_integer([:positiv
+e, :monotonic])}"
+-      )
++    data_dir = CommonplaceNext.TestFixtures.unique_tmp_root("e2
+a")
+
+     File.mkdir_p!(data_dir)
+     previous_log = Application.get_env(:commonplace_log, SQLite
+)
+diff --git a/test/integration/two_organization_test.exs b/test/i
+ntegration/two_organization_test.exs
+index 06268074df721928d6d479eb9e8296c45bac71fd..9b6dbfdd96710059
+38b9146ea8c3382018f527c1
+--- a/test/integration/two_organization_test.exs
++++ b/test/integration/two_organization_test.exs
+@@ -39,6 +39,7 @@
+
+     def start_link(options), do: GenServer.start_link(__MODULE_
+_, options)
+     def command(remote, command), do: GenServer.call(remote, {:
+command, command}, 30_000)
++    def os_pid(remote), do: GenServer.call(remote, :os_pid)
+
+     @impl true
+     def init(options) do
+@@ -61,8 +62,8 @@
+
+       args = code_path_args ++ [Path.join(root, "test/support/r
+emote_realm.exs")]
+
+-      port =
+-        CommonplaceNext.SecondBeam.spawn(executable, [
++      {port, os_pid} =
++        CommonplaceNext.SecondBeam.spawn_and_pid(executable, [
+           :binary,
+           :exit_status,
+           {:packet, 4},
+@@ -91,13 +92,16 @@
+       with {:ok, control} <-
+              await_control(control_port, System.monotonic_time(
+:millisecond) + 30_000),
+            {:ok, "READY"} <- :gen_tcp.recv(control, 0, 30_000)
+do
+-        {:ok, %{control: control}}
++        {:ok, %{control: control, os_pid: os_pid}}
+       else
+         {:error, reason} -> {:stop, {:child_start_error, reason
+}}
+       end
+     end
+
+     @impl true
++    def handle_call(:os_pid, _from, state), do: {:reply, state.
+os_pid, state}
++
++    @impl true
+     def handle_call({:command, command}, _from, state) do
+       :ok = :gen_tcp.send(state.control, command)
+
+@@ -150,11 +154,7 @@
+     :ok = stop_realm()
+     stop_sqlite_children()
+
+-    root =
+-      Path.join(
+-        System.tmp_dir!(),
+-        "commonplace-next-org2a-#{System.unique_integer([:posit
+ive, :monotonic])}"
+-      )
++    root = CommonplaceNext.TestFixtures.unique_tmp_root("org2a"
+)
+
+     parent_dir = Path.join(root, "organization-1")
+     remote_dir = Path.join(root, "organization-2")
+@@ -191,7 +191,7 @@
+     # and is deliberately not built here.
+     [_e1, e2] = EditorPlacementTestHelper.entries()
+
+-    remote =
++    {remote, remote_os_pid} =
+       start_remote!(
+         remote_dir,
+         e2.cell_id,
+@@ -200,7 +200,7 @@
+       )
+
+     on_exit(fn ->
+-      stop_remote(remote)
++      stop_remote(remote, remote_os_pid)
+       :ok = stop_realm()
+       stop_sqlite_children()
+       restore_env(:commonplace_log, SQLite, previous.log)
+@@ -211,7 +211,13 @@
+       :ok = restart_realm()
+     end)
+
+-    %{remote: remote, parent_dir: parent_dir, remote_dir: remot
+e_dir, token: token}
++    %{
++      remote: remote,
++      remote_os_pid: remote_os_pid,
++      parent_dir: parent_dir,
++      remote_dir: remote_dir,
++      token: token
++    }
+   end
+
+   # ── O1: two Organizations, two Realms, two stores ──────────
+───────────────────────────────
+@@ -373,10 +379,10 @@
+         organization_name: @organization_2_name
+       )
+
+-    remote
++    {remote, Remote.os_pid(remote)}
+   end
+
+-  defp stop_remote(remote) do
++  defp stop_remote(remote, os_pid) do
+     if Process.alive?(remote) do
+       monitor = Process.monitor(remote)
+
+@@ -401,6 +407,8 @@
+           end
+       end
+     end
++
++    CommonplaceNext.SecondBeam.wait_gone!(os_pid)
+   end
+
+   defp append_canonical(suffix) do
+diff --git a/test/integration/x_realm_cell_open_grant_test.exs b
+/test/integration/x_realm_cell_open_grant_test.exs
+index 73dda6ab0388bdd3af7540e589b4ecf1d2339d61..5c99f7c12bd36a75
+08f24b5c9bdc6f389edeeb10
+--- a/test/integration/x_realm_cell_open_grant_test.exs
++++ b/test/integration/x_realm_cell_open_grant_test.exs
+@@ -52,11 +52,7 @@
+   setup do
+     :ok = stop_realm()
+
+-    data_dir =
+-      Path.join(
+-        System.tmp_dir!(),
+-        "commonplace-next-xrealm-#{System.unique_integer([:posi
+tive, :monotonic])}"
+-      )
++    data_dir = CommonplaceNext.TestFixtures.unique_tmp_root("xr
+ealm")
+
+     File.mkdir_p!(data_dir)
+     previous_log = Application.get_env(:commonplace_log, SQLite
+)
+@@ -346,11 +342,7 @@
+     previous_organization = Application.get_env(:commonplace_ne
+xt, Organization)
+     previous_log = Application.get_env(:commonplace_log, SQLite
+)
+
+-    data_dir =
+-      Path.join(
+-        System.tmp_dir!(),
+-        "commonplace-next-xrealm-unmembered-#{System.unique_int
+eger([:positive, :monotonic])}"
+-      )
++    data_dir = CommonplaceNext.TestFixtures.unique_tmp_root("xr
+ealm-unmembered")
+
+     File.mkdir_p!(data_dir)
+     :ok = stop_realm()
+diff --git a/test/support/second_beam.ex b/test/support/second_b
+eam.ex
+index 358f5e72cc14b3ac74590e0f73675f7bc40a3d1f..9a334211a2f8cf05
+5a40ee2d9a739d9f600d9f94
+--- a/test/support/second_beam.ex
++++ b/test/support/second_beam.ex
+@@ -65,7 +65,12 @@
+   """
+   def reap(os_pid) when is_integer(os_pid) do
+     signal(os_pid, "TERM")
+-    if wait_gone(os_pid, @terminate_grace_ms), do: :ok, else: s
+ignal(os_pid, "KILL")
++
++    unless wait_gone(os_pid, @terminate_grace_ms) do
++      signal(os_pid, "KILL")
++      wait_gone!(os_pid, @terminate_grace_ms)
++    end
++
+     :ok
+   end
+
+@@ -96,6 +101,15 @@
+     end
+   end
+
++  @doc "Waits for a captured OS pid to exit, raising when the b
+ounded wait expires."
++  def wait_gone!(os_pid, timeout_ms \\ 5_000) when is_integer(o
+s_pid) and timeout_ms >= 0 do
++    if wait_gone(os_pid, timeout_ms) do
++      :ok
++    else
++      raise "child OS process #{os_pid} did not exit within #{t
+imeout_ms}ms"
++    end
++  end
++
+   @doc "Whether an OS pid is still present, by a kernel fact ra
+ther than a pattern match."
+   def alive?(os_pid) when is_integer(os_pid), do: File.exists?(
+"/proc/#{os_pid}")
+   def alive?(_other), do: false
+diff --git a/test/support/test_fixtures.ex b/test/support/test_f
+ixtures.ex
+new file mode 100644
+index 0000000000000000000000000000000000000000..c856d125630b36ab
+2d2066ec9c60fa5c5e1e10e8
+--- /dev/null
++++ b/test/support/test_fixtures.ex
+@@ -0,0 +1,12 @@
++defmodule CommonplaceNext.TestFixtures do
++  @moduledoc false
++
++  def unique_tmp_root(tag, parent \\ System.tmp_dir!()) when is
+_binary(tag) do
++    unique = "#{:os.getpid()}-#{System.unique_integer([:positiv
+e, :monotonic])}"
++
++    Path.join(
++      parent,
++      "commonplace-next-#{tag}-#{unique}"
++    )
++  end
++end
+
+tokens used
+208,267
+Implemented the fixture-root and child-cleanup fixes. No files u
+nder `lib/` changed.
+
+### Provisioning limitation
+
+The workspace was already clean at the required commit:
+
+```text
+ee7fb9400df93c8c369b39afeab9750c0a6c124f
+origin = git@github.com:commonplace-systems/commonplace-next.git
+origin/main = ee7fb9400df93c8c369b39afeab9750c0a6c124f
+```
+
+However, the mandated remote verification and branch creation co
+uld not be completed:
+
+```text
+git ls-remote ...:
+git@github.com: Permission denied (publickey).
+
+git switch -c sol/next-e2c-tmp-1 ...:
+.git/index.lock: Read-only file system
+```
+
+The environment has no SSH agent/key, GitHub CLI login, or HTTPS
+ credential, and `.git` is mounted read-only. Changes therefore
+remain in the worktree on `main`, not on `sol/next-e2c-tmp-1`.
+
+### Implementation
+
+Added [test_fixtures.ex](/home/jes/sol-e2c-tmp1/wt/test/support/
+test_fixtures.ex:1), defining `CommonplaceNext.TestFixtures.uniq
+ue_tmp_root/1,2`. It follows the existing precedent exactly:
+
+```elixir
+unique = "#{:os.getpid()}-#{System.unique_integer([:positive, :m
+onotonic])}"
+```
+
+The human-readable tag remains in every path.
+
+Enhanced [second_beam.ex](/home/jes/sol-e2c-tmp1/wt/test/support
+/second_beam.ex:66):
+
+- `wait_gone!/2` polls the captured OS pid with a bounded timeou
+t.
+- Timeout raises loudly with the pid.
+- `reap/1` now waits after KILL rather than returning immediatel
+y.
+
+`remote_editor`, `loopback_gateway`, and `two_organization` now
+retain the child OS pid outside the GenServer wrapper and wait u
+nconditionally before deleting the fixture root—even if the wrap
+per has already died.
+
+The listener-lifetime fixtures also now move the application awa
+y from their store paths and remove both fixture directories wit
+h `File.rm_rf!/1`.
+
+### Changed fixture-root sites
+
+Initial inventory: exactly 53 `System.unique_integer` sites acro
+ss 41 files. Forty-one original counter sites allocated fixture
+roots; they are now represented by these helper calls:
+
+```text
+test/commonplace_next/canonical_sync_test.exs:58
+test/commonplace_next/capture_run_test.exs:18
+test/commonplace_next/checkpoint_worker_test.exs:299
+test/commonplace_next/host_local_session_test.exs:39
+test/commonplace_next/mirrors_test.exs:26
+test/commonplace_next/organization/derived_login_end_to_end_test
+.exs:38
+test/commonplace_next/organization/editor_placement_agreement_te
+st.exs:32
+test/commonplace_next/organization/editor_placement_restriction_
+test.exs:32
+test/commonplace_next/organization/editor_placement_test.exs:31
+test/commonplace_next/organization/membership_test.exs:178
+test/commonplace_next/organization/provisioner_test.exs:14
+test/commonplace_next/organization/second_member_test.exs:215
+test/commonplace_next/organization/wiring_test.exs:30
+test/commonplace_next/r7_two_edge_issuance_test.exs:51
+test/commonplace_next/realm/keystore_test.exs:180
+test/commonplace_next/realm_test.exs:34
+test/commonplace_next/storage/sidecar_lane_test.exs:17
+test/commonplace_next/telemetry_table_test.exs:46
+test/commonplace_next/web/yjs_socket_test.exs:22
+test/commonplace_next/workspace_test.exs:24
+test/commonplace_next/yjs/attachment_test.exs:26
+test/integration/browser_markdown_durability_test.exs:24
+test/integration/g_session_channel_test.exs:39
+test/integration/gateway_listener_lifetime_test.exs:12,13,89,90
+test/integration/gateway_nodelay_test.exs:53
+test/integration/gateway_transport_prerequisite_test.exs:452
+test/integration/loopback_gateway_test.exs:131
+test/integration/markdown_editor_goal_test.exs:38
+test/integration/merge_policy_test.exs:24
+test/integration/organization_coordinate_test.exs:47
+test/integration/propagate_test.exs:23
+test/integration/r8_session_dataflow_test.exs:80
+test/integration/r9_identity_login_test.exs:83
+test/integration/remote_editor_test.exs:150,785
+test/integration/seam_mandatory_admission_test.exs:45
+test/integration/second_editor_test.exs:25
+test/integration/two_organization_test.exs:157
+test/integration/x_realm_cell_open_grant_test.exs:55,345
+```
+
+The gateway precedent originally used one counter for two roots
+in each test, explaining why two original counter sites became f
+our helper calls.
+
+Twelve original counter uses remain; all are non-root IDs, edit
+markers, secrets, store names, or the first-failure log filename
+.
+
+The specifically requested `[:positive]`-only sites were read an
+d intentionally left unchanged:
+
+```text
+test/integration/remote_editor_test.exs:1416  e2c-admission
+test/integration/g_session_channel_test.exs:314  s5-accepts
+```
+
+Both are in-VM telemetry handler IDs, not filesystem roots.
+
+### Child-cleanup sites
+
+```text
+test/integration/remote_editor_test.exs:39,63,177-198,683-704,85
+3-882
+test/integration/loopback_gateway_test.exs:34,53,69-76,146-155
+test/integration/two_organization_test.exs:42,65,95-102,194-216,
+382-411
+test/support/second_beam.ex:66-114
+```
+
+### E1/E2 red
+
+Added [test_fixtures_test.exs](/home/jes/sol-e2c-tmp1/wt/test/co
+mmonplace_next/test_fixtures_test.exs:1).
+
+Before the fix:
+
+```text
+Running ExUnit with seed: 0
+
+1) fixture roots do not collide across fresh VMs
+   Refute with == failed, both sides are exactly equal
+   left: "/tmp/commonplace-next-collision-arm-1"
+
+2) cleanup waits for a captured child pid before removing its ro
+ot
+   cleanup returned while child pid 1576 was still alive
+
+2 tests, 2 failures
+```
+
+E1 deterministically showed two fresh VMs selecting the same roo
+t while the stale marker remained.
+
+E2 showed `File.rm_rf!/1` returning while the planted slow child
+ was still alive. I did not reproduce an actual `File.rm_rf!/1`
+exception in the plant, so I do not claim that part of E2 red.
+
+A full-suite diagnostic later reproduced the underlying race mor
+e directly: a current pid-prefixed `e2c` root was deleted and th
+en recreated by a child whose wrapper had already died. That led
+ to retaining the pid in the outer fixture context and waiting u
+nconditionally.
+
+### E1/E2 green
+
+```text
+Running ExUnit with seed: 0
+
+..
+Finished in 2.0 seconds
+2 tests, 0 failures
+```
+
+The stale E1 root remains untouched, the new VM selects another
+root, and E2 removal occurs only after the planted child pid is
+gone.
+
+Relevant integration validation:
+
+```text
+remote_editor + loopback_gateway + two_organization:
+41 tests, 0 failures
+
+remote_editor + two_organization after unconditional-pid fix:
+30 tests, 0 failures
+
+gateway_listener_lifetime:
+4 tests, 0 failures
+directory count: 2948 -> 2948
+```
+
+### Full-suite controls
+
+The repository-local `tmp/test-data` was cleared before the suit
+e using `File.rm_rf!/1` because the sandbox rejected the request
+ed literal `rm -rf`. No host `/tmp` entry was deleted.
+
+There were 2,950 pre-existing `commonplace-next-*` directories b
+y the final controls:
+
+```text
+Control 1, seed 104729: 2950 before -> 2950 after
+Control 2, seed 130363: 2950 before -> 2950 after
+```
+
+Thus both runs left zero new matching directories.
+
+The normal second full run result was:
+
+```text
+513 tests, 5 failures, 1 excluded
+```
+
+All five failures were environmental repository gates:
+
+- four private-origin pin checks could not authenticate to GitHu
+b;
+- the trust-root falsifier could not restore `config/dev.exs` be
+cause `.git` is read-only.
+
+The falsifier’s added config stanza was manually restored afterw
+ard. No task-related functional test failed.
+
+Final checks:
+
+```text
+mix format --check-formatted: PASS
+git diff --check: PASS
+E1/E2 targeted tests: 2 tests, 0 failures
+lib/ changes: none
+```
+=== sol EXITED rc=0 ===
+

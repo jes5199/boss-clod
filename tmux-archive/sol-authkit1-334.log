@@ -1,0 +1,1865 @@
+
+exec
+/bin/bash -lc "sed -n '560,644p' tmp/run-logs/ak1coord2_fullsuite_01.log
+git status --porcelain
+git diff -- config/dev.exs" in /home/jes/sol-authkit1/wt
+ succeeded in 0ms:
+    (commonplace_doc_sync 0.1.0) lib/commonplace/doc_sync/mirror.ex:243: Commonp
+lace.DocSync.Mirror.attach_and_reconcile/1
+    (commonplace_doc_sync 0.1.0) lib/commonplace/doc_sync/mirror.ex:271: Commonp
+lace.DocSync.Mirror.recover_watch/1
+    (commonplace_doc_sync 0.1.0) lib/commonplace/doc_sync/mirror.ex:148: Commonp
+lace.DocSync.Mirror.handle_info/2
+    (stdlib 6.2.2.3) gen_server.erl:2345: :gen_server.try_handle_info/3
+    (stdlib 6.2.2.3) gen_server.erl:2433: :gen_server.handle_msg/6
+    (stdlib 6.2.2.3) proc_lib.erl:329: :proc_lib.init_p_do_apply/3
+Last message: {:watch_lost, %{document_id: "01a06e74-928b-7ef4-9476-426a12ba450c
+", watch: {:commonplace_doc_host_watch, #PID<0.26989.0>, #Reference<0.2782166101
+.2491416577.190174>}}, 9}
+
+
+  5) test a mirror host restart under a live attachment is survived (Commonplace
+.MarkdownEditorGoalTest)
+     test/integration/markdown_editor_goal_test.exs:105
+     old mirror host never became :not_running within 3 s; last observed: {:ok,
+#PID<0.27009.0>}
+     code: flunk(
+     stacktrace:
+       test/integration/markdown_editor_goal_test.exs:118: (test)
+
+.......................Failed to write log message to stdout, trying stderr
+
+22:05:39.783 [notice] SIGTERM received - shutting down
+
+............Failed to write log message to stdout, trying stderr
+
+22:05:41.054 [notice] SIGTERM received - shutting down
+
+...................
+22:05:44.834 [error] Task #PID<0.29138.0> started from #PID<0.29136.0> terminati
+ng
+** (stop) exited in: GenServer.call(#PID<0.29005.0>, {:acceptor_info, 44}, 5000)
+    ** (EXIT) no process: the process is not alive or there's no process current
+ly associated with the given name, possibly because its application isn't starte
+d
+    (elixir 1.18.4) lib/gen_server.ex:1128: GenServer.call/3
+    (thousand_island 1.5.0) lib/thousand_island/acceptor.ex:22: ThousandIsland.A
+cceptor.run/1
+    (elixir 1.18.4) lib/task/supervised.ex:101: Task.Supervised.invoke_mfa/2
+Process Label: {:thousand_island, :acceptor, {{0, Bandit.DelegatingHandler}, 44}
+}
+Function: &ThousandIsland.Acceptor.run/1
+    Args: [{#PID<0.29004.0>, #PID<0.29136.0>, 44, %ThousandIsland.ServerConfig{p
+ort: 0, transport_module: ThousandIsland.Transports.TCP, transport_options: [ip:
+ {127, 0, 0, 1}], handler_module: Bandit.DelegatingHandler, handler_options: %{o
+pts: %{http: [], websocket: [], http_1: [], http_2: []}, plug: {CommonplaceNext.
+Web.Endpoint, []}, handler_module: Bandit.InitialHandler, http_1_enabled: true,
+http_2_enabled: true}, genserver_options: [], supervisor_options: [], num_accept
+ors: 100, num_listen_sockets: 1, num_connections: 16384, max_connections_retry_c
+ount: 5, max_connections_retry_wait: 1000, read_timeout: 60000, shutdown_timeout
+: 15000, silent_terminate_on_error: false}}]
+.
+22:05:44.988 [error] Task #PID<0.30229.0> started from #PID<0.30227.0> terminati
+ng
+** (stop) exited in: GenServer.call(#PID<0.30087.0>, {:acceptor_info, 47}, 5000)
+    ** (EXIT) no process: the process is not alive or there's no process current
+ly associated with the given name, possibly because its application isn't starte
+d
+    (elixir 1.18.4) lib/gen_server.ex:1128: GenServer.call/3
+    (thousand_island 1.5.0) lib/thousand_island/acceptor.ex:22: ThousandIsland.A
+cceptor.run/1
+    (elixir 1.18.4) lib/task/supervised.ex:101: Task.Supervised.invoke_mfa/2
+Process Label: {:thousand_island, :acceptor, {{0, Bandit.DelegatingHandler}, 47}
+}
+Function: &ThousandIsland.Acceptor.run/1
+    Args: [{#PID<0.30086.0>, #PID<0.30227.0>, 47, %ThousandIsland.ServerConfig{p
+ort: 0, transport_module: ThousandIsland.Transports.TCP, transport_options: [ip:
+ {127, 0, 0, 1}], handler_module: Bandit.DelegatingHandler, handler_options: %{o
+pts: %{http: [], websocket: [], http_1: [], http_2: []}, plug: {CommonplaceNext.
+Web.Endpoint, []}, handler_module: Bandit.InitialHandler, http_1_enabled: true,
+http_2_enabled: true}, genserver_options: [], supervisor_options: [], num_accept
+ors: 100, num_listen_sockets: 1, num_connections: 16384, max_connections_retry_c
+ount: 5, max_connections_retry_wait: 1000, read_timeout: 60000, shutdown_timeout
+: 15000, silent_terminate_on_error: false}}]
+
+22:05:45.804 [error] Task #PID<0.35195.0> started from #PID<0.35193.0> terminati
+ng
+** (stop) exited in: GenServer.call(#PID<0.35128.0>, {:acceptor_info, 22}, 5000)
+    ** (EXIT) no process: the process is not alive or there's no process current
+ly associated with the given name, possibly because its application isn't starte
+d
+    (elixir 1.18.4) lib/gen_server.ex:1128: GenServer.call/3
+    (thousand_island 1.5.0) lib/thousand_island/acceptor.ex:22: ThousandIsland.A
+cceptor.run/1
+    (elixir 1.18.4) lib/task/supervised.ex:101: Task.Supervised.invoke_mfa/2
+Process Label: {:thousand_island, :acceptor, {{0, Bandit.DelegatingHandler}, 22}
+}
+Function: &ThousandIsland.Acceptor.run/1
+    Args: [{#PID<0.35127.0>, #PID<0.35193.0>, 22, %ThousandIsland.ServerConfig{p
+ort: 0, transport_module: ThousandIsland.Transports.TCP, transport_options: [ip:
+ {127, 0, 0, 1}], handler_module: Bandit.DelegatingHandler, handler_options: %{o
+pts: %{http: [], websocket: [], http_1: [], http_2: []}, plug: {CommonplaceNext.
+Web.Endpoint, []}, handler_module: Bandit.InitialHandler, http_1_enabled: true,
+http_2_enabled: true}, genserver_options: [], supervisor_options: [], num_accept
+ors: 100, num_listen_sockets: 1, num_connections: 16384, max_connections_retry_c
+ount: 5, max_connections_retry_wait: 1000, read_timeout: 60000, shutdown_timeout
+: 15000, silent_terminate_on_error: false}}]
+
+22:05:47.750 [error] Task #PID<0.47794.0> started from #PID<0.47792.0> terminati
+ng
+** (stop) exited in: GenServer.call(#PID<0.47730.0>, {:acceptor_info, 21}, 5000)
+    ** (EXIT) no process: the process is not alive or there's no process current
+ly associated with the given name, possibly because its application isn't starte
+d
+    (elixir 1.18.4) lib/gen_server.ex:1128: GenServer.call/3
+    (thousand_island 1.5.0) lib/thousand_island/acceptor.ex:22: ThousandIsland.A
+cceptor.run/1
+    (elixir 1.18.4) lib/task/supervised.ex:101: Task.Supervised.invoke_mfa/2
+Process Label: {:thousand_island, :acceptor, {{0, Bandit.DelegatingHandler}, 21}
+}
+Function: &ThousandIsland.Acceptor.run/1
+    Args: [{#PID<0.47729.0>, #PID<0.47792.0>, 21, %ThousandIsland.ServerConfig{p
+ort: 0, transport_module: ThousandIsland.Transports.TCP, transport_options: [ip:
+ {127, 0, 0, 1}], handler_module: Bandit.DelegatingHandler, handler_options: %{o
+pts: %{http: [], websocket: [], http_1: [], http_2: []}, plug: {CommonplaceNext.
+Web.Endpoint, []}, handler_module: Bandit.InitialHandler, http_1_enabled: true,
+http_2_enabled: true}, genserver_options: [], supervisor_options: [], num_accept
+ors: 100, num_listen_sockets: 1, num_connections: 16384, max_connections_retry_c
+ount: 5, max_connections_retry_wait: 1000, read_timeout: 60000, shutdown_timeout
+: 15000, silent_terminate_on_error: false}}]
+..............................** (EXIT from #PID<0.94.0>) shutdown
+
+** (EXIT from #PID<0.94.0>) shutdown
+
+........
+22:06:55.120 [error] GenServer #PID<0.54029.0> terminating
+** (stop) :forbidden
+Process Label: {:thousand_island, :connection, {Bandit.DelegatingHandler, {{127,
+ 0, 0, 1}, 60436}}}
+Last message: :forbidden
+..second BEAM exiting: no control peer (:invalid_control_channel)
+.....
+S2 push latency (poll disabled, n=20): median 160 ms, max 227 ms
+....
+22:07:53.859 [error] GenServer #PID<0.56241.0> terminating
+** (stop) :forbidden
+Process Label: {:thousand_island, :connection, {Bandit.DelegatingHandler, {{127,
+ 0, 0, 1}, 55890}}}
+Last message: :forbidden
+............
+22:08:00.888 [warning] cloudflare access JWKS boot fetch failed, starting with a
+n empty key cache: :nxdomain
+..
+
+ M test/integration/organization_coordinate_test.exs
+
+diff --git a/config/dev.exs b/config/dev.exs
+index 3945d398723efaa029dd4cff73e2f5d42ff874ba..264045e7e55a7606754a5f69f5913133
+0d0674b3
+--- a/config/dev.exs
++++ b/config/dev.exs
+@@ -26,18 +26,3 @@
+   realm_id: "commonplace-next"
+
+ config :logger, level: :warning
+-
+-config :commonplace_next, CommonplaceNext.Realm.Keystore,
+-  roots: [
+-    %{
+-      root_key_id: 1,
+-      algorithm: "ed25519",
+-      public_key: String.duplicate("ab", 32),
+-      status: "active",
+-      issuer: %{
+-        "purpose" => "realm.capability",
+-        "realm" => "somewhere-else",
+-        "operations" => ["directory.list", "directory.resolve", "cell.open", "d
+ocument.sync.summary", "document.sync.offer"]
+-      }
+-    }
+-  ]
+diff --git a/test/integration/organization_coordinate_test.exs b/test/integratio
+n/organization_coordinate_test.exs
+index 66adadfccbd716db9362a6c3cb728a08f957d504..98c6a967f45728deefad9ee7d6560c3d
+ae21a183
+--- a/test/integration/organization_coordinate_test.exs
++++ b/test/integration/organization_coordinate_test.exs
+@@ -32,6 +32,14 @@
+
+   @login "developer"
+
++  # ⭐ PRE-IDENTITY ROUTES: exempt from the coordinated-counterpart rule ON PUR
+POSE.
++  # WHY: coordination is meaningless before identity -- a /o/:organization logi
+n path asks an
++  #   unauthenticated browser to assert the very Membership the login exists to
+ establish, and
++  #   AUTHKIT-1 ships ONE global WorkOS client id, so it would coordinate nothi
+ng.
++  # WHEN THIS CHANGES: when AUTHKIT-2 resolves a Membership per Organization, r
+evisit toward
++  #   giving these routes real coordinated counterparts.
++  @pre_identity_routes ["/auth/workos", "/auth/workos/callback"]
++
+   # ⛔ THE CONTRACT, WRITTEN OUT. `organization_coordinate.ex` must send exactl
+y this body with 403.
+   @refusal "organization coordinate does not name this realm's organization"
+
+@@ -200,10 +208,20 @@
+           not String.starts_with?(path, "/o/:organization"),
+           do: {verb, path, plug, action}
+
++    actual_pre_identity_routes =
++      routes
++      |> Enum.map(& &1.path)
++      |> Enum.filter(&String.starts_with?(&1, "/auth/"))
++      |> Enum.sort()
++
++    assert Enum.sort(@pre_identity_routes) == actual_pre_identity_routes,
++           "the live router's /auth/ paths #{inspect(actual_pre_identity_routes
+)} differ from the explicit pre-identity exemption #{inspect(Enum.sort(@pre_iden
+tity_routes))}; classify the added or removed route explicitly"
++
+     # The positive control on the corpus: the base router is 9 routes, 8 of the
+m addressable.
+     assert length(uncoordinated) == 8
+
+-    for {verb, path, plug, action} <- uncoordinated do
++    for {verb, path, plug, action} <- uncoordinated,
++        path not in @pre_identity_routes do
+       coordinated = {verb, "/o/:organization" <> String.trim_trailing(path, "/"
+), plug, action}
+
+       assert coordinated in for(
+
+codex
+`config/dev.exs` is restored exactly; status is back to the single intended test
+ file. The unexplained full-suite failure is a 3-second timeout waiting for the
+old mirror host to become `:not_running` (last observed still `{:ok, pid}`). I’l
+l now re-run the final targeted test after the message/order refinement, then ex
+ecute formatting and plan-arm gates.
+exec
+/bin/bash -lc 'find ./tmp/test-data -depth -delete
+mix test test/integration/organization_coordinate_test.exs' in /home/jes/sol-aut
+hkit1/wt
+ succeeded in 9064ms:
+Running ExUnit with seed: 105779, max_cases: 8
+Excluding tags: [:requires_t2a_runtime_paths]
+
+...
+22:09:23.375 [error] GenServer #PID<0.1192.0> terminating
+** (stop) :forbidden
+Process Label: {:thousand_island, :connection, {Bandit.DelegatingHandler, {{127,
+ 0, 0, 1}, 45320}}}
+Last message: :forbidden
+.
+22:09:24.125 [error] GenServer #PID<0.1334.0> terminating
+** (stop) :forbidden
+Process Label: {:thousand_island, :connection, {Bandit.DelegatingHandler, {{127,
+ 0, 0, 1}, 45384}}}
+Last message: :forbidden
+.
+Finished in 6.0 seconds (0.00s async, 6.0s sync)
+5 tests, 0 failures
+
+diff --git a/config/dev.exs b/config/dev.exs
+index 3945d398723efaa029dd4cff73e2f5d42ff874ba..264045e7e55a7606754a5f69f5913133
+0d0674b3
+--- a/config/dev.exs
++++ b/config/dev.exs
+@@ -26,18 +26,3 @@
+   realm_id: "commonplace-next"
+
+ config :logger, level: :warning
+-
+-config :commonplace_next, CommonplaceNext.Realm.Keystore,
+-  roots: [
+-    %{
+-      root_key_id: 1,
+-      algorithm: "ed25519",
+-      public_key: String.duplicate("ab", 32),
+-      status: "active",
+-      issuer: %{
+-        "purpose" => "realm.capability",
+-        "realm" => "somewhere-else",
+-        "operations" => ["directory.list", "directory.resolve", "cell.open", "d
+ocument.sync.summary", "document.sync.offer"]
+-      }
+-    }
+-  ]
+diff --git a/test/integration/organization_coordinate_test.exs b/test/integratio
+n/organization_coordinate_test.exs
+index 66adadfccbd716db9362a6c3cb728a08f957d504..98c6a967f45728deefad9ee7d6560c3d
+ae21a183
+--- a/test/integration/organization_coordinate_test.exs
++++ b/test/integration/organization_coordinate_test.exs
+@@ -32,6 +32,14 @@
+
+   @login "developer"
+
++  # ⭐ PRE-IDENTITY ROUTES: exempt from the coordinated-counterpart rule ON PUR
+POSE.
++  # WHY: coordination is meaningless before identity -- a /o/:organization logi
+n path asks an
++  #   unauthenticated browser to assert the very Membership the login exists to
+ establish, and
++  #   AUTHKIT-1 ships ONE global WorkOS client id, so it would coordinate nothi
+ng.
++  # WHEN THIS CHANGES: when AUTHKIT-2 resolves a Membership per Organization, r
+evisit toward
++  #   giving these routes real coordinated counterparts.
++  @pre_identity_routes ["/auth/workos", "/auth/workos/callback"]
++
+   # ⛔ THE CONTRACT, WRITTEN OUT. `organization_coordinate.ex` must send exactl
+y this body with 403.
+   @refusal "organization coordinate does not name this realm's organization"
+
+@@ -200,10 +208,20 @@
+           not String.starts_with?(path, "/o/:organization"),
+           do: {verb, path, plug, action}
+
++    actual_pre_identity_routes =
++      routes
++      |> Enum.map(& &1.path)
++      |> Enum.filter(&String.starts_with?(&1, "/auth/"))
++      |> Enum.sort()
++
++    assert Enum.sort(@pre_identity_routes) == actual_pre_identity_routes,
++           "the live router's /auth/ paths #{inspect(actual_pre_identity_routes
+)} differ from the explicit pre-identity exemption #{inspect(Enum.sort(@pre_iden
+tity_routes))}; classify the added or removed route explicitly"
++
+     # The positive control on the corpus: the base router is 9 routes, 8 of the
+m addressable.
+     assert length(uncoordinated) == 8
+
+-    for {verb, path, plug, action} <- uncoordinated do
++    for {verb, path, plug, action} <- uncoordinated,
++        path not in @pre_identity_routes do
+       coordinated = {verb, "/o/:organization" <> String.trim_trailing(path, "/"
+), plug, action}
+
+       assert coordinated in for(
+
+exec
+/bin/bash -lc 'mix format --check-formatted' in /home/jes/sol-authkit1/wt
+exec
+/bin/bash -lc bin/check-plan-arms.sh in /home/jes/sol-authkit1/wt
+ succeeded in 1612ms:
+ succeeded in 5692ms:
+  ok      the running Workspace Cell's id is the configured Organization's works
+pace_cell facet
+  ok      two different Organizations project two different workspaces, each equ
+al to its own derivation
+  ok      no seeded cell, directory or document id literal remains in lib/
+  ok      the production lane is the Cloudflare sidecar and its URL defaults to
+the container address
+  ok      an environment-supplied sidecar URL is used in place of the default
+  ok      a blank sidecar URL is treated as absent rather than as an address
+  ok      a trailing slash on the sidecar URL does not survive into request path
+s
+  ok      an unconfigured realm asks for no lane and inherits the SQLite default
+  ok      a configured lane reaches the adapter options Hosts passes down
+  ok      a document created and edited on the sidecar lane reaches the sidecar
+and writes no local file
+  ok      the same document on the default lane writes a local SQLite file
+  ok      an explicit caller lane beats the configured lane
+  ok      the issuer policy constant is byte-identical at both source sites
+  ok      the advertised issuer policy names every operation the realm key signs
+  ok      the doc-sync pin is the published commit its evidence enumerates
+  ok      the attachment status reports its text under a profile neutral key
+  ok      protocol round-trips the y-protocols fixtures byte for byte
+  ok      protocol refuses an oversized frame and an unknown message type
+  ok      attachment builds its doc from the library byte door and renders the m
+irror markdown
+  ok      a joining client receives the server step1 and gets step2 for its step
+1
+  ok      an update from one client reaches every other client and not itself
+  ok      a reconnecting client with a state vector receives only the diff
+  ok      a commit landing on the mirror from elsewhere is diffed into the attac
+hment and fanned out
+  ok      an epoch change rebuilds the attachment and tells clients to reload
+  ok      watch loss re-attaches and resynchronises
+  ok      awareness updates fan out and a leaving client is removed
+  ok      no browser frame appends to any log in this round
+  ok      a malformed frame closes the socket with no log append
+  ok      a session cannot attach to a mirror it does not own
+  ok      an unauthenticated socket is refused
+  ok      the page exposes the seven diagnostic identities
+  ok      the last client leaving stops the attachment after idle
+  ok      on the authenticated path a dead issuer and an absent Session Cell sta
+y two refusals
+  ok      on the authenticated path a login with no Membership is refused by the
+ other name
+  ok      a remote realm that cannot mint is refused differently from one the ho
+st rejects
+  ok      a verified assertion produces a login holding a Membership and a Sessi
+on Cell
+  ok      a planted session cell id is ignored and the admitted principal is der
+ived from the verified identity
+  ok      an unverifiable assertion produces no authenticated session and does n
+ot crash the request
+  ok      the development login routes are gone, and the verified assertion stil
+l admits
+  ok      every kid resolves to its own key regardless of the order keys arrive
+in
+  ok      a second unknown kid inside the window is refused without a fetch
+  ok      an unknown kid triggers exactly one refresh
+  ok      the window reopens once refresh_interval_ms has elapsed
+  ok      a failed boot fetch leaves the process alive with an empty cache
+  ok      a JWKS entry with no kid is skipped rather than stored
+  ok      is constructible and callable with no process running
+  ok      is false in this environment, which is why the supervisor omits the ch
+ild
+  ok      raises naming COMMONPLACE_ACCESS_ROSTER
+  ok      an EMPTY object raises: a site nobody can log into is the failure, not
+ the fix
+  ok      restoring the variable a refusal arm removed makes the same call succe
+ed
+  ok      is one entry per DISTINCT login, in the shape Logins.all/0 returns
+  ok      what production would have got WITHOUT this key
+  ok      the operator's minted admission is admitted, and the same principal wi
+th no proof is not
+  ok      two operator admissions are two Session Cells on the one Editor Cell
+  ok      the operator principal never crosses a realm: no local workspace, no a
+dmission
+  ok      a login holding no Membership gets no operator admission
+  ok      a second login provisions a second editor cell with its own root and i
+ts own mirror of the same document
+  ok      both mirrors name the canonical yepoch and both display the canonical
+head
+  ok      after the first editor syncs the second mirror reads blocked with its
+history intact and nothing auto pushed
+  ok      a blocked mirror re-forks from the canonical head and the superseded m
+irror keeps its unsynced edit
+  ok      a duplicate retry from either editor across the canonical dochost stop
+ped and reopened on the same store has one durable effect
+  ok      a session cannot address the other login's mirror
+  ok      a realm restart reconstructs both editor cells and both mirrors with t
+heir edits
+  ok      the second editor's push is attributed to the second editor cell
+  ok      two sessions of one Membership get distinct Session Cells on the same
+Editor Cell
+  ok      the same session key derives the same Session Cell id
+  ok      the derived Session Cell id is a valid Cell uuid
+  ok      the Session Cell id differs from the Organization's other derived face
+ts
+  ok      the Session Cell introduces no second Attachment identifier
+  ok      an unresolved Membership is refused
+  ok      an editor cell id that is not a non-empty binary is refused by value
+  ok      a session key that is not a non-empty binary is refused by value
+  ok      encodes and decodes a versioned grant request carrying only its UUID
+  ok      ordinary request bytes are not grant frames
+  ok      version, type, truncation, and trailing bytes are rejected
+  ok      token response is a bounded canonical envelope
+  ok      the crossed exact shape selects Biscuit only over mutually authenticat
+ed TLS
+  ok      a request from a second os process over the gateway yields the portabl
+e response the same request yields inside the beam
+  ok      a grant UUID must match the subsequent ordinary request before routing
+  ok      editor root boots headless as an empty directory with absent_root prov
+enance
+  ok      the first mirror entry is the editor root's first and only commit
+  ok      no bootstrap entry is ever written to the editor root
+  ok      the editor root is reopened not recreated after a realm restart
+  ok      the configured owners default to every configured login
+  ok      a login without a Membership logs in exactly as it does today
+  ok      the edit the authenticated path admits is accepted by the canonical Do
+cument
+  ok      the session cell id derived from the verified identity is the same val
+ue that admits the edit
+  ok      one identity derives one session cell id across requests
+  ok      an append to a fixture carrying a format mark lands at the end of the
+rendered text
+  ok      the first provision reports created and the second reports existing
+  ok      provisioning twice yields the same Organization Space identities
+  ok      the second provision creates no second Organization Authority Cell
+  ok      a different Organization derives different Organization Space identiti
+es
+  ok      derived Organization Space identities are pairwise distinct
+  ok      derived Organization Space identities are valid Cell uuids
+  ok      the other login's session cannot address a remote editor's mirror even
+ when placement could route to it
+  ok      a re-fork interrupted after the fork resumes to one mirror and one dir
+ectory entry
+  ok      a realm restart of either process reconstructs its cell and mirror wit
+h stable ids
+  ok      an unauthenticated gateway connection is refused and counted
+  ok      the goal section 24 telemetry table is maintained by the suite
+  ok      telemetry carries no markdown content yjs updates proofs tokens or raw
+ errors by default
+  ok      both cells boot in one realm each under its own supervision subtree
+  ok      stopping the editor cell subtree stops its hosts and leaves the worksp
+ace serving
+  ok      workspace cell boot proves its root directory is owned by the workspac
+e cell
+  ok      a cell whose root is owned by another cell fails to boot
+  ok      editor cell root directory is created once and reopened on restart
+  ok      editor lists the workspace through the router with a scoped proof
+  ok      the listing carries names kinds ids version refs and interpretations a
+nd nothing else
+  ok      editor reads welcome.md at its exact canonical version through documen
+t.read.content
+  ok      a request no selector names is refused by the biscuit authorizer and o
+pens no host
+  ok      a request addressed to the wrong cell is wrong_target_cell
+  ok      the delivery context comes from the caller handle not the request sour
+ce field
+  ok      local root authorizer is reachable nowhere in the realm
+  ok      same realm delivery encodes no value
+  ok      adapters are selected by registered name never from request values
+  ok      a document owned by the editor cell addressed through the workspace ce
+ll is resource_not_owned
+  ok      a replayed request id within one host lifetime returns the retained re
+sponse
+  ok      realm restart re-registers both cells and the listing is unchanged
+  ok      an idle cross-realm mirror sends no canonical poll in a four second wi
+ndow
+  ok      with both the poll and the subscription disabled the mirror crosses ne
+ither
+  ok      with the poll disabled an edit still reaches the remote mirror -- the
+push carried it
+  ok      a subscribe is refused for a document the host does not hold and opens
+ for one it does
+  ok      a forced session drop is survived: the mirror recovers and syncs again
+  ok      after a dropped channel the mirror re-subscribes rather than polling f
+orever
+  ok      a mirror that cannot subscribe announces the degradation instead of ju
+st polling
+  ok      turning the subscription off is silent -- a switch is not a failure
+  ok      no non-test config turns the canonical subscription off
+  ok      this Realm holds exactly its own signing key as a trust root
+  ok      a second trust root added by configuration alone turns the gate red
+  ok      timing is ON by default -- a run without flags writes a .times file be
+side the log
+  ok      --no-time turns timing off and unsets an INHERITED CAPTURE_RUN_TIMES
+  ok      a blind box-free result is recorded and never gates the wrapped comman
+d
+  ok      a remote browser's verified assertion opens an admitted mirror, and on
+e with no assertion is refused
+  ok      a crossed resolution is accepted only for the login that asked and the
+ id both sides derive
+  ok      a verified identity holding no Membership yields a refusal and never a
+ resolution frame
+  ok      both realms report their own trust root only, and the two roots are di
+fferent keys
+  ok      a cell.open token minted by a different beam's root is refused
+  ok      PINNED WEAKNESS: any in-BEAM caller can obtain any cell's handle and s
+peak as it
+  ok      the cell pin is a published commit whose recorded delta matches
+  ok      the biscuit pin is a published commit whose recorded delta matches
+  ok      a Membership with no Logins row edits, and the edit reaches the canoni
+cal Document
+  ok      every roster login's config-derived ids equal its resolved Membership'
+s
+  ok      a DIFFERENT generation derives different ids -- the arm above is not v
+acuous
+  ok      root public keys load from local configuration and are addressable by
+root key id
+  ok      an unknown root key id is refused by name
+  ok      a retired root key fails closed and is not distinguishable from an abs
+ent one
+  ok      conflicting trust configuration fails closed at boot
+  ok      each loaded root carries the issuer fingerprint of the declared framin
+g
+  ok      the keystore is empty by default and the demo path is unchanged
+  ok      a mirror entry declares the interpretation of the document it mirrors
+  ok      a mirror of a non markdown canonical is stamped with that canonical s
+profile and refused by the editor
+  ok      a re fork writes the source interpretation and not a constant
+  ok      S1 base refusal, grant scope, and revoke are four ordered observations
+  ok      S2 document_grant refuses D2 and mints only the exact action granted f
+or D
+  ok      S3 configured neighbour bootstraps and grants exactly as before
+  ok      S4 revoke precedes bootstrap and document mint while an issued token l
+ives
+  ok      worker checkpoints a dirty directory after minimum_delay
+  ok      worker fires no later than maximum_staleness under a continuous stream
+ of hints
+  ok      duplicate dirty hints cause one checkpoint not two
+  ok      a hint while a checkpoint is in progress is absorbed and re-evaluated
+on completion
+  ok      a head precondition conflict is retried from the live head no faster t
+han minimum_delay
+  ok      a child advancing during checkpoint construction leaves the entry dirt
+y and is picked up next
+  ok      watch loss triggers reconcile and the worker recovers the dirty set
+  ok      worker restart with pre-existing dirt arms itself from the live snapsh
+ot without a hint
+  ok      authorization removal is reported as excluded and not retried faster t
+han minimum_delay
+  ok      the worker holds no authority term and passes none to checkpoint
+  ok      with the worker disabled the explicit checkpoint path is unchanged and
+ correct
+  ok      the worker acts on the live snapshot and never on the hint body
+  ok      a clean directory receives no checkpoint call
+  ok      dirty count and checkpoint latency are emitted without entry names or
+content
+  ok      opening welcome.md provisions one mirror owned by the editor cell from
+ the exact canonical version
+  ok      the mirror has a different uuid a different log and the same yepoch as
+ the canonical
+  ok      mirror lineage names the canonical document and version
+  ok      the mirror selects the same content commit as the canonical version it
+ was forked from
+  ok      the relationship is durable and readable after the store process resta
+rts
+  ok      the editor root directory gains a tracking direct entry for the mirror
+  ok      opening the same path again reuses the mirror and creates no second fo
+rk
+  ok      opening after a realm restart reuses the mirror from durable state
+  ok      a crash after the fork and before the directory entry converges on the
+ same mirror on retry
+  ok      a crash after the directory entry and before the index converges on th
+e same mirror on retry
+  ok      fork without a destination home cell is refused
+  ok      fork under an authority lacking create-fork is refused and creates no
+log
+  ok      the durable store matches the in-memory store on a scripted sequence
+  ok      the factory opens an existing mirror log rather than creating it
+  ok      no store file content crosses a cell request
+  ok      handshakes per crossed grant request drop to zero while a channel is h
+eld
+  ok      two concurrent exchanges on one held channel each receive their own do
+cument's response
+  ok      with no channel held the one-shot crossed request is unchanged
+  ok      an unparsable frame closes the channel at the host
+  ok      an unparsable frame closes the channel and the mirror recovers without
+ losing an edit
+  ok      a frame naming an unknown exchange is answered and the channel survive
+s
+  ok      an unset SECRET_KEY_BASE makes the production secret key base refuse t
+o boot
+  ok      a set SECRET_KEY_BASE is returned unchanged and does not raise
+  ok      a too-short SECRET_KEY_BASE is refused below the 64 byte threshold
+  ok      a blank SECRET_KEY_BASE is refused rather than accepted as present
+  ok      the 64 byte threshold is the one Plug's cookie session store enforces
+  ok      the dev and test endpoint secret key base works with no environment va
+riable set
+  ok      fixture lengths are what the arms below assume
+  ok      a calibrating log yields the failure's ordinal, and the ordinal is the
+ planted one
+  ok      a green log is reported GREEN rather than given a fabricated ordinal
+  ok      NO-SUMMARY: a truncated log is refused rather than measured
+  ok      CALIBRATION-FAILED: dots that disagree with the summary are refused, n
+ot reconciled
+  ok      timing is ON by default -- a run without flags writes a .times file be
+side the log
+  ok      --time points the formatter at its OWN file, beside the log and never
+inside it
+  ok      the formatter writes one row per finished test, and a test that never
+ran is named not zeroed
+  ok      the Gateway listener and client use TLS instead of raw TCP
+  ok      TLS profile pins TLS 1.3 and one AES-256-GCM cipher
+  ok      peer identity is checked before the bearer and request frames
+  ok      private credentials and bearer material do not use application env or
+child argv
+  ok      bootstrap is one bounded length-prefixed stdin frame
+  ok      request and response frames are bounded under one absolute deadline
+  ok      runtime negotiates TLS 1.3 with the pinned AES-256-GCM suite
+  ok      plaintext and anonymous TLS connections cannot reach application frame
+s
+  ok      wrong role, Realm, and Cell identities are refused before bearer use
+  ok      a certificate signed by the wrong CA is refused during TLS handshake
+  ok      expired and not-yet-valid leaves fail local profile validation
+  ok      bootstrap accepts one valid frame and rejects oversize or trailing fra
+mes
+  ok      an absolute deadline closes a stalled TLS receive
+  ok      frame sender refuses an oversize payload before touching the socket
+  ok      client refuses an oversized response before receiving its payload
+  ok      partial response frames stall only until the original absolute deadlin
+e
+  ok      an exactly bounded response payload is received intact
+  ok      partial request frames are closed by the same deadline owner
+  ok      a completed operation after expiry cannot return success
+  ok      credential owner keeps server and client material out of configuration
+ and process launch surfaces
+  ok      a fresh credential owner starts empty before direct provisioning
+  ok      no dependency is a path under the home directory
+  ok      every git dependency in mix.lock resolves to the ref named in mix.exs
+  ok      a document whose entry declares a foreign profile is refused as a prof
+ile mismatch not as absence
+  ok      a document that does not exist is still refused as resource not found
+  ok      a stale version is refused as a version problem not as absence
+  ok      the Realm starts a temporary directory issuer before the public-root k
+eystore
+  ok      a worker reference cannot yield a generic signer for an arbitrary gran
+t
+  ok      directory-list issuance round-trips against the receiver's exact publi
+c root and ground
+  ok      directory-list grants deny wrong operation, target, resource, and temp
+oral boundaries
+  ok      the explicit runtime-root provider refuses absence and id or policy co
+llisions
+  ok      issuer death removes minting without replacing the key under a live ke
+ystore
+  ok      a full Realm restart creates the next ephemeral issuer pair
+  ok      the secret-surface check has a non-empty corpus and catches synthetic
+positives
+  ok      fork's source and refork's canonical read reach the workspace cell onl
+y by admitted verbs
+  ok      canonical change reaches the editor only by admitted summary requests
+  ok      a crossed document verb is admitted by the host's own grant and refuse
+d without one
+  ok      a second login placed in a second os process provisions its cell root
+and mirror through the gateway
+  ok      the e2a scenario holds with the second editor remote: blocked after th
+e first syncs, re-fork from the canonical head, superseded edit kept
+  ok      every request from the remote editor is admitted crossed realm under i
+ts token's identity
+  ok      placement cannot route the remote editor to the local editor's mirror
+and vice versa
+  ok      a realm restart of either process reconstructs its cell and mirror wit
+h stable ids
+  ok      with canonical polling disabled an offer after the canonical advanced
+is still refused as conflicted
+  ok      retiring a facet leaves every other facet's derived id unchanged
+  ok      the retired facet is gone
+  ok      a socket upgrade under a foreign organization coordinate is refused by
+ name
+  ok      a socket upgrade under this realm's own organization coordinate is adm
+itted
+  ok      an http route under a foreign organization coordinate is refused by na
+me
+  ok      the uncoordinated routes are unchanged
+  ok      the router table carries the coordinate on every browser route and on
+the socket
+  ok      the same identity edits a document in each organization and each edit
+lands in its own realm's store
+  ok      a cell.open token minted by one organization's realm is refused by the
+ other
+  ok      each realm holds only its own trust root
+  ok      two sessions of one identity share the editor cell and the session cel
+l
+  ok      the same identity in the other organization derives a different sessio
+n cell and editor cell
+  ok      an unparented second BEAM self-terminates at its accept bound
+  ok      both second-BEAM helper sources compile, not merely parse
+  ok      the opened payload carries the interpretation of the document it opene
+d
+  ok      a reopened mirror reports the interpretation resolved afresh rather th
+an remembered
+  ok      directory list reports the interpretation recorded on each entry
+  ok      list and resolve report the same interpretation for the same entry
+  ok      the edit the authenticated path admits is accepted by the canonical Do
+cument end to end
+  ok      the session cell id derived from the verified identity is the same val
+ue that admits the edit
+  ok      one identity derives one session cell id across requests and a second
+identity derives its own
+  ok      an edit admitted with a session cell id the login path did not produce
+ is refused by name
+  ok      the owner Membership survives a host stop and reopen on the same store
+  ok      reopening on a fresh store reports the owner Membership absent
+  ok      the resolved Membership generation and epoch are unchanged across a re
+open
+  ok      a second ensure_owner reports existing and does not change the members
+hip generation
+  ok      no bare epoch or generation identifier is introduced by the Membership
+ modules
+  ok      the log growth table reports table file bytes wal bytes and store entr
+y bytes as three separate columns
+  ok      the three byte columns each equal an independent recount from the file
+s and the store
+  ok      an authored update becomes one mirror commit parented on the head it w
+as authored against
+  ok      the ack arrives only after the mirror log holds the commit
+  ok      the author id equals the id the host computes
+  ok      a retried batch with the same op id produces no second commit and is a
+cked
+  ok      a malformed update is refused and the mirror log is unchanged
+  ok      an oversize update is refused and the mirror log is unchanged
+  ok      a head that moved underneath is retried once against the new head
+  ok      an authored update reaches the other clients after the ack not before
+  ok      the attachment ignores its own commits arriving on the watch
+  ok      the mirror markdown after a burst of edits equals the browser text
+  ok      a reload preserves acked edits and reconnect resends pending ones with
+ original ids
+  ok      an epoch change refuses pending batches as blocked
+  ok      the canonical document is untouched by mirror editing
+  ok      status progresses local saving saved
+  ok      both gateway listening sockets carry nodelay
+  ok      the crossed cell.open exchange does not stall on Nagle, and the handsh
+ake is unmoved
+  ok      the log growth task reports entries and bytes per minute for every log
+ the two editors touch at a stated edit rate
+  ok      the reported growth equals the growth measured independently from the
+store
+  ok      a measurement under a blocked or faulted mirror is refused not reporte
+d
+  ok      the accepted edit crosses both the session to editor and the editor to
+ workspace Biscuit edges
+  ok      removing the session to editor Biscuit refuses the edit and leaves the
+ editor to workspace edge green
+  ok      removing the editor to workspace Biscuit refuses the sync and leaves t
+he session to editor edge green
+  ok      each removal produces only its own named refusal and the two strings d
+iffer
+  ok      the editor issuer owns no signer seed or root key id and mints through
+ the realm's one key
+  ok      the four document verbs are admitted on the local lane and non-Cell ve
+rb names are not
+  ok      the gateway restarts immediately after termination without a name coll
+ision
+  ok      after the application stops the gateway port does not accept a connect
+ion
+  ok      the exact local browser resolve uses one canonical Biscuit proof and n
+o dev scope
+  ok      a structurally foreign proof is denied on the exact resolve lane
+  ok      the resolve contract is immutable and independently rederived
+  ok      the resolve selector makes every source, receiver, target, verb, and a
+rgument fact load-bearing
+  ok      structured and decoded-byte Host doors consult the same configured cal
+lback
+  ok      wrong authenticated source, request source, receiving cell, and target
+ cell refuse
+  ok      non-root target, non-string path, missing or extra arguments, and wron
+g operation refuse
+  ok      a token with the wrong root resource id is unauthorized
+  ok      issuer root facts include source, target, operation, document identity
+, and temporal bounds without path
+  ok      M1 policy is exact and operations member, order, value, and policy mis
+matches refuse
+  ok      missing or dead issuer and missing or altered M1 refuse before routing
+  ok      invalid or opaque contract callback results refuse before routing
+  ok      local directory.list and document behavior remain unchanged
+  ok      crossed-Realm directory.resolve is admitted only over mutually authent
+icated TLS
+  ok      new resolver surfaces contain no signer material
+  ok      a request from a second os process over the gateway yields the portabl
+e response the same request yields inside the beam
+  ok      every gateway delivery is admitted with crossed realm true under the t
+ransport identity
+  ok      a request forged without the gateway envelope is refused at admission
+  ok      a claimed source cell that is not the token's cell is refused as sourc
+e mismatch
+  ok      an oversize or non canonical envelope is refused before decode
+  ok      the local route never becomes remote and the second process shares no
+beam node
+  ok      a duplicate request id over the gateway is answered from the retained
+response
+  ok      a failing run's test NAME and MESSAGE survive in the captured file, an
+d the summary names the file
+  ok      the exit status is the COMMAND's, not the writer's
+  ok      a run that names no failing test says so rather than printing nothing
+  ok      a login with a Membership but no Logins row is served by a derived Edi
+tor Cell
+  ok      provisioning reports :created then :existing, and is idempotent
+  ok      a different member derives a different Editor Cell
+  ok      a new membership generation derives a NEW Editor Cell and does not reu
+se the old
+  ok      the two configured logins are untouched -- the valid neighbour
+  ok      the facet map gained exactly two facets, counted as KEYS not as text h
+its
+  ok      a configured login whose cell is hosted here but outside cells: is ref
+used at authenticate
+  ok      two configured owners yield two owner Memberships after a stop and reo
+pen
+  ok      a fresh store configured with one owner has the second member absent
+  ok      a second provision of two configured owners creates no duplicate Membe
+rship
+  ok      a different organization derives different owner Memberships for the s
+ame members
+  ok      the configured owner member ids are a list whose first entry is the si
+ngular owner
+  ok      code exchange records one form POST and its token verifies as a WorkOS
+ human
+  ok      signed by a kid absent from the fixture JWKS is unknown
+  ok      WorkOS token with a different issuer is refused
+  ok      expired WorkOS token is refused
+  ok      callback state mismatch returns 401 and establishes no login session
+  ok      default Access profile still refuses a token missing audience
+  ok      production configuration raises naming WORKOS_API_KEY when it is absen
+t
+  ok      unconfigured WorkOS login route returns named not configured 404
+  ok      the first editor's edit becomes canonical and the second editor's brow
+ser shows it without re-fork
+  ok      the reverse: the second editor's edit reaches the first editor's brows
+er
+  ok      after a diverged merge both browsers show both edits
+  ok      with the canonical observation off nothing updates and the mirror head
+ is unchanged
+  ok      propagation never appends to the canonical and the mirror log stays di
+stinct
+  ok      the remote editor's browser is updated through the summary poll behind
+ the gateway
+  ok      an existing log for the same label is REFUSED, and the earlier run's e
+vidence survives
+  ok      a fresh label is captured normally -- the guard stays green on known-g
+ood input
+  ok      --overwrite is the explicit escape for a caller whose labels are stabl
+e by design
+  ok      the dev path inventory literal is zero in both directions
+  ok      refused by the biscuit authorizer and opens no host
+  ok      the section 23 scenario passes from clean durable storage
+  ok      every assertion of section 23.3 holds and is numbered
+  ok      every negative of section 23.4 holds and is numbered
+  ok      browser reload reconstructs the edited text
+  ok      a realm restart reconstructs both cells the mirror the relationship an
+d the edited text
+  ok      a mirror host restart under a live attachment is survived
+  ok      every log append in the scenario is attributable to a host command rec
+eipt
+  ok      the demo task boots seeds provisions and prints the one url
+  ok      telemetry carries no content update bytes proofs or raw errors
+  ok      diagnostics show two cells two document uuids two logs one yepoch one
+accepted head
+  ok      the browser status progresses saved syncing synced and blocked on a ca
+nonical conflict
+  ok      read.content and sync.export are admitted by a real Biscuit for that v
+erb and by no other credential
+  ok      the four document verbs are admitted on the local lane and non-Cell ve
+rb names are not
+  ok      a crossed document verb is admitted by the host's own grant and refuse
+d without one
+  ok      editor reads welcome.md at its exact canonical version through documen
+t.read.content
+  ok      a request from a second os process over the gateway yields the portabl
+e response the same request yields inside the beam
+  ok      a realm restart does not re-bind the gateway and the remote editor sta
+ys connected
+  ok      when the application stops the listener stops
+  ok      the gateway remembers no port number
+  ok      the compiled policy is an exact action list
+  ok      the role name appears nowhere in the compiled policy
+  ok      an unknown role is refused rather than compiled
+  ok      the owner action population is asserted and not merely iterated
+  ok      compiling the same role twice yields the same action list
+  ok      a crossed document verb is admitted by the host's own grant and refuse
+d without one
+  ok      the host refuses a grant frame naming a verb it does not issue, before
+ minting
+  ok      a grant minted for one document does not admit a request for another
+  ok      a duplicate request id over the gateway is answered from the retained
+response
+  ok      both realms report their own trust root only, and the two roots are di
+fferent keys
+  ok      a store written by one BEAM folds to the same map when a second BEAM o
+pens it
+  ok      a log written through the sidecar by one BEAM folds to the same map in
+ a second BEAM
+  ok      a cell.open token minted by a different beam's root is refused, and th
+e realm's own is not
+  ok      the workspace host refuses a forwarded assertion it cannot verify and
+resolves for one it can
+  ok      the cell-open grant carries no identity but the assertion, and the two
+ frame kinds do not cross-parse
+  ok      a login with no Membership logs in and opens nothing, while a membered
+ login opens
+  ok      an unmintable Session Cell is refused differently from an absent one
+  ok      a host resolution naming a different member does not admit the remote
+browser
+  ok      a remote browser's verified assertion opens an admitted mirror, and on
+e with no assertion is refused
+  ok      the documented editor demo command opens with a verified assertion and
+ opens nothing without one
+  ok      every sibling dependency is an https origin ref and the lock agrees
+  ok      seed creates WD D notes and architecture with home cell W
+  ok      seed is idempotent and a second run reuses every id
+  ok      workspace lists welcome.md and notes with tracking direct entries
+  ok      workspace resolves notes/architecture.md to an exact version ref
+  ok      read_markdown returns the welcome text
+  ok      editing D through the host makes welcome.md dirty in the live overlay
+only
+  ok      explicit checkpoint pins the new canonical version in the stable snaps
+hot
+  ok      realm restart reconstructs D content and WD entries from durable logs
+  ok      the realm supervisor restarts a killed gateway fifty times without a n
+ame collision
+  ok      a connect-phase deadline is reported by name and not as an unavailable
+ gateway
+  ok      a TLS handshake that outlives the budget is a deadline and not an unav
+ailable gateway
+  ok      a genuine connect refusal is still an unavailable gateway and is not r
+enamed a deadline
+  ok      the directory-list grant leg reports a connect-phase deadline by name
+  ok      client uses one cumulative budget across TLS handshake and exchange
+  ok      the doc pin is a published commit of its sibling
+  ok      the log pin is a published commit of its sibling
+  ok      a server authored edit under the reused client id is truncated for a r
+eal yjs peer
+  ok      each clock fixture states its normalization and its exact gap
+  ok      seeding empty markdown yields no command, which the seeder must not de
+structure
+  ok      the development login routes are gone, and the verified assertion stil
+l admits
+  ok      the verified assertion still admits and still opens, with no login rou
+te in the router
+  ok      two authenticated sessions of one login derive the same Session Cell o
+n the same Editor Cell
+  ok      a login with no Membership logs in and opens nothing, while a membered
+ login opens
+  ok      the demo task boots seeds provisions and prints the one url
+  ok      signal guard reads 5000 at a use position, not nil
+  ok      two server authored operations mint under different client ids
+  ok      the same operation id derives the same client id and the same bytes
+  ok      a saved mirror edit is offered to the workspace cell through an admitt
+ed request
+  ok      the workspace cell alone admits and selects the proposed head
+  ok      after acceptance the mirror and the canonical select the same commit i
+d
+  ok      the relationship records the accepted merge base and receipt durably
+  ok      the sync status reaches synced only after the receipt
+  ok      an offer without the sync scope is unauthorized and the canonical is u
+nchanged
+  ok      a canonical expected head conflict leaves the mirror intact and report
+s blocked
+  ok      a duplicate offer retry produces no duplicate canonical effect
+  ok      the mirror controller restarts from durable relationship state after a
+ realm restart
+  ok      a canonical host restart is survived by the via name endpoint
+  ok      the workspace directory checkpoints the accepted version through the w
+orker
+  ok      no sync path appends directly to either log
+  ok      push calls only summary and offer on the canonical endpoint
+  ok      rapid mirror heads coalesce into fewer offers without losing the final
+ head
+  ok      both editors edits survive: two mirrors edit and sync and the canonica
+l materializes both and neither ends blocked
+  ok      under stop policy the second mirror still reads blocked and re-fork st
+ill works
+  ok      the merge policy is the composition root's configuration and not the l
+ibrary default
+---
+declared arms: 444   planned (not failing): 11   tests: 558   missing: 0   undec
+lared modules: 0
+VERDICT: PASS -- every declared arm exists.
+
+diff --git a/config/dev.exs b/config/dev.exs
+index 3945d398723efaa029dd4cff73e2f5d42ff874ba..264045e7e55a7606754a5f69f5913133
+0d0674b3
+--- a/config/dev.exs
++++ b/config/dev.exs
+@@ -26,18 +26,3 @@
+   realm_id: "commonplace-next"
+
+ config :logger, level: :warning
+-
+-config :commonplace_next, CommonplaceNext.Realm.Keystore,
+-  roots: [
+-    %{
+-      root_key_id: 1,
+-      algorithm: "ed25519",
+-      public_key: String.duplicate("ab", 32),
+-      status: "active",
+-      issuer: %{
+-        "purpose" => "realm.capability",
+-        "realm" => "somewhere-else",
+-        "operations" => ["directory.list", "directory.resolve", "cell.open", "d
+ocument.sync.summary", "document.sync.offer"]
+-      }
+-    }
+-  ]
+diff --git a/test/integration/organization_coordinate_test.exs b/test/integratio
+n/organization_coordinate_test.exs
+index 66adadfccbd716db9362a6c3cb728a08f957d504..98c6a967f45728deefad9ee7d6560c3d
+ae21a183
+--- a/test/integration/organization_coordinate_test.exs
++++ b/test/integration/organization_coordinate_test.exs
+@@ -32,6 +32,14 @@
+
+   @login "developer"
+
++  # ⭐ PRE-IDENTITY ROUTES: exempt from the coordinated-counterpart rule ON PUR
+POSE.
++  # WHY: coordination is meaningless before identity -- a /o/:organization logi
+n path asks an
++  #   unauthenticated browser to assert the very Membership the login exists to
+ establish, and
++  #   AUTHKIT-1 ships ONE global WorkOS client id, so it would coordinate nothi
+ng.
++  # WHEN THIS CHANGES: when AUTHKIT-2 resolves a Membership per Organization, r
+evisit toward
++  #   giving these routes real coordinated counterparts.
++  @pre_identity_routes ["/auth/workos", "/auth/workos/callback"]
++
+   # ⛔ THE CONTRACT, WRITTEN OUT. `organization_coordinate.ex` must send exactl
+y this body with 403.
+   @refusal "organization coordinate does not name this realm's organization"
+
+@@ -200,10 +208,20 @@
+           not String.starts_with?(path, "/o/:organization"),
+           do: {verb, path, plug, action}
+
++    actual_pre_identity_routes =
++      routes
++      |> Enum.map(& &1.path)
++      |> Enum.filter(&String.starts_with?(&1, "/auth/"))
++      |> Enum.sort()
++
++    assert Enum.sort(@pre_identity_routes) == actual_pre_identity_routes,
++           "the live router's /auth/ paths #{inspect(actual_pre_identity_routes
+)} differ from the explicit pre-identity exemption #{inspect(Enum.sort(@pre_iden
+tity_routes))}; classify the added or removed route explicitly"
++
+     # The positive control on the corpus: the base router is 9 routes, 8 of the
+m addressable.
+     assert length(uncoordinated) == 8
+
+-    for {verb, path, plug, action} <- uncoordinated do
++    for {verb, path, plug, action} <- uncoordinated,
++        path not in @pre_identity_routes do
+       coordinated = {verb, "/o/:organization" <> String.trim_trailing(path, "/"
+), plug, action}
+
+       assert coordinated in for(
+
+codex
+The final targeted run is green (`5 tests, 0 failures`). Both D6 gates pass: for
+matting exits 0, and the plan-arm checker reports `missing: 0` with `VERDICT: PA
+SS`. I’m doing the final fence/status/diff audit now.
+exec
+/bin/bash -lc 'git rev-parse HEAD
+git status --porcelain
+git diff --numstat
+git diff --check
+git diff -- test/integration/organization_coordinate_test.exs' in /home/jes/sol-
+authkit1/wt
+ succeeded in 0ms:
+610cc14740fdda62406932a3a62955dfde20a4b6
+ M test/integration/organization_coordinate_test.exs
+19      1       test/integration/organization_coordinate_test.exs
+diff --git a/test/integration/organization_coordinate_test.exs b/test/integratio
+n/organization_coordinate_test.exs
+index 66adadf..98c6a96 100644
+--- a/test/integration/organization_coordinate_test.exs
++++ b/test/integration/organization_coordinate_test.exs
+@@ -32,6 +32,14 @@ defmodule CommonplaceNext.OrganizationCoordinateTest do
+
+   @login "developer"
+
++  # ⭐ PRE-IDENTITY ROUTES: exempt from the coordinated-counterpart rule ON PUR
+POSE.
++  # WHY: coordination is meaningless before identity -- a /o/:organization logi
+n path asks an
++  #   unauthenticated browser to assert the very Membership the login exists to
+ establish, and
++  #   AUTHKIT-1 ships ONE global WorkOS client id, so it would coordinate nothi
+ng.
++  # WHEN THIS CHANGES: when AUTHKIT-2 resolves a Membership per Organization, r
+evisit toward
++  #   giving these routes real coordinated counterparts.
++  @pre_identity_routes ["/auth/workos", "/auth/workos/callback"]
++
+   # ⛔ THE CONTRACT, WRITTEN OUT. `organization_coordinate.ex` must send exactl
+y this body with 403.
+   @refusal "organization coordinate does not name this realm's organization"
+
+@@ -200,10 +208,20 @@ defmodule CommonplaceNext.OrganizationCoordinateTest do
+           not String.starts_with?(path, "/o/:organization"),
+           do: {verb, path, plug, action}
+
++    actual_pre_identity_routes =
++      routes
++      |> Enum.map(& &1.path)
++      |> Enum.filter(&String.starts_with?(&1, "/auth/"))
++      |> Enum.sort()
++
++    assert Enum.sort(@pre_identity_routes) == actual_pre_identity_routes,
++           "the live router's /auth/ paths #{inspect(actual_pre_identity_routes
+)} differ from the explicit pre-identity exemption #{inspect(Enum.sort(@pre_iden
+tity_routes))}; classify the added or removed route explicitly"
++
+     # The positive control on the corpus: the base router is 9 routes, 8 of the
+m addressable.
+     assert length(uncoordinated) == 8
+
+-    for {verb, path, plug, action} <- uncoordinated do
++    for {verb, path, plug, action} <- uncoordinated,
++        path not in @pre_identity_routes do
+       coordinated = {verb, "/o/:organization" <> String.trim_trailing(path, "/"
+), plug, action}
+
+       assert coordinated in for(
+
+diff --git a/config/dev.exs b/config/dev.exs
+index 3945d398723efaa029dd4cff73e2f5d42ff874ba..264045e7e55a7606754a5f69f5913133
+0d0674b3
+--- a/config/dev.exs
++++ b/config/dev.exs
+@@ -26,18 +26,3 @@
+   realm_id: "commonplace-next"
+
+ config :logger, level: :warning
+-
+-config :commonplace_next, CommonplaceNext.Realm.Keystore,
+-  roots: [
+-    %{
+-      root_key_id: 1,
+-      algorithm: "ed25519",
+-      public_key: String.duplicate("ab", 32),
+-      status: "active",
+-      issuer: %{
+-        "purpose" => "realm.capability",
+-        "realm" => "somewhere-else",
+-        "operations" => ["directory.list", "directory.resolve", "cell.open", "d
+ocument.sync.summary", "document.sync.offer"]
+-      }
+-    }
+-  ]
+diff --git a/test/integration/organization_coordinate_test.exs b/test/integratio
+n/organization_coordinate_test.exs
+index 66adadfccbd716db9362a6c3cb728a08f957d504..98c6a967f45728deefad9ee7d6560c3d
+ae21a183
+--- a/test/integration/organization_coordinate_test.exs
++++ b/test/integration/organization_coordinate_test.exs
+@@ -32,6 +32,14 @@
+
+   @login "developer"
+
++  # ⭐ PRE-IDENTITY ROUTES: exempt from the coordinated-counterpart rule ON PUR
+POSE.
++  # WHY: coordination is meaningless before identity -- a /o/:organization logi
+n path asks an
++  #   unauthenticated browser to assert the very Membership the login exists to
+ establish, and
++  #   AUTHKIT-1 ships ONE global WorkOS client id, so it would coordinate nothi
+ng.
++  # WHEN THIS CHANGES: when AUTHKIT-2 resolves a Membership per Organization, r
+evisit toward
++  #   giving these routes real coordinated counterparts.
++  @pre_identity_routes ["/auth/workos", "/auth/workos/callback"]
++
+   # ⛔ THE CONTRACT, WRITTEN OUT. `organization_coordinate.ex` must send exactl
+y this body with 403.
+   @refusal "organization coordinate does not name this realm's organization"
+
+@@ -200,10 +208,20 @@
+           not String.starts_with?(path, "/o/:organization"),
+           do: {verb, path, plug, action}
+
++    actual_pre_identity_routes =
++      routes
++      |> Enum.map(& &1.path)
++      |> Enum.filter(&String.starts_with?(&1, "/auth/"))
++      |> Enum.sort()
++
++    assert Enum.sort(@pre_identity_routes) == actual_pre_identity_routes,
++           "the live router's /auth/ paths #{inspect(actual_pre_identity_routes
+)} differ from the explicit pre-identity exemption #{inspect(Enum.sort(@pre_iden
+tity_routes))}; classify the added or removed route explicitly"
++
+     # The positive control on the corpus: the base router is 9 routes, 8 of the
+m addressable.
+     assert length(uncoordinated) == 8
+
+-    for {verb, path, plug, action} <- uncoordinated do
++    for {verb, path, plug, action} <- uncoordinated,
++        path not in @pre_identity_routes do
+       coordinated = {verb, "/o/:organization" <> String.trim_trailing(path, "/"
+), plug, action}
+
+       assert coordinated in for(
+
+codex
+Implemented the one-file change and left it uncommitted.
+
+Base SHA: `610cc14740fdda62406932a3a62955dfde20a4b6`
+
+Initial and final status confirmed HEAD unchanged. Final porcelain:
+
+```text
+ M test/integration/organization_coordinate_test.exs
+```
+
+### D1 — Base RED
+
+Verbatim output:
+
+```text
+Running ExUnit with seed: 184694, max_cases: 8
+Excluding tags: [:requires_t2a_runtime_paths]
+
+
+
+  1) test the router table carries the coordinate on every browser route and on
+the socket (CommonplaceNext.OrganizationCoordinateTest)
+     test/integration/organization_coordinate_test.exs:186
+     no coordinated counterpart for get /auth/workos
+     code: for {verb, path, plug, action} <- uncoordinated do
+     stacktrace:
+       test/integration/organization_coordinate_test.exs:209: anonymous fn/3 in
+CommonplaceNext.OrganizationCoordinateTest."test the router table carries the co
+ordinate on every browser route and on the socket"/1
+       (elixir 1.18.4) lib/enum.ex:2546: Enum."-reduce/3-lists^foldl/2-0-"/3
+       test/integration/organization_coordinate_test.exs:206: (test)
+
+..
+21:58:49.309 [error] GenServer #PID<0.1192.0> terminating
+** (stop) :forbidden
+Process Label: {:thousand_island, :connection, {Bandit.DelegatingHandler, {{127,
+ 0, 0, 1}, 36882}}}
+Last message: :forbidden
+.
+21:58:50.058 [error] GenServer #PID<0.1334.0> terminating
+** (stop) :forbidden
+Process Label: {:thousand_island, :connection, {Bandit.DelegatingHandler, {{127,
+ 0, 0, 1}, 36928}}}
+Last message: :forbidden
+.
+Finished in 4.8 seconds (0.00s async, 4.8s sync)
+5 tests, 1 failure
+```
+
+Exit code: `2`.
+
+### D2 — Targeted GREEN
+
+Final run:
+
+```text
+Running ExUnit with seed: 105779, max_cases: 8
+Excluding tags: [:requires_t2a_runtime_paths]
+
+...
+22:09:23.375 [error] GenServer #PID<0.1192.0> terminating
+** (stop) :forbidden
+Process Label: {:thousand_island, :connection, {Bandit.DelegatingHandler, {{127,
+ 0, 0, 1}, 45320}}}
+Last message: :forbidden
+.
+22:09:24.125 [error] GenServer #PID<0.1334.0> terminating
+** (stop) :forbidden
+Process Label: {:thousand_island, :connection, {Bandit.DelegatingHandler, {{127,
+ 0, 0, 1}, 45384}}}
+Last message: :forbidden
+.
+Finished in 6.0 seconds (0.00s async, 6.0s sync)
+5 tests, 0 failures
+```
+
+Exit code: `0`. Test count remained exactly `5` before and after.
+
+### D3 — Literal count still bites
+
+Temporary non-`/auth/` route produced:
+
+```text
+1) test the router table carries the coordinate on every browser route and on th
+e socket (CommonplaceNext.OrganizationCoordinateTest)
+   test/integration/organization_coordinate_test.exs:194
+   Assertion with == failed
+   code:  assert length(uncoordinated) == 8
+   left:  9
+   right: 8
+   stacktrace:
+     test/integration/organization_coordinate_test.exs:212: (test)
+
+Finished in 5.0 seconds (0.00s async, 5.0s sync)
+5 tests, 1 failure
+```
+
+The temporary route was removed. Porcelain afterward:
+
+```text
+ M test/integration/organization_coordinate_test.exs
+```
+
+### D4 — Exemption cannot grow silently
+
+Temporary `/auth/workos/decoy` route produced:
+
+```text
+1) test the router table carries the coordinate on every browser route and on th
+e socket (CommonplaceNext.OrganizationCoordinateTest)
+   test/integration/organization_coordinate_test.exs:194
+   the live router's /auth/ paths ["/auth/workos", "/auth/workos/callback", "/au
+th/workos/decoy"] differ from the explicit pre-identity exemption ["/auth/workos
+", "/auth/workos/callback"]; classify the added or removed route explicitly
+   code: assert Enum.sort(@pre_identity_routes) == actual_pre_identity_routes,
+   stacktrace:
+     test/integration/organization_coordinate_test.exs:217: (test)
+
+Finished in 20.2 seconds (0.00s async, 20.2s sync)
+5 tests, 1 failure
+```
+
+The temporary route was removed. Porcelain afterward:
+
+```text
+ M test/integration/organization_coordinate_test.exs
+```
+
+D3 and D4 visibly stop at different assertions. However, a third `/auth/` route
+necessarily also increases the route count to 9, so D4 logically violates both p
+redicates; execution stops at the set assertion before reaching the count assert
+ion.
+
+### D5 — Full suite
+
+Capture output:
+
+```text
+RED   ak1coord2-fullsuite-01 rc=2 564 tests, 6 failures, 1 excluded   [FULL LOG:
+ tmp/run-logs/ak1coord2_fullsuite_01.log]
+```
+
+Seed:
+
+```text
+Running ExUnit with seed: 735011, max_cases: 8
+```
+
+Summary line verbatim:
+
+```text
+564 tests, 6 failures, 1 excluded
+```
+
+Expected blind failures:
+
+1. `CommonplaceNext.DocSyncPinTest` — doc-sync pin.
+2. `CommonplaceNext.PinDoorsTest` — cell pin.
+3. `CommonplaceNext.PinDoorsTest` — doc pin.
+4. `CommonplaceNext.PinDoorsTest` — biscuit pin.
+5. `CommonplaceNext.TrustRootInventoryTest` — trust-root falsifier.
+
+One additional, unexplained failure occurred:
+
+```text
+5) test a mirror host restart under a live attachment is survived (Commonplace.M
+arkdownEditorGoalTest)
+   test/integration/markdown_editor_goal_test.exs:105
+   old mirror host never became :not_running within 3 s; last observed: {:ok, #P
+ID<0.27009.0>}
+   code: flunk(
+   stacktrace:
+     test/integration/markdown_editor_goal_test.exs:118: (test)
+```
+
+Sidecars:
+
+```text
+tmp/run-logs/ak1coord2_fullsuite_01.log
+tmp/run-logs/ak1coord2_fullsuite_01.load
+tmp/run-logs/ak1coord2_fullsuite_01.times
+```
+
+The trust-root falsifier appended temporary configuration to `config/dev.exs`. I
+ removed that exact block; `config/dev.exs` now has no diff.
+
+### D6 — Fence and gates
+
+```text
+$ git diff --numstat
+19      1       test/integration/organization_coordinate_test.exs
+```
+
+```text
+$ mix format --check-formatted
+```
+
+Exit code: `0`.
+
+```text
+$ bin/check-plan-arms.sh
+declared arms: 444   planned (not failing): 11   tests: 558   missing: 0   undec
+lared modules: 0
+VERDICT: PASS -- every declared arm exists.
+```
+
+Exit code: `0`. `git diff --check` also passed.
+
+### Final diff
+
+```diff
+diff --git a/test/integration/organization_coordinate_test.exs b/test/integratio
+n/organization_coordinate_test.exs
+index 66adadf..98c6a96 100644
+--- a/test/integration/organization_coordinate_test.exs
++++ b/test/integration/organization_coordinate_test.exs
+@@ -32,6 +32,14 @@ defmodule CommonplaceNext.OrganizationCoordinateTest do
+
+   @login "developer"
+
++  # ⭐ PRE-IDENTITY ROUTES: exempt from the coordinated-counterpart rule ON PUR
+POSE.
++  # WHY: coordination is meaningless before identity -- a /o/:organization logi
+n path asks an
++  #   unauthenticated browser to assert the very Membership the login exists to
+ establish, and
++  #   AUTHKIT-1 ships ONE global WorkOS client id, so it would coordinate nothi
+ng.
++  # WHEN THIS CHANGES: when AUTHKIT-2 resolves a Membership per Organization, r
+evisit toward
++  #   giving these routes real coordinated counterparts.
++  @pre_identity_routes ["/auth/workos", "/auth/workos/callback"]
++
+   # ⛔ THE CONTRACT, WRITTEN OUT. `organization_coordinate.ex` must send exactl
+y this body with 403.
+   @refusal "organization coordinate does not name this realm's organization"
+
+@@ -200,10 +208,20 @@ defmodule CommonplaceNext.OrganizationCoordinateTest do
+           not String.starts_with?(path, "/o/:organization"),
+           do: {verb, path, plug, action}
+
++    actual_pre_identity_routes =
++      routes
++      |> Enum.map(& &1.path)
++      |> Enum.filter(&String.starts_with?(&1, "/auth/"))
++      |> Enum.sort()
++
++    assert Enum.sort(@pre_identity_routes) == actual_pre_identity_routes,
++           "the live router's /auth/ paths #{inspect(actual_pre_identity_routes
+)} differ from the explicit pre-identity exemption #{inspect(Enum.sort(@pre_iden
+tity_routes))}; classify the added or removed route explicitly"
++
+     # The positive control on the corpus: the base router is 9 routes, 8 of the
+m addressable.
+     assert length(uncoordinated) == 8
+
+-    for {verb, path, plug, action} <- uncoordinated do
++    for {verb, path, plug, action} <- uncoordinated,
++        path not in @pre_identity_routes do
+       coordinated = {verb, "/o/:organization" <> String.trim_trailing(path, "/"
+), plug, action}
+```
+
+Not covered: none.
+diff --git a/config/dev.exs b/config/dev.exs
+index 3945d398723efaa029dd4cff73e2f5d42ff874ba..264045e7e55a7606754a5f69f5913133
+0d0674b3
+--- a/config/dev.exs
++++ b/config/dev.exs
+@@ -26,18 +26,3 @@
+   realm_id: "commonplace-next"
+
+ config :logger, level: :warning
+-
+-config :commonplace_next, CommonplaceNext.Realm.Keystore,
+-  roots: [
+-    %{
+-      root_key_id: 1,
+-      algorithm: "ed25519",
+-      public_key: String.duplicate("ab", 32),
+-      status: "active",
+-      issuer: %{
+-        "purpose" => "realm.capability",
+-        "realm" => "somewhere-else",
+-        "operations" => ["directory.list", "directory.resolve", "cell.open", "d
+ocument.sync.summary", "document.sync.offer"]
+-      }
+-    }
+-  ]
+diff --git a/test/integration/organization_coordinate_test.exs b/test/integratio
+n/organization_coordinate_test.exs
+index 66adadfccbd716db9362a6c3cb728a08f957d504..98c6a967f45728deefad9ee7d6560c3d
+ae21a183
+--- a/test/integration/organization_coordinate_test.exs
++++ b/test/integration/organization_coordinate_test.exs
+@@ -32,6 +32,14 @@
+
+   @login "developer"
+
++  # ⭐ PRE-IDENTITY ROUTES: exempt from the coordinated-counterpart rule ON PUR
+POSE.
++  # WHY: coordination is meaningless before identity -- a /o/:organization logi
+n path asks an
++  #   unauthenticated browser to assert the very Membership the login exists to
+ establish, and
++  #   AUTHKIT-1 ships ONE global WorkOS client id, so it would coordinate nothi
+ng.
++  # WHEN THIS CHANGES: when AUTHKIT-2 resolves a Membership per Organization, r
+evisit toward
++  #   giving these routes real coordinated counterparts.
++  @pre_identity_routes ["/auth/workos", "/auth/workos/callback"]
++
+   # ⛔ THE CONTRACT, WRITTEN OUT. `organization_coordinate.ex` must send exactl
+y this body with 403.
+   @refusal "organization coordinate does not name this realm's organization"
+
+@@ -200,10 +208,20 @@
+           not String.starts_with?(path, "/o/:organization"),
+           do: {verb, path, plug, action}
+
++    actual_pre_identity_routes =
++      routes
++      |> Enum.map(& &1.path)
++      |> Enum.filter(&String.starts_with?(&1, "/auth/"))
++      |> Enum.sort()
++
++    assert Enum.sort(@pre_identity_routes) == actual_pre_identity_routes,
++           "the live router's /auth/ paths #{inspect(actual_pre_identity_routes
+)} differ from the explicit pre-identity exemption #{inspect(Enum.sort(@pre_iden
+tity_routes))}; classify the added or removed route explicitly"
++
+     # The positive control on the corpus: the base router is 9 routes, 8 of the
+m addressable.
+     assert length(uncoordinated) == 8
+
+-    for {verb, path, plug, action} <- uncoordinated do
++    for {verb, path, plug, action} <- uncoordinated,
++        path not in @pre_identity_routes do
+       coordinated = {verb, "/o/:organization" <> String.trim_trailing(path, "/"
+), plug, action}
+
+       assert coordinated in for(
+
+tokens used
+69,024
+Implemented the one-file change and left it uncommitted.
+
+Base SHA: `610cc14740fdda62406932a3a62955dfde20a4b6`
+
+Initial and final status confirmed HEAD unchanged. Final porcelain:
+
+```text
+ M test/integration/organization_coordinate_test.exs
+```
+
+### D1 — Base RED
+
+Verbatim output:
+
+```text
+Running ExUnit with seed: 184694, max_cases: 8
+Excluding tags: [:requires_t2a_runtime_paths]
+
+
+
+  1) test the router table carries the coordinate on every browser route and on
+the socket (CommonplaceNext.OrganizationCoordinateTest)
+     test/integration/organization_coordinate_test.exs:186
+     no coordinated counterpart for get /auth/workos
+     code: for {verb, path, plug, action} <- uncoordinated do
+     stacktrace:
+       test/integration/organization_coordinate_test.exs:209: anonymous fn/3 in
+CommonplaceNext.OrganizationCoordinateTest."test the router table carries the co
+ordinate on every browser route and on the socket"/1
+       (elixir 1.18.4) lib/enum.ex:2546: Enum."-reduce/3-lists^foldl/2-0-"/3
+       test/integration/organization_coordinate_test.exs:206: (test)
+
+..
+21:58:49.309 [error] GenServer #PID<0.1192.0> terminating
+** (stop) :forbidden
+Process Label: {:thousand_island, :connection, {Bandit.DelegatingHandler, {{127,
+ 0, 0, 1}, 36882}}}
+Last message: :forbidden
+.
+21:58:50.058 [error] GenServer #PID<0.1334.0> terminating
+** (stop) :forbidden
+Process Label: {:thousand_island, :connection, {Bandit.DelegatingHandler, {{127,
+ 0, 0, 1}, 36928}}}
+Last message: :forbidden
+.
+Finished in 4.8 seconds (0.00s async, 4.8s sync)
+5 tests, 1 failure
+```
+
+Exit code: `2`.
+
+### D2 — Targeted GREEN
+
+Final run:
+
+```text
+Running ExUnit with seed: 105779, max_cases: 8
+Excluding tags: [:requires_t2a_runtime_paths]
+
+...
+22:09:23.375 [error] GenServer #PID<0.1192.0> terminating
+** (stop) :forbidden
+Process Label: {:thousand_island, :connection, {Bandit.DelegatingHandler, {{127,
+ 0, 0, 1}, 45320}}}
+Last message: :forbidden
+.
+22:09:24.125 [error] GenServer #PID<0.1334.0> terminating
+** (stop) :forbidden
+Process Label: {:thousand_island, :connection, {Bandit.DelegatingHandler, {{127,
+ 0, 0, 1}, 45384}}}
+Last message: :forbidden
+.
+Finished in 6.0 seconds (0.00s async, 6.0s sync)
+5 tests, 0 failures
+```
+
+Exit code: `0`. Test count remained exactly `5` before and after.
+
+### D3 — Literal count still bites
+
+Temporary non-`/auth/` route produced:
+
+```text
+1) test the router table carries the coordinate on every browser route and on th
+e socket (CommonplaceNext.OrganizationCoordinateTest)
+   test/integration/organization_coordinate_test.exs:194
+   Assertion with == failed
+   code:  assert length(uncoordinated) == 8
+   left:  9
+   right: 8
+   stacktrace:
+     test/integration/organization_coordinate_test.exs:212: (test)
+
+Finished in 5.0 seconds (0.00s async, 5.0s sync)
+5 tests, 1 failure
+```
+
+The temporary route was removed. Porcelain afterward:
+
+```text
+ M test/integration/organization_coordinate_test.exs
+```
+
+### D4 — Exemption cannot grow silently
+
+Temporary `/auth/workos/decoy` route produced:
+
+```text
+1) test the router table carries the coordinate on every browser route and on th
+e socket (CommonplaceNext.OrganizationCoordinateTest)
+   test/integration/organization_coordinate_test.exs:194
+   the live router's /auth/ paths ["/auth/workos", "/auth/workos/callback", "/au
+th/workos/decoy"] differ from the explicit pre-identity exemption ["/auth/workos
+", "/auth/workos/callback"]; classify the added or removed route explicitly
+   code: assert Enum.sort(@pre_identity_routes) == actual_pre_identity_routes,
+   stacktrace:
+     test/integration/organization_coordinate_test.exs:217: (test)
+
+Finished in 20.2 seconds (0.00s async, 20.2s sync)
+5 tests, 1 failure
+```
+
+The temporary route was removed. Porcelain afterward:
+
+```text
+ M test/integration/organization_coordinate_test.exs
+```
+
+D3 and D4 visibly stop at different assertions. However, a third `/auth/` route
+necessarily also increases the route count to 9, so D4 logically violates both p
+redicates; execution stops at the set assertion before reaching the count assert
+ion.
+
+### D5 — Full suite
+
+Capture output:
+
+```text
+RED   ak1coord2-fullsuite-01 rc=2 564 tests, 6 failures, 1 excluded   [FULL LOG:
+ tmp/run-logs/ak1coord2_fullsuite_01.log]
+```
+
+Seed:
+
+```text
+Running ExUnit with seed: 735011, max_cases: 8
+```
+
+Summary line verbatim:
+
+```text
+564 tests, 6 failures, 1 excluded
+```
+
+Expected blind failures:
+
+1. `CommonplaceNext.DocSyncPinTest` — doc-sync pin.
+2. `CommonplaceNext.PinDoorsTest` — cell pin.
+3. `CommonplaceNext.PinDoorsTest` — doc pin.
+4. `CommonplaceNext.PinDoorsTest` — biscuit pin.
+5. `CommonplaceNext.TrustRootInventoryTest` — trust-root falsifier.
+
+One additional, unexplained failure occurred:
+
+```text
+5) test a mirror host restart under a live attachment is survived (Commonplace.M
+arkdownEditorGoalTest)
+   test/integration/markdown_editor_goal_test.exs:105
+   old mirror host never became :not_running within 3 s; last observed: {:ok, #P
+ID<0.27009.0>}
+   code: flunk(
+   stacktrace:
+     test/integration/markdown_editor_goal_test.exs:118: (test)
+```
+
+Sidecars:
+
+```text
+tmp/run-logs/ak1coord2_fullsuite_01.log
+tmp/run-logs/ak1coord2_fullsuite_01.load
+tmp/run-logs/ak1coord2_fullsuite_01.times
+```
+
+The trust-root falsifier appended temporary configuration to `config/dev.exs`. I
+ removed that exact block; `config/dev.exs` now has no diff.
+
+### D6 — Fence and gates
+
+```text
+$ git diff --numstat
+19      1       test/integration/organization_coordinate_test.exs
+```
+
+```text
+$ mix format --check-formatted
+```
+
+Exit code: `0`.
+
+```text
+$ bin/check-plan-arms.sh
+declared arms: 444   planned (not failing): 11   tests: 558   missing: 0   undec
+lared modules: 0
+VERDICT: PASS -- every declared arm exists.
+```
+
+Exit code: `0`. `git diff --check` also passed.
+
+### Final diff
+
+```diff
+diff --git a/test/integration/organization_coordinate_test.exs b/test/integratio
+n/organization_coordinate_test.exs
+index 66adadf..98c6a96 100644
+--- a/test/integration/organization_coordinate_test.exs
++++ b/test/integration/organization_coordinate_test.exs
+@@ -32,6 +32,14 @@ defmodule CommonplaceNext.OrganizationCoordinateTest do
+
+   @login "developer"
+
++  # ⭐ PRE-IDENTITY ROUTES: exempt from the coordinated-counterpart rule ON PUR
+POSE.
++  # WHY: coordination is meaningless before identity -- a /o/:organization logi
+n path asks an
++  #   unauthenticated browser to assert the very Membership the login exists to
+ establish, and
++  #   AUTHKIT-1 ships ONE global WorkOS client id, so it would coordinate nothi
+ng.
++  # WHEN THIS CHANGES: when AUTHKIT-2 resolves a Membership per Organization, r
+evisit toward
++  #   giving these routes real coordinated counterparts.
++  @pre_identity_routes ["/auth/workos", "/auth/workos/callback"]
++
+   # ⛔ THE CONTRACT, WRITTEN OUT. `organization_coordinate.ex` must send exactl
+y this body with 403.
+   @refusal "organization coordinate does not name this realm's organization"
+
+@@ -200,10 +208,20 @@ defmodule CommonplaceNext.OrganizationCoordinateTest do
+           not String.starts_with?(path, "/o/:organization"),
+           do: {verb, path, plug, action}
+
++    actual_pre_identity_routes =
++      routes
++      |> Enum.map(& &1.path)
++      |> Enum.filter(&String.starts_with?(&1, "/auth/"))
++      |> Enum.sort()
++
++    assert Enum.sort(@pre_identity_routes) == actual_pre_identity_routes,
++           "the live router's /auth/ paths #{inspect(actual_pre_identity_routes
+)} differ from the explicit pre-identity exemption #{inspect(Enum.sort(@pre_iden
+tity_routes))}; classify the added or removed route explicitly"
++
+     # The positive control on the corpus: the base router is 9 routes, 8 of the
+m addressable.
+     assert length(uncoordinated) == 8
+
+-    for {verb, path, plug, action} <- uncoordinated do
++    for {verb, path, plug, action} <- uncoordinated,
++        path not in @pre_identity_routes do
+       coordinated = {verb, "/o/:organization" <> String.trim_trailing(path, "/"
+), plug, action}
+```
+
+Not covered: none.
+=== sol EXITED rc=0 ===
+

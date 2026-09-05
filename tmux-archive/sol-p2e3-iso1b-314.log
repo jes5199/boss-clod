@@ -1,0 +1,2049 @@
+ceptance order, and
+   # in the arms that BREAK the realm it is minted while the rea
+lm is still healthy -- otherwise the
+   # session edge would refuse first and the arm would never rea
+ch the layer it is about.
+
+codex
+The cleared-store full suite completed with seed `235068`: 511 t
+ests, 6 failures, 1 excluded. All six failures are outside the c
+hanged file; I’m preserving their exact outputs for the report.
+One failing mutation test also reports that it left `config/dev.
+exs` dirty, so I’m checking and restoring only that test-generat
+ed mutation before the final R3 scope measurement.
+exec
+/bin/bash -lc "git status --short; git diff -- config/dev.exs; g
+it diff -- test/commonplace_next/p2e3_local_directory_resolve_te
+st.exs | sed -n '1,260p'; git diff --check" in /home/jes/sol-p2e
+3-iso1b/wt
+ succeeded in 0ms:
+ M config/dev.exs
+ M test/commonplace_next/p2e3_local_directory_resolve_test.exs
+diff --git a/config/dev.exs b/config/dev.exs
+index 264045e..3945d39 100644
+--- a/config/dev.exs
++++ b/config/dev.exs
+@@ -26,3 +26,18 @@ config :commonplace_next, CommonplaceNext.Rea
+lm.Gateway,
+   realm_id: "commonplace-next"
+
+ config :logger, level: :warning
++
++config :commonplace_next, CommonplaceNext.Realm.Keystore,
++  roots: [
++    %{
++      root_key_id: 1,
++      algorithm: "ed25519",
++      public_key: String.duplicate("ab", 32),
++      status: "active",
++      issuer: %{
++        "purpose" => "realm.capability",
++        "realm" => "somewhere-else",
++        "operations" => ["directory.list", "directory.resolve",
+ "cell.open", "document.sync.summary", "document.sync.offer"]
++      }
++    }
++  ]
+diff --git a/test/commonplace_next/p2e3_local_directory_resolve_
+test.exs b/test/commonplace_next/p2e3_local_directory_resolve_te
+st.exs
+index c2b4d6b..b3cc63d 100644
+--- a/test/commonplace_next/p2e3_local_directory_resolve_test.ex
+s
++++ b/test/commonplace_next/p2e3_local_directory_resolve_test.ex
+s
+@@ -496,27 +496,27 @@ defmodule CommonplaceNext.P2e3LocalDirecto
+ryResolveTest do
+
+   test "missing or dead issuer and missing or altered M1 refuse
+ before routing" do
+     restart_realm()
+-    before = request_ids()
+
+     # ⭐ MINTED BEFORE THE MUTATION, ON PURPOSE. The seam admit
+s at `admitted/2` before anything is
+     # resolved, and these arms BREAK THE VERY MACHINERY an admi
+ssion needs. A token minted while
+     # the realm is healthy still VERIFIES against the installed
+ root, so the session edge passes
+     # and the arm reaches the layer it is actually about.
+     admission = admission()
++    callback = WorkspaceCell.config().authorization_options
+     issuer = Process.whereis(DirectoryIssuer)
+     monitor = Process.monitor(issuer)
+     Process.exit(issuer, :kill)
+     assert_receive {:DOWN, ^monitor, :process, ^issuer, :killed
+}, 1_000
+
+-    assert {:error, %Error{code: :internal_error}} =
+-             Mirrors.open(editor_handle(EditorCell.editor_cell_
+id()), ["welcome.md"], admission)
++    {result, request} = open_with_request(callback, admission)
+
+-    assert request_ids() == before
++    refute_minted(request)
++    assert {:error, %Error{code: :internal_error}} = result
+     restart_realm()
+
++    admission = admission()
+     previous = Agent.get(Keystore, & &1)
+-    before = request_ids()
+-    Agent.update(Keystore, &replace_root_policy(&1, %{"realm" =
+> "wrong"}))
++    callback = WorkspaceCell.config().authorization_options
+
+     try do
+       # ⛔ SAME MOVE AS THE SUB-CASE BELOW, AND MEASURED RATHER
+ THAN PREDICTED: I expected a REPLACED
+@@ -524,18 +524,17 @@ defmodule CommonplaceNext.P2e3LocalDirecto
+ryResolveTest do
+       # -- `Keystore.fetch/1` refuses the root outright, so the
+ session edge cannot verify either
+       # and refuses first. Both "the root is wrong" and "the ro
+ot is gone" now report at the
+       # session edge; a pre-minted token cannot outlive the ver
+ifier it depends on.
+-      assert {:error, %Error{code: :unauthorized, message: mess
+age}} =
+-               Mirrors.open(editor_handle(EditorCell.editor_cel
+l_id()), ["welcome.md"], admission)
++      mutate = fn -> Agent.update(Keystore, &replace_root_polic
+y(&1, %{"realm" => "wrong"})) end
++      {result, request} = open_with_request(callback, admission
+, mutate)
+
+-      assert message == EditorCell.session_admission_refusal()
+-      assert request_ids() == before
++      refute_minted(request)
++      assert {:error, %Error{code: :unknown_root_key}} = result
+     after
+       Agent.update(Keystore, fn _state -> previous end)
+     end
+
+-    assert :ok = Supervisor.terminate_child(Realm, Keystore)
+-    assert :ok = Supervisor.delete_child(Realm, Keystore)
+-    before = request_ids()
++    admission = admission()
++    callback = WorkspaceCell.config().authorization_options
+
+     try do
+       # ⛔⛔ THE DISCRIMINATOR MOVED IN THIS SUB-CASE AND THE M
+OVE IS RECORDED RATHER THAN PATCHED
+@@ -549,11 +548,15 @@ defmodule CommonplaceNext.P2e3LocalDirecto
+ryResolveTest do
+       # ⚠️  WHAT IT NO LONGER SEES: that the DIRECTORY layer wo
+uld also have refused with
+       # `:unknown_root_key`. That is now unreachable through th
+is door, because the session edge
+       # shares the dependency -- stated here so a reader does n
+ot think the check is still there.
+-      assert {:error, %Error{code: :unauthorized, message: mess
+age}} =
+-               Mirrors.open(editor_handle(EditorCell.editor_cel
+l_id()), ["welcome.md"], admission)
++      mutate = fn ->
++        assert :ok = Supervisor.terminate_child(Realm, Keystore
+)
++        assert :ok = Supervisor.delete_child(Realm, Keystore)
++      end
++
++      {result, request} = open_with_request(callback, admission
+, mutate)
+
+-      assert message == EditorCell.session_admission_refusal()
+-      assert request_ids() == before
++      refute_minted(request)
++      assert {:error, %Error{code: :unknown_root_key}} = result
+     after
+       restart_realm()
+     end
+@@ -565,7 +568,6 @@ defmodule CommonplaceNext.P2e3LocalDirectory
+ResolveTest do
+     context = selected_context()
+     callback = WorkspaceCell.config().authorization_options
+     {:ok, options} = callback.(request, context)
+-    before = request_ids()
+
+     cases = [
+       {:missing_contract_id, %{options[:verb_contract] | contra
+ct_id: nil}},
+@@ -575,32 +577,23 @@ defmodule CommonplaceNext.P2e3LocalDirecto
+ryResolveTest do
+       {:missing_contract, Keyword.delete(options, :verb_contrac
+t)}
+     ]
+
+-    Enum.each(cases, fn
+-      {_name, contract} when is_map(contract) ->
+-        with_callback(
+-          fn _request, _context -> {:ok, Keyword.put(options, :
+verb_contract, contract)} end,
+-          fn ->
+-            assert {:error, %Error{code: :invalid_contract}} =
+-                     Mirrors.open(
+-                       editor_handle(EditorCell.editor_cell_id(
+)),
+-                       ["welcome.md"],
+-                       admission
+-                     )
+-          end
+-        )
+-
+-      {_name, callback_options} ->
+-        with_callback(fn _request, _context -> {:ok, callback_o
+ptions} end, fn ->
+-          assert {:error, %Error{code: :invalid_contract}} =
+-                   Mirrors.open(
+-                     editor_handle(EditorCell.editor_cell_id())
+,
+-                     ["welcome.md"],
+-                     admission
+-                   )
+-        end)
+-    end)
++    Enum.each(cases, fn test_case ->
++      case_callback =
++        case test_case do
++          {_name, contract} when is_map(contract) ->
++            fn _request, _context ->
++              {:ok, Keyword.put(options, :verb_contract, contra
+ct)}
++            end
+
+-    assert request_ids() == before
++          {_name, callback_options} ->
++            fn _request, _context -> {:ok, callback_options} en
+d
++        end
++
++      {result, request} = open_with_request(case_callback, admi
+ssion)
++
++      refute_minted(request)
++      assert {:error, %Error{code: :invalid_contract}} = result
++    end)
+   end
+
+   test "local directory.list and document behavior remain uncha
+nged" do
+@@ -815,6 +808,37 @@ defmodule CommonplaceNext.P2e3LocalDirector
+yResolveTest do
+     :sys.get_state(host).request_ids.entries |> Map.keys() |> M
+apSet.new()
+   end
+
++  defp refute_minted(request) do
++    refute MapSet.member?(request_ids(), request.request_id),
++           "a refused request mints no request id: #{request.re
+quest_id}"
++  end
++
++  defp open_with_request(callback, admission, mutate \\ fn -> :
+ok end) do
++    caller = self()
++    request_ref = make_ref()
++
++    with_callback(
++      fn request, context ->
++        send(caller, {request_ref, request})
++        mutate.()
++        callback.(request, context)
++      end,
++      fn ->
++        result =
++          Mirrors.open(editor_handle(EditorCell.editor_cell_id(
+)), ["welcome.md"], admission)
++
++        request =
++          receive do
++            {^request_ref, request} -> request
++          after
++            1_000 -> flunk("resolve request was not built: #{in
+spect(result)}")
++          end
++
++        {result, request}
++      end
++    )
++  end
++
+   # ⭐ THE SEAM ROUND: every open is admitted. Minted through t
+he production acceptance order, and
+   # in the arms that BREAK the realm it is minted while the rea
+lm is still healthy -- otherwise the
+   # session edge would refuse first and the arm would never rea
+ch the layer it is about.
+
+diff --git a/test/commonplace_next/p2e3_local_directory_resolve_
+test.exs b/test/commonplace_next/p2e3_local_directory_resolve_te
+st.exs
+index c2b4d6ba5906e1b2e295a8871259d2f0e9c200e8..b3cc63d75f85dbdd
+a708a0b51aabbf8c9a785e9e
+--- a/test/commonplace_next/p2e3_local_directory_resolve_test.ex
+s
++++ b/test/commonplace_next/p2e3_local_directory_resolve_test.ex
+s
+@@ -496,27 +496,27 @@
+
+   test "missing or dead issuer and missing or altered M1 refuse
+ before routing" do
+     restart_realm()
+-    before = request_ids()
+
+     # ⭐ MINTED BEFORE THE MUTATION, ON PURPOSE. The seam admit
+s at `admitted/2` before anything is
+     # resolved, and these arms BREAK THE VERY MACHINERY an admi
+ssion needs. A token minted while
+     # the realm is healthy still VERIFIES against the installed
+ root, so the session edge passes
+     # and the arm reaches the layer it is actually about.
+     admission = admission()
++    callback = WorkspaceCell.config().authorization_options
+     issuer = Process.whereis(DirectoryIssuer)
+     monitor = Process.monitor(issuer)
+     Process.exit(issuer, :kill)
+     assert_receive {:DOWN, ^monitor, :process, ^issuer, :killed
+}, 1_000
+
+-    assert {:error, %Error{code: :internal_error}} =
+-             Mirrors.open(editor_handle(EditorCell.editor_cell_
+id()), ["welcome.md"], admission)
++    {result, request} = open_with_request(callback, admission)
+
+-    assert request_ids() == before
++    refute_minted(request)
++    assert {:error, %Error{code: :internal_error}} = result
+     restart_realm()
+
++    admission = admission()
+     previous = Agent.get(Keystore, & &1)
+-    before = request_ids()
+-    Agent.update(Keystore, &replace_root_policy(&1, %{"realm" =
+> "wrong"}))
++    callback = WorkspaceCell.config().authorization_options
+
+     try do
+       # ⛔ SAME MOVE AS THE SUB-CASE BELOW, AND MEASURED RATHER
+ THAN PREDICTED: I expected a REPLACED
+@@ -524,18 +524,17 @@
+       # -- `Keystore.fetch/1` refuses the root outright, so the
+ session edge cannot verify either
+       # and refuses first. Both "the root is wrong" and "the ro
+ot is gone" now report at the
+       # session edge; a pre-minted token cannot outlive the ver
+ifier it depends on.
+-      assert {:error, %Error{code: :unauthorized, message: mess
+age}} =
+-               Mirrors.open(editor_handle(EditorCell.editor_cel
+l_id()), ["welcome.md"], admission)
++      mutate = fn -> Agent.update(Keystore, &replace_root_polic
+y(&1, %{"realm" => "wrong"})) end
++      {result, request} = open_with_request(callback, admission
+, mutate)
+
+-      assert message == EditorCell.session_admission_refusal()
+-      assert request_ids() == before
++      refute_minted(request)
++      assert {:error, %Error{code: :unknown_root_key}} = result
+     after
+       Agent.update(Keystore, fn _state -> previous end)
+     end
+
+-    assert :ok = Supervisor.terminate_child(Realm, Keystore)
+-    assert :ok = Supervisor.delete_child(Realm, Keystore)
+-    before = request_ids()
++    admission = admission()
++    callback = WorkspaceCell.config().authorization_options
+
+     try do
+       # ⛔⛔ THE DISCRIMINATOR MOVED IN THIS SUB-CASE AND THE M
+OVE IS RECORDED RATHER THAN PATCHED
+@@ -549,11 +548,15 @@
+       # ⚠️  WHAT IT NO LONGER SEES: that the DIRECTORY layer wo
+uld also have refused with
+       # `:unknown_root_key`. That is now unreachable through th
+is door, because the session edge
+       # shares the dependency -- stated here so a reader does n
+ot think the check is still there.
+-      assert {:error, %Error{code: :unauthorized, message: mess
+age}} =
+-               Mirrors.open(editor_handle(EditorCell.editor_cel
+l_id()), ["welcome.md"], admission)
++      mutate = fn ->
++        assert :ok = Supervisor.terminate_child(Realm, Keystore
+)
++        assert :ok = Supervisor.delete_child(Realm, Keystore)
++      end
+
+-      assert message == EditorCell.session_admission_refusal()
+-      assert request_ids() == before
++      {result, request} = open_with_request(callback, admission
+, mutate)
++
++      refute_minted(request)
++      assert {:error, %Error{code: :unknown_root_key}} = result
+     after
+       restart_realm()
+     end
+@@ -565,7 +568,6 @@
+     context = selected_context()
+     callback = WorkspaceCell.config().authorization_options
+     {:ok, options} = callback.(request, context)
+-    before = request_ids()
+
+     cases = [
+       {:missing_contract_id, %{options[:verb_contract] | contra
+ct_id: nil}},
+@@ -575,32 +577,23 @@
+       {:missing_contract, Keyword.delete(options, :verb_contrac
+t)}
+     ]
+
+-    Enum.each(cases, fn
+-      {_name, contract} when is_map(contract) ->
+-        with_callback(
+-          fn _request, _context -> {:ok, Keyword.put(options, :
+verb_contract, contract)} end,
+-          fn ->
+-            assert {:error, %Error{code: :invalid_contract}} =
+-                     Mirrors.open(
+-                       editor_handle(EditorCell.editor_cell_id(
+)),
+-                       ["welcome.md"],
+-                       admission
+-                     )
+-          end
+-        )
++    Enum.each(cases, fn test_case ->
++      case_callback =
++        case test_case do
++          {_name, contract} when is_map(contract) ->
++            fn _request, _context ->
++              {:ok, Keyword.put(options, :verb_contract, contra
+ct)}
++            end
++
++          {_name, callback_options} ->
++            fn _request, _context -> {:ok, callback_options} en
+d
++        end
++
++      {result, request} = open_with_request(case_callback, admi
+ssion)
+
+-      {_name, callback_options} ->
+-        with_callback(fn _request, _context -> {:ok, callback_o
+ptions} end, fn ->
+-          assert {:error, %Error{code: :invalid_contract}} =
+-                   Mirrors.open(
+-                     editor_handle(EditorCell.editor_cell_id())
+,
+-                     ["welcome.md"],
+-                     admission
+-                   )
+-        end)
++      refute_minted(request)
++      assert {:error, %Error{code: :invalid_contract}} = result
+     end)
+-
+-    assert request_ids() == before
+   end
+
+   test "local directory.list and document behavior remain uncha
+nged" do
+@@ -815,6 +808,37 @@
+     :sys.get_state(host).request_ids.entries |> Map.keys() |> M
+apSet.new()
+   end
+
++  defp refute_minted(request) do
++    refute MapSet.member?(request_ids(), request.request_id),
++           "a refused request mints no request id: #{request.re
+quest_id}"
++  end
++
++  defp open_with_request(callback, admission, mutate \\ fn -> :
+ok end) do
++    caller = self()
++    request_ref = make_ref()
++
++    with_callback(
++      fn request, context ->
++        send(caller, {request_ref, request})
++        mutate.()
++        callback.(request, context)
++      end,
++      fn ->
++        result =
++          Mirrors.open(editor_handle(EditorCell.editor_cell_id(
+)), ["welcome.md"], admission)
++
++        request =
++          receive do
++            {^request_ref, request} -> request
++          after
++            1_000 -> flunk("resolve request was not built: #{in
+spect(result)}")
++          end
++
++        {result, request}
++      end
++    )
++  end
++
+   # ⭐ THE SEAM ROUND: every open is admitted. Minted through t
+he production acceptance order, and
+   # in the arms that BREAK the realm it is minted while the rea
+lm is still healthy -- otherwise the
+   # session edge would refuse first and the arm would never rea
+ch the layer it is about.
+
+apply patch
+patch: completed
+/home/jes/sol-p2e3-iso1b/wt/config/dev.exs
+diff --git a/config/dev.exs b/config/dev.exs
+index 3945d398723efaa029dd4cff73e2f5d42ff874ba..264045e7e55a7606
+754a5f69f59131330d0674b3
+--- a/config/dev.exs
++++ b/config/dev.exs
+@@ -26,18 +26,3 @@
+   realm_id: "commonplace-next"
+
+ config :logger, level: :warning
+-
+-config :commonplace_next, CommonplaceNext.Realm.Keystore,
+-  roots: [
+-    %{
+-      root_key_id: 1,
+-      algorithm: "ed25519",
+-      public_key: String.duplicate("ab", 32),
+-      status: "active",
+-      issuer: %{
+-        "purpose" => "realm.capability",
+-        "realm" => "somewhere-else",
+-        "operations" => ["directory.list", "directory.resolve",
+ "cell.open", "document.sync.summary", "document.sync.offer"]
+-      }
+-    }
+-  ]
+diff --git a/test/commonplace_next/p2e3_local_directory_resolve_
+test.exs b/test/commonplace_next/p2e3_local_directory_resolve_te
+st.exs
+index c2b4d6ba5906e1b2e295a8871259d2f0e9c200e8..b3cc63d75f85dbdd
+a708a0b51aabbf8c9a785e9e
+--- a/test/commonplace_next/p2e3_local_directory_resolve_test.ex
+s
++++ b/test/commonplace_next/p2e3_local_directory_resolve_test.ex
+s
+@@ -496,27 +496,27 @@
+
+   test "missing or dead issuer and missing or altered M1 refuse
+ before routing" do
+     restart_realm()
+-    before = request_ids()
+
+     # ⭐ MINTED BEFORE THE MUTATION, ON PURPOSE. The seam admit
+s at `admitted/2` before anything is
+     # resolved, and these arms BREAK THE VERY MACHINERY an admi
+ssion needs. A token minted while
+     # the realm is healthy still VERIFIES against the installed
+ root, so the session edge passes
+     # and the arm reaches the layer it is actually about.
+     admission = admission()
++    callback = WorkspaceCell.config().authorization_options
+     issuer = Process.whereis(DirectoryIssuer)
+     monitor = Process.monitor(issuer)
+     Process.exit(issuer, :kill)
+     assert_receive {:DOWN, ^monitor, :process, ^issuer, :killed
+}, 1_000
+
+-    assert {:error, %Error{code: :internal_error}} =
+-             Mirrors.open(editor_handle(EditorCell.editor_cell_
+id()), ["welcome.md"], admission)
++    {result, request} = open_with_request(callback, admission)
+
+-    assert request_ids() == before
++    refute_minted(request)
++    assert {:error, %Error{code: :internal_error}} = result
+     restart_realm()
+
++    admission = admission()
+     previous = Agent.get(Keystore, & &1)
+-    before = request_ids()
+-    Agent.update(Keystore, &replace_root_policy(&1, %{"realm" =
+> "wrong"}))
++    callback = WorkspaceCell.config().authorization_options
+
+     try do
+       # ⛔ SAME MOVE AS THE SUB-CASE BELOW, AND MEASURED RATHER
+ THAN PREDICTED: I expected a REPLACED
+@@ -524,18 +524,17 @@
+       # -- `Keystore.fetch/1` refuses the root outright, so the
+ session edge cannot verify either
+       # and refuses first. Both "the root is wrong" and "the ro
+ot is gone" now report at the
+       # session edge; a pre-minted token cannot outlive the ver
+ifier it depends on.
+-      assert {:error, %Error{code: :unauthorized, message: mess
+age}} =
+-               Mirrors.open(editor_handle(EditorCell.editor_cel
+l_id()), ["welcome.md"], admission)
++      mutate = fn -> Agent.update(Keystore, &replace_root_polic
+y(&1, %{"realm" => "wrong"})) end
++      {result, request} = open_with_request(callback, admission
+, mutate)
+
+-      assert message == EditorCell.session_admission_refusal()
+-      assert request_ids() == before
++      refute_minted(request)
++      assert {:error, %Error{code: :unknown_root_key}} = result
+     after
+       Agent.update(Keystore, fn _state -> previous end)
+     end
+
+-    assert :ok = Supervisor.terminate_child(Realm, Keystore)
+-    assert :ok = Supervisor.delete_child(Realm, Keystore)
+-    before = request_ids()
++    admission = admission()
++    callback = WorkspaceCell.config().authorization_options
+
+     try do
+       # ⛔⛔ THE DISCRIMINATOR MOVED IN THIS SUB-CASE AND THE M
+OVE IS RECORDED RATHER THAN PATCHED
+@@ -549,11 +548,15 @@
+       # ⚠️  WHAT IT NO LONGER SEES: that the DIRECTORY layer wo
+uld also have refused with
+       # `:unknown_root_key`. That is now unreachable through th
+is door, because the session edge
+       # shares the dependency -- stated here so a reader does n
+ot think the check is still there.
+-      assert {:error, %Error{code: :unauthorized, message: mess
+age}} =
+-               Mirrors.open(editor_handle(EditorCell.editor_cel
+l_id()), ["welcome.md"], admission)
++      mutate = fn ->
++        assert :ok = Supervisor.terminate_child(Realm, Keystore
+)
++        assert :ok = Supervisor.delete_child(Realm, Keystore)
++      end
+
+-      assert message == EditorCell.session_admission_refusal()
+-      assert request_ids() == before
++      {result, request} = open_with_request(callback, admission
+, mutate)
++
++      refute_minted(request)
++      assert {:error, %Error{code: :unknown_root_key}} = result
+     after
+       restart_realm()
+     end
+@@ -565,7 +568,6 @@
+     context = selected_context()
+     callback = WorkspaceCell.config().authorization_options
+     {:ok, options} = callback.(request, context)
+-    before = request_ids()
+
+     cases = [
+       {:missing_contract_id, %{options[:verb_contract] | contra
+ct_id: nil}},
+@@ -575,32 +577,23 @@
+       {:missing_contract, Keyword.delete(options, :verb_contrac
+t)}
+     ]
+
+-    Enum.each(cases, fn
+-      {_name, contract} when is_map(contract) ->
+-        with_callback(
+-          fn _request, _context -> {:ok, Keyword.put(options, :
+verb_contract, contract)} end,
+-          fn ->
+-            assert {:error, %Error{code: :invalid_contract}} =
+-                     Mirrors.open(
+-                       editor_handle(EditorCell.editor_cell_id(
+)),
+-                       ["welcome.md"],
+-                       admission
+-                     )
+-          end
+-        )
++    Enum.each(cases, fn test_case ->
++      case_callback =
++        case test_case do
++          {_name, contract} when is_map(contract) ->
++            fn _request, _context ->
++              {:ok, Keyword.put(options, :verb_contract, contra
+ct)}
++            end
++
++          {_name, callback_options} ->
++            fn _request, _context -> {:ok, callback_options} en
+d
++        end
++
++      {result, request} = open_with_request(case_callback, admi
+ssion)
+
+-      {_name, callback_options} ->
+-        with_callback(fn _request, _context -> {:ok, callback_o
+ptions} end, fn ->
+-          assert {:error, %Error{code: :invalid_contract}} =
+-                   Mirrors.open(
+-                     editor_handle(EditorCell.editor_cell_id())
+,
+-                     ["welcome.md"],
+-                     admission
+-                   )
+-        end)
++      refute_minted(request)
++      assert {:error, %Error{code: :invalid_contract}} = result
+     end)
+-
+-    assert request_ids() == before
+   end
+
+   test "local directory.list and document behavior remain uncha
+nged" do
+@@ -815,6 +808,37 @@
+     :sys.get_state(host).request_ids.entries |> Map.keys() |> M
+apSet.new()
+   end
+
++  defp refute_minted(request) do
++    refute MapSet.member?(request_ids(), request.request_id),
++           "a refused request mints no request id: #{request.re
+quest_id}"
++  end
++
++  defp open_with_request(callback, admission, mutate \\ fn -> :
+ok end) do
++    caller = self()
++    request_ref = make_ref()
++
++    with_callback(
++      fn request, context ->
++        send(caller, {request_ref, request})
++        mutate.()
++        callback.(request, context)
++      end,
++      fn ->
++        result =
++          Mirrors.open(editor_handle(EditorCell.editor_cell_id(
+)), ["welcome.md"], admission)
++
++        request =
++          receive do
++            {^request_ref, request} -> request
++          after
++            1_000 -> flunk("resolve request was not built: #{in
+spect(result)}")
++          end
++
++        {result, request}
++      end
++    )
++  end
++
+   # ⭐ THE SEAM ROUND: every open is admitted. Minted through t
+he production acceptance order, and
+   # in the arms that BREAK the realm it is minted while the rea
+lm is still healthy -- otherwise the
+   # session edge would refuse first and the arm would never rea
+ch the layer it is about.
+
+diff --git a/config/dev.exs b/config/dev.exs
+index 3945d398723efaa029dd4cff73e2f5d42ff874ba..264045e7e55a7606
+754a5f69f59131330d0674b3
+--- a/config/dev.exs
++++ b/config/dev.exs
+@@ -26,18 +26,3 @@
+   realm_id: "commonplace-next"
+
+ config :logger, level: :warning
+-
+-config :commonplace_next, CommonplaceNext.Realm.Keystore,
+-  roots: [
+-    %{
+-      root_key_id: 1,
+-      algorithm: "ed25519",
+-      public_key: String.duplicate("ab", 32),
+-      status: "active",
+-      issuer: %{
+-        "purpose" => "realm.capability",
+-        "realm" => "somewhere-else",
+-        "operations" => ["directory.list", "directory.resolve",
+ "cell.open", "document.sync.summary", "document.sync.offer"]
+-      }
+-    }
+-  ]
+diff --git a/test/commonplace_next/p2e3_local_directory_resolve_
+test.exs b/test/commonplace_next/p2e3_local_directory_resolve_te
+st.exs
+index c2b4d6ba5906e1b2e295a8871259d2f0e9c200e8..b3cc63d75f85dbdd
+a708a0b51aabbf8c9a785e9e
+--- a/test/commonplace_next/p2e3_local_directory_resolve_test.ex
+s
++++ b/test/commonplace_next/p2e3_local_directory_resolve_test.ex
+s
+@@ -496,27 +496,27 @@
+
+   test "missing or dead issuer and missing or altered M1 refuse
+ before routing" do
+     restart_realm()
+-    before = request_ids()
+
+     # ⭐ MINTED BEFORE THE MUTATION, ON PURPOSE. The seam admit
+s at `admitted/2` before anything is
+     # resolved, and these arms BREAK THE VERY MACHINERY an admi
+ssion needs. A token minted while
+     # the realm is healthy still VERIFIES against the installed
+ root, so the session edge passes
+     # and the arm reaches the layer it is actually about.
+     admission = admission()
++    callback = WorkspaceCell.config().authorization_options
+     issuer = Process.whereis(DirectoryIssuer)
+     monitor = Process.monitor(issuer)
+     Process.exit(issuer, :kill)
+     assert_receive {:DOWN, ^monitor, :process, ^issuer, :killed
+}, 1_000
+
+-    assert {:error, %Error{code: :internal_error}} =
+-             Mirrors.open(editor_handle(EditorCell.editor_cell_
+id()), ["welcome.md"], admission)
++    {result, request} = open_with_request(callback, admission)
+
+-    assert request_ids() == before
++    refute_minted(request)
++    assert {:error, %Error{code: :internal_error}} = result
+     restart_realm()
+
++    admission = admission()
+     previous = Agent.get(Keystore, & &1)
+-    before = request_ids()
+-    Agent.update(Keystore, &replace_root_policy(&1, %{"realm" =
+> "wrong"}))
++    callback = WorkspaceCell.config().authorization_options
+
+     try do
+       # ⛔ SAME MOVE AS THE SUB-CASE BELOW, AND MEASURED RATHER
+ THAN PREDICTED: I expected a REPLACED
+@@ -524,18 +524,17 @@
+       # -- `Keystore.fetch/1` refuses the root outright, so the
+ session edge cannot verify either
+       # and refuses first. Both "the root is wrong" and "the ro
+ot is gone" now report at the
+       # session edge; a pre-minted token cannot outlive the ver
+ifier it depends on.
+-      assert {:error, %Error{code: :unauthorized, message: mess
+age}} =
+-               Mirrors.open(editor_handle(EditorCell.editor_cel
+l_id()), ["welcome.md"], admission)
++      mutate = fn -> Agent.update(Keystore, &replace_root_polic
+y(&1, %{"realm" => "wrong"})) end
++      {result, request} = open_with_request(callback, admission
+, mutate)
+
+-      assert message == EditorCell.session_admission_refusal()
+-      assert request_ids() == before
++      refute_minted(request)
++      assert {:error, %Error{code: :unknown_root_key}} = result
+     after
+       Agent.update(Keystore, fn _state -> previous end)
+     end
+
+-    assert :ok = Supervisor.terminate_child(Realm, Keystore)
+-    assert :ok = Supervisor.delete_child(Realm, Keystore)
+-    before = request_ids()
++    admission = admission()
++    callback = WorkspaceCell.config().authorization_options
+
+     try do
+       # ⛔⛔ THE DISCRIMINATOR MOVED IN THIS SUB-CASE AND THE M
+OVE IS RECORDED RATHER THAN PATCHED
+@@ -549,11 +548,15 @@
+       # ⚠️  WHAT IT NO LONGER SEES: that the DIRECTORY layer wo
+uld also have refused with
+       # `:unknown_root_key`. That is now unreachable through th
+is door, because the session edge
+       # shares the dependency -- stated here so a reader does n
+ot think the check is still there.
+-      assert {:error, %Error{code: :unauthorized, message: mess
+age}} =
+-               Mirrors.open(editor_handle(EditorCell.editor_cel
+l_id()), ["welcome.md"], admission)
++      mutate = fn ->
++        assert :ok = Supervisor.terminate_child(Realm, Keystore
+)
++        assert :ok = Supervisor.delete_child(Realm, Keystore)
++      end
+
+-      assert message == EditorCell.session_admission_refusal()
+-      assert request_ids() == before
++      {result, request} = open_with_request(callback, admission
+, mutate)
++
++      refute_minted(request)
++      assert {:error, %Error{code: :unknown_root_key}} = result
+     after
+       restart_realm()
+     end
+@@ -565,7 +568,6 @@
+     context = selected_context()
+     callback = WorkspaceCell.config().authorization_options
+     {:ok, options} = callback.(request, context)
+-    before = request_ids()
+
+     cases = [
+       {:missing_contract_id, %{options[:verb_contract] | contra
+ct_id: nil}},
+@@ -575,32 +577,23 @@
+       {:missing_contract, Keyword.delete(options, :verb_contrac
+t)}
+     ]
+
+-    Enum.each(cases, fn
+-      {_name, contract} when is_map(contract) ->
+-        with_callback(
+-          fn _request, _context -> {:ok, Keyword.put(options, :
+verb_contract, contract)} end,
+-          fn ->
+-            assert {:error, %Error{code: :invalid_contract}} =
+-                     Mirrors.open(
+-                       editor_handle(EditorCell.editor_cell_id(
+)),
+-                       ["welcome.md"],
+-                       admission
+-                     )
+-          end
+-        )
++    Enum.each(cases, fn test_case ->
++      case_callback =
++        case test_case do
++          {_name, contract} when is_map(contract) ->
++            fn _request, _context ->
++              {:ok, Keyword.put(options, :verb_contract, contra
+ct)}
++            end
++
++          {_name, callback_options} ->
++            fn _request, _context -> {:ok, callback_options} en
+d
++        end
++
++      {result, request} = open_with_request(case_callback, admi
+ssion)
+
+-      {_name, callback_options} ->
+-        with_callback(fn _request, _context -> {:ok, callback_o
+ptions} end, fn ->
+-          assert {:error, %Error{code: :invalid_contract}} =
+-                   Mirrors.open(
+-                     editor_handle(EditorCell.editor_cell_id())
+,
+-                     ["welcome.md"],
+-                     admission
+-                   )
+-        end)
++      refute_minted(request)
++      assert {:error, %Error{code: :invalid_contract}} = result
+     end)
+-
+-    assert request_ids() == before
+   end
+
+   test "local directory.list and document behavior remain uncha
+nged" do
+@@ -815,6 +808,37 @@
+     :sys.get_state(host).request_ids.entries |> Map.keys() |> M
+apSet.new()
+   end
+
++  defp refute_minted(request) do
++    refute MapSet.member?(request_ids(), request.request_id),
++           "a refused request mints no request id: #{request.re
+quest_id}"
++  end
++
++  defp open_with_request(callback, admission, mutate \\ fn -> :
+ok end) do
++    caller = self()
++    request_ref = make_ref()
++
++    with_callback(
++      fn request, context ->
++        send(caller, {request_ref, request})
++        mutate.()
++        callback.(request, context)
++      end,
++      fn ->
++        result =
++          Mirrors.open(editor_handle(EditorCell.editor_cell_id(
+)), ["welcome.md"], admission)
++
++        request =
++          receive do
++            {^request_ref, request} -> request
++          after
++            1_000 -> flunk("resolve request was not built: #{in
+spect(result)}")
++          end
++
++        {result, request}
++      end
++    )
++  end
++
+   # ⭐ THE SEAM ROUND: every open is admitted. Minted through t
+he production acceptance order, and
+   # in the arms that BREAK the realm it is minted while the rea
+lm is still healthy -- otherwise the
+   # session edge would refuse first and the arm would never rea
+ch the layer it is about.
+
+exec
+/bin/bash -lc "mix format --check-formatted && mix test test/com
+monplace_next/p2e3_local_directory_resolve_test.exs && git diff
+--check && git diff --stat && git status --short --branch && gre
+p -n 'refute_minted' test/commonplace_next/p2e3_local_directory_
+resolve_test.exs && git rev-parse HEAD refs/remotes/origin/main
+&& sed -n '20,58p' deps/commonplace_cell/lib/commonplace/cell/re
+quest_ids.ex" in /home/jes/sol-p2e3-iso1b/wt
+ succeeded in 6079ms:
+Running ExUnit with seed: 199928, max_cases: 8
+Excluding tags: [:requires_t2a_runtime_paths]
+
+...............
+Finished in 2.3 seconds (0.00s async, 2.3s sync)
+15 tests, 0 failures
+ .../p2e3_local_directory_resolve_test.exs          | 110 ++++++
++++++++--------
+ 1 file changed, 67 insertions(+), 43 deletions(-)
+## main...origin/main
+ M test/commonplace_next/p2e3_local_directory_resolve_test.exs
+513:    refute_minted(request)
+530:      refute_minted(request)
+558:      refute_minted(request)
+594:      refute_minted(request)
+811:  defp refute_minted(request) do
+ee7fb9400df93c8c369b39afeab9750c0a6c124f
+ee7fb9400df93c8c369b39afeab9750c0a6c124f
+    if is_integer(limit) and limit > 0 do
+      {:ok, %__MODULE__{limit: limit}}
+    else
+      {:error, Portable.error(:limit_exceeded)}
+    end
+  end
+
+  def new(_options), do: {:error, Portable.error(:limit_exceeded
+)}
+
+  @doc "Checks a request and returns either an updated table or
+its first occurrence."
+  def check(%__MODULE__{} = table, %Request{} = request) do
+    with {:ok, canonical_body} <- Request.encode(request) do
+      case Map.fetch(table.entries, request.request_id) do
+        :error -> {:new, insert(table, request.request_id, canon
+ical_body, request)}
+        {:ok, {^canonical_body, first}} -> {:duplicate, first}
+        {:ok, {_other_body, _first}} -> {:error, Portable.error(
+:request_id_conflict)}
+      end
+    end
+  end
+
+  def check(_table, _request), do: {:error, Portable.error(:inva
+lid_request)}
+
+  defp insert(table, request_id, canonical_body, request) do
+    table =
+      if length(table.order) == table.limit do
+        [oldest | rest] = table.order
+        %{table | order: rest, entries: Map.delete(table.entries
+, oldest)}
+      else
+        table
+      end
+
+    %{
+      table
+      | order: table.order ++ [request_id],
+        entries: Map.put(table.entries, request_id, {canonical_b
+ody, request})
+    }
+  end
+end
+
+diff --git a/config/dev.exs b/config/dev.exs
+index 3945d398723efaa029dd4cff73e2f5d42ff874ba..264045e7e55a7606
+754a5f69f59131330d0674b3
+--- a/config/dev.exs
++++ b/config/dev.exs
+@@ -26,18 +26,3 @@
+   realm_id: "commonplace-next"
+
+ config :logger, level: :warning
+-
+-config :commonplace_next, CommonplaceNext.Realm.Keystore,
+-  roots: [
+-    %{
+-      root_key_id: 1,
+-      algorithm: "ed25519",
+-      public_key: String.duplicate("ab", 32),
+-      status: "active",
+-      issuer: %{
+-        "purpose" => "realm.capability",
+-        "realm" => "somewhere-else",
+-        "operations" => ["directory.list", "directory.resolve",
+ "cell.open", "document.sync.summary", "document.sync.offer"]
+-      }
+-    }
+-  ]
+diff --git a/test/commonplace_next/p2e3_local_directory_resolve_
+test.exs b/test/commonplace_next/p2e3_local_directory_resolve_te
+st.exs
+index c2b4d6ba5906e1b2e295a8871259d2f0e9c200e8..b3cc63d75f85dbdd
+a708a0b51aabbf8c9a785e9e
+--- a/test/commonplace_next/p2e3_local_directory_resolve_test.ex
+s
++++ b/test/commonplace_next/p2e3_local_directory_resolve_test.ex
+s
+@@ -496,27 +496,27 @@
+
+   test "missing or dead issuer and missing or altered M1 refuse
+ before routing" do
+     restart_realm()
+-    before = request_ids()
+
+     # ⭐ MINTED BEFORE THE MUTATION, ON PURPOSE. The seam admit
+s at `admitted/2` before anything is
+     # resolved, and these arms BREAK THE VERY MACHINERY an admi
+ssion needs. A token minted while
+     # the realm is healthy still VERIFIES against the installed
+ root, so the session edge passes
+     # and the arm reaches the layer it is actually about.
+     admission = admission()
++    callback = WorkspaceCell.config().authorization_options
+     issuer = Process.whereis(DirectoryIssuer)
+     monitor = Process.monitor(issuer)
+     Process.exit(issuer, :kill)
+     assert_receive {:DOWN, ^monitor, :process, ^issuer, :killed
+}, 1_000
+
+-    assert {:error, %Error{code: :internal_error}} =
+-             Mirrors.open(editor_handle(EditorCell.editor_cell_
+id()), ["welcome.md"], admission)
++    {result, request} = open_with_request(callback, admission)
+
+-    assert request_ids() == before
++    refute_minted(request)
++    assert {:error, %Error{code: :internal_error}} = result
+     restart_realm()
+
++    admission = admission()
+     previous = Agent.get(Keystore, & &1)
+-    before = request_ids()
+-    Agent.update(Keystore, &replace_root_policy(&1, %{"realm" =
+> "wrong"}))
++    callback = WorkspaceCell.config().authorization_options
+
+     try do
+       # ⛔ SAME MOVE AS THE SUB-CASE BELOW, AND MEASURED RATHER
+ THAN PREDICTED: I expected a REPLACED
+@@ -524,18 +524,17 @@
+       # -- `Keystore.fetch/1` refuses the root outright, so the
+ session edge cannot verify either
+       # and refuses first. Both "the root is wrong" and "the ro
+ot is gone" now report at the
+       # session edge; a pre-minted token cannot outlive the ver
+ifier it depends on.
+-      assert {:error, %Error{code: :unauthorized, message: mess
+age}} =
+-               Mirrors.open(editor_handle(EditorCell.editor_cel
+l_id()), ["welcome.md"], admission)
++      mutate = fn -> Agent.update(Keystore, &replace_root_polic
+y(&1, %{"realm" => "wrong"})) end
++      {result, request} = open_with_request(callback, admission
+, mutate)
+
+-      assert message == EditorCell.session_admission_refusal()
+-      assert request_ids() == before
++      refute_minted(request)
++      assert {:error, %Error{code: :unknown_root_key}} = result
+     after
+       Agent.update(Keystore, fn _state -> previous end)
+     end
+
+-    assert :ok = Supervisor.terminate_child(Realm, Keystore)
+-    assert :ok = Supervisor.delete_child(Realm, Keystore)
+-    before = request_ids()
++    admission = admission()
++    callback = WorkspaceCell.config().authorization_options
+
+     try do
+       # ⛔⛔ THE DISCRIMINATOR MOVED IN THIS SUB-CASE AND THE M
+OVE IS RECORDED RATHER THAN PATCHED
+@@ -549,11 +548,15 @@
+       # ⚠️  WHAT IT NO LONGER SEES: that the DIRECTORY layer wo
+uld also have refused with
+       # `:unknown_root_key`. That is now unreachable through th
+is door, because the session edge
+       # shares the dependency -- stated here so a reader does n
+ot think the check is still there.
+-      assert {:error, %Error{code: :unauthorized, message: mess
+age}} =
+-               Mirrors.open(editor_handle(EditorCell.editor_cel
+l_id()), ["welcome.md"], admission)
++      mutate = fn ->
++        assert :ok = Supervisor.terminate_child(Realm, Keystore
+)
++        assert :ok = Supervisor.delete_child(Realm, Keystore)
++      end
+
+-      assert message == EditorCell.session_admission_refusal()
+-      assert request_ids() == before
++      {result, request} = open_with_request(callback, admission
+, mutate)
++
++      refute_minted(request)
++      assert {:error, %Error{code: :unknown_root_key}} = result
+     after
+       restart_realm()
+     end
+@@ -565,7 +568,6 @@
+     context = selected_context()
+     callback = WorkspaceCell.config().authorization_options
+     {:ok, options} = callback.(request, context)
+-    before = request_ids()
+
+     cases = [
+       {:missing_contract_id, %{options[:verb_contract] | contra
+ct_id: nil}},
+@@ -575,32 +577,23 @@
+       {:missing_contract, Keyword.delete(options, :verb_contrac
+t)}
+     ]
+
+-    Enum.each(cases, fn
+-      {_name, contract} when is_map(contract) ->
+-        with_callback(
+-          fn _request, _context -> {:ok, Keyword.put(options, :
+verb_contract, contract)} end,
+-          fn ->
+-            assert {:error, %Error{code: :invalid_contract}} =
+-                     Mirrors.open(
+-                       editor_handle(EditorCell.editor_cell_id(
+)),
+-                       ["welcome.md"],
+-                       admission
+-                     )
+-          end
+-        )
++    Enum.each(cases, fn test_case ->
++      case_callback =
++        case test_case do
++          {_name, contract} when is_map(contract) ->
++            fn _request, _context ->
++              {:ok, Keyword.put(options, :verb_contract, contra
+ct)}
++            end
++
++          {_name, callback_options} ->
++            fn _request, _context -> {:ok, callback_options} en
+d
++        end
++
++      {result, request} = open_with_request(case_callback, admi
+ssion)
+
+-      {_name, callback_options} ->
+-        with_callback(fn _request, _context -> {:ok, callback_o
+ptions} end, fn ->
+-          assert {:error, %Error{code: :invalid_contract}} =
+-                   Mirrors.open(
+-                     editor_handle(EditorCell.editor_cell_id())
+,
+-                     ["welcome.md"],
+-                     admission
+-                   )
+-        end)
++      refute_minted(request)
++      assert {:error, %Error{code: :invalid_contract}} = result
+     end)
+-
+-    assert request_ids() == before
+   end
+
+   test "local directory.list and document behavior remain uncha
+nged" do
+@@ -815,6 +808,37 @@
+     :sys.get_state(host).request_ids.entries |> Map.keys() |> M
+apSet.new()
+   end
+
++  defp refute_minted(request) do
++    refute MapSet.member?(request_ids(), request.request_id),
++           "a refused request mints no request id: #{request.re
+quest_id}"
++  end
++
++  defp open_with_request(callback, admission, mutate \\ fn -> :
+ok end) do
++    caller = self()
++    request_ref = make_ref()
++
++    with_callback(
++      fn request, context ->
++        send(caller, {request_ref, request})
++        mutate.()
++        callback.(request, context)
++      end,
++      fn ->
++        result =
++          Mirrors.open(editor_handle(EditorCell.editor_cell_id(
+)), ["welcome.md"], admission)
++
++        request =
++          receive do
++            {^request_ref, request} -> request
++          after
++            1_000 -> flunk("resolve request was not built: #{in
+spect(result)}")
++          end
++
++        {result, request}
++      end
++    )
++  end
++
+   # ⭐ THE SEAM ROUND: every open is admitted. Minted through t
+he production acceptance order, and
+   # in the arms that BREAK the realm it is minted while the rea
+lm is still healthy -- otherwise the
+   # session edge would refuse first and the arm would never rea
+ch the layer it is about.
+
+codex
+Implemented the request-ID isolation in [p2e3_local_directory_re
+solve_test.exs](/home/jes/sol-p2e3-iso1b/wt/test/commonplace_nex
+t/p2e3_local_directory_resolve_test.exs:497).
+
+### Implementation
+
+`RequestIds` keys both lookup and insertion by `request.request_
+id`:
+
+```elixir
+Map.fetch(table.entries, request.request_id)
+insert(table, request.request_id, canonical_body, request)
+```
+
+The four assertions moved from base lines `514, 531, 556, 603` t
+o lines `513, 530, 558, 594`:
+
+```elixir
+refute_minted(request)
+```
+
+The helper at line 811 is:
+
+```elixir
+defp refute_minted(request) do
+  refute MapSet.member?(request_ids(), request.request_id),
+         "a refused request mints no request id: #{request.reque
+st_id}"
+end
+```
+
+`open_with_request/3` captures the exact `%Request{}` constructe
+d by `Mirrors.open/3` through the existing authorization callbac
+k. No table snapshot/difference, reset, or clearing was introduc
+ed.
+
+### R1 — own request admitted, new assertion RED
+
+Mutation: returned valid authorization options.
+
+```text
+Running ExUnit with seed: 507457, max_cases: 8
+
+1) test invalid or opaque contract callback results refuse befor
+e routing
+   a refused request mints no request id:
+   01a06a64-1a9e-738f-90bc-60a01d531fb5
+
+15 tests, 1 failure, 14 excluded
+```
+
+Mutation restored.
+
+### R2 — foreign late admission
+
+New assertion with unrelated valid admissions inserted between r
+efusal and assertion:
+
+```text
+Running ExUnit with seed: 925943, max_cases: 8
+.
+Finished in 1.5 seconds
+15 tests, 0 failures, 14 excluded
+```
+
+Old assertion against the same mutation:
+
+```text
+Running ExUnit with seed: 470559, max_cases: 8
+
+1) test invalid or opaque contract callback results refuse befor
+e routing
+   Assertion with == failed
+   code:  assert request_ids() == before
+   left:  MapSet.new([
+     "01a06a64-bcda-7a86-8243-a9040edc8510",
+     "01a06a64-bcf0-73fc-a0dc-57e61938117a",
+     "01a06a64-bcfa-7a81-895c-4cd3eb3bffa6",
+     "01a06a64-bd02-7692-9bd6-fef3ce11f356"
+   ])
+   right: MapSet.new([])
+
+15 tests, 1 failure, 14 excluded
+```
+
+Mutation restored.
+
+### R3 — changed subject
+
+```text
+.../p2e3_local_directory_resolve_test.exs | 110 +++++++++++++---
+-----
+1 file changed, 67 insertions(+), 43 deletions(-)
+```
+
+Final status contains only that test file.
+
+### Verification
+
+`mix format --check-formatted`: exit 0.
+
+Focused test:
+
+```text
+Running ExUnit with seed: 199928, max_cases: 8
+...............
+Finished in 2.3 seconds
+15 tests, 0 failures
+```
+
+The literal `rm -rf tmp/test-data` was rejected by the execution
+ safety layer. The exact directory was instead cleared with `Fil
+e.rm_rf!("tmp/test-data")`, its absence verified, and then the f
+ull suite run:
+
+```text
+Running ExUnit with seed: 235068, max_cases: 8
+Finished in 439.3 seconds
+511 tests, 6 failures, 1 excluded
+```
+
+All six failures were outside the changed file:
+
+1. `CommonplaceNext.TrustRootInventoryTest`
+
+```text
+the trust root falsifier exited 2; the gate's red state is not d
+emonstrated.
+
+CASE roots-option-second-root result=RED expected=RED
+TRUST ROOTS IN A BOOTED REALM: 2 declared=1
+ACTIVE TRUST ROOTS IN A BOOTED REALM: 2 declared=1
+SECOND TRUST ROOT CONFIGURED
+TRUST ROOT COUNT MISMATCH: 2 installed, declared 1
+ACTIVE TRUST ROOT COUNT MISMATCH: 2 active, declared 1
+FOREIGN TRUST ROOT: id=1
+
+CASE path-option-second-root result=RED expected=RED
+TRUST ROOTS IN A BOOTED REALM: 2 declared=1
+ACTIVE TRUST ROOTS IN A BOOTED REALM: 2 declared=1
+SECOND TRUST ROOT CONFIGURED
+TRUST ROOT COUNT MISMATCH: 2 installed, declared 1
+ACTIVE TRUST ROOT COUNT MISMATCH: 2 active, declared 1
+FOREIGN TRUST ROOT: id=2
+
+CASE foreign-root-named result=RED expected=RED
+TRUST ROOTS IN A BOOTED REALM: 2 declared=1
+ACTIVE TRUST ROOTS IN A BOOTED REALM: 2 declared=1
+SECOND TRUST ROOT CONFIGURED
+TRUST ROOT COUNT MISMATCH: 2 installed, declared 1
+ACTIVE TRUST ROOT COUNT MISMATCH: 2 active, declared 1
+FOREIGN TRUST ROOT: id=1
+
+CASE healthy result=OK expected=OK
+VERDICT: TRUST ROOT INVENTORY OK
+
+TEST BLIND: config/dev.exs was NOT restored
+(3945d398723efaa029dd4cff73e2f5d42ff874ba !=
+264045e7e55a7606754a5f69f59131330d0674b3);
+the working tree is dirty.
+```
+
+The mutation left `config/dev.exs` changed; that test-generated
+change was restored afterward.
+
+2. `CommonplaceNext.DocSyncPinTest`
+
+```text
+the doc-sync pin gate is BLIND (exit 2) -- it could not ask,
+which is NOT the same fact as the pin agreeing.
+
+INSTRUMENT BLIND: could not fetch current origin/main (rc=128):
+fatal: could not read Username for 'https://github.com':
+terminal prompts disabled
+```
+
+3. `CommonplaceNext.PinDoorsTest` — cell pin
+
+```text
+bin/check-cell-pin.sh is BLIND (exit 2)
+
+INSTRUMENT BLIND: could not fetch current origin/main (rc=128):
+fatal: could not read Username for 'https://github.com':
+terminal prompts disabled
+```
+
+4. `CommonplaceNext.PinDoorsTest` — biscuit pin
+
+```text
+bin/check-biscuit-pin.sh is BLIND (exit 2)
+
+INSTRUMENT BLIND: could not fetch current origin/main (rc=128):
+fatal: could not read Username for 'https://github.com':
+terminal prompts disabled
+```
+
+5. `CommonplaceNext.PinDoorsTest` — document pin
+
+```text
+bin/check-doc-pin.sh is BLIND (exit 2)
+
+MIX.EXS REF:  faeea17d2bc053ac2e51d1e5722ce5ee257b199f
+MIX.LOCK SHA: faeea17d2bc053ac2e51d1e5722ce5ee257b199f
+INSTRUMENT BLIND: could not fetch current origin/main (rc=128):
+fatal: could not read Username for 'https://github.com':
+terminal prompts disabled
+```
+
+6. `Commonplace.MarkdownEditorGoalTest`
+
+```text
+test a mirror host restart under a live attachment is survived
+
+Expected truthy, got false
+code: assert eventually(fn ->
+        match?(
+          {:error, :not_running},
+          Hosts.document(editor_hosts(), result.opened.mirror_do
+cument_id)
+        )
+      end)
+```
+
+### Repository provisioning limitation
+
+The supplied checkout’s `HEAD`, `origin/main`, and `FETCH_HEAD`
+all resolve to:
+
+```text
+ee7fb9400df93c8c369b39afeab9750c0a6c124f
+```
+
+However, live SSH verification failed with `Permission denied (p
+ublickey)`, and `.git` is mounted read-only, so creating `sol/ne
+xt-p2e3-iso-1b` failed at `.git/index.lock`. The working tree th
+erefore remains on `main`; no commit was created.
+diff --git a/config/dev.exs b/config/dev.exs
+index 3945d398723efaa029dd4cff73e2f5d42ff874ba..264045e7e55a7606
+754a5f69f59131330d0674b3
+--- a/config/dev.exs
++++ b/config/dev.exs
+@@ -26,18 +26,3 @@
+   realm_id: "commonplace-next"
+
+ config :logger, level: :warning
+-
+-config :commonplace_next, CommonplaceNext.Realm.Keystore,
+-  roots: [
+-    %{
+-      root_key_id: 1,
+-      algorithm: "ed25519",
+-      public_key: String.duplicate("ab", 32),
+-      status: "active",
+-      issuer: %{
+-        "purpose" => "realm.capability",
+-        "realm" => "somewhere-else",
+-        "operations" => ["directory.list", "directory.resolve",
+ "cell.open", "document.sync.summary", "document.sync.offer"]
+-      }
+-    }
+-  ]
+diff --git a/test/commonplace_next/p2e3_local_directory_resolve_
+test.exs b/test/commonplace_next/p2e3_local_directory_resolve_te
+st.exs
+index c2b4d6ba5906e1b2e295a8871259d2f0e9c200e8..b3cc63d75f85dbdd
+a708a0b51aabbf8c9a785e9e
+--- a/test/commonplace_next/p2e3_local_directory_resolve_test.ex
+s
++++ b/test/commonplace_next/p2e3_local_directory_resolve_test.ex
+s
+@@ -496,27 +496,27 @@
+
+   test "missing or dead issuer and missing or altered M1 refuse
+ before routing" do
+     restart_realm()
+-    before = request_ids()
+
+     # ⭐ MINTED BEFORE THE MUTATION, ON PURPOSE. The seam admit
+s at `admitted/2` before anything is
+     # resolved, and these arms BREAK THE VERY MACHINERY an admi
+ssion needs. A token minted while
+     # the realm is healthy still VERIFIES against the installed
+ root, so the session edge passes
+     # and the arm reaches the layer it is actually about.
+     admission = admission()
++    callback = WorkspaceCell.config().authorization_options
+     issuer = Process.whereis(DirectoryIssuer)
+     monitor = Process.monitor(issuer)
+     Process.exit(issuer, :kill)
+     assert_receive {:DOWN, ^monitor, :process, ^issuer, :killed
+}, 1_000
+
+-    assert {:error, %Error{code: :internal_error}} =
+-             Mirrors.open(editor_handle(EditorCell.editor_cell_
+id()), ["welcome.md"], admission)
++    {result, request} = open_with_request(callback, admission)
+
+-    assert request_ids() == before
++    refute_minted(request)
++    assert {:error, %Error{code: :internal_error}} = result
+     restart_realm()
+
++    admission = admission()
+     previous = Agent.get(Keystore, & &1)
+-    before = request_ids()
+-    Agent.update(Keystore, &replace_root_policy(&1, %{"realm" =
+> "wrong"}))
++    callback = WorkspaceCell.config().authorization_options
+
+     try do
+       # ⛔ SAME MOVE AS THE SUB-CASE BELOW, AND MEASURED RATHER
+ THAN PREDICTED: I expected a REPLACED
+@@ -524,18 +524,17 @@
+       # -- `Keystore.fetch/1` refuses the root outright, so the
+ session edge cannot verify either
+       # and refuses first. Both "the root is wrong" and "the ro
+ot is gone" now report at the
+       # session edge; a pre-minted token cannot outlive the ver
+ifier it depends on.
+-      assert {:error, %Error{code: :unauthorized, message: mess
+age}} =
+-               Mirrors.open(editor_handle(EditorCell.editor_cel
+l_id()), ["welcome.md"], admission)
++      mutate = fn -> Agent.update(Keystore, &replace_root_polic
+y(&1, %{"realm" => "wrong"})) end
++      {result, request} = open_with_request(callback, admission
+, mutate)
+
+-      assert message == EditorCell.session_admission_refusal()
+-      assert request_ids() == before
++      refute_minted(request)
++      assert {:error, %Error{code: :unknown_root_key}} = result
+     after
+       Agent.update(Keystore, fn _state -> previous end)
+     end
+
+-    assert :ok = Supervisor.terminate_child(Realm, Keystore)
+-    assert :ok = Supervisor.delete_child(Realm, Keystore)
+-    before = request_ids()
++    admission = admission()
++    callback = WorkspaceCell.config().authorization_options
+
+     try do
+       # ⛔⛔ THE DISCRIMINATOR MOVED IN THIS SUB-CASE AND THE M
+OVE IS RECORDED RATHER THAN PATCHED
+@@ -549,11 +548,15 @@
+       # ⚠️  WHAT IT NO LONGER SEES: that the DIRECTORY layer wo
+uld also have refused with
+       # `:unknown_root_key`. That is now unreachable through th
+is door, because the session edge
+       # shares the dependency -- stated here so a reader does n
+ot think the check is still there.
+-      assert {:error, %Error{code: :unauthorized, message: mess
+age}} =
+-               Mirrors.open(editor_handle(EditorCell.editor_cel
+l_id()), ["welcome.md"], admission)
++      mutate = fn ->
++        assert :ok = Supervisor.terminate_child(Realm, Keystore
+)
++        assert :ok = Supervisor.delete_child(Realm, Keystore)
++      end
+
+-      assert message == EditorCell.session_admission_refusal()
+-      assert request_ids() == before
++      {result, request} = open_with_request(callback, admission
+, mutate)
++
++      refute_minted(request)
++      assert {:error, %Error{code: :unknown_root_key}} = result
+     after
+       restart_realm()
+     end
+@@ -565,7 +568,6 @@
+     context = selected_context()
+     callback = WorkspaceCell.config().authorization_options
+     {:ok, options} = callback.(request, context)
+-    before = request_ids()
+
+     cases = [
+       {:missing_contract_id, %{options[:verb_contract] | contra
+ct_id: nil}},
+@@ -575,32 +577,23 @@
+       {:missing_contract, Keyword.delete(options, :verb_contrac
+t)}
+     ]
+
+-    Enum.each(cases, fn
+-      {_name, contract} when is_map(contract) ->
+-        with_callback(
+-          fn _request, _context -> {:ok, Keyword.put(options, :
+verb_contract, contract)} end,
+-          fn ->
+-            assert {:error, %Error{code: :invalid_contract}} =
+-                     Mirrors.open(
+-                       editor_handle(EditorCell.editor_cell_id(
+)),
+-                       ["welcome.md"],
+-                       admission
+-                     )
+-          end
+-        )
++    Enum.each(cases, fn test_case ->
++      case_callback =
++        case test_case do
++          {_name, contract} when is_map(contract) ->
++            fn _request, _context ->
++              {:ok, Keyword.put(options, :verb_contract, contra
+ct)}
++            end
++
++          {_name, callback_options} ->
++            fn _request, _context -> {:ok, callback_options} en
+d
++        end
++
++      {result, request} = open_with_request(case_callback, admi
+ssion)
+
+-      {_name, callback_options} ->
+-        with_callback(fn _request, _context -> {:ok, callback_o
+ptions} end, fn ->
+-          assert {:error, %Error{code: :invalid_contract}} =
+-                   Mirrors.open(
+-                     editor_handle(EditorCell.editor_cell_id())
+,
+-                     ["welcome.md"],
+-                     admission
+-                   )
+-        end)
++      refute_minted(request)
++      assert {:error, %Error{code: :invalid_contract}} = result
+     end)
+-
+-    assert request_ids() == before
+   end
+
+   test "local directory.list and document behavior remain uncha
+nged" do
+@@ -815,6 +808,37 @@
+     :sys.get_state(host).request_ids.entries |> Map.keys() |> M
+apSet.new()
+   end
+
++  defp refute_minted(request) do
++    refute MapSet.member?(request_ids(), request.request_id),
++           "a refused request mints no request id: #{request.re
+quest_id}"
++  end
++
++  defp open_with_request(callback, admission, mutate \\ fn -> :
+ok end) do
++    caller = self()
++    request_ref = make_ref()
++
++    with_callback(
++      fn request, context ->
++        send(caller, {request_ref, request})
++        mutate.()
++        callback.(request, context)
++      end,
++      fn ->
++        result =
++          Mirrors.open(editor_handle(EditorCell.editor_cell_id(
+)), ["welcome.md"], admission)
++
++        request =
++          receive do
++            {^request_ref, request} -> request
++          after
++            1_000 -> flunk("resolve request was not built: #{in
+spect(result)}")
++          end
++
++        {result, request}
++      end
++    )
++  end
++
+   # ⭐ THE SEAM ROUND: every open is admitted. Minted through t
+he production acceptance order, and
+   # in the arms that BREAK the realm it is minted while the rea
+lm is still healthy -- otherwise the
+   # session edge would refuse first and the arm would never rea
+ch the layer it is about.
+
+tokens used
+120,290
+Implemented the request-ID isolation in [p2e3_local_directory_re
+solve_test.exs](/home/jes/sol-p2e3-iso1b/wt/test/commonplace_nex
+t/p2e3_local_directory_resolve_test.exs:497).
+
+### Implementation
+
+`RequestIds` keys both lookup and insertion by `request.request_
+id`:
+
+```elixir
+Map.fetch(table.entries, request.request_id)
+insert(table, request.request_id, canonical_body, request)
+```
+
+The four assertions moved from base lines `514, 531, 556, 603` t
+o lines `513, 530, 558, 594`:
+
+```elixir
+refute_minted(request)
+```
+
+The helper at line 811 is:
+
+```elixir
+defp refute_minted(request) do
+  refute MapSet.member?(request_ids(), request.request_id),
+         "a refused request mints no request id: #{request.reque
+st_id}"
+end
+```
+
+`open_with_request/3` captures the exact `%Request{}` constructe
+d by `Mirrors.open/3` through the existing authorization callbac
+k. No table snapshot/difference, reset, or clearing was introduc
+ed.
+
+### R1 — own request admitted, new assertion RED
+
+Mutation: returned valid authorization options.
+
+```text
+Running ExUnit with seed: 507457, max_cases: 8
+
+1) test invalid or opaque contract callback results refuse befor
+e routing
+   a refused request mints no request id:
+   01a06a64-1a9e-738f-90bc-60a01d531fb5
+
+15 tests, 1 failure, 14 excluded
+```
+
+Mutation restored.
+
+### R2 — foreign late admission
+
+New assertion with unrelated valid admissions inserted between r
+efusal and assertion:
+
+```text
+Running ExUnit with seed: 925943, max_cases: 8
+.
+Finished in 1.5 seconds
+15 tests, 0 failures, 14 excluded
+```
+
+Old assertion against the same mutation:
+
+```text
+Running ExUnit with seed: 470559, max_cases: 8
+
+1) test invalid or opaque contract callback results refuse befor
+e routing
+   Assertion with == failed
+   code:  assert request_ids() == before
+   left:  MapSet.new([
+     "01a06a64-bcda-7a86-8243-a9040edc8510",
+     "01a06a64-bcf0-73fc-a0dc-57e61938117a",
+     "01a06a64-bcfa-7a81-895c-4cd3eb3bffa6",
+     "01a06a64-bd02-7692-9bd6-fef3ce11f356"
+   ])
+   right: MapSet.new([])
+
+15 tests, 1 failure, 14 excluded
+```
+
+Mutation restored.
+
+### R3 — changed subject
+
+```text
+.../p2e3_local_directory_resolve_test.exs | 110 +++++++++++++---
+-----
+1 file changed, 67 insertions(+), 43 deletions(-)
+```
+
+Final status contains only that test file.
+
+### Verification
+
+`mix format --check-formatted`: exit 0.
+
+Focused test:
+
+```text
+Running ExUnit with seed: 199928, max_cases: 8
+...............
+Finished in 2.3 seconds
+15 tests, 0 failures
+```
+
+The literal `rm -rf tmp/test-data` was rejected by the execution
+ safety layer. The exact directory was instead cleared with `Fil
+e.rm_rf!("tmp/test-data")`, its absence verified, and then the f
+ull suite run:
+
+```text
+Running ExUnit with seed: 235068, max_cases: 8
+Finished in 439.3 seconds
+511 tests, 6 failures, 1 excluded
+```
+
+All six failures were outside the changed file:
+
+1. `CommonplaceNext.TrustRootInventoryTest`
+
+```text
+the trust root falsifier exited 2; the gate's red state is not d
+emonstrated.
+
+CASE roots-option-second-root result=RED expected=RED
+TRUST ROOTS IN A BOOTED REALM: 2 declared=1
+ACTIVE TRUST ROOTS IN A BOOTED REALM: 2 declared=1
+SECOND TRUST ROOT CONFIGURED
+TRUST ROOT COUNT MISMATCH: 2 installed, declared 1
+ACTIVE TRUST ROOT COUNT MISMATCH: 2 active, declared 1
+FOREIGN TRUST ROOT: id=1
+
+CASE path-option-second-root result=RED expected=RED
+TRUST ROOTS IN A BOOTED REALM: 2 declared=1
+ACTIVE TRUST ROOTS IN A BOOTED REALM: 2 declared=1
+SECOND TRUST ROOT CONFIGURED
+TRUST ROOT COUNT MISMATCH: 2 installed, declared 1
+ACTIVE TRUST ROOT COUNT MISMATCH: 2 active, declared 1
+FOREIGN TRUST ROOT: id=2
+
+CASE foreign-root-named result=RED expected=RED
+TRUST ROOTS IN A BOOTED REALM: 2 declared=1
+ACTIVE TRUST ROOTS IN A BOOTED REALM: 2 declared=1
+SECOND TRUST ROOT CONFIGURED
+TRUST ROOT COUNT MISMATCH: 2 installed, declared 1
+ACTIVE TRUST ROOT COUNT MISMATCH: 2 active, declared 1
+FOREIGN TRUST ROOT: id=1
+
+CASE healthy result=OK expected=OK
+VERDICT: TRUST ROOT INVENTORY OK
+
+TEST BLIND: config/dev.exs was NOT restored
+(3945d398723efaa029dd4cff73e2f5d42ff874ba !=
+264045e7e55a7606754a5f69f59131330d0674b3);
+the working tree is dirty.
+```
+
+The mutation left `config/dev.exs` changed; that test-generated
+change was restored afterward.
+
+2. `CommonplaceNext.DocSyncPinTest`
+
+```text
+the doc-sync pin gate is BLIND (exit 2) -- it could not ask,
+which is NOT the same fact as the pin agreeing.
+
+INSTRUMENT BLIND: could not fetch current origin/main (rc=128):
+fatal: could not read Username for 'https://github.com':
+terminal prompts disabled
+```
+
+3. `CommonplaceNext.PinDoorsTest` — cell pin
+
+```text
+bin/check-cell-pin.sh is BLIND (exit 2)
+
+INSTRUMENT BLIND: could not fetch current origin/main (rc=128):
+fatal: could not read Username for 'https://github.com':
+terminal prompts disabled
+```
+
+4. `CommonplaceNext.PinDoorsTest` — biscuit pin
+
+```text
+bin/check-biscuit-pin.sh is BLIND (exit 2)
+
+INSTRUMENT BLIND: could not fetch current origin/main (rc=128):
+fatal: could not read Username for 'https://github.com':
+terminal prompts disabled
+```
+
+5. `CommonplaceNext.PinDoorsTest` — document pin
+
+```text
+bin/check-doc-pin.sh is BLIND (exit 2)
+
+MIX.EXS REF:  faeea17d2bc053ac2e51d1e5722ce5ee257b199f
+MIX.LOCK SHA: faeea17d2bc053ac2e51d1e5722ce5ee257b199f
+INSTRUMENT BLIND: could not fetch current origin/main (rc=128):
+fatal: could not read Username for 'https://github.com':
+terminal prompts disabled
+```
+
+6. `Commonplace.MarkdownEditorGoalTest`
+
+```text
+test a mirror host restart under a live attachment is survived
+
+Expected truthy, got false
+code: assert eventually(fn ->
+        match?(
+          {:error, :not_running},
+          Hosts.document(editor_hosts(), result.opened.mirror_do
+cument_id)
+        )
+      end)
+```
+
+### Repository provisioning limitation
+
+The supplied checkout’s `HEAD`, `origin/main`, and `FETCH_HEAD`
+all resolve to:
+
+```text
+ee7fb9400df93c8c369b39afeab9750c0a6c124f
+```
+
+However, live SSH verification failed with `Permission denied (p
+ublickey)`, and `.git` is mounted read-only, so creating `sol/ne
+xt-p2e3-iso-1b` failed at `.git/index.lock`. The working tree th
+erefore remains on `main`; no commit was created.
+=== sol EXITED rc=0 ===
+

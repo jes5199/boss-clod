@@ -1,0 +1,1940 @@
+_enabled: true, http_2_enabled: true}, genserver_options: [], su
+pervisor_options: [], num_acceptors: 100, num_listen_sockets: 1,
+ num_connections: 16384, max_connections_retry_count: 5, max_con
+nections_retry_wait: 1000, read_timeout: 60000, shutdown_timeout
+: 15000, silent_terminate_on_error: false}}]
+
+02:41:00.595 [error] Task #PID<0.29212.0> started from #PID<0.29
+210.0> terminating
+** (stop) exited in: GenServer.call(#PID<0.29106.0>, {:acceptor_
+info, 35}, 5000)
+    ** (EXIT) no process: the process is not alive or there's no
+ process currently associated with the given name, possibly beca
+use its application isn't started
+    (elixir 1.18.4) lib/gen_server.ex:1128: GenServer.call/3
+    (thousand_island 1.5.0) lib/thousand_island/acceptor.ex:22:
+ThousandIsland.Acceptor.run/1
+    (elixir 1.18.4) lib/task/supervised.ex:101: Task.Supervised.
+invoke_mfa/2
+Process Label: {:thousand_island, :acceptor, {{0, Bandit.Delegat
+ingHandler}, 35}}
+Function: &ThousandIsland.Acceptor.run/1
+    Args: [{#PID<0.29105.0>, #PID<0.29210.0>, 35, %ThousandIslan
+d.ServerConfig{port: 0, transport_module: ThousandIsland.Transpo
+rts.TCP, transport_options: [ip: {127, 0, 0, 1}], handler_module
+: Bandit.DelegatingHandler, handler_options: %{opts: %{http: [],
+ http_1: [], http_2: [], websocket: []}, plug: {CommonplaceNext.
+Web.Endpoint, []}, handler_module: Bandit.InitialHandler, http_1
+_enabled: true, http_2_enabled: true}, genserver_options: [], su
+pervisor_options: [], num_acceptors: 100, num_listen_sockets: 1,
+ num_connections: 16384, max_connections_retry_count: 5, max_con
+nections_retry_wait: 1000, read_timeout: 60000, shutdown_timeout
+: 15000, silent_terminate_on_error: false}}]
+
+02:41:00.595 [error] Task #PID<0.29215.0> started from #PID<0.29
+213.0> terminating
+** (stop) exited in: GenServer.call(#PID<0.29106.0>, {:acceptor_
+info, 36}, 5000)
+    ** (EXIT) no process: the process is not alive or there's no
+ process currently associated with the given name, possibly beca
+use its application isn't started
+    (elixir 1.18.4) lib/gen_server.ex:1128: GenServer.call/3
+    (thousand_island 1.5.0) lib/thousand_island/acceptor.ex:22:
+ThousandIsland.Acceptor.run/1
+    (elixir 1.18.4) lib/task/supervised.ex:101: Task.Supervised.
+invoke_mfa/2
+Process Label: {:thousand_island, :acceptor, {{0, Bandit.Delegat
+ingHandler}, 36}}
+Function: &ThousandIsland.Acceptor.run/1
+    Args: [{#PID<0.29105.0>, #PID<0.29213.0>, 36, %ThousandIslan
+d.ServerConfig{port: 0, transport_module: ThousandIsland.Transpo
+rts.TCP, transport_options: [ip: {127, 0, 0, 1}], handler_module
+: Bandit.DelegatingHandler, handler_options: %{opts: %{http: [],
+ http_1: [], http_2: [], websocket: []}, plug: {CommonplaceNext.
+Web.Endpoint, []}, handler_module: Bandit.InitialHandler, http_1
+_enabled: true, http_2_enabled: true}, genserver_options: [], su
+pervisor_options: [], num_acceptors: 100, num_listen_sockets: 1,
+ num_connections: 16384, max_connections_retry_count: 5, max_con
+nections_retry_wait: 1000, read_timeout: 60000, shutdown_timeout
+: 15000, silent_terminate_on_error: false}}]
+
+02:41:00.597 [error] Task #PID<0.29218.0> started from #PID<0.29
+216.0> terminating
+** (stop) exited in: GenServer.call(#PID<0.29106.0>, {:acceptor_
+info, 37}, 5000)
+    ** (EXIT) no process: the process is not alive or there's no
+ process currently associated with the given name, possibly beca
+use its application isn't started
+    (elixir 1.18.4) lib/gen_server.ex:1128: GenServer.call/3
+    (thousand_island 1.5.0) lib/thousand_island/acceptor.ex:22:
+ThousandIsland.Acceptor.run/1
+    (elixir 1.18.4) lib/task/supervised.ex:101: Task.Supervised.
+invoke_mfa/2
+Process Label: {:thousand_island, :acceptor, {{0, Bandit.Delegat
+ingHandler}, 37}}
+Function: &ThousandIsland.Acceptor.run/1
+    Args: [{#PID<0.29105.0>, #PID<0.29216.0>, 37, %ThousandIslan
+d.ServerConfig{port: 0, transport_module: ThousandIsland.Transpo
+rts.TCP, transport_options: [ip: {127, 0, 0, 1}], handler_module
+: Bandit.DelegatingHandler, handler_options: %{opts: %{http: [],
+ http_1: [], http_2: [], websocket: []}, plug: {CommonplaceNext.
+Web.Endpoint, []}, handler_module: Bandit.InitialHandler, http_1
+_enabled: true, http_2_enabled: true}, genserver_options: [], su
+pervisor_options: [], num_acceptors: 100, num_listen_sockets: 1,
+ num_connections: 16384, max_connections_retry_count: 5, max_con
+nections_retry_wait: 1000, read_timeout: 60000, shutdown_timeout
+: 15000, silent_terminate_on_error: false}}]
+
+02:41:00.597 [error] Task #PID<0.29221.0> started from #PID<0.29
+219.0> terminating
+** (stop) exited in: GenServer.call(#PID<0.29106.0>, {:acceptor_
+info, 38}, 5000)
+    ** (EXIT) no process: the process is not alive or there's no
+ process currently associated with the given name, possibly beca
+use its application isn't started
+    (elixir 1.18.4) lib/gen_server.ex:1128: GenServer.call/3
+    (thousand_island 1.5.0) lib/thousand_island/acceptor.ex:22:
+ThousandIsland.Acceptor.run/1
+    (elixir 1.18.4) lib/task/supervised.ex:101: Task.Supervised.
+invoke_mfa/2
+Process Label: {:thousand_island, :acceptor, {{0, Bandit.Delegat
+ingHandler}, 38}}
+Function: &ThousandIsland.Acceptor.run/1
+    Args: [{#PID<0.29105.0>, #PID<0.29219.0>, 38, %ThousandIslan
+d.ServerConfig{port: 0, transport_module: ThousandIsland.Transpo
+rts.TCP, transport_options: [ip: {127, 0, 0, 1}], handler_module
+: Bandit.DelegatingHandler, handler_options: %{opts: %{http: [],
+ http_1: [], http_2: [], websocket: []}, plug: {CommonplaceNext.
+Web.Endpoint, []}, handler_module: Bandit.InitialHandler, http_1
+_enabled: true, http_2_enabled: true}, genserver_options: [], su
+pervisor_options: [], num_acceptors: 100, num_listen_sockets: 1,
+ num_connections: 16384, max_connections_retry_count: 5, max_con
+nections_retry_wait: 1000, read_timeout: 60000, shutdown_timeout
+: 15000, silent_terminate_on_error: false}}]
+
+02:41:00.598 [error] Task #PID<0.29230.0> started from #PID<0.29
+228.0> terminating
+** (stop) exited in: GenServer.call(#PID<0.29106.0>, {:acceptor_
+info, 41}, 5000)
+    ** (EXIT) no process: the process is not alive or there's no
+ process currently associated with the given name, possibly beca
+use its application isn't started
+    (elixir 1.18.4) lib/gen_server.ex:1128: GenServer.call/3
+    (thousand_island 1.5.0) lib/thousand_island/acceptor.ex:22:
+ThousandIsland.Acceptor.run/1
+    (elixir 1.18.4) lib/task/supervised.ex:101: Task.Supervised.
+invoke_mfa/2
+Process Label: {:thousand_island, :acceptor, {{0, Bandit.Delegat
+ingHandler}, 41}}
+Function: &ThousandIsland.Acceptor.run/1
+    Args: [{#PID<0.29105.0>, #PID<0.29228.0>, 41, %ThousandIslan
+d.ServerConfig{port: 0, transport_module: ThousandIsland.Transpo
+rts.TCP, transport_options: [ip: {127, 0, 0, 1}], handler_module
+: Bandit.DelegatingHandler, handler_options: %{opts: %{http: [],
+ http_1: [], http_2: [], websocket: []}, plug: {CommonplaceNext.
+Web.Endpoint, []}, handler_module: Bandit.InitialHandler, http_1
+_enabled: true, http_2_enabled: true}, genserver_options: [], su
+pervisor_options: [], num_acceptors: 100, num_listen_sockets: 1,
+ num_connections: 16384, max_connections_retry_count: 5, max_con
+nections_retry_wait: 1000, read_timeout: 60000, shutdown_timeout
+: 15000, silent_terminate_on_error: false}}]
+
+02:41:00.599 [error] Task #PID<0.29245.0> started from #PID<0.29
+243.0> terminating
+** (stop) exited in: GenServer.call(#PID<0.29106.0>, {:acceptor_
+info, 46}, 5000)
+    ** (EXIT) no process: the process is not alive or there's no
+ process currently associated with the given name, possibly beca
+use its application isn't started
+    (elixir 1.18.4) lib/gen_server.ex:1128: GenServer.call/3
+    (thousand_island 1.5.0) lib/thousand_island/acceptor.ex:22:
+ThousandIsland.Acceptor.run/1
+    (elixir 1.18.4) lib/task/supervised.ex:101: Task.Supervised.
+invoke_mfa/2
+Process Label: {:thousand_island, :acceptor, {{0, Bandit.Delegat
+ingHandler}, 46}}
+Function: &ThousandIsland.Acceptor.run/1
+    Args: [{#PID<0.29105.0>, #PID<0.29243.0>, 46, %ThousandIslan
+d.ServerConfig{port: 0, transport_module: ThousandIsland.Transpo
+rts.TCP, transport_options: [ip: {127, 0, 0, 1}], handler_module
+: Bandit.DelegatingHandler, handler_options: %{opts: %{http: [],
+ http_1: [], http_2: [], websocket: []}, plug: {CommonplaceNext.
+Web.Endpoint, []}, handler_module: Bandit.InitialHandler, http_1
+_enabled: true, http_2_enabled: true}, genserver_options: [], su
+pervisor_options: [], num_acceptors: 100, num_listen_sockets: 1,
+ num_connections: 16384, max_connections_retry_count: 5, max_con
+nections_retry_wait: 1000, read_timeout: 60000, shutdown_timeout
+: 15000, silent_terminate_on_error: false}}]
+
+02:41:00.601 [error] Task #PID<0.29278.0> started from #PID<0.29
+276.0> terminating
+** (stop) exited in: GenServer.call(#PID<0.29106.0>, {:acceptor_
+info, 57}, 5000)
+    ** (EXIT) no process: the process is not alive or there's no
+ process currently associated with the given name, possibly beca
+use its application isn't started
+    (elixir 1.18.4) lib/gen_server.ex:1128: GenServer.call/3
+    (thousand_island 1.5.0) lib/thousand_island/acceptor.ex:22:
+ThousandIsland.Acceptor.run/1
+    (elixir 1.18.4) lib/task/supervised.ex:101: Task.Supervised.
+invoke_mfa/2
+Process Label: {:thousand_island, :acceptor, {{0, Bandit.Delegat
+ingHandler}, 57}}
+Function: &ThousandIsland.Acceptor.run/1
+    Args: [{#PID<0.29105.0>, #PID<0.29276.0>, 57, %ThousandIslan
+d.ServerConfig{port: 0, transport_module: ThousandIsland.Transpo
+rts.TCP, transport_options: [ip: {127, 0, 0, 1}], handler_module
+: Bandit.DelegatingHandler, handler_options: %{opts: %{http: [],
+ http_1: [], http_2: [], websocket: []}, plug: {CommonplaceNext.
+Web.Endpoint, []}, handler_module: Bandit.InitialHandler, http_1
+_enabled: true, http_2_enabled: true}, genserver_options: [], su
+pervisor_options: [], num_acceptors: 100, num_listen_sockets: 1,
+ num_connections: 16384, max_connections_retry_count: 5, max_con
+nections_retry_wait: 1000, read_timeout: 60000, shutdown_timeout
+: 15000, silent_terminate_on_error: false}}]
+
+02:41:00.591 [error] Task #PID<0.29170.0> started from #PID<0.29
+168.0> terminating
+** (stop) exited in: GenServer.call(#PID<0.29106.0>, {:acceptor_
+info, 21}, 5000)
+    ** (EXIT) no process: the process is not alive or there's no
+ process currently associated with the given name, possibly beca
+use its application isn't started
+    (elixir 1.18.4) lib/gen_server.ex:1128: GenServer.call/3
+    (thousand_island 1.5.0) lib/thousand_island/acceptor.ex:22:
+ThousandIsland.Acceptor.run/1
+    (elixir 1.18.4) lib/task/supervised.ex:101: Task.Supervised.
+invoke_mfa/2
+Process Label: {:thousand_island, :acceptor, {{0, Bandit.Delegat
+ingHandler}, 21}}
+Function: &ThousandIsland.Acceptor.run/1
+    Args: [{#PID<0.29105.0>, #PID<0.29168.0>, 21, %ThousandIslan
+d.ServerConfig{port: 0, transport_module: ThousandIsland.Transpo
+rts.TCP, transport_options: [ip: {127, 0, 0, 1}], handler_module
+: Bandit.DelegatingHandler, handler_options: %{opts: %{http: [],
+ http_1: [], http_2: [], websocket: []}, plug: {CommonplaceNext.
+Web.Endpoint, []}, handler_module: Bandit.InitialHandler, http_1
+_enabled: true, http_2_enabled: true}, genserver_options: [], su
+pervisor_options: [], num_acceptors: 100, num_listen_sockets: 1,
+ num_connections: 16384, max_connections_retry_count: 5, max_con
+nections_retry_wait: 1000, read_timeout: 60000, shutdown_timeout
+: 15000, silent_terminate_on_error: false}}]
+
+02:41:00.591 [error] Task #PID<0.29173.0> started from #PID<0.29
+171.0> terminating
+** (stop) exited in: GenServer.call(#PID<0.29106.0>, {:acceptor_
+info, 22}, 5000)
+    ** (EXIT) no process: the process is not alive or there's no
+ process currently associated with the given name, possibly beca
+use its application isn't started
+    (elixir 1.18.4) lib/gen_server.ex:1128: GenServer.call/3
+    (thousand_island 1.5.0) lib/thousand_island/acceptor.ex:22:
+ThousandIsland.Acceptor.run/1
+    (elixir 1.18.4) lib/task/supervised.ex:101: Task.Supervised.
+invoke_mfa/2
+Process Label: {:thousand_island, :acceptor, {{0, Bandit.Delegat
+ingHandler}, 22}}
+Function: &ThousandIsland.Acceptor.run/1
+    Args: [{#PID<0.29105.0>, #PID<0.29171.0>, 22, %ThousandIslan
+d.ServerConfig{port: 0, transport_module: ThousandIsland.Transpo
+rts.TCP, transport_options: [ip: {127, 0, 0, 1}], handler_module
+: Bandit.DelegatingHandler, handler_options: %{opts: %{http: [],
+ http_1: [], http_2: [], websocket: []}, plug: {CommonplaceNext.
+Web.Endpoint, []}, handler_module: Bandit.InitialHandler, http_1
+_enabled: true, http_2_enabled: true}, genserver_options: [], su
+pervisor_options: [], num_acceptors: 100, num_listen_sockets: 1,
+ num_connections: 16384, max_connections_retry_count: 5, max_con
+nections_retry_wait: 1000, read_timeout: 60000, shutdown_timeout
+: 15000, silent_terminate_on_error: false}}]
+
+02:41:00.592 [error] Task #PID<0.29179.0> started from #PID<0.29
+177.0> terminating
+** (stop) exited in: GenServer.call(#PID<0.29106.0>, {:acceptor_
+info, 24}, 5000)
+    ** (EXIT) no process: the process is not alive or there's no
+ process currently associated with the given name, possibly beca
+use its application isn't started
+    (elixir 1.18.4) lib/gen_server.ex:1128: GenServer.call/3
+    (thousand_island 1.5.0) lib/thousand_island/acceptor.ex:22:
+ThousandIsland.Acceptor.run/1
+    (elixir 1.18.4) lib/task/supervised.ex:101: Task.Supervised.
+invoke_mfa/2
+Process Label: {:thousand_island, :acceptor, {{0, Bandit.Delegat
+ingHandler}, 24}}
+Function: &ThousandIsland.Acceptor.run/1
+    Args: [{#PID<0.29105.0>, #PID<0.29177.0>, 24, %ThousandIslan
+d.ServerConfig{port: 0, transport_module: ThousandIsland.Transpo
+rts.TCP, transport_options: [ip: {127, 0, 0, 1}], handler_module
+: Bandit.DelegatingHandler, handler_options: %{opts: %{http: [],
+ http_1: [], http_2: [], websocket: []}, plug: {CommonplaceNext.
+Web.Endpoint, []}, handler_module: Bandit.InitialHandler, http_1
+_enabled: true, http_2_enabled: true}, genserver_options: [], su
+pervisor_options: [], num_acceptors: 100, num_listen_sockets: 1,
+ num_connections: 16384, max_connections_retry_count: 5, max_con
+nections_retry_wait: 1000, read_timeout: 60000, shutdown_timeout
+: 15000, silent_terminate_on_error: false}}]
+
+02:41:00.593 [error] Task #PID<0.29200.0> started from #PID<0.29
+198.0> terminating
+** (stop) exited in: GenServer.call(#PID<0.29106.0>, {:acceptor_
+info, 31}, 5000)
+    ** (EXIT) no process: the process is not alive or there's no
+ process currently associated with the given name, possibly beca
+use its application isn't started
+    (elixir 1.18.4) lib/gen_server.ex:1128: GenServer.call/3
+    (thousand_island 1.5.0) lib/thousand_island/acceptor.ex:22:
+ThousandIsland.Acceptor.run/1
+    (elixir 1.18.4) lib/task/supervised.ex:101: Task.Supervised.
+invoke_mfa/2
+Process Label: {:thousand_island, :acceptor, {{0, Bandit.Delegat
+ingHandler}, 31}}
+Function: &ThousandIsland.Acceptor.run/1
+    Args: [{#PID<0.29105.0>, #PID<0.29198.0>, 31, %ThousandIslan
+d.ServerConfig{port: 0, transport_module: ThousandIsland.Transpo
+rts.TCP, transport_options: [ip: {127, 0, 0, 1}], handler_module
+: Bandit.DelegatingHandler, handler_options: %{opts: %{http: [],
+ http_1: [], http_2: [], websocket: []}, plug: {CommonplaceNext.
+Web.Endpoint, []}, handler_module: Bandit.InitialHandler, http_1
+_enabled: true, http_2_enabled: true}, genserver_options: [], su
+pervisor_options: [], num_acceptors: 100, num_listen_sockets: 1,
+ num_connections: 16384, max_connections_retry_count: 5, max_con
+nections_retry_wait: 1000, read_timeout: 60000, shutdown_timeout
+: 15000, silent_terminate_on_error: false}}]
+
+02:41:00.599 [error] Task #PID<0.29239.0> started from #PID<0.29
+237.0> terminating
+** (stop) exited in: GenServer.call(#PID<0.29106.0>, {:acceptor_
+info, 44}, 5000)
+    ** (EXIT) no process: the process is not alive or there's no
+ process currently associated with the given name, possibly beca
+use its application isn't started
+    (elixir 1.18.4) lib/gen_server.ex:1128: GenServer.call/3
+    (thousand_island 1.5.0) lib/thousand_island/acceptor.ex:22:
+ThousandIsland.Acceptor.run/1
+    (elixir 1.18.4) lib/task/supervised.ex:101: Task.Supervised.
+invoke_mfa/2
+Process Label: {:thousand_island, :acceptor, {{0, Bandit.Delegat
+ingHandler}, 44}}
+Function: &ThousandIsland.Acceptor.run/1
+    Args: [{#PID<0.29105.0>, #PID<0.29237.0>, 44, %ThousandIslan
+d.ServerConfig{port: 0, transport_module: ThousandIsland.Transpo
+rts.TCP, transport_options: [ip: {127, 0, 0, 1}], handler_module
+: Bandit.DelegatingHandler, handler_options: %{opts: %{http: [],
+ http_1: [], http_2: [], websocket: []}, plug: {CommonplaceNext.
+Web.Endpoint, []}, handler_module: Bandit.InitialHandler, http_1
+_enabled: true, http_2_enabled: true}, genserver_options: [], su
+pervisor_options: [], num_acceptors: 100, num_listen_sockets: 1,
+ num_connections: 16384, max_connections_retry_count: 5, max_con
+nections_retry_wait: 1000, read_timeout: 60000, shutdown_timeout
+: 15000, silent_terminate_on_error: false}}]
+
+02:41:00.601 [error] Task #PID<0.29272.0> started from #PID<0.29
+270.0> terminating
+** (stop) exited in: GenServer.call(#PID<0.29106.0>, {:acceptor_
+info, 55}, 5000)
+    ** (EXIT) no process: the process is not alive or there's no
+ process currently associated with the given name, possibly beca
+use its application isn't started
+    (elixir 1.18.4) lib/gen_server.ex:1128: GenServer.call/3
+    (thousand_island 1.5.0) lib/thousand_island/acceptor.ex:22:
+ThousandIsland.Acceptor.run/1
+    (elixir 1.18.4) lib/task/supervised.ex:101: Task.Supervised.
+invoke_mfa/2
+Process Label: {:thousand_island, :acceptor, {{0, Bandit.Delegat
+ingHandler}, 55}}
+Function: &ThousandIsland.Acceptor.run/1
+    Args: [{#PID<0.29105.0>, #PID<0.29270.0>, 55, %ThousandIslan
+d.ServerConfig{port: 0, transport_module: ThousandIsland.Transpo
+rts.TCP, transport_options: [ip: {127, 0, 0, 1}], handler_module
+: Bandit.DelegatingHandler, handler_options: %{opts: %{http: [],
+ http_1: [], http_2: [], websocket: []}, plug: {CommonplaceNext.
+Web.Endpoint, []}, handler_module: Bandit.InitialHandler, http_1
+_enabled: true, http_2_enabled: true}, genserver_options: [], su
+pervisor_options: [], num_acceptors: 100, num_listen_sockets: 1,
+ num_connections: 16384, max_connections_retry_count: 5, max_con
+nections_retry_wait: 1000, read_timeout: 60000, shutdown_timeout
+: 15000, silent_terminate_on_error: false}}]
+
+02:41:00.591 [error] Task #PID<0.29176.0> started from #PID<0.29
+174.0> terminating
+** (stop) exited in: GenServer.call(#PID<0.29106.0>, {:acceptor_
+info, 23}, 5000)
+    ** (EXIT) no process: the process is not alive or there's no
+ process currently associated with the given name, possibly beca
+use its application isn't started
+    (elixir 1.18.4) lib/gen_server.ex:1128: GenServer.call/3
+    (thousand_island 1.5.0) lib/thousand_island/acceptor.ex:22:
+ThousandIsland.Acceptor.run/1
+    (elixir 1.18.4) lib/task/supervised.ex:101: Task.Supervised.
+invoke_mfa/2
+Process Label: {:thousand_island, :acceptor, {{0, Bandit.Delegat
+ingHandler}, 23}}
+Function: &ThousandIsland.Acceptor.run/1
+    Args: [{#PID<0.29105.0>, #PID<0.29174.0>, 23, %ThousandIslan
+d.ServerConfig{port: 0, transport_module: ThousandIsland.Transpo
+rts.TCP, transport_options: [ip: {127, 0, 0, 1}], handler_module
+: Bandit.DelegatingHandler, handler_options: %{opts: %{http: [],
+ http_1: [], http_2: [], websocket: []}, plug: {CommonplaceNext.
+Web.Endpoint, []}, handler_module: Bandit.InitialHandler, http_1
+_enabled: true, http_2_enabled: true}, genserver_options: [], su
+pervisor_options: [], num_acceptors: 100, num_listen_sockets: 1,
+ num_connections: 16384, max_connections_retry_count: 5, max_con
+nections_retry_wait: 1000, read_timeout: 60000, shutdown_timeout
+: 15000, silent_terminate_on_error: false}}]
+
+02:41:00.592 [error] Task #PID<0.29182.0> started from #PID<0.29
+180.0> terminating
+** (stop) exited in: GenServer.call(#PID<0.29106.0>, {:acceptor_
+info, 25}, 5000)
+    ** (EXIT) no process: the process is not alive or there's no
+ process currently associated with the given name, possibly beca
+use its application isn't started
+    (elixir 1.18.4) lib/gen_server.ex:1128: GenServer.call/3
+    (thousand_island 1.5.0) lib/thousand_island/acceptor.ex:22:
+ThousandIsland.Acceptor.run/1
+    (elixir 1.18.4) lib/task/supervised.ex:101: Task.Supervised.
+invoke_mfa/2
+Process Label: {:thousand_island, :acceptor, {{0, Bandit.Delegat
+ingHandler}, 25}}
+Function: &ThousandIsland.Acceptor.run/1
+    Args: [{#PID<0.29105.0>, #PID<0.29180.0>, 25, %ThousandIslan
+d.ServerConfig{port: 0, transport_module: ThousandIsland.Transpo
+rts.TCP, transport_options: [ip: {127, 0, 0, 1}], handler_module
+: Bandit.DelegatingHandler, handler_options: %{opts: %{http: [],
+ http_1: [], http_2: [], websocket: []}, plug: {CommonplaceNext.
+Web.Endpoint, []}, handler_module: Bandit.InitialHandler, http_1
+_enabled: true, http_2_enabled: true}, genserver_options: [], su
+pervisor_options: [], num_acceptors: 100, num_listen_sockets: 1,
+ num_connections: 16384, max_connections_retry_count: 5, max_con
+nections_retry_wait: 1000, read_timeout: 60000, shutdown_timeout
+: 15000, silent_terminate_on_error: false}}]
+
+02:41:00.592 [error] Task #PID<0.29185.0> started from #PID<0.29
+183.0> terminating
+** (stop) exited in: GenServer.call(#PID<0.29106.0>, {:acceptor_
+info, 26}, 5000)
+    ** (EXIT) no process: the process is not alive or there's no
+ process currently associated with the given name, possibly beca
+use its application isn't started
+    (elixir 1.18.4) lib/gen_server.ex:1128: GenServer.call/3
+    (thousand_island 1.5.0) lib/thousand_island/acceptor.ex:22:
+ThousandIsland.Acceptor.run/1
+    (elixir 1.18.4) lib/task/supervised.ex:101: Task.Supervised.
+invoke_mfa/2
+Process Label: {:thousand_island, :acceptor, {{0, Bandit.Delegat
+ingHandler}, 26}}
+Function: &ThousandIsland.Acceptor.run/1
+    Args: [{#PID<0.29105.0>, #PID<0.29183.0>, 26, %ThousandIslan
+d.ServerConfig{port: 0, transport_module: ThousandIsland.Transpo
+rts.TCP, transport_options: [ip: {127, 0, 0, 1}], handler_module
+: Bandit.DelegatingHandler, handler_options: %{opts: %{http: [],
+ http_1: [], http_2: [], websocket: []}, plug: {CommonplaceNext.
+Web.Endpoint, []}, handler_module: Bandit.InitialHandler, http_1
+_enabled: true, http_2_enabled: true}, genserver_options: [], su
+pervisor_options: [], num_acceptors: 100, num_listen_sockets: 1,
+ num_connections: 16384, max_connections_retry_count: 5, max_con
+nections_retry_wait: 1000, read_timeout: 60000, shutdown_timeout
+: 15000, silent_terminate_on_error: false}}]
+
+02:41:00.593 [error] Task #PID<0.29188.0> started from #PID<0.29
+186.0> terminating
+** (stop) exited in: GenServer.call(#PID<0.29106.0>, {:acceptor_
+info, 27}, 5000)
+    ** (EXIT) no process: the process is not alive or there's no
+ process currently associated with the given name, possibly beca
+use its application isn't started
+    (elixir 1.18.4) lib/gen_server.ex:1128: GenServer.call/3
+    (thousand_island 1.5.0) lib/thousand_island/acceptor.ex:22:
+ThousandIsland.Acceptor.run/1
+    (elixir 1.18.4) lib/task/supervised.ex:101: Task.Supervised.
+invoke_mfa/2
+Process Label: {:thousand_island, :acceptor, {{0, Bandit.Delegat
+ingHandler}, 27}}
+Function: &ThousandIsland.Acceptor.run/1
+    Args: [{#PID<0.29105.0>, #PID<0.29186.0>, 27, %ThousandIslan
+d.ServerConfig{port: 0, transport_module: ThousandIsland.Transpo
+rts.TCP, transport_options: [ip: {127, 0, 0, 1}], handler_module
+: Bandit.DelegatingHandler, handler_options: %{opts: %{http: [],
+ http_1: [], http_2: [], websocket: []}, plug: {CommonplaceNext.
+Web.Endpoint, []}, handler_module: Bandit.InitialHandler, http_1
+_enabled: true, http_2_enabled: true}, genserver_options: [], su
+pervisor_options: [], num_acceptors: 100, num_listen_sockets: 1,
+ num_connections: 16384, max_connections_retry_count: 5, max_con
+nections_retry_wait: 1000, read_timeout: 60000, shutdown_timeout
+: 15000, silent_terminate_on_error: false}}]
+
+02:41:00.593 [error] Task #PID<0.29194.0> started from #PID<0.29
+192.0> terminating
+** (stop) exited in: GenServer.call(#PID<0.29106.0>, {:acceptor_
+info, 29}, 5000)
+    ** (EXIT) no process: the process is not alive or there's no
+ process currently associated with the given name, possibly beca
+use its application isn't started
+    (elixir 1.18.4) lib/gen_server.ex:1128: GenServer.call/3
+    (thousand_island 1.5.0) lib/thousand_island/acceptor.ex:22:
+ThousandIsland.Acceptor.run/1
+    (elixir 1.18.4) lib/task/supervised.ex:101: Task.Supervised.
+invoke_mfa/2
+Process Label: {:thousand_island, :acceptor, {{0, Bandit.Delegat
+ingHandler}, 29}}
+Function: &ThousandIsland.Acceptor.run/1
+    Args: [{#PID<0.29105.0>, #PID<0.29192.0>, 29, %ThousandIslan
+d.ServerConfig{port: 0, transport_module: ThousandIsland.Transpo
+rts.TCP, transport_options: [ip: {127, 0, 0, 1}], handler_module
+: Bandit.DelegatingHandler, handler_options: %{opts: %{http: [],
+ http_1: [], http_2: [], websocket: []}, plug: {CommonplaceNext.
+Web.Endpoint, []}, handler_module: Bandit.InitialHandler, http_1
+_enabled: true, http_2_enabled: true}, genserver_options: [], su
+pervisor_options: [], num_acceptors: 100, num_listen_sockets: 1,
+ num_connections: 16384, max_connections_retry_count: 5, max_con
+nections_retry_wait: 1000, read_timeout: 60000, shutdown_timeout
+: 15000, silent_terminate_on_error: false}}]
+
+02:41:00.605 [error] Task #PID<0.29281.0> started from #PID<0.29
+279.0> terminating
+** (stop) exited in: GenServer.call(#PID<0.29106.0>, {:acceptor_
+info, 58}, 5000)
+    ** (EXIT) no process: the process is not alive or there's no
+ process currently associated with the given name, possibly beca
+use its application isn't started
+    (elixir 1.18.4) lib/gen_server.ex:1128: GenServer.call/3
+    (thousand_island 1.5.0) lib/thousand_island/acceptor.ex:22:
+ThousandIsland.Acceptor.run/1
+    (elixir 1.18.4) lib/task/supervised.ex:101: Task.Supervised.
+invoke_mfa/2
+Process Label: {:thousand_island, :acceptor, {{0, Bandit.Delegat
+ingHandler}, 58}}
+Function: &ThousandIsland.Acceptor.run/1
+    Args: [{#PID<0.29105.0>, #PID<0.29279.0>, 58, %ThousandIslan
+d.ServerConfig{port: 0, transport_module: ThousandIsland.Transpo
+rts.TCP, transport_options: [ip: {127, 0, 0, 1}], handler_module
+: Bandit.DelegatingHandler, handler_options: %{opts: %{http: [],
+ http_1: [], http_2: [], websocket: []}, plug: {CommonplaceNext.
+Web.Endpoint, []}, handler_module: Bandit.InitialHandler, http_1
+_enabled: true, http_2_enabled: true}, genserver_options: [], su
+pervisor_options: [], num_acceptors: 100, num_listen_sockets: 1,
+ num_connections: 16384, max_connections_retry_count: 5, max_con
+nections_retry_wait: 1000, read_timeout: 60000, shutdown_timeout
+: 15000, silent_terminate_on_error: false}}]
+
+02:41:01.591 [error] Task #PID<0.35274.0> started from #PID<0.35
+272.0> terminating
+** (stop) exited in: GenServer.call(#PID<0.35270.0>, {:acceptor_
+info, 1}, 5000)
+    ** (EXIT) no process: the process is not alive or there's no
+ process currently associated with the given name, possibly beca
+use its application isn't started
+    (elixir 1.18.4) lib/gen_server.ex:1128: GenServer.call/3
+    (thousand_island 1.5.0) lib/thousand_island/acceptor.ex:22:
+ThousandIsland.Acceptor.run/1
+    (elixir 1.18.4) lib/task/supervised.ex:101: Task.Supervised.
+invoke_mfa/2
+Process Label: {:thousand_island, :acceptor, {{0, Bandit.Delegat
+ingHandler}, 1}}
+Function: &ThousandIsland.Acceptor.run/1
+    Args: [{#PID<0.35269.0>, #PID<0.35272.0>, 1, %ThousandIsland
+.ServerConfig{port: 0, transport_module: ThousandIsland.Transpor
+ts.TCP, transport_options: [ip: {127, 0, 0, 1}], handler_module:
+ Bandit.DelegatingHandler, handler_options: %{opts: %{http: [],
+http_1: [], http_2: [], websocket: []}, plug: {CommonplaceNext.W
+eb.Endpoint, []}, handler_module: Bandit.InitialHandler, http_1_
+enabled: true, http_2_enabled: true}, genserver_options: [], sup
+ervisor_options: [], num_acceptors: 100, num_listen_sockets: 1,
+num_connections: 16384, max_connections_retry_count: 5, max_conn
+ections_retry_wait: 1000, read_timeout: 60000, shutdown_timeout:
+ 15000, silent_terminate_on_error: false}}]
+......................
+02:41:13.888 [error] GenServer #PID<0.37950.0> terminating
+** (stop) :forbidden
+Process Label: {:thousand_island, :connection, {Bandit.Delegatin
+gHandler, {{127, 0, 0, 1}, 56800}}}
+Last message: :forbidden
+.
+02:41:14.742 [error] GenServer #PID<0.38092.0> terminating
+** (stop) :forbidden
+Process Label: {:thousand_island, :connection, {Bandit.Delegatin
+gHandler, {{127, 0, 0, 1}, 56830}}}
+Last message: :forbidden
+................
+
+  4) test the doc-sync pin is the published commit its evidence
+enumerates (CommonplaceNext.DocSyncPinTest)
+     test/commonplace_next/doc_sync_pin_test.exs:27
+     the doc-sync pin gate is BLIND (exit 2) -- it could not ask
+, which is NOT the same
+     fact as the pin agreeing and must never be read as one. A l
+anding that cannot reach the
+     origin cannot verify what it is pinning.
+
+     INSTRUMENT BLIND: could not fetch current origin/main (rc=1
+28): fatal: could not read Username for 'https://github.com': te
+rminal prompts disabled
+
+
+     code: flunk("""
+     stacktrace:
+       test/commonplace_next/doc_sync_pin_test.exs:53: (test)
+
+.....................................................
+
+  5) test a second trust root added by configuration alone turns
+ the gate red (CommonplaceNext.TrustRootInventoryTest)
+     test/commonplace_next/trust_root_inventory_test.exs:64
+     the trust root falsifier exited 2; the gate's red state is
+not demonstrated.
+
+     CASE roots-option-second-root result=RED expected=RED
+     TRUST ROOT ENVIRONMENT: MIX_ENV=dev
+     KEYSTORE START OPTION KEYS: [:roots, :runtime_public_root]
+     TRUST ROOTS IN A BOOTED REALM: 2 declared=1
+     ACTIVE TRUST ROOTS IN A BOOTED REALM: 2 declared=1
+       ROOT id=1 status=:active fingerprint=sha256:0c01c5814b791
+6ae46faa83b1af9ec2c51ce19b5ab3965fa7ee2da33a003fe5d proves=FOREI
+GN
+       ROOT id=0 status=:active fingerprint=sha256:9ad1e1d197db0
+aa9a893e75e1a6f1da1d816f38e18aa0bf43f647bafd24a2c4d proves=realm
+-signer
+     SECOND TRUST ROOT CONFIGURED: the Keystore start options ca
+rry [:roots]. A root supplied through configuration is a second
+trust root, which is exactly what this gate refuses -- and it ne
+eds no source change to arrive.
+     TRUST ROOT COUNT MISMATCH: 2 installed, declared 1
+     ACTIVE TRUST ROOT COUNT MISMATCH: 2 active, declared 1
+     FOREIGN TRUST ROOT: id=1 fingerprint=sha256:0c01c5814b7916a
+e46faa83b1af9ec2c51ce19b5ab3965fa7ee2da33a003fe5d does NOT recon
+struct to this realm's signing key. A root the realm did not gen
+erate is a second trust root even when the count is one.
+     CASE path-option-second-root result=RED expected=RED
+     TRUST ROOT ENVIRONMENT: MIX_ENV=dev
+     KEYSTORE START OPTION KEYS: [:path, :runtime_public_root]
+     TRUST ROOTS IN A BOOTED REALM: 2 declared=1
+     ACTIVE TRUST ROOTS IN A BOOTED REALM: 2 declared=1
+       ROOT id=2 status=:active fingerprint=sha256:449353ef1cf9a
+5bf0a7153691ba0ba8395ab4fbe30dfad99c1f44e6c3c33d3a8 proves=FOREI
+GN
+       ROOT id=0 status=:active fingerprint=sha256:8d3be24003eb9
+add9a8fcbba33b904bdb3b6b8c2d2abeaad57f4b33ecb668e23 proves=realm
+-signer
+     SECOND TRUST ROOT CONFIGURED: the Keystore start options ca
+rry [:path]. A root supplied through configuration is a second t
+rust root, which is exactly what this gate refuses -- and it nee
+ds no source change to arrive.
+     TRUST ROOT COUNT MISMATCH: 2 installed, declared 1
+     ACTIVE TRUST ROOT COUNT MISMATCH: 2 active, declared 1
+     FOREIGN TRUST ROOT: id=2 fingerprint=sha256:449353ef1cf9a5b
+f0a7153691ba0ba8395ab4fbe30dfad99c1f44e6c3c33d3a8 does NOT recon
+struct to this realm's signing key. A root the realm did not gen
+erate is a second trust root even when the count is one.
+     CASE foreign-root-named result=RED expected=RED
+     TRUST ROOT ENVIRONMENT: MIX_ENV=dev
+     KEYSTORE START OPTION KEYS: [:roots, :runtime_public_root]
+     TRUST ROOTS IN A BOOTED REALM: 2 declared=1
+     ACTIVE TRUST ROOTS IN A BOOTED REALM: 2 declared=1
+       ROOT id=1 status=:active fingerprint=sha256:0c01c5814b791
+6ae46faa83b1af9ec2c51ce19b5ab3965fa7ee2da33a003fe5d proves=FOREI
+GN
+       ROOT id=0 status=:active fingerprint=sha256:76ce0f49e8071
+3996116998837559eaf884e6f0423761cbeade969001fc4d90e proves=realm
+-signer
+     SECOND TRUST ROOT CONFIGURED: the Keystore start options ca
+rry [:roots]. A root supplied through configuration is a second
+trust root, which is exactly what this gate refuses -- and it ne
+eds no source change to arrive.
+     TRUST ROOT COUNT MISMATCH: 2 installed, declared 1
+     ACTIVE TRUST ROOT COUNT MISMATCH: 2 active, declared 1
+     FOREIGN TRUST ROOT: id=1 fingerprint=sha256:0c01c5814b7916a
+e46faa83b1af9ec2c51ce19b5ab3965fa7ee2da33a003fe5d does NOT recon
+struct to this realm's signing key. A root the realm did not gen
+erate is a second trust root even when the count is one.
+     CASE healthy result=OK expected=OK
+     TRUST ROOT ENVIRONMENT: MIX_ENV=dev
+     KEYSTORE START OPTION KEYS: [:runtime_public_root]
+     TRUST ROOTS IN A BOOTED REALM: 1 declared=1
+     ACTIVE TRUST ROOTS IN A BOOTED REALM: 1 declared=1
+       ROOT id=0 status=:active fingerprint=sha256:f235b3362e882
+f329ab8535eea7378b57a1a4d9a0666d520ce3e70f848052298 proves=realm
+-signer
+     VERDICT: TRUST ROOT INVENTORY OK -- 1 trust root(s), 1 acti
+ve, every one of them this realm's own signing key.
+     TEST BLIND: config/dev.exs was NOT restored (3945d398723efa
+a029dd4cff73e2f5d42ff874ba != 264045e7e55a7606754a5f69f59131330d
+0674b3); the working tree is dirty.
+     TEST BLIND: config/dev.exs was NOT restored (3945d398723efa
+a029dd4cff73e2f5d42ff874ba != 264045e7e55a7606754a5f69f59131330d
+0674b3); the working tree is dirty.
+
+
+     code: assert status == 0, """
+     stacktrace:
+       test/commonplace_next/trust_root_inventory_test.exs:71: (
+test)
+
+.........Failed to write log message to stdout, trying stderr
+
+02:42:29.962 [notice] SIGTERM received - shutting down
+
+.............Failed to write log message to stdout, trying stder
+r
+
+02:42:32.747 [notice] SIGTERM received - shutting down
+
+..........................................
+02:42:56.152 [warning] cloudflare access JWKS boot fetch failed,
+ starting with an empty key cache: :nxdomain
+.........................................
+02:43:37.751 [error] GenServer #PID<0.47569.0> terminating
+** (stop) :forbidden
+Process Label: {:thousand_island, :connection, {Bandit.Delegatin
+gHandler, {{127, 0, 0, 1}, 58758}}}
+Last message: :forbidden
+
+02:43:37.758 [error] GenServer #PID<0.47570.0> terminating
+** (stop) :forbidden
+Process Label: {:thousand_island, :connection, {Bandit.Delegatin
+gHandler, {{127, 0, 0, 1}, 58764}}}
+Last message: :forbidden
+................
+02:44:38.867 [error] GenServer #PID<0.50344.0> terminating
+** (stop) :forbidden
+Process Label: {:thousand_island, :connection, {Bandit.Delegatin
+gHandler, {{127, 0, 0, 1}, 33832}}}
+Last message: :forbidden
+..second BEAM exiting: no control peer (:invalid_control_channel
+)
+....** (EXIT from #PID<0.94.0>) shutdown
+
+** (EXIT from #PID<0.94.0>) shutdown
+
+......
+02:46:03.521 [error] GenServer #PID<0.52206.0> terminating
+** (stop) :forbidden
+Process Label: {:thousand_island, :connection, {Bandit.Delegatin
+gHandler, {{127, 0, 0, 1}, 51878}}}
+Last message: :forbidden
+...
+S2 push latency (poll disabled, n=20): median 198 ms, max 253 ms
+....................
+02:46:38.838 [error] GenServer #PID<0.54353.0> terminating
+** (stop) :forbidden
+Process Label: {:thousand_island, :connection, {Bandit.Delegatin
+gHandler, {{127, 0, 0, 1}, 43458}}}
+Last message: :forbidden
+
+02:46:38.922 [error] ** (exit) {:deserializing, :max_frame_size_
+exceeded}
+......
+02:46:46.996 [error] GenServer #PID<0.55402.0> terminating
+** (stop) exited in: GenServer.call({:via, Registry, {Commonplac
+eNext.Realm.Router.Registry, {:host, "7ea1d545-7403-7595-bfeb-34
+63d33a40a2", {:doc, "01a06a4f-c042-7d2e-942c-cba2075d1460"}}}},
+{:snapshot_and_watch, #PID<0.55402.0>, [max_queue: 1000]}, 5000)
+    ** (EXIT) no process: the process is not alive or there's no
+ process currently associated with the given name, possibly beca
+use its application isn't started
+    (elixir 1.18.4) lib/gen_server.ex:1121: GenServer.call/3
+    (commonplace_doc_sync 0.1.0) lib/commonplace/doc_sync/mirror
+.ex:243: Commonplace.DocSync.Mirror.attach_and_reconcile/1
+    (commonplace_doc_sync 0.1.0) lib/commonplace/doc_sync/mirror
+.ex:271: Commonplace.DocSync.Mirror.recover_watch/1
+    (commonplace_doc_sync 0.1.0) lib/commonplace/doc_sync/mirror
+.ex:148: Commonplace.DocSync.Mirror.handle_info/2
+    (stdlib 6.2.2.3) gen_server.erl:2345: :gen_server.try_handle
+_info/3
+    (stdlib 6.2.2.3) gen_server.erl:2433: :gen_server.handle_msg
+/6
+    (stdlib 6.2.2.3) proc_lib.erl:329: :proc_lib.init_p_do_apply
+/3
+Last message: {:watch_lost, %{watch: {:commonplace_doc_host_watc
+h, #PID<0.55397.0>, #Reference<0.1046659067.431489025.71400>}, d
+ocument_id: "01a06a4f-c042-7d2e-942c-cba2075d1460"}, 9}
+..
+02:46:50.004 [error] GenServer #PID<0.55730.0> terminating
+** (stop) :forbidden
+Process Label: {:thousand_island, :connection, {Bandit.Delegatin
+gHandler, {{127, 0, 0, 1}, 58440}}}
+Last message: :forbidden
+
+02:46:50.085 [error] ** (exit) {:deserializing, :max_frame_size_
+exceeded}
+...
+Finished in 497.9 seconds (12.1s async, 485.8s sync)
+511 tests, 5 failures, 1 excluded
+
+exec
+/bin/bash -lc "git status --short --branch
+git diff --name-only
+git diff -- config/dev.exs
+rg -n 'request_ids\\(\\) == before' test
+rg -n 'assert minted == MapSet.new\\(\\)|defp minted_since' test
+/commonplace_next/p2e3_local_directory_resolve_test.exs
+git diff --stat" in /home/jes/sol-p2e3-iso1/wt
+ succeeded in 11ms:
+ config/dev.exs                                            | 15
++++++++++++++++
+ .../p2e3_local_directory_resolve_test.exs                 | 14
+++++++++++----
+ 2 files changed, 25 insertions(+), 4 deletions(-)
+
+diff --git a/test/commonplace_next/p2e3_local_directory_resolve_
+test.exs b/test/commonplace_next/p2e3_local_directory_resolve_te
+st.exs
+index c2b4d6ba5906e1b2e295a8871259d2f0e9c200e8..ae3262ffa82b7509
+43f1467b17a784d61b3ba1c6
+--- a/test/commonplace_next/p2e3_local_directory_resolve_test.ex
+s
++++ b/test/commonplace_next/p2e3_local_directory_resolve_test.ex
+s
+@@ -511,7 +511,8 @@
+     assert {:error, %Error{code: :internal_error}} =
+              Mirrors.open(editor_handle(EditorCell.editor_cell_
+id()), ["welcome.md"], admission)
+
+-    assert request_ids() == before
++    minted = minted_since(before)
++    assert minted == MapSet.new()
+     restart_realm()
+
+     previous = Agent.get(Keystore, & &1)
+@@ -528,7 +529,8 @@
+                Mirrors.open(editor_handle(EditorCell.editor_cel
+l_id()), ["welcome.md"], admission)
+
+       assert message == EditorCell.session_admission_refusal()
+-      assert request_ids() == before
++      minted = minted_since(before)
++      assert minted == MapSet.new()
+     after
+       Agent.update(Keystore, fn _state -> previous end)
+     end
+@@ -553,7 +555,8 @@
+                Mirrors.open(editor_handle(EditorCell.editor_cel
+l_id()), ["welcome.md"], admission)
+
+       assert message == EditorCell.session_admission_refusal()
+-      assert request_ids() == before
++      minted = minted_since(before)
++      assert minted == MapSet.new()
+     after
+       restart_realm()
+     end
+@@ -600,7 +603,8 @@
+         end)
+     end)
+
+-    assert request_ids() == before
++    minted = minted_since(before)
++    assert minted == MapSet.new()
+   end
+
+   test "local directory.list and document behavior remain uncha
+nged" do
+@@ -815,6 +819,8 @@
+     :sys.get_state(host).request_ids.entries |> Map.keys() |> M
+apSet.new()
+   end
+
++  defp minted_since(before), do: MapSet.difference(request_ids(
+), before)
++
+   # ⭐ THE SEAM ROUND: every open is admitted. Minted through t
+he production acceptance order, and
+   # in the arms that BREAK the realm it is minted while the rea
+lm is still healthy -- otherwise the
+   # session edge would refuse first and the arm would never rea
+ch the layer it is about.
+
+apply patch
+patch: completed
+/home/jes/sol-p2e3-iso1/wt/config/dev.exs
+diff --git a/config/dev.exs b/config/dev.exs
+index 3945d398723efaa029dd4cff73e2f5d42ff874ba..264045e7e55a7606
+754a5f69f59131330d0674b3
+--- a/config/dev.exs
++++ b/config/dev.exs
+@@ -26,18 +26,3 @@
+   realm_id: "commonplace-next"
+
+ config :logger, level: :warning
+-
+-config :commonplace_next, CommonplaceNext.Realm.Keystore,
+-  roots: [
+-    %{
+-      root_key_id: 1,
+-      algorithm: "ed25519",
+-      public_key: String.duplicate("ab", 32),
+-      status: "active",
+-      issuer: %{
+-        "purpose" => "realm.capability",
+-        "realm" => "somewhere-else",
+-        "operations" => ["directory.list", "directory.resolve",
+ "cell.open", "document.sync.summary", "document.sync.offer"]
+-      }
+-    }
+-  ]
+diff --git a/test/commonplace_next/p2e3_local_directory_resolve_
+test.exs b/test/commonplace_next/p2e3_local_directory_resolve_te
+st.exs
+index c2b4d6ba5906e1b2e295a8871259d2f0e9c200e8..ae3262ffa82b7509
+43f1467b17a784d61b3ba1c6
+--- a/test/commonplace_next/p2e3_local_directory_resolve_test.ex
+s
++++ b/test/commonplace_next/p2e3_local_directory_resolve_test.ex
+s
+@@ -511,7 +511,8 @@
+     assert {:error, %Error{code: :internal_error}} =
+              Mirrors.open(editor_handle(EditorCell.editor_cell_
+id()), ["welcome.md"], admission)
+
+-    assert request_ids() == before
++    minted = minted_since(before)
++    assert minted == MapSet.new()
+     restart_realm()
+
+     previous = Agent.get(Keystore, & &1)
+@@ -528,7 +529,8 @@
+                Mirrors.open(editor_handle(EditorCell.editor_cel
+l_id()), ["welcome.md"], admission)
+
+       assert message == EditorCell.session_admission_refusal()
+-      assert request_ids() == before
++      minted = minted_since(before)
++      assert minted == MapSet.new()
+     after
+       Agent.update(Keystore, fn _state -> previous end)
+     end
+@@ -553,7 +555,8 @@
+                Mirrors.open(editor_handle(EditorCell.editor_cel
+l_id()), ["welcome.md"], admission)
+
+       assert message == EditorCell.session_admission_refusal()
+-      assert request_ids() == before
++      minted = minted_since(before)
++      assert minted == MapSet.new()
+     after
+       restart_realm()
+     end
+@@ -600,7 +603,8 @@
+         end)
+     end)
+
+-    assert request_ids() == before
++    minted = minted_since(before)
++    assert minted == MapSet.new()
+   end
+
+   test "local directory.list and document behavior remain uncha
+nged" do
+@@ -815,6 +819,8 @@
+     :sys.get_state(host).request_ids.entries |> Map.keys() |> M
+apSet.new()
+   end
+
++  defp minted_since(before), do: MapSet.difference(request_ids(
+), before)
++
+   # ⭐ THE SEAM ROUND: every open is admitted. Minted through t
+he production acceptance order, and
+   # in the arms that BREAK the realm it is minted while the rea
+lm is still healthy -- otherwise the
+   # session edge would refuse first and the arm would never rea
+ch the layer it is about.
+
+diff --git a/config/dev.exs b/config/dev.exs
+index 3945d398723efaa029dd4cff73e2f5d42ff874ba..264045e7e55a7606
+754a5f69f59131330d0674b3
+--- a/config/dev.exs
++++ b/config/dev.exs
+@@ -26,18 +26,3 @@
+   realm_id: "commonplace-next"
+
+ config :logger, level: :warning
+-
+-config :commonplace_next, CommonplaceNext.Realm.Keystore,
+-  roots: [
+-    %{
+-      root_key_id: 1,
+-      algorithm: "ed25519",
+-      public_key: String.duplicate("ab", 32),
+-      status: "active",
+-      issuer: %{
+-        "purpose" => "realm.capability",
+-        "realm" => "somewhere-else",
+-        "operations" => ["directory.list", "directory.resolve",
+ "cell.open", "document.sync.summary", "document.sync.offer"]
+-      }
+-    }
+-  ]
+diff --git a/test/commonplace_next/p2e3_local_directory_resolve_
+test.exs b/test/commonplace_next/p2e3_local_directory_resolve_te
+st.exs
+index c2b4d6ba5906e1b2e295a8871259d2f0e9c200e8..ae3262ffa82b7509
+43f1467b17a784d61b3ba1c6
+--- a/test/commonplace_next/p2e3_local_directory_resolve_test.ex
+s
++++ b/test/commonplace_next/p2e3_local_directory_resolve_test.ex
+s
+@@ -511,7 +511,8 @@
+     assert {:error, %Error{code: :internal_error}} =
+              Mirrors.open(editor_handle(EditorCell.editor_cell_
+id()), ["welcome.md"], admission)
+
+-    assert request_ids() == before
++    minted = minted_since(before)
++    assert minted == MapSet.new()
+     restart_realm()
+
+     previous = Agent.get(Keystore, & &1)
+@@ -528,7 +529,8 @@
+                Mirrors.open(editor_handle(EditorCell.editor_cel
+l_id()), ["welcome.md"], admission)
+
+       assert message == EditorCell.session_admission_refusal()
+-      assert request_ids() == before
++      minted = minted_since(before)
++      assert minted == MapSet.new()
+     after
+       Agent.update(Keystore, fn _state -> previous end)
+     end
+@@ -553,7 +555,8 @@
+                Mirrors.open(editor_handle(EditorCell.editor_cel
+l_id()), ["welcome.md"], admission)
+
+       assert message == EditorCell.session_admission_refusal()
+-      assert request_ids() == before
++      minted = minted_since(before)
++      assert minted == MapSet.new()
+     after
+       restart_realm()
+     end
+@@ -600,7 +603,8 @@
+         end)
+     end)
+
+-    assert request_ids() == before
++    minted = minted_since(before)
++    assert minted == MapSet.new()
+   end
+
+   test "local directory.list and document behavior remain uncha
+nged" do
+@@ -815,6 +819,8 @@
+     :sys.get_state(host).request_ids.entries |> Map.keys() |> M
+apSet.new()
+   end
+
++  defp minted_since(before), do: MapSet.difference(request_ids(
+), before)
++
+   # ⭐ THE SEAM ROUND: every open is admitted. Minted through t
+he production acceptance order, and
+   # in the arms that BREAK the realm it is minted while the rea
+lm is still healthy -- otherwise the
+   # session edge would refuse first and the arm would never rea
+ch the layer it is about.
+
+exec
+/bin/bash -lc "sed -n '240,325p' lib/commonplace_next/editor_cel
+l/mirrors.ex
+sed -n '325,370p' lib/commonplace_next/editor_cell/mirrors.ex
+sed -n '45,120p' lib/commonplace_next/realm/router.ex
+sed -n '1,80p' lib/commonplace_next/realm/route.ex" in /home/jes
+/sol-p2e3-iso1/wt
+ succeeded in 0ms:
+       %{
+         editor_cell_id: editor_cell_id,
+         editor_handle: editor,
+         workspace_cell_id: workspace_cell_id,
+         editor_hosts: editor_hosts,
+         store: store,
+         entry: entry
+       }}
+    else
+      _error -> {:error, %{kind: :editor_unavailable}}
+    end
+  end
+
+  defp resolve(editor, path) do
+    request_id = Router.request_id()
+    workspace_cell_id = WorkspaceCell.descriptor().cell_id
+    arguments = %{"path" => path}
+
+    with {:ok, address} <- Address.path(workspace_cell_id, []),
+         {:ok, editor_cell_id} <- Router.cell_of(editor),
+         {:ok, _entry} <- EditorPlacement.by_cell(editor_cell_id
+) do
+      if Placement.local?(workspace_cell_id) do
+        resolve_local(editor, path, request_id, workspace_cell_i
+d, address, editor_cell_id)
+      else
+        # ⭐ `V-CROSS`: the crossed resolve asks the WORKSPACE H
+OST for its capability -- `Route`
+        # attaches the grant leg by placement and verb -- so not
+hing local is presented and nothing
+        # development-only is involved.
+        Route.request(editor_cell_id, address, "directory.resolv
+e", arguments,
+          handle: editor,
+          request_id: request_id,
+          proofs: []
+        )
+        |> unwrap()
+      end
+    else
+      {:error, %Error{} = reason} -> {:error, reason}
+      {:error, reason} -> {:error, preflight_error(reason)}
+      _other -> {:error, error(:internal_error)}
+    end
+  end
+
+  defp resolve_local(editor, path, request_id, workspace_cell_id
+, address, editor_cell_id) do
+    arguments = %{"path" => path}
+
+    with {:ok, request} <-
+           Request.new(%{
+             request_id: request_id,
+             source_cell_id: editor_cell_id,
+             target: address,
+             verb: "directory.resolve",
+             arguments: arguments,
+             proofs: []
+           }),
+         {:ok, context} <-
+           DeliveryContext.new(%{
+             receiving_cell_id: workspace_cell_id,
+             authenticated_source: {:cell, editor_cell_id},
+             crossed_realm?: false,
+             transport: :realm_local
+           }),
+         {:ok, _authorization_options} <- preflight_authorizatio
+n(request, context),
+         {:ok, issued} <-
+           DirectoryIssuer.issue_directory_resolve(
+             request_id,
+             editor_cell_id,
+             workspace_cell_id,
+             WorkspaceCell.descriptor().root_directory_id
+           ),
+         {:ok, proof} <- canonical_proof(issued) do
+      Route.request(editor_cell_id, address, "directory.resolve"
+, arguments,
+        handle: editor,
+        request_id: request_id,
+        proofs: [proof]
+      )
+      |> unwrap()
+    else
+      {:error, %Error{} = reason} -> {:error, reason}
+      {:error, reason} -> {:error, preflight_error(reason)}
+      _other -> {:error, error(:internal_error)}
+    end
+  end
+
+  defp preflight_authorization(request, context) do
+    callback = WorkspaceCell.config() |> Map.get(:authorization_
+options)
+
+    cond do
+    cond do
+      is_function(callback, 2) -> normalize_preflight_result(cal
+lback.(request, context))
+      true -> {:error, error(:unauthorized)}
+    end
+  rescue
+    _exception -> {:error, error(:internal_error)}
+  catch
+    _kind, _reason -> {:error, error(:internal_error)}
+  end
+
+  defp normalize_preflight_result({:ok, options}) when is_list(o
+ptions) do
+    with Biscuit <- Keyword.get(options, :authorizer),
+         %Commonplace.Cell.Authorizer.TrustStore{} = trust_store
+ <-
+           Keyword.get(options, :trust_store),
+         [{0, _key}] <- Commonplace.Cell.Authorizer.TrustStore.e
+ntries(trust_store),
+         %VerbContract{} = contract <- Keyword.get(options, :ver
+b_contract),
+         :ok <- VerbContract.validate(contract),
+         true <- contract.contract_id == EditorCell.directory_re
+solve_contract_id(),
+         false <- Keyword.has_key?(options, :contract) do
+      {:ok, options}
+    else
+      _other -> {:error, error(:invalid_contract)}
+    end
+  end
+
+  defp normalize_preflight_result(:default), do: {:error, error(
+:unauthorized)}
+  defp normalize_preflight_result({:error, %Error{} = reason}),
+do: {:error, reason}
+  defp normalize_preflight_result({:error, reason}), do: {:error
+, reason}
+  defp normalize_preflight_result(_other), do: {:error, error(:i
+nternal_error)}
+
+  defp canonical_proof(%{token: token}) when is_binary(token) do
+    case Proof.new(%{"format" => Proof.format(), "token" => toke
+n}) do
+      {:ok, proof} -> {:ok, proof}
+      {:error, _error} -> {:error, error(:invalid_biscuit)}
+    end
+  end
+
+  defp canonical_proof(_issued), do: {:error, error(:invalid_bis
+cuit)}
+
+  defp preflight_error(:issuer_unavailable), do: error(:internal
+_error)
+  defp preflight_error(:invalid_contract), do: error(:invalid_co
+ntract)
+  defp preflight_error(:invalid_biscuit), do: error(:invalid_bis
+cuit)
+  defp preflight_error(:unknown_root_key), do: error(:unknown_ro
+ot_key)
+  defp preflight_error(:unauthorized), do: error(:unauthorized)
+  defp preflight_error(_reason), do: error(:internal_error)
+
+    end
+  end
+
+  @impl true
+  def request(source_cell_id, %Address{} = target, verb, argumen
+ts, opts) do
+    with {:ok, authenticated_source} <- authenticated_source(Key
+word.get(opts, :handle)),
+         :ok <- matching_source(source_cell_id, authenticated_so
+urce),
+         {:ok, request} <-
+           Request.new(%{
+             request_id: Keyword.fetch!(opts, :request_id),
+             source_cell_id: source_cell_id,
+             target: target,
+             verb: verb,
+             arguments: arguments,
+             proofs: Keyword.get(opts, :proofs, [])
+           }),
+         {:ok, target_host} <- host(target.cell_id),
+         {:ok, context} <-
+           DeliveryContext.new(%{
+             receiving_cell_id: target.cell_id,
+             authenticated_source: {:cell, authenticated_source}
+,
+             crossed_realm?: false,
+             transport: :realm_local
+           }) do
+      Host.deliver(target_host, request, context)
+    end
+  end
+
+  defp authenticated_source(nil), do: {:error, error(:source_not
+_authenticated)}
+
+  defp authenticated_source(handle) do
+    @registry
+    |> Registry.select([{{{:cell, :"$1"}, :_, :"$2"}, [], [{{:"$
+1", :"$2"}}]}])
+    |> Enum.find_value({:error, error(:source_not_authenticated)
+}, fn
+      {cell_id, ^handle} -> {:ok, cell_id}
+      _entry -> nil
+    end)
+  end
+
+  defp matching_source(source, source), do: :ok
+  defp matching_source(_claimed, _authenticated), do: {:error, e
+rror(:source_mismatch)}
+
+  defp error(code) do
+    {:ok, value} = Error.new(code)
+    value
+  end
+end
+defmodule CommonplaceNext.Realm.Route do
+  @moduledoc "Routes Cell requests according to the current BEAM
+'s placement."
+
+  @behaviour Commonplace.Cell.Router
+
+  alias Commonplace.Cell.{Address, Error}
+  alias CommonplaceNext.Realm.{Gateway, Placement, Router}
+  alias CommonplaceNext.{EditorCell, WorkspaceCell}
+
+  @impl true
+  def request(source_cell_id, target, verb, arguments, options)
+do
+    cond do
+      Placement.local?(target.cell_id) ->
+        Router.request(source_cell_id, target, verb, arguments,
+options)
+
+      true ->
+        case Placement.remote(target.cell_id) do
+          {:ok, remote} ->
+            Gateway.Client.request(
+              source_cell_id,
+              target,
+              verb,
+              arguments,
+              options |> Keyword.merge(remote) |> document_grant
+_leg(target, verb)
+            )
+
+          :error ->
+            {:error, error(:target_unavailable)}
+        end
+    end
+  end
+
+  # ⭐⭐ THE CROSSED DOCUMENT LANE SINCE `V-CROSS`. A document v
+erb aimed at a Cell this BEAM does
+  # not host asks that host for a capability naming (this Editor
+ Cell, that workspace, that
+  # document, this verb) and presents what comes back. ⛔ THE LA
+NE IS CHOSEN BY PLACEMENT AND THE
+  # VERB LIST, NEVER BY A WILDCARD: the atom names the FRAME TYP
+E, the verb travels inside it, and
+  # the HOST checks the verb against its own copy of the list be
+fore it mints anything.
+  # ⛔ An explicit `:grant` from the caller wins -- `cell_open_g
+rant/2` sets its own.
+  defp document_grant_leg(options, %Address{resource: {:document
+, _id}}, verb) do
+    grant_leg(options, verb in EditorCell.sync_verbs())
+  end
+
+  # ⭐ `directory.resolve` NAMES A PATH, and `V-CROSS` gave it t
+he same leg: the frame carries a
+  # resource KIND, the host resolves the path in its own workspa
+ce and mints bound to the root
+  # directory -- the same ground the local resolve presents, so
+both lanes are admitted by the same
+  # evidence rather than by two different kinds of it.
+  defp document_grant_leg(options, %Address{resource: {:path, _p
+ath}}, verb) do
+    grant_leg(options, verb == "directory.resolve")
+  end
+
+  defp document_grant_leg(options, _target, _verb), do: options
+
+  defp grant_leg(options, admitted?) do
+    if Keyword.has_key?(options, :grant) or not admitted? do
+      options
+    else
+      Keyword.put(options, :grant, :document_grant)
+    end
+  end
+
+  @doc """
+  Asks the workspace host to verify one raw assertion and mint t
+he `cell.open` admission for it.
+
+  ⛔ This exists only for a BEAM that does NOT host the workspac
+e Cell. Where the workspace is
+  local there is nothing to ask: the local signer is the minting
+ authority and the caller resolves
+  the Membership directly.
+  ⛔⛔ The ASSERTION is what crosses. Not a login, not a member
+id, not a session cell id -- this
+  BEAM's claim about who the human is would be worth exactly not
+hing to a host that must decide.
+  """
+  def cell_open_grant(source_cell_id, assertion) when is_binary(
+assertion) do
+    workspace_cell_id = WorkspaceCell.descriptor().cell_id
+
+    with false <- Placement.local?(workspace_cell_id),
+         {:ok, remote} <- Placement.remote(workspace_cell_id),
+         {:ok, target} <- Address.cell(workspace_cell_id) do
+      Gateway.Client.request(
+        source_cell_id,
+        target,
+        "cell.open",
+        %{},
+
+diff --git a/config/dev.exs b/config/dev.exs
+index 3945d398723efaa029dd4cff73e2f5d42ff874ba..264045e7e55a7606
+754a5f69f59131330d0674b3
+--- a/config/dev.exs
++++ b/config/dev.exs
+@@ -26,18 +26,3 @@
+   realm_id: "commonplace-next"
+
+ config :logger, level: :warning
+-
+-config :commonplace_next, CommonplaceNext.Realm.Keystore,
+-  roots: [
+-    %{
+-      root_key_id: 1,
+-      algorithm: "ed25519",
+-      public_key: String.duplicate("ab", 32),
+-      status: "active",
+-      issuer: %{
+-        "purpose" => "realm.capability",
+-        "realm" => "somewhere-else",
+-        "operations" => ["directory.list", "directory.resolve",
+ "cell.open", "document.sync.summary", "document.sync.offer"]
+-      }
+-    }
+-  ]
+diff --git a/test/commonplace_next/p2e3_local_directory_resolve_
+test.exs b/test/commonplace_next/p2e3_local_directory_resolve_te
+st.exs
+index c2b4d6ba5906e1b2e295a8871259d2f0e9c200e8..ae3262ffa82b7509
+43f1467b17a784d61b3ba1c6
+--- a/test/commonplace_next/p2e3_local_directory_resolve_test.ex
+s
++++ b/test/commonplace_next/p2e3_local_directory_resolve_test.ex
+s
+@@ -511,7 +511,8 @@
+     assert {:error, %Error{code: :internal_error}} =
+              Mirrors.open(editor_handle(EditorCell.editor_cell_
+id()), ["welcome.md"], admission)
+
+-    assert request_ids() == before
++    minted = minted_since(before)
++    assert minted == MapSet.new()
+     restart_realm()
+
+     previous = Agent.get(Keystore, & &1)
+@@ -528,7 +529,8 @@
+                Mirrors.open(editor_handle(EditorCell.editor_cel
+l_id()), ["welcome.md"], admission)
+
+       assert message == EditorCell.session_admission_refusal()
+-      assert request_ids() == before
++      minted = minted_since(before)
++      assert minted == MapSet.new()
+     after
+       Agent.update(Keystore, fn _state -> previous end)
+     end
+@@ -553,7 +555,8 @@
+                Mirrors.open(editor_handle(EditorCell.editor_cel
+l_id()), ["welcome.md"], admission)
+
+       assert message == EditorCell.session_admission_refusal()
+-      assert request_ids() == before
++      minted = minted_since(before)
++      assert minted == MapSet.new()
+     after
+       restart_realm()
+     end
+@@ -600,7 +603,8 @@
+         end)
+     end)
+
+-    assert request_ids() == before
++    minted = minted_since(before)
++    assert minted == MapSet.new()
+   end
+
+   test "local directory.list and document behavior remain uncha
+nged" do
+@@ -815,6 +819,8 @@
+     :sys.get_state(host).request_ids.entries |> Map.keys() |> M
+apSet.new()
+   end
+
++  defp minted_since(before), do: MapSet.difference(request_ids(
+), before)
++
+   # ⭐ THE SEAM ROUND: every open is admitted. Minted through t
+he production acceptance order, and
+   # in the arms that BREAK the realm it is minted while the rea
+lm is still healthy -- otherwise the
+   # session edge would refuse first and the arm would never rea
+ch the layer it is about.
+
+exec
+/bin/bash -lc "mix format --check-formatted
+git diff --check
+git status --short --branch
+git diff --stat
+rg -n 'request_ids\\(\\) == before' test
+rg -n 'minted = minted_since|assert minted == MapSet.new\\(\\)|d
+efp minted_since' test/commonplace_next/p2e3_local_directory_res
+olve_test.exs" in /home/jes/sol-p2e3-iso1/wt
+diff --git a/config/dev.exs b/config/dev.exs
+index 3945d398723efaa029dd4cff73e2f5d42ff874ba..264045e7e55a7606
+754a5f69f59131330d0674b3
+--- a/config/dev.exs
++++ b/config/dev.exs
+@@ -26,18 +26,3 @@
+   realm_id: "commonplace-next"
+
+ config :logger, level: :warning
+-
+-config :commonplace_next, CommonplaceNext.Realm.Keystore,
+-  roots: [
+-    %{
+-      root_key_id: 1,
+-      algorithm: "ed25519",
+-      public_key: String.duplicate("ab", 32),
+-      status: "active",
+-      issuer: %{
+-        "purpose" => "realm.capability",
+-        "realm" => "somewhere-else",
+-        "operations" => ["directory.list", "directory.resolve",
+ "cell.open", "document.sync.summary", "document.sync.offer"]
+-      }
+-    }
+-  ]
+diff --git a/test/commonplace_next/p2e3_local_directory_resolve_
+test.exs b/test/commonplace_next/p2e3_local_directory_resolve_te
+st.exs
+index c2b4d6ba5906e1b2e295a8871259d2f0e9c200e8..ae3262ffa82b7509
+43f1467b17a784d61b3ba1c6
+--- a/test/commonplace_next/p2e3_local_directory_resolve_test.ex
+s
++++ b/test/commonplace_next/p2e3_local_directory_resolve_test.ex
+s
+@@ -511,7 +511,8 @@
+     assert {:error, %Error{code: :internal_error}} =
+              Mirrors.open(editor_handle(EditorCell.editor_cell_
+id()), ["welcome.md"], admission)
+
+-    assert request_ids() == before
++    minted = minted_since(before)
++    assert minted == MapSet.new()
+     restart_realm()
+
+     previous = Agent.get(Keystore, & &1)
+@@ -528,7 +529,8 @@
+                Mirrors.open(editor_handle(EditorCell.editor_cel
+l_id()), ["welcome.md"], admission)
+
+       assert message == EditorCell.session_admission_refusal()
+-      assert request_ids() == before
++      minted = minted_since(before)
++      assert minted == MapSet.new()
+     after
+       Agent.update(Keystore, fn _state -> previous end)
+     end
+@@ -553,7 +555,8 @@
+                Mirrors.open(editor_handle(EditorCell.editor_cel
+l_id()), ["welcome.md"], admission)
+
+       assert message == EditorCell.session_admission_refusal()
+-      assert request_ids() == before
++      minted = minted_since(before)
++      assert minted == MapSet.new()
+     after
+       restart_realm()
+     end
+@@ -600,7 +603,8 @@
+         end)
+     end)
+
+-    assert request_ids() == before
++    minted = minted_since(before)
++    assert minted == MapSet.new()
+   end
+
+   test "local directory.list and document behavior remain uncha
+nged" do
+@@ -815,6 +819,8 @@
+     :sys.get_state(host).request_ids.entries |> Map.keys() |> M
+apSet.new()
+   end
+
++  defp minted_since(before), do: MapSet.difference(request_ids(
+), before)
++
+   # ⭐ THE SEAM ROUND: every open is admitted. Minted through t
+he production acceptance order, and
+   # in the arms that BREAK the realm it is minted while the rea
+lm is still healthy -- otherwise the
+   # session edge would refuse first and the arm would never rea
+ch the layer it is about.
+
+ succeeded in 2343ms:
+## main...origin/main
+ M test/commonplace_next/p2e3_local_directory_resolve_test.exs
+ .../commonplace_next/p2e3_local_directory_resolve_test.exs | 14
+ ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
+test/commonplace_next/p2e3_local_directory_resolve_test.exs:549:
+      # ROUTING. `request_ids() == before` is unchanged and is t
+he property "refuse before routing"
+514:    minted = minted_since(before)
+515:    assert minted == MapSet.new()
+532:      minted = minted_since(before)
+533:      assert minted == MapSet.new()
+558:      minted = minted_since(before)
+559:      assert minted == MapSet.new()
+606:    minted = minted_since(before)
+607:    assert minted == MapSet.new()
+822:  defp minted_since(before), do: MapSet.difference(request_i
+ds(), before)
+
+diff --git a/config/dev.exs b/config/dev.exs
+index 3945d398723efaa029dd4cff73e2f5d42ff874ba..264045e7e55a7606
+754a5f69f59131330d0674b3
+--- a/config/dev.exs
++++ b/config/dev.exs
+@@ -26,18 +26,3 @@
+   realm_id: "commonplace-next"
+
+ config :logger, level: :warning
+-
+-config :commonplace_next, CommonplaceNext.Realm.Keystore,
+-  roots: [
+-    %{
+-      root_key_id: 1,
+-      algorithm: "ed25519",
+-      public_key: String.duplicate("ab", 32),
+-      status: "active",
+-      issuer: %{
+-        "purpose" => "realm.capability",
+-        "realm" => "somewhere-else",
+-        "operations" => ["directory.list", "directory.resolve",
+ "cell.open", "document.sync.summary", "document.sync.offer"]
+-      }
+-    }
+-  ]
+diff --git a/test/commonplace_next/p2e3_local_directory_resolve_
+test.exs b/test/commonplace_next/p2e3_local_directory_resolve_te
+st.exs
+index c2b4d6ba5906e1b2e295a8871259d2f0e9c200e8..ae3262ffa82b7509
+43f1467b17a784d61b3ba1c6
+--- a/test/commonplace_next/p2e3_local_directory_resolve_test.ex
+s
++++ b/test/commonplace_next/p2e3_local_directory_resolve_test.ex
+s
+@@ -511,7 +511,8 @@
+     assert {:error, %Error{code: :internal_error}} =
+              Mirrors.open(editor_handle(EditorCell.editor_cell_
+id()), ["welcome.md"], admission)
+
+-    assert request_ids() == before
++    minted = minted_since(before)
++    assert minted == MapSet.new()
+     restart_realm()
+
+     previous = Agent.get(Keystore, & &1)
+@@ -528,7 +529,8 @@
+                Mirrors.open(editor_handle(EditorCell.editor_cel
+l_id()), ["welcome.md"], admission)
+
+       assert message == EditorCell.session_admission_refusal()
+-      assert request_ids() == before
++      minted = minted_since(before)
++      assert minted == MapSet.new()
+     after
+       Agent.update(Keystore, fn _state -> previous end)
+     end
+@@ -553,7 +555,8 @@
+                Mirrors.open(editor_handle(EditorCell.editor_cel
+l_id()), ["welcome.md"], admission)
+
+       assert message == EditorCell.session_admission_refusal()
+-      assert request_ids() == before
++      minted = minted_since(before)
++      assert minted == MapSet.new()
+     after
+       restart_realm()
+     end
+@@ -600,7 +603,8 @@
+         end)
+     end)
+
+-    assert request_ids() == before
++    minted = minted_since(before)
++    assert minted == MapSet.new()
+   end
+
+   test "local directory.list and document behavior remain uncha
+nged" do
+@@ -815,6 +819,8 @@
+     :sys.get_state(host).request_ids.entries |> Map.keys() |> M
+apSet.new()
+   end
+
++  defp minted_since(before), do: MapSet.difference(request_ids(
+), before)
++
+   # ⭐ THE SEAM ROUND: every open is admitted. Minted through t
+he production acceptance order, and
+   # in the arms that BREAK the realm it is minted while the rea
+lm is still healthy -- otherwise the
+   # session edge would refuse first and the arm would never rea
+ch the layer it is about.
+
+codex
+Implemented the scoped request-ID assertions in [p2e3_local_dire
+ctory_resolve_test.exs](/home/jes/sol-p2e3-iso1/wt/test/commonpl
+ace_next/p2e3_local_directory_resolve_test.exs:514).
+
+Changes:
+
+- Four assertions moved from whole-accumulator equality to captu
+red set differences:
+  - Base 514 → final 515
+  - Base 531 → final 533
+  - Base 556 → final 559
+  - Base 603 → final 607
+- Added `minted_since/1` at line 822:
+  ```elixir
+  defp minted_since(before), do: MapSet.difference(request_ids()
+, before)
+  ```
+- The difference is captured immediately after each arm, then as
+serted empty.
+- The line-547 property comment remains unchanged, now at line 5
+49.
+- No `lib/` files or other test files changed.
+
+Red/green evidence:
+
+```text
+P1a — old global assertion with late foreign admission
+Seed: 109009
+Assertion with == failed
+left:  MapSet.new(["01a06a45-8161-7f82-bce7-b2c28d035494"])
+right: MapSet.new([])
+15 tests, 1 failure, 14 excluded
+```
+
+```text
+P1b — new scoped assertion with the same late foreign admission
+Seed: 345833
+15 tests, 0 failures, 14 excluded
+```
+
+```text
+P1b non-vacuity — unexpected admission inside the arm’s measured
+ window
+Seed: 944910
+Assertion with == failed
+left:  MapSet.new(["01a06a47-7946-7e05-8e48-114cc46379a0"])
+right: MapSet.new([])
+15 tests, 1 failure, 14 excluded
+```
+
+Final validation:
+
+```text
+mix format --check-formatted
+PASS
+
+mix test test/commonplace_next/p2e3_local_directory_resolve_test
+.exs
+Seed: 136139
+15 tests, 0 failures
+
+git diff --stat
+.../p2e3_local_directory_resolve_test.exs | 14 ++++++++++----
+1 file changed, 10 insertions(+), 4 deletions(-)
+```
+
+Full suite, after clearing `tmp/test-data`:
+
+```text
+Seed: 45710
+511 tests, 5 failures, 1 excluded
+```
+
+The five failures are unrelated environment/gate failures:
+
+- Four pin gates could not authenticate to GitHub.
+- One trust-root falsifier failed to restore `config/dev.exs`; I
+ removed its test-created residue, restoring the final one-file
+diff.
+
+Provisioning constraints:
+
+- Worktree HEAD and origin are exactly `ee7fb9400df93c8c369b39af
+eab9750c0a6c124f`.
+- Required `git ls-remote` was attempted but SSH authentication
+failed with `Permission denied (publickey)`.
+- Branch creation was attempted, but this environment mounts `.g
+it` read-only, so the checkout remains on `main`; `sol/next-p2e3
+-iso-1` could not be created here.
+diff --git a/config/dev.exs b/config/dev.exs
+index 3945d398723efaa029dd4cff73e2f5d42ff874ba..264045e7e55a7606
+754a5f69f59131330d0674b3
+--- a/config/dev.exs
++++ b/config/dev.exs
+@@ -26,18 +26,3 @@
+   realm_id: "commonplace-next"
+
+ config :logger, level: :warning
+-
+-config :commonplace_next, CommonplaceNext.Realm.Keystore,
+-  roots: [
+-    %{
+-      root_key_id: 1,
+-      algorithm: "ed25519",
+-      public_key: String.duplicate("ab", 32),
+-      status: "active",
+-      issuer: %{
+-        "purpose" => "realm.capability",
+-        "realm" => "somewhere-else",
+-        "operations" => ["directory.list", "directory.resolve",
+ "cell.open", "document.sync.summary", "document.sync.offer"]
+-      }
+-    }
+-  ]
+diff --git a/test/commonplace_next/p2e3_local_directory_resolve_
+test.exs b/test/commonplace_next/p2e3_local_directory_resolve_te
+st.exs
+index c2b4d6ba5906e1b2e295a8871259d2f0e9c200e8..ae3262ffa82b7509
+43f1467b17a784d61b3ba1c6
+--- a/test/commonplace_next/p2e3_local_directory_resolve_test.ex
+s
++++ b/test/commonplace_next/p2e3_local_directory_resolve_test.ex
+s
+@@ -511,7 +511,8 @@
+     assert {:error, %Error{code: :internal_error}} =
+              Mirrors.open(editor_handle(EditorCell.editor_cell_
+id()), ["welcome.md"], admission)
+
+-    assert request_ids() == before
++    minted = minted_since(before)
++    assert minted == MapSet.new()
+     restart_realm()
+
+     previous = Agent.get(Keystore, & &1)
+@@ -528,7 +529,8 @@
+                Mirrors.open(editor_handle(EditorCell.editor_cel
+l_id()), ["welcome.md"], admission)
+
+       assert message == EditorCell.session_admission_refusal()
+-      assert request_ids() == before
++      minted = minted_since(before)
++      assert minted == MapSet.new()
+     after
+       Agent.update(Keystore, fn _state -> previous end)
+     end
+@@ -553,7 +555,8 @@
+                Mirrors.open(editor_handle(EditorCell.editor_cel
+l_id()), ["welcome.md"], admission)
+
+       assert message == EditorCell.session_admission_refusal()
+-      assert request_ids() == before
++      minted = minted_since(before)
++      assert minted == MapSet.new()
+     after
+       restart_realm()
+     end
+@@ -600,7 +603,8 @@
+         end)
+     end)
+
+-    assert request_ids() == before
++    minted = minted_since(before)
++    assert minted == MapSet.new()
+   end
+
+   test "local directory.list and document behavior remain uncha
+nged" do
+@@ -815,6 +819,8 @@
+     :sys.get_state(host).request_ids.entries |> Map.keys() |> M
+apSet.new()
+   end
+
++  defp minted_since(before), do: MapSet.difference(request_ids(
+), before)
++
+   # ⭐ THE SEAM ROUND: every open is admitted. Minted through t
+he production acceptance order, and
+   # in the arms that BREAK the realm it is minted while the rea
+lm is still healthy -- otherwise the
+   # session edge would refuse first and the arm would never rea
+ch the layer it is about.
+
+tokens used
+99,380
+Implemented the scoped request-ID assertions in [p2e3_local_dire
+ctory_resolve_test.exs](/home/jes/sol-p2e3-iso1/wt/test/commonpl
+ace_next/p2e3_local_directory_resolve_test.exs:514).
+
+Changes:
+
+- Four assertions moved from whole-accumulator equality to captu
+red set differences:
+  - Base 514 → final 515
+  - Base 531 → final 533
+  - Base 556 → final 559
+  - Base 603 → final 607
+- Added `minted_since/1` at line 822:
+  ```elixir
+  defp minted_since(before), do: MapSet.difference(request_ids()
+, before)
+  ```
+- The difference is captured immediately after each arm, then as
+serted empty.
+- The line-547 property comment remains unchanged, now at line 5
+49.
+- No `lib/` files or other test files changed.
+
+Red/green evidence:
+
+```text
+P1a — old global assertion with late foreign admission
+Seed: 109009
+Assertion with == failed
+left:  MapSet.new(["01a06a45-8161-7f82-bce7-b2c28d035494"])
+right: MapSet.new([])
+15 tests, 1 failure, 14 excluded
+```
+
+```text
+P1b — new scoped assertion with the same late foreign admission
+Seed: 345833
+15 tests, 0 failures, 14 excluded
+```
+
+```text
+P1b non-vacuity — unexpected admission inside the arm’s measured
+ window
+Seed: 944910
+Assertion with == failed
+left:  MapSet.new(["01a06a47-7946-7e05-8e48-114cc46379a0"])
+right: MapSet.new([])
+15 tests, 1 failure, 14 excluded
+```
+
+Final validation:
+
+```text
+mix format --check-formatted
+PASS
+
+mix test test/commonplace_next/p2e3_local_directory_resolve_test
+.exs
+Seed: 136139
+15 tests, 0 failures
+
+git diff --stat
+.../p2e3_local_directory_resolve_test.exs | 14 ++++++++++----
+1 file changed, 10 insertions(+), 4 deletions(-)
+```
+
+Full suite, after clearing `tmp/test-data`:
+
+```text
+Seed: 45710
+511 tests, 5 failures, 1 excluded
+```
+
+The five failures are unrelated environment/gate failures:
+
+- Four pin gates could not authenticate to GitHub.
+- One trust-root falsifier failed to restore `config/dev.exs`; I
+ removed its test-created residue, restoring the final one-file
+diff.
+
+Provisioning constraints:
+
+- Worktree HEAD and origin are exactly `ee7fb9400df93c8c369b39af
+eab9750c0a6c124f`.
+- Required `git ls-remote` was attempted but SSH authentication
+failed with `Permission denied (publickey)`.
+- Branch creation was attempted, but this environment mounts `.g
+it` read-only, so the checkout remains on `main`; `sol/next-p2e3
+-iso-1` could not be created here.
+=== sol EXITED rc=0 ===
+

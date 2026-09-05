@@ -1,0 +1,1843 @@
+est file changes.
+diff --git a/test/integration/markdown_editor_goal_test.exs b/test/integration/m
+arkdown_editor_goal_test.exs
+index 8630b7a40bdde7ec032d8111a7d69ae948cb5de4..82a8da06f515cb1c088d7c981d0cde25
+134df2a5
+--- a/test/integration/markdown_editor_goal_test.exs
++++ b/test/integration/markdown_editor_goal_test.exs
+@@ -107,12 +107,18 @@
+     old_host = mirror_host(result.opened)
+     :ok = DocHost.stop(old_host)
+
+-    assert eventually(fn ->
+-             match?(
+-               {:error, :not_running},
+-               Hosts.document(editor_hosts(), result.opened.mirror_document_id)
+-             )
+-           end)
++    case eventually_value(
++           fn -> Hosts.document(editor_hosts(), result.opened.mirror_document_i
+d) end,
++           &match?({:error, :not_running}, &1)
++         ) do
++      {:ok, _} ->
++        :ok
++
++      {:timeout, last} ->
++        flunk(
++          "old mirror host never became :not_running within 3 s; last observed:
+ #{inspect(last)}"
++        )
++    end
+
+     assert {:ok, new_host} =
+              Hosts.open_document(editor_hosts(), result.opened.mirror_document_
+id, client_id: 1)
+@@ -1010,6 +1016,24 @@
+            10 -> eventually(fun, attempts - 1)
+          end)
+
++  defp eventually_value(probe, predicate, attempts \\ 300),
++    do: eventually_value(probe, predicate, attempts, nil)
++
++  defp eventually_value(_probe, _predicate, 0, last_value), do: {:timeout, last
+_value}
++
++  defp eventually_value(probe, predicate, attempts, _last_value) do
++    value = probe.()
++
++    if predicate.(value) do
++      {:ok, value}
++    else
++      receive do
++      after
++        10 -> eventually_value(probe, predicate, attempts - 1, value)
++      end
++    end
++  end
++
+   defp stop_realm do
+     case Supervisor.terminate_child(CommonplaceNext.Supervisor, Realm) do
+       :ok -> :ok
+
+exec
+/bin/bash -lc "sed -n '1795,1865p' tmp/run-logs/red_says_what_1_20260904_1630.lo
+g" in /home/jes/sol-redsays1/wt
+ succeeded in 0ms:
+     FOREIGN TRUST ROOT: id=2 fingerprint=sha256:449353ef1cf9a5bf0a7153691ba0ba8
+395ab4fbe30dfad99c1f44e6c3c33d3a8 does NOT reconstruct to this realm's signing k
+ey. A root the realm did not generate is a second trust root even when the count
+ is one.
+     CASE foreign-root-named result=RED expected=RED
+     TRUST ROOT ENVIRONMENT: MIX_ENV=dev
+     KEYSTORE START OPTION KEYS: [:roots, :runtime_public_root]
+     TRUST ROOTS IN A BOOTED REALM: 2 declared=1
+     ACTIVE TRUST ROOTS IN A BOOTED REALM: 2 declared=1
+       ROOT id=1 status=:active fingerprint=sha256:0c01c5814b7916ae46faa83b1af9e
+c2c51ce19b5ab3965fa7ee2da33a003fe5d proves=FOREIGN
+       ROOT id=0 status=:active fingerprint=sha256:aba5b4487b263360f1d7e85771293
+9f75209d10702fb706d973f11a3f616040d proves=realm-signer
+     SECOND TRUST ROOT CONFIGURED: the Keystore start options carry [:roots]. A
+root supplied through configuration is a second trust root, which is exactly wha
+t this gate refuses -- and it needs no source change to arrive.
+     TRUST ROOT COUNT MISMATCH: 2 installed, declared 1
+     ACTIVE TRUST ROOT COUNT MISMATCH: 2 active, declared 1
+     FOREIGN TRUST ROOT: id=1 fingerprint=sha256:0c01c5814b7916ae46faa83b1af9ec2
+c51ce19b5ab3965fa7ee2da33a003fe5d does NOT reconstruct to this realm's signing k
+ey. A root the realm did not generate is a second trust root even when the count
+ is one.
+     CASE healthy result=OK expected=OK
+     TRUST ROOT ENVIRONMENT: MIX_ENV=dev
+     KEYSTORE START OPTION KEYS: [:runtime_public_root]
+     TRUST ROOTS IN A BOOTED REALM: 1 declared=1
+     ACTIVE TRUST ROOTS IN A BOOTED REALM: 1 declared=1
+       ROOT id=0 status=:active fingerprint=sha256:a3ecba4bbaf0669d33ee78a000711
+2bf5f154fe74244af329d6bda17d7727a51 proves=realm-signer
+     VERDICT: TRUST ROOT INVENTORY OK -- 1 trust root(s), 1 active, every one of
+ them this realm's own signing key.
+     TEST BLIND: config/dev.exs was NOT restored (3945d398723efaa029dd4cff73e2f5
+d42ff874ba != 264045e7e55a7606754a5f69f59131330d0674b3); the working tree is dir
+ty.
+     TEST BLIND: config/dev.exs was NOT restored (3945d398723efaa029dd4cff73e2f5
+d42ff874ba != 264045e7e55a7606754a5f69f59131330d0674b3); the working tree is dir
+ty.
+
+
+     code: assert status == 0, """
+     stacktrace:
+       test/commonplace_next/trust_root_inventory_test.exs:71: (test)
+
+.
+16:34:14.448 [error] GenServer #PID<0.40627.0> terminating
+** (stop) :forbidden
+Process Label: {:thousand_island, :connection, {Bandit.DelegatingHandler, {{127,
+ 0, 0, 1}, 58238}}}
+Last message: :forbidden
+....
+16:34:18.235 [error] GenServer #PID<0.41187.0> terminating
+** (stop) :forbidden
+Process Label: {:thousand_island, :connection, {Bandit.DelegatingHandler, {{127,
+ 0, 0, 1}, 58346}}}
+Last message: :forbidden
+...................................................
+16:34:27.821 [error] GenServer #PID<0.43029.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.43028.0>, :killed}
+
+16:34:27.821 [error] GenServer #PID<0.43086.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.43085.0>, :killed}
+
+16:34:27.821 [error] GenServer #PID<0.43089.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.43088.0>, :killed}
+
+16:34:27.821 [error] GenServer #PID<0.43092.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.43091.0>, :killed}
+
+16:34:27.822 [error] GenServer #PID<0.43095.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.43094.0>, :killed}
+
+16:34:27.822 [error] GenServer #PID<0.43098.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.43097.0>, :killed}
+
+16:34:27.822 [error] GenServer #PID<0.43101.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.43100.0>, :killed}
+
+16:34:27.823 [error] GenServer #PID<0.43104.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.43103.0>, :killed}
+
+16:34:27.823 [error] GenServer #PID<0.43107.0> terminating
+
+diff --git a/docs/IMPLEMENTATION-PLAN-RED-SAYS-WHAT-1.md b/docs/IMPLEMENTATION-P
+LAN-RED-SAYS-WHAT-1.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..75962d41013aeaa7d0f436fd7af89209
+7ca96006
+--- /dev/null
++++ b/docs/IMPLEMENTATION-PLAN-RED-SAYS-WHAT-1.md
+@@ -0,0 +1,29 @@
++# RED-SAYS-WHAT-1 — report the last observed host state
++
++Base: `957ef143a1d1effdd3f6a7f8281ed7ce7f458b9b`.
++
++## What changes
++
++The integration test helper `eventually/2` reduces every observation to a boole
+an, so its timeout
++cannot distinguish a host that remained `{:ok, pid}` from any other unexpected
+state. A sibling
++helper, `eventually_value/3`, retains the last probe result and returns either
+`{:ok, value}` or
++`{:timeout, last_value}` while preserving the existing 300 attempts and 10 ms w
+ait per attempt.
++
++Only the assertion in *"a mirror host restart under a live attachment is surviv
+ed"* uses the new
++helper. Its timeout now names the last result returned by `Hosts.document/2`. T
+he other eight
++`eventually/2` call sites and `eventually/2` itself remain unchanged.
++
++## Arm
++
++The test name is unchanged and is already declared in `IMPLEMENTATION-PLAN-NEXT
+-P7.md`:
++
++`<!-- ARM: a mirror host restart under a live attachment is survived -->`
++
++No duplicate ARM declaration is added here. The mutation arm removes `DocHost.s
+top(old_host)` in a
++throwaway copy and requires the failure to include `last observed: {:ok, #PID<`
+ rather than the old
++boolean-only `Expected truthy, got false`.
++
++## Fence
++
++The implementation is test-only: this plan and
++`test/integration/markdown_editor_goal_test.exs`. No production code or other t
+est file changes.
+diff --git a/test/integration/markdown_editor_goal_test.exs b/test/integration/m
+arkdown_editor_goal_test.exs
+index 8630b7a40bdde7ec032d8111a7d69ae948cb5de4..82a8da06f515cb1c088d7c981d0cde25
+134df2a5
+--- a/test/integration/markdown_editor_goal_test.exs
++++ b/test/integration/markdown_editor_goal_test.exs
+@@ -107,12 +107,18 @@
+     old_host = mirror_host(result.opened)
+     :ok = DocHost.stop(old_host)
+
+-    assert eventually(fn ->
+-             match?(
+-               {:error, :not_running},
+-               Hosts.document(editor_hosts(), result.opened.mirror_document_id)
+-             )
+-           end)
++    case eventually_value(
++           fn -> Hosts.document(editor_hosts(), result.opened.mirror_document_i
+d) end,
++           &match?({:error, :not_running}, &1)
++         ) do
++      {:ok, _} ->
++        :ok
++
++      {:timeout, last} ->
++        flunk(
++          "old mirror host never became :not_running within 3 s; last observed:
+ #{inspect(last)}"
++        )
++    end
+
+     assert {:ok, new_host} =
+              Hosts.open_document(editor_hosts(), result.opened.mirror_document_
+id, client_id: 1)
+@@ -1010,6 +1016,24 @@
+            10 -> eventually(fun, attempts - 1)
+          end)
+
++  defp eventually_value(probe, predicate, attempts \\ 300),
++    do: eventually_value(probe, predicate, attempts, nil)
++
++  defp eventually_value(_probe, _predicate, 0, last_value), do: {:timeout, last
+_value}
++
++  defp eventually_value(probe, predicate, attempts, _last_value) do
++    value = probe.()
++
++    if predicate.(value) do
++      {:ok, value}
++    else
++      receive do
++      after
++        10 -> eventually_value(probe, predicate, attempts - 1, value)
++      end
++    end
++  end
++
+   defp stop_realm do
+     case Supervisor.terminate_child(CommonplaceNext.Supervisor, Realm) do
+       :ok -> :ok
+
+codex
+The full suite completed: `554 tests, 5 failures, 1 excluded`, seed `17378`. The
+ family test did not fail, so there is no full-suite instance of the new message
+ to quote. Four failures are the expected credential-blind pin checks (the brief
+ explicitly forbade network credentials); the fifth reports its own mutation har
+ness could not restore `config/dev.exs`. I’m checking whether that harness actua
+lly left a worktree mutation and will restore only if its content is demonstrabl
+y the test’s temporary change.
+exec
+/bin/bash -lc "git status --short && git diff -- config/dev.exs && sha256sum con
+fig/dev.exs && git show HEAD:config/dev.exs | sha256sum && git diff --check && g
+rep -c 'eventually(' test/integration/markdown_editor_goal_test.exs && grep -rln
+ 'defp\\? eventually(' test/ | wc -l" in /home/jes/sol-redsays1/wt
+ succeeded in 444ms:
+ M config/dev.exs
+ M test/integration/markdown_editor_goal_test.exs
+?? docs/IMPLEMENTATION-PLAN-RED-SAYS-WHAT-1.md
+diff --git a/config/dev.exs b/config/dev.exs
+index 264045e..3945d39 100644
+--- a/config/dev.exs
++++ b/config/dev.exs
+@@ -26,3 +26,18 @@ config :commonplace_next, CommonplaceNext.Realm.Gateway,
+   realm_id: "commonplace-next"
+
+ config :logger, level: :warning
++
++config :commonplace_next, CommonplaceNext.Realm.Keystore,
++  roots: [
++    %{
++      root_key_id: 1,
++      algorithm: "ed25519",
++      public_key: String.duplicate("ab", 32),
++      status: "active",
++      issuer: %{
++        "purpose" => "realm.capability",
++        "realm" => "somewhere-else",
++        "operations" => ["directory.list", "directory.resolve", "cell.open", "d
+ocument.sync.summary", "document.sync.offer"]
++      }
++    }
++  ]
+b785b2e3d4124c72eed4aef730344f8d2d0a42464cc19b5ad86bc742e18f9dfe  config/dev.exs
+82f8b562b0997c41a491f4148b9280e0027a1af5c47ff41868adacb15338ba67  -
+8
+17
+
+diff --git a/docs/IMPLEMENTATION-PLAN-RED-SAYS-WHAT-1.md b/docs/IMPLEMENTATION-P
+LAN-RED-SAYS-WHAT-1.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..75962d41013aeaa7d0f436fd7af89209
+7ca96006
+--- /dev/null
++++ b/docs/IMPLEMENTATION-PLAN-RED-SAYS-WHAT-1.md
+@@ -0,0 +1,29 @@
++# RED-SAYS-WHAT-1 — report the last observed host state
++
++Base: `957ef143a1d1effdd3f6a7f8281ed7ce7f458b9b`.
++
++## What changes
++
++The integration test helper `eventually/2` reduces every observation to a boole
+an, so its timeout
++cannot distinguish a host that remained `{:ok, pid}` from any other unexpected
+state. A sibling
++helper, `eventually_value/3`, retains the last probe result and returns either
+`{:ok, value}` or
++`{:timeout, last_value}` while preserving the existing 300 attempts and 10 ms w
+ait per attempt.
++
++Only the assertion in *"a mirror host restart under a live attachment is surviv
+ed"* uses the new
++helper. Its timeout now names the last result returned by `Hosts.document/2`. T
+he other eight
++`eventually/2` call sites and `eventually/2` itself remain unchanged.
++
++## Arm
++
++The test name is unchanged and is already declared in `IMPLEMENTATION-PLAN-NEXT
+-P7.md`:
++
++`<!-- ARM: a mirror host restart under a live attachment is survived -->`
++
++No duplicate ARM declaration is added here. The mutation arm removes `DocHost.s
+top(old_host)` in a
++throwaway copy and requires the failure to include `last observed: {:ok, #PID<`
+ rather than the old
++boolean-only `Expected truthy, got false`.
++
++## Fence
++
++The implementation is test-only: this plan and
++`test/integration/markdown_editor_goal_test.exs`. No production code or other t
+est file changes.
+diff --git a/test/integration/markdown_editor_goal_test.exs b/test/integration/m
+arkdown_editor_goal_test.exs
+index 8630b7a40bdde7ec032d8111a7d69ae948cb5de4..82a8da06f515cb1c088d7c981d0cde25
+134df2a5
+--- a/test/integration/markdown_editor_goal_test.exs
++++ b/test/integration/markdown_editor_goal_test.exs
+@@ -107,12 +107,18 @@
+     old_host = mirror_host(result.opened)
+     :ok = DocHost.stop(old_host)
+
+-    assert eventually(fn ->
+-             match?(
+-               {:error, :not_running},
+-               Hosts.document(editor_hosts(), result.opened.mirror_document_id)
+-             )
+-           end)
++    case eventually_value(
++           fn -> Hosts.document(editor_hosts(), result.opened.mirror_document_i
+d) end,
++           &match?({:error, :not_running}, &1)
++         ) do
++      {:ok, _} ->
++        :ok
++
++      {:timeout, last} ->
++        flunk(
++          "old mirror host never became :not_running within 3 s; last observed:
+ #{inspect(last)}"
++        )
++    end
+
+     assert {:ok, new_host} =
+              Hosts.open_document(editor_hosts(), result.opened.mirror_document_
+id, client_id: 1)
+@@ -1010,6 +1016,24 @@
+            10 -> eventually(fun, attempts - 1)
+          end)
+
++  defp eventually_value(probe, predicate, attempts \\ 300),
++    do: eventually_value(probe, predicate, attempts, nil)
++
++  defp eventually_value(_probe, _predicate, 0, last_value), do: {:timeout, last
+_value}
++
++  defp eventually_value(probe, predicate, attempts, _last_value) do
++    value = probe.()
++
++    if predicate.(value) do
++      {:ok, value}
++    else
++      receive do
++      after
++        10 -> eventually_value(probe, predicate, attempts - 1, value)
++      end
++    end
++  end
++
+   defp stop_realm do
+     case Supervisor.terminate_child(CommonplaceNext.Supervisor, Realm) do
+       :ok -> :ok
+
+apply patch
+patch: completed
+/home/jes/sol-redsays1/wt/config/dev.exs
+diff --git a/config/dev.exs b/config/dev.exs
+index 3945d398723efaa029dd4cff73e2f5d42ff874ba..264045e7e55a7606754a5f69f5913133
+0d0674b3
+--- a/config/dev.exs
++++ b/config/dev.exs
+@@ -26,18 +26,3 @@
+   realm_id: "commonplace-next"
+
+ config :logger, level: :warning
+-
+-config :commonplace_next, CommonplaceNext.Realm.Keystore,
+-  roots: [
+-    %{
+-      root_key_id: 1,
+-      algorithm: "ed25519",
+-      public_key: String.duplicate("ab", 32),
+-      status: "active",
+-      issuer: %{
+-        "purpose" => "realm.capability",
+-        "realm" => "somewhere-else",
+-        "operations" => ["directory.list", "directory.resolve", "cell.open", "d
+ocument.sync.summary", "document.sync.offer"]
+-      }
+-    }
+-  ]
+diff --git a/docs/IMPLEMENTATION-PLAN-RED-SAYS-WHAT-1.md b/docs/IMPLEMENTATION-P
+LAN-RED-SAYS-WHAT-1.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..75962d41013aeaa7d0f436fd7af89209
+7ca96006
+--- /dev/null
++++ b/docs/IMPLEMENTATION-PLAN-RED-SAYS-WHAT-1.md
+@@ -0,0 +1,29 @@
++# RED-SAYS-WHAT-1 — report the last observed host state
++
++Base: `957ef143a1d1effdd3f6a7f8281ed7ce7f458b9b`.
++
++## What changes
++
++The integration test helper `eventually/2` reduces every observation to a boole
+an, so its timeout
++cannot distinguish a host that remained `{:ok, pid}` from any other unexpected
+state. A sibling
++helper, `eventually_value/3`, retains the last probe result and returns either
+`{:ok, value}` or
++`{:timeout, last_value}` while preserving the existing 300 attempts and 10 ms w
+ait per attempt.
++
++Only the assertion in *"a mirror host restart under a live attachment is surviv
+ed"* uses the new
++helper. Its timeout now names the last result returned by `Hosts.document/2`. T
+he other eight
++`eventually/2` call sites and `eventually/2` itself remain unchanged.
++
++## Arm
++
++The test name is unchanged and is already declared in `IMPLEMENTATION-PLAN-NEXT
+-P7.md`:
++
++`<!-- ARM: a mirror host restart under a live attachment is survived -->`
++
++No duplicate ARM declaration is added here. The mutation arm removes `DocHost.s
+top(old_host)` in a
++throwaway copy and requires the failure to include `last observed: {:ok, #PID<`
+ rather than the old
++boolean-only `Expected truthy, got false`.
++
++## Fence
++
++The implementation is test-only: this plan and
++`test/integration/markdown_editor_goal_test.exs`. No production code or other t
+est file changes.
+diff --git a/test/integration/markdown_editor_goal_test.exs b/test/integration/m
+arkdown_editor_goal_test.exs
+index 8630b7a40bdde7ec032d8111a7d69ae948cb5de4..82a8da06f515cb1c088d7c981d0cde25
+134df2a5
+--- a/test/integration/markdown_editor_goal_test.exs
++++ b/test/integration/markdown_editor_goal_test.exs
+@@ -107,12 +107,18 @@
+     old_host = mirror_host(result.opened)
+     :ok = DocHost.stop(old_host)
+
+-    assert eventually(fn ->
+-             match?(
+-               {:error, :not_running},
+-               Hosts.document(editor_hosts(), result.opened.mirror_document_id)
+-             )
+-           end)
++    case eventually_value(
++           fn -> Hosts.document(editor_hosts(), result.opened.mirror_document_i
+d) end,
++           &match?({:error, :not_running}, &1)
++         ) do
++      {:ok, _} ->
++        :ok
++
++      {:timeout, last} ->
++        flunk(
++          "old mirror host never became :not_running within 3 s; last observed:
+ #{inspect(last)}"
++        )
++    end
+
+     assert {:ok, new_host} =
+              Hosts.open_document(editor_hosts(), result.opened.mirror_document_
+id, client_id: 1)
+@@ -1010,6 +1016,24 @@
+            10 -> eventually(fun, attempts - 1)
+          end)
+
++  defp eventually_value(probe, predicate, attempts \\ 300),
++    do: eventually_value(probe, predicate, attempts, nil)
++
++  defp eventually_value(_probe, _predicate, 0, last_value), do: {:timeout, last
+_value}
++
++  defp eventually_value(probe, predicate, attempts, _last_value) do
++    value = probe.()
++
++    if predicate.(value) do
++      {:ok, value}
++    else
++      receive do
++      after
++        10 -> eventually_value(probe, predicate, attempts - 1, value)
++      end
++    end
++  end
++
+   defp stop_realm do
+     case Supervisor.terminate_child(CommonplaceNext.Supervisor, Realm) do
+       :ok -> :ok
+
+diff --git a/config/dev.exs b/config/dev.exs
+index 3945d398723efaa029dd4cff73e2f5d42ff874ba..264045e7e55a7606754a5f69f5913133
+0d0674b3
+--- a/config/dev.exs
++++ b/config/dev.exs
+@@ -26,18 +26,3 @@
+   realm_id: "commonplace-next"
+
+ config :logger, level: :warning
+-
+-config :commonplace_next, CommonplaceNext.Realm.Keystore,
+-  roots: [
+-    %{
+-      root_key_id: 1,
+-      algorithm: "ed25519",
+-      public_key: String.duplicate("ab", 32),
+-      status: "active",
+-      issuer: %{
+-        "purpose" => "realm.capability",
+-        "realm" => "somewhere-else",
+-        "operations" => ["directory.list", "directory.resolve", "cell.open", "d
+ocument.sync.summary", "document.sync.offer"]
+-      }
+-    }
+-  ]
+diff --git a/docs/IMPLEMENTATION-PLAN-RED-SAYS-WHAT-1.md b/docs/IMPLEMENTATION-P
+LAN-RED-SAYS-WHAT-1.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..75962d41013aeaa7d0f436fd7af89209
+7ca96006
+--- /dev/null
++++ b/docs/IMPLEMENTATION-PLAN-RED-SAYS-WHAT-1.md
+@@ -0,0 +1,29 @@
++# RED-SAYS-WHAT-1 — report the last observed host state
++
++Base: `957ef143a1d1effdd3f6a7f8281ed7ce7f458b9b`.
++
++## What changes
++
++The integration test helper `eventually/2` reduces every observation to a boole
+an, so its timeout
++cannot distinguish a host that remained `{:ok, pid}` from any other unexpected
+state. A sibling
++helper, `eventually_value/3`, retains the last probe result and returns either
+`{:ok, value}` or
++`{:timeout, last_value}` while preserving the existing 300 attempts and 10 ms w
+ait per attempt.
++
++Only the assertion in *"a mirror host restart under a live attachment is surviv
+ed"* uses the new
++helper. Its timeout now names the last result returned by `Hosts.document/2`. T
+he other eight
++`eventually/2` call sites and `eventually/2` itself remain unchanged.
++
++## Arm
++
++The test name is unchanged and is already declared in `IMPLEMENTATION-PLAN-NEXT
+-P7.md`:
++
++`<!-- ARM: a mirror host restart under a live attachment is survived -->`
++
++No duplicate ARM declaration is added here. The mutation arm removes `DocHost.s
+top(old_host)` in a
++throwaway copy and requires the failure to include `last observed: {:ok, #PID<`
+ rather than the old
++boolean-only `Expected truthy, got false`.
++
++## Fence
++
++The implementation is test-only: this plan and
++`test/integration/markdown_editor_goal_test.exs`. No production code or other t
+est file changes.
+diff --git a/test/integration/markdown_editor_goal_test.exs b/test/integration/m
+arkdown_editor_goal_test.exs
+index 8630b7a40bdde7ec032d8111a7d69ae948cb5de4..82a8da06f515cb1c088d7c981d0cde25
+134df2a5
+--- a/test/integration/markdown_editor_goal_test.exs
++++ b/test/integration/markdown_editor_goal_test.exs
+@@ -107,12 +107,18 @@
+     old_host = mirror_host(result.opened)
+     :ok = DocHost.stop(old_host)
+
+-    assert eventually(fn ->
+-             match?(
+-               {:error, :not_running},
+-               Hosts.document(editor_hosts(), result.opened.mirror_document_id)
+-             )
+-           end)
++    case eventually_value(
++           fn -> Hosts.document(editor_hosts(), result.opened.mirror_document_i
+d) end,
++           &match?({:error, :not_running}, &1)
++         ) do
++      {:ok, _} ->
++        :ok
++
++      {:timeout, last} ->
++        flunk(
++          "old mirror host never became :not_running within 3 s; last observed:
+ #{inspect(last)}"
++        )
++    end
+
+     assert {:ok, new_host} =
+              Hosts.open_document(editor_hosts(), result.opened.mirror_document_
+id, client_id: 1)
+@@ -1010,6 +1016,24 @@
+            10 -> eventually(fun, attempts - 1)
+          end)
+
++  defp eventually_value(probe, predicate, attempts \\ 300),
++    do: eventually_value(probe, predicate, attempts, nil)
++
++  defp eventually_value(_probe, _predicate, 0, last_value), do: {:timeout, last
+_value}
++
++  defp eventually_value(probe, predicate, attempts, _last_value) do
++    value = probe.()
++
++    if predicate.(value) do
++      {:ok, value}
++    else
++      receive do
++      after
++        10 -> eventually_value(probe, predicate, attempts - 1, value)
++      end
++    end
++  end
++
+   defp stop_realm do
+     case Supervisor.terminate_child(CommonplaceNext.Supervisor, Realm) do
+       :ok -> :ok
+
+apply patch
+patch: completed
+/home/jes/sol-redsays1/wt/docs/IMPLEMENTATION-PLAN-RED-SAYS-WHAT-1.md
+diff --git a/config/dev.exs b/config/dev.exs
+index 3945d398723efaa029dd4cff73e2f5d42ff874ba..264045e7e55a7606754a5f69f5913133
+0d0674b3
+--- a/config/dev.exs
++++ b/config/dev.exs
+@@ -26,18 +26,3 @@
+   realm_id: "commonplace-next"
+
+ config :logger, level: :warning
+-
+-config :commonplace_next, CommonplaceNext.Realm.Keystore,
+-  roots: [
+-    %{
+-      root_key_id: 1,
+-      algorithm: "ed25519",
+-      public_key: String.duplicate("ab", 32),
+-      status: "active",
+-      issuer: %{
+-        "purpose" => "realm.capability",
+-        "realm" => "somewhere-else",
+-        "operations" => ["directory.list", "directory.resolve", "cell.open", "d
+ocument.sync.summary", "document.sync.offer"]
+-      }
+-    }
+-  ]
+diff --git a/docs/IMPLEMENTATION-PLAN-RED-SAYS-WHAT-1.md b/docs/IMPLEMENTATION-P
+LAN-RED-SAYS-WHAT-1.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..d232208704d1d43d5cd87830b7821d1d
+d29bf409
+--- /dev/null
++++ b/docs/IMPLEMENTATION-PLAN-RED-SAYS-WHAT-1.md
+@@ -0,0 +1,27 @@
++# RED-SAYS-WHAT-1 — report the last observed host state
++
++Base: `957ef143a1d1effdd3f6a7f8281ed7ce7f458b9b`.
++
++## What changes
++
++The integration test helper `eventually/2` reduces every observation to a boole
+an, so its timeout
++cannot distinguish a host that remained `{:ok, pid}` from any other unexpected
+state. A sibling
++helper, `eventually_value/3`, retains the last probe result and returns either
+`{:ok, value}` or
++`{:timeout, last_value}` while preserving the existing 300 attempts and 10 ms w
+ait per attempt.
++
++Only the assertion in *"a mirror host restart under a live attachment is surviv
+ed"* uses the new
++helper. Its timeout now names the last result returned by `Hosts.document/2`. T
+he other eight
++`eventually/2` call sites and `eventually/2` itself remain unchanged.
++
++## Arm
++
++The test name is unchanged and is already declared by its name in
++`IMPLEMENTATION-PLAN-NEXT-P7.md`. No duplicate ARM declaration is added here. T
+he mutation arm
++removes `DocHost.stop(old_host)` in a
++throwaway copy and requires the failure to include `last observed: {:ok, #PID<`
+ rather than the old
++boolean-only `Expected truthy, got false`.
++
++## Fence
++
++The implementation is test-only: this plan and
++`test/integration/markdown_editor_goal_test.exs`. No production code or other t
+est file changes.
+diff --git a/test/integration/markdown_editor_goal_test.exs b/test/integration/m
+arkdown_editor_goal_test.exs
+index 8630b7a40bdde7ec032d8111a7d69ae948cb5de4..82a8da06f515cb1c088d7c981d0cde25
+134df2a5
+--- a/test/integration/markdown_editor_goal_test.exs
++++ b/test/integration/markdown_editor_goal_test.exs
+@@ -107,12 +107,18 @@
+     old_host = mirror_host(result.opened)
+     :ok = DocHost.stop(old_host)
+
+-    assert eventually(fn ->
+-             match?(
+-               {:error, :not_running},
+-               Hosts.document(editor_hosts(), result.opened.mirror_document_id)
+-             )
+-           end)
++    case eventually_value(
++           fn -> Hosts.document(editor_hosts(), result.opened.mirror_document_i
+d) end,
++           &match?({:error, :not_running}, &1)
++         ) do
++      {:ok, _} ->
++        :ok
++
++      {:timeout, last} ->
++        flunk(
++          "old mirror host never became :not_running within 3 s; last observed:
+ #{inspect(last)}"
++        )
++    end
+
+     assert {:ok, new_host} =
+              Hosts.open_document(editor_hosts(), result.opened.mirror_document_
+id, client_id: 1)
+@@ -1010,6 +1016,24 @@
+            10 -> eventually(fun, attempts - 1)
+          end)
+
++  defp eventually_value(probe, predicate, attempts \\ 300),
++    do: eventually_value(probe, predicate, attempts, nil)
++
++  defp eventually_value(_probe, _predicate, 0, last_value), do: {:timeout, last
+_value}
++
++  defp eventually_value(probe, predicate, attempts, _last_value) do
++    value = probe.()
++
++    if predicate.(value) do
++      {:ok, value}
++    else
++      receive do
++      after
++        10 -> eventually_value(probe, predicate, attempts - 1, value)
++      end
++    end
++  end
++
+   defp stop_realm do
+     case Supervisor.terminate_child(CommonplaceNext.Supervisor, Realm) do
+       :ok -> :ok
+
+diff --git a/config/dev.exs b/config/dev.exs
+index 3945d398723efaa029dd4cff73e2f5d42ff874ba..264045e7e55a7606754a5f69f5913133
+0d0674b3
+--- a/config/dev.exs
++++ b/config/dev.exs
+@@ -26,18 +26,3 @@
+   realm_id: "commonplace-next"
+
+ config :logger, level: :warning
+-
+-config :commonplace_next, CommonplaceNext.Realm.Keystore,
+-  roots: [
+-    %{
+-      root_key_id: 1,
+-      algorithm: "ed25519",
+-      public_key: String.duplicate("ab", 32),
+-      status: "active",
+-      issuer: %{
+-        "purpose" => "realm.capability",
+-        "realm" => "somewhere-else",
+-        "operations" => ["directory.list", "directory.resolve", "cell.open", "d
+ocument.sync.summary", "document.sync.offer"]
+-      }
+-    }
+-  ]
+diff --git a/docs/IMPLEMENTATION-PLAN-RED-SAYS-WHAT-1.md b/docs/IMPLEMENTATION-P
+LAN-RED-SAYS-WHAT-1.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..d232208704d1d43d5cd87830b7821d1d
+d29bf409
+--- /dev/null
++++ b/docs/IMPLEMENTATION-PLAN-RED-SAYS-WHAT-1.md
+@@ -0,0 +1,27 @@
++# RED-SAYS-WHAT-1 — report the last observed host state
++
++Base: `957ef143a1d1effdd3f6a7f8281ed7ce7f458b9b`.
++
++## What changes
++
++The integration test helper `eventually/2` reduces every observation to a boole
+an, so its timeout
++cannot distinguish a host that remained `{:ok, pid}` from any other unexpected
+state. A sibling
++helper, `eventually_value/3`, retains the last probe result and returns either
+`{:ok, value}` or
++`{:timeout, last_value}` while preserving the existing 300 attempts and 10 ms w
+ait per attempt.
++
++Only the assertion in *"a mirror host restart under a live attachment is surviv
+ed"* uses the new
++helper. Its timeout now names the last result returned by `Hosts.document/2`. T
+he other eight
++`eventually/2` call sites and `eventually/2` itself remain unchanged.
++
++## Arm
++
++The test name is unchanged and is already declared by its name in
++`IMPLEMENTATION-PLAN-NEXT-P7.md`. No duplicate ARM declaration is added here. T
+he mutation arm
++removes `DocHost.stop(old_host)` in a
++throwaway copy and requires the failure to include `last observed: {:ok, #PID<`
+ rather than the old
++boolean-only `Expected truthy, got false`.
++
++## Fence
++
++The implementation is test-only: this plan and
++`test/integration/markdown_editor_goal_test.exs`. No production code or other t
+est file changes.
+diff --git a/test/integration/markdown_editor_goal_test.exs b/test/integration/m
+arkdown_editor_goal_test.exs
+index 8630b7a40bdde7ec032d8111a7d69ae948cb5de4..82a8da06f515cb1c088d7c981d0cde25
+134df2a5
+--- a/test/integration/markdown_editor_goal_test.exs
++++ b/test/integration/markdown_editor_goal_test.exs
+@@ -107,12 +107,18 @@
+     old_host = mirror_host(result.opened)
+     :ok = DocHost.stop(old_host)
+
+-    assert eventually(fn ->
+-             match?(
+-               {:error, :not_running},
+-               Hosts.document(editor_hosts(), result.opened.mirror_document_id)
+-             )
+-           end)
++    case eventually_value(
++           fn -> Hosts.document(editor_hosts(), result.opened.mirror_document_i
+d) end,
++           &match?({:error, :not_running}, &1)
++         ) do
++      {:ok, _} ->
++        :ok
++
++      {:timeout, last} ->
++        flunk(
++          "old mirror host never became :not_running within 3 s; last observed:
+ #{inspect(last)}"
++        )
++    end
+
+     assert {:ok, new_host} =
+              Hosts.open_document(editor_hosts(), result.opened.mirror_document_
+id, client_id: 1)
+@@ -1010,6 +1016,24 @@
+            10 -> eventually(fun, attempts - 1)
+          end)
+
++  defp eventually_value(probe, predicate, attempts \\ 300),
++    do: eventually_value(probe, predicate, attempts, nil)
++
++  defp eventually_value(_probe, _predicate, 0, last_value), do: {:timeout, last
+_value}
++
++  defp eventually_value(probe, predicate, attempts, _last_value) do
++    value = probe.()
++
++    if predicate.(value) do
++      {:ok, value}
++    else
++      receive do
++      after
++        10 -> eventually_value(probe, predicate, attempts - 1, value)
++      end
++    end
++  end
++
+   defp stop_realm do
+     case Supervisor.terminate_child(CommonplaceNext.Supervisor, Realm) do
+       :ok -> :ok
+
+exec
+/bin/bash -lc 'sha256sum config/dev.exs test/integration/markdown_editor_goal_te
+st.exs && git show HEAD:config/dev.exs | sha256sum && bin/check-plan-arms.sh > /
+tmp/red_says_plan_gate.out; plan_gate_rc=$?; tail -n 4 /tmp/red_says_plan_gate.o
+ut; echo PLAN_GATE_RC=$plan_gate_rc; bin/check-spec-pristine.sh > /tmp/red_says_
+spec_gate.out; spec_gate_rc=$?; cat /tmp/red_says_spec_gate.out; echo SPEC_GATE_
+RC=$spec_gate_rc; mix format --check-formatted; echo FORMAT_RC=$?; echo TRACKED_
+DIFF_STAT; git diff --stat; echo UNTRACKED_PLAN_STAT; git diff --no-index --stat
+ /dev/null docs/IMPLEMENTATION-PLAN-RED-SAYS-WHAT-1.md; plan_stat_rc=$?; test "$
+plan_stat_rc" -eq 1; echo FINAL_STATUS; git status --short; echo ASSERT_REMOVALS
+=$(git diff | grep -c '"'"'^-.*assert'"'); echo ASSERT_REFUTE_OTHER_CHANGES="'$(
+git diff | grep -E '"'"'^[+-].*(assert|refute)'"' | grep -vE '"'^-    assert eve
+ntually'"' | wc -l); git diff --check; exit "'$((plan_gate_rc + spec_gate_rc))'
+in /home/jes/sol-redsays1/wt
+diff --git a/config/dev.exs b/config/dev.exs
+index 3945d398723efaa029dd4cff73e2f5d42ff874ba..264045e7e55a7606754a5f69f5913133
+0d0674b3
+--- a/config/dev.exs
++++ b/config/dev.exs
+@@ -26,18 +26,3 @@
+   realm_id: "commonplace-next"
+
+ config :logger, level: :warning
+-
+-config :commonplace_next, CommonplaceNext.Realm.Keystore,
+-  roots: [
+-    %{
+-      root_key_id: 1,
+-      algorithm: "ed25519",
+-      public_key: String.duplicate("ab", 32),
+-      status: "active",
+-      issuer: %{
+-        "purpose" => "realm.capability",
+-        "realm" => "somewhere-else",
+-        "operations" => ["directory.list", "directory.resolve", "cell.open", "d
+ocument.sync.summary", "document.sync.offer"]
+-      }
+-    }
+-  ]
+diff --git a/docs/IMPLEMENTATION-PLAN-RED-SAYS-WHAT-1.md b/docs/IMPLEMENTATION-P
+LAN-RED-SAYS-WHAT-1.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..d232208704d1d43d5cd87830b7821d1d
+d29bf409
+--- /dev/null
++++ b/docs/IMPLEMENTATION-PLAN-RED-SAYS-WHAT-1.md
+@@ -0,0 +1,27 @@
++# RED-SAYS-WHAT-1 — report the last observed host state
++
++Base: `957ef143a1d1effdd3f6a7f8281ed7ce7f458b9b`.
++
++## What changes
++
++The integration test helper `eventually/2` reduces every observation to a boole
+an, so its timeout
++cannot distinguish a host that remained `{:ok, pid}` from any other unexpected
+state. A sibling
++helper, `eventually_value/3`, retains the last probe result and returns either
+`{:ok, value}` or
++`{:timeout, last_value}` while preserving the existing 300 attempts and 10 ms w
+ait per attempt.
++
++Only the assertion in *"a mirror host restart under a live attachment is surviv
+ed"* uses the new
++helper. Its timeout now names the last result returned by `Hosts.document/2`. T
+he other eight
++`eventually/2` call sites and `eventually/2` itself remain unchanged.
++
++## Arm
++
++The test name is unchanged and is already declared by its name in
++`IMPLEMENTATION-PLAN-NEXT-P7.md`. No duplicate ARM declaration is added here. T
+he mutation arm
++removes `DocHost.stop(old_host)` in a
++throwaway copy and requires the failure to include `last observed: {:ok, #PID<`
+ rather than the old
++boolean-only `Expected truthy, got false`.
++
++## Fence
++
++The implementation is test-only: this plan and
++`test/integration/markdown_editor_goal_test.exs`. No production code or other t
+est file changes.
+diff --git a/test/integration/markdown_editor_goal_test.exs b/test/integration/m
+arkdown_editor_goal_test.exs
+index 8630b7a40bdde7ec032d8111a7d69ae948cb5de4..82a8da06f515cb1c088d7c981d0cde25
+134df2a5
+--- a/test/integration/markdown_editor_goal_test.exs
++++ b/test/integration/markdown_editor_goal_test.exs
+@@ -107,12 +107,18 @@
+     old_host = mirror_host(result.opened)
+     :ok = DocHost.stop(old_host)
+
+-    assert eventually(fn ->
+-             match?(
+-               {:error, :not_running},
+-               Hosts.document(editor_hosts(), result.opened.mirror_document_id)
+-             )
+-           end)
++    case eventually_value(
++           fn -> Hosts.document(editor_hosts(), result.opened.mirror_document_i
+d) end,
++           &match?({:error, :not_running}, &1)
++         ) do
++      {:ok, _} ->
++        :ok
++
++      {:timeout, last} ->
++        flunk(
++          "old mirror host never became :not_running within 3 s; last observed:
+ #{inspect(last)}"
++        )
++    end
+
+     assert {:ok, new_host} =
+              Hosts.open_document(editor_hosts(), result.opened.mirror_document_
+id, client_id: 1)
+@@ -1010,6 +1016,24 @@
+            10 -> eventually(fun, attempts - 1)
+          end)
+
++  defp eventually_value(probe, predicate, attempts \\ 300),
++    do: eventually_value(probe, predicate, attempts, nil)
++
++  defp eventually_value(_probe, _predicate, 0, last_value), do: {:timeout, last
+_value}
++
++  defp eventually_value(probe, predicate, attempts, _last_value) do
++    value = probe.()
++
++    if predicate.(value) do
++      {:ok, value}
++    else
++      receive do
++      after
++        10 -> eventually_value(probe, predicate, attempts - 1, value)
++      end
++    end
++  end
++
+   defp stop_realm do
+     case Supervisor.terminate_child(CommonplaceNext.Supervisor, Realm) do
+       :ok -> :ok
+
+ succeeded in 8844ms:
+  ok      the merge policy is the composition root's configuration and not the l
+ibrary default
+---
+declared arms: 433   planned (not failing): 11   tests: 548   missing: 0   undec
+lared modules: 0
+VERDICT: PASS -- every declared arm exists.
+PLAN_GATE_RC=0
+  pristine docs/proposals/2026-08-24-goal-markdown-workspace-editor-cell.md
+  pristine docs/proposals/2026-08-24-repository-layout.md
+VERDICT: PRISTINE -- every filed spec is byte-identical as declared
+SPEC_GATE_RC=0
+FORMAT_RC=0
+TRACKED_DIFF_STAT
+ test/integration/markdown_editor_goal_test.exs | 36 +++++++++++++++++++++-----
+ 1 file changed, 30 insertions(+), 6 deletions(-)
+UNTRACKED_PLAN_STAT
+ .../IMPLEMENTATION-PLAN-RED-SAYS-WHAT-1.md         | 27 ++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
+FINAL_STATUS
+ M test/integration/markdown_editor_goal_test.exs
+?? docs/IMPLEMENTATION-PLAN-RED-SAYS-WHAT-1.md
+ASSERT_REMOVALS=1
+ASSERT_REFUTE_OTHER_CHANGES=0
+
+diff --git a/config/dev.exs b/config/dev.exs
+index 3945d398723efaa029dd4cff73e2f5d42ff874ba..264045e7e55a7606754a5f69f5913133
+0d0674b3
+--- a/config/dev.exs
++++ b/config/dev.exs
+@@ -26,18 +26,3 @@
+   realm_id: "commonplace-next"
+
+ config :logger, level: :warning
+-
+-config :commonplace_next, CommonplaceNext.Realm.Keystore,
+-  roots: [
+-    %{
+-      root_key_id: 1,
+-      algorithm: "ed25519",
+-      public_key: String.duplicate("ab", 32),
+-      status: "active",
+-      issuer: %{
+-        "purpose" => "realm.capability",
+-        "realm" => "somewhere-else",
+-        "operations" => ["directory.list", "directory.resolve", "cell.open", "d
+ocument.sync.summary", "document.sync.offer"]
+-      }
+-    }
+-  ]
+diff --git a/docs/IMPLEMENTATION-PLAN-RED-SAYS-WHAT-1.md b/docs/IMPLEMENTATION-P
+LAN-RED-SAYS-WHAT-1.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..d232208704d1d43d5cd87830b7821d1d
+d29bf409
+--- /dev/null
++++ b/docs/IMPLEMENTATION-PLAN-RED-SAYS-WHAT-1.md
+@@ -0,0 +1,27 @@
++# RED-SAYS-WHAT-1 — report the last observed host state
++
++Base: `957ef143a1d1effdd3f6a7f8281ed7ce7f458b9b`.
++
++## What changes
++
++The integration test helper `eventually/2` reduces every observation to a boole
+an, so its timeout
++cannot distinguish a host that remained `{:ok, pid}` from any other unexpected
+state. A sibling
++helper, `eventually_value/3`, retains the last probe result and returns either
+`{:ok, value}` or
++`{:timeout, last_value}` while preserving the existing 300 attempts and 10 ms w
+ait per attempt.
++
++Only the assertion in *"a mirror host restart under a live attachment is surviv
+ed"* uses the new
++helper. Its timeout now names the last result returned by `Hosts.document/2`. T
+he other eight
++`eventually/2` call sites and `eventually/2` itself remain unchanged.
++
++## Arm
++
++The test name is unchanged and is already declared by its name in
++`IMPLEMENTATION-PLAN-NEXT-P7.md`. No duplicate ARM declaration is added here. T
+he mutation arm
++removes `DocHost.stop(old_host)` in a
++throwaway copy and requires the failure to include `last observed: {:ok, #PID<`
+ rather than the old
++boolean-only `Expected truthy, got false`.
++
++## Fence
++
++The implementation is test-only: this plan and
++`test/integration/markdown_editor_goal_test.exs`. No production code or other t
+est file changes.
+diff --git a/test/integration/markdown_editor_goal_test.exs b/test/integration/m
+arkdown_editor_goal_test.exs
+index 8630b7a40bdde7ec032d8111a7d69ae948cb5de4..82a8da06f515cb1c088d7c981d0cde25
+134df2a5
+--- a/test/integration/markdown_editor_goal_test.exs
++++ b/test/integration/markdown_editor_goal_test.exs
+@@ -107,12 +107,18 @@
+     old_host = mirror_host(result.opened)
+     :ok = DocHost.stop(old_host)
+
+-    assert eventually(fn ->
+-             match?(
+-               {:error, :not_running},
+-               Hosts.document(editor_hosts(), result.opened.mirror_document_id)
+-             )
+-           end)
++    case eventually_value(
++           fn -> Hosts.document(editor_hosts(), result.opened.mirror_document_i
+d) end,
++           &match?({:error, :not_running}, &1)
++         ) do
++      {:ok, _} ->
++        :ok
++
++      {:timeout, last} ->
++        flunk(
++          "old mirror host never became :not_running within 3 s; last observed:
+ #{inspect(last)}"
++        )
++    end
+
+     assert {:ok, new_host} =
+              Hosts.open_document(editor_hosts(), result.opened.mirror_document_
+id, client_id: 1)
+@@ -1010,6 +1016,24 @@
+            10 -> eventually(fun, attempts - 1)
+          end)
+
++  defp eventually_value(probe, predicate, attempts \\ 300),
++    do: eventually_value(probe, predicate, attempts, nil)
++
++  defp eventually_value(_probe, _predicate, 0, last_value), do: {:timeout, last
+_value}
++
++  defp eventually_value(probe, predicate, attempts, _last_value) do
++    value = probe.()
++
++    if predicate.(value) do
++      {:ok, value}
++    else
++      receive do
++      after
++        10 -> eventually_value(probe, predicate, attempts - 1, value)
++      end
++    end
++  end
++
+   defp stop_realm do
+     case Supervisor.terminate_child(CommonplaceNext.Supervisor, Realm) do
+       :ok -> :ok
+
+exec
+/bin/bash -lc "nl -ba test/integration/markdown_editor_goal_test.exs | sed -n '1
+00,130p;1005,1045p' && nl -ba docs/IMPLEMENTATION-PLAN-RED-SAYS-WHAT-1.md | sed
+-n '1,40p'" in /home/jes/sol-redsays1/wt
+ succeeded in 0ms:
+   100      assert canonical_text() == @edited
+   101      assert Text.to_string(restarted.browser, "content") == @edited
+   102      assert byte_size(restarted.diff) < byte_size(Encoding.encode_update(
+result.browser))
+   103    end
+   104
+   105    test "a mirror host restart under a live attachment is survived" do
+   106      result = run_happy_path()
+   107      old_host = mirror_host(result.opened)
+   108      :ok = DocHost.stop(old_host)
+   109
+   110      case eventually_value(
+   111             fn -> Hosts.document(editor_hosts(), result.opened.mirror_doc
+ument_id) end,
+   112             &match?({:error, :not_running}, &1)
+   113           ) do
+   114        {:ok, _} ->
+   115          :ok
+   116
+   117        {:timeout, last} ->
+   118          flunk(
+   119            "old mirror host never became :not_running within 3 s; last ob
+served: #{inspect(last)}"
+   120          )
+   121      end
+   122
+   123      assert {:ok, new_host} =
+   124               Hosts.open_document(editor_hosts(), result.opened.mirror_do
+cument_id, client_id: 1)
+   125
+   126      refute new_host == old_host
+   127
+   128      operation_id = uuid()
+   129      socket = author(result.socket, operation_id, <<0, 0>>)
+   130      assert {:ok, %{"head" => head}, socket} = receive_json(socket, "ack"
+)
+  1005      end
+  1006    end
+  1007
+  1008    defp eventually(fun, attempts \\ 300)
+  1009    defp eventually(_fun, 0), do: false
+  1010
+  1011    defp eventually(fun, attempts),
+  1012      do:
+  1013        fun.() ||
+  1014          (receive do
+  1015           after
+  1016             10 -> eventually(fun, attempts - 1)
+  1017           end)
+  1018
+  1019    defp eventually_value(probe, predicate, attempts \\ 300),
+  1020      do: eventually_value(probe, predicate, attempts, nil)
+  1021
+  1022    defp eventually_value(_probe, _predicate, 0, last_value), do: {:timeou
+t, last_value}
+  1023
+  1024    defp eventually_value(probe, predicate, attempts, _last_value) do
+  1025      value = probe.()
+  1026
+  1027      if predicate.(value) do
+  1028        {:ok, value}
+  1029      else
+  1030        receive do
+  1031        after
+  1032          10 -> eventually_value(probe, predicate, attempts - 1, value)
+  1033        end
+  1034      end
+  1035    end
+  1036
+  1037    defp stop_realm do
+  1038      case Supervisor.terminate_child(CommonplaceNext.Supervisor, Realm) d
+o
+  1039        :ok -> :ok
+  1040        {:error, :not_found} -> :ok
+  1041      end
+  1042    end
+  1043
+  1044    defp stop_sqlite_children do
+  1045      Registry.select(SQLite.Registry, [{{:_, :"$1", :_}, [], [:"$1"]}])
+     1  # RED-SAYS-WHAT-1 — report the last observed host state
+     2
+     3  Base: `957ef143a1d1effdd3f6a7f8281ed7ce7f458b9b`.
+     4
+     5  ## What changes
+     6
+     7  The integration test helper `eventually/2` reduces every observation to
+a boolean, so its timeout
+     8  cannot distinguish a host that remained `{:ok, pid}` from any other unex
+pected state. A sibling
+     9  helper, `eventually_value/3`, retains the last probe result and returns
+either `{:ok, value}` or
+    10  `{:timeout, last_value}` while preserving the existing 300 attempts and
+10 ms wait per attempt.
+    11
+    12  Only the assertion in *"a mirror host restart under a live attachment is
+ survived"* uses the new
+    13  helper. Its timeout now names the last result returned by `Hosts.documen
+t/2`. The other eight
+    14  `eventually/2` call sites and `eventually/2` itself remain unchanged.
+    15
+    16  ## Arm
+    17
+    18  The test name is unchanged and is already declared by its name in
+    19  `IMPLEMENTATION-PLAN-NEXT-P7.md`. No duplicate ARM declaration is added
+here. The mutation arm
+    20  removes `DocHost.stop(old_host)` in a
+    21  throwaway copy and requires the failure to include `last observed: {:ok,
+ #PID<` rather than the old
+    22  boolean-only `Expected truthy, got false`.
+    23
+    24  ## Fence
+    25
+    26  The implementation is test-only: this plan and
+    27  `test/integration/markdown_editor_goal_test.exs`. No production code or
+other test file changes.
+
+diff --git a/config/dev.exs b/config/dev.exs
+index 3945d398723efaa029dd4cff73e2f5d42ff874ba..264045e7e55a7606754a5f69f5913133
+0d0674b3
+--- a/config/dev.exs
++++ b/config/dev.exs
+@@ -26,18 +26,3 @@
+   realm_id: "commonplace-next"
+
+ config :logger, level: :warning
+-
+-config :commonplace_next, CommonplaceNext.Realm.Keystore,
+-  roots: [
+-    %{
+-      root_key_id: 1,
+-      algorithm: "ed25519",
+-      public_key: String.duplicate("ab", 32),
+-      status: "active",
+-      issuer: %{
+-        "purpose" => "realm.capability",
+-        "realm" => "somewhere-else",
+-        "operations" => ["directory.list", "directory.resolve", "cell.open", "d
+ocument.sync.summary", "document.sync.offer"]
+-      }
+-    }
+-  ]
+diff --git a/docs/IMPLEMENTATION-PLAN-RED-SAYS-WHAT-1.md b/docs/IMPLEMENTATION-P
+LAN-RED-SAYS-WHAT-1.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..d232208704d1d43d5cd87830b7821d1d
+d29bf409
+--- /dev/null
++++ b/docs/IMPLEMENTATION-PLAN-RED-SAYS-WHAT-1.md
+@@ -0,0 +1,27 @@
++# RED-SAYS-WHAT-1 — report the last observed host state
++
++Base: `957ef143a1d1effdd3f6a7f8281ed7ce7f458b9b`.
++
++## What changes
++
++The integration test helper `eventually/2` reduces every observation to a boole
+an, so its timeout
++cannot distinguish a host that remained `{:ok, pid}` from any other unexpected
+state. A sibling
++helper, `eventually_value/3`, retains the last probe result and returns either
+`{:ok, value}` or
++`{:timeout, last_value}` while preserving the existing 300 attempts and 10 ms w
+ait per attempt.
++
++Only the assertion in *"a mirror host restart under a live attachment is surviv
+ed"* uses the new
++helper. Its timeout now names the last result returned by `Hosts.document/2`. T
+he other eight
++`eventually/2` call sites and `eventually/2` itself remain unchanged.
++
++## Arm
++
++The test name is unchanged and is already declared by its name in
++`IMPLEMENTATION-PLAN-NEXT-P7.md`. No duplicate ARM declaration is added here. T
+he mutation arm
++removes `DocHost.stop(old_host)` in a
++throwaway copy and requires the failure to include `last observed: {:ok, #PID<`
+ rather than the old
++boolean-only `Expected truthy, got false`.
++
++## Fence
++
++The implementation is test-only: this plan and
++`test/integration/markdown_editor_goal_test.exs`. No production code or other t
+est file changes.
+diff --git a/test/integration/markdown_editor_goal_test.exs b/test/integration/m
+arkdown_editor_goal_test.exs
+index 8630b7a40bdde7ec032d8111a7d69ae948cb5de4..82a8da06f515cb1c088d7c981d0cde25
+134df2a5
+--- a/test/integration/markdown_editor_goal_test.exs
++++ b/test/integration/markdown_editor_goal_test.exs
+@@ -107,12 +107,18 @@
+     old_host = mirror_host(result.opened)
+     :ok = DocHost.stop(old_host)
+
+-    assert eventually(fn ->
+-             match?(
+-               {:error, :not_running},
+-               Hosts.document(editor_hosts(), result.opened.mirror_document_id)
+-             )
+-           end)
++    case eventually_value(
++           fn -> Hosts.document(editor_hosts(), result.opened.mirror_document_i
+d) end,
++           &match?({:error, :not_running}, &1)
++         ) do
++      {:ok, _} ->
++        :ok
++
++      {:timeout, last} ->
++        flunk(
++          "old mirror host never became :not_running within 3 s; last observed:
+ #{inspect(last)}"
++        )
++    end
+
+     assert {:ok, new_host} =
+              Hosts.open_document(editor_hosts(), result.opened.mirror_document_
+id, client_id: 1)
+@@ -1010,6 +1016,24 @@
+            10 -> eventually(fun, attempts - 1)
+          end)
+
++  defp eventually_value(probe, predicate, attempts \\ 300),
++    do: eventually_value(probe, predicate, attempts, nil)
++
++  defp eventually_value(_probe, _predicate, 0, last_value), do: {:timeout, last
+_value}
++
++  defp eventually_value(probe, predicate, attempts, _last_value) do
++    value = probe.()
++
++    if predicate.(value) do
++      {:ok, value}
++    else
++      receive do
++      after
++        10 -> eventually_value(probe, predicate, attempts - 1, value)
++      end
++    end
++  end
++
+   defp stop_realm do
+     case Supervisor.terminate_child(CommonplaceNext.Supervisor, Realm) do
+       :ok -> :ok
+
+codex
+554 tests, 5 failures, 1 excluded
+Running ExUnit with seed: 17378, max_cases: 8
+
+Full capture: [suite log](/home/jes/sol-redsays1/wt/tmp/run-logs/red_says_what_1
+_20260904_1630.log) and [per-test timings](/home/jes/sol-redsays1/wt/tmp/run-log
+s/red_says_what_1_20260904_1630.times).
+
+The family test passed in the full suite, so no full-suite instance of its new t
+imeout message occurred.
+
+Failures: 5 total.
+
+- Explained subset, 4/5: the doc, Biscuit, Cell, and doc-sync pin tests were BLI
+ND because GitHub credentials were unavailable, as the brief anticipated.
+- Remaining failure: `a second trust root added by configuration alone turns the
+ gate red` reported that its mutation harness failed to restore `config/dev.exs`
+. I removed only its appended temporary root block and verified the file is byte
+-identical to `HEAD`.
+- The changed family test was not among the failures.
+
+Base SHA: `957ef143a1d1effdd3f6a7f8281ed7ce7f458b9b`.
+
+Corpus confirmed before editing:
+
+- Clean initial `git status`.
+- `assets/node_modules/yjs` exists.
+- `grep -c 'eventually(' …` → `9`.
+- Own-helper files under `test/` → `17`.
+- Required test and assertion matched exactly.
+- `bin/check-plan-arms.sh` exists.
+
+Changes:
+
+- [markdown_editor_goal_test.exs](/home/jes/sol-redsays1/wt/test/integration/mar
+kdown_editor_goal_test.exs:110): only the family assertion now reports `last obs
+erved`.
+- [markdown_editor_goal_test.exs](/home/jes/sol-redsays1/wt/test/integration/mar
+kdown_editor_goal_test.exs:1019): added `eventually_value/3`, preserving 300 × 1
+0 ms.
+- [IMPLEMENTATION-PLAN-RED-SAYS-WHAT-1.md](/home/jes/sol-redsays1/wt/docs/IMPLEM
+ENTATION-PLAN-RED-SAYS-WHAT-1.md:1): documents the change and existing ARM decla
+ration. No duplicate declaration was needed.
+
+W1:
+
+- Base, seed `680246`: `12 tests, 0 failures, 11 excluded`.
+- Changed, seed `948905`: `12 tests, 0 failures, 11 excluded`.
+- Each represents one selected test.
+
+W2 mutation failed with this body:
+
+```text
+1) test a mirror host restart under a live attachment is survived (Commonplace.M
+arkdownEditorGoalTest)
+   test/integration/markdown_editor_goal_test.exs:105
+   old mirror host never became :not_running within 3 s; last observed: {:ok, #P
+ID<0.753.0>}
+   code: flunk(
+   stacktrace:
+     test/integration/markdown_editor_goal_test.exs:117: (test)
+```
+
+No `Expected truthy, got false`. Before/after restoration SHA-256:
+
+```text
+a81d357f455e74368d0b3968183f8a0d9e6af97b1f3cf75018dbed4ed3845adc
+```
+
+W3: `12 tests, 0 failures`.
+
+W4:
+
+```text
+ASSERT_REMOVALS=1
+ASSERT_REFUTE_OTHER_CHANGES=0
+```
+
+The diff contains only the new helper and rewritten assertion.
+
+W5:
+
+```text
+VERDICT: PASS -- every declared arm exists.
+VERDICT: PRISTINE -- every filed spec is byte-identical as declared
+FORMAT_RC=0
+```
+
+W6 fence:
+
+```text
+ M test/integration/markdown_editor_goal_test.exs
+?? docs/IMPLEMENTATION-PLAN-RED-SAYS-WHAT-1.md
+```
+
+Because `.git` is read-only, the plan remains untracked and ordinary `git diff -
+-stat` cannot include it. The two read-only stat checks show:
+
+```text
+test/integration/markdown_editor_goal_test.exs | 36 +++++++++++++++++++++-----
+docs/IMPLEMENTATION-PLAN-RED-SAYS-WHAT-1.md     | 27 ++++++++++++++++++++++
+```
+
+No `lib/`, config, or other test file remains changed. The requested uncommitted
+ diff is intact.
+diff --git a/config/dev.exs b/config/dev.exs
+index 3945d398723efaa029dd4cff73e2f5d42ff874ba..264045e7e55a7606754a5f69f5913133
+0d0674b3
+--- a/config/dev.exs
++++ b/config/dev.exs
+@@ -26,18 +26,3 @@
+   realm_id: "commonplace-next"
+
+ config :logger, level: :warning
+-
+-config :commonplace_next, CommonplaceNext.Realm.Keystore,
+-  roots: [
+-    %{
+-      root_key_id: 1,
+-      algorithm: "ed25519",
+-      public_key: String.duplicate("ab", 32),
+-      status: "active",
+-      issuer: %{
+-        "purpose" => "realm.capability",
+-        "realm" => "somewhere-else",
+-        "operations" => ["directory.list", "directory.resolve", "cell.open", "d
+ocument.sync.summary", "document.sync.offer"]
+-      }
+-    }
+-  ]
+diff --git a/docs/IMPLEMENTATION-PLAN-RED-SAYS-WHAT-1.md b/docs/IMPLEMENTATION-P
+LAN-RED-SAYS-WHAT-1.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..d232208704d1d43d5cd87830b7821d1d
+d29bf409
+--- /dev/null
++++ b/docs/IMPLEMENTATION-PLAN-RED-SAYS-WHAT-1.md
+@@ -0,0 +1,27 @@
++# RED-SAYS-WHAT-1 — report the last observed host state
++
++Base: `957ef143a1d1effdd3f6a7f8281ed7ce7f458b9b`.
++
++## What changes
++
++The integration test helper `eventually/2` reduces every observation to a boole
+an, so its timeout
++cannot distinguish a host that remained `{:ok, pid}` from any other unexpected
+state. A sibling
++helper, `eventually_value/3`, retains the last probe result and returns either
+`{:ok, value}` or
++`{:timeout, last_value}` while preserving the existing 300 attempts and 10 ms w
+ait per attempt.
++
++Only the assertion in *"a mirror host restart under a live attachment is surviv
+ed"* uses the new
++helper. Its timeout now names the last result returned by `Hosts.document/2`. T
+he other eight
++`eventually/2` call sites and `eventually/2` itself remain unchanged.
++
++## Arm
++
++The test name is unchanged and is already declared by its name in
++`IMPLEMENTATION-PLAN-NEXT-P7.md`. No duplicate ARM declaration is added here. T
+he mutation arm
++removes `DocHost.stop(old_host)` in a
++throwaway copy and requires the failure to include `last observed: {:ok, #PID<`
+ rather than the old
++boolean-only `Expected truthy, got false`.
++
++## Fence
++
++The implementation is test-only: this plan and
++`test/integration/markdown_editor_goal_test.exs`. No production code or other t
+est file changes.
+diff --git a/test/integration/markdown_editor_goal_test.exs b/test/integration/m
+arkdown_editor_goal_test.exs
+index 8630b7a40bdde7ec032d8111a7d69ae948cb5de4..82a8da06f515cb1c088d7c981d0cde25
+134df2a5
+--- a/test/integration/markdown_editor_goal_test.exs
++++ b/test/integration/markdown_editor_goal_test.exs
+@@ -107,12 +107,18 @@
+     old_host = mirror_host(result.opened)
+     :ok = DocHost.stop(old_host)
+
+-    assert eventually(fn ->
+-             match?(
+-               {:error, :not_running},
+-               Hosts.document(editor_hosts(), result.opened.mirror_document_id)
+-             )
+-           end)
++    case eventually_value(
++           fn -> Hosts.document(editor_hosts(), result.opened.mirror_document_i
+d) end,
++           &match?({:error, :not_running}, &1)
++         ) do
++      {:ok, _} ->
++        :ok
++
++      {:timeout, last} ->
++        flunk(
++          "old mirror host never became :not_running within 3 s; last observed:
+ #{inspect(last)}"
++        )
++    end
+
+     assert {:ok, new_host} =
+              Hosts.open_document(editor_hosts(), result.opened.mirror_document_
+id, client_id: 1)
+@@ -1010,6 +1016,24 @@
+            10 -> eventually(fun, attempts - 1)
+          end)
+
++  defp eventually_value(probe, predicate, attempts \\ 300),
++    do: eventually_value(probe, predicate, attempts, nil)
++
++  defp eventually_value(_probe, _predicate, 0, last_value), do: {:timeout, last
+_value}
++
++  defp eventually_value(probe, predicate, attempts, _last_value) do
++    value = probe.()
++
++    if predicate.(value) do
++      {:ok, value}
++    else
++      receive do
++      after
++        10 -> eventually_value(probe, predicate, attempts - 1, value)
++      end
++    end
++  end
++
+   defp stop_realm do
+     case Supervisor.terminate_child(CommonplaceNext.Supervisor, Realm) do
+       :ok -> :ok
+
+tokens used
+72,492
+554 tests, 5 failures, 1 excluded
+Running ExUnit with seed: 17378, max_cases: 8
+
+Full capture: [suite log](/home/jes/sol-redsays1/wt/tmp/run-logs/red_says_what_1
+_20260904_1630.log) and [per-test timings](/home/jes/sol-redsays1/wt/tmp/run-log
+s/red_says_what_1_20260904_1630.times).
+
+The family test passed in the full suite, so no full-suite instance of its new t
+imeout message occurred.
+
+Failures: 5 total.
+
+- Explained subset, 4/5: the doc, Biscuit, Cell, and doc-sync pin tests were BLI
+ND because GitHub credentials were unavailable, as the brief anticipated.
+- Remaining failure: `a second trust root added by configuration alone turns the
+ gate red` reported that its mutation harness failed to restore `config/dev.exs`
+. I removed only its appended temporary root block and verified the file is byte
+-identical to `HEAD`.
+- The changed family test was not among the failures.
+
+Base SHA: `957ef143a1d1effdd3f6a7f8281ed7ce7f458b9b`.
+
+Corpus confirmed before editing:
+
+- Clean initial `git status`.
+- `assets/node_modules/yjs` exists.
+- `grep -c 'eventually(' …` → `9`.
+- Own-helper files under `test/` → `17`.
+- Required test and assertion matched exactly.
+- `bin/check-plan-arms.sh` exists.
+
+Changes:
+
+- [markdown_editor_goal_test.exs](/home/jes/sol-redsays1/wt/test/integration/mar
+kdown_editor_goal_test.exs:110): only the family assertion now reports `last obs
+erved`.
+- [markdown_editor_goal_test.exs](/home/jes/sol-redsays1/wt/test/integration/mar
+kdown_editor_goal_test.exs:1019): added `eventually_value/3`, preserving 300 × 1
+0 ms.
+- [IMPLEMENTATION-PLAN-RED-SAYS-WHAT-1.md](/home/jes/sol-redsays1/wt/docs/IMPLEM
+ENTATION-PLAN-RED-SAYS-WHAT-1.md:1): documents the change and existing ARM decla
+ration. No duplicate declaration was needed.
+
+W1:
+
+- Base, seed `680246`: `12 tests, 0 failures, 11 excluded`.
+- Changed, seed `948905`: `12 tests, 0 failures, 11 excluded`.
+- Each represents one selected test.
+
+W2 mutation failed with this body:
+
+```text
+1) test a mirror host restart under a live attachment is survived (Commonplace.M
+arkdownEditorGoalTest)
+   test/integration/markdown_editor_goal_test.exs:105
+   old mirror host never became :not_running within 3 s; last observed: {:ok, #P
+ID<0.753.0>}
+   code: flunk(
+   stacktrace:
+     test/integration/markdown_editor_goal_test.exs:117: (test)
+```
+
+No `Expected truthy, got false`. Before/after restoration SHA-256:
+
+```text
+a81d357f455e74368d0b3968183f8a0d9e6af97b1f3cf75018dbed4ed3845adc
+```
+
+W3: `12 tests, 0 failures`.
+
+W4:
+
+```text
+ASSERT_REMOVALS=1
+ASSERT_REFUTE_OTHER_CHANGES=0
+```
+
+The diff contains only the new helper and rewritten assertion.
+
+W5:
+
+```text
+VERDICT: PASS -- every declared arm exists.
+VERDICT: PRISTINE -- every filed spec is byte-identical as declared
+FORMAT_RC=0
+```
+
+W6 fence:
+
+```text
+ M test/integration/markdown_editor_goal_test.exs
+?? docs/IMPLEMENTATION-PLAN-RED-SAYS-WHAT-1.md
+```
+
+Because `.git` is read-only, the plan remains untracked and ordinary `git diff -
+-stat` cannot include it. The two read-only stat checks show:
+
+```text
+test/integration/markdown_editor_goal_test.exs | 36 +++++++++++++++++++++-----
+docs/IMPLEMENTATION-PLAN-RED-SAYS-WHAT-1.md     | 27 ++++++++++++++++++++++
+```
+
+No `lib/`, config, or other test file remains changed. The requested uncommitted
+ diff is intact.
+=== sol EXITED rc=0 ===
+

@@ -1,0 +1,227 @@
+NOTE: retiring reservation for /home/jes/sol-share2/wt after 232s — its launch n
+ever became countable.
+Reading additional input from stdin...
+OpenAI Codex v0.146.1
+--------
+workdir: /home/jes/sol-authkit1/wt
+model: gpt-5.6-sol
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR] (network access enabled)
+reasoning effort: medium
+reasoning summaries: none
+session id: 01a06e1b-e249-7750-9cad-2af8b3387bd1
+--------
+user
+ROUND: AUTHKIT-1 — the external login path: WorkOS AuthKit hosted login, server-
+side code exchange, RS256 verification over the client's JWKS by kid, producing
+an AuthenticatedHuman with provider :workos.
+
+REPOSITORY AND BASE. You are running in a worktree the DISPATCHER provisioned fr
+om the GitHub remote and verified against the
+endpoint before you started. Your base is the commit checked out here: run `git
+rev-parse HEAD` and record the full sha. You have no
+network credential in this sandbox and NO NETWORK: do NOT fetch, pull, `ls-remot
+e` or clone, do NOT call any HTTPS endpoint, and do
+NOT use any other checkout on this machine. If `git status` is not clean, STOP a
+nd report. Before editing, confirm the corpus at your
+base and STOP on any difference:
+  - `grep -rli 'workos\|authkit' lib/ config/ assets/ | wc -l` is 0 (control: `g
+rep -rli cloudflare lib/ config/ assets/ | wc -l` is 13).
+  - `lib/commonplace_next/cloudflare_access/key_source.ex`: `fetch_key/1` (~100,
+ `{:ok, JOSE.JWK.t()} | {:error, :unknown_kid | …}`),
+    `resolver/0` (~120), `configured?/0` (~83), a GenServer fetching a JWKS URI
+at boot and on unknown kid, cached by kid MEMBERSHIP.
+  - `lib/commonplace_next/cloudflare_access/assertion_verifier.ex`: `verify(comp
+act_jwt, kid_resolver, options)` (~51); `@type resolver` (~24).
+  - `lib/commonplace_next/cloudflare_access/authenticated_human.ex`: `@enforce_k
+eys [:provider, :issuer, :subject, :email, :asserted_at,
+    :expires_at, …]` (~9) — provider-neutral by its moduledoc.
+  - `lib/commonplace_next/web/router.ex`: `plug(AccessAuthentication)` at ~19 in
+side `pipeline :browser`; the `scope "/"` at ~22.
+  - `mix.exs`: `{:jose, "~> 1.11"}`; `:inets` listed for `:httpc` in the release
+ (a comment near ~58 says why); NO `req`/`finch`/`httpoison`.
+  - `test/support/sidecar_transport.ex` exists — the house pattern for a RECORDI
+NG FAKE of an outbound transport.
+  - `config/runtime.exs`: the refuse-to-boot pattern for a missing secret (a `ra
+ise` naming the variable; comment ~9 and ~53).
+If any of these differ, STOP and report the difference; do not adapt.
+
+THE SANDBOX: `.git` is READ-ONLY here. Do NOT create a branch, commit, stash, pu
+sh or tag. Work directly in this worktree and LEAVE
+YOUR CHANGES AS AN UNCOMMITTED DIFF; the dispatcher secures them with `git statu
+s --porcelain` and `git diff` (plus every untracked
+file you add). Read-only git commands are fine. Before any `mix test`, `rm -rf t
+mp/test-data`.
+
+WHAT IS TRUE TODAY (measured 2026-09-04 at the base; do not re-derive). The only
+ login path is Cloudflare Access: a header the
+edge puts on the request, verified by `AssertionVerifier` with keys from `KeySou
+rce`. jes ruled: Access for INTERNAL humans (him),
+WorkOS AuthKit for EXTERNAL humans. AuthKit is structurally different: a hosted
+redirect, then the browser returns to the app's
+callback with a `code`, and the APP exchanges it server-side (client id + API ke
+y) for tokens; the access token is a JWT, RS256,
+signed by a key in the client's public JWKS at `https://api.workos.com/sso/jwks/
+<client_id>` (live at dispatch: 200, ONE key, `use:
+sig`, kid `sso_oidc…`; a bogus client id → 404), issuer `https://api.workos.com/
+` (a custom auth domain is NOT configured — the round
+reads the issuer from env so that can change without code), claims `sub` (the Wo
+rkOS user id) · `sid` · `org_id` · `role` ·
+`permissions` · `exp` · `iat`; NO audience claim. The identity model already adm
+its a second provider: `AuthenticatedHuman` is
+provider-neutral and an Account holds many `(provider, issuer, subject)` identit
+ies. Credentials live ONLY in a file on the host
+(`WORKOS_CLIENT_ID`, `WORKOS_API_KEY`); you will never see them; their VALUES ap
+pear in no file you write, no test, no log.
+
+THE CHANGE (`lib/` + `config/` + tests):
+ 1. `CommonplaceNext.WorkOS.KeySource` — do NOT copy `CloudflareAccess.KeySource
+`; PARAMETRISE it: if the existing module can take its
+    JWKS URI and registered name from options (read `init/1` ~124), start a SECO
+ND instance of the SAME module under the WorkOS JWKS
+    URI and name; if it cannot without changing its public shape, say so and mak
+e the smallest change that lets it (the Access
+    instance's behaviour and its tests byte-identical — that is the fence). Keys
+ by kid MEMBERSHIP, never position.
+ 2. `CommonplaceNext.WorkOS.Login` — `authorize_url(state, nonce)` → the hosted
+AuthKit URL (`https://api.workos.com/user_management/
+    authorize?client_id=…&redirect_uri=…&response_type=code&provider=authkit&sta
+te=…`); `exchange(code, transport)` → POST to
+    `https://api.workos.com/user_management/authenticate` with `client_id`, `cli
+ent_secret` (= the API key), `grant_type=authorization_code`,
+    `code` — through an INJECTED transport (a function `(method, url, headers, b
+ody) -> {:ok, status, headers, body} | {:error, term}`);
+    the production transport is `:httpc` (already in the release); the test tran
+sport is a RECORDING FAKE in `test/support/` modelled
+    on `sidecar_transport.ex`. `verify(access_token, resolver, issuer)` → `Asser
+tionVerifier.verify/3` with the WorkOS resolver,
+    issuer pinned to the configured value, `exp`/`iat` bounded, NO audience chec
+k (state why in a comment: WorkOS issues none) →
+    `%AuthenticatedHuman{provider: :workos, issuer:, subject: sub, email:, asser
+ted_at:, expires_at:}` — `email` from the
+    authenticate response's `user.email`, never from the JWT.
+ 3. Routes: `GET /auth/workos` (redirect; `state` + `nonce` in the session) and
+`GET /auth/workos/callback` (checks `state`, exchanges,
+    verifies, then hands the human to the SAME session-establishment path Access
+ uses). MEASURED FOR YOU: that path is
+    `Web.Session.authenticate/1` (`session.ex:45`), which takes ONLY `conn` and
+re-derives the human from `AccessAuthentication` itself,
+    then reaches the SOLE principal sink `put_login/2` (`session.ex:433`, a `def
+p`, one caller at `:54`). There is NO function that takes
+    an already-verified human. ⇒ THE SEAM IS PART OF THIS ROUND: extract the est
+ablishment tail of `authenticate/1` into a public
+    `Session.establish(conn, %AuthenticatedHuman{})` (or the base's naming), mak
+e `authenticate/1` call it, and have the WorkOS callback
+    call it — ONE sink, ONE seam, so AUTHKIT-2's Membership resolution has one p
+lace to live. ⛔ NEVER a second `put_session(:login)`
+    writer: `bin/check-dev-path-inventory.sh` refuses the ceremony on more than
+one principal sink. The extraction's arm is BEHAVIOUR:
+    every existing `session`/`access` test byte-identical and green, and `authen
+ticate/1`'s observable results unchanged. Both routes in a NEW pipeline that doe
+s
+    NOT run `AccessAuthentication` (the Access plug with no header passes `conn`
+ untouched today, but the external route must not
+    DEPEND on that); a failed callback renders a NAMED refusal (`:state_mismatch
+` · `:exchange_failed` · `:invalid_token` ·
+    `:unknown_kid` · `:issuer_mismatch` · `:expired`) with status 401 and no ses
+sion — never a 500, never a redirect loop.
+ 4. `config/runtime.exs` under `:prod`: `WORKOS_CLIENT_ID`, `WORKOS_API_KEY`, `W
+ORKOS_ISSUER` (default `https://api.workos.com/`),
+    `WORKOS_REDIRECT_URI` — the two credentials REFUSE TO BOOT when absent (the
+S-SECRET pattern; the `raise` names the variable);
+    dev/test unset = the WorkOS routes return a named `:not_configured` 404, not
+hing else changes.
+FENCE — your file set: NEW `lib/commonplace_next/work_os/{key_source.ex,login.ex
+}` (or a parametrised shared key source, stated),
+NEW `lib/commonplace_next/web/work_os_controller.ex`, `router.ex` (the new pipel
+ine + two routes ONLY), `runtime.exs` (the block
+ONLY), `key_source.ex` ONLY if parametrising needs it, NEW `test/support/work_os
+_transport.ex`, NEW `test/commonplace_next/work_os/
+login_test.exs` + `test/commonplace_next/web/work_os_controller_test.exs`. `sess
+ion.ex` ONLY for the `establish/2` extraction (no other line of it changes; the
+diff of that file is the extraction and the
+one-line call); NEW `docs/IMPLEMENTATION-PLAN-AUTHKIT-1.md` (a listed path — the
+ landing gate requires it). `AccessAuthentication`,
+`AssertionVerifier`, `AuthenticatedHuman`, every EXISTING test: BYTE-IDENTICAL.
+No Membership creation (AUTHKIT-2/3). No UI.
+
+ARMS — SHOW EACH IN THE REPORT (the review gate; the reviewer runs K1 and the LI
+VE exchange on the host, which you cannot):
+ K1 a code exchange against the RECORDING FAKE: `exchange("code-1", fake)` recor
+ds ONE POST to the authenticate URL whose form body
+    carries `grant_type=authorization_code`, `code=code-1`, the client id and se
+cret from config — and the fake's canned response
+    yields an access token that `verify/3` accepts under a FIXTURE JWKS (an RSA
+key you generate in the test with JOSE; kid `test-1`)
+    → `%AuthenticatedHuman{provider: :workos, subject: "user_01…"}`. Base: the m
+odule does not exist (compile error shown).
+ K2 a token signed by a key NOT in the fixture JWKS → `{:error, :unknown_kid}` (
+or the verifier's exact name); K3 a token whose `iss`
+    differs → `:issuer_mismatch`; K4 `exp` in the past → `:expired`; K5 `state`
+mismatch at the callback → 401 `:state_mismatch`, no
+    session; K6 the Access path: `assertion_verifier_test.exs` and every existin
+g `test/` file byte-identical and green; K7 prod
+    config unit arm: with `WORKOS_API_KEY` absent under `:prod` the runtime conf
+ig RAISES naming it (run the release-config test the
+    way `S-SECRET`'s arm does — find it); K8 dev/test with nothing configured: `
+GET /auth/workos` → 404 `:not_configured`, not a crash.
+ K9 `bin/check-plan-arms.sh` PASS: the plan doc declares each arm as `<!-- ARM:
+<substring of the test's exact name> -->` — the gate
+    matches markers against `test "..."` NAMES, so declare the names you actuall
+y wrote (read the gate's header first); `mix format --check-formatted`;
+    `mix compile --warnings-as-errors`; the full suite through `bin/capture-run.
+sh` (read its header), store cleared, the summary
+    line VERBATIM at the top of your report; failures outside your files in full
+, never "environmental".
+ ⛔ WHAT YOU CANNOT DO HERE, said plainly in the report: no real WorkOS call, no
+ real JWKS fetch. The reviewer performs the live
+    exchange on the host with the credentials file and a test user, and that is
+the decisive red of this round.
+
+REPORT. Base sha; corpus confirmation; whether the key source was parametrised o
+r duplicated and why; the diff; K1–K9; `git status
+--porcelain`. The reviewer is commonplace-next.
+codex
+I’ll first run only the mandated read-only base, cleanliness, and corpus checks.
+ If any measured invariant differs, I’ll stop without editing.
+exec
+/bin/bash -lc "git rev-parse HEAD && git status --porcelain && printf '%s\\n' 'W
+ORKOS_COUNT' && grep -rli 'workos\\|authkit' lib/ config/ assets/ | wc -l && pri
+ntf '%s\\n' 'CLOUDFLARE_COUNT' && grep -rli cloudflare lib/ config/ assets/ | wc
+ -l && printf '%s\\n' 'FILES' && test -f lib/commonplace_next/cloudflare_access/
+key_source.ex && test -f lib/commonplace_next/cloudflare_access/assertion_verifi
+er.ex && test -f lib/commonplace_next/cloudflare_access/authenticated_human.ex &
+& test -f lib/commonplace_next/web/router.ex && test -f mix.exs && test -f test/
+support/sidecar_transport.ex && test -f config/runtime.exs && printf '%s\\n' OK"
+ in /home/jes/sol-authkit1/wt
+ succeeded in 266ms:
+0
+CLOUDFLARE_COUNT
+16
+FILES
+OK
+
+codex
+Stopped without editing because the required corpus check differed.
+
+- Base SHA: `4534324173e0c8f7e2844c86da60795c32d93da9`
+- `git status --porcelain`: clean
+- WorkOS/AuthKit count: expected `0`, actual `0`
+- Cloudflare control count: expected `13`, actual `16`
+- Required files: present
+
+No files were changed, and no tests or network operations were run.
+tokens used
+6,248
+Stopped without editing because the required corpus check differed.
+
+- Base SHA: `4534324173e0c8f7e2844c86da60795c32d93da9`
+- `git status --porcelain`: clean
+- WorkOS/AuthKit count: expected `0`, actual `0`
+- Cloudflare control count: expected `13`, actual `16`
+- Required files: present
+
+No files were changed, and no tests or network operations were run.
+=== sol EXITED rc=0 ===
+

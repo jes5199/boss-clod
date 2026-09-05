@@ -1,0 +1,1928 @@
+
+
+
+de72619522bec6ed5f9b790869f78d43fe3b96eb98ae817209a78430e6e26c27  test/integrati
+on/x_realm_external_grant_test.exs
+fb8436570242fa840f2090be1800ff4c51ffab4915bed016437792a4c476bb19  test/integrati
+on/x_realm_cell_open_grant_test.exs
+135cdb6cd54c4507674993df2ac5a622aad096aca6a9ee2cdf15197eb74817f7  test/integrati
+on/two_organization_test.exs
+diff --git a/test/integration/x_realm_external_grant_test.exs b/test/integration
+/x_realm_external_grant_test.exs
+new file mode 100644
+index 0000000..2cf35a3
+--- /dev/null
++++ b/test/integration/x_realm_external_grant_test.exs
+@@ -0,0 +1,258 @@
++defmodule CommonplaceNext.XRealmExternalGrantTest do
++  use ExUnit.Case, async: false
++
++  @moduletag :integration
++
++  alias Commonplace.Biscuit, as: BiscuitRuntime
++  alias Commonplace.Biscuit.Ground
++  alias Commonplace.Cell.{Address, Error, Response}
++  alias Commonplace.LogStore.SQLite
++  alias CommonplaceNext.Cell.Supervisor, as: CellSupervisor
++  alias CommonplaceNext.Organization.{EditorPlacement, ExternalGrant, Identity,
+ Membership}
++  alias CommonplaceNext.Realm.Gateway.Credentials
++  alias CommonplaceNext.Realm.{DirectoryIssuer, Gateway, Router}
++  alias CommonplaceNext.Workspace.Seed
++  alias CommonplaceNext.{Organization, Realm}
++  alias CommonplaceNext.EditorPlacementTestHelper
++
++  @organization_2_id "commonplace-next-share-1-organization-2"
++  @foreign_member "foreign-owner@example.test"
++  @actions [:"document.sync.summary"]
++
++  setup do
++    :ok = stop_realm()
++    stop_sqlite_children()
++    data_dir = CommonplaceNext.TestFixtures.unique_tmp_root("share-1")
++    File.mkdir_p!(data_dir)
++    previous_log = Application.get_env(:commonplace_log, SQLite)
++    Application.put_env(:commonplace_log, SQLite, data_dir: data_dir)
++    :ok = restart_realm()
++
++    on_exit(fn ->
++      :ok = stop_realm()
++      stop_sqlite_children()
++      restore_env(:commonplace_log, SQLite, previous_log)
++      File.rm_rf!(data_dir)
++      :ok = restart_realm()
++    end)
++
++    {:ok, organization} = Organization.configured()
++    {:ok, hosts} = CellSupervisor.hosts(Identity.space(organization.id).workspa
+ce_cell_id)
++    owner_entry = EditorPlacementTestHelper.first_entry()
++
++    {:ok, owner} =
++      Membership.resolve_owner(organization, hosts: hosts, member_id: owner_ent
+ry.login)
++
++    epoch = Membership.derive_membership_epoch(@organization_2_id, @foreign_mem
+ber, 1)
++    foreign = EditorPlacement.entry(@organization_2_id, @foreign_member, 1)
++
++    %{
++      owner: owner,
++      owner_entry: owner_entry,
++      foreign: foreign,
++      epoch: epoch,
++      document_id: Seed.ids().welcome_document_id,
++      other_document_id: Seed.ids().architecture_document_id
++    }
++  end
++
++  test "S1 base refusal, grant scope, and revoke are four ordered observations"
+, context do
++    cell_id = context.foreign.cell_id
++
++    base = Credentials.bootstrap(cell_id, "127.0.0.1", Gateway.port())
++    assert base == {:error, :invalid_bootstrap_request}
++    IO.puts("S1.1 foreign cell id: #{cell_id}")
++    IO.puts("S1.2 base bootstrap: #{inspect(base)}")
++
++    {:ok, grant} = create_grant(context)
++    {:ok, bootstrap} = Credentials.bootstrap(cell_id, "127.0.0.1", Gateway.port
+())
++
++    assert bootstrap["scope"] == %{
++             "kind" => "document_grant",
++             "grant_id" => grant.grant_id,
++             "documents" => [context.document_id],
++             "actions" => Enum.map(@actions, &Atom.to_string/1)
++           }
++
++    IO.puts("S1.3 granted bootstrap scope: #{inspect(bootstrap["scope"])}")
++
++    assert {:ok, %{revoked: true}} = ExternalGrant.revoke(context.owner, grant.
+grant_id)
++    revoked = Credentials.bootstrap(cell_id, "127.0.0.1", Gateway.port())
++    assert revoked == {:error, :grant_revoked}
++    refute revoked == {:error, :invalid_bootstrap_request}
++    IO.puts("S1.4 revoked bootstrap: #{inspect(revoked)}")
++  end
++
++  test "S2 document_grant refuses D2 and mints only the exact action granted fo
+r D", context do
++    {:ok, grant} = create_grant(context)
++    options = client_options(context.foreign.cell_id)
++
++    d2 = document_address(context.other_document_id)
++    d = document_address(context.document_id)
++
++    assert {:error, %Error{code: :unentitled}} =
++             request(context.foreign.cell_id, d2, options)
++
++    assert {:ok, %Response{outcome: {:ok, _value}}} =
++             request(context.foreign.cell_id, d, options)
++
++    assert grant.actions == @actions
++
++    assert {:ok, authorized} =
++             ExternalGrant.authorize(
++               context.foreign.cell_id,
++               context.document_id,
++               "document.sync.summary"
++             )
++
++    assert authorized.actions == @actions
++    IO.puts("S2 D2: {:error, :unentitled}")
++    IO.puts("S2 D actions: #{inspect(authorized.actions)}")
++  end
++
++  test "S3 configured neighbour bootstraps and grants exactly as before", conte
+xt do
++    placed_bootstrap =
++      Credentials.bootstrap(context.owner_entry.cell_id, "127.0.0.1", Gateway.p
+ort())
++
++    assert {:ok, placed} = placed_bootstrap
++    refute Map.has_key?(placed, "scope")
++
++    placed_options = client_options(context.owner_entry.cell_id)
++
++    assert {:ok, %Response{outcome: {:ok, _value}}} =
++             request(
++               context.owner_entry.cell_id,
++               document_address(context.document_id),
++               placed_options
++             )
++
++    IO.puts("S3 placed bootstrap shape: unscoped; document_grant: admitted")
++  end
++
++  @tag :s4
++  test "S4 revoke precedes bootstrap and document mint while an issued token li
+ves", context do
++    {:ok, grant} = create_grant(context)
++    external_options = client_options(context.foreign.cell_id)
++    mint_id = Router.request_id()
++
++    {:ok, issued} =
++      DirectoryIssuer.issue_capability(
++        "document.sync.summary",
++        mint_id,
++        context.foreign.cell_id,
++        Identity.space(context.owner.organization_id).workspace_cell_id,
++        context.document_id
++      )
++
++    ground = %Ground{
++      source_cell: context.foreign.cell_id,
++      target_cell: Identity.space(context.owner.organization_id).workspace_cell
+_id,
++      resource_kind: "document",
++      resource_id: context.document_id,
++      operation: "document.sync.summary",
++      time_unix: System.system_time(:second),
++      contract: nil,
++      policy: :grant
++    }
++
++    assert BiscuitRuntime.authorize(issued.token, issued.public_key, ground) ==
+ :authorized
++    assert {:ok, %{revoked: true}} = ExternalGrant.revoke(context.owner, grant.
+grant_id)
++
++    assert Credentials.bootstrap(context.foreign.cell_id, "127.0.0.1", Gateway.
+port()) ==
++             {:error, :grant_revoked}
++
++    assert {:error, %Error{code: :revoked}} =
++             request(
++               context.foreign.cell_id,
++               document_address(context.document_id),
++               external_options
++             )
++
++    assert BiscuitRuntime.authorize(issued.token, issued.public_key, ground) ==
+ :authorized
++    assert issued.expiry - issued.nbf == 60
++    IO.puts("S4 revoked bootstrap: grant_revoked; document_grant: revoked befor
+e mint")
++    IO.puts("S4 pre-revoke token remains valid for [nbf=#{issued.nbf}, expiry=#
+{issued.expiry})")
++  end
++
++  defp create_grant(context) do
++    ExternalGrant.create(context.owner, %{
++      grantee_cell_id: context.foreign.cell_id,
++      document_id: context.document_id,
++      actions: @actions,
++      membership_epoch: context.epoch,
++      expires_at: System.system_time(:second) + 3_600,
++      grant_id: Router.request_id()
++    })
++  end
++
++  defp request(source_cell_id, target, options) do
++    Gateway.Client.request(
++      source_cell_id,
++      target,
++      "document.sync.summary",
++      %{},
++      Keyword.merge(options, request_id: Router.request_id(), grant: :document_
+grant)
++    )
++  end
++
++  defp document_address(document_id) do
++    Address.document(Identity.space(configured_organization_id()).workspace_cel
+l_id, document_id)
++    |> ok!()
++  end
++
++  defp client_options(cell_id) do
++    token = :crypto.strong_rand_bytes(32) |> Base.url_encode64(padding: false)
++    {:ok, material} = Credentials.bootstrap(cell_id, "127.0.0.1", Gateway.port(
+), token)
++    client = material["transport_client"]
++    der = fn key -> Base.url_decode64!(client[key], padding: false) end
++
++    transport = %{
++      certificate_der: der.("certificate_der"),
++      private_key_der: der.("private_key_der"),
++      trusted_server_ca_der: der.("trusted_server_ca_der"),
++      server_identity: %{subject_alt_name: material["gateway"]["server_identity
+"]}
++    }
++
++    [host: "127.0.0.1", port: Gateway.port(), token: token, transport: transpor
+t]
++  end
++
++  defp configured_organization_id do
++    {:ok, organization} = Organization.configured()
++    organization.id
++  end
++
++  defp ok!({:ok, value}), do: value
++
++  defp restart_realm(attempts \\ 20)
++  defp restart_realm(0), do: raise("realm restart exhausted")
++
++  defp restart_realm(attempts) do
++    case Supervisor.restart_child(CommonplaceNext.Supervisor, Realm) do
++      {:ok, _realm} ->
++        :ok
++
++      {:error, _reason} ->
++        :ok = stop_realm()
++        stop_sqlite_children()
++        Process.sleep(25)
++        restart_realm(attempts - 1)
++    end
++  end
++
++  defp stop_realm do
++    case Supervisor.terminate_child(CommonplaceNext.Supervisor, Realm) do
++      :ok -> :ok
++      {:error, :not_found} -> :ok
++    end
++  end
++
++  defp stop_sqlite_children do
++    Registry.select(SQLite.Registry, [{{:_, :"$1", :_}, [], [:"$1"]}])
++    |> Enum.each(fn child ->
++      :ok = DynamicSupervisor.terminate_child(SQLite.DynamicSupervisor, child)
++    end)
++  end
++
++  defp restore_env(app, key, nil), do: Application.delete_env(app, key)
++  defp restore_env(app, key, value), do: Application.put_env(app, key, value)
++end
+5
+ config/dev.exs                                      | 15 +++++++++++++++
+ lib/commonplace_next/organization/external_grant.ex |  4 ++--
+ lib/commonplace_next/realm/gateway.ex               | 20 ++++++++++++--------
+ 3 files changed, 29 insertions(+), 10 deletions(-)
+diff --git a/config/dev.exs b/config/dev.exs
+index 264045e..3945d39 100644
+--- a/config/dev.exs
++++ b/config/dev.exs
+@@ -26,3 +26,18 @@ config :commonplace_next, CommonplaceNext.Realm.Gateway,
+   realm_id: "commonplace-next"
+
+ config :logger, level: :warning
++
++config :commonplace_next, CommonplaceNext.Realm.Keystore,
++  roots: [
++    %{
++      root_key_id: 1,
++      algorithm: "ed25519",
++      public_key: String.duplicate("ab", 32),
++      status: "active",
++      issuer: %{
++        "purpose" => "realm.capability",
++        "realm" => "somewhere-else",
++        "operations" => ["directory.list", "directory.resolve", "cell.open", "d
+ocument.sync.summary", "document.sync.offer"]
++      }
++    }
++  ]
+diff --git a/lib/commonplace_next/organization/external_grant.ex b/lib/commonpla
+ce_next/organization/external_grant.ex
+index 3a819c1..ca18f53 100644
+--- a/lib/commonplace_next/organization/external_grant.ex
++++ b/lib/commonplace_next/organization/external_grant.ex
+@@ -4,7 +4,7 @@ defmodule CommonplaceNext.Organization.ExternalGrant do
+
+   Grant records live in the granting Organization's Workspace Cell. The grant i
+tself is keyed by
+   `Identity.derive(organization_id, :external_grant, grant_id)`; a per-grantee
+index, under the
+-  same facet, makes those records discoverable from the cell id presented at bo
+otstrap.
++  same facet, makes those records discoverable from the cell id presented for g
+ateway admission.
+   """
+
+   alias Commonplace.DocHost
+@@ -99,7 +99,7 @@ defmodule CommonplaceNext.Organization.ExternalGrant do
+   def revoke(%Membership{}, _grant_id), do: {:error, :not_owner}
+   def revoke(_membership, _grant_id), do: {:error, :not_owner}
+
+-  @doc "Finds the grant state that controls bootstrap admission for a foreign E
+ditor Cell."
++  @doc "Finds the grant state that controls gateway admission for a foreign Edi
+tor Cell."
+   def admission(grantee_cell_id) when is_binary(grantee_cell_id) do
+     with {:ok, organization_id} <- configured_organization_id(),
+          {:ok, hosts} <- workspace_hosts(organization_id),
+diff --git a/lib/commonplace_next/realm/gateway.ex b/lib/commonplace_next/realm/
+gateway.ex
+index a84f9a7..7b5371a 100644
+--- a/lib/commonplace_next/realm/gateway.ex
++++ b/lib/commonplace_next/realm/gateway.ex
+@@ -644,20 +644,24 @@ defmodule CommonplaceNext.Realm.Gateway do
+   # Configured Membership Editor Cells retain the V-CROSS path byte for byte af
+ter this check.
+   # Only a foreign source reaches the persisted entitlement lookup, and that lo
+okup precedes both
+   # resource resolution and `DirectoryIssuer.issue_capability/5`, so revoke is
+observed before mint.
+-  defp entitled_document_grant(source_cell_id, verb, {:document, document_id})
+do
++  defp entitled_document_grant(source_cell_id, verb, resource) do
+     if source_cell_id in EditorPlacement.cell_ids() do
+       :ok
+     else
+-      case ExternalGrant.authorize(source_cell_id, document_id, verb) do
+-        {:ok, _grant} -> :ok
+-        {:error, :grant_revoked} -> {:error, error(:revoked)}
+-        {:error, :grant_expired} -> {:error, error(:expired)}
+-        {:error, _reason} -> {:error, entitlement_error(:unentitled)}
+-      end
++      external_document_entitlement(source_cell_id, verb, resource)
++    end
++  end
++
++  defp external_document_entitlement(source_cell_id, verb, {:document, document
+_id}) do
++    case ExternalGrant.authorize(source_cell_id, document_id, verb) do
++      {:ok, _grant} -> :ok
++      {:error, :grant_revoked} -> {:error, error(:revoked)}
++      {:error, :grant_expired} -> {:error, error(:expired)}
++      {:error, _reason} -> {:error, entitlement_error(:unentitled)}
+     end
+   end
+
+-  defp entitled_document_grant(_source_cell_id, _verb, _resource),
++  defp external_document_entitlement(_source_cell_id, _verb, _resource),
+     do: {:error, entitlement_error(:unentitled)}
+
+   # `Commonplace.Cell.Error` 0.1 predates this gateway-specific distinction. Gr
+ant error frames
+1:Running ExUnit with seed: 696020, max_cases: 8
+391:  1) test the doc-sync pin is the published commit its evidence enumerates (
+CommonplaceNext.DocSyncPinTest)
+406:  2) test the biscuit pin is a published commit whose recorded delta matches
+ (CommonplaceNext.PinDoorsTest)
+420:  3) test the doc pin is a published commit of its sibling (CommonplaceNext.
+PinDoorsTest)
+436:  4) test the cell pin is a published commit whose recorded delta matches (C
+ommonplaceNext.PinDoorsTest)
+714:  5) test a second trust root added by configuration alone turns the gate re
+d (CommonplaceNext.TrustRootInventoryTest)
+786:Finished in 353.2 seconds (18.6s async, 334.6s sync)
+787:553 tests, 5 failures, 1 excluded
+
+diff --git a/lib/commonplace_next/organization/external_grant.ex b/lib/commonpla
+ce_next/organization/external_grant.ex
+index 3a819c12a27393eb88b8d4d094e758c8073fa4ed..ca18f5394e5f54988f79cd7858dcb8e5
+312e8d14
+--- a/lib/commonplace_next/organization/external_grant.ex
++++ b/lib/commonplace_next/organization/external_grant.ex
+@@ -4,7 +4,7 @@
+
+   Grant records live in the granting Organization's Workspace Cell. The grant i
+tself is keyed by
+   `Identity.derive(organization_id, :external_grant, grant_id)`; a per-grantee
+index, under the
+-  same facet, makes those records discoverable from the cell id presented at bo
+otstrap.
++  same facet, makes those records discoverable from the cell id presented for g
+ateway admission.
+   """
+
+   alias Commonplace.DocHost
+@@ -99,7 +99,7 @@
+   def revoke(%Membership{}, _grant_id), do: {:error, :not_owner}
+   def revoke(_membership, _grant_id), do: {:error, :not_owner}
+
+-  @doc "Finds the grant state that controls bootstrap admission for a foreign E
+ditor Cell."
++  @doc "Finds the grant state that controls gateway admission for a foreign Edi
+tor Cell."
+   def admission(grantee_cell_id) when is_binary(grantee_cell_id) do
+     with {:ok, organization_id} <- configured_organization_id(),
+          {:ok, hosts} <- workspace_hosts(organization_id),
+diff --git a/lib/commonplace_next/realm/gateway.ex b/lib/commonplace_next/realm/
+gateway.ex
+index a84f9a7e3d224f74fd82ad782b765d8a307d77cd..7b5371a01a04f50cc2c24bd73da23121
+8cf9f1af
+--- a/lib/commonplace_next/realm/gateway.ex
++++ b/lib/commonplace_next/realm/gateway.ex
+@@ -644,20 +644,24 @@
+   # Configured Membership Editor Cells retain the V-CROSS path byte for byte af
+ter this check.
+   # Only a foreign source reaches the persisted entitlement lookup, and that lo
+okup precedes both
+   # resource resolution and `DirectoryIssuer.issue_capability/5`, so revoke is
+observed before mint.
+-  defp entitled_document_grant(source_cell_id, verb, {:document, document_id})
+do
++  defp entitled_document_grant(source_cell_id, verb, resource) do
+     if source_cell_id in EditorPlacement.cell_ids() do
+       :ok
+     else
+-      case ExternalGrant.authorize(source_cell_id, document_id, verb) do
+-        {:ok, _grant} -> :ok
+-        {:error, :grant_revoked} -> {:error, error(:revoked)}
+-        {:error, :grant_expired} -> {:error, error(:expired)}
+-        {:error, _reason} -> {:error, entitlement_error(:unentitled)}
+-      end
++      external_document_entitlement(source_cell_id, verb, resource)
++    end
++  end
++
++  defp external_document_entitlement(source_cell_id, verb, {:document, document
+_id}) do
++    case ExternalGrant.authorize(source_cell_id, document_id, verb) do
++      {:ok, _grant} -> :ok
++      {:error, :grant_revoked} -> {:error, error(:revoked)}
++      {:error, :grant_expired} -> {:error, error(:expired)}
++      {:error, _reason} -> {:error, entitlement_error(:unentitled)}
+     end
+   end
+
+-  defp entitled_document_grant(_source_cell_id, _verb, _resource),
++  defp external_document_entitlement(_source_cell_id, _verb, _resource),
+     do: {:error, entitlement_error(:unentitled)}
+
+   # `Commonplace.Cell.Error` 0.1 predates this gateway-specific distinction. Gr
+ant error frames
+
+apply patch
+patch: completed
+/home/jes/sol-share1b/wt/config/dev.exs
+diff --git a/config/dev.exs b/config/dev.exs
+index 3945d398723efaa029dd4cff73e2f5d42ff874ba..264045e7e55a7606754a5f69f5913133
+0d0674b3
+--- a/config/dev.exs
++++ b/config/dev.exs
+@@ -26,18 +26,3 @@
+   realm_id: "commonplace-next"
+
+ config :logger, level: :warning
+-
+-config :commonplace_next, CommonplaceNext.Realm.Keystore,
+-  roots: [
+-    %{
+-      root_key_id: 1,
+-      algorithm: "ed25519",
+-      public_key: String.duplicate("ab", 32),
+-      status: "active",
+-      issuer: %{
+-        "purpose" => "realm.capability",
+-        "realm" => "somewhere-else",
+-        "operations" => ["directory.list", "directory.resolve", "cell.open", "d
+ocument.sync.summary", "document.sync.offer"]
+-      }
+-    }
+-  ]
+diff --git a/lib/commonplace_next/organization/external_grant.ex b/lib/commonpla
+ce_next/organization/external_grant.ex
+index 3a819c12a27393eb88b8d4d094e758c8073fa4ed..ca18f5394e5f54988f79cd7858dcb8e5
+312e8d14
+--- a/lib/commonplace_next/organization/external_grant.ex
++++ b/lib/commonplace_next/organization/external_grant.ex
+@@ -4,7 +4,7 @@
+
+   Grant records live in the granting Organization's Workspace Cell. The grant i
+tself is keyed by
+   `Identity.derive(organization_id, :external_grant, grant_id)`; a per-grantee
+index, under the
+-  same facet, makes those records discoverable from the cell id presented at bo
+otstrap.
++  same facet, makes those records discoverable from the cell id presented for g
+ateway admission.
+   """
+
+   alias Commonplace.DocHost
+@@ -99,7 +99,7 @@
+   def revoke(%Membership{}, _grant_id), do: {:error, :not_owner}
+   def revoke(_membership, _grant_id), do: {:error, :not_owner}
+
+-  @doc "Finds the grant state that controls bootstrap admission for a foreign E
+ditor Cell."
++  @doc "Finds the grant state that controls gateway admission for a foreign Edi
+tor Cell."
+   def admission(grantee_cell_id) when is_binary(grantee_cell_id) do
+     with {:ok, organization_id} <- configured_organization_id(),
+          {:ok, hosts} <- workspace_hosts(organization_id),
+diff --git a/lib/commonplace_next/realm/gateway.ex b/lib/commonplace_next/realm/
+gateway.ex
+index a84f9a7e3d224f74fd82ad782b765d8a307d77cd..7b5371a01a04f50cc2c24bd73da23121
+8cf9f1af
+--- a/lib/commonplace_next/realm/gateway.ex
++++ b/lib/commonplace_next/realm/gateway.ex
+@@ -644,20 +644,24 @@
+   # Configured Membership Editor Cells retain the V-CROSS path byte for byte af
+ter this check.
+   # Only a foreign source reaches the persisted entitlement lookup, and that lo
+okup precedes both
+   # resource resolution and `DirectoryIssuer.issue_capability/5`, so revoke is
+observed before mint.
+-  defp entitled_document_grant(source_cell_id, verb, {:document, document_id})
+do
++  defp entitled_document_grant(source_cell_id, verb, resource) do
+     if source_cell_id in EditorPlacement.cell_ids() do
+       :ok
+     else
+-      case ExternalGrant.authorize(source_cell_id, document_id, verb) do
+-        {:ok, _grant} -> :ok
+-        {:error, :grant_revoked} -> {:error, error(:revoked)}
+-        {:error, :grant_expired} -> {:error, error(:expired)}
+-        {:error, _reason} -> {:error, entitlement_error(:unentitled)}
+-      end
++      external_document_entitlement(source_cell_id, verb, resource)
++    end
++  end
++
++  defp external_document_entitlement(source_cell_id, verb, {:document, document
+_id}) do
++    case ExternalGrant.authorize(source_cell_id, document_id, verb) do
++      {:ok, _grant} -> :ok
++      {:error, :grant_revoked} -> {:error, error(:revoked)}
++      {:error, :grant_expired} -> {:error, error(:expired)}
++      {:error, _reason} -> {:error, entitlement_error(:unentitled)}
+     end
+   end
+
+-  defp entitled_document_grant(_source_cell_id, _verb, _resource),
++  defp external_document_entitlement(_source_cell_id, _verb, _resource),
+     do: {:error, entitlement_error(:unentitled)}
+
+   # `Commonplace.Cell.Error` 0.1 predates this gateway-specific distinction. Gr
+ant error frames
+
+diff --git a/config/dev.exs b/config/dev.exs
+index 3945d398723efaa029dd4cff73e2f5d42ff874ba..264045e7e55a7606754a5f69f5913133
+0d0674b3
+--- a/config/dev.exs
++++ b/config/dev.exs
+@@ -26,18 +26,3 @@
+   realm_id: "commonplace-next"
+
+ config :logger, level: :warning
+-
+-config :commonplace_next, CommonplaceNext.Realm.Keystore,
+-  roots: [
+-    %{
+-      root_key_id: 1,
+-      algorithm: "ed25519",
+-      public_key: String.duplicate("ab", 32),
+-      status: "active",
+-      issuer: %{
+-        "purpose" => "realm.capability",
+-        "realm" => "somewhere-else",
+-        "operations" => ["directory.list", "directory.resolve", "cell.open", "d
+ocument.sync.summary", "document.sync.offer"]
+-      }
+-    }
+-  ]
+diff --git a/lib/commonplace_next/organization/external_grant.ex b/lib/commonpla
+ce_next/organization/external_grant.ex
+index 3a819c12a27393eb88b8d4d094e758c8073fa4ed..ca18f5394e5f54988f79cd7858dcb8e5
+312e8d14
+--- a/lib/commonplace_next/organization/external_grant.ex
++++ b/lib/commonplace_next/organization/external_grant.ex
+@@ -4,7 +4,7 @@
+
+   Grant records live in the granting Organization's Workspace Cell. The grant i
+tself is keyed by
+   `Identity.derive(organization_id, :external_grant, grant_id)`; a per-grantee
+index, under the
+-  same facet, makes those records discoverable from the cell id presented at bo
+otstrap.
++  same facet, makes those records discoverable from the cell id presented for g
+ateway admission.
+   """
+
+   alias Commonplace.DocHost
+@@ -99,7 +99,7 @@
+   def revoke(%Membership{}, _grant_id), do: {:error, :not_owner}
+   def revoke(_membership, _grant_id), do: {:error, :not_owner}
+
+-  @doc "Finds the grant state that controls bootstrap admission for a foreign E
+ditor Cell."
++  @doc "Finds the grant state that controls gateway admission for a foreign Edi
+tor Cell."
+   def admission(grantee_cell_id) when is_binary(grantee_cell_id) do
+     with {:ok, organization_id} <- configured_organization_id(),
+          {:ok, hosts} <- workspace_hosts(organization_id),
+diff --git a/lib/commonplace_next/realm/gateway.ex b/lib/commonplace_next/realm/
+gateway.ex
+index a84f9a7e3d224f74fd82ad782b765d8a307d77cd..7b5371a01a04f50cc2c24bd73da23121
+8cf9f1af
+--- a/lib/commonplace_next/realm/gateway.ex
++++ b/lib/commonplace_next/realm/gateway.ex
+@@ -644,20 +644,24 @@
+   # Configured Membership Editor Cells retain the V-CROSS path byte for byte af
+ter this check.
+   # Only a foreign source reaches the persisted entitlement lookup, and that lo
+okup precedes both
+   # resource resolution and `DirectoryIssuer.issue_capability/5`, so revoke is
+observed before mint.
+-  defp entitled_document_grant(source_cell_id, verb, {:document, document_id})
+do
++  defp entitled_document_grant(source_cell_id, verb, resource) do
+     if source_cell_id in EditorPlacement.cell_ids() do
+       :ok
+     else
+-      case ExternalGrant.authorize(source_cell_id, document_id, verb) do
+-        {:ok, _grant} -> :ok
+-        {:error, :grant_revoked} -> {:error, error(:revoked)}
+-        {:error, :grant_expired} -> {:error, error(:expired)}
+-        {:error, _reason} -> {:error, entitlement_error(:unentitled)}
+-      end
++      external_document_entitlement(source_cell_id, verb, resource)
++    end
++  end
++
++  defp external_document_entitlement(source_cell_id, verb, {:document, document
+_id}) do
++    case ExternalGrant.authorize(source_cell_id, document_id, verb) do
++      {:ok, _grant} -> :ok
++      {:error, :grant_revoked} -> {:error, error(:revoked)}
++      {:error, :grant_expired} -> {:error, error(:expired)}
++      {:error, _reason} -> {:error, entitlement_error(:unentitled)}
+     end
+   end
+
+-  defp entitled_document_grant(_source_cell_id, _verb, _resource),
++  defp external_document_entitlement(_source_cell_id, _verb, _resource),
+     do: {:error, entitlement_error(:unentitled)}
+
+   # `Commonplace.Cell.Error` 0.1 predates this gateway-specific distinction. Gr
+ant error frames
+
+exec
+/bin/bash -lc "sed -n '1,120p' test/commonplace_next/trust_root_inventory_test.e
+xs; rg -n 'config/dev.exs|restore|trap|sha' bin/check-trust-root* test/commonpla
+ce_next/trust_root_inventory_test.exs; sed -n '1,240p' bin/check-trust-root-inve
+ntory.sh" in /home/jes/sol-share1b/wt
+ succeeded in 0ms:
+defmodule CommonplaceNext.TrustRootInventoryTest do
+  @moduledoc """
+  ⭐ THE CONSUMING DOOR FOR THE TRUST-ROOT GATE.
+
+  `bin/check-trust-root-inventory.sh` refuses a Realm holding any trust root tha
+t is not its own
+  signing key. It exists because the standing "no second trust root" rule was a
+RULING AND NOT A
+  TECHNICAL OBSTACLE: `Realm.Keystore.child_spec/1` merges
+  `Application.get_env(:commonplace_next, Realm.Keystore, [])`, so `roots:` or `
+path:` installs one
+  with NO SOURCE DIFF AT ALL. A remembered rule does not fire; a filed artifact
+does.
+
+  ⛔ WHY NOT A `gate` LINE IN `bin/land-round.sh` -- measured, not assumed: its
+GATE_COVERAGE block
+  refuses any landing whose pre-merge bytes differ from the blob being pushed. A
+ round adding a gate
+  line there cannot land, correctly, because such a run would not have executed
+the gate it ships.
+  So the door is `gate "mix test"`, which is already wired.
+
+  ⚠️ ⚠️  THE GATE'S EXIT CONDITION, NAMED RATHER THAN LEFT IMPLICIT. This gate mea
+sures THE
+  ENVIRONMENT IT IS RUN IN, and prints which one. Under the landing that is the
+ambient dev
+  configuration. It therefore does NOT certify a production deployment: `config/
+runtime.exs` and
+  `config/prod.exs` are read only when a Realm boots under `MIX_ENV=prod`. ⇒ A d
+eployment must run
+  this gate ON THE DEPLOYMENT. Until something is served that is a limit and not
+ a hole -- and it
+  goes stale the moment anything is served.
+  """
+  use ExUnit.Case, async: false
+
+  alias Mix.Tasks.CommonplaceNext.CheckTrustRoots
+
+  @falsifier "bin/test-trust-root-inventory.sh"
+
+  test "this Realm holds exactly its own signing key as a trust root" do
+    # ⭐ Called in-process rather than through a subprocess: the same shipped fu
+nction the gate runs,
+    # against the Realm this suite actually booted. No copy, no second boot.
+    case CheckTrustRoots.measure() do
+      {:ok, lines} ->
+        output = Enum.join(lines, "\n")
+
+        # rc-equivalent alone is satisfied by a measurement that measured nothin
+g. These assert the
+        # instrument saw a Realm: a non-empty root list, and every root reconstr
+ucting to the signer.
+        assert output =~ ~r/TRUST ROOTS IN A BOOTED REALM: (\d+) declared=\1\b/
+        assert output =~ ~r/ACTIVE TRUST ROOTS IN A BOOTED REALM: (\d+) declared
+=\1\b/
+        assert output =~ "proves=realm-signer"
+        refute output =~ "proves=FOREIGN"
+        assert output =~ "VERDICT: TRUST ROOT INVENTORY OK"
+
+      {:red, lines, problems} ->
+        flunk("""
+        the trust root inventory is RED -- this Realm holds a root it did not ge
+nerate,
+        or more roots than declared.
+
+        #{Enum.join(lines, "\n")}
+
+        #{Enum.join(problems, "\n")}
+        """)
+
+      {:blind, message} ->
+        flunk("""
+        the trust root gate is BLIND, which is not a passing state: it reported
+no number at all.
+
+        #{message}
+        """)
+    end
+  end
+
+  @tag timeout: 600_000
+  test "a second trust root added by configuration alone turns the gate red" do
+    # ⭐ A GATE YOU HAVE NEVER SEEN FAIL IS NOT KNOWN TO WORK. The falsifier boo
+ts a whole Realm per
+    # arm with a second root injected, and its strongest arm edits a TRACKED CON
+FIG FILE and nothing
+    # else -- the hazard exactly as it would arrive.
+    {output, status} =
+      System.cmd("bash", [@falsifier], cd: File.cwd!(), stderr_to_stdout: true)
+
+    assert status == 0, """
+    the trust root falsifier exited #{status}; the gate's red state is not demon
+strated.
+
+    #{output}
+    """
+
+    # The two mandatory red shapes, named, plus the config-only arm through the
+shipped gate.
+    assert output =~ "CASE roots-option-second-root result=RED expected=RED"
+    assert output =~ "CASE path-option-second-root result=RED expected=RED"
+    assert output =~ "CASE config-only-second-root rc=1 expected=1"
+    assert output =~ "TEST VERDICT: TRUST ROOT FALSIFIER OK"
+  end
+end
+test/commonplace_next/trust_root_inventory_test.exs:77:    # The two mandatory r
+ed shapes, named, plus the config-only arm through the shipped gate.
+#!/usr/bin/env bash
+# Gate: the declared trust-root inventory of a BOOTED Realm.
+# Exit 0 = declared inventory; 1 = a second or foreign trust root; 2 = instrumen
+t blind.
+#
+# ⭐ WHY THIS ONE BOOTS INSTEAD OF READING SOURCE. `Realm.Keystore.child_spec/1`
+ merges
+# `Application.get_env(:commonplace_next, Realm.Keystore, [])` into its start op
+tions, so a second
+# trust root arrives through `roots:` or `path:` as a CONFIG-ONLY CHANGE WITH NO
+ DIFF. The three
+# static literals cannot see it. ⛔ A GATE INSTALLED AFTER THE TEMPTATION IS INS
+TALLED TOO LATE.
+#
+# The measurement itself lives in the Mix task, so the falsifier drives the SAME
+ function rather
+# than a copy of it. This script is the operator's door and the exit-code contra
+ct.
+set -uo pipefail
+
+if [ "$#" -ne 0 ]; then
+  printf 'INSTRUMENT BLIND: usage: %s\n' "$(basename "$0")" >&2
+  printf 'VERDICT: TRUST ROOT INVENTORY BLIND\n' >&2
+  exit 2
+fi
+
+root=${TRUST_ROOT_ROOT:-$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd -P)}
+
+if ! command -v mix >/dev/null 2>&1; then
+  printf 'INSTRUMENT BLIND: mix is unavailable, so no Realm can be booted to mea
+sure\n' >&2
+  printf 'VERDICT: TRUST ROOT INVENTORY BLIND\n' >&2
+  exit 2
+fi
+
+out=$(cd "$root" && mix commonplace_next.check_trust_roots 2>&1)
+rc=$?
+printf '%s\n' "$out"
+
+case "$rc" in
+  0)
+    # ⛔ rc 0 ALONE IS SATISFIED BY A TASK THAT PRINTED NOTHING. The green must
+carry the verdict
+    # line, or a task that failed to measure and exited cleanly reads as a confi
+rmed inventory.
+    if ! printf '%s' "$out" | grep -q '^VERDICT: TRUST ROOT INVENTORY OK'; then
+      printf 'INSTRUMENT BLIND: the task exited 0 without printing a trust root
+verdict\n' >&2
+      printf 'VERDICT: TRUST ROOT INVENTORY BLIND\n' >&2
+      exit 2
+    fi
+    exit 0 ;;
+  1) exit 1 ;;
+  *)
+    printf 'VERDICT: TRUST ROOT INVENTORY BLIND\n' >&2
+    exit 2 ;;
+esac
+
+diff --git a/config/dev.exs b/config/dev.exs
+index 3945d398723efaa029dd4cff73e2f5d42ff874ba..264045e7e55a7606754a5f69f5913133
+0d0674b3
+--- a/config/dev.exs
++++ b/config/dev.exs
+@@ -26,18 +26,3 @@
+   realm_id: "commonplace-next"
+
+ config :logger, level: :warning
+-
+-config :commonplace_next, CommonplaceNext.Realm.Keystore,
+-  roots: [
+-    %{
+-      root_key_id: 1,
+-      algorithm: "ed25519",
+-      public_key: String.duplicate("ab", 32),
+-      status: "active",
+-      issuer: %{
+-        "purpose" => "realm.capability",
+-        "realm" => "somewhere-else",
+-        "operations" => ["directory.list", "directory.resolve", "cell.open", "d
+ocument.sync.summary", "document.sync.offer"]
+-      }
+-    }
+-  ]
+diff --git a/lib/commonplace_next/organization/external_grant.ex b/lib/commonpla
+ce_next/organization/external_grant.ex
+index 3a819c12a27393eb88b8d4d094e758c8073fa4ed..ca18f5394e5f54988f79cd7858dcb8e5
+312e8d14
+--- a/lib/commonplace_next/organization/external_grant.ex
++++ b/lib/commonplace_next/organization/external_grant.ex
+@@ -4,7 +4,7 @@
+
+   Grant records live in the granting Organization's Workspace Cell. The grant i
+tself is keyed by
+   `Identity.derive(organization_id, :external_grant, grant_id)`; a per-grantee
+index, under the
+-  same facet, makes those records discoverable from the cell id presented at bo
+otstrap.
++  same facet, makes those records discoverable from the cell id presented for g
+ateway admission.
+   """
+
+   alias Commonplace.DocHost
+@@ -99,7 +99,7 @@
+   def revoke(%Membership{}, _grant_id), do: {:error, :not_owner}
+   def revoke(_membership, _grant_id), do: {:error, :not_owner}
+
+-  @doc "Finds the grant state that controls bootstrap admission for a foreign E
+ditor Cell."
++  @doc "Finds the grant state that controls gateway admission for a foreign Edi
+tor Cell."
+   def admission(grantee_cell_id) when is_binary(grantee_cell_id) do
+     with {:ok, organization_id} <- configured_organization_id(),
+          {:ok, hosts} <- workspace_hosts(organization_id),
+diff --git a/lib/commonplace_next/realm/gateway.ex b/lib/commonplace_next/realm/
+gateway.ex
+index a84f9a7e3d224f74fd82ad782b765d8a307d77cd..7b5371a01a04f50cc2c24bd73da23121
+8cf9f1af
+--- a/lib/commonplace_next/realm/gateway.ex
++++ b/lib/commonplace_next/realm/gateway.ex
+@@ -644,20 +644,24 @@
+   # Configured Membership Editor Cells retain the V-CROSS path byte for byte af
+ter this check.
+   # Only a foreign source reaches the persisted entitlement lookup, and that lo
+okup precedes both
+   # resource resolution and `DirectoryIssuer.issue_capability/5`, so revoke is
+observed before mint.
+-  defp entitled_document_grant(source_cell_id, verb, {:document, document_id})
+do
++  defp entitled_document_grant(source_cell_id, verb, resource) do
+     if source_cell_id in EditorPlacement.cell_ids() do
+       :ok
+     else
+-      case ExternalGrant.authorize(source_cell_id, document_id, verb) do
+-        {:ok, _grant} -> :ok
+-        {:error, :grant_revoked} -> {:error, error(:revoked)}
+-        {:error, :grant_expired} -> {:error, error(:expired)}
+-        {:error, _reason} -> {:error, entitlement_error(:unentitled)}
+-      end
++      external_document_entitlement(source_cell_id, verb, resource)
++    end
++  end
++
++  defp external_document_entitlement(source_cell_id, verb, {:document, document
+_id}) do
++    case ExternalGrant.authorize(source_cell_id, document_id, verb) do
++      {:ok, _grant} -> :ok
++      {:error, :grant_revoked} -> {:error, error(:revoked)}
++      {:error, :grant_expired} -> {:error, error(:expired)}
++      {:error, _reason} -> {:error, entitlement_error(:unentitled)}
+     end
+   end
+
+-  defp entitled_document_grant(_source_cell_id, _verb, _resource),
++  defp external_document_entitlement(_source_cell_id, _verb, _resource),
+     do: {:error, entitlement_error(:unentitled)}
+
+   # `Commonplace.Cell.Error` 0.1 predates this gateway-specific distinction. Gr
+ant error frames
+
+exec
+/bin/bash -lc "sed -n '1,300p' bin/test-trust-root-inventory.sh" in /home/jes/so
+l-share1b/wt
+ succeeded in 0ms:
+#!/usr/bin/env bash
+# Regression and falsifier for the shipped trust-root inventory gate.
+#
+# ⭐ A GATE YOU HAVE NEVER SEEN FAIL IS NOT KNOWN TO WORK. Both mandatory red sh
+apes are driven
+# through a REAL BOOT of the whole application, never against a re-implementatio
+n of the
+# measurement: every arm calls the shipped `Mix.Tasks.CommonplaceNext.CheckTrust
+Roots.measure/0`.
+# ⛔ THE STRONGEST ARM IS `config-only-second-root`: it edits a TRACKED CONFIG F
+ILE and nothing else,
+# runs the shipped gate through its shipped door, and requires red. That is the
+exact hazard --
+# a second trust root arriving with NO SOURCE DIFF.
+set -uo pipefail
+
+root=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd -P)
+gate="$root/bin/check-trust-root-inventory.sh"
+
+if [ "$#" -ne 0 ]; then
+  printf 'TEST BLIND: usage: %s\n' "$(basename "$0")" >&2
+  exit 2
+fi
+if [ ! -x "$gate" ]; then
+  printf 'TEST RED: candidate gate missing or not executable at %s\n' "$gate" >&
+2
+  exit 1
+fi
+if ! command -v mix >/dev/null 2>&1; then
+  printf 'TEST BLIND: mix is unavailable; no arm can boot a Realm\n' >&2
+  exit 2
+fi
+
+tmp=$(mktemp -d)
+config_subject="config/dev.exs"
+config_before=$(git -C "$root" hash-object "$config_subject")
+
+restore_config() {
+  git -C "$root" checkout -- "$config_subject" 2>/dev/null || true
+  local now
+  now=$(git -C "$root" hash-object "$config_subject" 2>/dev/null || echo missing
+)
+  if [ "$now" != "$config_before" ]; then
+    printf 'TEST BLIND: %s was NOT restored (%s != %s); the working tree is dirt
+y.\n' \
+      "$config_subject" "$now" "$config_before" >&2
+    exit 2
+  fi
+}
+# ⛔ RESTORE ON EVERY PATH, including the ones that are not the happy one.
+trap 'restore_config; rm -rf "$tmp"' EXIT INT TERM
+
+failures=0
+arms_run=0
+self_checks_run=0
+
+# run_probe <name> <expected_result> <expected_text> <injection-elixir> [forbidd
+en_text]
+#
+# The injection runs BEFORE the application starts, so the second root is presen
+t from boot --
+# not put into a keystore that had already loaded without it.
+run_probe() {
+  local name="$1" expected="$2" expected_text="$3" injection="$4" forbidden="${5
+:-}"
+  local script="$tmp/$name.exs" out result
+  cat > "$script" <<EOF
+$injection
+{:ok, _} = Application.ensure_all_started(:commonplace_next)
+Process.sleep(400)
+
+case Mix.Tasks.CommonplaceNext.CheckTrustRoots.measure() do
+  {:ok, lines} ->
+    Enum.each(lines, &IO.puts/1)
+    IO.puts("RESULT=OK")
+
+  {:red, lines, problems} ->
+    Enum.each(lines, &IO.puts/1)
+    Enum.each(problems, &IO.puts/1)
+    IO.puts("RESULT=RED")
+
+  {:blind, message} ->
+    IO.puts("INSTRUMENT BLIND: #{'#{message}'}")
+    IO.puts("RESULT=BLIND")
+end
+EOF
+  arms_run=$((arms_run + 1))
+  out=$( (cd "$root" && mix run --no-start "$script") 2>&1 )
+  result=$(printf '%s\n' "$out" | sed -n 's/^RESULT=//p' | tail -1)
+  printf 'CASE %s result=%s expected=%s\n' "$name" "${result:-<none>}" "$expecte
+d"
+  printf '%s\n' "$out" | grep -E '^(TRUST|ACTIVE|KEYSTORE|  ROOT|SECOND|FOREIGN|
+VERDICT|INSTRUMENT)' || true
+  if [ "$result" != "$expected" ] || ! grep -Fq -- "$expected_text" <<< "$out";
+then
+    printf 'TEST FAIL: %s expected result=%s and text=%s\n' "$name" "$expected"
+"$expected_text" >&2
+    return 1
+  fi
+  if [ -n "$forbidden" ] && grep -Fq -- "$forbidden" <<< "$out"; then
+    printf 'TEST FAIL: %s discriminator absent -- forbidden text present: %s\n'
+"$name" "$forbidden" >&2
+    return 1
+  fi
+}
+
+second_root_literal='%{
+  root_key_id: 1,
+  algorithm: "ed25519",
+  public_key: String.duplicate("ab", 32),
+  status: "active",
+  issuer: %{
+    "purpose" => "realm.capability",
+    "realm" => "somewhere-else",
+    "operations" => ["directory.list", "directory.resolve", "cell.open", "docume
+nt.sync.summary", "document.sync.offer"]
+  }
+}'
+
+# ⛔ MANDATORY RED SHAPE ①: a second root through `roots:`.
+run_probe roots-option-second-root RED 'the Keystore start options carry [:roots
+]' \
+"Application.put_env(:commonplace_next, CommonplaceNext.Realm.Keystore, roots: [
+$second_root_literal])" \
+  || failures=$((failures + 1))
+
+# ⛔ MANDATORY RED SHAPE ②: a second root through `path:`, which touches no Elix
+ir term at all --
+# a JSON file on disk named by configuration.
+path_file="$tmp/extra-roots.json"
+cat > "$path_file" <<'JSON'
+{"roots": [{"root_key_id": 2, "algorithm": "ed25519", "public_key": "cdcdcdcdcdc
+dcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd", "status": "active", "iss
+uer": {"purpose": "realm.capability", "realm": "from-a-file", "operations": ["di
+rectory.list", "directory.resolve", "cell.open", "document.sync.summary", "docum
+ent.sync.offer"]}}]}
+JSON
+run_probe path-option-second-root RED 'the Keystore start options carry [:path]'
+ \
+"Application.put_env(:commonplace_next, CommonplaceNext.Realm.Keystore, path: \"
+$path_file\")" \
+  || failures=$((failures + 1))
+
+# ⭐ THE FOREIGN-ROOT DETECTOR, which a COUNT ALONE CANNOT PROVIDE: the second r
+oot does not
+# reconstruct to this realm's signing key, and the gate says so about that speci
+fic root.
+run_probe foreign-root-named RED 'FOREIGN TRUST ROOT: id=1' \
+"Application.put_env(:commonplace_next, CommonplaceNext.Realm.Keystore, roots: [
+$second_root_literal])" \
+  || failures=$((failures + 1))
+
+# The unmutated control, through the same harness.
+run_probe healthy OK 'VERDICT: TRUST ROOT INVENTORY OK' ':ok' 'FOREIGN' \
+  || failures=$((failures + 1))
+
+# ⭐⭐ THE ARM THAT MATTERS MOST: a TRACKED CONFIG FILE edited, no source change
+, the SHIPPED gate
+# run through its SHIPPED door. This is the hazard as it would actually arrive.
+config_arm() {
+  local out rc=0 source_before source_after
+  # ⛔ THE CLAIM IS A TRANSITION, NOT A STATE. An earlier version of this arm as
+serted that lib/ and
+  # bin/ were CLEAN, and it failed the moment the round's own new files were sta
+ged -- reporting a
+  # defect in the arm as a defect in the tree. "This arm changed no source" is a
+ BEFORE/AFTER
+  # comparison; "the tree is clean" is a different claim that happens to coincid
+e on a clean tree.
+  source_before=$(git -C "$root" status --porcelain --untracked-files=no -- lib
+bin | sort)
+  cat >> "$root/$config_subject" <<CONFIG
+
+config :commonplace_next, CommonplaceNext.Realm.Keystore,
+  roots: [
+    %{
+      root_key_id: 1,
+      algorithm: "ed25519",
+      public_key: String.duplicate("ab", 32),
+      status: "active",
+      issuer: %{
+        "purpose" => "realm.capability",
+        "realm" => "somewhere-else",
+        "operations" => ["directory.list", "directory.resolve", "cell.open", "do
+cument.sync.summary", "document.sync.offer"]
+      }
+    }
+  ]
+CONFIG
+  if [ "$(git -C "$root" hash-object "$config_subject")" = "$config_before" ]; t
+hen
+    printf 'TEST FAIL: config-only-second-root mutator changed nothing; the arm
+tested nothing\n' >&2
+    return 1
+  fi
+  arms_run=$((arms_run + 1))
+  out=$(bash "$gate" 2>&1) || rc=$?
+  restore_config
+  printf 'CASE config-only-second-root rc=%s expected=1\n' "$rc"
+  printf '%s\n' "$out" | grep -E '^(TRUST|ACTIVE|KEYSTORE|  ROOT|SECOND|FOREIGN|
+VERDICT)' || true
+  if [ "$rc" -ne 1 ] || ! grep -Fq -- 'SECOND TRUST ROOT CONFIGURED' <<< "$out";
+ then
+    printf 'TEST FAIL: a second trust root added by CONFIG ALONE did not turn th
+e shipped gate red\n' >&2
+    return 1
+  fi
+  # ⛔ And this arm must have changed NO source, or the hazard it models is not
+a config-only one.
+  source_after=$(git -C "$root" status --porcelain --untracked-files=no -- lib b
+in | sort)
+  if [ "$source_before" != "$source_after" ]; then
+    printf 'TEST FAIL: config-only arm changed source under lib/ or bin/; it doe
+s not model a config-only change\n' >&2
+    diff <(printf '%s\n' "$source_before") <(printf '%s\n' "$source_after") >&2
+|| true
+    return 1
+  fi
+}
+config_arm || failures=$((failures + 1))
+
+# ⭐⭐ SELF-CHECKS. ① no-op: the healthy arm's expectations must FAIL when a red
+ is expected of an
+# unmutated boot, proving the arms have a red state at all. ② cross-mutation: th
+e `path:` arm's
+# assertion must FAIL under the `roots:` mutation, proving each red it asserts i
+s ITS OWN.
+self_check() {
+  local label="$1" reason="$2"; shift 2
+  local rc=0 before=$arms_run
+  run_probe "$@" >/dev/null 2>&1 || rc=$?
+  arms_run=$before
+  self_checks_run=$((self_checks_run + 1))
+  if [ "$rc" -eq 0 ]; then
+    printf 'TEST FAIL: %s PASSED -- %s\n' "$label" "$reason" >&2
+    return 1
+  fi
+  printf 'CASE %s correctly FAILED (rc=%s).\n' "$label" "$rc"
+}
+
+self_check no-op-injection-self-check \
+  'an UNMUTATED boot satisfies a red expectation, so the red arms assert nothing
+' \
+  no-op-injection-self-check RED 'the Keystore start options carry [:roots]' ':o
+k' \
+  || failures=$((failures + 1))
+
+self_check cross-injection-self-check \
+  'the path: arm credits itself for a red caused by the roots: injection' \
+  cross-injection-self-check RED 'the Keystore start options carry [:path]' \
+"Application.put_env(:commonplace_next, CommonplaceNext.Realm.Keystore, roots: [
+$second_root_literal])" \
+  || failures=$((failures + 1))
+
+if [ "$arms_run" -eq 0 ] || [ "$self_checks_run" -eq 0 ]; then
+  printf 'TEST BLIND: %s arm(s) and %s self-check(s) executed; an empty arm popu
+lation is not a pass.\n' \
+    "$arms_run" "$self_checks_run" >&2
+  exit 2
+fi
+if [ "$failures" -eq 0 ]; then
+  printf 'TEST VERDICT: TRUST ROOT FALSIFIER OK -- %s arms and %s self-checks ex
+ecuted; both mandatory red shapes (roots: and path:) demonstrated through a real
+ boot, and a config-only second root demonstrated through the shipped gate.\n' \
+    "$arms_run" "$self_checks_run"
+  exit 0
+fi
+printf 'TEST VERDICT: TRUST ROOT FALSIFIER RED -- %s case(s) failed.\n' "$failur
+es" >&2
+exit 1
+
+diff --git a/config/dev.exs b/config/dev.exs
+index 3945d398723efaa029dd4cff73e2f5d42ff874ba..264045e7e55a7606754a5f69f5913133
+0d0674b3
+--- a/config/dev.exs
++++ b/config/dev.exs
+@@ -26,18 +26,3 @@
+   realm_id: "commonplace-next"
+
+ config :logger, level: :warning
+-
+-config :commonplace_next, CommonplaceNext.Realm.Keystore,
+-  roots: [
+-    %{
+-      root_key_id: 1,
+-      algorithm: "ed25519",
+-      public_key: String.duplicate("ab", 32),
+-      status: "active",
+-      issuer: %{
+-        "purpose" => "realm.capability",
+-        "realm" => "somewhere-else",
+-        "operations" => ["directory.list", "directory.resolve", "cell.open", "d
+ocument.sync.summary", "document.sync.offer"]
+-      }
+-    }
+-  ]
+diff --git a/lib/commonplace_next/organization/external_grant.ex b/lib/commonpla
+ce_next/organization/external_grant.ex
+index 3a819c12a27393eb88b8d4d094e758c8073fa4ed..ca18f5394e5f54988f79cd7858dcb8e5
+312e8d14
+--- a/lib/commonplace_next/organization/external_grant.ex
++++ b/lib/commonplace_next/organization/external_grant.ex
+@@ -4,7 +4,7 @@
+
+   Grant records live in the granting Organization's Workspace Cell. The grant i
+tself is keyed by
+   `Identity.derive(organization_id, :external_grant, grant_id)`; a per-grantee
+index, under the
+-  same facet, makes those records discoverable from the cell id presented at bo
+otstrap.
++  same facet, makes those records discoverable from the cell id presented for g
+ateway admission.
+   """
+
+   alias Commonplace.DocHost
+@@ -99,7 +99,7 @@
+   def revoke(%Membership{}, _grant_id), do: {:error, :not_owner}
+   def revoke(_membership, _grant_id), do: {:error, :not_owner}
+
+-  @doc "Finds the grant state that controls bootstrap admission for a foreign E
+ditor Cell."
++  @doc "Finds the grant state that controls gateway admission for a foreign Edi
+tor Cell."
+   def admission(grantee_cell_id) when is_binary(grantee_cell_id) do
+     with {:ok, organization_id} <- configured_organization_id(),
+          {:ok, hosts} <- workspace_hosts(organization_id),
+diff --git a/lib/commonplace_next/realm/gateway.ex b/lib/commonplace_next/realm/
+gateway.ex
+index a84f9a7e3d224f74fd82ad782b765d8a307d77cd..7b5371a01a04f50cc2c24bd73da23121
+8cf9f1af
+--- a/lib/commonplace_next/realm/gateway.ex
++++ b/lib/commonplace_next/realm/gateway.ex
+@@ -644,20 +644,24 @@
+   # Configured Membership Editor Cells retain the V-CROSS path byte for byte af
+ter this check.
+   # Only a foreign source reaches the persisted entitlement lookup, and that lo
+okup precedes both
+   # resource resolution and `DirectoryIssuer.issue_capability/5`, so revoke is
+observed before mint.
+-  defp entitled_document_grant(source_cell_id, verb, {:document, document_id})
+do
++  defp entitled_document_grant(source_cell_id, verb, resource) do
+     if source_cell_id in EditorPlacement.cell_ids() do
+       :ok
+     else
+-      case ExternalGrant.authorize(source_cell_id, document_id, verb) do
+-        {:ok, _grant} -> :ok
+-        {:error, :grant_revoked} -> {:error, error(:revoked)}
+-        {:error, :grant_expired} -> {:error, error(:expired)}
+-        {:error, _reason} -> {:error, entitlement_error(:unentitled)}
+-      end
++      external_document_entitlement(source_cell_id, verb, resource)
++    end
++  end
++
++  defp external_document_entitlement(source_cell_id, verb, {:document, document
+_id}) do
++    case ExternalGrant.authorize(source_cell_id, document_id, verb) do
++      {:ok, _grant} -> :ok
++      {:error, :grant_revoked} -> {:error, error(:revoked)}
++      {:error, :grant_expired} -> {:error, error(:expired)}
++      {:error, _reason} -> {:error, entitlement_error(:unentitled)}
+     end
+   end
+
+-  defp entitled_document_grant(_source_cell_id, _verb, _resource),
++  defp external_document_entitlement(_source_cell_id, _verb, _resource),
+     do: {:error, entitlement_error(:unentitled)}
+
+   # `Commonplace.Cell.Error` 0.1 predates this gateway-specific distinction. Gr
+ant error frames
+
+exec
+/bin/bash -lc "mix format --check-formatted
+git diff --check
+git status --short
+git diff --name-only
+git diff --name-only a568330 HEAD -- test/
+sha256sum test/integration/x_realm_external_grant_test.exs test/integration/x_re
+alm_cell_open_grant_test.exs test/integration/two_organization_test.exs
+git show HEAD:test/integration/x_realm_external_grant_test.exs | sha256sum
+git show HEAD:test/integration/x_realm_cell_open_grant_test.exs | sha256sum
+git show HEAD:test/integration/two_organization_test.exs | sha256sum
+rg -n 'EditorPlacement\\.by_cell' lib
+rg -n 'bootstrap' lib/commonplace_next/organization/external_grant.ex; test "'$?
+ -eq 1 && printf '"'grep exit: 1 (no matches)\\n'
+printf 'unexpected fence files:\\n'
+comm -23 <(git diff --name-only | sort) <(git diff --name-only a568330 HEAD | so
+rt)
+printf 'cause lines:\\n'
+nl -ba lib/commonplace_next/realm/gateway.ex | sed -n '640,675p'
+git diff --stat
+git diff -- lib/commonplace_next/organization/external_grant.ex lib/commonplace_
+next/realm/gateway.ex" in /home/jes/sol-share1b/wt
+ succeeded in 1838ms:
+ M lib/commonplace_next/organization/external_grant.ex
+ M lib/commonplace_next/realm/gateway.ex
+lib/commonplace_next/organization/external_grant.ex
+lib/commonplace_next/realm/gateway.ex
+test/integration/x_realm_external_grant_test.exs
+de72619522bec6ed5f9b790869f78d43fe3b96eb98ae817209a78430e6e26c27  test/integrati
+on/x_realm_external_grant_test.exs
+fb8436570242fa840f2090be1800ff4c51ffab4915bed016437792a4c476bb19  test/integrati
+on/x_realm_cell_open_grant_test.exs
+135cdb6cd54c4507674993df2ac5a622aad096aca6a9ee2cdf15197eb74817f7  test/integrati
+on/two_organization_test.exs
+de72619522bec6ed5f9b790869f78d43fe3b96eb98ae817209a78430e6e26c27  -
+fb8436570242fa840f2090be1800ff4c51ffab4915bed016437792a4c476bb19  -
+135cdb6cd54c4507674993df2ac5a622aad096aca6a9ee2cdf15197eb74817f7  -
+lib/commonplace_next/editor_cell/mirrors.ex:225:         {:ok, entry} <- EditorP
+lacement.by_cell(editor_cell_id) do
+lib/commonplace_next/editor_cell/mirrors.ex:236:         {:ok, entry} <- EditorP
+lacement.by_cell(editor_cell_id),
+lib/commonplace_next/editor_cell/mirrors.ex:260:         {:ok, _entry} <- Editor
+Placement.by_cell(editor_cell_id) do
+lib/commonplace_next/editor_cell/mirror_supervisor.ex:69:         {:ok, _entry}
+<- EditorPlacement.by_cell(editor_id) do
+lib/commonplace_next/realm/gateway/credentials.ex:544:  defp valid_cell?(cell_id
+), do: match?({:ok, _entry}, EditorPlacement.by_cell(cell_id))
+grep exit: 1 (no matches)
+unexpected fence files:
+cause lines:
+   640
+   641    defp admitted_grant_verb("directory.resolve", {:path, _path}), do: :ok
+   642    defp admitted_grant_verb(_verb, _resource), do: {:error, error(:verb_n
+ot_supported)}
+   643
+   644    # Configured Membership Editor Cells retain the V-CROSS path byte for
+byte after this check.
+   645    # Only a foreign source reaches the persisted entitlement lookup, and
+that lookup precedes both
+   646    # resource resolution and `DirectoryIssuer.issue_capability/5`, so rev
+oke is observed before mint.
+   647    defp entitled_document_grant(source_cell_id, verb, resource) do
+   648      if source_cell_id in EditorPlacement.cell_ids() do
+   649        :ok
+   650      else
+   651        external_document_entitlement(source_cell_id, verb, resource)
+   652      end
+   653    end
+   654
+   655    defp external_document_entitlement(source_cell_id, verb, {:document, d
+ocument_id}) do
+   656      case ExternalGrant.authorize(source_cell_id, document_id, verb) do
+   657        {:ok, _grant} -> :ok
+   658        {:error, :grant_revoked} -> {:error, error(:revoked)}
+   659        {:error, :grant_expired} -> {:error, error(:expired)}
+   660        {:error, _reason} -> {:error, entitlement_error(:unentitled)}
+   661      end
+   662    end
+   663
+   664    defp external_document_entitlement(_source_cell_id, _verb, _resource),
+   665      do: {:error, entitlement_error(:unentitled)}
+   666
+   667    # `Commonplace.Cell.Error` 0.1 predates this gateway-specific distinct
+ion. Grant error frames
+   668    # carry the stable atom as bytes and do not pass through Response enco
+ding, so preserving the
+   669    # distinction here does not widen the Cell protocol's closed ordinary-
+response code set.
+   670    defp entitlement_error(code), do: %Error{code: code, details: %{}}
+   671
+   672    # ⭐⭐ THE RESOURCE IS RESOLVED IN THIS HOST'S OWN WORKSPACE, and what
+ comes back is what the
+   673    # capability names. A remote naming a document this host does not hold
+, or a path that resolves to
+   674    # nothing here, gets a refusal rather than a capability for something
+it named.
+   675    # ⛔ A RESOLVED PATH'S CAPABILITY IS BOUND TO THE ROOT DIRECTORY, exac
+tly as the LOCAL
+ lib/commonplace_next/organization/external_grant.ex |  4 ++--
+ lib/commonplace_next/realm/gateway.ex               | 20 ++++++++++++--------
+ 2 files changed, 14 insertions(+), 10 deletions(-)
+diff --git a/lib/commonplace_next/organization/external_grant.ex b/lib/commonpla
+ce_next/organization/external_grant.ex
+index 3a819c1..ca18f53 100644
+--- a/lib/commonplace_next/organization/external_grant.ex
++++ b/lib/commonplace_next/organization/external_grant.ex
+@@ -4,7 +4,7 @@ defmodule CommonplaceNext.Organization.ExternalGrant do
+
+   Grant records live in the granting Organization's Workspace Cell. The grant i
+tself is keyed by
+   `Identity.derive(organization_id, :external_grant, grant_id)`; a per-grantee
+index, under the
+-  same facet, makes those records discoverable from the cell id presented at bo
+otstrap.
++  same facet, makes those records discoverable from the cell id presented for g
+ateway admission.
+   """
+
+   alias Commonplace.DocHost
+@@ -99,7 +99,7 @@ defmodule CommonplaceNext.Organization.ExternalGrant do
+   def revoke(%Membership{}, _grant_id), do: {:error, :not_owner}
+   def revoke(_membership, _grant_id), do: {:error, :not_owner}
+
+-  @doc "Finds the grant state that controls bootstrap admission for a foreign E
+ditor Cell."
++  @doc "Finds the grant state that controls gateway admission for a foreign Edi
+tor Cell."
+   def admission(grantee_cell_id) when is_binary(grantee_cell_id) do
+     with {:ok, organization_id} <- configured_organization_id(),
+          {:ok, hosts} <- workspace_hosts(organization_id),
+diff --git a/lib/commonplace_next/realm/gateway.ex b/lib/commonplace_next/realm/
+gateway.ex
+index a84f9a7..7b5371a 100644
+--- a/lib/commonplace_next/realm/gateway.ex
++++ b/lib/commonplace_next/realm/gateway.ex
+@@ -644,20 +644,24 @@ defmodule CommonplaceNext.Realm.Gateway do
+   # Configured Membership Editor Cells retain the V-CROSS path byte for byte af
+ter this check.
+   # Only a foreign source reaches the persisted entitlement lookup, and that lo
+okup precedes both
+   # resource resolution and `DirectoryIssuer.issue_capability/5`, so revoke is
+observed before mint.
+-  defp entitled_document_grant(source_cell_id, verb, {:document, document_id})
+do
++  defp entitled_document_grant(source_cell_id, verb, resource) do
+     if source_cell_id in EditorPlacement.cell_ids() do
+       :ok
+     else
+-      case ExternalGrant.authorize(source_cell_id, document_id, verb) do
+-        {:ok, _grant} -> :ok
+-        {:error, :grant_revoked} -> {:error, error(:revoked)}
+-        {:error, :grant_expired} -> {:error, error(:expired)}
+-        {:error, _reason} -> {:error, entitlement_error(:unentitled)}
+-      end
++      external_document_entitlement(source_cell_id, verb, resource)
++    end
++  end
++
++  defp external_document_entitlement(source_cell_id, verb, {:document, document
+_id}) do
++    case ExternalGrant.authorize(source_cell_id, document_id, verb) do
++      {:ok, _grant} -> :ok
++      {:error, :grant_revoked} -> {:error, error(:revoked)}
++      {:error, :grant_expired} -> {:error, error(:expired)}
++      {:error, _reason} -> {:error, entitlement_error(:unentitled)}
+     end
+   end
+
+-  defp entitled_document_grant(_source_cell_id, _verb, _resource),
++  defp external_document_entitlement(_source_cell_id, _verb, _resource),
+     do: {:error, entitlement_error(:unentitled)}
+
+   # `Commonplace.Cell.Error` 0.1 predates this gateway-specific distinction. Gr
+ant error frames
+
+diff --git a/config/dev.exs b/config/dev.exs
+index 3945d398723efaa029dd4cff73e2f5d42ff874ba..264045e7e55a7606754a5f69f5913133
+0d0674b3
+--- a/config/dev.exs
++++ b/config/dev.exs
+@@ -26,18 +26,3 @@
+   realm_id: "commonplace-next"
+
+ config :logger, level: :warning
+-
+-config :commonplace_next, CommonplaceNext.Realm.Keystore,
+-  roots: [
+-    %{
+-      root_key_id: 1,
+-      algorithm: "ed25519",
+-      public_key: String.duplicate("ab", 32),
+-      status: "active",
+-      issuer: %{
+-        "purpose" => "realm.capability",
+-        "realm" => "somewhere-else",
+-        "operations" => ["directory.list", "directory.resolve", "cell.open", "d
+ocument.sync.summary", "document.sync.offer"]
+-      }
+-    }
+-  ]
+diff --git a/lib/commonplace_next/organization/external_grant.ex b/lib/commonpla
+ce_next/organization/external_grant.ex
+index 3a819c12a27393eb88b8d4d094e758c8073fa4ed..ca18f5394e5f54988f79cd7858dcb8e5
+312e8d14
+--- a/lib/commonplace_next/organization/external_grant.ex
++++ b/lib/commonplace_next/organization/external_grant.ex
+@@ -4,7 +4,7 @@
+
+   Grant records live in the granting Organization's Workspace Cell. The grant i
+tself is keyed by
+   `Identity.derive(organization_id, :external_grant, grant_id)`; a per-grantee
+index, under the
+-  same facet, makes those records discoverable from the cell id presented at bo
+otstrap.
++  same facet, makes those records discoverable from the cell id presented for g
+ateway admission.
+   """
+
+   alias Commonplace.DocHost
+@@ -99,7 +99,7 @@
+   def revoke(%Membership{}, _grant_id), do: {:error, :not_owner}
+   def revoke(_membership, _grant_id), do: {:error, :not_owner}
+
+-  @doc "Finds the grant state that controls bootstrap admission for a foreign E
+ditor Cell."
++  @doc "Finds the grant state that controls gateway admission for a foreign Edi
+tor Cell."
+   def admission(grantee_cell_id) when is_binary(grantee_cell_id) do
+     with {:ok, organization_id} <- configured_organization_id(),
+          {:ok, hosts} <- workspace_hosts(organization_id),
+diff --git a/lib/commonplace_next/realm/gateway.ex b/lib/commonplace_next/realm/
+gateway.ex
+index a84f9a7e3d224f74fd82ad782b765d8a307d77cd..7b5371a01a04f50cc2c24bd73da23121
+8cf9f1af
+--- a/lib/commonplace_next/realm/gateway.ex
++++ b/lib/commonplace_next/realm/gateway.ex
+@@ -644,20 +644,24 @@
+   # Configured Membership Editor Cells retain the V-CROSS path byte for byte af
+ter this check.
+   # Only a foreign source reaches the persisted entitlement lookup, and that lo
+okup precedes both
+   # resource resolution and `DirectoryIssuer.issue_capability/5`, so revoke is
+observed before mint.
+-  defp entitled_document_grant(source_cell_id, verb, {:document, document_id})
+do
++  defp entitled_document_grant(source_cell_id, verb, resource) do
+     if source_cell_id in EditorPlacement.cell_ids() do
+       :ok
+     else
+-      case ExternalGrant.authorize(source_cell_id, document_id, verb) do
+-        {:ok, _grant} -> :ok
+-        {:error, :grant_revoked} -> {:error, error(:revoked)}
+-        {:error, :grant_expired} -> {:error, error(:expired)}
+-        {:error, _reason} -> {:error, entitlement_error(:unentitled)}
+-      end
++      external_document_entitlement(source_cell_id, verb, resource)
++    end
++  end
++
++  defp external_document_entitlement(source_cell_id, verb, {:document, document
+_id}) do
++    case ExternalGrant.authorize(source_cell_id, document_id, verb) do
++      {:ok, _grant} -> :ok
++      {:error, :grant_revoked} -> {:error, error(:revoked)}
++      {:error, :grant_expired} -> {:error, error(:expired)}
++      {:error, _reason} -> {:error, entitlement_error(:unentitled)}
+     end
+   end
+
+-  defp entitled_document_grant(_source_cell_id, _verb, _resource),
++  defp external_document_entitlement(_source_cell_id, _verb, _resource),
+     do: {:error, entitlement_error(:unentitled)}
+
+   # `Commonplace.Cell.Error` 0.1 predates this gateway-specific distinction. Gr
+ant error frames
+
+codex
+553 tests, 5 failures, 1 excluded
+Running ExUnit with seed: 696020, max_cases: 8
+
+Full-suite failure total: 5. None are gateway-admission failures.
+
+- Explained — `CommonplaceNext.DocSyncPinTest`: remote pin verification attempte
+d `git fetch origin/main`; rc 128 because GitHub credentials are unavailable.
+- Explained — `CommonplaceNext.PinDoorsTest` biscuit pin: same credential failur
+e.
+- Explained — `CommonplaceNext.PinDoorsTest` doc pin: same credential failure.
+- Explained — `CommonplaceNext.PinDoorsTest` cell pin: same credential failure.
+- Explained — `CommonplaceNext.TrustRootInventoryTest`: its falsifier appends to
+ `config/dev.exs`, then restores via `git checkout`. The mandated read-only `.gi
+t` prevented that cleanup. I restored the exact original content afterward; `con
+fig/dev.exs` is absent from the final diff.
+
+Base SHA: `dcd363a766c5d67664c219b4d694eb0dd5acb0fb`
+
+Cause: [gateway.ex](/home/jes/sol-share1b/wt/lib/commonplace_next/realm/gateway.
+ex:647). SHARE-1 placed the configured-cell bypass inside a document-only clause
+. Consequently, a placed editor’s initial `directory.resolve` path request reach
+ed the generic fallback and was refused as `:unentitled`. The repair performs th
+e placed-cell bypass before resource-specific external entitlement handling; onl
+y foreign document requests reach `ExternalGrant.authorize/3`.
+
+Diff:
+
+```text
+lib/commonplace_next/organization/external_grant.ex |  4 ++--
+lib/commonplace_next/realm/gateway.ex               | 20 ++++++++++++--------
+2 files changed, 14 insertions(+), 10 deletions(-)
+```
+
+The two prohibited prose occurrences were changed to “gateway admission.”
+
+R1:
+
+```text
+68 tests, 0 failures
+```
+
+All three named gateway files passed. The corpus baseline was 22 failures, inclu
+ding 21 gateway failures.
+
+The full suite started with `tmp/test-data` absent. The sandbox rejected the lit
+eral `rm -rf`; the existing directory was moved recoverably to `/tmp/share-1b-te
+st-data-before-full`.
+
+R2:
+
+```text
+24 tests, 0 failures
+grep exit: 1 (no matches)
+```
+
+R3:
+
+```text
+before: de72619522bec6ed5f9b790869f78d43fe3b96eb98ae817209a78430e6e26c27
+after:  de72619522bec6ed5f9b790869f78d43fe3b96eb98ae817209a78430e6e26c27
+4 tests, 0 failures
+```
+
+R4:
+
+```text
+git diff --name-only a568330 HEAD -- test/
+test/integration/x_realm_external_grant_test.exs
+```
+
+Preservation hashes matched `HEAD`:
+
+```text
+fb8436570242fa840f2090be1800ff4c51ffab4915bed016437792a4c476bb19  x_realm_cell_o
+pen_grant_test.exs
+135cdb6cd54c4507674993df2ac5a622aad096aca6a9ee2cdf15197eb74817f7  two_organizati
+on_test.exs
+```
+
+R5:
+
+```text
+git diff --name-only
+lib/commonplace_next/organization/external_grant.ex
+lib/commonplace_next/realm/gateway.ex
+
+unexpected fence files:
+```
+
+`EditorPlacement.by_cell` callers: `5`.
+
+Final checks:
+
+```text
+mix format --check-formatted
+# exit 0, no output
+
+git diff --check
+# exit 0, no output
+```
+
+The worktree contains only the requested uncommitted two-file diff.
+diff --git a/config/dev.exs b/config/dev.exs
+index 3945d398723efaa029dd4cff73e2f5d42ff874ba..264045e7e55a7606754a5f69f5913133
+0d0674b3
+--- a/config/dev.exs
++++ b/config/dev.exs
+@@ -26,18 +26,3 @@
+   realm_id: "commonplace-next"
+
+ config :logger, level: :warning
+-
+-config :commonplace_next, CommonplaceNext.Realm.Keystore,
+-  roots: [
+-    %{
+-      root_key_id: 1,
+-      algorithm: "ed25519",
+-      public_key: String.duplicate("ab", 32),
+-      status: "active",
+-      issuer: %{
+-        "purpose" => "realm.capability",
+-        "realm" => "somewhere-else",
+-        "operations" => ["directory.list", "directory.resolve", "cell.open", "d
+ocument.sync.summary", "document.sync.offer"]
+-      }
+-    }
+-  ]
+diff --git a/lib/commonplace_next/organization/external_grant.ex b/lib/commonpla
+ce_next/organization/external_grant.ex
+index 3a819c12a27393eb88b8d4d094e758c8073fa4ed..ca18f5394e5f54988f79cd7858dcb8e5
+312e8d14
+--- a/lib/commonplace_next/organization/external_grant.ex
++++ b/lib/commonplace_next/organization/external_grant.ex
+@@ -4,7 +4,7 @@
+
+   Grant records live in the granting Organization's Workspace Cell. The grant i
+tself is keyed by
+   `Identity.derive(organization_id, :external_grant, grant_id)`; a per-grantee
+index, under the
+-  same facet, makes those records discoverable from the cell id presented at bo
+otstrap.
++  same facet, makes those records discoverable from the cell id presented for g
+ateway admission.
+   """
+
+   alias Commonplace.DocHost
+@@ -99,7 +99,7 @@
+   def revoke(%Membership{}, _grant_id), do: {:error, :not_owner}
+   def revoke(_membership, _grant_id), do: {:error, :not_owner}
+
+-  @doc "Finds the grant state that controls bootstrap admission for a foreign E
+ditor Cell."
++  @doc "Finds the grant state that controls gateway admission for a foreign Edi
+tor Cell."
+   def admission(grantee_cell_id) when is_binary(grantee_cell_id) do
+     with {:ok, organization_id} <- configured_organization_id(),
+          {:ok, hosts} <- workspace_hosts(organization_id),
+diff --git a/lib/commonplace_next/realm/gateway.ex b/lib/commonplace_next/realm/
+gateway.ex
+index a84f9a7e3d224f74fd82ad782b765d8a307d77cd..7b5371a01a04f50cc2c24bd73da23121
+8cf9f1af
+--- a/lib/commonplace_next/realm/gateway.ex
++++ b/lib/commonplace_next/realm/gateway.ex
+@@ -644,20 +644,24 @@
+   # Configured Membership Editor Cells retain the V-CROSS path byte for byte af
+ter this check.
+   # Only a foreign source reaches the persisted entitlement lookup, and that lo
+okup precedes both
+   # resource resolution and `DirectoryIssuer.issue_capability/5`, so revoke is
+observed before mint.
+-  defp entitled_document_grant(source_cell_id, verb, {:document, document_id})
+do
++  defp entitled_document_grant(source_cell_id, verb, resource) do
+     if source_cell_id in EditorPlacement.cell_ids() do
+       :ok
+     else
+-      case ExternalGrant.authorize(source_cell_id, document_id, verb) do
+-        {:ok, _grant} -> :ok
+-        {:error, :grant_revoked} -> {:error, error(:revoked)}
+-        {:error, :grant_expired} -> {:error, error(:expired)}
+-        {:error, _reason} -> {:error, entitlement_error(:unentitled)}
+-      end
++      external_document_entitlement(source_cell_id, verb, resource)
++    end
++  end
++
++  defp external_document_entitlement(source_cell_id, verb, {:document, document
+_id}) do
++    case ExternalGrant.authorize(source_cell_id, document_id, verb) do
++      {:ok, _grant} -> :ok
++      {:error, :grant_revoked} -> {:error, error(:revoked)}
++      {:error, :grant_expired} -> {:error, error(:expired)}
++      {:error, _reason} -> {:error, entitlement_error(:unentitled)}
+     end
+   end
+
+-  defp entitled_document_grant(_source_cell_id, _verb, _resource),
++  defp external_document_entitlement(_source_cell_id, _verb, _resource),
+     do: {:error, entitlement_error(:unentitled)}
+
+   # `Commonplace.Cell.Error` 0.1 predates this gateway-specific distinction. Gr
+ant error frames
+
+tokens used
+134,884
+553 tests, 5 failures, 1 excluded
+Running ExUnit with seed: 696020, max_cases: 8
+
+Full-suite failure total: 5. None are gateway-admission failures.
+
+- Explained — `CommonplaceNext.DocSyncPinTest`: remote pin verification attempte
+d `git fetch origin/main`; rc 128 because GitHub credentials are unavailable.
+- Explained — `CommonplaceNext.PinDoorsTest` biscuit pin: same credential failur
+e.
+- Explained — `CommonplaceNext.PinDoorsTest` doc pin: same credential failure.
+- Explained — `CommonplaceNext.PinDoorsTest` cell pin: same credential failure.
+- Explained — `CommonplaceNext.TrustRootInventoryTest`: its falsifier appends to
+ `config/dev.exs`, then restores via `git checkout`. The mandated read-only `.gi
+t` prevented that cleanup. I restored the exact original content afterward; `con
+fig/dev.exs` is absent from the final diff.
+
+Base SHA: `dcd363a766c5d67664c219b4d694eb0dd5acb0fb`
+
+Cause: [gateway.ex](/home/jes/sol-share1b/wt/lib/commonplace_next/realm/gateway.
+ex:647). SHARE-1 placed the configured-cell bypass inside a document-only clause
+. Consequently, a placed editor’s initial `directory.resolve` path request reach
+ed the generic fallback and was refused as `:unentitled`. The repair performs th
+e placed-cell bypass before resource-specific external entitlement handling; onl
+y foreign document requests reach `ExternalGrant.authorize/3`.
+
+Diff:
+
+```text
+lib/commonplace_next/organization/external_grant.ex |  4 ++--
+lib/commonplace_next/realm/gateway.ex               | 20 ++++++++++++--------
+2 files changed, 14 insertions(+), 10 deletions(-)
+```
+
+The two prohibited prose occurrences were changed to “gateway admission.”
+
+R1:
+
+```text
+68 tests, 0 failures
+```
+
+All three named gateway files passed. The corpus baseline was 22 failures, inclu
+ding 21 gateway failures.
+
+The full suite started with `tmp/test-data` absent. The sandbox rejected the lit
+eral `rm -rf`; the existing directory was moved recoverably to `/tmp/share-1b-te
+st-data-before-full`.
+
+R2:
+
+```text
+24 tests, 0 failures
+grep exit: 1 (no matches)
+```
+
+R3:
+
+```text
+before: de72619522bec6ed5f9b790869f78d43fe3b96eb98ae817209a78430e6e26c27
+after:  de72619522bec6ed5f9b790869f78d43fe3b96eb98ae817209a78430e6e26c27
+4 tests, 0 failures
+```
+
+R4:
+
+```text
+git diff --name-only a568330 HEAD -- test/
+test/integration/x_realm_external_grant_test.exs
+```
+
+Preservation hashes matched `HEAD`:
+
+```text
+fb8436570242fa840f2090be1800ff4c51ffab4915bed016437792a4c476bb19  x_realm_cell_o
+pen_grant_test.exs
+135cdb6cd54c4507674993df2ac5a622aad096aca6a9ee2cdf15197eb74817f7  two_organizati
+on_test.exs
+```
+
+R5:
+
+```text
+git diff --name-only
+lib/commonplace_next/organization/external_grant.ex
+lib/commonplace_next/realm/gateway.ex
+
+unexpected fence files:
+```
+
+`EditorPlacement.by_cell` callers: `5`.
+
+Final checks:
+
+```text
+mix format --check-formatted
+# exit 0, no output
+
+git diff --check
+# exit 0, no output
+```
+
+The worktree contains only the requested uncommitted two-file diff.
+=== sol EXITED rc=0 ===
+

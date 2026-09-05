@@ -1,0 +1,1900 @@
++
++    Enum.reduce([:on_destination_advanced, :canonical_poll_ms], options, fn key
+, configured ->
++      case Keyword.fetch(config, key) do
++        {:ok, value} -> Keyword.put(configured, key, value)
++        :error -> configured
++      end
++    end)
++  end
++
+   defp provision(context, key, source, options) do
+     operation_id = operation_id(key)
+
+@@ -621,6 +780,11 @@
+   end
+
+   defp source_path(%{source_path: path}) when is_list(path), do: {:ok, path}
++
++  defp source_path(%{source_path: {workspace_cell_id, document_id} = target})
++       when is_binary(workspace_cell_id) and is_binary(document_id),
++       do: {:ok, target}
++
+   defp source_path(_index), do: {:error, %{kind: :source_interpretation_unavail
+able}}
+
+   defp same_source(%{"document_id" => document_id}, key) when document_id == el
+em(key, 2),
+diff --git a/test/commonplace_next/mirrors_test.exs b/test/commonplace_next/mirr
+ors_test.exs
+index e81e389681075b43d5f8200e5b251b34167a8c5e..7c745f8f31ca3c4fc44763b6c2ffaf13
+2107dd94
+--- a/test/commonplace_next/mirrors_test.exs
++++ b/test/commonplace_next/mirrors_test.exs
+@@ -116,6 +116,20 @@
+     assert mirror.version == opened.mirror_version
+   end
+
++  test "an explicit local Workspace and Document target opens without path reso
+lution" do
++    canonical = canonical_snapshot()
++    workspace_cell_id = WorkspaceCell.descriptor().cell_id
++    target = {workspace_cell_id, canonical.document_id}
++
++    assert {:ok, opened} =
++             Mirrors.open(editor_handle(), target, TestAdmission.options())
++
++    key = {EditorCell.editor_cell_id(), workspace_cell_id, canonical.document_i
+d}
++    assert {:ok, relationship} = Mirrors.relationship(editor_handle(), key)
++    assert relationship.canonical_document_id == canonical.document_id
++    assert opened.canonical_version == canonical.version
++  end
++
+   test "the mirror has a different uuid a different log and the same yepoch as
+the canonical" do
+     canonical = canonical_snapshot()
+     assert {:ok, opened} = open_welcome()
+diff --git a/test/integration/shared_document_mirror_test.exs b/test/integration
+/shared_document_mirror_test.exs
+new file mode 100644
+index 0000000000000000000000000000000000000000..5db809df85845931b4e3e16ec15d9433
+64a6d7a0
+--- /dev/null
++++ b/test/integration/shared_document_mirror_test.exs
+@@ -0,0 +1,538 @@
++defmodule CommonplaceNext.SharedDocumentMirrorTest do
++  use ExUnit.Case, async: false
++
++  @moduletag :integration
++
++  alias Commonplace.DocHost
++  alias Commonplace.LogStore.SQLite
++  alias CommonplaceNext.{Hosts, Organization, Realm, Workspace}
++  alias CommonplaceNext.Cell.Supervisor, as: CellSupervisor
++  alias CommonplaceNext.Organization.{EditorPlacement, ExternalGrant, Identity,
+ Membership}
++  alias CommonplaceNext.Realm.Gateway.{Bootstrap, Listener}
++  alias CommonplaceNext.Realm.{Gateway, Router}
++  alias CommonplaceNext.Workspace.Seed
++
++  @organization_b_id "commonplace-next-share-2-organization-b"
++
++  defmodule Remote do
++    use GenServer
++
++    def start_link(options), do: GenServer.start_link(__MODULE__, options)
++    def command(remote, command), do: GenServer.call(remote, {:command, command
+}, 30_000)
++    def os_pid(remote), do: GenServer.call(remote, :os_pid)
++
++    @impl true
++    def init(options) do
++      executable = System.find_executable("elixir") || raise "elixir executable
+ missing"
++      control_port = free_port()
++
++      code_path_args =
++        :code.get_path()
++        |> Enum.flat_map(fn path -> ["-pa", List.to_string(path)] end)
++
++      args = code_path_args ++ ["-e", Keyword.fetch!(options, :script)]
++
++      {port, os_pid} =
++        CommonplaceNext.SecondBeam.spawn_and_pid(executable, [
++          :binary,
++          :exit_status,
++          {:packet, 4},
++          {:args, args},
++          {:env,
++           [
++             {~c"COMMONPLACE_NEXT_CONTROL_PORT", Integer.to_charlist(control_po
+rt)},
++             {~c"COMMONPLACE_NEXT_ORGANIZATION_ID",
++              to_charlist(Keyword.fetch!(options, :organization_id))},
++             {~c"COMMONPLACE_NEXT_PEER_WORKSPACE_CELL_ID",
++              to_charlist(Keyword.fetch!(options, :peer_workspace_cell_id))}
++           ]},
++          {:cd, Keyword.fetch!(options, :data_dir)}
++        ])
++
++      true = Port.command(port, Keyword.fetch!(options, :bootstrap))
++      true = Port.close(port)
++
++      with {:ok, control} <-
++             await_control(control_port, System.monotonic_time(:millisecond) +
+30_000),
++           {:ok, "READY"} <- :gen_tcp.recv(control, 0, 30_000) do
++        {:ok, %{control: control, os_pid: os_pid}}
++      else
++        {:error, reason} -> {:stop, {:child_start_error, reason}}
++      end
++    end
++
++    @impl true
++    def handle_call(:os_pid, _from, state), do: {:reply, state.os_pid, state}
++
++    def handle_call({:command, command}, _from, state) do
++      :ok = :gen_tcp.send(state.control, command)
++
++      case :gen_tcp.recv(state.control, 0, 25_000) do
++        {:ok, reply} when command == "stop" ->
++          :ok = :gen_tcp.close(state.control)
++          {:stop, :normal, {:ok, reply}, state}
++
++        {:ok, reply} ->
++          {:reply, {:ok, reply}, state}
++
++        {:error, reason} ->
++          {:reply, {:error, {:child_exit, reason}}, state}
++      end
++    end
++
++    defp free_port do
++      {:ok, socket} = :gen_tcp.listen(0, [:binary, active: false, reuseaddr: tr
+ue])
++      {:ok, {_ip, port}} = :inet.sockname(socket)
++      :ok = :gen_tcp.close(socket)
++      port
++    end
++
++    defp await_control(port, deadline) do
++      case :gen_tcp.connect({127, 0, 0, 1}, port, [:binary, active: false, pack
+et: 4], 50) do
++        {:ok, socket} ->
++          {:ok, socket}
++
++        {:error, reason} ->
++          if System.monotonic_time(:millisecond) >= deadline do
++            {:error, reason}
++          else
++            Process.sleep(10)
++            await_control(port, deadline)
++          end
++      end
++    end
++  end
++
++  setup do
++    :ok = stop_realm()
++    stop_sqlite_children()
++
++    root = CommonplaceNext.TestFixtures.unique_tmp_root("share-2")
++    parent_dir = Path.join(root, "organization-a")
++    remote_dir = Path.join(root, "organization-b")
++    File.mkdir_p!(parent_dir)
++    File.mkdir_p!(remote_dir)
++
++    previous = %{
++      log: Application.get_env(:commonplace_log, SQLite),
++      realm: Application.get_env(:commonplace_next, Realm),
++      gateway: Application.get_env(:commonplace_next, Gateway),
++      organization: Application.get_env(:commonplace_next, Organization)
++    }
++
++    Application.put_env(:commonplace_log, SQLite, data_dir: parent_dir)
++    Application.put_env(:commonplace_next, Realm, cells: :all, remote: %{})
++    Application.put_env(:commonplace_next, Gateway, port: 0, realm_id: "commonp
+lace-next")
++    {:ok, _realm} = Supervisor.restart_child(CommonplaceNext.Supervisor, Realm)
++
++    {:ok, organization_a} = Organization.configured()
++    workspace_a_cell_id = Identity.space(organization_a).workspace_cell_id
++    {:ok, workspace_a_hosts} = CellSupervisor.hosts(workspace_a_cell_id)
++    {:ok, owner_member_id} = Organization.configured_owner_member_id()
++
++    {:ok, owner_a} =
++      Membership.resolve_owner(organization_a,
++        hosts: workspace_a_hosts,
++        member_id: owner_member_id
++      )
++
++    editor_b =
++      EditorPlacement.entry(
++        @organization_b_id,
++        owner_member_id,
++        Membership.initial_generation()
++      )
++
++    document_id = Seed.ids(organization_a).welcome_document_id
++
++    membership_epoch =
++      Membership.derive_membership_epoch(
++        @organization_b_id,
++        owner_member_id,
++        Membership.initial_generation()
++      )
++
++    grant = grant!(owner_a, editor_b.cell_id, document_id, membership_epoch)
++    token = Base.url_encode64(:crypto.strong_rand_bytes(32), padding: false)
++
++    {:ok, bootstrap} =
++      Bootstrap.fetch("127.0.0.1", Listener.bootstrap_port(), editor_b.cell_id,
+ token)
++
++    {:ok, bootstrap_frame} = Bootstrap.encode_material(bootstrap)
++
++    {:ok, remote} =
++      Remote.start_link(
++        bootstrap: bootstrap_frame,
++        data_dir: remote_dir,
++        organization_id: @organization_b_id,
++        peer_workspace_cell_id: workspace_a_cell_id,
++        script: remote_script()
++      )
++
++    remote_os_pid = Remote.os_pid(remote)
++
++    on_exit(fn ->
++      stop_remote(remote, remote_os_pid)
++      :ok = stop_realm()
++      stop_sqlite_children()
++      restore_env(:commonplace_log, SQLite, previous.log)
++      restore_env(:commonplace_next, Realm, previous.realm)
++      restore_env(:commonplace_next, Gateway, previous.gateway)
++      restore_env(:commonplace_next, Organization, previous.organization)
++      File.rm_rf!(root)
++      :ok = restart_realm()
++    end)
++
++    %{
++      document_id: document_id,
++      editor_b: editor_b,
++      grant: grant,
++      membership_epoch: membership_epoch,
++      owner_a: owner_a,
++      remote: remote,
++      workspace_a_cell_id: workspace_a_cell_id,
++      workspace_a_hosts: workspace_a_hosts
++    }
++  end
++
++  test "S5 B opens A's shared document and edits converge canonically in both d
+irections",
++       context do
++    assert {:ok, opened} = remote_open(context)
++    from_b = "share-2-from-b-#{System.unique_integer([:positive])}"
++    assert {:ok, "ok"} = Remote.command(context.remote, "append-mirror:" <> fro
+m_b)
++    assert eventually(fn -> canonical_text(context) =~ from_b end)
++    assert eventually(fn -> remote_status(context) =~ "synced" end)
++
++    from_a = "share-2-from-a-#{System.unique_integer([:positive])}"
++    append_canonical!(context, from_a)
++    assert eventually(fn -> remote_text(context) =~ from_a end), remote_status(
+context)
++    assert canonical_text(context) =~ from_b
++    assert remote_text(context) =~ from_a
++    assert opened.mirror_document_id != context.document_id
++  end
++
++  test "S6 revoked before open is named and revoked after open stops sync while
+ disclosed content remains",
++       context do
++    assert {:ok, %{revoked: true}} =
++             ExternalGrant.revoke(context.owner_a, context.grant.grant_id)
++
++    assert {:error, :grant_revoked} = ExternalGrant.admission(context.editor_b.
+cell_id)
++
++    assert {:ok, "error|revoked"} = Remote.command(context.remote, open_command
+(context))
++
++    _replacement =
++      grant!(
++        context.owner_a,
++        context.editor_b.cell_id,
++        context.document_id,
++        context.membership_epoch
++      )
++
++    assert {:ok, _opened} = remote_open(context)
++    disclosed = remote_text(context)
++
++    {:ok, active} = ExternalGrant.admission(context.editor_b.cell_id)
++    assert {:ok, %{revoked: true}} = ExternalGrant.revoke(context.owner_a, acti
+ve.grant_id)
++
++    marker = "share-2-stays-local-#{System.unique_integer([:positive])}"
++    started_at = System.monotonic_time(:second)
++    assert {:ok, "ok"} = Remote.command(context.remote, "append-mirror:" <> mar
+ker)
++    assert eventually(fn -> remote_status(context) =~ "blocked" end)
++    assert System.monotonic_time(:second) - started_at < 60
++    assert remote_text(context) =~ disclosed
++    assert remote_text(context) =~ marker
++    refute canonical_text(context) =~ marker
++  end
++
++  test "S7 B's shared mirror records A as home and never makes D canonical in B
+'s workspace",
++       context do
++    assert {:ok, opened} = remote_open(context)
++    marker = "share-2-not-canonical-in-b-#{System.unique_integer([:positive])}"
++    assert {:ok, "ok"} = Remote.command(context.remote, "append-mirror:" <> mar
+ker)
++    assert eventually(fn -> canonical_text(context) =~ marker end)
++
++    assert {:ok, relationship} = remote_relationship(context)
++    assert relationship.canonical_document_id == context.document_id
++    assert relationship.canonical_version_document_id == context.document_id
++    assert canonical_snapshot(context).home_cell_id == context.workspace_a_cell
+_id
++    assert {:ok, "absent"} = Remote.command(context.remote, "b-canonical-entry"
+)
++    assert opened.relationship_id == relationship.relationship_id
++    assert opened.target_workspace_cell_id == context.workspace_a_cell_id
++  end
++
++  defp grant!(owner, grantee_cell_id, document_id, membership_epoch) do
++    {:ok, grant} =
++      ExternalGrant.create(owner, %{
++        grantee_cell_id: grantee_cell_id,
++        document_id: document_id,
++        actions: ExternalGrant.actions(),
++        membership_epoch: membership_epoch,
++        expires_at: System.system_time(:second) + 3_600,
++        grant_id: Router.request_id()
++      })
++
++    grant
++  end
++
++  defp remote_open(context) do
++    case Remote.command(context.remote, open_command(context)) do
++      {:ok, "ok|" <> encoded} ->
++        [mirror_document_id, relationship_id] = String.split(encoded, "|", part
+s: 2)
++
++        {:ok,
++         %{
++           mirror_document_id: mirror_document_id,
++           relationship_id: relationship_id,
++           target_workspace_cell_id: context.workspace_a_cell_id
++         }}
++
++      {:ok, "error|" <> reason} ->
++        {:error, reason}
++
++      other ->
++        other
++    end
++  end
++
++  defp open_command(context),
++    do: "open:#{context.workspace_a_cell_id}:#{context.document_id}"
++
++  defp remote_text(context) do
++    assert {:ok, "ok|" <> text} = Remote.command(context.remote, "mirror-text")
++    text
++  end
++
++  defp remote_status(context) do
++    assert {:ok, "ok|" <> status} = Remote.command(context.remote, "status")
++    status
++  end
++
++  defp remote_relationship(context) do
++    case Remote.command(context.remote, "relationship") do
++      {:ok, "ok|" <> encoded} ->
++        [relationship_id, canonical_document_id, canonical_version_document_id]
+ =
++          String.split(encoded, "|", parts: 3)
++
++        {:ok,
++         %{
++           relationship_id: relationship_id,
++           canonical_document_id: canonical_document_id,
++           canonical_version_document_id: canonical_version_document_id
++         }}
++
++      other ->
++        other
++    end
++  end
++
++  defp append_canonical!(context, marker) do
++    text = canonical_text(context)
++
++    assert {:ok, _receipt} =
++             Workspace.edit_markdown(
++               context.workspace_a_hosts,
++               context.document_id,
++               [{:insert, String.length(text), "\n#{marker}\n"}],
++               "share-2:a:" <> Router.request_id()
++             )
++  end
++
++  defp canonical_text(context) do
++    snapshot = canonical_snapshot(context)
++    {:ok, text} = Commonplace.Markdown.text(snapshot.content)
++    text
++  end
++
++  defp canonical_snapshot(context) do
++    {:ok, document} =
++      Hosts.open_document(context.workspace_a_hosts, context.document_id, clien
+t_id: 1)
++
++    {:ok, snapshot} = DocHost.snapshot(document)
++    snapshot
++  end
++
++  defp eventually(fun, attempts \\ 500)
++  defp eventually(_fun, 0), do: false
++
++  defp eventually(fun, attempts) do
++    if fun.() do
++      true
++    else
++      Process.sleep(20)
++      eventually(fun, attempts - 1)
++    end
++  end
++
++  defp stop_remote(remote, os_pid) do
++    if Process.alive?(remote) do
++      try do
++        _ = Remote.command(remote, "stop")
++      catch
++        :exit, _reason -> :ok
++      end
++    end
++
++    CommonplaceNext.SecondBeam.wait_gone!(os_pid)
++  end
++
++  defp stop_realm do
++    case Supervisor.terminate_child(CommonplaceNext.Supervisor, Realm) do
++      :ok -> :ok
++      {:error, :not_found} -> :ok
++    end
++  end
++
++  defp stop_sqlite_children do
++    Registry.select(SQLite.Registry, [{{:_, :"$1", :_}, [], [:"$1"]}])
++    |> Enum.each(fn child ->
++      :ok = DynamicSupervisor.terminate_child(SQLite.DynamicSupervisor, child)
++    end)
++  end
++
++  defp restart_realm(attempts \\ 20)
++  defp restart_realm(0), do: {:error, :realm_restart_exhausted}
++
++  defp restart_realm(attempts) do
++    case Supervisor.restart_child(CommonplaceNext.Supervisor, Realm) do
++      {:ok, _realm} ->
++        :ok
++
++      {:error, _reason} ->
++        :ok = stop_realm()
++        stop_sqlite_children()
++        Process.sleep(25)
++        restart_realm(attempts - 1)
++    end
++  end
++
++  defp restore_env(application, key, nil), do: Application.delete_env(applicati
+on, key)
++  defp restore_env(application, key, value), do: Application.put_env(applicatio
+n, key, value)
++
++  defp remote_script do
++    ~S"""
++    defmodule Share2Remote do
++      alias CommonplaceNext.{Hosts, Organization, Workspace, WorkspaceCell}
++      alias CommonplaceNext.Cell.Supervisor, as: CellSupervisor
++      alias CommonplaceNext.EditorCell.Mirrors
++      alias CommonplaceNext.Organization.EditorPlacement
++      alias CommonplaceNext.Realm.{EditorIssuer, Router}
++      alias CommonplaceNext.Realm.Gateway.{Bootstrap, Credentials}
++
++      def run do
++        {:ok, bootstrap} = receive_bootstrap()
++        organization_id = System.fetch_env!("COMMONPLACE_NEXT_ORGANIZATION_ID")
++        Application.put_env(:commonplace_next, Organization, id: organization_i
+d, name: "Organization B")
++        {:ok, _credentials} = Credentials.start_link([])
++        :ok = Credentials.provision_client_session(Map.merge(bootstrap.transpor
+t, %{token: bootstrap.token}))
++        configure(bootstrap)
++        {:ok, _} = Application.ensure_all_started(:commonplace_next)
++        {:ok, listener} = :gen_tcp.listen(control_port(), [:binary, active: fal
+se, packet: 4, reuseaddr: true])
++        {:ok, control} = :gen_tcp.accept(listener, 30_000)
++        :ok = :gen_tcp.close(listener)
++        :ok = :gen_tcp.send(control, "READY")
++        loop(control, nil)
++      end
++
++      defp loop(control, opened) do
++        case :gen_tcp.recv(control, 0, 30_000) do
++          {:ok, "open:" <> ids} ->
++            [workspace_cell_id, document_id] = String.split(ids, ":", parts: 2)
++            entry = EditorPlacement.first_entry() |> elem(1)
++            session_cell_id = "01990000-0000-7000-8000-00000000b002"
++            {:ok, issued} = EditorIssuer.issue_cell_open(Router.request_id(), s
+ession_cell_id, entry.cell_id, entry.root_directory_id)
++            {:ok, proof} = Commonplace.Cell.Proof.new(%{"format" => Commonplace
+.Cell.Proof.format(), "token" => issued.token})
++
++            case Mirrors.open(Router.handle(entry.cell_id) |> elem(1), {workspa
+ce_cell_id, document_id}, admission: {session_cell_id, [proof]}) do
++              {:ok, result} ->
++                :ok = :gen_tcp.send(control, "ok|#{result.mirror_document_id}|#
+{result.relationship_id}")
++                loop(control, %{result: result, workspace_cell_id: workspace_ce
+ll_id, document_id: document_id, entry: entry})
++
++              {:error, %{kind: kind}} ->
++                :ok = :gen_tcp.send(control, "error|#{kind}")
++                loop(control, opened)
++
++              {:error, %{code: code}} ->
++                :ok = :gen_tcp.send(control, "error|#{code}")
++                loop(control, opened)
++            end
++
++          {:ok, "append-mirror:" <> marker} ->
++            {:ok, hosts} = CellSupervisor.hosts(opened.entry.cell_id)
++            text = text(hosts, opened.result.mirror_document_id)
++            {:ok, _} = Workspace.edit_markdown(hosts, opened.result.mirror_docu
+ment_id, [{:insert, String.length(text), "\n#{marker}\n"}], "share-2:b:" <> Rout
+er.request_id())
++            :ok = :gen_tcp.send(control, "ok")
++            loop(control, opened)
++
++          {:ok, "mirror-text"} ->
++            {:ok, hosts} = CellSupervisor.hosts(opened.entry.cell_id)
++            :ok = :gen_tcp.send(control, "ok|" <> text(hosts, opened.result.mir
+ror_document_id))
++            loop(control, opened)
++
++          {:ok, "status"} ->
++            key = {opened.entry.cell_id, opened.workspace_cell_id, opened.docum
+ent_id}
++            {:ok, status} = Mirrors.status(Router.handle(opened.entry.cell_id)
+|> elem(1), key)
++            :ok = :gen_tcp.send(control, "ok|#{status.state}|#{status.reason}")
++            loop(control, opened)
++
++          {:ok, "relationship"} ->
++            key = {opened.entry.cell_id, opened.workspace_cell_id, opened.docum
+ent_id}
++            {:ok, relationship} = Mirrors.relationship(Router.handle(opened.ent
+ry.cell_id) |> elem(1), key)
++            encoded = Enum.join([relationship.relationship_id, relationship.can
+onical_document_id, relationship.canonical_version.document_id], "|")
++            :ok = :gen_tcp.send(control, "ok|" <> encoded)
++            loop(control, opened)
++
++          {:ok, "b-canonical-entry"} ->
++            {:ok, hosts} = CellSupervisor.hosts(WorkspaceCell.descriptor().cell
+_id)
++            answer = case Hosts.open_document(hosts, opened.document_id, client
+_id: 1) do
++              {:error, %{kind: :log_not_found}} -> "absent"
++              {:ok, _host} -> "present"
++              other -> "error|#{inspect(other)}"
++            end
++            :ok = :gen_tcp.send(control, answer)
++            loop(control, opened)
++
++          {:ok, "stop"} ->
++            :ok = :gen_tcp.send(control, "ok")
++            :ok = Application.stop(:commonplace_next)
++
++          _ -> :ok
++        end
++      end
++
++      defp text(hosts, document_id) do
++        {:ok, host} = Hosts.open_document(hosts, document_id, client_id: 1)
++        {:ok, snapshot} = Commonplace.DocHost.snapshot(host)
++        {:ok, text} = Commonplace.Markdown.text(snapshot.content)
++        text
++      end
++
++      defp configure(bootstrap) do
++        organization_id = System.fetch_env!("COMMONPLACE_NEXT_ORGANIZATION_ID")
++        Logger.configure(level: :emergency)
++        Application.put_env(:commonplace_next, Organization, id: organization_i
+d, name: "Organization B")
++        Application.put_env(:commonplace_log, Commonplace.LogStore.SQLite, data
+_dir: File.cwd!())
++        Application.put_env(:commonplace_next, CommonplaceNext.EditorCell,
++          canonical_poll_ms: 50,
++          on_destination_advanced: :merge
++        )
++        Application.put_env(:commonplace_next, CommonplaceNext.Realm.Gateway, p
+ort: nil, bootstrap_port: nil, realm_id: organization_id)
++        Application.put_env(:commonplace_next, CommonplaceNext.Realm,
++          cells: :all,
++          remote: %{System.fetch_env!("COMMONPLACE_NEXT_PEER_WORKSPACE_CELL_ID"
+) => %{host: bootstrap.host, port: bootstrap.port}}
++        )
++      end
++
++      defp receive_bootstrap do
++        with <<size::unsigned-big-32>> <- IO.binread(:stdio, 4),
++             bytes when is_binary(bytes) <- IO.binread(:stdio, size) do
++          Bootstrap.decode_frame(<<size::unsigned-big-32, bytes::binary>>)
++        end
++      end
++
++      defp control_port, do: System.fetch_env!("COMMONPLACE_NEXT_CONTROL_PORT")
+ |> String.to_integer()
++    end
++
++    Share2Remote.run()
++    """
++  end
++end
+
+codex
+RED   share-2-full-suite rc=2 560 tests, 22 failures, 1 excluded, 5 invalid   [F
+ULL LOG: tmp/run-logs/share_2_full_suite.log]
+
+## Report
+
+Base SHA: `4534324173e0c8f7e2844c86da60795c32d93da9`
+
+Corpus confirmed before editing:
+
+- Clean worktree.
+- Exactly the two specified `Mirrors.open` heads.
+- Three descriptor sites in `mirrors.ex`; 38 under `lib/`.
+- Existing remote `document_grant` routing/client support present.
+- `ExternalGrant` and `Realm.start_for/1` APIs matched.
+- `two_organization_test.exs` present.
+
+### Diff
+
+- `lib/commonplace_next/editor_cell/mirrors.ex`: +173/−9
+- `test/commonplace_next/mirrors_test.exs`: +14
+- New [shared_document_mirror_test.exs](/home/jes/sol-share2/wt/test/integration
+/shared_document_mirror_test.exs): 538 lines
+- New [IMPLEMENTATION-PLAN-SHARE-2.md](/home/jes/sol-share2/wt/docs/IMPLEMENTATI
+ON-PLAN-SHARE-2.md): 62 lines
+
+Per-file rationale:
+
+- `mirrors.ex`: adds tuple-target `open/3`, target-aware context/keying, direct
+remote summary with named grant refusals, tuple reuse, and target-aware mirror s
+tartup.
+- `mirrors_test.exs`: adds the local-target/no-path-resolution case.
+- Integration test: child-BEAM two-Organization/two-store S5–S7 coverage.
+- Plan: documents scope, topology, rights, and ARM markers.
+- `realm/route.ex` unchanged: it already routes document targets using `Placemen
+t.remote/1` and adds `document_grant`.
+- `realm/gateway/client.ex` unchanged: it already exchanges and spends document-
+grant frames.
+
+### S5–S8
+
+S5–S7 focused result:
+
+```text
+28 tests, 0 failures
+```
+
+- S5: B opens `{A_workspace_cell_id, D}`; B→A canonical sync and A→B convergence
+ asserted.
+- S6: revoked-before-open returns named `revoked`; after-open revocation blocks
+sync within 60 seconds while disclosed and new local content remains in B.
+- S7: relationship names A/D, A’s snapshot owns D, and B’s independent store rep
+orts D absent.
+
+`Realm.start_for/1` was not used for S5–S7 because both in-BEAM Workspace Cells
+share the configured SQLite namespace and cannot prove the required two-store ab
+sence. The child-BEAM model was used.
+
+Base red was not run because that would require changing checkout state. The bas
+e heads are:
+
+```elixir
+def open(editor, path), do: open(editor, path, [])
+def open(editor, path, options) when is_list(path) and is_list(options) do
+```
+
+Therefore the reviewer’s base tuple-open assertion raises `FunctionClauseError`.
+
+S8:
+
+- Descriptor count: `37`.
+- Replaced the old `context/1` arity-zero descriptor site.
+- Left `resolve/2` unchanged for primary path resolution; ORG-2c owns threading
+that site.
+- Left the root-directory descriptor site untouched.
+- Existing path-form mirror tests green and unchanged.
+- `mix format --check-formatted`: PASS.
+- `bin/check-plan-arms.sh`: PASS, `439` arms, `0` missing.
+- `git diff --check`: PASS.
+
+### S9
+
+Full output: [share_2_full_suite.log](/home/jes/sol-share2/wt/tmp/run-logs/share
+_2_full_suite.log)
+Timing output: [share_2_full_suite.times](/home/jes/sol-share2/wt/tmp/run-logs/s
+hare_2_full_suite.times) — 560 timing rows.
+
+The 22 failures include four pin checks unable to fetch, the trust-root falsifie
+r, RemoteEditor, three MergePolicy tests, Wiring, twelve MarkdownEditorGoal test
+s, and five invalidated LogGrowth tests. The known flake `a mirror host restart
+under a live attachment is survived` reddened. The full unabridged output is ret
+ained in the linked log.
+
+The trust-root test left `config/dev.exs` modified during S9; I restored its exa
+ct base content before final verification.
+
+Final `git status --porcelain`:
+
+```text
+ M lib/commonplace_next/editor_cell/mirrors.ex
+ M test/commonplace_next/mirrors_test.exs
+?? docs/IMPLEMENTATION-PLAN-SHARE-2.md
+?? test/integration/shared_document_mirror_test.exs
+```
+diff --git a/config/dev.exs b/config/dev.exs
+index 3945d398723efaa029dd4cff73e2f5d42ff874ba..264045e7e55a7606754a5f69f5913133
+0d0674b3
+--- a/config/dev.exs
++++ b/config/dev.exs
+@@ -26,18 +26,3 @@
+   realm_id: "commonplace-next"
+
+ config :logger, level: :warning
+-
+-config :commonplace_next, CommonplaceNext.Realm.Keystore,
+-  roots: [
+-    %{
+-      root_key_id: 1,
+-      algorithm: "ed25519",
+-      public_key: String.duplicate("ab", 32),
+-      status: "active",
+-      issuer: %{
+-        "purpose" => "realm.capability",
+-        "realm" => "somewhere-else",
+-        "operations" => ["directory.list", "directory.resolve", "cell.open", "d
+ocument.sync.summary", "document.sync.offer"]
+-      }
+-    }
+-  ]
+diff --git a/docs/IMPLEMENTATION-PLAN-SHARE-2.md b/docs/IMPLEMENTATION-PLAN-SHAR
+E-2.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..387380d89a356a0db08576d57266e652
+3970b7a4
+--- /dev/null
++++ b/docs/IMPLEMENTATION-PLAN-SHARE-2.md
+@@ -0,0 +1,62 @@
++# SHARE-2 implementation plan
++
++Base: `4534324173e0c8f7e2844c86da60795c32d93da9`.
++
++## Scope and routing
++
++`CommonplaceNext.EditorCell.Mirrors.open/3` gains an explicit
++`{workspace_cell_id, document_id}` target alongside the unchanged path clause.
+The explicit target
++sets the canonical Cell in its context, reads the supplied Document directly th
+rough the DocSync
++summary/fork lane, and keys the relationship by editor Cell, target Workspace C
+ell, and Document.
++The path resolver remains primary-Workspace-only; threading an Organization thr
+ough directory
++resolution belongs to ORG-2c and is unnecessary because an explicit target neve
+r resolves a path.
++
++The existing `Realm.Route` document-resource branch already selects `Placement.
+remote/1` and adds
++the `document_grant` leg for every `EditorCell.sync_verbs/0` verb. The existing
+ Gateway client
++already requests, decodes, and spends that frame. Neither file changes: changin
+g them would create
++a second route for behavior they already implement. A local target continues th
+rough
++`Realm.Router`; a remote target asks the target Realm to authorize and mint, so
+ B never asserts A's
++admission decision.
++
++The grant action set remains the SHARE-1 set: `document.read.content` and the s
+ync verbs.
++`document.read.history` remains only an in-process DocSync Authority verb and n
+o Cell-level decision
++is added for it.
++
++## Verification topology
++
++`Realm.start_for/1` can hold both Workspace Cells in one BEAM, but both use the
+ same configured
++SQLite namespace, so that fixture cannot prove the required two-store absence.
+The integration
++arms therefore follow `two_organization_test.exs`: A is the parent Workspace Re
+alm and B is a child
++BEAM with its own Organization, Workspace Cell, Membership-derived Editor Cell,
+ and data directory.
++
++<!-- ARM: S5 B opens A's shared document and edits converge canonically in both
+ directions -->
++
++S5 mints A's external grant to B's Editor Cell, opens the target tuple from B,
+observes B's edit in
++A's canonical Document, waits for that receipt to settle, then observes a later
+ A edit in B's
++mirror. At the base this assertion cannot run green: `git show HEAD` contains o
+nly
++`def open(editor, path), do: open(editor, path, [])` and
++`def open(editor, path, options) when is_list(path) and is_list(options)`, so t
+he tuple call raises
++`FunctionClauseError`.
++
++<!-- ARM: S6 revoked before open is named and revoked after open stops sync whi
+le disclosed content remains -->
++
++S6 verifies the persisted grant is revoked before tuple open and that open retu
+rns the named
++`revoked` error without provisioning. It then opens under a replacement grant,
+revokes it, edits B
++locally, and observes a blocked mirror within the issuer's 60-second token life
+time. The already
++disclosed content remains in B while the new local edit is absent from A.
++
++<!-- ARM: S7 B's shared mirror records A as home and never makes D canonical in
+ B's workspace -->
++
++S7 reads B's relationship record and checks both canonical Document references
+against D, checks
++D's snapshot home Cell against A, and asks B's independent Workspace store to o
+pen D. B reports the
++log absent after the synchronized edit, while B's relationship id remains the o
+ne returned by the
++tuple open.
++
++## Preservation
++
++The primary path tests remain unchanged. The old `context/1` descriptor read is
+ replaced by
++`context/2` plus the explicit Organization descriptor; the `resolve/2` arity-ze
+ro descriptor read
++stays because it defines the unchanged primary path form. The unrelated root-di
+rectory descriptor
++read stays untouched. Therefore the corpus count is expected to be 37, not 36.
+An added mirror unit
++case also exercises an explicit target whose Workspace Cell is local; it follow
+s `Realm.Router`
++and opens without directory resolution.
+diff --git a/lib/commonplace_next/editor_cell/mirrors.ex b/lib/commonplace_next/
+editor_cell/mirrors.ex
+index 8d3ababcf2530e245ba8471c62a242ff8689d900..ccedf407df1ad9272b4c21556f165860
+e39d24d9
+--- a/lib/commonplace_next/editor_cell/mirrors.ex
++++ b/lib/commonplace_next/editor_cell/mirrors.ex
+@@ -19,7 +19,7 @@
+   alias Commonplace.DocSync.{Authority, Mirror, Store}
+   alias Commonplace.DocSync.Endpoint.Local
+   alias Commonplace.Markdown
+-  alias CommonplaceNext.{EditorCell, Hosts, WorkspaceCell}
++  alias CommonplaceNext.{EditorCell, Hosts, Organization, WorkspaceCell}
+   alias CommonplaceNext.Cell.Supervisor, as: CellSupervisor
+   alias CommonplaceNext.Organization.EditorPlacement
+   alias CommonplaceNext.DocSync.{CellEndpoint, Factory}
+@@ -82,8 +82,27 @@
+     result
+   end
+
++  def open(editor, target, options) when is_tuple(target) and is_list(options)
+do
++    started_at = System.monotonic_time(:millisecond)
++
++    result =
++      with {:ok, {workspace_cell_id, document_id}} <- shared_target(target),
++           {:ok, _admission} <- admitted(editor, options),
++           {:ok, context} <- context(editor, workspace_cell_id),
++           {:ok, source} <- shared_source(context, document_id, target),
++           key = {context.editor_cell_id, workspace_cell_id, document_id},
++           {:ok, result} <- find_or_provision(context, key, source, options),
++           {:ok, _mirror} <- ensure_shared_mirror(context, result.relationship_
+id) do
++        {:ok, result}
++      end
++
++    outcome = if match?({:ok, _}, result), do: :ok, else: :error
++    CommonplaceNext.Telemetry.mirror_provision(elapsed(started_at), outcome)
++    result
++  end
++
+   def status(editor, key) do
+-    with {:ok, context} <- context(editor),
++    with {:ok, context} <- context_for_key(editor, key),
+          {:ok, index} <- Store.get(context.store, {:mirror_index, key}),
+          {:ok, relationship} <-
+            Store.get(context.store, {:relationship, index.relationship_id}),
+@@ -103,14 +122,14 @@
+   end
+
+   def relationship(editor, key) do
+-    with {:ok, context} <- context(editor),
++    with {:ok, context} <- context_for_key(editor, key),
+          {:ok, index} <- Store.get(context.store, {:mirror_index, key}) do
+       Store.get(context.store, {:relationship, index.relationship_id})
+     end
+   end
+
+   def lineage(editor, key) do
+-    with {:ok, context} <- context(editor),
++    with {:ok, context} <- context_for_key(editor, key),
+          {:ok, index} <- Store.get(context.store, {:mirror_index, key}) do
+       Store.get(context.store, {:lineage, index.mirror_document_id})
+     end
+@@ -230,8 +249,13 @@
+   end
+
+   defp context(editor) do
+-    workspace_cell_id = WorkspaceCell.descriptor().cell_id
++    {:ok, organization} = Organization.configured()
++    workspace_cell_id = WorkspaceCell.descriptor(organization).cell_id
++
++    context(editor, workspace_cell_id)
++  end
+
++  defp context(editor, workspace_cell_id) do
+     with {:ok, editor_cell_id} <- Router.cell_of(editor),
+          {:ok, entry} <- EditorPlacement.by_cell(editor_cell_id),
+          {:ok, editor_hosts} <- CellSupervisor.hosts(editor_cell_id),
+@@ -250,6 +274,12 @@
+     end
+   end
+
++  defp context_for_key(editor, {_editor_cell_id, workspace_cell_id, _document_i
+d})
++       when is_binary(workspace_cell_id),
++       do: context(editor, workspace_cell_id)
++
++  defp context_for_key(editor, _key), do: context(editor)
++
+   defp resolve(editor, path) do
+     request_id = Router.request_id()
+     workspace_cell_id = WorkspaceCell.descriptor().cell_id
+@@ -375,7 +405,7 @@
+
+   defp controller_call(editor, key, operation) do
+     with {:ok, relationship} <- relationship(editor, key),
+-         {:ok, context} <- context(editor),
++         {:ok, context} <- context_for_key(editor, key),
+          {:ok, mirror} <-
+            MirrorSupervisor.ensure(context.editor_cell_id, relationship.relatio
+nship_id) do
+       apply(Mirror, operation, [mirror])
+@@ -390,6 +420,49 @@
+
+   defp markdown(_resolved), do: {:error, %{kind: :not_markdown}}
+
++  defp shared_target({workspace_cell_id, document_id})
++       when is_binary(workspace_cell_id) and workspace_cell_id != "" and is_bin
+ary(document_id) and
++              document_id != "",
++       do: {:ok, {workspace_cell_id, document_id}}
++
++  defp shared_target(_target), do: {:error, error(:invalid_request)}
++
++  defp shared_source(context, document_id, target) do
++    with {:ok, canonical} <- shared_summary(context, document_id),
++         true <- canonical.document_id == document_id do
++      {:ok,
++       %{
++         version: canonical.version,
++         interpretation: Markdown.profile(),
++         path: target
++       }}
++    else
++      false -> {:error, error(:invalid_request)}
++      error -> error
++    end
++  end
++
++  defp shared_summary(context, document_id) do
++    if Placement.local?(context.workspace_cell_id) do
++      context
++      |> canonical_endpoint(document_id)
++      |> CellEndpoint.summary(Authority.none(), [])
++    else
++      request_id = Router.request_id()
++
++      with {:ok, address} <- Address.document(context.workspace_cell_id, docume
+nt_id),
++           {:ok, value} <-
++             Route.request(context.editor_cell_id, address, "document.sync.summ
+ary", %{},
++               handle: context.editor_handle,
++               request_id: request_id,
++               proofs: []
++             )
++             |> unwrap() do
++        CellEndpoint.decode_summary(value)
++      end
++    end
++  end
++
+   defp receipt_reason(_store, nil), do: nil
+
+   defp receipt_reason(store, receipt_key) do
+@@ -426,16 +499,102 @@
+
+   defp reuse(context, index) do
+     with {:ok, source_path} <- source_path(index),
+-         {:ok, resolved} <- resolve(context.editor_handle, source_path),
+-         :ok <- markdown(resolved),
++         {:ok, source} <- refresh_source(context, source_path),
++         :ok <- markdown(%{"interpretation" => source.interpretation}),
+          {:ok, _mirror} <-
+            Hosts.open_document(context.editor_hosts, index.mirror_document_id,
+client_id: 1),
+          {:ok, relationship} <-
+            Store.get(context.store, {:relationship, index.relationship_id}) do
+-      {:ok, result(index, relationship, resolved["interpretation"])}
++      {:ok, result(index, relationship, source.interpretation)}
++    end
++  end
++
++  defp refresh_source(context, path) when is_list(path) do
++    with {:ok, resolved} <- resolve(context.editor_handle, path) do
++      {:ok, %{interpretation: resolved["interpretation"]}}
+     end
+   end
+
++  defp refresh_source(context, {workspace_cell_id, document_id} = target)
++       when workspace_cell_id == context.workspace_cell_id,
++       do: shared_source(context, document_id, target)
++
++  defp ensure_shared_mirror(context, relationship_id) do
++    case MirrorSupervisor.mirror(context.editor_cell_id, relationship_id) do
++      {:ok, mirror} ->
++        {:ok, mirror}
++
++      {:error, :not_running} ->
++        with {:ok, relationship} <-
++               Store.get(context.store, {:relationship, relationship_id}) do
++          child = %Local{
++            document_id: relationship.child_document_id,
++            host: Hosts.via_name(context.editor_hosts, relationship.child_docum
+ent_id)
++          }
++
++          canonical = canonical_endpoint(context, relationship.canonical_docume
+nt_id)
++
++          mirror_options =
++            [
++              relationship_id: relationship_id,
++              store: context.store,
++              child: child,
++              canonical: canonical,
++              child_authority: child_authority(relationship.child_document_id),
++              canonical_authority: Authority.none(),
++              clock: &DateTime.utc_now/0,
++              debounce_ms: Application.get_env(:commonplace_next, :mirror_debou
+nce_ms, 50),
++              max_queue: 1_000,
++              direction: :child_to_canonical,
++              schedule: :on_change,
++              retry: %{max_attempts: 2, backoff_ms: 25},
++              canonical_endpoint_module: CellEndpoint
++            ]
++            |> configured_mirror_options()
++
++          child_spec = %{
++            id: {Mirror, relationship_id},
++            start: {Mirror, :start_link, [mirror_options]},
++            restart: :permanent
++          }
++
++          case DynamicSupervisor.start_child(
++                 Router.via({:mirror_supervisor, context.editor_cell_id}),
++                 child_spec
++               ) do
++            {:ok, mirror} -> {:ok, mirror}
++            {:error, {:already_started, mirror}} -> {:ok, mirror}
++            error -> error
++          end
++        else
++          :error -> {:error, %{kind: :relationship_missing}}
++          error -> error
++        end
++    end
++  end
++
++  defp child_authority(document_id) do
++    Authority.none()
++    |> Authority.grant(document_id, [
++      "document.read.content",
++      "document.read.history",
++      "document.sync.export",
++      "document.write.content",
++      "document.select.content-head"
++    ])
++  end
++
++  defp configured_mirror_options(options) do
++    config = Application.get_env(:commonplace_next, CommonplaceNext.EditorCell,
+ [])
++
++    Enum.reduce([:on_destination_advanced, :canonical_poll_ms], options, fn key
+, configured ->
++      case Keyword.fetch(config, key) do
++        {:ok, value} -> Keyword.put(configured, key, value)
++        :error -> configured
++      end
++    end)
++  end
++
+   defp provision(context, key, source, options) do
+     operation_id = operation_id(key)
+
+@@ -621,6 +780,11 @@
+   end
+
+   defp source_path(%{source_path: path}) when is_list(path), do: {:ok, path}
++
++  defp source_path(%{source_path: {workspace_cell_id, document_id} = target})
++       when is_binary(workspace_cell_id) and is_binary(document_id),
++       do: {:ok, target}
++
+   defp source_path(_index), do: {:error, %{kind: :source_interpretation_unavail
+able}}
+
+   defp same_source(%{"document_id" => document_id}, key) when document_id == el
+em(key, 2),
+diff --git a/test/commonplace_next/mirrors_test.exs b/test/commonplace_next/mirr
+ors_test.exs
+index e81e389681075b43d5f8200e5b251b34167a8c5e..7c745f8f31ca3c4fc44763b6c2ffaf13
+2107dd94
+--- a/test/commonplace_next/mirrors_test.exs
++++ b/test/commonplace_next/mirrors_test.exs
+@@ -116,6 +116,20 @@
+     assert mirror.version == opened.mirror_version
+   end
+
++  test "an explicit local Workspace and Document target opens without path reso
+lution" do
++    canonical = canonical_snapshot()
++    workspace_cell_id = WorkspaceCell.descriptor().cell_id
++    target = {workspace_cell_id, canonical.document_id}
++
++    assert {:ok, opened} =
++             Mirrors.open(editor_handle(), target, TestAdmission.options())
++
++    key = {EditorCell.editor_cell_id(), workspace_cell_id, canonical.document_i
+d}
++    assert {:ok, relationship} = Mirrors.relationship(editor_handle(), key)
++    assert relationship.canonical_document_id == canonical.document_id
++    assert opened.canonical_version == canonical.version
++  end
++
+   test "the mirror has a different uuid a different log and the same yepoch as
+the canonical" do
+     canonical = canonical_snapshot()
+     assert {:ok, opened} = open_welcome()
+diff --git a/test/integration/shared_document_mirror_test.exs b/test/integration
+/shared_document_mirror_test.exs
+new file mode 100644
+index 0000000000000000000000000000000000000000..5db809df85845931b4e3e16ec15d9433
+64a6d7a0
+--- /dev/null
++++ b/test/integration/shared_document_mirror_test.exs
+@@ -0,0 +1,538 @@
++defmodule CommonplaceNext.SharedDocumentMirrorTest do
++  use ExUnit.Case, async: false
++
++  @moduletag :integration
++
++  alias Commonplace.DocHost
++  alias Commonplace.LogStore.SQLite
++  alias CommonplaceNext.{Hosts, Organization, Realm, Workspace}
++  alias CommonplaceNext.Cell.Supervisor, as: CellSupervisor
++  alias CommonplaceNext.Organization.{EditorPlacement, ExternalGrant, Identity,
+ Membership}
++  alias CommonplaceNext.Realm.Gateway.{Bootstrap, Listener}
++  alias CommonplaceNext.Realm.{Gateway, Router}
++  alias CommonplaceNext.Workspace.Seed
++
++  @organization_b_id "commonplace-next-share-2-organization-b"
++
++  defmodule Remote do
++    use GenServer
++
++    def start_link(options), do: GenServer.start_link(__MODULE__, options)
++    def command(remote, command), do: GenServer.call(remote, {:command, command
+}, 30_000)
++    def os_pid(remote), do: GenServer.call(remote, :os_pid)
++
++    @impl true
++    def init(options) do
++      executable = System.find_executable("elixir") || raise "elixir executable
+ missing"
++      control_port = free_port()
++
++      code_path_args =
++        :code.get_path()
++        |> Enum.flat_map(fn path -> ["-pa", List.to_string(path)] end)
++
++      args = code_path_args ++ ["-e", Keyword.fetch!(options, :script)]
++
++      {port, os_pid} =
++        CommonplaceNext.SecondBeam.spawn_and_pid(executable, [
++          :binary,
++          :exit_status,
++          {:packet, 4},
++          {:args, args},
++          {:env,
++           [
++             {~c"COMMONPLACE_NEXT_CONTROL_PORT", Integer.to_charlist(control_po
+rt)},
++             {~c"COMMONPLACE_NEXT_ORGANIZATION_ID",
++              to_charlist(Keyword.fetch!(options, :organization_id))},
++             {~c"COMMONPLACE_NEXT_PEER_WORKSPACE_CELL_ID",
++              to_charlist(Keyword.fetch!(options, :peer_workspace_cell_id))}
++           ]},
++          {:cd, Keyword.fetch!(options, :data_dir)}
++        ])
++
++      true = Port.command(port, Keyword.fetch!(options, :bootstrap))
++      true = Port.close(port)
++
++      with {:ok, control} <-
++             await_control(control_port, System.monotonic_time(:millisecond) +
+30_000),
++           {:ok, "READY"} <- :gen_tcp.recv(control, 0, 30_000) do
++        {:ok, %{control: control, os_pid: os_pid}}
++      else
++        {:error, reason} -> {:stop, {:child_start_error, reason}}
++      end
++    end
++
++    @impl true
++    def handle_call(:os_pid, _from, state), do: {:reply, state.os_pid, state}
++
++    def handle_call({:command, command}, _from, state) do
++      :ok = :gen_tcp.send(state.control, command)
++
++      case :gen_tcp.recv(state.control, 0, 25_000) do
++        {:ok, reply} when command == "stop" ->
++          :ok = :gen_tcp.close(state.control)
++          {:stop, :normal, {:ok, reply}, state}
++
++        {:ok, reply} ->
++          {:reply, {:ok, reply}, state}
++
++        {:error, reason} ->
++          {:reply, {:error, {:child_exit, reason}}, state}
++      end
++    end
++
++    defp free_port do
++      {:ok, socket} = :gen_tcp.listen(0, [:binary, active: false, reuseaddr: tr
+ue])
++      {:ok, {_ip, port}} = :inet.sockname(socket)
++      :ok = :gen_tcp.close(socket)
++      port
++    end
++
++    defp await_control(port, deadline) do
++      case :gen_tcp.connect({127, 0, 0, 1}, port, [:binary, active: false, pack
+et: 4], 50) do
++        {:ok, socket} ->
++          {:ok, socket}
++
++        {:error, reason} ->
++          if System.monotonic_time(:millisecond) >= deadline do
++            {:error, reason}
++          else
++            Process.sleep(10)
++            await_control(port, deadline)
++          end
++      end
++    end
++  end
++
++  setup do
++    :ok = stop_realm()
++    stop_sqlite_children()
++
++    root = CommonplaceNext.TestFixtures.unique_tmp_root("share-2")
++    parent_dir = Path.join(root, "organization-a")
++    remote_dir = Path.join(root, "organization-b")
++    File.mkdir_p!(parent_dir)
++    File.mkdir_p!(remote_dir)
++
++    previous = %{
++      log: Application.get_env(:commonplace_log, SQLite),
++      realm: Application.get_env(:commonplace_next, Realm),
++      gateway: Application.get_env(:commonplace_next, Gateway),
++      organization: Application.get_env(:commonplace_next, Organization)
++    }
++
++    Application.put_env(:commonplace_log, SQLite, data_dir: parent_dir)
++    Application.put_env(:commonplace_next, Realm, cells: :all, remote: %{})
++    Application.put_env(:commonplace_next, Gateway, port: 0, realm_id: "commonp
+lace-next")
++    {:ok, _realm} = Supervisor.restart_child(CommonplaceNext.Supervisor, Realm)
++
++    {:ok, organization_a} = Organization.configured()
++    workspace_a_cell_id = Identity.space(organization_a).workspace_cell_id
++    {:ok, workspace_a_hosts} = CellSupervisor.hosts(workspace_a_cell_id)
++    {:ok, owner_member_id} = Organization.configured_owner_member_id()
++
++    {:ok, owner_a} =
++      Membership.resolve_owner(organization_a,
++        hosts: workspace_a_hosts,
++        member_id: owner_member_id
++      )
++
++    editor_b =
++      EditorPlacement.entry(
++        @organization_b_id,
++        owner_member_id,
++        Membership.initial_generation()
++      )
++
++    document_id = Seed.ids(organization_a).welcome_document_id
++
++    membership_epoch =
++      Membership.derive_membership_epoch(
++        @organization_b_id,
++        owner_member_id,
++        Membership.initial_generation()
++      )
++
++    grant = grant!(owner_a, editor_b.cell_id, document_id, membership_epoch)
++    token = Base.url_encode64(:crypto.strong_rand_bytes(32), padding: false)
++
++    {:ok, bootstrap} =
++      Bootstrap.fetch("127.0.0.1", Listener.bootstrap_port(), editor_b.cell_id,
+ token)
++
++    {:ok, bootstrap_frame} = Bootstrap.encode_material(bootstrap)
++
++    {:ok, remote} =
++      Remote.start_link(
++        bootstrap: bootstrap_frame,
++        data_dir: remote_dir,
++        organization_id: @organization_b_id,
++        peer_workspace_cell_id: workspace_a_cell_id,
++        script: remote_script()
++      )
++
++    remote_os_pid = Remote.os_pid(remote)
++
++    on_exit(fn ->
++      stop_remote(remote, remote_os_pid)
++      :ok = stop_realm()
++      stop_sqlite_children()
++      restore_env(:commonplace_log, SQLite, previous.log)
++      restore_env(:commonplace_next, Realm, previous.realm)
++      restore_env(:commonplace_next, Gateway, previous.gateway)
++      restore_env(:commonplace_next, Organization, previous.organization)
++      File.rm_rf!(root)
++      :ok = restart_realm()
++    end)
++
++    %{
++      document_id: document_id,
++      editor_b: editor_b,
++      grant: grant,
++      membership_epoch: membership_epoch,
++      owner_a: owner_a,
++      remote: remote,
++      workspace_a_cell_id: workspace_a_cell_id,
++      workspace_a_hosts: workspace_a_hosts
++    }
++  end
++
++  test "S5 B opens A's shared document and edits converge canonically in both d
+irections",
++       context do
++    assert {:ok, opened} = remote_open(context)
++    from_b = "share-2-from-b-#{System.unique_integer([:positive])}"
++    assert {:ok, "ok"} = Remote.command(context.remote, "append-mirror:" <> fro
+m_b)
++    assert eventually(fn -> canonical_text(context) =~ from_b end)
++    assert eventually(fn -> remote_status(context) =~ "synced" end)
++
++    from_a = "share-2-from-a-#{System.unique_integer([:positive])}"
++    append_canonical!(context, from_a)
++    assert eventually(fn -> remote_text(context) =~ from_a end), remote_status(
+context)
++    assert canonical_text(context) =~ from_b
++    assert remote_text(context) =~ from_a
++    assert opened.mirror_document_id != context.document_id
++  end
++
++  test "S6 revoked before open is named and revoked after open stops sync while
+ disclosed content remains",
++       context do
++    assert {:ok, %{revoked: true}} =
++             ExternalGrant.revoke(context.owner_a, context.grant.grant_id)
++
++    assert {:error, :grant_revoked} = ExternalGrant.admission(context.editor_b.
+cell_id)
++
++    assert {:ok, "error|revoked"} = Remote.command(context.remote, open_command
+(context))
++
++    _replacement =
++      grant!(
++        context.owner_a,
++        context.editor_b.cell_id,
++        context.document_id,
++        context.membership_epoch
++      )
++
++    assert {:ok, _opened} = remote_open(context)
++    disclosed = remote_text(context)
++
++    {:ok, active} = ExternalGrant.admission(context.editor_b.cell_id)
++    assert {:ok, %{revoked: true}} = ExternalGrant.revoke(context.owner_a, acti
+ve.grant_id)
++
++    marker = "share-2-stays-local-#{System.unique_integer([:positive])}"
++    started_at = System.monotonic_time(:second)
++    assert {:ok, "ok"} = Remote.command(context.remote, "append-mirror:" <> mar
+ker)
++    assert eventually(fn -> remote_status(context) =~ "blocked" end)
++    assert System.monotonic_time(:second) - started_at < 60
++    assert remote_text(context) =~ disclosed
++    assert remote_text(context) =~ marker
++    refute canonical_text(context) =~ marker
++  end
++
++  test "S7 B's shared mirror records A as home and never makes D canonical in B
+'s workspace",
++       context do
++    assert {:ok, opened} = remote_open(context)
++    marker = "share-2-not-canonical-in-b-#{System.unique_integer([:positive])}"
++    assert {:ok, "ok"} = Remote.command(context.remote, "append-mirror:" <> mar
+ker)
++    assert eventually(fn -> canonical_text(context) =~ marker end)
++
++    assert {:ok, relationship} = remote_relationship(context)
++    assert relationship.canonical_document_id == context.document_id
++    assert relationship.canonical_version_document_id == context.document_id
++    assert canonical_snapshot(context).home_cell_id == context.workspace_a_cell
+_id
++    assert {:ok, "absent"} = Remote.command(context.remote, "b-canonical-entry"
+)
++    assert opened.relationship_id == relationship.relationship_id
++    assert opened.target_workspace_cell_id == context.workspace_a_cell_id
++  end
++
++  defp grant!(owner, grantee_cell_id, document_id, membership_epoch) do
++    {:ok, grant} =
++      ExternalGrant.create(owner, %{
++        grantee_cell_id: grantee_cell_id,
++        document_id: document_id,
++        actions: ExternalGrant.actions(),
++        membership_epoch: membership_epoch,
++        expires_at: System.system_time(:second) + 3_600,
++        grant_id: Router.request_id()
++      })
++
++    grant
++  end
++
++  defp remote_open(context) do
++    case Remote.command(context.remote, open_command(context)) do
++      {:ok, "ok|" <> encoded} ->
++        [mirror_document_id, relationship_id] = String.split(encoded, "|", part
+s: 2)
++
++        {:ok,
++         %{
++           mirror_document_id: mirror_document_id,
++           relationship_id: relationship_id,
++           target_workspace_cell_id: context.workspace_a_cell_id
++         }}
++
++      {:ok, "error|" <> reason} ->
++        {:error, reason}
++
++      other ->
++        other
++    end
++  end
++
++  defp open_command(context),
++    do: "open:#{context.workspace_a_cell_id}:#{context.document_id}"
++
++  defp remote_text(context) do
++    assert {:ok, "ok|" <> text} = Remote.command(context.remote, "mirror-text")
++    text
++  end
++
++  defp remote_status(context) do
++    assert {:ok, "ok|" <> status} = Remote.command(context.remote, "status")
++    status
++  end
++
++  defp remote_relationship(context) do
++    case Remote.command(context.remote, "relationship") do
++      {:ok, "ok|" <> encoded} ->
++        [relationship_id, canonical_document_id, canonical_version_document_id]
+ =
++          String.split(encoded, "|", parts: 3)
++
++        {:ok,
++         %{
++           relationship_id: relationship_id,
++           canonical_document_id: canonical_document_id,
++           canonical_version_document_id: canonical_version_document_id
++         }}
++
++      other ->
++        other
++    end
++  end
++
++  defp append_canonical!(context, marker) do
++    text = canonical_text(context)
++
++    assert {:ok, _receipt} =
++             Workspace.edit_markdown(
++               context.workspace_a_hosts,
++               context.document_id,
++               [{:insert, String.length(text), "\n#{marker}\n"}],
++               "share-2:a:" <> Router.request_id()
++             )
++  end
++
++  defp canonical_text(context) do
++    snapshot = canonical_snapshot(context)
++    {:ok, text} = Commonplace.Markdown.text(snapshot.content)
++    text
++  end
++
++  defp canonical_snapshot(context) do
++    {:ok, document} =
++      Hosts.open_document(context.workspace_a_hosts, context.document_id, clien
+t_id: 1)
++
++    {:ok, snapshot} = DocHost.snapshot(document)
++    snapshot
++  end
++
++  defp eventually(fun, attempts \\ 500)
++  defp eventually(_fun, 0), do: false
++
++  defp eventually(fun, attempts) do
++    if fun.() do
++      true
++    else
++      Process.sleep(20)
++      eventually(fun, attempts - 1)
++    end
++  end
++
++  defp stop_remote(remote, os_pid) do
++    if Process.alive?(remote) do
++      try do
++        _ = Remote.command(remote, "stop")
++      catch
++        :exit, _reason -> :ok
++      end
++    end
++
++    CommonplaceNext.SecondBeam.wait_gone!(os_pid)
++  end
++
++  defp stop_realm do
++    case Supervisor.terminate_child(CommonplaceNext.Supervisor, Realm) do
++      :ok -> :ok
++      {:error, :not_found} -> :ok
++    end
++  end
++
++  defp stop_sqlite_children do
++    Registry.select(SQLite.Registry, [{{:_, :"$1", :_}, [], [:"$1"]}])
++    |> Enum.each(fn child ->
++      :ok = DynamicSupervisor.terminate_child(SQLite.DynamicSupervisor, child)
++    end)
++  end
++
++  defp restart_realm(attempts \\ 20)
++  defp restart_realm(0), do: {:error, :realm_restart_exhausted}
++
++  defp restart_realm(attempts) do
++    case Supervisor.restart_child(CommonplaceNext.Supervisor, Realm) do
++      {:ok, _realm} ->
++        :ok
++
++      {:error, _reason} ->
++        :ok = stop_realm()
++        stop_sqlite_children()
++        Process.sleep(25)
++        restart_realm(attempts - 1)
++    end
++  end
++
++  defp restore_env(application, key, nil), do: Application.delete_env(applicati
+on, key)
++  defp restore_env(application, key, value), do: Application.put_env(applicatio
+n, key, value)
++
++  defp remote_script do
++    ~S"""
++    defmodule Share2Remote do
++      alias CommonplaceNext.{Hosts, Organization, Workspace, WorkspaceCell}
++      alias CommonplaceNext.Cell.Supervisor, as: CellSupervisor
++      alias CommonplaceNext.EditorCell.Mirrors
++      alias CommonplaceNext.Organization.EditorPlacement
++      alias CommonplaceNext.Realm.{EditorIssuer, Router}
++      alias CommonplaceNext.Realm.Gateway.{Bootstrap, Credentials}
++
++      def run do
++        {:ok, bootstrap} = receive_bootstrap()
++        organization_id = System.fetch_env!("COMMONPLACE_NEXT_ORGANIZATION_ID")
++        Application.put_env(:commonplace_next, Organization, id: organization_i
+d, name: "Organization B")
++        {:ok, _credentials} = Credentials.start_link([])
++        :ok = Credentials.provision_client_session(Map.merge(bootstrap.transpor
+t, %{token: bootstrap.token}))
++        configure(bootstrap)
++        {:ok, _} = Application.ensure_all_started(:commonplace_next)
++        {:ok, listener} = :gen_tcp.listen(control_port(), [:binary, active: fal
+se, packet: 4, reuseaddr: true])
++        {:ok, control} = :gen_tcp.accept(listener, 30_000)
++        :ok = :gen_tcp.close(listener)
++        :ok = :gen_tcp.send(control, "READY")
++        loop(control, nil)
++      end
++
++      defp loop(control, opened) do
++        case :gen_tcp.recv(control, 0, 30_000) do
++          {:ok, "open:" <> ids} ->
++            [workspace_cell_id, document_id] = String.split(ids, ":", parts: 2)
++            entry = EditorPlacement.first_entry() |> elem(1)
++            session_cell_id = "01990000-0000-7000-8000-00000000b002"
++            {:ok, issued} = EditorIssuer.issue_cell_open(Router.request_id(), s
+ession_cell_id, entry.cell_id, entry.root_directory_id)
++            {:ok, proof} = Commonplace.Cell.Proof.new(%{"format" => Commonplace
+.Cell.Proof.format(), "token" => issued.token})
++
++            case Mirrors.open(Router.handle(entry.cell_id) |> elem(1), {workspa
+ce_cell_id, document_id}, admission: {session_cell_id, [proof]}) do
++              {:ok, result} ->
++                :ok = :gen_tcp.send(control, "ok|#{result.mirror_document_id}|#
+{result.relationship_id}")
++                loop(control, %{result: result, workspace_cell_id: workspace_ce
+ll_id, document_id: document_id, entry: entry})
++
++              {:error, %{kind: kind}} ->
++                :ok = :gen_tcp.send(control, "error|#{kind}")
++                loop(control, opened)
++
++              {:error, %{code: code}} ->
++                :ok = :gen_tcp.send(control, "error|#{code}")
++                loop(control, opened)
++            end
++
++          {:ok, "append-mirror:" <> marker} ->
++            {:ok, hosts} = CellSupervisor.hosts(opened.entry.cell_id)
++            text = text(hosts, opened.result.mirror_document_id)
++            {:ok, _} = Workspace.edit_markdown(hosts, opened.result.mirror_docu
+ment_id, [{:insert, String.length(text), "\n#{marker}\n"}], "share-2:b:" <> Rout
+er.request_id())
++            :ok = :gen_tcp.send(control, "ok")
++            loop(control, opened)
++
++          {:ok, "mirror-text"} ->
++            {:ok, hosts} = CellSupervisor.hosts(opened.entry.cell_id)
++            :ok = :gen_tcp.send(control, "ok|" <> text(hosts, opened.result.mir
+ror_document_id))
++            loop(control, opened)
++
++          {:ok, "status"} ->
++            key = {opened.entry.cell_id, opened.workspace_cell_id, opened.docum
+ent_id}
++            {:ok, status} = Mirrors.status(Router.handle(opened.entry.cell_id)
+|> elem(1), key)
++            :ok = :gen_tcp.send(control, "ok|#{status.state}|#{status.reason}")
++            loop(control, opened)
++
++          {:ok, "relationship"} ->
++            key = {opened.entry.cell_id, opened.workspace_cell_id, opened.docum
+ent_id}
++            {:ok, relationship} = Mirrors.relationship(Router.handle(opened.ent
+ry.cell_id) |> elem(1), key)
++            encoded = Enum.join([relationship.relationship_id, relationship.can
+onical_document_id, relationship.canonical_version.document_id], "|")
++            :ok = :gen_tcp.send(control, "ok|" <> encoded)
++            loop(control, opened)
++
++          {:ok, "b-canonical-entry"} ->
++            {:ok, hosts} = CellSupervisor.hosts(WorkspaceCell.descriptor().cell
+_id)
++            answer = case Hosts.open_document(hosts, opened.document_id, client
+_id: 1) do
++              {:error, %{kind: :log_not_found}} -> "absent"
++              {:ok, _host} -> "present"
++              other -> "error|#{inspect(other)}"
++            end
++            :ok = :gen_tcp.send(control, answer)
++            loop(control, opened)
++
++          {:ok, "stop"} ->
++            :ok = :gen_tcp.send(control, "ok")
++            :ok = Application.stop(:commonplace_next)
++
++          _ -> :ok
++        end
++      end
++
++      defp text(hosts, document_id) do
++        {:ok, host} = Hosts.open_document(hosts, document_id, client_id: 1)
++        {:ok, snapshot} = Commonplace.DocHost.snapshot(host)
++        {:ok, text} = Commonplace.Markdown.text(snapshot.content)
++        text
++      end
++
++      defp configure(bootstrap) do
++        organization_id = System.fetch_env!("COMMONPLACE_NEXT_ORGANIZATION_ID")
++        Logger.configure(level: :emergency)
++        Application.put_env(:commonplace_next, Organization, id: organization_i
+d, name: "Organization B")
++        Application.put_env(:commonplace_log, Commonplace.LogStore.SQLite, data
+_dir: File.cwd!())
++        Application.put_env(:commonplace_next, CommonplaceNext.EditorCell,
++          canonical_poll_ms: 50,
++          on_destination_advanced: :merge
++        )
++        Application.put_env(:commonplace_next, CommonplaceNext.Realm.Gateway, p
+ort: nil, bootstrap_port: nil, realm_id: organization_id)
++        Application.put_env(:commonplace_next, CommonplaceNext.Realm,
++          cells: :all,
++          remote: %{System.fetch_env!("COMMONPLACE_NEXT_PEER_WORKSPACE_CELL_ID"
+) => %{host: bootstrap.host, port: bootstrap.port}}
++        )
++      end
++
++      defp receive_bootstrap do
++        with <<size::unsigned-big-32>> <- IO.binread(:stdio, 4),
++             bytes when is_binary(bytes) <- IO.binread(:stdio, size) do
++          Bootstrap.decode_frame(<<size::unsigned-big-32, bytes::binary>>)
++        end
++      end
++
++      defp control_port, do: System.fetch_env!("COMMONPLACE_NEXT_CONTROL_PORT")
+ |> String.to_integer()
++    end
++
++    Share2Remote.run()
++    """
++  end
++end
+
+tokens used
+266,534
+RED   share-2-full-suite rc=2 560 tests, 22 failures, 1 excluded, 5 invalid   [F
+ULL LOG: tmp/run-logs/share_2_full_suite.log]
+
+## Report
+
+Base SHA: `4534324173e0c8f7e2844c86da60795c32d93da9`
+
+Corpus confirmed before editing:
+
+- Clean worktree.
+- Exactly the two specified `Mirrors.open` heads.
+- Three descriptor sites in `mirrors.ex`; 38 under `lib/`.
+- Existing remote `document_grant` routing/client support present.
+- `ExternalGrant` and `Realm.start_for/1` APIs matched.
+- `two_organization_test.exs` present.
+
+### Diff
+
+- `lib/commonplace_next/editor_cell/mirrors.ex`: +173/−9
+- `test/commonplace_next/mirrors_test.exs`: +14
+- New [shared_document_mirror_test.exs](/home/jes/sol-share2/wt/test/integration
+/shared_document_mirror_test.exs): 538 lines
+- New [IMPLEMENTATION-PLAN-SHARE-2.md](/home/jes/sol-share2/wt/docs/IMPLEMENTATI
+ON-PLAN-SHARE-2.md): 62 lines
+
+Per-file rationale:
+
+- `mirrors.ex`: adds tuple-target `open/3`, target-aware context/keying, direct
+remote summary with named grant refusals, tuple reuse, and target-aware mirror s
+tartup.
+- `mirrors_test.exs`: adds the local-target/no-path-resolution case.
+- Integration test: child-BEAM two-Organization/two-store S5–S7 coverage.
+- Plan: documents scope, topology, rights, and ARM markers.
+- `realm/route.ex` unchanged: it already routes document targets using `Placemen
+t.remote/1` and adds `document_grant`.
+- `realm/gateway/client.ex` unchanged: it already exchanges and spends document-
+grant frames.
+
+### S5–S8
+
+S5–S7 focused result:
+
+```text
+28 tests, 0 failures
+```
+
+- S5: B opens `{A_workspace_cell_id, D}`; B→A canonical sync and A→B convergence
+ asserted.
+- S6: revoked-before-open returns named `revoked`; after-open revocation blocks
+sync within 60 seconds while disclosed and new local content remains in B.
+- S7: relationship names A/D, A’s snapshot owns D, and B’s independent store rep
+orts D absent.
+
+`Realm.start_for/1` was not used for S5–S7 because both in-BEAM Workspace Cells
+share the configured SQLite namespace and cannot prove the required two-store ab
+sence. The child-BEAM model was used.
+
+Base red was not run because that would require changing checkout state. The bas
+e heads are:
+
+```elixir
+def open(editor, path), do: open(editor, path, [])
+def open(editor, path, options) when is_list(path) and is_list(options) do
+```
+
+Therefore the reviewer’s base tuple-open assertion raises `FunctionClauseError`.
+
+S8:
+
+- Descriptor count: `37`.
+- Replaced the old `context/1` arity-zero descriptor site.
+- Left `resolve/2` unchanged for primary path resolution; ORG-2c owns threading
+that site.
+- Left the root-directory descriptor site untouched.
+- Existing path-form mirror tests green and unchanged.
+- `mix format --check-formatted`: PASS.
+- `bin/check-plan-arms.sh`: PASS, `439` arms, `0` missing.
+- `git diff --check`: PASS.
+
+### S9
+
+Full output: [share_2_full_suite.log](/home/jes/sol-share2/wt/tmp/run-logs/share
+_2_full_suite.log)
+Timing output: [share_2_full_suite.times](/home/jes/sol-share2/wt/tmp/run-logs/s
+hare_2_full_suite.times) — 560 timing rows.
+
+The 22 failures include four pin checks unable to fetch, the trust-root falsifie
+r, RemoteEditor, three MergePolicy tests, Wiring, twelve MarkdownEditorGoal test
+s, and five invalidated LogGrowth tests. The known flake `a mirror host restart
+under a live attachment is survived` reddened. The full unabridged output is ret
+ained in the linked log.
+
+The trust-root test left `config/dev.exs` modified during S9; I restored its exa
+ct base content before final verification.
+
+Final `git status --porcelain`:
+
+```text
+ M lib/commonplace_next/editor_cell/mirrors.ex
+ M test/commonplace_next/mirrors_test.exs
+?? docs/IMPLEMENTATION-PLAN-SHARE-2.md
+?? test/integration/shared_document_mirror_test.exs
+```
+=== sol EXITED rc=0 ===
+

@@ -1,0 +1,1901 @@
+ 68; }
+-[ "$mode" = "--preflight" ] && { echo "PREFLIGHT OK: $dir would dispatch '$name
+' (deps $(ls "$wt/deps" | wc -l), compiled)."; exit 0; }
++[ "$mode" = "--preflight" ] && { echo "PREFLIGHT OK: $dir would dispatch '$name
+' with prompt=$prompt blob=$blob (deps $(ls "$wt/deps" | wc -l), compiled)."; ex
+it 0; }
+ win="$(basename "$dir")"
+ tmux new-window -d -t 0: -n "$win" -c "$dir" \
+   "SOL_WORKDIR=$wt /home/jes/boss-clod/sol-egress-run.sh \"\$(cat $prompt)\" 2>
+&1 | tee $dir/sol-run.log; echo \"=== sol EXITED rc=\${PIPESTATUS[0]} ===\"; sle
+ep 86400"
+@@ -50,4 +83,4 @@
+   [ -z "${outer:-}" ] && outer=$pid && echo "$pid" > "$dir/outer.pid"
+ done
+ [ "$n" -gt 0 ] || { echo "NOT RUNNING: no codex process on $wt after 20s. Read
+$dir/sol-run.log." >&2; exit 1; }
+-echo "DISPATCHED $name in tmux window $win, outer pid $(cat "$dir/outer.pid");
+wait on it by pid."
++echo "DISPATCHED $name in tmux window $win with prompt=$prompt blob=$blob, oute
+r pid $(cat "$dir/outer.pid"); wait on it by pid."
+diff --git a/bin/test-dispatch-prompt.sh b/bin/test-dispatch-prompt.sh
+new file mode 100644
+index 0000000000000000000000000000000000000000..8699cadea8bae6d5989f062e406d80fc
+3a22a00a
+--- /dev/null
++++ b/bin/test-dispatch-prompt.sh
+@@ -0,0 +1,133 @@
++#!/usr/bin/env bash
++# Self-test for dispatch-round prompt provenance. Fixtures are disposable local
+ repositories;
++# this script never dispatches a real round and never contacts a network remote
+.
++set -uo pipefail
++
++ROOT=$(cd "$(dirname "$0")/.." && pwd -P)
++SCRIPT="$ROOT/bin/dispatch-round.sh"
++for need in bash git mktemp realpath; do
++  command -v "$need" >/dev/null 2>&1 || { echo "BLIND: required command is unav
+ailable: $need" >&2; exit 2; }
++done
++[ -r "$SCRIPT" ] || { echo "BLIND: dispatch script is not readable: $SCRIPT" >&
+2; exit 2; }
++
++T=$(mktemp -d) || { echo "BLIND: could not create fixture directory" >&2; exit
+2; }
++trap 'rm -rf -- "$T" || true' EXIT
++mkdir -p "$T/fakebin" || { echo "BLIND: could not create fixture tools" >&2; ex
+it 2; }
++printf '%s\n' '#!/usr/bin/env bash' 'case "${1:-}" in deps.get) mkdir -p deps/f
+ake; : > deps/fake/fixture ;; compile) : ;; esac' > "$T/fakebin/mix"
++printf '%s\n' '#!/usr/bin/env bash' ': > "${DISPATCH_TEST_TMUX_MARKER:?}"' > "$
+T/fakebin/tmux"
++printf '%s\n' '#!/usr/bin/env bash' 'exit 0' > "$T/fakebin/sleep"
++chmod +x "$T/fakebin/mix" "$T/fakebin/tmux" "$T/fakebin/sleep"
++
++NAME="PROMPT-IN-TREE-1"
++REL="docs/plans/sol/prompt-in-tree-1/prompt.txt"
++make_prompt() {
++  local path=$1
++  mkdir -p "$(dirname "$path")"
++  {
++    printf '%s\n' "$NAME"
++    for n in $(seq 1 110); do printf 'fixture%s ' "$n"; done
++    printf '\n'
++  } > "$path"
++}
++make_fixture() {
++  local label=$1 round="$T/$1" wt="$T/$1/wt" bare="$T/$1-origin.git"
++  mkdir -p "$round"
++  git init -q --bare "$bare" || return 1
++  git init -q "$wt" || return 1
++  git -C "$wt" config user.email fixture@example.invalid || return 1
++  git -C "$wt" config user.name Fixture || return 1
++  printf 'fixture\n' > "$wt/README"
++  git -C "$wt" add README || return 1
++  git -C "$wt" commit -qm base || return 1
++  git -C "$wt" remote add origin "$bare" || return 1
++  git -C "$wt" push -qu origin HEAD || return 1
++}
++commit_prompt() {
++  local wt=$1
++  make_prompt "$wt/$REL"
++  git -C "$wt" add "$REL" || return 1
++  git -C "$wt" commit -qm prompt || return 1
++  git -C "$wt" push -q origin HEAD || return 1
++}
++run_dispatch() {
++  local marker=$1; shift
++  rm -f -- "$marker"
++  OUT=$(PATH="$T/fakebin:$PATH" DISPATCH_TEST_TMUX_MARKER="$marker" bash "$SCRI
+PT" "$@" 2>&1)
++  RC=$?
++}
++setup_or_blind() {
++  "$@" || { echo "BLIND: fixture setup failed while running: $*" >&2; exit 2; }
++}
++fail_arm() {
++  local arm=$1 detail=$2
++  echo "$arm FAIL: $detail" >&2
++  printf '%s\n' "$OUT" >&2
++  failures=$((failures+1))
++}
++
++failures=0
++
++setup_or_blind make_fixture p1
++make_prompt "$T/p1/wt/$REL"
++run_dispatch "$T/p1.tmux" "$T/p1" "$NAME" --preflight
++p1_a=$(printf '%s\n' "$OUT" | grep -cF 'not tracked by git in the worktree (a)'
+ || true)
++if [ "$RC" -eq 69 ] && [ "$p1_a" -eq 1 ]; then
++  echo "P1 PASS: untracked default brief refused with rc 69 and named (a)."
++else
++  fail_arm P1 "expected rc=69 and one (a) refusal; got rc=$RC count=$p1_a"
++fi
++
++setup_or_blind make_fixture p2
++setup_or_blind commit_prompt "$T/p2/wt"
++printf 'modified\n' >> "$T/p2/wt/$REL"
++run_dispatch "$T/p2.tmux" "$T/p2" "$NAME" --preflight
++p2_b=$(printf '%s\n' "$OUT" | grep -cF 'tracked but modified relative to HEAD (
+b)' || true)
++if [ "$RC" -eq 69 ] && [ "$p2_b" -eq 1 ]; then
++  echo "P2 PASS: modified tracked brief refused with rc 69 and named (b)."
++else
++  fail_arm P2 "expected rc=69 and one (b) refusal; got rc=$RC count=$p2_b"
++fi
++
++setup_or_blind make_fixture p3
++setup_or_blind commit_prompt "$T/p3/wt"
++expected=$(git -C "$T/p3/wt" rev-parse "HEAD:$REL") || { echo "BLIND: could not
+ compute P3 blob" >&2; exit 2; }
++run_dispatch "$T/p3.tmux" "$T/p3" "$NAME" --preflight
++p3_ok=$(printf '%s\n' "$OUT" | grep -cF "PREFLIGHT OK:" || true)
++p3_blob=$(printf '%s\n' "$OUT" | grep -cF "blob=$expected" || true)
++p3_path=$(printf '%s\n' "$OUT" | grep -cF "prompt=$T/p3/wt/$REL" || true)
++if [ "$RC" -eq 0 ] && [ "$p3_ok" -eq 1 ] && [ "$p3_blob" -eq 1 ] && [ "$p3_path
+" -eq 1 ]; then
++  echo "P3 PASS: committed default brief preflight printed independently comput
+ed blob $expected."
++else
++  fail_arm P3 "expected rc=0 with path and blob; got rc=$RC ok=$p3_ok path=$p3_
+path blob=$p3_blob"
++fi
++
++setup_or_blind make_fixture p4
++setup_or_blind commit_prompt "$T/p4/wt"
++make_prompt "$T/p4/outside.txt"
++run_dispatch "$T/p4.tmux" "$T/p4" "$NAME" --prompt ../outside.txt
++p4_escape=$(printf '%s\n' "$OUT" | grep -cF 'path escapes the worktree' || true
+)
++p4_dispatch=$(printf '%s\n' "$OUT" | grep -c '^DISPATCHED ' || true)
++if [ "$RC" -ne 0 ] && [ "$p4_escape" -eq 1 ] && [ "$p4_dispatch" -eq 0 ] && [ !
+ -e "$T/p4.tmux" ]; then
++  echo "P4 PASS: escaping --prompt path refused without dispatch."
++else
++  fail_arm P4 "expected refusal and no tmux call; got rc=$RC escape=$p4_escape
+dispatched=$p4_dispatch tmux=$([ -e "$T/p4.tmux" ] && echo yes || echo no)"
++fi
++
++setup_or_blind make_fixture p5
++make_prompt "$T/p5/prompt.txt"
++run_dispatch "$T/p5.tmux" "$T/p5" "$NAME" --prompt-out-of-tree --preflight
++p5_ok=$(printf '%s\n' "$OUT" | grep -cF 'PREFLIGHT OK:' || true)
++p5_warning=$(printf '%s\n' "$OUT" | grep -cF "WARNING: round '$NAME' uses an ou
+t-of-tree brief; the brief will not be readable from the remote." || true)
++p5_blob=$(printf '%s\n' "$OUT" | grep -cF 'blob=none (out of tree)' || true)
++if [ "$RC" -eq 0 ] && [ "$p5_ok" -eq 1 ] && [ "$p5_warning" -eq 1 ] && [ "$p5_b
+lob" -eq 1 ]; then
++  echo "P5 PASS: legacy out-of-tree brief preflight succeeded and printed the r
+emote-readability warning."
++else
++  fail_arm P5 "expected rc=0 with warning and out-of-tree blob; got rc=$RC ok=$
+p5_ok warning=$p5_warning blob=$p5_blob"
++fi
++
++if [ "$failures" -gt 0 ]; then
++  echo "SELF-TEST FAIL: $failures arm(s) failed." >&2
++  exit 1
++fi
++echo "SELF-TEST PASS: P1 P2 P3 P4 P5 all passed."
++exit 0
+
+exec
+/bin/bash -lc 'bash -n bin/dispatch-round.sh' in /home/jes/sol-cell-prompt-in-tr
+ee/wt
+ succeeded in 0ms:
+diff --git a/bin/dispatch-round.sh b/bin/dispatch-round.sh
+index 6a9d9f57ccf697febc6ec2a1e24dffcc6e47f09d..01336675d7861236b198b8823a08d160
+a4a32207
+--- a/bin/dispatch-round.sh
++++ b/bin/dispatch-round.sh
+@@ -12,14 +12,47 @@
+ # Also refuses if the plan commit the round is built on is not on origin —
+ # a round whose description exists on one disk is a round you cannot rebuild.
+ #
+-# Usage: bin/dispatch-round.sh <round-dir e.g. /home/jes/sol-docp8> <round-name
+ e.g. phase 8>
++# Usage: bin/dispatch-round.sh <round-dir e.g. /home/jes/sol-docp8> <round-name
+ e.g. phase 8> [--preflight] [--prompt <worktree-relative path> | --prompt-out-o
+f-tree]
+ set -euo pipefail
+-dir="${1:?round dir}"; name="${2:?round name as it appears in the prompt}"; mod
+e="${3:-}"  # --preflight: run every refusal check, dispatch nothing
+-wt="$dir/wt"; prompt="$dir/prompt.txt"
++dir="${1:?round dir}"; name="${2:?round name as it appears in the prompt}"; shi
+ft 2
++mode=""; prompt_mode="in-tree"; prompt_override=""
++while [ "$#" -gt 0 ]; do
++  case "$1" in
++    --preflight) mode="--preflight"; shift ;;
++    --prompt)
++      [ "$#" -ge 2 ] || { echo "REFUSED: --prompt requires a path relative to t
+he worktree." >&2; exit 65; }
++      prompt_mode="in-tree"; prompt_override=$2; shift 2 ;;
++    --prompt-out-of-tree) prompt_mode="out-of-tree"; prompt_override=""; shift
+;;
++    *) shift ;; # Preserve the old treatment of otherwise-unused trailing argum
+ents.
++  esac
++done
++wt="$dir/wt"
+ [ -d "$wt/.git" ] || [ -f "$wt/.git" ] || { echo "REFUSED: no worktree at $wt"
+>&2; exit 64; }
++if [ "$prompt_mode" = "out-of-tree" ]; then
++  prompt="$dir/prompt.txt"; prompt_rel=""; blob="none (out of tree)"
++  echo "WARNING: round '$name' uses an out-of-tree brief; the brief will not be
+ readable from the remote." >&2
++else
++  slug=$(LC_ALL=C printf '%s' "$name" | tr '[:upper:]' '[:lower:]' | sed -E 's/
+[^a-z0-9]/-/g; s/-+/-/g')
++  prompt_rel=${prompt_override:-docs/plans/sol/$slug/prompt.txt}
++  case "$prompt_rel" in
++    /*) echo "REFUSED: --prompt path must be relative to the worktree: $prompt_
+rel" >&2; exit 65 ;;
++  esac
++  wt_real=$(cd "$wt" && pwd -P)
++  prompt_real=$(realpath -m -- "$wt/$prompt_rel")
++  case "$prompt_real" in
++    "$wt_real"/*) ;;
++    *) echo "REFUSED: --prompt path escapes the worktree: $prompt_rel" >&2; exi
+t 65 ;;
++  esac
++  prompt="$wt/$prompt_rel"
++fi
+ [ -s "$prompt" ] || { echo "REFUSED: $prompt is missing or empty — nothing to d
+ispatch." >&2; exit 65; }
+ grep -qF -- "$name" "$prompt" || { echo "REFUSED: prompt does not name the roun
+d '$name'." >&2; exit 65; }
+ [ "$(wc -w < "$prompt")" -ge 100 ] || { echo "REFUSED: prompt is $(wc -w < "$pr
+ompt") words; a real brief is longer." >&2; exit 65; }
++if [ "$prompt_mode" = "in-tree" ]; then
++  git -C "$wt" ls-files --error-unmatch -- "$prompt_rel" >/dev/null 2>&1 || { e
+cho "REFUSED: in-tree brief is not tracked by git in the worktree (a): $prompt"
+>&2; exit 69; }
++  git -C "$wt" diff --quiet HEAD -- "$prompt_rel" || { echo "REFUSED: in-tree b
+rief is tracked but modified relative to HEAD (b): $prompt" >&2; exit 69; }
++  blob=$(git -C "$wt" rev-parse "HEAD:$prompt_rel")
++fi
+ base=$(git -C "$wt" rev-parse HEAD)
+ git -C "$wt" fetch -q origin
+ git -C "$wt" branch -r --contains "$base" | grep -q . || { echo "REFUSED: workt
+ree HEAD $base is on no remote ref. Push first." >&2; exit 66; }
+@@ -34,7 +67,7 @@
+ rc=0; out=$(cd "$wt" && mix deps.get 2>&1) || rc=$?; [ "$rc" -eq 0 ] || { echo
+"$out" | tail -5; echo "REFUSED: mix deps.get failed on the host (rc=$rc); not d
+ispatching a round that would fetch inside the fence." >&2; exit 68; }
+ rc=0; out=$(cd "$wt" && MIX_ENV=test mix compile 2>&1) || rc=$?; [ "$rc" -eq 0
+] || { echo "$out" | tail -5; echo "REFUSED: test compile failed on the host (rc
+=$rc)." >&2; exit 68; }
+ [ -d "$wt/deps" ] && [ "$(ls "$wt/deps" | wc -l)" -gt 0 ] || { echo "REFUSED: $
+wt/deps is empty after deps.get -- wrong referent, not a clean state." >&2; exit
+ 68; }
+-[ "$mode" = "--preflight" ] && { echo "PREFLIGHT OK: $dir would dispatch '$name
+' (deps $(ls "$wt/deps" | wc -l), compiled)."; exit 0; }
++[ "$mode" = "--preflight" ] && { echo "PREFLIGHT OK: $dir would dispatch '$name
+' with prompt=$prompt blob=$blob (deps $(ls "$wt/deps" | wc -l), compiled)."; ex
+it 0; }
+ win="$(basename "$dir")"
+ tmux new-window -d -t 0: -n "$win" -c "$dir" \
+   "SOL_WORKDIR=$wt /home/jes/boss-clod/sol-egress-run.sh \"\$(cat $prompt)\" 2>
+&1 | tee $dir/sol-run.log; echo \"=== sol EXITED rc=\${PIPESTATUS[0]} ===\"; sle
+ep 86400"
+@@ -50,4 +83,4 @@
+   [ -z "${outer:-}" ] && outer=$pid && echo "$pid" > "$dir/outer.pid"
+ done
+ [ "$n" -gt 0 ] || { echo "NOT RUNNING: no codex process on $wt after 20s. Read
+$dir/sol-run.log." >&2; exit 1; }
+-echo "DISPATCHED $name in tmux window $win, outer pid $(cat "$dir/outer.pid");
+wait on it by pid."
++echo "DISPATCHED $name in tmux window $win with prompt=$prompt blob=$blob, oute
+r pid $(cat "$dir/outer.pid"); wait on it by pid."
+diff --git a/bin/test-dispatch-prompt.sh b/bin/test-dispatch-prompt.sh
+new file mode 100644
+index 0000000000000000000000000000000000000000..8699cadea8bae6d5989f062e406d80fc
+3a22a00a
+--- /dev/null
++++ b/bin/test-dispatch-prompt.sh
+@@ -0,0 +1,133 @@
++#!/usr/bin/env bash
++# Self-test for dispatch-round prompt provenance. Fixtures are disposable local
+ repositories;
++# this script never dispatches a real round and never contacts a network remote
+.
++set -uo pipefail
++
++ROOT=$(cd "$(dirname "$0")/.." && pwd -P)
++SCRIPT="$ROOT/bin/dispatch-round.sh"
++for need in bash git mktemp realpath; do
++  command -v "$need" >/dev/null 2>&1 || { echo "BLIND: required command is unav
+ailable: $need" >&2; exit 2; }
++done
++[ -r "$SCRIPT" ] || { echo "BLIND: dispatch script is not readable: $SCRIPT" >&
+2; exit 2; }
++
++T=$(mktemp -d) || { echo "BLIND: could not create fixture directory" >&2; exit
+2; }
++trap 'rm -rf -- "$T" || true' EXIT
++mkdir -p "$T/fakebin" || { echo "BLIND: could not create fixture tools" >&2; ex
+it 2; }
++printf '%s\n' '#!/usr/bin/env bash' 'case "${1:-}" in deps.get) mkdir -p deps/f
+ake; : > deps/fake/fixture ;; compile) : ;; esac' > "$T/fakebin/mix"
++printf '%s\n' '#!/usr/bin/env bash' ': > "${DISPATCH_TEST_TMUX_MARKER:?}"' > "$
+T/fakebin/tmux"
++printf '%s\n' '#!/usr/bin/env bash' 'exit 0' > "$T/fakebin/sleep"
++chmod +x "$T/fakebin/mix" "$T/fakebin/tmux" "$T/fakebin/sleep"
++
++NAME="PROMPT-IN-TREE-1"
++REL="docs/plans/sol/prompt-in-tree-1/prompt.txt"
++make_prompt() {
++  local path=$1
++  mkdir -p "$(dirname "$path")"
++  {
++    printf '%s\n' "$NAME"
++    for n in $(seq 1 110); do printf 'fixture%s ' "$n"; done
++    printf '\n'
++  } > "$path"
++}
++make_fixture() {
++  local label=$1 round="$T/$1" wt="$T/$1/wt" bare="$T/$1-origin.git"
++  mkdir -p "$round"
++  git init -q --bare "$bare" || return 1
++  git init -q "$wt" || return 1
++  git -C "$wt" config user.email fixture@example.invalid || return 1
++  git -C "$wt" config user.name Fixture || return 1
++  printf 'fixture\n' > "$wt/README"
++  git -C "$wt" add README || return 1
++  git -C "$wt" commit -qm base || return 1
++  git -C "$wt" remote add origin "$bare" || return 1
++  git -C "$wt" push -qu origin HEAD || return 1
++}
++commit_prompt() {
++  local wt=$1
++  make_prompt "$wt/$REL"
++  git -C "$wt" add "$REL" || return 1
++  git -C "$wt" commit -qm prompt || return 1
++  git -C "$wt" push -q origin HEAD || return 1
++}
++run_dispatch() {
++  local marker=$1; shift
++  rm -f -- "$marker"
++  OUT=$(PATH="$T/fakebin:$PATH" DISPATCH_TEST_TMUX_MARKER="$marker" bash "$SCRI
+PT" "$@" 2>&1)
++  RC=$?
++}
++setup_or_blind() {
++  "$@" || { echo "BLIND: fixture setup failed while running: $*" >&2; exit 2; }
++}
++fail_arm() {
++  local arm=$1 detail=$2
++  echo "$arm FAIL: $detail" >&2
++  printf '%s\n' "$OUT" >&2
++  failures=$((failures+1))
++}
++
++failures=0
++
++setup_or_blind make_fixture p1
++make_prompt "$T/p1/wt/$REL"
++run_dispatch "$T/p1.tmux" "$T/p1" "$NAME" --preflight
++p1_a=$(printf '%s\n' "$OUT" | grep -cF 'not tracked by git in the worktree (a)'
+ || true)
++if [ "$RC" -eq 69 ] && [ "$p1_a" -eq 1 ]; then
++  echo "P1 PASS: untracked default brief refused with rc 69 and named (a)."
++else
++  fail_arm P1 "expected rc=69 and one (a) refusal; got rc=$RC count=$p1_a"
++fi
++
++setup_or_blind make_fixture p2
++setup_or_blind commit_prompt "$T/p2/wt"
++printf 'modified\n' >> "$T/p2/wt/$REL"
++run_dispatch "$T/p2.tmux" "$T/p2" "$NAME" --preflight
++p2_b=$(printf '%s\n' "$OUT" | grep -cF 'tracked but modified relative to HEAD (
+b)' || true)
++if [ "$RC" -eq 69 ] && [ "$p2_b" -eq 1 ]; then
++  echo "P2 PASS: modified tracked brief refused with rc 69 and named (b)."
++else
++  fail_arm P2 "expected rc=69 and one (b) refusal; got rc=$RC count=$p2_b"
++fi
++
++setup_or_blind make_fixture p3
++setup_or_blind commit_prompt "$T/p3/wt"
++expected=$(git -C "$T/p3/wt" rev-parse "HEAD:$REL") || { echo "BLIND: could not
+ compute P3 blob" >&2; exit 2; }
++run_dispatch "$T/p3.tmux" "$T/p3" "$NAME" --preflight
++p3_ok=$(printf '%s\n' "$OUT" | grep -cF "PREFLIGHT OK:" || true)
++p3_blob=$(printf '%s\n' "$OUT" | grep -cF "blob=$expected" || true)
++p3_path=$(printf '%s\n' "$OUT" | grep -cF "prompt=$T/p3/wt/$REL" || true)
++if [ "$RC" -eq 0 ] && [ "$p3_ok" -eq 1 ] && [ "$p3_blob" -eq 1 ] && [ "$p3_path
+" -eq 1 ]; then
++  echo "P3 PASS: committed default brief preflight printed independently comput
+ed blob $expected."
++else
++  fail_arm P3 "expected rc=0 with path and blob; got rc=$RC ok=$p3_ok path=$p3_
+path blob=$p3_blob"
++fi
++
++setup_or_blind make_fixture p4
++setup_or_blind commit_prompt "$T/p4/wt"
++make_prompt "$T/p4/outside.txt"
++run_dispatch "$T/p4.tmux" "$T/p4" "$NAME" --prompt ../outside.txt
++p4_escape=$(printf '%s\n' "$OUT" | grep -cF 'path escapes the worktree' || true
+)
++p4_dispatch=$(printf '%s\n' "$OUT" | grep -c '^DISPATCHED ' || true)
++if [ "$RC" -ne 0 ] && [ "$p4_escape" -eq 1 ] && [ "$p4_dispatch" -eq 0 ] && [ !
+ -e "$T/p4.tmux" ]; then
++  echo "P4 PASS: escaping --prompt path refused without dispatch."
++else
++  fail_arm P4 "expected refusal and no tmux call; got rc=$RC escape=$p4_escape
+dispatched=$p4_dispatch tmux=$([ -e "$T/p4.tmux" ] && echo yes || echo no)"
++fi
++
++setup_or_blind make_fixture p5
++make_prompt "$T/p5/prompt.txt"
++run_dispatch "$T/p5.tmux" "$T/p5" "$NAME" --prompt-out-of-tree --preflight
++p5_ok=$(printf '%s\n' "$OUT" | grep -cF 'PREFLIGHT OK:' || true)
++p5_warning=$(printf '%s\n' "$OUT" | grep -cF "WARNING: round '$NAME' uses an ou
+t-of-tree brief; the brief will not be readable from the remote." || true)
++p5_blob=$(printf '%s\n' "$OUT" | grep -cF 'blob=none (out of tree)' || true)
++if [ "$RC" -eq 0 ] && [ "$p5_ok" -eq 1 ] && [ "$p5_warning" -eq 1 ] && [ "$p5_b
+lob" -eq 1 ]; then
++  echo "P5 PASS: legacy out-of-tree brief preflight succeeded and printed the r
+emote-readability warning."
++else
++  fail_arm P5 "expected rc=0 with warning and out-of-tree blob; got rc=$RC ok=$
+p5_ok warning=$p5_warning blob=$p5_blob"
++fi
++
++if [ "$failures" -gt 0 ]; then
++  echo "SELF-TEST FAIL: $failures arm(s) failed." >&2
++  exit 1
++fi
++echo "SELF-TEST PASS: P1 P2 P3 P4 P5 all passed."
++exit 0
+
+exec
+/bin/bash -lc 'bash -n bin/test-dispatch-prompt.sh' in /home/jes/sol-cell-prompt
+-in-tree/wt
+ succeeded in 0ms:
+diff --git a/bin/dispatch-round.sh b/bin/dispatch-round.sh
+index 6a9d9f57ccf697febc6ec2a1e24dffcc6e47f09d..01336675d7861236b198b8823a08d160
+a4a32207
+--- a/bin/dispatch-round.sh
++++ b/bin/dispatch-round.sh
+@@ -12,14 +12,47 @@
+ # Also refuses if the plan commit the round is built on is not on origin —
+ # a round whose description exists on one disk is a round you cannot rebuild.
+ #
+-# Usage: bin/dispatch-round.sh <round-dir e.g. /home/jes/sol-docp8> <round-name
+ e.g. phase 8>
++# Usage: bin/dispatch-round.sh <round-dir e.g. /home/jes/sol-docp8> <round-name
+ e.g. phase 8> [--preflight] [--prompt <worktree-relative path> | --prompt-out-o
+f-tree]
+ set -euo pipefail
+-dir="${1:?round dir}"; name="${2:?round name as it appears in the prompt}"; mod
+e="${3:-}"  # --preflight: run every refusal check, dispatch nothing
+-wt="$dir/wt"; prompt="$dir/prompt.txt"
++dir="${1:?round dir}"; name="${2:?round name as it appears in the prompt}"; shi
+ft 2
++mode=""; prompt_mode="in-tree"; prompt_override=""
++while [ "$#" -gt 0 ]; do
++  case "$1" in
++    --preflight) mode="--preflight"; shift ;;
++    --prompt)
++      [ "$#" -ge 2 ] || { echo "REFUSED: --prompt requires a path relative to t
+he worktree." >&2; exit 65; }
++      prompt_mode="in-tree"; prompt_override=$2; shift 2 ;;
++    --prompt-out-of-tree) prompt_mode="out-of-tree"; prompt_override=""; shift
+;;
++    *) shift ;; # Preserve the old treatment of otherwise-unused trailing argum
+ents.
++  esac
++done
++wt="$dir/wt"
+ [ -d "$wt/.git" ] || [ -f "$wt/.git" ] || { echo "REFUSED: no worktree at $wt"
+>&2; exit 64; }
++if [ "$prompt_mode" = "out-of-tree" ]; then
++  prompt="$dir/prompt.txt"; prompt_rel=""; blob="none (out of tree)"
++  echo "WARNING: round '$name' uses an out-of-tree brief; the brief will not be
+ readable from the remote." >&2
++else
++  slug=$(LC_ALL=C printf '%s' "$name" | tr '[:upper:]' '[:lower:]' | sed -E 's/
+[^a-z0-9]/-/g; s/-+/-/g')
++  prompt_rel=${prompt_override:-docs/plans/sol/$slug/prompt.txt}
++  case "$prompt_rel" in
++    /*) echo "REFUSED: --prompt path must be relative to the worktree: $prompt_
+rel" >&2; exit 65 ;;
++  esac
++  wt_real=$(cd "$wt" && pwd -P)
++  prompt_real=$(realpath -m -- "$wt/$prompt_rel")
++  case "$prompt_real" in
++    "$wt_real"/*) ;;
++    *) echo "REFUSED: --prompt path escapes the worktree: $prompt_rel" >&2; exi
+t 65 ;;
++  esac
++  prompt="$wt/$prompt_rel"
++fi
+ [ -s "$prompt" ] || { echo "REFUSED: $prompt is missing or empty — nothing to d
+ispatch." >&2; exit 65; }
+ grep -qF -- "$name" "$prompt" || { echo "REFUSED: prompt does not name the roun
+d '$name'." >&2; exit 65; }
+ [ "$(wc -w < "$prompt")" -ge 100 ] || { echo "REFUSED: prompt is $(wc -w < "$pr
+ompt") words; a real brief is longer." >&2; exit 65; }
++if [ "$prompt_mode" = "in-tree" ]; then
++  git -C "$wt" ls-files --error-unmatch -- "$prompt_rel" >/dev/null 2>&1 || { e
+cho "REFUSED: in-tree brief is not tracked by git in the worktree (a): $prompt"
+>&2; exit 69; }
++  git -C "$wt" diff --quiet HEAD -- "$prompt_rel" || { echo "REFUSED: in-tree b
+rief is tracked but modified relative to HEAD (b): $prompt" >&2; exit 69; }
++  blob=$(git -C "$wt" rev-parse "HEAD:$prompt_rel")
++fi
+ base=$(git -C "$wt" rev-parse HEAD)
+ git -C "$wt" fetch -q origin
+ git -C "$wt" branch -r --contains "$base" | grep -q . || { echo "REFUSED: workt
+ree HEAD $base is on no remote ref. Push first." >&2; exit 66; }
+@@ -34,7 +67,7 @@
+ rc=0; out=$(cd "$wt" && mix deps.get 2>&1) || rc=$?; [ "$rc" -eq 0 ] || { echo
+"$out" | tail -5; echo "REFUSED: mix deps.get failed on the host (rc=$rc); not d
+ispatching a round that would fetch inside the fence." >&2; exit 68; }
+ rc=0; out=$(cd "$wt" && MIX_ENV=test mix compile 2>&1) || rc=$?; [ "$rc" -eq 0
+] || { echo "$out" | tail -5; echo "REFUSED: test compile failed on the host (rc
+=$rc)." >&2; exit 68; }
+ [ -d "$wt/deps" ] && [ "$(ls "$wt/deps" | wc -l)" -gt 0 ] || { echo "REFUSED: $
+wt/deps is empty after deps.get -- wrong referent, not a clean state." >&2; exit
+ 68; }
+-[ "$mode" = "--preflight" ] && { echo "PREFLIGHT OK: $dir would dispatch '$name
+' (deps $(ls "$wt/deps" | wc -l), compiled)."; exit 0; }
++[ "$mode" = "--preflight" ] && { echo "PREFLIGHT OK: $dir would dispatch '$name
+' with prompt=$prompt blob=$blob (deps $(ls "$wt/deps" | wc -l), compiled)."; ex
+it 0; }
+ win="$(basename "$dir")"
+ tmux new-window -d -t 0: -n "$win" -c "$dir" \
+   "SOL_WORKDIR=$wt /home/jes/boss-clod/sol-egress-run.sh \"\$(cat $prompt)\" 2>
+&1 | tee $dir/sol-run.log; echo \"=== sol EXITED rc=\${PIPESTATUS[0]} ===\"; sle
+ep 86400"
+@@ -50,4 +83,4 @@
+   [ -z "${outer:-}" ] && outer=$pid && echo "$pid" > "$dir/outer.pid"
+ done
+ [ "$n" -gt 0 ] || { echo "NOT RUNNING: no codex process on $wt after 20s. Read
+$dir/sol-run.log." >&2; exit 1; }
+-echo "DISPATCHED $name in tmux window $win, outer pid $(cat "$dir/outer.pid");
+wait on it by pid."
++echo "DISPATCHED $name in tmux window $win with prompt=$prompt blob=$blob, oute
+r pid $(cat "$dir/outer.pid"); wait on it by pid."
+diff --git a/bin/test-dispatch-prompt.sh b/bin/test-dispatch-prompt.sh
+new file mode 100644
+index 0000000000000000000000000000000000000000..8699cadea8bae6d5989f062e406d80fc
+3a22a00a
+--- /dev/null
++++ b/bin/test-dispatch-prompt.sh
+@@ -0,0 +1,133 @@
++#!/usr/bin/env bash
++# Self-test for dispatch-round prompt provenance. Fixtures are disposable local
+ repositories;
++# this script never dispatches a real round and never contacts a network remote
+.
++set -uo pipefail
++
++ROOT=$(cd "$(dirname "$0")/.." && pwd -P)
++SCRIPT="$ROOT/bin/dispatch-round.sh"
++for need in bash git mktemp realpath; do
++  command -v "$need" >/dev/null 2>&1 || { echo "BLIND: required command is unav
+ailable: $need" >&2; exit 2; }
++done
++[ -r "$SCRIPT" ] || { echo "BLIND: dispatch script is not readable: $SCRIPT" >&
+2; exit 2; }
++
++T=$(mktemp -d) || { echo "BLIND: could not create fixture directory" >&2; exit
+2; }
++trap 'rm -rf -- "$T" || true' EXIT
++mkdir -p "$T/fakebin" || { echo "BLIND: could not create fixture tools" >&2; ex
+it 2; }
++printf '%s\n' '#!/usr/bin/env bash' 'case "${1:-}" in deps.get) mkdir -p deps/f
+ake; : > deps/fake/fixture ;; compile) : ;; esac' > "$T/fakebin/mix"
++printf '%s\n' '#!/usr/bin/env bash' ': > "${DISPATCH_TEST_TMUX_MARKER:?}"' > "$
+T/fakebin/tmux"
++printf '%s\n' '#!/usr/bin/env bash' 'exit 0' > "$T/fakebin/sleep"
++chmod +x "$T/fakebin/mix" "$T/fakebin/tmux" "$T/fakebin/sleep"
++
++NAME="PROMPT-IN-TREE-1"
++REL="docs/plans/sol/prompt-in-tree-1/prompt.txt"
++make_prompt() {
++  local path=$1
++  mkdir -p "$(dirname "$path")"
++  {
++    printf '%s\n' "$NAME"
++    for n in $(seq 1 110); do printf 'fixture%s ' "$n"; done
++    printf '\n'
++  } > "$path"
++}
++make_fixture() {
++  local label=$1 round="$T/$1" wt="$T/$1/wt" bare="$T/$1-origin.git"
++  mkdir -p "$round"
++  git init -q --bare "$bare" || return 1
++  git init -q "$wt" || return 1
++  git -C "$wt" config user.email fixture@example.invalid || return 1
++  git -C "$wt" config user.name Fixture || return 1
++  printf 'fixture\n' > "$wt/README"
++  git -C "$wt" add README || return 1
++  git -C "$wt" commit -qm base || return 1
++  git -C "$wt" remote add origin "$bare" || return 1
++  git -C "$wt" push -qu origin HEAD || return 1
++}
++commit_prompt() {
++  local wt=$1
++  make_prompt "$wt/$REL"
++  git -C "$wt" add "$REL" || return 1
++  git -C "$wt" commit -qm prompt || return 1
++  git -C "$wt" push -q origin HEAD || return 1
++}
++run_dispatch() {
++  local marker=$1; shift
++  rm -f -- "$marker"
++  OUT=$(PATH="$T/fakebin:$PATH" DISPATCH_TEST_TMUX_MARKER="$marker" bash "$SCRI
+PT" "$@" 2>&1)
++  RC=$?
++}
++setup_or_blind() {
++  "$@" || { echo "BLIND: fixture setup failed while running: $*" >&2; exit 2; }
++}
++fail_arm() {
++  local arm=$1 detail=$2
++  echo "$arm FAIL: $detail" >&2
++  printf '%s\n' "$OUT" >&2
++  failures=$((failures+1))
++}
++
++failures=0
++
++setup_or_blind make_fixture p1
++make_prompt "$T/p1/wt/$REL"
++run_dispatch "$T/p1.tmux" "$T/p1" "$NAME" --preflight
++p1_a=$(printf '%s\n' "$OUT" | grep -cF 'not tracked by git in the worktree (a)'
+ || true)
++if [ "$RC" -eq 69 ] && [ "$p1_a" -eq 1 ]; then
++  echo "P1 PASS: untracked default brief refused with rc 69 and named (a)."
++else
++  fail_arm P1 "expected rc=69 and one (a) refusal; got rc=$RC count=$p1_a"
++fi
++
++setup_or_blind make_fixture p2
++setup_or_blind commit_prompt "$T/p2/wt"
++printf 'modified\n' >> "$T/p2/wt/$REL"
++run_dispatch "$T/p2.tmux" "$T/p2" "$NAME" --preflight
++p2_b=$(printf '%s\n' "$OUT" | grep -cF 'tracked but modified relative to HEAD (
+b)' || true)
++if [ "$RC" -eq 69 ] && [ "$p2_b" -eq 1 ]; then
++  echo "P2 PASS: modified tracked brief refused with rc 69 and named (b)."
++else
++  fail_arm P2 "expected rc=69 and one (b) refusal; got rc=$RC count=$p2_b"
++fi
++
++setup_or_blind make_fixture p3
++setup_or_blind commit_prompt "$T/p3/wt"
++expected=$(git -C "$T/p3/wt" rev-parse "HEAD:$REL") || { echo "BLIND: could not
+ compute P3 blob" >&2; exit 2; }
++run_dispatch "$T/p3.tmux" "$T/p3" "$NAME" --preflight
++p3_ok=$(printf '%s\n' "$OUT" | grep -cF "PREFLIGHT OK:" || true)
++p3_blob=$(printf '%s\n' "$OUT" | grep -cF "blob=$expected" || true)
++p3_path=$(printf '%s\n' "$OUT" | grep -cF "prompt=$T/p3/wt/$REL" || true)
++if [ "$RC" -eq 0 ] && [ "$p3_ok" -eq 1 ] && [ "$p3_blob" -eq 1 ] && [ "$p3_path
+" -eq 1 ]; then
++  echo "P3 PASS: committed default brief preflight printed independently comput
+ed blob $expected."
++else
++  fail_arm P3 "expected rc=0 with path and blob; got rc=$RC ok=$p3_ok path=$p3_
+path blob=$p3_blob"
++fi
++
++setup_or_blind make_fixture p4
++setup_or_blind commit_prompt "$T/p4/wt"
++make_prompt "$T/p4/outside.txt"
++run_dispatch "$T/p4.tmux" "$T/p4" "$NAME" --prompt ../outside.txt
++p4_escape=$(printf '%s\n' "$OUT" | grep -cF 'path escapes the worktree' || true
+)
++p4_dispatch=$(printf '%s\n' "$OUT" | grep -c '^DISPATCHED ' || true)
++if [ "$RC" -ne 0 ] && [ "$p4_escape" -eq 1 ] && [ "$p4_dispatch" -eq 0 ] && [ !
+ -e "$T/p4.tmux" ]; then
++  echo "P4 PASS: escaping --prompt path refused without dispatch."
++else
++  fail_arm P4 "expected refusal and no tmux call; got rc=$RC escape=$p4_escape
+dispatched=$p4_dispatch tmux=$([ -e "$T/p4.tmux" ] && echo yes || echo no)"
++fi
++
++setup_or_blind make_fixture p5
++make_prompt "$T/p5/prompt.txt"
++run_dispatch "$T/p5.tmux" "$T/p5" "$NAME" --prompt-out-of-tree --preflight
++p5_ok=$(printf '%s\n' "$OUT" | grep -cF 'PREFLIGHT OK:' || true)
++p5_warning=$(printf '%s\n' "$OUT" | grep -cF "WARNING: round '$NAME' uses an ou
+t-of-tree brief; the brief will not be readable from the remote." || true)
++p5_blob=$(printf '%s\n' "$OUT" | grep -cF 'blob=none (out of tree)' || true)
++if [ "$RC" -eq 0 ] && [ "$p5_ok" -eq 1 ] && [ "$p5_warning" -eq 1 ] && [ "$p5_b
+lob" -eq 1 ]; then
++  echo "P5 PASS: legacy out-of-tree brief preflight succeeded and printed the r
+emote-readability warning."
++else
++  fail_arm P5 "expected rc=0 with warning and out-of-tree blob; got rc=$RC ok=$
+p5_ok warning=$p5_warning blob=$p5_blob"
++fi
++
++if [ "$failures" -gt 0 ]; then
++  echo "SELF-TEST FAIL: $failures arm(s) failed." >&2
++  exit 1
++fi
++echo "SELF-TEST PASS: P1 P2 P3 P4 P5 all passed."
++exit 0
+
+exec
+/bin/bash -lc 'bash bin/test-dispatch-prompt.sh' in /home/jes/sol-cell-prompt-in
+-tree/wt
+ succeeded in 729ms:
+P1 PASS: untracked default brief refused with rc 69 and named (a).
+P2 PASS: modified tracked brief refused with rc 69 and named (b).
+P3 PASS: committed default brief preflight printed independently computed blob 6
+31bc8705400f2efd9ad3afb833f72b4a003fa58.
+P4 PASS: escaping --prompt path refused without dispatch.
+P5 PASS: legacy out-of-tree brief preflight succeeded and printed the remote-rea
+dability warning.
+SELF-TEST PASS: P1 P2 P3 P4 P5 all passed.
+
+diff --git a/bin/dispatch-round.sh b/bin/dispatch-round.sh
+index 6a9d9f57ccf697febc6ec2a1e24dffcc6e47f09d..01336675d7861236b198b8823a08d160
+a4a32207
+--- a/bin/dispatch-round.sh
++++ b/bin/dispatch-round.sh
+@@ -12,14 +12,47 @@
+ # Also refuses if the plan commit the round is built on is not on origin —
+ # a round whose description exists on one disk is a round you cannot rebuild.
+ #
+-# Usage: bin/dispatch-round.sh <round-dir e.g. /home/jes/sol-docp8> <round-name
+ e.g. phase 8>
++# Usage: bin/dispatch-round.sh <round-dir e.g. /home/jes/sol-docp8> <round-name
+ e.g. phase 8> [--preflight] [--prompt <worktree-relative path> | --prompt-out-o
+f-tree]
+ set -euo pipefail
+-dir="${1:?round dir}"; name="${2:?round name as it appears in the prompt}"; mod
+e="${3:-}"  # --preflight: run every refusal check, dispatch nothing
+-wt="$dir/wt"; prompt="$dir/prompt.txt"
++dir="${1:?round dir}"; name="${2:?round name as it appears in the prompt}"; shi
+ft 2
++mode=""; prompt_mode="in-tree"; prompt_override=""
++while [ "$#" -gt 0 ]; do
++  case "$1" in
++    --preflight) mode="--preflight"; shift ;;
++    --prompt)
++      [ "$#" -ge 2 ] || { echo "REFUSED: --prompt requires a path relative to t
+he worktree." >&2; exit 65; }
++      prompt_mode="in-tree"; prompt_override=$2; shift 2 ;;
++    --prompt-out-of-tree) prompt_mode="out-of-tree"; prompt_override=""; shift
+;;
++    *) shift ;; # Preserve the old treatment of otherwise-unused trailing argum
+ents.
++  esac
++done
++wt="$dir/wt"
+ [ -d "$wt/.git" ] || [ -f "$wt/.git" ] || { echo "REFUSED: no worktree at $wt"
+>&2; exit 64; }
++if [ "$prompt_mode" = "out-of-tree" ]; then
++  prompt="$dir/prompt.txt"; prompt_rel=""; blob="none (out of tree)"
++  echo "WARNING: round '$name' uses an out-of-tree brief; the brief will not be
+ readable from the remote." >&2
++else
++  slug=$(LC_ALL=C printf '%s' "$name" | tr '[:upper:]' '[:lower:]' | sed -E 's/
+[^a-z0-9]/-/g; s/-+/-/g')
++  prompt_rel=${prompt_override:-docs/plans/sol/$slug/prompt.txt}
++  case "$prompt_rel" in
++    /*) echo "REFUSED: --prompt path must be relative to the worktree: $prompt_
+rel" >&2; exit 65 ;;
++  esac
++  wt_real=$(cd "$wt" && pwd -P)
++  prompt_real=$(realpath -m -- "$wt/$prompt_rel")
++  case "$prompt_real" in
++    "$wt_real"/*) ;;
++    *) echo "REFUSED: --prompt path escapes the worktree: $prompt_rel" >&2; exi
+t 65 ;;
++  esac
++  prompt="$wt/$prompt_rel"
++fi
+ [ -s "$prompt" ] || { echo "REFUSED: $prompt is missing or empty — nothing to d
+ispatch." >&2; exit 65; }
+ grep -qF -- "$name" "$prompt" || { echo "REFUSED: prompt does not name the roun
+d '$name'." >&2; exit 65; }
+ [ "$(wc -w < "$prompt")" -ge 100 ] || { echo "REFUSED: prompt is $(wc -w < "$pr
+ompt") words; a real brief is longer." >&2; exit 65; }
++if [ "$prompt_mode" = "in-tree" ]; then
++  git -C "$wt" ls-files --error-unmatch -- "$prompt_rel" >/dev/null 2>&1 || { e
+cho "REFUSED: in-tree brief is not tracked by git in the worktree (a): $prompt"
+>&2; exit 69; }
++  git -C "$wt" diff --quiet HEAD -- "$prompt_rel" || { echo "REFUSED: in-tree b
+rief is tracked but modified relative to HEAD (b): $prompt" >&2; exit 69; }
++  blob=$(git -C "$wt" rev-parse "HEAD:$prompt_rel")
++fi
+ base=$(git -C "$wt" rev-parse HEAD)
+ git -C "$wt" fetch -q origin
+ git -C "$wt" branch -r --contains "$base" | grep -q . || { echo "REFUSED: workt
+ree HEAD $base is on no remote ref. Push first." >&2; exit 66; }
+@@ -34,7 +67,7 @@
+ rc=0; out=$(cd "$wt" && mix deps.get 2>&1) || rc=$?; [ "$rc" -eq 0 ] || { echo
+"$out" | tail -5; echo "REFUSED: mix deps.get failed on the host (rc=$rc); not d
+ispatching a round that would fetch inside the fence." >&2; exit 68; }
+ rc=0; out=$(cd "$wt" && MIX_ENV=test mix compile 2>&1) || rc=$?; [ "$rc" -eq 0
+] || { echo "$out" | tail -5; echo "REFUSED: test compile failed on the host (rc
+=$rc)." >&2; exit 68; }
+ [ -d "$wt/deps" ] && [ "$(ls "$wt/deps" | wc -l)" -gt 0 ] || { echo "REFUSED: $
+wt/deps is empty after deps.get -- wrong referent, not a clean state." >&2; exit
+ 68; }
+-[ "$mode" = "--preflight" ] && { echo "PREFLIGHT OK: $dir would dispatch '$name
+' (deps $(ls "$wt/deps" | wc -l), compiled)."; exit 0; }
++[ "$mode" = "--preflight" ] && { echo "PREFLIGHT OK: $dir would dispatch '$name
+' with prompt=$prompt blob=$blob (deps $(ls "$wt/deps" | wc -l), compiled)."; ex
+it 0; }
+ win="$(basename "$dir")"
+ tmux new-window -d -t 0: -n "$win" -c "$dir" \
+   "SOL_WORKDIR=$wt /home/jes/boss-clod/sol-egress-run.sh \"\$(cat $prompt)\" 2>
+&1 | tee $dir/sol-run.log; echo \"=== sol EXITED rc=\${PIPESTATUS[0]} ===\"; sle
+ep 86400"
+@@ -50,4 +83,4 @@
+   [ -z "${outer:-}" ] && outer=$pid && echo "$pid" > "$dir/outer.pid"
+ done
+ [ "$n" -gt 0 ] || { echo "NOT RUNNING: no codex process on $wt after 20s. Read
+$dir/sol-run.log." >&2; exit 1; }
+-echo "DISPATCHED $name in tmux window $win, outer pid $(cat "$dir/outer.pid");
+wait on it by pid."
++echo "DISPATCHED $name in tmux window $win with prompt=$prompt blob=$blob, oute
+r pid $(cat "$dir/outer.pid"); wait on it by pid."
+diff --git a/bin/test-dispatch-prompt.sh b/bin/test-dispatch-prompt.sh
+new file mode 100644
+index 0000000000000000000000000000000000000000..8699cadea8bae6d5989f062e406d80fc
+3a22a00a
+--- /dev/null
++++ b/bin/test-dispatch-prompt.sh
+@@ -0,0 +1,133 @@
++#!/usr/bin/env bash
++# Self-test for dispatch-round prompt provenance. Fixtures are disposable local
+ repositories;
++# this script never dispatches a real round and never contacts a network remote
+.
++set -uo pipefail
++
++ROOT=$(cd "$(dirname "$0")/.." && pwd -P)
++SCRIPT="$ROOT/bin/dispatch-round.sh"
++for need in bash git mktemp realpath; do
++  command -v "$need" >/dev/null 2>&1 || { echo "BLIND: required command is unav
+ailable: $need" >&2; exit 2; }
++done
++[ -r "$SCRIPT" ] || { echo "BLIND: dispatch script is not readable: $SCRIPT" >&
+2; exit 2; }
++
++T=$(mktemp -d) || { echo "BLIND: could not create fixture directory" >&2; exit
+2; }
++trap 'rm -rf -- "$T" || true' EXIT
++mkdir -p "$T/fakebin" || { echo "BLIND: could not create fixture tools" >&2; ex
+it 2; }
++printf '%s\n' '#!/usr/bin/env bash' 'case "${1:-}" in deps.get) mkdir -p deps/f
+ake; : > deps/fake/fixture ;; compile) : ;; esac' > "$T/fakebin/mix"
++printf '%s\n' '#!/usr/bin/env bash' ': > "${DISPATCH_TEST_TMUX_MARKER:?}"' > "$
+T/fakebin/tmux"
++printf '%s\n' '#!/usr/bin/env bash' 'exit 0' > "$T/fakebin/sleep"
++chmod +x "$T/fakebin/mix" "$T/fakebin/tmux" "$T/fakebin/sleep"
++
++NAME="PROMPT-IN-TREE-1"
++REL="docs/plans/sol/prompt-in-tree-1/prompt.txt"
++make_prompt() {
++  local path=$1
++  mkdir -p "$(dirname "$path")"
++  {
++    printf '%s\n' "$NAME"
++    for n in $(seq 1 110); do printf 'fixture%s ' "$n"; done
++    printf '\n'
++  } > "$path"
++}
++make_fixture() {
++  local label=$1 round="$T/$1" wt="$T/$1/wt" bare="$T/$1-origin.git"
++  mkdir -p "$round"
++  git init -q --bare "$bare" || return 1
++  git init -q "$wt" || return 1
++  git -C "$wt" config user.email fixture@example.invalid || return 1
++  git -C "$wt" config user.name Fixture || return 1
++  printf 'fixture\n' > "$wt/README"
++  git -C "$wt" add README || return 1
++  git -C "$wt" commit -qm base || return 1
++  git -C "$wt" remote add origin "$bare" || return 1
++  git -C "$wt" push -qu origin HEAD || return 1
++}
++commit_prompt() {
++  local wt=$1
++  make_prompt "$wt/$REL"
++  git -C "$wt" add "$REL" || return 1
++  git -C "$wt" commit -qm prompt || return 1
++  git -C "$wt" push -q origin HEAD || return 1
++}
++run_dispatch() {
++  local marker=$1; shift
++  rm -f -- "$marker"
++  OUT=$(PATH="$T/fakebin:$PATH" DISPATCH_TEST_TMUX_MARKER="$marker" bash "$SCRI
+PT" "$@" 2>&1)
++  RC=$?
++}
++setup_or_blind() {
++  "$@" || { echo "BLIND: fixture setup failed while running: $*" >&2; exit 2; }
++}
++fail_arm() {
++  local arm=$1 detail=$2
++  echo "$arm FAIL: $detail" >&2
++  printf '%s\n' "$OUT" >&2
++  failures=$((failures+1))
++}
++
++failures=0
++
++setup_or_blind make_fixture p1
++make_prompt "$T/p1/wt/$REL"
++run_dispatch "$T/p1.tmux" "$T/p1" "$NAME" --preflight
++p1_a=$(printf '%s\n' "$OUT" | grep -cF 'not tracked by git in the worktree (a)'
+ || true)
++if [ "$RC" -eq 69 ] && [ "$p1_a" -eq 1 ]; then
++  echo "P1 PASS: untracked default brief refused with rc 69 and named (a)."
++else
++  fail_arm P1 "expected rc=69 and one (a) refusal; got rc=$RC count=$p1_a"
++fi
++
++setup_or_blind make_fixture p2
++setup_or_blind commit_prompt "$T/p2/wt"
++printf 'modified\n' >> "$T/p2/wt/$REL"
++run_dispatch "$T/p2.tmux" "$T/p2" "$NAME" --preflight
++p2_b=$(printf '%s\n' "$OUT" | grep -cF 'tracked but modified relative to HEAD (
+b)' || true)
++if [ "$RC" -eq 69 ] && [ "$p2_b" -eq 1 ]; then
++  echo "P2 PASS: modified tracked brief refused with rc 69 and named (b)."
++else
++  fail_arm P2 "expected rc=69 and one (b) refusal; got rc=$RC count=$p2_b"
++fi
++
++setup_or_blind make_fixture p3
++setup_or_blind commit_prompt "$T/p3/wt"
++expected=$(git -C "$T/p3/wt" rev-parse "HEAD:$REL") || { echo "BLIND: could not
+ compute P3 blob" >&2; exit 2; }
++run_dispatch "$T/p3.tmux" "$T/p3" "$NAME" --preflight
++p3_ok=$(printf '%s\n' "$OUT" | grep -cF "PREFLIGHT OK:" || true)
++p3_blob=$(printf '%s\n' "$OUT" | grep -cF "blob=$expected" || true)
++p3_path=$(printf '%s\n' "$OUT" | grep -cF "prompt=$T/p3/wt/$REL" || true)
++if [ "$RC" -eq 0 ] && [ "$p3_ok" -eq 1 ] && [ "$p3_blob" -eq 1 ] && [ "$p3_path
+" -eq 1 ]; then
++  echo "P3 PASS: committed default brief preflight printed independently comput
+ed blob $expected."
++else
++  fail_arm P3 "expected rc=0 with path and blob; got rc=$RC ok=$p3_ok path=$p3_
+path blob=$p3_blob"
++fi
++
++setup_or_blind make_fixture p4
++setup_or_blind commit_prompt "$T/p4/wt"
++make_prompt "$T/p4/outside.txt"
++run_dispatch "$T/p4.tmux" "$T/p4" "$NAME" --prompt ../outside.txt
++p4_escape=$(printf '%s\n' "$OUT" | grep -cF 'path escapes the worktree' || true
+)
++p4_dispatch=$(printf '%s\n' "$OUT" | grep -c '^DISPATCHED ' || true)
++if [ "$RC" -ne 0 ] && [ "$p4_escape" -eq 1 ] && [ "$p4_dispatch" -eq 0 ] && [ !
+ -e "$T/p4.tmux" ]; then
++  echo "P4 PASS: escaping --prompt path refused without dispatch."
++else
++  fail_arm P4 "expected refusal and no tmux call; got rc=$RC escape=$p4_escape
+dispatched=$p4_dispatch tmux=$([ -e "$T/p4.tmux" ] && echo yes || echo no)"
++fi
++
++setup_or_blind make_fixture p5
++make_prompt "$T/p5/prompt.txt"
++run_dispatch "$T/p5.tmux" "$T/p5" "$NAME" --prompt-out-of-tree --preflight
++p5_ok=$(printf '%s\n' "$OUT" | grep -cF 'PREFLIGHT OK:' || true)
++p5_warning=$(printf '%s\n' "$OUT" | grep -cF "WARNING: round '$NAME' uses an ou
+t-of-tree brief; the brief will not be readable from the remote." || true)
++p5_blob=$(printf '%s\n' "$OUT" | grep -cF 'blob=none (out of tree)' || true)
++if [ "$RC" -eq 0 ] && [ "$p5_ok" -eq 1 ] && [ "$p5_warning" -eq 1 ] && [ "$p5_b
+lob" -eq 1 ]; then
++  echo "P5 PASS: legacy out-of-tree brief preflight succeeded and printed the r
+emote-readability warning."
++else
++  fail_arm P5 "expected rc=0 with warning and out-of-tree blob; got rc=$RC ok=$
+p5_ok warning=$p5_warning blob=$p5_blob"
++fi
++
++if [ "$failures" -gt 0 ]; then
++  echo "SELF-TEST FAIL: $failures arm(s) failed." >&2
++  exit 1
++fi
++echo "SELF-TEST PASS: P1 P2 P3 P4 P5 all passed."
++exit 0
+
+codex
+Implemented exactly the requested two-file change. No commits, branches, pushes,
+ or state-changing Git commands were run against this repository.
+
+Worktree status:
+
+```text
+ M bin/dispatch-round.sh
+?? bin/test-dispatch-prompt.sh
+```
+
+Verification:
+
+`bash -n bin/dispatch-round.sh`
+
+```text
+```
+
+Exit code: `0`
+
+`bash -n bin/test-dispatch-prompt.sh`
+
+```text
+```
+
+Exit code: `0`
+
+`bash bin/test-dispatch-prompt.sh`
+
+```text
+P1 PASS: untracked default brief refused with rc 69 and named (a).
+P2 PASS: modified tracked brief refused with rc 69 and named (b).
+P3 PASS: committed default brief preflight printed independently computed blob 6
+31bc8705400f2efd9ad3afb833f72b4a003fa58.
+P4 PASS: escaping --prompt path refused without dispatch.
+P5 PASS: legacy out-of-tree brief preflight succeeded and printed the remote-rea
+dability warning.
+SELF-TEST PASS: P1 P2 P3 P4 P5 all passed.
+```
+
+Exit code: `0`
+
+Complete `git diff`:
+
+```diff
+diff --git a/bin/dispatch-round.sh b/bin/dispatch-round.sh
+index 6a9d9f5..0133667 100755
+--- a/bin/dispatch-round.sh
++++ b/bin/dispatch-round.sh
+@@ -12,14 +12,47 @@
+ # Also refuses if the plan commit the round is built on is not on origin —
+ # a round whose description exists on one disk is a round you cannot rebuild.
+ #
+-# Usage: bin/dispatch-round.sh <round-dir e.g. /home/jes/sol-docp8> <round-name
+ e.g. phase 8>
++# Usage: bin/dispatch-round.sh <round-dir e.g. /home/jes/sol-docp8> <round-name
+ e.g. phase 8> [--preflight] [--prompt <worktree-relative path> | --prompt-out-o
+f-tree]
+ set -euo pipefail
+-dir="${1:?round dir}"; name="${2:?round name as it appears in the prompt}"; mod
+e="${3:-}"  # --preflight: run every refusal check, dispatch nothing
+-wt="$dir/wt"; prompt="$dir/prompt.txt"
++dir="${1:?round dir}"; name="${2:?round name as it appears in the prompt}"; shi
+ft 2
++mode=""; prompt_mode="in-tree"; prompt_override=""
++while [ "$#" -gt 0 ]; do
++  case "$1" in
++    --preflight) mode="--preflight"; shift ;;
++    --prompt)
++      [ "$#" -ge 2 ] || { echo "REFUSED: --prompt requires a path relative to t
+he worktree." >&2; exit 65; }
++      prompt_mode="in-tree"; prompt_override=$2; shift 2 ;;
++    --prompt-out-of-tree) prompt_mode="out-of-tree"; prompt_override=""; shift
+;;
++    *) shift ;; # Preserve the old treatment of otherwise-unused trailing argum
+ents.
++  esac
++done
++wt="$dir/wt"
+ [ -d "$wt/.git" ] || [ -f "$wt/.git" ] || { echo "REFUSED: no worktree at $wt"
+>&2; exit 64; }
++if [ "$prompt_mode" = "out-of-tree" ]; then
++  prompt="$dir/prompt.txt"; prompt_rel=""; blob="none (out of tree)"
++  echo "WARNING: round '$name' uses an out-of-tree brief; the brief will not be
+ readable from the remote." >&2
++else
++  slug=$(LC_ALL=C printf '%s' "$name" | tr '[:upper:]' '[:lower:]' | sed -E 's/
+[^a-z0-9]/-/g; s/-+/-/g')
++  prompt_rel=${prompt_override:-docs/plans/sol/$slug/prompt.txt}
++  case "$prompt_rel" in
++    /*) echo "REFUSED: --prompt path must be relative to the worktree: $prompt_
+rel" >&2; exit 65 ;;
++  esac
++  wt_real=$(cd "$wt" && pwd -P)
++  prompt_real=$(realpath -m -- "$wt/$prompt_rel")
++  case "$prompt_real" in
++    "$wt_real"/*) ;;
++    *) echo "REFUSED: --prompt path escapes the worktree: $prompt_rel" >&2; exi
+t 65 ;;
++  esac
++  prompt="$wt/$prompt_rel"
++fi
+ [ -s "$prompt" ] || { echo "REFUSED: $prompt is missing or empty — nothing to d
+ispatch." >&2; exit 65; }
+ grep -qF -- "$name" "$prompt" || { echo "REFUSED: prompt does not name the roun
+d '$name'." >&2; exit 65; }
+ [ "$(wc -w < "$prompt")" -ge 100 ] || { echo "REFUSED: prompt is $(wc -w < "$pr
+ompt") words; a real brief is longer." >&2; exit 65; }
++if [ "$prompt_mode" = "in-tree" ]; then
++  git -C "$wt" ls-files --error-unmatch -- "$prompt_rel" >/dev/null 2>&1 || { e
+cho "REFUSED: in-tree brief is not tracked by git in the worktree (a): $prompt"
+>&2; exit 69; }
++  git -C "$wt" diff --quiet HEAD -- "$prompt_rel" || { echo "REFUSED: in-tree b
+rief is tracked but modified relative to HEAD (b): $prompt" >&2; exit 69; }
++  blob=$(git -C "$wt" rev-parse "HEAD:$prompt_rel")
++fi
+ base=$(git -C "$wt" rev-parse HEAD)
+ git -C "$wt" fetch -q origin
+ git -C "$wt" branch -r --contains "$base" | grep -q . || { echo "REFUSED: workt
+ree HEAD $base is on no remote ref. Push first." >&2; exit 66; }
+@@ -34,7 +67,7 @@ git -C "$wt" branch -r --contains "$base" | grep -q . || { ech
+o "REFUSED: worktr
+ rc=0; out=$(cd "$wt" && mix deps.get 2>&1) || rc=$?; [ "$rc" -eq 0 ] || { echo
+"$out" | tail -5; echo "REFUSED: mix deps.get failed on the host (rc=$rc); not d
+ispatching a round that would fetch inside the fence." >&2; exit 68; }
+ rc=0; out=$(cd "$wt" && MIX_ENV=test mix compile 2>&1) || rc=$?; [ "$rc" -eq 0
+] || { echo "$out" | tail -5; echo "REFUSED: test compile failed on the host (rc
+=$rc)." >&2; exit 68; }
+ [ -d "$wt/deps" ] && [ "$(ls "$wt/deps" | wc -l)" -gt 0 ] || { echo "REFUSED: $
+wt/deps is empty after deps.get -- wrong referent, not a clean state." >&2; exit
+ 68; }
+-[ "$mode" = "--preflight" ] && { echo "PREFLIGHT OK: $dir would dispatch '$name
+' (deps $(ls "$wt/deps" | wc -l), compiled)."; exit 0; }
++[ "$mode" = "--preflight" ] && { echo "PREFLIGHT OK: $dir would dispatch '$name
+' with prompt=$prompt blob=$blob (deps $(ls "$wt/deps" | wc -l), compiled)."; ex
+it 0; }
+ win="$(basename "$dir")"
+ tmux new-window -d -t 0: -n "$win" -c "$dir" \
+   "SOL_WORKDIR=$wt /home/jes/boss-clod/sol-egress-run.sh \"\$(cat $prompt)\" 2>
+&1 | tee $dir/sol-run.log; echo \"=== sol EXITED rc=\${PIPESTATUS[0]} ===\"; sle
+ep 86400"
+@@ -50,4 +83,4 @@ for pid in $(ps -eo etimes,pid,cmd | awk -v d="$wt" '/[c]odex
+exec -m gpt-5.6-so
+   [ -z "${outer:-}" ] && outer=$pid && echo "$pid" > "$dir/outer.pid"
+ done
+ [ "$n" -gt 0 ] || { echo "NOT RUNNING: no codex process on $wt after 20s. Read
+$dir/sol-run.log." >&2; exit 1; }
+-echo "DISPATCHED $name in tmux window $win, outer pid $(cat "$dir/outer.pid");
+wait on it by pid."
++echo "DISPATCHED $name in tmux window $win with prompt=$prompt blob=$blob, oute
+r pid $(cat "$dir/outer.pid"); wait on it by pid."
+```
+
+New file [bin/test-dispatch-prompt.sh](/home/jes/sol-cell-prompt-in-tree/wt/bin/
+test-dispatch-prompt.sh) in full:
+
+```bash
+#!/usr/bin/env bash
+# Self-test for dispatch-round prompt provenance. Fixtures are disposable local
+repositories;
+# this script never dispatches a real round and never contacts a network remote.
+set -uo pipefail
+
+ROOT=$(cd "$(dirname "$0")/.." && pwd -P)
+SCRIPT="$ROOT/bin/dispatch-round.sh"
+for need in bash git mktemp realpath; do
+  command -v "$need" >/dev/null 2>&1 || { echo "BLIND: required command is unava
+ilable: $need" >&2; exit 2; }
+done
+[ -r "$SCRIPT" ] || { echo "BLIND: dispatch script is not readable: $SCRIPT" >&2
+; exit 2; }
+
+T=$(mktemp -d) || { echo "BLIND: could not create fixture directory" >&2; exit 2
+; }
+trap 'rm -rf -- "$T" || true' EXIT
+mkdir -p "$T/fakebin" || { echo "BLIND: could not create fixture tools" >&2; exi
+t 2; }
+printf '%s\n' '#!/usr/bin/env bash' 'case "${1:-}" in deps.get) mkdir -p deps/fa
+ke; : > deps/fake/fixture ;; compile) : ;; esac' > "$T/fakebin/mix"
+printf '%s\n' '#!/usr/bin/env bash' ': > "${DISPATCH_TEST_TMUX_MARKER:?}"' > "$T
+/fakebin/tmux"
+printf '%s\n' '#!/usr/bin/env bash' 'exit 0' > "$T/fakebin/sleep"
+chmod +x "$T/fakebin/mix" "$T/fakebin/tmux" "$T/fakebin/sleep"
+
+NAME="PROMPT-IN-TREE-1"
+REL="docs/plans/sol/prompt-in-tree-1/prompt.txt"
+make_prompt() {
+  local path=$1
+  mkdir -p "$(dirname "$path")"
+  {
+    printf '%s\n' "$NAME"
+    for n in $(seq 1 110); do printf 'fixture%s ' "$n"; done
+    printf '\n'
+  } > "$path"
+}
+make_fixture() {
+  local label=$1 round="$T/$1" wt="$T/$1/wt" bare="$T/$1-origin.git"
+  mkdir -p "$round"
+  git init -q --bare "$bare" || return 1
+  git init -q "$wt" || return 1
+  git -C "$wt" config user.email fixture@example.invalid || return 1
+  git -C "$wt" config user.name Fixture || return 1
+  printf 'fixture\n' > "$wt/README"
+  git -C "$wt" add README || return 1
+  git -C "$wt" commit -qm base || return 1
+  git -C "$wt" remote add origin "$bare" || return 1
+  git -C "$wt" push -qu origin HEAD || return 1
+}
+commit_prompt() {
+  local wt=$1
+  make_prompt "$wt/$REL"
+  git -C "$wt" add "$REL" || return 1
+  git -C "$wt" commit -qm prompt || return 1
+  git -C "$wt" push -q origin HEAD || return 1
+}
+run_dispatch() {
+  local marker=$1; shift
+  rm -f -- "$marker"
+  OUT=$(PATH="$T/fakebin:$PATH" DISPATCH_TEST_TMUX_MARKER="$marker" bash "$SCRIP
+T" "$@" 2>&1)
+  RC=$?
+}
+setup_or_blind() {
+  "$@" || { echo "BLIND: fixture setup failed while running: $*" >&2; exit 2; }
+}
+fail_arm() {
+  local arm=$1 detail=$2
+  echo "$arm FAIL: $detail" >&2
+  printf '%s\n' "$OUT" >&2
+  failures=$((failures+1))
+}
+
+failures=0
+
+setup_or_blind make_fixture p1
+make_prompt "$T/p1/wt/$REL"
+run_dispatch "$T/p1.tmux" "$T/p1" "$NAME" --preflight
+p1_a=$(printf '%s\n' "$OUT" | grep -cF 'not tracked by git in the worktree (a)'
+|| true)
+if [ "$RC" -eq 69 ] && [ "$p1_a" -eq 1 ]; then
+  echo "P1 PASS: untracked default brief refused with rc 69 and named (a)."
+else
+  fail_arm P1 "expected rc=69 and one (a) refusal; got rc=$RC count=$p1_a"
+fi
+
+setup_or_blind make_fixture p2
+setup_or_blind commit_prompt "$T/p2/wt"
+printf 'modified\n' >> "$T/p2/wt/$REL"
+run_dispatch "$T/p2.tmux" "$T/p2" "$NAME" --preflight
+p2_b=$(printf '%s\n' "$OUT" | grep -cF 'tracked but modified relative to HEAD (b
+)' || true)
+if [ "$RC" -eq 69 ] && [ "$p2_b" -eq 1 ]; then
+  echo "P2 PASS: modified tracked brief refused with rc 69 and named (b)."
+else
+  fail_arm P2 "expected rc=69 and one (b) refusal; got rc=$RC count=$p2_b"
+fi
+
+setup_or_blind make_fixture p3
+setup_or_blind commit_prompt "$T/p3/wt"
+expected=$(git -C "$T/p3/wt" rev-parse "HEAD:$REL") || { echo "BLIND: could not
+compute P3 blob" >&2; exit 2; }
+run_dispatch "$T/p3.tmux" "$T/p3" "$NAME" --preflight
+p3_ok=$(printf '%s\n' "$OUT" | grep -cF "PREFLIGHT OK:" || true)
+p3_blob=$(printf '%s\n' "$OUT" | grep -cF "blob=$expected" || true)
+p3_path=$(printf '%s\n' "$OUT" | grep -cF "prompt=$T/p3/wt/$REL" || true)
+if [ "$RC" -eq 0 ] && [ "$p3_ok" -eq 1 ] && [ "$p3_blob" -eq 1 ] && [ "$p3_path"
+ -eq 1 ]; then
+  echo "P3 PASS: committed default brief preflight printed independently compute
+d blob $expected."
+else
+  fail_arm P3 "expected rc=0 with path and blob; got rc=$RC ok=$p3_ok path=$p3_p
+ath blob=$p3_blob"
+fi
+
+setup_or_blind make_fixture p4
+setup_or_blind commit_prompt "$T/p4/wt"
+make_prompt "$T/p4/outside.txt"
+run_dispatch "$T/p4.tmux" "$T/p4" "$NAME" --prompt ../outside.txt
+p4_escape=$(printf '%s\n' "$OUT" | grep -cF 'path escapes the worktree' || true)
+p4_dispatch=$(printf '%s\n' "$OUT" | grep -c '^DISPATCHED ' || true)
+if [ "$RC" -ne 0 ] && [ "$p4_escape" -eq 1 ] && [ "$p4_dispatch" -eq 0 ] && [ !
+-e "$T/p4.tmux" ]; then
+  echo "P4 PASS: escaping --prompt path refused without dispatch."
+else
+  fail_arm P4 "expected refusal and no tmux call; got rc=$RC escape=$p4_escape d
+ispatched=$p4_dispatch tmux=$([ -e "$T/p4.tmux" ] && echo yes || echo no)"
+fi
+
+setup_or_blind make_fixture p5
+make_prompt "$T/p5/prompt.txt"
+run_dispatch "$T/p5.tmux" "$T/p5" "$NAME" --prompt-out-of-tree --preflight
+p5_ok=$(printf '%s\n' "$OUT" | grep -cF 'PREFLIGHT OK:' || true)
+p5_warning=$(printf '%s\n' "$OUT" | grep -cF "WARNING: round '$NAME' uses an out
+-of-tree brief; the brief will not be readable from the remote." || true)
+p5_blob=$(printf '%s\n' "$OUT" | grep -cF 'blob=none (out of tree)' || true)
+if [ "$RC" -eq 0 ] && [ "$p5_ok" -eq 1 ] && [ "$p5_warning" -eq 1 ] && [ "$p5_bl
+ob" -eq 1 ]; then
+  echo "P5 PASS: legacy out-of-tree brief preflight succeeded and printed the re
+mote-readability warning."
+else
+  fail_arm P5 "expected rc=0 with warning and out-of-tree blob; got rc=$RC ok=$p
+5_ok warning=$p5_warning blob=$p5_blob"
+fi
+
+if [ "$failures" -gt 0 ]; then
+  echo "SELF-TEST FAIL: $failures arm(s) failed." >&2
+  exit 1
+fi
+echo "SELF-TEST PASS: P1 P2 P3 P4 P5 all passed."
+exit 0
+```
+diff --git a/bin/dispatch-round.sh b/bin/dispatch-round.sh
+index 6a9d9f57ccf697febc6ec2a1e24dffcc6e47f09d..01336675d7861236b198b8823a08d160
+a4a32207
+--- a/bin/dispatch-round.sh
++++ b/bin/dispatch-round.sh
+@@ -12,14 +12,47 @@
+ # Also refuses if the plan commit the round is built on is not on origin —
+ # a round whose description exists on one disk is a round you cannot rebuild.
+ #
+-# Usage: bin/dispatch-round.sh <round-dir e.g. /home/jes/sol-docp8> <round-name
+ e.g. phase 8>
++# Usage: bin/dispatch-round.sh <round-dir e.g. /home/jes/sol-docp8> <round-name
+ e.g. phase 8> [--preflight] [--prompt <worktree-relative path> | --prompt-out-o
+f-tree]
+ set -euo pipefail
+-dir="${1:?round dir}"; name="${2:?round name as it appears in the prompt}"; mod
+e="${3:-}"  # --preflight: run every refusal check, dispatch nothing
+-wt="$dir/wt"; prompt="$dir/prompt.txt"
++dir="${1:?round dir}"; name="${2:?round name as it appears in the prompt}"; shi
+ft 2
++mode=""; prompt_mode="in-tree"; prompt_override=""
++while [ "$#" -gt 0 ]; do
++  case "$1" in
++    --preflight) mode="--preflight"; shift ;;
++    --prompt)
++      [ "$#" -ge 2 ] || { echo "REFUSED: --prompt requires a path relative to t
+he worktree." >&2; exit 65; }
++      prompt_mode="in-tree"; prompt_override=$2; shift 2 ;;
++    --prompt-out-of-tree) prompt_mode="out-of-tree"; prompt_override=""; shift
+;;
++    *) shift ;; # Preserve the old treatment of otherwise-unused trailing argum
+ents.
++  esac
++done
++wt="$dir/wt"
+ [ -d "$wt/.git" ] || [ -f "$wt/.git" ] || { echo "REFUSED: no worktree at $wt"
+>&2; exit 64; }
++if [ "$prompt_mode" = "out-of-tree" ]; then
++  prompt="$dir/prompt.txt"; prompt_rel=""; blob="none (out of tree)"
++  echo "WARNING: round '$name' uses an out-of-tree brief; the brief will not be
+ readable from the remote." >&2
++else
++  slug=$(LC_ALL=C printf '%s' "$name" | tr '[:upper:]' '[:lower:]' | sed -E 's/
+[^a-z0-9]/-/g; s/-+/-/g')
++  prompt_rel=${prompt_override:-docs/plans/sol/$slug/prompt.txt}
++  case "$prompt_rel" in
++    /*) echo "REFUSED: --prompt path must be relative to the worktree: $prompt_
+rel" >&2; exit 65 ;;
++  esac
++  wt_real=$(cd "$wt" && pwd -P)
++  prompt_real=$(realpath -m -- "$wt/$prompt_rel")
++  case "$prompt_real" in
++    "$wt_real"/*) ;;
++    *) echo "REFUSED: --prompt path escapes the worktree: $prompt_rel" >&2; exi
+t 65 ;;
++  esac
++  prompt="$wt/$prompt_rel"
++fi
+ [ -s "$prompt" ] || { echo "REFUSED: $prompt is missing or empty — nothing to d
+ispatch." >&2; exit 65; }
+ grep -qF -- "$name" "$prompt" || { echo "REFUSED: prompt does not name the roun
+d '$name'." >&2; exit 65; }
+ [ "$(wc -w < "$prompt")" -ge 100 ] || { echo "REFUSED: prompt is $(wc -w < "$pr
+ompt") words; a real brief is longer." >&2; exit 65; }
++if [ "$prompt_mode" = "in-tree" ]; then
++  git -C "$wt" ls-files --error-unmatch -- "$prompt_rel" >/dev/null 2>&1 || { e
+cho "REFUSED: in-tree brief is not tracked by git in the worktree (a): $prompt"
+>&2; exit 69; }
++  git -C "$wt" diff --quiet HEAD -- "$prompt_rel" || { echo "REFUSED: in-tree b
+rief is tracked but modified relative to HEAD (b): $prompt" >&2; exit 69; }
++  blob=$(git -C "$wt" rev-parse "HEAD:$prompt_rel")
++fi
+ base=$(git -C "$wt" rev-parse HEAD)
+ git -C "$wt" fetch -q origin
+ git -C "$wt" branch -r --contains "$base" | grep -q . || { echo "REFUSED: workt
+ree HEAD $base is on no remote ref. Push first." >&2; exit 66; }
+@@ -34,7 +67,7 @@
+ rc=0; out=$(cd "$wt" && mix deps.get 2>&1) || rc=$?; [ "$rc" -eq 0 ] || { echo
+"$out" | tail -5; echo "REFUSED: mix deps.get failed on the host (rc=$rc); not d
+ispatching a round that would fetch inside the fence." >&2; exit 68; }
+ rc=0; out=$(cd "$wt" && MIX_ENV=test mix compile 2>&1) || rc=$?; [ "$rc" -eq 0
+] || { echo "$out" | tail -5; echo "REFUSED: test compile failed on the host (rc
+=$rc)." >&2; exit 68; }
+ [ -d "$wt/deps" ] && [ "$(ls "$wt/deps" | wc -l)" -gt 0 ] || { echo "REFUSED: $
+wt/deps is empty after deps.get -- wrong referent, not a clean state." >&2; exit
+ 68; }
+-[ "$mode" = "--preflight" ] && { echo "PREFLIGHT OK: $dir would dispatch '$name
+' (deps $(ls "$wt/deps" | wc -l), compiled)."; exit 0; }
++[ "$mode" = "--preflight" ] && { echo "PREFLIGHT OK: $dir would dispatch '$name
+' with prompt=$prompt blob=$blob (deps $(ls "$wt/deps" | wc -l), compiled)."; ex
+it 0; }
+ win="$(basename "$dir")"
+ tmux new-window -d -t 0: -n "$win" -c "$dir" \
+   "SOL_WORKDIR=$wt /home/jes/boss-clod/sol-egress-run.sh \"\$(cat $prompt)\" 2>
+&1 | tee $dir/sol-run.log; echo \"=== sol EXITED rc=\${PIPESTATUS[0]} ===\"; sle
+ep 86400"
+@@ -50,4 +83,4 @@
+   [ -z "${outer:-}" ] && outer=$pid && echo "$pid" > "$dir/outer.pid"
+ done
+ [ "$n" -gt 0 ] || { echo "NOT RUNNING: no codex process on $wt after 20s. Read
+$dir/sol-run.log." >&2; exit 1; }
+-echo "DISPATCHED $name in tmux window $win, outer pid $(cat "$dir/outer.pid");
+wait on it by pid."
++echo "DISPATCHED $name in tmux window $win with prompt=$prompt blob=$blob, oute
+r pid $(cat "$dir/outer.pid"); wait on it by pid."
+diff --git a/bin/test-dispatch-prompt.sh b/bin/test-dispatch-prompt.sh
+new file mode 100644
+index 0000000000000000000000000000000000000000..8699cadea8bae6d5989f062e406d80fc
+3a22a00a
+--- /dev/null
++++ b/bin/test-dispatch-prompt.sh
+@@ -0,0 +1,133 @@
++#!/usr/bin/env bash
++# Self-test for dispatch-round prompt provenance. Fixtures are disposable local
+ repositories;
++# this script never dispatches a real round and never contacts a network remote
+.
++set -uo pipefail
++
++ROOT=$(cd "$(dirname "$0")/.." && pwd -P)
++SCRIPT="$ROOT/bin/dispatch-round.sh"
++for need in bash git mktemp realpath; do
++  command -v "$need" >/dev/null 2>&1 || { echo "BLIND: required command is unav
+ailable: $need" >&2; exit 2; }
++done
++[ -r "$SCRIPT" ] || { echo "BLIND: dispatch script is not readable: $SCRIPT" >&
+2; exit 2; }
++
++T=$(mktemp -d) || { echo "BLIND: could not create fixture directory" >&2; exit
+2; }
++trap 'rm -rf -- "$T" || true' EXIT
++mkdir -p "$T/fakebin" || { echo "BLIND: could not create fixture tools" >&2; ex
+it 2; }
++printf '%s\n' '#!/usr/bin/env bash' 'case "${1:-}" in deps.get) mkdir -p deps/f
+ake; : > deps/fake/fixture ;; compile) : ;; esac' > "$T/fakebin/mix"
++printf '%s\n' '#!/usr/bin/env bash' ': > "${DISPATCH_TEST_TMUX_MARKER:?}"' > "$
+T/fakebin/tmux"
++printf '%s\n' '#!/usr/bin/env bash' 'exit 0' > "$T/fakebin/sleep"
++chmod +x "$T/fakebin/mix" "$T/fakebin/tmux" "$T/fakebin/sleep"
++
++NAME="PROMPT-IN-TREE-1"
++REL="docs/plans/sol/prompt-in-tree-1/prompt.txt"
++make_prompt() {
++  local path=$1
++  mkdir -p "$(dirname "$path")"
++  {
++    printf '%s\n' "$NAME"
++    for n in $(seq 1 110); do printf 'fixture%s ' "$n"; done
++    printf '\n'
++  } > "$path"
++}
++make_fixture() {
++  local label=$1 round="$T/$1" wt="$T/$1/wt" bare="$T/$1-origin.git"
++  mkdir -p "$round"
++  git init -q --bare "$bare" || return 1
++  git init -q "$wt" || return 1
++  git -C "$wt" config user.email fixture@example.invalid || return 1
++  git -C "$wt" config user.name Fixture || return 1
++  printf 'fixture\n' > "$wt/README"
++  git -C "$wt" add README || return 1
++  git -C "$wt" commit -qm base || return 1
++  git -C "$wt" remote add origin "$bare" || return 1
++  git -C "$wt" push -qu origin HEAD || return 1
++}
++commit_prompt() {
++  local wt=$1
++  make_prompt "$wt/$REL"
++  git -C "$wt" add "$REL" || return 1
++  git -C "$wt" commit -qm prompt || return 1
++  git -C "$wt" push -q origin HEAD || return 1
++}
++run_dispatch() {
++  local marker=$1; shift
++  rm -f -- "$marker"
++  OUT=$(PATH="$T/fakebin:$PATH" DISPATCH_TEST_TMUX_MARKER="$marker" bash "$SCRI
+PT" "$@" 2>&1)
++  RC=$?
++}
++setup_or_blind() {
++  "$@" || { echo "BLIND: fixture setup failed while running: $*" >&2; exit 2; }
++}
++fail_arm() {
++  local arm=$1 detail=$2
++  echo "$arm FAIL: $detail" >&2
++  printf '%s\n' "$OUT" >&2
++  failures=$((failures+1))
++}
++
++failures=0
++
++setup_or_blind make_fixture p1
++make_prompt "$T/p1/wt/$REL"
++run_dispatch "$T/p1.tmux" "$T/p1" "$NAME" --preflight
++p1_a=$(printf '%s\n' "$OUT" | grep -cF 'not tracked by git in the worktree (a)'
+ || true)
++if [ "$RC" -eq 69 ] && [ "$p1_a" -eq 1 ]; then
++  echo "P1 PASS: untracked default brief refused with rc 69 and named (a)."
++else
++  fail_arm P1 "expected rc=69 and one (a) refusal; got rc=$RC count=$p1_a"
++fi
++
++setup_or_blind make_fixture p2
++setup_or_blind commit_prompt "$T/p2/wt"
++printf 'modified\n' >> "$T/p2/wt/$REL"
++run_dispatch "$T/p2.tmux" "$T/p2" "$NAME" --preflight
++p2_b=$(printf '%s\n' "$OUT" | grep -cF 'tracked but modified relative to HEAD (
+b)' || true)
++if [ "$RC" -eq 69 ] && [ "$p2_b" -eq 1 ]; then
++  echo "P2 PASS: modified tracked brief refused with rc 69 and named (b)."
++else
++  fail_arm P2 "expected rc=69 and one (b) refusal; got rc=$RC count=$p2_b"
++fi
++
++setup_or_blind make_fixture p3
++setup_or_blind commit_prompt "$T/p3/wt"
++expected=$(git -C "$T/p3/wt" rev-parse "HEAD:$REL") || { echo "BLIND: could not
+ compute P3 blob" >&2; exit 2; }
++run_dispatch "$T/p3.tmux" "$T/p3" "$NAME" --preflight
++p3_ok=$(printf '%s\n' "$OUT" | grep -cF "PREFLIGHT OK:" || true)
++p3_blob=$(printf '%s\n' "$OUT" | grep -cF "blob=$expected" || true)
++p3_path=$(printf '%s\n' "$OUT" | grep -cF "prompt=$T/p3/wt/$REL" || true)
++if [ "$RC" -eq 0 ] && [ "$p3_ok" -eq 1 ] && [ "$p3_blob" -eq 1 ] && [ "$p3_path
+" -eq 1 ]; then
++  echo "P3 PASS: committed default brief preflight printed independently comput
+ed blob $expected."
++else
++  fail_arm P3 "expected rc=0 with path and blob; got rc=$RC ok=$p3_ok path=$p3_
+path blob=$p3_blob"
++fi
++
++setup_or_blind make_fixture p4
++setup_or_blind commit_prompt "$T/p4/wt"
++make_prompt "$T/p4/outside.txt"
++run_dispatch "$T/p4.tmux" "$T/p4" "$NAME" --prompt ../outside.txt
++p4_escape=$(printf '%s\n' "$OUT" | grep -cF 'path escapes the worktree' || true
+)
++p4_dispatch=$(printf '%s\n' "$OUT" | grep -c '^DISPATCHED ' || true)
++if [ "$RC" -ne 0 ] && [ "$p4_escape" -eq 1 ] && [ "$p4_dispatch" -eq 0 ] && [ !
+ -e "$T/p4.tmux" ]; then
++  echo "P4 PASS: escaping --prompt path refused without dispatch."
++else
++  fail_arm P4 "expected refusal and no tmux call; got rc=$RC escape=$p4_escape
+dispatched=$p4_dispatch tmux=$([ -e "$T/p4.tmux" ] && echo yes || echo no)"
++fi
++
++setup_or_blind make_fixture p5
++make_prompt "$T/p5/prompt.txt"
++run_dispatch "$T/p5.tmux" "$T/p5" "$NAME" --prompt-out-of-tree --preflight
++p5_ok=$(printf '%s\n' "$OUT" | grep -cF 'PREFLIGHT OK:' || true)
++p5_warning=$(printf '%s\n' "$OUT" | grep -cF "WARNING: round '$NAME' uses an ou
+t-of-tree brief; the brief will not be readable from the remote." || true)
++p5_blob=$(printf '%s\n' "$OUT" | grep -cF 'blob=none (out of tree)' || true)
++if [ "$RC" -eq 0 ] && [ "$p5_ok" -eq 1 ] && [ "$p5_warning" -eq 1 ] && [ "$p5_b
+lob" -eq 1 ]; then
++  echo "P5 PASS: legacy out-of-tree brief preflight succeeded and printed the r
+emote-readability warning."
++else
++  fail_arm P5 "expected rc=0 with warning and out-of-tree blob; got rc=$RC ok=$
+p5_ok warning=$p5_warning blob=$p5_blob"
++fi
++
++if [ "$failures" -gt 0 ]; then
++  echo "SELF-TEST FAIL: $failures arm(s) failed." >&2
++  exit 1
++fi
++echo "SELF-TEST PASS: P1 P2 P3 P4 P5 all passed."
++exit 0
+
+tokens used
+45,544
+Implemented exactly the requested two-file change. No commits, branches, pushes,
+ or state-changing Git commands were run against this repository.
+
+Worktree status:
+
+```text
+ M bin/dispatch-round.sh
+?? bin/test-dispatch-prompt.sh
+```
+
+Verification:
+
+`bash -n bin/dispatch-round.sh`
+
+```text
+```
+
+Exit code: `0`
+
+`bash -n bin/test-dispatch-prompt.sh`
+
+```text
+```
+
+Exit code: `0`
+
+`bash bin/test-dispatch-prompt.sh`
+
+```text
+P1 PASS: untracked default brief refused with rc 69 and named (a).
+P2 PASS: modified tracked brief refused with rc 69 and named (b).
+P3 PASS: committed default brief preflight printed independently computed blob 6
+31bc8705400f2efd9ad3afb833f72b4a003fa58.
+P4 PASS: escaping --prompt path refused without dispatch.
+P5 PASS: legacy out-of-tree brief preflight succeeded and printed the remote-rea
+dability warning.
+SELF-TEST PASS: P1 P2 P3 P4 P5 all passed.
+```
+
+Exit code: `0`
+
+Complete `git diff`:
+
+```diff
+diff --git a/bin/dispatch-round.sh b/bin/dispatch-round.sh
+index 6a9d9f5..0133667 100755
+--- a/bin/dispatch-round.sh
++++ b/bin/dispatch-round.sh
+@@ -12,14 +12,47 @@
+ # Also refuses if the plan commit the round is built on is not on origin —
+ # a round whose description exists on one disk is a round you cannot rebuild.
+ #
+-# Usage: bin/dispatch-round.sh <round-dir e.g. /home/jes/sol-docp8> <round-name
+ e.g. phase 8>
++# Usage: bin/dispatch-round.sh <round-dir e.g. /home/jes/sol-docp8> <round-name
+ e.g. phase 8> [--preflight] [--prompt <worktree-relative path> | --prompt-out-o
+f-tree]
+ set -euo pipefail
+-dir="${1:?round dir}"; name="${2:?round name as it appears in the prompt}"; mod
+e="${3:-}"  # --preflight: run every refusal check, dispatch nothing
+-wt="$dir/wt"; prompt="$dir/prompt.txt"
++dir="${1:?round dir}"; name="${2:?round name as it appears in the prompt}"; shi
+ft 2
++mode=""; prompt_mode="in-tree"; prompt_override=""
++while [ "$#" -gt 0 ]; do
++  case "$1" in
++    --preflight) mode="--preflight"; shift ;;
++    --prompt)
++      [ "$#" -ge 2 ] || { echo "REFUSED: --prompt requires a path relative to t
+he worktree." >&2; exit 65; }
++      prompt_mode="in-tree"; prompt_override=$2; shift 2 ;;
++    --prompt-out-of-tree) prompt_mode="out-of-tree"; prompt_override=""; shift
+;;
++    *) shift ;; # Preserve the old treatment of otherwise-unused trailing argum
+ents.
++  esac
++done
++wt="$dir/wt"
+ [ -d "$wt/.git" ] || [ -f "$wt/.git" ] || { echo "REFUSED: no worktree at $wt"
+>&2; exit 64; }
++if [ "$prompt_mode" = "out-of-tree" ]; then
++  prompt="$dir/prompt.txt"; prompt_rel=""; blob="none (out of tree)"
++  echo "WARNING: round '$name' uses an out-of-tree brief; the brief will not be
+ readable from the remote." >&2
++else
++  slug=$(LC_ALL=C printf '%s' "$name" | tr '[:upper:]' '[:lower:]' | sed -E 's/
+[^a-z0-9]/-/g; s/-+/-/g')
++  prompt_rel=${prompt_override:-docs/plans/sol/$slug/prompt.txt}
++  case "$prompt_rel" in
++    /*) echo "REFUSED: --prompt path must be relative to the worktree: $prompt_
+rel" >&2; exit 65 ;;
++  esac
++  wt_real=$(cd "$wt" && pwd -P)
++  prompt_real=$(realpath -m -- "$wt/$prompt_rel")
++  case "$prompt_real" in
++    "$wt_real"/*) ;;
++    *) echo "REFUSED: --prompt path escapes the worktree: $prompt_rel" >&2; exi
+t 65 ;;
++  esac
++  prompt="$wt/$prompt_rel"
++fi
+ [ -s "$prompt" ] || { echo "REFUSED: $prompt is missing or empty — nothing to d
+ispatch." >&2; exit 65; }
+ grep -qF -- "$name" "$prompt" || { echo "REFUSED: prompt does not name the roun
+d '$name'." >&2; exit 65; }
+ [ "$(wc -w < "$prompt")" -ge 100 ] || { echo "REFUSED: prompt is $(wc -w < "$pr
+ompt") words; a real brief is longer." >&2; exit 65; }
++if [ "$prompt_mode" = "in-tree" ]; then
++  git -C "$wt" ls-files --error-unmatch -- "$prompt_rel" >/dev/null 2>&1 || { e
+cho "REFUSED: in-tree brief is not tracked by git in the worktree (a): $prompt"
+>&2; exit 69; }
++  git -C "$wt" diff --quiet HEAD -- "$prompt_rel" || { echo "REFUSED: in-tree b
+rief is tracked but modified relative to HEAD (b): $prompt" >&2; exit 69; }
++  blob=$(git -C "$wt" rev-parse "HEAD:$prompt_rel")
++fi
+ base=$(git -C "$wt" rev-parse HEAD)
+ git -C "$wt" fetch -q origin
+ git -C "$wt" branch -r --contains "$base" | grep -q . || { echo "REFUSED: workt
+ree HEAD $base is on no remote ref. Push first." >&2; exit 66; }
+@@ -34,7 +67,7 @@ git -C "$wt" branch -r --contains "$base" | grep -q . || { ech
+o "REFUSED: worktr
+ rc=0; out=$(cd "$wt" && mix deps.get 2>&1) || rc=$?; [ "$rc" -eq 0 ] || { echo
+"$out" | tail -5; echo "REFUSED: mix deps.get failed on the host (rc=$rc); not d
+ispatching a round that would fetch inside the fence." >&2; exit 68; }
+ rc=0; out=$(cd "$wt" && MIX_ENV=test mix compile 2>&1) || rc=$?; [ "$rc" -eq 0
+] || { echo "$out" | tail -5; echo "REFUSED: test compile failed on the host (rc
+=$rc)." >&2; exit 68; }
+ [ -d "$wt/deps" ] && [ "$(ls "$wt/deps" | wc -l)" -gt 0 ] || { echo "REFUSED: $
+wt/deps is empty after deps.get -- wrong referent, not a clean state." >&2; exit
+ 68; }
+-[ "$mode" = "--preflight" ] && { echo "PREFLIGHT OK: $dir would dispatch '$name
+' (deps $(ls "$wt/deps" | wc -l), compiled)."; exit 0; }
++[ "$mode" = "--preflight" ] && { echo "PREFLIGHT OK: $dir would dispatch '$name
+' with prompt=$prompt blob=$blob (deps $(ls "$wt/deps" | wc -l), compiled)."; ex
+it 0; }
+ win="$(basename "$dir")"
+ tmux new-window -d -t 0: -n "$win" -c "$dir" \
+   "SOL_WORKDIR=$wt /home/jes/boss-clod/sol-egress-run.sh \"\$(cat $prompt)\" 2>
+&1 | tee $dir/sol-run.log; echo \"=== sol EXITED rc=\${PIPESTATUS[0]} ===\"; sle
+ep 86400"
+@@ -50,4 +83,4 @@ for pid in $(ps -eo etimes,pid,cmd | awk -v d="$wt" '/[c]odex
+exec -m gpt-5.6-so
+   [ -z "${outer:-}" ] && outer=$pid && echo "$pid" > "$dir/outer.pid"
+ done
+ [ "$n" -gt 0 ] || { echo "NOT RUNNING: no codex process on $wt after 20s. Read
+$dir/sol-run.log." >&2; exit 1; }
+-echo "DISPATCHED $name in tmux window $win, outer pid $(cat "$dir/outer.pid");
+wait on it by pid."
++echo "DISPATCHED $name in tmux window $win with prompt=$prompt blob=$blob, oute
+r pid $(cat "$dir/outer.pid"); wait on it by pid."
+```
+
+New file [bin/test-dispatch-prompt.sh](/home/jes/sol-cell-prompt-in-tree/wt/bin/
+test-dispatch-prompt.sh) in full:
+
+```bash
+#!/usr/bin/env bash
+# Self-test for dispatch-round prompt provenance. Fixtures are disposable local
+repositories;
+# this script never dispatches a real round and never contacts a network remote.
+set -uo pipefail
+
+ROOT=$(cd "$(dirname "$0")/.." && pwd -P)
+SCRIPT="$ROOT/bin/dispatch-round.sh"
+for need in bash git mktemp realpath; do
+  command -v "$need" >/dev/null 2>&1 || { echo "BLIND: required command is unava
+ilable: $need" >&2; exit 2; }
+done
+[ -r "$SCRIPT" ] || { echo "BLIND: dispatch script is not readable: $SCRIPT" >&2
+; exit 2; }
+
+T=$(mktemp -d) || { echo "BLIND: could not create fixture directory" >&2; exit 2
+; }
+trap 'rm -rf -- "$T" || true' EXIT
+mkdir -p "$T/fakebin" || { echo "BLIND: could not create fixture tools" >&2; exi
+t 2; }
+printf '%s\n' '#!/usr/bin/env bash' 'case "${1:-}" in deps.get) mkdir -p deps/fa
+ke; : > deps/fake/fixture ;; compile) : ;; esac' > "$T/fakebin/mix"
+printf '%s\n' '#!/usr/bin/env bash' ': > "${DISPATCH_TEST_TMUX_MARKER:?}"' > "$T
+/fakebin/tmux"
+printf '%s\n' '#!/usr/bin/env bash' 'exit 0' > "$T/fakebin/sleep"
+chmod +x "$T/fakebin/mix" "$T/fakebin/tmux" "$T/fakebin/sleep"
+
+NAME="PROMPT-IN-TREE-1"
+REL="docs/plans/sol/prompt-in-tree-1/prompt.txt"
+make_prompt() {
+  local path=$1
+  mkdir -p "$(dirname "$path")"
+  {
+    printf '%s\n' "$NAME"
+    for n in $(seq 1 110); do printf 'fixture%s ' "$n"; done
+    printf '\n'
+  } > "$path"
+}
+make_fixture() {
+  local label=$1 round="$T/$1" wt="$T/$1/wt" bare="$T/$1-origin.git"
+  mkdir -p "$round"
+  git init -q --bare "$bare" || return 1
+  git init -q "$wt" || return 1
+  git -C "$wt" config user.email fixture@example.invalid || return 1
+  git -C "$wt" config user.name Fixture || return 1
+  printf 'fixture\n' > "$wt/README"
+  git -C "$wt" add README || return 1
+  git -C "$wt" commit -qm base || return 1
+  git -C "$wt" remote add origin "$bare" || return 1
+  git -C "$wt" push -qu origin HEAD || return 1
+}
+commit_prompt() {
+  local wt=$1
+  make_prompt "$wt/$REL"
+  git -C "$wt" add "$REL" || return 1
+  git -C "$wt" commit -qm prompt || return 1
+  git -C "$wt" push -q origin HEAD || return 1
+}
+run_dispatch() {
+  local marker=$1; shift
+  rm -f -- "$marker"
+  OUT=$(PATH="$T/fakebin:$PATH" DISPATCH_TEST_TMUX_MARKER="$marker" bash "$SCRIP
+T" "$@" 2>&1)
+  RC=$?
+}
+setup_or_blind() {
+  "$@" || { echo "BLIND: fixture setup failed while running: $*" >&2; exit 2; }
+}
+fail_arm() {
+  local arm=$1 detail=$2
+  echo "$arm FAIL: $detail" >&2
+  printf '%s\n' "$OUT" >&2
+  failures=$((failures+1))
+}
+
+failures=0
+
+setup_or_blind make_fixture p1
+make_prompt "$T/p1/wt/$REL"
+run_dispatch "$T/p1.tmux" "$T/p1" "$NAME" --preflight
+p1_a=$(printf '%s\n' "$OUT" | grep -cF 'not tracked by git in the worktree (a)'
+|| true)
+if [ "$RC" -eq 69 ] && [ "$p1_a" -eq 1 ]; then
+  echo "P1 PASS: untracked default brief refused with rc 69 and named (a)."
+else
+  fail_arm P1 "expected rc=69 and one (a) refusal; got rc=$RC count=$p1_a"
+fi
+
+setup_or_blind make_fixture p2
+setup_or_blind commit_prompt "$T/p2/wt"
+printf 'modified\n' >> "$T/p2/wt/$REL"
+run_dispatch "$T/p2.tmux" "$T/p2" "$NAME" --preflight
+p2_b=$(printf '%s\n' "$OUT" | grep -cF 'tracked but modified relative to HEAD (b
+)' || true)
+if [ "$RC" -eq 69 ] && [ "$p2_b" -eq 1 ]; then
+  echo "P2 PASS: modified tracked brief refused with rc 69 and named (b)."
+else
+  fail_arm P2 "expected rc=69 and one (b) refusal; got rc=$RC count=$p2_b"
+fi
+
+setup_or_blind make_fixture p3
+setup_or_blind commit_prompt "$T/p3/wt"
+expected=$(git -C "$T/p3/wt" rev-parse "HEAD:$REL") || { echo "BLIND: could not
+compute P3 blob" >&2; exit 2; }
+run_dispatch "$T/p3.tmux" "$T/p3" "$NAME" --preflight
+p3_ok=$(printf '%s\n' "$OUT" | grep -cF "PREFLIGHT OK:" || true)
+p3_blob=$(printf '%s\n' "$OUT" | grep -cF "blob=$expected" || true)
+p3_path=$(printf '%s\n' "$OUT" | grep -cF "prompt=$T/p3/wt/$REL" || true)
+if [ "$RC" -eq 0 ] && [ "$p3_ok" -eq 1 ] && [ "$p3_blob" -eq 1 ] && [ "$p3_path"
+ -eq 1 ]; then
+  echo "P3 PASS: committed default brief preflight printed independently compute
+d blob $expected."
+else
+  fail_arm P3 "expected rc=0 with path and blob; got rc=$RC ok=$p3_ok path=$p3_p
+ath blob=$p3_blob"
+fi
+
+setup_or_blind make_fixture p4
+setup_or_blind commit_prompt "$T/p4/wt"
+make_prompt "$T/p4/outside.txt"
+run_dispatch "$T/p4.tmux" "$T/p4" "$NAME" --prompt ../outside.txt
+p4_escape=$(printf '%s\n' "$OUT" | grep -cF 'path escapes the worktree' || true)
+p4_dispatch=$(printf '%s\n' "$OUT" | grep -c '^DISPATCHED ' || true)
+if [ "$RC" -ne 0 ] && [ "$p4_escape" -eq 1 ] && [ "$p4_dispatch" -eq 0 ] && [ !
+-e "$T/p4.tmux" ]; then
+  echo "P4 PASS: escaping --prompt path refused without dispatch."
+else
+  fail_arm P4 "expected refusal and no tmux call; got rc=$RC escape=$p4_escape d
+ispatched=$p4_dispatch tmux=$([ -e "$T/p4.tmux" ] && echo yes || echo no)"
+fi
+
+setup_or_blind make_fixture p5
+make_prompt "$T/p5/prompt.txt"
+run_dispatch "$T/p5.tmux" "$T/p5" "$NAME" --prompt-out-of-tree --preflight
+p5_ok=$(printf '%s\n' "$OUT" | grep -cF 'PREFLIGHT OK:' || true)
+p5_warning=$(printf '%s\n' "$OUT" | grep -cF "WARNING: round '$NAME' uses an out
+-of-tree brief; the brief will not be readable from the remote." || true)
+p5_blob=$(printf '%s\n' "$OUT" | grep -cF 'blob=none (out of tree)' || true)
+if [ "$RC" -eq 0 ] && [ "$p5_ok" -eq 1 ] && [ "$p5_warning" -eq 1 ] && [ "$p5_bl
+ob" -eq 1 ]; then
+  echo "P5 PASS: legacy out-of-tree brief preflight succeeded and printed the re
+mote-readability warning."
+else
+  fail_arm P5 "expected rc=0 with warning and out-of-tree blob; got rc=$RC ok=$p
+5_ok warning=$p5_warning blob=$p5_blob"
+fi
+
+if [ "$failures" -gt 0 ]; then
+  echo "SELF-TEST FAIL: $failures arm(s) failed." >&2
+  exit 1
+fi
+echo "SELF-TEST PASS: P1 P2 P3 P4 P5 all passed."
+exit 0
+```
+=== sol EXITED rc=0 ===
+

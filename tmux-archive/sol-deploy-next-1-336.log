@@ -1,0 +1,1898 @@
++import { Container } from "@cloudflare/containers";
++import { storageInternal } from "./outbound.js";
++
++// The SDK routes intercepted container egress through this exported entrypoint
+.
++export { ContainerProxy } from "@cloudflare/containers";
++
++export class CommonplaceNextContainer extends Container {
++  defaultPort = 4000;
++  sleepAfter = "10m";
++  enableInternet = false;
++
++  // Deliberately only the five production-boot variables. The store endpoint
++  // and capability stay in Worker bindings and never enter the container.
++  envVars = {
++    SECRET_KEY_BASE: this.env.SECRET_KEY_BASE,
++    COMMONPLACE_ACCESS_ISSUER: this.env.COMMONPLACE_ACCESS_ISSUER,
++    COMMONPLACE_ACCESS_AUDIENCE: this.env.COMMONPLACE_ACCESS_AUDIENCE,
++    COMMONPLACE_ACCESS_JWKS_URI: this.env.COMMONPLACE_ACCESS_JWKS_URI,
++    COMMONPLACE_ACCESS_ROSTER: this.env.COMMONPLACE_ACCESS_ROSTER,
++  };
++}
++
++// A class field uses define semantics and bypasses the SDK's static setter.
++CommonplaceNextContainer.outboundByHost = {
++  "storage.internal": storageInternal,
++};
++
++export default {
++  async fetch(request, env) {
++    const id = env.COMMONPLACE_NEXT_CONTAINER.idFromName("primary");
++    return env.COMMONPLACE_NEXT_CONTAINER.get(id).fetch(request);
++  },
++};
+diff --git a/worker/src/outbound.js b/worker/src/outbound.js
+new file mode 100644
+index 0000000000000000000000000000000000000000..84d431154bd9fb5db08561c68f79fd4a
+d2e8a197
+--- /dev/null
++++ b/worker/src/outbound.js
+@@ -0,0 +1,74 @@
++const STORAGE_HOST = "storage.internal";
++
++function textResponse(status, body) {
++  return new Response(body, {
++    status,
++    headers: { "content-type": "text/plain; charset=utf-8" },
++  });
++}
++
++function forbidden() {
++  return textResponse(403, "forbidden");
++}
++
++function upstreamUnavailable() {
++  return textResponse(502, "storage upstream unavailable");
++}
++
++function targetUrl(incomingUrl, configuredEndpoint) {
++  if (typeof configuredEndpoint !== "string" || configuredEndpoint.trim() === "
+") {
++    throw new TypeError("COMMONPLACE_LOG_REALM_URL is absent");
++  }
++
++  const base = new URL(configuredEndpoint);
++  if (base.protocol !== "https:") {
++    throw new TypeError("COMMONPLACE_LOG_REALM_URL must use HTTPS");
++  }
++
++  const target = new URL(base);
++  const basePath = base.pathname.replace(/\/$/, "");
++  target.pathname = `${basePath}${incomingUrl.pathname}`;
++  target.search = incomingUrl.search;
++  target.hash = "";
++  return target;
++}
++
++/**
++ * Build the outbound handler around an injectable transport. Production uses
++ * global fetch; tests use a recorder and never need a credential or network.
++ */
++export function createStorageInternal(transport = globalThis.fetch) {
++  return async function storageInternal(request, env, _ctx) {
++    const incomingUrl = new URL(request.url);
++
++    // This check must precede every binding read and every transport call.
++    if (incomingUrl.hostname !== STORAGE_HOST) return forbidden();
++
++    let forwarded;
++    try {
++      const capability = env.COMMONPLACE_LOG_REALM_CAPABILITY;
++      if (typeof capability !== "string" || capability.trim() === "") {
++        return upstreamUnavailable();
++      }
++
++      const target = targetUrl(incomingUrl, env.COMMONPLACE_LOG_REALM_URL);
++      forwarded = new Request(target, request);
++
++      // An authorization chosen inside the container is untrusted. Remove it
++      // before installing the only authority this lane accepts: our secret.
++      forwarded.headers.delete("authorization");
++      forwarded.headers.set("authorization", `Bearer ${capability}`);
++    } catch (_error) {
++      return upstreamUnavailable();
++    }
++
++    try {
++      return await transport(forwarded);
++    } catch (_error) {
++      // Do not stringify the error: transports may include request details.
++      return upstreamUnavailable();
++    }
++  };
++}
++
++export const storageInternal = createStorageInternal();
+diff --git a/worker/test/a5-local-boot.sh b/worker/test/a5-local-boot.sh
+new file mode 100644
+index 0000000000000000000000000000000000000000..1f1d35b49c1a56c0ade06239000b3e8e
+2a6c61a4
+--- /dev/null
++++ b/worker/test/a5-local-boot.sh
+@@ -0,0 +1,77 @@
++#!/usr/bin/env bash
++set -euo pipefail
++
++A5_IMAGE="${A5_IMAGE:-commonplace-next:2594dc7}"
++A5_STUB_PORT="${A5_STUB_PORT:-18080}"
++A5_RUN_ID="a5-${$}"
++A5_TMP_DIR="$(mktemp -d /tmp/commonplace-next-a5.XXXXXX)"
++A5_NEGATIVE_NAME="commonplace-next-${A5_RUN_ID}-negative"
++A5_POSITIVE_NAME="commonplace-next-${A5_RUN_ID}-positive"
++
++cleanup() {
++  docker rm -f "$A5_NEGATIVE_NAME" "$A5_POSITIVE_NAME" >/dev/null 2>&1 || true
++  if [[ -n "${A5_STUB_PID:-}" ]]; then kill "$A5_STUB_PID" >/dev/null 2>&1 || t
+rue; fi
++  rm -rf "$A5_TMP_DIR"
++}
++trap cleanup EXIT
++
++common_env=(
++  -e SECRET_KEY_BASE=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaa
++  -e COMMONPLACE_ACCESS_ISSUER=https://access.invalid
++  -e COMMONPLACE_ACCESS_AUDIENCE=local-a5-audience
++  -e 'COMMONPLACE_ACCESS_ROSTER={"00000000-0000-4000-8000-000000000001":"local-
+reviewer"}'
++)
++
++echo 'A5 negative control: no sidecar (failure required)'
++set +e
++docker run --name "$A5_NEGATIVE_NAME" \
++  "${common_env[@]}" \
++  -e COMMONPLACE_ACCESS_JWKS_URI=http://127.0.0.1:9/jwks \
++  "$A5_IMAGE" >"$A5_TMP_DIR/negative.log" 2>&1
++A5_NEGATIVE_STATUS=$?
++set -e
++cat "$A5_TMP_DIR/negative.log"
++if [[ "$A5_NEGATIVE_STATUS" -eq 0 ]]; then
++  echo 'A5 negative control unexpectedly succeeded' >&2
++  exit 1
++fi
++grep -F 'storage.internal' "$A5_TMP_DIR/negative.log" | grep -F ':nxdomain' >/d
+ev/null
++grep -F 'failed to start child CommonplaceNext.Realm' "$A5_TMP_DIR/negative.log
+" >/dev/null
++
++echo 'A5 arm: local seven-route sidecar (success required)'
++node test/support/store-stub.mjs "$A5_STUB_PORT" >"$A5_TMP_DIR/stub.log" 2>&1 &
++A5_STUB_PID=$!
++for _attempt in $(seq 1 50); do
++  if curl --silent --fail "http://127.0.0.1:${A5_STUB_PORT}/health" >/dev/null;
+ then break; fi
++  sleep 0.1
++done
++curl --silent --fail "http://127.0.0.1:${A5_STUB_PORT}/health" >/dev/null
++cat "$A5_TMP_DIR/stub.log"
++
++docker run --detach --name "$A5_POSITIVE_NAME" \
++  --add-host host.docker.internal:host-gateway \
++  --publish 127.0.0.1::4000 \
++  "${common_env[@]}" \
++  -e COMMONPLACE_ACCESS_JWKS_URI="http://host.docker.internal:${A5_STUB_PORT}/j
+wks" \
++  -e COMMONPLACE_SIDECAR_URL="http://host.docker.internal:${A5_STUB_PORT}" \
++  "$A5_IMAGE" >/dev/null
++
++A5_HOST_PORT="$(docker port "$A5_POSITIVE_NAME" 4000/tcp | sed -n 's/.*://p')"
++for _attempt in $(seq 1 300); do
++  if [[ "$(docker inspect "$A5_POSITIVE_NAME" --format '{{.State.Running}}')" !
+= true ]]; then
++    docker logs "$A5_POSITIVE_NAME"
++    echo 'A5 positive container stopped before becoming reachable' >&2
++    exit 1
++  fi
++  if curl --silent --output /dev/null "http://127.0.0.1:${A5_HOST_PORT}/"; then
++    docker logs "$A5_POSITIVE_NAME"
++    echo 'A5 arm passed: stub reachable, container running, application HTTP en
+dpoint reachable'
++    exit 0
++  fi
++  sleep 0.1
++done
++
++docker logs "$A5_POSITIVE_NAME"
++echo 'A5 positive container never became reachable' >&2
++exit 1
++
+diff --git a/worker/test/outbound.test.mjs b/worker/test/outbound.test.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..8cf42fa84b87b37eb19dcaed5f219178
+64a50435
+--- /dev/null
++++ b/worker/test/outbound.test.mjs
+@@ -0,0 +1,142 @@
++import assert from "node:assert/strict";
++import { readFile } from "node:fs/promises";
++import test from "node:test";
++
++import { createStorageInternal } from "../src/outbound.js";
++
++const FAKE_SECRET = "fake-capability-positive-control-7f15";
++const ENV = {
++  COMMONPLACE_LOG_REALM_URL: "https://commonplace-log.example",
++  COMMONPLACE_LOG_REALM_CAPABILITY: FAKE_SECRET,
++};
++
++function post(url, authorization = undefined) {
++  const headers = { "content-type": "application/json" };
++  if (authorization !== undefined) headers.authorization = authorization;
++  return new Request(url, { method: "POST", headers, body: "{}" });
++}
++
++test("A1 control: storage.internal reaches the injected transport", async () =>
+ {
++  let calls = 0;
++  const handler = createStorageInternal(async () => {
++    calls += 1;
++    return new Response(null, { status: 204 });
++  });
++
++  assert.equal((await handler(post("http://storage.internal/frontier"), ENV, {}
+)).status, 204);
++  assert.equal(calls, 1);
++});
++
++test("A1: every non-storage hostname is 403 and is never forwarded", async () =
+> {
++  let calls = 0;
++  const handler = createStorageInternal(async () => {
++    calls += 1;
++    return new Response(null, { status: 204 });
++  });
++
++  for (const url of [
++    "http://storage.internal.example/frontier",
++    "http://example.test/frontier",
++    "http://127.0.0.1/frontier",
++  ]) {
++    const response = await handler(post(url), ENV, {});
++    assert.equal(response.status, 403);
++    assert.equal(await response.text(), "forbidden");
++  }
++  assert.equal(calls, 0);
++});
++
++test("A2: the secret capability replaces container-supplied authorization", asy
+nc () => {
++  let outgoing;
++  const handler = createStorageInternal(async (request) => {
++    outgoing = request;
++    return new Response(null, { status: 204 });
++  });
++
++  const response = await handler(
++    post("http://storage.internal/commit", "Bearer container-chosen-authority")
+,
++    ENV,
++    {},
++  );
++
++  assert.equal(response.status, 204);
++  assert.equal(outgoing.headers.get("authorization"), `Bearer ${FAKE_SECRET}`);
++  assert.notEqual(outgoing.headers.get("authorization"), "Bearer container-chos
+en-authority");
++});
++
++test("A3: the fake capability is observable only in the outgoing header", async
+ () => {
++  const captured = [];
++  const original = {};
++  for (const method of ["log", "info", "warn", "error"]) {
++    original[method] = console[method];
++    console[method] = (...values) => captured.push(values.join(" "));
++  }
++
++  let positiveControl = "";
++  try {
++    const success = createStorageInternal(async (request) => {
++      positiveControl = request.headers.get("authorization") ?? "";
++      return new Response("store accepted request", { status: 200 });
++    });
++    const successResponse = await success(post("http://storage.internal/frontie
+r"), ENV, {});
++
++    const failure = createStorageInternal(async () => {
++      throw new Error(`transport detail must be suppressed: ${FAKE_SECRET}`);
++    });
++    const failureResponse = await failure(post("http://storage.internal/frontie
+r"), ENV, {});
++
++    const visible = [
++      ...captured,
++      await successResponse.text(),
++      await failureResponse.text(),
++    ].join("\n");
++
++    assert.match(positiveControl, new RegExp(FAKE_SECRET));
++    assert.doesNotMatch(visible, new RegExp(FAKE_SECRET));
++    assert.equal(failureResponse.status, 502);
++  } finally {
++    for (const method of ["log", "info", "warn", "error"]) console[method] = or
+iginal[method];
++  }
++});
++
++test("A4: path and query are unchanged for every realm route", async () => {
++  const routes = [
++    "/create-log",
++    "/take-lease",
++    "/read-set",
++    "/commit",
++    "/frontier",
++    "/read-writer",
++    "/tail-local",
++  ];
++  const seen = [];
++  const handler = createStorageInternal(async (request) => {
++    const url = new URL(request.url);
++    seen.push(url.pathname + url.search);
++    return new Response(null, { status: 204 });
++  });
++
++  for (const [index, route] of routes.entries()) {
++    const suffix = `${route}?arm=A4&route=${index}`;
++    assert.equal((await handler(post(`http://storage.internal${suffix}`), ENV,
+{})).status, 204);
++    assert.equal(seen.at(-1), suffix);
++  }
++  assert.deepEqual(seen, routes.map((route, index) => `${route}?arm=A4&route=${
+index}`));
++});
++
++test("deployment config keeps the container offline and rooted at the repositor
+y Dockerfile", async () => {
++  const config = JSON.parse(await readFile(new URL("../wrangler.jsonc", import.
+meta.url), "utf8"));
++  const [container] = config.containers;
++  assert.equal(container.class_name, "CommonplaceNextContainer");
++  assert.equal(container.image, "../Dockerfile");
++  assert.equal(container.image_build_context, "..");
++
++  const source = await readFile(new URL("../src/index.js", import.meta.url), "u
+tf8");
++  assert.match(source, /defaultPort = 4000/);
++  assert.match(source, /sleepAfter = "10m"/);
++  assert.match(source, /enableInternet = false/);
++  assert.match(source, /CommonplaceNextContainer\.outboundByHost/);
++  assert.match(source, /export \{ ContainerProxy \}/);
++  assert.doesNotMatch(source, /COMMONPLACE_SIDECAR_URL/);
++  assert.doesNotMatch(source, /COMMONPLACE_LOG_REALM_CAPABILITY:\s*this\.env/);
++});
+diff --git a/worker/test/support/store-stub.mjs b/worker/test/support/store-stub
+.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..a90bbaafce5f986e6738aa917b13bd82
+f959620d
+--- /dev/null
++++ b/worker/test/support/store-stub.mjs
+@@ -0,0 +1,209 @@
++#!/usr/bin/env node
++
++import http from "node:http";
++
++const port = Number.parseInt(process.argv[2] ?? "18080", 10);
++if (!Number.isInteger(port) || port < 1 || port > 65535) {
++  throw new TypeError("port must be an integer from 1 through 65535");
++}
++
++const logs = new Map();
++let writerSequence = 1;
++let arrivalSequence = 1;
++
++function json(response, status, value) {
++  const body = JSON.stringify(value);
++  response.writeHead(status, {
++    "content-type": "application/json",
++    "content-length": Buffer.byteLength(body),
++  });
++  response.end(body);
++}
++
++function ok(response, status, value = {}) {
++  json(response, status, { ok: true, ...value });
++}
++
++function error(response, status, code) {
++  json(response, status, { ok: false, error: { code } });
++}
++
++function logFor(response, logId) {
++  const log = logs.get(logId);
++  if (log === undefined) error(response, 404, "not_found");
++  return log;
++}
++
++function uuid(sequence) {
++  return `00000000-0000-4000-8000-${sequence.toString(16).padStart(12, "0")}`;
++}
++
++function createLog(response, payload) {
++  if (logs.has(payload.log_id)) return error(response, 409, "constraint_violati
+on");
++  logs.set(payload.log_id, {
++    revision: 0,
++    leaseEpoch: 0,
++    documentWriterId: null,
++    entries: new Map(),
++    tips: new Map(),
++  });
++  ok(response, 201);
++}
++
++function takeLease(response, payload) {
++  const log = logFor(response, payload.log_id);
++  if (log === undefined) return;
++  log.leaseEpoch += 1;
++  log.documentWriterId = uuid(writerSequence++);
++  ok(response, 200, {
++    lease_epoch: log.leaseEpoch,
++    writer_id: log.documentWriterId,
++  });
++}
++
++function readSet(response, payload) {
++  const log = logFor(response, payload.log_id);
++  if (log === undefined) return;
++
++  const wantedWriters = new Set(payload.writers ?? []);
++  const tips = [...log.tips.values()]
++    .filter((tip) => wantedWriters.has(tip.writer_id))
++    .sort((left, right) => left.writer_id.localeCompare(right.writer_id));
++
++  const coordinates = (payload.coordinates ?? []).flatMap((coordinate) => {
++    const row = [...log.entries.values()].find(
++      (entry) =>
++        entry.writer_id === coordinate.writer_id && entry.writer_seq === coordi
+nate.writer_seq,
++    );
++    return row === undefined
++      ? []
++      : [{ ...coordinate, canonical_bytes: row.canonical_bytes }];
++  });
++
++  const entryIds = (payload.entry_ids ?? []).flatMap((entryId) => {
++    const row = log.entries.get(entryId);
++    return row === undefined
++      ? []
++      : [{ entry_id: entryId, canonical_bytes: row.canonical_bytes }];
++  });
++
++  ok(response, 200, {
++    read_set: {
++      log_id: payload.log_id,
++      format_version: 1,
++      revision: log.revision,
++      lease_epoch: log.leaseEpoch,
++      document_writer_id: log.documentWriterId,
++      tips,
++      coordinates,
++      entry_ids: entryIds,
++    },
++  });
++}
++
++function commit(response, payload) {
++  const log = logFor(response, payload.log_id);
++  if (log === undefined) return;
++  if (payload.expected_revision !== log.revision) return error(response, 409, "
+stale_revision");
++  if (payload.expected_epoch !== log.leaseEpoch) return error(response, 409, "o
+bsolete_epoch");
++
++  for (const entry of payload.insert_entries ?? []) {
++    const existing = log.entries.get(entry.entry_id);
++    if (existing !== undefined && existing.canonical_bytes !== entry.canonical_
+bytes) {
++      return error(response, 409, "constraint_violation");
++    }
++  }
++
++  for (const entry of payload.insert_entries ?? []) {
++    if (!log.entries.has(entry.entry_id)) {
++      log.entries.set(entry.entry_id, { ...entry, arrival_seq: arrivalSequence+
++ });
++    }
++  }
++  for (const tip of payload.put_tips ?? []) log.tips.set(tip.writer_id, tip);
++  log.revision += 1;
++  ok(response, 200, { revision: log.revision });
++}
++
++function frontier(response, payload) {
++  const log = logFor(response, payload.log_id);
++  if (log === undefined) return;
++  const writers = [...log.tips.values()]
++    .map((tip) => ({ writer_id: tip.writer_id, seq: tip.last_seq, entry_id: tip
+.last_entry_id }))
++    .sort((left, right) => left.writer_id.localeCompare(right.writer_id));
++  ok(response, 200, { frontier: { writers } });
++}
++
++function readWriter(response, payload) {
++  const log = logFor(response, payload.log_id);
++  if (log === undefined) return;
++  const entries = [...log.entries.values()]
++    .filter(
++      (entry) =>
++        entry.writer_id === payload.writer_id &&
++        entry.writer_seq > payload.after_seq &&
++        (payload.through_seq == null || entry.writer_seq <= payload.through_seq
+),
++    )
++    .sort((left, right) => left.writer_seq - right.writer_seq)
++    .slice(0, payload.limit)
++    .map((entry) => ({ canonical_bytes: entry.canonical_bytes, writer_seq: entr
+y.writer_seq }));
++  ok(response, 200, {
++    page: {
++      entries,
++      next_after_seq: entries.length === payload.limit ? entries.at(-1).writer_
+seq : null,
++    },
++  });
++}
++
++function tailLocal(response, payload) {
++  const log = logFor(response, payload.log_id);
++  if (log === undefined) return;
++  const entries = [...log.entries.values()]
++    .filter((entry) => entry.arrival_seq > payload.after_arrival)
++    .sort((left, right) => left.arrival_seq - right.arrival_seq)
++    .slice(0, payload.limit)
++    .map((entry) => ({ canonical_bytes: entry.canonical_bytes, arrival_seq: ent
+ry.arrival_seq }));
++  ok(response, 200, {
++    page: {
++      entries,
++      next_after_arrival: entries.length === payload.limit ? entries.at(-1).arr
+ival_seq : null,
++    },
++  });
++}
++
++const routes = new Map([
++  ["/create-log", createLog],
++  ["/take-lease", takeLease],
++  ["/read-set", readSet],
++  ["/commit", commit],
++  ["/frontier", frontier],
++  ["/read-writer", readWriter],
++  ["/tail-local", tailLocal],
++]);
++
++const server = http.createServer((request, response) => {
++  const url = new URL(request.url, "http://stub.invalid");
++  if (request.method === "GET" && url.pathname === "/health") return ok(respons
+e, 200);
++  if (request.method === "GET" && url.pathname === "/jwks") {
++    return json(response, 200, { keys: [] });
++  }
++
++  const route = routes.get(url.pathname);
++  if (request.method !== "POST" || route === undefined) {
++    return error(response, 404, "not_found");
++  }
++
++  const chunks = [];
++  request.on("data", (chunk) => chunks.push(chunk));
++  request.on("end", () => {
++    try {
++      route(response, JSON.parse(Buffer.concat(chunks).toString("utf8")));
++    } catch (_error) {
++      error(response, 400, "malformed_request");
++    }
++  });
++});
++
++server.listen(port, "0.0.0.0", () => {
++  process.stdout.write(`store stub listening on ${port}\n`);
++});
++
+diff --git a/worker/wrangler.jsonc b/worker/wrangler.jsonc
+new file mode 100644
+index 0000000000000000000000000000000000000000..c0642ecf5cf8a1b43a387655a64a2232
+a1259a85
+--- /dev/null
++++ b/worker/wrangler.jsonc
+@@ -0,0 +1,32 @@
++{
++  "$schema": "node_modules/wrangler/config-schema.json",
++  "name": "commonplace-next",
++  "main": "src/index.js",
++  "compatibility_date": "2026-09-04",
++  "compatibility_flags": ["nodejs_compat"],
++  "durable_objects": {
++    "bindings": [
++      {
++        "name": "COMMONPLACE_NEXT_CONTAINER",
++        "class_name": "CommonplaceNextContainer"
++      }
++    ]
++  },
++  "migrations": [
++    {
++      "tag": "v1",
++      "new_sqlite_classes": ["CommonplaceNextContainer"]
++    }
++  ],
++  "containers": [
++    {
++      "name": "commonplace-next",
++      "class_name": "CommonplaceNextContainer",
++      "image": "../Dockerfile",
++      "image_build_context": "..",
++      "max_instances": 10,
++      "instance_type": "lite",
++      "rollout_active_grace_period": 120
++    }
++  ]
++}
+
+codex
+Implemented the container-managing Worker and authenticated outbound store lane.
+ Changes remain uncommitted; nothing was deployed, pushed, fetched, or committed
+.
+
+## Base and corpus
+
+`git rev-parse HEAD`
+
+```text
+2594dc706e5ce30645cac886a5b60d22c82ffe7f
+```
+
+Corpus measurements:
+
+- `Dockerfile`: 99 lines.
+- Build stage: line 40, `FROM ${ELIXIR_IMAGE} AS build`.
+- Runtime stage: line 74, `FROM ${RUNTIME_IMAGE} AS runtime`.
+- Six `COPY` lines: 62, 63, 66, 67, 68, 92.
+- `EXPOSE 4000 4010`: line 95.
+- `CMD ["bin/commonplace_next", "start"]`: line 99.
+- Existing Wrangler files before implementation: zero.
+- `lane.ex`:
+  - `@env_var "COMMONPLACE_SIDECAR_URL"`: line 40.
+  - `@default_base_url "http://storage.internal"`: line 41.
+  - blank-as-absent handling: lines 52–64.
+- `runtime.exs`:
+  - measured production boot comment: lines 26–35.
+  - production block: lines 40–88.
+  - `SecretKeyBase.fetch!()`: line 42.
+  - `Storage.Lane.sidecar()`: line 44.
+  - five Access-authentication keys: lines 62, 63, 71, 72, 73.
+  - roster installation: line 84.
+  - JWKS URI installation: line 87.
+
+No corpus differences were found.
+
+## Implementation
+
+- Durable Object container on port 4000 with `sleepAfter = "10m"` and `enableInt
+ernet = false`.
+- Only the five required production variables enter the container.
+- `COMMONPLACE_SIDECAR_URL` is absent from deployed container configuration.
+- `storage.internal` is registered through `outboundByHost`.
+- Wrong hosts receive 403 before any transport call.
+- The deployed realm URL comes from `COMMONPLACE_LOG_REALM_URL`.
+- Container-provided authorization is deleted and replaced from the Worker-only
+`COMMONPLACE_LOG_REALM_CAPABILITY` secret.
+- Path and query are preserved across all seven store routes.
+- Missing/invalid bindings and transport failures return a generic 502 without l
+ogging request details.
+- `ContainerProxy` is exported as required by the pinned container SDK.
+
+## Arms
+
+### A1–A4
+
+Command:
+
+```text
+cd worker && npm test
+```
+
+Output:
+
+```text
+✔ A1 control: storage.internal reaches the injected transport
+✔ A1: every non-storage hostname is 403 and is never forwarded
+✔ A2: the secret capability replaces container-supplied authorization
+✔ A3: the fake capability is observable only in the outgoing header
+✔ A4: path and query are unchanged for every realm route
+✔ deployment config keeps the container offline and rooted at the repository Doc
+kerfile
+ℹ tests 6
+ℹ pass 6
+ℹ fail 0
+```
+
+A1’s control recorded one transport call. Its refusal arm tested three non-stora
+ge hosts and recorded zero transport calls.
+
+A3 positively found the fake secret in the outgoing authorization header, then f
+ound it nowhere in captured logs or success/failure response bodies.
+
+The stateful stub was also exercised directly against all seven routes:
+
+```text
+{"ok":true}
+{"ok":true,"lease_epoch":1,"writer_id":"00000000-0000-4000-8000-000000000001"}
+{"ok":true,"read_set":{...}}
+{"ok":true,"revision":1}
+{"ok":true,"frontier":{"writers":[]}}
+{"ok":true,"page":{"entries":[],"next_after_seq":null}}
+{"ok":true,"page":{"entries":[],"next_after_arrival":null}}
+```
+
+### A5
+
+Command:
+
+```text
+cd worker && bash test/a5-local-boot.sh
+```
+
+Output:
+
+```text
+A5 negative control: no sidecar (failure required)
+Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docke
+r daemon running?
+```
+
+A5 is **not measured**. The negative control never reached the application, and
+the positive boot arm was not run. The reviewer-ready harness requires both the
+documented `:nxdomain` failure and a live-container HTTP probe before reporting
+success.
+
+An ordinary Wrangler dry-run similarly reached the container-build boundary and
+stopped because Docker was unavailable.
+
+### A6
+
+Dependency installation:
+
+```text
+cd worker && npm ci --offline --ignore-scripts --no-audit --no-fund
+```
+
+```text
+added 41 packages in 3s
+```
+
+No-rollout bundle validation:
+
+```text
+WRANGLER_LOG_PATH=/tmp/commonplace-next-wrangler-check.log npm run check
+```
+
+```text
+wrangler 4.125.0
+Total Upload: 59.09 KiB / gzip: 14.47 KiB
+env.COMMONPLACE_NEXT_CONTAINER (CommonplaceNextContainer) Durable Object
+The following containers are available:
+- commonplace-next (/home/jes/sol-deploy-next-1/wt/Dockerfile)
+--dry-run: exiting now.
+```
+
+Elixir cleanup used `find … -delete` because the sandbox rejected `rm -rf`. Then
+:
+
+```text
+mix test
+```
+
+```text
+Finished in 470.9 seconds
+560 tests, 5 failures, 1 excluded
+```
+
+Therefore the Elixir portion of A6 is **not green**. The failures were:
+
+- Four existing pin gates attempted credentialless Git fetches and reported BLIN
+D: cell, biscuit, doc, and doc-sync.
+- The trust-root falsifier could not restore its temporary `config/dev.exs` muta
+tion because its cleanup uses `git checkout` against read-only `.git`.
+
+The exact 15-line test mutation was removed afterward. `config/dev.exs` now hash
+es to its original blob:
+
+```text
+264045e7e55a7606754a5f69f59131330d0674b3
+```
+
+There is no remaining diff under `config/`, `lib/`, or `Dockerfile`.
+
+## Declared file set
+
+All changes are inside the expected fence:
+
+- [Implementation plan](/home/jes/sol-deploy-next-1/wt/docs/IMPLEMENTATION-PLAN-
+DEPLOY-NEXT-1.md)
+- [Wrangler configuration](/home/jes/sol-deploy-next-1/wt/worker/wrangler.jsonc)
+- [Container entrypoint](/home/jes/sol-deploy-next-1/wt/worker/src/index.js)
+- [Outbound lane](/home/jes/sol-deploy-next-1/wt/worker/src/outbound.js)
+- [Worker tests](/home/jes/sol-deploy-next-1/wt/worker/test/outbound.test.mjs)
+- [A5 harness](/home/jes/sol-deploy-next-1/wt/worker/test/a5-local-boot.sh)
+- [Stateful store stub](/home/jes/sol-deploy-next-1/wt/worker/test/support/store
+-stub.mjs)
+- [Package manifest](/home/jes/sol-deploy-next-1/wt/worker/package.json)
+- [Locked dependencies](/home/jes/sol-deploy-next-1/wt/worker/package-lock.json)
+- [Worker ignore rules](/home/jes/sol-deploy-next-1/wt/worker/.gitignore)
+
+Files outside the expected set: none. `git diff --check` passes. No real capabil
+ity value was accessed or recorded.
+diff --git a/config/dev.exs b/config/dev.exs
+index 3945d398723efaa029dd4cff73e2f5d42ff874ba..264045e7e55a7606754a5f69f5913133
+0d0674b3
+--- a/config/dev.exs
++++ b/config/dev.exs
+@@ -26,18 +26,3 @@
+   realm_id: "commonplace-next"
+
+ config :logger, level: :warning
+-
+-config :commonplace_next, CommonplaceNext.Realm.Keystore,
+-  roots: [
+-    %{
+-      root_key_id: 1,
+-      algorithm: "ed25519",
+-      public_key: String.duplicate("ab", 32),
+-      status: "active",
+-      issuer: %{
+-        "purpose" => "realm.capability",
+-        "realm" => "somewhere-else",
+-        "operations" => ["directory.list", "directory.resolve", "cell.open", "d
+ocument.sync.summary", "document.sync.offer"]
+-      }
+-    }
+-  ]
+diff --git a/docs/IMPLEMENTATION-PLAN-DEPLOY-NEXT-1.md b/docs/IMPLEMENTATION-PLA
+N-DEPLOY-NEXT-1.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..7758d213b776cc913f133a4765b0902b
+f759e0ff
+--- /dev/null
++++ b/docs/IMPLEMENTATION-PLAN-DEPLOY-NEXT-1.md
+@@ -0,0 +1,82 @@
++# DEPLOY-NEXT-1 implementation plan
++
++## Boundary and result
++
++This round adds the Worker that owns the `commonplace_next` container and the o
+nly outbound lane
++available to it. It does not change `Dockerfile`, `config/`, `lib/`, the Cloudf
+lare Access
++application, or the five production boot requirements. The container therefore
+continues to use
++`http://storage.internal`; `COMMONPLACE_SIDECAR_URL` is not one of its deployed
+ environment
++variables.
++
++`CommonplaceNextContainer` listens on port 4000, sleeps after ten minutes, and
+has
++`enableInternet = false`. Its environment contains exactly the five values prod
+uction already
++requires:
++
++* `SECRET_KEY_BASE`
++* `COMMONPLACE_ACCESS_ISSUER`
++* `COMMONPLACE_ACCESS_AUDIENCE`
++* `COMMONPLACE_ACCESS_JWKS_URI`
++* `COMMONPLACE_ACCESS_ROSTER`
++
++The Worker additionally reads `COMMONPLACE_LOG_REALM_URL` and the secret
++`COMMONPLACE_LOG_REALM_CAPABILITY`. Those two bindings are never copied into `e
+nvVars`, so the
++container process cannot read either one.
++
++## Lane and authority
++
++`CommonplaceNextContainer.outboundByHost` registers only `storage.internal`. Th
+e handler checks
++the request hostname before reading bindings or invoking a transport. It reject
+s every other host
++with 403. For the accepted host it retains the path and query, resolves them ag
+ainst
++`COMMONPLACE_LOG_REALM_URL`, deletes any `authorization` supplied by the contai
+ner, then installs
++`Authorization: Bearer <COMMONPLACE_LOG_REALM_CAPABILITY>`. The realm endpoint
+must be HTTPS and
++all binding or transport failures return a generic response without logging req
+uest details.
++The entry module exports the SDK's `ContainerProxy`, which is the runtime targe
+t for intercepted
++egress.
++
++This bearer capability is strictly weaker than the log Worker lane's platform-s
+upplied
++`ctx.containerId` authority. The compensating boundary is explicit: the credent
+ial exists only as
++a Worker secret; the process cannot read it; and an offline container can reach
+ only the registered
++store lane. A compromised process can use its store authority through that lane
+, but cannot select
++another authority or exfiltrate the capability over another network path.
++
++The named repair is to package the log Worker's store implementation for both r
+epositories and
++restore `ctx.containerId` as the authority. That repair is outside this round.
++
++## Deployment custody
++
++The dispatcher supplies the capability out of band. Its value must never be wri
+tten to a command
++line, repository file, message, log, or response. Configure only the binding na
+me
++`COMMONPLACE_LOG_REALM_CAPABILITY` through the deployment secret mechanism. Con
+figure
++`COMMONPLACE_LOG_REALM_URL` and the five container values in the Worker environ
+ment. Do not add
++`COMMONPLACE_SIDECAR_URL`.
++
++`wrangler deploy` builds and rolls out the configured container image. This rou
+nd does not run it;
++deployment belongs to the dispatcher under a separate announced act. A local, n
+on-deploying bundle
++check is:
++
++```sh
++cd worker
++npm ci
++npm test
++npm run check
++```
++
++## Arms
++
++Run A1–A4 and the structural Worker checks with `cd worker && npm test`. The su
+ite injects a fake
++transport and fake capability; no real credential or network is needed. A1 incl
+udes a positive
++transport control before proving that three wrong hosts return 403 with zero tr
+ansport calls. A2
++starts with a container-chosen authorization value and proves that only the inj
+ected secret leaves
++the lane. A3 positively finds the fake secret in that outgoing header, then pro
+ves it is absent
++from captured output and both success and failure response bodies. A4 exercises
+ all seven route
++paths with query strings.
++
++A5 is executable as `cd worker && bash test/a5-local-boot.sh`. It uses
++`commonplace-next:2594dc7` unless `A5_IMAGE` names another already-built image.
+ First it requires a
++plain container run to fail with both `storage.internal … :nxdomain` and the Re
+alm child failure.
++Then it starts the stateful seven-route stub, proves the stub is reachable, sup
+plies the sidecar URL
++only to the local review container, and requires the release container to remai
+n alive and answer
++HTTP. The local-only override is an arm instrument, not deployment configuratio
+n.
++
++A6 is `rm -rf tmp/test-data && mix test`, after the Worker suite. No Elixir sou
+rce or test is changed
++by this round.
+diff --git a/worker/.gitignore b/worker/.gitignore
+new file mode 100644
+index 0000000000000000000000000000000000000000..21e6495db2b3913233888d2f3f00e693
+5129703c
+--- /dev/null
++++ b/worker/.gitignore
+@@ -0,0 +1,3 @@
++node_modules/
++.wrangler/
++
+diff --git a/worker/package-lock.json b/worker/package-lock.json
+index 6a38ad0ceacb9a5a8bbb6bd4b95ac312475fb5c5..9601bea90f36e633f6130ef2f014a86b
+da27e194
+--- a/worker/package-lock.json
++++ b/worker/package-lock.json
+@@ -1,13 +1,20 @@
+ {
+-  "name": "32026684e21afda6",
++  "name": "commonplace-next-worker",
+   "lockfileVersion": 3,
+   "requires": true,
+   "packages": {
+     "": {
+       "dependencies": {
+-        "wrangler": "^4.125.0"
++        "@cloudflare/containers": "0.3.7",
++        "wrangler": "4.125.0"
+       }
+     },
++    "node_modules/@cloudflare/containers": {
++      "version": "0.3.7",
++      "resolved": "https://registry.npmjs.org/@cloudflare/containers/-/containe
+rs-0.3.7.tgz",
++      "integrity": "sha512-DM9dm3FnIBSyiSJ1FLavKwl/lk3oAmTaynCzZQ9pZR0ncRPquSxk
+xd8Nu2MFILxmDDsPkxKsSNEh9mHHMty4Fw==",
++      "license": "MIT OR Apache-2.0"
++    },
+     "node_modules/@cloudflare/kv-asset-handler": {
+       "version": "0.5.0",
+       "resolved": "https://registry.npmjs.org/@cloudflare/kv-asset-handler/-/kv
+-asset-handler-0.5.0.tgz",
+diff --git a/worker/package.json b/worker/package.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..9853490ef067d876dc9a3c0c409ba19f
+78f7bb5a
+--- /dev/null
++++ b/worker/package.json
+@@ -0,0 +1,13 @@
++{
++  "name": "commonplace-next-worker",
++  "private": true,
++  "type": "module",
++  "scripts": {
++    "test": "node --test test/*.test.mjs",
++    "check": "wrangler deploy --dry-run --containers-rollout=none --outdir /tmp
+/commonplace-next-worker-dry-run"
++  },
++  "dependencies": {
++    "@cloudflare/containers": "0.3.7",
++    "wrangler": "4.125.0"
++  }
++}
+diff --git a/worker/src/index.js b/worker/src/index.js
+new file mode 100644
+index 0000000000000000000000000000000000000000..75dd2e233402ffa2ce3302bde0cdcd33
+f007c126
+--- /dev/null
++++ b/worker/src/index.js
+@@ -0,0 +1,33 @@
++import { Container } from "@cloudflare/containers";
++import { storageInternal } from "./outbound.js";
++
++// The SDK routes intercepted container egress through this exported entrypoint
+.
++export { ContainerProxy } from "@cloudflare/containers";
++
++export class CommonplaceNextContainer extends Container {
++  defaultPort = 4000;
++  sleepAfter = "10m";
++  enableInternet = false;
++
++  // Deliberately only the five production-boot variables. The store endpoint
++  // and capability stay in Worker bindings and never enter the container.
++  envVars = {
++    SECRET_KEY_BASE: this.env.SECRET_KEY_BASE,
++    COMMONPLACE_ACCESS_ISSUER: this.env.COMMONPLACE_ACCESS_ISSUER,
++    COMMONPLACE_ACCESS_AUDIENCE: this.env.COMMONPLACE_ACCESS_AUDIENCE,
++    COMMONPLACE_ACCESS_JWKS_URI: this.env.COMMONPLACE_ACCESS_JWKS_URI,
++    COMMONPLACE_ACCESS_ROSTER: this.env.COMMONPLACE_ACCESS_ROSTER,
++  };
++}
++
++// A class field uses define semantics and bypasses the SDK's static setter.
++CommonplaceNextContainer.outboundByHost = {
++  "storage.internal": storageInternal,
++};
++
++export default {
++  async fetch(request, env) {
++    const id = env.COMMONPLACE_NEXT_CONTAINER.idFromName("primary");
++    return env.COMMONPLACE_NEXT_CONTAINER.get(id).fetch(request);
++  },
++};
+diff --git a/worker/src/outbound.js b/worker/src/outbound.js
+new file mode 100644
+index 0000000000000000000000000000000000000000..84d431154bd9fb5db08561c68f79fd4a
+d2e8a197
+--- /dev/null
++++ b/worker/src/outbound.js
+@@ -0,0 +1,74 @@
++const STORAGE_HOST = "storage.internal";
++
++function textResponse(status, body) {
++  return new Response(body, {
++    status,
++    headers: { "content-type": "text/plain; charset=utf-8" },
++  });
++}
++
++function forbidden() {
++  return textResponse(403, "forbidden");
++}
++
++function upstreamUnavailable() {
++  return textResponse(502, "storage upstream unavailable");
++}
++
++function targetUrl(incomingUrl, configuredEndpoint) {
++  if (typeof configuredEndpoint !== "string" || configuredEndpoint.trim() === "
+") {
++    throw new TypeError("COMMONPLACE_LOG_REALM_URL is absent");
++  }
++
++  const base = new URL(configuredEndpoint);
++  if (base.protocol !== "https:") {
++    throw new TypeError("COMMONPLACE_LOG_REALM_URL must use HTTPS");
++  }
++
++  const target = new URL(base);
++  const basePath = base.pathname.replace(/\/$/, "");
++  target.pathname = `${basePath}${incomingUrl.pathname}`;
++  target.search = incomingUrl.search;
++  target.hash = "";
++  return target;
++}
++
++/**
++ * Build the outbound handler around an injectable transport. Production uses
++ * global fetch; tests use a recorder and never need a credential or network.
++ */
++export function createStorageInternal(transport = globalThis.fetch) {
++  return async function storageInternal(request, env, _ctx) {
++    const incomingUrl = new URL(request.url);
++
++    // This check must precede every binding read and every transport call.
++    if (incomingUrl.hostname !== STORAGE_HOST) return forbidden();
++
++    let forwarded;
++    try {
++      const capability = env.COMMONPLACE_LOG_REALM_CAPABILITY;
++      if (typeof capability !== "string" || capability.trim() === "") {
++        return upstreamUnavailable();
++      }
++
++      const target = targetUrl(incomingUrl, env.COMMONPLACE_LOG_REALM_URL);
++      forwarded = new Request(target, request);
++
++      // An authorization chosen inside the container is untrusted. Remove it
++      // before installing the only authority this lane accepts: our secret.
++      forwarded.headers.delete("authorization");
++      forwarded.headers.set("authorization", `Bearer ${capability}`);
++    } catch (_error) {
++      return upstreamUnavailable();
++    }
++
++    try {
++      return await transport(forwarded);
++    } catch (_error) {
++      // Do not stringify the error: transports may include request details.
++      return upstreamUnavailable();
++    }
++  };
++}
++
++export const storageInternal = createStorageInternal();
+diff --git a/worker/test/a5-local-boot.sh b/worker/test/a5-local-boot.sh
+new file mode 100644
+index 0000000000000000000000000000000000000000..1f1d35b49c1a56c0ade06239000b3e8e
+2a6c61a4
+--- /dev/null
++++ b/worker/test/a5-local-boot.sh
+@@ -0,0 +1,77 @@
++#!/usr/bin/env bash
++set -euo pipefail
++
++A5_IMAGE="${A5_IMAGE:-commonplace-next:2594dc7}"
++A5_STUB_PORT="${A5_STUB_PORT:-18080}"
++A5_RUN_ID="a5-${$}"
++A5_TMP_DIR="$(mktemp -d /tmp/commonplace-next-a5.XXXXXX)"
++A5_NEGATIVE_NAME="commonplace-next-${A5_RUN_ID}-negative"
++A5_POSITIVE_NAME="commonplace-next-${A5_RUN_ID}-positive"
++
++cleanup() {
++  docker rm -f "$A5_NEGATIVE_NAME" "$A5_POSITIVE_NAME" >/dev/null 2>&1 || true
++  if [[ -n "${A5_STUB_PID:-}" ]]; then kill "$A5_STUB_PID" >/dev/null 2>&1 || t
+rue; fi
++  rm -rf "$A5_TMP_DIR"
++}
++trap cleanup EXIT
++
++common_env=(
++  -e SECRET_KEY_BASE=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaa
++  -e COMMONPLACE_ACCESS_ISSUER=https://access.invalid
++  -e COMMONPLACE_ACCESS_AUDIENCE=local-a5-audience
++  -e 'COMMONPLACE_ACCESS_ROSTER={"00000000-0000-4000-8000-000000000001":"local-
+reviewer"}'
++)
++
++echo 'A5 negative control: no sidecar (failure required)'
++set +e
++docker run --name "$A5_NEGATIVE_NAME" \
++  "${common_env[@]}" \
++  -e COMMONPLACE_ACCESS_JWKS_URI=http://127.0.0.1:9/jwks \
++  "$A5_IMAGE" >"$A5_TMP_DIR/negative.log" 2>&1
++A5_NEGATIVE_STATUS=$?
++set -e
++cat "$A5_TMP_DIR/negative.log"
++if [[ "$A5_NEGATIVE_STATUS" -eq 0 ]]; then
++  echo 'A5 negative control unexpectedly succeeded' >&2
++  exit 1
++fi
++grep -F 'storage.internal' "$A5_TMP_DIR/negative.log" | grep -F ':nxdomain' >/d
+ev/null
++grep -F 'failed to start child CommonplaceNext.Realm' "$A5_TMP_DIR/negative.log
+" >/dev/null
++
++echo 'A5 arm: local seven-route sidecar (success required)'
++node test/support/store-stub.mjs "$A5_STUB_PORT" >"$A5_TMP_DIR/stub.log" 2>&1 &
++A5_STUB_PID=$!
++for _attempt in $(seq 1 50); do
++  if curl --silent --fail "http://127.0.0.1:${A5_STUB_PORT}/health" >/dev/null;
+ then break; fi
++  sleep 0.1
++done
++curl --silent --fail "http://127.0.0.1:${A5_STUB_PORT}/health" >/dev/null
++cat "$A5_TMP_DIR/stub.log"
++
++docker run --detach --name "$A5_POSITIVE_NAME" \
++  --add-host host.docker.internal:host-gateway \
++  --publish 127.0.0.1::4000 \
++  "${common_env[@]}" \
++  -e COMMONPLACE_ACCESS_JWKS_URI="http://host.docker.internal:${A5_STUB_PORT}/j
+wks" \
++  -e COMMONPLACE_SIDECAR_URL="http://host.docker.internal:${A5_STUB_PORT}" \
++  "$A5_IMAGE" >/dev/null
++
++A5_HOST_PORT="$(docker port "$A5_POSITIVE_NAME" 4000/tcp | sed -n 's/.*://p')"
++for _attempt in $(seq 1 300); do
++  if [[ "$(docker inspect "$A5_POSITIVE_NAME" --format '{{.State.Running}}')" !
+= true ]]; then
++    docker logs "$A5_POSITIVE_NAME"
++    echo 'A5 positive container stopped before becoming reachable' >&2
++    exit 1
++  fi
++  if curl --silent --output /dev/null "http://127.0.0.1:${A5_HOST_PORT}/"; then
++    docker logs "$A5_POSITIVE_NAME"
++    echo 'A5 arm passed: stub reachable, container running, application HTTP en
+dpoint reachable'
++    exit 0
++  fi
++  sleep 0.1
++done
++
++docker logs "$A5_POSITIVE_NAME"
++echo 'A5 positive container never became reachable' >&2
++exit 1
++
+diff --git a/worker/test/outbound.test.mjs b/worker/test/outbound.test.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..8cf42fa84b87b37eb19dcaed5f219178
+64a50435
+--- /dev/null
++++ b/worker/test/outbound.test.mjs
+@@ -0,0 +1,142 @@
++import assert from "node:assert/strict";
++import { readFile } from "node:fs/promises";
++import test from "node:test";
++
++import { createStorageInternal } from "../src/outbound.js";
++
++const FAKE_SECRET = "fake-capability-positive-control-7f15";
++const ENV = {
++  COMMONPLACE_LOG_REALM_URL: "https://commonplace-log.example",
++  COMMONPLACE_LOG_REALM_CAPABILITY: FAKE_SECRET,
++};
++
++function post(url, authorization = undefined) {
++  const headers = { "content-type": "application/json" };
++  if (authorization !== undefined) headers.authorization = authorization;
++  return new Request(url, { method: "POST", headers, body: "{}" });
++}
++
++test("A1 control: storage.internal reaches the injected transport", async () =>
+ {
++  let calls = 0;
++  const handler = createStorageInternal(async () => {
++    calls += 1;
++    return new Response(null, { status: 204 });
++  });
++
++  assert.equal((await handler(post("http://storage.internal/frontier"), ENV, {}
+)).status, 204);
++  assert.equal(calls, 1);
++});
++
++test("A1: every non-storage hostname is 403 and is never forwarded", async () =
+> {
++  let calls = 0;
++  const handler = createStorageInternal(async () => {
++    calls += 1;
++    return new Response(null, { status: 204 });
++  });
++
++  for (const url of [
++    "http://storage.internal.example/frontier",
++    "http://example.test/frontier",
++    "http://127.0.0.1/frontier",
++  ]) {
++    const response = await handler(post(url), ENV, {});
++    assert.equal(response.status, 403);
++    assert.equal(await response.text(), "forbidden");
++  }
++  assert.equal(calls, 0);
++});
++
++test("A2: the secret capability replaces container-supplied authorization", asy
+nc () => {
++  let outgoing;
++  const handler = createStorageInternal(async (request) => {
++    outgoing = request;
++    return new Response(null, { status: 204 });
++  });
++
++  const response = await handler(
++    post("http://storage.internal/commit", "Bearer container-chosen-authority")
+,
++    ENV,
++    {},
++  );
++
++  assert.equal(response.status, 204);
++  assert.equal(outgoing.headers.get("authorization"), `Bearer ${FAKE_SECRET}`);
++  assert.notEqual(outgoing.headers.get("authorization"), "Bearer container-chos
+en-authority");
++});
++
++test("A3: the fake capability is observable only in the outgoing header", async
+ () => {
++  const captured = [];
++  const original = {};
++  for (const method of ["log", "info", "warn", "error"]) {
++    original[method] = console[method];
++    console[method] = (...values) => captured.push(values.join(" "));
++  }
++
++  let positiveControl = "";
++  try {
++    const success = createStorageInternal(async (request) => {
++      positiveControl = request.headers.get("authorization") ?? "";
++      return new Response("store accepted request", { status: 200 });
++    });
++    const successResponse = await success(post("http://storage.internal/frontie
+r"), ENV, {});
++
++    const failure = createStorageInternal(async () => {
++      throw new Error(`transport detail must be suppressed: ${FAKE_SECRET}`);
++    });
++    const failureResponse = await failure(post("http://storage.internal/frontie
+r"), ENV, {});
++
++    const visible = [
++      ...captured,
++      await successResponse.text(),
++      await failureResponse.text(),
++    ].join("\n");
++
++    assert.match(positiveControl, new RegExp(FAKE_SECRET));
++    assert.doesNotMatch(visible, new RegExp(FAKE_SECRET));
++    assert.equal(failureResponse.status, 502);
++  } finally {
++    for (const method of ["log", "info", "warn", "error"]) console[method] = or
+iginal[method];
++  }
++});
++
++test("A4: path and query are unchanged for every realm route", async () => {
++  const routes = [
++    "/create-log",
++    "/take-lease",
++    "/read-set",
++    "/commit",
++    "/frontier",
++    "/read-writer",
++    "/tail-local",
++  ];
++  const seen = [];
++  const handler = createStorageInternal(async (request) => {
++    const url = new URL(request.url);
++    seen.push(url.pathname + url.search);
++    return new Response(null, { status: 204 });
++  });
++
++  for (const [index, route] of routes.entries()) {
++    const suffix = `${route}?arm=A4&route=${index}`;
++    assert.equal((await handler(post(`http://storage.internal${suffix}`), ENV,
+{})).status, 204);
++    assert.equal(seen.at(-1), suffix);
++  }
++  assert.deepEqual(seen, routes.map((route, index) => `${route}?arm=A4&route=${
+index}`));
++});
++
++test("deployment config keeps the container offline and rooted at the repositor
+y Dockerfile", async () => {
++  const config = JSON.parse(await readFile(new URL("../wrangler.jsonc", import.
+meta.url), "utf8"));
++  const [container] = config.containers;
++  assert.equal(container.class_name, "CommonplaceNextContainer");
++  assert.equal(container.image, "../Dockerfile");
++  assert.equal(container.image_build_context, "..");
++
++  const source = await readFile(new URL("../src/index.js", import.meta.url), "u
+tf8");
++  assert.match(source, /defaultPort = 4000/);
++  assert.match(source, /sleepAfter = "10m"/);
++  assert.match(source, /enableInternet = false/);
++  assert.match(source, /CommonplaceNextContainer\.outboundByHost/);
++  assert.match(source, /export \{ ContainerProxy \}/);
++  assert.doesNotMatch(source, /COMMONPLACE_SIDECAR_URL/);
++  assert.doesNotMatch(source, /COMMONPLACE_LOG_REALM_CAPABILITY:\s*this\.env/);
++});
+diff --git a/worker/test/support/store-stub.mjs b/worker/test/support/store-stub
+.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..a90bbaafce5f986e6738aa917b13bd82
+f959620d
+--- /dev/null
++++ b/worker/test/support/store-stub.mjs
+@@ -0,0 +1,209 @@
++#!/usr/bin/env node
++
++import http from "node:http";
++
++const port = Number.parseInt(process.argv[2] ?? "18080", 10);
++if (!Number.isInteger(port) || port < 1 || port > 65535) {
++  throw new TypeError("port must be an integer from 1 through 65535");
++}
++
++const logs = new Map();
++let writerSequence = 1;
++let arrivalSequence = 1;
++
++function json(response, status, value) {
++  const body = JSON.stringify(value);
++  response.writeHead(status, {
++    "content-type": "application/json",
++    "content-length": Buffer.byteLength(body),
++  });
++  response.end(body);
++}
++
++function ok(response, status, value = {}) {
++  json(response, status, { ok: true, ...value });
++}
++
++function error(response, status, code) {
++  json(response, status, { ok: false, error: { code } });
++}
++
++function logFor(response, logId) {
++  const log = logs.get(logId);
++  if (log === undefined) error(response, 404, "not_found");
++  return log;
++}
++
++function uuid(sequence) {
++  return `00000000-0000-4000-8000-${sequence.toString(16).padStart(12, "0")}`;
++}
++
++function createLog(response, payload) {
++  if (logs.has(payload.log_id)) return error(response, 409, "constraint_violati
+on");
++  logs.set(payload.log_id, {
++    revision: 0,
++    leaseEpoch: 0,
++    documentWriterId: null,
++    entries: new Map(),
++    tips: new Map(),
++  });
++  ok(response, 201);
++}
++
++function takeLease(response, payload) {
++  const log = logFor(response, payload.log_id);
++  if (log === undefined) return;
++  log.leaseEpoch += 1;
++  log.documentWriterId = uuid(writerSequence++);
++  ok(response, 200, {
++    lease_epoch: log.leaseEpoch,
++    writer_id: log.documentWriterId,
++  });
++}
++
++function readSet(response, payload) {
++  const log = logFor(response, payload.log_id);
++  if (log === undefined) return;
++
++  const wantedWriters = new Set(payload.writers ?? []);
++  const tips = [...log.tips.values()]
++    .filter((tip) => wantedWriters.has(tip.writer_id))
++    .sort((left, right) => left.writer_id.localeCompare(right.writer_id));
++
++  const coordinates = (payload.coordinates ?? []).flatMap((coordinate) => {
++    const row = [...log.entries.values()].find(
++      (entry) =>
++        entry.writer_id === coordinate.writer_id && entry.writer_seq === coordi
+nate.writer_seq,
++    );
++    return row === undefined
++      ? []
++      : [{ ...coordinate, canonical_bytes: row.canonical_bytes }];
++  });
++
++  const entryIds = (payload.entry_ids ?? []).flatMap((entryId) => {
++    const row = log.entries.get(entryId);
++    return row === undefined
++      ? []
++      : [{ entry_id: entryId, canonical_bytes: row.canonical_bytes }];
++  });
++
++  ok(response, 200, {
++    read_set: {
++      log_id: payload.log_id,
++      format_version: 1,
++      revision: log.revision,
++      lease_epoch: log.leaseEpoch,
++      document_writer_id: log.documentWriterId,
++      tips,
++      coordinates,
++      entry_ids: entryIds,
++    },
++  });
++}
++
++function commit(response, payload) {
++  const log = logFor(response, payload.log_id);
++  if (log === undefined) return;
++  if (payload.expected_revision !== log.revision) return error(response, 409, "
+stale_revision");
++  if (payload.expected_epoch !== log.leaseEpoch) return error(response, 409, "o
+bsolete_epoch");
++
++  for (const entry of payload.insert_entries ?? []) {
++    const existing = log.entries.get(entry.entry_id);
++    if (existing !== undefined && existing.canonical_bytes !== entry.canonical_
+bytes) {
++      return error(response, 409, "constraint_violation");
++    }
++  }
++
++  for (const entry of payload.insert_entries ?? []) {
++    if (!log.entries.has(entry.entry_id)) {
++      log.entries.set(entry.entry_id, { ...entry, arrival_seq: arrivalSequence+
++ });
++    }
++  }
++  for (const tip of payload.put_tips ?? []) log.tips.set(tip.writer_id, tip);
++  log.revision += 1;
++  ok(response, 200, { revision: log.revision });
++}
++
++function frontier(response, payload) {
++  const log = logFor(response, payload.log_id);
++  if (log === undefined) return;
++  const writers = [...log.tips.values()]
++    .map((tip) => ({ writer_id: tip.writer_id, seq: tip.last_seq, entry_id: tip
+.last_entry_id }))
++    .sort((left, right) => left.writer_id.localeCompare(right.writer_id));
++  ok(response, 200, { frontier: { writers } });
++}
++
++function readWriter(response, payload) {
++  const log = logFor(response, payload.log_id);
++  if (log === undefined) return;
++  const entries = [...log.entries.values()]
++    .filter(
++      (entry) =>
++        entry.writer_id === payload.writer_id &&
++        entry.writer_seq > payload.after_seq &&
++        (payload.through_seq == null || entry.writer_seq <= payload.through_seq
+),
++    )
++    .sort((left, right) => left.writer_seq - right.writer_seq)
++    .slice(0, payload.limit)
++    .map((entry) => ({ canonical_bytes: entry.canonical_bytes, writer_seq: entr
+y.writer_seq }));
++  ok(response, 200, {
++    page: {
++      entries,
++      next_after_seq: entries.length === payload.limit ? entries.at(-1).writer_
+seq : null,
++    },
++  });
++}
++
++function tailLocal(response, payload) {
++  const log = logFor(response, payload.log_id);
++  if (log === undefined) return;
++  const entries = [...log.entries.values()]
++    .filter((entry) => entry.arrival_seq > payload.after_arrival)
++    .sort((left, right) => left.arrival_seq - right.arrival_seq)
++    .slice(0, payload.limit)
++    .map((entry) => ({ canonical_bytes: entry.canonical_bytes, arrival_seq: ent
+ry.arrival_seq }));
++  ok(response, 200, {
++    page: {
++      entries,
++      next_after_arrival: entries.length === payload.limit ? entries.at(-1).arr
+ival_seq : null,
++    },
++  });
++}
++
++const routes = new Map([
++  ["/create-log", createLog],
++  ["/take-lease", takeLease],
++  ["/read-set", readSet],
++  ["/commit", commit],
++  ["/frontier", frontier],
++  ["/read-writer", readWriter],
++  ["/tail-local", tailLocal],
++]);
++
++const server = http.createServer((request, response) => {
++  const url = new URL(request.url, "http://stub.invalid");
++  if (request.method === "GET" && url.pathname === "/health") return ok(respons
+e, 200);
++  if (request.method === "GET" && url.pathname === "/jwks") {
++    return json(response, 200, { keys: [] });
++  }
++
++  const route = routes.get(url.pathname);
++  if (request.method !== "POST" || route === undefined) {
++    return error(response, 404, "not_found");
++  }
++
++  const chunks = [];
++  request.on("data", (chunk) => chunks.push(chunk));
++  request.on("end", () => {
++    try {
++      route(response, JSON.parse(Buffer.concat(chunks).toString("utf8")));
++    } catch (_error) {
++      error(response, 400, "malformed_request");
++    }
++  });
++});
++
++server.listen(port, "0.0.0.0", () => {
++  process.stdout.write(`store stub listening on ${port}\n`);
++});
++
+diff --git a/worker/wrangler.jsonc b/worker/wrangler.jsonc
+new file mode 100644
+index 0000000000000000000000000000000000000000..c0642ecf5cf8a1b43a387655a64a2232
+a1259a85
+--- /dev/null
++++ b/worker/wrangler.jsonc
+@@ -0,0 +1,32 @@
++{
++  "$schema": "node_modules/wrangler/config-schema.json",
++  "name": "commonplace-next",
++  "main": "src/index.js",
++  "compatibility_date": "2026-09-04",
++  "compatibility_flags": ["nodejs_compat"],
++  "durable_objects": {
++    "bindings": [
++      {
++        "name": "COMMONPLACE_NEXT_CONTAINER",
++        "class_name": "CommonplaceNextContainer"
++      }
++    ]
++  },
++  "migrations": [
++    {
++      "tag": "v1",
++      "new_sqlite_classes": ["CommonplaceNextContainer"]
++    }
++  ],
++  "containers": [
++    {
++      "name": "commonplace-next",
++      "class_name": "CommonplaceNextContainer",
++      "image": "../Dockerfile",
++      "image_build_context": "..",
++      "max_instances": 10,
++      "instance_type": "lite",
++      "rollout_active_grace_period": 120
++    }
++  ]
++}
+
+tokens used
+247,070
+Implemented the container-managing Worker and authenticated outbound store lane.
+ Changes remain uncommitted; nothing was deployed, pushed, fetched, or committed
+.
+
+## Base and corpus
+
+`git rev-parse HEAD`
+
+```text
+2594dc706e5ce30645cac886a5b60d22c82ffe7f
+```
+
+Corpus measurements:
+
+- `Dockerfile`: 99 lines.
+- Build stage: line 40, `FROM ${ELIXIR_IMAGE} AS build`.
+- Runtime stage: line 74, `FROM ${RUNTIME_IMAGE} AS runtime`.
+- Six `COPY` lines: 62, 63, 66, 67, 68, 92.
+- `EXPOSE 4000 4010`: line 95.
+- `CMD ["bin/commonplace_next", "start"]`: line 99.
+- Existing Wrangler files before implementation: zero.
+- `lane.ex`:
+  - `@env_var "COMMONPLACE_SIDECAR_URL"`: line 40.
+  - `@default_base_url "http://storage.internal"`: line 41.
+  - blank-as-absent handling: lines 52–64.
+- `runtime.exs`:
+  - measured production boot comment: lines 26–35.
+  - production block: lines 40–88.
+  - `SecretKeyBase.fetch!()`: line 42.
+  - `Storage.Lane.sidecar()`: line 44.
+  - five Access-authentication keys: lines 62, 63, 71, 72, 73.
+  - roster installation: line 84.
+  - JWKS URI installation: line 87.
+
+No corpus differences were found.
+
+## Implementation
+
+- Durable Object container on port 4000 with `sleepAfter = "10m"` and `enableInt
+ernet = false`.
+- Only the five required production variables enter the container.
+- `COMMONPLACE_SIDECAR_URL` is absent from deployed container configuration.
+- `storage.internal` is registered through `outboundByHost`.
+- Wrong hosts receive 403 before any transport call.
+- The deployed realm URL comes from `COMMONPLACE_LOG_REALM_URL`.
+- Container-provided authorization is deleted and replaced from the Worker-only
+`COMMONPLACE_LOG_REALM_CAPABILITY` secret.
+- Path and query are preserved across all seven store routes.
+- Missing/invalid bindings and transport failures return a generic 502 without l
+ogging request details.
+- `ContainerProxy` is exported as required by the pinned container SDK.
+
+## Arms
+
+### A1–A4
+
+Command:
+
+```text
+cd worker && npm test
+```
+
+Output:
+
+```text
+✔ A1 control: storage.internal reaches the injected transport
+✔ A1: every non-storage hostname is 403 and is never forwarded
+✔ A2: the secret capability replaces container-supplied authorization
+✔ A3: the fake capability is observable only in the outgoing header
+✔ A4: path and query are unchanged for every realm route
+✔ deployment config keeps the container offline and rooted at the repository Doc
+kerfile
+ℹ tests 6
+ℹ pass 6
+ℹ fail 0
+```
+
+A1’s control recorded one transport call. Its refusal arm tested three non-stora
+ge hosts and recorded zero transport calls.
+
+A3 positively found the fake secret in the outgoing authorization header, then f
+ound it nowhere in captured logs or success/failure response bodies.
+
+The stateful stub was also exercised directly against all seven routes:
+
+```text
+{"ok":true}
+{"ok":true,"lease_epoch":1,"writer_id":"00000000-0000-4000-8000-000000000001"}
+{"ok":true,"read_set":{...}}
+{"ok":true,"revision":1}
+{"ok":true,"frontier":{"writers":[]}}
+{"ok":true,"page":{"entries":[],"next_after_seq":null}}
+{"ok":true,"page":{"entries":[],"next_after_arrival":null}}
+```
+
+### A5
+
+Command:
+
+```text
+cd worker && bash test/a5-local-boot.sh
+```
+
+Output:
+
+```text
+A5 negative control: no sidecar (failure required)
+Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docke
+r daemon running?
+```
+
+A5 is **not measured**. The negative control never reached the application, and
+the positive boot arm was not run. The reviewer-ready harness requires both the
+documented `:nxdomain` failure and a live-container HTTP probe before reporting
+success.
+
+An ordinary Wrangler dry-run similarly reached the container-build boundary and
+stopped because Docker was unavailable.
+
+### A6
+
+Dependency installation:
+
+```text
+cd worker && npm ci --offline --ignore-scripts --no-audit --no-fund
+```
+
+```text
+added 41 packages in 3s
+```
+
+No-rollout bundle validation:
+
+```text
+WRANGLER_LOG_PATH=/tmp/commonplace-next-wrangler-check.log npm run check
+```
+
+```text
+wrangler 4.125.0
+Total Upload: 59.09 KiB / gzip: 14.47 KiB
+env.COMMONPLACE_NEXT_CONTAINER (CommonplaceNextContainer) Durable Object
+The following containers are available:
+- commonplace-next (/home/jes/sol-deploy-next-1/wt/Dockerfile)
+--dry-run: exiting now.
+```
+
+Elixir cleanup used `find … -delete` because the sandbox rejected `rm -rf`. Then
+:
+
+```text
+mix test
+```
+
+```text
+Finished in 470.9 seconds
+560 tests, 5 failures, 1 excluded
+```
+
+Therefore the Elixir portion of A6 is **not green**. The failures were:
+
+- Four existing pin gates attempted credentialless Git fetches and reported BLIN
+D: cell, biscuit, doc, and doc-sync.
+- The trust-root falsifier could not restore its temporary `config/dev.exs` muta
+tion because its cleanup uses `git checkout` against read-only `.git`.
+
+The exact 15-line test mutation was removed afterward. `config/dev.exs` now hash
+es to its original blob:
+
+```text
+264045e7e55a7606754a5f69f59131330d0674b3
+```
+
+There is no remaining diff under `config/`, `lib/`, or `Dockerfile`.
+
+## Declared file set
+
+All changes are inside the expected fence:
+
+- [Implementation plan](/home/jes/sol-deploy-next-1/wt/docs/IMPLEMENTATION-PLAN-
+DEPLOY-NEXT-1.md)
+- [Wrangler configuration](/home/jes/sol-deploy-next-1/wt/worker/wrangler.jsonc)
+- [Container entrypoint](/home/jes/sol-deploy-next-1/wt/worker/src/index.js)
+- [Outbound lane](/home/jes/sol-deploy-next-1/wt/worker/src/outbound.js)
+- [Worker tests](/home/jes/sol-deploy-next-1/wt/worker/test/outbound.test.mjs)
+- [A5 harness](/home/jes/sol-deploy-next-1/wt/worker/test/a5-local-boot.sh)
+- [Stateful store stub](/home/jes/sol-deploy-next-1/wt/worker/test/support/store
+-stub.mjs)
+- [Package manifest](/home/jes/sol-deploy-next-1/wt/worker/package.json)
+- [Locked dependencies](/home/jes/sol-deploy-next-1/wt/worker/package-lock.json)
+- [Worker ignore rules](/home/jes/sol-deploy-next-1/wt/worker/.gitignore)
+
+Files outside the expected set: none. `git diff --check` passes. No real capabil
+ity value was accessed or recorded.
+=== sol EXITED rc=0 ===
+

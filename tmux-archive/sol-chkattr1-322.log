@@ -1,0 +1,1995 @@
+ly associated with the given name, possibly because its application isn't starte
+d
+    (elixir 1.18.4) lib/gen_server.ex:1128: GenServer.call/3
+    (thousand_island 1.5.0) lib/thousand_island/acceptor.ex:22: ThousandIsland.A
+cceptor.run/1
+    (elixir 1.18.4) lib/task/supervised.ex:101: Task.Supervised.invoke_mfa/2
+Process Label: {:thousand_island, :acceptor, {{0, Bandit.DelegatingHandler}, 43}
+}
+Function: &ThousandIsland.Acceptor.run/1
+    Args: [{#PID<0.35572.0>, #PID<0.35701.0>, 43, %ThousandIsland.ServerConfig{p
+ort: 0, transport_module: ThousandIsland.Transports.TCP, transport_options: [ip:
+ {127, 0, 0, 1}], handler_module: Bandit.DelegatingHandler, handler_options: %{o
+pts: %{http: [], http_1: [], http_2: [], websocket: []}, plug: {CommonplaceNext.
+Web.Endpoint, []}, handler_module: Bandit.InitialHandler, http_1_enabled: true,
+http_2_enabled: true}, genserver_options: [], supervisor_options: [], num_accept
+ors: 100, num_listen_sockets: 1, num_connections: 16384, max_connections_retry_c
+ount: 5, max_connections_retry_wait: 1000, read_timeout: 60000, shutdown_timeout
+: 15000, silent_terminate_on_error: false}}]
+
+15:10:58.275 [error] Task #PID<0.35748.0> started from #PID<0.35746.0> terminati
+ng
+** (stop) exited in: GenServer.call(#PID<0.35573.0>, {:acceptor_info, 58}, 5000)
+    ** (EXIT) no process: the process is not alive or there's no process current
+ly associated with the given name, possibly because its application isn't starte
+d
+    (elixir 1.18.4) lib/gen_server.ex:1128: GenServer.call/3
+    (thousand_island 1.5.0) lib/thousand_island/acceptor.ex:22: ThousandIsland.A
+cceptor.run/1
+    (elixir 1.18.4) lib/task/supervised.ex:101: Task.Supervised.invoke_mfa/2
+Process Label: {:thousand_island, :acceptor, {{0, Bandit.DelegatingHandler}, 58}
+}
+Function: &ThousandIsland.Acceptor.run/1
+    Args: [{#PID<0.35572.0>, #PID<0.35746.0>, 58, %ThousandIsland.ServerConfig{p
+ort: 0, transport_module: ThousandIsland.Transports.TCP, transport_options: [ip:
+ {127, 0, 0, 1}], handler_module: Bandit.DelegatingHandler, handler_options: %{o
+pts: %{http: [], http_1: [], http_2: [], websocket: []}, plug: {CommonplaceNext.
+Web.Endpoint, []}, handler_module: Bandit.InitialHandler, http_1_enabled: true,
+http_2_enabled: true}, genserver_options: [], supervisor_options: [], num_accept
+ors: 100, num_listen_sockets: 1, num_connections: 16384, max_connections_retry_c
+ount: 5, max_connections_retry_wait: 1000, read_timeout: 60000, shutdown_timeout
+: 15000, silent_terminate_on_error: false}}]
+
+15:10:58.275 [error] Task #PID<0.35751.0> started from #PID<0.35749.0> terminati
+ng
+** (stop) exited in: GenServer.call(#PID<0.35573.0>, {:acceptor_info, 59}, 5000)
+    ** (EXIT) no process: the process is not alive or there's no process current
+ly associated with the given name, possibly because its application isn't starte
+d
+    (elixir 1.18.4) lib/gen_server.ex:1128: GenServer.call/3
+    (thousand_island 1.5.0) lib/thousand_island/acceptor.ex:22: ThousandIsland.A
+cceptor.run/1
+    (elixir 1.18.4) lib/task/supervised.ex:101: Task.Supervised.invoke_mfa/2
+Process Label: {:thousand_island, :acceptor, {{0, Bandit.DelegatingHandler}, 59}
+}
+Function: &ThousandIsland.Acceptor.run/1
+    Args: [{#PID<0.35572.0>, #PID<0.35749.0>, 59, %ThousandIsland.ServerConfig{p
+ort: 0, transport_module: ThousandIsland.Transports.TCP, transport_options: [ip:
+ {127, 0, 0, 1}], handler_module: Bandit.DelegatingHandler, handler_options: %{o
+pts: %{http: [], http_1: [], http_2: [], websocket: []}, plug: {CommonplaceNext.
+Web.Endpoint, []}, handler_module: Bandit.InitialHandler, http_1_enabled: true,
+http_2_enabled: true}, genserver_options: [], supervisor_options: [], num_accept
+ors: 100, num_listen_sockets: 1, num_connections: 16384, max_connections_retry_c
+ount: 5, max_connections_retry_wait: 1000, read_timeout: 60000, shutdown_timeout
+: 15000, silent_terminate_on_error: false}}]
+
+15:10:58.275 [error] Task #PID<0.35754.0> started from #PID<0.35752.0> terminati
+ng
+** (stop) exited in: GenServer.call(#PID<0.35573.0>, {:acceptor_info, 60}, 5000)
+    ** (EXIT) no process: the process is not alive or there's no process current
+ly associated with the given name, possibly because its application isn't starte
+d
+    (elixir 1.18.4) lib/gen_server.ex:1128: GenServer.call/3
+    (thousand_island 1.5.0) lib/thousand_island/acceptor.ex:22: ThousandIsland.A
+cceptor.run/1
+    (elixir 1.18.4) lib/task/supervised.ex:101: Task.Supervised.invoke_mfa/2
+Process Label: {:thousand_island, :acceptor, {{0, Bandit.DelegatingHandler}, 60}
+}
+Function: &ThousandIsland.Acceptor.run/1
+    Args: [{#PID<0.35572.0>, #PID<0.35752.0>, 60, %ThousandIsland.ServerConfig{p
+ort: 0, transport_module: ThousandIsland.Transports.TCP, transport_options: [ip:
+ {127, 0, 0, 1}], handler_module: Bandit.DelegatingHandler, handler_options: %{o
+pts: %{http: [], http_1: [], http_2: [], websocket: []}, plug: {CommonplaceNext.
+Web.Endpoint, []}, handler_module: Bandit.InitialHandler, http_1_enabled: true,
+http_2_enabled: true}, genserver_options: [], supervisor_options: [], num_accept
+ors: 100, num_listen_sockets: 1, num_connections: 16384, max_connections_retry_c
+ount: 5, max_connections_retry_wait: 1000, read_timeout: 60000, shutdown_timeout
+: 15000, silent_terminate_on_error: false}}]
+
+15:10:58.276 [error] Task #PID<0.35757.0> started from #PID<0.35755.0> terminati
+ng
+** (stop) exited in: GenServer.call(#PID<0.35573.0>, {:acceptor_info, 61}, 5000)
+    ** (EXIT) no process: the process is not alive or there's no process current
+ly associated with the given name, possibly because its application isn't starte
+d
+    (elixir 1.18.4) lib/gen_server.ex:1128: GenServer.call/3
+    (thousand_island 1.5.0) lib/thousand_island/acceptor.ex:22: ThousandIsland.A
+cceptor.run/1
+    (elixir 1.18.4) lib/task/supervised.ex:101: Task.Supervised.invoke_mfa/2
+Process Label: {:thousand_island, :acceptor, {{0, Bandit.DelegatingHandler}, 61}
+}
+Function: &ThousandIsland.Acceptor.run/1
+    Args: [{#PID<0.35572.0>, #PID<0.35755.0>, 61, %ThousandIsland.ServerConfig{p
+ort: 0, transport_module: ThousandIsland.Transports.TCP, transport_options: [ip:
+ {127, 0, 0, 1}], handler_module: Bandit.DelegatingHandler, handler_options: %{o
+pts: %{http: [], http_1: [], http_2: [], websocket: []}, plug: {CommonplaceNext.
+Web.Endpoint, []}, handler_module: Bandit.InitialHandler, http_1_enabled: true,
+http_2_enabled: true}, genserver_options: [], supervisor_options: [], num_accept
+ors: 100, num_listen_sockets: 1, num_connections: 16384, max_connections_retry_c
+ount: 5, max_connections_retry_wait: 1000, read_timeout: 60000, shutdown_timeout
+: 15000, silent_terminate_on_error: false}}]
+
+15:10:58.276 [error] Task #PID<0.35760.0> started from #PID<0.35758.0> terminati
+ng
+** (stop) exited in: GenServer.call(#PID<0.35573.0>, {:acceptor_info, 62}, 5000)
+    ** (EXIT) no process: the process is not alive or there's no process current
+ly associated with the given name, possibly because its application isn't starte
+d
+    (elixir 1.18.4) lib/gen_server.ex:1128: GenServer.call/3
+    (thousand_island 1.5.0) lib/thousand_island/acceptor.ex:22: ThousandIsland.A
+cceptor.run/1
+    (elixir 1.18.4) lib/task/supervised.ex:101: Task.Supervised.invoke_mfa/2
+Process Label: {:thousand_island, :acceptor, {{0, Bandit.DelegatingHandler}, 62}
+}
+Function: &ThousandIsland.Acceptor.run/1
+    Args: [{#PID<0.35572.0>, #PID<0.35758.0>, 62, %ThousandIsland.ServerConfig{p
+ort: 0, transport_module: ThousandIsland.Transports.TCP, transport_options: [ip:
+ {127, 0, 0, 1}], handler_module: Bandit.DelegatingHandler, handler_options: %{o
+pts: %{http: [], http_1: [], http_2: [], websocket: []}, plug: {CommonplaceNext.
+Web.Endpoint, []}, handler_module: Bandit.InitialHandler, http_1_enabled: true,
+http_2_enabled: true}, genserver_options: [], supervisor_options: [], num_accept
+ors: 100, num_listen_sockets: 1, num_connections: 16384, max_connections_retry_c
+ount: 5, max_connections_retry_wait: 1000, read_timeout: 60000, shutdown_timeout
+: 15000, silent_terminate_on_error: false}}]
+
+15:10:58.281 [error] Task #PID<0.35808.0> started from #PID<0.35806.0> terminati
+ng
+** (stop) exited in: GenServer.call(#PID<0.35573.0>, {:acceptor_info, 78}, 5000)
+    ** (EXIT) no process: the process is not alive or there's no process current
+ly associated with the given name, possibly because its application isn't starte
+d
+    (elixir 1.18.4) lib/gen_server.ex:1128: GenServer.call/3
+    (thousand_island 1.5.0) lib/thousand_island/acceptor.ex:22: ThousandIsland.A
+cceptor.run/1
+    (elixir 1.18.4) lib/task/supervised.ex:101: Task.Supervised.invoke_mfa/2
+Process Label: {:thousand_island, :acceptor, {{0, Bandit.DelegatingHandler}, 78}
+}
+Function: &ThousandIsland.Acceptor.run/1
+    Args: [{#PID<0.35572.0>, #PID<0.35806.0>, 78, %ThousandIsland.ServerConfig{p
+ort: 0, transport_module: ThousandIsland.Transports.TCP, transport_options: [ip:
+ {127, 0, 0, 1}], handler_module: Bandit.DelegatingHandler, handler_options: %{o
+pts: %{http: [], http_1: [], http_2: [], websocket: []}, plug: {CommonplaceNext.
+Web.Endpoint, []}, handler_module: Bandit.InitialHandler, http_1_enabled: true,
+http_2_enabled: true}, genserver_options: [], supervisor_options: [], num_accept
+ors: 100, num_listen_sockets: 1, num_connections: 16384, max_connections_retry_c
+ount: 5, max_connections_retry_wait: 1000, read_timeout: 60000, shutdown_timeout
+: 15000, silent_terminate_on_error: false}}]
+
+15:10:58.281 [error] Task #PID<0.35811.0> started from #PID<0.35809.0> terminati
+ng
+** (stop) exited in: GenServer.call(#PID<0.35573.0>, {:acceptor_info, 79}, 5000)
+    ** (EXIT) no process: the process is not alive or there's no process current
+ly associated with the given name, possibly because its application isn't starte
+d
+    (elixir 1.18.4) lib/gen_server.ex:1128: GenServer.call/3
+    (thousand_island 1.5.0) lib/thousand_island/acceptor.ex:22: ThousandIsland.A
+cceptor.run/1
+    (elixir 1.18.4) lib/task/supervised.ex:101: Task.Supervised.invoke_mfa/2
+Process Label: {:thousand_island, :acceptor, {{0, Bandit.DelegatingHandler}, 79}
+}
+Function: &ThousandIsland.Acceptor.run/1
+    Args: [{#PID<0.35572.0>, #PID<0.35809.0>, 79, %ThousandIsland.ServerConfig{p
+ort: 0, transport_module: ThousandIsland.Transports.TCP, transport_options: [ip:
+ {127, 0, 0, 1}], handler_module: Bandit.DelegatingHandler, handler_options: %{o
+pts: %{http: [], http_1: [], http_2: [], websocket: []}, plug: {CommonplaceNext.
+Web.Endpoint, []}, handler_module: Bandit.InitialHandler, http_1_enabled: true,
+http_2_enabled: true}, genserver_options: [], supervisor_options: [], num_accept
+ors: 100, num_listen_sockets: 1, num_connections: 16384, max_connections_retry_c
+ount: 5, max_connections_retry_wait: 1000, read_timeout: 60000, shutdown_timeout
+: 15000, silent_terminate_on_error: false}}]
+
+15:10:58.281 [error] Task #PID<0.35814.0> started from #PID<0.35812.0> terminati
+ng
+** (stop) exited in: GenServer.call(#PID<0.35573.0>, {:acceptor_info, 80}, 5000)
+    ** (EXIT) no process: the process is not alive or there's no process current
+ly associated with the given name, possibly because its application isn't starte
+d
+    (elixir 1.18.4) lib/gen_server.ex:1128: GenServer.call/3
+    (thousand_island 1.5.0) lib/thousand_island/acceptor.ex:22: ThousandIsland.A
+cceptor.run/1
+    (elixir 1.18.4) lib/task/supervised.ex:101: Task.Supervised.invoke_mfa/2
+Process Label: {:thousand_island, :acceptor, {{0, Bandit.DelegatingHandler}, 80}
+}
+Function: &ThousandIsland.Acceptor.run/1
+    Args: [{#PID<0.35572.0>, #PID<0.35812.0>, 80, %ThousandIsland.ServerConfig{p
+ort: 0, transport_module: ThousandIsland.Transports.TCP, transport_options: [ip:
+ {127, 0, 0, 1}], handler_module: Bandit.DelegatingHandler, handler_options: %{o
+pts: %{http: [], http_1: [], http_2: [], websocket: []}, plug: {CommonplaceNext.
+Web.Endpoint, []}, handler_module: Bandit.InitialHandler, http_1_enabled: true,
+http_2_enabled: true}, genserver_options: [], supervisor_options: [], num_accept
+ors: 100, num_listen_sockets: 1, num_connections: 16384, max_connections_retry_c
+ount: 5, max_connections_retry_wait: 1000, read_timeout: 60000, shutdown_timeout
+: 15000, silent_terminate_on_error: false}}]
+
+15:10:58.281 [error] Task #PID<0.35817.0> started from #PID<0.35815.0> terminati
+ng
+** (stop) exited in: GenServer.call(#PID<0.35573.0>, {:acceptor_info, 81}, 5000)
+    ** (EXIT) no process: the process is not alive or there's no process current
+ly associated with the given name, possibly because its application isn't starte
+d
+    (elixir 1.18.4) lib/gen_server.ex:1128: GenServer.call/3
+    (thousand_island 1.5.0) lib/thousand_island/acceptor.ex:22: ThousandIsland.A
+cceptor.run/1
+    (elixir 1.18.4) lib/task/supervised.ex:101: Task.Supervised.invoke_mfa/2
+Process Label: {:thousand_island, :acceptor, {{0, Bandit.DelegatingHandler}, 81}
+}
+Function: &ThousandIsland.Acceptor.run/1
+    Args: [{#PID<0.35572.0>, #PID<0.35815.0>, 81, %ThousandIsland.ServerConfig{p
+ort: 0, transport_module: ThousandIsland.Transports.TCP, transport_options: [ip:
+ {127, 0, 0, 1}], handler_module: Bandit.DelegatingHandler, handler_options: %{o
+pts: %{http: [], http_1: [], http_2: [], websocket: []}, plug: {CommonplaceNext.
+Web.Endpoint, []}, handler_module: Bandit.InitialHandler, http_1_enabled: true,
+http_2_enabled: true}, genserver_options: [], supervisor_options: [], num_accept
+ors: 100, num_listen_sockets: 1, num_connections: 16384, max_connections_retry_c
+ount: 5, max_connections_retry_wait: 1000, read_timeout: 60000, shutdown_timeout
+: 15000, silent_terminate_on_error: false}}]
+
+15:10:58.282 [error] Task #PID<0.35820.0> started from #PID<0.35818.0> terminati
+ng
+** (stop) exited in: GenServer.call(#PID<0.35573.0>, {:acceptor_info, 82}, 5000)
+    ** (EXIT) no process: the process is not alive or there's no process current
+ly associated with the given name, possibly because its application isn't starte
+d
+    (elixir 1.18.4) lib/gen_server.ex:1128: GenServer.call/3
+    (thousand_island 1.5.0) lib/thousand_island/acceptor.ex:22: ThousandIsland.A
+cceptor.run/1
+    (elixir 1.18.4) lib/task/supervised.ex:101: Task.Supervised.invoke_mfa/2
+Process Label: {:thousand_island, :acceptor, {{0, Bandit.DelegatingHandler}, 82}
+}
+Function: &ThousandIsland.Acceptor.run/1
+    Args: [{#PID<0.35572.0>, #PID<0.35818.0>, 82, %ThousandIsland.ServerConfig{p
+ort: 0, transport_module: ThousandIsland.Transports.TCP, transport_options: [ip:
+ {127, 0, 0, 1}], handler_module: Bandit.DelegatingHandler, handler_options: %{o
+pts: %{http: [], http_1: [], http_2: [], websocket: []}, plug: {CommonplaceNext.
+Web.Endpoint, []}, handler_module: Bandit.InitialHandler, http_1_enabled: true,
+http_2_enabled: true}, genserver_options: [], supervisor_options: [], num_accept
+ors: 100, num_listen_sockets: 1, num_connections: 16384, max_connections_retry_c
+ount: 5, max_connections_retry_wait: 1000, read_timeout: 60000, shutdown_timeout
+: 15000, silent_terminate_on_error: false}}]
+
+15:10:58.282 [error] Task #PID<0.35823.0> started from #PID<0.35821.0> terminati
+ng
+** (stop) exited in: GenServer.call(#PID<0.35573.0>, {:acceptor_info, 83}, 5000)
+    ** (EXIT) no process: the process is not alive or there's no process current
+ly associated with the given name, possibly because its application isn't starte
+d
+    (elixir 1.18.4) lib/gen_server.ex:1128: GenServer.call/3
+    (thousand_island 1.5.0) lib/thousand_island/acceptor.ex:22: ThousandIsland.A
+cceptor.run/1
+    (elixir 1.18.4) lib/task/supervised.ex:101: Task.Supervised.invoke_mfa/2
+Process Label: {:thousand_island, :acceptor, {{0, Bandit.DelegatingHandler}, 83}
+}
+Function: &ThousandIsland.Acceptor.run/1
+    Args: [{#PID<0.35572.0>, #PID<0.35821.0>, 83, %ThousandIsland.ServerConfig{p
+ort: 0, transport_module: ThousandIsland.Transports.TCP, transport_options: [ip:
+ {127, 0, 0, 1}], handler_module: Bandit.DelegatingHandler, handler_options: %{o
+pts: %{http: [], http_1: [], http_2: [], websocket: []}, plug: {CommonplaceNext.
+Web.Endpoint, []}, handler_module: Bandit.InitialHandler, http_1_enabled: true,
+http_2_enabled: true}, genserver_options: [], supervisor_options: [], num_accept
+ors: 100, num_listen_sockets: 1, num_connections: 16384, max_connections_retry_c
+ount: 5, max_connections_retry_wait: 1000, read_timeout: 60000, shutdown_timeout
+: 15000, silent_terminate_on_error: false}}]
+
+15:10:58.282 [error] Task #PID<0.35826.0> started from #PID<0.35824.0> terminati
+ng
+** (stop) exited in: GenServer.call(#PID<0.35573.0>, {:acceptor_info, 84}, 5000)
+    ** (EXIT) no process: the process is not alive or there's no process current
+ly associated with the given name, possibly because its application isn't starte
+d
+    (elixir 1.18.4) lib/gen_server.ex:1128: GenServer.call/3
+    (thousand_island 1.5.0) lib/thousand_island/acceptor.ex:22: ThousandIsland.A
+cceptor.run/1
+    (elixir 1.18.4) lib/task/supervised.ex:101: Task.Supervised.invoke_mfa/2
+Process Label: {:thousand_island, :acceptor, {{0, Bandit.DelegatingHandler}, 84}
+}
+Function: &ThousandIsland.Acceptor.run/1
+    Args: [{#PID<0.35572.0>, #PID<0.35824.0>, 84, %ThousandIsland.ServerConfig{p
+ort: 0, transport_module: ThousandIsland.Transports.TCP, transport_options: [ip:
+ {127, 0, 0, 1}], handler_module: Bandit.DelegatingHandler, handler_options: %{o
+pts: %{http: [], http_1: [], http_2: [], websocket: []}, plug: {CommonplaceNext.
+Web.Endpoint, []}, handler_module: Bandit.InitialHandler, http_1_enabled: true,
+http_2_enabled: true}, genserver_options: [], supervisor_options: [], num_accept
+ors: 100, num_listen_sockets: 1, num_connections: 16384, max_connections_retry_c
+ount: 5, max_connections_retry_wait: 1000, read_timeout: 60000, shutdown_timeout
+: 15000, silent_terminate_on_error: false}}]
+
+15:10:58.282 [error] Task #PID<0.35829.0> started from #PID<0.35827.0> terminati
+ng
+** (stop) exited in: GenServer.call(#PID<0.35573.0>, {:acceptor_info, 85}, 5000)
+    ** (EXIT) no process: the process is not alive or there's no process current
+ly associated with the given name, possibly because its application isn't starte
+d
+    (elixir 1.18.4) lib/gen_server.ex:1128: GenServer.call/3
+    (thousand_island 1.5.0) lib/thousand_island/acceptor.ex:22: ThousandIsland.A
+cceptor.run/1
+    (elixir 1.18.4) lib/task/supervised.ex:101: Task.Supervised.invoke_mfa/2
+Process Label: {:thousand_island, :acceptor, {{0, Bandit.DelegatingHandler}, 85}
+}
+Function: &ThousandIsland.Acceptor.run/1
+    Args: [{#PID<0.35572.0>, #PID<0.35827.0>, 85, %ThousandIsland.ServerConfig{p
+ort: 0, transport_module: ThousandIsland.Transports.TCP, transport_options: [ip:
+ {127, 0, 0, 1}], handler_module: Bandit.DelegatingHandler, handler_options: %{o
+pts: %{http: [], http_1: [], http_2: [], websocket: []}, plug: {CommonplaceNext.
+Web.Endpoint, []}, handler_module: Bandit.InitialHandler, http_1_enabled: true,
+http_2_enabled: true}, genserver_options: [], supervisor_options: [], num_accept
+ors: 100, num_listen_sockets: 1, num_connections: 16384, max_connections_retry_c
+ount: 5, max_connections_retry_wait: 1000, read_timeout: 60000, shutdown_timeout
+: 15000, silent_terminate_on_error: false}}]
+
+15:10:58.282 [error] Task #PID<0.35832.0> started from #PID<0.35830.0> terminati
+ng
+** (stop) exited in: GenServer.call(#PID<0.35573.0>, {:acceptor_info, 86}, 5000)
+    ** (EXIT) no process: the process is not alive or there's no process current
+ly associated with the given name, possibly because its application isn't starte
+d
+    (elixir 1.18.4) lib/gen_server.ex:1128: GenServer.call/3
+    (thousand_island 1.5.0) lib/thousand_island/acceptor.ex:22: ThousandIsland.A
+cceptor.run/1
+    (elixir 1.18.4) lib/task/supervised.ex:101: Task.Supervised.invoke_mfa/2
+Process Label: {:thousand_island, :acceptor, {{0, Bandit.DelegatingHandler}, 86}
+}
+Function: &ThousandIsland.Acceptor.run/1
+    Args: [{#PID<0.35572.0>, #PID<0.35830.0>, 86, %ThousandIsland.ServerConfig{p
+ort: 0, transport_module: ThousandIsland.Transports.TCP, transport_options: [ip:
+ {127, 0, 0, 1}], handler_module: Bandit.DelegatingHandler, handler_options: %{o
+pts: %{http: [], http_1: [], http_2: [], websocket: []}, plug: {CommonplaceNext.
+Web.Endpoint, []}, handler_module: Bandit.InitialHandler, http_1_enabled: true,
+http_2_enabled: true}, genserver_options: [], supervisor_options: [], num_accept
+ors: 100, num_listen_sockets: 1, num_connections: 16384, max_connections_retry_c
+ount: 5, max_connections_retry_wait: 1000, read_timeout: 60000, shutdown_timeout
+: 15000, silent_terminate_on_error: false}}]
+
+15:10:58.283 [error] Task #PID<0.35835.0> started from #PID<0.35833.0> terminati
+ng
+** (stop) exited in: GenServer.call(#PID<0.35573.0>, {:acceptor_info, 87}, 5000)
+    ** (EXIT) no process: the process is not alive or there's no process current
+ly associated with the given name, possibly because its application isn't starte
+d
+    (elixir 1.18.4) lib/gen_server.ex:1128: GenServer.call/3
+    (thousand_island 1.5.0) lib/thousand_island/acceptor.ex:22: ThousandIsland.A
+cceptor.run/1
+    (elixir 1.18.4) lib/task/supervised.ex:101: Task.Supervised.invoke_mfa/2
+Process Label: {:thousand_island, :acceptor, {{0, Bandit.DelegatingHandler}, 87}
+}
+Function: &ThousandIsland.Acceptor.run/1
+    Args: [{#PID<0.35572.0>, #PID<0.35833.0>, 87, %ThousandIsland.ServerConfig{p
+ort: 0, transport_module: ThousandIsland.Transports.TCP, transport_options: [ip:
+ {127, 0, 0, 1}], handler_module: Bandit.DelegatingHandler, handler_options: %{o
+pts: %{http: [], http_1: [], http_2: [], websocket: []}, plug: {CommonplaceNext.
+Web.Endpoint, []}, handler_module: Bandit.InitialHandler, http_1_enabled: true,
+http_2_enabled: true}, genserver_options: [], supervisor_options: [], num_accept
+ors: 100, num_listen_sockets: 1, num_connections: 16384, max_connections_retry_c
+ount: 5, max_connections_retry_wait: 1000, read_timeout: 60000, shutdown_timeout
+: 15000, silent_terminate_on_error: false}}]
+
+15:10:58.280 [error] Task #PID<0.35805.0> started from #PID<0.35803.0> terminati
+ng
+** (stop) exited in: GenServer.call(#PID<0.35573.0>, {:acceptor_info, 77}, 5000)
+    ** (EXIT) no process: the process is not alive or there's no process current
+ly associated with the given name, possibly because its application isn't starte
+d
+    (elixir 1.18.4) lib/gen_server.ex:1128: GenServer.call/3
+    (thousand_island 1.5.0) lib/thousand_island/acceptor.ex:22: ThousandIsland.A
+cceptor.run/1
+    (elixir 1.18.4) lib/task/supervised.ex:101: Task.Supervised.invoke_mfa/2
+Process Label: {:thousand_island, :acceptor, {{0, Bandit.DelegatingHandler}, 77}
+}
+Function: &ThousandIsland.Acceptor.run/1
+    Args: [{#PID<0.35572.0>, #PID<0.35803.0>, 77, %ThousandIsland.ServerConfig{p
+ort: 0, transport_module: ThousandIsland.Transports.TCP, transport_options: [ip:
+ {127, 0, 0, 1}], handler_module: Bandit.DelegatingHandler, handler_options: %{o
+pts: %{http: [], http_1: [], http_2: [], websocket: []}, plug: {CommonplaceNext.
+Web.Endpoint, []}, handler_module: Bandit.InitialHandler, http_1_enabled: true,
+http_2_enabled: true}, genserver_options: [], supervisor_options: [], num_accept
+ors: 100, num_listen_sockets: 1, num_connections: 16384, max_connections_retry_c
+ount: 5, max_connections_retry_wait: 1000, read_timeout: 60000, shutdown_timeout
+: 15000, silent_terminate_on_error: false}}]
+....................................
+
+  4) test the biscuit pin is a published commit whose recorded delta matches (Co
+mmonplaceNext.PinDoorsTest)
+     test/commonplace_next/pin_doors_test.exs:40
+     bin/check-biscuit-pin.sh is BLIND (exit 2) -- it could not ask, which is NO
+T the same fact as the
+     pin agreeing and must never be read as one.
+
+     INSTRUMENT BLIND: could not fetch current origin/main (rc=128): fatal: coul
+d not read Username for 'https://github.com': terminal prompts disabled
+
+
+     code: assert_pin_gate("bin/check-biscuit-pin.sh", "VERDICT: BISCUIT PIN OK"
+)
+     stacktrace:
+       test/commonplace_next/pin_doors_test.exs:41: (test)
+
+
+
+  5) test the doc pin is a published commit of its sibling (CommonplaceNext.PinD
+oorsTest)
+     test/commonplace_next/pin_doors_test.exs:57
+     bin/check-doc-pin.sh is BLIND (exit 2) -- it could not ask, which is NOT th
+e same fact as the
+     pin agreeing and must never be read as one.
+
+     MIX.EXS REF:  faeea17d2bc053ac2e51d1e5722ce5ee257b199f
+     MIX.LOCK SHA: faeea17d2bc053ac2e51d1e5722ce5ee257b199f
+     INSTRUMENT BLIND: could not fetch current origin/main (rc=128): fatal: coul
+d not read Username for 'https://github.com': terminal prompts disabled
+
+
+     code: assert_pin_gate("bin/check-doc-pin.sh", "VERDICT: DOC PIN OK")
+     stacktrace:
+       test/commonplace_next/pin_doors_test.exs:58: (test)
+
+.
+
+  6) test the cell pin is a published commit whose recorded delta matches (Commo
+nplaceNext.PinDoorsTest)
+     test/commonplace_next/pin_doors_test.exs:35
+     bin/check-cell-pin.sh is BLIND (exit 2) -- it could not ask, which is NOT t
+he same fact as the
+     pin agreeing and must never be read as one.
+
+     INSTRUMENT BLIND: could not fetch current origin/main (rc=128): fatal: coul
+d not read Username for 'https://github.com': terminal prompts disabled
+
+
+     code: assert_pin_gate("bin/check-cell-pin.sh", "VERDICT: CELL PIN OK")
+     stacktrace:
+       test/commonplace_next/pin_doors_test.exs:36: (test)
+
+POST /frontier -> 404
+POST /create-log -> 201
+POST /take-lease -> 200
+POST /frontier -> 200
+POST /frontier -> 200
+POST /read-set -> 200
+POST /read-set -> 200
+POST /commit -> 200
+POST /frontier -> 200
+POST /take-lease -> 200
+POST /frontier -> 200
+POST /tail-local -> 200
+....
+15:11:41.239 [error] GenServer #PID<0.42298.0> terminating
+** (stop) :forbidden
+Process Label: {:thousand_island, :connection, {Bandit.DelegatingHandler, {{127,
+ 0, 0, 1}, 42142}}}
+Last message: :forbidden
+.
+15:11:41.975 [error] GenServer #PID<0.42441.0> terminating
+** (stop) :forbidden
+Process Label: {:thousand_island, :connection, {Bandit.DelegatingHandler, {{127,
+ 0, 0, 1}, 52222}}}
+Last message: :forbidden
+....
+15:11:44.500 [error] GenServer #PID<0.42795.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.42794.0>, :killed}
+...
+15:11:44.634 [error] GenServer #PID<0.42798.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.42797.0>, :killed}
+
+15:11:44.634 [error] GenServer #PID<0.42812.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.42811.0>, :killed}
+
+15:11:44.634 [error] GenServer #PID<0.42815.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.42814.0>, :killed}
+
+15:11:44.635 [error] GenServer #PID<0.42818.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.42817.0>, :killed}
+
+15:11:44.635 [error] GenServer #PID<0.42821.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.42820.0>, :killed}
+
+15:11:44.635 [error] GenServer #PID<0.42824.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.42823.0>, :killed}
+
+15:11:44.636 [error] GenServer #PID<0.42830.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.42829.0>, :killed}
+
+15:11:44.636 [error] GenServer #PID<0.42827.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.42826.0>, :killed}
+
+15:11:44.640 [error] GenServer #PID<0.42833.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.42832.0>, :killed}
+
+15:11:44.640 [error] GenServer #PID<0.42836.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.42835.0>, :killed}
+
+15:11:44.641 [error] GenServer #PID<0.42839.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.42838.0>, :killed}
+
+15:11:44.641 [error] GenServer #PID<0.42842.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.42841.0>, :killed}
+
+15:11:44.641 [error] GenServer #PID<0.42848.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.42847.0>, :killed}
+
+15:11:44.641 [error] GenServer #PID<0.42845.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.42844.0>, :killed}
+
+15:11:44.642 [error] GenServer #PID<0.42851.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.42850.0>, :killed}
+
+15:11:44.642 [error] GenServer #PID<0.42854.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.42853.0>, :killed}
+
+15:11:44.642 [error] GenServer #PID<0.42857.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.42856.0>, :killed}
+
+15:11:44.642 [error] GenServer #PID<0.42860.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.42859.0>, :killed}
+
+15:11:44.643 [error] GenServer #PID<0.42863.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.42862.0>, :killed}
+
+15:11:44.643 [error] GenServer #PID<0.42866.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.42865.0>, :killed}
+
+15:11:44.643 [error] GenServer #PID<0.42869.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.42868.0>, :killed}
+
+15:11:44.644 [error] GenServer #PID<0.42872.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.42871.0>, :killed}
+
+15:11:44.644 [error] GenServer #PID<0.42875.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.42874.0>, :killed}
+
+15:11:44.644 [error] GenServer #PID<0.42878.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.42877.0>, :killed}
+
+15:11:44.644 [error] GenServer #PID<0.42881.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.42880.0>, :killed}
+
+15:11:44.645 [error] GenServer #PID<0.42884.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.42883.0>, :killed}
+
+15:11:44.645 [error] GenServer #PID<0.42887.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.42886.0>, :killed}
+
+15:11:44.645 [error] GenServer #PID<0.42893.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.42892.0>, :killed}
+
+15:11:44.645 [error] GenServer #PID<0.42890.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.42889.0>, :killed}
+
+15:11:44.646 [error] GenServer #PID<0.42899.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.42898.0>, :killed}
+
+15:11:44.645 [error] GenServer #PID<0.42896.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.42895.0>, :killed}
+
+15:11:44.650 [error] GenServer #PID<0.42902.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.42901.0>, :killed}
+
+15:11:44.651 [error] GenServer #PID<0.42905.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.42904.0>, :killed}
+
+15:11:44.653 [error] GenServer #PID<0.42908.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.42907.0>, :killed}
+
+15:11:44.659 [error] GenServer #PID<0.42911.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.42910.0>, :killed}
+
+15:11:44.660 [error] GenServer #PID<0.42914.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.42913.0>, :killed}
+
+15:11:44.660 [error] GenServer #PID<0.42917.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.42916.0>, :killed}
+
+15:11:44.660 [error] GenServer #PID<0.42920.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.42919.0>, :killed}
+
+15:11:44.660 [error] GenServer #PID<0.42923.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.42922.0>, :killed}
+
+15:11:44.660 [error] GenServer #PID<0.42926.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.42925.0>, :killed}
+
+15:11:44.660 [error] GenServer #PID<0.42929.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.42928.0>, :killed}
+
+15:11:44.661 [error] GenServer #PID<0.42935.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.42934.0>, :killed}
+
+15:11:44.661 [error] GenServer #PID<0.42938.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.42937.0>, :killed}
+
+15:11:44.663 [error] GenServer #PID<0.42932.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.42931.0>, :killed}
+
+15:11:44.663 [error] GenServer #PID<0.42944.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.42943.0>, :killed}
+
+15:11:44.667 [error] GenServer #PID<0.42947.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.42946.0>, :killed}
+
+15:11:44.667 [error] GenServer #PID<0.42950.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.42949.0>, :killed}
+
+15:11:44.668 [error] GenServer #PID<0.42953.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.42952.0>, :killed}
+
+15:11:44.661 [error] GenServer #PID<0.42941.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.42940.0>, :killed}
+
+15:11:44.669 [error] GenServer #PID<0.42956.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.42955.0>, :killed}
+........
+15:11:53.984 [error] GenServer #PID<0.43496.0> terminating
+** (stop) :forbidden
+Process Label: {:thousand_island, :connection, {Bandit.DelegatingHandler, {{127,
+ 0, 0, 1}, 38360}}}
+Last message: :forbidden
+..
+15:11:55.529 [error] GenServer #PID<0.43773.0> terminating
+** (stop) :bad_frame
+Process Label: {:thousand_island, :connection, {Bandit.DelegatingHandler, {{127,
+ 0, 0, 1}, 38384}}}
+Last message: {:tcp, #Port<0.1846>, <<130, 129, 184, 185, 171, 26, 71>>}
+.S2 D2: {:error, :unentitled}
+S2 D actions: [:"document.sync.summary"]
+.S3 placed bootstrap shape: unscoped; document_grant: admitted
+.S4 revoked bootstrap: grant_revoked; document_grant: revoked before mint
+S4 pre-revoke token remains valid for [nbf=1788534717, expiry=1788534777)
+.S1.1 foreign cell id: 6251c5e7-eaec-7ac8-923f-02c32399d083
+S1.2 base bootstrap: {:error, :invalid_bootstrap_request}
+S1.3 granted bootstrap scope: %{"actions" => ["document.sync.summary"], "documen
+ts" => ["c37c828f-50b7-771b-a280-225da9c7a06c"], "grant_id" => "01a06cf9-ff64-7e
+66-a865-57a644033c38", "kind" => "document_grant"}
+S1.4 revoked bootstrap: {:error, :grant_revoked}
+................................................................................
+..............
+15:12:48.191 [error] GenServer #PID<0.51508.0> terminating
+** (stop) :forbidden
+Process Label: {:thousand_island, :connection, {Bandit.DelegatingHandler, {{127,
+ 0, 0, 1}, 60258}}}
+Last message: :forbidden
+..........
+15:13:28.826 [error] GenServer #PID<0.53196.0> terminating
+** (stop) :forbidden
+Process Label: {:thousand_island, :connection, {Bandit.DelegatingHandler, {{127,
+ 0, 0, 1}, 55342}}}
+Last message: :forbidden
+..
+S2 push latency (poll disabled, n=20): median 173 ms, max 277 ms
+.....** (EXIT from #PID<0.94.0>) shutdown
+
+** (EXIT from #PID<0.94.0>) shutdown
+
+.....second BEAM exiting: no control peer (:invalid_control_channel)
+.......................
+Finished in 458.4 seconds (16.1s async, 442.3s sync)
+554 tests, 6 failures, 1 excluded
+
+diff --git a/docs/IMPLEMENTATION-PLAN-CHECKPOINT-ATTR-1.md b/docs/IMPLEMENTATION
+-PLAN-CHECKPOINT-ATTR-1.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..bb22a567c9b9f0e66d48b00cbdf2d0ea
+94335f72
+--- /dev/null
++++ b/docs/IMPLEMENTATION-PLAN-CHECKPOINT-ATTR-1.md
+@@ -0,0 +1,14 @@
++# CHECKPOINT-ATTR-1 — make the checkpoint signal guard effective
++
++Base: `c369e2d0e948883c774e5c51c5416fdec47574ed`.
++
++## Change
++
++Move `@signal_guard_ms 5_000` above every use. No production code changes.
++
++## Arms
++
++<!-- ARM: signal guard is the effective assert_receive timeout -->
++
++The new arm sends its expected message after 5.5 seconds, asserts that `assert_
+receive` fails at the
++5-second guard, and checks that the failure did not occur before the configured
+ guard.
+diff --git a/test/commonplace_next/checkpoint_worker_test.exs b/test/commonplace
+_next/checkpoint_worker_test.exs
+index 71a15fb1fb1d407c6cdd61fe72c55d7f34eff0ec..e519d87c0a1b0d03dbc97fad832a6f56
+f6b1e991
+--- a/test/commonplace_next/checkpoint_worker_test.exs
++++ b/test/commonplace_next/checkpoint_worker_test.exs
+@@ -11,7 +11,24 @@
+
+   @minimum_delay 40
+   @maximum_staleness 120
++  @signal_guard_ms 5_000
++
++  test "signal guard is the effective assert_receive timeout" do
++    test_process = self()
++    spawn(fn ->
++      Process.sleep(@signal_guard_ms + 500)
++      send(test_process, :after_signal_guard)
++    end)
++
++    started_at = now_ms()
++
++    assert_raise ExUnit.AssertionError, fn ->
++      assert_receive :after_signal_guard, @signal_guard_ms
++    end
+
++    assert now_ms() - started_at >= @signal_guard_ms
++  end
++
+   test "worker checkpoints a dirty directory after minimum_delay" do
+     ids = seeded_workspace()
+     directory = restart_with_checkpoint_policy(ids)
+@@ -367,7 +384,6 @@
+   # which is a latency budget wearing a timeout's clothes. ⛔ The `refute_recei
+ve` windows and the
+   # `>= @minimum_delay` assertions are deliberately NOT raised: load makes an e
+vent arrive LATER,
+   # never EARLIER, so neither can fail because the machine was busy.
+-  @signal_guard_ms 5_000
+
+   defp attach_checkpoint_completions do
+     handler_id = {__MODULE__, :checkpoint_complete, self()}
+
+codex
+The full suite completed: `554 tests, 6 failures, 1 excluded` with seed `150800`
+. Before finalizing, I’m checking whether the failed trust-root falsifier actual
+ly left `config/dev.exs` modified; the worktree was clean before the run, so any
+ such mutation is suite-created residue that must not contaminate this test-only
+ diff.
+exec
+/bin/bash -lc 'git status --short && git diff -- config/dev.exs && git diff -- t
+est/commonplace_next/checkpoint_worker_test.exs && git diff --numstat -- lib/ &&
+ git diff --check' in /home/jes/sol-chkattr1/wt
+ succeeded in 0ms:
+ M config/dev.exs
+ M test/commonplace_next/checkpoint_worker_test.exs
+?? docs/IMPLEMENTATION-PLAN-CHECKPOINT-ATTR-1.md
+diff --git a/config/dev.exs b/config/dev.exs
+index 264045e..3945d39 100644
+--- a/config/dev.exs
++++ b/config/dev.exs
+@@ -26,3 +26,18 @@ config :commonplace_next, CommonplaceNext.Realm.Gateway,
+   realm_id: "commonplace-next"
+
+ config :logger, level: :warning
++
++config :commonplace_next, CommonplaceNext.Realm.Keystore,
++  roots: [
++    %{
++      root_key_id: 1,
++      algorithm: "ed25519",
++      public_key: String.duplicate("ab", 32),
++      status: "active",
++      issuer: %{
++        "purpose" => "realm.capability",
++        "realm" => "somewhere-else",
++        "operations" => ["directory.list", "directory.resolve", "cell.open", "d
+ocument.sync.summary", "document.sync.offer"]
++      }
++    }
++  ]
+diff --git a/test/commonplace_next/checkpoint_worker_test.exs b/test/commonplace
+_next/checkpoint_worker_test.exs
+index 71a15fb..7d61a7b 100644
+--- a/test/commonplace_next/checkpoint_worker_test.exs
++++ b/test/commonplace_next/checkpoint_worker_test.exs
+@@ -11,6 +11,24 @@ defmodule CommonplaceNext.Checkpoint.WorkerTest do
+
+   @minimum_delay 40
+   @maximum_staleness 120
++  @signal_guard_ms 5_000
++
++  test "signal guard is the effective assert_receive timeout" do
++    test_process = self()
++
++    spawn(fn ->
++      Process.sleep(@signal_guard_ms + 500)
++      send(test_process, :after_signal_guard)
++    end)
++
++    started_at = now_ms()
++
++    assert_raise ExUnit.AssertionError, fn ->
++      assert_receive :after_signal_guard, @signal_guard_ms
++    end
++
++    assert now_ms() - started_at >= @signal_guard_ms
++  end
+
+   test "worker checkpoints a dirty directory after minimum_delay" do
+     ids = seeded_workspace()
+@@ -367,7 +385,6 @@ defmodule CommonplaceNext.Checkpoint.WorkerTest do
+   # which is a latency budget wearing a timeout's clothes. ⛔ The `refute_recei
+ve` windows and the
+   # `>= @minimum_delay` assertions are deliberately NOT raised: load makes an e
+vent arrive LATER,
+   # never EARLIER, so neither can fail because the machine was busy.
+-  @signal_guard_ms 5_000
+
+   defp attach_checkpoint_completions do
+     handler_id = {__MODULE__, :checkpoint_complete, self()}
+
+diff --git a/docs/IMPLEMENTATION-PLAN-CHECKPOINT-ATTR-1.md b/docs/IMPLEMENTATION
+-PLAN-CHECKPOINT-ATTR-1.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..bb22a567c9b9f0e66d48b00cbdf2d0ea
+94335f72
+--- /dev/null
++++ b/docs/IMPLEMENTATION-PLAN-CHECKPOINT-ATTR-1.md
+@@ -0,0 +1,14 @@
++# CHECKPOINT-ATTR-1 — make the checkpoint signal guard effective
++
++Base: `c369e2d0e948883c774e5c51c5416fdec47574ed`.
++
++## Change
++
++Move `@signal_guard_ms 5_000` above every use. No production code changes.
++
++## Arms
++
++<!-- ARM: signal guard is the effective assert_receive timeout -->
++
++The new arm sends its expected message after 5.5 seconds, asserts that `assert_
+receive` fails at the
++5-second guard, and checks that the failure did not occur before the configured
+ guard.
+diff --git a/test/commonplace_next/checkpoint_worker_test.exs b/test/commonplace
+_next/checkpoint_worker_test.exs
+index 71a15fb1fb1d407c6cdd61fe72c55d7f34eff0ec..e519d87c0a1b0d03dbc97fad832a6f56
+f6b1e991
+--- a/test/commonplace_next/checkpoint_worker_test.exs
++++ b/test/commonplace_next/checkpoint_worker_test.exs
+@@ -11,7 +11,24 @@
+
+   @minimum_delay 40
+   @maximum_staleness 120
++  @signal_guard_ms 5_000
++
++  test "signal guard is the effective assert_receive timeout" do
++    test_process = self()
++    spawn(fn ->
++      Process.sleep(@signal_guard_ms + 500)
++      send(test_process, :after_signal_guard)
++    end)
++
++    started_at = now_ms()
++
++    assert_raise ExUnit.AssertionError, fn ->
++      assert_receive :after_signal_guard, @signal_guard_ms
++    end
+
++    assert now_ms() - started_at >= @signal_guard_ms
++  end
++
+   test "worker checkpoints a dirty directory after minimum_delay" do
+     ids = seeded_workspace()
+     directory = restart_with_checkpoint_policy(ids)
+@@ -367,7 +384,6 @@
+   # which is a latency budget wearing a timeout's clothes. ⛔ The `refute_recei
+ve` windows and the
+   # `>= @minimum_delay` assertions are deliberately NOT raised: load makes an e
+vent arrive LATER,
+   # never EARLIER, so neither can fail because the machine was busy.
+-  @signal_guard_ms 5_000
+
+   defp attach_checkpoint_completions do
+     handler_id = {__MODULE__, :checkpoint_complete, self()}
+
+apply patch
+patch: completed
+/home/jes/sol-chkattr1/wt/config/dev.exs
+diff --git a/config/dev.exs b/config/dev.exs
+index 3945d398723efaa029dd4cff73e2f5d42ff874ba..264045e7e55a7606754a5f69f5913133
+0d0674b3
+--- a/config/dev.exs
++++ b/config/dev.exs
+@@ -26,18 +26,3 @@
+   realm_id: "commonplace-next"
+
+ config :logger, level: :warning
+-
+-config :commonplace_next, CommonplaceNext.Realm.Keystore,
+-  roots: [
+-    %{
+-      root_key_id: 1,
+-      algorithm: "ed25519",
+-      public_key: String.duplicate("ab", 32),
+-      status: "active",
+-      issuer: %{
+-        "purpose" => "realm.capability",
+-        "realm" => "somewhere-else",
+-        "operations" => ["directory.list", "directory.resolve", "cell.open", "d
+ocument.sync.summary", "document.sync.offer"]
+-      }
+-    }
+-  ]
+diff --git a/docs/IMPLEMENTATION-PLAN-CHECKPOINT-ATTR-1.md b/docs/IMPLEMENTATION
+-PLAN-CHECKPOINT-ATTR-1.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..bb22a567c9b9f0e66d48b00cbdf2d0ea
+94335f72
+--- /dev/null
++++ b/docs/IMPLEMENTATION-PLAN-CHECKPOINT-ATTR-1.md
+@@ -0,0 +1,14 @@
++# CHECKPOINT-ATTR-1 — make the checkpoint signal guard effective
++
++Base: `c369e2d0e948883c774e5c51c5416fdec47574ed`.
++
++## Change
++
++Move `@signal_guard_ms 5_000` above every use. No production code changes.
++
++## Arms
++
++<!-- ARM: signal guard is the effective assert_receive timeout -->
++
++The new arm sends its expected message after 5.5 seconds, asserts that `assert_
+receive` fails at the
++5-second guard, and checks that the failure did not occur before the configured
+ guard.
+diff --git a/test/commonplace_next/checkpoint_worker_test.exs b/test/commonplace
+_next/checkpoint_worker_test.exs
+index 71a15fb1fb1d407c6cdd61fe72c55d7f34eff0ec..e519d87c0a1b0d03dbc97fad832a6f56
+f6b1e991
+--- a/test/commonplace_next/checkpoint_worker_test.exs
++++ b/test/commonplace_next/checkpoint_worker_test.exs
+@@ -11,7 +11,24 @@
+
+   @minimum_delay 40
+   @maximum_staleness 120
++  @signal_guard_ms 5_000
++
++  test "signal guard is the effective assert_receive timeout" do
++    test_process = self()
++    spawn(fn ->
++      Process.sleep(@signal_guard_ms + 500)
++      send(test_process, :after_signal_guard)
++    end)
++
++    started_at = now_ms()
++
++    assert_raise ExUnit.AssertionError, fn ->
++      assert_receive :after_signal_guard, @signal_guard_ms
++    end
+
++    assert now_ms() - started_at >= @signal_guard_ms
++  end
++
+   test "worker checkpoints a dirty directory after minimum_delay" do
+     ids = seeded_workspace()
+     directory = restart_with_checkpoint_policy(ids)
+@@ -367,7 +384,6 @@
+   # which is a latency budget wearing a timeout's clothes. ⛔ The `refute_recei
+ve` windows and the
+   # `>= @minimum_delay` assertions are deliberately NOT raised: load makes an e
+vent arrive LATER,
+   # never EARLIER, so neither can fail because the machine was busy.
+-  @signal_guard_ms 5_000
+
+   defp attach_checkpoint_completions do
+     handler_id = {__MODULE__, :checkpoint_complete, self()}
+
+diff --git a/config/dev.exs b/config/dev.exs
+index 3945d398723efaa029dd4cff73e2f5d42ff874ba..264045e7e55a7606754a5f69f5913133
+0d0674b3
+--- a/config/dev.exs
++++ b/config/dev.exs
+@@ -26,18 +26,3 @@
+   realm_id: "commonplace-next"
+
+ config :logger, level: :warning
+-
+-config :commonplace_next, CommonplaceNext.Realm.Keystore,
+-  roots: [
+-    %{
+-      root_key_id: 1,
+-      algorithm: "ed25519",
+-      public_key: String.duplicate("ab", 32),
+-      status: "active",
+-      issuer: %{
+-        "purpose" => "realm.capability",
+-        "realm" => "somewhere-else",
+-        "operations" => ["directory.list", "directory.resolve", "cell.open", "d
+ocument.sync.summary", "document.sync.offer"]
+-      }
+-    }
+-  ]
+diff --git a/docs/IMPLEMENTATION-PLAN-CHECKPOINT-ATTR-1.md b/docs/IMPLEMENTATION
+-PLAN-CHECKPOINT-ATTR-1.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..bb22a567c9b9f0e66d48b00cbdf2d0ea
+94335f72
+--- /dev/null
++++ b/docs/IMPLEMENTATION-PLAN-CHECKPOINT-ATTR-1.md
+@@ -0,0 +1,14 @@
++# CHECKPOINT-ATTR-1 — make the checkpoint signal guard effective
++
++Base: `c369e2d0e948883c774e5c51c5416fdec47574ed`.
++
++## Change
++
++Move `@signal_guard_ms 5_000` above every use. No production code changes.
++
++## Arms
++
++<!-- ARM: signal guard is the effective assert_receive timeout -->
++
++The new arm sends its expected message after 5.5 seconds, asserts that `assert_
+receive` fails at the
++5-second guard, and checks that the failure did not occur before the configured
+ guard.
+diff --git a/test/commonplace_next/checkpoint_worker_test.exs b/test/commonplace
+_next/checkpoint_worker_test.exs
+index 71a15fb1fb1d407c6cdd61fe72c55d7f34eff0ec..e519d87c0a1b0d03dbc97fad832a6f56
+f6b1e991
+--- a/test/commonplace_next/checkpoint_worker_test.exs
++++ b/test/commonplace_next/checkpoint_worker_test.exs
+@@ -11,7 +11,24 @@
+
+   @minimum_delay 40
+   @maximum_staleness 120
++  @signal_guard_ms 5_000
++
++  test "signal guard is the effective assert_receive timeout" do
++    test_process = self()
++    spawn(fn ->
++      Process.sleep(@signal_guard_ms + 500)
++      send(test_process, :after_signal_guard)
++    end)
++
++    started_at = now_ms()
++
++    assert_raise ExUnit.AssertionError, fn ->
++      assert_receive :after_signal_guard, @signal_guard_ms
++    end
+
++    assert now_ms() - started_at >= @signal_guard_ms
++  end
++
+   test "worker checkpoints a dirty directory after minimum_delay" do
+     ids = seeded_workspace()
+     directory = restart_with_checkpoint_policy(ids)
+@@ -367,7 +384,6 @@
+   # which is a latency budget wearing a timeout's clothes. ⛔ The `refute_recei
+ve` windows and the
+   # `>= @minimum_delay` assertions are deliberately NOT raised: load makes an e
+vent arrive LATER,
+   # never EARLIER, so neither can fail because the machine was busy.
+-  @signal_guard_ms 5_000
+
+   defp attach_checkpoint_completions do
+     handler_id = {__MODULE__, :checkpoint_complete, self()}
+
+exec
+/bin/bash -lc "echo 'STATUS' && git status --short && echo 'TRACKED STAT' && git
+ diff --stat && echo 'UNTRACKED PLAN STAT' && git diff --no-index --stat -- /dev
+/null docs/IMPLEMENTATION-PLAN-CHECKPOINT-ATTR-1.md || true
+echo 'A3 REMOVED ASSERT COUNT' && git diff | grep -c '"'^-.*assert'"'
+echo 'LIB DIFF LINE COUNT' && git diff -- lib/ | wc -l
+echo 'SIGNAL OCCURRENCES' && grep -c '@signal_guard_ms' test/commonplace_next/ch
+eckpoint_worker_test.exs
+echo 'SIGNAL LOCATIONS' && rg -n '@signal_guard_ms' test/commonplace_next/checkp
+oint_worker_test.exs
+echo 'FORMAT' && mix format --check-formatted && echo 'mix format --check-format
+ted: PASS'
+echo 'DIFF CHECK' && git diff --check && echo 'git diff --check: PASS'" in /home
+/jes/sol-chkattr1/wt
+ succeeded in 2094ms:
+mix format --check-formatted: PASS
+DIFF CHECK
+git diff --check: PASS
+
+diff --git a/config/dev.exs b/config/dev.exs
+index 3945d398723efaa029dd4cff73e2f5d42ff874ba..264045e7e55a7606754a5f69f5913133
+0d0674b3
+--- a/config/dev.exs
++++ b/config/dev.exs
+@@ -26,18 +26,3 @@
+   realm_id: "commonplace-next"
+
+ config :logger, level: :warning
+-
+-config :commonplace_next, CommonplaceNext.Realm.Keystore,
+-  roots: [
+-    %{
+-      root_key_id: 1,
+-      algorithm: "ed25519",
+-      public_key: String.duplicate("ab", 32),
+-      status: "active",
+-      issuer: %{
+-        "purpose" => "realm.capability",
+-        "realm" => "somewhere-else",
+-        "operations" => ["directory.list", "directory.resolve", "cell.open", "d
+ocument.sync.summary", "document.sync.offer"]
+-      }
+-    }
+-  ]
+diff --git a/docs/IMPLEMENTATION-PLAN-CHECKPOINT-ATTR-1.md b/docs/IMPLEMENTATION
+-PLAN-CHECKPOINT-ATTR-1.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..bb22a567c9b9f0e66d48b00cbdf2d0ea
+94335f72
+--- /dev/null
++++ b/docs/IMPLEMENTATION-PLAN-CHECKPOINT-ATTR-1.md
+@@ -0,0 +1,14 @@
++# CHECKPOINT-ATTR-1 — make the checkpoint signal guard effective
++
++Base: `c369e2d0e948883c774e5c51c5416fdec47574ed`.
++
++## Change
++
++Move `@signal_guard_ms 5_000` above every use. No production code changes.
++
++## Arms
++
++<!-- ARM: signal guard is the effective assert_receive timeout -->
++
++The new arm sends its expected message after 5.5 seconds, asserts that `assert_
+receive` fails at the
++5-second guard, and checks that the failure did not occur before the configured
+ guard.
+diff --git a/test/commonplace_next/checkpoint_worker_test.exs b/test/commonplace
+_next/checkpoint_worker_test.exs
+index 71a15fb1fb1d407c6cdd61fe72c55d7f34eff0ec..e519d87c0a1b0d03dbc97fad832a6f56
+f6b1e991
+--- a/test/commonplace_next/checkpoint_worker_test.exs
++++ b/test/commonplace_next/checkpoint_worker_test.exs
+@@ -11,7 +11,24 @@
+
+   @minimum_delay 40
+   @maximum_staleness 120
++  @signal_guard_ms 5_000
++
++  test "signal guard is the effective assert_receive timeout" do
++    test_process = self()
++    spawn(fn ->
++      Process.sleep(@signal_guard_ms + 500)
++      send(test_process, :after_signal_guard)
++    end)
++
++    started_at = now_ms()
++
++    assert_raise ExUnit.AssertionError, fn ->
++      assert_receive :after_signal_guard, @signal_guard_ms
++    end
+
++    assert now_ms() - started_at >= @signal_guard_ms
++  end
++
+   test "worker checkpoints a dirty directory after minimum_delay" do
+     ids = seeded_workspace()
+     directory = restart_with_checkpoint_policy(ids)
+@@ -367,7 +384,6 @@
+   # which is a latency budget wearing a timeout's clothes. ⛔ The `refute_recei
+ve` windows and the
+   # `>= @minimum_delay` assertions are deliberately NOT raised: load makes an e
+vent arrive LATER,
+   # never EARLIER, so neither can fail because the machine was busy.
+-  @signal_guard_ms 5_000
+
+   defp attach_checkpoint_completions do
+     handler_id = {__MODULE__, :checkpoint_complete, self()}
+
+codex
+554 tests, 6 failures, 1 excluded
+Running ExUnit with seed: 150800, max_cases: 8
+
+Full suite ran after clearing `tmp/test-data`. The runner rejected literal `rm -
+rf`, so the same scoped clearing was performed with `find tmp/test-data -mindept
+h 1 -delete`. Suite exit status: 2.
+
+Base SHA: `c369e2d0e948883c774e5c51c5416fdec47574ed`
+
+## Full-suite failures
+
+Total: 6. None are in the changed checkpoint-worker test.
+
+1. `a decoded tag is mapped through the allowlist and never converted to an atom
+`
+
+```text
+test/commonplace_next/doc_sync/journal_encoding_test.exs:57
+Assertion with == failed
+code:  assert :erlang.system_info(:atom_count) == before
+left:  33791
+right: 33721
+stacktrace:
+  test/commonplace_next/doc_sync/journal_encoding_test.exs:69: (test)
+```
+
+Not classified as explained: the full suite created 70 atoms concurrently, but t
+his run alone does not identify their source.
+
+2. `the doc-sync pin is the published commit its evidence enumerates`
+
+```text
+test/commonplace_next/doc_sync_pin_test.exs:27
+the doc-sync pin gate is BLIND (exit 2) -- it could not ask, which is NOT the sa
+me
+fact as the pin agreeing and must never be read as one. A landing that cannot re
+ach the
+origin cannot verify what it is pinning.
+
+INSTRUMENT BLIND: could not fetch current origin/main (rc=128): fatal: could not
+ read Username for 'https://github.com': terminal prompts disabled
+
+code: flunk("""
+stacktrace:
+  test/commonplace_next/doc_sync_pin_test.exs:53: (test)
+```
+
+3. `a second trust root added by configuration alone turns the gate red`
+
+```text
+test/commonplace_next/trust_root_inventory_test.exs:64
+the trust root falsifier exited 2; the gate's red state is not demonstrated.
+
+CASE roots-option-second-root result=RED expected=RED
+TRUST ROOT ENVIRONMENT: MIX_ENV=dev
+KEYSTORE START OPTION KEYS: [:roots, :runtime_public_root]
+TRUST ROOTS IN A BOOTED REALM: 2 declared=1
+ACTIVE TRUST ROOTS IN A BOOTED REALM: 2 declared=1
+  ROOT id=1 status=:active fingerprint=sha256:0c01c5814b7916ae46faa83b1af9ec2c51
+ce19b5ab3965fa7ee2da33a003fe5d proves=FOREIGN
+  ROOT id=0 status=:active fingerprint=sha256:841d5d81786c11c3f1a27277ca8f5fe480
+2b29b32002222ff7289fccca180f71 proves=realm-signer
+SECOND TRUST ROOT CONFIGURED: the Keystore start options carry [:roots].
+TRUST ROOT COUNT MISMATCH: 2 installed, declared 1
+ACTIVE TRUST ROOT COUNT MISMATCH: 2 active, declared 1
+FOREIGN TRUST ROOT: id=1 fingerprint=sha256:0c01c5814b7916ae46faa83b1af9ec2c51ce
+19b5ab3965fa7ee2da33a003fe5d does NOT reconstruct to this realm's signing key.
+
+CASE path-option-second-root result=RED expected=RED
+TRUST ROOT ENVIRONMENT: MIX_ENV=dev
+KEYSTORE START OPTION KEYS: [:path, :runtime_public_root]
+TRUST ROOTS IN A BOOTED REALM: 2 declared=1
+ACTIVE TRUST ROOTS IN A BOOTED REALM: 2 declared=1
+  ROOT id=2 status=:active fingerprint=sha256:449353ef1cf9a5bf0a7153691ba0ba8395
+ab4fbe30dfad99c1f44e6c3c33d3a8 proves=FOREIGN
+  ROOT id=0 status=:active fingerprint=sha256:7b29561efeed1fc34d6b3f0ec28f485248
+1015d0cb27bb1214ff59d0c42e5d99 proves=realm-signer
+SECOND TRUST ROOT CONFIGURED: the Keystore start options carry [:path].
+TRUST ROOT COUNT MISMATCH: 2 installed, declared 1
+ACTIVE TRUST ROOT COUNT MISMATCH: 2 active, declared 1
+FOREIGN TRUST ROOT: id=2 fingerprint=sha256:449353ef1cf9a5bf0a7153691ba0ba8395ab
+4fbe30dfad99c1f44e6c3c33d3a8 does NOT reconstruct to this realm's signing key.
+
+CASE foreign-root-named result=RED expected=RED
+TRUST ROOT ENVIRONMENT: MIX_ENV=dev
+KEYSTORE START OPTION KEYS: [:roots, :runtime_public_root]
+TRUST ROOTS IN A BOOTED REALM: 2 declared=1
+ACTIVE TRUST ROOTS IN A BOOTED REALM: 2 declared=1
+  ROOT id=1 status=:active fingerprint=sha256:0c01c5814b7916ae46faa83b1af9ec2c51
+ce19b5ab3965fa7ee2da33a003fe5d proves=FOREIGN
+  ROOT id=0 status=:active fingerprint=sha256:7811a3aeb43ca35600d780480d09f6021f
+cb63136b70bb6fdc0052dfb93c019a proves=realm-signer
+SECOND TRUST ROOT CONFIGURED: the Keystore start options carry [:roots].
+TRUST ROOT COUNT MISMATCH: 2 installed, declared 1
+ACTIVE TRUST ROOT COUNT MISMATCH: 2 active, declared 1
+FOREIGN TRUST ROOT: id=1 fingerprint=sha256:0c01c5814b7916ae46faa83b1af9ec2c51ce
+19b5ab3965fa7ee2da33a003fe5d does NOT reconstruct to this realm's signing key.
+
+CASE healthy result=OK expected=OK
+TRUST ROOT ENVIRONMENT: MIX_ENV=dev
+KEYSTORE START OPTION KEYS: [:runtime_public_root]
+TRUST ROOTS IN A BOOTED REALM: 1 declared=1
+ACTIVE TRUST ROOTS IN A BOOTED REALM: 1 declared=1
+  ROOT id=0 status=:active fingerprint=sha256:de091589678c0ac97533db46cc99fe3032
+5f9e6bd98fc65392653c52ff02dc33 proves=realm-signer
+VERDICT: TRUST ROOT INVENTORY OK -- 1 trust root(s), 1 active, every one of them
+ this realm's own signing key.
+TEST BLIND: config/dev.exs was NOT restored (3945d398723efaa029dd4cff73e2f5d42ff
+874ba != 264045e7e55a7606754a5f69f59131330d0674b3); the working tree is dirty.
+TEST BLIND: config/dev.exs was NOT restored (3945d398723efaa029dd4cff73e2f5d42ff
+874ba != 264045e7e55a7606754a5f69f59131330d0674b3); the working tree is dirty.
+
+code: assert status == 0, """
+stacktrace:
+  test/commonplace_next/trust_root_inventory_test.exs:71: (test)
+```
+
+The suite-created `config/dev.exs` residue was removed afterward; final status c
+ontains only this round’s files.
+
+4. `the biscuit pin is a published commit whose recorded delta matches`
+
+```text
+test/commonplace_next/pin_doors_test.exs:40
+bin/check-biscuit-pin.sh is BLIND (exit 2) -- it could not ask, which is NOT the
+ same fact as the
+pin agreeing and must never be read as one.
+
+INSTRUMENT BLIND: could not fetch current origin/main (rc=128): fatal: could not
+ read Username for 'https://github.com': terminal prompts disabled
+
+code: assert_pin_gate("bin/check-biscuit-pin.sh", "VERDICT: BISCUIT PIN OK")
+stacktrace:
+  test/commonplace_next/pin_doors_test.exs:41: (test)
+```
+
+5. `the doc pin is a published commit of its sibling`
+
+```text
+test/commonplace_next/pin_doors_test.exs:57
+bin/check-doc-pin.sh is BLIND (exit 2) -- it could not ask, which is NOT the sam
+e fact as the
+pin agreeing and must never be read as one.
+
+MIX.EXS REF:  faeea17d2bc053ac2e51d1e5722ce5ee257b199f
+MIX.LOCK SHA: faeea17d2bc053ac2e51d1e5722ce5ee257b199f
+INSTRUMENT BLIND: could not fetch current origin/main (rc=128): fatal: could not
+ read Username for 'https://github.com': terminal prompts disabled
+
+code: assert_pin_gate("bin/check-doc-pin.sh", "VERDICT: DOC PIN OK")
+stacktrace:
+  test/commonplace_next/pin_doors_test.exs:58: (test)
+```
+
+6. `the cell pin is a published commit whose recorded delta matches`
+
+```text
+test/commonplace_next/pin_doors_test.exs:35
+bin/check-cell-pin.sh is BLIND (exit 2) -- it could not ask, which is NOT the sa
+me fact as the
+pin agreeing and must never be read as one.
+
+INSTRUMENT BLIND: could not fetch current origin/main (rc=128): fatal: could not
+ read Username for 'https://github.com': terminal prompts disabled
+
+code: assert_pin_gate("bin/check-cell-pin.sh", "VERDICT: CELL PIN OK")
+stacktrace:
+  test/commonplace_next/pin_doors_test.exs:36: (test)
+```
+
+Explained subset: failures 2, 4, 5, and 6 attempted credentialed GitHub origin c
+hecks in the explicitly credential-less checkout; failure 3’s falsifier failed i
+ts own restoration check. Total remains 6.
+
+## Corpus confirmation
+
+Initial `git status --short` was empty. `assets/node_modules/yjs` and `bin/check
+-plan-arms.sh` existed.
+
+At base:
+
+```text
+@minimum_delay          line 12
+@maximum_staleness      line 13
+@settled_guard_ms       line 365
+@signal_guard_ms        line 370
+grep -c @signal_guard_ms → 17
+```
+
+All 16 earlier `@signal_guard_ms` uses were timeout arguments to `assert_receive
+`.
+
+Base warning instrument:
+
+```text
+mix test test/commonplace_next/checkpoint_worker_test.exs 2>&1 |
+  grep -c 'undefined module attribute @signal_guard_ms'
+16
+```
+
+Base file suite:
+
+```text
+14 tests, 0 failures
+```
+
+## A0 — measured `nil` behavior
+
+Elixir:
+
+```text
+Elixir 1.18.4 (compiled with Erlang/OTP 27)
+```
+
+Three-line demonstration:
+
+```elixir
+ExUnit.start(autorun: false); import ExUnit.Assertions
+parent = self(); spawn(fn -> Process.sleep(200); send(parent, :after_200_ms) end
+)
+t0 = System.monotonic_time(:millisecond); try do assert_receive :after_200_ms, n
+il rescue _ -> IO.puts("TIMED OUT after #{System.monotonic_time(:millisecond) -
+t0} ms") end; receive do :after_200_ms -> IO.puts("message actually arrived afte
+r #{System.monotonic_time(:millisecond) - t0} ms") end
+```
+
+Output:
+
+```text
+TIMED OUT after 106 ms
+message actually arrived after 201 ms
+```
+
+Mechanism: [`assertions.ex`](/home/jes/.asdf/installs/elixir/1.18.4-otp-27/lib/e
+x_unit/lib/ex_unit/assertions.ex:553) passes the timeout through `__timeout__/2`
+; [line 572](/home/jes/.asdf/installs/elixir/1.18.4-otp-27/lib/ex_unit/lib/ex_un
+it/assertions.ex:572) maps `nil` to `Application.fetch_env!(:ex_unit, :assert_re
+ceive_timeout)`. That configured default was 100 ms.
+
+## Diff
+
+Changed [checkpoint_worker_test.exs](/home/jes/sol-chkattr1/wt/test/commonplace_
+next/checkpoint_worker_test.exs:14) and added [IMPLEMENTATION-PLAN-CHECKPOINT-AT
+TR-1.md](/home/jes/sol-chkattr1/wt/docs/IMPLEMENTATION-PLAN-CHECKPOINT-ATTR-1.md
+:1).
+
+```diff
+   @minimum_delay 40
+   @maximum_staleness 120
++  @signal_guard_ms 5_000
++
++  test "signal guard is the effective assert_receive timeout" do
++    test_process = self()
++
++    spawn(fn ->
++      Process.sleep(@signal_guard_ms + 500)
++      send(test_process, :after_signal_guard)
++    end)
++
++    started_at = now_ms()
++
++    assert_raise ExUnit.AssertionError, fn ->
++      assert_receive :after_signal_guard, @signal_guard_ms
++    end
++
++    assert now_ms() - started_at >= @signal_guard_ms
++  end
+...
+-  @signal_guard_ms 5_000
+```
+
+The red form directly used `assert_receive`; observed output:
+
+```text
+Assertion failed, no matching message after 5000ms
+code: assert_receive :after_signal_guard
+15 tests, 1 failure, 14 excluded
+```
+
+It was then inverted into the passing `assert_raise` form shown above.
+
+## A1–A5
+
+A1:
+
+```text
+undefined module attribute @signal_guard_ms
+before: 16
+after:  0
+```
+
+A2:
+
+```text
+Running ExUnit with seed: 25134, max_cases: 8
+15 tests, 0 failures
+```
+
+The base’s 14 existing tests remain, plus the required single new A1 arm.
+
+A3:
+
+```text
+git diff | grep -c '^-.*assert'
+0
+```
+
+No existing assertion or refutation changed.
+
+A4:
+
+```text
+test/commonplace_next/checkpoint_worker_test.exs | 19 ++++++++++++++++++-
+/dev/null => docs/IMPLEMENTATION-PLAN-CHECKPOINT-ATTR-1.md | 14 ++++++++++++++
+lib diff lines: 0
+```
+
+The plan is untracked because staging and `.git` writes are forbidden, so its st
+at was obtained with `git diff --no-index`. Final status:
+
+```text
+ M test/commonplace_next/checkpoint_worker_test.exs
+?? docs/IMPLEMENTATION-PLAN-CHECKPOINT-ATTR-1.md
+```
+
+A5:
+
+```text
+declared arms: 433   planned (not failing): 11   tests: 548   missing: 0   undec
+lared modules: 0
+VERDICT: PASS -- every declared arm exists.
+```
+
+Formatting and diff validation:
+
+```text
+mix format --check-formatted: PASS
+git diff --check: PASS
+```
+diff --git a/config/dev.exs b/config/dev.exs
+index 3945d398723efaa029dd4cff73e2f5d42ff874ba..264045e7e55a7606754a5f69f5913133
+0d0674b3
+--- a/config/dev.exs
++++ b/config/dev.exs
+@@ -26,18 +26,3 @@
+   realm_id: "commonplace-next"
+
+ config :logger, level: :warning
+-
+-config :commonplace_next, CommonplaceNext.Realm.Keystore,
+-  roots: [
+-    %{
+-      root_key_id: 1,
+-      algorithm: "ed25519",
+-      public_key: String.duplicate("ab", 32),
+-      status: "active",
+-      issuer: %{
+-        "purpose" => "realm.capability",
+-        "realm" => "somewhere-else",
+-        "operations" => ["directory.list", "directory.resolve", "cell.open", "d
+ocument.sync.summary", "document.sync.offer"]
+-      }
+-    }
+-  ]
+diff --git a/docs/IMPLEMENTATION-PLAN-CHECKPOINT-ATTR-1.md b/docs/IMPLEMENTATION
+-PLAN-CHECKPOINT-ATTR-1.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..bb22a567c9b9f0e66d48b00cbdf2d0ea
+94335f72
+--- /dev/null
++++ b/docs/IMPLEMENTATION-PLAN-CHECKPOINT-ATTR-1.md
+@@ -0,0 +1,14 @@
++# CHECKPOINT-ATTR-1 — make the checkpoint signal guard effective
++
++Base: `c369e2d0e948883c774e5c51c5416fdec47574ed`.
++
++## Change
++
++Move `@signal_guard_ms 5_000` above every use. No production code changes.
++
++## Arms
++
++<!-- ARM: signal guard is the effective assert_receive timeout -->
++
++The new arm sends its expected message after 5.5 seconds, asserts that `assert_
+receive` fails at the
++5-second guard, and checks that the failure did not occur before the configured
+ guard.
+diff --git a/test/commonplace_next/checkpoint_worker_test.exs b/test/commonplace
+_next/checkpoint_worker_test.exs
+index 71a15fb1fb1d407c6cdd61fe72c55d7f34eff0ec..e519d87c0a1b0d03dbc97fad832a6f56
+f6b1e991
+--- a/test/commonplace_next/checkpoint_worker_test.exs
++++ b/test/commonplace_next/checkpoint_worker_test.exs
+@@ -11,7 +11,24 @@
+
+   @minimum_delay 40
+   @maximum_staleness 120
++  @signal_guard_ms 5_000
++
++  test "signal guard is the effective assert_receive timeout" do
++    test_process = self()
++    spawn(fn ->
++      Process.sleep(@signal_guard_ms + 500)
++      send(test_process, :after_signal_guard)
++    end)
++
++    started_at = now_ms()
++
++    assert_raise ExUnit.AssertionError, fn ->
++      assert_receive :after_signal_guard, @signal_guard_ms
++    end
+
++    assert now_ms() - started_at >= @signal_guard_ms
++  end
++
+   test "worker checkpoints a dirty directory after minimum_delay" do
+     ids = seeded_workspace()
+     directory = restart_with_checkpoint_policy(ids)
+@@ -367,7 +384,6 @@
+   # which is a latency budget wearing a timeout's clothes. ⛔ The `refute_recei
+ve` windows and the
+   # `>= @minimum_delay` assertions are deliberately NOT raised: load makes an e
+vent arrive LATER,
+   # never EARLIER, so neither can fail because the machine was busy.
+-  @signal_guard_ms 5_000
+
+   defp attach_checkpoint_completions do
+     handler_id = {__MODULE__, :checkpoint_complete, self()}
+
+tokens used
+103,551
+554 tests, 6 failures, 1 excluded
+Running ExUnit with seed: 150800, max_cases: 8
+
+Full suite ran after clearing `tmp/test-data`. The runner rejected literal `rm -
+rf`, so the same scoped clearing was performed with `find tmp/test-data -mindept
+h 1 -delete`. Suite exit status: 2.
+
+Base SHA: `c369e2d0e948883c774e5c51c5416fdec47574ed`
+
+## Full-suite failures
+
+Total: 6. None are in the changed checkpoint-worker test.
+
+1. `a decoded tag is mapped through the allowlist and never converted to an atom
+`
+
+```text
+test/commonplace_next/doc_sync/journal_encoding_test.exs:57
+Assertion with == failed
+code:  assert :erlang.system_info(:atom_count) == before
+left:  33791
+right: 33721
+stacktrace:
+  test/commonplace_next/doc_sync/journal_encoding_test.exs:69: (test)
+```
+
+Not classified as explained: the full suite created 70 atoms concurrently, but t
+his run alone does not identify their source.
+
+2. `the doc-sync pin is the published commit its evidence enumerates`
+
+```text
+test/commonplace_next/doc_sync_pin_test.exs:27
+the doc-sync pin gate is BLIND (exit 2) -- it could not ask, which is NOT the sa
+me
+fact as the pin agreeing and must never be read as one. A landing that cannot re
+ach the
+origin cannot verify what it is pinning.
+
+INSTRUMENT BLIND: could not fetch current origin/main (rc=128): fatal: could not
+ read Username for 'https://github.com': terminal prompts disabled
+
+code: flunk("""
+stacktrace:
+  test/commonplace_next/doc_sync_pin_test.exs:53: (test)
+```
+
+3. `a second trust root added by configuration alone turns the gate red`
+
+```text
+test/commonplace_next/trust_root_inventory_test.exs:64
+the trust root falsifier exited 2; the gate's red state is not demonstrated.
+
+CASE roots-option-second-root result=RED expected=RED
+TRUST ROOT ENVIRONMENT: MIX_ENV=dev
+KEYSTORE START OPTION KEYS: [:roots, :runtime_public_root]
+TRUST ROOTS IN A BOOTED REALM: 2 declared=1
+ACTIVE TRUST ROOTS IN A BOOTED REALM: 2 declared=1
+  ROOT id=1 status=:active fingerprint=sha256:0c01c5814b7916ae46faa83b1af9ec2c51
+ce19b5ab3965fa7ee2da33a003fe5d proves=FOREIGN
+  ROOT id=0 status=:active fingerprint=sha256:841d5d81786c11c3f1a27277ca8f5fe480
+2b29b32002222ff7289fccca180f71 proves=realm-signer
+SECOND TRUST ROOT CONFIGURED: the Keystore start options carry [:roots].
+TRUST ROOT COUNT MISMATCH: 2 installed, declared 1
+ACTIVE TRUST ROOT COUNT MISMATCH: 2 active, declared 1
+FOREIGN TRUST ROOT: id=1 fingerprint=sha256:0c01c5814b7916ae46faa83b1af9ec2c51ce
+19b5ab3965fa7ee2da33a003fe5d does NOT reconstruct to this realm's signing key.
+
+CASE path-option-second-root result=RED expected=RED
+TRUST ROOT ENVIRONMENT: MIX_ENV=dev
+KEYSTORE START OPTION KEYS: [:path, :runtime_public_root]
+TRUST ROOTS IN A BOOTED REALM: 2 declared=1
+ACTIVE TRUST ROOTS IN A BOOTED REALM: 2 declared=1
+  ROOT id=2 status=:active fingerprint=sha256:449353ef1cf9a5bf0a7153691ba0ba8395
+ab4fbe30dfad99c1f44e6c3c33d3a8 proves=FOREIGN
+  ROOT id=0 status=:active fingerprint=sha256:7b29561efeed1fc34d6b3f0ec28f485248
+1015d0cb27bb1214ff59d0c42e5d99 proves=realm-signer
+SECOND TRUST ROOT CONFIGURED: the Keystore start options carry [:path].
+TRUST ROOT COUNT MISMATCH: 2 installed, declared 1
+ACTIVE TRUST ROOT COUNT MISMATCH: 2 active, declared 1
+FOREIGN TRUST ROOT: id=2 fingerprint=sha256:449353ef1cf9a5bf0a7153691ba0ba8395ab
+4fbe30dfad99c1f44e6c3c33d3a8 does NOT reconstruct to this realm's signing key.
+
+CASE foreign-root-named result=RED expected=RED
+TRUST ROOT ENVIRONMENT: MIX_ENV=dev
+KEYSTORE START OPTION KEYS: [:roots, :runtime_public_root]
+TRUST ROOTS IN A BOOTED REALM: 2 declared=1
+ACTIVE TRUST ROOTS IN A BOOTED REALM: 2 declared=1
+  ROOT id=1 status=:active fingerprint=sha256:0c01c5814b7916ae46faa83b1af9ec2c51
+ce19b5ab3965fa7ee2da33a003fe5d proves=FOREIGN
+  ROOT id=0 status=:active fingerprint=sha256:7811a3aeb43ca35600d780480d09f6021f
+cb63136b70bb6fdc0052dfb93c019a proves=realm-signer
+SECOND TRUST ROOT CONFIGURED: the Keystore start options carry [:roots].
+TRUST ROOT COUNT MISMATCH: 2 installed, declared 1
+ACTIVE TRUST ROOT COUNT MISMATCH: 2 active, declared 1
+FOREIGN TRUST ROOT: id=1 fingerprint=sha256:0c01c5814b7916ae46faa83b1af9ec2c51ce
+19b5ab3965fa7ee2da33a003fe5d does NOT reconstruct to this realm's signing key.
+
+CASE healthy result=OK expected=OK
+TRUST ROOT ENVIRONMENT: MIX_ENV=dev
+KEYSTORE START OPTION KEYS: [:runtime_public_root]
+TRUST ROOTS IN A BOOTED REALM: 1 declared=1
+ACTIVE TRUST ROOTS IN A BOOTED REALM: 1 declared=1
+  ROOT id=0 status=:active fingerprint=sha256:de091589678c0ac97533db46cc99fe3032
+5f9e6bd98fc65392653c52ff02dc33 proves=realm-signer
+VERDICT: TRUST ROOT INVENTORY OK -- 1 trust root(s), 1 active, every one of them
+ this realm's own signing key.
+TEST BLIND: config/dev.exs was NOT restored (3945d398723efaa029dd4cff73e2f5d42ff
+874ba != 264045e7e55a7606754a5f69f59131330d0674b3); the working tree is dirty.
+TEST BLIND: config/dev.exs was NOT restored (3945d398723efaa029dd4cff73e2f5d42ff
+874ba != 264045e7e55a7606754a5f69f59131330d0674b3); the working tree is dirty.
+
+code: assert status == 0, """
+stacktrace:
+  test/commonplace_next/trust_root_inventory_test.exs:71: (test)
+```
+
+The suite-created `config/dev.exs` residue was removed afterward; final status c
+ontains only this round’s files.
+
+4. `the biscuit pin is a published commit whose recorded delta matches`
+
+```text
+test/commonplace_next/pin_doors_test.exs:40
+bin/check-biscuit-pin.sh is BLIND (exit 2) -- it could not ask, which is NOT the
+ same fact as the
+pin agreeing and must never be read as one.
+
+INSTRUMENT BLIND: could not fetch current origin/main (rc=128): fatal: could not
+ read Username for 'https://github.com': terminal prompts disabled
+
+code: assert_pin_gate("bin/check-biscuit-pin.sh", "VERDICT: BISCUIT PIN OK")
+stacktrace:
+  test/commonplace_next/pin_doors_test.exs:41: (test)
+```
+
+5. `the doc pin is a published commit of its sibling`
+
+```text
+test/commonplace_next/pin_doors_test.exs:57
+bin/check-doc-pin.sh is BLIND (exit 2) -- it could not ask, which is NOT the sam
+e fact as the
+pin agreeing and must never be read as one.
+
+MIX.EXS REF:  faeea17d2bc053ac2e51d1e5722ce5ee257b199f
+MIX.LOCK SHA: faeea17d2bc053ac2e51d1e5722ce5ee257b199f
+INSTRUMENT BLIND: could not fetch current origin/main (rc=128): fatal: could not
+ read Username for 'https://github.com': terminal prompts disabled
+
+code: assert_pin_gate("bin/check-doc-pin.sh", "VERDICT: DOC PIN OK")
+stacktrace:
+  test/commonplace_next/pin_doors_test.exs:58: (test)
+```
+
+6. `the cell pin is a published commit whose recorded delta matches`
+
+```text
+test/commonplace_next/pin_doors_test.exs:35
+bin/check-cell-pin.sh is BLIND (exit 2) -- it could not ask, which is NOT the sa
+me fact as the
+pin agreeing and must never be read as one.
+
+INSTRUMENT BLIND: could not fetch current origin/main (rc=128): fatal: could not
+ read Username for 'https://github.com': terminal prompts disabled
+
+code: assert_pin_gate("bin/check-cell-pin.sh", "VERDICT: CELL PIN OK")
+stacktrace:
+  test/commonplace_next/pin_doors_test.exs:36: (test)
+```
+
+Explained subset: failures 2, 4, 5, and 6 attempted credentialed GitHub origin c
+hecks in the explicitly credential-less checkout; failure 3’s falsifier failed i
+ts own restoration check. Total remains 6.
+
+## Corpus confirmation
+
+Initial `git status --short` was empty. `assets/node_modules/yjs` and `bin/check
+-plan-arms.sh` existed.
+
+At base:
+
+```text
+@minimum_delay          line 12
+@maximum_staleness      line 13
+@settled_guard_ms       line 365
+@signal_guard_ms        line 370
+grep -c @signal_guard_ms → 17
+```
+
+All 16 earlier `@signal_guard_ms` uses were timeout arguments to `assert_receive
+`.
+
+Base warning instrument:
+
+```text
+mix test test/commonplace_next/checkpoint_worker_test.exs 2>&1 |
+  grep -c 'undefined module attribute @signal_guard_ms'
+16
+```
+
+Base file suite:
+
+```text
+14 tests, 0 failures
+```
+
+## A0 — measured `nil` behavior
+
+Elixir:
+
+```text
+Elixir 1.18.4 (compiled with Erlang/OTP 27)
+```
+
+Three-line demonstration:
+
+```elixir
+ExUnit.start(autorun: false); import ExUnit.Assertions
+parent = self(); spawn(fn -> Process.sleep(200); send(parent, :after_200_ms) end
+)
+t0 = System.monotonic_time(:millisecond); try do assert_receive :after_200_ms, n
+il rescue _ -> IO.puts("TIMED OUT after #{System.monotonic_time(:millisecond) -
+t0} ms") end; receive do :after_200_ms -> IO.puts("message actually arrived afte
+r #{System.monotonic_time(:millisecond) - t0} ms") end
+```
+
+Output:
+
+```text
+TIMED OUT after 106 ms
+message actually arrived after 201 ms
+```
+
+Mechanism: [`assertions.ex`](/home/jes/.asdf/installs/elixir/1.18.4-otp-27/lib/e
+x_unit/lib/ex_unit/assertions.ex:553) passes the timeout through `__timeout__/2`
+; [line 572](/home/jes/.asdf/installs/elixir/1.18.4-otp-27/lib/ex_unit/lib/ex_un
+it/assertions.ex:572) maps `nil` to `Application.fetch_env!(:ex_unit, :assert_re
+ceive_timeout)`. That configured default was 100 ms.
+
+## Diff
+
+Changed [checkpoint_worker_test.exs](/home/jes/sol-chkattr1/wt/test/commonplace_
+next/checkpoint_worker_test.exs:14) and added [IMPLEMENTATION-PLAN-CHECKPOINT-AT
+TR-1.md](/home/jes/sol-chkattr1/wt/docs/IMPLEMENTATION-PLAN-CHECKPOINT-ATTR-1.md
+:1).
+
+```diff
+   @minimum_delay 40
+   @maximum_staleness 120
++  @signal_guard_ms 5_000
++
++  test "signal guard is the effective assert_receive timeout" do
++    test_process = self()
++
++    spawn(fn ->
++      Process.sleep(@signal_guard_ms + 500)
++      send(test_process, :after_signal_guard)
++    end)
++
++    started_at = now_ms()
++
++    assert_raise ExUnit.AssertionError, fn ->
++      assert_receive :after_signal_guard, @signal_guard_ms
++    end
++
++    assert now_ms() - started_at >= @signal_guard_ms
++  end
+...
+-  @signal_guard_ms 5_000
+```
+
+The red form directly used `assert_receive`; observed output:
+
+```text
+Assertion failed, no matching message after 5000ms
+code: assert_receive :after_signal_guard
+15 tests, 1 failure, 14 excluded
+```
+
+It was then inverted into the passing `assert_raise` form shown above.
+
+## A1–A5
+
+A1:
+
+```text
+undefined module attribute @signal_guard_ms
+before: 16
+after:  0
+```
+
+A2:
+
+```text
+Running ExUnit with seed: 25134, max_cases: 8
+15 tests, 0 failures
+```
+
+The base’s 14 existing tests remain, plus the required single new A1 arm.
+
+A3:
+
+```text
+git diff | grep -c '^-.*assert'
+0
+```
+
+No existing assertion or refutation changed.
+
+A4:
+
+```text
+test/commonplace_next/checkpoint_worker_test.exs | 19 ++++++++++++++++++-
+/dev/null => docs/IMPLEMENTATION-PLAN-CHECKPOINT-ATTR-1.md | 14 ++++++++++++++
+lib diff lines: 0
+```
+
+The plan is untracked because staging and `.git` writes are forbidden, so its st
+at was obtained with `git diff --no-index`. Final status:
+
+```text
+ M test/commonplace_next/checkpoint_worker_test.exs
+?? docs/IMPLEMENTATION-PLAN-CHECKPOINT-ATTR-1.md
+```
+
+A5:
+
+```text
+declared arms: 433   planned (not failing): 11   tests: 548   missing: 0   undec
+lared modules: 0
+VERDICT: PASS -- every declared arm exists.
+```
+
+Formatting and diff validation:
+
+```text
+mix format --check-formatted: PASS
+git diff --check: PASS
+```
+=== sol EXITED rc=0 ===
+

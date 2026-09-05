@@ -1,0 +1,1904 @@
+dbca7aeb
+--- /dev/null
++++ b/bin/assert-diff.sh
+@@ -0,0 +1,164 @@
++#!/usr/bin/env bash
++# Gate assertion text, not line positions, between two commits.
++#
++# WHY THIS EXISTS. Measured in this fleet on 2026-09-04: two arms were re-point
+ed
++# from one refusal code to another, and a cosmetic realignment nearly broke a
++# landed assertion about DDL spacing. Both looked like ordinary changes in a
++# 39-file diff. This makes removed and rewritten expectations mechanical to see
+.
++#
++# This check CANNOT decide whether an intentional expectation change is correct
+.
++# A declaration only records that intent and permits the change; it never hides
++# it. Added assertions are also evidence, but do not justify refusing a round.
++#
++# rc 0 = allowed · rc 1 = REFUSED (undeclared removal/change)
++# rc 2 = BLIND (the requested comparison could not be made)
++set -uo pipefail
++
++usage() {
++  echo "BLIND: usage: $(basename "$0") <base-sha> <head-sha> [--declared <file>
+] -- <test path>..." >&2
++  exit 2
++}
++
++[ "$#" -ge 2 ] || usage
++base=$1
++head=$2
++shift 2
++declared=""
++
++while [ "$#" -gt 0 ] && [ "$1" != "--" ]; do
++  case "$1" in
++    --declared)
++      [ "$#" -ge 2 ] || usage
++      [ -z "$declared" ] || usage
++      declared=$2
++      shift 2
++      ;;
++    *) usage ;;
++  esac
++done
++[ "$#" -gt 0 ] && [ "$1" = "--" ] || usage
++shift
++[ "$#" -gt 0 ] || { echo "BLIND: no test paths were given after --." >&2; exit
+2; }
++
++git rev-parse --verify --quiet "${base}^{commit}" >/dev/null || {
++  echo "BLIND: base sha does not resolve to a commit: $base" >&2
++  exit 2
++}
++git rev-parse --verify --quiet "${head}^{commit}" >/dev/null || {
++  echo "BLIND: head sha does not resolve to a commit: $head" >&2
++  exit 2
++}
++
++if [ -n "$declared" ] && [ ! -r "$declared" ]; then
++  echo "BLIND: declared assertion file is not readable: $declared" >&2
++  exit 2
++fi
++
++tmp=$(mktemp -d) || { echo "BLIND: could not create working directory." >&2; ex
+it 2; }
++trap 'rm -rf -- "$tmp" || true' EXIT
++declarations="$tmp/declarations"
++if [ -n "$declared" ]; then
++  awk '!/^#/ && !/^[[:space:]]*$/' "$declared" > "$declarations"
++else
++  : > "$declarations"
++fi
++
++extract_assertions() {
++  awk '
++    /^[[:space:]]*(assert|assert_raise|assert_receive|refute|refute_receive|flu
+nk)([[:space:](]|$)/ {
++      sub(/^[[:space:]]+/, "")
++      sub(/[[:space:]]+$/, "")
++      gsub(/[[:space:]]+/, " ")
++      print
++    }
++  '
++}
++
++is_declared() {
++  grep -Fxq -- "$1" "$declarations"
++}
++
++refused=0
++path_number=0
++for path in "$@"; do
++  path_number=$((path_number + 1))
++  base_present=0
++  head_present=0
++  base_type=$(git cat-file -t "${base}:${path}" 2>/dev/null) && base_present=1
++  head_type=$(git cat-file -t "${head}:${path}" 2>/dev/null) && head_present=1
++
++  if [ "$base_present" -eq 0 ] && [ "$head_present" -eq 0 ]; then
++    echo "BLIND: path is absent at both shas: $path" >&2
++    exit 2
++  fi
++  if { [ "$base_present" -eq 1 ] && [ "$base_type" != "blob" ]; } ||
++     { [ "$head_present" -eq 1 ] && [ "$head_type" != "blob" ]; }; then
++    echo "BLIND: path does not name a file blob at every sha where it is presen
+t: $path" >&2
++    exit 2
++  fi
++
++  base_lines="$tmp/base.$path_number"
++  head_lines="$tmp/head.$path_number"
++  base_only="$tmp/base-only.$path_number"
++  head_only="$tmp/head-only.$path_number"
++  base_raw="$tmp/base-raw.$path_number"
++  head_raw="$tmp/head-raw.$path_number"
++  if [ "$base_present" -eq 1 ]; then
++    git show "${base}:${path}" > "$base_raw" || {
++      echo "BLIND: could not read $path at base sha $base" >&2
++      exit 2
++    }
++    extract_assertions < "$base_raw" | sort > "$base_lines"
++  fi
++  if [ "$head_present" -eq 1 ]; then
++    git show "${head}:${path}" > "$head_raw" || {
++      echo "BLIND: could not read $path at head sha $head" >&2
++      exit 2
++    }
++    extract_assertions < "$head_raw" | sort > "$head_lines"
++  fi
++  [ -e "$base_lines" ] || : > "$base_lines"
++  [ -e "$head_lines" ] || : > "$head_lines"
++
++  # comm preserves duplicate lines, so cancellation here is multiset subtractio
+n.
++  comm -23 "$base_lines" "$head_lines" > "$base_only"
++  comm -13 "$base_lines" "$head_lines" > "$head_only"
++
++  exec 3< "$base_only"
++  exec 4< "$head_only"
++  while :; do
++    old=""
++    new=""
++    IFS= read -r old <&3 || true
++    IFS= read -r new <&4 || true
++    [ -n "$old" ] || [ -n "$new" ] || break
++
++    if [ -n "$old" ] && [ -n "$new" ]; then
++      if is_declared "$old"; then
++        echo "CHANGED (declared) BASE $path: $old"
++      else
++        echo "CHANGED (undeclared) BASE $path: $old"
++        refused=1
++      fi
++      echo "CHANGED HEAD $path: $new"
++    elif [ -n "$old" ]; then
++      if is_declared "$old"; then
++        echo "REMOVED (declared) $path: $old"
++      else
++        echo "REMOVED (undeclared) $path: $old"
++        refused=1
++      fi
++    else
++      echo "ADDED $path: $new"
++    fi
++  done
++  exec 3<&-
++  exec 4<&-
++done
++
++if [ "$refused" -eq 1 ]; then
++  echo "VERDICT: REFUSED -- at least one removed or changed base assertion is u
+ndeclared."
++  exit 1
++fi
++echo "VERDICT: PASS -- no removed or changed base assertion is undeclared."
++exit 0
+diff --git a/bin/test-assert-diff.sh b/bin/test-assert-diff.sh
+new file mode 100644
+index 0000000000000000000000000000000000000000..0d11536dcd511e013050fc61e1d8c388
+3a4853cc
+--- /dev/null
++++ b/bin/test-assert-diff.sh
+@@ -0,0 +1,102 @@
++#!/usr/bin/env bash
++# Self-test for assert-diff. Every fixture lives in a disposable LOCAL git
++# repository; this script never reads test history from this repository and
++# never contacts a network remote.
++set -uo pipefail
++
++ROOT=$(cd "$(dirname "$0")/.." && pwd -P)
++SCRIPT="$ROOT/bin/assert-diff.sh"
++[ -r "$SCRIPT" ] || { echo "BLIND: assert-diff script is not readable: $SCRIPT"
+ >&2; exit 2; }
++
++T=$(mktemp -d) || { echo "BLIND: could not create fixture directory." >&2; exit
+ 2; }
++trap 'rm -rf -- "$T" || true' EXIT
++repo="$T/repo"
++mkdir -p "$repo/test" || { echo "BLIND: could not create fixture tree." >&2; ex
+it 2; }
++git init -q "$repo" || { echo "BLIND: could not initialize fixture repository."
+ >&2; exit 2; }
++git -C "$repo" config user.email fixture@example.invalid || exit 2
++git -C "$repo" config user.name Fixture || exit 2
++
++printf '%s\n' '  assert old_value == 1' > "$repo/test/a1.exs"
++printf '%s\n' '  refute deleted_value' > "$repo/test/a2.exs"
++printf '%s\n' '  value = 3' > "$repo/test/a3.exs"
++printf '%s\n' '  assert removable == true' > "$repo/test/a4.exs"
++printf '%s\n' '  assert moved_value == 5' '  value = 5' > "$repo/test/a5.exs"
++git -C "$repo" add test || exit 2
++git -C "$repo" commit -qm base || exit 2
++base=$(git -C "$repo" rev-parse HEAD) || exit 2
++
++printf '%s\n' '  assert new_value == 2' > "$repo/test/a1.exs"
++: > "$repo/test/a2.exs"
++printf '%s\n' '  value = 3' '  assert added_value == 3' > "$repo/test/a3.exs"
++: > "$repo/test/a4.exs"
++printf '%s\n' '  value = 5' '' '' '      assert   moved_value   ==   5' > "$rep
+o/test/a5.exs"
++git -C "$repo" add test || exit 2
++git -C "$repo" commit -qm head || exit 2
++head=$(git -C "$repo" rev-parse HEAD) || exit 2
++printf '%s\n' 'assert removable == true' > "$T/declared"
++
++failures=0
++OUT=""
++RC=0
++run_tool() {
++  OUT=$(cd "$repo" && bash "$SCRIPT" "$@" 2>&1)
++  RC=$?
++}
++fail_arm() {
++  local arm=$1 detail=$2
++  echo "$arm FAIL: $detail" >&2
++  printf '%s\n' "$OUT" >&2
++  failures=$((failures + 1))
++}
++
++run_tool "$base" "$head" -- test/a1.exs
++if [ "$RC" -eq 1 ] &&
++   grep -Fq 'CHANGED (undeclared) BASE test/a1.exs: assert old_value == 1' <<<
+"$OUT" &&
++   grep -Fq 'CHANGED HEAD test/a1.exs: assert new_value == 2' <<< "$OUT"; then
++  echo "A1 PASS: changed assertion refused with rc 1 and named both texts."
++else
++  fail_arm A1 "expected rc=1 and both changed texts; got rc=$RC"
++fi
++
++run_tool "$base" "$head" -- test/a2.exs
++if [ "$RC" -eq 1 ] && grep -Fq 'REMOVED (undeclared) test/a2.exs: refute delete
+d_value' <<< "$OUT"; then
++  echo "A2 PASS: deleted assertion refused with rc 1 and named its text."
++else
++  fail_arm A2 "expected rc=1 and the removed text; got rc=$RC"
++fi
++
++run_tool "$base" "$head" -- test/a3.exs
++if [ "$RC" -eq 0 ] && grep -Fq 'ADDED test/a3.exs: assert added_value == 3' <<<
+ "$OUT"; then
++  echo "A3 PASS: added-only assertion printed and remained green with rc 0."
++else
++  fail_arm A3 "expected rc=0 and the added text; got rc=$RC"
++fi
++
++run_tool "$base" "$head" --declared "$T/declared" -- test/a4.exs
++if [ "$RC" -eq 0 ] && grep -Fq 'REMOVED (declared) test/a4.exs: assert removabl
+e == true' <<< "$OUT"; then
++  echo "A4 PASS: declared removal remained printed and returned rc 0."
++else
++  fail_arm A4 "expected rc=0 and a printed declared removal; got rc=$RC"
++fi
++
++run_tool "$base" "$head" -- test/a5.exs
++if [ "$RC" -eq 0 ] &&
++   ! grep -Eq '^(REMOVED|CHANGED)' <<< "$OUT"; then
++  echo "A5 PASS: moved, whitespace-normalized assertion produced no false red a
+nd returned rc 0."
++else
++  fail_arm A5 "expected rc=0 with no REMOVED or CHANGED item; got rc=$RC"
++fi
++
++run_tool does-not-resolve "$head" -- test/a1.exs
++if [ "$RC" -eq 2 ] && grep -Fq 'BLIND: base sha does not resolve to a commit: d
+oes-not-resolve' <<< "$OUT"; then
++  echo "A6 PASS: unresolved sha returned BLIND rc 2."
++else
++  fail_arm A6 "expected BLIND rc=2; got rc=$RC"
++fi
++
++if [ "$failures" -gt 0 ]; then
++  echo "SELF-TEST FAIL: $failures arm(s) failed." >&2
++  exit 1
++fi
++echo "SELF-TEST PASS: A1 A2 A3 A4 A5 A6 all passed."
++exit 0
+
+codex
+Implemented the two declared files only:
+
+- [bin/assert-diff.sh](/home/jes/sol-cell-assert-diff/wt/bin/assert-diff.sh)
+- [bin/test-assert-diff.sh](/home/jes/sol-cell-assert-diff/wt/bin/test-assert-di
+ff.sh)
+
+No files outside the declared set were touched. Both files remain uncommitted an
+d executable.
+
+Conservative choice: a path that resolves to a non-file Git object, or a file th
+at cannot be read with `git show`, returns BLIND (`2`) rather than being treated
+ as assertion-free.
+
+## Verification
+
+Command:
+
+```console
+$ bash -n bin/assert-diff.sh
+VERDICT: PASS -- bash -n bin/assert-diff.sh
+```
+
+Exit code: `0`
+
+Command:
+
+```console
+$ bash -n bin/test-assert-diff.sh
+VERDICT: PASS -- bash -n bin/test-assert-diff.sh
+```
+
+Exit code: `0`
+
+Command:
+
+```console
+$ bash bin/test-assert-diff.sh
+A1 PASS: changed assertion refused with rc 1 and named both texts.
+A2 PASS: deleted assertion refused with rc 1 and named its text.
+A3 PASS: added-only assertion printed and remained green with rc 0.
+A4 PASS: declared removal remained printed and returned rc 0.
+A5 PASS: moved, whitespace-normalized assertion produced no false red and return
+ed rc 0.
+A6 PASS: unresolved sha returned BLIND rc 2.
+SELF-TEST PASS: A1 A2 A3 A4 A5 A6 all passed.
+```
+
+Exit code: `0`
+
+## Complete git diff
+
+Because both files are untracked, this was collected with `git diff --no-index`:
+
+```diff
+diff --git a/bin/assert-diff.sh b/bin/assert-diff.sh
+new file mode 100755
+index 0000000..b59ba5f
+--- /dev/null
++++ b/bin/assert-diff.sh
+@@ -0,0 +1,164 @@
++#!/usr/bin/env bash
++# Gate assertion text, not line positions, between two commits.
++#
++# WHY THIS EXISTS. Measured in this fleet on 2026-09-04: two arms were re-point
+ed
++# from one refusal code to another, and a cosmetic realignment nearly broke a
++# landed assertion about DDL spacing. Both looked like ordinary changes in a
++# 39-file diff. This makes removed and rewritten expectations mechanical to see
+.
++#
++# This check CANNOT decide whether an intentional expectation change is correct
+.
++# A declaration only records that intent and permits the change; it never hides
++# it. Added assertions are also evidence, but do not justify refusing a round.
++#
++# rc 0 = allowed · rc 1 = REFUSED (undeclared removal/change)
++# rc 2 = BLIND (the requested comparison could not be made)
++set -uo pipefail
++
++usage() {
++  echo "BLIND: usage: $(basename "$0") <base-sha> <head-sha> [--declared <file>
+] -- <test path>..." >&2
++  exit 2
++}
++
++[ "$#" -ge 2 ] || usage
++base=$1
++head=$2
++shift 2
++declared=""
++
++while [ "$#" -gt 0 ] && [ "$1" != "--" ]; do
++  case "$1" in
++    --declared)
++      [ "$#" -ge 2 ] || usage
++      [ -z "$declared" ] || usage
++      declared=$2
++      shift 2
++      ;;
++    *) usage ;;
++  esac
++done
++[ "$#" -gt 0 ] && [ "$1" = "--" ] || usage
++shift
++[ "$#" -gt 0 ] || { echo "BLIND: no test paths were given after --." >&2; exit
+2; }
++
++git rev-parse --verify --quiet "${base}^{commit}" >/dev/null || {
++  echo "BLIND: base sha does not resolve to a commit: $base" >&2
++  exit 2
++}
++git rev-parse --verify --quiet "${head}^{commit}" >/dev/null || {
++  echo "BLIND: head sha does not resolve to a commit: $head" >&2
++  exit 2
++}
++
++if [ -n "$declared" ] && [ ! -r "$declared" ]; then
++  echo "BLIND: declared assertion file is not readable: $declared" >&2
++  exit 2
++fi
++
++tmp=$(mktemp -d) || { echo "BLIND: could not create working directory." >&2; ex
+it 2; }
++trap 'rm -rf -- "$tmp" || true' EXIT
++declarations="$tmp/declarations"
++if [ -n "$declared" ]; then
++  awk '!/^#/ && !/^[[:space:]]*$/' "$declared" > "$declarations"
++else
++  : > "$declarations"
++fi
++
++extract_assertions() {
++  awk '
++    /^[[:space:]]*(assert|assert_raise|assert_receive|refute|refute_receive|flu
+nk)([[:space:](]|$)/ {
++      sub(/^[[:space:]]+/, "")
++      sub(/[[:space:]]+$/, "")
++      gsub(/[[:space:]]+/, " ")
++      print
++    }
++  '
++}
++
++is_declared() {
++  grep -Fxq -- "$1" "$declarations"
++}
++
++refused=0
++path_number=0
++for path in "$@"; do
++  path_number=$((path_number + 1))
++  base_present=0
++  head_present=0
++  base_type=$(git cat-file -t "${base}:${path}" 2>/dev/null) && base_present=1
++  head_type=$(git cat-file -t "${head}:${path}" 2>/dev/null) && head_present=1
++
++  if [ "$base_present" -eq 0 ] && [ "$head_present" -eq 0 ]; then
++    echo "BLIND: path is absent at both shas: $path" >&2
++    exit 2
++  fi
++  if { [ "$base_present" -eq 1 ] && [ "$base_type" != "blob" ]; } ||
++     { [ "$head_present" -eq 1 ] && [ "$head_type" != "blob" ]; }; then
++    echo "BLIND: path does not name a file blob at every sha where it is presen
+t: $path" >&2
++    exit 2
++  fi
++
++  base_lines="$tmp/base.$path_number"
++  head_lines="$tmp/head.$path_number"
++  base_only="$tmp/base-only.$path_number"
++  head_only="$tmp/head-only.$path_number"
++  base_raw="$tmp/base-raw.$path_number"
++  head_raw="$tmp/head-raw.$path_number"
++  if [ "$base_present" -eq 1 ]; then
++    git show "${base}:${path}" > "$base_raw" || {
++      echo "BLIND: could not read $path at base sha $base" >&2
++      exit 2
++    }
++    extract_assertions < "$base_raw" | sort > "$base_lines"
++  fi
++  if [ "$head_present" -eq 1 ]; then
++    git show "${head}:${path}" > "$head_raw" || {
++      echo "BLIND: could not read $path at head sha $head" >&2
++      exit 2
++    }
++    extract_assertions < "$head_raw" | sort > "$head_lines"
++  fi
++  [ -e "$base_lines" ] || : > "$base_lines"
++  [ -e "$head_lines" ] || : > "$head_lines"
++
++  # comm preserves duplicate lines, so cancellation here is multiset subtractio
+n.
++  comm -23 "$base_lines" "$head_lines" > "$base_only"
++  comm -13 "$base_lines" "$head_lines" > "$head_only"
++
++  exec 3< "$base_only"
++  exec 4< "$head_only"
++  while :; do
++    old=""
++    new=""
++    IFS= read -r old <&3 || true
++    IFS= read -r new <&4 || true
++    [ -n "$old" ] || [ -n "$new" ] || break
++
++    if [ -n "$old" ] && [ -n "$new" ]; then
++      if is_declared "$old"; then
++        echo "CHANGED (declared) BASE $path: $old"
++      else
++        echo "CHANGED (undeclared) BASE $path: $old"
++        refused=1
++      fi
++      echo "CHANGED HEAD $path: $new"
++    elif [ -n "$old" ]; then
++      if is_declared "$old"; then
++        echo "REMOVED (declared) $path: $old"
++      else
++        echo "REMOVED (undeclared) $path: $old"
++        refused=1
++      fi
++    else
++      echo "ADDED $path: $new"
++    fi
++  done
++  exec 3<&-
++  exec 4<&-
++done
++
++if [ "$refused" -eq 1 ]; then
++  echo "VERDICT: REFUSED -- at least one removed or changed base assertion is u
+ndeclared."
++  exit 1
++fi
++echo "VERDICT: PASS -- no removed or changed base assertion is undeclared."
++exit 0
+diff --git a/bin/test-assert-diff.sh b/bin/test-assert-diff.sh
+new file mode 100755
+index 0000000..0d11536
+--- /dev/null
++++ b/bin/test-assert-diff.sh
+@@ -0,0 +1,102 @@
++#!/usr/bin/env bash
++# Self-test for assert-diff. Every fixture lives in a disposable LOCAL git
++# repository; this script never reads test history from this repository and
++# never contacts a network remote.
++set -uo pipefail
++
++ROOT=$(cd "$(dirname "$0")/.." && pwd -P)
++SCRIPT="$ROOT/bin/assert-diff.sh"
++[ -r "$SCRIPT" ] || { echo "BLIND: assert-diff script is not readable: $SCRIPT"
+ >&2; exit 2; }
++
++T=$(mktemp -d) || { echo "BLIND: could not create fixture directory." >&2; exit
+ 2; }
++trap 'rm -rf -- "$T" || true' EXIT
++repo="$T/repo"
++mkdir -p "$repo/test" || { echo "BLIND: could not create fixture tree." >&2; ex
+it 2; }
++git init -q "$repo" || { echo "BLIND: could not initialize fixture repository."
+ >&2; exit 2; }
++git -C "$repo" config user.email fixture@example.invalid || exit 2
++git -C "$repo" config user.name Fixture || exit 2
++
++printf '%s\n' '  assert old_value == 1' > "$repo/test/a1.exs"
++printf '%s\n' '  refute deleted_value' > "$repo/test/a2.exs"
++printf '%s\n' '  value = 3' > "$repo/test/a3.exs"
++printf '%s\n' '  assert removable == true' > "$repo/test/a4.exs"
++printf '%s\n' '  assert moved_value == 5' '  value = 5' > "$repo/test/a5.exs"
++git -C "$repo" add test || exit 2
++git -C "$repo" commit -qm base || exit 2
++base=$(git -C "$repo" rev-parse HEAD) || exit 2
++
++printf '%s\n' '  assert new_value == 2' > "$repo/test/a1.exs"
++: > "$repo/test/a2.exs"
++printf '%s\n' '  value = 3' '  assert added_value == 3' > "$repo/test/a3.exs"
++: > "$repo/test/a4.exs"
++printf '%s\n' '  value = 5' '' '' '      assert   moved_value   ==   5' > "$rep
+o/test/a5.exs"
++git -C "$repo" add test || exit 2
++git -C "$repo" commit -qm head || exit 2
++head=$(git -C "$repo" rev-parse HEAD) || exit 2
++printf '%s\n' 'assert removable == true' > "$T/declared"
++
++failures=0
++OUT=""
++RC=0
++run_tool() {
++  OUT=$(cd "$repo" && bash "$SCRIPT" "$@" 2>&1)
++  RC=$?
++}
++fail_arm() {
++  local arm=$1 detail=$2
++  echo "$arm FAIL: $detail" >&2
++  printf '%s\n' "$OUT" >&2
++  failures=$((failures + 1))
++}
++
++run_tool "$base" "$head" -- test/a1.exs
++if [ "$RC" -eq 1 ] &&
++   grep -Fq 'CHANGED (undeclared) BASE test/a1.exs: assert old_value == 1' <<<
+"$OUT" &&
++   grep -Fq 'CHANGED HEAD test/a1.exs: assert new_value == 2' <<< "$OUT"; then
++  echo "A1 PASS: changed assertion refused with rc 1 and named both texts."
++else
++  fail_arm A1 "expected rc=1 and both changed texts; got rc=$RC"
++fi
++
++run_tool "$base" "$head" -- test/a2.exs
++if [ "$RC" -eq 1 ] && grep -Fq 'REMOVED (undeclared) test/a2.exs: refute delete
+d_value' <<< "$OUT"; then
++  echo "A2 PASS: deleted assertion refused with rc 1 and named its text."
++else
++  fail_arm A2 "expected rc=1 and the removed text; got rc=$RC"
++fi
++
++run_tool "$base" "$head" -- test/a3.exs
++if [ "$RC" -eq 0 ] && grep -Fq 'ADDED test/a3.exs: assert added_value == 3' <<<
+ "$OUT"; then
++  echo "A3 PASS: added-only assertion printed and remained green with rc 0."
++else
++  fail_arm A3 "expected rc=0 and the added text; got rc=$RC"
++fi
++
++run_tool "$base" "$head" --declared "$T/declared" -- test/a4.exs
++if [ "$RC" -eq 0 ] && grep -Fq 'REMOVED (declared) test/a4.exs: assert removabl
+e == true' <<< "$OUT"; then
++  echo "A4 PASS: declared removal remained printed and returned rc 0."
++else
++  fail_arm A4 "expected rc=0 and a printed declared removal; got rc=$RC"
++fi
++
++run_tool "$base" "$head" -- test/a5.exs
++if [ "$RC" -eq 0 ] &&
++   ! grep -Eq '^(REMOVED|CHANGED)' <<< "$OUT"; then
++  echo "A5 PASS: moved, whitespace-normalized assertion produced no false red a
+nd returned rc 0."
++else
++  fail_arm A5 "expected rc=0 with no REMOVED or CHANGED item; got rc=$RC"
++fi
++
++run_tool does-not-resolve "$head" -- test/a1.exs
++if [ "$RC" -eq 2 ] && grep -Fq 'BLIND: base sha does not resolve to a commit: d
+oes-not-resolve' <<< "$OUT"; then
++  echo "A6 PASS: unresolved sha returned BLIND rc 2."
++else
++  fail_arm A6 "expected BLIND rc=2; got rc=$RC"
++fi
++
++if [ "$failures" -gt 0 ]; then
++  echo "SELF-TEST FAIL: $failures arm(s) failed." >&2
++  exit 1
++fi
++echo "SELF-TEST PASS: A1 A2 A3 A4 A5 A6 all passed."
++exit 0
+```
+
+## `bin/assert-diff.sh` in full
+
+```bash
+#!/usr/bin/env bash
+# Gate assertion text, not line positions, between two commits.
+#
+# WHY THIS EXISTS. Measured in this fleet on 2026-09-04: two arms were re-pointe
+d
+# from one refusal code to another, and a cosmetic realignment nearly broke a
+# landed assertion about DDL spacing. Both looked like ordinary changes in a
+# 39-file diff. This makes removed and rewritten expectations mechanical to see.
+#
+# This check CANNOT decide whether an intentional expectation change is correct.
+# A declaration only records that intent and permits the change; it never hides
+# it. Added assertions are also evidence, but do not justify refusing a round.
+#
+# rc 0 = allowed · rc 1 = REFUSED (undeclared removal/change)
+# rc 2 = BLIND (the requested comparison could not be made)
+set -uo pipefail
+
+usage() {
+  echo "BLIND: usage: $(basename "$0") <base-sha> <head-sha> [--declared <file>]
+ -- <test path>..." >&2
+  exit 2
+}
+
+[ "$#" -ge 2 ] || usage
+base=$1
+head=$2
+shift 2
+declared=""
+
+while [ "$#" -gt 0 ] && [ "$1" != "--" ]; do
+  case "$1" in
+    --declared)
+      [ "$#" -ge 2 ] || usage
+      [ -z "$declared" ] || usage
+      declared=$2
+      shift 2
+      ;;
+    *) usage ;;
+  esac
+done
+[ "$#" -gt 0 ] && [ "$1" = "--" ] || usage
+shift
+[ "$#" -gt 0 ] || { echo "BLIND: no test paths were given after --." >&2; exit 2
+; }
+
+git rev-parse --verify --quiet "${base}^{commit}" >/dev/null || {
+  echo "BLIND: base sha does not resolve to a commit: $base" >&2
+  exit 2
+}
+git rev-parse --verify --quiet "${head}^{commit}" >/dev/null || {
+  echo "BLIND: head sha does not resolve to a commit: $head" >&2
+  exit 2
+}
+
+if [ -n "$declared" ] && [ ! -r "$declared" ]; then
+  echo "BLIND: declared assertion file is not readable: $declared" >&2
+  exit 2
+fi
+
+tmp=$(mktemp -d) || { echo "BLIND: could not create working directory." >&2; exi
+t 2; }
+trap 'rm -rf -- "$tmp" || true' EXIT
+declarations="$tmp/declarations"
+if [ -n "$declared" ]; then
+  awk '!/^#/ && !/^[[:space:]]*$/' "$declared" > "$declarations"
+else
+  : > "$declarations"
+fi
+
+extract_assertions() {
+  awk '
+    /^[[:space:]]*(assert|assert_raise|assert_receive|refute|refute_receive|flun
+k)([[:space:](]|$)/ {
+      sub(/^[[:space:]]+/, "")
+      sub(/[[:space:]]+$/, "")
+      gsub(/[[:space:]]+/, " ")
+      print
+    }
+  '
+}
+
+is_declared() {
+  grep -Fxq -- "$1" "$declarations"
+}
+
+refused=0
+path_number=0
+for path in "$@"; do
+  path_number=$((path_number + 1))
+  base_present=0
+  head_present=0
+  base_type=$(git cat-file -t "${base}:${path}" 2>/dev/null) && base_present=1
+  head_type=$(git cat-file -t "${head}:${path}" 2>/dev/null) && head_present=1
+
+  if [ "$base_present" -eq 0 ] && [ "$head_present" -eq 0 ]; then
+    echo "BLIND: path is absent at both shas: $path" >&2
+    exit 2
+  fi
+  if { [ "$base_present" -eq 1 ] && [ "$base_type" != "blob" ]; } ||
+     { [ "$head_present" -eq 1 ] && [ "$head_type" != "blob" ]; }; then
+    echo "BLIND: path does not name a file blob at every sha where it is present
+: $path" >&2
+    exit 2
+  fi
+
+  base_lines="$tmp/base.$path_number"
+  head_lines="$tmp/head.$path_number"
+  base_only="$tmp/base-only.$path_number"
+  head_only="$tmp/head-only.$path_number"
+  base_raw="$tmp/base-raw.$path_number"
+  head_raw="$tmp/head-raw.$path_number"
+  if [ "$base_present" -eq 1 ]; then
+    git show "${base}:${path}" > "$base_raw" || {
+      echo "BLIND: could not read $path at base sha $base" >&2
+      exit 2
+    }
+    extract_assertions < "$base_raw" | sort > "$base_lines"
+  fi
+  if [ "$head_present" -eq 1 ]; then
+    git show "${head}:${path}" > "$head_raw" || {
+      echo "BLIND: could not read $path at head sha $head" >&2
+      exit 2
+    }
+    extract_assertions < "$head_raw" | sort > "$head_lines"
+  fi
+  [ -e "$base_lines" ] || : > "$base_lines"
+  [ -e "$head_lines" ] || : > "$head_lines"
+
+  # comm preserves duplicate lines, so cancellation here is multiset subtraction
+.
+  comm -23 "$base_lines" "$head_lines" > "$base_only"
+  comm -13 "$base_lines" "$head_lines" > "$head_only"
+
+  exec 3< "$base_only"
+  exec 4< "$head_only"
+  while :; do
+    old=""
+    new=""
+    IFS= read -r old <&3 || true
+    IFS= read -r new <&4 || true
+    [ -n "$old" ] || [ -n "$new" ] || break
+
+    if [ -n "$old" ] && [ -n "$new" ]; then
+      if is_declared "$old"; then
+        echo "CHANGED (declared) BASE $path: $old"
+      else
+        echo "CHANGED (undeclared) BASE $path: $old"
+        refused=1
+      fi
+      echo "CHANGED HEAD $path: $new"
+    elif [ -n "$old" ]; then
+      if is_declared "$old"; then
+        echo "REMOVED (declared) $path: $old"
+      else
+        echo "REMOVED (undeclared) $path: $old"
+        refused=1
+      fi
+    else
+      echo "ADDED $path: $new"
+    fi
+  done
+  exec 3<&-
+  exec 4<&-
+done
+
+if [ "$refused" -eq 1 ]; then
+  echo "VERDICT: REFUSED -- at least one removed or changed base assertion is un
+declared."
+  exit 1
+fi
+echo "VERDICT: PASS -- no removed or changed base assertion is undeclared."
+exit 0
+```
+
+## `bin/test-assert-diff.sh` in full
+
+```bash
+#!/usr/bin/env bash
+# Self-test for assert-diff. Every fixture lives in a disposable LOCAL git
+# repository; this script never reads test history from this repository and
+# never contacts a network remote.
+set -uo pipefail
+
+ROOT=$(cd "$(dirname "$0")/.." && pwd -P)
+SCRIPT="$ROOT/bin/assert-diff.sh"
+[ -r "$SCRIPT" ] || { echo "BLIND: assert-diff script is not readable: $SCRIPT"
+>&2; exit 2; }
+
+T=$(mktemp -d) || { echo "BLIND: could not create fixture directory." >&2; exit
+2; }
+trap 'rm -rf -- "$T" || true' EXIT
+repo="$T/repo"
+mkdir -p "$repo/test" || { echo "BLIND: could not create fixture tree." >&2; exi
+t 2; }
+git init -q "$repo" || { echo "BLIND: could not initialize fixture repository."
+>&2; exit 2; }
+git -C "$repo" config user.email fixture@example.invalid || exit 2
+git -C "$repo" config user.name Fixture || exit 2
+
+printf '%s\n' '  assert old_value == 1' > "$repo/test/a1.exs"
+printf '%s\n' '  refute deleted_value' > "$repo/test/a2.exs"
+printf '%s\n' '  value = 3' > "$repo/test/a3.exs"
+printf '%s\n' '  assert removable == true' > "$repo/test/a4.exs"
+printf '%s\n' '  assert moved_value == 5' '  value = 5' > "$repo/test/a5.exs"
+git -C "$repo" add test || exit 2
+git -C "$repo" commit -qm base || exit 2
+base=$(git -C "$repo" rev-parse HEAD) || exit 2
+
+printf '%s\n' '  assert new_value == 2' > "$repo/test/a1.exs"
+: > "$repo/test/a2.exs"
+printf '%s\n' '  value = 3' '  assert added_value == 3' > "$repo/test/a3.exs"
+: > "$repo/test/a4.exs"
+printf '%s\n' '  value = 5' '' '' '      assert   moved_value   ==   5' > "$repo
+/test/a5.exs"
+git -C "$repo" add test || exit 2
+git -C "$repo" commit -qm head || exit 2
+head=$(git -C "$repo" rev-parse HEAD) || exit 2
+printf '%s\n' 'assert removable == true' > "$T/declared"
+
+failures=0
+OUT=""
+RC=0
+run_tool() {
+  OUT=$(cd "$repo" && bash "$SCRIPT" "$@" 2>&1)
+  RC=$?
+}
+fail_arm() {
+  local arm=$1 detail=$2
+  echo "$arm FAIL: $detail" >&2
+  printf '%s\n' "$OUT" >&2
+  failures=$((failures + 1))
+}
+
+run_tool "$base" "$head" -- test/a1.exs
+if [ "$RC" -eq 1 ] &&
+   grep -Fq 'CHANGED (undeclared) BASE test/a1.exs: assert old_value == 1' <<< "
+$OUT" &&
+   grep -Fq 'CHANGED HEAD test/a1.exs: assert new_value == 2' <<< "$OUT"; then
+  echo "A1 PASS: changed assertion refused with rc 1 and named both texts."
+else
+  fail_arm A1 "expected rc=1 and both changed texts; got rc=$RC"
+fi
+
+run_tool "$base" "$head" -- test/a2.exs
+if [ "$RC" -eq 1 ] && grep -Fq 'REMOVED (undeclared) test/a2.exs: refute deleted
+_value' <<< "$OUT"; then
+  echo "A2 PASS: deleted assertion refused with rc 1 and named its text."
+else
+  fail_arm A2 "expected rc=1 and the removed text; got rc=$RC"
+fi
+
+run_tool "$base" "$head" -- test/a3.exs
+if [ "$RC" -eq 0 ] && grep -Fq 'ADDED test/a3.exs: assert added_value == 3' <<<
+"$OUT"; then
+  echo "A3 PASS: added-only assertion printed and remained green with rc 0."
+else
+  fail_arm A3 "expected rc=0 and the added text; got rc=$RC"
+fi
+
+run_tool "$base" "$head" --declared "$T/declared" -- test/a4.exs
+if [ "$RC" -eq 0 ] && grep -Fq 'REMOVED (declared) test/a4.exs: assert removable
+ == true' <<< "$OUT"; then
+  echo "A4 PASS: declared removal remained printed and returned rc 0."
+else
+  fail_arm A4 "expected rc=0 and a printed declared removal; got rc=$RC"
+fi
+
+run_tool "$base" "$head" -- test/a5.exs
+if [ "$RC" -eq 0 ] &&
+   ! grep -Eq '^(REMOVED|CHANGED)' <<< "$OUT"; then
+  echo "A5 PASS: moved, whitespace-normalized assertion produced no false red an
+d returned rc 0."
+else
+  fail_arm A5 "expected rc=0 with no REMOVED or CHANGED item; got rc=$RC"
+fi
+
+run_tool does-not-resolve "$head" -- test/a1.exs
+if [ "$RC" -eq 2 ] && grep -Fq 'BLIND: base sha does not resolve to a commit: do
+es-not-resolve' <<< "$OUT"; then
+  echo "A6 PASS: unresolved sha returned BLIND rc 2."
+else
+  fail_arm A6 "expected BLIND rc=2; got rc=$RC"
+fi
+
+if [ "$failures" -gt 0 ]; then
+  echo "SELF-TEST FAIL: $failures arm(s) failed." >&2
+  exit 1
+fi
+echo "SELF-TEST PASS: A1 A2 A3 A4 A5 A6 all passed."
+exit 0
+```
+diff --git a/bin/assert-diff.sh b/bin/assert-diff.sh
+new file mode 100644
+index 0000000000000000000000000000000000000000..b59ba5feb07afbfc1d14402b1cdd20e4
+dbca7aeb
+--- /dev/null
++++ b/bin/assert-diff.sh
+@@ -0,0 +1,164 @@
++#!/usr/bin/env bash
++# Gate assertion text, not line positions, between two commits.
++#
++# WHY THIS EXISTS. Measured in this fleet on 2026-09-04: two arms were re-point
+ed
++# from one refusal code to another, and a cosmetic realignment nearly broke a
++# landed assertion about DDL spacing. Both looked like ordinary changes in a
++# 39-file diff. This makes removed and rewritten expectations mechanical to see
+.
++#
++# This check CANNOT decide whether an intentional expectation change is correct
+.
++# A declaration only records that intent and permits the change; it never hides
++# it. Added assertions are also evidence, but do not justify refusing a round.
++#
++# rc 0 = allowed · rc 1 = REFUSED (undeclared removal/change)
++# rc 2 = BLIND (the requested comparison could not be made)
++set -uo pipefail
++
++usage() {
++  echo "BLIND: usage: $(basename "$0") <base-sha> <head-sha> [--declared <file>
+] -- <test path>..." >&2
++  exit 2
++}
++
++[ "$#" -ge 2 ] || usage
++base=$1
++head=$2
++shift 2
++declared=""
++
++while [ "$#" -gt 0 ] && [ "$1" != "--" ]; do
++  case "$1" in
++    --declared)
++      [ "$#" -ge 2 ] || usage
++      [ -z "$declared" ] || usage
++      declared=$2
++      shift 2
++      ;;
++    *) usage ;;
++  esac
++done
++[ "$#" -gt 0 ] && [ "$1" = "--" ] || usage
++shift
++[ "$#" -gt 0 ] || { echo "BLIND: no test paths were given after --." >&2; exit
+2; }
++
++git rev-parse --verify --quiet "${base}^{commit}" >/dev/null || {
++  echo "BLIND: base sha does not resolve to a commit: $base" >&2
++  exit 2
++}
++git rev-parse --verify --quiet "${head}^{commit}" >/dev/null || {
++  echo "BLIND: head sha does not resolve to a commit: $head" >&2
++  exit 2
++}
++
++if [ -n "$declared" ] && [ ! -r "$declared" ]; then
++  echo "BLIND: declared assertion file is not readable: $declared" >&2
++  exit 2
++fi
++
++tmp=$(mktemp -d) || { echo "BLIND: could not create working directory." >&2; ex
+it 2; }
++trap 'rm -rf -- "$tmp" || true' EXIT
++declarations="$tmp/declarations"
++if [ -n "$declared" ]; then
++  awk '!/^#/ && !/^[[:space:]]*$/' "$declared" > "$declarations"
++else
++  : > "$declarations"
++fi
++
++extract_assertions() {
++  awk '
++    /^[[:space:]]*(assert|assert_raise|assert_receive|refute|refute_receive|flu
+nk)([[:space:](]|$)/ {
++      sub(/^[[:space:]]+/, "")
++      sub(/[[:space:]]+$/, "")
++      gsub(/[[:space:]]+/, " ")
++      print
++    }
++  '
++}
++
++is_declared() {
++  grep -Fxq -- "$1" "$declarations"
++}
++
++refused=0
++path_number=0
++for path in "$@"; do
++  path_number=$((path_number + 1))
++  base_present=0
++  head_present=0
++  base_type=$(git cat-file -t "${base}:${path}" 2>/dev/null) && base_present=1
++  head_type=$(git cat-file -t "${head}:${path}" 2>/dev/null) && head_present=1
++
++  if [ "$base_present" -eq 0 ] && [ "$head_present" -eq 0 ]; then
++    echo "BLIND: path is absent at both shas: $path" >&2
++    exit 2
++  fi
++  if { [ "$base_present" -eq 1 ] && [ "$base_type" != "blob" ]; } ||
++     { [ "$head_present" -eq 1 ] && [ "$head_type" != "blob" ]; }; then
++    echo "BLIND: path does not name a file blob at every sha where it is presen
+t: $path" >&2
++    exit 2
++  fi
++
++  base_lines="$tmp/base.$path_number"
++  head_lines="$tmp/head.$path_number"
++  base_only="$tmp/base-only.$path_number"
++  head_only="$tmp/head-only.$path_number"
++  base_raw="$tmp/base-raw.$path_number"
++  head_raw="$tmp/head-raw.$path_number"
++  if [ "$base_present" -eq 1 ]; then
++    git show "${base}:${path}" > "$base_raw" || {
++      echo "BLIND: could not read $path at base sha $base" >&2
++      exit 2
++    }
++    extract_assertions < "$base_raw" | sort > "$base_lines"
++  fi
++  if [ "$head_present" -eq 1 ]; then
++    git show "${head}:${path}" > "$head_raw" || {
++      echo "BLIND: could not read $path at head sha $head" >&2
++      exit 2
++    }
++    extract_assertions < "$head_raw" | sort > "$head_lines"
++  fi
++  [ -e "$base_lines" ] || : > "$base_lines"
++  [ -e "$head_lines" ] || : > "$head_lines"
++
++  # comm preserves duplicate lines, so cancellation here is multiset subtractio
+n.
++  comm -23 "$base_lines" "$head_lines" > "$base_only"
++  comm -13 "$base_lines" "$head_lines" > "$head_only"
++
++  exec 3< "$base_only"
++  exec 4< "$head_only"
++  while :; do
++    old=""
++    new=""
++    IFS= read -r old <&3 || true
++    IFS= read -r new <&4 || true
++    [ -n "$old" ] || [ -n "$new" ] || break
++
++    if [ -n "$old" ] && [ -n "$new" ]; then
++      if is_declared "$old"; then
++        echo "CHANGED (declared) BASE $path: $old"
++      else
++        echo "CHANGED (undeclared) BASE $path: $old"
++        refused=1
++      fi
++      echo "CHANGED HEAD $path: $new"
++    elif [ -n "$old" ]; then
++      if is_declared "$old"; then
++        echo "REMOVED (declared) $path: $old"
++      else
++        echo "REMOVED (undeclared) $path: $old"
++        refused=1
++      fi
++    else
++      echo "ADDED $path: $new"
++    fi
++  done
++  exec 3<&-
++  exec 4<&-
++done
++
++if [ "$refused" -eq 1 ]; then
++  echo "VERDICT: REFUSED -- at least one removed or changed base assertion is u
+ndeclared."
++  exit 1
++fi
++echo "VERDICT: PASS -- no removed or changed base assertion is undeclared."
++exit 0
+diff --git a/bin/test-assert-diff.sh b/bin/test-assert-diff.sh
+new file mode 100644
+index 0000000000000000000000000000000000000000..0d11536dcd511e013050fc61e1d8c388
+3a4853cc
+--- /dev/null
++++ b/bin/test-assert-diff.sh
+@@ -0,0 +1,102 @@
++#!/usr/bin/env bash
++# Self-test for assert-diff. Every fixture lives in a disposable LOCAL git
++# repository; this script never reads test history from this repository and
++# never contacts a network remote.
++set -uo pipefail
++
++ROOT=$(cd "$(dirname "$0")/.." && pwd -P)
++SCRIPT="$ROOT/bin/assert-diff.sh"
++[ -r "$SCRIPT" ] || { echo "BLIND: assert-diff script is not readable: $SCRIPT"
+ >&2; exit 2; }
++
++T=$(mktemp -d) || { echo "BLIND: could not create fixture directory." >&2; exit
+ 2; }
++trap 'rm -rf -- "$T" || true' EXIT
++repo="$T/repo"
++mkdir -p "$repo/test" || { echo "BLIND: could not create fixture tree." >&2; ex
+it 2; }
++git init -q "$repo" || { echo "BLIND: could not initialize fixture repository."
+ >&2; exit 2; }
++git -C "$repo" config user.email fixture@example.invalid || exit 2
++git -C "$repo" config user.name Fixture || exit 2
++
++printf '%s\n' '  assert old_value == 1' > "$repo/test/a1.exs"
++printf '%s\n' '  refute deleted_value' > "$repo/test/a2.exs"
++printf '%s\n' '  value = 3' > "$repo/test/a3.exs"
++printf '%s\n' '  assert removable == true' > "$repo/test/a4.exs"
++printf '%s\n' '  assert moved_value == 5' '  value = 5' > "$repo/test/a5.exs"
++git -C "$repo" add test || exit 2
++git -C "$repo" commit -qm base || exit 2
++base=$(git -C "$repo" rev-parse HEAD) || exit 2
++
++printf '%s\n' '  assert new_value == 2' > "$repo/test/a1.exs"
++: > "$repo/test/a2.exs"
++printf '%s\n' '  value = 3' '  assert added_value == 3' > "$repo/test/a3.exs"
++: > "$repo/test/a4.exs"
++printf '%s\n' '  value = 5' '' '' '      assert   moved_value   ==   5' > "$rep
+o/test/a5.exs"
++git -C "$repo" add test || exit 2
++git -C "$repo" commit -qm head || exit 2
++head=$(git -C "$repo" rev-parse HEAD) || exit 2
++printf '%s\n' 'assert removable == true' > "$T/declared"
++
++failures=0
++OUT=""
++RC=0
++run_tool() {
++  OUT=$(cd "$repo" && bash "$SCRIPT" "$@" 2>&1)
++  RC=$?
++}
++fail_arm() {
++  local arm=$1 detail=$2
++  echo "$arm FAIL: $detail" >&2
++  printf '%s\n' "$OUT" >&2
++  failures=$((failures + 1))
++}
++
++run_tool "$base" "$head" -- test/a1.exs
++if [ "$RC" -eq 1 ] &&
++   grep -Fq 'CHANGED (undeclared) BASE test/a1.exs: assert old_value == 1' <<<
+"$OUT" &&
++   grep -Fq 'CHANGED HEAD test/a1.exs: assert new_value == 2' <<< "$OUT"; then
++  echo "A1 PASS: changed assertion refused with rc 1 and named both texts."
++else
++  fail_arm A1 "expected rc=1 and both changed texts; got rc=$RC"
++fi
++
++run_tool "$base" "$head" -- test/a2.exs
++if [ "$RC" -eq 1 ] && grep -Fq 'REMOVED (undeclared) test/a2.exs: refute delete
+d_value' <<< "$OUT"; then
++  echo "A2 PASS: deleted assertion refused with rc 1 and named its text."
++else
++  fail_arm A2 "expected rc=1 and the removed text; got rc=$RC"
++fi
++
++run_tool "$base" "$head" -- test/a3.exs
++if [ "$RC" -eq 0 ] && grep -Fq 'ADDED test/a3.exs: assert added_value == 3' <<<
+ "$OUT"; then
++  echo "A3 PASS: added-only assertion printed and remained green with rc 0."
++else
++  fail_arm A3 "expected rc=0 and the added text; got rc=$RC"
++fi
++
++run_tool "$base" "$head" --declared "$T/declared" -- test/a4.exs
++if [ "$RC" -eq 0 ] && grep -Fq 'REMOVED (declared) test/a4.exs: assert removabl
+e == true' <<< "$OUT"; then
++  echo "A4 PASS: declared removal remained printed and returned rc 0."
++else
++  fail_arm A4 "expected rc=0 and a printed declared removal; got rc=$RC"
++fi
++
++run_tool "$base" "$head" -- test/a5.exs
++if [ "$RC" -eq 0 ] &&
++   ! grep -Eq '^(REMOVED|CHANGED)' <<< "$OUT"; then
++  echo "A5 PASS: moved, whitespace-normalized assertion produced no false red a
+nd returned rc 0."
++else
++  fail_arm A5 "expected rc=0 with no REMOVED or CHANGED item; got rc=$RC"
++fi
++
++run_tool does-not-resolve "$head" -- test/a1.exs
++if [ "$RC" -eq 2 ] && grep -Fq 'BLIND: base sha does not resolve to a commit: d
+oes-not-resolve' <<< "$OUT"; then
++  echo "A6 PASS: unresolved sha returned BLIND rc 2."
++else
++  fail_arm A6 "expected BLIND rc=2; got rc=$RC"
++fi
++
++if [ "$failures" -gt 0 ]; then
++  echo "SELF-TEST FAIL: $failures arm(s) failed." >&2
++  exit 1
++fi
++echo "SELF-TEST PASS: A1 A2 A3 A4 A5 A6 all passed."
++exit 0
+
+tokens used
+44,821
+Implemented the two declared files only:
+
+- [bin/assert-diff.sh](/home/jes/sol-cell-assert-diff/wt/bin/assert-diff.sh)
+- [bin/test-assert-diff.sh](/home/jes/sol-cell-assert-diff/wt/bin/test-assert-di
+ff.sh)
+
+No files outside the declared set were touched. Both files remain uncommitted an
+d executable.
+
+Conservative choice: a path that resolves to a non-file Git object, or a file th
+at cannot be read with `git show`, returns BLIND (`2`) rather than being treated
+ as assertion-free.
+
+## Verification
+
+Command:
+
+```console
+$ bash -n bin/assert-diff.sh
+VERDICT: PASS -- bash -n bin/assert-diff.sh
+```
+
+Exit code: `0`
+
+Command:
+
+```console
+$ bash -n bin/test-assert-diff.sh
+VERDICT: PASS -- bash -n bin/test-assert-diff.sh
+```
+
+Exit code: `0`
+
+Command:
+
+```console
+$ bash bin/test-assert-diff.sh
+A1 PASS: changed assertion refused with rc 1 and named both texts.
+A2 PASS: deleted assertion refused with rc 1 and named its text.
+A3 PASS: added-only assertion printed and remained green with rc 0.
+A4 PASS: declared removal remained printed and returned rc 0.
+A5 PASS: moved, whitespace-normalized assertion produced no false red and return
+ed rc 0.
+A6 PASS: unresolved sha returned BLIND rc 2.
+SELF-TEST PASS: A1 A2 A3 A4 A5 A6 all passed.
+```
+
+Exit code: `0`
+
+## Complete git diff
+
+Because both files are untracked, this was collected with `git diff --no-index`:
+
+```diff
+diff --git a/bin/assert-diff.sh b/bin/assert-diff.sh
+new file mode 100755
+index 0000000..b59ba5f
+--- /dev/null
++++ b/bin/assert-diff.sh
+@@ -0,0 +1,164 @@
++#!/usr/bin/env bash
++# Gate assertion text, not line positions, between two commits.
++#
++# WHY THIS EXISTS. Measured in this fleet on 2026-09-04: two arms were re-point
+ed
++# from one refusal code to another, and a cosmetic realignment nearly broke a
++# landed assertion about DDL spacing. Both looked like ordinary changes in a
++# 39-file diff. This makes removed and rewritten expectations mechanical to see
+.
++#
++# This check CANNOT decide whether an intentional expectation change is correct
+.
++# A declaration only records that intent and permits the change; it never hides
++# it. Added assertions are also evidence, but do not justify refusing a round.
++#
++# rc 0 = allowed · rc 1 = REFUSED (undeclared removal/change)
++# rc 2 = BLIND (the requested comparison could not be made)
++set -uo pipefail
++
++usage() {
++  echo "BLIND: usage: $(basename "$0") <base-sha> <head-sha> [--declared <file>
+] -- <test path>..." >&2
++  exit 2
++}
++
++[ "$#" -ge 2 ] || usage
++base=$1
++head=$2
++shift 2
++declared=""
++
++while [ "$#" -gt 0 ] && [ "$1" != "--" ]; do
++  case "$1" in
++    --declared)
++      [ "$#" -ge 2 ] || usage
++      [ -z "$declared" ] || usage
++      declared=$2
++      shift 2
++      ;;
++    *) usage ;;
++  esac
++done
++[ "$#" -gt 0 ] && [ "$1" = "--" ] || usage
++shift
++[ "$#" -gt 0 ] || { echo "BLIND: no test paths were given after --." >&2; exit
+2; }
++
++git rev-parse --verify --quiet "${base}^{commit}" >/dev/null || {
++  echo "BLIND: base sha does not resolve to a commit: $base" >&2
++  exit 2
++}
++git rev-parse --verify --quiet "${head}^{commit}" >/dev/null || {
++  echo "BLIND: head sha does not resolve to a commit: $head" >&2
++  exit 2
++}
++
++if [ -n "$declared" ] && [ ! -r "$declared" ]; then
++  echo "BLIND: declared assertion file is not readable: $declared" >&2
++  exit 2
++fi
++
++tmp=$(mktemp -d) || { echo "BLIND: could not create working directory." >&2; ex
+it 2; }
++trap 'rm -rf -- "$tmp" || true' EXIT
++declarations="$tmp/declarations"
++if [ -n "$declared" ]; then
++  awk '!/^#/ && !/^[[:space:]]*$/' "$declared" > "$declarations"
++else
++  : > "$declarations"
++fi
++
++extract_assertions() {
++  awk '
++    /^[[:space:]]*(assert|assert_raise|assert_receive|refute|refute_receive|flu
+nk)([[:space:](]|$)/ {
++      sub(/^[[:space:]]+/, "")
++      sub(/[[:space:]]+$/, "")
++      gsub(/[[:space:]]+/, " ")
++      print
++    }
++  '
++}
++
++is_declared() {
++  grep -Fxq -- "$1" "$declarations"
++}
++
++refused=0
++path_number=0
++for path in "$@"; do
++  path_number=$((path_number + 1))
++  base_present=0
++  head_present=0
++  base_type=$(git cat-file -t "${base}:${path}" 2>/dev/null) && base_present=1
++  head_type=$(git cat-file -t "${head}:${path}" 2>/dev/null) && head_present=1
++
++  if [ "$base_present" -eq 0 ] && [ "$head_present" -eq 0 ]; then
++    echo "BLIND: path is absent at both shas: $path" >&2
++    exit 2
++  fi
++  if { [ "$base_present" -eq 1 ] && [ "$base_type" != "blob" ]; } ||
++     { [ "$head_present" -eq 1 ] && [ "$head_type" != "blob" ]; }; then
++    echo "BLIND: path does not name a file blob at every sha where it is presen
+t: $path" >&2
++    exit 2
++  fi
++
++  base_lines="$tmp/base.$path_number"
++  head_lines="$tmp/head.$path_number"
++  base_only="$tmp/base-only.$path_number"
++  head_only="$tmp/head-only.$path_number"
++  base_raw="$tmp/base-raw.$path_number"
++  head_raw="$tmp/head-raw.$path_number"
++  if [ "$base_present" -eq 1 ]; then
++    git show "${base}:${path}" > "$base_raw" || {
++      echo "BLIND: could not read $path at base sha $base" >&2
++      exit 2
++    }
++    extract_assertions < "$base_raw" | sort > "$base_lines"
++  fi
++  if [ "$head_present" -eq 1 ]; then
++    git show "${head}:${path}" > "$head_raw" || {
++      echo "BLIND: could not read $path at head sha $head" >&2
++      exit 2
++    }
++    extract_assertions < "$head_raw" | sort > "$head_lines"
++  fi
++  [ -e "$base_lines" ] || : > "$base_lines"
++  [ -e "$head_lines" ] || : > "$head_lines"
++
++  # comm preserves duplicate lines, so cancellation here is multiset subtractio
+n.
++  comm -23 "$base_lines" "$head_lines" > "$base_only"
++  comm -13 "$base_lines" "$head_lines" > "$head_only"
++
++  exec 3< "$base_only"
++  exec 4< "$head_only"
++  while :; do
++    old=""
++    new=""
++    IFS= read -r old <&3 || true
++    IFS= read -r new <&4 || true
++    [ -n "$old" ] || [ -n "$new" ] || break
++
++    if [ -n "$old" ] && [ -n "$new" ]; then
++      if is_declared "$old"; then
++        echo "CHANGED (declared) BASE $path: $old"
++      else
++        echo "CHANGED (undeclared) BASE $path: $old"
++        refused=1
++      fi
++      echo "CHANGED HEAD $path: $new"
++    elif [ -n "$old" ]; then
++      if is_declared "$old"; then
++        echo "REMOVED (declared) $path: $old"
++      else
++        echo "REMOVED (undeclared) $path: $old"
++        refused=1
++      fi
++    else
++      echo "ADDED $path: $new"
++    fi
++  done
++  exec 3<&-
++  exec 4<&-
++done
++
++if [ "$refused" -eq 1 ]; then
++  echo "VERDICT: REFUSED -- at least one removed or changed base assertion is u
+ndeclared."
++  exit 1
++fi
++echo "VERDICT: PASS -- no removed or changed base assertion is undeclared."
++exit 0
+diff --git a/bin/test-assert-diff.sh b/bin/test-assert-diff.sh
+new file mode 100755
+index 0000000..0d11536
+--- /dev/null
++++ b/bin/test-assert-diff.sh
+@@ -0,0 +1,102 @@
++#!/usr/bin/env bash
++# Self-test for assert-diff. Every fixture lives in a disposable LOCAL git
++# repository; this script never reads test history from this repository and
++# never contacts a network remote.
++set -uo pipefail
++
++ROOT=$(cd "$(dirname "$0")/.." && pwd -P)
++SCRIPT="$ROOT/bin/assert-diff.sh"
++[ -r "$SCRIPT" ] || { echo "BLIND: assert-diff script is not readable: $SCRIPT"
+ >&2; exit 2; }
++
++T=$(mktemp -d) || { echo "BLIND: could not create fixture directory." >&2; exit
+ 2; }
++trap 'rm -rf -- "$T" || true' EXIT
++repo="$T/repo"
++mkdir -p "$repo/test" || { echo "BLIND: could not create fixture tree." >&2; ex
+it 2; }
++git init -q "$repo" || { echo "BLIND: could not initialize fixture repository."
+ >&2; exit 2; }
++git -C "$repo" config user.email fixture@example.invalid || exit 2
++git -C "$repo" config user.name Fixture || exit 2
++
++printf '%s\n' '  assert old_value == 1' > "$repo/test/a1.exs"
++printf '%s\n' '  refute deleted_value' > "$repo/test/a2.exs"
++printf '%s\n' '  value = 3' > "$repo/test/a3.exs"
++printf '%s\n' '  assert removable == true' > "$repo/test/a4.exs"
++printf '%s\n' '  assert moved_value == 5' '  value = 5' > "$repo/test/a5.exs"
++git -C "$repo" add test || exit 2
++git -C "$repo" commit -qm base || exit 2
++base=$(git -C "$repo" rev-parse HEAD) || exit 2
++
++printf '%s\n' '  assert new_value == 2' > "$repo/test/a1.exs"
++: > "$repo/test/a2.exs"
++printf '%s\n' '  value = 3' '  assert added_value == 3' > "$repo/test/a3.exs"
++: > "$repo/test/a4.exs"
++printf '%s\n' '  value = 5' '' '' '      assert   moved_value   ==   5' > "$rep
+o/test/a5.exs"
++git -C "$repo" add test || exit 2
++git -C "$repo" commit -qm head || exit 2
++head=$(git -C "$repo" rev-parse HEAD) || exit 2
++printf '%s\n' 'assert removable == true' > "$T/declared"
++
++failures=0
++OUT=""
++RC=0
++run_tool() {
++  OUT=$(cd "$repo" && bash "$SCRIPT" "$@" 2>&1)
++  RC=$?
++}
++fail_arm() {
++  local arm=$1 detail=$2
++  echo "$arm FAIL: $detail" >&2
++  printf '%s\n' "$OUT" >&2
++  failures=$((failures + 1))
++}
++
++run_tool "$base" "$head" -- test/a1.exs
++if [ "$RC" -eq 1 ] &&
++   grep -Fq 'CHANGED (undeclared) BASE test/a1.exs: assert old_value == 1' <<<
+"$OUT" &&
++   grep -Fq 'CHANGED HEAD test/a1.exs: assert new_value == 2' <<< "$OUT"; then
++  echo "A1 PASS: changed assertion refused with rc 1 and named both texts."
++else
++  fail_arm A1 "expected rc=1 and both changed texts; got rc=$RC"
++fi
++
++run_tool "$base" "$head" -- test/a2.exs
++if [ "$RC" -eq 1 ] && grep -Fq 'REMOVED (undeclared) test/a2.exs: refute delete
+d_value' <<< "$OUT"; then
++  echo "A2 PASS: deleted assertion refused with rc 1 and named its text."
++else
++  fail_arm A2 "expected rc=1 and the removed text; got rc=$RC"
++fi
++
++run_tool "$base" "$head" -- test/a3.exs
++if [ "$RC" -eq 0 ] && grep -Fq 'ADDED test/a3.exs: assert added_value == 3' <<<
+ "$OUT"; then
++  echo "A3 PASS: added-only assertion printed and remained green with rc 0."
++else
++  fail_arm A3 "expected rc=0 and the added text; got rc=$RC"
++fi
++
++run_tool "$base" "$head" --declared "$T/declared" -- test/a4.exs
++if [ "$RC" -eq 0 ] && grep -Fq 'REMOVED (declared) test/a4.exs: assert removabl
+e == true' <<< "$OUT"; then
++  echo "A4 PASS: declared removal remained printed and returned rc 0."
++else
++  fail_arm A4 "expected rc=0 and a printed declared removal; got rc=$RC"
++fi
++
++run_tool "$base" "$head" -- test/a5.exs
++if [ "$RC" -eq 0 ] &&
++   ! grep -Eq '^(REMOVED|CHANGED)' <<< "$OUT"; then
++  echo "A5 PASS: moved, whitespace-normalized assertion produced no false red a
+nd returned rc 0."
++else
++  fail_arm A5 "expected rc=0 with no REMOVED or CHANGED item; got rc=$RC"
++fi
++
++run_tool does-not-resolve "$head" -- test/a1.exs
++if [ "$RC" -eq 2 ] && grep -Fq 'BLIND: base sha does not resolve to a commit: d
+oes-not-resolve' <<< "$OUT"; then
++  echo "A6 PASS: unresolved sha returned BLIND rc 2."
++else
++  fail_arm A6 "expected BLIND rc=2; got rc=$RC"
++fi
++
++if [ "$failures" -gt 0 ]; then
++  echo "SELF-TEST FAIL: $failures arm(s) failed." >&2
++  exit 1
++fi
++echo "SELF-TEST PASS: A1 A2 A3 A4 A5 A6 all passed."
++exit 0
+```
+
+## `bin/assert-diff.sh` in full
+
+```bash
+#!/usr/bin/env bash
+# Gate assertion text, not line positions, between two commits.
+#
+# WHY THIS EXISTS. Measured in this fleet on 2026-09-04: two arms were re-pointe
+d
+# from one refusal code to another, and a cosmetic realignment nearly broke a
+# landed assertion about DDL spacing. Both looked like ordinary changes in a
+# 39-file diff. This makes removed and rewritten expectations mechanical to see.
+#
+# This check CANNOT decide whether an intentional expectation change is correct.
+# A declaration only records that intent and permits the change; it never hides
+# it. Added assertions are also evidence, but do not justify refusing a round.
+#
+# rc 0 = allowed · rc 1 = REFUSED (undeclared removal/change)
+# rc 2 = BLIND (the requested comparison could not be made)
+set -uo pipefail
+
+usage() {
+  echo "BLIND: usage: $(basename "$0") <base-sha> <head-sha> [--declared <file>]
+ -- <test path>..." >&2
+  exit 2
+}
+
+[ "$#" -ge 2 ] || usage
+base=$1
+head=$2
+shift 2
+declared=""
+
+while [ "$#" -gt 0 ] && [ "$1" != "--" ]; do
+  case "$1" in
+    --declared)
+      [ "$#" -ge 2 ] || usage
+      [ -z "$declared" ] || usage
+      declared=$2
+      shift 2
+      ;;
+    *) usage ;;
+  esac
+done
+[ "$#" -gt 0 ] && [ "$1" = "--" ] || usage
+shift
+[ "$#" -gt 0 ] || { echo "BLIND: no test paths were given after --." >&2; exit 2
+; }
+
+git rev-parse --verify --quiet "${base}^{commit}" >/dev/null || {
+  echo "BLIND: base sha does not resolve to a commit: $base" >&2
+  exit 2
+}
+git rev-parse --verify --quiet "${head}^{commit}" >/dev/null || {
+  echo "BLIND: head sha does not resolve to a commit: $head" >&2
+  exit 2
+}
+
+if [ -n "$declared" ] && [ ! -r "$declared" ]; then
+  echo "BLIND: declared assertion file is not readable: $declared" >&2
+  exit 2
+fi
+
+tmp=$(mktemp -d) || { echo "BLIND: could not create working directory." >&2; exi
+t 2; }
+trap 'rm -rf -- "$tmp" || true' EXIT
+declarations="$tmp/declarations"
+if [ -n "$declared" ]; then
+  awk '!/^#/ && !/^[[:space:]]*$/' "$declared" > "$declarations"
+else
+  : > "$declarations"
+fi
+
+extract_assertions() {
+  awk '
+    /^[[:space:]]*(assert|assert_raise|assert_receive|refute|refute_receive|flun
+k)([[:space:](]|$)/ {
+      sub(/^[[:space:]]+/, "")
+      sub(/[[:space:]]+$/, "")
+      gsub(/[[:space:]]+/, " ")
+      print
+    }
+  '
+}
+
+is_declared() {
+  grep -Fxq -- "$1" "$declarations"
+}
+
+refused=0
+path_number=0
+for path in "$@"; do
+  path_number=$((path_number + 1))
+  base_present=0
+  head_present=0
+  base_type=$(git cat-file -t "${base}:${path}" 2>/dev/null) && base_present=1
+  head_type=$(git cat-file -t "${head}:${path}" 2>/dev/null) && head_present=1
+
+  if [ "$base_present" -eq 0 ] && [ "$head_present" -eq 0 ]; then
+    echo "BLIND: path is absent at both shas: $path" >&2
+    exit 2
+  fi
+  if { [ "$base_present" -eq 1 ] && [ "$base_type" != "blob" ]; } ||
+     { [ "$head_present" -eq 1 ] && [ "$head_type" != "blob" ]; }; then
+    echo "BLIND: path does not name a file blob at every sha where it is present
+: $path" >&2
+    exit 2
+  fi
+
+  base_lines="$tmp/base.$path_number"
+  head_lines="$tmp/head.$path_number"
+  base_only="$tmp/base-only.$path_number"
+  head_only="$tmp/head-only.$path_number"
+  base_raw="$tmp/base-raw.$path_number"
+  head_raw="$tmp/head-raw.$path_number"
+  if [ "$base_present" -eq 1 ]; then
+    git show "${base}:${path}" > "$base_raw" || {
+      echo "BLIND: could not read $path at base sha $base" >&2
+      exit 2
+    }
+    extract_assertions < "$base_raw" | sort > "$base_lines"
+  fi
+  if [ "$head_present" -eq 1 ]; then
+    git show "${head}:${path}" > "$head_raw" || {
+      echo "BLIND: could not read $path at head sha $head" >&2
+      exit 2
+    }
+    extract_assertions < "$head_raw" | sort > "$head_lines"
+  fi
+  [ -e "$base_lines" ] || : > "$base_lines"
+  [ -e "$head_lines" ] || : > "$head_lines"
+
+  # comm preserves duplicate lines, so cancellation here is multiset subtraction
+.
+  comm -23 "$base_lines" "$head_lines" > "$base_only"
+  comm -13 "$base_lines" "$head_lines" > "$head_only"
+
+  exec 3< "$base_only"
+  exec 4< "$head_only"
+  while :; do
+    old=""
+    new=""
+    IFS= read -r old <&3 || true
+    IFS= read -r new <&4 || true
+    [ -n "$old" ] || [ -n "$new" ] || break
+
+    if [ -n "$old" ] && [ -n "$new" ]; then
+      if is_declared "$old"; then
+        echo "CHANGED (declared) BASE $path: $old"
+      else
+        echo "CHANGED (undeclared) BASE $path: $old"
+        refused=1
+      fi
+      echo "CHANGED HEAD $path: $new"
+    elif [ -n "$old" ]; then
+      if is_declared "$old"; then
+        echo "REMOVED (declared) $path: $old"
+      else
+        echo "REMOVED (undeclared) $path: $old"
+        refused=1
+      fi
+    else
+      echo "ADDED $path: $new"
+    fi
+  done
+  exec 3<&-
+  exec 4<&-
+done
+
+if [ "$refused" -eq 1 ]; then
+  echo "VERDICT: REFUSED -- at least one removed or changed base assertion is un
+declared."
+  exit 1
+fi
+echo "VERDICT: PASS -- no removed or changed base assertion is undeclared."
+exit 0
+```
+
+## `bin/test-assert-diff.sh` in full
+
+```bash
+#!/usr/bin/env bash
+# Self-test for assert-diff. Every fixture lives in a disposable LOCAL git
+# repository; this script never reads test history from this repository and
+# never contacts a network remote.
+set -uo pipefail
+
+ROOT=$(cd "$(dirname "$0")/.." && pwd -P)
+SCRIPT="$ROOT/bin/assert-diff.sh"
+[ -r "$SCRIPT" ] || { echo "BLIND: assert-diff script is not readable: $SCRIPT"
+>&2; exit 2; }
+
+T=$(mktemp -d) || { echo "BLIND: could not create fixture directory." >&2; exit
+2; }
+trap 'rm -rf -- "$T" || true' EXIT
+repo="$T/repo"
+mkdir -p "$repo/test" || { echo "BLIND: could not create fixture tree." >&2; exi
+t 2; }
+git init -q "$repo" || { echo "BLIND: could not initialize fixture repository."
+>&2; exit 2; }
+git -C "$repo" config user.email fixture@example.invalid || exit 2
+git -C "$repo" config user.name Fixture || exit 2
+
+printf '%s\n' '  assert old_value == 1' > "$repo/test/a1.exs"
+printf '%s\n' '  refute deleted_value' > "$repo/test/a2.exs"
+printf '%s\n' '  value = 3' > "$repo/test/a3.exs"
+printf '%s\n' '  assert removable == true' > "$repo/test/a4.exs"
+printf '%s\n' '  assert moved_value == 5' '  value = 5' > "$repo/test/a5.exs"
+git -C "$repo" add test || exit 2
+git -C "$repo" commit -qm base || exit 2
+base=$(git -C "$repo" rev-parse HEAD) || exit 2
+
+printf '%s\n' '  assert new_value == 2' > "$repo/test/a1.exs"
+: > "$repo/test/a2.exs"
+printf '%s\n' '  value = 3' '  assert added_value == 3' > "$repo/test/a3.exs"
+: > "$repo/test/a4.exs"
+printf '%s\n' '  value = 5' '' '' '      assert   moved_value   ==   5' > "$repo
+/test/a5.exs"
+git -C "$repo" add test || exit 2
+git -C "$repo" commit -qm head || exit 2
+head=$(git -C "$repo" rev-parse HEAD) || exit 2
+printf '%s\n' 'assert removable == true' > "$T/declared"
+
+failures=0
+OUT=""
+RC=0
+run_tool() {
+  OUT=$(cd "$repo" && bash "$SCRIPT" "$@" 2>&1)
+  RC=$?
+}
+fail_arm() {
+  local arm=$1 detail=$2
+  echo "$arm FAIL: $detail" >&2
+  printf '%s\n' "$OUT" >&2
+  failures=$((failures + 1))
+}
+
+run_tool "$base" "$head" -- test/a1.exs
+if [ "$RC" -eq 1 ] &&
+   grep -Fq 'CHANGED (undeclared) BASE test/a1.exs: assert old_value == 1' <<< "
+$OUT" &&
+   grep -Fq 'CHANGED HEAD test/a1.exs: assert new_value == 2' <<< "$OUT"; then
+  echo "A1 PASS: changed assertion refused with rc 1 and named both texts."
+else
+  fail_arm A1 "expected rc=1 and both changed texts; got rc=$RC"
+fi
+
+run_tool "$base" "$head" -- test/a2.exs
+if [ "$RC" -eq 1 ] && grep -Fq 'REMOVED (undeclared) test/a2.exs: refute deleted
+_value' <<< "$OUT"; then
+  echo "A2 PASS: deleted assertion refused with rc 1 and named its text."
+else
+  fail_arm A2 "expected rc=1 and the removed text; got rc=$RC"
+fi
+
+run_tool "$base" "$head" -- test/a3.exs
+if [ "$RC" -eq 0 ] && grep -Fq 'ADDED test/a3.exs: assert added_value == 3' <<<
+"$OUT"; then
+  echo "A3 PASS: added-only assertion printed and remained green with rc 0."
+else
+  fail_arm A3 "expected rc=0 and the added text; got rc=$RC"
+fi
+
+run_tool "$base" "$head" --declared "$T/declared" -- test/a4.exs
+if [ "$RC" -eq 0 ] && grep -Fq 'REMOVED (declared) test/a4.exs: assert removable
+ == true' <<< "$OUT"; then
+  echo "A4 PASS: declared removal remained printed and returned rc 0."
+else
+  fail_arm A4 "expected rc=0 and a printed declared removal; got rc=$RC"
+fi
+
+run_tool "$base" "$head" -- test/a5.exs
+if [ "$RC" -eq 0 ] &&
+   ! grep -Eq '^(REMOVED|CHANGED)' <<< "$OUT"; then
+  echo "A5 PASS: moved, whitespace-normalized assertion produced no false red an
+d returned rc 0."
+else
+  fail_arm A5 "expected rc=0 with no REMOVED or CHANGED item; got rc=$RC"
+fi
+
+run_tool does-not-resolve "$head" -- test/a1.exs
+if [ "$RC" -eq 2 ] && grep -Fq 'BLIND: base sha does not resolve to a commit: do
+es-not-resolve' <<< "$OUT"; then
+  echo "A6 PASS: unresolved sha returned BLIND rc 2."
+else
+  fail_arm A6 "expected BLIND rc=2; got rc=$RC"
+fi
+
+if [ "$failures" -gt 0 ]; then
+  echo "SELF-TEST FAIL: $failures arm(s) failed." >&2
+  exit 1
+fi
+echo "SELF-TEST PASS: A1 A2 A3 A4 A5 A6 all passed."
+exit 0
+```
+=== sol EXITED rc=0 ===
+

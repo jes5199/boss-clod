@@ -1,0 +1,1859 @@
+}
+pushed_tree() { git rev-parse "HEAD^{tree}" 2>/dev/null; }
+untracked_count() { git status --porcelain --untracked-files=normal 2>/dev/null
+| grep -c '^??' || true; }
+
+# rc 71 is its own code on purpose: 70 already means "a gate refused" and 1 alre
+ady
+# means NOT LANDED. Two meanings on one number is the same defect as a shared fa
+ilure
+# string -- the reader cannot tell which thing happened.
+assert_same_object() {  # assert_same_object <executed-tree> <pushed-tree> <untr
+acked-count>
+  local ex="${1:-}" pu="${2:-}" un="${3:-0}"
+  if [ -z "$ex" ] || [ -z "$pu" ]; then
+    echo "REFUSED: could not identify both objects (executed='$ex' pushed='$pu')
+; BLIND, not clean." >&2; return 71
+  fi
+  if [ "$ex" != "$pu" ]; then
+    echo "REFUSED: the gates ran on tree $ex but the push would land $pu -- diff
+erent objects." >&2; return 71
+  fi
+  if [ "${un:-0}" -ne 0 ]; then
+    echo "REFUSED: $un untracked file(s) present -- they can change what execute
+d and cannot be pushed." >&2; return 71
+  fi
+  echo "SAME OBJECT: gates ran on tree $ex, HEAD will push $pu, 0 untracked."
+}
+
+# rc 72 is its own code for the same reason 71 is: 70 = a gate refused, 71 = obj
+ects
+# disagree, 64 = wrong branch, 65 = no such branch, 1 = NOT LANDED. Two meanings
+ on one
+# number is the defect the reader cannot decode.
+# ⭐ MEASURED IN THE FLEET 2026-09-04 (boss bb6b3ed, HOST-FACTS.md): a clone who
+se `origin`
+# was a CHECKOUT pushed INTO that checkout and printed LANDED while GitHub did n
+ot move. It
+# did not refuse -- it SUCCEEDED AND WAS WRONG. Nothing in the script makes cell
+ safe today;
+# the CONFIG does, and one `git remote set-url origin <path>` flips this repo fr
+om safe to
+# silently-wrong with no edit here and nothing red anywhere.
+# ⚠️  WHAT THIS CANNOT DO: it cannot tell whether the URL names the repo anyone i
+ntended, and
+# it cannot make the cache fresh -- it can only refuse when cache and endpoint d
+isagree, or
+# when one of them could not be read at all. BLIND and CLEAN are different answe
+rs and this
+# function says which one it got.
+assert_origin_endpoint() {  # assert_origin_endpoint <origin-url> <cached-sha> <
+endpoint-sha>
+  local url="${1:-}" cached="${2:-}" endpoint="${3:-}"
+  if [ -z "$url" ]; then
+    echo "REFUSED: origin has no URL configured; BLIND, not clean." >&2; return
+72
+  fi
+  # A URL is a SHAPE, not a reachability claim: scheme form (`*://*`) or scp for
+m (`*@*:*`).
+  # `-d` is the second half because a path can also be spelled without either sh
+ape, and a
+  # directory that happens to look like a URL is still a checkout.
+  local shaped=no
+  case "$url" in
+    *://*) shaped=yes ;;
+    *@*:*) shaped=yes ;;
+  esac
+  if [ "$shaped" = no ] || [ -d "$url" ]; then
+    echo "REFUSED: origin is '$url' -- a filesystem path, not a URL. A checkout
+'origin' accepts the push, so the push lands NOWHERE REAL while this script prin
+ts LANDED." >&2; return 72
+  fi
+  if [ -z "$endpoint" ]; then
+    echo "REFUSED: could not read refs/heads/main from $url; BLIND, not clean."
+>&2; return 72
+  fi
+  if [ -z "$cached" ]; then
+    echo "REFUSED: no origin/main in this clone (cached=''); BLIND, not clean."
+>&2; return 72
+  fi
+  if [ "$cached" != "$endpoint" ]; then
+    echo "REFUSED: origin/main is $cached but $url refs/heads/main is $endpoint.
+ origin/main is a CACHE -- it is stale, and a verdict read from it would describ
+e this clone, not the remote." >&2; return 72
+  fi
+  echo "ORIGIN IS AN ENDPOINT: $url refs/heads/main = $endpoint, and the local c
+ache agrees."
+}
+
+# ⭐ THE RECEIPT IS WRITTEN BY A FUNCTION SO ITS OUTPUT CAN BE DRIVEN BY STUB VA
+LUES under
+# --self-test, for the same reason classify_verdict and assert_same_object are f
+unctions. A
+# receipt field that can only be seen by performing a real landing is a field wh
+ose failure
+# path is never exercised -- and this round adds three fields whose whole job is
+ to expose a
+# wrong referent. Every value it prints arrives as an argument; it reads no glob
+als.
+# ⚠️  WHAT THIS CANNOT DO: it cannot check that the values handed to it are the r
+ight ones --
+# it reports what the caller captured. The capture SITE is where the correctness
+ lives (see
+# SCRIPT_SHA256 at the top of the main flow), not here.
+write_receipt() {  # write_receipt <branch> <base> <head> <executed-tree> <gatel
+og-sha256> <script-sha256> <precondition-rc> <endpoint-seen> <gate-record-file>
+  local br="$1" base="$2" head="$3" tree="$4" logsha="$5" scriptsha="$6" prc="$7
+" endpoint="$8" record="$9"
+  echo "# Landing receipt — $br"
+  echo
+  echo "- round branch: \`$br\`"
+  echo "- base: \`$base\`"
+  echo "- head: \`$head\`"
+  echo "- gates ran on tree: \`$tree\`"
+  echo "- gate log sha256: \`$logsha\`"
+  echo "- executing script sha256: \`$scriptsha\`"
+  echo "- origin precondition: rc \`$prc\`"
+  echo "- endpoint main seen at start: \`$endpoint\`"
+  echo "- written by: bin/land-round.sh at $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+  echo
+  echo "| gate | rc |"
+  echo "| --- | --- |"
+  while IFS=$'\t' read -r l r; do echo "| \`$l\` | $r |"; done < "$record"
+  echo
+  echo "⚠️  Self-attested: this records that the script ran. Compare the rcs agai
+nst"
+  echo "the committed log, whose sha256 is above, rather than trusting this tabl
+e."
+}
+
+# --self-test: prove, with the REAL gate() and a sentinel in place of `git push`
+, that a
+# deliberately failing gate ends the run before the push line (rc 70, no sentine
+l), and --
+# the green arm -- that a passing gate reaches it. Runs no git, merges nothing.
+if [ "${1:-}" = "--self-test" ]; then
+  before=self-test
+  gate() {
+    local label="$1"; shift
+    local out rc=0
+    out=$("$@" 2>&1) || rc=$?
+    if [ "$rc" -ne 0 ]; then echo "$out" | tail -20; echo "REFUSED: $label faile
+d (rc=$rc); not pushing." >&2; exit 70; fi
+    echo "$out" | tail -1
+  }
+  push_main() { echo "REACHED_PUSH"; }
+  red_rc=0; red=$( (gate "deliberately failing gate" sh -c 'echo simulated-FAIL;
+ exit 1'; push_main) 2>&1 ) || red_rc=$?
+  green_rc=0; green=$( (gate "passing gate" sh -c 'echo simulated-PASS'; push_ma
+in) 2>&1 ) || green_rc=$?
+  # ⭐ the classifier's THREE outcomes, driven by stub exit codes -- the failure
+ path runs here
+  # on every landing of a healthy tree rather than waiting for a red that may ne
+ver arrive.
+  c_timing=$(classify_verdict 2 0); c_both=$(classify_verdict 2 2); c_names=$(cl
+assify_verdict 0 2)
+  # ⭐ the same-object gate's four outcomes, driven by stub ids -- its refusal p
+aths run on
+  # every landing of a healthy tree instead of waiting for a divergence that may
+ never come.
+  so_ok=0;   assert_same_object aaa aaa 0 >/dev/null 2>&1 || so_ok=$?
+  so_diff=0; assert_same_object aaa bbb 0 >/dev/null 2>&1 || so_diff=$?
+  so_untr=0; assert_same_object aaa aaa 2 >/dev/null 2>&1 || so_untr=$?
+  so_blind=0; assert_same_object "" aaa 0 >/dev/null 2>&1 || so_blind=$?
+  # ⭐ the origin-endpoint gate's four outcomes, driven by stub arguments -- the
+ path-origin
+  # refusal is the one that has never fired for real here, and stubs are the onl
+y way it runs
+  # at all: a healthy tree never takes it, and the day it should, the verdict is
+ already lost.
+  oe_ok=0;    assert_origin_endpoint "git@github.com:x/y.git" aaa aaa >/dev/null
+ 2>&1 || oe_ok=$?
+  oe_path=0;  assert_origin_endpoint "/home/jes/commonplace-cell" aaa aaa >/dev/
+null 2>&1 || oe_path=$?
+  oe_stale=0; assert_origin_endpoint "git@github.com:x/y.git" aaa bbb >/dev/null
+ 2>&1 || oe_stale=$?
+  oe_blind=0; assert_origin_endpoint "git@github.com:x/y.git" aaa "" >/dev/null
+2>&1 || oe_blind=$?
+  # ⭐ the receipt's new fields, driven by STUB values -- a receipt can otherwis
+e only be seen by
+  # performing a real landing, so its failure path would never run. A2 is the pl
+anted case this
+  # round exists for: a round that EDITS bin/land-round.sh is gated by the pre-m
+erge file, and a
+  # hash read after the merge would name the landed file instead. The stub stand
+s in for the
+  # executing file and the on-disk hash for the landed one; the receipt must nam
+e the stub.
+  # ⚠️  These arms certify what write_receipt PRINTS from what it is given. They
+cannot certify
+  # that the main flow hands it the pre-merge hash -- that is the capture site's
+ job, and no
+  # stub can observe it.
+  rcpt_record=$(mktemp)
+  printf 'alpha\t0\nbeta\t0\n' > "$rcpt_record"
+  rcpt_a1=$(write_receipt sol/stub base0 head0 tree0 log0 aaaa1111 0 bbbb2222 "$
+rcpt_record")
+  ondisk_sha=$(sha256sum bin/land-round.sh 2>/dev/null | cut -d' ' -f1 || true)
+  rcpt_a2=$(write_receipt sol/stub base0 head0 tree0 log0 dddd4444 0 bbbb2222 "$
+rcpt_record")
+  rm -f "$rcpt_record"
+  # ⛔ `|| true` on EVERY count: under `set -e` a zero-match `grep -c` exits 1 a
+nd aborts the
+  # self-test before it can report -- which prints NOTHING and reads as a silent
+ failure. This
+  # trap is documented in bin/test-capture.sh:13 and I walked into it three file
+s away.
+  ok_timing=$(echo "$c_timing" | grep -c 'TIMING-OR-CONCURRENCY CLASS' || true)
+  ok_both=$(echo "$c_both"   | grep -c 'not the trace class' || true)
+  ok_names=$(echo "$c_names" | grep -c 'ARM NAMES are not trustworthy' || true)
+  # ⛔ and they must not be CONFUSABLE: the both-fail branch must not claim the
+timing class.
+  not_confused=$(echo "$c_both" | grep -c 'TIMING-OR-CONCURRENCY CLASS' || true)
+  # A1: the receipt NAMES the executing script hash and the endpoint it saw.
+  r_script=$(echo "$rcpt_a1" | grep -c 'aaaa1111' || true)
+  r_endpoint=$(echo "$rcpt_a1" | grep -c 'bbbb2222' || true)
+  # A2: the planted mismatch -- the STUB (executing) hash is named, the on-disk
+(landed) one is not.
+  r_stub=$(echo "$rcpt_a2" | grep -c 'dddd4444' || true)
+  r_ondisk=$(echo "$rcpt_a2" | grep -c -- "$ondisk_sha" || true)
+  # ⛔ A3, the control, and it is not optional: new fields must add rows, never
+disturb the
+  # existing table. A green A1/A2 on a receipt whose gate rows had silently chan
+ged shape would
+  # be a pass reporting the wrong thing.
+  r_hdr=$(echo "$rcpt_a1" | grep -cF '| gate | rc |' || true)
+  r_sep=$(echo "$rcpt_a1" | grep -cF '| --- | --- |' || true)
+  r_row=$(echo "$rcpt_a1" | grep -cF '| `alpha` | 0 |' || true)
+  if [ "$red_rc" -eq 70 ] && ! echo "$red" | grep -q REACHED_PUSH && [ "$green_r
+c" -eq 0 ] && echo "$green" | grep -q REACHED_PUSH \
+     && [ "$ok_timing" = 1 ] && [ "$ok_both" = 1 ] && [ "$ok_names" = 1 ] && [ "
+$not_confused" = 0 ] \
+     && [ "$so_ok" -eq 0 ] && [ "$so_diff" -eq 71 ] && [ "$so_untr" -eq 71 ] &&
+[ "$so_blind" -eq 71 ] \
+     && [ "$oe_ok" -eq 0 ] && [ "$oe_path" -eq 72 ] && [ "$oe_stale" -eq 72 ] &&
+ [ "$oe_blind" -eq 72 ] \
+     && [ "$r_script" = 1 ] && [ "$r_endpoint" = 1 ] && [ "$r_stub" = 1 ] && [ "
+$r_ondisk" = 0 ] \
+     && [ -n "$ondisk_sha" ] && [ "$r_hdr" = 1 ] && [ "$r_sep" = 1 ] && [ "$r_ro
+w" = 1 ]; then
+    echo "SELF-TEST PASS: failing gate -> rc 70, push never reached; passing gat
+e -> push reached;"
+    echo "  classifier: timing/both-fail/names outcomes distinct and not confusa
+ble (3 arms, stub rcs)."
+    echo "  same-object: match->0, divergence->71, untracked->71, unidentifiable
+->71 (4 arms, stub ids)."
+    echo "  origin-endpoint: url+agreeing cache->0, path origin->72, stale cache
+->72, unreadable endpoint->72 (4 arms, stub args)."
+    echo "  receipt fields: script hash named, endpoint named, planted mismatch
+names the EXECUTING hash, existing rows unchanged (3 arms, stub values)."
+    exit 0
+  fi
+  echo "SELF-TEST DETAIL: timing=$ok_timing both=$ok_both names=$ok_names confus
+ed=$not_confused" >&2
+  echo "SELF-TEST DETAIL: same-object ok=$so_ok diff=$so_diff untracked=$so_untr
+ blind=$so_blind" >&2
+  echo "SELF-TEST DETAIL: origin-endpoint ok=$oe_ok path=$oe_path stale=$oe_stal
+e blind=$oe_blind" >&2
+  echo "SELF-TEST DETAIL: receipt script=$r_script endpoint=$r_endpoint stub=$r_
+stub ondisk=$r_ondisk ondisk_sha=[$ondisk_sha] hdr=$r_hdr sep=$r_sep row=$r_row"
+ >&2
+  echo "SELF-TEST FAIL: red rc=$red_rc output=[$red] green rc=$green_rc output=[
+$green]" >&2; exit 3
+fi
+branch="${1:?round branch, e.g. sol/phase-6}"
+cd "$(dirname "$0")/.."
+# ⭐ CAPTURED HERE, BEFORE THE MERGE, AND THAT IS THE WHOLE POINT OF THE FIELD.
+`bash` has
+# already read the file it is running; `git merge` below REPLACES bin/land-round
+.sh on disk
+# whenever the round edits it. A sha256sum taken after the merge therefore names
+ the file that
+# will LAND -- the one that did not run -- while looking exactly like the one th
+at did. That is
+# the wrong-referent defect this field exists to expose, so it must not sit insi
+de the field.
+# ⚠️  WHAT THIS CANNOT DO: it names the file `$0` points at, not the BYTES bash e
+xecuted. If the
+# file were rewritten between bash's read and this line the two would differ and
+ nothing here
+# could tell. Identity of the file at ceremony start is what is available.
+SCRIPT_SHA256=$(sha256sum "$0" 2>/dev/null | cut -d' ' -f1 || true)
+# ⛔ The whole defect: refuse unless we are on main in a non-worktree checkout.
+cur=$(git branch --show-current)
+[ "$cur" = "main" ] || { echo "REFUSED: on '$cur', not main. cd to the main chec
+kout." >&2; exit 64; }
+[ "$(git rev-parse --git-dir)" = ".git" ] || { echo "REFUSED: this is a linked w
+orktree, not the main checkout." >&2; exit 64; }
+# ⛔ BEFORE THE MERGE ON PURPOSE. A refusal here costs NOTHING: no merge exists
+yet, so there
+# is no rejected merge left in local main and no `git reset --hard` to name. Ref
+using after
+# the merge would be the expensive spelling of the same answer. And the merge-to
+-push gap is
+# the one window in this script where local state and the endpoint can disagree
+-- so the
+# question "is origin a real endpoint, and is my cache of it current?" must be s
+ettled before
+# that window opens, not inside it.
+# ⚠️  This adds a network call to the ceremony, so it FAILS CLOSED on a network f
+ault. The
+# ceremony already needs the network to push; this adds no dependency that was n
+ot required.
+# ⭐ AND BEFORE THE BRANCH-EXISTS CHECK, for two reasons.
+# (1) `origin` is a property of the CLONE, not of the argument. A misconfigured
+clone must
+#     refuse whatever branch you name it, and checking it first means the refusa
+l cannot
+#     depend on having got the argument right.
+# (2) It makes this check OBSERVABLE WITHOUT RUNNING THE SUITE: in a good clone,
+ naming a
+#     branch that does not exist reaches this precondition, prints its success l
+ine, and
+#     then exits 65 at the branch check -- the passing path demonstrated for one
+ git command.
+#     In the other order that same invocation exits 65 having never reached the
+precondition,
+#     and a green arm that never ran its subject is the defect this repo keeps f
+inding.
+ORIGIN_URL=$(git remote get-url origin 2>/dev/null || true)
+# ⭐ THE CACHE IS READ BEFORE THE FETCH AS WELL AS AFTER, AND THE DIFFERENCE IS
+REPORTED.
+# Measured 2026-09-04 while building this round: with a URL origin the fetch bel
+ow REPAIRS a
+# stale origin/main, so the comparison that follows then agrees and prints "the
+cache agrees"
+# -- true only AFTER the fetch. ⛔ Read alone, that success line would report an
+ absence
+# ("nothing was stale") that the script had just silently created. The staleness
+ is a fact
+# about the clone a reader wants, so it is printed rather than repaired in silen
+ce.
+# ⚠️  And it names what this comparison IS: a control on the fetch, not an indepe
+ndent
+# stale-cache detector. Its refusal path is reachable when the fetch fails while
+ ls-remote
+# succeeds; clause (a) already refuses a path origin before it can matter.
+CACHED_BEFORE=$(git rev-parse origin/main 2>/dev/null || true)
+git fetch -q origin 2>/dev/null || true   # make the cache as fresh as this scri
+pt can before comparing
+# `|| true` on the capture, not just on the pipeline: a failed ls-remote must yi
+eld an EMPTY
+# string that assert_origin_endpoint reports as BLIND, never abort the run with
+no verdict.
+ENDPOINT_MAIN=$(git ls-remote "$ORIGIN_URL" refs/heads/main 2>/dev/null | cut -f
+1 || true)
+CACHED_MAIN=$(git rev-parse origin/main 2>/dev/null || true)
+if [ -n "$CACHED_BEFORE" ] && [ -n "$CACHED_MAIN" ] && [ "$CACHED_BEFORE" != "$C
+ACHED_MAIN" ]; then
+  echo "NOTE: origin/main was stale at $CACHED_BEFORE and the fetch moved it to
+$CACHED_MAIN."
+  echo "      Not a refusal -- but the comparison below is now a control on that
+ fetch, not on the cache you had."
+fi
+# ⭐ THE OUTCOME IS CAPTURED, NOT JUST ACTED ON. This precondition runs before G
+ATE_RECORD and
+# GATE_LOG exist and is not a gate() call, so until now its verdict reached noth
+ing a reader of
+# the receipt could see -- LAND-ENDPOINT-1 landed a precondition whose only evid
+ence was a chat
+# message. `|| PRECONDITION_RC=$?` rather than `|| exit 72` because under `set -
+e` the exit
+# discards the rc before anything can record it; the refusal is re-issued on the
+ next line and
+# is byte-for-byte the same behaviour, rc 72 included.
+# ⛔ This does NOT make the precondition a gate: the receipt REPORTS it, and the
+ refusal still
+# happens here, before the merge, where undoing costs nothing.
+PRECONDITION_RC=0
+assert_origin_endpoint "$ORIGIN_URL" "$CACHED_MAIN" "$ENDPOINT_MAIN" || PRECONDI
+TION_RC=$?
+[ "$PRECONDITION_RC" -eq 0 ] || exit 72
+ENDPOINT_SEEN="$ENDPOINT_MAIN"
+git rev-parse --verify -q "$branch" >/dev/null || { echo "REFUSED: no branch $br
+anch" >&2; exit 65; }
+before=$(git rev-parse HEAD)
+git merge --no-ff -q "$branch" -m "Merge branch '$branch'"
+mix deps.get >/dev/null 2>&1 || true
+# Captured BEFORE the gates, because this must be the tree they actually read.
+EXECUTED_TREE=$(executed_tree || true)
+# Gates capture their own exit status. Earlier form was `gate | tail -1`, which
+# is a gate ONLY while `pipefail` is set -- commonplace-value measured (2026-08-
+25)
+# that with `set -eu` alone the same line prints FAIL and proceeds to push. A ga
+te
+# whose teeth live in a shell option three lines away is one edit from decoratio
+n.
+# LAND-PROOF: the record is written BY gate() at the moment each gate returns, n
+ever
+# composed afterwards from memory. A receipt assembled at the end is a story; on
+e
+# appended to by the wrapper is a record. Both arms append -- a refusing gate ex
+its,
+# so its rc must be written BEFORE the exit or the refusal is the one thing unre
+corded.
+GATE_RECORD=$(mktemp)
+GATE_LOG=$(mktemp)
+gate() {  # gate <label> <cmd...>: run, keep the verdict line, stop on non-zero
+  local label="$1"; shift
+  local out rc=0
+  out=$("$@" 2>&1) || rc=$?   # `|| rc=$?`: under set -e a failing assignment ex
+its BEFORE a following rc=$? (seen: silent rc=1, no REFUSED line)
+  printf '%s\t%s\n' "$label" "$rc" >> "$GATE_RECORD"
+  { printf '===== %s (rc=%s)\n' "$label" "$rc"; printf '%s\n' "$out"; } >> "$GAT
+E_LOG"
+  if [ "$rc" -ne 0 ]; then
+    echo "$out" | tail -20
+    echo "REFUSED: $label failed (rc=$rc); not pushing." >&2
+    # ⚠ THE MERGE ALREADY HAPPENED LOCALLY and is left in the tree. origin is
+    # untouched -- that is the property that matters -- but local main now carri
+es a
+    # merge the gates rejected, and a naive re-run would push it. Name the way b
+ack,
+    # because "nothing was pushed" and "nothing happened" are not the same state
+.
+    echo "REFUSED: local main still holds the rejected merge. Undo with: git res
+et --hard $before" >&2
+    exit 70
+  fi
+  echo "$out" | tail -1
+}
+# ⛔ BEFORE mix test ON PURPOSE: this gate is pure grep, so it refuses WITHOUT s
+tarting a BEAM.
+# It pins the set of modules that cannot run under a plain `mix test` -- you can
+not detect an
+# absence, but you can pin what is supposed to be absent and refuse when the set
+ changes.
+gate "check-gated-arms" bash bin/check-gated-arms.sh
+
+# ⭐ The arms gate certifies an arm EXISTS; it cannot see whether that arm RAN.
+One
+# `exclude:` line plus a @moduletag silently removed 38 declared arms at commonp
+lace-next
+# and the gate still printed PASS. So the RUN is the population: capture the exe
+cuted test
+# names once, here, and hand them to the gate. (Patch from commonplace-plan/mark
+down.)
+capture_executed() { # capture_executed <names-file> <test-command...>
+  local names_file="$1"; shift
+  local rc=0
+  # ⛔ NOT a local mktemp with its own cleanup line: if this function dies, or a
+ gate exits 70
+  # mid-run, that line never executes and the temp leaks. And a `trap ... EXIT`
+INSIDE the
+  # function would SILENTLY REPLACE the script-level one (commonplace-value's me
+asured defect),
+  # taking the executed-names cleanup with it. ⇒ one script-level trap covers bo
+th files.
+  trace_file="$land_trace_file"
+  "$@" --trace >"$trace_file" 2>&1 || rc=$?
+  # ExUnit rewrites each trace line after timing it, separated by CR. Consume th
+e final
+  # field so one physical test line remains one name even under async output.
+  awk -F '\r' '{ print $NF }' "$trace_file" |
+    sed -nE '/^[[:space:]]*\* test .* \([^)]*\) \[L#[0-9]+\]$/ { /\(excluded\) \
+[L#[0-9]+\]$/d; s/^[[:space:]]*\* test //; s/ \([^)]*\) \[L#[0-9]+\]$//; p; }' >
+ "$names_file"
+  command cat "$trace_file"
+  return "$rc"
+}
+executed_tests=$(mktemp)
+land_trace_file=$(mktemp)
+# ONE trap, covering every temp this script makes. A second `trap ... EXIT` anyw
+here below
+# would replace this one rather than add to it.
+trap 'rm -f -- "$executed_tests" "$land_trace_file"' EXIT
+# ⛔⛔ TWO RUNS, TWO GATES, AND THE MODE IS THE POINT.
+# `mix test --trace` sets the per-test timeout to :infinity UNCONDITIONALLY -- v
+erified in the
+# installed source, ex_unit/lib/ex_unit/runner.ex:564: `if config.trace do :infi
+nity else ...`.
+# An explicit --timeout cannot override it; the tag is never consulted. --trace
+ALSO forces
+# --max-cases 1, so a trace-gated suite never runs concurrently either. Measured
+ on this host:
+#
+#     @tag timeout: 100 + Process.sleep(400)
+#     mix test         -> rc 2   1 test, 1 failure   (ExUnit.TimeoutError)
+#     mix test --trace -> rc 0   1 test, 0 failures
+#
+# ⇒ Driving the verdict from the trace run made this gate blind to the timeout c
+lass AND to
+# every concurrency-dependent failure -- and this repo's one known intermittent
+is a start
+# TIMEOUT that appeared under CONTENTION. Both blindnesses pointed straight at i
+t.
+#
+# ⭐ THE DIAGNOSTIC MODE AND THE GATING MODE ARE NOT THE SAME MODE, AND THE ONE
+THAT PRINTS
+# MORE IS THE ONE THAT OBSERVES LESS. (commonplace-log paid for this by using --
+trace to chase
+# a flaky failure -- the one mode that could not reproduce it -- and reporting "
+did not
+# reproduce" from a run that could not have.)
+#
+# The plain run DECIDES; the trace run ENUMERATES and must also pass. Two runs a
+nswering two
+# different questions is not two sources of truth.
+# ⭐ via test-capture.sh, not a bare `mix test`: it writes the WHOLE run to .tes
+t-logs/ before
+# printing anything (a summary line is a verdict; the failure block is the evide
+nce), and it
+# refuses on excluded/invalid/skipped, on an unparseable summary, and on a non-z
+ero mix exit.
+# ⭐ AND IF THE PLAIN RUN FAILS, THE DISAGREEMENT ITSELF IS INFORMATION. A plain
+-fails /
+# traced-passes divergence IS the signature of the timing-or-concurrency class -
+- it is what
+# identified the class in the first place. Reporting it as "flaky, retry" discar
+ds the signal.
+# (commonplace-log's addition to the ruling.) So on a plain failure, ask the tra
+ce run the
+# same question before refusing, and name the class in the refusal.
+verdict_rc=0
+verdict_out=$(bash bin/test-capture.sh 2>&1) || verdict_rc=$?
+if [ "$verdict_rc" -ne 0 ]; then
+  echo "$verdict_out" | tail -20
+  trace_rc=0
+  mix test --trace >/dev/null 2>&1 || trace_rc=$?
+  classify_verdict "$verdict_rc" "$trace_rc" >&2
+  echo "REFUSED: local main still holds the rejected merge. Undo with: git reset
+ --hard $before" >&2
+  exit 70
+fi
+echo "$verdict_out" | tail -1
+gate "mix test --trace (arm names)" capture_executed "$executed_tests" mix test
+gate "check-plan-arms" bash bin/check-plan-arms.sh --executed "$executed_tests"
+# Not in commonplace-doc's copy: this repo's spec is jes's and byte-identical. A
+n EMPTY
+# table in that gate exits 2 and is refused here too (the state "code on main wi
+th no spec").
+gate "check-spec-pristine" bash bin/check-spec-pristine.sh
+# Truthy-misuse gate (P0SIG): `:ok | {:error, _}` is entirely truthy, so an `if`
+ on verify/3 reads
+# a malformed key as success. Seen red on real code and self-tested in three dir
+ections.
+gate "check-truthy-verify" bash bin/check-truthy-verify.sh
+# R2b filed this gate and did NOT wire it here; an unwired gate is a remembered
+rule.
+# biscuit-auth's RunLimits::default() is a 1 ms WALL CLOCK and omission is silen
+t.
+gate "check-biscuit-run-limits" bash bin/check-biscuit-run-limits.sh
+# ⛔ LAST GATE BEFORE THE PUSH, and the only one whose subject is the commit.
+# ⭐ RUN BEFORE THE RECEIPT IS WRITTEN. The untracked refusal caught a stray
+# .slot-granted on 2026-09-03; the receipt must not be able to mask it, so the
+# assertion happens while the tree is still exactly what the gates read.
+assert_same_object "$EXECUTED_TREE" "$(pushed_tree)" "$(untracked_count)" || {
+  echo "REFUSED: local main still holds the merge. Undo with: git reset --hard $
+before" >&2; exit 71; }
+
+# ---------------------------------------------------------------- LAND-PROOF
+# WHY: CELL-GATE-0 (2026-09-03) asked what landed two merges and the answer came
+# only from one clone's HEAD reflog -- per-clone, unpushed, expiring. From origi
+n a
+# gated landing and a hand merge are INDISTINGUISHABLE. This commits the evidenc
+e
+# into the pushed tree so the route is readable from the remote.
+# ⚠️  SELF-ATTESTED: this proves the script ran, not that the gates passed. The l
+og
+# is committed beside the receipt and the receipt carries its sha256, so a reade
+r
+# COMPARES rather than trusts. See docs/IMPLEMENTATION-PLAN-LAND-PROOF.md §3.
+LANDING_DIR=docs/landings
+stamp=$(date -u +%Y%m%dT%H%M%SZ)
+receipt="$LANDING_DIR/${stamp}-$(echo "$branch" | tr '/' '-').md"
+gatelog="$LANDING_DIR/${stamp}-$(echo "$branch" | tr '/' '-').log"
+mkdir -p "$LANDING_DIR"
+cp "$GATE_LOG" "$gatelog"
+write_receipt "$branch" "$before" "$(git rev-parse HEAD)" "$EXECUTED_TREE" \
+  "$(sha256sum "$gatelog" | cut -d" " -f1)" "$SCRIPT_SHA256" "$PRECONDITION_RC"
+"$ENDPOINT_SEEN" \
+  "$GATE_RECORD" > "$receipt"
+git add "$receipt" "$gatelog"
+git -c user.name="$(git config user.name || echo landing)" commit -q -m "Landing
+ receipt for $branch" || {
+  echo "REFUSED: could not commit the landing receipt." >&2; exit 71; }
+
+# ⛔ A4a: the gated tree and the pushed tree must still agree on EVERY PATH OUTS
+IDE
+# the receipt directory. The receipt is carved out BY PATH -- never by weakening
+ the
+# comparison -- so a change smuggled in anywhere else is still refused.
+outside=$(git diff --name-only "$EXECUTED_TREE" "HEAD^{tree}" -- ':!'"$LANDING_D
+IR" || true)
+if [ -n "$outside" ]; then
+  echo "REFUSED: the pushed tree differs from the gated tree outside $LANDING_DI
+R:" >&2
+  echo "$outside" >&2; echo "REFUSED: undo with: git reset --hard $before" >&2;
+exit 71
+fi
+# ⛔ A4b: and the receipt commit itself must touch EXACTLY the two receipt files
+.
+touched=$(git diff --name-only HEAD~1 HEAD)
+expected=$(printf '%s\n%s\n' "$gatelog" "$receipt" | sort)
+if [ "$(printf '%s\n' "$touched" | sort)" != "$expected" ]; then
+  echo "REFUSED: the receipt commit touched something other than the two receipt
+ files:" >&2
+  printf '%s\n' "$touched" >&2; echo "REFUSED: undo with: git reset --hard $befo
+re" >&2; exit 71
+fi
+# ⛔ A2: the receipt must AGREE with the log it publishes. Without this the sha2
+56 is
+# decoration -- a number written and never compared.
+gate "check-landing-receipt" bash bin/check-landing-receipt.sh "$receipt" "$gate
+log"
+echo "LAND-PROOF: receipt $receipt committed; tree outside $LANDING_DIR unchange
+d."
+# --------------------------------------------------------------------------
+
+git push -q origin main "$branch"
+git fetch -q origin   # keep the local cache current -- but the VERDICT below mu
+st not read it
+# ⭐ THE VERDICT IS WHAT THE ENDPOINT SAYS, NOT WHAT PUSH RETURNED AND NOT WHAT
+THE CACHE HOLDS.
+# The previous form read `origin/main`, a CACHE, for both the condition and the
+success
+# message: verdict and defect shared a source, so no care inside the ceremony co
+uld catch a
+# push that landed somewhere else -- the sentence was computed from the same ref
+erent that
+# made it wrong. `ls-remote` against the URL asks the remote itself.
+# ⚠️  An unreadable endpoint is NOT a NOT-LANDED: the push may or may not have la
+nded and this
+# script cannot tell. That is BLIND, and it gets its own sentence.
+landed_main=$(git ls-remote "$ORIGIN_URL" refs/heads/main 2>/dev/null | cut -f1
+|| true)
+if [ -z "$landed_main" ]; then
+  echo "BLIND: could not read refs/heads/main from $ORIGIN_URL after pushing. Th
+e push may or may not have landed -- this is not a verdict." >&2; exit 1
+elif [ "$landed_main" = "$(git rev-parse HEAD)" ] && git merge-base --is-ancesto
+r "$branch" "$landed_main"; then
+  echo "LANDED: endpoint $ORIGIN_URL refs/heads/main = $landed_main contains $br
+anch ($(git rev-list --count "$before"..HEAD) new commits) -- read from the endp
+oint, not from origin/main."
+else
+  echo "NOT LANDED: endpoint $ORIGIN_URL refs/heads/main = $landed_main does not
+ contain $branch or differs from HEAD $(git rev-parse HEAD)." >&2; exit 1
+fi
+
+codex
+The file matches the brief’s premise: the self-test currently has 16 arms in the
+ stated five groups, and `write_receipt` already receives the executing hash as
+argument six. I’m adding a sixth, four-arm “edited” group while preserving every
+ existing receipt line and its order.
+apply patch
+patch: completed
+/home/jes/sol-cell-receipt-edited/wt/bin/land-round.sh
+diff --git a/bin/land-round.sh b/bin/land-round.sh
+index 94b95512ac30ea4b5aab043128604273f73fad46..87bbcbbc99a8967701ecbf2486cc3407
+dbd60fd7
+--- a/bin/land-round.sh
++++ b/bin/land-round.sh
+@@ -115,6 +115,17 @@
+ # SCRIPT_SHA256 at the top of the main flow), not here.
+ write_receipt() {  # write_receipt <branch> <base> <head> <executed-tree> <gate
+log-sha256> <script-sha256> <precondition-rc> <endpoint-seen> <gate-record-file>
+   local br="$1" base="$2" head="$3" tree="$4" logsha="$5" scriptsha="$6" prc="$
+7" endpoint="$8" record="$9"
++  local tree_scriptsha edited
++  # Deliberately read the tree's script at receipt time rather than accepting a
+nother
++  # caller claim: only then can this comparison observe the file the merge left
+ on disk.
++  tree_scriptsha=$(sha256sum bin/land-round.sh 2>/dev/null | cut -d' ' -f1 || t
+rue)
++  if [ -z "$scriptsha" ] || [ -z "$tree_scriptsha" ]; then
++    edited=unknown
++  elif [ "$scriptsha" = "$tree_scriptsha" ]; then
++    edited=no
++  else
++    edited=yes
++  fi
+   echo "# Landing receipt — $br"
+   echo
+   echo "- round branch: \`$br\`"
+@@ -123,6 +134,9 @@
+   echo "- gates ran on tree: \`$tree\`"
+   echo "- gate log sha256: \`$logsha\`"
+   echo "- executing script sha256: \`$scriptsha\`"
++  echo "- script edited by this round: \`$edited\`"
++  echo "- push authority: see the round's post-landing verification for this la
+nding; standing grant scope is boss's record, verify current"
++  echo "- push: fast-forward only; no --force in the landing path"
+   echo "- origin precondition: rc \`$prc\`"
+   echo "- endpoint main seen at start: \`$endpoint\`"
+   echo "- written by: bin/land-round.sh at $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+@@ -179,6 +193,8 @@
+   rcpt_a1=$(write_receipt sol/stub base0 head0 tree0 log0 aaaa1111 0 bbbb2222 "
+$rcpt_record")
+   ondisk_sha=$(sha256sum bin/land-round.sh 2>/dev/null | cut -d' ' -f1 || true)
+   rcpt_a2=$(write_receipt sol/stub base0 head0 tree0 log0 dddd4444 0 bbbb2222 "
+$rcpt_record")
++  rcpt_e1=$(write_receipt sol/stub base0 head0 tree0 log0 "$ondisk_sha" 0 bbbb2
+222 "$rcpt_record")
++  rcpt_e3=$(write_receipt sol/stub base0 head0 tree0 log0 "" 0 bbbb2222 "$rcpt_
+record")
+   rm -f "$rcpt_record"
+   # ⛔ `|| true` on EVERY count: under `set -e` a zero-match `grep -c` exits 1
+and aborts the
+   # self-test before it can report -- which prints NOTHING and reads as a silen
+t failure. This
+@@ -200,23 +216,35 @@
+   r_hdr=$(echo "$rcpt_a1" | grep -cF '| gate | rc |' || true)
+   r_sep=$(echo "$rcpt_a1" | grep -cF '| --- | --- |' || true)
+   r_row=$(echo "$rcpt_a1" | grep -cF '| `alpha` | 0 |' || true)
++  # E1-E3 keep BLIND distinct from unchanged: an unreadable value can never cer
+tify `no`.
++  e_equal=$(echo "$rcpt_e1" | grep -cF -- '- script edited by this round: `no`'
+ || true)
++  e_diff=$(echo "$rcpt_a2" | grep -cF -- '- script edited by this round: `yes`'
+ || true)
++  e_empty_unknown=$(echo "$rcpt_e3" | grep -cF -- '- script edited by this roun
+d: `unknown`' || true)
++  e_empty_no=$(echo "$rcpt_e3" | grep -cF -- '- script edited by this round: `n
+o`' || true)
++  # E4 checks static tree properties only for exact presence; it cannot establi
+sh authority.
++  e_pointer=$(echo "$rcpt_a1" | grep -cF -- "- push authority: see the round's
+post-landing verification for this landing; standing grant scope is boss's recor
+d, verify current" || true)
++  e_fast_forward=$(echo "$rcpt_a1" | grep -cF -- '- push: fast-forward only; no
+ --force in the landing path' || true)
+   if [ "$red_rc" -eq 70 ] && ! echo "$red" | grep -q REACHED_PUSH && [ "$green_
+rc" -eq 0 ] && echo "$green" | grep -q REACHED_PUSH \
+      && [ "$ok_timing" = 1 ] && [ "$ok_both" = 1 ] && [ "$ok_names" = 1 ] && [
+"$not_confused" = 0 ] \
+      && [ "$so_ok" -eq 0 ] && [ "$so_diff" -eq 71 ] && [ "$so_untr" -eq 71 ] &&
+ [ "$so_blind" -eq 71 ] \
+      && [ "$oe_ok" -eq 0 ] && [ "$oe_path" -eq 72 ] && [ "$oe_stale" -eq 72 ] &
+& [ "$oe_blind" -eq 72 ] \
+      && [ "$r_script" = 1 ] && [ "$r_endpoint" = 1 ] && [ "$r_stub" = 1 ] && [
+"$r_ondisk" = 0 ] \
+-     && [ -n "$ondisk_sha" ] && [ "$r_hdr" = 1 ] && [ "$r_sep" = 1 ] && [ "$r_r
+ow" = 1 ]; then
++     && [ -n "$ondisk_sha" ] && [ "$r_hdr" = 1 ] && [ "$r_sep" = 1 ] && [ "$r_r
+ow" = 1 ] \
++     && [ "$e_equal" = 1 ] && [ "$e_diff" = 1 ] && [ "$e_empty_unknown" = 1 ] &
+& [ "$e_empty_no" = 0 ] \
++     && [ "$e_pointer" = 1 ] && [ "$e_fast_forward" = 1 ]; then
+     echo "SELF-TEST PASS: failing gate -> rc 70, push never reached; passing ga
+te -> push reached;"
+     echo "  classifier: timing/both-fail/names outcomes distinct and not confus
+able (3 arms, stub rcs)."
+     echo "  same-object: match->0, divergence->71, untracked->71, unidentifiabl
+e->71 (4 arms, stub ids)."
+     echo "  origin-endpoint: url+agreeing cache->0, path origin->72, stale cach
+e->72, unreadable endpoint->72 (4 arms, stub args)."
+     echo "  receipt fields: script hash named, endpoint named, planted mismatch
+ names the EXECUTING hash, existing rows unchanged (3 arms, stub values)."
++    echo "  edited: equal->no, different->yes, empty->unknown (not no), pointer
++fast-forward lines verbatim (4 arms, stub values)."
+     exit 0
+   fi
+   echo "SELF-TEST DETAIL: timing=$ok_timing both=$ok_both names=$ok_names confu
+sed=$not_confused" >&2
+   echo "SELF-TEST DETAIL: same-object ok=$so_ok diff=$so_diff untracked=$so_unt
+r blind=$so_blind" >&2
+   echo "SELF-TEST DETAIL: origin-endpoint ok=$oe_ok path=$oe_path stale=$oe_sta
+le blind=$oe_blind" >&2
+   echo "SELF-TEST DETAIL: receipt script=$r_script endpoint=$r_endpoint stub=$r
+_stub ondisk=$r_ondisk ondisk_sha=[$ondisk_sha] hdr=$r_hdr sep=$r_sep row=$r_row
+" >&2
++  echo "SELF-TEST DETAIL: edited equal=$e_equal diff=$e_diff empty_unknown=$e_e
+mpty_unknown empty_no=$e_empty_no pointer=$e_pointer fast_forward=$e_fast_forwar
+d" >&2
+   echo "SELF-TEST FAIL: red rc=$red_rc output=[$red] green rc=$green_rc output=
+[$green]" >&2; exit 3
+ fi
+ branch="${1:?round branch, e.g. sol/phase-6}"
+
+diff --git a/bin/land-round.sh b/bin/land-round.sh
+index 94b95512ac30ea4b5aab043128604273f73fad46..87bbcbbc99a8967701ecbf2486cc3407
+dbd60fd7
+--- a/bin/land-round.sh
++++ b/bin/land-round.sh
+@@ -115,6 +115,17 @@
+ # SCRIPT_SHA256 at the top of the main flow), not here.
+ write_receipt() {  # write_receipt <branch> <base> <head> <executed-tree> <gate
+log-sha256> <script-sha256> <precondition-rc> <endpoint-seen> <gate-record-file>
+   local br="$1" base="$2" head="$3" tree="$4" logsha="$5" scriptsha="$6" prc="$
+7" endpoint="$8" record="$9"
++  local tree_scriptsha edited
++  # Deliberately read the tree's script at receipt time rather than accepting a
+nother
++  # caller claim: only then can this comparison observe the file the merge left
+ on disk.
++  tree_scriptsha=$(sha256sum bin/land-round.sh 2>/dev/null | cut -d' ' -f1 || t
+rue)
++  if [ -z "$scriptsha" ] || [ -z "$tree_scriptsha" ]; then
++    edited=unknown
++  elif [ "$scriptsha" = "$tree_scriptsha" ]; then
++    edited=no
++  else
++    edited=yes
++  fi
+   echo "# Landing receipt — $br"
+   echo
+   echo "- round branch: \`$br\`"
+@@ -123,6 +134,9 @@
+   echo "- gates ran on tree: \`$tree\`"
+   echo "- gate log sha256: \`$logsha\`"
+   echo "- executing script sha256: \`$scriptsha\`"
++  echo "- script edited by this round: \`$edited\`"
++  echo "- push authority: see the round's post-landing verification for this la
+nding; standing grant scope is boss's record, verify current"
++  echo "- push: fast-forward only; no --force in the landing path"
+   echo "- origin precondition: rc \`$prc\`"
+   echo "- endpoint main seen at start: \`$endpoint\`"
+   echo "- written by: bin/land-round.sh at $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+@@ -179,6 +193,8 @@
+   rcpt_a1=$(write_receipt sol/stub base0 head0 tree0 log0 aaaa1111 0 bbbb2222 "
+$rcpt_record")
+   ondisk_sha=$(sha256sum bin/land-round.sh 2>/dev/null | cut -d' ' -f1 || true)
+   rcpt_a2=$(write_receipt sol/stub base0 head0 tree0 log0 dddd4444 0 bbbb2222 "
+$rcpt_record")
++  rcpt_e1=$(write_receipt sol/stub base0 head0 tree0 log0 "$ondisk_sha" 0 bbbb2
+222 "$rcpt_record")
++  rcpt_e3=$(write_receipt sol/stub base0 head0 tree0 log0 "" 0 bbbb2222 "$rcpt_
+record")
+   rm -f "$rcpt_record"
+   # ⛔ `|| true` on EVERY count: under `set -e` a zero-match `grep -c` exits 1
+and aborts the
+   # self-test before it can report -- which prints NOTHING and reads as a silen
+t failure. This
+@@ -200,23 +216,35 @@
+   r_hdr=$(echo "$rcpt_a1" | grep -cF '| gate | rc |' || true)
+   r_sep=$(echo "$rcpt_a1" | grep -cF '| --- | --- |' || true)
+   r_row=$(echo "$rcpt_a1" | grep -cF '| `alpha` | 0 |' || true)
++  # E1-E3 keep BLIND distinct from unchanged: an unreadable value can never cer
+tify `no`.
++  e_equal=$(echo "$rcpt_e1" | grep -cF -- '- script edited by this round: `no`'
+ || true)
++  e_diff=$(echo "$rcpt_a2" | grep -cF -- '- script edited by this round: `yes`'
+ || true)
++  e_empty_unknown=$(echo "$rcpt_e3" | grep -cF -- '- script edited by this roun
+d: `unknown`' || true)
++  e_empty_no=$(echo "$rcpt_e3" | grep -cF -- '- script edited by this round: `n
+o`' || true)
++  # E4 checks static tree properties only for exact presence; it cannot establi
+sh authority.
++  e_pointer=$(echo "$rcpt_a1" | grep -cF -- "- push authority: see the round's
+post-landing verification for this landing; standing grant scope is boss's recor
+d, verify current" || true)
++  e_fast_forward=$(echo "$rcpt_a1" | grep -cF -- '- push: fast-forward only; no
+ --force in the landing path' || true)
+   if [ "$red_rc" -eq 70 ] && ! echo "$red" | grep -q REACHED_PUSH && [ "$green_
+rc" -eq 0 ] && echo "$green" | grep -q REACHED_PUSH \
+      && [ "$ok_timing" = 1 ] && [ "$ok_both" = 1 ] && [ "$ok_names" = 1 ] && [
+"$not_confused" = 0 ] \
+      && [ "$so_ok" -eq 0 ] && [ "$so_diff" -eq 71 ] && [ "$so_untr" -eq 71 ] &&
+ [ "$so_blind" -eq 71 ] \
+      && [ "$oe_ok" -eq 0 ] && [ "$oe_path" -eq 72 ] && [ "$oe_stale" -eq 72 ] &
+& [ "$oe_blind" -eq 72 ] \
+      && [ "$r_script" = 1 ] && [ "$r_endpoint" = 1 ] && [ "$r_stub" = 1 ] && [
+"$r_ondisk" = 0 ] \
+-     && [ -n "$ondisk_sha" ] && [ "$r_hdr" = 1 ] && [ "$r_sep" = 1 ] && [ "$r_r
+ow" = 1 ]; then
++     && [ -n "$ondisk_sha" ] && [ "$r_hdr" = 1 ] && [ "$r_sep" = 1 ] && [ "$r_r
+ow" = 1 ] \
++     && [ "$e_equal" = 1 ] && [ "$e_diff" = 1 ] && [ "$e_empty_unknown" = 1 ] &
+& [ "$e_empty_no" = 0 ] \
++     && [ "$e_pointer" = 1 ] && [ "$e_fast_forward" = 1 ]; then
+     echo "SELF-TEST PASS: failing gate -> rc 70, push never reached; passing ga
+te -> push reached;"
+     echo "  classifier: timing/both-fail/names outcomes distinct and not confus
+able (3 arms, stub rcs)."
+     echo "  same-object: match->0, divergence->71, untracked->71, unidentifiabl
+e->71 (4 arms, stub ids)."
+     echo "  origin-endpoint: url+agreeing cache->0, path origin->72, stale cach
+e->72, unreadable endpoint->72 (4 arms, stub args)."
+     echo "  receipt fields: script hash named, endpoint named, planted mismatch
+ names the EXECUTING hash, existing rows unchanged (3 arms, stub values)."
++    echo "  edited: equal->no, different->yes, empty->unknown (not no), pointer
++fast-forward lines verbatim (4 arms, stub values)."
+     exit 0
+   fi
+   echo "SELF-TEST DETAIL: timing=$ok_timing both=$ok_both names=$ok_names confu
+sed=$not_confused" >&2
+   echo "SELF-TEST DETAIL: same-object ok=$so_ok diff=$so_diff untracked=$so_unt
+r blind=$so_blind" >&2
+   echo "SELF-TEST DETAIL: origin-endpoint ok=$oe_ok path=$oe_path stale=$oe_sta
+le blind=$oe_blind" >&2
+   echo "SELF-TEST DETAIL: receipt script=$r_script endpoint=$r_endpoint stub=$r
+_stub ondisk=$r_ondisk ondisk_sha=[$ondisk_sha] hdr=$r_hdr sep=$r_sep row=$r_row
+" >&2
++  echo "SELF-TEST DETAIL: edited equal=$e_equal diff=$e_diff empty_unknown=$e_e
+mpty_unknown empty_no=$e_empty_no pointer=$e_pointer fast_forward=$e_fast_forwar
+d" >&2
+   echo "SELF-TEST FAIL: red rc=$red_rc output=[$red] green rc=$green_rc output=
+[$green]" >&2; exit 3
+ fi
+ branch="${1:?round branch, e.g. sol/phase-6}"
+
+codex
+The patch is in place. The computed value fails closed to `unknown`, and E3 inde
+pendently requires `unknown` while forbidding `no`, so that regression will reac
+h the requested exit-3 detail path. I’m now running exactly the two specified in
+vocations.
+exec
+/bin/bash -lc 'bash -n bin/land-round.sh' in /home/jes/sol-cell-receipt-edited/w
+t
+ succeeded in 0ms:
+diff --git a/bin/land-round.sh b/bin/land-round.sh
+index 94b95512ac30ea4b5aab043128604273f73fad46..87bbcbbc99a8967701ecbf2486cc3407
+dbd60fd7
+--- a/bin/land-round.sh
++++ b/bin/land-round.sh
+@@ -115,6 +115,17 @@
+ # SCRIPT_SHA256 at the top of the main flow), not here.
+ write_receipt() {  # write_receipt <branch> <base> <head> <executed-tree> <gate
+log-sha256> <script-sha256> <precondition-rc> <endpoint-seen> <gate-record-file>
+   local br="$1" base="$2" head="$3" tree="$4" logsha="$5" scriptsha="$6" prc="$
+7" endpoint="$8" record="$9"
++  local tree_scriptsha edited
++  # Deliberately read the tree's script at receipt time rather than accepting a
+nother
++  # caller claim: only then can this comparison observe the file the merge left
+ on disk.
++  tree_scriptsha=$(sha256sum bin/land-round.sh 2>/dev/null | cut -d' ' -f1 || t
+rue)
++  if [ -z "$scriptsha" ] || [ -z "$tree_scriptsha" ]; then
++    edited=unknown
++  elif [ "$scriptsha" = "$tree_scriptsha" ]; then
++    edited=no
++  else
++    edited=yes
++  fi
+   echo "# Landing receipt — $br"
+   echo
+   echo "- round branch: \`$br\`"
+@@ -123,6 +134,9 @@
+   echo "- gates ran on tree: \`$tree\`"
+   echo "- gate log sha256: \`$logsha\`"
+   echo "- executing script sha256: \`$scriptsha\`"
++  echo "- script edited by this round: \`$edited\`"
++  echo "- push authority: see the round's post-landing verification for this la
+nding; standing grant scope is boss's record, verify current"
++  echo "- push: fast-forward only; no --force in the landing path"
+   echo "- origin precondition: rc \`$prc\`"
+   echo "- endpoint main seen at start: \`$endpoint\`"
+   echo "- written by: bin/land-round.sh at $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+@@ -179,6 +193,8 @@
+   rcpt_a1=$(write_receipt sol/stub base0 head0 tree0 log0 aaaa1111 0 bbbb2222 "
+$rcpt_record")
+   ondisk_sha=$(sha256sum bin/land-round.sh 2>/dev/null | cut -d' ' -f1 || true)
+   rcpt_a2=$(write_receipt sol/stub base0 head0 tree0 log0 dddd4444 0 bbbb2222 "
+$rcpt_record")
++  rcpt_e1=$(write_receipt sol/stub base0 head0 tree0 log0 "$ondisk_sha" 0 bbbb2
+222 "$rcpt_record")
++  rcpt_e3=$(write_receipt sol/stub base0 head0 tree0 log0 "" 0 bbbb2222 "$rcpt_
+record")
+   rm -f "$rcpt_record"
+   # ⛔ `|| true` on EVERY count: under `set -e` a zero-match `grep -c` exits 1
+and aborts the
+   # self-test before it can report -- which prints NOTHING and reads as a silen
+t failure. This
+@@ -200,23 +216,35 @@
+   r_hdr=$(echo "$rcpt_a1" | grep -cF '| gate | rc |' || true)
+   r_sep=$(echo "$rcpt_a1" | grep -cF '| --- | --- |' || true)
+   r_row=$(echo "$rcpt_a1" | grep -cF '| `alpha` | 0 |' || true)
++  # E1-E3 keep BLIND distinct from unchanged: an unreadable value can never cer
+tify `no`.
++  e_equal=$(echo "$rcpt_e1" | grep -cF -- '- script edited by this round: `no`'
+ || true)
++  e_diff=$(echo "$rcpt_a2" | grep -cF -- '- script edited by this round: `yes`'
+ || true)
++  e_empty_unknown=$(echo "$rcpt_e3" | grep -cF -- '- script edited by this roun
+d: `unknown`' || true)
++  e_empty_no=$(echo "$rcpt_e3" | grep -cF -- '- script edited by this round: `n
+o`' || true)
++  # E4 checks static tree properties only for exact presence; it cannot establi
+sh authority.
++  e_pointer=$(echo "$rcpt_a1" | grep -cF -- "- push authority: see the round's
+post-landing verification for this landing; standing grant scope is boss's recor
+d, verify current" || true)
++  e_fast_forward=$(echo "$rcpt_a1" | grep -cF -- '- push: fast-forward only; no
+ --force in the landing path' || true)
+   if [ "$red_rc" -eq 70 ] && ! echo "$red" | grep -q REACHED_PUSH && [ "$green_
+rc" -eq 0 ] && echo "$green" | grep -q REACHED_PUSH \
+      && [ "$ok_timing" = 1 ] && [ "$ok_both" = 1 ] && [ "$ok_names" = 1 ] && [
+"$not_confused" = 0 ] \
+      && [ "$so_ok" -eq 0 ] && [ "$so_diff" -eq 71 ] && [ "$so_untr" -eq 71 ] &&
+ [ "$so_blind" -eq 71 ] \
+      && [ "$oe_ok" -eq 0 ] && [ "$oe_path" -eq 72 ] && [ "$oe_stale" -eq 72 ] &
+& [ "$oe_blind" -eq 72 ] \
+      && [ "$r_script" = 1 ] && [ "$r_endpoint" = 1 ] && [ "$r_stub" = 1 ] && [
+"$r_ondisk" = 0 ] \
+-     && [ -n "$ondisk_sha" ] && [ "$r_hdr" = 1 ] && [ "$r_sep" = 1 ] && [ "$r_r
+ow" = 1 ]; then
++     && [ -n "$ondisk_sha" ] && [ "$r_hdr" = 1 ] && [ "$r_sep" = 1 ] && [ "$r_r
+ow" = 1 ] \
++     && [ "$e_equal" = 1 ] && [ "$e_diff" = 1 ] && [ "$e_empty_unknown" = 1 ] &
+& [ "$e_empty_no" = 0 ] \
++     && [ "$e_pointer" = 1 ] && [ "$e_fast_forward" = 1 ]; then
+     echo "SELF-TEST PASS: failing gate -> rc 70, push never reached; passing ga
+te -> push reached;"
+     echo "  classifier: timing/both-fail/names outcomes distinct and not confus
+able (3 arms, stub rcs)."
+     echo "  same-object: match->0, divergence->71, untracked->71, unidentifiabl
+e->71 (4 arms, stub ids)."
+     echo "  origin-endpoint: url+agreeing cache->0, path origin->72, stale cach
+e->72, unreadable endpoint->72 (4 arms, stub args)."
+     echo "  receipt fields: script hash named, endpoint named, planted mismatch
+ names the EXECUTING hash, existing rows unchanged (3 arms, stub values)."
++    echo "  edited: equal->no, different->yes, empty->unknown (not no), pointer
++fast-forward lines verbatim (4 arms, stub values)."
+     exit 0
+   fi
+   echo "SELF-TEST DETAIL: timing=$ok_timing both=$ok_both names=$ok_names confu
+sed=$not_confused" >&2
+   echo "SELF-TEST DETAIL: same-object ok=$so_ok diff=$so_diff untracked=$so_unt
+r blind=$so_blind" >&2
+   echo "SELF-TEST DETAIL: origin-endpoint ok=$oe_ok path=$oe_path stale=$oe_sta
+le blind=$oe_blind" >&2
+   echo "SELF-TEST DETAIL: receipt script=$r_script endpoint=$r_endpoint stub=$r
+_stub ondisk=$r_ondisk ondisk_sha=[$ondisk_sha] hdr=$r_hdr sep=$r_sep row=$r_row
+" >&2
++  echo "SELF-TEST DETAIL: edited equal=$e_equal diff=$e_diff empty_unknown=$e_e
+mpty_unknown empty_no=$e_empty_no pointer=$e_pointer fast_forward=$e_fast_forwar
+d" >&2
+   echo "SELF-TEST FAIL: red rc=$red_rc output=[$red] green rc=$green_rc output=
+[$green]" >&2; exit 3
+ fi
+ branch="${1:?round branch, e.g. sol/phase-6}"
+
+exec
+/bin/bash -lc 'bash bin/land-round.sh --self-test' in /home/jes/sol-cell-receipt
+-edited/wt
+ succeeded in 32ms:
+SELF-TEST PASS: failing gate -> rc 70, push never reached; passing gate -> push
+reached;
+  classifier: timing/both-fail/names outcomes distinct and not confusable (3 arm
+s, stub rcs).
+  same-object: match->0, divergence->71, untracked->71, unidentifiable->71 (4 ar
+ms, stub ids).
+  origin-endpoint: url+agreeing cache->0, path origin->72, stale cache->72, unre
+adable endpoint->72 (4 arms, stub args).
+  receipt fields: script hash named, endpoint named, planted mismatch names the
+EXECUTING hash, existing rows unchanged (3 arms, stub values).
+  edited: equal->no, different->yes, empty->unknown (not no), pointer+fast-forwa
+rd lines verbatim (4 arms, stub values).
+
+diff --git a/bin/land-round.sh b/bin/land-round.sh
+index 94b95512ac30ea4b5aab043128604273f73fad46..87bbcbbc99a8967701ecbf2486cc3407
+dbd60fd7
+--- a/bin/land-round.sh
++++ b/bin/land-round.sh
+@@ -115,6 +115,17 @@
+ # SCRIPT_SHA256 at the top of the main flow), not here.
+ write_receipt() {  # write_receipt <branch> <base> <head> <executed-tree> <gate
+log-sha256> <script-sha256> <precondition-rc> <endpoint-seen> <gate-record-file>
+   local br="$1" base="$2" head="$3" tree="$4" logsha="$5" scriptsha="$6" prc="$
+7" endpoint="$8" record="$9"
++  local tree_scriptsha edited
++  # Deliberately read the tree's script at receipt time rather than accepting a
+nother
++  # caller claim: only then can this comparison observe the file the merge left
+ on disk.
++  tree_scriptsha=$(sha256sum bin/land-round.sh 2>/dev/null | cut -d' ' -f1 || t
+rue)
++  if [ -z "$scriptsha" ] || [ -z "$tree_scriptsha" ]; then
++    edited=unknown
++  elif [ "$scriptsha" = "$tree_scriptsha" ]; then
++    edited=no
++  else
++    edited=yes
++  fi
+   echo "# Landing receipt — $br"
+   echo
+   echo "- round branch: \`$br\`"
+@@ -123,6 +134,9 @@
+   echo "- gates ran on tree: \`$tree\`"
+   echo "- gate log sha256: \`$logsha\`"
+   echo "- executing script sha256: \`$scriptsha\`"
++  echo "- script edited by this round: \`$edited\`"
++  echo "- push authority: see the round's post-landing verification for this la
+nding; standing grant scope is boss's record, verify current"
++  echo "- push: fast-forward only; no --force in the landing path"
+   echo "- origin precondition: rc \`$prc\`"
+   echo "- endpoint main seen at start: \`$endpoint\`"
+   echo "- written by: bin/land-round.sh at $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+@@ -179,6 +193,8 @@
+   rcpt_a1=$(write_receipt sol/stub base0 head0 tree0 log0 aaaa1111 0 bbbb2222 "
+$rcpt_record")
+   ondisk_sha=$(sha256sum bin/land-round.sh 2>/dev/null | cut -d' ' -f1 || true)
+   rcpt_a2=$(write_receipt sol/stub base0 head0 tree0 log0 dddd4444 0 bbbb2222 "
+$rcpt_record")
++  rcpt_e1=$(write_receipt sol/stub base0 head0 tree0 log0 "$ondisk_sha" 0 bbbb2
+222 "$rcpt_record")
++  rcpt_e3=$(write_receipt sol/stub base0 head0 tree0 log0 "" 0 bbbb2222 "$rcpt_
+record")
+   rm -f "$rcpt_record"
+   # ⛔ `|| true` on EVERY count: under `set -e` a zero-match `grep -c` exits 1
+and aborts the
+   # self-test before it can report -- which prints NOTHING and reads as a silen
+t failure. This
+@@ -200,23 +216,35 @@
+   r_hdr=$(echo "$rcpt_a1" | grep -cF '| gate | rc |' || true)
+   r_sep=$(echo "$rcpt_a1" | grep -cF '| --- | --- |' || true)
+   r_row=$(echo "$rcpt_a1" | grep -cF '| `alpha` | 0 |' || true)
++  # E1-E3 keep BLIND distinct from unchanged: an unreadable value can never cer
+tify `no`.
++  e_equal=$(echo "$rcpt_e1" | grep -cF -- '- script edited by this round: `no`'
+ || true)
++  e_diff=$(echo "$rcpt_a2" | grep -cF -- '- script edited by this round: `yes`'
+ || true)
++  e_empty_unknown=$(echo "$rcpt_e3" | grep -cF -- '- script edited by this roun
+d: `unknown`' || true)
++  e_empty_no=$(echo "$rcpt_e3" | grep -cF -- '- script edited by this round: `n
+o`' || true)
++  # E4 checks static tree properties only for exact presence; it cannot establi
+sh authority.
++  e_pointer=$(echo "$rcpt_a1" | grep -cF -- "- push authority: see the round's
+post-landing verification for this landing; standing grant scope is boss's recor
+d, verify current" || true)
++  e_fast_forward=$(echo "$rcpt_a1" | grep -cF -- '- push: fast-forward only; no
+ --force in the landing path' || true)
+   if [ "$red_rc" -eq 70 ] && ! echo "$red" | grep -q REACHED_PUSH && [ "$green_
+rc" -eq 0 ] && echo "$green" | grep -q REACHED_PUSH \
+      && [ "$ok_timing" = 1 ] && [ "$ok_both" = 1 ] && [ "$ok_names" = 1 ] && [
+"$not_confused" = 0 ] \
+      && [ "$so_ok" -eq 0 ] && [ "$so_diff" -eq 71 ] && [ "$so_untr" -eq 71 ] &&
+ [ "$so_blind" -eq 71 ] \
+      && [ "$oe_ok" -eq 0 ] && [ "$oe_path" -eq 72 ] && [ "$oe_stale" -eq 72 ] &
+& [ "$oe_blind" -eq 72 ] \
+      && [ "$r_script" = 1 ] && [ "$r_endpoint" = 1 ] && [ "$r_stub" = 1 ] && [
+"$r_ondisk" = 0 ] \
+-     && [ -n "$ondisk_sha" ] && [ "$r_hdr" = 1 ] && [ "$r_sep" = 1 ] && [ "$r_r
+ow" = 1 ]; then
++     && [ -n "$ondisk_sha" ] && [ "$r_hdr" = 1 ] && [ "$r_sep" = 1 ] && [ "$r_r
+ow" = 1 ] \
++     && [ "$e_equal" = 1 ] && [ "$e_diff" = 1 ] && [ "$e_empty_unknown" = 1 ] &
+& [ "$e_empty_no" = 0 ] \
++     && [ "$e_pointer" = 1 ] && [ "$e_fast_forward" = 1 ]; then
+     echo "SELF-TEST PASS: failing gate -> rc 70, push never reached; passing ga
+te -> push reached;"
+     echo "  classifier: timing/both-fail/names outcomes distinct and not confus
+able (3 arms, stub rcs)."
+     echo "  same-object: match->0, divergence->71, untracked->71, unidentifiabl
+e->71 (4 arms, stub ids)."
+     echo "  origin-endpoint: url+agreeing cache->0, path origin->72, stale cach
+e->72, unreadable endpoint->72 (4 arms, stub args)."
+     echo "  receipt fields: script hash named, endpoint named, planted mismatch
+ names the EXECUTING hash, existing rows unchanged (3 arms, stub values)."
++    echo "  edited: equal->no, different->yes, empty->unknown (not no), pointer
++fast-forward lines verbatim (4 arms, stub values)."
+     exit 0
+   fi
+   echo "SELF-TEST DETAIL: timing=$ok_timing both=$ok_both names=$ok_names confu
+sed=$not_confused" >&2
+   echo "SELF-TEST DETAIL: same-object ok=$so_ok diff=$so_diff untracked=$so_unt
+r blind=$so_blind" >&2
+   echo "SELF-TEST DETAIL: origin-endpoint ok=$oe_ok path=$oe_path stale=$oe_sta
+le blind=$oe_blind" >&2
+   echo "SELF-TEST DETAIL: receipt script=$r_script endpoint=$r_endpoint stub=$r
+_stub ondisk=$r_ondisk ondisk_sha=[$ondisk_sha] hdr=$r_hdr sep=$r_sep row=$r_row
+" >&2
++  echo "SELF-TEST DETAIL: edited equal=$e_equal diff=$e_diff empty_unknown=$e_e
+mpty_unknown empty_no=$e_empty_no pointer=$e_pointer fast_forward=$e_fast_forwar
+d" >&2
+   echo "SELF-TEST FAIL: red rc=$red_rc output=[$red] green rc=$green_rc output=
+[$green]" >&2; exit 3
+ fi
+ branch="${1:?round branch, e.g. sol/phase-6}"
+
+codex
+Both checks pass. I’m doing the final read-only audit now: confirming only `bin/
+land-round.sh` changed and capturing the complete diff for the report.
+exec
+/bin/bash -lc 'git status --short && git diff -- bin/land-round.sh' in /home/jes
+/sol-cell-receipt-edited/wt
+ succeeded in 0ms:
+ M bin/land-round.sh
+diff --git a/bin/land-round.sh b/bin/land-round.sh
+index 94b9551..87bbcbb 100755
+--- a/bin/land-round.sh
++++ b/bin/land-round.sh
+@@ -115,6 +115,17 @@ assert_origin_endpoint() {  # assert_origin_endpoint <origi
+n-url> <cached-sha> <
+ # SCRIPT_SHA256 at the top of the main flow), not here.
+ write_receipt() {  # write_receipt <branch> <base> <head> <executed-tree> <gate
+log-sha256> <script-sha256> <precondition-rc> <endpoint-seen> <gate-record-file>
+   local br="$1" base="$2" head="$3" tree="$4" logsha="$5" scriptsha="$6" prc="$
+7" endpoint="$8" record="$9"
++  local tree_scriptsha edited
++  # Deliberately read the tree's script at receipt time rather than accepting a
+nother
++  # caller claim: only then can this comparison observe the file the merge left
+ on disk.
++  tree_scriptsha=$(sha256sum bin/land-round.sh 2>/dev/null | cut -d' ' -f1 || t
+rue)
++  if [ -z "$scriptsha" ] || [ -z "$tree_scriptsha" ]; then
++    edited=unknown
++  elif [ "$scriptsha" = "$tree_scriptsha" ]; then
++    edited=no
++  else
++    edited=yes
++  fi
+   echo "# Landing receipt — $br"
+   echo
+   echo "- round branch: \`$br\`"
+@@ -123,6 +134,9 @@ write_receipt() {  # write_receipt <branch> <base> <head> <e
+xecuted-tree> <gatel
+   echo "- gates ran on tree: \`$tree\`"
+   echo "- gate log sha256: \`$logsha\`"
+   echo "- executing script sha256: \`$scriptsha\`"
++  echo "- script edited by this round: \`$edited\`"
++  echo "- push authority: see the round's post-landing verification for this la
+nding; standing grant scope is boss's record, verify current"
++  echo "- push: fast-forward only; no --force in the landing path"
+   echo "- origin precondition: rc \`$prc\`"
+   echo "- endpoint main seen at start: \`$endpoint\`"
+   echo "- written by: bin/land-round.sh at $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+@@ -179,6 +193,8 @@ if [ "${1:-}" = "--self-test" ]; then
+   rcpt_a1=$(write_receipt sol/stub base0 head0 tree0 log0 aaaa1111 0 bbbb2222 "
+$rcpt_record")
+   ondisk_sha=$(sha256sum bin/land-round.sh 2>/dev/null | cut -d' ' -f1 || true)
+   rcpt_a2=$(write_receipt sol/stub base0 head0 tree0 log0 dddd4444 0 bbbb2222 "
+$rcpt_record")
++  rcpt_e1=$(write_receipt sol/stub base0 head0 tree0 log0 "$ondisk_sha" 0 bbbb2
+222 "$rcpt_record")
++  rcpt_e3=$(write_receipt sol/stub base0 head0 tree0 log0 "" 0 bbbb2222 "$rcpt_
+record")
+   rm -f "$rcpt_record"
+   # ⛔ `|| true` on EVERY count: under `set -e` a zero-match `grep -c` exits 1
+and aborts the
+   # self-test before it can report -- which prints NOTHING and reads as a silen
+t failure. This
+@@ -200,23 +216,35 @@ if [ "${1:-}" = "--self-test" ]; then
+   r_hdr=$(echo "$rcpt_a1" | grep -cF '| gate | rc |' || true)
+   r_sep=$(echo "$rcpt_a1" | grep -cF '| --- | --- |' || true)
+   r_row=$(echo "$rcpt_a1" | grep -cF '| `alpha` | 0 |' || true)
++  # E1-E3 keep BLIND distinct from unchanged: an unreadable value can never cer
+tify `no`.
++  e_equal=$(echo "$rcpt_e1" | grep -cF -- '- script edited by this round: `no`'
+ || true)
++  e_diff=$(echo "$rcpt_a2" | grep -cF -- '- script edited by this round: `yes`'
+ || true)
++  e_empty_unknown=$(echo "$rcpt_e3" | grep -cF -- '- script edited by this roun
+d: `unknown`' || true)
++  e_empty_no=$(echo "$rcpt_e3" | grep -cF -- '- script edited by this round: `n
+o`' || true)
++  # E4 checks static tree properties only for exact presence; it cannot establi
+sh authority.
++  e_pointer=$(echo "$rcpt_a1" | grep -cF -- "- push authority: see the round's
+post-landing verification for this landing; standing grant scope is boss's recor
+d, verify current" || true)
++  e_fast_forward=$(echo "$rcpt_a1" | grep -cF -- '- push: fast-forward only; no
+ --force in the landing path' || true)
+   if [ "$red_rc" -eq 70 ] && ! echo "$red" | grep -q REACHED_PUSH && [ "$green_
+rc" -eq 0 ] && echo "$green" | grep -q REACHED_PUSH \
+      && [ "$ok_timing" = 1 ] && [ "$ok_both" = 1 ] && [ "$ok_names" = 1 ] && [
+"$not_confused" = 0 ] \
+      && [ "$so_ok" -eq 0 ] && [ "$so_diff" -eq 71 ] && [ "$so_untr" -eq 71 ] &&
+ [ "$so_blind" -eq 71 ] \
+      && [ "$oe_ok" -eq 0 ] && [ "$oe_path" -eq 72 ] && [ "$oe_stale" -eq 72 ] &
+& [ "$oe_blind" -eq 72 ] \
+      && [ "$r_script" = 1 ] && [ "$r_endpoint" = 1 ] && [ "$r_stub" = 1 ] && [
+"$r_ondisk" = 0 ] \
+-     && [ -n "$ondisk_sha" ] && [ "$r_hdr" = 1 ] && [ "$r_sep" = 1 ] && [ "$r_r
+ow" = 1 ]; then
++     && [ -n "$ondisk_sha" ] && [ "$r_hdr" = 1 ] && [ "$r_sep" = 1 ] && [ "$r_r
+ow" = 1 ] \
++     && [ "$e_equal" = 1 ] && [ "$e_diff" = 1 ] && [ "$e_empty_unknown" = 1 ] &
+& [ "$e_empty_no" = 0 ] \
++     && [ "$e_pointer" = 1 ] && [ "$e_fast_forward" = 1 ]; then
+     echo "SELF-TEST PASS: failing gate -> rc 70, push never reached; passing ga
+te -> push reached;"
+     echo "  classifier: timing/both-fail/names outcomes distinct and not confus
+able (3 arms, stub rcs)."
+     echo "  same-object: match->0, divergence->71, untracked->71, unidentifiabl
+e->71 (4 arms, stub ids)."
+     echo "  origin-endpoint: url+agreeing cache->0, path origin->72, stale cach
+e->72, unreadable endpoint->72 (4 arms, stub args)."
+     echo "  receipt fields: script hash named, endpoint named, planted mismatch
+ names the EXECUTING hash, existing rows unchanged (3 arms, stub values)."
++    echo "  edited: equal->no, different->yes, empty->unknown (not no), pointer
++fast-forward lines verbatim (4 arms, stub values)."
+     exit 0
+   fi
+   echo "SELF-TEST DETAIL: timing=$ok_timing both=$ok_both names=$ok_names confu
+sed=$not_confused" >&2
+   echo "SELF-TEST DETAIL: same-object ok=$so_ok diff=$so_diff untracked=$so_unt
+r blind=$so_blind" >&2
+   echo "SELF-TEST DETAIL: origin-endpoint ok=$oe_ok path=$oe_path stale=$oe_sta
+le blind=$oe_blind" >&2
+   echo "SELF-TEST DETAIL: receipt script=$r_script endpoint=$r_endpoint stub=$r
+_stub ondisk=$r_ondisk ondisk_sha=[$ondisk_sha] hdr=$r_hdr sep=$r_sep row=$r_row
+" >&2
++  echo "SELF-TEST DETAIL: edited equal=$e_equal diff=$e_diff empty_unknown=$e_e
+mpty_unknown empty_no=$e_empty_no pointer=$e_pointer fast_forward=$e_fast_forwar
+d" >&2
+   echo "SELF-TEST FAIL: red rc=$red_rc output=[$red] green rc=$green_rc output=
+[$green]" >&2; exit 3
+ fi
+ branch="${1:?round branch, e.g. sol/phase-6}"
+
+diff --git a/bin/land-round.sh b/bin/land-round.sh
+index 94b95512ac30ea4b5aab043128604273f73fad46..87bbcbbc99a8967701ecbf2486cc3407
+dbd60fd7
+--- a/bin/land-round.sh
++++ b/bin/land-round.sh
+@@ -115,6 +115,17 @@
+ # SCRIPT_SHA256 at the top of the main flow), not here.
+ write_receipt() {  # write_receipt <branch> <base> <head> <executed-tree> <gate
+log-sha256> <script-sha256> <precondition-rc> <endpoint-seen> <gate-record-file>
+   local br="$1" base="$2" head="$3" tree="$4" logsha="$5" scriptsha="$6" prc="$
+7" endpoint="$8" record="$9"
++  local tree_scriptsha edited
++  # Deliberately read the tree's script at receipt time rather than accepting a
+nother
++  # caller claim: only then can this comparison observe the file the merge left
+ on disk.
++  tree_scriptsha=$(sha256sum bin/land-round.sh 2>/dev/null | cut -d' ' -f1 || t
+rue)
++  if [ -z "$scriptsha" ] || [ -z "$tree_scriptsha" ]; then
++    edited=unknown
++  elif [ "$scriptsha" = "$tree_scriptsha" ]; then
++    edited=no
++  else
++    edited=yes
++  fi
+   echo "# Landing receipt — $br"
+   echo
+   echo "- round branch: \`$br\`"
+@@ -123,6 +134,9 @@
+   echo "- gates ran on tree: \`$tree\`"
+   echo "- gate log sha256: \`$logsha\`"
+   echo "- executing script sha256: \`$scriptsha\`"
++  echo "- script edited by this round: \`$edited\`"
++  echo "- push authority: see the round's post-landing verification for this la
+nding; standing grant scope is boss's record, verify current"
++  echo "- push: fast-forward only; no --force in the landing path"
+   echo "- origin precondition: rc \`$prc\`"
+   echo "- endpoint main seen at start: \`$endpoint\`"
+   echo "- written by: bin/land-round.sh at $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+@@ -179,6 +193,8 @@
+   rcpt_a1=$(write_receipt sol/stub base0 head0 tree0 log0 aaaa1111 0 bbbb2222 "
+$rcpt_record")
+   ondisk_sha=$(sha256sum bin/land-round.sh 2>/dev/null | cut -d' ' -f1 || true)
+   rcpt_a2=$(write_receipt sol/stub base0 head0 tree0 log0 dddd4444 0 bbbb2222 "
+$rcpt_record")
++  rcpt_e1=$(write_receipt sol/stub base0 head0 tree0 log0 "$ondisk_sha" 0 bbbb2
+222 "$rcpt_record")
++  rcpt_e3=$(write_receipt sol/stub base0 head0 tree0 log0 "" 0 bbbb2222 "$rcpt_
+record")
+   rm -f "$rcpt_record"
+   # ⛔ `|| true` on EVERY count: under `set -e` a zero-match `grep -c` exits 1
+and aborts the
+   # self-test before it can report -- which prints NOTHING and reads as a silen
+t failure. This
+@@ -200,23 +216,35 @@
+   r_hdr=$(echo "$rcpt_a1" | grep -cF '| gate | rc |' || true)
+   r_sep=$(echo "$rcpt_a1" | grep -cF '| --- | --- |' || true)
+   r_row=$(echo "$rcpt_a1" | grep -cF '| `alpha` | 0 |' || true)
++  # E1-E3 keep BLIND distinct from unchanged: an unreadable value can never cer
+tify `no`.
++  e_equal=$(echo "$rcpt_e1" | grep -cF -- '- script edited by this round: `no`'
+ || true)
++  e_diff=$(echo "$rcpt_a2" | grep -cF -- '- script edited by this round: `yes`'
+ || true)
++  e_empty_unknown=$(echo "$rcpt_e3" | grep -cF -- '- script edited by this roun
+d: `unknown`' || true)
++  e_empty_no=$(echo "$rcpt_e3" | grep -cF -- '- script edited by this round: `n
+o`' || true)
++  # E4 checks static tree properties only for exact presence; it cannot establi
+sh authority.
++  e_pointer=$(echo "$rcpt_a1" | grep -cF -- "- push authority: see the round's
+post-landing verification for this landing; standing grant scope is boss's recor
+d, verify current" || true)
++  e_fast_forward=$(echo "$rcpt_a1" | grep -cF -- '- push: fast-forward only; no
+ --force in the landing path' || true)
+   if [ "$red_rc" -eq 70 ] && ! echo "$red" | grep -q REACHED_PUSH && [ "$green_
+rc" -eq 0 ] && echo "$green" | grep -q REACHED_PUSH \
+      && [ "$ok_timing" = 1 ] && [ "$ok_both" = 1 ] && [ "$ok_names" = 1 ] && [
+"$not_confused" = 0 ] \
+      && [ "$so_ok" -eq 0 ] && [ "$so_diff" -eq 71 ] && [ "$so_untr" -eq 71 ] &&
+ [ "$so_blind" -eq 71 ] \
+      && [ "$oe_ok" -eq 0 ] && [ "$oe_path" -eq 72 ] && [ "$oe_stale" -eq 72 ] &
+& [ "$oe_blind" -eq 72 ] \
+      && [ "$r_script" = 1 ] && [ "$r_endpoint" = 1 ] && [ "$r_stub" = 1 ] && [
+"$r_ondisk" = 0 ] \
+-     && [ -n "$ondisk_sha" ] && [ "$r_hdr" = 1 ] && [ "$r_sep" = 1 ] && [ "$r_r
+ow" = 1 ]; then
++     && [ -n "$ondisk_sha" ] && [ "$r_hdr" = 1 ] && [ "$r_sep" = 1 ] && [ "$r_r
+ow" = 1 ] \
++     && [ "$e_equal" = 1 ] && [ "$e_diff" = 1 ] && [ "$e_empty_unknown" = 1 ] &
+& [ "$e_empty_no" = 0 ] \
++     && [ "$e_pointer" = 1 ] && [ "$e_fast_forward" = 1 ]; then
+     echo "SELF-TEST PASS: failing gate -> rc 70, push never reached; passing ga
+te -> push reached;"
+     echo "  classifier: timing/both-fail/names outcomes distinct and not confus
+able (3 arms, stub rcs)."
+     echo "  same-object: match->0, divergence->71, untracked->71, unidentifiabl
+e->71 (4 arms, stub ids)."
+     echo "  origin-endpoint: url+agreeing cache->0, path origin->72, stale cach
+e->72, unreadable endpoint->72 (4 arms, stub args)."
+     echo "  receipt fields: script hash named, endpoint named, planted mismatch
+ names the EXECUTING hash, existing rows unchanged (3 arms, stub values)."
++    echo "  edited: equal->no, different->yes, empty->unknown (not no), pointer
++fast-forward lines verbatim (4 arms, stub values)."
+     exit 0
+   fi
+   echo "SELF-TEST DETAIL: timing=$ok_timing both=$ok_both names=$ok_names confu
+sed=$not_confused" >&2
+   echo "SELF-TEST DETAIL: same-object ok=$so_ok diff=$so_diff untracked=$so_unt
+r blind=$so_blind" >&2
+   echo "SELF-TEST DETAIL: origin-endpoint ok=$oe_ok path=$oe_path stale=$oe_sta
+le blind=$oe_blind" >&2
+   echo "SELF-TEST DETAIL: receipt script=$r_script endpoint=$r_endpoint stub=$r
+_stub ondisk=$r_ondisk ondisk_sha=[$ondisk_sha] hdr=$r_hdr sep=$r_sep row=$r_row
+" >&2
++  echo "SELF-TEST DETAIL: edited equal=$e_equal diff=$e_diff empty_unknown=$e_e
+mpty_unknown empty_no=$e_empty_no pointer=$e_pointer fast_forward=$e_fast_forwar
+d" >&2
+   echo "SELF-TEST FAIL: red rc=$red_rc output=[$red] green rc=$green_rc output=
+[$green]" >&2; exit 3
+ fi
+ branch="${1:?round branch, e.g. sol/phase-6}"
+
+codex
+Implemented exactly one uncommitted file change: `bin/land-round.sh`. No branche
+s, commits, pushes, or state-changing Git commands were used.
+
+Verification:
+
+`bash -n bin/land-round.sh`
+
+Output: empty
+Exit code: `0`
+
+`bash bin/land-round.sh --self-test`
+
+```text
+SELF-TEST PASS: failing gate -> rc 70, push never reached; passing gate -> push
+reached;
+  classifier: timing/both-fail/names outcomes distinct and not confusable (3 arm
+s, stub rcs).
+  same-object: match->0, divergence->71, untracked->71, unidentifiable->71 (4 ar
+ms, stub ids).
+  origin-endpoint: url+agreeing cache->0, path origin->72, stale cache->72, unre
+adable endpoint->72 (4 arms, stub args).
+  receipt fields: script hash named, endpoint named, planted mismatch names the
+EXECUTING hash, existing rows unchanged (3 arms, stub values).
+  edited: equal->no, different->yes, empty->unknown (not no), pointer+fast-forwa
+rd lines verbatim (4 arms, stub values).
+```
+
+Exit code: `0`
+
+Complete `git diff`:
+
+```diff
+diff --git a/bin/land-round.sh b/bin/land-round.sh
+index 94b9551..87bbcbb 100755
+--- a/bin/land-round.sh
++++ b/bin/land-round.sh
+@@ -115,6 +115,17 @@ assert_origin_endpoint() {  # assert_origin_endpoint <origi
+n-url> <cached-sha> <
+ # SCRIPT_SHA256 at the top of the main flow), not here.
+ write_receipt() {  # write_receipt <branch> <base> <head> <executed-tree> <gate
+log-sha256> <script-sha256> <precondition-rc> <endpoint-seen> <gate-record-file>
+   local br="$1" base="$2" head="$3" tree="$4" logsha="$5" scriptsha="$6" prc="$
+7" endpoint="$8" record="$9"
++  local tree_scriptsha edited
++  # Deliberately read the tree's script at receipt time rather than accepting a
+nother
++  # caller claim: only then can this comparison observe the file the merge left
+ on disk.
++  tree_scriptsha=$(sha256sum bin/land-round.sh 2>/dev/null | cut -d' ' -f1 || t
+rue)
++  if [ -z "$scriptsha" ] || [ -z "$tree_scriptsha" ]; then
++    edited=unknown
++  elif [ "$scriptsha" = "$tree_scriptsha" ]; then
++    edited=no
++  else
++    edited=yes
++  fi
+   echo "# Landing receipt — $br"
+   echo
+   echo "- round branch: \`$br\`"
+@@ -123,6 +134,9 @@ write_receipt() {  # write_receipt <branch> <base> <head> <e
+xecuted-tree> <gatel
+   echo "- gates ran on tree: \`$tree\`"
+   echo "- gate log sha256: \`$logsha\`"
+   echo "- executing script sha256: \`$scriptsha\`"
++  echo "- script edited by this round: \`$edited\`"
++  echo "- push authority: see the round's post-landing verification for this la
+nding; standing grant scope is boss's record, verify current"
++  echo "- push: fast-forward only; no --force in the landing path"
+   echo "- origin precondition: rc \`$prc\`"
+   echo "- endpoint main seen at start: \`$endpoint\`"
+   echo "- written by: bin/land-round.sh at $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+@@ -179,6 +193,8 @@ if [ "${1:-}" = "--self-test" ]; then
+   rcpt_a1=$(write_receipt sol/stub base0 head0 tree0 log0 aaaa1111 0 bbbb2222 "
+$rcpt_record")
+   ondisk_sha=$(sha256sum bin/land-round.sh 2>/dev/null | cut -d' ' -f1 || true)
+   rcpt_a2=$(write_receipt sol/stub base0 head0 tree0 log0 dddd4444 0 bbbb2222 "
+$rcpt_record")
++  rcpt_e1=$(write_receipt sol/stub base0 head0 tree0 log0 "$ondisk_sha" 0 bbbb2
+222 "$rcpt_record")
++  rcpt_e3=$(write_receipt sol/stub base0 head0 tree0 log0 "" 0 bbbb2222 "$rcpt_
+record")
+   rm -f "$rcpt_record"
+   # ⛔ `|| true` on EVERY count: under `set -e` a zero-match `grep -c` exits 1
+and aborts the
+   # self-test before it can report -- which prints NOTHING and reads as a silen
+t failure. This
+@@ -200,23 +216,35 @@ if [ "${1:-}" = "--self-test" ]; then
+   r_hdr=$(echo "$rcpt_a1" | grep -cF '| gate | rc |' || true)
+   r_sep=$(echo "$rcpt_a1" | grep -cF '| --- | --- |' || true)
+   r_row=$(echo "$rcpt_a1" | grep -cF '| `alpha` | 0 |' || true)
++  # E1-E3 keep BLIND distinct from unchanged: an unreadable value can never cer
+tify `no`.
++  e_equal=$(echo "$rcpt_e1" | grep -cF -- '- script edited by this round: `no`'
+ || true)
++  e_diff=$(echo "$rcpt_a2" | grep -cF -- '- script edited by this round: `yes`'
+ || true)
++  e_empty_unknown=$(echo "$rcpt_e3" | grep -cF -- '- script edited by this roun
+d: `unknown`' || true)
++  e_empty_no=$(echo "$rcpt_e3" | grep -cF -- '- script edited by this round: `n
+o`' || true)
++  # E4 checks static tree properties only for exact presence; it cannot establi
+sh authority.
++  e_pointer=$(echo "$rcpt_a1" | grep -cF -- "- push authority: see the round's
+post-landing verification for this landing; standing grant scope is boss's recor
+d, verify current" || true)
++  e_fast_forward=$(echo "$rcpt_a1" | grep -cF -- '- push: fast-forward only; no
+ --force in the landing path' || true)
+   if [ "$red_rc" -eq 70 ] && ! echo "$red" | grep -q REACHED_PUSH && [ "$green_
+rc" -eq 0 ] && echo "$green" | grep -q REACHED_PUSH \
+      && [ "$ok_timing" = 1 ] && [ "$ok_both" = 1 ] && [ "$ok_names" = 1 ] && [
+"$not_confused" = 0 ] \
+      && [ "$so_ok" -eq 0 ] && [ "$so_diff" -eq 71 ] && [ "$so_untr" -eq 71 ] &&
+ [ "$so_blind" -eq 71 ] \
+      && [ "$oe_ok" -eq 0 ] && [ "$oe_path" -eq 72 ] && [ "$oe_stale" -eq 72 ] &
+& [ "$oe_blind" -eq 72 ] \
+      && [ "$r_script" = 1 ] && [ "$r_endpoint" = 1 ] && [ "$r_stub" = 1 ] && [
+"$r_ondisk" = 0 ] \
+-     && [ -n "$ondisk_sha" ] && [ "$r_hdr" = 1 ] && [ "$r_sep" = 1 ] && [ "$r_r
+ow" = 1 ]; then
++     && [ -n "$ondisk_sha" ] && [ "$r_hdr" = 1 ] && [ "$r_sep" = 1 ] && [ "$r_r
+ow" = 1 ] \
++     && [ "$e_equal" = 1 ] && [ "$e_diff" = 1 ] && [ "$e_empty_unknown" = 1 ] &
+& [ "$e_empty_no" = 0 ] \
++     && [ "$e_pointer" = 1 ] && [ "$e_fast_forward" = 1 ]; then
+     echo "SELF-TEST PASS: failing gate -> rc 70, push never reached; passing ga
+te -> push reached;"
+     echo "  classifier: timing/both-fail/names outcomes distinct and not confus
+able (3 arms, stub rcs)."
+     echo "  same-object: match->0, divergence->71, untracked->71, unidentifiabl
+e->71 (4 arms, stub ids)."
+     echo "  origin-endpoint: url+agreeing cache->0, path origin->72, stale cach
+e->72, unreadable endpoint->72 (4 arms, stub args)."
+     echo "  receipt fields: script hash named, endpoint named, planted mismatch
+ names the EXECUTING hash, existing rows unchanged (3 arms, stub values)."
++    echo "  edited: equal->no, different->yes, empty->unknown (not no), pointer
++fast-forward lines verbatim (4 arms, stub values)."
+     exit 0
+   fi
+   echo "SELF-TEST DETAIL: timing=$ok_timing both=$ok_both names=$ok_names confu
+sed=$not_confused" >&2
+   echo "SELF-TEST DETAIL: same-object ok=$so_ok diff=$so_diff untracked=$so_unt
+r blind=$so_blind" >&2
+   echo "SELF-TEST DETAIL: origin-endpoint ok=$oe_ok path=$oe_path stale=$oe_sta
+le blind=$oe_blind" >&2
+   echo "SELF-TEST DETAIL: receipt script=$r_script endpoint=$r_endpoint stub=$r
+_stub ondisk=$r_ondisk ondisk_sha=[$ondisk_sha] hdr=$r_hdr sep=$r_sep row=$r_row
+" >&2
++  echo "SELF-TEST DETAIL: edited equal=$e_equal diff=$e_diff empty_unknown=$e_e
+mpty_unknown empty_no=$e_empty_no pointer=$e_pointer fast_forward=$e_fast_forwar
+d" >&2
+   echo "SELF-TEST FAIL: red rc=$red_rc output=[$red] green rc=$green_rc output=
+[$green]" >&2; exit 3
+ fi
+ branch="${1:?round branch, e.g. sol/phase-6}"
+```
+diff --git a/bin/land-round.sh b/bin/land-round.sh
+index 94b95512ac30ea4b5aab043128604273f73fad46..87bbcbbc99a8967701ecbf2486cc3407
+dbd60fd7
+--- a/bin/land-round.sh
++++ b/bin/land-round.sh
+@@ -115,6 +115,17 @@
+ # SCRIPT_SHA256 at the top of the main flow), not here.
+ write_receipt() {  # write_receipt <branch> <base> <head> <executed-tree> <gate
+log-sha256> <script-sha256> <precondition-rc> <endpoint-seen> <gate-record-file>
+   local br="$1" base="$2" head="$3" tree="$4" logsha="$5" scriptsha="$6" prc="$
+7" endpoint="$8" record="$9"
++  local tree_scriptsha edited
++  # Deliberately read the tree's script at receipt time rather than accepting a
+nother
++  # caller claim: only then can this comparison observe the file the merge left
+ on disk.
++  tree_scriptsha=$(sha256sum bin/land-round.sh 2>/dev/null | cut -d' ' -f1 || t
+rue)
++  if [ -z "$scriptsha" ] || [ -z "$tree_scriptsha" ]; then
++    edited=unknown
++  elif [ "$scriptsha" = "$tree_scriptsha" ]; then
++    edited=no
++  else
++    edited=yes
++  fi
+   echo "# Landing receipt — $br"
+   echo
+   echo "- round branch: \`$br\`"
+@@ -123,6 +134,9 @@
+   echo "- gates ran on tree: \`$tree\`"
+   echo "- gate log sha256: \`$logsha\`"
+   echo "- executing script sha256: \`$scriptsha\`"
++  echo "- script edited by this round: \`$edited\`"
++  echo "- push authority: see the round's post-landing verification for this la
+nding; standing grant scope is boss's record, verify current"
++  echo "- push: fast-forward only; no --force in the landing path"
+   echo "- origin precondition: rc \`$prc\`"
+   echo "- endpoint main seen at start: \`$endpoint\`"
+   echo "- written by: bin/land-round.sh at $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+@@ -179,6 +193,8 @@
+   rcpt_a1=$(write_receipt sol/stub base0 head0 tree0 log0 aaaa1111 0 bbbb2222 "
+$rcpt_record")
+   ondisk_sha=$(sha256sum bin/land-round.sh 2>/dev/null | cut -d' ' -f1 || true)
+   rcpt_a2=$(write_receipt sol/stub base0 head0 tree0 log0 dddd4444 0 bbbb2222 "
+$rcpt_record")
++  rcpt_e1=$(write_receipt sol/stub base0 head0 tree0 log0 "$ondisk_sha" 0 bbbb2
+222 "$rcpt_record")
++  rcpt_e3=$(write_receipt sol/stub base0 head0 tree0 log0 "" 0 bbbb2222 "$rcpt_
+record")
+   rm -f "$rcpt_record"
+   # ⛔ `|| true` on EVERY count: under `set -e` a zero-match `grep -c` exits 1
+and aborts the
+   # self-test before it can report -- which prints NOTHING and reads as a silen
+t failure. This
+@@ -200,23 +216,35 @@
+   r_hdr=$(echo "$rcpt_a1" | grep -cF '| gate | rc |' || true)
+   r_sep=$(echo "$rcpt_a1" | grep -cF '| --- | --- |' || true)
+   r_row=$(echo "$rcpt_a1" | grep -cF '| `alpha` | 0 |' || true)
++  # E1-E3 keep BLIND distinct from unchanged: an unreadable value can never cer
+tify `no`.
++  e_equal=$(echo "$rcpt_e1" | grep -cF -- '- script edited by this round: `no`'
+ || true)
++  e_diff=$(echo "$rcpt_a2" | grep -cF -- '- script edited by this round: `yes`'
+ || true)
++  e_empty_unknown=$(echo "$rcpt_e3" | grep -cF -- '- script edited by this roun
+d: `unknown`' || true)
++  e_empty_no=$(echo "$rcpt_e3" | grep -cF -- '- script edited by this round: `n
+o`' || true)
++  # E4 checks static tree properties only for exact presence; it cannot establi
+sh authority.
++  e_pointer=$(echo "$rcpt_a1" | grep -cF -- "- push authority: see the round's
+post-landing verification for this landing; standing grant scope is boss's recor
+d, verify current" || true)
++  e_fast_forward=$(echo "$rcpt_a1" | grep -cF -- '- push: fast-forward only; no
+ --force in the landing path' || true)
+   if [ "$red_rc" -eq 70 ] && ! echo "$red" | grep -q REACHED_PUSH && [ "$green_
+rc" -eq 0 ] && echo "$green" | grep -q REACHED_PUSH \
+      && [ "$ok_timing" = 1 ] && [ "$ok_both" = 1 ] && [ "$ok_names" = 1 ] && [
+"$not_confused" = 0 ] \
+      && [ "$so_ok" -eq 0 ] && [ "$so_diff" -eq 71 ] && [ "$so_untr" -eq 71 ] &&
+ [ "$so_blind" -eq 71 ] \
+      && [ "$oe_ok" -eq 0 ] && [ "$oe_path" -eq 72 ] && [ "$oe_stale" -eq 72 ] &
+& [ "$oe_blind" -eq 72 ] \
+      && [ "$r_script" = 1 ] && [ "$r_endpoint" = 1 ] && [ "$r_stub" = 1 ] && [
+"$r_ondisk" = 0 ] \
+-     && [ -n "$ondisk_sha" ] && [ "$r_hdr" = 1 ] && [ "$r_sep" = 1 ] && [ "$r_r
+ow" = 1 ]; then
++     && [ -n "$ondisk_sha" ] && [ "$r_hdr" = 1 ] && [ "$r_sep" = 1 ] && [ "$r_r
+ow" = 1 ] \
++     && [ "$e_equal" = 1 ] && [ "$e_diff" = 1 ] && [ "$e_empty_unknown" = 1 ] &
+& [ "$e_empty_no" = 0 ] \
++     && [ "$e_pointer" = 1 ] && [ "$e_fast_forward" = 1 ]; then
+     echo "SELF-TEST PASS: failing gate -> rc 70, push never reached; passing ga
+te -> push reached;"
+     echo "  classifier: timing/both-fail/names outcomes distinct and not confus
+able (3 arms, stub rcs)."
+     echo "  same-object: match->0, divergence->71, untracked->71, unidentifiabl
+e->71 (4 arms, stub ids)."
+     echo "  origin-endpoint: url+agreeing cache->0, path origin->72, stale cach
+e->72, unreadable endpoint->72 (4 arms, stub args)."
+     echo "  receipt fields: script hash named, endpoint named, planted mismatch
+ names the EXECUTING hash, existing rows unchanged (3 arms, stub values)."
++    echo "  edited: equal->no, different->yes, empty->unknown (not no), pointer
++fast-forward lines verbatim (4 arms, stub values)."
+     exit 0
+   fi
+   echo "SELF-TEST DETAIL: timing=$ok_timing both=$ok_both names=$ok_names confu
+sed=$not_confused" >&2
+   echo "SELF-TEST DETAIL: same-object ok=$so_ok diff=$so_diff untracked=$so_unt
+r blind=$so_blind" >&2
+   echo "SELF-TEST DETAIL: origin-endpoint ok=$oe_ok path=$oe_path stale=$oe_sta
+le blind=$oe_blind" >&2
+   echo "SELF-TEST DETAIL: receipt script=$r_script endpoint=$r_endpoint stub=$r
+_stub ondisk=$r_ondisk ondisk_sha=[$ondisk_sha] hdr=$r_hdr sep=$r_sep row=$r_row
+" >&2
++  echo "SELF-TEST DETAIL: edited equal=$e_equal diff=$e_diff empty_unknown=$e_e
+mpty_unknown empty_no=$e_empty_no pointer=$e_pointer fast_forward=$e_fast_forwar
+d" >&2
+   echo "SELF-TEST FAIL: red rc=$red_rc output=[$red] green rc=$green_rc output=
+[$green]" >&2; exit 3
+ fi
+ branch="${1:?round branch, e.g. sol/phase-6}"
+
+tokens used
+24,037
+Implemented exactly one uncommitted file change: `bin/land-round.sh`. No branche
+s, commits, pushes, or state-changing Git commands were used.
+
+Verification:
+
+`bash -n bin/land-round.sh`
+
+Output: empty
+Exit code: `0`
+
+`bash bin/land-round.sh --self-test`
+
+```text
+SELF-TEST PASS: failing gate -> rc 70, push never reached; passing gate -> push
+reached;
+  classifier: timing/both-fail/names outcomes distinct and not confusable (3 arm
+s, stub rcs).
+  same-object: match->0, divergence->71, untracked->71, unidentifiable->71 (4 ar
+ms, stub ids).
+  origin-endpoint: url+agreeing cache->0, path origin->72, stale cache->72, unre
+adable endpoint->72 (4 arms, stub args).
+  receipt fields: script hash named, endpoint named, planted mismatch names the
+EXECUTING hash, existing rows unchanged (3 arms, stub values).
+  edited: equal->no, different->yes, empty->unknown (not no), pointer+fast-forwa
+rd lines verbatim (4 arms, stub values).
+```
+
+Exit code: `0`
+
+Complete `git diff`:
+
+```diff
+diff --git a/bin/land-round.sh b/bin/land-round.sh
+index 94b9551..87bbcbb 100755
+--- a/bin/land-round.sh
++++ b/bin/land-round.sh
+@@ -115,6 +115,17 @@ assert_origin_endpoint() {  # assert_origin_endpoint <origi
+n-url> <cached-sha> <
+ # SCRIPT_SHA256 at the top of the main flow), not here.
+ write_receipt() {  # write_receipt <branch> <base> <head> <executed-tree> <gate
+log-sha256> <script-sha256> <precondition-rc> <endpoint-seen> <gate-record-file>
+   local br="$1" base="$2" head="$3" tree="$4" logsha="$5" scriptsha="$6" prc="$
+7" endpoint="$8" record="$9"
++  local tree_scriptsha edited
++  # Deliberately read the tree's script at receipt time rather than accepting a
+nother
++  # caller claim: only then can this comparison observe the file the merge left
+ on disk.
++  tree_scriptsha=$(sha256sum bin/land-round.sh 2>/dev/null | cut -d' ' -f1 || t
+rue)
++  if [ -z "$scriptsha" ] || [ -z "$tree_scriptsha" ]; then
++    edited=unknown
++  elif [ "$scriptsha" = "$tree_scriptsha" ]; then
++    edited=no
++  else
++    edited=yes
++  fi
+   echo "# Landing receipt — $br"
+   echo
+   echo "- round branch: \`$br\`"
+@@ -123,6 +134,9 @@ write_receipt() {  # write_receipt <branch> <base> <head> <e
+xecuted-tree> <gatel
+   echo "- gates ran on tree: \`$tree\`"
+   echo "- gate log sha256: \`$logsha\`"
+   echo "- executing script sha256: \`$scriptsha\`"
++  echo "- script edited by this round: \`$edited\`"
++  echo "- push authority: see the round's post-landing verification for this la
+nding; standing grant scope is boss's record, verify current"
++  echo "- push: fast-forward only; no --force in the landing path"
+   echo "- origin precondition: rc \`$prc\`"
+   echo "- endpoint main seen at start: \`$endpoint\`"
+   echo "- written by: bin/land-round.sh at $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+@@ -179,6 +193,8 @@ if [ "${1:-}" = "--self-test" ]; then
+   rcpt_a1=$(write_receipt sol/stub base0 head0 tree0 log0 aaaa1111 0 bbbb2222 "
+$rcpt_record")
+   ondisk_sha=$(sha256sum bin/land-round.sh 2>/dev/null | cut -d' ' -f1 || true)
+   rcpt_a2=$(write_receipt sol/stub base0 head0 tree0 log0 dddd4444 0 bbbb2222 "
+$rcpt_record")
++  rcpt_e1=$(write_receipt sol/stub base0 head0 tree0 log0 "$ondisk_sha" 0 bbbb2
+222 "$rcpt_record")
++  rcpt_e3=$(write_receipt sol/stub base0 head0 tree0 log0 "" 0 bbbb2222 "$rcpt_
+record")
+   rm -f "$rcpt_record"
+   # ⛔ `|| true` on EVERY count: under `set -e` a zero-match `grep -c` exits 1
+and aborts the
+   # self-test before it can report -- which prints NOTHING and reads as a silen
+t failure. This
+@@ -200,23 +216,35 @@ if [ "${1:-}" = "--self-test" ]; then
+   r_hdr=$(echo "$rcpt_a1" | grep -cF '| gate | rc |' || true)
+   r_sep=$(echo "$rcpt_a1" | grep -cF '| --- | --- |' || true)
+   r_row=$(echo "$rcpt_a1" | grep -cF '| `alpha` | 0 |' || true)
++  # E1-E3 keep BLIND distinct from unchanged: an unreadable value can never cer
+tify `no`.
++  e_equal=$(echo "$rcpt_e1" | grep -cF -- '- script edited by this round: `no`'
+ || true)
++  e_diff=$(echo "$rcpt_a2" | grep -cF -- '- script edited by this round: `yes`'
+ || true)
++  e_empty_unknown=$(echo "$rcpt_e3" | grep -cF -- '- script edited by this roun
+d: `unknown`' || true)
++  e_empty_no=$(echo "$rcpt_e3" | grep -cF -- '- script edited by this round: `n
+o`' || true)
++  # E4 checks static tree properties only for exact presence; it cannot establi
+sh authority.
++  e_pointer=$(echo "$rcpt_a1" | grep -cF -- "- push authority: see the round's
+post-landing verification for this landing; standing grant scope is boss's recor
+d, verify current" || true)
++  e_fast_forward=$(echo "$rcpt_a1" | grep -cF -- '- push: fast-forward only; no
+ --force in the landing path' || true)
+   if [ "$red_rc" -eq 70 ] && ! echo "$red" | grep -q REACHED_PUSH && [ "$green_
+rc" -eq 0 ] && echo "$green" | grep -q REACHED_PUSH \
+      && [ "$ok_timing" = 1 ] && [ "$ok_both" = 1 ] && [ "$ok_names" = 1 ] && [
+"$not_confused" = 0 ] \
+      && [ "$so_ok" -eq 0 ] && [ "$so_diff" -eq 71 ] && [ "$so_untr" -eq 71 ] &&
+ [ "$so_blind" -eq 71 ] \
+      && [ "$oe_ok" -eq 0 ] && [ "$oe_path" -eq 72 ] && [ "$oe_stale" -eq 72 ] &
+& [ "$oe_blind" -eq 72 ] \
+      && [ "$r_script" = 1 ] && [ "$r_endpoint" = 1 ] && [ "$r_stub" = 1 ] && [
+"$r_ondisk" = 0 ] \
+-     && [ -n "$ondisk_sha" ] && [ "$r_hdr" = 1 ] && [ "$r_sep" = 1 ] && [ "$r_r
+ow" = 1 ]; then
++     && [ -n "$ondisk_sha" ] && [ "$r_hdr" = 1 ] && [ "$r_sep" = 1 ] && [ "$r_r
+ow" = 1 ] \
++     && [ "$e_equal" = 1 ] && [ "$e_diff" = 1 ] && [ "$e_empty_unknown" = 1 ] &
+& [ "$e_empty_no" = 0 ] \
++     && [ "$e_pointer" = 1 ] && [ "$e_fast_forward" = 1 ]; then
+     echo "SELF-TEST PASS: failing gate -> rc 70, push never reached; passing ga
+te -> push reached;"
+     echo "  classifier: timing/both-fail/names outcomes distinct and not confus
+able (3 arms, stub rcs)."
+     echo "  same-object: match->0, divergence->71, untracked->71, unidentifiabl
+e->71 (4 arms, stub ids)."
+     echo "  origin-endpoint: url+agreeing cache->0, path origin->72, stale cach
+e->72, unreadable endpoint->72 (4 arms, stub args)."
+     echo "  receipt fields: script hash named, endpoint named, planted mismatch
+ names the EXECUTING hash, existing rows unchanged (3 arms, stub values)."
++    echo "  edited: equal->no, different->yes, empty->unknown (not no), pointer
++fast-forward lines verbatim (4 arms, stub values)."
+     exit 0
+   fi
+   echo "SELF-TEST DETAIL: timing=$ok_timing both=$ok_both names=$ok_names confu
+sed=$not_confused" >&2
+   echo "SELF-TEST DETAIL: same-object ok=$so_ok diff=$so_diff untracked=$so_unt
+r blind=$so_blind" >&2
+   echo "SELF-TEST DETAIL: origin-endpoint ok=$oe_ok path=$oe_path stale=$oe_sta
+le blind=$oe_blind" >&2
+   echo "SELF-TEST DETAIL: receipt script=$r_script endpoint=$r_endpoint stub=$r
+_stub ondisk=$r_ondisk ondisk_sha=[$ondisk_sha] hdr=$r_hdr sep=$r_sep row=$r_row
+" >&2
++  echo "SELF-TEST DETAIL: edited equal=$e_equal diff=$e_diff empty_unknown=$e_e
+mpty_unknown empty_no=$e_empty_no pointer=$e_pointer fast_forward=$e_fast_forwar
+d" >&2
+   echo "SELF-TEST FAIL: red rc=$red_rc output=[$red] green rc=$green_rc output=
+[$green]" >&2; exit 3
+ fi
+ branch="${1:?round branch, e.g. sol/phase-6}"
+```
+=== sol EXITED rc=0 ===
+

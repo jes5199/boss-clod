@@ -1,0 +1,1922 @@
++    keys == Enum.sort([:audience | @required_options]) or
++      (Keyword.get(options, :provider) == :workos and
++         keys == Enum.sort([:provider | @required_options]))
++  end
++
++  defp valid_audience?(:cloudflare_access, audience), do: valid_text?(audience)
++  defp valid_audience?(:workos, nil), do: true
++  defp valid_audience?(_provider, _audience), do: false
++
+   defp decode_compact(compact_jwt) when is_binary(compact_jwt) do
+     cond do
+       byte_size(compact_jwt) > @assertion_max_bytes -> {:error, :assertion_too_
+large}
+@@ -282,13 +297,12 @@
+
+   defp validate_claims(payload, options) when is_map(payload) do
+     with :ok <- exact_claim(payload, "iss", options.issuer, :issuer_mismatch),
+-         :ok <- validate_audience(payload, options.audience),
+-         :ok <- exact_claim(payload, "type", "app", :type_mismatch),
++         :ok <- validate_provider_claims(payload, options),
+          {:ok, subject} <- validate_subject(Map.get(payload, "sub")),
+          {:ok, iat} <- integer_claim(payload, "iat"),
+-         {:ok, nbf} <- integer_claim(payload, "nbf"),
++         {:ok, nbf} <- not_before(payload, options.provider, iat),
+          {:ok, exp} <- integer_claim(payload, "exp"),
+-         :ok <- validate_temporal(iat, nbf, exp, options.now),
++         :ok <- validate_temporal(iat, nbf, exp, options.now, options.provider)
+,
+          :ok <- validate_lifetime(iat, exp, options.max_lifetime_seconds) do
+       {:ok, %{issuer: options.issuer, subject: subject, iat: iat, exp: exp}}
+     end
+@@ -296,6 +310,18 @@
+
+   defp validate_claims(_payload, _options), do: {:error, :invalid_payload}
+
++  defp validate_provider_claims(payload, %{provider: :cloudflare_access, audien
+ce: audience}) do
++    with :ok <- validate_audience(payload, audience),
++         :ok <- exact_claim(payload, "type", "app", :type_mismatch),
++         do: :ok
++  end
++
++  # WorkOS access tokens carry neither aud nor the Cloudflare-specific type cla
+im.
++  defp validate_provider_claims(_payload, %{provider: :workos}), do: :ok
++
++  defp not_before(payload, :cloudflare_access, _iat), do: integer_claim(payload
+, "nbf")
++  defp not_before(_payload, :workos, iat), do: {:ok, iat}
++
+   defp exact_claim(claims, key, expected, error) do
+     if Map.get(claims, key) === expected, do: :ok, else: {:error, error}
+   end
+@@ -329,7 +355,10 @@
+     end
+   end
+
+-  defp validate_temporal(iat, nbf, exp, now) do
++  defp validate_temporal(_iat, _nbf, exp, now, :workos) when exp <= now,
++    do: {:error, :expired}
++
++  defp validate_temporal(iat, nbf, exp, now, _provider) do
+     if nbf <= now and iat <= now and exp > now do
+       :ok
+     else
+@@ -347,7 +376,9 @@
+     end
+   end
+
+-  defp normalize_email(claims) do
++  defp normalize_email(_claims, :workos), do: {:ok, nil}
++
++  defp normalize_email(claims, :cloudflare_access) do
+     case Map.fetch(claims, "email") do
+       :error ->
+         {:ok, nil}
+diff --git a/lib/commonplace_next/cloudflare_access/authenticated_human.ex b/lib
+/commonplace_next/cloudflare_access/authenticated_human.ex
+index 04c666b736ed3a663db47926f517bdbff6244a33..89aae7d82aac373dd91685045179f4bc
+630479ab
+--- a/lib/commonplace_next/cloudflare_access/authenticated_human.ex
++++ b/lib/commonplace_next/cloudflare_access/authenticated_human.ex
+@@ -1,21 +1,21 @@
+ defmodule CommonplaceNext.CloudflareAccess.AuthenticatedHuman do
+   @moduledoc """
+-  The provider-neutral, inert result of a verified Cloudflare Access assertion.
++  The provider-neutral, inert result of a verified human identity assertion.
+
+   This struct deliberately contains no assertion bytes, arbitrary claims, login
+,
+   session, or authorization state.
+   """
+
+-  @enforce_keys [:provider, :issuer, :subject, :email, :asserted_at, :expires_a
+t, :audience]
++  @enforce_keys [:provider, :issuer, :subject, :email, :asserted_at, :expires_a
+t]
+   defstruct [:provider, :issuer, :subject, :email, :asserted_at, :expires_at, :
+audience]
+
+   @type t :: %__MODULE__{
+-          provider: :cloudflare_access,
++          provider: :cloudflare_access | :workos,
+           issuer: binary(),
+           subject: binary(),
+           email: binary() | nil,
+           asserted_at: DateTime.t(),
+           expires_at: DateTime.t(),
+-          audience: binary()
++          audience: binary() | nil
+         }
+ end
+diff --git a/lib/commonplace_next/cloudflare_access/key_source.ex b/lib/commonpl
+ace_next/cloudflare_access/key_source.ex
+index bb2fddf8bdd449066c7b551ff3ed625a1e1d5e24..f1df68f6e352034231ba8a9bc187789f
+ca70e4c0
+--- a/lib/commonplace_next/cloudflare_access/key_source.ex
++++ b/lib/commonplace_next/cloudflare_access/key_source.ex
+@@ -99,7 +99,14 @@
+   """
+   @spec fetch_key(binary()) :: {:ok, JOSE.JWK.t()} | {:error, :unknown_kid | :r
+efresh_bounded}
+   def fetch_key(kid) when is_binary(kid) do
+-    GenServer.call(@name, {:fetch_key, kid}, @call_timeout)
++    fetch_key(kid, @name)
++  end
++
++  def fetch_key(_kid), do: {:error, :unknown_kid}
++
++  @doc false
++  def fetch_key(kid, name) when is_binary(kid) and is_atom(name) do
++    GenServer.call(name, {:fetch_key, kid}, @call_timeout)
+   catch
+     # ⛔ A `GenServer.call` to an absent name EXITS the caller. The caller here
+ is a web request
+     # (or, in test, a process deliberately running with no KeySource at all), a
+nd neither should
+@@ -108,7 +115,7 @@
+     :exit, _reason -> {:error, :unknown_kid}
+   end
+
+-  def fetch_key(_kid), do: {:error, :unknown_kid}
++  def fetch_key(_kid, _name), do: {:error, :unknown_kid}
+
+   @doc """
+   A resolver closure for `CommonplaceNext.CloudflareAccess.AssertionVerifier`.
+@@ -120,6 +127,9 @@
+   @spec resolver() :: (binary() -> {:ok, JOSE.JWK.t()} | {:error, term()})
+   def resolver, do: fn kid -> fetch_key(kid) end
+
++  @doc false
++  def resolver(name) when is_atom(name), do: fn kid -> fetch_key(kid, name) end
++
+   @impl true
+   def init(options) do
+     config = Keyword.merge(config(), options)
+diff --git a/lib/commonplace_next/web/router.ex b/lib/commonplace_next/web/route
+r.ex
+index 4e63169835f664db079f1f8cd29cd44928b192b5..5cf89890557362ccb186cf7cb0198d5c
+e928303f
+--- a/lib/commonplace_next/web/router.ex
++++ b/lib/commonplace_next/web/router.ex
+@@ -3,7 +3,12 @@
+
+   use Phoenix.Router
+
+-  alias CommonplaceNext.Web.{AccessAuthentication, OrganizationCoordinate, Page
+Controller}
++  alias CommonplaceNext.Web.{
++    AccessAuthentication,
++    OrganizationCoordinate,
++    PageController,
++    WorkOSController
++  }
+
+   def render(template, _assigns), do: template
+
+@@ -19,6 +24,17 @@
+     plug(AccessAuthentication)
+   end
+
++  pipeline :workos_browser do
++    plug(:fetch_session)
++  end
++
++  scope "/auth/workos" do
++    pipe_through(:workos_browser)
++
++    get("/", WorkOSController, :login)
++    get("/callback", WorkOSController, :callback)
++  end
++
+   scope "/" do
+     pipe_through(:browser)
+
+diff --git a/lib/commonplace_next/web/session.ex b/lib/commonplace_next/web/sess
+ion.ex
+index 6595e2c5e7da8db3eb5118bb401a57df86ec9293..138478a3723f3d94922d2536f8dd021e
+4450f5d9
+--- a/lib/commonplace_next/web/session.ex
++++ b/lib/commonplace_next/web/session.ex
+@@ -43,8 +43,16 @@
+   removed nothing; `R11a` removed the other door, and this is now the only way
+in.
+   """
+   def authenticate(conn) do
+-    with {:ok, human} <- AccessAuthentication.verified_human(conn),
+-         {:ok, login} <- AccessAuthentication.login(human),
++    with {:ok, human} <- AccessAuthentication.verified_human(conn) do
++      establish(conn, human)
++    else
++      _unauthenticated -> conn
++    end
++  end
++
++  @doc "Establishes the one application session for an already verified human."
++  def establish(conn, human) do
++    with {:ok, login} <- AccessAuthentication.login(human),
+          {:ok, entry} <- resolve_entry(login),
+          true <- placed?(entry) do
+       # ⭐ D1's OTHER HALF, and it is an observation rather than a store: this
+identity resolves a
+diff --git a/lib/commonplace_next/web/work_os_controller.ex b/lib/commonplace_ne
+xt/web/work_os_controller.ex
+new file mode 100644
+index 0000000000000000000000000000000000000000..ddb78dcba6a190ff47c3449d6cc02e6f
+86df7e82
+--- /dev/null
++++ b/lib/commonplace_next/web/work_os_controller.ex
+@@ -0,0 +1,70 @@
++defmodule CommonplaceNext.Web.WorkOSController do
++  @moduledoc "The two browser endpoints of the hosted WorkOS AuthKit flow."
++
++  import Plug.Conn
++
++  alias CommonplaceNext.CloudflareAccess.AuthenticatedHuman
++  alias CommonplaceNext.Web.Session
++  alias CommonplaceNext.WorkOS.{KeySource, Login}
++
++  @state_session_key :workos_state
++  @nonce_session_key :workos_nonce
++
++  def init(action), do: action
++  def call(conn, action), do: apply(__MODULE__, action, [conn, conn.params])
++
++  def login(conn, _params) do
++    if Login.configured?() do
++      state = random_value()
++      nonce = random_value()
++
++      conn
++      |> put_session(@state_session_key, state)
++      |> put_session(@nonce_session_key, nonce)
++      |> put_resp_header("location", Login.authorize_url(state, nonce))
++      |> send_resp(302, "")
++    else
++      refuse(conn, 404, :not_configured)
++    end
++  end
++
++  def callback(conn, params) do
++    if Login.configured?() do
++      configured_callback(conn, params)
++    else
++      refuse(conn, 404, :not_configured)
++    end
++  end
++
++  defp configured_callback(conn, params) do
++    expected_state = get_session(conn, @state_session_key)
++
++    conn =
++      conn
++      |> delete_session(@state_session_key)
++      |> delete_session(@nonce_session_key)
++
++    with :ok <- matching_state(expected_state, Map.get(params, "state")),
++         {:ok, exchange} <- Login.exchange(Map.get(params, "code")),
++         {:ok, %AuthenticatedHuman{} = human} <-
++           Login.verify(exchange, KeySource.resolver(), Login.issuer()) do
++      conn
++      |> Session.establish(human)
++      |> put_resp_header("location", "/")
++      |> send_resp(302, "")
++    else
++      {:error, reason} -> refuse(conn, 401, reason)
++      _ -> refuse(conn, 401, :invalid_token)
++    end
++  end
++
++  defp matching_state(expected, actual)
++       when is_binary(expected) and expected != "" and expected == actual,
++       do: :ok
++
++  defp matching_state(_expected, _actual), do: {:error, :state_mismatch}
++
++  defp random_value, do: 32 |> :crypto.strong_rand_bytes() |> Base.url_encode64
+(padding: false)
++
++  defp refuse(conn, status, reason), do: send_resp(conn, status, Atom.to_string
+(reason))
++end
+diff --git a/lib/commonplace_next/work_os/key_source.ex b/lib/commonplace_next/w
+ork_os/key_source.ex
+new file mode 100644
+index 0000000000000000000000000000000000000000..9860696b613bd56a93cda80a88520e33
+be47963d
+--- /dev/null
++++ b/lib/commonplace_next/work_os/key_source.ex
+@@ -0,0 +1,23 @@
++defmodule CommonplaceNext.WorkOS.KeySource do
++  @moduledoc "The WorkOS-named instance of the shared kid-indexed JWKS cache."
++
++  alias CommonplaceNext.CloudflareAccess.KeySource, as: SharedKeySource
++
++  @name __MODULE__
++
++  def child_spec(options) do
++    %{id: __MODULE__, start: {SharedKeySource, :start_link, [Keyword.put(option
+s, :name, @name)]}}
++  end
++
++  def configured? do
++    case Keyword.get(configuration(), :jwks_uri) do
++      uri when is_binary(uri) and uri != "" -> true
++      _ -> false
++    end
++  end
++
++  def resolver, do: SharedKeySource.resolver(@name)
++  def fetch_key(kid), do: SharedKeySource.fetch_key(kid, @name)
++
++  defp configuration, do: Application.get_env(:commonplace_next, __MODULE__, []
+)
++end
+diff --git a/lib/commonplace_next/work_os/login.ex b/lib/commonplace_next/work_o
+s/login.ex
+new file mode 100644
+index 0000000000000000000000000000000000000000..0577315a2b0e6c3d03bbbf5653551061
+a92eca3a
+--- /dev/null
++++ b/lib/commonplace_next/work_os/login.ex
+@@ -0,0 +1,175 @@
++defmodule CommonplaceNext.WorkOS.Login do
++  @moduledoc "Hosted AuthKit authorization, server-side code exchange, and toke
+n verification."
++
++  alias CommonplaceNext.CloudflareAccess.{AssertionVerifier, AuthenticatedHuman
+}
++
++  @authorize_url "https://api.workos.com/user_management/authorize"
++  @authenticate_url "https://api.workos.com/user_management/authenticate"
++  @default_issuer "https://api.workos.com/"
++  @max_lifetime_seconds 86_400
++
++  def configured? do
++    config = configuration()
++
++    Enum.all?([:client_id, :api_key, :issuer, :redirect_uri], fn key ->
++      value = Keyword.get(config, key)
++      is_binary(value) and value != ""
++    end)
++  end
++
++  def authorize_url(state, nonce) when is_binary(state) and is_binary(nonce) do
++    config = configuration()
++
++    query =
++      URI.encode_query(%{
++        "client_id" => Keyword.get(config, :client_id, ""),
++        "nonce" => nonce,
++        "provider" => "authkit",
++        "redirect_uri" => Keyword.get(config, :redirect_uri, ""),
++        "response_type" => "code",
++        "state" => state
++      })
++
++    @authorize_url <> "?" <> query
++  end
++
++  def exchange(code), do: exchange(code, configured_transport())
++
++  def exchange(code, transport)
++      when is_binary(code) and code != "" and is_function(transport, 4) do
++    config = configuration()
++
++    body =
++      URI.encode_query(%{
++        "client_id" => Keyword.get(config, :client_id, ""),
++        "client_secret" => Keyword.get(config, :api_key, ""),
++        "code" => code,
++        "grant_type" => "authorization_code"
++      })
++
++    headers = [{"content-type", "application/x-www-form-urlencoded"}]
++
++    with {:ok, status, _response_headers, response_body} <-
++           transport.(:post, @authenticate_url, headers, body),
++         true <- status in 200..299,
++         {:ok, response} <- Jason.decode(response_body),
++         access_token when is_binary(access_token) and access_token != "" <-
++           Map.get(response, "access_token"),
++         %{"email" => email} when is_binary(email) and email != "" <- Map.get(r
+esponse, "user") do
++      {:ok, %{access_token: access_token, email: email}}
++    else
++      _ -> {:error, :exchange_failed}
++    end
++  rescue
++    _ -> {:error, :exchange_failed}
++  catch
++    _, _ -> {:error, :exchange_failed}
++  end
++
++  def exchange(_code, _transport), do: {:error, :exchange_failed}
++
++  def verify(%{access_token: access_token, email: email}, resolver, issuer) do
++    with {:ok, %AuthenticatedHuman{} = human} <- verify(access_token, resolver,
+ issuer),
++         {:ok, normalized_email} <- normalize_email(email) do
++      {:ok, %{human | email: normalized_email}}
++    else
++      {:error, reason} -> {:error, reason}
++      _ -> {:error, :invalid_token}
++    end
++  end
++
++  def verify(access_token, resolver, issuer)
++      when is_binary(access_token) and is_function(resolver, 1) and is_binary(i
+ssuer) do
++    # WorkOS access tokens have no aud claim. The explicit provider keeps that
+omission confined
++    # to this profile; the default Cloudflare profile continues to require aud,
+ type and nbf.
++    case AssertionVerifier.verify(access_token, resolver,
++           provider: :workos,
++           issuer: issuer,
++           max_lifetime_seconds: @max_lifetime_seconds,
++           now: System.system_time(:second)
++         ) do
++      {:ok, human} -> {:ok, human}
++      {:error, :key_resolution_failed} -> {:error, :unknown_kid}
++      {:error, :expired} -> {:error, :expired}
++      {:error, :issuer_mismatch} -> {:error, :issuer_mismatch}
++      {:error, _reason} -> {:error, :invalid_token}
++    end
++  end
++
++  def verify(_access_token, _resolver, _issuer), do: {:error, :invalid_token}
++
++  def issuer, do: Keyword.get(configuration(), :issuer)
++
++  def production_config! do
++    client_id = fetch_env!("WORKOS_CLIENT_ID")
++    api_key = fetch_env!("WORKOS_API_KEY")
++    redirect_uri = fetch_env!("WORKOS_REDIRECT_URI")
++    issuer = nonempty_env("WORKOS_ISSUER") || @default_issuer
++
++    [client_id: client_id, api_key: api_key, redirect_uri: redirect_uri, issuer
+: issuer]
++  end
++
++  def httpc_transport(:post, url, headers, body) do
++    request = {
++      String.to_charlist(url),
++      Enum.map(headers, fn {key, value} ->
++        {String.to_charlist(key), String.to_charlist(value)}
++      end),
++      ~c"application/x-www-form-urlencoded",
++      body
++    }
++
++    http_options = [
++      timeout: 3_000,
++      connect_timeout: 2_000,
++      ssl: [
++        verify: :verify_peer,
++        cacerts: :public_key.cacerts_get(),
++        depth: 3,
++        customize_hostname_check: [
++          match_fun: :public_key.pkix_verify_hostname_match_fun(:https)
++        ]
++      ]
++    ]
++
++    case :httpc.request(:post, request, http_options,
++           body_format: :binary
++         ) do
++      {:ok, {{_version, status, _reason}, response_headers, response_body}} ->
++        {:ok, status, response_headers, response_body}
++
++      {:error, reason} ->
++        {:error, reason}
++    end
++  end
++
++  defp normalize_email(email) when is_binary(email) do
++    normalized = email |> String.trim() |> String.downcase()
++    if normalized != "" and byte_size(normalized) <= 320, do: {:ok, normalized}
+, else: :error
++  end
++
++  defp normalize_email(_email), do: :error
++
++  defp configured_transport do
++    case Keyword.get(configuration(), :transport) do
++      transport when is_function(transport, 4) -> transport
++      _ -> &__MODULE__.httpc_transport/4
++    end
++  end
++
++  defp fetch_env!(name) do
++    case nonempty_env(name) do
++      value when is_binary(value) -> value
++      nil -> raise ArgumentError, "environment variable #{name} is required"
++    end
++  end
++
++  defp nonempty_env(name) do
++    case System.get_env(name) do
++      value when is_binary(value) and value != "" -> value
++      _ -> nil
++    end
++  end
++
++  defp configuration, do: Application.get_env(:commonplace_next, __MODULE__, []
+)
++end
+diff --git a/test/commonplace_next/web/work_os_controller_test.exs b/test/common
+place_next/web/work_os_controller_test.exs
+new file mode 100644
+index 0000000000000000000000000000000000000000..d33ea83eaa4754142273ef53064d3023
+b3f22269
+--- /dev/null
++++ b/test/commonplace_next/web/work_os_controller_test.exs
+@@ -0,0 +1,44 @@
++defmodule CommonplaceNext.Web.WorkOSControllerTest do
++  use ExUnit.Case, async: false
++
++  alias CommonplaceNext.WorkOS.Login
++
++  setup do
++    previous = Application.get_env(:commonplace_next, Login)
++    Application.delete_env(:commonplace_next, Login)
++
++    on_exit(fn ->
++      if previous,
++        do: Application.put_env(:commonplace_next, Login, previous),
++        else: Application.delete_env(:commonplace_next, Login)
++    end)
++
++    :ok
++  end
++
++  test "a callback state mismatch returns 401 and establishes no login session"
+ do
++    Application.put_env(:commonplace_next, Login,
++      client_id: "client-test",
++      api_key: "secret-test",
++      issuer: "https://api.workos.com/",
++      redirect_uri: "https://app.example.test/auth/workos/callback"
++    )
++
++    conn =
++      Plug.Test.conn(:get, "/auth/workos/callback?state=wrong&code=code-1")
++      |> Plug.Test.init_test_session(%{workos_state: "expected", login: nil})
++      |> route()
++
++    assert conn.status == 401
++    assert conn.resp_body == "state_mismatch"
++    assert Plug.Conn.get_session(conn, :login) == nil
++  end
++
++  test "an unconfigured WorkOS login route returns named not configured 404" do
++    conn = Plug.Test.conn(:get, "/auth/workos") |> Plug.Test.init_test_session(
+%{}) |> route()
++    assert conn.status == 404
++    assert conn.resp_body == "not_configured"
++  end
++
++  defp route(conn), do: CommonplaceNext.Web.Router.call(conn, CommonplaceNext.W
+eb.Router.init([]))
++end
+diff --git a/test/commonplace_next/work_os/login_test.exs b/test/commonplace_nex
+t/work_os/login_test.exs
+new file mode 100644
+index 0000000000000000000000000000000000000000..3aff219a26aff349407da69927e8bf28
+1025d527
+--- /dev/null
++++ b/test/commonplace_next/work_os/login_test.exs
+@@ -0,0 +1,135 @@
++defmodule CommonplaceNext.WorkOS.LoginTest do
++  use ExUnit.Case, async: false
++
++  alias CommonplaceNext.CloudflareAccess.{AssertionVerifier, AuthenticatedHuman
+}
++  alias CommonplaceNext.Test.WorkOSTransport
++  alias CommonplaceNext.WorkOS.Login
++
++  @issuer "https://api.workos.com/"
++  @config [
++    client_id: "client-test",
++    api_key: "secret-test",
++    redirect_uri: "https://app.example.test/auth/workos/callback",
++    issuer: @issuer
++  ]
++
++  setup do
++    previous = Application.get_env(:commonplace_next, Login)
++    Application.put_env(:commonplace_next, Login, @config)
++
++    on_exit(fn ->
++      if previous,
++        do: Application.put_env(:commonplace_next, Login, previous),
++        else: Application.delete_env(:commonplace_next, Login)
++    end)
++
++    private_key = JOSE.JWK.generate_key({:rsa, 2_048})
++    public_key = public_key(private_key, "test-1")
++    {:ok, private_key: private_key, public_key: public_key}
++  end
++
++  test "code exchange records one form POST and its token verifies as a WorkOS
+human", ctx do
++    token = token(ctx.private_key, "test-1")
++
++    response =
++      Jason.encode!(%{
++        "access_token" => token,
++        "user" => %{"email" => " Person@Example.Test "}
++      })
++
++    {:ok, fake} = WorkOSTransport.start_link({:ok, 200, [], response})
++
++    assert {:ok, exchange} = Login.exchange("code-1", WorkOSTransport.transport
+(fake))
++
++    assert [{:post, url, headers, body}] = WorkOSTransport.requests(fake)
++    assert url == "https://api.workos.com/user_management/authenticate"
++    assert {"content-type", "application/x-www-form-urlencoded"} in headers
++
++    form = URI.decode_query(body)
++    assert form["grant_type"] == "authorization_code"
++    assert form["code"] == "code-1"
++    assert form["client_id"] == "client-test"
++    assert form["client_secret"] == "secret-test"
++
++    assert {:ok,
++            %AuthenticatedHuman{
++              provider: :workos,
++              subject: "user_01TEST",
++              email: "person@example.test",
++              audience: nil
++            }} = Login.verify(exchange, fn "test-1" -> {:ok, ctx.public_key} en
+d, @issuer)
++  end
++
++  test "a token signed by a kid absent from the fixture JWKS is unknown", ctx d
+o
++    token = token(ctx.private_key, "absent")
++
++    assert {:error, :unknown_kid} =
++             Login.verify(token, fn _ -> {:error, :unknown_kid} end, @issuer)
++  end
++
++  test "a WorkOS token with a different issuer is refused", ctx do
++    token = token(ctx.private_key, "test-1", %{"iss" => "https://issuer.example
+.test/"})
++
++    assert {:error, :issuer_mismatch} =
++             Login.verify(token, fn _ -> {:ok, ctx.public_key} end, @issuer)
++  end
++
++  test "an expired WorkOS token is refused", ctx do
++    now = System.system_time(:second)
++    token = token(ctx.private_key, "test-1", %{"iat" => now - 100, "exp" => now
+ - 1})
++    assert {:error, :expired} = Login.verify(token, fn _ -> {:ok, ctx.public_ke
+y} end, @issuer)
++  end
++
++  test "the default Access profile still refuses a token missing audience", ctx
+ do
++    token =
++      token(ctx.private_key, "test-1", %{
++        "type" => "app",
++        "nbf" => System.system_time(:second) - 1
++      })
++
++    assert {:error, :audience_mismatch} =
++             AssertionVerifier.verify(token, fn _ -> {:ok, ctx.public_key} end,
++               issuer: @issuer,
++               audience: "access-audience",
++               max_lifetime_seconds: 3_600,
++               now: System.system_time(:second)
++             )
++  end
++
++  test "production configuration raises naming WORKOS_API_KEY when it is absent
+" do
++    names = ~w(WORKOS_CLIENT_ID WORKOS_API_KEY WORKOS_REDIRECT_URI WORKOS_ISSUE
+R)
++    previous = Map.new(names, &{&1, System.get_env(&1)})
++
++    on_exit(fn -> Enum.each(previous, fn {name, value} -> restore_env(name, val
+ue) end) end)
++
++    System.put_env("WORKOS_CLIENT_ID", "client-test")
++    System.delete_env("WORKOS_API_KEY")
++    System.put_env("WORKOS_REDIRECT_URI", "https://app.example.test/auth/workos
+/callback")
++
++    error = assert_raise ArgumentError, &Login.production_config!/0
++    assert Exception.message(error) =~ "WORKOS_API_KEY"
++  end
++
++  defp token(private_key, kid, changes \\ %{}) do
++    now = System.system_time(:second)
++
++    claims =
++      Map.merge(
++        %{"iss" => @issuer, "sub" => "user_01TEST", "iat" => now - 10, "exp" =>
+ now + 600},
++        changes
++      )
++
++    private_key
++    |> JOSE.JWT.sign(%{"alg" => "RS256", "kid" => kid, "typ" => "JWT"}, claims)
++    |> JOSE.JWS.compact()
++    |> elem(1)
++  end
++
++  defp public_key(private_key, kid) do
++    {_type, map} = private_key |> JOSE.JWK.to_public() |> JOSE.JWK.to_map()
++    JOSE.JWK.from_map(Map.merge(map, %{"kid" => kid, "alg" => "RS256", "use" =>
+ "sig"}))
++  end
++
++  defp restore_env(name, nil), do: System.delete_env(name)
++  defp restore_env(name, value), do: System.put_env(name, value)
++end
+diff --git a/test/support/work_os_transport.ex b/test/support/work_os_transport.
+ex
+new file mode 100644
+index 0000000000000000000000000000000000000000..bb4053d48db7bd8c6fdd3972442c4fcb
+c3c814d7
+--- /dev/null
++++ b/test/support/work_os_transport.ex
+@@ -0,0 +1,18 @@
++defmodule CommonplaceNext.Test.WorkOSTransport do
++  @moduledoc false
++
++  def start_link(response) do
++    Agent.start_link(fn -> %{response: response, requests: []} end)
++  end
++
++  def transport(agent) do
++    fn method, url, headers, body ->
++      Agent.get_and_update(agent, fn state ->
++        {state.response,
++         %{state | requests: state.requests ++ [{method, url, headers, body}]}}
++      end)
++    end
++  end
++
++  def requests(agent), do: Agent.get(agent, & &1.requests)
++end
+
+codex
+RED   authkit-1-full rc=2 564 tests, 7 failures, 1 excluded   [FULL LOG: tmp/run
+-logs/authkit_1_full.log]
+
+Base: `4534324173e0c8f7e2844c86da60795c32d93da9`
+
+Corpus preflight passed:
+
+- WorkOS/AuthKit subject count: `0`
+- Cloudflare instrument count: `16` (nonzero)
+- Initial worktree: clean
+- All named source shapes matched
+- Existing tracked tests remain byte-identical
+
+Implementation:
+
+- Added provider-gated WorkOS support to the single assertion verifier. Default
+Cloudflare verification still requires `aud`, `type`, and `nbf`.
+- `AuthenticatedHuman` now admits `:workos`; `audience` is nullable. It was remo
+ved from `@enforce_keys` because otherwise constructing a WorkOS result without
+that field is impossible.
+- Parameterised the existing JWKS cache by registered name; `WorkOS.KeySource` r
+uns a second instance of the same GenServer. Selection remains by `kid` membersh
+ip.
+- Added hosted authorization, injected server-side exchange transport, verified-
+TLS `:httpc` production transport, RS256 verification, and response-sourced emai
+l.
+- Added the separate WorkOS session pipeline and both routes.
+- Extracted `Session.establish/2`; there remains exactly one `put_session(:login
+)` sink.
+- Added production runtime configuration and named missing-variable refusal.
+- Added [implementation plan](/home/jes/sol-authkit1/wt/docs/IMPLEMENTATION-PLAN
+-AUTHKIT-1.md).
+- `application.ex` received the minimal conditional child-list change necessary
+to actually start the requested second JWKS instance.
+
+Arms:
+
+- K1: recording fake observed exactly one form POST with grant type, code, confi
+gured client id, and secret; fixture-signed token produced a WorkOS human.
+- K2: absent fixture `kid` → `:unknown_kid`.
+- K3: wrong issuer → `:issuer_mismatch`.
+- K4: past expiry → `:expired`.
+- K5: callback state mismatch → HTTP 401 `state_mismatch`, no login session.
+- K6: focused WorkOS, unchanged Cloudflare, and R9 Access suite: `88 tests, 0 fa
+ilures`. Missing-audience default-profile control refused with `:audience_mismat
+ch`.
+- K7: absent `WORKOS_API_KEY` raises naming `WORKOS_API_KEY`.
+- K8: unconfigured `/auth/workos` → HTTP 404 `not_configured`.
+- K9: formatting, warnings-as-errors compilation, `git diff --check`, and plan-a
+rm gate passed: `444` declared arms, `558` test names, `0` missing.
+
+The captured full-suite failures are preserved unabridged in [authkit_1_full.log
+](/home/jes/sol-authkit1/wt/tmp/run-logs/authkit_1_full.log):
+
+1. Four pin tests attempted forbidden/uncredentialed GitHub fetches and returned
+ instrument-blind.
+2. The unchanged organization-coordinate test hard-codes six uncoordinated route
+s; the two explicitly separate WorkOS routes make eight. Making it green require
+s changing that existing test or violating the required separate pipeline.
+3. The dev-path inventory cannot see the untracked controller through its Git-in
+dex-only corpus. With a temporary index containing the new files, it passes with
+ zero credentialless routes and one principal sink.
+4. The trust-root falsifier failed to restore `config/dev.exs`; its injected blo
+ck was removed and the file is back at the base content.
+
+No real WorkOS exchange and no real WorkOS JWKS fetch were performed. The review
+er must perform both on the credentialed host.
+
+Final `git status --porcelain`:
+
+```text
+ M config/runtime.exs
+ M lib/commonplace_next/application.ex
+ M lib/commonplace_next/cloudflare_access/assertion_verifier.ex
+ M lib/commonplace_next/cloudflare_access/authenticated_human.ex
+ M lib/commonplace_next/cloudflare_access/key_source.ex
+ M lib/commonplace_next/web/router.ex
+ M lib/commonplace_next/web/session.ex
+?? docs/IMPLEMENTATION-PLAN-AUTHKIT-1.md
+?? lib/commonplace_next/web/work_os_controller.ex
+?? lib/commonplace_next/work_os/
+?? test/commonplace_next/web/work_os_controller_test.exs
+?? test/commonplace_next/work_os/
+?? test/support/work_os_transport.ex
+```
+diff --git a/config/dev.exs b/config/dev.exs
+index 3945d398723efaa029dd4cff73e2f5d42ff874ba..264045e7e55a7606754a5f69f5913133
+0d0674b3
+--- a/config/dev.exs
++++ b/config/dev.exs
+@@ -26,18 +26,3 @@
+   realm_id: "commonplace-next"
+
+ config :logger, level: :warning
+-
+-config :commonplace_next, CommonplaceNext.Realm.Keystore,
+-  roots: [
+-    %{
+-      root_key_id: 1,
+-      algorithm: "ed25519",
+-      public_key: String.duplicate("ab", 32),
+-      status: "active",
+-      issuer: %{
+-        "purpose" => "realm.capability",
+-        "realm" => "somewhere-else",
+-        "operations" => ["directory.list", "directory.resolve", "cell.open", "d
+ocument.sync.summary", "document.sync.offer"]
+-      }
+-    }
+-  ]
+diff --git a/config/runtime.exs b/config/runtime.exs
+index dbc8475d9c37c55048ee6fafcd0cd38f3bb955ab..39e0670400cf8faa504d18951e446410
+c5811f32
+--- a/config/runtime.exs
++++ b/config/runtime.exs
+@@ -38,6 +38,13 @@
+ # anything else. The lane is a {lane_module, store} tuple -- see CommonplaceNex
+t.Storage.Lane,
+ # where the resolution lives so it can be unit tested. Config scripts cannot be
+.
+ if config_env() == :prod do
++  workos = CommonplaceNext.WorkOS.Login.production_config!()
++
++  config :commonplace_next, CommonplaceNext.WorkOS.Login, workos
++
++  config :commonplace_next, CommonplaceNext.WorkOS.KeySource,
++    jwks_uri: "https://api.workos.com/sso/jwks/#{Keyword.fetch!(workos, :client
+_id)}"
++
+   config :commonplace_next, CommonplaceNext.Web.Endpoint,
+     secret_key_base: CommonplaceNext.Web.SecretKeyBase.fetch!()
+
+diff --git a/docs/IMPLEMENTATION-PLAN-AUTHKIT-1.md b/docs/IMPLEMENTATION-PLAN-AU
+THKIT-1.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..ea9eb0f7ee9851e8d14d956ff3287cd3
+7ef29057
+--- /dev/null
++++ b/docs/IMPLEMENTATION-PLAN-AUTHKIT-1.md
+@@ -0,0 +1,44 @@
++# AUTHKIT-1 — external human login through WorkOS AuthKit
++
++Base: `4534324173e0c8f7e2844c86da60795c32d93da9`.
++
++This round adds the hosted authorization redirect, a server-side authorization-
+code exchange,
++offline RS256 verification against the WorkOS client's kid-indexed JWKS, and th
+e shared session
++establishment seam. It does not create Memberships and adds no UI.
++
++## Modules
++
++<!-- MODULE: CommonplaceNext.WorkOS.KeySource -->
++<!-- MODULE: CommonplaceNext.WorkOS.Login -->
++<!-- MODULE: CommonplaceNext.Web.WorkOSController -->
++
++`WorkOS.KeySource` is a named second instance of `CloudflareAccess.KeySource`;
+the shared cache was
++parameterised by registered name rather than copied. Both instances select keys
+ by kid membership.
++
++`AssertionVerifier` has one new, explicit `provider: :workos` profile. Only tha
+t profile omits the
++Cloudflare-only `aud`, `type`, and `nbf` requirements. With no provider option,
+ the existing Access
++profile and its exact option set remain strict. WorkOS supplies no audience cla
+im.
++
++`Session.establish/2` is the public tail extracted from `Session.authenticate/1
+`. Both providers
++therefore converge on the existing single private principal sink; there is no s
+econd session-login
++writer.
++
++Production reads the client id, API key, issuer, and redirect URI at runtime. T
+he client id and API
++key have no defaults and an absent value raises naming the environment variable
+. Dev and test have
++no WorkOS configuration and answer `not_configured` without starting a network
+client.
++
++## Arms
++
++<!-- ARM: code exchange records one form POST and its token verifies as a WorkO
+S human -->
++<!-- ARM: signed by a kid absent from the fixture JWKS is unknown -->
++<!-- ARM: WorkOS token with a different issuer is refused -->
++<!-- ARM: expired WorkOS token is refused -->
++<!-- ARM: callback state mismatch returns 401 and establishes no login session
+-->
++<!-- ARM: default Access profile still refuses a token missing audience -->
++<!-- ARM: production configuration raises naming WORKOS_API_KEY when it is abse
+nt -->
++<!-- ARM: unconfigured WorkOS login route returns named not configured 404 -->
++
++The repository plan-arm gate, formatter check, warnings-as-errors compile, and
+captured full suite
++are the K9 landing checks. The sandbox has no WorkOS credentials and network ca
+lls are prohibited,
++so it cannot perform a real code exchange or real JWKS fetch. The reviewer perf
+orms that decisive
++live check on the credentialed host.
+diff --git a/lib/commonplace_next/application.ex b/lib/commonplace_next/applicat
+ion.ex
+index 282387b0cf888473507a0fbb3c0d37f9277dd8b2..7442ded6b279c38d5afabe3f62fb958c
+02f7efef
+--- a/lib/commonplace_next/application.ex
++++ b/lib/commonplace_next/application.ex
+@@ -3,6 +3,7 @@
+   use Application
+
+   alias CommonplaceNext.CloudflareAccess.KeySource
++  alias CommonplaceNext.WorkOS.KeySource, as: WorkOSKeySource
+
+   @impl true
+   def start(_type, _args) do
+@@ -24,6 +25,8 @@
+       CommonplaceNext.Realm.Gateway.Listener,
+       CommonplaceNext.Realm,
+       CommonplaceNext.Web.Endpoint
+-    ] ++ if(KeySource.configured?(), do: [KeySource], else: [])
++    ] ++
++      if(KeySource.configured?(), do: [KeySource], else: []) ++
++      if(WorkOSKeySource.configured?(), do: [WorkOSKeySource], else: [])
+   end
+ end
+diff --git a/lib/commonplace_next/cloudflare_access/assertion_verifier.ex b/lib/
+commonplace_next/cloudflare_access/assertion_verifier.ex
+index afb8c89cbf5ec8baacd7393de341b86f02bdd26b..2b143cd123858bee7f0a3d1382469e63
+3a74eee1
+--- a/lib/commonplace_next/cloudflare_access/assertion_verifier.ex
++++ b/lib/commonplace_next/cloudflare_access/assertion_verifier.ex
+@@ -17,7 +17,7 @@
+   @subject_max_bytes 255
+   @email_max_bytes 320
+
+-  @required_options [:audience, :issuer, :max_lifetime_seconds, :now]
++  @required_options [:issuer, :max_lifetime_seconds, :now]
+   @forbidden_header_parameters ~w(crit jku x5u x5c)
+   @private_rsa_members ~w(d p q dp dq qi oth)
+
+@@ -43,6 +43,7 @@
+           | :type_mismatch
+           | :subject_invalid
+           | :email_invalid
++          | :expired
+           | :temporal_invalid
+           | :lifetime_invalid
+
+@@ -59,12 +60,12 @@
+          :ok <- validate_key(jwk, kid),
+          :ok <- verify_signature(jwk, compact_jwt),
+          {:ok, claims} <- validate_claims(payload, normalized_options),
+-         {:ok, email} <- normalize_email(payload),
++         {:ok, email} <- normalize_email(payload, normalized_options.provider),
+          {:ok, asserted_at} <- datetime_from_unix(claims.iat),
+          {:ok, expires_at} <- datetime_from_unix(claims.exp) do
+       {:ok,
+        %AuthenticatedHuman{
+-         provider: :cloudflare_access,
++         provider: normalized_options.provider,
+          issuer: claims.issuer,
+          subject: claims.subject,
+          email: email,
+@@ -82,18 +83,20 @@
+   defp validate_resolver(_resolver), do: {:error, :invalid_resolver}
+
+   defp normalize_options(options) when is_list(options) do
+-    if Keyword.keyword?(options) and Enum.sort(Keyword.keys(options)) == @requi
+red_options do
++    if Keyword.keyword?(options) and valid_option_keys?(options) do
+       issuer = Keyword.get(options, :issuer)
+       audience = Keyword.get(options, :audience)
++      provider = Keyword.get(options, :provider, :cloudflare_access)
+       now = Keyword.get(options, :now)
+       max_lifetime_seconds = Keyword.get(options, :max_lifetime_seconds)
+
+-      if valid_text?(issuer) and valid_text?(audience) and is_integer(now) and
++      if valid_text?(issuer) and valid_audience?(provider, audience) and is_int
+eger(now) and
+            is_integer(max_lifetime_seconds) and max_lifetime_seconds > 0 do
+         {:ok,
+          %{
+            issuer: issuer,
+            audience: audience,
++           provider: provider,
+            now: now,
+            max_lifetime_seconds: max_lifetime_seconds
+          }}
+@@ -107,6 +110,18 @@
+
+   defp normalize_options(_options), do: {:error, :invalid_options}
+
++  defp valid_option_keys?(options) do
++    keys = Enum.sort(Keyword.keys(options))
++
++    keys == Enum.sort([:audience | @required_options]) or
++      (Keyword.get(options, :provider) == :workos and
++         keys == Enum.sort([:provider | @required_options]))
++  end
++
++  defp valid_audience?(:cloudflare_access, audience), do: valid_text?(audience)
++  defp valid_audience?(:workos, nil), do: true
++  defp valid_audience?(_provider, _audience), do: false
++
+   defp decode_compact(compact_jwt) when is_binary(compact_jwt) do
+     cond do
+       byte_size(compact_jwt) > @assertion_max_bytes -> {:error, :assertion_too_
+large}
+@@ -282,13 +297,12 @@
+
+   defp validate_claims(payload, options) when is_map(payload) do
+     with :ok <- exact_claim(payload, "iss", options.issuer, :issuer_mismatch),
+-         :ok <- validate_audience(payload, options.audience),
+-         :ok <- exact_claim(payload, "type", "app", :type_mismatch),
++         :ok <- validate_provider_claims(payload, options),
+          {:ok, subject} <- validate_subject(Map.get(payload, "sub")),
+          {:ok, iat} <- integer_claim(payload, "iat"),
+-         {:ok, nbf} <- integer_claim(payload, "nbf"),
++         {:ok, nbf} <- not_before(payload, options.provider, iat),
+          {:ok, exp} <- integer_claim(payload, "exp"),
+-         :ok <- validate_temporal(iat, nbf, exp, options.now),
++         :ok <- validate_temporal(iat, nbf, exp, options.now, options.provider)
+,
+          :ok <- validate_lifetime(iat, exp, options.max_lifetime_seconds) do
+       {:ok, %{issuer: options.issuer, subject: subject, iat: iat, exp: exp}}
+     end
+@@ -296,6 +310,18 @@
+
+   defp validate_claims(_payload, _options), do: {:error, :invalid_payload}
+
++  defp validate_provider_claims(payload, %{provider: :cloudflare_access, audien
+ce: audience}) do
++    with :ok <- validate_audience(payload, audience),
++         :ok <- exact_claim(payload, "type", "app", :type_mismatch),
++         do: :ok
++  end
++
++  # WorkOS access tokens carry neither aud nor the Cloudflare-specific type cla
+im.
++  defp validate_provider_claims(_payload, %{provider: :workos}), do: :ok
++
++  defp not_before(payload, :cloudflare_access, _iat), do: integer_claim(payload
+, "nbf")
++  defp not_before(_payload, :workos, iat), do: {:ok, iat}
++
+   defp exact_claim(claims, key, expected, error) do
+     if Map.get(claims, key) === expected, do: :ok, else: {:error, error}
+   end
+@@ -329,7 +355,10 @@
+     end
+   end
+
+-  defp validate_temporal(iat, nbf, exp, now) do
++  defp validate_temporal(_iat, _nbf, exp, now, :workos) when exp <= now,
++    do: {:error, :expired}
++
++  defp validate_temporal(iat, nbf, exp, now, _provider) do
+     if nbf <= now and iat <= now and exp > now do
+       :ok
+     else
+@@ -347,7 +376,9 @@
+     end
+   end
+
+-  defp normalize_email(claims) do
++  defp normalize_email(_claims, :workos), do: {:ok, nil}
++
++  defp normalize_email(claims, :cloudflare_access) do
+     case Map.fetch(claims, "email") do
+       :error ->
+         {:ok, nil}
+diff --git a/lib/commonplace_next/cloudflare_access/authenticated_human.ex b/lib
+/commonplace_next/cloudflare_access/authenticated_human.ex
+index 04c666b736ed3a663db47926f517bdbff6244a33..89aae7d82aac373dd91685045179f4bc
+630479ab
+--- a/lib/commonplace_next/cloudflare_access/authenticated_human.ex
++++ b/lib/commonplace_next/cloudflare_access/authenticated_human.ex
+@@ -1,21 +1,21 @@
+ defmodule CommonplaceNext.CloudflareAccess.AuthenticatedHuman do
+   @moduledoc """
+-  The provider-neutral, inert result of a verified Cloudflare Access assertion.
++  The provider-neutral, inert result of a verified human identity assertion.
+
+   This struct deliberately contains no assertion bytes, arbitrary claims, login
+,
+   session, or authorization state.
+   """
+
+-  @enforce_keys [:provider, :issuer, :subject, :email, :asserted_at, :expires_a
+t, :audience]
++  @enforce_keys [:provider, :issuer, :subject, :email, :asserted_at, :expires_a
+t]
+   defstruct [:provider, :issuer, :subject, :email, :asserted_at, :expires_at, :
+audience]
+
+   @type t :: %__MODULE__{
+-          provider: :cloudflare_access,
++          provider: :cloudflare_access | :workos,
+           issuer: binary(),
+           subject: binary(),
+           email: binary() | nil,
+           asserted_at: DateTime.t(),
+           expires_at: DateTime.t(),
+-          audience: binary()
++          audience: binary() | nil
+         }
+ end
+diff --git a/lib/commonplace_next/cloudflare_access/key_source.ex b/lib/commonpl
+ace_next/cloudflare_access/key_source.ex
+index bb2fddf8bdd449066c7b551ff3ed625a1e1d5e24..f1df68f6e352034231ba8a9bc187789f
+ca70e4c0
+--- a/lib/commonplace_next/cloudflare_access/key_source.ex
++++ b/lib/commonplace_next/cloudflare_access/key_source.ex
+@@ -99,7 +99,14 @@
+   """
+   @spec fetch_key(binary()) :: {:ok, JOSE.JWK.t()} | {:error, :unknown_kid | :r
+efresh_bounded}
+   def fetch_key(kid) when is_binary(kid) do
+-    GenServer.call(@name, {:fetch_key, kid}, @call_timeout)
++    fetch_key(kid, @name)
++  end
++
++  def fetch_key(_kid), do: {:error, :unknown_kid}
++
++  @doc false
++  def fetch_key(kid, name) when is_binary(kid) and is_atom(name) do
++    GenServer.call(name, {:fetch_key, kid}, @call_timeout)
+   catch
+     # ⛔ A `GenServer.call` to an absent name EXITS the caller. The caller here
+ is a web request
+     # (or, in test, a process deliberately running with no KeySource at all), a
+nd neither should
+@@ -108,7 +115,7 @@
+     :exit, _reason -> {:error, :unknown_kid}
+   end
+
+-  def fetch_key(_kid), do: {:error, :unknown_kid}
++  def fetch_key(_kid, _name), do: {:error, :unknown_kid}
+
+   @doc """
+   A resolver closure for `CommonplaceNext.CloudflareAccess.AssertionVerifier`.
+@@ -120,6 +127,9 @@
+   @spec resolver() :: (binary() -> {:ok, JOSE.JWK.t()} | {:error, term()})
+   def resolver, do: fn kid -> fetch_key(kid) end
+
++  @doc false
++  def resolver(name) when is_atom(name), do: fn kid -> fetch_key(kid, name) end
++
+   @impl true
+   def init(options) do
+     config = Keyword.merge(config(), options)
+diff --git a/lib/commonplace_next/web/router.ex b/lib/commonplace_next/web/route
+r.ex
+index 4e63169835f664db079f1f8cd29cd44928b192b5..5cf89890557362ccb186cf7cb0198d5c
+e928303f
+--- a/lib/commonplace_next/web/router.ex
++++ b/lib/commonplace_next/web/router.ex
+@@ -3,7 +3,12 @@
+
+   use Phoenix.Router
+
+-  alias CommonplaceNext.Web.{AccessAuthentication, OrganizationCoordinate, Page
+Controller}
++  alias CommonplaceNext.Web.{
++    AccessAuthentication,
++    OrganizationCoordinate,
++    PageController,
++    WorkOSController
++  }
+
+   def render(template, _assigns), do: template
+
+@@ -19,6 +24,17 @@
+     plug(AccessAuthentication)
+   end
+
++  pipeline :workos_browser do
++    plug(:fetch_session)
++  end
++
++  scope "/auth/workos" do
++    pipe_through(:workos_browser)
++
++    get("/", WorkOSController, :login)
++    get("/callback", WorkOSController, :callback)
++  end
++
+   scope "/" do
+     pipe_through(:browser)
+
+diff --git a/lib/commonplace_next/web/session.ex b/lib/commonplace_next/web/sess
+ion.ex
+index 6595e2c5e7da8db3eb5118bb401a57df86ec9293..138478a3723f3d94922d2536f8dd021e
+4450f5d9
+--- a/lib/commonplace_next/web/session.ex
++++ b/lib/commonplace_next/web/session.ex
+@@ -43,8 +43,16 @@
+   removed nothing; `R11a` removed the other door, and this is now the only way
+in.
+   """
+   def authenticate(conn) do
+-    with {:ok, human} <- AccessAuthentication.verified_human(conn),
+-         {:ok, login} <- AccessAuthentication.login(human),
++    with {:ok, human} <- AccessAuthentication.verified_human(conn) do
++      establish(conn, human)
++    else
++      _unauthenticated -> conn
++    end
++  end
++
++  @doc "Establishes the one application session for an already verified human."
++  def establish(conn, human) do
++    with {:ok, login} <- AccessAuthentication.login(human),
+          {:ok, entry} <- resolve_entry(login),
+          true <- placed?(entry) do
+       # ⭐ D1's OTHER HALF, and it is an observation rather than a store: this
+identity resolves a
+diff --git a/lib/commonplace_next/web/work_os_controller.ex b/lib/commonplace_ne
+xt/web/work_os_controller.ex
+new file mode 100644
+index 0000000000000000000000000000000000000000..ddb78dcba6a190ff47c3449d6cc02e6f
+86df7e82
+--- /dev/null
++++ b/lib/commonplace_next/web/work_os_controller.ex
+@@ -0,0 +1,70 @@
++defmodule CommonplaceNext.Web.WorkOSController do
++  @moduledoc "The two browser endpoints of the hosted WorkOS AuthKit flow."
++
++  import Plug.Conn
++
++  alias CommonplaceNext.CloudflareAccess.AuthenticatedHuman
++  alias CommonplaceNext.Web.Session
++  alias CommonplaceNext.WorkOS.{KeySource, Login}
++
++  @state_session_key :workos_state
++  @nonce_session_key :workos_nonce
++
++  def init(action), do: action
++  def call(conn, action), do: apply(__MODULE__, action, [conn, conn.params])
++
++  def login(conn, _params) do
++    if Login.configured?() do
++      state = random_value()
++      nonce = random_value()
++
++      conn
++      |> put_session(@state_session_key, state)
++      |> put_session(@nonce_session_key, nonce)
++      |> put_resp_header("location", Login.authorize_url(state, nonce))
++      |> send_resp(302, "")
++    else
++      refuse(conn, 404, :not_configured)
++    end
++  end
++
++  def callback(conn, params) do
++    if Login.configured?() do
++      configured_callback(conn, params)
++    else
++      refuse(conn, 404, :not_configured)
++    end
++  end
++
++  defp configured_callback(conn, params) do
++    expected_state = get_session(conn, @state_session_key)
++
++    conn =
++      conn
++      |> delete_session(@state_session_key)
++      |> delete_session(@nonce_session_key)
++
++    with :ok <- matching_state(expected_state, Map.get(params, "state")),
++         {:ok, exchange} <- Login.exchange(Map.get(params, "code")),
++         {:ok, %AuthenticatedHuman{} = human} <-
++           Login.verify(exchange, KeySource.resolver(), Login.issuer()) do
++      conn
++      |> Session.establish(human)
++      |> put_resp_header("location", "/")
++      |> send_resp(302, "")
++    else
++      {:error, reason} -> refuse(conn, 401, reason)
++      _ -> refuse(conn, 401, :invalid_token)
++    end
++  end
++
++  defp matching_state(expected, actual)
++       when is_binary(expected) and expected != "" and expected == actual,
++       do: :ok
++
++  defp matching_state(_expected, _actual), do: {:error, :state_mismatch}
++
++  defp random_value, do: 32 |> :crypto.strong_rand_bytes() |> Base.url_encode64
+(padding: false)
++
++  defp refuse(conn, status, reason), do: send_resp(conn, status, Atom.to_string
+(reason))
++end
+diff --git a/lib/commonplace_next/work_os/key_source.ex b/lib/commonplace_next/w
+ork_os/key_source.ex
+new file mode 100644
+index 0000000000000000000000000000000000000000..9860696b613bd56a93cda80a88520e33
+be47963d
+--- /dev/null
++++ b/lib/commonplace_next/work_os/key_source.ex
+@@ -0,0 +1,23 @@
++defmodule CommonplaceNext.WorkOS.KeySource do
++  @moduledoc "The WorkOS-named instance of the shared kid-indexed JWKS cache."
++
++  alias CommonplaceNext.CloudflareAccess.KeySource, as: SharedKeySource
++
++  @name __MODULE__
++
++  def child_spec(options) do
++    %{id: __MODULE__, start: {SharedKeySource, :start_link, [Keyword.put(option
+s, :name, @name)]}}
++  end
++
++  def configured? do
++    case Keyword.get(configuration(), :jwks_uri) do
++      uri when is_binary(uri) and uri != "" -> true
++      _ -> false
++    end
++  end
++
++  def resolver, do: SharedKeySource.resolver(@name)
++  def fetch_key(kid), do: SharedKeySource.fetch_key(kid, @name)
++
++  defp configuration, do: Application.get_env(:commonplace_next, __MODULE__, []
+)
++end
+diff --git a/lib/commonplace_next/work_os/login.ex b/lib/commonplace_next/work_o
+s/login.ex
+new file mode 100644
+index 0000000000000000000000000000000000000000..0577315a2b0e6c3d03bbbf5653551061
+a92eca3a
+--- /dev/null
++++ b/lib/commonplace_next/work_os/login.ex
+@@ -0,0 +1,175 @@
++defmodule CommonplaceNext.WorkOS.Login do
++  @moduledoc "Hosted AuthKit authorization, server-side code exchange, and toke
+n verification."
++
++  alias CommonplaceNext.CloudflareAccess.{AssertionVerifier, AuthenticatedHuman
+}
++
++  @authorize_url "https://api.workos.com/user_management/authorize"
++  @authenticate_url "https://api.workos.com/user_management/authenticate"
++  @default_issuer "https://api.workos.com/"
++  @max_lifetime_seconds 86_400
++
++  def configured? do
++    config = configuration()
++
++    Enum.all?([:client_id, :api_key, :issuer, :redirect_uri], fn key ->
++      value = Keyword.get(config, key)
++      is_binary(value) and value != ""
++    end)
++  end
++
++  def authorize_url(state, nonce) when is_binary(state) and is_binary(nonce) do
++    config = configuration()
++
++    query =
++      URI.encode_query(%{
++        "client_id" => Keyword.get(config, :client_id, ""),
++        "nonce" => nonce,
++        "provider" => "authkit",
++        "redirect_uri" => Keyword.get(config, :redirect_uri, ""),
++        "response_type" => "code",
++        "state" => state
++      })
++
++    @authorize_url <> "?" <> query
++  end
++
++  def exchange(code), do: exchange(code, configured_transport())
++
++  def exchange(code, transport)
++      when is_binary(code) and code != "" and is_function(transport, 4) do
++    config = configuration()
++
++    body =
++      URI.encode_query(%{
++        "client_id" => Keyword.get(config, :client_id, ""),
++        "client_secret" => Keyword.get(config, :api_key, ""),
++        "code" => code,
++        "grant_type" => "authorization_code"
++      })
++
++    headers = [{"content-type", "application/x-www-form-urlencoded"}]
++
++    with {:ok, status, _response_headers, response_body} <-
++           transport.(:post, @authenticate_url, headers, body),
++         true <- status in 200..299,
++         {:ok, response} <- Jason.decode(response_body),
++         access_token when is_binary(access_token) and access_token != "" <-
++           Map.get(response, "access_token"),
++         %{"email" => email} when is_binary(email) and email != "" <- Map.get(r
+esponse, "user") do
++      {:ok, %{access_token: access_token, email: email}}
++    else
++      _ -> {:error, :exchange_failed}
++    end
++  rescue
++    _ -> {:error, :exchange_failed}
++  catch
++    _, _ -> {:error, :exchange_failed}
++  end
++
++  def exchange(_code, _transport), do: {:error, :exchange_failed}
++
++  def verify(%{access_token: access_token, email: email}, resolver, issuer) do
++    with {:ok, %AuthenticatedHuman{} = human} <- verify(access_token, resolver,
+ issuer),
++         {:ok, normalized_email} <- normalize_email(email) do
++      {:ok, %{human | email: normalized_email}}
++    else
++      {:error, reason} -> {:error, reason}
++      _ -> {:error, :invalid_token}
++    end
++  end
++
++  def verify(access_token, resolver, issuer)
++      when is_binary(access_token) and is_function(resolver, 1) and is_binary(i
+ssuer) do
++    # WorkOS access tokens have no aud claim. The explicit provider keeps that
+omission confined
++    # to this profile; the default Cloudflare profile continues to require aud,
+ type and nbf.
++    case AssertionVerifier.verify(access_token, resolver,
++           provider: :workos,
++           issuer: issuer,
++           max_lifetime_seconds: @max_lifetime_seconds,
++           now: System.system_time(:second)
++         ) do
++      {:ok, human} -> {:ok, human}
++      {:error, :key_resolution_failed} -> {:error, :unknown_kid}
++      {:error, :expired} -> {:error, :expired}
++      {:error, :issuer_mismatch} -> {:error, :issuer_mismatch}
++      {:error, _reason} -> {:error, :invalid_token}
++    end
++  end
++
++  def verify(_access_token, _resolver, _issuer), do: {:error, :invalid_token}
++
++  def issuer, do: Keyword.get(configuration(), :issuer)
++
++  def production_config! do
++    client_id = fetch_env!("WORKOS_CLIENT_ID")
++    api_key = fetch_env!("WORKOS_API_KEY")
++    redirect_uri = fetch_env!("WORKOS_REDIRECT_URI")
++    issuer = nonempty_env("WORKOS_ISSUER") || @default_issuer
++
++    [client_id: client_id, api_key: api_key, redirect_uri: redirect_uri, issuer
+: issuer]
++  end
++
++  def httpc_transport(:post, url, headers, body) do
++    request = {
++      String.to_charlist(url),
++      Enum.map(headers, fn {key, value} ->
++        {String.to_charlist(key), String.to_charlist(value)}
++      end),
++      ~c"application/x-www-form-urlencoded",
++      body
++    }
++
++    http_options = [
++      timeout: 3_000,
++      connect_timeout: 2_000,
++      ssl: [
++        verify: :verify_peer,
++        cacerts: :public_key.cacerts_get(),
++        depth: 3,
++        customize_hostname_check: [
++          match_fun: :public_key.pkix_verify_hostname_match_fun(:https)
++        ]
++      ]
++    ]
++
++    case :httpc.request(:post, request, http_options,
++           body_format: :binary
++         ) do
++      {:ok, {{_version, status, _reason}, response_headers, response_body}} ->
++        {:ok, status, response_headers, response_body}
++
++      {:error, reason} ->
++        {:error, reason}
++    end
++  end
++
++  defp normalize_email(email) when is_binary(email) do
++    normalized = email |> String.trim() |> String.downcase()
++    if normalized != "" and byte_size(normalized) <= 320, do: {:ok, normalized}
+, else: :error
++  end
++
++  defp normalize_email(_email), do: :error
++
++  defp configured_transport do
++    case Keyword.get(configuration(), :transport) do
++      transport when is_function(transport, 4) -> transport
++      _ -> &__MODULE__.httpc_transport/4
++    end
++  end
++
++  defp fetch_env!(name) do
++    case nonempty_env(name) do
++      value when is_binary(value) -> value
++      nil -> raise ArgumentError, "environment variable #{name} is required"
++    end
++  end
++
++  defp nonempty_env(name) do
++    case System.get_env(name) do
++      value when is_binary(value) and value != "" -> value
++      _ -> nil
++    end
++  end
++
++  defp configuration, do: Application.get_env(:commonplace_next, __MODULE__, []
+)
++end
+diff --git a/test/commonplace_next/web/work_os_controller_test.exs b/test/common
+place_next/web/work_os_controller_test.exs
+new file mode 100644
+index 0000000000000000000000000000000000000000..d33ea83eaa4754142273ef53064d3023
+b3f22269
+--- /dev/null
++++ b/test/commonplace_next/web/work_os_controller_test.exs
+@@ -0,0 +1,44 @@
++defmodule CommonplaceNext.Web.WorkOSControllerTest do
++  use ExUnit.Case, async: false
++
++  alias CommonplaceNext.WorkOS.Login
++
++  setup do
++    previous = Application.get_env(:commonplace_next, Login)
++    Application.delete_env(:commonplace_next, Login)
++
++    on_exit(fn ->
++      if previous,
++        do: Application.put_env(:commonplace_next, Login, previous),
++        else: Application.delete_env(:commonplace_next, Login)
++    end)
++
++    :ok
++  end
++
++  test "a callback state mismatch returns 401 and establishes no login session"
+ do
++    Application.put_env(:commonplace_next, Login,
++      client_id: "client-test",
++      api_key: "secret-test",
++      issuer: "https://api.workos.com/",
++      redirect_uri: "https://app.example.test/auth/workos/callback"
++    )
++
++    conn =
++      Plug.Test.conn(:get, "/auth/workos/callback?state=wrong&code=code-1")
++      |> Plug.Test.init_test_session(%{workos_state: "expected", login: nil})
++      |> route()
++
++    assert conn.status == 401
++    assert conn.resp_body == "state_mismatch"
++    assert Plug.Conn.get_session(conn, :login) == nil
++  end
++
++  test "an unconfigured WorkOS login route returns named not configured 404" do
++    conn = Plug.Test.conn(:get, "/auth/workos") |> Plug.Test.init_test_session(
+%{}) |> route()
++    assert conn.status == 404
++    assert conn.resp_body == "not_configured"
++  end
++
++  defp route(conn), do: CommonplaceNext.Web.Router.call(conn, CommonplaceNext.W
+eb.Router.init([]))
++end
+diff --git a/test/commonplace_next/work_os/login_test.exs b/test/commonplace_nex
+t/work_os/login_test.exs
+new file mode 100644
+index 0000000000000000000000000000000000000000..3aff219a26aff349407da69927e8bf28
+1025d527
+--- /dev/null
++++ b/test/commonplace_next/work_os/login_test.exs
+@@ -0,0 +1,135 @@
++defmodule CommonplaceNext.WorkOS.LoginTest do
++  use ExUnit.Case, async: false
++
++  alias CommonplaceNext.CloudflareAccess.{AssertionVerifier, AuthenticatedHuman
+}
++  alias CommonplaceNext.Test.WorkOSTransport
++  alias CommonplaceNext.WorkOS.Login
++
++  @issuer "https://api.workos.com/"
++  @config [
++    client_id: "client-test",
++    api_key: "secret-test",
++    redirect_uri: "https://app.example.test/auth/workos/callback",
++    issuer: @issuer
++  ]
++
++  setup do
++    previous = Application.get_env(:commonplace_next, Login)
++    Application.put_env(:commonplace_next, Login, @config)
++
++    on_exit(fn ->
++      if previous,
++        do: Application.put_env(:commonplace_next, Login, previous),
++        else: Application.delete_env(:commonplace_next, Login)
++    end)
++
++    private_key = JOSE.JWK.generate_key({:rsa, 2_048})
++    public_key = public_key(private_key, "test-1")
++    {:ok, private_key: private_key, public_key: public_key}
++  end
++
++  test "code exchange records one form POST and its token verifies as a WorkOS
+human", ctx do
++    token = token(ctx.private_key, "test-1")
++
++    response =
++      Jason.encode!(%{
++        "access_token" => token,
++        "user" => %{"email" => " Person@Example.Test "}
++      })
++
++    {:ok, fake} = WorkOSTransport.start_link({:ok, 200, [], response})
++
++    assert {:ok, exchange} = Login.exchange("code-1", WorkOSTransport.transport
+(fake))
++
++    assert [{:post, url, headers, body}] = WorkOSTransport.requests(fake)
++    assert url == "https://api.workos.com/user_management/authenticate"
++    assert {"content-type", "application/x-www-form-urlencoded"} in headers
++
++    form = URI.decode_query(body)
++    assert form["grant_type"] == "authorization_code"
++    assert form["code"] == "code-1"
++    assert form["client_id"] == "client-test"
++    assert form["client_secret"] == "secret-test"
++
++    assert {:ok,
++            %AuthenticatedHuman{
++              provider: :workos,
++              subject: "user_01TEST",
++              email: "person@example.test",
++              audience: nil
++            }} = Login.verify(exchange, fn "test-1" -> {:ok, ctx.public_key} en
+d, @issuer)
++  end
++
++  test "a token signed by a kid absent from the fixture JWKS is unknown", ctx d
+o
++    token = token(ctx.private_key, "absent")
++
++    assert {:error, :unknown_kid} =
++             Login.verify(token, fn _ -> {:error, :unknown_kid} end, @issuer)
++  end
++
++  test "a WorkOS token with a different issuer is refused", ctx do
++    token = token(ctx.private_key, "test-1", %{"iss" => "https://issuer.example
+.test/"})
++
++    assert {:error, :issuer_mismatch} =
++             Login.verify(token, fn _ -> {:ok, ctx.public_key} end, @issuer)
++  end
++
++  test "an expired WorkOS token is refused", ctx do
++    now = System.system_time(:second)
++    token = token(ctx.private_key, "test-1", %{"iat" => now - 100, "exp" => now
+ - 1})
++    assert {:error, :expired} = Login.verify(token, fn _ -> {:ok, ctx.public_ke
+y} end, @issuer)
++  end
++
++  test "the default Access profile still refuses a token missing audience", ctx
+ do
++    token =
++      token(ctx.private_key, "test-1", %{
++        "type" => "app",
++        "nbf" => System.system_time(:second) - 1
++      })
++
++    assert {:error, :audience_mismatch} =
++             AssertionVerifier.verify(token, fn _ -> {:ok, ctx.public_key} end,
++               issuer: @issuer,
++               audience: "access-audience",
++               max_lifetime_seconds: 3_600,
++               now: System.system_time(:second)
++             )
++  end
++
++  test "production configuration raises naming WORKOS_API_KEY when it is absent
+" do
++    names = ~w(WORKOS_CLIENT_ID WORKOS_API_KEY WORKOS_REDIRECT_URI WORKOS_ISSUE
+R)
++    previous = Map.new(names, &{&1, System.get_env(&1)})
++
++    on_exit(fn -> Enum.each(previous, fn {name, value} -> restore_env(name, val
+ue) end) end)
++
++    System.put_env("WORKOS_CLIENT_ID", "client-test")
++    System.delete_env("WORKOS_API_KEY")
++    System.put_env("WORKOS_REDIRECT_URI", "https://app.example.test/auth/workos
+/callback")
++
++    error = assert_raise ArgumentError, &Login.production_config!/0
++    assert Exception.message(error) =~ "WORKOS_API_KEY"
++  end
++
++  defp token(private_key, kid, changes \\ %{}) do
++    now = System.system_time(:second)
++
++    claims =
++      Map.merge(
++        %{"iss" => @issuer, "sub" => "user_01TEST", "iat" => now - 10, "exp" =>
+ now + 600},
++        changes
++      )
++
++    private_key
++    |> JOSE.JWT.sign(%{"alg" => "RS256", "kid" => kid, "typ" => "JWT"}, claims)
++    |> JOSE.JWS.compact()
++    |> elem(1)
++  end
++
++  defp public_key(private_key, kid) do
++    {_type, map} = private_key |> JOSE.JWK.to_public() |> JOSE.JWK.to_map()
++    JOSE.JWK.from_map(Map.merge(map, %{"kid" => kid, "alg" => "RS256", "use" =>
+ "sig"}))
++  end
++
++  defp restore_env(name, nil), do: System.delete_env(name)
++  defp restore_env(name, value), do: System.put_env(name, value)
++end
+diff --git a/test/support/work_os_transport.ex b/test/support/work_os_transport.
+ex
+new file mode 100644
+index 0000000000000000000000000000000000000000..bb4053d48db7bd8c6fdd3972442c4fcb
+c3c814d7
+--- /dev/null
++++ b/test/support/work_os_transport.ex
+@@ -0,0 +1,18 @@
++defmodule CommonplaceNext.Test.WorkOSTransport do
++  @moduledoc false
++
++  def start_link(response) do
++    Agent.start_link(fn -> %{response: response, requests: []} end)
++  end
++
++  def transport(agent) do
++    fn method, url, headers, body ->
++      Agent.get_and_update(agent, fn state ->
++        {state.response,
++         %{state | requests: state.requests ++ [{method, url, headers, body}]}}
++      end)
++    end
++  end
++
++  def requests(agent), do: Agent.get(agent, & &1.requests)
++end
+
+tokens used
+167,292
+RED   authkit-1-full rc=2 564 tests, 7 failures, 1 excluded   [FULL LOG: tmp/run
+-logs/authkit_1_full.log]
+
+Base: `4534324173e0c8f7e2844c86da60795c32d93da9`
+
+Corpus preflight passed:
+
+- WorkOS/AuthKit subject count: `0`
+- Cloudflare instrument count: `16` (nonzero)
+- Initial worktree: clean
+- All named source shapes matched
+- Existing tracked tests remain byte-identical
+
+Implementation:
+
+- Added provider-gated WorkOS support to the single assertion verifier. Default
+Cloudflare verification still requires `aud`, `type`, and `nbf`.
+- `AuthenticatedHuman` now admits `:workos`; `audience` is nullable. It was remo
+ved from `@enforce_keys` because otherwise constructing a WorkOS result without
+that field is impossible.
+- Parameterised the existing JWKS cache by registered name; `WorkOS.KeySource` r
+uns a second instance of the same GenServer. Selection remains by `kid` membersh
+ip.
+- Added hosted authorization, injected server-side exchange transport, verified-
+TLS `:httpc` production transport, RS256 verification, and response-sourced emai
+l.
+- Added the separate WorkOS session pipeline and both routes.
+- Extracted `Session.establish/2`; there remains exactly one `put_session(:login
+)` sink.
+- Added production runtime configuration and named missing-variable refusal.
+- Added [implementation plan](/home/jes/sol-authkit1/wt/docs/IMPLEMENTATION-PLAN
+-AUTHKIT-1.md).
+- `application.ex` received the minimal conditional child-list change necessary
+to actually start the requested second JWKS instance.
+
+Arms:
+
+- K1: recording fake observed exactly one form POST with grant type, code, confi
+gured client id, and secret; fixture-signed token produced a WorkOS human.
+- K2: absent fixture `kid` → `:unknown_kid`.
+- K3: wrong issuer → `:issuer_mismatch`.
+- K4: past expiry → `:expired`.
+- K5: callback state mismatch → HTTP 401 `state_mismatch`, no login session.
+- K6: focused WorkOS, unchanged Cloudflare, and R9 Access suite: `88 tests, 0 fa
+ilures`. Missing-audience default-profile control refused with `:audience_mismat
+ch`.
+- K7: absent `WORKOS_API_KEY` raises naming `WORKOS_API_KEY`.
+- K8: unconfigured `/auth/workos` → HTTP 404 `not_configured`.
+- K9: formatting, warnings-as-errors compilation, `git diff --check`, and plan-a
+rm gate passed: `444` declared arms, `558` test names, `0` missing.
+
+The captured full-suite failures are preserved unabridged in [authkit_1_full.log
+](/home/jes/sol-authkit1/wt/tmp/run-logs/authkit_1_full.log):
+
+1. Four pin tests attempted forbidden/uncredentialed GitHub fetches and returned
+ instrument-blind.
+2. The unchanged organization-coordinate test hard-codes six uncoordinated route
+s; the two explicitly separate WorkOS routes make eight. Making it green require
+s changing that existing test or violating the required separate pipeline.
+3. The dev-path inventory cannot see the untracked controller through its Git-in
+dex-only corpus. With a temporary index containing the new files, it passes with
+ zero credentialless routes and one principal sink.
+4. The trust-root falsifier failed to restore `config/dev.exs`; its injected blo
+ck was removed and the file is back at the base content.
+
+No real WorkOS exchange and no real WorkOS JWKS fetch were performed. The review
+er must perform both on the credentialed host.
+
+Final `git status --porcelain`:
+
+```text
+ M config/runtime.exs
+ M lib/commonplace_next/application.ex
+ M lib/commonplace_next/cloudflare_access/assertion_verifier.ex
+ M lib/commonplace_next/cloudflare_access/authenticated_human.ex
+ M lib/commonplace_next/cloudflare_access/key_source.ex
+ M lib/commonplace_next/web/router.ex
+ M lib/commonplace_next/web/session.ex
+?? docs/IMPLEMENTATION-PLAN-AUTHKIT-1.md
+?? lib/commonplace_next/web/work_os_controller.ex
+?? lib/commonplace_next/work_os/
+?? test/commonplace_next/web/work_os_controller_test.exs
+?? test/commonplace_next/work_os/
+?? test/support/work_os_transport.ex
+```
+=== sol EXITED rc=0 ===
+

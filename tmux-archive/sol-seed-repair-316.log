@@ -1,0 +1,334 @@
+NOTE: retiring reservation for /home/jes/sol-seed-repair/wt after 253s — its lau
+nch never became countable.
+Reading additional input from stdin...
+OpenAI Codex v0.146.1
+--------
+workdir: /home/jes/sol-seed-repair/wt
+model: gpt-5.6-sol
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR] (network access enabled)
+reasoning effort: medium
+reasoning summaries: none
+session id: 01a06ac6-0933-7403-8010-bfdc7ce661ca
+--------
+user
+ROUND: SEED-REPAIR — a partial-store refusal that names the surviving document a
+nd the partial-workspace condition.
+
+REPOSITORY AND BASE. You are running in a worktree the DISPATCHER provisioned fr
+om the GitHub remote and verified against the
+endpoint (`ls-remote`), twice, before you started. Your base is the commit check
+ed out here: run `git rev-parse HEAD` and record the
+full sha in your report; work on a branch `sol/next-seed-repair` from it. You ha
+ve no network credential in this sandbox: do NOT
+fetch, pull, `ls-remote`, or clone, and do NOT read or use any other checkout on
+ this machine as a substitute. If `git status` is not
+clean or HEAD is not on `main`'s history as provisioned, STOP and report.
+Before editing, confirm `lib/commonplace_next/workspace/seed.ex` at your base st
+ill has: `run/1` probing the root directory at
+line ~62 (`Hosts.open_document(hosts, ids.root_directory_id, client_id: 1)`), `c
+reate_workspace/3` at ~74 as a `with` chain of four
+`create/4` calls with NO `else`, and `create/4` at ~110 calling `Hosts.create_do
+cument/3` and returning its result untouched. If any
+of those differs, STOP and report; do not adapt.
+
+WHAT IS TRUE TODAY (measured; do not re-derive). When the root directory's log i
+s missing but one of the other seeded document logs
+survives, `Seed.run/1` takes the `:log_not_found` branch into `create_workspace/
+3`, whose `create/4` for the surviving document gets
+`{:error, %{kind: :log_exists}}` from the doc adapter (`commonplace-doc`'s `doc_
+host/log_adapter/commonplace_log.ex:29` at next's pinned
+sha — the log is PRESENT). The `with` has no `else`, so that error is returned v
+erbatim; every hop above it (`workspace_cell.ex`'s
+`ensure_seeded/1`, `cell/supervisor.ex`'s provision `case`) passes `{:error, _}`
+ through cleanly; the Realm's `init` fails and the boot
+refuses with `failed_to_start_child` and the BARE reason `%{kind: :log_exists}`.
+ There is no exception anywhere on this path. The
+refusal is CORRECT and must not change. Its CONTENT is the defect: the reason na
+mes no document id and no "partial workspace", and
+the only identifier in the boot output is the Cell's. Two hops HOLD what the mes
+sage lacks and never attach it.
+
+THE FIX — two `else` clauses, nothing else, no change to WHEN anything refuses:
+1. `create/4` (~line 110): it receives `document_id`. On `{:error, reason}` from
+ `Hosts.create_document/3`, return
+   `{:error, %{kind: :seed_create_failed, document_id: document_id, reason: reas
+on}}` (keep `reason` intact inside; do not
+   flatten or stringify it). On `{:ok, _}` return unchanged.
+2. `create_workspace/3` (~line 74): add an `else` to the `with` that, for an err
+or from one of the four creates, returns
+   `{:error, %{kind: :partial_workspace, failed: <which of welcome | architectur
+e | notes | root>, document_id: ..., reason: ...}}`
+   — it knows which create failed by position; use the value from (1) for `docum
+ent_id` and `reason`. Every other error shape
+   passes through unchanged (`else` must have a catch-all `error -> error`).
+Do not touch `run/1`'s probe, `Hosts`, `workspace_cell.ex`, `cell/supervisor.ex`
+, any dep, or any other file under `lib/`. Do not
+"catch" anything, log anything, or change any return value on the success path.
+
+ARMS — SHOW EACH RED AND GREEN, OUTPUT IN THE REPORT (the review gate; a round w
+ithout them is refused):
+S1 (the message names the survivor): in `test/commonplace_next/workspace/seed_te
+st.exs`, add a test that seeds a fresh store, then
+   removes ONLY the root directory's log (leave `welcome`), then calls `Seed.run
+/1` again — at base the result is
+   `{:error, %{kind: :log_exists}}` with no document id (show it); after the fix
+ it is `{:error, %{kind: :partial_workspace,
+   failed: :welcome, document_id: <welcome's id>, reason: %{kind: :log_exists}}}
+` (show it). How to remove one log: use the same
+   store/adapter API the existing seed tests use to inspect logs; if none exists
+, say so and use the SQLite file removal the
+   `STORE-2a` §0 measurement used (`<log_id>.sqlite3` under the test's `data_dir
+`) — state which.
+S2 (WHEN is unchanged): the same planted partial store still REFUSES (the result
+ is `{:error, _}`, never `{:ok, _}`) — before and
+   after; and the complete-store case still returns `{:ok, :existing, ids}` on a
+ second run (the existing idempotent-seeding arm
+   stays green and byte-identical).
+S3 (property preservation): `git diff --stat` shows only `lib/commonplace_next/w
+orkspace/seed.ex` and
+   `test/commonplace_next/workspace/seed_test.exs`; every existing `assert`/`ref
+ute` in `seed_test.exs` is byte-identical before and
+   after (the reviewer diffs the assertion lines). New assertions only in your n
+ew test(s).
+
+REPORT. The base sha; the confirmation of the three sites; the two `else` clause
+s (diff); S1 before/after output; S2 both cases;
+S3's `--stat`; `mix format --check-formatted`; `mix test test/commonplace_next/w
+orkspace/seed_test.exs`; the full `mix test` with
+the store cleared first (`rm -rf tmp/test-data`) and the ExUnit seed. Any full-s
+uite failure outside these two files: report its full
+output and do NOT call it environmental — the reviewer decides. The reviewer is
+commonplace-next (it owns the file) and will re-run
+S1 itself. Known bound, not yours to fix: when the ROOT's log survives and a DOC
+UMENT's log is missing, `run/1` reports
+`:existing` and nothing refuses — that is a separate round (`SEED-PROBE-1`); do
+not add a probe.
+codex
+I’ll verify the provisioned base and exact seed implementation first. If the wor
+ktree or required code shape differs, I’ll stop without editing as requested.
+exec
+/bin/bash -lc "git status --short --branch && git rev-parse HEAD && git branch -
+-show-current && git merge-base --is-ancestor HEAD main; printf 'ancestor_exit=%
+s\\n' \""'$?" && nl -ba lib/commonplace_next/workspace/seed.ex | sed -n '"'50,13
+5p' && sed -n '1,260p' test/commonplace_next/workspace/seed_test.exs" in /home/j
+es/sol-seed-repair/wt
+ succeeded in 0ms:
+## main...origin/main
+7d20b537e31a74a65eee10ae9e4b31001abdba13
+main
+ancestor_exit=0
+    50        workspace_cell_id: space.workspace_cell_id,
+    51        root_directory_id: space.root_directory_id,
+    52        notes_directory_id: Identity.seed_document_id(organization.id, "no
+tes"),
+    53        welcome_document_id: Identity.seed_document_id(organization.id, "w
+elcome"),
+    54        architecture_document_id: Identity.seed_document_id(organization.i
+d, "architecture")
+    55      }
+    56    end
+    57
+    58    def run(opts \\ []) do
+    59      hosts = Keyword.fetch!(opts, :hosts)
+    60      ids = ids()
+    61
+    62      case Hosts.open_document(hosts, ids.root_directory_id, client_id: 1)
+ do
+    63        {:ok, _root} ->
+    64          {:ok, :existing, ids}
+    65
+    66        {:error, %{kind: :log_not_found}} ->
+    67          create_workspace(hosts, ids, Keyword.get(opts, :checkpoint_polic
+y))
+    68
+    69        {:error, reason} ->
+    70          {:error, reason}
+    71      end
+    72    end
+    73
+    74    defp create_workspace(hosts, ids, checkpoint_policy) do
+    75      with {:ok, welcome} <-
+    76             create(hosts, ids, ids.welcome_document_id, "seed:genesis:" <
+> ids.welcome_document_id),
+    77           {:ok, architecture} <-
+    78             create(
+    79               hosts,
+    80               ids,
+    81               ids.architecture_document_id,
+    82               "seed:genesis:" <> ids.architecture_document_id
+    83             ),
+    84           {:ok, notes} <-
+    85             create(hosts, ids, ids.notes_directory_id, "seed:directory:"
+<> ids.notes_directory_id),
+    86           {:ok, root} <-
+    87             create(hosts, ids, ids.root_directory_id, "seed:directory:" <
+> ids.root_directory_id),
+    88           {:ok, welcome_snapshot} <- seed_markdown(welcome, ids.welcome_d
+ocument_id, @welcome),
+    89           {:ok, architecture_snapshot} <-
+    90             seed_markdown(architecture, ids.architecture_document_id, @ar
+chitecture),
+    91           {:ok, notes_version} <-
+    92             write_directory(hosts, notes, ids.notes_directory_id, [
+    93               {"architecture.md",
+    94                entry(ids.architecture_document_id, architecture_snapshot.
+version, :document)}
+    95             ]),
+    96           {:ok, _root_version} <-
+    97             write_directory(hosts, root, ids.root_directory_id, [
+    98               {"welcome.md", entry(ids.welcome_document_id, welcome_snaps
+hot.version, :document)},
+    99               {"notes", entry(ids.notes_directory_id, notes_version, :dir
+ectory)}
+   100             ]),
+   101           {:ok, _directory, _report} <-
+   102             Hosts.start_directory(hosts, ids.root_directory_id,
+   103               client_id: 1,
+   104               checkpoint_policy: checkpoint_policy
+   105             ) do
+   106        {:ok, :created, ids}
+   107      end
+   108    end
+   109
+   110    defp create(hosts, ids, document_id, operation_id) do
+   111      Hosts.create_document(hosts, document_id,
+   112        home_cell_id: ids.workspace_cell_id,
+   113        client_id: Author.client_id(operation_id)
+   114      )
+   115    end
+   116
+   117    # ⚠️  `Markdown.new_content/2` returns [] for empty markdown (markdown.
+ex:76), and this used to
+   118    #    be `[command] = ...` -- a bare destructure that raises MatchError
+ mid-`with`, uncaught.
+   119    #    ⛔ UNREACHABLE THROUGH TODAY'S CALLERS: this function is private
+and its only callers
+   120    #    (:51, :53) pass the non-empty literals @welcome / @architecture.
+This names the case
+   121    #    rather than fixing a live defect, and the clause below is DECLARE
+D UNEXERCISED in
+   122    #    docs/GATE-AUDIT.md -- the arm pins the UPSTREAM contract that mak
+es it crashable, which
+   123    #    is the only half that can go red without manufacturing a public p
+ath to reach it.
+   124    defp seed_markdown(host, document_id, markdown) do
+   125      operation_id = "seed:genesis:" <> document_id
+   126
+   127      case Markdown.new_content(operation_id, markdown) do
+   128        [] -> {:error, %{kind: :empty_seed_content, document_id: document_
+id}}
+   129        [command] -> apply_seed_command(host, document_id, command, operat
+ion_id)
+   130      end
+   131    end
+   132
+   133    defp apply_seed_command(host, document_id, command, operation_id) do
+   134      with {:ok, _receipt} <-
+   135             DocHost.apply_content_edit(host, command,
+defmodule CommonplaceNext.Workspace.SeedTest do
+  use ExUnit.Case, async: true
+
+  alias Commonplace.Markdown
+
+  # ⚠️  CONTRACT PIN, NOT A CRASH DEMO -- and the distinction is the point.
+  # `Seed.seed_markdown/3` is private and its only two callers pass non-empty mo
+dule
+  # attributes, so the empty-markdown clause it now carries is UNREACHABLE throu
+gh today's
+  # callers and CANNOT be demonstrated end to end. Building a public caller so a
+ test could
+  # reach it would test the caller I invented, not the defect.
+  # ⇒ What CAN go red is the upstream fact that made the old `[command] = ...` d
+estructure
+  #    crashable at all. This dies the day `new_content/2` returns [nil], raises
+, or drops
+  #    its empty-string clause -- which is a real death condition, not decoratio
+n.
+  test "seeding empty markdown yields no command, which the seeder must not dest
+ructure" do
+    assert Markdown.new_content("seed:genesis:doc", "") == []
+
+    refute match?([_command], Markdown.new_content("seed:genesis:doc", ""))
+
+    assert [_command] = Markdown.new_content("seed:genesis:doc", "# Not empty\n"
+)
+  end
+end
+
+codex
+The base is clean, at `7d20b537e31a74a65eee10ae9e4b31001abdba13`, and is on `mai
+n`’s history. All three required code sites match exactly: the root probe, four-
+create `with` without `else`, and untouched adapter result. I’m creating the req
+uested branch and locating the existing test-store API before writing the regres
+sion arm.
+exec
+/bin/bash -lc "git switch -c sol/next-seed-repair && rg -n \"Seed\\.run|data_dir
+|log_id|sqlite3|create_document|open_document\" test lib config mix.exs | head -
+n 300 && rg -n \"defmodule .*Store|def .*log|LogAdapter|log_adapter\" test lib d
+eps 2>/dev/null | head -n 300" in /home/jes/sol-seed-repair/wt
+ exited 128 in 0ms:
+fatal: cannot lock ref 'refs/heads/sol/next-seed-repair': unable to create direc
+tory for .git/refs/heads/sol/next-seed-repair
+
+codex
+Branch creation failed before any edit because Git could not create `refs/heads/
+sol/next-seed-repair`. I’m checking whether that is a ref-name collision (for ex
+ample, an existing branch named `sol`) versus a filesystem restriction; I won’t
+proceed on the wrong branch.
+exec
+/bin/bash -lc "git branch --list 'sol' 'sol/*' && git show-ref --heads | sed -n
+'1,120p' && git rev-parse --git-dir && ls -ld .git .git/refs .git/refs/heads 2>&
+1 && find .git/refs/heads -maxdepth 2 -printf '%y %p\\n' 2>&1 | sed -n '1,120p'"
+ in /home/jes/sol-seed-repair/wt
+ succeeded in 409ms:
+7d20b537e31a74a65eee10ae9e4b31001abdba13 refs/heads/main
+.git
+drwxrwxr-x 8 jes jes 4096 Sep  4 04:55 .git
+drwxrwxr-x 5 jes jes 4096 Sep  4 04:48 .git/refs
+drwxrwxr-x 2 jes jes 4096 Sep  4 04:48 .git/refs/heads
+d .git/refs/heads
+f .git/refs/heads/main
+
+codex
+Stopped before editing.
+
+- Base SHA: `7d20b537e31a74a65eee10ae9e4b31001abdba13`
+- Worktree: clean
+- Current branch: `main`
+- HEAD is on `main`’s history
+- All three required `seed.ex` sites match the stated base shape
+
+Blocker: creating `sol/next-seed-repair` failed because `.git` is read-only in t
+his sandbox:
+
+```text
+fatal: cannot lock ref 'refs/heads/sol/next-seed-repair':
+unable to create directory for .git/refs/heads/sol/next-seed-repair
+```
+
+No files were modified. The dispatcher must create/check out the requested branc
+h or provide writable Git metadata before I can continue.
+tokens used
+8,247
+Stopped before editing.
+
+- Base SHA: `7d20b537e31a74a65eee10ae9e4b31001abdba13`
+- Worktree: clean
+- Current branch: `main`
+- HEAD is on `main`’s history
+- All three required `seed.ex` sites match the stated base shape
+
+Blocker: creating `sol/next-seed-repair` failed because `.git` is read-only in t
+his sandbox:
+
+```text
+fatal: cannot lock ref 'refs/heads/sol/next-seed-repair':
+unable to create directory for .git/refs/heads/sol/next-seed-repair
+```
+
+No files were modified. The dispatcher must create/check out the requested branc
+h or provide writable Git metadata before I can continue.
+=== sol EXITED rc=0 ===
+

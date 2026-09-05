@@ -1,0 +1,2019 @@
++assert_gate() {   # assert_gate <before-sha> <head-sha> <declared-dir>
++  local before_sha="$1" head_sha="$2" declared_dir="$3" paths slug declared
++  paths=$(git diff --name-only "$before_sha" "$head_sha" -- test/) || return $?
++  if [ -z "$paths" ]; then
++    echo "no test files in range (0)"
++    return 0
++  fi
++  # Keep this byte-for-byte the round-name transform used by dispatch-round.sh.
++  slug=$(LC_ALL=C printf '%s' "$branch" | tr '[:upper:]' '[:lower:]' | sed -E '
+s/[^a-z0-9]/-/g; s/-+/-/g')
++  declared="$declared_dir/$slug.txt"
++  if [ -f "$declared" ]; then
++    echo "assert declaration: $declared"
++    bin/assert-diff.sh "$before_sha" "$head_sha" --declared "$declared" -- $pat
+hs
++  else
++    echo "assert declaration: none found ($declared)"
++    bin/assert-diff.sh "$before_sha" "$head_sha" -- $paths
++  fi
++}
++
+ # rc 71 is its own code on purpose: 70 already means "a gate refused" and 1 alr
+eady
+ # means NOT LANDED. Two meanings on one number is the same defect as a shared f
+ailure
+ # string -- the reader cannot tell which thing happened.
+@@ -154,6 +173,7 @@
+ # the green arm -- that a passing gate reaches it. Runs no git, merges nothing.
+ if [ "${1:-}" = "--self-test" ]; then
+   before=self-test
++  branch="Sol/Assert Gate Fixture"
+   gate() {
+     local label="$1"; shift
+     local out rc=0
+@@ -180,6 +200,31 @@
+   oe_path=0;  assert_origin_endpoint "/home/jes/commonplace-cell" aaa aaa >/dev
+/null 2>&1 || oe_path=$?
+   oe_stale=0; assert_origin_endpoint "git@github.com:x/y.git" aaa bbb >/dev/nul
+l 2>&1 || oe_stale=$?
+   oe_blind=0; assert_origin_endpoint "git@github.com:x/y.git" aaa "" >/dev/null
+ 2>&1 || oe_blind=$?
++  # ⭐ assertion-diff gate: one isolated two-commit corpus drives removal, addi
+tion,
++  # vacuous range, and declared removal without depending on this repository's
+history.
++  assert_repo=$(mktemp -d)
++  trap 'rm -rf -- "$assert_repo"' EXIT
++  mkdir -p "$assert_repo/bin" "$assert_repo/test" "$assert_repo/declarations"
++  cp bin/assert-diff.sh "$assert_repo/bin/assert-diff.sh"
++  git -C "$assert_repo" init -q
++  git -C "$assert_repo" config user.name self-test
++  git -C "$assert_repo" config user.email self-test@example.invalid
++  printf 'defmodule FixtureTest do\n  use ExUnit.Case\n  test "fixture" do\n
+ assert 1 == 1\n  end\nend\n' > "$assert_repo/test/fixture_test.exs"
++  git -C "$assert_repo" add test/fixture_test.exs
++  git -C "$assert_repo" commit -q -m base
++  assert_base=$(git -C "$assert_repo" rev-parse HEAD)
++  printf 'defmodule FixtureTest do\n  use ExUnit.Case\n  test "fixture" do\n  e
+nd\nend\n' > "$assert_repo/test/fixture_test.exs"
++  git -C "$assert_repo" add test/fixture_test.exs
++  git -C "$assert_repo" commit -q -m head
++  assert_head=$(git -C "$assert_repo" rev-parse HEAD)
++  assert_slug=$(LC_ALL=C printf '%s' "$branch" | tr '[:upper:]' '[:lower:]' | s
+ed -E 's/[^a-z0-9]/-/g; s/-+/-/g')
++  printf 'assert 1 == 1\n' > "$assert_repo/declarations/$assert_slug.txt"
++  ag_remove_rc=0; ag_remove=$(cd "$assert_repo" && assert_gate "$assert_base" "
+$assert_head" declarations/missing 2>&1) || ag_remove_rc=$?
++  ag_add_rc=0; ag_add=$(cd "$assert_repo" && assert_gate "$assert_head" "$asser
+t_base" declarations/missing 2>&1) || ag_add_rc=$?
++  ag_zero_rc=0; ag_zero=$(cd "$assert_repo" && assert_gate "$assert_base" "$ass
+ert_base" declarations/missing 2>&1) || ag_zero_rc=$?
++  ag_declared_rc=0; ag_declared=$(cd "$assert_repo" && assert_gate "$assert_bas
+e" "$assert_head" declarations 2>&1) || ag_declared_rc=$?
++  ag_zero_count=$(echo "$ag_zero" | grep -cF 'no test files in range (0)' || tr
+ue)
++  ag_declared_removal=$(echo "$ag_declared" | grep -cF 'REMOVED (declared) test
+/fixture_test.exs: assert 1 == 1' || true)
+   # ⭐ the receipt's new fields, driven by STUB values -- a receipt can otherwi
+se only be seen by
+   # performing a real landing, so its failure path would never run. A2 is the p
+lanted case this
+   # round exists for: a round that EDITS bin/land-round.sh is gated by the pre-
+merge file, and a
+@@ -228,6 +273,8 @@
+      && [ "$ok_timing" = 1 ] && [ "$ok_both" = 1 ] && [ "$ok_names" = 1 ] && [
+"$not_confused" = 0 ] \
+      && [ "$so_ok" -eq 0 ] && [ "$so_diff" -eq 71 ] && [ "$so_untr" -eq 71 ] &&
+ [ "$so_blind" -eq 71 ] \
+      && [ "$oe_ok" -eq 0 ] && [ "$oe_path" -eq 72 ] && [ "$oe_stale" -eq 72 ] &
+& [ "$oe_blind" -eq 72 ] \
++     && [ "$ag_remove_rc" -ne 0 ] && [ "$ag_add_rc" -eq 0 ] && [ "$ag_zero_rc"
+-eq 0 ] && [ "$ag_zero_count" = 1 ] \
++     && [ "$ag_declared_rc" -eq 0 ] && [ "$ag_declared_removal" = 1 ] \
+      && [ "$r_script" = 1 ] && [ "$r_endpoint" = 1 ] && [ "$r_stub" = 1 ] && [
+"$r_ondisk" = 0 ] \
+      && [ -n "$ondisk_sha" ] && [ "$r_hdr" = 1 ] && [ "$r_sep" = 1 ] && [ "$r_r
+ow" = 1 ] \
+      && [ "$e_equal" = 1 ] && [ "$e_diff" = 1 ] && [ "$e_empty_unknown" = 1 ] &
+& [ "$e_empty_no" = 0 ] \
+@@ -236,6 +283,7 @@
+     echo "  classifier: timing/both-fail/names outcomes distinct and not confus
+able (3 arms, stub rcs)."
+     echo "  same-object: match->0, divergence->71, untracked->71, unidentifiabl
+e->71 (4 arms, stub ids)."
+     echo "  origin-endpoint: url+agreeing cache->0, path origin->72, stale cach
+e->72, unreadable endpoint->72 (4 arms, stub args)."
++    echo "  assert-gate: removal->nonzero, additions->0, no-test range->0 with
+count 0, declared removal->0 and printed (4 arms, isolated repo)."
+     echo "  receipt fields: script hash named, endpoint named, planted mismatch
+ names the EXECUTING hash, existing rows unchanged (3 arms, stub values)."
+     echo "  edited: equal->no, different->yes, empty->unknown (not no), pointer
++fast-forward lines verbatim (4 arms, stub values)."
+     exit 0
+@@ -243,6 +291,7 @@
+   echo "SELF-TEST DETAIL: timing=$ok_timing both=$ok_both names=$ok_names confu
+sed=$not_confused" >&2
+   echo "SELF-TEST DETAIL: same-object ok=$so_ok diff=$so_diff untracked=$so_unt
+r blind=$so_blind" >&2
+   echo "SELF-TEST DETAIL: origin-endpoint ok=$oe_ok path=$oe_path stale=$oe_sta
+le blind=$oe_blind" >&2
++  echo "SELF-TEST DETAIL: assert-gate removal=$ag_remove_rc additions=$ag_add_r
+c zero=$ag_zero_rc zero_count=$ag_zero_count declared=$ag_declared_rc declared_r
+emoval=$ag_declared_removal" >&2
+   echo "SELF-TEST DETAIL: receipt script=$r_script endpoint=$r_endpoint stub=$r
+_stub ondisk=$r_ondisk ondisk_sha=[$ondisk_sha] hdr=$r_hdr sep=$r_sep row=$r_row
+" >&2
+   echo "SELF-TEST DETAIL: edited equal=$e_equal diff=$e_diff empty_unknown=$e_e
+mpty_unknown empty_no=$e_empty_no pointer=$e_pointer fast_forward=$e_fast_forwar
+d" >&2
+   echo "SELF-TEST FAIL: red rc=$red_rc output=[$red] green rc=$green_rc output=
+[$green]" >&2; exit 3
+@@ -426,6 +475,7 @@
+ # R2b filed this gate and did NOT wire it here; an unwired gate is a remembered
+ rule.
+ # biscuit-auth's RunLimits::default() is a 1 ms WALL CLOCK and omission is sile
+nt.
+ gate "check-biscuit-run-limits" bash bin/check-biscuit-run-limits.sh
++gate "assert-diff" assert_gate "$before" HEAD docs/assert-declarations
+ # ⛔ LAST GATE BEFORE THE PUSH, and the only one whose subject is the commit.
+ # ⭐ RUN BEFORE THE RECEIPT IS WRITTEN. The untracked refusal caught a stray
+ # .slot-granted on 2026-09-03; the receipt must not be able to mask it, so the
+
+codex
+Both required checks passed. I’m collecting the complete patch now for the final
+ report; no landing command has been run.
+exec
+/bin/bash -lc 'git diff -- bin/land-round.sh' in /home/jes/sol-cell-assert-gate/
+wt
+ succeeded in 0ms:
+diff --git a/bin/land-round.sh b/bin/land-round.sh
+index 87bbcbb..fe62460 100755
+--- a/bin/land-round.sh
++++ b/bin/land-round.sh
+@@ -48,6 +48,25 @@ executed_tree() {   # tree id of the tracked worktree as the
+gates saw it
+ pushed_tree() { git rev-parse "HEAD^{tree}" 2>/dev/null; }
+ untracked_count() { git status --porcelain --untracked-files=normal 2>/dev/null
+ | grep -c '^??' || true; }
+
++assert_gate() {   # assert_gate <before-sha> <head-sha> <declared-dir>
++  local before_sha="$1" head_sha="$2" declared_dir="$3" paths slug declared
++  paths=$(git diff --name-only "$before_sha" "$head_sha" -- test/) || return $?
++  if [ -z "$paths" ]; then
++    echo "no test files in range (0)"
++    return 0
++  fi
++  # Keep this byte-for-byte the round-name transform used by dispatch-round.sh.
++  slug=$(LC_ALL=C printf '%s' "$branch" | tr '[:upper:]' '[:lower:]' | sed -E '
+s/[^a-z0-9]/-/g; s/-+/-/g')
++  declared="$declared_dir/$slug.txt"
++  if [ -f "$declared" ]; then
++    echo "assert declaration: $declared"
++    bin/assert-diff.sh "$before_sha" "$head_sha" --declared "$declared" -- $pat
+hs
++  else
++    echo "assert declaration: none found ($declared)"
++    bin/assert-diff.sh "$before_sha" "$head_sha" -- $paths
++  fi
++}
++
+ # rc 71 is its own code on purpose: 70 already means "a gate refused" and 1 alr
+eady
+ # means NOT LANDED. Two meanings on one number is the same defect as a shared f
+ailure
+ # string -- the reader cannot tell which thing happened.
+@@ -154,6 +173,7 @@ write_receipt() {  # write_receipt <branch> <base> <head> <e
+xecuted-tree> <gatel
+ # the green arm -- that a passing gate reaches it. Runs no git, merges nothing.
+ if [ "${1:-}" = "--self-test" ]; then
+   before=self-test
++  branch="Sol/Assert Gate Fixture"
+   gate() {
+     local label="$1"; shift
+     local out rc=0
+@@ -180,6 +200,31 @@ if [ "${1:-}" = "--self-test" ]; then
+   oe_path=0;  assert_origin_endpoint "/home/jes/commonplace-cell" aaa aaa >/dev
+/null 2>&1 || oe_path=$?
+   oe_stale=0; assert_origin_endpoint "git@github.com:x/y.git" aaa bbb >/dev/nul
+l 2>&1 || oe_stale=$?
+   oe_blind=0; assert_origin_endpoint "git@github.com:x/y.git" aaa "" >/dev/null
+ 2>&1 || oe_blind=$?
++  # ⭐ assertion-diff gate: one isolated two-commit corpus drives removal, addi
+tion,
++  # vacuous range, and declared removal without depending on this repository's
+history.
++  assert_repo=$(mktemp -d)
++  trap 'rm -rf -- "$assert_repo"' EXIT
++  mkdir -p "$assert_repo/bin" "$assert_repo/test" "$assert_repo/declarations"
++  cp bin/assert-diff.sh "$assert_repo/bin/assert-diff.sh"
++  git -C "$assert_repo" init -q
++  git -C "$assert_repo" config user.name self-test
++  git -C "$assert_repo" config user.email self-test@example.invalid
++  printf 'defmodule FixtureTest do\n  use ExUnit.Case\n  test "fixture" do\n
+ assert 1 == 1\n  end\nend\n' > "$assert_repo/test/fixture_test.exs"
++  git -C "$assert_repo" add test/fixture_test.exs
++  git -C "$assert_repo" commit -q -m base
++  assert_base=$(git -C "$assert_repo" rev-parse HEAD)
++  printf 'defmodule FixtureTest do\n  use ExUnit.Case\n  test "fixture" do\n  e
+nd\nend\n' > "$assert_repo/test/fixture_test.exs"
++  git -C "$assert_repo" add test/fixture_test.exs
++  git -C "$assert_repo" commit -q -m head
++  assert_head=$(git -C "$assert_repo" rev-parse HEAD)
++  assert_slug=$(LC_ALL=C printf '%s' "$branch" | tr '[:upper:]' '[:lower:]' | s
+ed -E 's/[^a-z0-9]/-/g; s/-+/-/g')
++  printf 'assert 1 == 1\n' > "$assert_repo/declarations/$assert_slug.txt"
++  ag_remove_rc=0; ag_remove=$(cd "$assert_repo" && assert_gate "$assert_base" "
+$assert_head" declarations/missing 2>&1) || ag_remove_rc=$?
++  ag_add_rc=0; ag_add=$(cd "$assert_repo" && assert_gate "$assert_head" "$asser
+t_base" declarations/missing 2>&1) || ag_add_rc=$?
++  ag_zero_rc=0; ag_zero=$(cd "$assert_repo" && assert_gate "$assert_base" "$ass
+ert_base" declarations/missing 2>&1) || ag_zero_rc=$?
++  ag_declared_rc=0; ag_declared=$(cd "$assert_repo" && assert_gate "$assert_bas
+e" "$assert_head" declarations 2>&1) || ag_declared_rc=$?
++  ag_zero_count=$(echo "$ag_zero" | grep -cF 'no test files in range (0)' || tr
+ue)
++  ag_declared_removal=$(echo "$ag_declared" | grep -cF 'REMOVED (declared) test
+/fixture_test.exs: assert 1 == 1' || true)
+   # ⭐ the receipt's new fields, driven by STUB values -- a receipt can otherwi
+se only be seen by
+   # performing a real landing, so its failure path would never run. A2 is the p
+lanted case this
+   # round exists for: a round that EDITS bin/land-round.sh is gated by the pre-
+merge file, and a
+@@ -228,6 +273,8 @@ if [ "${1:-}" = "--self-test" ]; then
+      && [ "$ok_timing" = 1 ] && [ "$ok_both" = 1 ] && [ "$ok_names" = 1 ] && [
+"$not_confused" = 0 ] \
+      && [ "$so_ok" -eq 0 ] && [ "$so_diff" -eq 71 ] && [ "$so_untr" -eq 71 ] &&
+ [ "$so_blind" -eq 71 ] \
+      && [ "$oe_ok" -eq 0 ] && [ "$oe_path" -eq 72 ] && [ "$oe_stale" -eq 72 ] &
+& [ "$oe_blind" -eq 72 ] \
++     && [ "$ag_remove_rc" -ne 0 ] && [ "$ag_add_rc" -eq 0 ] && [ "$ag_zero_rc"
+-eq 0 ] && [ "$ag_zero_count" = 1 ] \
++     && [ "$ag_declared_rc" -eq 0 ] && [ "$ag_declared_removal" = 1 ] \
+      && [ "$r_script" = 1 ] && [ "$r_endpoint" = 1 ] && [ "$r_stub" = 1 ] && [
+"$r_ondisk" = 0 ] \
+      && [ -n "$ondisk_sha" ] && [ "$r_hdr" = 1 ] && [ "$r_sep" = 1 ] && [ "$r_r
+ow" = 1 ] \
+      && [ "$e_equal" = 1 ] && [ "$e_diff" = 1 ] && [ "$e_empty_unknown" = 1 ] &
+& [ "$e_empty_no" = 0 ] \
+@@ -236,6 +283,7 @@ if [ "${1:-}" = "--self-test" ]; then
+     echo "  classifier: timing/both-fail/names outcomes distinct and not confus
+able (3 arms, stub rcs)."
+     echo "  same-object: match->0, divergence->71, untracked->71, unidentifiabl
+e->71 (4 arms, stub ids)."
+     echo "  origin-endpoint: url+agreeing cache->0, path origin->72, stale cach
+e->72, unreadable endpoint->72 (4 arms, stub args)."
++    echo "  assert-gate: removal->nonzero, additions->0, no-test range->0 with
+count 0, declared removal->0 and printed (4 arms, isolated repo)."
+     echo "  receipt fields: script hash named, endpoint named, planted mismatch
+ names the EXECUTING hash, existing rows unchanged (3 arms, stub values)."
+     echo "  edited: equal->no, different->yes, empty->unknown (not no), pointer
++fast-forward lines verbatim (4 arms, stub values)."
+     exit 0
+@@ -243,6 +291,7 @@ if [ "${1:-}" = "--self-test" ]; then
+   echo "SELF-TEST DETAIL: timing=$ok_timing both=$ok_both names=$ok_names confu
+sed=$not_confused" >&2
+   echo "SELF-TEST DETAIL: same-object ok=$so_ok diff=$so_diff untracked=$so_unt
+r blind=$so_blind" >&2
+   echo "SELF-TEST DETAIL: origin-endpoint ok=$oe_ok path=$oe_path stale=$oe_sta
+le blind=$oe_blind" >&2
++  echo "SELF-TEST DETAIL: assert-gate removal=$ag_remove_rc additions=$ag_add_r
+c zero=$ag_zero_rc zero_count=$ag_zero_count declared=$ag_declared_rc declared_r
+emoval=$ag_declared_removal" >&2
+   echo "SELF-TEST DETAIL: receipt script=$r_script endpoint=$r_endpoint stub=$r
+_stub ondisk=$r_ondisk ondisk_sha=[$ondisk_sha] hdr=$r_hdr sep=$r_sep row=$r_row
+" >&2
+   echo "SELF-TEST DETAIL: edited equal=$e_equal diff=$e_diff empty_unknown=$e_e
+mpty_unknown empty_no=$e_empty_no pointer=$e_pointer fast_forward=$e_fast_forwar
+d" >&2
+   echo "SELF-TEST FAIL: red rc=$red_rc output=[$red] green rc=$green_rc output=
+[$green]" >&2; exit 3
+@@ -426,6 +475,7 @@ gate "check-truthy-verify" bash bin/check-truthy-verify.sh
+ # R2b filed this gate and did NOT wire it here; an unwired gate is a remembered
+ rule.
+ # biscuit-auth's RunLimits::default() is a 1 ms WALL CLOCK and omission is sile
+nt.
+ gate "check-biscuit-run-limits" bash bin/check-biscuit-run-limits.sh
++gate "assert-diff" assert_gate "$before" HEAD docs/assert-declarations
+ # ⛔ LAST GATE BEFORE THE PUSH, and the only one whose subject is the commit.
+ # ⭐ RUN BEFORE THE RECEIPT IS WRITTEN. The untracked refusal caught a stray
+ # .slot-granted on 2026-09-03; the receipt must not be able to mask it, so the
+
+diff --git a/bin/land-round.sh b/bin/land-round.sh
+index 87bbcbbc99a8967701ecbf2486cc3407dbd60fd7..fe62460e87332ca7777d7987234cd755
+d2748869
+--- a/bin/land-round.sh
++++ b/bin/land-round.sh
+@@ -48,6 +48,25 @@
+ pushed_tree() { git rev-parse "HEAD^{tree}" 2>/dev/null; }
+ untracked_count() { git status --porcelain --untracked-files=normal 2>/dev/null
+ | grep -c '^??' || true; }
+
++assert_gate() {   # assert_gate <before-sha> <head-sha> <declared-dir>
++  local before_sha="$1" head_sha="$2" declared_dir="$3" paths slug declared
++  paths=$(git diff --name-only "$before_sha" "$head_sha" -- test/) || return $?
++  if [ -z "$paths" ]; then
++    echo "no test files in range (0)"
++    return 0
++  fi
++  # Keep this byte-for-byte the round-name transform used by dispatch-round.sh.
++  slug=$(LC_ALL=C printf '%s' "$branch" | tr '[:upper:]' '[:lower:]' | sed -E '
+s/[^a-z0-9]/-/g; s/-+/-/g')
++  declared="$declared_dir/$slug.txt"
++  if [ -f "$declared" ]; then
++    echo "assert declaration: $declared"
++    bin/assert-diff.sh "$before_sha" "$head_sha" --declared "$declared" -- $pat
+hs
++  else
++    echo "assert declaration: none found ($declared)"
++    bin/assert-diff.sh "$before_sha" "$head_sha" -- $paths
++  fi
++}
++
+ # rc 71 is its own code on purpose: 70 already means "a gate refused" and 1 alr
+eady
+ # means NOT LANDED. Two meanings on one number is the same defect as a shared f
+ailure
+ # string -- the reader cannot tell which thing happened.
+@@ -154,6 +173,7 @@
+ # the green arm -- that a passing gate reaches it. Runs no git, merges nothing.
+ if [ "${1:-}" = "--self-test" ]; then
+   before=self-test
++  branch="Sol/Assert Gate Fixture"
+   gate() {
+     local label="$1"; shift
+     local out rc=0
+@@ -180,6 +200,31 @@
+   oe_path=0;  assert_origin_endpoint "/home/jes/commonplace-cell" aaa aaa >/dev
+/null 2>&1 || oe_path=$?
+   oe_stale=0; assert_origin_endpoint "git@github.com:x/y.git" aaa bbb >/dev/nul
+l 2>&1 || oe_stale=$?
+   oe_blind=0; assert_origin_endpoint "git@github.com:x/y.git" aaa "" >/dev/null
+ 2>&1 || oe_blind=$?
++  # ⭐ assertion-diff gate: one isolated two-commit corpus drives removal, addi
+tion,
++  # vacuous range, and declared removal without depending on this repository's
+history.
++  assert_repo=$(mktemp -d)
++  trap 'rm -rf -- "$assert_repo"' EXIT
++  mkdir -p "$assert_repo/bin" "$assert_repo/test" "$assert_repo/declarations"
++  cp bin/assert-diff.sh "$assert_repo/bin/assert-diff.sh"
++  git -C "$assert_repo" init -q
++  git -C "$assert_repo" config user.name self-test
++  git -C "$assert_repo" config user.email self-test@example.invalid
++  printf 'defmodule FixtureTest do\n  use ExUnit.Case\n  test "fixture" do\n
+ assert 1 == 1\n  end\nend\n' > "$assert_repo/test/fixture_test.exs"
++  git -C "$assert_repo" add test/fixture_test.exs
++  git -C "$assert_repo" commit -q -m base
++  assert_base=$(git -C "$assert_repo" rev-parse HEAD)
++  printf 'defmodule FixtureTest do\n  use ExUnit.Case\n  test "fixture" do\n  e
+nd\nend\n' > "$assert_repo/test/fixture_test.exs"
++  git -C "$assert_repo" add test/fixture_test.exs
++  git -C "$assert_repo" commit -q -m head
++  assert_head=$(git -C "$assert_repo" rev-parse HEAD)
++  assert_slug=$(LC_ALL=C printf '%s' "$branch" | tr '[:upper:]' '[:lower:]' | s
+ed -E 's/[^a-z0-9]/-/g; s/-+/-/g')
++  printf 'assert 1 == 1\n' > "$assert_repo/declarations/$assert_slug.txt"
++  ag_remove_rc=0; ag_remove=$(cd "$assert_repo" && assert_gate "$assert_base" "
+$assert_head" declarations/missing 2>&1) || ag_remove_rc=$?
++  ag_add_rc=0; ag_add=$(cd "$assert_repo" && assert_gate "$assert_head" "$asser
+t_base" declarations/missing 2>&1) || ag_add_rc=$?
++  ag_zero_rc=0; ag_zero=$(cd "$assert_repo" && assert_gate "$assert_base" "$ass
+ert_base" declarations/missing 2>&1) || ag_zero_rc=$?
++  ag_declared_rc=0; ag_declared=$(cd "$assert_repo" && assert_gate "$assert_bas
+e" "$assert_head" declarations 2>&1) || ag_declared_rc=$?
++  ag_zero_count=$(echo "$ag_zero" | grep -cF 'no test files in range (0)' || tr
+ue)
++  ag_declared_removal=$(echo "$ag_declared" | grep -cF 'REMOVED (declared) test
+/fixture_test.exs: assert 1 == 1' || true)
+   # ⭐ the receipt's new fields, driven by STUB values -- a receipt can otherwi
+se only be seen by
+   # performing a real landing, so its failure path would never run. A2 is the p
+lanted case this
+   # round exists for: a round that EDITS bin/land-round.sh is gated by the pre-
+merge file, and a
+@@ -228,6 +273,8 @@
+      && [ "$ok_timing" = 1 ] && [ "$ok_both" = 1 ] && [ "$ok_names" = 1 ] && [
+"$not_confused" = 0 ] \
+      && [ "$so_ok" -eq 0 ] && [ "$so_diff" -eq 71 ] && [ "$so_untr" -eq 71 ] &&
+ [ "$so_blind" -eq 71 ] \
+      && [ "$oe_ok" -eq 0 ] && [ "$oe_path" -eq 72 ] && [ "$oe_stale" -eq 72 ] &
+& [ "$oe_blind" -eq 72 ] \
++     && [ "$ag_remove_rc" -ne 0 ] && [ "$ag_add_rc" -eq 0 ] && [ "$ag_zero_rc"
+-eq 0 ] && [ "$ag_zero_count" = 1 ] \
++     && [ "$ag_declared_rc" -eq 0 ] && [ "$ag_declared_removal" = 1 ] \
+      && [ "$r_script" = 1 ] && [ "$r_endpoint" = 1 ] && [ "$r_stub" = 1 ] && [
+"$r_ondisk" = 0 ] \
+      && [ -n "$ondisk_sha" ] && [ "$r_hdr" = 1 ] && [ "$r_sep" = 1 ] && [ "$r_r
+ow" = 1 ] \
+      && [ "$e_equal" = 1 ] && [ "$e_diff" = 1 ] && [ "$e_empty_unknown" = 1 ] &
+& [ "$e_empty_no" = 0 ] \
+@@ -236,6 +283,7 @@
+     echo "  classifier: timing/both-fail/names outcomes distinct and not confus
+able (3 arms, stub rcs)."
+     echo "  same-object: match->0, divergence->71, untracked->71, unidentifiabl
+e->71 (4 arms, stub ids)."
+     echo "  origin-endpoint: url+agreeing cache->0, path origin->72, stale cach
+e->72, unreadable endpoint->72 (4 arms, stub args)."
++    echo "  assert-gate: removal->nonzero, additions->0, no-test range->0 with
+count 0, declared removal->0 and printed (4 arms, isolated repo)."
+     echo "  receipt fields: script hash named, endpoint named, planted mismatch
+ names the EXECUTING hash, existing rows unchanged (3 arms, stub values)."
+     echo "  edited: equal->no, different->yes, empty->unknown (not no), pointer
++fast-forward lines verbatim (4 arms, stub values)."
+     exit 0
+@@ -243,6 +291,7 @@
+   echo "SELF-TEST DETAIL: timing=$ok_timing both=$ok_both names=$ok_names confu
+sed=$not_confused" >&2
+   echo "SELF-TEST DETAIL: same-object ok=$so_ok diff=$so_diff untracked=$so_unt
+r blind=$so_blind" >&2
+   echo "SELF-TEST DETAIL: origin-endpoint ok=$oe_ok path=$oe_path stale=$oe_sta
+le blind=$oe_blind" >&2
++  echo "SELF-TEST DETAIL: assert-gate removal=$ag_remove_rc additions=$ag_add_r
+c zero=$ag_zero_rc zero_count=$ag_zero_count declared=$ag_declared_rc declared_r
+emoval=$ag_declared_removal" >&2
+   echo "SELF-TEST DETAIL: receipt script=$r_script endpoint=$r_endpoint stub=$r
+_stub ondisk=$r_ondisk ondisk_sha=[$ondisk_sha] hdr=$r_hdr sep=$r_sep row=$r_row
+" >&2
+   echo "SELF-TEST DETAIL: edited equal=$e_equal diff=$e_diff empty_unknown=$e_e
+mpty_unknown empty_no=$e_empty_no pointer=$e_pointer fast_forward=$e_fast_forwar
+d" >&2
+   echo "SELF-TEST FAIL: red rc=$red_rc output=[$red] green rc=$green_rc output=
+[$green]" >&2; exit 3
+@@ -426,6 +475,7 @@
+ # R2b filed this gate and did NOT wire it here; an unwired gate is a remembered
+ rule.
+ # biscuit-auth's RunLimits::default() is a 1 ms WALL CLOCK and omission is sile
+nt.
+ gate "check-biscuit-run-limits" bash bin/check-biscuit-run-limits.sh
++gate "assert-diff" assert_gate "$before" HEAD docs/assert-declarations
+ # ⛔ LAST GATE BEFORE THE PUSH, and the only one whose subject is the commit.
+ # ⭐ RUN BEFORE THE RECEIPT IS WRITTEN. The untracked refusal caught a stray
+ # .slot-granted on 2026-09-03; the receipt must not be able to mask it, so the
+
+apply patch
+patch: completed
+/home/jes/sol-cell-assert-gate/wt/bin/land-round.sh
+diff --git a/bin/land-round.sh b/bin/land-round.sh
+index 87bbcbbc99a8967701ecbf2486cc3407dbd60fd7..355e184a3234eb9b5378c2cbafd363e2
+acfb2072
+--- a/bin/land-round.sh
++++ b/bin/land-round.sh
+@@ -48,6 +48,25 @@
+ pushed_tree() { git rev-parse "HEAD^{tree}" 2>/dev/null; }
+ untracked_count() { git status --porcelain --untracked-files=normal 2>/dev/null
+ | grep -c '^??' || true; }
+
++assert_gate() {   # assert_gate <before-sha> <head-sha> <declared-dir>
++  local before_sha="$1" head_sha="$2" declared_dir="$3" paths slug declared
++  paths=$(git diff --name-only "$before_sha" "$head_sha" -- test/) || return $?
++  if [ -z "$paths" ]; then
++    echo "no test files in range (0)"
++    return 0
++  fi
++  # Keep this byte-for-byte the round-name transform used by dispatch-round.sh.
++  slug=$(LC_ALL=C printf '%s' "$branch" | tr '[:upper:]' '[:lower:]' | sed -E '
+s/[^a-z0-9]/-/g; s/-+/-/g')
++  declared="$declared_dir/$slug.txt"
++  if [ -f "$declared" ]; then
++    echo "assert declaration: $declared"
++    bin/assert-diff.sh "$before_sha" "$head_sha" --declared "$declared" -- $pat
+hs
++  else
++    echo "assert declaration: none found ($declared)"
++    bin/assert-diff.sh "$before_sha" "$head_sha" -- $paths
++  fi
++}
++
+ # rc 71 is its own code on purpose: 70 already means "a gate refused" and 1 alr
+eady
+ # means NOT LANDED. Two meanings on one number is the same defect as a shared f
+ailure
+ # string -- the reader cannot tell which thing happened.
+@@ -151,9 +170,11 @@
+
+ # --self-test: prove, with the REAL gate() and a sentinel in place of `git push
+`, that a
+ # deliberately failing gate ends the run before the push line (rc 70, no sentin
+el), and --
+-# the green arm -- that a passing gate reaches it. Runs no git, merges nothing.
++# the green arm -- that a passing gate reaches it. Uses git only in an isolated
+ fixture;
++# merges nothing and never runs the landing ceremony.
+ if [ "${1:-}" = "--self-test" ]; then
+   before=self-test
++  branch="Sol/Assert Gate Fixture"
+   gate() {
+     local label="$1"; shift
+     local out rc=0
+@@ -180,6 +201,31 @@
+   oe_path=0;  assert_origin_endpoint "/home/jes/commonplace-cell" aaa aaa >/dev
+/null 2>&1 || oe_path=$?
+   oe_stale=0; assert_origin_endpoint "git@github.com:x/y.git" aaa bbb >/dev/nul
+l 2>&1 || oe_stale=$?
+   oe_blind=0; assert_origin_endpoint "git@github.com:x/y.git" aaa "" >/dev/null
+ 2>&1 || oe_blind=$?
++  # ⭐ assertion-diff gate: one isolated two-commit corpus drives removal, addi
+tion,
++  # vacuous range, and declared removal without depending on this repository's
+history.
++  assert_repo=$(mktemp -d)
++  trap 'rm -rf -- "$assert_repo"' EXIT
++  mkdir -p "$assert_repo/bin" "$assert_repo/test" "$assert_repo/declarations"
++  cp bin/assert-diff.sh "$assert_repo/bin/assert-diff.sh"
++  git -C "$assert_repo" init -q
++  git -C "$assert_repo" config user.name self-test
++  git -C "$assert_repo" config user.email self-test@example.invalid
++  printf 'defmodule FixtureTest do\n  use ExUnit.Case\n  test "fixture" do\n
+ assert 1 == 1\n  end\nend\n' > "$assert_repo/test/fixture_test.exs"
++  git -C "$assert_repo" add test/fixture_test.exs
++  git -C "$assert_repo" commit -q -m base
++  assert_base=$(git -C "$assert_repo" rev-parse HEAD)
++  printf 'defmodule FixtureTest do\n  use ExUnit.Case\n  test "fixture" do\n  e
+nd\nend\n' > "$assert_repo/test/fixture_test.exs"
++  git -C "$assert_repo" add test/fixture_test.exs
++  git -C "$assert_repo" commit -q -m head
++  assert_head=$(git -C "$assert_repo" rev-parse HEAD)
++  assert_slug=$(LC_ALL=C printf '%s' "$branch" | tr '[:upper:]' '[:lower:]' | s
+ed -E 's/[^a-z0-9]/-/g; s/-+/-/g')
++  printf 'assert 1 == 1\n' > "$assert_repo/declarations/$assert_slug.txt"
++  ag_remove_rc=0; ag_remove=$(cd "$assert_repo" && assert_gate "$assert_base" "
+$assert_head" declarations/missing 2>&1) || ag_remove_rc=$?
++  ag_add_rc=0; ag_add=$(cd "$assert_repo" && assert_gate "$assert_head" "$asser
+t_base" declarations/missing 2>&1) || ag_add_rc=$?
++  ag_zero_rc=0; ag_zero=$(cd "$assert_repo" && assert_gate "$assert_base" "$ass
+ert_base" declarations/missing 2>&1) || ag_zero_rc=$?
++  ag_declared_rc=0; ag_declared=$(cd "$assert_repo" && assert_gate "$assert_bas
+e" "$assert_head" declarations 2>&1) || ag_declared_rc=$?
++  ag_zero_count=$(echo "$ag_zero" | grep -cF 'no test files in range (0)' || tr
+ue)
++  ag_declared_removal=$(echo "$ag_declared" | grep -cF 'REMOVED (declared) test
+/fixture_test.exs: assert 1 == 1' || true)
+   # ⭐ the receipt's new fields, driven by STUB values -- a receipt can otherwi
+se only be seen by
+   # performing a real landing, so its failure path would never run. A2 is the p
+lanted case this
+   # round exists for: a round that EDITS bin/land-round.sh is gated by the pre-
+merge file, and a
+@@ -228,6 +274,8 @@
+      && [ "$ok_timing" = 1 ] && [ "$ok_both" = 1 ] && [ "$ok_names" = 1 ] && [
+"$not_confused" = 0 ] \
+      && [ "$so_ok" -eq 0 ] && [ "$so_diff" -eq 71 ] && [ "$so_untr" -eq 71 ] &&
+ [ "$so_blind" -eq 71 ] \
+      && [ "$oe_ok" -eq 0 ] && [ "$oe_path" -eq 72 ] && [ "$oe_stale" -eq 72 ] &
+& [ "$oe_blind" -eq 72 ] \
++     && [ "$ag_remove_rc" -ne 0 ] && [ "$ag_add_rc" -eq 0 ] && [ "$ag_zero_rc"
+-eq 0 ] && [ "$ag_zero_count" = 1 ] \
++     && [ "$ag_declared_rc" -eq 0 ] && [ "$ag_declared_removal" = 1 ] \
+      && [ "$r_script" = 1 ] && [ "$r_endpoint" = 1 ] && [ "$r_stub" = 1 ] && [
+"$r_ondisk" = 0 ] \
+      && [ -n "$ondisk_sha" ] && [ "$r_hdr" = 1 ] && [ "$r_sep" = 1 ] && [ "$r_r
+ow" = 1 ] \
+      && [ "$e_equal" = 1 ] && [ "$e_diff" = 1 ] && [ "$e_empty_unknown" = 1 ] &
+& [ "$e_empty_no" = 0 ] \
+@@ -236,6 +284,7 @@
+     echo "  classifier: timing/both-fail/names outcomes distinct and not confus
+able (3 arms, stub rcs)."
+     echo "  same-object: match->0, divergence->71, untracked->71, unidentifiabl
+e->71 (4 arms, stub ids)."
+     echo "  origin-endpoint: url+agreeing cache->0, path origin->72, stale cach
+e->72, unreadable endpoint->72 (4 arms, stub args)."
++    echo "  assert-gate: removal->nonzero, additions->0, no-test range->0 with
+count 0, declared removal->0 and printed (4 arms, isolated repo)."
+     echo "  receipt fields: script hash named, endpoint named, planted mismatch
+ names the EXECUTING hash, existing rows unchanged (3 arms, stub values)."
+     echo "  edited: equal->no, different->yes, empty->unknown (not no), pointer
++fast-forward lines verbatim (4 arms, stub values)."
+     exit 0
+@@ -243,6 +292,7 @@
+   echo "SELF-TEST DETAIL: timing=$ok_timing both=$ok_both names=$ok_names confu
+sed=$not_confused" >&2
+   echo "SELF-TEST DETAIL: same-object ok=$so_ok diff=$so_diff untracked=$so_unt
+r blind=$so_blind" >&2
+   echo "SELF-TEST DETAIL: origin-endpoint ok=$oe_ok path=$oe_path stale=$oe_sta
+le blind=$oe_blind" >&2
++  echo "SELF-TEST DETAIL: assert-gate removal=$ag_remove_rc additions=$ag_add_r
+c zero=$ag_zero_rc zero_count=$ag_zero_count declared=$ag_declared_rc declared_r
+emoval=$ag_declared_removal" >&2
+   echo "SELF-TEST DETAIL: receipt script=$r_script endpoint=$r_endpoint stub=$r
+_stub ondisk=$r_ondisk ondisk_sha=[$ondisk_sha] hdr=$r_hdr sep=$r_sep row=$r_row
+" >&2
+   echo "SELF-TEST DETAIL: edited equal=$e_equal diff=$e_diff empty_unknown=$e_e
+mpty_unknown empty_no=$e_empty_no pointer=$e_pointer fast_forward=$e_fast_forwar
+d" >&2
+   echo "SELF-TEST FAIL: red rc=$red_rc output=[$red] green rc=$green_rc output=
+[$green]" >&2; exit 3
+@@ -426,6 +476,7 @@
+ # R2b filed this gate and did NOT wire it here; an unwired gate is a remembered
+ rule.
+ # biscuit-auth's RunLimits::default() is a 1 ms WALL CLOCK and omission is sile
+nt.
+ gate "check-biscuit-run-limits" bash bin/check-biscuit-run-limits.sh
++gate "assert-diff" assert_gate "$before" HEAD docs/assert-declarations
+ # ⛔ LAST GATE BEFORE THE PUSH, and the only one whose subject is the commit.
+ # ⭐ RUN BEFORE THE RECEIPT IS WRITTEN. The untracked refusal caught a stray
+ # .slot-granted on 2026-09-03; the receipt must not be able to mask it, so the
+
+diff --git a/bin/land-round.sh b/bin/land-round.sh
+index 87bbcbbc99a8967701ecbf2486cc3407dbd60fd7..355e184a3234eb9b5378c2cbafd363e2
+acfb2072
+--- a/bin/land-round.sh
++++ b/bin/land-round.sh
+@@ -48,6 +48,25 @@
+ pushed_tree() { git rev-parse "HEAD^{tree}" 2>/dev/null; }
+ untracked_count() { git status --porcelain --untracked-files=normal 2>/dev/null
+ | grep -c '^??' || true; }
+
++assert_gate() {   # assert_gate <before-sha> <head-sha> <declared-dir>
++  local before_sha="$1" head_sha="$2" declared_dir="$3" paths slug declared
++  paths=$(git diff --name-only "$before_sha" "$head_sha" -- test/) || return $?
++  if [ -z "$paths" ]; then
++    echo "no test files in range (0)"
++    return 0
++  fi
++  # Keep this byte-for-byte the round-name transform used by dispatch-round.sh.
++  slug=$(LC_ALL=C printf '%s' "$branch" | tr '[:upper:]' '[:lower:]' | sed -E '
+s/[^a-z0-9]/-/g; s/-+/-/g')
++  declared="$declared_dir/$slug.txt"
++  if [ -f "$declared" ]; then
++    echo "assert declaration: $declared"
++    bin/assert-diff.sh "$before_sha" "$head_sha" --declared "$declared" -- $pat
+hs
++  else
++    echo "assert declaration: none found ($declared)"
++    bin/assert-diff.sh "$before_sha" "$head_sha" -- $paths
++  fi
++}
++
+ # rc 71 is its own code on purpose: 70 already means "a gate refused" and 1 alr
+eady
+ # means NOT LANDED. Two meanings on one number is the same defect as a shared f
+ailure
+ # string -- the reader cannot tell which thing happened.
+@@ -151,9 +170,11 @@
+
+ # --self-test: prove, with the REAL gate() and a sentinel in place of `git push
+`, that a
+ # deliberately failing gate ends the run before the push line (rc 70, no sentin
+el), and --
+-# the green arm -- that a passing gate reaches it. Runs no git, merges nothing.
++# the green arm -- that a passing gate reaches it. Uses git only in an isolated
+ fixture;
++# merges nothing and never runs the landing ceremony.
+ if [ "${1:-}" = "--self-test" ]; then
+   before=self-test
++  branch="Sol/Assert Gate Fixture"
+   gate() {
+     local label="$1"; shift
+     local out rc=0
+@@ -180,6 +201,31 @@
+   oe_path=0;  assert_origin_endpoint "/home/jes/commonplace-cell" aaa aaa >/dev
+/null 2>&1 || oe_path=$?
+   oe_stale=0; assert_origin_endpoint "git@github.com:x/y.git" aaa bbb >/dev/nul
+l 2>&1 || oe_stale=$?
+   oe_blind=0; assert_origin_endpoint "git@github.com:x/y.git" aaa "" >/dev/null
+ 2>&1 || oe_blind=$?
++  # ⭐ assertion-diff gate: one isolated two-commit corpus drives removal, addi
+tion,
++  # vacuous range, and declared removal without depending on this repository's
+history.
++  assert_repo=$(mktemp -d)
++  trap 'rm -rf -- "$assert_repo"' EXIT
++  mkdir -p "$assert_repo/bin" "$assert_repo/test" "$assert_repo/declarations"
++  cp bin/assert-diff.sh "$assert_repo/bin/assert-diff.sh"
++  git -C "$assert_repo" init -q
++  git -C "$assert_repo" config user.name self-test
++  git -C "$assert_repo" config user.email self-test@example.invalid
++  printf 'defmodule FixtureTest do\n  use ExUnit.Case\n  test "fixture" do\n
+ assert 1 == 1\n  end\nend\n' > "$assert_repo/test/fixture_test.exs"
++  git -C "$assert_repo" add test/fixture_test.exs
++  git -C "$assert_repo" commit -q -m base
++  assert_base=$(git -C "$assert_repo" rev-parse HEAD)
++  printf 'defmodule FixtureTest do\n  use ExUnit.Case\n  test "fixture" do\n  e
+nd\nend\n' > "$assert_repo/test/fixture_test.exs"
++  git -C "$assert_repo" add test/fixture_test.exs
++  git -C "$assert_repo" commit -q -m head
++  assert_head=$(git -C "$assert_repo" rev-parse HEAD)
++  assert_slug=$(LC_ALL=C printf '%s' "$branch" | tr '[:upper:]' '[:lower:]' | s
+ed -E 's/[^a-z0-9]/-/g; s/-+/-/g')
++  printf 'assert 1 == 1\n' > "$assert_repo/declarations/$assert_slug.txt"
++  ag_remove_rc=0; ag_remove=$(cd "$assert_repo" && assert_gate "$assert_base" "
+$assert_head" declarations/missing 2>&1) || ag_remove_rc=$?
++  ag_add_rc=0; ag_add=$(cd "$assert_repo" && assert_gate "$assert_head" "$asser
+t_base" declarations/missing 2>&1) || ag_add_rc=$?
++  ag_zero_rc=0; ag_zero=$(cd "$assert_repo" && assert_gate "$assert_base" "$ass
+ert_base" declarations/missing 2>&1) || ag_zero_rc=$?
++  ag_declared_rc=0; ag_declared=$(cd "$assert_repo" && assert_gate "$assert_bas
+e" "$assert_head" declarations 2>&1) || ag_declared_rc=$?
++  ag_zero_count=$(echo "$ag_zero" | grep -cF 'no test files in range (0)' || tr
+ue)
++  ag_declared_removal=$(echo "$ag_declared" | grep -cF 'REMOVED (declared) test
+/fixture_test.exs: assert 1 == 1' || true)
+   # ⭐ the receipt's new fields, driven by STUB values -- a receipt can otherwi
+se only be seen by
+   # performing a real landing, so its failure path would never run. A2 is the p
+lanted case this
+   # round exists for: a round that EDITS bin/land-round.sh is gated by the pre-
+merge file, and a
+@@ -228,6 +274,8 @@
+      && [ "$ok_timing" = 1 ] && [ "$ok_both" = 1 ] && [ "$ok_names" = 1 ] && [
+"$not_confused" = 0 ] \
+      && [ "$so_ok" -eq 0 ] && [ "$so_diff" -eq 71 ] && [ "$so_untr" -eq 71 ] &&
+ [ "$so_blind" -eq 71 ] \
+      && [ "$oe_ok" -eq 0 ] && [ "$oe_path" -eq 72 ] && [ "$oe_stale" -eq 72 ] &
+& [ "$oe_blind" -eq 72 ] \
++     && [ "$ag_remove_rc" -ne 0 ] && [ "$ag_add_rc" -eq 0 ] && [ "$ag_zero_rc"
+-eq 0 ] && [ "$ag_zero_count" = 1 ] \
++     && [ "$ag_declared_rc" -eq 0 ] && [ "$ag_declared_removal" = 1 ] \
+      && [ "$r_script" = 1 ] && [ "$r_endpoint" = 1 ] && [ "$r_stub" = 1 ] && [
+"$r_ondisk" = 0 ] \
+      && [ -n "$ondisk_sha" ] && [ "$r_hdr" = 1 ] && [ "$r_sep" = 1 ] && [ "$r_r
+ow" = 1 ] \
+      && [ "$e_equal" = 1 ] && [ "$e_diff" = 1 ] && [ "$e_empty_unknown" = 1 ] &
+& [ "$e_empty_no" = 0 ] \
+@@ -236,6 +284,7 @@
+     echo "  classifier: timing/both-fail/names outcomes distinct and not confus
+able (3 arms, stub rcs)."
+     echo "  same-object: match->0, divergence->71, untracked->71, unidentifiabl
+e->71 (4 arms, stub ids)."
+     echo "  origin-endpoint: url+agreeing cache->0, path origin->72, stale cach
+e->72, unreadable endpoint->72 (4 arms, stub args)."
++    echo "  assert-gate: removal->nonzero, additions->0, no-test range->0 with
+count 0, declared removal->0 and printed (4 arms, isolated repo)."
+     echo "  receipt fields: script hash named, endpoint named, planted mismatch
+ names the EXECUTING hash, existing rows unchanged (3 arms, stub values)."
+     echo "  edited: equal->no, different->yes, empty->unknown (not no), pointer
++fast-forward lines verbatim (4 arms, stub values)."
+     exit 0
+@@ -243,6 +292,7 @@
+   echo "SELF-TEST DETAIL: timing=$ok_timing both=$ok_both names=$ok_names confu
+sed=$not_confused" >&2
+   echo "SELF-TEST DETAIL: same-object ok=$so_ok diff=$so_diff untracked=$so_unt
+r blind=$so_blind" >&2
+   echo "SELF-TEST DETAIL: origin-endpoint ok=$oe_ok path=$oe_path stale=$oe_sta
+le blind=$oe_blind" >&2
++  echo "SELF-TEST DETAIL: assert-gate removal=$ag_remove_rc additions=$ag_add_r
+c zero=$ag_zero_rc zero_count=$ag_zero_count declared=$ag_declared_rc declared_r
+emoval=$ag_declared_removal" >&2
+   echo "SELF-TEST DETAIL: receipt script=$r_script endpoint=$r_endpoint stub=$r
+_stub ondisk=$r_ondisk ondisk_sha=[$ondisk_sha] hdr=$r_hdr sep=$r_sep row=$r_row
+" >&2
+   echo "SELF-TEST DETAIL: edited equal=$e_equal diff=$e_diff empty_unknown=$e_e
+mpty_unknown empty_no=$e_empty_no pointer=$e_pointer fast_forward=$e_fast_forwar
+d" >&2
+   echo "SELF-TEST FAIL: red rc=$red_rc output=[$red] green rc=$green_rc output=
+[$green]" >&2; exit 3
+@@ -426,6 +476,7 @@
+ # R2b filed this gate and did NOT wire it here; an unwired gate is a remembered
+ rule.
+ # biscuit-auth's RunLimits::default() is a 1 ms WALL CLOCK and omission is sile
+nt.
+ gate "check-biscuit-run-limits" bash bin/check-biscuit-run-limits.sh
++gate "assert-diff" assert_gate "$before" HEAD docs/assert-declarations
+ # ⛔ LAST GATE BEFORE THE PUSH, and the only one whose subject is the commit.
+ # ⭐ RUN BEFORE THE RECEIPT IS WRITTEN. The untracked refusal caught a stray
+ # .slot-granted on 2026-09-03; the receipt must not be able to mask it, so the
+
+codex
+I corrected one now-stale self-test comment (“runs no git”) because the mandated
+ isolated fixture does run Git locally. That changes no behavior, but it means I
+’m repeating the required verification sequence from the syntax check onward.
+exec
+/bin/bash -lc 'bash -n bin/land-round.sh' in /home/jes/sol-cell-assert-gate/wt
+ succeeded in 0ms:
+diff --git a/bin/land-round.sh b/bin/land-round.sh
+index 87bbcbbc99a8967701ecbf2486cc3407dbd60fd7..355e184a3234eb9b5378c2cbafd363e2
+acfb2072
+--- a/bin/land-round.sh
++++ b/bin/land-round.sh
+@@ -48,6 +48,25 @@
+ pushed_tree() { git rev-parse "HEAD^{tree}" 2>/dev/null; }
+ untracked_count() { git status --porcelain --untracked-files=normal 2>/dev/null
+ | grep -c '^??' || true; }
+
++assert_gate() {   # assert_gate <before-sha> <head-sha> <declared-dir>
++  local before_sha="$1" head_sha="$2" declared_dir="$3" paths slug declared
++  paths=$(git diff --name-only "$before_sha" "$head_sha" -- test/) || return $?
++  if [ -z "$paths" ]; then
++    echo "no test files in range (0)"
++    return 0
++  fi
++  # Keep this byte-for-byte the round-name transform used by dispatch-round.sh.
++  slug=$(LC_ALL=C printf '%s' "$branch" | tr '[:upper:]' '[:lower:]' | sed -E '
+s/[^a-z0-9]/-/g; s/-+/-/g')
++  declared="$declared_dir/$slug.txt"
++  if [ -f "$declared" ]; then
++    echo "assert declaration: $declared"
++    bin/assert-diff.sh "$before_sha" "$head_sha" --declared "$declared" -- $pat
+hs
++  else
++    echo "assert declaration: none found ($declared)"
++    bin/assert-diff.sh "$before_sha" "$head_sha" -- $paths
++  fi
++}
++
+ # rc 71 is its own code on purpose: 70 already means "a gate refused" and 1 alr
+eady
+ # means NOT LANDED. Two meanings on one number is the same defect as a shared f
+ailure
+ # string -- the reader cannot tell which thing happened.
+@@ -151,9 +170,11 @@
+
+ # --self-test: prove, with the REAL gate() and a sentinel in place of `git push
+`, that a
+ # deliberately failing gate ends the run before the push line (rc 70, no sentin
+el), and --
+-# the green arm -- that a passing gate reaches it. Runs no git, merges nothing.
++# the green arm -- that a passing gate reaches it. Uses git only in an isolated
+ fixture;
++# merges nothing and never runs the landing ceremony.
+ if [ "${1:-}" = "--self-test" ]; then
+   before=self-test
++  branch="Sol/Assert Gate Fixture"
+   gate() {
+     local label="$1"; shift
+     local out rc=0
+@@ -180,6 +201,31 @@
+   oe_path=0;  assert_origin_endpoint "/home/jes/commonplace-cell" aaa aaa >/dev
+/null 2>&1 || oe_path=$?
+   oe_stale=0; assert_origin_endpoint "git@github.com:x/y.git" aaa bbb >/dev/nul
+l 2>&1 || oe_stale=$?
+   oe_blind=0; assert_origin_endpoint "git@github.com:x/y.git" aaa "" >/dev/null
+ 2>&1 || oe_blind=$?
++  # ⭐ assertion-diff gate: one isolated two-commit corpus drives removal, addi
+tion,
++  # vacuous range, and declared removal without depending on this repository's
+history.
++  assert_repo=$(mktemp -d)
++  trap 'rm -rf -- "$assert_repo"' EXIT
++  mkdir -p "$assert_repo/bin" "$assert_repo/test" "$assert_repo/declarations"
++  cp bin/assert-diff.sh "$assert_repo/bin/assert-diff.sh"
++  git -C "$assert_repo" init -q
++  git -C "$assert_repo" config user.name self-test
++  git -C "$assert_repo" config user.email self-test@example.invalid
++  printf 'defmodule FixtureTest do\n  use ExUnit.Case\n  test "fixture" do\n
+ assert 1 == 1\n  end\nend\n' > "$assert_repo/test/fixture_test.exs"
++  git -C "$assert_repo" add test/fixture_test.exs
++  git -C "$assert_repo" commit -q -m base
++  assert_base=$(git -C "$assert_repo" rev-parse HEAD)
++  printf 'defmodule FixtureTest do\n  use ExUnit.Case\n  test "fixture" do\n  e
+nd\nend\n' > "$assert_repo/test/fixture_test.exs"
++  git -C "$assert_repo" add test/fixture_test.exs
++  git -C "$assert_repo" commit -q -m head
++  assert_head=$(git -C "$assert_repo" rev-parse HEAD)
++  assert_slug=$(LC_ALL=C printf '%s' "$branch" | tr '[:upper:]' '[:lower:]' | s
+ed -E 's/[^a-z0-9]/-/g; s/-+/-/g')
++  printf 'assert 1 == 1\n' > "$assert_repo/declarations/$assert_slug.txt"
++  ag_remove_rc=0; ag_remove=$(cd "$assert_repo" && assert_gate "$assert_base" "
+$assert_head" declarations/missing 2>&1) || ag_remove_rc=$?
++  ag_add_rc=0; ag_add=$(cd "$assert_repo" && assert_gate "$assert_head" "$asser
+t_base" declarations/missing 2>&1) || ag_add_rc=$?
++  ag_zero_rc=0; ag_zero=$(cd "$assert_repo" && assert_gate "$assert_base" "$ass
+ert_base" declarations/missing 2>&1) || ag_zero_rc=$?
++  ag_declared_rc=0; ag_declared=$(cd "$assert_repo" && assert_gate "$assert_bas
+e" "$assert_head" declarations 2>&1) || ag_declared_rc=$?
++  ag_zero_count=$(echo "$ag_zero" | grep -cF 'no test files in range (0)' || tr
+ue)
++  ag_declared_removal=$(echo "$ag_declared" | grep -cF 'REMOVED (declared) test
+/fixture_test.exs: assert 1 == 1' || true)
+   # ⭐ the receipt's new fields, driven by STUB values -- a receipt can otherwi
+se only be seen by
+   # performing a real landing, so its failure path would never run. A2 is the p
+lanted case this
+   # round exists for: a round that EDITS bin/land-round.sh is gated by the pre-
+merge file, and a
+@@ -228,6 +274,8 @@
+      && [ "$ok_timing" = 1 ] && [ "$ok_both" = 1 ] && [ "$ok_names" = 1 ] && [
+"$not_confused" = 0 ] \
+      && [ "$so_ok" -eq 0 ] && [ "$so_diff" -eq 71 ] && [ "$so_untr" -eq 71 ] &&
+ [ "$so_blind" -eq 71 ] \
+      && [ "$oe_ok" -eq 0 ] && [ "$oe_path" -eq 72 ] && [ "$oe_stale" -eq 72 ] &
+& [ "$oe_blind" -eq 72 ] \
++     && [ "$ag_remove_rc" -ne 0 ] && [ "$ag_add_rc" -eq 0 ] && [ "$ag_zero_rc"
+-eq 0 ] && [ "$ag_zero_count" = 1 ] \
++     && [ "$ag_declared_rc" -eq 0 ] && [ "$ag_declared_removal" = 1 ] \
+      && [ "$r_script" = 1 ] && [ "$r_endpoint" = 1 ] && [ "$r_stub" = 1 ] && [
+"$r_ondisk" = 0 ] \
+      && [ -n "$ondisk_sha" ] && [ "$r_hdr" = 1 ] && [ "$r_sep" = 1 ] && [ "$r_r
+ow" = 1 ] \
+      && [ "$e_equal" = 1 ] && [ "$e_diff" = 1 ] && [ "$e_empty_unknown" = 1 ] &
+& [ "$e_empty_no" = 0 ] \
+@@ -236,6 +284,7 @@
+     echo "  classifier: timing/both-fail/names outcomes distinct and not confus
+able (3 arms, stub rcs)."
+     echo "  same-object: match->0, divergence->71, untracked->71, unidentifiabl
+e->71 (4 arms, stub ids)."
+     echo "  origin-endpoint: url+agreeing cache->0, path origin->72, stale cach
+e->72, unreadable endpoint->72 (4 arms, stub args)."
++    echo "  assert-gate: removal->nonzero, additions->0, no-test range->0 with
+count 0, declared removal->0 and printed (4 arms, isolated repo)."
+     echo "  receipt fields: script hash named, endpoint named, planted mismatch
+ names the EXECUTING hash, existing rows unchanged (3 arms, stub values)."
+     echo "  edited: equal->no, different->yes, empty->unknown (not no), pointer
++fast-forward lines verbatim (4 arms, stub values)."
+     exit 0
+@@ -243,6 +292,7 @@
+   echo "SELF-TEST DETAIL: timing=$ok_timing both=$ok_both names=$ok_names confu
+sed=$not_confused" >&2
+   echo "SELF-TEST DETAIL: same-object ok=$so_ok diff=$so_diff untracked=$so_unt
+r blind=$so_blind" >&2
+   echo "SELF-TEST DETAIL: origin-endpoint ok=$oe_ok path=$oe_path stale=$oe_sta
+le blind=$oe_blind" >&2
++  echo "SELF-TEST DETAIL: assert-gate removal=$ag_remove_rc additions=$ag_add_r
+c zero=$ag_zero_rc zero_count=$ag_zero_count declared=$ag_declared_rc declared_r
+emoval=$ag_declared_removal" >&2
+   echo "SELF-TEST DETAIL: receipt script=$r_script endpoint=$r_endpoint stub=$r
+_stub ondisk=$r_ondisk ondisk_sha=[$ondisk_sha] hdr=$r_hdr sep=$r_sep row=$r_row
+" >&2
+   echo "SELF-TEST DETAIL: edited equal=$e_equal diff=$e_diff empty_unknown=$e_e
+mpty_unknown empty_no=$e_empty_no pointer=$e_pointer fast_forward=$e_fast_forwar
+d" >&2
+   echo "SELF-TEST FAIL: red rc=$red_rc output=[$red] green rc=$green_rc output=
+[$green]" >&2; exit 3
+@@ -426,6 +476,7 @@
+ # R2b filed this gate and did NOT wire it here; an unwired gate is a remembered
+ rule.
+ # biscuit-auth's RunLimits::default() is a 1 ms WALL CLOCK and omission is sile
+nt.
+ gate "check-biscuit-run-limits" bash bin/check-biscuit-run-limits.sh
++gate "assert-diff" assert_gate "$before" HEAD docs/assert-declarations
+ # ⛔ LAST GATE BEFORE THE PUSH, and the only one whose subject is the commit.
+ # ⭐ RUN BEFORE THE RECEIPT IS WRITTEN. The untracked refusal caught a stray
+ # .slot-granted on 2026-09-03; the receipt must not be able to mask it, so the
+
+exec
+/bin/bash -lc 'bash bin/land-round.sh --self-test' in /home/jes/sol-cell-assert-
+gate/wt
+ succeeded in 406ms:
+SELF-TEST PASS: failing gate -> rc 70, push never reached; passing gate -> push
+reached;
+  classifier: timing/both-fail/names outcomes distinct and not confusable (3 arm
+s, stub rcs).
+  same-object: match->0, divergence->71, untracked->71, unidentifiable->71 (4 ar
+ms, stub ids).
+  origin-endpoint: url+agreeing cache->0, path origin->72, stale cache->72, unre
+adable endpoint->72 (4 arms, stub args).
+  assert-gate: removal->nonzero, additions->0, no-test range->0 with count 0, de
+clared removal->0 and printed (4 arms, isolated repo).
+  receipt fields: script hash named, endpoint named, planted mismatch names the
+EXECUTING hash, existing rows unchanged (3 arms, stub values).
+  edited: equal->no, different->yes, empty->unknown (not no), pointer+fast-forwa
+rd lines verbatim (4 arms, stub values).
+
+diff --git a/bin/land-round.sh b/bin/land-round.sh
+index 87bbcbbc99a8967701ecbf2486cc3407dbd60fd7..355e184a3234eb9b5378c2cbafd363e2
+acfb2072
+--- a/bin/land-round.sh
++++ b/bin/land-round.sh
+@@ -48,6 +48,25 @@
+ pushed_tree() { git rev-parse "HEAD^{tree}" 2>/dev/null; }
+ untracked_count() { git status --porcelain --untracked-files=normal 2>/dev/null
+ | grep -c '^??' || true; }
+
++assert_gate() {   # assert_gate <before-sha> <head-sha> <declared-dir>
++  local before_sha="$1" head_sha="$2" declared_dir="$3" paths slug declared
++  paths=$(git diff --name-only "$before_sha" "$head_sha" -- test/) || return $?
++  if [ -z "$paths" ]; then
++    echo "no test files in range (0)"
++    return 0
++  fi
++  # Keep this byte-for-byte the round-name transform used by dispatch-round.sh.
++  slug=$(LC_ALL=C printf '%s' "$branch" | tr '[:upper:]' '[:lower:]' | sed -E '
+s/[^a-z0-9]/-/g; s/-+/-/g')
++  declared="$declared_dir/$slug.txt"
++  if [ -f "$declared" ]; then
++    echo "assert declaration: $declared"
++    bin/assert-diff.sh "$before_sha" "$head_sha" --declared "$declared" -- $pat
+hs
++  else
++    echo "assert declaration: none found ($declared)"
++    bin/assert-diff.sh "$before_sha" "$head_sha" -- $paths
++  fi
++}
++
+ # rc 71 is its own code on purpose: 70 already means "a gate refused" and 1 alr
+eady
+ # means NOT LANDED. Two meanings on one number is the same defect as a shared f
+ailure
+ # string -- the reader cannot tell which thing happened.
+@@ -151,9 +170,11 @@
+
+ # --self-test: prove, with the REAL gate() and a sentinel in place of `git push
+`, that a
+ # deliberately failing gate ends the run before the push line (rc 70, no sentin
+el), and --
+-# the green arm -- that a passing gate reaches it. Runs no git, merges nothing.
++# the green arm -- that a passing gate reaches it. Uses git only in an isolated
+ fixture;
++# merges nothing and never runs the landing ceremony.
+ if [ "${1:-}" = "--self-test" ]; then
+   before=self-test
++  branch="Sol/Assert Gate Fixture"
+   gate() {
+     local label="$1"; shift
+     local out rc=0
+@@ -180,6 +201,31 @@
+   oe_path=0;  assert_origin_endpoint "/home/jes/commonplace-cell" aaa aaa >/dev
+/null 2>&1 || oe_path=$?
+   oe_stale=0; assert_origin_endpoint "git@github.com:x/y.git" aaa bbb >/dev/nul
+l 2>&1 || oe_stale=$?
+   oe_blind=0; assert_origin_endpoint "git@github.com:x/y.git" aaa "" >/dev/null
+ 2>&1 || oe_blind=$?
++  # ⭐ assertion-diff gate: one isolated two-commit corpus drives removal, addi
+tion,
++  # vacuous range, and declared removal without depending on this repository's
+history.
++  assert_repo=$(mktemp -d)
++  trap 'rm -rf -- "$assert_repo"' EXIT
++  mkdir -p "$assert_repo/bin" "$assert_repo/test" "$assert_repo/declarations"
++  cp bin/assert-diff.sh "$assert_repo/bin/assert-diff.sh"
++  git -C "$assert_repo" init -q
++  git -C "$assert_repo" config user.name self-test
++  git -C "$assert_repo" config user.email self-test@example.invalid
++  printf 'defmodule FixtureTest do\n  use ExUnit.Case\n  test "fixture" do\n
+ assert 1 == 1\n  end\nend\n' > "$assert_repo/test/fixture_test.exs"
++  git -C "$assert_repo" add test/fixture_test.exs
++  git -C "$assert_repo" commit -q -m base
++  assert_base=$(git -C "$assert_repo" rev-parse HEAD)
++  printf 'defmodule FixtureTest do\n  use ExUnit.Case\n  test "fixture" do\n  e
+nd\nend\n' > "$assert_repo/test/fixture_test.exs"
++  git -C "$assert_repo" add test/fixture_test.exs
++  git -C "$assert_repo" commit -q -m head
++  assert_head=$(git -C "$assert_repo" rev-parse HEAD)
++  assert_slug=$(LC_ALL=C printf '%s' "$branch" | tr '[:upper:]' '[:lower:]' | s
+ed -E 's/[^a-z0-9]/-/g; s/-+/-/g')
++  printf 'assert 1 == 1\n' > "$assert_repo/declarations/$assert_slug.txt"
++  ag_remove_rc=0; ag_remove=$(cd "$assert_repo" && assert_gate "$assert_base" "
+$assert_head" declarations/missing 2>&1) || ag_remove_rc=$?
++  ag_add_rc=0; ag_add=$(cd "$assert_repo" && assert_gate "$assert_head" "$asser
+t_base" declarations/missing 2>&1) || ag_add_rc=$?
++  ag_zero_rc=0; ag_zero=$(cd "$assert_repo" && assert_gate "$assert_base" "$ass
+ert_base" declarations/missing 2>&1) || ag_zero_rc=$?
++  ag_declared_rc=0; ag_declared=$(cd "$assert_repo" && assert_gate "$assert_bas
+e" "$assert_head" declarations 2>&1) || ag_declared_rc=$?
++  ag_zero_count=$(echo "$ag_zero" | grep -cF 'no test files in range (0)' || tr
+ue)
++  ag_declared_removal=$(echo "$ag_declared" | grep -cF 'REMOVED (declared) test
+/fixture_test.exs: assert 1 == 1' || true)
+   # ⭐ the receipt's new fields, driven by STUB values -- a receipt can otherwi
+se only be seen by
+   # performing a real landing, so its failure path would never run. A2 is the p
+lanted case this
+   # round exists for: a round that EDITS bin/land-round.sh is gated by the pre-
+merge file, and a
+@@ -228,6 +274,8 @@
+      && [ "$ok_timing" = 1 ] && [ "$ok_both" = 1 ] && [ "$ok_names" = 1 ] && [
+"$not_confused" = 0 ] \
+      && [ "$so_ok" -eq 0 ] && [ "$so_diff" -eq 71 ] && [ "$so_untr" -eq 71 ] &&
+ [ "$so_blind" -eq 71 ] \
+      && [ "$oe_ok" -eq 0 ] && [ "$oe_path" -eq 72 ] && [ "$oe_stale" -eq 72 ] &
+& [ "$oe_blind" -eq 72 ] \
++     && [ "$ag_remove_rc" -ne 0 ] && [ "$ag_add_rc" -eq 0 ] && [ "$ag_zero_rc"
+-eq 0 ] && [ "$ag_zero_count" = 1 ] \
++     && [ "$ag_declared_rc" -eq 0 ] && [ "$ag_declared_removal" = 1 ] \
+      && [ "$r_script" = 1 ] && [ "$r_endpoint" = 1 ] && [ "$r_stub" = 1 ] && [
+"$r_ondisk" = 0 ] \
+      && [ -n "$ondisk_sha" ] && [ "$r_hdr" = 1 ] && [ "$r_sep" = 1 ] && [ "$r_r
+ow" = 1 ] \
+      && [ "$e_equal" = 1 ] && [ "$e_diff" = 1 ] && [ "$e_empty_unknown" = 1 ] &
+& [ "$e_empty_no" = 0 ] \
+@@ -236,6 +284,7 @@
+     echo "  classifier: timing/both-fail/names outcomes distinct and not confus
+able (3 arms, stub rcs)."
+     echo "  same-object: match->0, divergence->71, untracked->71, unidentifiabl
+e->71 (4 arms, stub ids)."
+     echo "  origin-endpoint: url+agreeing cache->0, path origin->72, stale cach
+e->72, unreadable endpoint->72 (4 arms, stub args)."
++    echo "  assert-gate: removal->nonzero, additions->0, no-test range->0 with
+count 0, declared removal->0 and printed (4 arms, isolated repo)."
+     echo "  receipt fields: script hash named, endpoint named, planted mismatch
+ names the EXECUTING hash, existing rows unchanged (3 arms, stub values)."
+     echo "  edited: equal->no, different->yes, empty->unknown (not no), pointer
++fast-forward lines verbatim (4 arms, stub values)."
+     exit 0
+@@ -243,6 +292,7 @@
+   echo "SELF-TEST DETAIL: timing=$ok_timing both=$ok_both names=$ok_names confu
+sed=$not_confused" >&2
+   echo "SELF-TEST DETAIL: same-object ok=$so_ok diff=$so_diff untracked=$so_unt
+r blind=$so_blind" >&2
+   echo "SELF-TEST DETAIL: origin-endpoint ok=$oe_ok path=$oe_path stale=$oe_sta
+le blind=$oe_blind" >&2
++  echo "SELF-TEST DETAIL: assert-gate removal=$ag_remove_rc additions=$ag_add_r
+c zero=$ag_zero_rc zero_count=$ag_zero_count declared=$ag_declared_rc declared_r
+emoval=$ag_declared_removal" >&2
+   echo "SELF-TEST DETAIL: receipt script=$r_script endpoint=$r_endpoint stub=$r
+_stub ondisk=$r_ondisk ondisk_sha=[$ondisk_sha] hdr=$r_hdr sep=$r_sep row=$r_row
+" >&2
+   echo "SELF-TEST DETAIL: edited equal=$e_equal diff=$e_diff empty_unknown=$e_e
+mpty_unknown empty_no=$e_empty_no pointer=$e_pointer fast_forward=$e_fast_forwar
+d" >&2
+   echo "SELF-TEST FAIL: red rc=$red_rc output=[$red] green rc=$green_rc output=
+[$green]" >&2; exit 3
+@@ -426,6 +476,7 @@
+ # R2b filed this gate and did NOT wire it here; an unwired gate is a remembered
+ rule.
+ # biscuit-auth's RunLimits::default() is a 1 ms WALL CLOCK and omission is sile
+nt.
+ gate "check-biscuit-run-limits" bash bin/check-biscuit-run-limits.sh
++gate "assert-diff" assert_gate "$before" HEAD docs/assert-declarations
+ # ⛔ LAST GATE BEFORE THE PUSH, and the only one whose subject is the commit.
+ # ⭐ RUN BEFORE THE RECEIPT IS WRITTEN. The untracked refusal caught a stray
+ # .slot-granted on 2026-09-03; the receipt must not be able to mask it, so the
+
+exec
+/bin/bash -lc 'git diff -- bin/land-round.sh' in /home/jes/sol-cell-assert-gate/
+wt
+ succeeded in 0ms:
+diff --git a/bin/land-round.sh b/bin/land-round.sh
+index 87bbcbb..355e184 100755
+--- a/bin/land-round.sh
++++ b/bin/land-round.sh
+@@ -48,6 +48,25 @@ executed_tree() {   # tree id of the tracked worktree as the
+gates saw it
+ pushed_tree() { git rev-parse "HEAD^{tree}" 2>/dev/null; }
+ untracked_count() { git status --porcelain --untracked-files=normal 2>/dev/null
+ | grep -c '^??' || true; }
+
++assert_gate() {   # assert_gate <before-sha> <head-sha> <declared-dir>
++  local before_sha="$1" head_sha="$2" declared_dir="$3" paths slug declared
++  paths=$(git diff --name-only "$before_sha" "$head_sha" -- test/) || return $?
++  if [ -z "$paths" ]; then
++    echo "no test files in range (0)"
++    return 0
++  fi
++  # Keep this byte-for-byte the round-name transform used by dispatch-round.sh.
++  slug=$(LC_ALL=C printf '%s' "$branch" | tr '[:upper:]' '[:lower:]' | sed -E '
+s/[^a-z0-9]/-/g; s/-+/-/g')
++  declared="$declared_dir/$slug.txt"
++  if [ -f "$declared" ]; then
++    echo "assert declaration: $declared"
++    bin/assert-diff.sh "$before_sha" "$head_sha" --declared "$declared" -- $pat
+hs
++  else
++    echo "assert declaration: none found ($declared)"
++    bin/assert-diff.sh "$before_sha" "$head_sha" -- $paths
++  fi
++}
++
+ # rc 71 is its own code on purpose: 70 already means "a gate refused" and 1 alr
+eady
+ # means NOT LANDED. Two meanings on one number is the same defect as a shared f
+ailure
+ # string -- the reader cannot tell which thing happened.
+@@ -151,9 +170,11 @@ write_receipt() {  # write_receipt <branch> <base> <head> <
+executed-tree> <gatel
+
+ # --self-test: prove, with the REAL gate() and a sentinel in place of `git push
+`, that a
+ # deliberately failing gate ends the run before the push line (rc 70, no sentin
+el), and --
+-# the green arm -- that a passing gate reaches it. Runs no git, merges nothing.
++# the green arm -- that a passing gate reaches it. Uses git only in an isolated
+ fixture;
++# merges nothing and never runs the landing ceremony.
+ if [ "${1:-}" = "--self-test" ]; then
+   before=self-test
++  branch="Sol/Assert Gate Fixture"
+   gate() {
+     local label="$1"; shift
+     local out rc=0
+@@ -180,6 +201,31 @@ if [ "${1:-}" = "--self-test" ]; then
+   oe_path=0;  assert_origin_endpoint "/home/jes/commonplace-cell" aaa aaa >/dev
+/null 2>&1 || oe_path=$?
+   oe_stale=0; assert_origin_endpoint "git@github.com:x/y.git" aaa bbb >/dev/nul
+l 2>&1 || oe_stale=$?
+   oe_blind=0; assert_origin_endpoint "git@github.com:x/y.git" aaa "" >/dev/null
+ 2>&1 || oe_blind=$?
++  # ⭐ assertion-diff gate: one isolated two-commit corpus drives removal, addi
+tion,
++  # vacuous range, and declared removal without depending on this repository's
+history.
++  assert_repo=$(mktemp -d)
++  trap 'rm -rf -- "$assert_repo"' EXIT
++  mkdir -p "$assert_repo/bin" "$assert_repo/test" "$assert_repo/declarations"
++  cp bin/assert-diff.sh "$assert_repo/bin/assert-diff.sh"
++  git -C "$assert_repo" init -q
++  git -C "$assert_repo" config user.name self-test
++  git -C "$assert_repo" config user.email self-test@example.invalid
++  printf 'defmodule FixtureTest do\n  use ExUnit.Case\n  test "fixture" do\n
+ assert 1 == 1\n  end\nend\n' > "$assert_repo/test/fixture_test.exs"
++  git -C "$assert_repo" add test/fixture_test.exs
++  git -C "$assert_repo" commit -q -m base
++  assert_base=$(git -C "$assert_repo" rev-parse HEAD)
++  printf 'defmodule FixtureTest do\n  use ExUnit.Case\n  test "fixture" do\n  e
+nd\nend\n' > "$assert_repo/test/fixture_test.exs"
++  git -C "$assert_repo" add test/fixture_test.exs
++  git -C "$assert_repo" commit -q -m head
++  assert_head=$(git -C "$assert_repo" rev-parse HEAD)
++  assert_slug=$(LC_ALL=C printf '%s' "$branch" | tr '[:upper:]' '[:lower:]' | s
+ed -E 's/[^a-z0-9]/-/g; s/-+/-/g')
++  printf 'assert 1 == 1\n' > "$assert_repo/declarations/$assert_slug.txt"
++  ag_remove_rc=0; ag_remove=$(cd "$assert_repo" && assert_gate "$assert_base" "
+$assert_head" declarations/missing 2>&1) || ag_remove_rc=$?
++  ag_add_rc=0; ag_add=$(cd "$assert_repo" && assert_gate "$assert_head" "$asser
+t_base" declarations/missing 2>&1) || ag_add_rc=$?
++  ag_zero_rc=0; ag_zero=$(cd "$assert_repo" && assert_gate "$assert_base" "$ass
+ert_base" declarations/missing 2>&1) || ag_zero_rc=$?
++  ag_declared_rc=0; ag_declared=$(cd "$assert_repo" && assert_gate "$assert_bas
+e" "$assert_head" declarations 2>&1) || ag_declared_rc=$?
++  ag_zero_count=$(echo "$ag_zero" | grep -cF 'no test files in range (0)' || tr
+ue)
++  ag_declared_removal=$(echo "$ag_declared" | grep -cF 'REMOVED (declared) test
+/fixture_test.exs: assert 1 == 1' || true)
+   # ⭐ the receipt's new fields, driven by STUB values -- a receipt can otherwi
+se only be seen by
+   # performing a real landing, so its failure path would never run. A2 is the p
+lanted case this
+   # round exists for: a round that EDITS bin/land-round.sh is gated by the pre-
+merge file, and a
+@@ -228,6 +274,8 @@ if [ "${1:-}" = "--self-test" ]; then
+      && [ "$ok_timing" = 1 ] && [ "$ok_both" = 1 ] && [ "$ok_names" = 1 ] && [
+"$not_confused" = 0 ] \
+      && [ "$so_ok" -eq 0 ] && [ "$so_diff" -eq 71 ] && [ "$so_untr" -eq 71 ] &&
+ [ "$so_blind" -eq 71 ] \
+      && [ "$oe_ok" -eq 0 ] && [ "$oe_path" -eq 72 ] && [ "$oe_stale" -eq 72 ] &
+& [ "$oe_blind" -eq 72 ] \
++     && [ "$ag_remove_rc" -ne 0 ] && [ "$ag_add_rc" -eq 0 ] && [ "$ag_zero_rc"
+-eq 0 ] && [ "$ag_zero_count" = 1 ] \
++     && [ "$ag_declared_rc" -eq 0 ] && [ "$ag_declared_removal" = 1 ] \
+      && [ "$r_script" = 1 ] && [ "$r_endpoint" = 1 ] && [ "$r_stub" = 1 ] && [
+"$r_ondisk" = 0 ] \
+      && [ -n "$ondisk_sha" ] && [ "$r_hdr" = 1 ] && [ "$r_sep" = 1 ] && [ "$r_r
+ow" = 1 ] \
+      && [ "$e_equal" = 1 ] && [ "$e_diff" = 1 ] && [ "$e_empty_unknown" = 1 ] &
+& [ "$e_empty_no" = 0 ] \
+@@ -236,6 +284,7 @@ if [ "${1:-}" = "--self-test" ]; then
+     echo "  classifier: timing/both-fail/names outcomes distinct and not confus
+able (3 arms, stub rcs)."
+     echo "  same-object: match->0, divergence->71, untracked->71, unidentifiabl
+e->71 (4 arms, stub ids)."
+     echo "  origin-endpoint: url+agreeing cache->0, path origin->72, stale cach
+e->72, unreadable endpoint->72 (4 arms, stub args)."
++    echo "  assert-gate: removal->nonzero, additions->0, no-test range->0 with
+count 0, declared removal->0 and printed (4 arms, isolated repo)."
+     echo "  receipt fields: script hash named, endpoint named, planted mismatch
+ names the EXECUTING hash, existing rows unchanged (3 arms, stub values)."
+     echo "  edited: equal->no, different->yes, empty->unknown (not no), pointer
++fast-forward lines verbatim (4 arms, stub values)."
+     exit 0
+@@ -243,6 +292,7 @@ if [ "${1:-}" = "--self-test" ]; then
+   echo "SELF-TEST DETAIL: timing=$ok_timing both=$ok_both names=$ok_names confu
+sed=$not_confused" >&2
+   echo "SELF-TEST DETAIL: same-object ok=$so_ok diff=$so_diff untracked=$so_unt
+r blind=$so_blind" >&2
+   echo "SELF-TEST DETAIL: origin-endpoint ok=$oe_ok path=$oe_path stale=$oe_sta
+le blind=$oe_blind" >&2
++  echo "SELF-TEST DETAIL: assert-gate removal=$ag_remove_rc additions=$ag_add_r
+c zero=$ag_zero_rc zero_count=$ag_zero_count declared=$ag_declared_rc declared_r
+emoval=$ag_declared_removal" >&2
+   echo "SELF-TEST DETAIL: receipt script=$r_script endpoint=$r_endpoint stub=$r
+_stub ondisk=$r_ondisk ondisk_sha=[$ondisk_sha] hdr=$r_hdr sep=$r_sep row=$r_row
+" >&2
+   echo "SELF-TEST DETAIL: edited equal=$e_equal diff=$e_diff empty_unknown=$e_e
+mpty_unknown empty_no=$e_empty_no pointer=$e_pointer fast_forward=$e_fast_forwar
+d" >&2
+   echo "SELF-TEST FAIL: red rc=$red_rc output=[$red] green rc=$green_rc output=
+[$green]" >&2; exit 3
+@@ -426,6 +476,7 @@ gate "check-truthy-verify" bash bin/check-truthy-verify.sh
+ # R2b filed this gate and did NOT wire it here; an unwired gate is a remembered
+ rule.
+ # biscuit-auth's RunLimits::default() is a 1 ms WALL CLOCK and omission is sile
+nt.
+ gate "check-biscuit-run-limits" bash bin/check-biscuit-run-limits.sh
++gate "assert-diff" assert_gate "$before" HEAD docs/assert-declarations
+ # ⛔ LAST GATE BEFORE THE PUSH, and the only one whose subject is the commit.
+ # ⭐ RUN BEFORE THE RECEIPT IS WRITTEN. The untracked refusal caught a stray
+ # .slot-granted on 2026-09-03; the receipt must not be able to mask it, so the
+
+diff --git a/bin/land-round.sh b/bin/land-round.sh
+index 87bbcbbc99a8967701ecbf2486cc3407dbd60fd7..355e184a3234eb9b5378c2cbafd363e2
+acfb2072
+--- a/bin/land-round.sh
++++ b/bin/land-round.sh
+@@ -48,6 +48,25 @@
+ pushed_tree() { git rev-parse "HEAD^{tree}" 2>/dev/null; }
+ untracked_count() { git status --porcelain --untracked-files=normal 2>/dev/null
+ | grep -c '^??' || true; }
+
++assert_gate() {   # assert_gate <before-sha> <head-sha> <declared-dir>
++  local before_sha="$1" head_sha="$2" declared_dir="$3" paths slug declared
++  paths=$(git diff --name-only "$before_sha" "$head_sha" -- test/) || return $?
++  if [ -z "$paths" ]; then
++    echo "no test files in range (0)"
++    return 0
++  fi
++  # Keep this byte-for-byte the round-name transform used by dispatch-round.sh.
++  slug=$(LC_ALL=C printf '%s' "$branch" | tr '[:upper:]' '[:lower:]' | sed -E '
+s/[^a-z0-9]/-/g; s/-+/-/g')
++  declared="$declared_dir/$slug.txt"
++  if [ -f "$declared" ]; then
++    echo "assert declaration: $declared"
++    bin/assert-diff.sh "$before_sha" "$head_sha" --declared "$declared" -- $pat
+hs
++  else
++    echo "assert declaration: none found ($declared)"
++    bin/assert-diff.sh "$before_sha" "$head_sha" -- $paths
++  fi
++}
++
+ # rc 71 is its own code on purpose: 70 already means "a gate refused" and 1 alr
+eady
+ # means NOT LANDED. Two meanings on one number is the same defect as a shared f
+ailure
+ # string -- the reader cannot tell which thing happened.
+@@ -151,9 +170,11 @@
+
+ # --self-test: prove, with the REAL gate() and a sentinel in place of `git push
+`, that a
+ # deliberately failing gate ends the run before the push line (rc 70, no sentin
+el), and --
+-# the green arm -- that a passing gate reaches it. Runs no git, merges nothing.
++# the green arm -- that a passing gate reaches it. Uses git only in an isolated
+ fixture;
++# merges nothing and never runs the landing ceremony.
+ if [ "${1:-}" = "--self-test" ]; then
+   before=self-test
++  branch="Sol/Assert Gate Fixture"
+   gate() {
+     local label="$1"; shift
+     local out rc=0
+@@ -180,6 +201,31 @@
+   oe_path=0;  assert_origin_endpoint "/home/jes/commonplace-cell" aaa aaa >/dev
+/null 2>&1 || oe_path=$?
+   oe_stale=0; assert_origin_endpoint "git@github.com:x/y.git" aaa bbb >/dev/nul
+l 2>&1 || oe_stale=$?
+   oe_blind=0; assert_origin_endpoint "git@github.com:x/y.git" aaa "" >/dev/null
+ 2>&1 || oe_blind=$?
++  # ⭐ assertion-diff gate: one isolated two-commit corpus drives removal, addi
+tion,
++  # vacuous range, and declared removal without depending on this repository's
+history.
++  assert_repo=$(mktemp -d)
++  trap 'rm -rf -- "$assert_repo"' EXIT
++  mkdir -p "$assert_repo/bin" "$assert_repo/test" "$assert_repo/declarations"
++  cp bin/assert-diff.sh "$assert_repo/bin/assert-diff.sh"
++  git -C "$assert_repo" init -q
++  git -C "$assert_repo" config user.name self-test
++  git -C "$assert_repo" config user.email self-test@example.invalid
++  printf 'defmodule FixtureTest do\n  use ExUnit.Case\n  test "fixture" do\n
+ assert 1 == 1\n  end\nend\n' > "$assert_repo/test/fixture_test.exs"
++  git -C "$assert_repo" add test/fixture_test.exs
++  git -C "$assert_repo" commit -q -m base
++  assert_base=$(git -C "$assert_repo" rev-parse HEAD)
++  printf 'defmodule FixtureTest do\n  use ExUnit.Case\n  test "fixture" do\n  e
+nd\nend\n' > "$assert_repo/test/fixture_test.exs"
++  git -C "$assert_repo" add test/fixture_test.exs
++  git -C "$assert_repo" commit -q -m head
++  assert_head=$(git -C "$assert_repo" rev-parse HEAD)
++  assert_slug=$(LC_ALL=C printf '%s' "$branch" | tr '[:upper:]' '[:lower:]' | s
+ed -E 's/[^a-z0-9]/-/g; s/-+/-/g')
++  printf 'assert 1 == 1\n' > "$assert_repo/declarations/$assert_slug.txt"
++  ag_remove_rc=0; ag_remove=$(cd "$assert_repo" && assert_gate "$assert_base" "
+$assert_head" declarations/missing 2>&1) || ag_remove_rc=$?
++  ag_add_rc=0; ag_add=$(cd "$assert_repo" && assert_gate "$assert_head" "$asser
+t_base" declarations/missing 2>&1) || ag_add_rc=$?
++  ag_zero_rc=0; ag_zero=$(cd "$assert_repo" && assert_gate "$assert_base" "$ass
+ert_base" declarations/missing 2>&1) || ag_zero_rc=$?
++  ag_declared_rc=0; ag_declared=$(cd "$assert_repo" && assert_gate "$assert_bas
+e" "$assert_head" declarations 2>&1) || ag_declared_rc=$?
++  ag_zero_count=$(echo "$ag_zero" | grep -cF 'no test files in range (0)' || tr
+ue)
++  ag_declared_removal=$(echo "$ag_declared" | grep -cF 'REMOVED (declared) test
+/fixture_test.exs: assert 1 == 1' || true)
+   # ⭐ the receipt's new fields, driven by STUB values -- a receipt can otherwi
+se only be seen by
+   # performing a real landing, so its failure path would never run. A2 is the p
+lanted case this
+   # round exists for: a round that EDITS bin/land-round.sh is gated by the pre-
+merge file, and a
+@@ -228,6 +274,8 @@
+      && [ "$ok_timing" = 1 ] && [ "$ok_both" = 1 ] && [ "$ok_names" = 1 ] && [
+"$not_confused" = 0 ] \
+      && [ "$so_ok" -eq 0 ] && [ "$so_diff" -eq 71 ] && [ "$so_untr" -eq 71 ] &&
+ [ "$so_blind" -eq 71 ] \
+      && [ "$oe_ok" -eq 0 ] && [ "$oe_path" -eq 72 ] && [ "$oe_stale" -eq 72 ] &
+& [ "$oe_blind" -eq 72 ] \
++     && [ "$ag_remove_rc" -ne 0 ] && [ "$ag_add_rc" -eq 0 ] && [ "$ag_zero_rc"
+-eq 0 ] && [ "$ag_zero_count" = 1 ] \
++     && [ "$ag_declared_rc" -eq 0 ] && [ "$ag_declared_removal" = 1 ] \
+      && [ "$r_script" = 1 ] && [ "$r_endpoint" = 1 ] && [ "$r_stub" = 1 ] && [
+"$r_ondisk" = 0 ] \
+      && [ -n "$ondisk_sha" ] && [ "$r_hdr" = 1 ] && [ "$r_sep" = 1 ] && [ "$r_r
+ow" = 1 ] \
+      && [ "$e_equal" = 1 ] && [ "$e_diff" = 1 ] && [ "$e_empty_unknown" = 1 ] &
+& [ "$e_empty_no" = 0 ] \
+@@ -236,6 +284,7 @@
+     echo "  classifier: timing/both-fail/names outcomes distinct and not confus
+able (3 arms, stub rcs)."
+     echo "  same-object: match->0, divergence->71, untracked->71, unidentifiabl
+e->71 (4 arms, stub ids)."
+     echo "  origin-endpoint: url+agreeing cache->0, path origin->72, stale cach
+e->72, unreadable endpoint->72 (4 arms, stub args)."
++    echo "  assert-gate: removal->nonzero, additions->0, no-test range->0 with
+count 0, declared removal->0 and printed (4 arms, isolated repo)."
+     echo "  receipt fields: script hash named, endpoint named, planted mismatch
+ names the EXECUTING hash, existing rows unchanged (3 arms, stub values)."
+     echo "  edited: equal->no, different->yes, empty->unknown (not no), pointer
++fast-forward lines verbatim (4 arms, stub values)."
+     exit 0
+@@ -243,6 +292,7 @@
+   echo "SELF-TEST DETAIL: timing=$ok_timing both=$ok_both names=$ok_names confu
+sed=$not_confused" >&2
+   echo "SELF-TEST DETAIL: same-object ok=$so_ok diff=$so_diff untracked=$so_unt
+r blind=$so_blind" >&2
+   echo "SELF-TEST DETAIL: origin-endpoint ok=$oe_ok path=$oe_path stale=$oe_sta
+le blind=$oe_blind" >&2
++  echo "SELF-TEST DETAIL: assert-gate removal=$ag_remove_rc additions=$ag_add_r
+c zero=$ag_zero_rc zero_count=$ag_zero_count declared=$ag_declared_rc declared_r
+emoval=$ag_declared_removal" >&2
+   echo "SELF-TEST DETAIL: receipt script=$r_script endpoint=$r_endpoint stub=$r
+_stub ondisk=$r_ondisk ondisk_sha=[$ondisk_sha] hdr=$r_hdr sep=$r_sep row=$r_row
+" >&2
+   echo "SELF-TEST DETAIL: edited equal=$e_equal diff=$e_diff empty_unknown=$e_e
+mpty_unknown empty_no=$e_empty_no pointer=$e_pointer fast_forward=$e_fast_forwar
+d" >&2
+   echo "SELF-TEST FAIL: red rc=$red_rc output=[$red] green rc=$green_rc output=
+[$green]" >&2; exit 3
+@@ -426,6 +476,7 @@
+ # R2b filed this gate and did NOT wire it here; an unwired gate is a remembered
+ rule.
+ # biscuit-auth's RunLimits::default() is a 1 ms WALL CLOCK and omission is sile
+nt.
+ gate "check-biscuit-run-limits" bash bin/check-biscuit-run-limits.sh
++gate "assert-diff" assert_gate "$before" HEAD docs/assert-declarations
+ # ⛔ LAST GATE BEFORE THE PUSH, and the only one whose subject is the commit.
+ # ⭐ RUN BEFORE THE RECEIPT IS WRITTEN. The untracked refusal caught a stray
+ # .slot-granted on 2026-09-03; the receipt must not be able to mask it, so the
+
+codex
+Implemented the assertion gate in the declared file only: [bin/land-round.sh](/h
+ome/jes/sol-cell-assert-gate/wt/bin/land-round.sh).
+
+- Added `assert_gate`, using the dispatch script’s exact slug transform.
+- Wired it after `check-biscuit-run-limits` and before `assert_same_object`.
+- Added isolated-repository self-test arms G1–G4.
+- Existing self-test summaries remain unchanged; a new assert-gate summary/detai
+l was added.
+- No real landing, push, branch creation, or repository commit was performed.
+
+Verification:
+
+```text
+$ bash -n bin/land-round.sh
+```
+
+Output: empty
+Exit code: `0`
+
+```text
+$ bash bin/land-round.sh --self-test
+SELF-TEST PASS: failing gate -> rc 70, push never reached; passing gate -> push
+reached;
+  classifier: timing/both-fail/names outcomes distinct and not confusable (3 arm
+s, stub rcs).
+  same-object: match->0, divergence->71, untracked->71, unidentifiable->71 (4 ar
+ms, stub ids).
+  origin-endpoint: url+agreeing cache->0, path origin->72, stale cache->72, unre
+adable endpoint->72 (4 arms, stub args).
+  assert-gate: removal->nonzero, additions->0, no-test range->0 with count 0, de
+clared removal->0 and printed (4 arms, isolated repo).
+  receipt fields: script hash named, endpoint named, planted mismatch names the
+EXECUTING hash, existing rows unchanged (3 arms, stub values).
+  edited: equal->no, different->yes, empty->unknown (not no), pointer+fast-forwa
+rd lines verbatim (4 arms, stub values).
+```
+
+Exit code: `0`
+
+Complete `git diff`:
+
+```diff
+diff --git a/bin/land-round.sh b/bin/land-round.sh
+index 87bbcbb..355e184 100755
+--- a/bin/land-round.sh
++++ b/bin/land-round.sh
+@@ -48,6 +48,25 @@ executed_tree() {   # tree id of the tracked worktree as the
+gates saw it
+ pushed_tree() { git rev-parse "HEAD^{tree}" 2>/dev/null; }
+ untracked_count() { git status --porcelain --untracked-files=normal 2>/dev/null
+ | grep -c '^??' || true; }
+
++assert_gate() {   # assert_gate <before-sha> <head-sha> <declared-dir>
++  local before_sha="$1" head_sha="$2" declared_dir="$3" paths slug declared
++  paths=$(git diff --name-only "$before_sha" "$head_sha" -- test/) || return $?
++  if [ -z "$paths" ]; then
++    echo "no test files in range (0)"
++    return 0
++  fi
++  # Keep this byte-for-byte the round-name transform used by dispatch-round.sh.
++  slug=$(LC_ALL=C printf '%s' "$branch" | tr '[:upper:]' '[:lower:]' | sed -E '
+s/[^a-z0-9]/-/g; s/-+/-/g')
++  declared="$declared_dir/$slug.txt"
++  if [ -f "$declared" ]; then
++    echo "assert declaration: $declared"
++    bin/assert-diff.sh "$before_sha" "$head_sha" --declared "$declared" -- $pat
+hs
++  else
++    echo "assert declaration: none found ($declared)"
++    bin/assert-diff.sh "$before_sha" "$head_sha" -- $paths
++  fi
++}
++
+ # rc 71 is its own code on purpose: 70 already means "a gate refused" and 1 alr
+eady
+ # means NOT LANDED. Two meanings on one number is the same defect as a shared f
+ailure
+ # string -- the reader cannot tell which thing happened.
+@@ -151,9 +170,11 @@ write_receipt() {  # write_receipt <branch> <base> <head> <
+executed-tree> <gatel
+
+ # --self-test: prove, with the REAL gate() and a sentinel in place of `git push
+`, that a
+ # deliberately failing gate ends the run before the push line (rc 70, no sentin
+el), and --
+-# the green arm -- that a passing gate reaches it. Runs no git, merges nothing.
++# the green arm -- that a passing gate reaches it. Uses git only in an isolated
+ fixture;
++# merges nothing and never runs the landing ceremony.
+ if [ "${1:-}" = "--self-test" ]; then
+   before=self-test
++  branch="Sol/Assert Gate Fixture"
+   gate() {
+     local label="$1"; shift
+     local out rc=0
+@@ -180,6 +201,31 @@ if [ "${1:-}" = "--self-test" ]; then
+   oe_path=0;  assert_origin_endpoint "/home/jes/commonplace-cell" aaa aaa >/dev
+/null 2>&1 || oe_path=$?
+   oe_stale=0; assert_origin_endpoint "git@github.com:x/y.git" aaa bbb >/dev/nul
+l 2>&1 || oe_stale=$?
+   oe_blind=0; assert_origin_endpoint "git@github.com:x/y.git" aaa "" >/dev/null
+ 2>&1 || oe_blind=$?
++  # ⭐ assertion-diff gate: one isolated two-commit corpus drives removal, addi
+tion,
++  # vacuous range, and declared removal without depending on this repository's
+history.
++  assert_repo=$(mktemp -d)
++  trap 'rm -rf -- "$assert_repo"' EXIT
++  mkdir -p "$assert_repo/bin" "$assert_repo/test" "$assert_repo/declarations"
++  cp bin/assert-diff.sh "$assert_repo/bin/assert-diff.sh"
++  git -C "$assert_repo" init -q
++  git -C "$assert_repo" config user.name self-test
++  git -C "$assert_repo" config user.email self-test@example.invalid
++  printf 'defmodule FixtureTest do\n  use ExUnit.Case\n  test "fixture" do\n
+ assert 1 == 1\n  end\nend\n' > "$assert_repo/test/fixture_test.exs"
++  git -C "$assert_repo" add test/fixture_test.exs
++  git -C "$assert_repo" commit -q -m base
++  assert_base=$(git -C "$assert_repo" rev-parse HEAD)
++  printf 'defmodule FixtureTest do\n  use ExUnit.Case\n  test "fixture" do\n  e
+nd\nend\n' > "$assert_repo/test/fixture_test.exs"
++  git -C "$assert_repo" add test/fixture_test.exs
++  git -C "$assert_repo" commit -q -m head
++  assert_head=$(git -C "$assert_repo" rev-parse HEAD)
++  assert_slug=$(LC_ALL=C printf '%s' "$branch" | tr '[:upper:]' '[:lower:]' | s
+ed -E 's/[^a-z0-9]/-/g; s/-+/-/g')
++  printf 'assert 1 == 1\n' > "$assert_repo/declarations/$assert_slug.txt"
++  ag_remove_rc=0; ag_remove=$(cd "$assert_repo" && assert_gate "$assert_base" "
+$assert_head" declarations/missing 2>&1) || ag_remove_rc=$?
++  ag_add_rc=0; ag_add=$(cd "$assert_repo" && assert_gate "$assert_head" "$asser
+t_base" declarations/missing 2>&1) || ag_add_rc=$?
++  ag_zero_rc=0; ag_zero=$(cd "$assert_repo" && assert_gate "$assert_base" "$ass
+ert_base" declarations/missing 2>&1) || ag_zero_rc=$?
++  ag_declared_rc=0; ag_declared=$(cd "$assert_repo" && assert_gate "$assert_bas
+e" "$assert_head" declarations 2>&1) || ag_declared_rc=$?
++  ag_zero_count=$(echo "$ag_zero" | grep -cF 'no test files in range (0)' || tr
+ue)
++  ag_declared_removal=$(echo "$ag_declared" | grep -cF 'REMOVED (declared) test
+/fixture_test.exs: assert 1 == 1' || true)
+   # ⭐ the receipt's new fields, driven by STUB values -- a receipt can otherwi
+se only be seen by
+   # performing a real landing, so its failure path would never run. A2 is the p
+lanted case this
+   # round exists for: a round that EDITS bin/land-round.sh is gated by the pre-
+merge file, and a
+@@ -228,6 +274,8 @@ if [ "${1:-}" = "--self-test" ]; then
+      && [ "$ok_timing" = 1 ] && [ "$ok_both" = 1 ] && [ "$ok_names" = 1 ] && [
+"$not_confused" = 0 ] \
+      && [ "$so_ok" -eq 0 ] && [ "$so_diff" -eq 71 ] && [ "$so_untr" -eq 71 ] &&
+ [ "$so_blind" -eq 71 ] \
+      && [ "$oe_ok" -eq 0 ] && [ "$oe_path" -eq 72 ] && [ "$oe_stale" -eq 72 ] &
+& [ "$oe_blind" -eq 72 ] \
++     && [ "$ag_remove_rc" -ne 0 ] && [ "$ag_add_rc" -eq 0 ] && [ "$ag_zero_rc"
+-eq 0 ] && [ "$ag_zero_count" = 1 ] \
++     && [ "$ag_declared_rc" -eq 0 ] && [ "$ag_declared_removal" = 1 ] \
+      && [ "$r_script" = 1 ] && [ "$r_endpoint" = 1 ] && [ "$r_stub" = 1 ] && [
+"$r_ondisk" = 0 ] \
+      && [ -n "$ondisk_sha" ] && [ "$r_hdr" = 1 ] && [ "$r_sep" = 1 ] && [ "$r_r
+ow" = 1 ] \
+      && [ "$e_equal" = 1 ] && [ "$e_diff" = 1 ] && [ "$e_empty_unknown" = 1 ] &
+& [ "$e_empty_no" = 0 ] \
+@@ -236,6 +284,7 @@ if [ "${1:-}" = "--self-test" ]; then
+     echo "  classifier: timing/both-fail/names outcomes distinct and not confus
+able (3 arms, stub rcs)."
+     echo "  same-object: match->0, divergence->71, untracked->71, unidentifiabl
+e->71 (4 arms, stub ids)."
+     echo "  origin-endpoint: url+agreeing cache->0, path origin->72, stale cach
+e->72, unreadable endpoint->72 (4 arms, stub args)."
++    echo "  assert-gate: removal->nonzero, additions->0, no-test range->0 with
+count 0, declared removal->0 and printed (4 arms, isolated repo)."
+     echo "  receipt fields: script hash named, endpoint named, planted mismatch
+ names the EXECUTING hash, existing rows unchanged (3 arms, stub values)."
+     echo "  edited: equal->no, different->yes, empty->unknown (not no), pointer
++fast-forward lines verbatim (4 arms, stub values)."
+     exit 0
+@@ -243,6 +292,7 @@ if [ "${1:-}" = "--self-test" ]; then
+   echo "SELF-TEST DETAIL: timing=$ok_timing both=$ok_both names=$ok_names confu
+sed=$not_confused" >&2
+   echo "SELF-TEST DETAIL: same-object ok=$so_ok diff=$so_diff untracked=$so_unt
+r blind=$so_blind" >&2
+   echo "SELF-TEST DETAIL: origin-endpoint ok=$oe_ok path=$oe_path stale=$oe_sta
+le blind=$oe_blind" >&2
++  echo "SELF-TEST DETAIL: assert-gate removal=$ag_remove_rc additions=$ag_add_r
+c zero=$ag_zero_rc zero_count=$ag_zero_count declared=$ag_declared_rc declared_r
+emoval=$ag_declared_removal" >&2
+   echo "SELF-TEST DETAIL: receipt script=$r_script endpoint=$r_endpoint stub=$r
+_stub ondisk=$r_ondisk ondisk_sha=[$ondisk_sha] hdr=$r_hdr sep=$r_sep row=$r_row
+" >&2
+   echo "SELF-TEST DETAIL: edited equal=$e_equal diff=$e_diff empty_unknown=$e_e
+mpty_unknown empty_no=$e_empty_no pointer=$e_pointer fast_forward=$e_fast_forwar
+d" >&2
+   echo "SELF-TEST FAIL: red rc=$red_rc output=[$red] green rc=$green_rc output=
+[$green]" >&2; exit 3
+@@ -426,6 +476,7 @@ gate "check-truthy-verify" bash bin/check-truthy-verify.sh
+ # R2b filed this gate and did NOT wire it here; an unwired gate is a remembered
+ rule.
+ # biscuit-auth's RunLimits::default() is a 1 ms WALL CLOCK and omission is sile
+nt.
+ gate "check-biscuit-run-limits" bash bin/check-biscuit-run-limits.sh
++gate "assert-diff" assert_gate "$before" HEAD docs/assert-declarations
+ # ⛔ LAST GATE BEFORE THE PUSH, and the only one whose subject is the commit.
+ # ⭐ RUN BEFORE THE RECEIPT IS WRITTEN. The untracked refusal caught a stray
+ # .slot-granted on 2026-09-03; the receipt must not be able to mask it, so the
+```
+diff --git a/bin/land-round.sh b/bin/land-round.sh
+index 87bbcbbc99a8967701ecbf2486cc3407dbd60fd7..355e184a3234eb9b5378c2cbafd363e2
+acfb2072
+--- a/bin/land-round.sh
++++ b/bin/land-round.sh
+@@ -48,6 +48,25 @@
+ pushed_tree() { git rev-parse "HEAD^{tree}" 2>/dev/null; }
+ untracked_count() { git status --porcelain --untracked-files=normal 2>/dev/null
+ | grep -c '^??' || true; }
+
++assert_gate() {   # assert_gate <before-sha> <head-sha> <declared-dir>
++  local before_sha="$1" head_sha="$2" declared_dir="$3" paths slug declared
++  paths=$(git diff --name-only "$before_sha" "$head_sha" -- test/) || return $?
++  if [ -z "$paths" ]; then
++    echo "no test files in range (0)"
++    return 0
++  fi
++  # Keep this byte-for-byte the round-name transform used by dispatch-round.sh.
++  slug=$(LC_ALL=C printf '%s' "$branch" | tr '[:upper:]' '[:lower:]' | sed -E '
+s/[^a-z0-9]/-/g; s/-+/-/g')
++  declared="$declared_dir/$slug.txt"
++  if [ -f "$declared" ]; then
++    echo "assert declaration: $declared"
++    bin/assert-diff.sh "$before_sha" "$head_sha" --declared "$declared" -- $pat
+hs
++  else
++    echo "assert declaration: none found ($declared)"
++    bin/assert-diff.sh "$before_sha" "$head_sha" -- $paths
++  fi
++}
++
+ # rc 71 is its own code on purpose: 70 already means "a gate refused" and 1 alr
+eady
+ # means NOT LANDED. Two meanings on one number is the same defect as a shared f
+ailure
+ # string -- the reader cannot tell which thing happened.
+@@ -151,9 +170,11 @@
+
+ # --self-test: prove, with the REAL gate() and a sentinel in place of `git push
+`, that a
+ # deliberately failing gate ends the run before the push line (rc 70, no sentin
+el), and --
+-# the green arm -- that a passing gate reaches it. Runs no git, merges nothing.
++# the green arm -- that a passing gate reaches it. Uses git only in an isolated
+ fixture;
++# merges nothing and never runs the landing ceremony.
+ if [ "${1:-}" = "--self-test" ]; then
+   before=self-test
++  branch="Sol/Assert Gate Fixture"
+   gate() {
+     local label="$1"; shift
+     local out rc=0
+@@ -180,6 +201,31 @@
+   oe_path=0;  assert_origin_endpoint "/home/jes/commonplace-cell" aaa aaa >/dev
+/null 2>&1 || oe_path=$?
+   oe_stale=0; assert_origin_endpoint "git@github.com:x/y.git" aaa bbb >/dev/nul
+l 2>&1 || oe_stale=$?
+   oe_blind=0; assert_origin_endpoint "git@github.com:x/y.git" aaa "" >/dev/null
+ 2>&1 || oe_blind=$?
++  # ⭐ assertion-diff gate: one isolated two-commit corpus drives removal, addi
+tion,
++  # vacuous range, and declared removal without depending on this repository's
+history.
++  assert_repo=$(mktemp -d)
++  trap 'rm -rf -- "$assert_repo"' EXIT
++  mkdir -p "$assert_repo/bin" "$assert_repo/test" "$assert_repo/declarations"
++  cp bin/assert-diff.sh "$assert_repo/bin/assert-diff.sh"
++  git -C "$assert_repo" init -q
++  git -C "$assert_repo" config user.name self-test
++  git -C "$assert_repo" config user.email self-test@example.invalid
++  printf 'defmodule FixtureTest do\n  use ExUnit.Case\n  test "fixture" do\n
+ assert 1 == 1\n  end\nend\n' > "$assert_repo/test/fixture_test.exs"
++  git -C "$assert_repo" add test/fixture_test.exs
++  git -C "$assert_repo" commit -q -m base
++  assert_base=$(git -C "$assert_repo" rev-parse HEAD)
++  printf 'defmodule FixtureTest do\n  use ExUnit.Case\n  test "fixture" do\n  e
+nd\nend\n' > "$assert_repo/test/fixture_test.exs"
++  git -C "$assert_repo" add test/fixture_test.exs
++  git -C "$assert_repo" commit -q -m head
++  assert_head=$(git -C "$assert_repo" rev-parse HEAD)
++  assert_slug=$(LC_ALL=C printf '%s' "$branch" | tr '[:upper:]' '[:lower:]' | s
+ed -E 's/[^a-z0-9]/-/g; s/-+/-/g')
++  printf 'assert 1 == 1\n' > "$assert_repo/declarations/$assert_slug.txt"
++  ag_remove_rc=0; ag_remove=$(cd "$assert_repo" && assert_gate "$assert_base" "
+$assert_head" declarations/missing 2>&1) || ag_remove_rc=$?
++  ag_add_rc=0; ag_add=$(cd "$assert_repo" && assert_gate "$assert_head" "$asser
+t_base" declarations/missing 2>&1) || ag_add_rc=$?
++  ag_zero_rc=0; ag_zero=$(cd "$assert_repo" && assert_gate "$assert_base" "$ass
+ert_base" declarations/missing 2>&1) || ag_zero_rc=$?
++  ag_declared_rc=0; ag_declared=$(cd "$assert_repo" && assert_gate "$assert_bas
+e" "$assert_head" declarations 2>&1) || ag_declared_rc=$?
++  ag_zero_count=$(echo "$ag_zero" | grep -cF 'no test files in range (0)' || tr
+ue)
++  ag_declared_removal=$(echo "$ag_declared" | grep -cF 'REMOVED (declared) test
+/fixture_test.exs: assert 1 == 1' || true)
+   # ⭐ the receipt's new fields, driven by STUB values -- a receipt can otherwi
+se only be seen by
+   # performing a real landing, so its failure path would never run. A2 is the p
+lanted case this
+   # round exists for: a round that EDITS bin/land-round.sh is gated by the pre-
+merge file, and a
+@@ -228,6 +274,8 @@
+      && [ "$ok_timing" = 1 ] && [ "$ok_both" = 1 ] && [ "$ok_names" = 1 ] && [
+"$not_confused" = 0 ] \
+      && [ "$so_ok" -eq 0 ] && [ "$so_diff" -eq 71 ] && [ "$so_untr" -eq 71 ] &&
+ [ "$so_blind" -eq 71 ] \
+      && [ "$oe_ok" -eq 0 ] && [ "$oe_path" -eq 72 ] && [ "$oe_stale" -eq 72 ] &
+& [ "$oe_blind" -eq 72 ] \
++     && [ "$ag_remove_rc" -ne 0 ] && [ "$ag_add_rc" -eq 0 ] && [ "$ag_zero_rc"
+-eq 0 ] && [ "$ag_zero_count" = 1 ] \
++     && [ "$ag_declared_rc" -eq 0 ] && [ "$ag_declared_removal" = 1 ] \
+      && [ "$r_script" = 1 ] && [ "$r_endpoint" = 1 ] && [ "$r_stub" = 1 ] && [
+"$r_ondisk" = 0 ] \
+      && [ -n "$ondisk_sha" ] && [ "$r_hdr" = 1 ] && [ "$r_sep" = 1 ] && [ "$r_r
+ow" = 1 ] \
+      && [ "$e_equal" = 1 ] && [ "$e_diff" = 1 ] && [ "$e_empty_unknown" = 1 ] &
+& [ "$e_empty_no" = 0 ] \
+@@ -236,6 +284,7 @@
+     echo "  classifier: timing/both-fail/names outcomes distinct and not confus
+able (3 arms, stub rcs)."
+     echo "  same-object: match->0, divergence->71, untracked->71, unidentifiabl
+e->71 (4 arms, stub ids)."
+     echo "  origin-endpoint: url+agreeing cache->0, path origin->72, stale cach
+e->72, unreadable endpoint->72 (4 arms, stub args)."
++    echo "  assert-gate: removal->nonzero, additions->0, no-test range->0 with
+count 0, declared removal->0 and printed (4 arms, isolated repo)."
+     echo "  receipt fields: script hash named, endpoint named, planted mismatch
+ names the EXECUTING hash, existing rows unchanged (3 arms, stub values)."
+     echo "  edited: equal->no, different->yes, empty->unknown (not no), pointer
++fast-forward lines verbatim (4 arms, stub values)."
+     exit 0
+@@ -243,6 +292,7 @@
+   echo "SELF-TEST DETAIL: timing=$ok_timing both=$ok_both names=$ok_names confu
+sed=$not_confused" >&2
+   echo "SELF-TEST DETAIL: same-object ok=$so_ok diff=$so_diff untracked=$so_unt
+r blind=$so_blind" >&2
+   echo "SELF-TEST DETAIL: origin-endpoint ok=$oe_ok path=$oe_path stale=$oe_sta
+le blind=$oe_blind" >&2
++  echo "SELF-TEST DETAIL: assert-gate removal=$ag_remove_rc additions=$ag_add_r
+c zero=$ag_zero_rc zero_count=$ag_zero_count declared=$ag_declared_rc declared_r
+emoval=$ag_declared_removal" >&2
+   echo "SELF-TEST DETAIL: receipt script=$r_script endpoint=$r_endpoint stub=$r
+_stub ondisk=$r_ondisk ondisk_sha=[$ondisk_sha] hdr=$r_hdr sep=$r_sep row=$r_row
+" >&2
+   echo "SELF-TEST DETAIL: edited equal=$e_equal diff=$e_diff empty_unknown=$e_e
+mpty_unknown empty_no=$e_empty_no pointer=$e_pointer fast_forward=$e_fast_forwar
+d" >&2
+   echo "SELF-TEST FAIL: red rc=$red_rc output=[$red] green rc=$green_rc output=
+[$green]" >&2; exit 3
+@@ -426,6 +476,7 @@
+ # R2b filed this gate and did NOT wire it here; an unwired gate is a remembered
+ rule.
+ # biscuit-auth's RunLimits::default() is a 1 ms WALL CLOCK and omission is sile
+nt.
+ gate "check-biscuit-run-limits" bash bin/check-biscuit-run-limits.sh
++gate "assert-diff" assert_gate "$before" HEAD docs/assert-declarations
+ # ⛔ LAST GATE BEFORE THE PUSH, and the only one whose subject is the commit.
+ # ⭐ RUN BEFORE THE RECEIPT IS WRITTEN. The untracked refusal caught a stray
+ # .slot-granted on 2026-09-03; the receipt must not be able to mask it, so the
+
+tokens used
+37,285
+Implemented the assertion gate in the declared file only: [bin/land-round.sh](/h
+ome/jes/sol-cell-assert-gate/wt/bin/land-round.sh).
+
+- Added `assert_gate`, using the dispatch script’s exact slug transform.
+- Wired it after `check-biscuit-run-limits` and before `assert_same_object`.
+- Added isolated-repository self-test arms G1–G4.
+- Existing self-test summaries remain unchanged; a new assert-gate summary/detai
+l was added.
+- No real landing, push, branch creation, or repository commit was performed.
+
+Verification:
+
+```text
+$ bash -n bin/land-round.sh
+```
+
+Output: empty
+Exit code: `0`
+
+```text
+$ bash bin/land-round.sh --self-test
+SELF-TEST PASS: failing gate -> rc 70, push never reached; passing gate -> push
+reached;
+  classifier: timing/both-fail/names outcomes distinct and not confusable (3 arm
+s, stub rcs).
+  same-object: match->0, divergence->71, untracked->71, unidentifiable->71 (4 ar
+ms, stub ids).
+  origin-endpoint: url+agreeing cache->0, path origin->72, stale cache->72, unre
+adable endpoint->72 (4 arms, stub args).
+  assert-gate: removal->nonzero, additions->0, no-test range->0 with count 0, de
+clared removal->0 and printed (4 arms, isolated repo).
+  receipt fields: script hash named, endpoint named, planted mismatch names the
+EXECUTING hash, existing rows unchanged (3 arms, stub values).
+  edited: equal->no, different->yes, empty->unknown (not no), pointer+fast-forwa
+rd lines verbatim (4 arms, stub values).
+```
+
+Exit code: `0`
+
+Complete `git diff`:
+
+```diff
+diff --git a/bin/land-round.sh b/bin/land-round.sh
+index 87bbcbb..355e184 100755
+--- a/bin/land-round.sh
++++ b/bin/land-round.sh
+@@ -48,6 +48,25 @@ executed_tree() {   # tree id of the tracked worktree as the
+gates saw it
+ pushed_tree() { git rev-parse "HEAD^{tree}" 2>/dev/null; }
+ untracked_count() { git status --porcelain --untracked-files=normal 2>/dev/null
+ | grep -c '^??' || true; }
+
++assert_gate() {   # assert_gate <before-sha> <head-sha> <declared-dir>
++  local before_sha="$1" head_sha="$2" declared_dir="$3" paths slug declared
++  paths=$(git diff --name-only "$before_sha" "$head_sha" -- test/) || return $?
++  if [ -z "$paths" ]; then
++    echo "no test files in range (0)"
++    return 0
++  fi
++  # Keep this byte-for-byte the round-name transform used by dispatch-round.sh.
++  slug=$(LC_ALL=C printf '%s' "$branch" | tr '[:upper:]' '[:lower:]' | sed -E '
+s/[^a-z0-9]/-/g; s/-+/-/g')
++  declared="$declared_dir/$slug.txt"
++  if [ -f "$declared" ]; then
++    echo "assert declaration: $declared"
++    bin/assert-diff.sh "$before_sha" "$head_sha" --declared "$declared" -- $pat
+hs
++  else
++    echo "assert declaration: none found ($declared)"
++    bin/assert-diff.sh "$before_sha" "$head_sha" -- $paths
++  fi
++}
++
+ # rc 71 is its own code on purpose: 70 already means "a gate refused" and 1 alr
+eady
+ # means NOT LANDED. Two meanings on one number is the same defect as a shared f
+ailure
+ # string -- the reader cannot tell which thing happened.
+@@ -151,9 +170,11 @@ write_receipt() {  # write_receipt <branch> <base> <head> <
+executed-tree> <gatel
+
+ # --self-test: prove, with the REAL gate() and a sentinel in place of `git push
+`, that a
+ # deliberately failing gate ends the run before the push line (rc 70, no sentin
+el), and --
+-# the green arm -- that a passing gate reaches it. Runs no git, merges nothing.
++# the green arm -- that a passing gate reaches it. Uses git only in an isolated
+ fixture;
++# merges nothing and never runs the landing ceremony.
+ if [ "${1:-}" = "--self-test" ]; then
+   before=self-test
++  branch="Sol/Assert Gate Fixture"
+   gate() {
+     local label="$1"; shift
+     local out rc=0
+@@ -180,6 +201,31 @@ if [ "${1:-}" = "--self-test" ]; then
+   oe_path=0;  assert_origin_endpoint "/home/jes/commonplace-cell" aaa aaa >/dev
+/null 2>&1 || oe_path=$?
+   oe_stale=0; assert_origin_endpoint "git@github.com:x/y.git" aaa bbb >/dev/nul
+l 2>&1 || oe_stale=$?
+   oe_blind=0; assert_origin_endpoint "git@github.com:x/y.git" aaa "" >/dev/null
+ 2>&1 || oe_blind=$?
++  # ⭐ assertion-diff gate: one isolated two-commit corpus drives removal, addi
+tion,
++  # vacuous range, and declared removal without depending on this repository's
+history.
++  assert_repo=$(mktemp -d)
++  trap 'rm -rf -- "$assert_repo"' EXIT
++  mkdir -p "$assert_repo/bin" "$assert_repo/test" "$assert_repo/declarations"
++  cp bin/assert-diff.sh "$assert_repo/bin/assert-diff.sh"
++  git -C "$assert_repo" init -q
++  git -C "$assert_repo" config user.name self-test
++  git -C "$assert_repo" config user.email self-test@example.invalid
++  printf 'defmodule FixtureTest do\n  use ExUnit.Case\n  test "fixture" do\n
+ assert 1 == 1\n  end\nend\n' > "$assert_repo/test/fixture_test.exs"
++  git -C "$assert_repo" add test/fixture_test.exs
++  git -C "$assert_repo" commit -q -m base
++  assert_base=$(git -C "$assert_repo" rev-parse HEAD)
++  printf 'defmodule FixtureTest do\n  use ExUnit.Case\n  test "fixture" do\n  e
+nd\nend\n' > "$assert_repo/test/fixture_test.exs"
++  git -C "$assert_repo" add test/fixture_test.exs
++  git -C "$assert_repo" commit -q -m head
++  assert_head=$(git -C "$assert_repo" rev-parse HEAD)
++  assert_slug=$(LC_ALL=C printf '%s' "$branch" | tr '[:upper:]' '[:lower:]' | s
+ed -E 's/[^a-z0-9]/-/g; s/-+/-/g')
++  printf 'assert 1 == 1\n' > "$assert_repo/declarations/$assert_slug.txt"
++  ag_remove_rc=0; ag_remove=$(cd "$assert_repo" && assert_gate "$assert_base" "
+$assert_head" declarations/missing 2>&1) || ag_remove_rc=$?
++  ag_add_rc=0; ag_add=$(cd "$assert_repo" && assert_gate "$assert_head" "$asser
+t_base" declarations/missing 2>&1) || ag_add_rc=$?
++  ag_zero_rc=0; ag_zero=$(cd "$assert_repo" && assert_gate "$assert_base" "$ass
+ert_base" declarations/missing 2>&1) || ag_zero_rc=$?
++  ag_declared_rc=0; ag_declared=$(cd "$assert_repo" && assert_gate "$assert_bas
+e" "$assert_head" declarations 2>&1) || ag_declared_rc=$?
++  ag_zero_count=$(echo "$ag_zero" | grep -cF 'no test files in range (0)' || tr
+ue)
++  ag_declared_removal=$(echo "$ag_declared" | grep -cF 'REMOVED (declared) test
+/fixture_test.exs: assert 1 == 1' || true)
+   # ⭐ the receipt's new fields, driven by STUB values -- a receipt can otherwi
+se only be seen by
+   # performing a real landing, so its failure path would never run. A2 is the p
+lanted case this
+   # round exists for: a round that EDITS bin/land-round.sh is gated by the pre-
+merge file, and a
+@@ -228,6 +274,8 @@ if [ "${1:-}" = "--self-test" ]; then
+      && [ "$ok_timing" = 1 ] && [ "$ok_both" = 1 ] && [ "$ok_names" = 1 ] && [
+"$not_confused" = 0 ] \
+      && [ "$so_ok" -eq 0 ] && [ "$so_diff" -eq 71 ] && [ "$so_untr" -eq 71 ] &&
+ [ "$so_blind" -eq 71 ] \
+      && [ "$oe_ok" -eq 0 ] && [ "$oe_path" -eq 72 ] && [ "$oe_stale" -eq 72 ] &
+& [ "$oe_blind" -eq 72 ] \
++     && [ "$ag_remove_rc" -ne 0 ] && [ "$ag_add_rc" -eq 0 ] && [ "$ag_zero_rc"
+-eq 0 ] && [ "$ag_zero_count" = 1 ] \
++     && [ "$ag_declared_rc" -eq 0 ] && [ "$ag_declared_removal" = 1 ] \
+      && [ "$r_script" = 1 ] && [ "$r_endpoint" = 1 ] && [ "$r_stub" = 1 ] && [
+"$r_ondisk" = 0 ] \
+      && [ -n "$ondisk_sha" ] && [ "$r_hdr" = 1 ] && [ "$r_sep" = 1 ] && [ "$r_r
+ow" = 1 ] \
+      && [ "$e_equal" = 1 ] && [ "$e_diff" = 1 ] && [ "$e_empty_unknown" = 1 ] &
+& [ "$e_empty_no" = 0 ] \
+@@ -236,6 +284,7 @@ if [ "${1:-}" = "--self-test" ]; then
+     echo "  classifier: timing/both-fail/names outcomes distinct and not confus
+able (3 arms, stub rcs)."
+     echo "  same-object: match->0, divergence->71, untracked->71, unidentifiabl
+e->71 (4 arms, stub ids)."
+     echo "  origin-endpoint: url+agreeing cache->0, path origin->72, stale cach
+e->72, unreadable endpoint->72 (4 arms, stub args)."
++    echo "  assert-gate: removal->nonzero, additions->0, no-test range->0 with
+count 0, declared removal->0 and printed (4 arms, isolated repo)."
+     echo "  receipt fields: script hash named, endpoint named, planted mismatch
+ names the EXECUTING hash, existing rows unchanged (3 arms, stub values)."
+     echo "  edited: equal->no, different->yes, empty->unknown (not no), pointer
++fast-forward lines verbatim (4 arms, stub values)."
+     exit 0
+@@ -243,6 +292,7 @@ if [ "${1:-}" = "--self-test" ]; then
+   echo "SELF-TEST DETAIL: timing=$ok_timing both=$ok_both names=$ok_names confu
+sed=$not_confused" >&2
+   echo "SELF-TEST DETAIL: same-object ok=$so_ok diff=$so_diff untracked=$so_unt
+r blind=$so_blind" >&2
+   echo "SELF-TEST DETAIL: origin-endpoint ok=$oe_ok path=$oe_path stale=$oe_sta
+le blind=$oe_blind" >&2
++  echo "SELF-TEST DETAIL: assert-gate removal=$ag_remove_rc additions=$ag_add_r
+c zero=$ag_zero_rc zero_count=$ag_zero_count declared=$ag_declared_rc declared_r
+emoval=$ag_declared_removal" >&2
+   echo "SELF-TEST DETAIL: receipt script=$r_script endpoint=$r_endpoint stub=$r
+_stub ondisk=$r_ondisk ondisk_sha=[$ondisk_sha] hdr=$r_hdr sep=$r_sep row=$r_row
+" >&2
+   echo "SELF-TEST DETAIL: edited equal=$e_equal diff=$e_diff empty_unknown=$e_e
+mpty_unknown empty_no=$e_empty_no pointer=$e_pointer fast_forward=$e_fast_forwar
+d" >&2
+   echo "SELF-TEST FAIL: red rc=$red_rc output=[$red] green rc=$green_rc output=
+[$green]" >&2; exit 3
+@@ -426,6 +476,7 @@ gate "check-truthy-verify" bash bin/check-truthy-verify.sh
+ # R2b filed this gate and did NOT wire it here; an unwired gate is a remembered
+ rule.
+ # biscuit-auth's RunLimits::default() is a 1 ms WALL CLOCK and omission is sile
+nt.
+ gate "check-biscuit-run-limits" bash bin/check-biscuit-run-limits.sh
++gate "assert-diff" assert_gate "$before" HEAD docs/assert-declarations
+ # ⛔ LAST GATE BEFORE THE PUSH, and the only one whose subject is the commit.
+ # ⭐ RUN BEFORE THE RECEIPT IS WRITTEN. The untracked refusal caught a stray
+ # .slot-granted on 2026-09-03; the receipt must not be able to mask it, so the
+```
+=== sol EXITED rc=0 ===
+

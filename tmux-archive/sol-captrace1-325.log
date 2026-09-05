@@ -1,0 +1,1020 @@
+NOTE: retiring reservation for /home/jes/sol-cell-receipt-edited/wt after 8915s
+— its launch never became countable.
+Reading additional input from stdin...
+OpenAI Codex v0.146.1
+--------
+workdir: /home/jes/sol-captrace1/wt
+model: gpt-5.6-sol
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR] (network access enabled)
+reasoning effort: medium
+reasoning summaries: none
+session id: 01a06dde-4482-7401-874d-d1f005bb33d3
+--------
+user
+ROUND: CAPTURE-TRACE-DEFAULT-1 — per-test timing becomes the DEFAULT of `bin/cap
+ture-run.sh` (`--no-time` the explicit opt-out), so
+the instrument is armed on every captured run instead of on the runs someone rem
+embered to flag. `bin/` + its test only.
+
+REPOSITORY AND BASE. You are in a worktree the DISPATCHER provisioned from the G
+itHub remote and verified at the endpoint. Your base is
+the commit checked out here: run `git rev-parse HEAD` and record the full sha. N
+o network credential: do NOT fetch, pull, `ls-remote`,
+clone, or use any other checkout. `git status` must be clean or STOP. Confirm `a
+ssets/node_modules/yjs` exists or STOP. `.git` is
+READ-ONLY: no branch, commit, stash, tag, push; leave an UNCOMMITTED DIFF; the d
+ispatcher secures it.
+
+CONFIRM THE CORPUS AT YOUR BASE before editing (any difference ⇒ STOP and report
+; do not adapt):
+  bin/capture-run.sh — usage line `[--overwrite] [--time] <label> <cmd> [args...
+]` (~:5); `--time) timing=1` (~:38) with `timing`
+      defaulting to 0; `export CAPTURE_RUN_TIMES="$times"` on the timing branch
+(~:75) and `unset CAPTURE_RUN_TIMES` on the other
+      (read the comment block ~:78–82: an INHERITED variable is not "off").
+  test/commonplace_next/capture_trace_test.exs — a test named "timing is OFF by
+default -- a run without --time sets no
+      CAPTURE_RUN_TIMES and writes none" (~:99) asserting `TIMES=[]`; a test "--
+time points the formatter at its OWN file …" (~:114).
+  bin/bump-pin.sh passes `--overwrite` as the FIRST argument to capture-run.sh (
+~:53) — the only deliberate re-user; it passes no
+      `--time`.
+  bin/check-plan-arms.sh exists — read how it maps test names to declarations in
+ docs/IMPLEMENTATION-PLAN-*.md; RENAMED tests must be
+      re-declared or the landing gate refuses (a Sol round was refused for an un
+declared name on 2026-09-04).
+
+WHY (measured on 2026-09-04): the one red run whose timing would have decided a
+hypothesis had no `.times` file, because `--time` was
+opt-in and not passed; the instrument had landed 90 minutes earlier. A trap that
+ must be remembered is not set.
+
+THE CHANGE (two files + the plan doc):
+ 1. `bin/capture-run.sh`: `timing=1` by default; a new flag `--no-time` sets `ti
+ming=0`; `--time` remains accepted (a no-op that keeps
+    old callers valid). The `--no-time` branch MUST `unset CAPTURE_RUN_TIMES` ex
+actly as the old non-`--time` branch did (the inherited
+    variable is the defect of 2026-09-04 row 818 — keep it fixed). Usage line up
+dated. Flags stay order-independent as they are today.
+ 2. `test/commonplace_next/capture_trace_test.exs`: INVERT the default arm — ren
+ame it "timing is ON by default -- a run without flags
+    writes a .times file beside the log" and assert the `.times` path is non-emp
+ty and the file exists; ADD "--no-time turns timing off
+    and unsets an INHERITED CAPTURE_RUN_TIMES" (run the child with the variable
+pre-set in its environment; assert `TIMES=[]`). Keep the
+    existing `--time` test byte-identical (it still passes: `--time` is a no-op
+on a default of on). Change no other test.
+ 3-bis (FOLDED IN, `CAPTURE-LOAD-1`, row 880/next `#29124`): the LOAD WITNESS. `
+bin/capture-run.sh` records the FULL output of
+    `bash /home/jes/boss-clod/box-free.sh` (stdout+stderr and its rc — the `FREE
+|…`/`BUSY-…`/`BLIND|…` lines, the `NOTE-LOAD` line when
+    present, and `load1` read from `/proc/loadavg`) at suite START and at suite
+END into a sidecar `<label>.load` beside the `.log` and
+    `.times`, each block headed `START <utc>` / `END <utc>` — AND, in the same b
+lock, a top-CPU list INCLUDING EXCLUDED TENANTS:
+    `ps -eo pcpu,pid,comm --sort=-pcpu | head -12` — LABELLED `lifetime-avg` in
+the file, because `ps`'s %CPU is the process's
+    average over its whole life (an 11-day serve reads 196 % while consuming ~10
+7 % now; boss measured 19:2xZ) — PLUS an
+    INSTANTANEOUS sample: the SECOND frame of `top -b -n 2 -d 3 -o %CPU` (the fi
+rst frame is itself a lifetime figure; take the
+    process rows of the second, `head -12`), labelled `instant-3s`; and the full
+ `/proc/loadavg` line labelled `load1 (1-min
+    decaying avg, lags bursts)`. Three instruments, three labels, so no reader c
+ombines them into one sentence. WHY BOTH: `box-free.sh` deliberately EXCLUDES th
+e standing serve and hermes —
+    correct for a GATE (the box must not be refused because the serve runs), WRO
+NG for a WITNESS (the serve is the largest CPU
+    consumer on this box, ~196 % of four cores, and invisible to every ⑨ ever ta
+ken). Same tool, two questions, opposite
+    requirements; the `ps` line is the witness, the box-free line is the gate's
+reading at that moment. Record the serve's figure
+    without judging it: there is NO baseline for it, and one sample cannot say w
+hether 196 % is normal. RECORDED, NEVER GATED: the run proceeds whatever the rc;
+ an rc 2 is written
+    as `BLIND rc=2` with the script's own line; a missing or non-executable scri
+pt is written as `ABSENT` — never an empty file and
+    never a silent skip. The script path is a variable `CAPTURE_RUN_BOXFREE=${CA
+PTURE_RUN_BOXFREE:-/home/jes/boss-clod/box-free.sh}`
+    so the arms can point it at a stub. WHY: every red this family produced was
+captured with ZERO record of what else the box was
+    doing; `load1` is a one-minute average bracketing a ~450 s run — coarse, and
+ still the only load witness that will exist.
+ 3. `docs/IMPLEMENTATION-PLAN-CAPTURE-TRACE-DEFAULT-1.md` declaring the renamed
+and the new test names in the format
+    `check-plan-arms.sh` reads (the old name is no longer declared anywhere, or
+the gate reports it missing — check both directions).
+ FENCE: no other `bin/` script, no `lib/`, no `test/` file but the one named, no
+ change to the formatter (`test/support/
+ capture_timing_formatter.ex`) or to `failure-ordinal.sh`.
+
+ARMS — show each with output:
+ T1 default ON: `bin/capture-run.sh t1 bash -c 'echo "TIMES=[${CAPTURE_RUN_TIMES
+:-}]"'` (fresh label) → the log contains a non-empty
+    TIMES path and the `.times` file exists beside the log. Base: `TIMES=[]` (sh
+ow it by running the same command BEFORE your edit).
+ T2 `--no-time`: with `CAPTURE_RUN_TIMES=/tmp/should-not-inherit` exported in th
+e calling shell, `bin/capture-run.sh --no-time t2 …`
+    → `TIMES=[]` and no `.times` file. Base: not applicable (flag does not exist
+ — show the usage refusal).
+ T3 the inherited-variable arm of row 818 STILL holds under the new default: a c
+aptured run inside a captured run, the inner one
+    `--no-time`, writes into no ancestor's file.
+ T4 `bin/bump-pin.sh`'s call shape still valid: `bin/capture-run.sh --overwrite
+t4 true` → exits 0 with a `.times` file (default on).
+ T5 the arm file: `mix test test/commonplace_next/capture_trace_test.exs` → all
+green, count = base + 1; the `--time` test unchanged
+    (its text byte-identical in the diff).
+ T6 `bin/check-plan-arms.sh` PASS at the desk, and `--self-test` PASS; then a de
+liberate check that the OLD test name is reported
+    MISSING if you leave it declared (show the gate can say no), then correct th
+e doc.
+ T7 fence: `git diff --stat` names exactly `bin/capture-run.sh`, the test file,
+the plan doc.
+ T8 load witness present: a fresh-label run → a `.load` file beside the log with
+ a `START` block and an `END` block, each carrying
+    a `load1=` line, box-free's own first line, at least 5 `lifetime-avg` `ps` r
+ows AND at least 5 `instant-3s` rows (structured);
+    `beam.smp` appears in the rows of BOTH blocks while a serve is running. If `
+top` is absent in the sandbox, say so and record
+    `ABSENT` under `instant-3s` rather than substituting `ps`; the reviewer runs
+ T8 on the host. Control: at base there is no `.load` file at all. Make NO claim
+ about what
+    box-free's own line does or does not name — its `NOTE-LOAD` line is CONDITIO
+NAL on load (printed only above a threshold), so
+    any arm keyed on its content is true on a quiet box and false under load, wh
+ich is not a control. The witness's value is a
+    MACHINE-READABLE sample at two timestamps; box-free contributes one prose li
+ne, and that is the distinction T8 asserts. Base: no `.load` file (show it BEFOR
+E your edit).
+ T9 recorded never gated: with `CAPTURE_RUN_BOXFREE` pointing at a stub that pri
+nts `BLIND|stub` and exits 2, the run still
+    completes with the wrapped command's own exit code, and the `.load` file say
+s `BLIND rc=2`; with the variable pointing at a
+    path that does not exist, the file says `ABSENT` and the run completes. Cont
+rol: the real script's block is neither.
+ T10 the arm file gains ONE test for T9's stub case (declared in the plan doc as
+ in 3); T5's count becomes base + 2.
+
+REPORT — THE FIRST LINE IS THE FULL SUITE'S SUMMARY LINE VERBATIM plus the seed
+line, from a full `mix test` with the store cleared
+(`rm -rf tmp/test-data`) — and because this round changes the capture script, ru
+n that full suite THROUGH `bin/capture-run.sh` with a
+fresh label and confirm a `.times` file with one row per test appeared (row coun
+t == tests run). Then failures by name (explained ones a
+marked subset, the total the total); base sha; corpus confirmation; the diff; T1
+–T7; `mix format --check-formatted`. The reviewer is
+commonplace-next and will re-run T1, T2, T3 and T6.
+codex
+I’ll first verify the immutable base conditions and capture the requested pre-ed
+it controls. If the worktree or corpus differs, I’ll stop without adapting.
+  → Verify clean base, required corpus, and capture pre-edit controls
+  • Implement capture defaults/load witness, tests, and plan declaration
+  • Run focused arms T1–T10, fence checks, and formatting
+  • Clear test store and run the full suite through capture-run; validate timing
+ rows
+  • Report exact results, diff, and base SHA
+exec
+/bin/bash -lc "git rev-parse HEAD && git status --short && test -d assets/node_m
+odules/yjs && echo YJS_EXISTS && sed -n '1,150p' bin/capture-run.sh && sed -n '7
+0,155p' test/commonplace_next/capture_trace_test.exs && sed -n '35,70p' bin/bump
+-pin.sh && sed -n '1,240p' bin/check-plan-arms.sh" in /home/jes/sol-captrace1/wt
+ succeeded in 0ms:
+7a9391f43e793e9485a9fa46729ec0a32aedd886
+YJS_EXISTS
+#!/usr/bin/env bash
+# Run a command, keep ALL of its output in a file, print the summary line and th
+e FILE'S PATH,
+# and exit with THE COMMAND'S rc.
+#
+# Usage: bin/capture-run.sh [--overwrite] [--time] <label> <cmd> [args...]
+#
+# ⛔⛔ WHY THIS IS A SHARED SCRIPT AND NOT A RULE. Three runners in this reposit
+ory have piped a
+# suite through `tail`, and `[measured 2026-09-03]` that truncation cost the IDE
+NTITY of a failure
+# three times in one day -- once in `bump-pin.sh`, twice in ad-hoc runners writt
+en the same hour by
+# someone who had just filed the finding. ExUnit prints its FAILURE BLOCKS BEFOR
+E the summary, so a
+# tail keeps "N tests, K failures" and drops WHICH.
+# ⭐ The correction already existed at `land-round.sh:38-42`, written 2026-08-25
+ for this exact
+# reason. It could not help the others because AN ARTIFACT ONLY FIRES WHERE IT I
+S INSTALLED: a fix
+# filed inside one runner does not reach the next runner anybody writes. One scr
+ipt, called by all
+# of them, is the only version of this that cannot drift per caller.
+#
+# ⛔ AND THE rc IS THE COMMAND'S. `cmd | tee log` exits with tee's status, and `
+cmd | tail -1`
+# exits with tail's -- both 0 whichever way the suite went. This runs the comman
+d with its output
+# REDIRECTED, never piped, so `$?` is the thing you asked about.
+#
+# ⛔⛔ AND THE LABEL IS A FILENAME, SO TWO RUNS UNDER ONE LABEL ARE ONE FILE. `[
+measured 2026-09-04]`
+# three runs sharing the label `org2b-fullsuite` left one log: the 539-tests/12-
+failures run that
+# was the whole reason to look was overwritten by the run that came after it, an
+d the overwrite was
+# SILENT. ⭐ That is this script's own subject aimed at itself -- it exists beca
+use truncation
+# destroys the identity of a failure, and it was destroying whole failures by a
+different mechanism.
+# ⇒ An existing log is REFUSED with rc 73 (EX_CANTCREAT) BEFORE the command runs
+, so a refusal
+# never costs the run it was protecting and never half-writes the file it was pr
+otecting.
+# ⭐ `--overwrite` is the explicit escape, because a caller with STABLE labels b
+y design is not
+# making this mistake; it must say so in argv rather than have the guard guess.
+`bin/bump-pin.sh` is
+# the one such caller in the tree (`[measured]` 1 of 1 in `bin/`, 0 in `test/`).
+set -u
+
+overwrite=0
+timing=0
+while :; do
+  case "${1:-}" in
+    --overwrite) overwrite=1; shift ;;
+    --time)      timing=1;    shift ;;
+    *) break ;;
+  esac
+done
+
+label="${1:?usage: capture-run.sh [--overwrite] [--time] <label> <cmd> [args...]
+}"; shift
+[ "$#" -gt 0 ] || { echo "capture-run.sh: no command given" >&2; exit 64; }
+
+dir="${CAPTURE_RUN_DIR:-tmp/run-logs}"
+mkdir -p "$dir" || { echo "capture-run.sh: cannot create $dir" >&2; exit 64; }
+log="$dir/$(printf '%s' "$label" | tr -c 'A-Za-z0-9' '_').log"
+
+# ⛔ THE GUARD RUNS BEFORE THE COMMAND, and that ordering is the point: refusing
+ after the run would
+# have already destroyed the file, and refusing after a partial write would leav
+e a log that is
+# neither run's. Nothing is executed and nothing is written on this path.
+if [ -e "$log" ] && [ "$overwrite" -eq 0 ]; then
+  echo "capture-run.sh: REFUSED -- a log already exists for label '$label':" >&2
+  echo "    $log" >&2
+  echo "  It was NOT overwritten and the command was NOT run." >&2
+  echo "  Use a different label, or pass --overwrite as the first argument if th
+e reuse is deliberate." >&2
+  exit 73
+fi
+
+# ⛔⛔ TIMING GOES TO ITS OWN FILE, NEVER INTO THE SUITE LOG. `bin/failure-ordin
+al.sh` recovers a
+# failure's ordinal by counting CLIFormatter progress dots and REFUSES unless
+# `dots == tests - failures - excluded`; interleaving timing lines is precisely
+the "written by a
+# formatter this reader does not understand" case it exits 2 on.
+# ⭐ Turning one instrument on must not cost the repository another one it alrea
+dy had. The arm for
+# that is `failure-ordinal.sh` calibrating on a --time log exactly as it does wi
+thout it.
+times="${log%.log}.times"
+if [ "$timing" -eq 1 ]; then
+  if [ -e "$times" ] && [ "$overwrite" -eq 0 ]; then
+    echo "capture-run.sh: REFUSED -- a timing file already exists for label '$la
+bel':" >&2
+    echo "    $times" >&2
+    echo "  It was NOT overwritten and the command was NOT run." >&2
+    exit 73
+  fi
+  export CAPTURE_RUN_TIMES="$times"
+else
+  # ⛔⛔ OFF BY DEFAULT MEANS OFF, AND AN INHERITED ENV VAR IS NOT OFF. `[measur
+ed 2026-09-04]` the
+  # full suite ran under `--time`, so every child this suite spawned INHERITED C
+APTURE_RUN_TIMES and
+  # a `capture-run.sh` invoked WITHOUT `--time` still had it set. ⇒ A nested cap
+tured run would have
+  # written into its ANCESTOR's timing file: two runs, one file -- this script's
+ own subject, one
+  # process boundary out, and the guard above cannot see it because the path was
+ never argv's.
+  # ⭐ Found only because the suite itself was run under --time; under a plain r
+un the arm asserting
+  # this passes VACUOUSLY.
+  unset CAPTURE_RUN_TIMES
+fi
+
+rc=0
+"$@" > "$log" 2>&1 || rc=$?
+
+summary=$(grep -oE '[0-9]+ (tests?|doctests?), [0-9]+ failures?[^|]*' "$log" | t
+ail -n 1)
+[ -n "$summary" ] || summary=$(tail -n 1 "$log")
+
+if [ "$rc" -eq 0 ]; then
+  printf 'ok    %-14s %s   [full log: %s]\n' "$label" "$summary" "$log"
+  [ "$timing" -eq 1 ] && [ -f "$times" ] && printf '      per-test times (%s row
+s): %s\n' "$(($(wc -l < "$times") - 1))" "$times"
+else
+  printf 'RED   %-14s rc=%s %s   [FULL LOG: %s]\n' "$label" "$rc" "$summary" "$l
+og"
+  # ⭐ Names are RECOVERED, not hoped for in a tail. A failing run that names no
+ test is itself
+  # information and says so, rather than printing nothing and looking like a qui
+et failure.
+  echo "failing tests (full output in $log):"
+  grep -E '^\s+[0-9]+\) (test|doctest)' "$log" || echo "  (no test-name lines --
+ see the tail below)"
+  # ⛔⛔ AND THE TAIL IS PRINTED WHATEVER THE SHAPE, because the name-grep is a
+claim about what the
+  # failure LOOKS like. A compile error, a `setup_all` crash or an ExUnit-level
+abort matches no
+  # `N) test` line at all -- so a runner anchored only on that pattern is least
+helpful exactly when
+  # the breakage is worst, which is the wrong gradient. (Bound named by hermes,
+2026-09-03, from the
+  # same defect in its own runner.) Nothing is ever lost either way: the whole o
+utput is on disk.
+  echo "--- last 40 lines (full output in $log) ---"
+  tail -n 40 "$log"
+fi
+
+exit "$rc"
+
+  test "NO-SUMMARY: a truncated log is refused rather than measured", %{dir: dir
+} do
+    # ⛔ THE RED THIS INSTRUMENT EXISTS FOR. A log whose summary line was cut st
+ill has dots, so a
+    # reader that did not check would return a confident number about a partial
+file.
+    path = Path.join(dir, "truncated.log")
+    File.write!(path, String.duplicate(".", 12) <> "\n")
+
+    {out, status} = ordinal(path)
+
+    assert status == 2, "a log with no summary must go RED, got #{status}"
+    assert out =~ "NO-SUMMARY"
+  end
+
+  test "CALIBRATION-FAILED: dots that disagree with the summary are refused, not
+ reconciled", %{
+    dir: dir
+  } do
+    # The summary claims 40 tests; the log carries 9 dots. Interleaved, truncate
+d, or written by a
+    # formatter this reader does not understand — all three look like this, and
+none is measurable.
+    path = Path.join(dir, "interleaved.log")
+    File.write!(path, String.duplicate(".", 9) <> "\n\n40 tests, 0 failures\n")
+
+    {out, status} = ordinal(path)
+
+    assert status == 2
+    assert out =~ "CALIBRATION-FAILED"
+    assert out =~ "dots=9"
+    assert out =~ "expected=40"
+  end
+
+  test "timing is OFF by default -- a run without --time sets no CAPTURE_RUN_TIM
+ES and writes none",
+       %{dir: dir} do
+    {out, 0} =
+      System.cmd(
+        "bash",
+        [@capture, "plain", "bash", "-c", ~s|echo "TIMES=[${CAPTURE_RUN_TIMES:-}
+]"|],
+        env: [{"CAPTURE_RUN_DIR", dir}],
+        stderr_to_stdout: true
+      )
+
+    refute out =~ "per-test times"
+    assert File.read!(Path.join(dir, "plain.log")) =~ "TIMES=[]"
+    refute File.exists?(Path.join(dir, "plain.times"))
+  end
+
+  test "--time points the formatter at its OWN file, beside the log and never in
+side it", %{
+    dir: dir
+  } do
+    {_out, 0} =
+      System.cmd(
+        "bash",
+        [@capture, "--time", "timed", "bash", "-c", ~s|echo "TIMES=[${CAPTURE_RU
+N_TIMES:-}]"|],
+        env: [{"CAPTURE_RUN_DIR", dir}],
+        stderr_to_stdout: true
+      )
+
+    log = File.read!(Path.join(dir, "timed.log"))
+
+    # ⛔ THE PATH IS A SIBLING OF THE LOG, NOT THE LOG. If these were ever the s
+ame file the timing
+    # rows would land in the suite stream and `failure-ordinal.sh` would refuse
+every log we write.
+    assert log =~ "TIMES=[#{Path.join(dir, "timed.times")}]"
+    refute log =~ "timed.log]"
+  end
+
+  test "the formatter writes one row per finished test, and a test that never ra
+n is named not zeroed",
+       %{dir: dir} do
+    path = Path.join(dir, "unit.times")
+    {:ok, pid} = GenServer.start_link(CaptureTimingFormatter, capture_run_times:
+ path)
+
+    GenServer.cast(pid, {:test_finished, %ExUnit.Test{module: A, name: :"test on
+e", time: 1234}})
+    GenServer.cast(pid, {:test_finished, %ExUnit.Test{module: B, name: :"test tw
+o", time: nil}})
+
+    # ⛔ THE CASE THAT ACTUALLY OCCURS: an excluded test arrives with `time: 0`,
+ not `nil`, so a
+    # guard on `nil` alone is green about a case the suite never produces. `[mea
+sured]` 549 rows
+    # against "549 tests, 1 excluded" — the extra row was the excluded test, rea
+ding `0`.
+    GenServer.cast(
+      pid,
+      {:test_finished,
+       %ExUnit.Test{module: C, name: :"test three", time: 0, state: {:excluded,
+"tag"}}}
+    )
+
+    GenServer.cast(pid, {:suite_finished, %{}})
+    _ = :sys.get_state(pid)
+
+    rows = path |> File.read!() |> String.split("\n", trim: true)
+
+    assert ["# us\tmodule\ttest" | body] = rows
+# ⭐ THE SCRIPT WRITTEN BECAUSE A PIPELINE HID 11 FAILURES WAS HIDING THE IDENTI
+TY OF FAILURES IT
+# CORRECTLY DETECTED. `[measured 2026-09-03]` it cost three separate diagnosis c
+ycles in one day --
+# the rc discipline was right and the evidence was truncated, which reads as a c
+lean report.
+# ⭐⭐ AND THE FIX ALREADY EXISTED IN THIS REPOSITORY: `land-round.sh:38-42` has
+ written the full
+# output to `tmp/land-gate-<label>.log` since 2026-08-25, for this exact reason,
+ with the comment
+# saying so. It could not fire here because AN ARTIFACT ONLY FIRES WHERE IT IS I
+NSTALLED -- a
+# correction filed in one runner does not reach the next runner someone writes.
+gate() { local name="$1"; shift
+  # ⭐ ONE CAPTURE, SHARED. `capture-run.sh` keeps the whole output, prints the
+summary and the log
+  # PATH, recovers the failing test names, and exits with THE COMMAND'S rc -- so
+ this function is
+  # left holding only the red flag, which is all it was ever meant to own.
+  # ⭐ `--overwrite` IS DELIBERATE AND IS THE ONLY SUCH CALLER IN THE TREE. This
+ script's four
+  # labels (`deps.get`, `compile`, `test`, `format`) are FIXED, so every invocat
+ion of `bump-pin.sh`
+  # reuses all four -- a second bump would be refused by `capture-run.sh`'s exis
+ting-log guard with
+  # nothing wrong. ⛔ The reuse is safe HERE for a reason that does not generali
+se: these logs are
+  # consumed inside the same run (the summary prints the path, then the run rest
+ores or commits),
+  # so no later reader is ever pointed at one. An ad-hoc analysis log is the opp
+osite, and that is
+  # the case the guard defends.
+  bash "$(dirname "${BASH_SOURCE[0]}")/capture-run.sh" --overwrite "$name" "$@"
+|| RED=1
+}
+
+gate "deps.get" mix deps.get
+[ "$RED" -eq 0 ] && gate "compile" mix compile
+[ "$RED" -eq 0 ] && gate "test" mix test
+[ "$RED" -eq 0 ] && gate "format" mix format --check-formatted
+if [ "$RED" -ne 0 ]; then
+  mv mix.exs.bump-backup mix.exs; mv mix.lock.bump-backup mix.lock; mix deps.get
+ >/dev/null 2>&1
+  echo "⛔ VERDICT: RED on $repo $sha -- mix.exs and mix.lock restored to $old."
+ >&2
+  exit 1
+fi
+rm -f mix.exs.bump-backup mix.lock.bump-backup
+echo "VERDICT: GREEN on $repo $sha (was $old)."
+if [ "$mode" = "--commit" ]; then
+  git add mix.exs mix.lock && git commit -q -m "Bump $repo pin to $sha
+
+Verified by bin/bump-pin.sh: deps.get, compile, test, format all green with rc c
+aptured.
+#!/usr/bin/env bash
+# Gate: every test arm a plan DECLARES must exist in the suite.
+#
+# WHY THIS EXISTS. Phase 2's plan listed "a legal verb name mounts" as a require
+d
+# green arm. It was never written. 31 tests passed and nothing indicated a gap:
+# green-because-ABSENT is indistinguishable from green-because-PASSED, so counti
+ng
+# tests can never find it. Only mutating the rule did -- over-tightening the ver
+b
+# charset to forbid hyphens changed no test result at all.
+#
+# A plan that names required tests is a checklist, and a checklist nobody diffs
+# against the suite is a wish. This diffs it, and FAILS.
+#
+# DECLARE an arm in a plan with a marker line:
+#   <!-- ARM: substring that must appear in a test name -->
+#
+# THE MARKER IS THE CONTRACT: name the test to match the marker, not the other w
+ay
+# round. On its first run this gate reported 4 misses of which only ONE was real
+ --
+# the other three were tests that existed under different wording. A gate that
+# fires on correct state is worse than no gate, because it trains people to igno
+re
+# it. If a marker misses, first check whether the test exists under another name
+;
+# if it does, the MARKER is wrong.
+set -uo pipefail
+cd "$(dirname "$0")/.."
+
+# --self-test : prove the MATCHER cannot pass an arm that has no test.
+# Offered by commonplace-dir. This gate restricts matching to `test "..."` NAMES
+,
+# so a token appearing in implementation code or comments must NOT satisfy an ar
+m.
+# That restriction was asserted and never demonstrated -- and a gate never seen
+to
+# fail is not known to work. This builds a corpus where every token appears ONLY
+# as code and comments, plus one unrelated test, and requires every arm to MISS.
+#
+# BOTH ARMS OF THIS SELF-TEST ARE DEMONSTRATED:
+#   matcher correct                     -> PASS, exit 0
+#   matcher reads implementation text   -> "ok  widget alignment", exit 3
+#
+# AND A MUTATION-TESTING TRAP FOUND WHILE PROVING IT. My first attempt to break
+# the matcher used a glob that did not read the file holding the tokens. The
+# broken matcher therefore returned the CORRECT answer for the wrong reason, the
+# self-test passed, and I briefly concluded the self-test was decoration.
+# => AN INERT MUTATION IS INDISTINGUISHABLE FROM A GATE THAT WORKS.
+# Mutation testing has the same vacuous-control failure as everything else:
+# before believing a mutation proved something, CONFIRM THE MUTATION ACTUALLY
+# PERTURBED THE THING UNDER TEST. Here that means the break must read the file
+# containing the arm tokens; a break that reads nothing only proves exit 2.
+# ⛔ ARGV IS A THIRD CAUSE OF "THE GATE NEVER RAN", and it was unmodelled.
+# Found by commonplace-dir on their own gate: invoked wrongly it exited 1, which
+# IS its missing-arms verdict -- so "I typed the command wrong" was
+# indistinguishable from "the round skipped required tests." A gate returning a
+# verdict about work it never examined is the exact failure it exists to catch,
+# aimed at itself. This script had the same hole in a different shape: an
+# unrecognised flag fell through and ran the NORMAL gate, so `--slef-test`
+# reported FAIL and a caller could read that as "the self-test failed".
+# Two causes were already modelled (no ARM markers, no test names). argv is a th
+ird.
+if [ "$#" -gt 0 ] && [ "${1:-}" != "--self-test" ]; then
+  echo "FAIL: unrecognised argument '${1}'. Usage: $(basename "$0") [--self-test
+]" >&2
+  echo "      (exit 2 = the gate did not run. 1 would mean it ran and arms are m
+issing.)" >&2
+  exit 2
+fi
+
+if [ "${1:-}" = "--self-test" ]; then
+  T=$(mktemp -d); trap 'rm -rf "$T"' EXIT
+  mkdir -p "$T/docs" "$T/test" "$T/lib" "$T/bin"
+  printf '<!-- ARM: widget alignment -->\n<!-- ARM: gasket tolerance -->\n' > "$
+T/docs/p.md"
+  printf '# widget alignment is handled here\ndef gasket_tolerance, do: :ok\n' >
+ "$T/lib/impl.ex"
+  printf '  test "something entirely unrelated" do\n  end\n' > "$T/test/a_test.e
+xs"
+  cp "$0" "$T/bin/"
+  out=$("$T/bin/$(basename "$0")" 2>&1); rc=$?
+  n_miss=$(printf '%s\n' "$out" | grep -c 'MISSING')
+  if [ "$rc" -eq 1 ] && [ "$n_miss" -eq 2 ]; then
+    echo "SELF-TEST PASS: tokens present only in code/comments matched 0 arms (2
+/2 MISSING, exit 1)."
+    exit 0
+  fi
+  echo "SELF-TEST FAIL: expected exit 1 with 2 MISSING; got exit $rc with $n_mis
+s." >&2
+  printf '%s\n' "$out" >&2
+  exit 3
+fi
+
+# ⭐ ARM vs ARM-PLANNED. An arm declared for a round that has NOT been dispatche
+d
+# is absent for a different reason than an arm missing from landed work, and
+# mixing them makes RED ambiguous -- which is how a gate becomes permanently red
+# and then ignored. `ARM:` = contract on landed work, and its absence FAILS.
+# `ARM-PLANNED:` = contract on a future round, reported and NOT failing. Promote
+# the marker to `ARM:` when that round is dispatched.
+mapfile -t ARMS    < <(grep -rho '<!-- ARM: .* -->'         docs/ | sed 's/<!--
+ARM: //; s/ -->//')
+mapfile -t PLANNED < <(grep -rho '<!-- ARM-PLANNED: .* -->' docs/ | sed 's/<!--
+ARM-PLANNED: //; s/ -->//')
+if [ "${#ARMS[@]}" -eq 0 ]; then
+  echo "FAIL: no ARM markers found in docs/ -- the gate has nothing to check." >
+&2
+  echo "      (A gate with an empty corpus passes vacuously. That is the bug thi
+s file exists for.)" >&2
+  exit 2
+fi
+
+TESTS=$(grep -rho '^\s*test "[^"]*"' test/ | sed 's/.*test "//; s/"$//')
+N_TESTS=$(printf '%s\n' "$TESTS" | grep -c .)
+if [ "$N_TESTS" -eq 0 ]; then
+  echo "FAIL: no test names found under test/ -- wrong referent, not an empty su
+ite." >&2
+  exit 2
+fi
+
+# ── MODULE COVERAGE ───────────────────────────────────────────────────────────
+# ⛔ WHY. Two repos found unbriefed Sol machinery within an hour: a DocHost.Redu
+cer
+# here, an async checkpoint worker in commonplace-dir against a brief forbidding
+# "timers, debounce, scheduler, watches" -- none of which it was.
+# ⭐ AN ENUMERATION IS SATISFIABLE BY ANYTHING NOT ON THE LIST. My phase-3 plan
+# listed what was in scope and what was out; DocHost.Reducer was on neither list
+# and was therefore permitted by omission. "Out of scope: A, B, C" is not a
+# property, it is a denylist, and a denylist of machinery is the same defect as
+a
+# denylist of secrets.
+# => The property: EVERY MODULE IN lib/ IS DECLARED IN A PLAN. Adding one is fin
+e
+#    -- adding one SILENTLY is not. Declare with:  <!-- MODULE: Full.Module.Name
+ -->
+mapfile -t DECLARED < <(grep -rho '<!-- MODULE: .* -->' docs/ | sed 's/<!-- MODU
+LE: //; s/ -->//')
+# ⚠️  SCOPE, DECLARED (markdown/biscuit/cell, 2026-08-27): the `^` anchors this t
+o COLUMN-0
+#    defmodules. A module NESTED inside another (indented) is invisible to it. M
+easured
+#    2026-08-27 22:06Z: `grep -rn '^\s\+defmodule ' lib/` -> 0, so the scope cos
+ts nothing
+#    TODAY and is a gap the day someone nests one. ⭐ A line-anchored selector c
+annot see a
+#    construct that does not start the line -- and widening the ALTERNATION does
+ not fix a
+#    defect in the SHAPE (their `cond do` case: the added keyword could never ma
+tch).
+#    ⛔ Do not relax the anchor without a red arm: unanchored, this matches `def
+module` inside
+#    strings, comments and heredocs, trading a false zero for a false alarm.
+mapfile -t ACTUAL   < <(grep -rho '^defmodule [A-Za-z0-9_.]*' lib/ | sed 's/defm
+odule //' | sort -u)
+undeclared=0
+if [ "${#ACTUAL[@]}" -gt 0 ]; then
+  for m in "${ACTUAL[@]}"; do
+    hit=0
+    for d in "${DECLARED[@]:-}"; do [ "$d" = "$m" ] && hit=1 && break; done
+    [ "$hit" -eq 1 ] || { printf '  UNDECLARED MODULE  %s\n' "$m"; undeclared=$(
+(undeclared+1)); }
+  done
+fi
+
+miss=0
+for arm in "${ARMS[@]}"; do
+  # ⛔ HERESTRING, NOT `printf | grep -q`. Under pipefail the old form was a
+  # false-MISS race: printf writes one line per write(), grep -q exits on the
+  # first match, the next write() gets EPIPE/SIGPIPE, the pipeline fails, and a
+  # PRESENT arm reports MISSING. Found by commonplace-dir (18:28Z) in the siblin
+g
+  # of this script; MEASURED here on an unchanged tree: 12/150 false FAIL with
+  # the pipe, 0/150 with the herestring. It had shown up earlier today as a
+  # "transient 1 missing" and was dismissed as mid-priming noise. A gate that
+  # sometimes goes red on correct state is worse than no gate: it trains people
+  # to re-run it until green.
+  if grep -qiF -- "$arm" <<< "$TESTS"; then
+    printf '  ok      %s\n' "$arm"
+  else
+    printf '  MISSING %s\n' "$arm"; miss=$((miss+1))
+  fi
+done
+
+echo "---"
+# ⛔ A MARKER DECLARES INTENT; THE TAG DECIDES WHETHER THE ARM RUNS. Ported from
+ markdown's
+# ce8dde9 (its FIRST version was blind to @moduletag, which is the defect the pa
+tch exists to fix
+# surviving inside the patch). @moduletag excludes EVERY test in the module -- o
+ne line can switch
+# off a whole file of declared arms while this gate still prints "ok" for each o
+f them.
+# ⚠️  KNOWN GAP, MEASURED HERE 2026-08-27 AND NOT CLOSED BY THIS BLOCK: it reads
+exclusions from
+# test/test_helper.exs ONLY, so a CLI `mix test --exclude <tag>` is invisible to
+ it. Measured:
+# `mix test --exclude integration` skipped 60 tests and this gate still printed
+missing: 0, PASS.
+# ⏳ RETIREMENT: delete this block when the gate derives its population from an
+ExUnit RUN's own
+# output instead of grepping source -- that closes both this and the CLI gap at
+once.
+EXCLUDED_TAGS=$(sed -n 's/^[[:space:]]*ExUnit.configure(exclude:[[:space:]]*\[\(
+.*\)\]).*/\1/p' test/test_helper.exs 2>/dev/null | tr -d ' :' | tr ',' ' ')
+TAGGED=$(awk '
+  # ⛔ COLUMN-0 ONLY. A NESTED defmodule (a test double declared inside the test
+ module) must NOT end
+  # the module-tag scope: doc-sync measured that resetting on any defmodule made
+ a real @moduletag
+  # track to ZERO tests, so the branch printed nothing while arms were silently
+excluded -- the gate
+  # was DECORATION on that tree and had never been seen to fire. next has 2 such
+ files
+  # (loopback_gateway_test.exs:20, remote_editor_test.exs:21), both @moduletag :
+integration.
+  /^defmodule[[:space:]]/ { modtag=""; pending=""; next }
+  # ⛔ REVERTED 17:3xZ: an earlier version cleared `pending` at a nested defmodu
+le. markdown MEASURED
+  # that ExUnit honours a @tag across ANY intervening line -- a comment, a def,
+a nested module -- so
+  # that line would have discarded a tag ExUnit still applies, going QUIET inste
+ad of firing. It was
+  # inert here (no such case today), which is precisely why it was dangerous: in
+ert until it is not.
+  # ⭐ ONLY a `test` line consumes pending tags. Nothing else clears them.
+  # ⚠️  Column-0 is a PROXY, not a parser: it fails if anyone indents a top-level
+ test module.
+  #    Detector (quotes omitted deliberately: this block is single-quoted, see b
+elow):
+  #    grep -rn ^[[:space:]]+defmodule .*Test do  over test/   -- 0 hits here, c
+hecked.
+  # ⛔ NEVER put an apostrophe OR a single quote in this comment block. It termi
+nated the awk program
+  # three times today. bash -n caught two; the THIRD passed bash -n and the gate
+ silently reported
+  # 0 MISMATCH under an induced defect that should give 61. ⇒ bash -n is NOT suf
+ficient here: the only
+  # reliable check is the induced probe returning its known non-zero number.
+  /^[[:space:]]*@moduletag[[:space:]]+:/ { t=$0; sub(/^[[:space:]]*@moduletag[[:
+space:]]+:/,"",t); sub(/[^A-Za-z0-9_].*$/,"",t); modtag=t; next }
+  # ⭐ TAGS ACCUMULATE: several @tag lines may precede one test and ExUnit honou
+rs ALL of them.
+  # Keeping only the LAST would go blind on a reversed order -- markdown measure
+d that on its own tree.
+  /^[[:space:]]*@tag[[:space:]]+:/ { t=$0; sub(/^[[:space:]]*@tag[[:space:]]+:/,
+"",t); sub(/[^A-Za-z0-9_].*$/,"",t); pending = (pending == "" ? t : pending " "
+t); next }
+  /^[[:space:]]*test[[:space:]]+"/ {
+    n=$0; sub(/^[^"]*"/,"",n); sub(/".*$/,"",n)
+    if (pending != "") { np=split(pending, pl, " "); for (i=1; i<=np; i++) print
+ pl[i] "\t" n }
+    if (modtag  != "") print modtag  "\t" n
+    pending=""; next
+  }
+' $(find test -name '*.exs') 2>/dev/null)
+mismatch=0
+for arm in "${ARMS[@]}"; do
+  while IFS=$'\t' read -r _tag _name; do
+    [ -z "$_name" ] && continue
+    case "$_name" in *"$arm"*)
+      for e in $EXCLUDED_TAGS; do
+        if [ "$_tag" = "$e" ]; then
+          printf '  MISMATCH  ARM "%s" is declared covered but its test carries
+tag :%s (via @tag or @moduletag), which test_helper excludes -- it does not run\
+n' "$arm" "$_tag"
+          mismatch=$((mismatch+1))
+        fi
+      done;;
+    esac
+  done <<< "$TAGGED"
+done
+miss=$((miss + mismatch))
+
+echo "declared arms: ${#ARMS[@]}   planned (not failing): ${#PLANNED[@]}   tests
+: $N_TESTS   missing: $miss   undeclared modules: $undeclared"
+miss=$((miss + undeclared))
+
+# ⛔ THE VERDICT IS PRINTED TO STDOUT AS THE LAST LINE, ON PURPOSE.
+# A caller who writes `check-plan-arms.sh | tail -4; echo $?` reads TAIL's exit
+# code, not this script's -- it printed FAIL and the caller read 0. That happene
+d
+# on this gate's first external verification. The exit code is still the contrac
+t,
+# but a pipeline that swallows it must still SEE the verdict.
+if [ "$miss" -eq 0 ]; then
+  echo "VERDICT: PASS -- every declared arm exists."
+  exit 0
+else
+  n_arm=$((miss - undeclared))
+  echo "VERDICT: FAIL -- $n_arm declared arm(s) with no test, $undeclared undecl
+ared module(s)." >&2
+  echo "VERDICT: FAIL -- $n_arm declared arm(s) with no test, $undeclared undecl
+ared module(s)."
+  exit 1
+fi
+
+exec
+/bin/bash -lc 'set -u
+base_dir=$(mktemp -d /tmp/capture-trace-base.XXXXXX)
+export CAPTURE_RUN_DIR="$base_dir"
+echo "BASE_CONTROL_DIR=$base_dir"
+bin/capture-run.sh t1-base bash -c '"'echo \"TIMES=["'${CAPTURE_RUN_TIMES:-}]"'"
+'
+echo 'T1_BASE_LOG:'
+sed -n '1,20p' \""'$base_dir/t1_base.log"
+if [ -e "$base_dir/t1_base.times" ]; then echo '"'T1_BASE_TIMES=EXISTS'; else ec
+ho 'T1_BASE_TIMES=ABSENT'; fi
+if [ -e \""'$base_dir/t1_base.load" ]; then echo '"'T8_BASE_LOAD=EXISTS'; else e
+cho 'T8_BASE_LOAD=ABSENT'; fi
+set +e
+bin/capture-run.sh --no-time >\""'$base_dir/t2-base.out" 2>&1
+base_t2_rc=$?
+set -e
+echo "T2_BASE_RC=$base_t2_rc"
+sed -n '"'1,20p' \""'$base_dir/t2-base.out"
+echo '"'OLD_ARM_MARKERS:'
+rg -n -F 'timing is OFF by default -- a run without --time sets no CAPTURE_RUN_T
+IMES and writes none' docs test || true
+echo 'TEST_FILE_HEAD:'
+sed -n '1,130p' test/commonplace_next/capture_trace_test.exs
+echo 'PLAN_FILES_CAPTURE:'
+rg -n 'capture|CAPTURE_RUN|timing is|--time points|recorded never gated' docs/IM
+PLEMENTATION-PLAN-*.md | head -100 || true
+sha256sum <(sed -n '/test \"--time points/,/"'^  end$/p'"' test/commonplace_next
+/capture_trace_test.exs)" in /home/jes/sol-captrace1/wt
+ succeeded in 14ms:
+docs/IMPLEMENTATION-PLAN-CAPTURE-TRACE-1.md:5:reads as global and is not. Branch
+: `sol/next-capture-trace-1`. Rows 811/813/814. No `lib/`.
+docs/IMPLEMENTATION-PLAN-CAPTURE-TRACE-1.md:56:`bin/capture-run.sh` gains `--tim
+e`; it is **off by default**, so a normal run is the run it was.
+docs/IMPLEMENTATION-PLAN-CAPTURE-TRACE-1.md:65:<!-- ARM: timing is OFF by defaul
+t -- a run without --time sets no CAPTURE_RUN_TIMES and writes none -->
+docs/IMPLEMENTATION-PLAN-CAPTURE-TRACE-1.md:66:<!-- ARM: --time points the forma
+tter at its OWN file, beside the log and never inside it -->
+docs/IMPLEMENTATION-PLAN-NEXT-B-DEVPATH.md:180:`bin/land-round.sh` runs two gate
+s with the existing `gate` helper, whose exit status is captured
+docs/IMPLEMENTATION-PLAN-NEXT-G2.md:56:   on a PRIVATE dep (doc) captured in ful
+l; commit + push.
+docs/IMPLEMENTATION-PLAN-CAPTURE-GUARD-1.md:3:Base: `e4022942bcdc57ee64aaba3e609
+11be7d21f5c75` (the `ORG-2b` landing). Branch: `sol/next-capture-guard-1`.
+docs/IMPLEMENTATION-PLAN-CAPTURE-GUARD-1.md:7:that round made `bin/capture-run.s
+h` exist because *truncation destroys the identity of a failure*.
+docs/IMPLEMENTATION-PLAN-CAPTURE-GUARD-1.md:12:⛔⛔ `[measured 2026-09-04]` thre
+e runs shared the label `org2b-fullsuite`. `capture-run.sh` derives
+docs/IMPLEMENTATION-PLAN-CAPTURE-GUARD-1.md:30:positive control  grep -rn 'captu
+re-run' bin/ test/       ⇒ 8 hits (the string is findable)
+docs/IMPLEMENTATION-PLAN-CAPTURE-GUARD-1.md:32:                  test/commonplac
+e_next/capture_run_test.exs  ⇒ the arms themselves
+docs/IMPLEMENTATION-PLAN-CAPTURE-GUARD-1.md:47:**`bin/capture-run.sh [--overwrit
+e] <label> <cmd…>`** — if the log already exists and `--overwrite`
+docs/IMPLEMENTATION-PLAN-CAPTURE-GUARD-1.md:70:<!-- ARM: a fresh label is captur
+ed normally -- the guard stays green on known-good input -->
+docs/IMPLEMENTATION-PLAN-NEXT-PIN.md:14:`gateway.ex:47`, `:eaddrinuse` at `:49`,
+ captured before any re-run) — NEXT-PORT is its fix.
+docs/IMPLEMENTATION-PLAN-NEXT-R3-POLICY.md:66:**[EXECUTED · `sol/next-r3-policy`
+, base `1bb1365`, rcs captured directly, never after a pipe.]**
+docs/IMPLEMENTATION-PLAN-NEXT-R3-POLICY.md:112:⚠️  The restart-arm flake has two
+captures and no reproduction, so this landing may be refused by
+docs/IMPLEMENTATION-PLAN-NEXT-R3-POLICY.md:113:`mix test` on an arm unrelated to
+ this round. If it is, that is a further capture and a spent grant —
+docs/IMPLEMENTATION-PLAN-NEXT-S-SECRET.md:86:threshold. `setup` captures the pre
+-existing `SECRET_KEY_BASE` and restores it in `on_exit`, which
+docs/IMPLEMENTATION-PLAN-NEXT-R6-WIRING.md:42:⭐ **The two literals were capture
+d AT THE BRANCH POINT before a line was written, and the landing
+docs/IMPLEMENTATION-PLAN-STORE-2b.md:33:capture, not reproduced in six.** The `s
+top) :forbidden` count is invariant across every green, so
+docs/IMPLEMENTATION-PLAN-NEXT-REPIN-MD.md:74:each with captured rc; red restores
+ `mix.exs` AND `mix.lock`). If it goes red, capture in full and
+docs/IMPLEMENTATION-PLAN-NEXT-R2-MEMBERSHIP.md:116:## ⚠️  Flake capture #2, and a
+ correction to this receipt's own claim
+docs/IMPLEMENTATION-PLAN-NEXT-R2-MEMBERSHIP.md:137:until two captures exist).
+docs/IMPLEMENTATION-PLAN-NEXT-R2-MEMBERSHIP.md:146:captures are filed so whoever
+ ranks the hunt has both, which is what the trigger asked for.
+docs/IMPLEMENTATION-PLAN-NEXT-R2-MEMBERSHIP.md:163:⚠️  **Stated before the run:**
+ the restart-arm flake has now been captured twice, so this landing may
+docs/IMPLEMENTATION-PLAN-NEXT-R2-MEMBERSHIP.md:164:be refused by `mix test` on a
+n arm unrelated to this round. ⛔ **If it is, that is capture #3 and a
+docs/IMPLEMENTATION-PLAN-NEXT-R5-SESSION-CELL.md:30:cause for the standing `Mark
+downEditorGoalTest` capture, which reaches the path only that way. Not
+docs/IMPLEMENTATION-PLAN-NEXT-FOLLOWUPS.md:3:Status: **LANDED** (markers promote
+d in the landing commit; E2c's arm renamed there) — 158 tests on 3 seeds. Reds:
+(a) baseline green (the guard existed at session.ex:60; the arm is coverage) + m
+utation red pasted; (b) natural + mutation red; (c) rename only, no red by natur
+e; (d) natural + mutation red, event [:commonplace_next, :gateway, :refused] %{c
+ount: 1} %{reason: …}, `port: nil` = disabled, prod.exs commented; (e) baseline
+green + ABSENT→SHIPPED red; (f) baseline green + token-in-metadata red. Nothing
+weaker (P7's original arm kept beside the broader one). **(d) VERIFIED FROM OUTS
+IDE by boss 03:45Z** on `c8548e4`: before — nothing on 4010; bound — `LISTEN 127
+.0.0.1:4010` (beam), NOT 0.0.0.0; unknown token → raw `\x00\x00\x00\x19\x01sourc
+e_not_authenticated` then socket closed; POSITIVE CONTROL — both dev tokens NOT
+refused (connection held), so the refusal separates authenticating from broken;
+after — killed by captured pid, 4010 clear. Stronger than claimed: `gateway.ex:5
+0-55` passes `ip: {127,0,0,1}` to `:gen_tcp.listen` unconditionally — a deployme
+nt cannot widen the bind by config; the prod line is refuse-everything AND loopb
+ack-only, two independent barriers. NOT outside-verified: `port: nil` disables t
+he listener — that rests on the arm only. Was DISPATCHED 03:1xZ (plan accepted 0
+3:09Z; the two §24 gaps stay UNFILLED; (d)'s acceptance is boss verifying the 40
+10 effect from outside, not the arm's green). Was DRAFT 03:2xZ — plan's queue 03
+:02Z, after PROPAGATE and the P9 re-pin
+docs/IMPLEMENTATION-PLAN-NEXT-B-SLOTGATE.md:176:the bytes on disk, captured befo
+re the merge) versus what WILL BE PUSHED (`git rev-parse
+docs/IMPLEMENTATION-PLAN-NEXT-B-SLOTGATE.md:194:⚠️  **The capture sits deliberate
+ly AFTER the slot gate.** An earlier revision put `git hash-object`
+docs/IMPLEMENTATION-PLAN-NEXT-MERGE.md:35:   in flight); if red, capture, attrib
+ute (forward-only select?), fix under this id.
+docs/IMPLEMENTATION-PLAN-BUMP-LOG-1.md:10:| script | how it captured | verdict |
+docs/IMPLEMENTATION-PLAN-BUMP-LOG-1.md:24:round adds `bin/capture-run.sh` instea
+d of patching `gate()` in place.
+docs/IMPLEMENTATION-PLAN-BUMP-LOG-1.md:32:**`bin/capture-run.sh <label> <cmd…>`*
+* — runs the command with its output REDIRECTED (never piped),
+docs/IMPLEMENTATION-PLAN-BUMP-LOG-1.md:51:⭐ **Seen RED against the defect itsel
+f** — `capture-run.sh` mutated to keep only `tail -n 25` in the
+docs/IMPLEMENTATION-PLAN-BUMP-LOG-1.md:52:log — with the restore sha256-identica
+l: the captured file then holds noise and the summary, the
+docs/IMPLEMENTATION-PLAN-BUMP-LOG-1.md:61:<!-- ARM: a failing run's test NAME an
+d MESSAGE survive in the captured file, and the summary names the file -->
+docs/IMPLEMENTATION-PLAN-BUMP-LOG-1.md:73:run started after an explicit "this is
+ an ordering, not a grant". The loop was stopped by captured
+docs/IMPLEMENTATION-PLAN-NEXT-R10B.md:26:credentialless login route is added or
+removed: `1 declared=1` and `2 declared=2`, captured at the
+docs/IMPLEMENTATION-PLAN-NEXT-R4-JURISDICTION.md:93:**[EXECUTED · `sol/next-r4-j
+urisdiction`, base `3e4b39d`, rcs captured directly.]**
+docs/IMPLEMENTATION-PLAN-NEXT-R4-JURISDICTION.md:147:### ⚠️  Landing refused — fl
+ake capture #3, and the pattern I named is wrong
+docs/IMPLEMENTATION-PLAN-NEXT-R4-JURISDICTION.md:150:"restart under load" descri
+ption I gave for captures #1 and #2:**
+docs/IMPLEMENTATION-PLAN-SUITE-LOAD-1.md:7:`SUITE-LOAD-1` was dispatched as *a p
+arent-side reap*: capture `os_pid`, register `on_exit`, TERM
+docs/IMPLEMENTATION-PLAN-SUITE-LOAD-1.md:51:Restore sha256-identical, green afte
+r; the orphan the mutated run created was reaped by captured PID.
+docs/IMPLEMENTATION-PLAN-SUITE-LOAD-1.md:59:sites call it; **`spawn_executable`
+outside `test/support`: 3 → 0.** `os_pid` is captured **BEFORE
+docs/IMPLEMENTATION-PLAN-SUITE-LOAD-1.md:60:`Port.close/1`** — load-bearing, bec
+ause after the close `Port.info/2` cannot answer and a capture
+docs/IMPLEMENTATION-PLAN-SUITE-LOAD-1.md:66:⚠️  **`os_pid` was captured for clean
+up at ONE of three sites, not two.**
+docs/IMPLEMENTATION-PLAN-SUITE-LOAD-1.md:67:`gateway_transport_prerequisite_test
+.exs:316` captures and TERMs at `:327`;
+docs/IMPLEMENTATION-PLAN-SUITE-LOAD-1.md:69:from ours**, not a capture. ⭐ *A te
+xt hit is not a capture* — the row-558 class.
+docs/IMPLEMENTATION-PLAN-NEXT-M1.md:18:`:already_started`/`:eaddrinuse` → `:gate
+way_unavailable`) was captured in full BEFORE re-running,
+docs/IMPLEMENTATION-PLAN-CELL-BUMP.md:94:descriptor, and compare the captured gr
+ound term field by field — **passes at the new pin**, as do all
+docs/IMPLEMENTATION-PLAN-CELL-BUMP.md:176:number, treats a missing test-count li
+ne as BLIND, and reaps its own leftovers **by captured PID**
+fb54bf8cdffcc1157ee02e22cdd5bbc1ea3f267bc3f397bbeb410b9a5e71de74  /dev/fd/63
+
+codex
+The base is clean at `7a9391f43e793e9485a9fa46729ec0a32aedd886`, `assets/node_mo
+dules/yjs` exists, and the specified corpus matches. The pre-edit controls also
+match: T1 logged `TIMES=[]` with no `.times`, T8 had no `.load`, and bare `--no-
+time` was refused with rc 64 because that flag does not yet exist.
+
+One brief inconsistency is present in the instructions: the old test name is dec
+lared in the existing `docs/IMPLEMENTATION-PLAN-CAPTURE-TRACE-1.md`, but the fen
+ce says the diff must name exactly the new plan doc plus the script and test. I’
+ll preserve the three-file fence and make the renamed test include the old decla
+red phrase only in a way that would violate the requested exact rename? No—that
+would weaken the contract. I’m checking whether the intended new plan path alrea
+dy exists or can replace the old declaration without a fourth changed path befor
+e editing.
+exec
+/bin/bash -lc 'test -e docs/IMPLEMENTATION-PLAN-CAPTURE-TRACE-DEFAULT-1.md; echo
+ NEW_PLAN_EXISTS=$?
+git ls-files docs/IMPLEMENTATION-PLAN-CAPTURE-TRACE-DEFAULT-1.md docs/IMPLEMENTA
+TION-PLAN-CAPTURE-TRACE-1.md
+git status --porcelain=v1
+rg -n -F '"'<"'!-- ARM: timing is OFF by default -- a run without --time sets no
+ CAPTURE_RUN_TIMES and writes none -->'"' docs --glob 'IMPLEMENTATION-PLAN-*.md'
+" in /home/jes/sol-captrace1/wt
+ succeeded in 322ms:
+NEW_PLAN_EXISTS=1
+docs/IMPLEMENTATION-PLAN-CAPTURE-TRACE-1.md
+docs/IMPLEMENTATION-PLAN-CAPTURE-TRACE-1.md:65:<!-- ARM: timing is OFF by defaul
+t -- a run without --time sets no CAPTURE_RUN_TIMES and writes none -->
+
+codex
+Stopped before editing due to contradictory fence requirements.
+
+The old test name is declared in:
+
+`docs/IMPLEMENTATION-PLAN-CAPTURE-TRACE-1.md:65`
+
+Removing it while also creating `docs/IMPLEMENTATION-PLAN-CAPTURE-TRACE-DEFAULT-
+1.md` necessarily changes four paths, but T7 requires exactly three paths: the s
+cript, test, and new plan doc.
+
+Please choose:
+
+1. Allow the existing plan doc as a fourth changed file, or
+2. Allow the old declaration to remain.
+
+Verified base: `7a9391f43e793e9485a9fa46729ec0a32aedd886`. Worktree remains clea
+n and unmodified.
+tokens used
+24,337
+Stopped before editing due to contradictory fence requirements.
+
+The old test name is declared in:
+
+`docs/IMPLEMENTATION-PLAN-CAPTURE-TRACE-1.md:65`
+
+Removing it while also creating `docs/IMPLEMENTATION-PLAN-CAPTURE-TRACE-DEFAULT-
+1.md` necessarily changes four paths, but T7 requires exactly three paths: the s
+cript, test, and new plan doc.
+
+Please choose:
+
+1. Allow the existing plan doc as a fourth changed file, or
+2. Allow the old declaration to remain.
+
+Verified base: `7a9391f43e793e9485a9fa46729ec0a32aedd886`. Worktree remains clea
+n and unmodified.
+=== sol EXITED rc=0 ===
+
