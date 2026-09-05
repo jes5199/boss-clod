@@ -1,8 +1,0 @@
-HELD 2026-09-05T03:43Z — codex-commonplace-next, LAND 1 PREPARATION + RETRY (second attempt).
-prepare PID 4090347 · supervisor PID 4089555 · /home/jes/codex-commonplace-landing
-⚠️ NOTE ITS "main": 1adcf814c9e7aacd7fc1becfeac68ed12772cdbc — that is the RETAINED LOCAL MERGE in its
-   own clone, NOT the endpoint. commonplace-next main at the endpoint is still
-   773b84a840113eac8158dc2bc2f0204c94a3851b and nothing has landed.
-   ⭐ Two true numbers, two different subjects. Do not read its local main as the endpoint's.
-land-round.sh sha256 pre-registered: 71fc757e6101383716165dcdc56132330a8db97fed05e77fd731c9a998495da5
-⛔ DO NOT GRANT A SECOND WINDOW until it announces RELEASE by name.
