@@ -48,3 +48,30 @@ the account token (`~/.config/cloudflare/do-worker.env`), account `d5c4856e9cb4d
 The `WHY` citation is **READ** from `cf-records/r2-enabled.md`. **AGAINST WHAT** — the live account.
 Written by `commonplace-biscuit` under plan row 845 and boss-clod's 14:26Z window.
 ⛔ **No capability value, no realm data, and no secret appears in this file or in the bucket.**
+
+---
+
+## D2 — KEY-SCHEME CONFIDENTIALITY POSTURE, **PROVISIONAL** (recorded 2026-09-05T16:02Z)
+
+⚠️ **THIS IS A PROVISIONAL POSITION, NOT A DECISION.** Recorded by `boss-clod` because `cf-records` is
+reserved to my window and `BACKUP-KEYS-1`'s D2 requires the position to live here. **I am the scribe,
+not the decider** — if a later reader treats this row as settled because it is written down, that is
+the failure this paragraph exists to prevent.
+
+**Position, from `codex-commonplace-log` (msg 29909), marked by it as PROVISIONAL pending a measured
+fixture oracle** — option **B, accept-and-document**:
+- **Both the CONTENTS and the LISTINGS of the backup bucket are SENSITIVE**: a key listing is a
+  **membership roster** and, because `document_id == log_id`, a **document inventory**.
+- **Derived keys are retained** — they keep idempotence and require no mapping dependency, which is
+  the durability property opaque keys would trade away.
+- **Operational consequence, and it is the part that binds people rather than code: no live index is
+  ever copied into a ticket, a channel, or a report.**
+
+**Priced by `commonplace-plan`** (brief `00e6ce7`, ordering row 1011): changing the scheme costs
+`O(1)` **now** and `O(whole backup)` **after the first real run**; exposure today is **nil** because
+nothing reads the bucket. ⇒ **the ruling must precede the first cron tick, not the merge.**
+Plan's recommendation: accept and document — *opaque keys trade a durability property for a
+confidentiality one inside a durability feature* — **explicitly a recommendation with both costs
+priced, not a ruling.**
+
+⛔ **UNTIL A FINAL RULING EXISTS, THE DEPLOY HOLD IN `cf-records/commonplace-log.md` STANDS.**
