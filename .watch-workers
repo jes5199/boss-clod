@@ -28,7 +28,18 @@ commonplace-doc
 commonplace
 commonplace-next
 commonplace-plan
-hermes
+# ⛔⛔ 2026-09-05T01:10Z — hermes REMOVED ON PURPOSE. jes, Telegram 10993: "i want to take hermes
+# claude offline for the weekend". ⚠️ A DELIBERATE TAKEDOWN LOOKS EXACTLY LIKE A CRASH: left in this
+# list, the pane watcher relaunches it inside 15 minutes and silently undoes his instruction.
+# THE SERVICE IS UNAFFECTED: beam.smp 3811749, systemd unit hermes ACTIVE, full Oban fleet and
+# Telegram alerting run all weekend. Only the CLAUDE SESSION is down.
+# STATE: docs/journal/2026-09-05.md, committed at 566261e0bc27 — verified by me against HEAD and the
+# file's presence in that commit, not taken on report.
+# WAKE CONDITION (hermes's own words, one line, not inferred by me):
+#   a live-money event (a fill, an assignment, a wheel_halted/rotation_halted, or a
+#   PairLegIntegrityCheck RED), a broker-vs-DB discrepancy, or anything jes asks. NOTHING ELSE.
+#   ⛔ explicitly NOT: a clean green from a nightly job, a fleet finding, or a method lesson.
+# RELAUNCH: cd ~/hermes && workerclaude --resume <latest session id>
 commonplace-chit
 # ⛔⛔ 2026-09-04T22:22Z — THREE ACTIVE DOORS WERE NEVER IN THIS LIST AND NOBODY NOTICED.
 # biscuit was WEDGED for 13 minutes tonight and the sweep never flagged it. I filed that as
