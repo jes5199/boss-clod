@@ -675,3 +675,27 @@ more than one cause.**
 📌 **Kept on the box deliberately:** the 205 MB image (it is `DEPLOY-NEXT-1`'s artifact) and `nextsrc`
 with its 53 MB `deps/`. **Disk / at 91%, 12 G free.** ⚠️ Build cache is no longer 0 — the next
 `docker system df` will NOT read all-zero, and that is this build, not a leak.
+
+## ⛔ A BARE `codex exec --sandbox workspace-write` CANNOT RUN A BEAM SUITE — NO NETWORK (measured 2026-09-05T01:41Z)
+
+**`RED-SAYS-WHAT-3`, dispatched by me with a bare `codex exec`, reported:**
+> *"F1/F2 integration arms unproven — not covered: Mix startup hit TCP socket `:eperm` before
+> executing tests."*
+
+⇒ ⛔ **The sandbox denies egress, and a BEAM cannot start its distribution/TCP listeners without it,
+so `mix test` never reaches a test.**
+
+⭐ **WORKING SOL ROUNDS DO NOT USE A BARE `codex exec`.** `commonplace-next/bin/dispatch-round.sh:90`
+launches through **`/home/jes/boss-clod/sol-egress-run.sh`** — my own wrapper, whose header says
+*"sol-egress-run MEANS THE SOL RUNNER **WITH** EGRESS"*: network granted, secrets masked
+(`~/.ssh`, `LETTA_API_KEY`, `SQUAD_ALERTS_PUBLISHER_TOKEN`), write access NOT widened.
+Approved by jes 2026-08-07 (*"i approve your egress plan"*).
+
+✅ **THE RULE FOR DISPATCH:**
+```
+reading · writing · static analysis · YAML/docs   →  bare `codex exec` is fine   (CI-1 was unaffected)
+anything that must RUN A BEAM SUITE               →  MUST go through sol-egress-run.sh
+```
+⚠️ **The failure is legible only because the round named the arms UNPROVEN and attributed the cause
+to the environment rather than to its own change — the easy move was to call F1/F2 covered.**
+⛔ **I chose the launcher, so this cost is mine, not the implementer's.**
