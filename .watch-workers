@@ -26,7 +26,6 @@
 yepochs
 commonplace-doc
 commonplace
-commonplace-plan
 # ⛔⛔ 2026-09-05T01:10Z — hermes REMOVED ON PURPOSE. jes, Telegram 10993: "i want to take hermes
 # claude offline for the weekend". ⚠️ A DELIBERATE TAKEDOWN LOOKS EXACTLY LIKE A CRASH: left in this
 # list, the pane watcher relaunches it inside 15 minutes and silently undoes his instruction.
@@ -90,3 +89,12 @@ commonplace-plan
 #     so I stopped checking. A CONFIRMING AUTHORITY IS EXACTLY WHERE A CHECK GETS SKIPPED.
 # WAKE: jes's word. Nothing else.
 # RELAUNCH: cd ~/<repo> && workerclaude   (Astra: WORKERCLAUDE_SOL_MODEL=gpt-6-astra workerclaudesol)
+# ⛔ REMOVED 2026-09-05T16:53Z — commonplace-plan (Claude). NOT a crash: jes moved the ranking seat
+#   to the codex session (tg 11091) and I exited it at 16:49Z after it declared STOPPED in its own
+#   words. Verified by effect: claude pid 193846 gone. State sha at exit: commonplace-plan main
+#   590e637, tree 0 uncommitted, handover at docs/plans/2026-09-05-HANDOVER-to-codex-plan.md.
+#   ⭐ WAKE CONDITION, VERBATIM: only jes reversing the seat handover. Nothing else relaunches it —
+#   the codex session at pid 450375 is the sole writer in that directory now, and a second Claude
+#   there would recreate the two-writer hazard I spent this afternoon fencing off.
+#   ⚠️ THIS ENTRY EXISTS BECAUSE THE FILE'S OWN HEADER SAYS SO: a deliberate takedown looks exactly
+#   like a crash, and on 2026-08-24 a watcher relaunched one within 15 minutes and called it a repair.
