@@ -1,8 +1,8 @@
-HELD 2026-09-05T03:42Z — codex-commonplace-next, LAND 1 PREPARATION + RETRY.
-`npm ci` in assets, MIX_ENV=dev mix compile, the six failed tests as a targeted setup check, then a
-fresh-token ceremony rerun on the retained local merge. NO reset, NO history rewrite, NO gate edits.
-⭐ Its preparation SUBSUMES my PIN-DELTA-1: the three "red on an equal pin" gates run a nested
-  `mix run --no-start --no-deps-check` that defaults to DEV and cannot find Plug/Phoenix — so a
-  prepared tree is the only place that measurement means anything. I withdrew my own run: it was
-  made in the PARKED wip checkout against a 285-line variant of a 352-line script (LESSONS 7x674).
+HELD 2026-09-05T03:43Z — codex-commonplace-next, LAND 1 PREPARATION + RETRY (second attempt).
+prepare PID 4090347 · supervisor PID 4089555 · /home/jes/codex-commonplace-landing
+⚠️ NOTE ITS "main": 1adcf814c9e7aacd7fc1becfeac68ed12772cdbc — that is the RETAINED LOCAL MERGE in its
+   own clone, NOT the endpoint. commonplace-next main at the endpoint is still
+   773b84a840113eac8158dc2bc2f0204c94a3851b and nothing has landed.
+   ⭐ Two true numbers, two different subjects. Do not read its local main as the endpoint's.
+land-round.sh sha256 pre-registered: 71fc757e6101383716165dcdc56132330a8db97fed05e77fd731c9a998495da5
 ⛔ DO NOT GRANT A SECOND WINDOW until it announces RELEASE by name.
