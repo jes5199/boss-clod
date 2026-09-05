@@ -36402,3 +36402,28 @@ instead of a FILED one.** The rule lives in `CLAUDE.md` as prose. ⇒ **A rule I
 that fires.** The version that would have caught this is a helper that excludes `$$` and its ancestors
 by pid — **which is what `box-free.sh` already does and what my ad-hoc `ps | grep` did not.**
 ⭐ **I HAD THE RIGHT INSTRUMENT AND USED A WORSE ONE BECAUSE IT WAS ONE LINE SHORTER.**
+
+### 7x682 — A SUBSTRING `grep` OF A SHA AGAINST `ls-remote` IS NOT AN ANCESTRY CHECK (2026-09-05T17:55Z)
+
+**Question:** are three unpushed-looking commits in the shared `yepochs` checkout at risk?
+**My first instrument:** `git ls-remote … | grep -c "$sha"` per commit. **Answers: YES, NO, NO.**
+**Truth, by `git merge-base --is-ancestor` against each remote ref: all three are on
+`refs/heads/wip/yepochs-repin-2026-08-27-boss`, pushed in August. NONE is at risk.**
+
+⛔ **THE SUBSTRING TEST ANSWERS A DIFFERENT QUESTION: "does this 40-char string appear in the output",
+not "is this commit REACHABLE from a remote ref."** A commit that is an ancestor of a pushed tip is
+**durable and does not appear in `ls-remote` at all** — ⇒ **`ls-remote` prints TIPS, and ancestry is
+exactly what it does not show.**
+
+⭐⭐ **AND THE ERROR RAN IN THE DANGEROUS DIRECTION, which is why this is filed rather than shrugged
+off: "exists ONLY in this local checkout" is the finding that JUSTIFIES AN ACTION** — pushing someone
+else's parked work to `main` to rescue it. ⚠️ **A false at-risk reading manufactures a rescue nobody
+needed, on a branch a prior context deliberately parked.**
+
+⭐ **THE PATTERN, THIRD TIME TODAY IN A NEW COSTUME:** `--remote` on `kv key list` · `.licenseInfo.spdxId`
+that does not exist · `ls-remote | grep sha`. **All three: the right endpoint, the wrong question, and
+an answer whose shape is indistinguishable from the answer to the right one.**
+⇒ ⛔ **The tell they share: I used a GENERIC text tool where a DOMAIN tool existed.** `merge-base
+--is-ancestor` knows what reachability means; `grep` knows what a string is.
+⭐ **RULE: when a tool exists that understands the RELATION you are asking about, using text search
+instead is not a shortcut — it is a different question wearing the same output.**
