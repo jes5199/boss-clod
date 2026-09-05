@@ -1,0 +1,18 @@
+== PRE-RESTART BASELINE (old code, in-memory Aug-7 vintage) ==
+serve pid 1362606, started Fri Aug  7 23:46:44 2026
+AuditDispatcher.status/0: %{
+  enabled: true,
+  store: Commonplace.Store.CommitStoreClient,
+  failed: 0,
+  guarded: 0,
+  offered: 172,
+  recorded: 172,
+  shed: 0,
+  queued: 0,
+  in_flight: 0,
+  boot_id: "423b74292e76fe16",
+  max_queue: 256
+}
+live anchors: ["eed47143-5936-462b-8081-8eca76d33715"]
+accept_unsigned: false
+all_loaded 696 -> 696  (delta 0)
