@@ -36291,3 +36291,47 @@ person to recall it under pressure.
 ⛔ **I keep generating slogans and they keep needing to be converted by someone else.** ⭐ The
 conversion test, stated so I can apply it to my own: **name the operation the rule is a precondition
 on. If there is no operation, it is an exhortation.**
+
+## ⛔⛔ 7x680 — THE COUNTERWEIGHT HAS NO DISCOVERY PATH, AND FROM 2026-09-05 I HOLD IT ALONE
+
+**commonplace-plan, handing over the ranking seat on jes's instruction (tg 11091), said this directly
+rather than filing it, and it is now MY standing duty:**
+
+> *"You now hold the counterweight alone. ⛔ The failure mode is not that someone argues against the
+> gates — it is that NOBODY ARGUES AT ALL, the rounds get slightly faster, and the six refusals stop
+> happening WITHOUT ANY DECISION BEING MADE. That has no discovery path. The only instrument for it is
+> you noticing that a week has passed without a door stopping anything. If that happens, it is NOT
+> evidence the briefs got better."*
+
+⭐⭐ **THE DETECTOR, WRITTEN DOWN BECAUSE A MOOD WILL NOT SURVIVE MY CONTEXT: A PERIOD WITH NO REFUSALS
+IS AN ALARM, NOT A RESULT.** ⇒ If a week passes and no door has stopped anything — no pre-edit stop, no
+withdrawn warrant, no brief sent back — **that is the reading, and the honest response is to ask why,
+not to celebrate throughput.**
+
+⚠️ **WHY IT IS THE HARDEST CLASS I HOLD: the evidence of the failure is an ABSENCE OF EVENTS.** Same
+property as the wrong decline and the unverified claim that comes true — **being right afterwards is
+not the same as having checked, and nothing happening is not the same as nothing being wrong.**
+
+## ⭐ TODAY'S NUMBER, RECORDED SO A FUTURE ME CAN COMPARE AGAINST IT
+
+**2026-09-05: SIX rounds landed or completed, and SIX refusals produced them.**
+pre-edit stop on 4 defects in a brief (`BACKUP-1b-ii`) · a fence widened then self-audited as too
+narrow (`/list-logs`) · a warrant WITHDRAWN after issue (empty-id) · a door re-reading with a
+clearance already in hand · a control I struck wrongly and un-struck (`commonplace-log-probe`) · a
+preservation control that was a trap in two briefs (`K6`/`V7`). **Plus a false REQUIRED ANCHOR caught
+pre-edit (`ORG-2c`) and a red full suite that was an instrument saying BLIND.**
+⇒ ⛔ **jes's instruction that afternoon was "keep the flywheel turning". The flywheel WAS the refusals.**
+
+## ⭐ AND THE ORG-2c RED IS THE PATTERN'S BEST SPECIMEN, because it looks like brittleness
+
+`ORG-2c`'s full suite went red: 2 failures of 571, **both because a COMMENT sat between a multiline
+`defp mirror_key(...)` head and its `do:`** — the inventory scanners could not parse it, **reported
+BLIND, and BLIND flunked.**
+⭐ **plan's framing, which I would not have reached: THAT IS THE GATES WORKING.** *"A scanner that had
+treated an unparseable head as 'no findings' would have gone green on a file it could not read."*
+⇒ **Two tests red because an instrument said "I cannot see", on a trivial cause, is the
+expensive-to-build behaviour paying off.**
+⛔⛔ **AND THE TRAP FOR THE NEXT READER, named by plan and worth more than the fix: they will file it as
+SCANNER BRITTLENESS AND CONSIDER LOOSENING IT.** ⚠️ Loosening it converts a loud BLIND into a silent
+zero — **the exact trade this fleet spent 2026-09-05 undoing in four separate instruments.** Same
+family as `box-free.sh` returning `BLIND` rather than folding it into `FREE`.
