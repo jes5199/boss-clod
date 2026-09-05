@@ -725,3 +725,17 @@ can see, and nobody infers the rest.**
 ⭐ jes 2026-09-05T03:32Z (tg 11049 composed, 11051 confirmed): standing MERGE authorization, all workers,
   all commonplace-* repos, UNTIL REVOKED. "warranted" DELEGATES TO commonplace-plan.
 ⛔ EXCLUDED: force-push · history rewrite · hermes (anything) · DEPLOY (asked, unanswered — silence is not a grant).
+
+⑭ A LANDING WINDOW REQUIRES plan's CLEARANCE LINE, QUOTED — not a warrant, not a rank (plan row 978, 2026-09-05T03:34Z)
+⭐ jes's standing merge authorization delegates "warranted" to plan, so plan's WARRANT IS NOW THE MERGE
+  TRIGGER. Until tonight a warrant attested IDENTITY AND REVIEW and landing clearance was a separate act.
+  ⛔ Sharing one label would let a door read a warrant as "go" and land work whose preconditions are unmet.
+⇒ EVERY plan WARRANT NOW CARRIES EXACTLY ONE OF:
+     WARRANTED · CLEARED TO LAND
+     WARRANTED · DO NOT LAND — <the precondition, named>
+⛔ A warrant WITHOUT one of those lines is INCOMPLETE ⇒ treat as DO NOT LAND and ask.
+⭐ MY DUTY AS BOX ARBITER: a door asking for a LANDING window quotes the clearance line. No line ⇒ I refuse
+  the window and route it back to plan. ⚠️ I am not judging the branch — I am checking that the trigger exists.
+📌 plan caught its own instance immediately: it had CLEARED sol/astra-ci-1 and never WARRANTED it, so under
+  the delegation that clearance rested on nothing. Warranted now, tree 8a6eb6b6d363… — the same tree the
+  hosted CI artifact is keyed by.
