@@ -109,3 +109,30 @@ so nothing can boot the container to measure it.** Instances read 1/1 after depl
 first DO request. ⇒ ④ needs a PROTECTED PRE-CUTOVER PATH (the seat's own phrase): a staging hostname on
 the SAME Access app (same AUD 9eab32ce — a second app would have a different AUD and fail the assertion),
 routed to commonplace-next, measured, then route 6a26c1fc flipped. Proposed to the seat; not built.
+
+## ④ PRE-CUTOVER PATH BUILT — 2026-09-05T20:31Z, under seat #30367 ("proceed now, no further approval for those exact effects")
+
+Order followed as the seat stated: **snapshot → additive Access update → read-back → DNS → route → gating check.**
+
+| step | artifact | measured |
+|---|---|---|
+| snapshot | `cf-records/access-snapshots/bdf850ac-{before,after,policies-before}-20260905T2030Z.json` | full app + 1 policy captured before any write |
+| Access PUT | app `bdf850ac-8749-48f0-9568-c31390a8099c` | `self_hosted_domains` `['beta.commonplace.st']` → `['beta.commonplace.st','beta-next.commonplace.st']`; `destinations` likewise; **AUD `9eab32ce…` UNCHANGED**; every other field diffed equal; policy `d41759c0` (allow, jes's email only) identical before/after, precedence 1, no new policy |
+| DNS | record `8a82d8987ec3a099dfbe44675aa713f8` | CNAME `beta-next.commonplace.st` → `commonplace-next.commonplace-systems.workers.dev`, proxied, mirrors production's shape (`d4745b01…`) |
+| route | `d1a198229f0445d5a3d8d2a7c86e52c4` | `beta-next.commonplace.st/*` → `commonplace-next` |
+| production | route `6a26c1fc…` | still → `commonplace-beta` [read back after the route POST] |
+| workers.dev / previews | subdomain endpoint | `enabled=false`, `previews_enabled=false` [read back after] |
+| gating | `curl -I https://beta-next.commonplace.st/` | **302 → `commonplace-systems.cloudflareaccess.com/cdn-cgi/access/login/beta-next.commonplace.st?kid=9eab32ce…`** — same `kid` as production's redirect, `auth_status: NONE` in the meta JWT |
+| control | `curl https://beta.commonplace.st/` | 302 to the same login with `kid=9eab32ce…` — production behaviour identical to before |
+
+⚠️ **A first PUT went to `/accounts//access/apps/…` (my `$ACCT` was empty) and failed with 7003 —
+a read-back afterwards showed `updated_at` unchanged, so it wrote nothing.** Recorded because a
+failed write and a partial write share an HTTP error.
+
+**NOT YET MEASURED:** the real Access assertion (needs jes's browser login on the staging hostname —
+no service token, no new policy, per seat), container boot on first DO request, storage via realm
+`36917f12…`, editor. ⛔ Not predicted.
+
+**ROLLBACK (seat's order):** `DELETE zones/fcb470ab…/workers/routes/d1a198229f…` FIRST → then
+`DELETE dns_records/8a82d898…` → then PUT the Access app back to
+`access-snapshots/bdf850ac-before-…json` fields. Production route and realm untouched throughout.
