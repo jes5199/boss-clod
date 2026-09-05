@@ -1,0 +1,7 @@
+HELD 2026-09-05T04:35Z — codex-commonplace-log door, REALM-REMOVE-1b-R4-POSTREPAIR.
+Two targeted ~4s runs: mutate the inert not_found return AFTER the row-guard repair, confirm R4 goes
+RED, restore, confirm GREEN.
+⛔ WHY IT EXISTS: I TOLD plan "R4 still goes RED under the same mutation after the repair — the guard
+   is a guard, not a softening." THAT WAS NEVER RUN. The mutation preceded the row guards; only an
+   UNMUTATED R4 passed afterwards. The door caught my unearned claim and asked for the window.
+⛔ DO NOT GRANT A SECOND WINDOW until it announces RELEASE by name.
