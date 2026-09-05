@@ -36583,3 +36583,15 @@ where the dialog IS a dead session** — judge by whether the thread can be resu
 shape of the prompt. Trigger unknown; the two messages preceding it were mine and concerned credential
 custody and a `docker prune` disclosure [INFERRED that either tripped it — unmeasured]. ⛔ The lag
 detector caught it as silence at 16m; the 5-minute sweep's `DOORS` line is the earliest observable.
+
+## 7x688 — I TURNED A PAGE TITLE INTO A STATUS CODE AND A STATUS CODE INTO A MECHANISM (2026-09-05T20:45Z)
+
+jes: *"a screen that just says 'Authorization required'"*. Within one message I had told him it was
+**a 401 from the app** and **"the parser-refusal case plan flagged"**. Neither was observed: he
+reported page TEXT; the status was my inference; the mechanism was my inference on top of that. The
+seat caught the second (#30404: *"'parser-refusal case' is not yet diagnosis"*); the source read
+caught the first (the page is served **200**, and its exact text is "Authentication required.").
+⭐ **Two unmarked inferences in one sentence, each dressed as the previous one's evidence.** The
+per-claim marker rule (CLAUDE.md) would have made the first one visible: `401 [INFERRED from his
+wording]` is a sentence nobody writes without noticing it is not a measurement. ⛔ **And a status code
+is the most status-shaped thing there is — it reads as measured even when it was never read.**
