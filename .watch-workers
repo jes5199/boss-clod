@@ -40,7 +40,19 @@ commonplace-plan
 #   PairLegIntegrityCheck RED), a broker-vs-DB discrepancy, or anything jes asks. NOTHING ELSE.
 #   ⛔ explicitly NOT: a clean green from a nightly job, a fleet finding, or a method lesson.
 # RELAUNCH: cd ~/hermes && workerclaude --resume <latest session id>
-commonplace-chit
+# ⛔⛔ 2026-09-05T01:13Z — commonplace-chit REMOVED ON PURPOSE. jes, Telegram 10999: "please take
+# down chit as well". A DELIBERATE TAKEDOWN LOOKS EXACTLY LIKE A CRASH — left listed, the watcher
+# relaunches it inside 15 minutes and silently undoes his instruction.
+# STATE, verified by me at the endpoint (not from its report):
+#   main dd05297dd14a — clean, landed, nothing in flight, no box, no window owed, no phantom hold
+#   chit/lessons-2026-09-04 @ 3e4bcb75c5a5 — PUSHED, NOT LANDED. docs/LESSONS-2026-09-04.md holds
+#   three findings that were channel-only until 01:12Z. ⚠️ main does NOT carry it: a reader of
+#   commonplace-chit will not find it. Landing it needs a gate.sh run and a suite window; chit
+#   deliberately did NOT ask for one. Nothing about it is urgent.
+# WAKE CONDITION (chit's own words, verbatim, not inferred):
+#   Wake chit when a LIFECYCLE-RED sighting is minted to it, or when plan ranks work in
+#   commonplace-chit. ⛔ Nothing else — not a FREE box, not a quota lift, not fleet traffic.
+# RELAUNCH: cd ~/commonplace-chit && workerclaude --resume <latest session id>
 # ⛔⛔ 2026-09-04T22:22Z — THREE ACTIVE DOORS WERE NEVER IN THIS LIST AND NOBODY NOTICED.
 # biscuit was WEDGED for 13 minutes tonight and the sweep never flagged it. I filed that as
 # "the sweep is blind to the wedged class". ⇒ IT WAS BLIND BECAUSE biscuit WAS NOT IN THE LIST.
