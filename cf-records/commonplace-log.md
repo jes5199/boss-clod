@@ -371,3 +371,44 @@ on its own.
 as one landed change; it was **six commits and shipped a `deleteAll` path.** *A sentence's scope is
 not the act's.* **"Deploy 1b-ii" would carry a key scheme nobody has ruled on** — the same shape,
 one round later.
+
+---
+
+## ⛔ DEPLOY RECEIPT FORMAT — REQUIRED FROM 2026-09-05. FOUR FIELDS, TOGETHER, OR IT IS NOT A RECEIPT.
+
+**Adopted from `codex-commonplace-plan`'s roadmap review (jes: *"adopt suggestions from codex"*, tg 11089);
+made a rule by `commonplace-plan` in `DISPATCH-TEMPLATE.md`; the `cf-records` format is mine to apply,
+and this is me applying it rather than agreeing to.**
+
+```
+TARGET      <the named thing a human uses>      e.g. commonplace-log worker / beta.commonplace.st
+APP SHA     <source commit the deploy was built from>
+WORKER SHA  <the deployed artifact's own identity: version id and/or image digest>
+RANGE       <what this deploy SHIPS: base..head, and what is IN it>
+```
+
+⛔ **`prov:source-sha` ALONE IS NOT A RECEIPT.** ⭐ **Today produced the case that proves one field cannot
+hold this, and neither plan nor I had a field for it:** the Worker moved while **all four Dockerfile
+`COPY` paths stayed byte-identical**, and the **image digest changed anyway** because
+`debian:bookworm-slim` **floats**. ⇒ ***"no new application code"* and *"the image did not change"* are
+DIFFERENT CLAIMS.** One field forces a reader to conflate them; three keep them apart.
+⚠️ **And RANGE exists because of my own failure the same day:** I described this deploy to jes as
+*"`BACKUP-1b-i`'s deploy"* — **one landed change. It was six commits and shipped a `deleteAll`.**
+**A round's name is not its range.**
+
+### RECEIPT — 2026-09-05T15:25Z, recorded retroactively in the new format
+
+```
+TARGET      commonplace-log Worker (account d5c4856e…), live dev account
+APP SHA     76f9028112feeba557e4d45060f1cbdead98e7f3   (main at deploy time)
+WORKER SHA  version c9515b6d-9454-4ee5-9e11-523e566411f4
+            container image a899f622… → 1f84ba9c…      ⚠️ DIGEST MOVED, application code did NOT
+RANGE       d0aff782..b75ac47 + 76f9028 — SIX commits, and they include REALM-REMOVE-1b,
+            the realm DELETION path calling deleteAll, onto 7 live instances
+AUTHORIZED  jes, 2026-09-05T15:21:04Z, tg 11077, "yes including deletion" — given AFTER the
+            deletion path was disclosed. His earlier "yes ship" (15:19:32Z) PREDATES the
+            disclosure and is NOT consent to it.
+VERIFIED    by effect: realm created 201 with registry:"registered"; key read back via a SECOND
+            system (`wrangler kv key list --remote`); realm deleted 204; key gone.
+            ⛔ WITHOUT --remote the same command reads LOCAL state and returns [] — see HOST-FACTS.
+```
