@@ -7,3 +7,37 @@
 .queue-standdown
 .sol-standdown
 .stall-seen
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 2026-09-05 — jes: "you need to get your repo into better shape."
+# ⛔ 110 uncommitted paths, of which 107 untracked and ~90 were pure runtime noise.
+# ⭐ NOTHING IS DELETED BY THIS FILE. Ignoring is reversible; deleting is not, and an
+#    unknown-provenance artifact is the last thing to remove. This only stops the noise
+#    from drowning `git status`, which is the instrument I secure every round's work with.
+# ⚠️ `git status --porcelain` is how I prove a door's deliverable is intact. A status output
+#    with 107 lines of junk in it is an instrument I cannot read — that is the actual cost.
+
+# Run logs — 127 MB, regenerated continuously, never source
+logs/
+.log-pair-watch/
+
+# Timestamped script backups (`foo.sh.bak-20260813T094830Z`). Git IS the backup;
+# these are what a script writes before editing itself.
+*.bak
+*.bak-*
+*.bak?-*
+*-backup-*
+.crontab-backup-*
+.claude-settings-backup-*
+
+# Runtime state: pids, locks, reservations, last-fired stamps
+*.pid
+*.lock
+.*-last
+.sol-reservations/
+.box-free-since
+.declared-stopped.bak-*
+.dated-watches.bak-*
+.watch-retired.bak-*
+.watch-workers.bak-*
+.watch-debug.log

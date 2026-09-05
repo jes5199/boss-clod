@@ -1,0 +1,444 @@
+2026-09-03T15:11:49Z ok age=0s
+2026-09-03T15:11:49Z SWEEP-WEDGED: last sweep stamp is 2400s old (limit 1200s)
+2026-09-03T15:11:49Z ok age=0s
+2026-09-03T15:13:05Z SWEEP-WEDGED: last sweep stamp is 2400s old (limit 1200s)
+2026-09-03T15:13:05Z SWEEP-WEDGED: last sweep stamp is 2400s old (limit 1200s)
+2026-09-03T15:13:05Z ok age=0s
+2026-09-03T15:13:14Z SWEEP-WEDGED: last sweep stamp is 2400s old (limit 1200s)
+2026-09-03T15:13:33Z SWEEP-WEDGED: last sweep stamp is 2400s old (limit 1200s)
+<stdin>:11: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+2026-09-03T15:13:43Z SWEEP-WEDGED: last sweep stamp is 2410s old (limit 1200s)
+2026-09-03T15:13:43Z ok age=0s
+2026-09-03T15:15:01Z ok age=78s
+2026-09-03T15:15:17Z ok age=0s lasttx=70s
+2026-09-03T15:20:01Z ok age=118s lasttx=33s
+2026-09-03T15:25:01Z ok age=131s lasttx=216s
+2026-09-03T15:30:02Z ok age=130s lasttx=516s
+2026-09-03T15:35:01Z ok age=130s lasttx=816s
+2026-09-03T15:40:01Z ok age=131s lasttx=1116s
+2026-09-03T15:45:01Z ok age=97s lasttx=41s
+2026-09-03T15:50:01Z ok age=130s lasttx=88s
+2026-09-03T15:55:01Z ok age=130s lasttx=42s
+2026-09-03T16:00:01Z ok age=130s lasttx=342s
+2026-09-03T16:05:01Z ok age=115s lasttx=85s
+2026-09-03T16:10:01Z ok age=130s lasttx=230s
+2026-09-03T16:15:01Z ok age=131s lasttx=530s
+2026-09-03T16:20:01Z ok age=130s lasttx=830s
+2026-09-03T16:25:01Z ok age=130s lasttx=1130s
+2026-09-03T16:30:01Z ok age=131s lasttx=1430s
+2026-09-03T16:35:01Z ok age=11s lasttx=30s
+2026-09-03T16:40:01Z ok age=129s lasttx=268s
+2026-09-03T16:45:01Z ok age=31s lasttx=68s
+2026-09-03T16:50:02Z ok age=117s lasttx=96s
+2026-09-03T16:55:01Z ok age=128s lasttx=79s
+2026-09-03T17:00:02Z ok age=129s lasttx=50s
+2026-09-03T17:05:01Z ok age=130s lasttx=104s
+2026-09-03T17:10:01Z ok age=130s lasttx=89s
+2026-09-03T17:15:01Z ok age=130s lasttx=160s
+2026-09-03T17:20:01Z ok age=130s lasttx=459s
+2026-09-03T17:25:01Z ok age=130s lasttx=760s
+2026-09-03T17:30:01Z ok age=129s lasttx=10s
+2026-09-03T17:35:01Z ok age=130s lasttx=310s
+2026-09-03T17:40:02Z ok age=129s lasttx=610s
+2026-09-03T17:45:01Z ok age=93s lasttx=125s
+2026-09-03T17:50:01Z ok age=129s lasttx=426s
+2026-09-03T17:55:01Z ok age=130s lasttx=726s
+2026-09-03T18:00:01Z ok age=130s lasttx=1026s
+2026-09-03T18:05:01Z ok age=130s lasttx=1326s
+2026-09-03T18:10:01Z ok age=130s lasttx=1626s
+2026-09-03T18:15:02Z ok age=132s lasttx=111s
+2026-09-03T18:20:01Z ok age=130s lasttx=410s
+2026-09-03T18:25:02Z ok age=75s lasttx=113s
+2026-09-03T18:30:01Z ok age=111s lasttx=159s
+2026-09-03T18:35:01Z ok age=131s lasttx=460s
+2026-09-03T18:40:02Z ok age=118s lasttx=760s
+2026-09-03T18:45:01Z ok age=42s lasttx=1060s
+2026-09-03T18:50:01Z ok age=130s lasttx=1360s
+2026-09-03T18:55:01Z ok age=131s lasttx=1660s
+2026-09-03T19:00:02Z ok age=130s lasttx=1960s
+2026-09-03T19:05:01Z ok age=131s lasttx=2260s
+2026-09-03T19:10:01Z ok age=129s lasttx=2560s
+2026-09-03T19:15:01Z ok age=129s lasttx=2860s
+2026-09-03T19:20:01Z ok age=129s lasttx=29s
+2026-09-03T19:25:01Z ok age=107s lasttx=264s
+2026-09-03T19:30:01Z ok age=130s lasttx=245s
+2026-09-03T19:35:01Z ok age=130s lasttx=544s
+2026-09-03T19:40:01Z ok age=130s lasttx=844s
+2026-09-03T19:45:01Z ok age=28s lasttx=1144s
+2026-09-03T19:50:01Z ok age=130s lasttx=259s
+2026-09-03T19:55:01Z ok age=129s lasttx=559s
+2026-09-03T20:00:01Z ok age=130s lasttx=66s
+2026-09-03T20:05:01Z ok age=128s lasttx=366s
+2026-09-03T20:10:01Z ok age=128s lasttx=666s
+2026-09-03T20:15:02Z ok age=130s lasttx=107s
+2026-09-03T20:20:01Z ok age=128s lasttx=271s
+2026-09-03T20:25:01Z ok age=130s lasttx=571s
+2026-09-03T20:30:01Z ok age=88s lasttx=105s
+2026-09-03T20:35:01Z ok age=129s lasttx=292s
+2026-09-03T20:40:01Z ok age=130s lasttx=58s
+2026-09-03T20:45:01Z ok age=128s lasttx=358s
+2026-09-03T20:50:01Z ok age=130s lasttx=71s
+2026-09-03T20:55:01Z ok age=128s lasttx=281s
+2026-09-03T21:00:01Z ok age=130s lasttx=581s
+2026-09-03T21:05:01Z ok age=129s lasttx=881s
+2026-09-03T21:10:01Z ok age=131s lasttx=1181s
+2026-09-03T21:15:01Z ok age=131s lasttx=1481s
+2026-09-03T21:20:01Z ok age=130s lasttx=1781s
+2026-09-03T21:25:01Z ok age=128s lasttx=105s
+2026-09-03T21:30:02Z ok age=130s lasttx=212s
+2026-09-03T21:35:01Z ok age=129s lasttx=511s
+2026-09-03T21:40:01Z ok age=130s lasttx=811s
+2026-09-03T21:45:01Z ok age=112s lasttx=1111s
+2026-09-03T21:50:01Z ok age=130s lasttx=1412s
+2026-09-03T21:55:02Z ok age=129s lasttx=165s
+2026-09-03T22:00:01Z ok age=102s lasttx=51s
+2026-09-03T22:05:01Z ok age=127s lasttx=351s
+2026-09-03T22:10:01Z ok age=128s lasttx=651s
+2026-09-03T22:15:01Z ok age=130s lasttx=4s
+2026-09-03T22:20:01Z ok age=129s lasttx=304s
+2026-09-03T22:25:01Z ok age=429s lasttx=604s
+2026-09-03T22:30:02Z ok age=132s lasttx=37s
+2026-09-03T22:35:01Z ok age=132s lasttx=27s
+2026-09-03T22:40:02Z ok age=133s lasttx=94s
+2026-09-03T22:45:01Z ok age=133s lasttx=57s
+2026-09-03T22:50:01Z ok age=133s lasttx=71s
+2026-09-03T22:55:01Z ok age=132s lasttx=108s
+2026-09-03T23:00:01Z ok age=132s lasttx=408s
+2026-09-03T23:05:01Z ok age=133s lasttx=708s
+2026-09-03T23:10:01Z ok age=133s lasttx=108s
+2026-09-03T23:15:01Z ok age=132s lasttx=104s
+2026-09-03T23:20:01Z ok age=132s lasttx=96s
+2026-09-03T23:25:01Z ok age=133s lasttx=46s
+2026-09-03T23:30:01Z ok age=132s lasttx=346s
+2026-09-03T23:35:01Z ok age=132s lasttx=42s
+2026-09-03T23:40:01Z ok age=132s lasttx=109s
+2026-09-03T23:45:01Z ok age=32s lasttx=43s
+2026-09-03T23:50:01Z ok age=127s lasttx=70s
+2026-09-03T23:55:01Z ok age=132s lasttx=87s
+2026-09-04T00:00:01Z ok age=131s lasttx=32s
+2026-09-04T00:05:01Z ok age=131s lasttx=179s
+2026-09-04T00:10:01Z ok age=131s lasttx=160s
+2026-09-04T00:15:01Z ok age=132s lasttx=460s
+2026-09-04T00:20:01Z ok age=113s lasttx=761s
+2026-09-04T00:25:01Z ok age=132s lasttx=49s
+2026-09-04T00:30:01Z ok age=131s lasttx=167s
+2026-09-04T00:35:01Z ok age=82s lasttx=29s
+2026-09-04T00:40:02Z ok age=132s lasttx=86s
+2026-09-04T00:45:01Z ok age=82s lasttx=27s
+2026-09-04T00:50:01Z ok age=131s lasttx=328s
+2026-09-04T00:55:01Z ok age=130s lasttx=628s
+2026-09-04T01:00:01Z ok age=131s lasttx=247s
+2026-09-04T01:05:02Z ok age=132s lasttx=2s
+2026-09-04T01:10:01Z ok age=131s lasttx=280s
+2026-09-04T01:15:01Z ok age=132s lasttx=17s
+2026-09-04T01:20:01Z ok age=132s lasttx=102s
+2026-09-04T01:25:01Z ok age=131s lasttx=105s
+2026-09-04T01:30:01Z ok age=89s lasttx=105s
+2026-09-04T01:35:01Z ok age=130s lasttx=220s
+2026-09-04T01:40:01Z ok age=132s lasttx=520s
+2026-09-04T01:45:01Z ok age=132s lasttx=182s
+2026-09-04T01:50:01Z ok age=72s lasttx=1s
+2026-09-04T01:55:01Z ok age=132s lasttx=80s
+2026-09-04T02:00:01Z ok age=132s lasttx=22s
+2026-09-04T02:05:01Z ok age=131s lasttx=249s
+2026-09-04T02:10:01Z ok age=132s lasttx=550s
+2026-09-04T02:15:01Z ok age=130s lasttx=850s
+2026-09-04T02:20:01Z ok age=79s lasttx=58s
+2026-09-04T02:25:01Z ok age=131s lasttx=73s
+2026-09-04T02:30:01Z ok age=95s lasttx=126s
+2026-09-04T02:35:01Z ok age=131s lasttx=29s
+2026-09-04T02:40:01Z ok age=131s lasttx=329s
+2026-09-04T02:45:02Z ok age=131s lasttx=629s
+2026-09-04T02:50:01Z ok age=130s lasttx=929s
+2026-09-04T02:55:01Z ok age=130s lasttx=66s
+2026-09-04T03:00:02Z ok age=104s lasttx=48s
+2026-09-04T03:05:01Z ok age=104s lasttx=348s
+2026-09-04T03:10:01Z ok age=129s lasttx=648s
+2026-09-04T03:15:02Z ok age=130s lasttx=83s
+2026-09-04T03:20:01Z ok age=123s lasttx=176s
+2026-09-04T03:25:01Z ok age=131s lasttx=103s
+2026-09-04T03:30:01Z ok age=131s lasttx=211s
+2026-09-04T03:35:01Z ok age=63s lasttx=9s
+2026-09-04T03:40:01Z ok age=130s lasttx=218s
+2026-09-04T03:45:01Z ok age=430s lasttx=518s
+2026-09-04T03:50:01Z ok age=730s lasttx=818s
+2026-09-04T03:55:01Z ok age=1030s lasttx=1118s
+2026-09-04T04:00:01Z SWEEP-WEDGED: stamp 1330s old (limit 1200s) · boss last transmitted 1418s ago
+<stdin>:16: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+2026-09-04T04:05:01Z SWEEP-WEDGED: stamp 1630s old (limit 1200s) · boss last transmitted 300s ago
+2026-09-04T04:10:01Z SWEEP-WEDGED: stamp 1930s old (limit 1200s) · boss last transmitted 600s ago
+2026-09-04T04:15:01Z ok age=73s lasttx=88s
+2026-09-04T04:20:01Z ok age=130s lasttx=388s
+2026-09-04T04:25:01Z ok age=99s lasttx=154s
+2026-09-04T04:30:01Z ok age=131s lasttx=454s
+2026-09-04T04:35:01Z ok age=117s lasttx=54s
+2026-09-04T04:40:01Z ok age=119s lasttx=133s
+2026-09-04T04:45:01Z ok age=38s lasttx=57s
+2026-09-04T04:50:01Z ok age=87s lasttx=18s
+2026-09-04T04:55:01Z ok age=78s lasttx=94s
+2026-09-04T05:00:01Z ok age=129s lasttx=24s
+2026-09-04T05:05:01Z ok age=121s lasttx=324s
+2026-09-04T05:10:01Z ok age=129s lasttx=624s
+2026-09-04T05:15:01Z ok age=129s lasttx=99s
+2026-09-04T05:20:01Z ok age=130s lasttx=278s
+2026-09-04T05:25:01Z ok age=131s lasttx=578s
+2026-09-04T05:30:01Z ok age=129s lasttx=263s
+2026-09-04T05:35:01Z ok age=116s lasttx=563s
+2026-09-04T05:40:01Z ok age=106s lasttx=122s
+2026-09-04T05:45:01Z ok age=30s lasttx=48s
+2026-09-04T05:50:01Z ok age=130s lasttx=347s
+2026-09-04T05:55:01Z ok age=130s lasttx=647s
+2026-09-04T06:00:01Z ok age=129s lasttx=59s
+2026-09-04T06:05:01Z ok age=130s lasttx=359s
+2026-09-04T06:10:01Z ok age=132s lasttx=88s
+2026-09-04T06:15:01Z ok age=131s lasttx=12s
+2026-09-04T06:20:01Z ok age=129s lasttx=312s
+2026-09-04T06:25:01Z ok age=131s lasttx=96s
+2026-09-04T06:30:01Z ok age=109s lasttx=125s
+2026-09-04T06:35:01Z ok age=130s lasttx=425s
+2026-09-04T06:40:01Z ok age=130s lasttx=95s
+2026-09-04T06:45:01Z ok age=124s lasttx=249s
+2026-09-04T06:50:01Z ok age=131s lasttx=549s
+2026-09-04T06:55:01Z ok age=131s lasttx=849s
+2026-09-04T07:00:01Z ok age=130s lasttx=1149s
+2026-09-04T07:05:01Z ok age=130s lasttx=105s
+2026-09-04T07:10:01Z ok age=131s lasttx=111s
+2026-09-04T07:15:01Z ok age=130s lasttx=411s
+2026-09-04T07:20:01Z ok age=95s lasttx=111s
+2026-09-04T07:25:01Z ok age=108s lasttx=53s
+2026-09-04T07:30:01Z ok age=130s lasttx=218s
+2026-09-04T07:35:01Z ok age=130s lasttx=517s
+2026-09-04T07:40:01Z ok age=130s lasttx=98s
+2026-09-04T07:45:01Z ok age=125s lasttx=273s
+2026-09-04T07:50:01Z ok age=130s lasttx=41s
+2026-09-04T07:55:02Z ok age=130s lasttx=341s
+2026-09-04T08:00:01Z ok age=132s lasttx=18s
+2026-09-04T08:05:01Z ok age=124s lasttx=142s
+2026-09-04T08:10:01Z ok age=130s lasttx=442s
+2026-09-04T08:15:01Z ok age=120s lasttx=136s
+2026-09-04T08:20:01Z ok age=130s lasttx=436s
+2026-09-04T08:25:01Z ok age=131s lasttx=93s
+2026-09-04T08:30:01Z ok age=129s lasttx=393s
+2026-09-04T08:35:01Z ok age=127s lasttx=693s
+2026-09-04T08:40:01Z ok age=128s lasttx=993s
+2026-09-04T08:45:01Z ok age=128s lasttx=108s
+2026-09-04T08:50:01Z ok age=129s lasttx=408s
+2026-09-04T08:55:01Z ok age=129s lasttx=708s
+2026-09-04T09:00:01Z ok age=127s lasttx=1008s
+2026-09-04T09:05:01Z ok age=127s lasttx=84s
+2026-09-04T09:10:01Z ok age=427s lasttx=384s
+2026-09-04T09:15:01Z ok age=116s lasttx=135s
+2026-09-04T09:20:01Z ok age=127s lasttx=15s
+2026-09-04T09:25:01Z ok age=129s lasttx=212s
+2026-09-04T09:30:01Z ok age=129s lasttx=106s
+2026-09-04T09:35:01Z ok age=61s lasttx=147s
+2026-09-04T09:40:01Z ok age=128s lasttx=447s
+2026-09-04T09:45:02Z ok age=180s lasttx=158s
+2026-09-04T09:50:01Z ok age=175s lasttx=212s
+2026-09-04T09:55:01Z ok age=199s lasttx=11s
+2026-09-04T10:00:02Z ok age=129s lasttx=311s
+2026-09-04T10:05:01Z ok age=128s lasttx=610s
+2026-09-04T10:10:01Z ok age=128s lasttx=910s
+2026-09-04T10:15:01Z ok age=128s lasttx=1210s
+2026-09-04T10:20:01Z ok age=106s lasttx=1510s
+2026-09-04T10:25:01Z ok age=126s lasttx=1810s
+2026-09-04T10:30:02Z ok age=117s lasttx=2111s
+2026-09-04T10:35:01Z ok age=128s lasttx=2410s
+2026-09-04T10:40:01Z ok age=127s lasttx=2710s
+2026-09-04T10:45:01Z ok age=427s lasttx=11s
+2026-09-04T10:50:01Z ok age=61s lasttx=11s
+2026-09-04T10:55:01Z ok age=128s lasttx=253s
+2026-09-04T11:00:01Z ok age=130s lasttx=82s
+2026-09-04T11:05:01Z ok age=128s lasttx=36s
+2026-09-04T11:10:01Z ok age=129s lasttx=336s
+2026-09-04T11:15:01Z ok age=130s lasttx=637s
+2026-09-04T11:20:02Z ok age=129s lasttx=15s
+2026-09-04T11:25:01Z ok age=111s lasttx=262s
+2026-09-04T11:30:01Z ok age=128s lasttx=562s
+2026-09-04T11:35:01Z ok age=129s lasttx=862s
+2026-09-04T11:40:01Z ok age=129s lasttx=1162s
+2026-09-04T11:45:01Z ok age=116s lasttx=146s
+2026-09-04T11:50:01Z ok age=37s lasttx=131s
+2026-09-04T11:55:02Z ok age=116s lasttx=431s
+2026-09-04T12:00:01Z ok age=127s lasttx=731s
+2026-09-04T12:05:01Z ok age=127s lasttx=1031s
+2026-09-04T12:10:01Z ok age=127s lasttx=1331s
+2026-09-04T12:15:02Z ok age=128s lasttx=1631s
+2026-09-04T12:20:01Z ok age=127s lasttx=1931s
+2026-09-04T12:25:01Z ok age=128s lasttx=74s
+2026-09-04T12:30:01Z ok age=128s lasttx=374s
+2026-09-04T12:35:01Z ok age=130s lasttx=674s
+2026-09-04T12:40:02Z ok age=130s lasttx=975s
+2026-09-04T12:45:01Z ok age=104s lasttx=24s
+2026-09-04T12:50:01Z ok age=127s lasttx=156s
+2026-09-04T12:55:01Z ok age=128s lasttx=164s
+2026-09-04T13:00:02Z ok age=84s lasttx=27s
+2026-09-04T13:05:01Z ok age=55s lasttx=97s
+2026-09-04T13:10:01Z ok age=126s lasttx=397s
+2026-09-04T13:15:01Z ok age=127s lasttx=697s
+2026-09-04T13:20:01Z ok age=127s lasttx=998s
+2026-09-04T13:25:02Z ok age=127s lasttx=1298s
+2026-09-04T13:30:01Z ok age=128s lasttx=1597s
+2026-09-04T13:35:01Z ok age=128s lasttx=1897s
+2026-09-04T13:40:01Z ok age=128s lasttx=2197s
+2026-09-04T13:45:01Z ok age=128s lasttx=2497s
+2026-09-04T13:50:02Z ok age=102s lasttx=122s
+2026-09-04T13:55:01Z ok age=128s lasttx=421s
+2026-09-04T14:00:01Z ok age=128s lasttx=721s
+2026-09-04T14:05:01Z ok age=128s lasttx=1021s
+2026-09-04T14:10:01Z ok age=129s lasttx=1321s
+2026-09-04T14:15:02Z ok age=129s lasttx=3s
+2026-09-04T14:20:01Z ok age=128s lasttx=201s
+2026-09-04T14:25:01Z ok age=111s lasttx=140s
+2026-09-04T14:30:02Z ok age=80s lasttx=123s
+2026-09-04T14:35:01Z ok age=65s lasttx=122s
+2026-09-04T14:40:01Z ok age=129s lasttx=422s
+2026-09-04T14:45:01Z ok age=113s lasttx=145s
+2026-09-04T14:50:01Z ok age=413s lasttx=139s
+2026-09-04T14:55:01Z ok age=4s lasttx=27s
+2026-09-04T15:00:01Z ok age=127s lasttx=162s
+2026-09-04T15:05:01Z ok age=117s lasttx=140s
+2026-09-04T15:10:02Z ok age=128s lasttx=99s
+2026-09-04T15:15:01Z ok age=127s lasttx=399s
+2026-09-04T15:20:01Z ok age=87s lasttx=111s
+2026-09-04T15:25:02Z ok age=127s lasttx=216s
+2026-09-04T15:30:01Z ok age=127s lasttx=515s
+2026-09-04T15:35:02Z ok age=127s lasttx=83s
+2026-09-04T15:40:01Z ok age=127s lasttx=382s
+2026-09-04T15:45:01Z ok age=127s lasttx=10s
+2026-09-04T15:50:01Z ok age=127s lasttx=273s
+2026-09-04T15:55:01Z ok age=128s lasttx=16s
+2026-09-04T16:00:01Z ok age=127s lasttx=273s
+2026-09-04T16:05:01Z ok age=128s lasttx=574s
+2026-09-04T16:10:02Z ok age=128s lasttx=7s
+2026-09-04T16:15:01Z ok age=128s lasttx=183s
+2026-09-04T16:20:01Z ok age=129s lasttx=482s
+2026-09-04T16:25:01Z ok age=112s lasttx=29s
+2026-09-04T16:30:01Z ok age=128s lasttx=90s
+2026-09-04T16:35:01Z ok age=125s lasttx=389s
+2026-09-04T16:40:01Z ok age=128s lasttx=689s
+2026-09-04T16:45:01Z ok age=428s lasttx=141s
+2026-09-04T16:50:02Z ok age=286s lasttx=18s
+2026-09-04T16:55:01Z ok age=230s lasttx=63s
+2026-09-04T17:00:01Z ok age=298s lasttx=19s
+2026-09-04T17:05:01Z ok age=598s lasttx=319s
+2026-09-04T17:10:01Z ok age=898s lasttx=619s
+2026-09-04T17:15:01Z ok age=1198s lasttx=919s
+2026-09-04T17:20:01Z SWEEP-WEDGED: stamp 1498s old (limit 1200s) · boss last transmitted 1219s ago
+<stdin>:16: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+2026-09-04T17:25:01Z SWEEP-WEDGED: stamp 1798s old (limit 1200s) · boss last transmitted 300s ago
+2026-09-04T17:30:01Z SWEEP-WEDGED: stamp 2098s old (limit 1200s) · boss last transmitted 600s ago
+2026-09-04T17:35:01Z SWEEP-WEDGED: stamp 2398s old (limit 1200s) · boss last transmitted 900s ago
+2026-09-04T17:40:01Z SWEEP-WEDGED: stamp 2698s old (limit 1200s) · boss last transmitted 1200s ago
+2026-09-04T17:45:01Z SWEEP-WEDGED: stamp 2998s old (limit 1200s) · boss last transmitted 1500s ago
+2026-09-04T17:50:02Z SWEEP-WEDGED: stamp 3298s old (limit 1200s) · boss last transmitted 1801s ago
+2026-09-04T17:55:01Z SWEEP-WEDGED: stamp 3598s old (limit 1200s) · boss last transmitted 2100s ago
+2026-09-04T18:00:01Z SWEEP-WEDGED: stamp 3898s old (limit 1200s) · boss last transmitted 2400s ago
+2026-09-04T18:05:01Z SWEEP-WEDGED: stamp 4198s old (limit 1200s) · boss last transmitted 2700s ago
+2026-09-04T18:10:01Z SWEEP-WEDGED: stamp 4498s old (limit 1200s) · boss last transmitted 3000s ago
+2026-09-04T18:15:02Z SWEEP-WEDGED: stamp 4798s old (limit 1200s) · boss last transmitted 3301s ago
+2026-09-04T18:20:01Z SWEEP-WEDGED: stamp 5098s old (limit 1200s) · boss last transmitted 3600s ago
+2026-09-04T18:25:02Z SWEEP-WEDGED: stamp 5398s old (limit 1200s) · boss last transmitted 3901s ago
+2026-09-04T18:30:01Z SWEEP-WEDGED: stamp 5698s old (limit 1200s) · boss last transmitted 4200s ago
+2026-09-04T18:35:01Z SWEEP-WEDGED: stamp 5998s old (limit 1200s) · boss last transmitted 4500s ago
+2026-09-04T18:40:02Z SWEEP-WEDGED: stamp 6298s old (limit 1200s) · boss last transmitted 4801s ago
+2026-09-04T18:45:01Z SWEEP-WEDGED: stamp 6598s old (limit 1200s) · boss last transmitted 5100s ago
+2026-09-04T18:50:01Z SWEEP-WEDGED: stamp 6898s old (limit 1200s) · boss last transmitted 5400s ago
+2026-09-04T18:55:01Z SWEEP-WEDGED: stamp 7198s old (limit 1200s) · boss last transmitted 5700s ago
+2026-09-04T19:00:01Z SWEEP-WEDGED: stamp 7498s old (limit 1200s) · boss last transmitted 6000s ago
+2026-09-04T19:05:01Z SWEEP-WEDGED: stamp 7798s old (limit 1200s) · boss last transmitted 6300s ago
+2026-09-04T19:10:01Z SWEEP-WEDGED: stamp 8098s old (limit 1200s) · boss last transmitted 6600s ago
+2026-09-04T19:15:01Z ok age=11s lasttx=34s
+2026-09-04T19:20:01Z ok age=127s lasttx=18s
+2026-09-04T19:25:01Z ok age=127s lasttx=175s
+2026-09-04T19:30:01Z ok age=128s lasttx=475s
+2026-09-04T19:35:01Z ok age=127s lasttx=775s
+2026-09-04T19:40:01Z ok age=128s lasttx=1075s
+2026-09-04T19:45:01Z ok age=57s lasttx=88s
+2026-09-04T19:50:02Z ok age=126s lasttx=389s
+2026-09-04T19:55:01Z ok age=128s lasttx=84s
+2026-09-04T20:00:01Z ok age=126s lasttx=90s
+2026-09-04T20:05:02Z ok age=120s lasttx=29s
+2026-09-04T20:10:01Z ok age=108s lasttx=149s
+2026-09-04T20:15:01Z ok age=128s lasttx=449s
+2026-09-04T20:20:01Z ok age=125s lasttx=29s
+2026-09-04T20:25:01Z ok age=126s lasttx=329s
+2026-09-04T20:30:01Z ok age=124s lasttx=629s
+2026-09-04T20:35:01Z ok age=87s lasttx=138s
+2026-09-04T20:40:01Z ok age=95s lasttx=120s
+2026-09-04T20:45:01Z ok age=98s lasttx=57s
+2026-09-04T20:50:01Z ok age=126s lasttx=358s
+2026-09-04T20:55:02Z ok age=128s lasttx=658s
+2026-09-04T21:00:01Z ok age=128s lasttx=957s
+2026-09-04T21:05:01Z ok age=129s lasttx=63s
+2026-09-04T21:10:01Z ok age=429s lasttx=43s
+2026-09-04T21:15:01Z ok age=110s lasttx=343s
+2026-09-04T21:20:01Z ok age=410s lasttx=110s
+2026-09-04T21:25:02Z ok age=27s lasttx=75s
+2026-09-04T21:30:01Z ok age=65s lasttx=31s
+2026-09-04T21:35:01Z ok age=129s lasttx=25s
+2026-09-04T21:40:01Z ok age=129s lasttx=326s
+2026-09-04T21:45:01Z ok age=429s lasttx=626s
+2026-09-04T21:50:01Z ok age=112s lasttx=20s
+2026-09-04T21:55:01Z ok age=128s lasttx=170s
+2026-09-04T22:00:02Z ok age=15s lasttx=73s
+2026-09-04T22:05:01Z ok age=128s lasttx=291s
+2026-09-04T22:10:01Z ok age=106s lasttx=591s
+2026-09-04T22:15:01Z ok age=94s lasttx=114s
+2026-09-04T22:20:01Z ok age=394s lasttx=34s
+2026-09-04T22:25:01Z ok age=6s lasttx=335s
+2026-09-04T22:30:01Z ok age=306s lasttx=195s
+2026-09-04T22:35:01Z ok age=127s lasttx=262s
+2026-09-04T22:40:02Z ok age=96s lasttx=139s
+2026-09-04T22:45:01Z ok age=62s lasttx=123s
+2026-09-04T22:50:01Z ok age=214s lasttx=126s
+2026-09-04T22:55:01Z ok age=128s lasttx=188s
+2026-09-04T23:00:01Z ok age=11s lasttx=488s
+2026-09-04T23:05:01Z ok age=311s lasttx=61s
+2026-09-04T23:10:01Z ok age=611s lasttx=240s
+2026-09-04T23:15:01Z ok age=911s lasttx=540s
+2026-09-04T23:20:01Z SWEEP-WEDGED: stamp 1211s old (limit 1200s) · boss last transmitted 840s ago
+<stdin>:16: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+2026-09-04T23:25:01Z SWEEP-WEDGED: stamp 1511s old (limit 1200s) · boss last transmitted 300s ago
+2026-09-04T23:30:01Z SWEEP-WEDGED: stamp 1811s old (limit 1200s) · boss last transmitted 600s ago
+2026-09-04T23:35:01Z SWEEP-WEDGED: stamp 2111s old (limit 1200s) · boss last transmitted 900s ago
+2026-09-04T23:40:01Z SWEEP-WEDGED: stamp 2411s old (limit 1200s) · boss last transmitted 1200s ago
+2026-09-04T23:45:01Z SWEEP-WEDGED: stamp 2711s old (limit 1200s) · boss last transmitted 1500s ago
+2026-09-04T23:50:01Z SWEEP-WEDGED: stamp 3011s old (limit 1200s) · boss last transmitted 1800s ago
+2026-09-04T23:55:01Z SWEEP-WEDGED: stamp 3311s old (limit 1200s) · boss last transmitted 2100s ago
+2026-09-05T00:00:01Z SWEEP-WEDGED: stamp 3611s old (limit 1200s) · boss last transmitted 2400s ago
+2026-09-05T00:05:01Z SWEEP-WEDGED: stamp 3911s old (limit 1200s) · boss last transmitted 2700s ago
+2026-09-05T00:10:01Z SWEEP-WEDGED: stamp 4211s old (limit 1200s) · boss last transmitted 3000s ago
+2026-09-05T00:15:02Z SWEEP-WEDGED: stamp 4511s old (limit 1200s) · boss last transmitted 3300s ago
+2026-09-05T00:20:01Z SWEEP-WEDGED: stamp 4811s old (limit 1200s) · boss last transmitted 3600s ago
+2026-09-05T00:25:02Z SWEEP-WEDGED: stamp 5111s old (limit 1200s) · boss last transmitted 3901s ago
+2026-09-05T00:30:01Z SWEEP-WEDGED: stamp 5411s old (limit 1200s) · boss last transmitted 4200s ago
+2026-09-05T00:35:01Z SWEEP-WEDGED: stamp 5711s old (limit 1200s) · boss last transmitted 4500s ago
+2026-09-05T00:40:01Z SWEEP-WEDGED: stamp 6011s old (limit 1200s) · boss last transmitted 4800s ago
+2026-09-05T00:45:01Z SWEEP-WEDGED: stamp 6311s old (limit 1200s) · boss last transmitted 5100s ago
+2026-09-05T00:50:01Z SWEEP-WEDGED: stamp 6611s old (limit 1200s) · boss last transmitted 5400s ago
+2026-09-05T00:55:02Z SWEEP-WEDGED: stamp 6911s old (limit 1200s) · boss last transmitted 5701s ago
+2026-09-05T01:00:01Z SWEEP-WEDGED: stamp 7211s old (limit 1200s) · boss last transmitted 6000s ago
+2026-09-05T01:05:02Z ok age=111s lasttx=0s
+2026-09-05T01:10:01Z ok age=411s lasttx=15s
+2026-09-05T01:15:01Z ok age=3s lasttx=202s
+2026-09-05T01:20:01Z ok age=123s lasttx=252s
+2026-09-05T01:25:01Z ok age=119s lasttx=552s
+2026-09-05T01:30:02Z ok age=23s lasttx=148s
+2026-09-05T01:35:01Z ok age=73s lasttx=84s
+2026-09-05T01:40:01Z ok age=80s lasttx=246s
+2026-09-05T01:45:01Z ok age=64s lasttx=101s
+2026-09-05T01:50:01Z ok age=129s lasttx=262s
+2026-09-05T01:55:01Z ok age=122s lasttx=562s
+2026-09-05T02:00:01Z ok age=128s lasttx=862s
+2026-09-05T02:05:01Z ok age=50s lasttx=1162s
+2026-09-05T02:10:01Z ok age=126s lasttx=1462s
+2026-09-05T02:15:01Z ok age=126s lasttx=95s
+2026-09-05T02:20:01Z ok age=129s lasttx=255s
+2026-09-05T02:25:01Z ok age=120s lasttx=555s
+2026-09-05T02:30:01Z ok age=128s lasttx=855s
+2026-09-05T02:35:01Z ok age=129s lasttx=1155s
+2026-09-05T02:40:01Z ok age=127s lasttx=243s
+2026-09-05T02:45:01Z ok age=122s lasttx=543s
+2026-09-05T02:50:01Z ok age=115s lasttx=843s
+2026-09-05T02:55:01Z ok age=126s lasttx=1143s

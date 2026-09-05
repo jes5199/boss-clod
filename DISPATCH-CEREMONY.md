@@ -489,3 +489,34 @@ a remembered rule does not.*
 hand-restore left a field un-reverted and pushed a red, and its correct fix was *use `git checkout`*.
 **The discriminator is not the command — it is whether the tree holds uncommitted work by someone
 else.** Sol clone ⇒ `cp`. Your own repo, everything committed but your mutation ⇒ `git checkout`.
+
+---
+
+## Appendix — A PARTIAL RED RUN READS IDENTICALLY TO A FULL ONE (commonplace-dir, DIR-K1, 2026-08-27)
+
+A round whose acceptance is *"show the arm red before it is trusted"* can satisfy the reviewer's eye
+with a transcript that proved **one** arm and silently skipped the rest.
+
+DIR-K1 fixed the same whitelist defect at two sites. Sol's red transcript:
+
+```
+1) test an unenumerated root kind is not a directory rather than invalid content
+   match (=) failed  left: {:error, :not_a_directory}  right: {:error, :invalid_directory_content}
+9 tests, 1 failure, 8 excluded          <-- ⛔ THIS
+```
+
+**`8 excluded`.** The run used `--only line:N`, so the OTHER site's arm never executed and had never
+been seen fail. Reverting that second hunk alone showed it red too — and its failure was the worse
+one: the foreign-kind child was not merely mislabelled, it was **checkpointed AS a directory**.
+
+⇒ **THE CHECK: read the excluded/skipped count, not the failure count.** `N tests, 1 failure` is
+compatible with "one arm can go red" AND with "one arm of many was even offered to the runner".
+A summary line cannot distinguish them; only the denominator can.
+
+⭐ **The general shape, and it is the same one as a positive control:** a demonstration proves the
+arm it ran. It says nothing about the arms it never offered to the runner. **A control validates the
+ORACLE; only the corpus — here, the excluded count — validates the SCOPE.**
+
+⇒ **For a round that fixes N sites, require N red transcripts, each naming its site**, and have the
+implementer paste the full `N tests, F failures, E excluded` line for every one. `E` must be
+accounted for.
