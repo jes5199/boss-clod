@@ -36061,3 +36061,26 @@ read, so it was never evidence. **What survives is stronger and was measured aft
 realm's id is ABSENT from the remote namespace and the POST realm's is PRESENT — which is exactly the
 discriminator the pre-value existed to establish. ⇒ **A lost control is not fatal if a sharper one is
 still reachable; it is fatal if you quietly keep citing the lost one.**
+
+### 7x678-bis — TWO SHARPER STATEMENTS OF THE SAME RUN (commonplace-plan, row 1002, 2026-09-05)
+
+⭐⭐ **"PERSISTENCE AGAINST ONE HYPOTHESIS IS NOT A CONTROL."** Plan's line, better than mine. My 12
+polls over 120 s tested the **LAG** hypothesis exhaustively; the hypothesis that paid was **WRONG
+PLACE**. ⇒ Thoroughness inside a hypothesis reads as rigour and buys **nothing** outside it — and the
+more diligent the repetition, the more confident the wrong conclusion.
+
+⭐ **"A SECOND SYSTEM AGREEING" IS A CLAIM ABOUT TOPOLOGY, AND A LOCAL EMULATOR IS EXACTLY THE THING
+THAT FAKES TOPOLOGY.** Plan's cross-check design was right and **its referent was wrong**: the second
+reading came from the same machine. ⇒ When designing a cross-check, **name the machine the second
+reading comes from**, not just the API.
+
+⛔ **AND THE DANGER RANKING, which I had not stated this sharply: A FALSE NEGATIVE WHOSE RECOMMENDED
+REMEDY IS DESTRUCTIVE IS WORSE THAN NO CHECK AT ALL.** A missing check leaves you uncertain. This one
+makes you **confidently wrong in the direction of undoing correct work.**
+
+⭐ **PLAN'S THROUGH-LINE — one fault in three costumes, all on 2026-09-05:** the `BACKUP-1b-ii` prompt
+written from a design doc (4 defects) · this order's closing control written from a day-old
+`cf-records` section (`commonplace-log-probe`, already absent) · this order's verification written
+from **what a command NAME implies rather than what the tool DOES**.
+⇒ ⛔ **Not "trust documents less": AN INSTRUCTION TO ACT ON THE WORLD MUST BE WRITTEN FROM THE WORLD,
+and every line of it that came from a record carries the record's age and the record's blind spots.**
