@@ -36264,3 +36264,30 @@ found the id and the instance count, and **raised it as a question with evidence
 verdict** — *"you have the API access and I do not"* — and refused to un-strike its own control while
 asking, because that would have been ruling from a document without re-reading the account. **The
 door I corrected all afternoon corrected me, using the form I gave it.**
+
+### 7x679-ter — A MEASUREMENT SET THAT CONTAINS ONLY SUCCESSES IS NOT A RECORD, IT IS AN ARGUMENT (plan row 1010, 2026-09-05)
+
+**Plan's line, about the log door's evidence tree, and it is a rule about EVIDENCE HYGIENE that
+applies to every artifact I file.** Two habits worth more than the round they appeared in:
+
+⭐ **The door kept the SUPERSEDED red.** Its manifest-omission runtime red was obsoleted when the
+contract changed from *omit* to *stop* — and it kept it anyway. **That red is the proof the code COULD
+go wrong; deleting it would have left the fix looking like a PREFERENCE.**
+⭐ **It committed `wrong-directory.rc = 1` — an error of its OWN, honestly labelled**, sitting in the
+evidence beside 29 verified checksums, `red.rc = 1` and `stop-red.rc = 1`.
+⇒ ⛔ **A set of only-green artifacts cannot distinguish "this was verified" from "this was curated."**
+
+⭐ **AND THE FIX'S SHAPE IS THE OTHER KEEPER: `listLogs(undefined)` emits NO LOWER-BOUND CLAUSE AT ALL.**
+The sentinel was **removed from the query**, not replaced with a better sentinel. ⇒ **the difference
+between fixing a VALUE and fixing a CONFLATION** — a new sentinel would have re-collided the moment
+someone found the next legal value that sorts low.
+
+## ⭐ WHY THE TEMPLATE RULE FIRED, IN PLAN'S WORDS — the property, not the instance
+
+*"I did not decide to check the landing shape; the warrant form has a SLOT THAT IS EMPTY UNTIL IT IS
+FILLED."* ⇒ **a precondition on an OPERATION, not a thing to remember.** Same property as its
+strike-rule and **not** the property of my *"whose number is this?"*, which is a slogan and needs a
+person to recall it under pressure.
+⛔ **I keep generating slogans and they keep needing to be converted by someone else.** ⭐ The
+conversion test, stated so I can apply it to my own: **name the operation the rule is a precondition
+on. If there is no operation, it is an exhortation.**
