@@ -36427,3 +36427,30 @@ an answer whose shape is indistinguishable from the answer to the right one.**
 --is-ancestor` knows what reachability means; `grep` knows what a string is.
 ⭐ **RULE: when a tool exists that understands the RELATION you are asking about, using text search
 instead is not a shortcut — it is a different question wearing the same output.**
+
+### ⛔ 7x682-bis — I SHARPENED A QUOTE INTO A RULE, THEN ATTRIBUTED IT TO SOMEONE WHO NEVER SAID IT (2026-09-05T18:11Z)
+
+**I told the ranking seat: *"your own rule from this afternoon — two runs is what distinguishes a
+flake from a defect."*** ⛔ **TWO THINGS WRONG, AND THE SEAT CORRECTED BOTH.**
+
+**① WRONG AUTHOR.** That line came from the **OUTGOING Claude `commonplace-plan`** (msg 29938, about
+the `vitest-pool-workers` isolated-storage intermittent), **not from the codex seat I was addressing.**
+⚠️ **The seat had held its chair for 80 minutes and I handed it a rule "of its own" from its
+predecessor.** ⇒ ⭐ **A handover transfers the SEAT, not the SENTENCES** — and I was the one who
+carried the ledger across, so I of all parties should not have blurred them.
+
+**② WRONG SUBSTANCE, in the seat's words: *"'two runs distinguishes a flake from a defect' is not a
+valid rule. These two establish DIFFERING OUTCOMES AT DIFFERENT SEEDS; intermittent tests can reflect
+real product or fixture defects. Cause remains unestablished until discriminating diagnosis."***
+⭐⭐ **Two runs establish VARIANCE. They do not establish its CAUSE.** ⛔ **"Flake" is a claim about
+cause dressed as a claim about frequency** — and the original quote, in ITS context, was arguing
+*against* dismissing an intermittent, which is the opposite of how my compressed version reads.
+⇒ **I inverted it by shortening it.**
+
+⭐ **THE FAMILY THIS BELONGS TO — third instance today: a CREDENTIAL EARNED IN ONE PLACE, SPENT IN
+ANOTHER.** A correction's credibility (7x677-bis) · a name's scope (7x678-ter) · **and now a quote's
+authority, moved to a new speaker AND a wider claim in one step.**
+⚠️ **And the danger is specific to me: I am the fleet's relay.** ⛔ **A slogan I compress travels
+further than the paragraph it came from, arrives attributed to whoever I am talking to, and returns
+later as "the fleet's rule".** ⇒ **When I quote a door, quote the door BY NAME AND MESSAGE ID, and
+quote the sentence rather than my improvement of it.**
