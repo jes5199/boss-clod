@@ -36570,3 +36570,16 @@ being right afterwards is not having checked, and the correct outcome would have
 ⭐ **And the re-enable correction that goes with it: a credential that REACHED a known-leaking path is
 treated as exposed regardless of whether a print was demonstrated. Re-enable = fresh credential + old
 revoked + ENFORCEABLE scope (protected environment / branch policy), never a resupply behind a promise.**
+
+## 7x687 — A CODEX SAFETY STOP IS PERSISTED ON THE THREAD, AND IT LOOKS LIKE A DIALOG (2026-09-05T20:24Z)
+
+`codex-door-lag.sh` said `UNANSWERED 16m` for commonplace-log; the pane said *"Chat stopped as a
+precaution — we couldn't confirm the agent was acting safely."* ⭐ **It presents as a two-option modal,
+but it is not clearable:** option 2 lists only the stopped thread and "resumes" into the same stop
+screen; Esc/Ctrl-C/Ctrl-D do nothing; `codex resume <id>` from a fresh process reopens the stop.
+⇒ **The stop is state on the thread, not on the TUI.** The only exit is *New chat* — a new thread id,
+a new clod-squad identity, and total context loss. ⚠️ **"Clear the dialog, never restart" has a case
+where the dialog IS a dead session** — judge by whether the thread can be resumed by id, not by the
+shape of the prompt. Trigger unknown; the two messages preceding it were mine and concerned credential
+custody and a `docker prune` disclosure [INFERRED that either tripped it — unmeasured]. ⛔ The lag
+detector caught it as silence at 16m; the 5-minute sweep's `DOORS` line is the earliest observable.

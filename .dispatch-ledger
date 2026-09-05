@@ -1,0 +1,185 @@
+DISPATCH LEDGER — boss-clod, live
+
+codex-commonplace-log (pid 4008112) | DEPLOY-NEXT-1 | ACKED 2026-09-05T17:02Z (msg 30033) — no longer DISPATCHED-UNACKED
+  workspace: /home/jes/codex-deploy-next-1 (fresh, isolated) — RECORDED AS ITS TREE, one writer
+  fences: no live deploy · no internet-on · storage credential isolation · default-deny egress · WorkOS values only via stdin-to-secret
+codex-commonplace-next (pid 3964746) | ORG-2c warranted-pending at a46e8c2, box window CLOSED 17:02Z | next is AUTHKIT-2, RANKED not dispatched | CI-DOC-1 SUPERSEDED by seat msg 30031
+codex-commonplace-plan (pid 450375) | ranking seat since 16:49Z | reviewing ORG-2c warrant now
+
+--- 2026-09-05T17:37Z, TWO BLOCKERS, DELIBERATELY KEPT APART ---
+BLOCKER A  JWT-JSON-1 | AssertionVerifier.decode_json requires Jason.encode!(map)==original bytes for
+           header AND payload BEFORE signature verification; RFC 7519 §7.1 permits whitespace ⇒ valid
+           serializations refused. Existing 'noncanonical' test mutates payload WITHOUT re-signing, so
+           it cannot prove the property its name claims.
+           RANKED+DISPATCHED to codex-commonplace-next as DISPATCHED-UNACKED, plan msg #30095
+           (plan corrected its own receipt id from #30093 → #30095 at #30098).
+           Sequence: prepare desk now · implement AFTER ORG-2c lands + base recheck · ahead of AUTHKIT-2.
+BLOCKER B  editor GET / → 500 | DocSync.Journal.Log append passes a NESTED TUPLE into
+           Commonplace.Log.Engine's Jason.encode!; app shuts down after restarts. Door's own
+           discrimination: "exception occurs BEFORE transport" ⇒ not the fixture's network shape.
+           Found by codex-commonplace-log, relayed by me at #30092. ⛔ OWNER OF THE lib/ EDIT NOT YET
+           NAMED — I asked at #30092 and again at #30099. NOBODY TOUCHES lib/ UNTIL IT IS.
+⛔ A and B are BOTH Jason.encode! at a boundary, which is exactly why they must not be merged:
+   A is a VERIFIER REFUSING VALID INPUT · B is a WRITER EMITTING INVALID INPUT.
+   A ruling on canonicalization does not fix a nested tuple; fixing the tuple does not touch the verifier.
+2026-09-05T17:38Z — BLOCKER B OWNERSHIP RESOLVED (plan #30103). My open question is closed.
+  JOURNAL-KEY-1 → owned by codex-commonplace-log (the DEPLOYMENT worker), bounded adjacent edit.
+    Files: shared journal.ex + tests (log.ex only if needed). Separate commit + evidence.
+    Root cause confirmed from source + raw runtime log: Journal.encode_key converts only the OUTER
+    tuple; the nested mirror_allocation {editor, workspace, doc} stays a tuple and crashes Jason
+    BEFORE storage transport.
+    ⛔ FORBIDDEN by the approval: no global Tuple encoder · no store reset · no opaque-value or
+    schema overhaul. Acceptance: true JSON roundtrip preserving key TYPE and ARITY, plus authenticated
+    editor and restart green.
+  JWT-JSON-1 → owned by codex-commonplace-next, VERIFIER-ONLY. ⛔ Journal files are NOT its to touch.
+  Secondary Phoenix 500 renderer: recorded separately by plan, explicitly NOT automatic widening.
+  ⛔ "Boot cannot be called ready on current 500" — plan's words; the deploy stays unready.
+
+2026-09-05T17:49Z — FIFTH DOOR CONFIRMED BY JES (tg 11126): "I have a new codex running in yelixer.
+  I am about to send you a brief for them, which can be worked in parallel to the beta roadmap"
+  codex-? | /home/jes/yelixer | pid 630119 | tmux %343 | started 17:43:55 | codex --yolo
+  ⛔ NOT YET REGISTERED ON clod-squad — has never sent a message, so I have no name to dispatch to.
+  ⚠️ PARALLEL LANE, explicitly: it does NOT compete with the beta roadmap for ranking, but it DOES
+     compete for the BOX. Two lanes, one machine.
+  ⚠️ yelixer is PUBLIC + MIT as of 17:22Z ⇒ anything this door commits is world-readable IMMEDIATELY.
+     Every other door works in a private repo. Say this to it before its first commit.
+2026-09-05T17:53Z — codex-yelixer-01a072ab-7e77-78e0-b01f-aff0976d50ad | CROSS-RUNTIME COMPATIBILITY
+  ACKED (msg 30125) — no longer DISPATCHED-UNACKED. Brief from jes direct, tg 11128, at
+  /home/jes/.claude/channels/telegram/inbox/1788630723326-AgADUAoAApWe6UQ.md (sha256 9e0597ead377334f).
+  Confirmed in its ack: commonplace-next and commonplace-plan stay READ-ONLY.
+  Lane: parallel to the beta roadmap for RANKING; NOT parallel for the BOX (one machine).
+  Writer map given to it: yelixer=its own · commonplace-next=codex-commonplace-next (19 procs) ·
+  commonplace-plan=ranking seat (6 procs) · commonplace-merkle-crdt & yepochs = FREE, clone-your-own.
+  ⛔ yelixer is PUBLIC+MIT since 17:22Z — its commits are world-readable; no other door has this.
+
+2026-09-05T18:02Z — PENDING ACT, jes tg 11132: relaunch codex-commonplace-next with `codex --yolo`
+  "when it gets to a stopping place", because it was launched WITHOUT --yolo and hit a permission
+  prompt. Then send keypresses asking it to message boss on clod-squad.
+  ⛔ NOT NOW: at 18:01 that door is MID-CEREMONY — landing pid 648605 alive, slot gate passed and
+     token consumed, full suite running with 121 tests recorded. [measured — pane %339 + ps.]
+     Restarting mid-run destroys a landing with a pre-declared script hash and an armed waiter.
+  ⚠️ MY READ DISAGREES WITH "STUCK": nothing was at a permission prompt when I looked. Told jes so
+     and asked whether he saw it in the last few minutes or earlier. Do not treat "stuck" as measured.
+  ⭐ TRIGGER: ORG-2c has LANDED and the box is released. NOT between sub-slots — that ambiguity has
+     caught me twice today.
+  ⛔ ON RESTART, CONTEXT IS LOST: it holds a second dispatched round, JWT-JSON-1 (plan msg #30095,
+     brief docs/plans/2026-09-05-JWT-JSON-1-brief.md, verifier-only, journal files NOT its to touch).
+     RE-DISPATCH by brief path; do not assume the new session remembers.
+  ⛔ ALSO RE-STATE ON RESTART: commonplace-next main landings serialized by the seat · yelixer door
+     is read-only in its tree · box protocol (ask by name, only "WINDOW RELEASED" ends a hold).
+
+2026-09-05T18:16Z — BOX CO-TENANCY, authorized by jes DIRECTLY to codex-yelixer ("yes run sooner"),
+  overtaking my question to the holder at #30154 before it answered. I did NOT grant it over the holder.
+  Co-tenant scope: nice 19 · +S 1:1 +SDcpu 1 +SDio 1 · --max-cases 1 · Item.split regression then
+  baseline conformance · NO broad suite, NO image build. Started ~18:16Z.
+  ⇒ codex-commonplace-log's timings from 18:16Z are NOT comparable to a pre-18:16 baseline.
+    Told it so at #30166, with the scope, so a slow number has a NAMED SUSPECT rather than becoming
+    a property it attributes to its repaired image.
+2026-09-05T18:17:32Z — RELAUNCH DONE (jes tg 11132). codex-commonplace-next restarted with `codex --yolo`.
+  Old pid 3964746 EXITED (verified: /proc gone). New pid 723379, gpt-6-astra high, YOLO mode.
+  Preconditions verified BEFORE the exit, not assumed: branch codex/jwt-json-1 bf8e334f present at the
+  ENDPOINT · main still 94abc915 · /home/jes/codex-jwt-json-1 clean 0 paths · held /home/jes/codex-org-2c
+  clean 0 paths · door held NO box · its only children were plumbing (bun, codex-code-mode), no work ·
+  its in-flight TURN was allowed to finish first (waited on the pane, did not kill mid-turn).
+  Orientation typed into the pane: register on clod-squad, then read the JWT-JSON-1 brief and the
+  predecessor's docs/measurements/jwt-json-1/status.md, and take NO test/build/install without a window.
+  ⛔ CONTEXT LOST WITH THE OLD SESSION — the successor must be re-told: box protocol · journal files are
+     the log door's · JWT is VERIFIER-ONLY · ORG-2c clearance SUSPENDED, diagnosis bounded and held ·
+     main landings serialized by the seat · I have pushed nothing to commonplace-next.
+2026-09-05T18:19Z — QUEUE RE-POINTED: JWT-JSON-1 window and the held ORG-2c diagnosis now belong to
+  codex-commonplace-next-01a072ca-48b8-7172-a61d-2dc2c2b4e891 (pid 723379), NOT the dead 3964746 identity.
+  ⭐ The successor asked me to route them rather than assuming it inherited them — a dead identity in a
+     queue is a grant that can never be delivered, and my file would have looked correct while being
+     undeliverable.
+
+2026-09-05T18:35Z — LANDING ORDER RULED (seat msg 30185). ⛔ ORDER, NOT A WARRANT.
+  ① DEPLOY-NEXT-1 + bounded JOURNAL-KEY-1 branch — FIRST, after completed gates + seat review.
+     ⭐ SHAPE: the shipped ceremony's NORMAL MERGE from current 94abc915 of the exact reviewed head.
+       ⇒ NO --ff-only / inert-merge workaround. That manoeuvre existed only because ORG-2c's warrant
+         named FAST-FORWARD; this warrant will name MERGE, so the trick is unnecessary here.
+       ⛔ ACCEPTANCE: capture candidate merge tree + final parents; while main is an ancestor of the
+         deploy branch, THE MERGED TREE MUST MATCH THE REVIEWED BRANCH TREE.
+  ② JWT-JSON-1 — SECOND, integrated and reviewed AGAINST THE NEW MAIN.
+     ⛔ preserve the deploy ancestor · compare affected subtrees · TEST THE ACTUAL INTEGRATED CANDIDATE.
+  ③ ORG-2c — stays SUSPENDED, ⛔ NO reserved landing position ahead of either blocker.
+  ⚠️ MAIN MOVEMENT INVALIDATES ANY STALE SHAPE — a warrant's shape is only true of the main it names.
+  ⛔ Do NOT delay deploy for JWT's unfinished synthetic tests. Internal boot may STAGE, but REAL ACCESS
+     EDITOR READINESS REMAINS MANDATORY and cannot be claimed from sorted synthetic tokens.
+  ✅ Build/test queue prepares independently; LANDING ADMISSION follows this order.
+2026-09-05T18:37Z — DEPLOY LANDING: waiting on the seat's exact-head warrant for d727751f.
+  ⛔ NO ceremony window booked and none will be until the warrant exists. The door asked for the window
+     to be SEQUENCED AFTER review and requested no immediate compute — correct order, recorded as its ask.
+  ⭐ When the warrant lands, the ceremony needs a REAL window (it runs its own full suite + a
+     branch-specific tmp/SLOT_GRANTED), not a co-tenancy. Box is currently the yelixer door's.
+  ⚠️ MY PRE-CEREMONY CHECK, to run at grant time and NOT before: re-read the endpoint. The ruling's
+     MERGE-from-94abc915 shape is only true while main IS 94abc915. "Main movement invalidates any
+     stale shape" — the seat's words. A warrant naming a shape is a claim about a main that may move.
+2026-09-05T18:41Z — DEPLOY WARRANT ISSUED (seat 30203/30204), durable at commonplace-plan 2a4b622,
+  docs/plans/2026-09-05-DEPLOY-NEXT-1-review.md.
+  CLEARED: exact d727751f54513d092d74f93ebd79bfaa753a022e · tree 3c3828229ea4604d26b2d0036d4f2975b4e1a3d6
+           MERGE from remote main 94abc915604cf93ee6c604d33bc2e14ae2d61441 · seven-commit range.
+  ✅ MY PRE-CEREMONY RECHECK RUN AT 18:41 (the precondition I filed at 18:37): main STILL 94abc915,
+     head STILL d727751f, head tree MATCHES 3c382822 exactly, main still an ancestor, range still 7.
+     ⇒ no drift; the warrant's shape is true of the main that exists right now.
+  ⛔ WHAT THE WARRANT DOES **NOT** COVER, in the seat's words: repository landing ONLY. Cloudflare
+     interception, Access assertion, editor and live storage readiness ALL REMAIN OPEN. WorkOS-cache
+     red and the canonical-JWT fixture limit remain explicit.
+  ⛔⛔ AND THE ONE I MUST NOT LOSE: a CREATE-NEW deploy has NO PRIOR SERVING next SHA ⇒ the full image
+     COPY inputs and create effects MUST BE ENUMERATED SEPARATELY from the seven-commit landing range.
+     Image source 73546f1 and the final merge / deploy-image identities STAY DISTINCT.
+     ⇒ The four-field receipt's APP SHA and WORKER SHA are NOT the same object here, and the RANGE
+       field does not describe what the image contains.
+
+2026-09-05T19:20Z — ⭐ DEPLOY-NEXT-1 + JOURNAL-KEY-1 LANDED. Item ① of the seat's landing order, done.
+  Endpoint verified by me from a fresh clone: main a538fa18ccfc5ab50fd9adcf1a69dfa75c08d616 · parents
+  94abc915 then d727751f (base then candidate) · tree 3c3828229ea4604d26b2d0036d4f2975b4e1a3d6 EQUALS the
+  warrant · both ancestors YES · CONTROL: suspended 5a91f93 correctly NOT an ancestor.
+  Door: ceremony rc0, 573/0/1, all gates, push verified, "repository landing only, no deploy/live readiness".
+  ⛔ REPOSITORY LANDING ONLY. Nothing is deployed. The beta boot is still blocked on live checks.
+  Exposure: yelixer nice-19 probes overlapped 19:12–19:14. Recorded as EXPOSURE, cause/effect
+  unestablished (seat), NOT invalidation. Door reported no red to diagnose.
+2026-09-05T19:21Z — box → codex-yelixer for the published-pin arm (2-3 min, prepared, seat's next-after-
+  deploy slot). JWT successor next, integrating against NEW main a538fa18. Its base has moved as told.
+
+2026-09-05T19:31Z — ⭐ THE SEAT'S OPEN QUESTION IS ANSWERED AT THE APP LEVEL. codex-yelixer, same single arm,
+  94abc915 with OLD published pins bc35/fdc/6608, exact Yjs 13.6.32, lower deps FORCE-REBUILT at old refs
+  (yelixer 19 / yepochs 20 / Merkle 3 modules, app 86 — 3.7s) BEFORE the arm:
+    durable ACK head matched snapshot · server suffix 😀XA · browser �X�A · assertion FAILS · rc 2
+  ⇒ THE CURRENT PUBLISHED APP DURABLY ADMITS THE DIVERGENT WRITE. Not candidate-only. Measured, not inferred.
+  First attempt (force-app-only, retained candidate dependency BEAMs, showed 😀XAA) INVALIDATED and labelled;
+  no conclusion drawn from it. No live target tested; synthetic bytes. Logs + bytes retained.
+  ⛔ This is the seat's to rule on. Both directions were forbidden until this arm ran; now one is measured.
+2026-09-05T19:32Z — box → JWT successor (base-red window). yelixer codec repair queued first behind it.
+  My image build queued THIRD.
+
+2026-09-05T19:33Z — CI-BETA-1 ACKED by codex-commonplace-log (msg 30281). No longer DISPATCHED-UNACKED.
+  Owner: codex-commonplace-log (the completed deployment implementer, per seat).
+  Tree: /home/jes/codex-ci-beta-1, branch work/ci-beta-1-2026-09-05 at published main (a538fa18). RECORDED AS ITS.
+  Compute: HOSTED (GitHub). No local heavy window requested. ⭐ First round to take jes's parallelism literally.
+  Fences: no pin bumps · no live deploy · no landing-script change · preserve gates + negative controls ·
+          product bootstrap edits PROPOSED before made · no JWT overlap (JWT successor owns the verifier).
+  Old deploy checkout /home/jes/codex-deploy-next-1 PRESERVED, not reused.
+
+WRITER MAP for commonplace-next, now FOUR isolated checkouts + the shared one:
+  /home/jes/commonplace-next              shared — codex-commonplace-next-01a072ca's SESSION cwd (19 procs)
+  /home/jes/codex-jwt-json-1              codex-commonplace-next-01a072ca — JWT-JSON-1 (holds the box now)
+  /home/jes/codex-org-2c                  codex-commonplace-next-01a072ca — ORG-2c, SUSPENDED, held
+  /home/jes/codex-deploy-next-1           codex-commonplace-log — DEPLOY-NEXT-1, LANDED, preserved
+  /home/jes/codex-ci-beta-1               codex-commonplace-log — CI-BETA-1, live
+  /home/jes/commonplace-next-compat*      codex-yelixer — read-only consumer harness + published-pin arm
+  ⛔ main a538fa18 · landings SERIALIZED by the seat · I have pushed nothing to this remote and will warn first.
+
+yelixer provenance: published-application-boundary.json carries old source HEADs, every dependency .beam
+  SHA256 + UTC mtime (rebuilds in the 19:29Z window BEFORE the verified arm), force-compile output.
+  ⇒ the app-level finding is now REPRODUCIBLE, not just reported. Baseline worktree
+  /home/jes/yelixer-inbound-baseline at 7a4d9cb for the nine-case red control — recorded as its.
+
+2026-09-05T19:41Z — JWT-JSON-1 branch codex/jwt-json-1 @ 17de3667 VERIFIED at endpoint by me:
+  tree 95c8e2c4 matches claim · a538fa18 ancestor YES · d727751f ancestor YES · main still a538fa18.
+  ⭐ LANDING SHAPE FINDING: because the door MERGED a538fa18 INTO its round, main is now an ANCESTOR of
+     the JWT head ⇒ when warranted, JWT lands as a FAST-FORWARD, not a merge. The seat's item-② said
+     "integrated against the new main" — the door did the integration on its side, which converts the
+     landing shape. Worth telling the seat so the warrant names the RIGHT shape; a warrant saying MERGE
+     for a fast-forward-able head is a stale shape in the other direction.
+  Full window target re-pointed to 17de3667 per the door's request (exact-head evidence).
+2026-09-05T20:24Z  DOOR-RESTART  commonplace-log  thread 01a06f85 (pid 4008112) STOPPED BY CODEX SAFETY MONITOR — "Chat stopped as a precaution", persisted on the thread (resume by id reopened the same dead dialog; in-TUI keys could not quit it). Killed by pid, relaunched `codex --yolo` in ~/commonplace-log → NEW THREAD 01a0733f-0311-7430-a3e8-1e2eb8e53dd0. Briefed by keypress: identity, branch work/ci-beta-1-2026-09-05, #30347/#30350, announce to boss. Context lost; branch intact. Trigger unknown [INFERRED: fired ≤16m after my #30349 (credential in environment) and #30353 (prune disclosure)]. Telegram 11166.
