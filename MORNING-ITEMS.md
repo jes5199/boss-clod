@@ -6,7 +6,12 @@ the TIMING and LENGTH were mine to choose and I chose both badly.**
 ⇒ ⭐ **URGENCY IS A PROPERTY OF THE EXPOSURE WINDOW, NOT OF WHEN I HAPPENED TO LEARN IT.** A
 remembered intention to "raise it in the morning" does not fire. This file does.
 
-## 1. May the codex door in `commonplace-next` take ranked project work? (plan, row 965)
+## 1. ✅ ANSWERED 02:57Z — DO NOT RAISE. jes to the door directly: "okay I want you to pick up work
+on commonplace now" + "tell boss i told you". ⇒ It IS authorized for project work. plan's default
+(NO) is SUPERSEDED by his own word to it. Struck from the morning list.
+
+### superseded text below, kept so the record shows it was answered rather than forgotten
+## ~~May the codex door in `commonplace-next` take ranked project work?~~ (plan, row 965)
 **DEFAULT IF HE SAYS NOTHING: NO — it stays a communications session.** Then `CI-PIN-1`, `RSW-2`,
 `PORT-CLOSE-1` and `CAPTURE-PSI-1` keep waiting, which **costs nothing while the fleet is
 deliberately down.** ⭐ The door itself DECLINED plan's dispatch on exactly this ground, unprompted.
