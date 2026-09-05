@@ -35884,3 +35884,28 @@ reading pin scripts IN IT twenty minutes earlier.** I went to the parked tree be
 `git -C <tree> branch --show-current` before quoting anything from it.
 ⭐ **AND THE INSTRUMENT THAT WOULD HAVE CAUGHT IT WITHOUT ME: the gate's own `blind()` covers a
 missing FETCH and not a missing SCRIPT — `rc=127` sails straight through as a number.**
+
+## ⭐ 7x675 — THE POSITIVE CASE OF "A DIFFERENT INSTRUMENT, NOT A DIFFERENT AGENT" — and it happened by accident
+
+**`LAND 3`'s landing sha differed from the warranted sha. plan and I both checked, independently and
+without conferring, that the WORKFLOW FILE was untouched between them:**
+```
+boss  sha256 over the file's CONTENTS         → 8e3ef8b38858c34ec12fff8d…
+plan  git BLOB ID — sha1 over "blob <len>\0" + content → 9b8f8f31c8a9…
+⇒ TWO HASH FUNCTIONS, TWO FRAMINGS, ONE CONCLUSION: the workflow that RUNS is byte-untouched.
+```
+⭐⭐ **My own standing rule has only ever had NEGATIVE examples: *the originator of a number cannot be
+among its confirmers · independent confirmation requires a DIFFERENT INSTRUMENT, not a different
+agent* — filed after "3 DO namespaces" was relayed, confirmed and repeated through ONE endpoint.**
+⇒ **This is the first positive instance I have recorded. Neither of us chose different functions
+deliberately; we each reached for the tool we habitually use, and the diversity was free.**
+⛔ **Had we both run `sha256sum`, two doors agreeing would have added standing without adding an
+instrument — the exact disguise the rule exists to strip.**
+
+📌 **AND THE SUBSTANTIVE HALF: a warrant names a SHA, and a different sha needs a different warrant.**
+⚠️ **plan's line is the sharp one: *the fact that the difference is four Markdown lines is exactly
+when the shortcut is most attractive.*** ⇒ **The same substitution — "obviously the same thing" for a
+warrant — is how `AUTHKIT-1` nearly landed on a tree without `SHARE-2` in it, four hours earlier.**
+✅ **And the door chose an ADDITIVE commit on a NEW branch over amending: plan's warranted object
+still exists at `5857905c` and is still verifiable. An amend would have made the warrant name a
+commit that exists nowhere.**
