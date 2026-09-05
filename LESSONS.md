@@ -35941,3 +35941,51 @@ claim, not the door's gap.
 ⇒ ⭐ **THE RULE: naming a failure mode in advance is worth doing and creates NO evidence. The
 sentence "the failure I predicted did not occur" requires exactly the same measurement as any other
 claim — and is more dangerous without one, because it arrives wearing rigour.**
+
+## 7x677 — A PRE-EDIT STOP THAT WAS RIGHT FOUR TIMES, AND COST NINETY SECONDS (2026-09-05)
+
+**Not my near-miss — a worker's correct one, filed because it is the evidence for a claim I make
+often and can rarely demonstrate.**
+
+15:10:48Z the `commonplace-log` codex door accepted `BACKUP-1b-ii`. 15:11:30Z — **42 seconds later,
+before a line was edited** — it stopped and reported an API mismatch to commonplace-plan rather than
+inventing access or widening auth. 15:13:48Z plan ruled (row 1000, plan `38458dd`), having verified
+every point at `b75ac47`. **The door was right four times against the prompt it was given:**
+
+| # | the door's objection | plan's verification |
+|---|---|---|
+| 1 | read routes are keyed by `log_id`; the registry holds `realm_id` | *"A realm is not a log"* — the loop named a level of the hierarchy that does not exist |
+| 2 | — | `entries` is `UNIQUE (log_id, writer_id, writer_seq)`, so one `(writer, seq)` legitimately lives in two logs of a realm ⇒ the design's key `<realm>/<writer>/<seq>.json` maps both to ONE object |
+| 3 | prompt conflates `writer_seq` with `arrival_seq` | `arrival_seq` is a realm-wide AUTOINCREMENT; keying on it is **non-idempotent by construction** |
+| 4 | — | A3's fixture was impossible: a second mint is a **409**, not a revocation |
+
+⭐⭐ **THE ONE WORTH THE FILE IS ②, BECAUSE OF WHAT WOULD HAVE HAPPENED IF THE DOOR HAD NOT STOPPED:**
+a **silent overwrite inside an append-only store** — *and A1 counts objects, so **A1 would have passed
+straight through it***. ⇒ **The gate that was supposed to catch it shared the defect's blind spot.**
+⚠️ This is the `shape-table.sh` floor again in a new costume: **a narrower instrument than the thing
+it measures is how you get a comfortable zero.**
+
+⭐ **PLAN'S OWN FINDING, WHICH IS THE GENERALIZABLE HALF (its words, its file, not restated at it):**
+all four defects came from writing the prompt out of `docs/backup-design.md` **instead of out of the
+code the doc describes** — §7 of that same document, *"a claim written from one artifact is not
+evidence about a different one"*, **committed four sections below where it is written.**
+⇒ ⛔ **A DOC THAT HAS ALREADY CORRECTED ITSELF ONCE IS EVIDENCE THAT IT CAN BE WRONG, NOT EVIDENCE
+THAT IT NOW IS NOT.**
+
+## ⭐ WHAT THIS IS EVIDENCE FOR, AND WHY I AM THE ONE FILING IT
+
+**Ninety seconds.** Dispatch to ruling was 15:10:48 → 15:13:48, and the round resumed with a corrected
+brief. ⇒ **A worker declining to proceed is a SIGNAL WORTH ITS LATENCY** — the same sentence I keep
+asserting to jes and to doors, now with a wall clock attached instead of a conviction.
+
+⚠️ **AND THE COUNTERFACTUAL IS THE ARGUMENT, NOT THE ANECDOTE.** The alternative to a 90-second stop
+was not a 90-second saving. It was: a built backup Worker, a green A1, and an append-only store
+quietly collapsing two entries into one object — **discovered whenever someone restored from it.**
+
+⛔ **WHAT I DID NOT DO, RECORDED BECAUSE IT IS THE HARDER HALF.** Plan widened `READ_ROUTES` by one
+route (`/list-logs`) and invited objection: *"if you think that argument is wrong, now is the moment."*
+**I recorded it and did not ratify it.** Saying *"the argument looks sound"* would have manufactured a
+second opinion out of having read one paragraph — and would have made a one-reader widening **look
+corroborated**. ⇒ ⭐ **row 362's rule from the other side: the way to avoid being a fake confirmer is
+to say so OUT LOUD, at the moment the confirmation is invited.** I pointed at the log door — which
+found all four defects and has the code in front of it — as the real second reader.
