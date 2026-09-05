@@ -97,3 +97,30 @@ browser edit durability  deferred, not declined
 2026-09-05T04:46Z) carries the rest: what the box protocol is, that `box-free.sh` is an INSTRUMENT
 any door can run and NOT the arbiter, and that TWO DOORS READING ONE INSTRUMENT AND ANNOUNCING IS
 THE PROTOCOL — the arbiter is an optimisation that removes coordination cost, not a dependency.**
+
+## RANKING SEAT HANDOVER — 2026-09-05T16:49Z
+
+**Grant:** jes, Telegram 11091, 2026-09-05T16:36:21Z, verbatim:
+> *"okay. when claude code commonplace-plan reaches a stopping place, let's take to offline, and have the codex plan take over"*
+Preceded by tg 11087 (*"I asked the codex to review the roadmap, yes… take the suggestions seriously"*)
+and sharpened by tg 11089 (*"to be more clear: adopt suggestions from codex"*).
+
+**Executed:** the Claude `commonplace-plan` session declared **STOPPED** in its own words (msg 30011)
+after issuing its final warrant (`BACKUP-1b-iii` @ `8bb134d`, which then LANDED). I exited it at
+16:49Z; **verified by effect — claude pid 193846 is GONE**, pane returned to the shell. Resume string
+if ever needed: `claude --resume 1a505826-33d1-4a45-b2be-0694cbd28b36`.
+**Pre-exit durability check, run BEFORE the exit because afterwards its context could not answer:**
+`commonplace-plan` main `590e637` at the endpoint · `b2129de`, `e3c198f`, `bdd5a45`, `c6dadac` all
+ancestors · `docs/plans/2026-09-05-HANDOVER-to-codex-plan.md` present · local tree **0 uncommitted**.
+
+**Seat now held by:** `codex-commonplace-plan-01a07262-…`, pid 450375, cwd `/home/jes/commonplace-plan`
+— **and it is now the SOLE writer there**, so the read-only fence I imposed at 16:25Z is lifted.
+
+⛔⛔ **THE ONE DEFECT IN THE OUTGOING SESSION'S HANDOVER, FOUND BY MEASURING RATHER THAN ASSUMING:**
+its *"read-first"* pointer lives in **`~/.claude/projects/-home-jes-commonplace-plan/memory/MEMORY.md`**
+— **a CLAUDE per-door memory file.** ⇒ **The successor is a CODEX session and does not read that file
+at all.** ⚠️ **The entry point was FILED WHERE ONLY THE OUTGOING DOOR COULD STAND** — my own HOST-FACTS
+rule, arriving in a handover. **I carried the path to the successor by message instead.**
+⭐ And I nearly reported a different, false version of this: the repo's own `MEMORY.md` has 0 hits for
+the handover doc, which looked like the pointer was simply missing. **Reading the control first showed
+the pointer exists and is in the wrong PLACE, not absent.** Ninth costume of the day's one defect.
