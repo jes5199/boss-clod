@@ -36483,3 +36483,30 @@ thing that is right."** ⇒ **CLASSIFICATION IS ENDORSEMENT WEARING A DIFFERENT 
 baseline"* — **a plan to verify.** I wrote *"that IS a lifecycle skew."* ⇒ ⛔ **When a door's own tense
 is provisional and mine is declarative, I have added something that was not in the evidence.**
 **RULE: keep the door's hedge in my sentence, or say nothing about the finding's class.**
+
+### 7x684 — "nice 19 CANNOT CHANGE CORRECTNESS" IS A CLAIM I HAD NO EVIDENCE FOR (ranking seat, 2026-09-05T19:16Z)
+
+**I told two doors, twice, that a `nice 19` single-case co-tenant *"cannot change what a gate ASSERTS"*
+and therefore correctness was unaffected.** ⛔ **The seat corrected it:** *"nice19 cannot establish
+correctness unaffected on a shared host; timing-sensitive tests can change outcome."*
+
+⭐⭐ **AND IT IS THE SAME DEFECT I HAD ALREADY DISCLOSED IN THE SAME MESSAGE, ONE LAYER UP.** I said the
+box was clean, then found my instrument could not see `nice 19` reporter runs — **an absence asserted
+from an instrument blind to the subject.** ⇒ **Then, in the correction itself, I asserted a SECOND
+absence — "no correctness effect" — with NO instrument at all.** ⛔ **I retracted the observable claim
+and replaced it with an unobservable one.**
+⚠️ **The reasoning felt airtight: scheduling priority does not alter program semantics. It is TRUE and
+IRRELEVANT — a race-shaped or timing-sensitive assertion resolves differently under load, and `nice`
+changes exactly that.**
+
+✅ **THE CORRECT RECORD, in the seat's words: log the overlap as EXPOSURE, with CAUSE AND EFFECT
+UNESTABLISHED.** ⛔ **Not "invalidation."** ⛔ **Not "automatic full rerun."** ⛔ **And not "unaffected."**
+⭐ **THREE STATES, and I had collapsed them to two:** *contaminated ⇒ redo* · *clean ⇒ proceed* ·
+**EXPOSED ⇒ proceed, record the window, and diagnose any red against it before blaming the code.**
+⇒ ⭐ **"Preserve the actual ceremony verdict and diagnose any red"** — the exposure is a **named suspect
+for a future failure**, not a verdict about the run.
+
+⛔ **THE GENERALIZATION, and it is mine to hold: WHEN I RETRACT A CLAIM, THE REPLACEMENT IS THE MOST
+LIKELY PLACE FOR THE NEXT UNVERIFIED CLAIM.** A correction is written under pressure to reassure, and
+*"but the important part is fine"* is the sentence that arrives to soften it. **Say what was measured;
+say the rest is unestablished; stop there.**
