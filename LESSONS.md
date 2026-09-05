@@ -36015,3 +36015,49 @@ ACT it names** — `BACKUP-1b-i`'s *deploy* is six commits and a `deleteAll`, an
 carries the smaller blast radius.** Both are cases of *a credential earned in one place being spent in
 another*: a correction's credibility, a name's scope. **Second instance of row 809 in nine days ⇒
 structural, not carelessness on either side.**
+
+## 7x678 — THE INSTRUMENT READ A LOCAL SIMULATION AND THE FALSE NEGATIVE WAS THE CONVINCING KIND (2026-09-05)
+
+**`BACKUP-1b-i`'s deploy verified. The act was clean; the VERIFICATION nearly reversed it.**
+
+Plan's order ④ built exactly the right shape: assertion 2 is the create path reporting
+`registry: "registered"` — **the system reporting on itself** — and assertion 3 reads the key back out
+of KV by a different API — **a second system agreeing.** ⭐ That is the correct design and it is the
+reason this was caught at all.
+
+⛔ **BUT THE ORDER SPELLED ASSERTION 3 AS `wrangler kv key list --namespace-id <id>`, AND UNDER
+WRANGLER 4.129 THAT READS LOCAL STATE.** Result: `[]`. Assertion 2 said registered; assertion 3 said
+absent. **I polled it 12 times over 120 s** on the theory that KV list was merely lagging — a real
+property of KV, which is what made the wrong theory comfortable — and got `0` twelve times.
+**Then I asked whether the INSTRUMENT was reading the right place**, added `--remote`, and the key was
+there on the first try.
+
+⭐⭐ **THE PROPERTY THAT MAKES THIS WORSE THAN A FLAKY CHECK: IT FAILS IN THE DIRECTION THAT READS AS A
+REAL DEFECT.** A green that is wrong invites scrutiny later. **This red was wrong, and the honest,
+disciplined, by-the-book response to it was to ROLL BACK A DEPLOY THAT HAD WORKED PERFECTLY.**
+⇒ ⛔ **A verification instrument that can be blind is not neutral — it converts a correct act into a
+reversal, and every rule I have about taking reds seriously is what would have carried it out.**
+
+⭐ **THE TWELVE POLLS ARE THE PART I WANT ON THE RECORD.** Repeating a blind measurement produced
+**twelve agreeing zeros**, and agreement across repetitions FEELS like corroboration. It is row 362 in
+miniature: **the originator of a number cannot be among its confirmers, and a second call to the same
+blind endpoint is not a second instrument.** ⚠️ Time-diversity is not instrument-diversity.
+
+## The same run, two more controls that only worked because they were read FIRST
+
+⭐ **`commonplace-log-probe` DID NOT EXIST BEFORE I STARTED.** It is a closing control in the order —
+*"probe still present"*. Measured at pre-value time: the account holds **exactly two** scripts,
+`commonplace-beta` and `commonplace-log`. ⇒ **Had I read that control only after the act, I would have
+reported destroying a thing that was never there** — and the deploy would have looked destructive.
+**Read the control BEFORE you believe the alarm** — my own line, and this is the first time it has
+paid out on a live act.
+
+⭐ **THE GATE WAS PROVEN RED BEFORE IT WAS TRUSTED GREEN.** `git status --porcelain --ignored -- …`
+returned 0; I `touch`ed `commonplace_log/lib/.gate-control-probe`, got 1, removed it, got 0. **Thirty
+seconds, and it converts "the gate passed" from an assumption into a measurement.**
+
+⚠️ **AND THE PRE-VALUE I LOST, SAID PLAINLY:** my "KV holds 0 keys before" was the same blind local
+read, so it was never evidence. **What survives is stronger and was measured after the fix:** the PRE
+realm's id is ABSENT from the remote namespace and the POST realm's is PRESENT — which is exactly the
+discriminator the pre-value existed to establish. ⇒ **A lost control is not fatal if a sharper one is
+still reachable; it is fatal if you quietly keep citing the lost one.**
