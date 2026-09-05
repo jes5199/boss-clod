@@ -147,3 +147,34 @@ equally if everything is there.*
 
 ⚠️ **Empty means EMPTY: no README, no licence, no gitignore, no default branch.** Nothing presumes a
 shape he has not chosen. **Nobody has been told it exists except him.**
+
+## ⛔ SECURITY INCIDENT — DEPS_READ_TOKEN LEAKED INTO CI ARTIFACTS (2026-09-05T19:34Z)
+
+**Found by `codex-commonplace-log` in its first act of `CI-BETA-1`:** the raw artifact of GitHub run
+`33986749839` on `commonplace-next` contained the dependency PAT **unredacted**, in five pin-failure
+diagnostics of the form *"dependency origin is https://x-access-token:…@github.com/…"*. ⭐ **The
+workflow's log-view masking does not apply to uploaded ARTIFACTS** — masking is a display property, not
+an artifact property. **The door flagged it instead of copying it into a report.**
+
+**Mechanism (door's read):** credential provisioning writes a git `insteadOf` URL rewrite; `git remote
+get-url` EXPANDS it, so any diagnostic that prints an origin URL prints the token.
+
+**CONTAINMENT, verified by READ-BACK of every id, not by the delete's rc:**
+- **20 runs** of that workflow since 2026-09-05T01:44Z — every one red on the same suite, so every one's
+  artifact presumptively carried the leak. **19 artifacts deleted → all read back HTTP 404.** (Run
+  `33986749839`'s artifact `9975475308` was the first, deleted separately → 404.)
+- **All 20 runs' logs deleted → all read back HTTP 404.**
+- Repo `commonplace-next` is **PRIVATE** ⇒ exposure radius was collaborators + GitHub, not the public.
+⛔ **What deletion does NOT establish, in the seat's words: "do not claim ordinary deletion guarantees
+external copies gone."** The door's own tool transcript saw the value once before recognizing it; the
+seat had a local download at `/tmp/next-ci-33986749839.log` and reported removing it.
+
+**ROTATION — needs jes, and only jes:** the PAT is his; revocation is at github.com/settings/tokens.
+**Asked at 19:35Z, Telegram 11153.** ⛔ **The value has not been sent, repeated or written anywhere by me.**
+**Replacement scope requested:** least read scope — contents:read, restricted to the specific dependency
+repositories — set by the same stdin-to-secret path as the original (`gh secret set` from a 600 file).
+
+**THE FIX is the door's, authorized by the seat:** credential-free origin inspection and diagnostics, with
+**synthetic-credential no-leak controls** — i.e. a test that plants a fake token and asserts it does
+NOT appear in any artifact. ⭐ **That control is the only thing that turns "we redacted" into "we cannot
+leak this class again."**
