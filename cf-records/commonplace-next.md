@@ -166,3 +166,24 @@ commonplace-next AFTER   bindings identical by (type,name): 10 secret_text + DO 
 ```
 ⛔ Seat's caveat, carried: `invocation_logs=false` does NOT make the sink emit only the allowlisted event — existing container stdout may appear. No public export; Dashboard/`wrangler tail` only. **Sink is NOT yet proven to receive a container line: a known application emission must arrive before silence is trusted.**
 ⚠️ **EFFECT OBSERVED 21:00:13Z (tail):** the DO's alarm handler threw `Durable Object reset because its code was updated` — the settings write, by minting a new version, **RESET the Durable Object and therefore the container instance.** Same bytes, but a restart. A settings-only write is not free of runtime effect on a Container-backed Worker; on production this would be a cold boot (~134 s measured today).
+
+## STAGING DEPLOY — 2026-09-05T22:19Z, seat #30555 "CLEARED FOR STAGING BUILD/DEPLOY ONLY". JWT repair + AUTH-DIAGNOSTIC-1.
+```
+TARGET      commonplace-next Worker (EXISTING) via route d1a19822 beta-next.commonplace.st/* · route 6a26c1fc UNTOUCHED (→ commonplace-beta, read back after)
+APP SHA     d8191cf4ef1d1aacc673a49abdbf7a9bdd4b662e   tree 79a07d15873f408f53c50f72582702c9e8a76b09   (local codex/jwt-auth-staging-1, UNPUSHED, built from a fresh clone of it)
+            lineage 9e3ed17 (full-tested 603/0/1, door's number) → 57d49a3 (docs-only) → d8191cf4 (evidence-only); exec-path diff 0 lines across the chain [measured]
+WORKER SHA  version f2753a6b-21be-4029-af3f-7b2382c75656 (v13) · script etag 343cbd4fb60dd442 UNCHANGED (Worker bytes identical; only the image changed)
+            image commonplace-next@sha256:aec7ee6f6fd52ae87886b082b198ccc14a00738cdd13a60d7e1f7a1b61a06de7 (tag f2753a6b)
+            container app a03286c5 · rollout 7d3b7dd0 COMPLETED 22:19:37Z to that digest (⚠️ /containers/applications listing still shows 299207be — lagging field; rollout is authoritative)
+            then settings re-PATCH → version 5a2a608c / deployment d15d1d80 (observability restored; same bytes)
+RANGE       a538fa18..d8191cf4: JWT-JSON-1 (07b86fb) + AUTH-DIAGNOSTIC-1 (6fd0d8a) + evidence. COPY set: mix.exs 06a855d8 · mix.lock 29d61e15 · config c028506a · priv a3360df2 (== a538) · lib cd460ad4 (was ffc53b5f — the ONLY changed input)
+            deps/ = ①'s fetched set REUSED (mix.lock blob identical); 13 git deps' HEAD == lock ref [checked each]
+            Dockerfile · worker/wrangler.jsonc · worker/src blob ids IDENTICAL to ① · docker: 10 CACHED, 7 RUN (compile 77 files, release) · wrangler 4.125.0 (①'s node_modules)
+GATE        --porcelain --ignored on COPY paths 0 · red arm (probe → 1) · 0 again
+ROLLBACK    route d1a19822 stays; to revert the app: redeploy from the ① clone (a538fa18, image 299207be still in registry) — ⚠️ untested path. Production never touched.
+READ-BACK   bindings 10 secret_text + DO (11) ✅ · workers_dev false previews false ✅ · routes unchanged ✅ · etag unchanged ✅
+            ⛔ observability ERASED by the deploy (None) — wrangler.jsonc has no observability block, so deploy reset it, as predicted → re-PATCHed (proven shape) → enabled/logs/invocation_logs=false ✅
+            ⇒ FILE THIS: every future `wrangler deploy` of this Worker wipes the sink until observability is added to wrangler.jsonc (a code change for the app door).
+EFFECT      new version ⇒ DO reset ⇒ container cold boot on next request (~134 s measured earlier)
+ACCEPTANCE  (seat) known safe application emission at the sink + correlated real-browser status/reason OR authenticated success. Tail armed 22:22Z (Monitor bysof0z77). jes asked (tg 11190). NOT PREDICTED.
+```
