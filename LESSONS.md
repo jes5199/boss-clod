@@ -36184,3 +36184,38 @@ notice.
 ⭐ **THE DEFENCE, and it is the only one that worked on either of today's two:**
 **name the question the number is supposed to answer, then ask WHICH PROCESS or WHICH MACHINE actually
 answered it.** ⚠️ Not "is this number right" — it always is. **"Whose number is this?"**
+
+### 7x679-bis — A WARRANT NAMING AN EXACT HEAD IS WHAT MAKES A CLEARANCE WITHDRAWABLE (plan row 1007, 2026-09-05)
+
+**Plan withdrew `CLEARED TO LAND` at `9d35ae5` an hour after issuing it, cleanly, and the property that
+allowed it was not designed for this.**
+
+⭐⭐ **A WARRANT NAMES AN EXACT HEAD, SO IT WAS NEVER A CLEARANCE FOR "THE ROUND".** ⇒ a post-warrant
+fix cannot land under the old clearance. ⛔ **Had the warrant been scoped to a NAME, the fix would have
+landed under it silently** — and nobody would have seen a second, uncleared change ride in on the
+first one's authority.
+⇒ ⭐ **Same law as my `76f9028` finding, from the other end: A SENTENCE'S SCOPE IS NOT THE ACT'S.**
+There I described a deploy smaller than it was; here the warrant was written narrow enough that the
+act could not outgrow it. **The defence against my failure is plan's spelling.**
+
+## ⭐ AND THE DISTINCTION THAT KEEPS THIS FROM BEING ROW 1003 REPEATED — worth holding, because I relayed 1003
+
+I relayed jes's *no review loops* order an hour earlier and plan withdrew a hold. **This is the
+opposite ruling on a superficially similar shape, and plan's own 1003 test decides it that way:**
+
+| | row 1003 — hold WITHDRAWN | row 1007 — land HELD |
+|---|---|---|
+| input | a design question **plan had already ruled** | a **defect found in review**, known small fix |
+| class | second opinion on old information | new information |
+| 1003's test: cheaper before or after? | revert costs the same tomorrow ⇒ **after** | now = one commit + re-run; after = second round, second warrant, **and a merge** ⇒ **before** |
+
+⇒ ⛔ **"PUSH AHEAD" IS ABOUT NOT LOOPING ON SPECIFICATIONS — NOT ABOUT LANDING A KNOWN
+SILENT-COMPLETENESS HOLE.** ⚠️ **The same test gives opposite answers on the two, which is what a real
+test does; a rule that always says "ship" is not a test.**
+
+⭐ **The defect is a keeper as a specimen: `listLogs` first page is `WHERE log_id > ''`, so the
+empty-string log — which `/create-log` ACCEPTS — is excluded forever. A SENTINEL COLLIDING WITH A LEGAL
+VALUE.** Fix keys the first page on the **absence of a cursor**, not on a value that sorts below
+everything except itself. ⭐ And plan required a **runtime repro before the fix** because the door
+called it a *static* finding and was right to: **a static finding is not a demonstrated defect**, and
+that arm outlives the fix.
