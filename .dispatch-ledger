@@ -256,3 +256,4 @@ yelixer provenance: published-application-boundary.json carries old source HEADs
 2026-09-06T05:14Z  app door RELEASED UI-STATUS-UNICODE-IMAGE-1 (#31197): image 98c20032 tag ui-unicode-20d806e; 19 DOM PASS, replacement 84ms, Unicode saved→reload→Realm restart→SQLite reopen PASS, gates green (its numbers). Box FREE.
 2026-09-06T05:20Z  FENCED TRANSITION DONE: image 98c20032 (20d806e) app v10, route restored as 8a173a1b, triple identity OK, roll-forward only from here. Box FREE. Next: jes login + Unicode edit acceptance.
 2026-09-06T05:31Z  app door RELEASED UNICODE-TYPING-DIAG-1 (#31226): five Chromium mobile-touch arms PASS on 98c20032 (bulk/progressive/ZWJ codepoints/clipboard/composition), CM==Y.Text, ACKs matched — DOES NOT reproduce the native iPhone symptom (its label). Box FREE.
+2026-09-06T05:58Z  app door RELEASED NATIVE-INPUT-OBSERVE-1 focused (#31246): dbd92f0b app 31/0, Worker 25/0, browser 12 controls, declaration 470/0 (its numbers). Box FREE.
