@@ -327,3 +327,18 @@ first edit). After any new write: roll-forward only — fix on the new codec; ne
 - **Identity, not count:** after rollout, all three must agree on the intended digest — app `configuration.image`, the rollout's `target_configuration.image`, and the instances API entry's `image` — and the instance state must be `inactive` (never a running instance on the old digest).
 **Refined sequence:** F1 detach route (fence) → F2 wait: SDK "Activity expired" line AND instances API `inactive` → F3 push reviewed image by digest → F4 config rollout; verify triple-identity + inactive → F5 restore route (new id) → F6 first request = cold boot on intended image (wallTime ≫ 1 s, no exit line) → F7 seat's acceptance (login + edit + reopen). Rollback window closes at F6.
 **FINAL PREP PRECISION (seat #31180):** the rollout itself booted an instance once today (23:17:39Z), so the first REQUEST is not guaranteed first activity ⇒ **from the config rollout (F4) onward, rollback = roll-forward** unless explicit durable no-new-write + old-reader-compat evidence exists. If an instance is unexpectedly RUNNING at F4: keep the route detached, report, no old-image fallback. F2 may reuse an existing historical stop + current inactive identity (preserve timestamps) instead of waiting for a fresh "Activity expired". Latency is never identity. F5 restore only after the reviewed target is established; live acceptance afterward. PREP ACCEPTED; execution awaits the reviewed integrated image.
+
+## FENCED TRANSITION EXECUTED — 2026-09-06T05:17–05:20Z, seat #31202 (Unicode + UI/status, tested image, roll-forward from here)
+```
+F0 snapshot  05:17:43Z  routes {6a26c1fc→beta, d1a19822→next} · app v9 image 59c21c7f · instance 3851d2df inactive since 03:34:31Z
+F1 fence     DELETE route d1a198229f0445d5a3d8d2a7c86e52c4 → only prod route remained; unauth GET still 302 (Access) — nothing reaches the Worker
+F2 old writer last page GET 03:09:34Z · last SDK "Activity expired" 03:32:51Z · instances API inactive since 03:34:31Z · route detached 05:17Z ⇒ no live writer
+F3 push      commonplace-next:ui-unicode-20d806e → registry digest sha256:98c200320fb4fb07729e3f7148fd51ca8fee86c3c69f08ffceb6023ae7a339c6 (identical to the door's local id)
+F4 rollout   PATCH app (image only) + rollout 7428cdc2-a286-48ca-a3f0-9b657ec76f2e 05:18:48 → COMPLETED 05:19:26Z · app v9→v10
+             TRIPLE IDENTITY: app configuration.image == rollout target == instances entry == 98c20032…; exactly ONE instance, state inactive ✅ (no old runtime)
+F5 restore   POST route beta-next.commonplace.st/* → commonplace-next = NEW ID 8a173a1bcd1c4671b9fce5c936ee4379 (05:20Z); unauth 302 ✅
+UNCHANGED    Worker 96d8a39d · 10 secret_text + DO · obs enabled/logs/inv=false · Access app domains+AUD · DNS 8a82d898 · prod route 6a26c1fc · realm untouched
+APP SHA      20d806e1917e1e7389586aab9c7b8321d11d6d7e  tree 9dffe402  (door's clean build; receipt in codex-jwt-json-1 docs/measurements/ui-status-unicode-1; evidence tip 52048080 docs-only)
+ROLLBACK     ⛔ roll-forward only from F4 onward (seat #31180): no old-codec image against realm 36917f12; no reset. Config-only rollback NOT offered.
+NEXT (F6/F7) first request cold-boots 98c20032 (expect wallTime ≫ 1 s, no exit line); then jes: login + explicit synthetic Unicode edit + save + reload + reopen; report first write + exact observed text/status.
+```
