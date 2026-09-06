@@ -358,3 +358,16 @@ ROLL-FORWARD    stands (realm has new-codec writes since ~05:22)
 ACCEPTANCE      (seat) serving transition on first request (cold boot), then ONE bounded native report by jes: open Document identities BEFORE typing, editor focus, retry native keyboard after ZWJ + trailing ASCII, tap "Report typing problem" ONCE if blocked; log line `input_state_client_report status=200 report=<closed JSON>` at the Worker console. Client-reported, not app truth.
 ```
 REFRESH-LOSS REPORT (seat #31295 label): **unconfirmed-save loss report** — jes recollects "saving" before a slow (~10 s) refresh; suffix did not return, he retyped. NOT a measured un-ACKed write, NOT a measured cold-boot cause ("saving" can include a durable commit with undelivered ACK; latency + status→running is not reboot proof). Tail unarmed for that window (7x692). Three-state fixture: first red was a fixture newline-expectation mismatch, not product.
+
+## PAIRED V2 PENDING-SNAPSHOT DIAGNOSTIC — 2026-09-06T18:16–18:19Z, seat #31623 (Worker FIRST, then tested image; diagnostic only, NOT a fix)
+```
+APP+WORKER SHA  e2f09401c948f238e35a3fbfb2529dfc4d6c9a4d  tree 491a5f2b   (vs served 8d4373a9: input-client-report.js, input-report-schema.js, input_client_report.ex + 3 tests; worker/src tree UNCHANGED ad2319a8 but bundle changes via shared schema; wrangler.jsonc + pins identical)
+W1 WORKER       `wrangler deploy --containers-rollout=none` from scratch clone of /home/jes/codex-pending-v2-image-1 at e2f09401 → version 437e288d-bf6f-4c11-959a-c8f378a85fa8, deployment ac7f4d03, etag d66da710→8b13f7e5dc95e62e
+                dry-run bundle sha256 4c58609ea39aa65a… == the door's reviewed dry bundle (#31625) ✅ · 10 secret_text + DO · obs enabled/logs/inv=false ✅ · container app untouched by this step (v11, e0671c3b) ✅
+W2 IMAGE        pushed local commonplace-next:pending-v2-e2f09401 → registry digest sha256:339425e9f24f43a4b455d5d6d805c9eb06a4110fbb78302a73f355db9eafa52e — identical to the door's build id (receipt b373e157 / 1c2897aa)
+W3 ROLLOUT      PATCH (image only, delta=['image']) + rollout 12cd06fd-547e-4df6-963a-43d92f24571c 18:18:09 → COMPLETED 18:19:09Z · app v11→v12
+                TRIPLE IDENTITY OK (app config == rollout target == single instance == 339425e9; instance 3851d2df INACTIVE since 15:51:31Z — no old runtime; old-exit evidence = inactive-before-rollout, not an exit line)
+UNCHANGED       routes 6a26c1fc (prod) + 8a173a1b (staging) · unauth GET → 302 (Access) · app obs logs.enabled · realm untouched · DNS untouched
+ROLL-FORWARD    stands. First request cold-boots 339425e9 — jes's first page is the serving-transition witness (seat: label uncertain if not proven by wallTime ≫ 1 s on the tail).
+ACCEPTANCE      (seat #31623) bounded jes plan relayed verbatim after this record; ONE report while pending, no refresh of a pending page; v2 CANNOT distinguish sent from ACKed (measured #31347) — it shows queued/awaiting-confirmation + socket/save/batch state.
+```
