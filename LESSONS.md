@@ -36619,3 +36619,11 @@ the bytes changed and jumped from "bytes changed" to "behaviour changed" — a b
 exactly between those two. Third unmarked inference of the night (7x688, 7x689); each was the same shape:
 an observable *consistent with* a story reported as *evidence for* it. To jes I wrote the inference as fact
 and labelled it "interpretation is yours" only to the door — the label has to travel to every receiver.
+
+## 7x691 — "THE WIRE IS CLEAN" IS NOT "THE FAILURE IS CLIENT-SIDE" (2026-09-06T05:26Z)
+
+Zero Worker exceptions, zero rejection lines, sockets held ⇒ I told jes and the doors the stuck editor was
+"in the editor client, not on the wire". The seat: an absence of exceptions does not prove ACK correctness,
+frame meaning, or input state — the server can answer cleanly and still be wrong. ⭐ **A clean instrument
+bounds what the instrument measures; it does not locate the fault on the other side of it.** Same family as
+7x688–7x690: consistent-with promoted to evidence-of. Label carried: attribution OPEN.
