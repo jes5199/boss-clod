@@ -227,3 +227,4 @@ yelixer provenance: published-application-boundary.json carries old source HEADs
 2026-09-06T01:41Z  app door RELEASED GATEWAY-FILE-CONTEXT-1 (#30915): whole file 31/0, connect 1047ms; historical red OPEN. Box FREE.
 2026-09-06T01:45Z  DISK 99% (1.7G): removed 5 superseded scratch clones + builder cache → 5.4G. No images touched. Filed in HOST-FACTS.
 2026-09-06T01:46Z  ci-dependencies: exact branch policy codex/jwt-auth-assets-main-1 added (seat #30917 consolidation publish). 4 policies.
+2026-09-06T01:56Z  app door RELEASED WS-SESSION-DISCRIMINATOR-1 (#30934/#30937): two local gates — assertion-only WS 401; API-refreshed cookie WS 101→4403 (its results). Live cookie/transport unmeasured. Consolidation run 34004785352 GREEN. Box FREE.
