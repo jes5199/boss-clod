@@ -245,3 +245,4 @@ yelixer provenance: published-application-boundary.json carries old source HEADs
 2026-09-06T03:24Z  ci-dependencies: exact policy codex/auth-unicode-validation-1 added (seat #31075: one hosted 24-call run at 3f67589b). 6 policies.
 2026-09-06T03:25Z  log door RELEASED event-order control (#31078): late old-status overwrites new badge = current-generation invariant RED (deterministic); reverse GREEN. Box FREE.
 2026-09-06T03:35Z  log door RELEASED STATUS-BINDING-LIFETIME-1 (#31093): image 59c21c7f tag status-lifetime-25bac41a, 19 offline controls + one real replacement green (its numbers). Box FREE.
+2026-09-06T03:41Z  ROLLOUT #6 UI image 59c21c7f (25bac41a) app v9. Box FREE. MATERIAL RED: hosted 24-call run 34008961851 (Unicode 3f67589b) — Run captured suite FAILURE 03:39:50Z; app door retrieving artifacts (its #31102).

@@ -287,3 +287,16 @@ ACCEPTANCE  (seat) after transition: ONE page/API/socket observation — initial
 ACCEPTANCE #5 — 2026-09-06T02:20:18Z — **EDITOR CONNECTED ON FIRST LOAD.** jes (tg 11239 "worked first try!"). Tail: GET / → 200 (wall 4525 ms, cold boot of image 82d786b6) · /assets/app.js → 200 · /api/tree → 200 · exactly ONE yjs upgrade event (Worker `canceled`/no status = the long-lived socket held open) — **no 401, no reconnect storm** (contrast 01:41: 401 + 70 events/14 s). ⇒ **Full beta path on beta-next: Access login → page → bundle → API → live sync, first attempt.** Initial-401 was not separately diagnosed; its absence on this load is an observation, not a proof it is fixed (one sample).
 **STANDING:** prod route 6a26c1fc still → commonplace-beta. Cutover is a ranking (seat) + jes decision; nothing here flips it.
 LABEL CORRECTION (seat #30967): this is **"live authenticated editor bootstrap + sustained single upgrade, one sample"** — NOT "full beta path end to end". Still OPEN: user edits, durable reopen, Unicode acceptance. Cold-boot wallTime is not digest proof on its own; provenance = app v8 rollout of the tested image + prior instance inactive + request correlation, together. Initial-401 cause unattributed; its absence measured once. No cutover clearance follows from bootstrap success.
+
+## STAGING ROLLOUT #6 — 2026-09-06T03:40Z, seat #31099 (BETA-LOOK-FEEL UI + STATUS-BINDING-LIFETIME: five asset paths + page_controller + status.js)
+```
+SHAPE       log door's TESTED image pushed as-is + config rollout — Worker/Dockerfile/pins identical to served 7a8aba77 [measured]
+APP SHA     25bac41a87f295e5750fc04f34eec23d59190bda  tree e02156e3   (exec paths vs 7a8aba77: assets/src/{app,editor,status,tree}.js, workspace.css, lib/…/web/page_controller.ex)
+            published evidence tip 2172fe10 on work/beta-look-feel-1-2026-09-06 (docs-only over 25bac41a, exec-diff 0)
+IMAGE       sha256:59c21c7f7cd4f4a2a302205f04fd42f83502868c78209ee9e1292d7b06283b8c (tag status-lifetime-25bac41a), pushed by me; registry digest identical
+            door's runtime asset hashes: JS b15c9a57 (712281 B) · CSS 264cd148 (5717 B)
+ROLLOUT     PATCH app (image only) + rollout ceabd424 COMPLETED 03:40:37Z · app v8→v9 · obs preserved · no other key changed
+WORKER      UNCHANGED 96d8a39d · 10 secrets + DO · routes unchanged (prod untouched) · instance inactive → cold boot next request
+CAVEATS     (seat) prior 15 s navigation timeout unattributed, not "fixed"; no Unicode adoption in this image; no main clearance
+ACCEPTANCE  one real desktop/mobile UI + file-reopen + status observation after transition; not a reload loop
+```
