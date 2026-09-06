@@ -36686,3 +36686,14 @@ so the linkage I implied is exactly the open question. The second is a strong in
 stop line + boot-shaped burst, not a measurement of a container start. ⇒ The relay vocabulary for a
 wire instrument is the wire's: method, path, status, wall; the app-level noun (commit, boot, save)
 is the door's to assign. Marked [INFERRED] going forward; nothing reaching jes changed his picture.
+
+## 7x697 — I described an instrument's capability from its name (2026-09-06T17:32Z, seat #31572)
+
+Told jes the v2 "pending snapshot" would say whether text was "queued, in flight, sent-but-unACKed, or
+ACKed". The measured controls (#31347) had shown send-throw and successful-send-with-held-ACK produce
+IDENTICAL snapshots — the instrument splits local queue/pending map + socket/save/batch state and
+cannot speak to delivery. I had that receipt in my own ledger and wrote the capability from the
+instrument's name instead. This one reached jes and changed his picture (an instrument that proves
+delivery vs one that does not), so it was corrected to him (tg 11305), not just filed. ⇒ Before
+relaying what an instrument CAN show, read its receipt's controls for what it was shown NOT to
+distinguish; the negative controls are the capability statement.
