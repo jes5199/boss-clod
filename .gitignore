@@ -55,3 +55,4 @@ logs/
 .goto-golive-reverify-task.txt
 erl_inetrc
 tmp/
+.tail-captures/
