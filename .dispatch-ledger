@@ -248,3 +248,4 @@ yelixer provenance: published-application-boundary.json carries old source HEADs
 2026-09-06T03:41Z  ROLLOUT #6 UI image 59c21c7f (25bac41a) app v9. Box FREE. MATERIAL RED: hosted 24-call run 34008961851 (Unicode 3f67589b) — Run captured suite FAILURE 03:39:50Z; app door retrieving artifacts (its #31102).
 2026-09-06T03:55Z  app door RELEASED BUILD-PATH-CAUSAL-1 (#31119): exported test MIX_BUILD_PATH → dev child overwrites test build (RED rc1 vs isolated GREEN rc0). Filed in HOST-FACTS. Box FREE.
 2026-09-06T04:04Z  app door RELEASED BUILD-PATH-ISOLATION-1 (#31128): f04f2ca1 — collision red rc2 vs isolation 1/0, offline 14, Chromium 2/0, declaration 464/0 (its numbers). Box FREE.
+2026-09-06T04:06Z  ci-dependencies: policy codex/auth-unicode-build-isolation-1 added (seat #31132). 7 policies.
