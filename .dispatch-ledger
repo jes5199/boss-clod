@@ -240,3 +240,4 @@ yelixer provenance: published-application-boundary.json carries old source HEADs
 2026-09-06T02:54Z  log door RELEASED look-feel (#31018): design branch 3b28c2c2 docs-only, 48 checksums. GRANT → app door AUTH-UNICODE-INTEGRATION-1 @9182d7b1. Quota: codex main 66% (flagged to jes 11249).
 2026-09-06T03:01Z  app door RELEASED AUTH-UNICODE-INTEGRATION-1 (#31032): 9182d7b1 boundary 1/0, fixed-bytes 1/0 (reopen 11, follow-on 13), neighbours 27/0, Chromium 2/0; 13 heads == locks; reducer 4695 winner (its numbers). GRANT → log door UI impl window.
 2026-09-06T03:12Z  log door RELEASED UI impl window (#31049): image cdab095c tag look-feel-f2c047ee, controls rc0, one unexplained replacement-ready timeout disclosed. GRANT → app door RUNNER-CONTROL-1.
+2026-09-06T03:20Z  app door RELEASED RUNNER-CONTROL-1 (#31063): da4439c offline controls 14/14, declaration 464 arms (its numbers); no real run. GRANT → log door nav-readiness discriminator.
