@@ -36627,3 +36627,13 @@ Zero Worker exceptions, zero rejection lines, sockets held ⇒ I told jes and th
 frame meaning, or input state — the server can answer cleanly and still be wrong. ⭐ **A clean instrument
 bounds what the instrument measures; it does not locate the fault on the other side of it.** Same family as
 7x688–7x690: consistent-with promoted to evidence-of. Label carried: attribution OPEN.
+
+## 7x692 — I UNARMED THE INSTRUMENT BECAUSE THE OPERATOR "WAS DONE FOR THE NIGHT" (2026-09-06T07:17Z)
+
+At 05:44 the tail timed out and I chose not to re-arm: "jes is done for the night; re-arm when the next
+build deploys." The next build deployed at 06:19 and I still did not re-arm. jes came back at 07:12, hit a
+cold boot, saw text missing after a refresh, and the one line that would have said "restart" or "stale
+read" was never captured. ⭐ **An instrument on a live surface should be armed whenever the surface is
+live, not whenever I expect traffic** — my expectation about the operator's schedule is exactly the kind of
+prediction the stopping rules forbid. The tail costs nothing idle. Filed: tail stays armed while any
+staging image is routed; re-arm on every timeout.
