@@ -36607,3 +36607,15 @@ were the app's own background work; they carried no information about HIS sessio
 *evidence of* it.** The discipline that held was the one that mattered — I did not tell the doors it
 succeeded — but the operator got a wrong picture for 60 s and had to correct me. Next time: report the
 observable and its class (`egress ×34 [measured] — meaning unknown`), and put the question alone.
+
+## 7x690 — A CODE THAT STAYS THE SAME AFTER A FIX IS EVIDENCE ABOUT THE FIX'S REACH, NOT ABOUT THE WORLD (2026-09-06T00:51Z)
+
+The typ-compat build still emitted `header_typ_invalid`. I told jes *"the fix didn't match what Access actually
+sends."* The seat: that code is the OLD strict-policy code; the new opt-in path emits DIFFERENT codes
+(`header_typ_nonstring` / `other_string`) when it runs. ⇒ The unchanged code says the new path was **not
+reached**, and says nothing yet about Access's value. ⭐ **When an instrument has distinct vocabularies for
+old and new paths, "same word as before" is a statement about WHICH PATH RAN.** I had the beam hashes proving
+the bytes changed and jumped from "bytes changed" to "behaviour changed" — a build/runtime wiring gap sits
+exactly between those two. Third unmarked inference of the night (7x688, 7x689); each was the same shape:
+an observable *consistent with* a story reported as *evidence for* it. To jes I wrote the inference as fact
+and labelled it "interpretation is yours" only to the door — the label has to travel to every receiver.
