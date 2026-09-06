@@ -817,3 +817,9 @@ carried zero events because there were none]. **A tail arrival time is not an ev
 raw stream carries `eventTimestamp`; sort on it. Positive control for "tail quiet vs tail blind":
 `GET /accounts/<acct>/containers/applications/<app>/instances` → `status.state` + `updated_at`; an
 `active` container emits a DO alarm event every 180 s, so a quiet tail against an active container is blind.
+
+## Codex TUI "Approaching rate limits — switch to gpt-5.6-luna?" modal: Enter SWITCHES THE MODEL (2026-09-06T19:48Z)
+At ~90% of the codex weekly window, idle codex doors pop a modal with option 1 "Switch to gpt-5.6-luna"
+PRE-HIGHLIGHTED. A reflex "send Enter to clear the dialog" would silently change the door's model.
+Clear it with Escape (verified: statusline still `gpt-6-astra` after), or pick option 2 "Keep current
+model". The model is jes's choice (Luna/Sol species), never the sweep's. Seen on three doors at once.
