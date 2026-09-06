@@ -36675,3 +36675,14 @@ claim") applies inside a sentence: `page_controller.ex:30 renders inspect(reason
 [measured] … therefore that is what he saw [INFERRED — other 500 producers not excluded]`. Nothing
 reached jes that changes his picture (I told him only "unless they ask for the error text"), so this
 is filed, not texted.
+
+## 7x696 — I named wire events by their app meaning: "commits", "cold boot" (2026-09-06T15:38Z, seat #31434)
+
+What the tail shows is `POST http://storage.internal/commit → 200` and `GET / wall 8716 ms` after an
+"Activity expired" line four hours earlier. What I wrote to jes and the doors was "your typing
+produced storage commits every ~3 s" and "cold boot". The first welds an HTTP request to an
+app-protocol commit of HIS keystrokes — the harness later showed 21/21 ACKed edits and still a 500,
+so the linkage I implied is exactly the open question. The second is a strong inference from the
+stop line + boot-shaped burst, not a measurement of a container start. ⇒ The relay vocabulary for a
+wire instrument is the wire's: method, path, status, wall; the app-level noun (commit, boot, save)
+is the door's to assign. Marked [INFERRED] going forward; nothing reaching jes changed his picture.
