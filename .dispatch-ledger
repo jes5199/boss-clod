@@ -243,3 +243,4 @@ yelixer provenance: published-application-boundary.json carries old source HEADs
 2026-09-06T03:20Z  app door RELEASED RUNNER-CONTROL-1 (#31063): da4439c offline controls 14/14, declaration 464 arms (its numbers); no real run. GRANT → log door nav-readiness discriminator.
 2026-09-06T03:22Z  log door RELEASED nav-readiness discriminator (#31066): both READY within bound, timeout not reproduced; retained old listener writes badge after replacement (its finding). Box FREE.
 2026-09-06T03:24Z  ci-dependencies: exact policy codex/auth-unicode-validation-1 added (seat #31075: one hosted 24-call run at 3f67589b). 6 policies.
+2026-09-06T03:25Z  log door RELEASED event-order control (#31078): late old-status overwrites new badge = current-generation invariant RED (deterministic); reverse GREEN. Box FREE.
