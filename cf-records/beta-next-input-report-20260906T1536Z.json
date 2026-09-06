@@ -1,0 +1,121 @@
+{
+ "captured_at_utc": "2026-09-06T15:36:34.398Z",
+ "event_timestamp_ms": 1788708994398,
+ "surface": "beta-next.commonplace.st",
+ "worker_version": "6b6d3f45-f6df-4c75-b06f-7b7a36a97902",
+ "image": "e0671c3b (native-input observer, app v11, rollout 72c23a02)",
+ "execution_model": "stateless",
+ "carrier_request": "GET /api/tree -> 200",
+ "client": "iPhone Safari (iOS 18.7) \u2014 from user-agent only",
+ "report": {
+  "v": 1,
+  "timing": "pointer_before_focus",
+  "events": [
+   {
+    "event": "doc_changed",
+    "input": "none",
+    "selection": "match",
+    "trusted": false,
+    "prevented": false,
+    "focus": true,
+    "editable": true,
+    "readonly": false,
+    "composing": false,
+    "pending": true,
+    "saved": false
+   },
+   {
+    "event": "input",
+    "input": "text",
+    "selection": "match",
+    "trusted": true,
+    "prevented": false,
+    "focus": true,
+    "editable": true,
+    "readonly": false,
+    "composing": false,
+    "pending": true,
+    "saved": false
+   },
+   {
+    "event": "beforeinput",
+    "input": "text",
+    "selection": "match",
+    "trusted": true,
+    "prevented": false,
+    "focus": true,
+    "editable": true,
+    "readonly": false,
+    "composing": false,
+    "pending": true,
+    "saved": false
+   },
+   {
+    "event": "local_update",
+    "input": "none",
+    "selection": "match",
+    "trusted": false,
+    "prevented": false,
+    "focus": true,
+    "editable": true,
+    "readonly": false,
+    "composing": false,
+    "pending": true,
+    "saved": false
+   },
+   {
+    "event": "doc_changed",
+    "input": "none",
+    "selection": "match",
+    "trusted": false,
+    "prevented": false,
+    "focus": true,
+    "editable": true,
+    "readonly": false,
+    "composing": false,
+    "pending": true,
+    "saved": false
+   },
+   {
+    "event": "input",
+    "input": "text",
+    "selection": "match",
+    "trusted": true,
+    "prevented": false,
+    "focus": true,
+    "editable": true,
+    "readonly": false,
+    "composing": false,
+    "pending": true,
+    "saved": false
+   },
+   {
+    "event": "blur",
+    "input": "none",
+    "selection": "unavailable",
+    "trusted": true,
+    "prevented": false,
+    "focus": false,
+    "editable": true,
+    "readonly": false,
+    "composing": false,
+    "pending": true,
+    "saved": false
+   },
+   {
+    "event": "report",
+    "input": "none",
+    "selection": "outside",
+    "trusted": false,
+    "prevented": false,
+    "focus": false,
+    "editable": true,
+    "readonly": false,
+    "composing": false,
+    "pending": true,
+    "saved": false
+   }
+  ]
+ },
+ "provenance": "boss-clod wrangler tail (persisted raw stream), sanitized: headers/cookies/assertions/geo omitted"
+}
