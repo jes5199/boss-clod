@@ -36647,3 +36647,18 @@ the habit, because a silent non-event teaches nothing.** The `$$` exclusion is t
 shell would match and reached for a patch instead of the rule's remedy (resolve by captured pid, or
 `ss -ltnp`/`/proc/<pid>/cwd`, which I had ALREADY used two commands earlier and which answered the
 question). ⇒ When I find myself excluding `$$`, that is the moment to delete the pgrep.
+
+## 7x694 — the tail was armed for four hours against a format I had never seen it parse (2026-09-06T13:50Z)
+
+7x692 said "keep the tail armed". I did — five re-arms, each reporting "connected, waiting for
+traffic". The formatter behind it had been tested once, on single-line JSON I typed myself; wrangler
+`--format json` pretty-prints every event over ~40 lines. First live traffic (jes, 13:50Z, the exact
+session the tail exists for) arrived as 400 `raw:` fragments, I stopped the monitor to fix the
+parser, and the stopped task's stdout — the only place the events existed — was discarded. Twice.
+⇒ Two filed rules met here and I satisfied the letter of both: *armed while the surface is live*
+(7x692) and *a gate never seen fail is not known to work*. **"Armed" was a claim about the socket,
+not about the pipeline behind it.** The positive control that would have caught it was free: pipe
+one real captured event through the formatter before calling it armed. The durability fix is also
+free and now in place: `tee` the raw stream to disk BEFORE the formatter, so a formatter bug costs a
+restart and not the evidence. ⛔ Never again arm an instrument whose only output is a process's
+stdout — that is an instrument that dies with its reader.
