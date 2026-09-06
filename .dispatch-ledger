@@ -229,3 +229,4 @@ yelixer provenance: published-application-boundary.json carries old source HEADs
 2026-09-06T01:46Z  ci-dependencies: exact branch policy codex/jwt-auth-assets-main-1 added (seat #30917 consolidation publish). 4 policies.
 2026-09-06T01:56Z  app door RELEASED WS-SESSION-DISCRIMINATOR-1 (#30934/#30937): two local gates — assertion-only WS 401; API-refreshed cookie WS 101→4403 (its results). Live cookie/transport unmeasured. Consolidation run 34004785352 GREEN. Box FREE.
 2026-09-06T02:04Z  app door RELEASED SESSION-GRANT-CONTINUITY-1 (#30946): baseline 6/4 red, fix 4d79a0a1 115/0 (its numbers); with seat. Box FREE.
+2026-09-06T02:08Z  WRITER MAP: /home/jes/codex-sgc-image-1 RESERVED for codex-commonplace-next-01a072ca (image validation clone of 7a8aba77).
