@@ -800,3 +800,11 @@ Four staging deploys in two hours took `/` from 4.6 G free to **1.7 G (99 %)** �
 2.5 GB of docker build cache. Reclaimed at 01:44Z: removed MY superseded scratch clones (sources live in the doors' repos) →
 3.3 G; `docker builder prune -af` (cache only, no images) → 5.4 G. ⛔ Never `docker image prune` — images are other doors' too
 (learned 2026-09-05 20:03Z). ⇒ Delete the previous scratch clone when the next deploy is receipted; watch `df /` in the hourly check.
+
+## Fourth instance of the exported-MIX_* hazard, now with the mechanism (commonplace-next door, 2026-09-06T03:54Z)
+A runner exported `MIX_BUILD_PATH=<workspace>/_build/test` into `$GITHUB_ENV`; the app's default-dev doc-sync child probe then
+compiled INTO the test build path — **deleting two test-support BEAMs and rewriting the test `.app` to include esbuild** — and the
+next full suite failed 636/15 on "unavailable test-support modules" + `Mix.ProjectStack` noproc. Same command with the variable
+unset preserved every artifact (measured: collision RED rc1, isolated GREEN rc0). ⇒ The hazard is not "child fails to boot"; it
+is **the child silently rebuilding a different environment's artifacts in place**. Never export MIX_BUILD_PATH/MIX_DEPS_PATH/
+MIX_ENV process-wide around anything that spawns `mix` children; the ceremony's `env -u` triple is the standing recipe.
