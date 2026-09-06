@@ -250,3 +250,4 @@ yelixer provenance: published-application-boundary.json carries old source HEADs
 2026-09-06T04:04Z  app door RELEASED BUILD-PATH-ISOLATION-1 (#31128): f04f2ca1 — collision red rc2 vs isolation 1/0, offline 14, Chromium 2/0, declaration 464/0 (its numbers). Box FREE.
 2026-09-06T04:06Z  ci-dependencies: policy codex/auth-unicode-build-isolation-1 added (seat #31132). 7 policies.
 2026-09-06T04:35Z  WRITER MAP: /home/jes/codex-unicode-main-1-land RESERVED for app door (landing clone da339fdc→cd22e76d, seat #31153).
+2026-09-06T04:35Z  path corrected to the door's requested /home/jes/codex-auth-unicode-main-1-land (uncreated; codex-unicode-main-1-land not created either).
