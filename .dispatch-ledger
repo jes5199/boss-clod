@@ -234,3 +234,4 @@ yelixer provenance: published-application-boundary.json carries old source HEADs
 2026-09-06T02:19Z  STAGING ROLLOUT #5: tested image 82d786b6 (7a8aba77) pushed + config-rolled; app v8; Worker unchanged. Box FREE. Asking jes for ONE observation.
 2026-09-06T02:20Z  ci-dependencies: exact policy codex/session-grant-continuity-1 added (seat #30959). 5 policies.
 2026-09-06T02:21Z  ACCEPTANCE #5 MET: editor connected first load on 82d786b6 (one yjs upgrade, no 401/storm — one sample). Beta path end to end on beta-next. Prod untouched. codex/session-grant-continuity-1 pushed 0e8f5a00.
+2026-09-06T02:33Z  GRANT → yelixer: standalone repins Yepochs/Merkle → 59b in /home/jes/yepochs-compat + /home/jes/commonplace-merkle-crdt-compat, deps/compile + controls it judges affected (its scope report #30985). No consumer/adoption/landing/deploy.
