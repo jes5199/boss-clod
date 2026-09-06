@@ -36637,3 +36637,13 @@ read" was never captured. ⭐ **An instrument on a live surface should be armed 
 live, not whenever I expect traffic** — my expectation about the operator's schedule is exactly the kind of
 prediction the stopping rules forbid. The tail costs nothing idle. Filed: tail stays armed while any
 staging image is routed; re-arm on every timeout.
+
+## 7x693 — I ran `pgrep -f 'boss-clod/squad-alerts'` with that literal in my own command line (2026-09-06T09:44Z)
+
+The filed rule (global CLAUDE.md, ⛔ NEVER `pgrep -f` A PATTERN THAT APPEARS IN YOUR OWN COMMAND
+LINE) is verbatim in my context and I typed the violation anyway, inside a loop that excluded `$$`
+as if that were the fix. It returned empty, so nothing happened — **which is the worst outcome for
+the habit, because a silent non-event teaches nothing.** The `$$` exclusion is the tell: I knew the
+shell would match and reached for a patch instead of the rule's remedy (resolve by captured pid, or
+`ss -ltnp`/`/proc/<pid>/cwd`, which I had ALREADY used two commands earlier and which answered the
+question). ⇒ When I find myself excluding `$$`, that is the moment to delete the pgrep.
