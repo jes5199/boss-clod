@@ -257,3 +257,18 @@ ACCEPTANCE  one correlated login → authenticated success (real page) OR fixed 
 ACCEPTANCE #3 — 2026-09-06T01:06:43Z — **AUTHENTICATED SUCCESS.** jes GET / on Worker 4675ba7f → 200, DO wallTime 13528 ms (cold boot of image a0cc0129), NO rejection line; Workspace rendered: canonical/mirror document UUIDs, editor Cell ID, matching selected heads, `relationship status ready`. ⇒ **④ Access-verified login on beta-next: MET.** The refusal since 20:33Z was the verifier's strict `typ == "JWT"` guard; the Access assertion does not satisfy it; a0145376 opts the Access path into a provider profile.
 **NEW OPEN:** `GET /assets/app.js → 404` (01:06:57Z); page shows "connecting · local" — editor bundle not served by this image. Routed to the app door.
 **STALE-INSTANCE HAZARD, filed for every future deploy receipt:** per Cloudflare's rollout docs (updated Aug 28) the Worker activates BEFORE the image replaces; a rollout's API status `completed` (00:47:17Z) preceded the old container's actual exit (≥00:48:49Z, "Runtime signalled the container to exit") by ≥90 s; jes's 00:48 requests were answered by the OLD image with no cold boot. ⇒ **After any paired deploy, treat the first request as unproven-provenance until a cold boot (DO wallTime ≫ 1 s) or the exit line is observed; a same-code result immediately after a deploy is NOT evidence about the new bytes.**
+
+## STAGING PAIRED DEPLOY #4 — 2026-09-06T01:37Z, seat #30892 (BETA-ASSETS-1: image builds and ships the editor bundle)
+```
+APP SHA     17c22aca9251e0c4a80fed6fa5b1046b4e0d0f3d  tree e19fccca  (log door's reviewed source; docs-only receipt ae7cfb6 published on evidence/beta-assets-1-2026-09-06)
+            vs served a0145376: Dockerfile (build stage installs nodejs/npm, `npm ci --prefix assets`, COPY assets/src, `mix assets.build --minify`, `test -s priv/static/assets/app.js`),
+            .dockerignore, assets/package.json, config/config.exs, config/dev.exs; mix.lock now pins commonplace_doc_sync 483c545 (was 9d8aba8) — deps RE-FETCHED on host, 13 git deps == lock, 0 creds in .git configs
+            COPY: mix.exs 036c44c3 · mix.lock c565a7aa · config 2a21e1b2 · lib 49e3edb5 · priv a3360df2 · assets dd05ea98 · worker/src bb9fa4c8 (unchanged) · Dockerfile e14d540e
+WORKER SHA  version 96d8a39d-6be4-43b3-a8fe-c7d9e50a7fba · etag 4433e79bfb9c7caf UNCHANGED (worker/src identical) · deployment 678c552d
+            image commonplace-next@sha256:dba6edfdfb68d7350ca7434e419050ca0e05d5b5597669d68be56ef92113b162 (tag 96d8a39d) — ≠ the door's locally tested digest 5a93b494 (non-deterministic apt/npm layers)
+            ⭐ CONTROL: priv/static/assets/app.js inside MY image = sha256 28068d1817555d1e2d8e17b37f5b072148f2cfc4f27498fee8b597087532d3be, 711231 bytes == the door's tested bundle EXACTLY
+            app v6→v7 · rollout d552e470 COMPLETED 01:37:42Z
+READ-BACK   10 secret_text + DO ✅ · worker obs ✅ · app obs logs.enabled ✅ · routes ✅ (prod untouched) · workers_dev/previews false ✅ · DO reset observed · instance inactive on new image
+GATE        porcelain --ignored on COPY+assets+worker/src+Dockerfile 0 · red arm 1 · 0
+ACCEPTANCE  (seat) serving transition after old-runtime exit (cold boot), then one real login: GET /assets/app.js → 200 text/javascript, editor bootstrap, connection state. NOT PREDICTED.
+```
