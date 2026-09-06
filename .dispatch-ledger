@@ -260,3 +260,4 @@ yelixer provenance: published-application-boundary.json carries old source HEADs
 2026-09-06T06:07Z  WRITER MAP: /home/jes/codex-native-input-image-1 RESERVED for app door.
 2026-09-06T06:14Z  app door RELEASED NATIVE-INPUT-OBSERVE-IMAGE-1 (#31257): image e0671c3b tag native-input-8d4373a9; matrix rc0 (its numbers). Box FREE. Paired deploy on seat review.
 2026-09-06T06:20Z  PAIRED NATIVE-INPUT deploy: Worker 6b6d3f45 first (rollout none), image e0671c3b rolled (72c23a02), app v11, triple identity OK. Box FREE. Waiting on jes for ONE bounded report (he is off for the night).
+2026-09-06T07:20Z  jes: typing block NOT reproduced on e0671c3b; refresh lost post-'é é' content once (cold boot window, tail unarmed — my miss, 7x692); instance running since 07:12:47, started_at 06:19:00.
