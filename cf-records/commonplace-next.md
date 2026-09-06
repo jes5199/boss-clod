@@ -300,3 +300,23 @@ WORKER      UNCHANGED 96d8a39d · 10 secrets + DO · routes unchanged (prod unto
 CAVEATS     (seat) prior 15 s navigation timeout unattributed, not "fixed"; no Unicode adoption in this image; no main clearance
 ACCEPTANCE  one real desktop/mobile UI + file-reopen + status observation after transition; not a reload loop
 ```
+
+## UNICODE WRITER-TRANSITION PLAN — read-only prep, seat #31171 (2026-09-06T04:55Z). NOT EXECUTED.
+**Writer inventory for realm 36917f12 (measured):** exactly ONE application writer exists — container app a03286c5 (`max_instances 1`,
+one DO id 3851d2df, one instance, currently INACTIVE on image 59c21c7f = UI/status build, pre-Unicode). Capability holders: the Worker
+secret `COMMONPLACE_LOG_REALM_CAPABILITY` (write-only) and my custody file (600) — no door tree references the realm; commonplace-beta
+has no realm bindings; commonplace-log holds the realm as its OWN storage (server side, not a writer INTO it). ⇒ No second writer to
+inventory beyond the old/new instance of the same app.
+**Hazard (measured today):** rollout API `completed` precedes the old container's exit by ≥90 s (up to 15 min drain per docs); during that
+window the OLD image can still answer — and, after new-codec writes exist, an old-codec reader/writer must never touch the realm.
+**Minimal exact act sequence:**
+ 1. QUIESCE: jes closes all beta-next tabs; wait for the SDK line `Activity expired, signalling container to stop` in the tail (10 min idle) and
+    the instances API to read `inactive` for 3851d2df → **no live writer** [acceptance: tail line + API state, both].
+ 2. PUSH the reviewed Unicode image (tested by the door, by digest) to the registry — no rollout yet.
+ 3. ROLLOUT by config (image only) while the instance is inactive → rollout completes with NO old process to drain [acceptance: rollout
+    completed AND instances API still shows a single instance, inactive or on the new digest — never two].
+ 4. FIRST REQUEST = cold boot on the new image [acceptance: DO wallTime ≫ 1 s on the first GET, no "Runtime signalled … exit" line, tail
+    version/image correlation]; then one real login + edit + reopen (the seat's acceptance).
+**Rollback identity:** config-only rollback to the previous digest is ONLY valid if NO new-codec write has occurred (i.e. before step 4's
+first edit). After any new write: roll-forward only — fix on the new codec; never point an old-codec image at the realm.
+**Not in this plan:** prod route flip; realm deletion/reset (⛔ never); WorkOS; second instance.
