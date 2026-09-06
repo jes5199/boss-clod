@@ -224,3 +224,4 @@ yelixer provenance: published-application-boundary.json carries old source HEADs
 2026-09-06T01:29Z  log door RELEASED BETA-ASSETS-1 (#30888): candidate 17c22aca / tree e19fccca, image sha256:5a93b494 tag beta-assets-17c22aca; baseline a0cc0129 404 (red), candidate app.js 200 text/javascript 711231 B, Chromium 'connected · saved' (its numbers). With seat for review. GRANT → app door JWT-AUTH-LANDING-DIAG-1.
 2026-09-06T01:34Z  app door RELEASED JWT-AUTH-LANDING-DIAG-1 (#30905): journal 5/0, mutant red at probe, gateway 1/0 (its numbers); historical econnrefused UNEXPLAINED. BOX → boss deploy 17c22aca.
 2026-09-06T01:39Z  PAIRED DEPLOY #4 17c22aca DONE: Worker 96d8a39d (etag unchanged), image dba6edfd, app v7, rollout d552e470; app.js in image == door's tested hash. Box FREE → app door GATEWAY-FILE-CONTEXT-1 next (queued).
+2026-09-06T01:41Z  app door RELEASED GATEWAY-FILE-CONTEXT-1 (#30915): whole file 31/0, connect 1047ms; historical red OPEN. Box FREE.
