@@ -251,3 +251,4 @@ yelixer provenance: published-application-boundary.json carries old source HEADs
 2026-09-06T04:06Z  ci-dependencies: policy codex/auth-unicode-build-isolation-1 added (seat #31132). 7 policies.
 2026-09-06T04:35Z  WRITER MAP: /home/jes/codex-unicode-main-1-land RESERVED for app door (landing clone da339fdc→cd22e76d, seat #31153).
 2026-09-06T04:35Z  path corrected to the door's requested /home/jes/codex-auth-unicode-main-1-land (uncreated; codex-unicode-main-1-land not created either).
+2026-09-06T04:52Z  UNICODE (+auth/session/assets consolidation) LANDED — verified by me: origin/main bad6c794, parents cd22e76d + da339fdc, tree 23a268cc == reviewed. Door: 636/0/2, 7 gates rc0. 0 procs. Box FREE. Main is now 3 pins + JWT + diagnostics + session + assets + CI + doc-sync + cell-host over a538.
