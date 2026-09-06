@@ -209,3 +209,5 @@ yelixer provenance: published-application-boundary.json carries old source HEADs
 2026-09-05T23:41Z  PAIRED STAGING DEPLOY 5557f4b DONE: Worker 4d626658 (etag eab350f7), image adc87317, app v4, rollout 441e23ae completed, app+worker logging both on via config. Box FREE. Asking jes for ONE login.
 2026-09-05T23:53Z  log door RELEASED CELL-HOST-RESTART-1 (#30733): source b0ba148f pushed [skip ci], focused 3 green over baseline red, canonical+realm 37/0 (its numbers); review with seat. 0 procs. GRANT → next door AUTH-HEADER-DETAIL-1.
 2026-09-05T23:56Z  next door RELEASED AUTH-HEADER-DETAIL-1 (#30739): d84df1d4 app 88/0, Worker 17/0, schema/bundle/format 0 (its numbers); evidence to seat. Box FREE.
+2026-09-05T23:58Z  /home/jes/codex-ci-beta-1-land-2 RESERVED for codex-commonplace-log-01a0733f (future CI ceremony clone; -land and codex-ci-beta-1 refused merges untouched). Not created.
+2026-09-05T23:59Z  PAIRED DEPLOY #2 a95b7ccb DONE: Worker 673ad351 (etag 5bd04ccb), image d6ec4bb8, app v5, rollout d8aefc1c. Box FREE. Asking jes for ONE login.

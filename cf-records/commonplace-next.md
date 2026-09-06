@@ -227,3 +227,17 @@ EFFECT      new Worker version ⇒ DO reset; instance 3851d2df inactive → next
 ROLLBACK    redeploy from the d8191cf4 clone (Worker + image together — pairing matters in reverse too) — untested path; config-only changes revert with config
 ACCEPTANCE  (seat #30698) one correlated real request → Worker-console event `authentication_rejected_from_app stage=<fixed> reason=<fixed> status=<actual>` OR authenticated success; `x-commonplace-auth-diagnostic` header ABSENT at the browser. Tail armed (b3wgiy0b7). NOT PREDICTED.
 ```
+
+## STAGING PAIRED DEPLOY #2 — 2026-09-05T23:59Z, seat #30744 (AUTH-HEADER-DETAIL: six-code header-refusal refinement)
+```
+APP SHA     a95b7ccb662b2ab3f0fe78e15b04459a8c47d2da  tree 9636bf56  (docs-only over tested d84df1d: app 88/0, Worker 17/0 — door's numbers; exec-diff 0 [measured])
+            exec paths changed vs served 5557f4b: assertion_verifier.ex · access_authentication.ex · authentication_diagnostic.ex · 2 tests · worker/src/authentication-diagnostic.js
+            COPY: mix.exs 06a855d8 · mix.lock 29d61e15 · config c028506a · priv a3360df2 (unchanged) · lib cbe21308 (was 23f967ba) · worker/src 41794ded (was 24bbbc2e)
+WORKER SHA  version 673ad351-e54c-4b4b-87d9-354ac2bb6e2e · etag 5bd04ccb178fe724 (was eab350f7) · deployment c2611bdf
+            image commonplace-next@sha256:d6ec4bb88bfb56e0103b637def3f403efcc8a0ff4629549cfb5ece613b906750 (tag 673ad351) · app v4→v5 · rollout d8aefc1c COMPLETED
+PAIRING     Worker uploaded first (log line 13), image built/pushed/rolled after — same safe order as #1
+READ-BACK   10 secret_text + DO ✅ · worker obs enabled/logs/invocation=false ✅ · app obs logs.enabled ✅ (both from wrangler.jsonc) · routes ✅ · workers_dev/previews false ✅
+EFFECT      DO reset (tail: "Durable Object reset because its code was updated") ⇒ cold boot on next request
+GATE        porcelain --ignored on COPY+worker/src 0 · red arm 1 · 0
+ACCEPTANCE  one correlated login → `authentication_rejected_from_app stage=… reason=<one of header_json_invalid|header_json_duplicate|header_json_exception|header_forbidden_parameter|header_b64_invalid|header_typ_invalid>` or another gate, or success. Browser header-absence check still OPEN (iPhone).
+```
