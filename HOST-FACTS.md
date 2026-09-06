@@ -794,3 +794,9 @@ deliberately manage their own environment.**
 the round's subject, ask WHICH ENVIRONMENT ITS CHILDREN SAW before believing the failure.** ⛔ Both
 doors initially had a plausible product-defect story available — *"trust-root falsifier is broken"* —
 and both correctly named their own harness instead.
+
+## Disk: each `wrangler deploy` of commonplace-next costs ~330 MB scratch clone + ~500 MB docker build cache (2026-09-06)
+Four staging deploys in two hours took `/` from 4.6 G free to **1.7 G (99 %)** — five scratch clones with deps (327 MB each) plus
+2.5 GB of docker build cache. Reclaimed at 01:44Z: removed MY superseded scratch clones (sources live in the doors' repos) →
+3.3 G; `docker builder prune -af` (cache only, no images) → 5.4 G. ⛔ Never `docker image prune` — images are other doors' too
+(learned 2026-09-05 20:03Z). ⇒ Delete the previous scratch clone when the next deploy is receipted; watch `df /` in the hourly check.
