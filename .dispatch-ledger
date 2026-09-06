@@ -259,3 +259,4 @@ yelixer provenance: published-application-boundary.json carries old source HEADs
 2026-09-06T05:58Z  app door RELEASED NATIVE-INPUT-OBSERVE-1 focused (#31246): dbd92f0b app 31/0, Worker 25/0, browser 12 controls, declaration 470/0 (its numbers). Box FREE.
 2026-09-06T06:07Z  WRITER MAP: /home/jes/codex-native-input-image-1 RESERVED for app door.
 2026-09-06T06:14Z  app door RELEASED NATIVE-INPUT-OBSERVE-IMAGE-1 (#31257): image e0671c3b tag native-input-8d4373a9; matrix rc0 (its numbers). Box FREE. Paired deploy on seat review.
+2026-09-06T06:20Z  PAIRED NATIVE-INPUT deploy: Worker 6b6d3f45 first (rollout none), image e0671c3b rolled (72c23a02), app v11, triple identity OK. Box FREE. Waiting on jes for ONE bounded report (he is off for the night).

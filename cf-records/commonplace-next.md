@@ -344,3 +344,16 @@ NEXT (F6/F7) first request cold-boots 98c20032 (expect wallTime ≫ 1 s, no exit
 ```
 F6/F7 RESULT 05:21–05:25Z — first request cold-booted 98c20032 (GET / 4409 ms); assets/api 200; socket held; reload 05:23:52 clean; 0 exceptions/rejections. **Live editing BLOCKER (seat's label): jes lost the ability to type after entering 👩‍💻 in the marked line.** Attribution OPEN — "client-side" was my inference from a clean wire; the seat is right that no exceptions ≠ correct ACK/meaning/input state. **First new-codec write ≈05:22Z — APPROXIMATE, inferred from traffic, not a measured codec write.** Roll-forward only; cutover blocked. App door: bounded progressive-input reproduction on the exact image.
 QUALIFICATION (seat #31221): the reload screenshot establishes VISUAL text only — it cannot distinguish precomposed é (U+00E9) from e+U+0301, nor prove exact code points of the emoji sequences; "persisted" above means visually, at page-reload scope. No server-restart claim. Byte-level evidence would need a store read by a door.
+
+## PAIRED NATIVE-INPUT OBSERVER — 2026-09-06T06:17–06:19Z, seat #31260 (Worker FIRST, then tested image; diagnostic only)
+```
+APP+WORKER SHA  8d4373a9fe7590a3ec468fd448c63ed59e7b44ab  tree f84bd4d4   (vs served 20d806e: input-client-report {app assets, lib/web, worker/src}; page_controller; pins/wrangler.jsonc identical)
+W1 WORKER       `wrangler deploy --containers-rollout=none` from a fresh clone → version 6b6d3f45-f6df-4c75-b06f-7b7a36a97902, deployment d9b53c1f, etag d66da710d91431a5 (changed: relay code)
+                container app untouched by this step (v10, image 98c20032) ✅ — "new Worker + old app" is the safe direction (no header emitted)
+W2 IMAGE        pushed commonplace-next:native-input-8d4373a9 → registry digest e0671c3b… identical to the door's local id
+W3 ROLLOUT      PATCH (image only) + rollout 72c23a02-07c4-498c-8d4f-9311c5694821 06:18:45 → COMPLETED 06:19:31Z · app v10→v11
+                TRIPLE IDENTITY OK (app config == rollout target == single instance == e0671c3b, state inactive since 05:55:11Z — no old runtime running)
+UNCHANGED       10 secret_text + DO · worker obs enabled/logs/inv=false · app obs logs.enabled · routes 6a26c1fc (prod) + 8a173a1b (staging) · Access/DNS/realm untouched
+ROLL-FORWARD    stands (realm has new-codec writes since ~05:22)
+ACCEPTANCE      (seat) serving transition on first request (cold boot), then ONE bounded native report by jes: open Document identities BEFORE typing, editor focus, retry native keyboard after ZWJ + trailing ASCII, tap "Report typing problem" ONCE if blocked; log line `input_state_client_report status=200 report=<closed JSON>` at the Worker console. Client-reported, not app truth.
+```
