@@ -232,3 +232,4 @@ yelixer provenance: published-application-boundary.json carries old source HEADs
 2026-09-06T02:08Z  WRITER MAP: /home/jes/codex-sgc-image-1 RESERVED for codex-commonplace-next-01a072ca (image validation clone of 7a8aba77).
 2026-09-06T02:14Z  app door RELEASED SGC-IMAGE-1 (#30955): image sha256:82d786b6 tag sgc-7a8aba77; matrix exit 0 (page/API cookie WS 101, absent/tampered 401, foreign 403, changed-login 4403 — its results). Box FREE.
 2026-09-06T02:19Z  STAGING ROLLOUT #5: tested image 82d786b6 (7a8aba77) pushed + config-rolled; app v8; Worker unchanged. Box FREE. Asking jes for ONE observation.
+2026-09-06T02:20Z  ci-dependencies: exact policy codex/session-grant-continuity-1 added (seat #30959). 5 policies.
