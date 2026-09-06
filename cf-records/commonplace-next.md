@@ -241,3 +241,16 @@ EFFECT      DO reset (tail: "Durable Object reset because its code was updated")
 GATE        porcelain --ignored on COPY+worker/src 0 · red arm 1 · 0
 ACCEPTANCE  one correlated login → `authentication_rejected_from_app stage=… reason=<one of header_json_invalid|header_json_duplicate|header_json_exception|header_forbidden_parameter|header_b64_invalid|header_typ_invalid>` or another gate, or success. Browser header-absence check still OPEN (iPhone).
 ```
+
+## STAGING PAIRED DEPLOY #3 — 2026-09-06T00:45Z, seat #30802 (ACCESS-TYP-COMPAT: verifier accepts Access assertions per provider profile)
+```
+APP SHA     a0145376c3c8e6101154049cd1dffd2ba7691c44  tree 8a64241d  (exec-diff 0 from reviewed 086ba266; focused 102/0, Worker 17/0 — door's numbers)
+            exec paths vs served a95b7ccb: assertion_verifier.ex · access_authentication.ex · authentication_diagnostic.ex · access_typ_policy_test.exs · authentication_diagnostic_test.exs · worker/src/authentication-diagnostic.js
+            COPY: mix.exs 06a855d8 · mix.lock 29d61e15 · config c028506a · priv a3360df2 (unchanged) · lib d6b5218d (was cbe21308) · worker/src bb9fa4c8 (was 41794ded)
+WORKER SHA  version 4675ba7f-255d-4bc6-ae63-e0610fd4f6d3 · etag 4433e79bfb9c7caf (was 5bd04ccb) · deployment 1cf42d4a
+            image commonplace-next@sha256:a0cc012915f61cd28b4acbc38c00247f286fa03ffbd870176cf1b15c1d8a01c7 (tag 4675ba7f) · app v5→v6 · rollout a1d2f139 COMPLETED
+PAIRING     Worker uploaded first (log :13), image after — safe order
+READ-BACK   10 secret_text + DO ✅ · worker obs ✅ · app obs logs.enabled ✅ · routes ✅ (prod 6a26c1fc untouched) · workers_dev/previews false ✅ · DO reset observed
+GATE        porcelain --ignored on COPY+worker/src 0 · red arm 1 · 0
+ACCEPTANCE  one correlated login → authenticated success (real page) OR fixed remaining reason. NOT PREDICTED.
+```
