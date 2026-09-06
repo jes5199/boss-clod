@@ -36662,3 +36662,16 @@ one real captured event through the formatter before calling it armed. The durab
 free and now in place: `tee` the raw stream to disk BEFORE the formatter, so a formatter bug costs a
 restart and not the evidence. ⛔ Never again arm an instrument whose only output is a process's
 stdout — that is an instrument that dies with its reader.
+
+## 7x695 — I named the source line and still smuggled an inference past it (2026-09-06T14:02Z)
+
+#31319: "your index/1 sends inspect(reason) on the Mirrors.open error path, page_controller.ex:30,
+so the reason went to his screen." The file:line was measured; the *so* was not. The Containers SDK
+(0.3.7, index.js:805/881/884) synthesizes GET 500s itself around the app transport, with no log line
+in two of the three paths — a DO 500 with logs=[] exceptions=[] does not select the app's error
+path at all. App door caught it (#31335). ⇒ **Citing a code location makes the sentence read as
+measured all the way to its verb.** The per-claim marker rule (CLAUDE.md, "mark the INFERRED
+claim") applies inside a sentence: `page_controller.ex:30 renders inspect(reason) on that path
+[measured] … therefore that is what he saw [INFERRED — other 500 producers not excluded]`. Nothing
+reached jes that changes his picture (I told him only "unless they ask for the error text"), so this
+is filed, not texted.
