@@ -272,3 +272,15 @@ READ-BACK   10 secret_text + DO ✅ · worker obs ✅ · app obs logs.enabled �
 GATE        porcelain --ignored on COPY+assets+worker/src+Dockerfile 0 · red arm 1 · 0
 ACCEPTANCE  (seat) serving transition after old-runtime exit (cold boot), then one real login: GET /assets/app.js → 200 text/javascript, editor bootstrap, connection state. NOT PREDICTED.
 ```
+
+## STAGING ROLLOUT #5 — 2026-09-06T02:19Z, seat #30958 (SESSION-GRANT-CONTINUITY: preserve mirror grants across same-login page→API)
+```
+SHAPE       the app door's TESTED image, pushed as-is and rolled by config — no rebuild, no Worker mint (worker/src + wrangler.jsonc identical 17c22aca→7a8aba77 [measured])
+APP SHA     7a8aba77df15f304eff4668722039390a4e25d00  tree 861320c0   (exec paths vs 17c22aca: lib/…/web/session.ex + 2 tests)
+IMAGE       sha256:82d786b694c863e8c93f9aa7814eec34bd14acf79b2a3e0ebe70a1d7f325fb8b — built by the app door in /home/jes/codex-sgc-image-1 (its receipt 0e8f5a00, 27 checksums, cookie matrix rc0);
+            pushed by me via `wrangler containers push commonplace-next:sgc-7a8aba77` → registry digest identical 82d786b6 (manifest size 856)
+ROLLOUT     PATCH application (only delta: image) → rollout 095e8746 COMPLETED 02:19:08Z · app v7→v8 · configuration.observability logs.enabled=true PRESERVED · no other key changed
+WORKER      UNCHANGED: deployment 678c552d / version 96d8a39d · 10 secret_text + DO · obs enabled/logs/invocation=false · routes unchanged (prod untouched) · no DO reset (no Worker version)
+INSTANCE    3851d2df inactive on the new image → next request cold-boots; per the stale-instance rule, first request provenance = cold boot observed
+ACCEPTANCE  (seat) after transition: ONE page/API/socket observation — initial WS status vs 101/close/badge/content. Initial live 401 + storm NOT predicted fixed.
+```
