@@ -823,3 +823,8 @@ At ~90% of the codex weekly window, idle codex doors pop a modal with option 1 "
 PRE-HIGHLIGHTED. A reflex "send Enter to clear the dialog" would silently change the door's model.
 Clear it with Escape (verified: statusline still `gpt-6-astra` after), or pick option 2 "Keep current
 model". The model is jes's choice (Luna/Sol species), never the sweep's. Seen on three doors at once.
+
+## `/var/run` is a symlink to `/run` (2026-09-06T22:47Z)
+`readlink -f /var/run/docker.sock` → `/run/docker.sock`. A literal string comparison against
+`/var/run/docker.sock` fails against the canonical path; compare canonicalised paths (`os.path.realpath`).
+Found by the app door's ParentGate constructor before any Docker call.
