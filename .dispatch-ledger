@@ -212,3 +212,4 @@ yelixer provenance: published-application-boundary.json carries old source HEADs
 2026-09-05T23:58Z  /home/jes/codex-ci-beta-1-land-2 RESERVED for codex-commonplace-log-01a0733f (future CI ceremony clone; -land and codex-ci-beta-1 refused merges untouched). Not created.
 2026-09-05T23:59Z  PAIRED DEPLOY #2 a95b7ccb DONE: Worker 673ad351 (etag 5bd04ccb), image d6ec4bb8, app v5, rollout d8aefc1c. Box FREE. Asking jes for ONE login.
 2026-09-06T00:36Z  CI-BETA-1 (+doc-sync adoption +CELL-HOST-RESTART-1) LANDED — verified by me: origin/main cd22e76d, parents a538fa18 + fc4f5d6f, tree ffcb270d == reviewed, 297-byte --no-ff merge. Door: 577/0/1 seed 211215, seven gates green, rc0. Fifth attempt; first landing on main today since a538fa18. Window released, 0 procs. GRANT → next door ACCESS-TYP-COMPAT-1.
+2026-09-06T00:37Z  ci-dependencies: policy 59218138 main added; read back 2 policies (main + work/ci-beta-1); repo secrets 0. Receipt in AUTHORIZATIONS.md.

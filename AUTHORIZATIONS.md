@@ -216,3 +216,13 @@ the token once more** — that is the price of the leaking workflow, not a defec
 `if: always`, so a scanner exception ahead of a secret-bearing file lets it upload unscanned. No warrant
 until upload is gated on a COMPLETE successful scan with ± controls.** ⇒ *the credential cannot reach an
 old ref; the redactor is correct; the upload gate is the last hole.*
+
+## 2026-09-06T00:37Z — ci-dependencies environment: EXACT `main` added (seat #30756/#30782, after CI-BETA-1 landed cd22e76d)
+Pre-check at the endpoint: suite.yml blob on main e9c54ef8 == landed tree's; `environment: ci-dependencies` on the suite job (:19);
+`persist-credentials: false` (:27, :166); DEPS_READ_TOKEN read via `secrets.` only (:40); both upload-artifact steps gated by the shared
+anchor `always() && steps.artifact_scan.outcome == 'success' && …` (:135, :198) — the CI-BETA-1 fix, present on main.
+Change: POST deployment-branch-policies {name:"main", type:"branch"} → policy 59218138.
+Read-back: custom_branch_policies=true, protected_branches=false; policies = {59218138 main, 59207440 work/ci-beta-1-2026-09-05}; total 2.
+No wildcard, no repo/org fallback (repo-scope secrets 0). Env secret DEPS_READ_TOKEN unchanged (19:57:43Z, credential #3).
+⚠️ The old branch policy 59207440 remains (seat: "other old branches excluded" — it is the one allowed work branch, not an old one; removal is
+the seat's call once the branch is retired).
