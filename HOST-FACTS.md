@@ -808,3 +808,12 @@ next full suite failed 636/15 on "unavailable test-support modules" + `Mix.Proje
 unset preserved every artifact (measured: collision RED rc1, isolated GREEN rc0). ⇒ The hazard is not "child fails to boot"; it
 is **the child silently rebuilding a different environment's artifacts in place**. Never export MIX_BUILD_PATH/MIX_DEPS_PATH/
 MIX_ENV process-wide around anything that spawns `mix` children; the ceremony's `env -u` triple is the standing recipe.
+
+## wrangler tail delivers some DurableObject events MINUTES late — order by `eventTimestamp`, never by arrival (2026-09-06)
+The DO-side event for jes's 15:35:39Z page load (`CommonplaceNextContainer GET / 200 wall 8654`) arrived on
+the tail socket at ~15:52Z, sixteen minutes after its stateless twin (`wall 8716`), and I read it as "jes is
+back on the page" [wrong; container instance API showed `inactive` since 15:51:31Z and the next hour of tail
+carried zero events because there were none]. **A tail arrival time is not an event time.** The persisted
+raw stream carries `eventTimestamp`; sort on it. Positive control for "tail quiet vs tail blind":
+`GET /accounts/<acct>/containers/applications/<app>/instances` → `status.state` + `updated_at`; an
+`active` container emits a DO alarm event every 180 s, so a quiet tail against an active container is blind.
