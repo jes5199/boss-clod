@@ -284,3 +284,5 @@ WORKER      UNCHANGED: deployment 678c552d / version 96d8a39d · 10 secret_text 
 INSTANCE    3851d2df inactive on the new image → next request cold-boots; per the stale-instance rule, first request provenance = cold boot observed
 ACCEPTANCE  (seat) after transition: ONE page/API/socket observation — initial WS status vs 101/close/badge/content. Initial live 401 + storm NOT predicted fixed.
 ```
+ACCEPTANCE #5 — 2026-09-06T02:20:18Z — **EDITOR CONNECTED ON FIRST LOAD.** jes (tg 11239 "worked first try!"). Tail: GET / → 200 (wall 4525 ms, cold boot of image 82d786b6) · /assets/app.js → 200 · /api/tree → 200 · exactly ONE yjs upgrade event (Worker `canceled`/no status = the long-lived socket held open) — **no 401, no reconnect storm** (contrast 01:41: 401 + 70 events/14 s). ⇒ **Full beta path on beta-next: Access login → page → bundle → API → live sync, first attempt.** Initial-401 was not separately diagnosed; its absence on this load is an observation, not a proof it is fixed (one sample).
+**STANDING:** prod route 6a26c1fc still → commonplace-beta. Cutover is a ranking (seat) + jes decision; nothing here flips it.
