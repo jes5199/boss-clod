@@ -43,13 +43,22 @@ process.stderr.write(`squad-alerts: started as consumer "${identity}"\n`)
 const HTTP_PORT = parseInt(process.env.SQUAD_ALERTS_HTTP_PORT || '5777', 10)
 const SEVERITIES: Severity[] = ['info', 'warn', 'error', 'critical']
 
-const httpServer = Bun.serve({
-  port: HTTP_PORT,
-  hostname: '127.0.0.1',
-  fetch: makeFetchHandler({ db, telegramOutboxDir: telegramOutbox }),
-})
-
-process.stderr.write(`squad-alerts: HTTP listening on http://127.0.0.1:${httpServer.port}/publish\n`)
+let httpServer: ReturnType<typeof Bun.serve> | null = null
+try {
+  httpServer = Bun.serve({
+    port: HTTP_PORT,
+    hostname: '127.0.0.1',
+    fetch: makeFetchHandler({ db, telegramOutboxDir: telegramOutbox }),
+  })
+  process.stderr.write(`squad-alerts: HTTP listening on http://127.0.0.1:${httpServer.port}/publish\n`)
+} catch (err: any) {
+  if (err?.code === 'EADDRINUSE' || String(err).includes('in use')) {
+    process.stderr.write(`squad-alerts: HTTP port ${HTTP_PORT} already in use (standalone owns it) \u2014 running as consumer-only MCP, no HTTP listener\n`)
+    httpServer = null
+  } else {
+    throw err
+  }
+}
 
 // --- Telegram outbox (file-drop for the escalate tool; auto-forwards
 // from /publish go through makeFetchHandler's writeOutbox path). ---
@@ -278,7 +287,7 @@ function shutdown(): void {
   shuttingDown = true
   polling = false
   clearInterval(pollInterval)
-  httpServer.stop(true)
+  httpServer?.stop(true)
   process.stderr.write('squad-alerts: shutting down\n')
   db.close()
   process.exit(0)
