@@ -1,0 +1,23 @@
+{
+  "request": 38923,
+  "observed_at": "2026-09-19T09:31:34.811416+00:00",
+  "cloud_requests": 0,
+  "provider_mutations": 0,
+  "offline_controls": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 python3 tools/acceptance-readback/test_readback.py",
+    "exit_code": 0,
+    "tests": 12,
+    "failures": 0,
+    "socket_guard": true
+  },
+  "static_checks": [
+    "AST parse of both Python files passed",
+    "all delivered files trailing-whitespace check passed"
+  ],
+  "files_sha256": {
+    "readback.py": "3541a6b370b55e4836fcdd5f54019be5376c370e758c1af81e36a556ee7b5837",
+    "test_readback.py": "b46d2c889903d3dccff4d4cc724ce1417a04283130722ef4bd0e5c8d067ee2d8",
+    "README.md": "961b6b7c11423629265363480f88ae77eff4db6e4cbb0bc12e26adfa2bcf34fc"
+  },
+  "limitation": "Reviewable collector; human app organization has no approved live read surface and secret_text realm remains unavailable. Overall verdict always HOLD."
+}
