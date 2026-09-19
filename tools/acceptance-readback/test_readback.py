@@ -1,4 +1,8 @@
 import json
+import hashlib
+import os
+from pathlib import Path
+import tempfile
 import unittest
 from unittest.mock import patch
 import readback as r
@@ -27,8 +31,12 @@ class Controls(unittest.TestCase):
         self.assertEqual(r.assess('dns', rows)['verdict'], 'COLLISION')
 
     def test_wildcard_and_path_overlap(self):
-        self.assertEqual(r.assess('dns', [{'name': '*.commonplace.st'}])['verdict'], 'COLLISION')
-        self.assertEqual(r.assess('routes', [{'pattern': '*commonplace.st/private/*'}])['verdict'], 'COLLISION')
+        for key, rows, control in [
+            ('dns', [{'name': '*.commonplace.st'}], {'name': 'beta-next.commonplace.st'}),
+            ('routes', [{'pattern': '*commonplace.st/private/*'}], {'pattern': 'beta-next.commonplace.st/*'})]:
+            self.assertEqual(r.assess(key, rows)['verdict'], 'HOLD_NO_KNOWN_CONTROL')
+            self.assertEqual(r.assess(key, rows)['collision_count'], 1)
+            self.assertEqual(r.assess(key, rows + [control])['verdict'], 'COLLISION')
 
     def test_empty_is_not_green(self):
         self.assertEqual(r.assess('service_tokens', [])['verdict'], 'HOLD_NO_KNOWN_CONTROL')
@@ -94,13 +102,85 @@ class Controls(unittest.TestCase):
                 self.request = request
                 return Response()
         op = Opener()
-        with patch.object(r.urllib.request, 'build_opener', return_value=op):
+        with patch.object(r.urllib.request, 'build_opener', return_value=op) as build:
             transport = r.Transport('CANARY')
             transport.get('accounts')
+        handlers = build.call_args.args
+        self.assertEqual(len(handlers), 2)
+        self.assertIsInstance(handlers[0], r.urllib.request.ProxyHandler)
+        self.assertEqual(handlers[0].proxies, {})
+        self.assertIsInstance(handlers[1], r.NoRedirect)
+        with self.assertRaises(r.Refusal): handlers[1].redirect_request(None)
         self.assertEqual(op.request.method, 'GET')
         self.assertTrue(op.request.full_url.startswith('https://api.cloudflare.com/client/v4/accounts?'))
+        self.assertIn('per_page=50', op.request.full_url)
+        transport.get('zones')
+        self.assertIn('per_page=50', op.request.full_url)
+        for key in ('routes', 'workers'):
+            transport.get(key)
+            self.assertNotIn('?', op.request.full_url)
         self.assertIsNone(op.request.data)
         with self.assertRaises(KeyError): transport.get('https://untrusted.example')
+
+    def test_unpaginated_lists_and_size_bounds(self):
+        for key in ('routes', 'workers'):
+            fake = Fake([(200, {'success': True, 'result': [{'id': 'a'}]})])
+            self.assertEqual(r.fetch(fake, key), ([{'id': 'a'}], 1))
+            too_many = [{'id': str(i)} for i in range(1001)]
+            with self.assertRaises(r.Refusal):
+                r.fetch(Fake([(200, {'success': True, 'result': too_many})]), key)
+        for key, size in [('accounts', 51), ('zones', 51), ('dns', 101)]:
+            with self.assertRaises(r.Refusal):
+                r.fetch(Fake([page([{'id': str(i)} for i in range(size)])]), key)
+
+    def test_credential_regular_descriptor_and_path_swap(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'credential'
+            path.write_text('CLOUDFLARE_API_TOKEN=original\n'); path.chmod(0o600)
+            original_fstat = os.fstat
+            calls = []
+            def swapping_fstat(fd):
+                if not calls:
+                    path.rename(path.with_suffix('.old'))
+                    path.write_text('CLOUDFLARE_API_TOKEN=replacement\n'); path.chmod(0o600)
+                calls.append(fd)
+                return original_fstat(fd)
+            with patch.object(r, 'CREDENTIAL', path), patch.object(r.os, 'fstat', side_effect=swapping_fstat):
+                self.assertEqual(r.credential(), 'original')
+            self.assertEqual(len(set(calls)), 1)
+            path.unlink(); path.symlink_to(path.with_suffix('.old'))
+            with patch.object(r, 'CREDENTIAL', path), self.assertRaises(OSError): r.credential()
+            path.unlink(); os.mkfifo(path, 0o600)
+            with patch.object(r, 'CREDENTIAL', path), self.assertRaises(r.Refusal): r.credential()
+            path.unlink(); path.write_text('CLOUDFLARE_API_TOKEN=secret'); path.chmod(0o644)
+            with patch.object(r, 'CREDENTIAL', path), self.assertRaises(r.Refusal): r.credential()
+
+    def test_source_guard_explicit_untracked_and_updated_pin(self):
+        self.assertEqual(r.COMMIT, '282a6ca9bd8d8d5b11474ecafdf59692ef0c3bcf')
+        self.assertEqual(r.TREE, 'c447e8351c80f0f9ed4c0e4a49148c4831b389dd')
+        for status in ('', '?? hidden-by-config'):
+            with patch.object(r.subprocess, 'check_output', side_effect=[r.COMMIT, r.TREE, 'work/acceptance-access-1', status]) as call:
+                if status:
+                    with self.assertRaises(r.Refusal): r.source()
+                else:
+                    self.assertTrue(r.source()['clean'])
+                self.assertIn('--untracked-files=all', call.call_args.args[0])
+
+    def test_loaded_bytes_binding_and_post_drift(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'instrument.py'
+            payload = b'def main(digest):\n    return digest\n'
+            path.write_bytes(payload)
+            digest = hashlib.sha256(payload).hexdigest()
+            self.assertEqual(r.frozen_entry(path), digest)
+            with patch.object(r, '__file__', str(path)):
+                self.assertTrue(r.instrument_identity(digest)['unchanged'])
+                path.write_text('changed after load')
+                result = r.instrument_identity(digest)
+                self.assertEqual(result['loaded_sha256'], digest)
+                self.assertFalse(result['unchanged'])
+                path.unlink()
+                self.assertIsNone(r.instrument_identity(digest)['post_sha256'])
 
 
 if __name__ == '__main__':

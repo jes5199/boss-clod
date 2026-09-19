@@ -1,23 +1,28 @@
 {
   "request": 38923,
-  "observed_at": "2026-09-19T09:31:34.811416+00:00",
+  "review_findings": 38949,
+  "source_update": 38953,
+  "observed_at": "2026-09-19T09:48:53.513691+00:00",
+  "candidate_commit": "282a6ca9bd8d8d5b11474ecafdf59692ef0c3bcf",
+  "candidate_tree": "c447e8351c80f0f9ed4c0e4a49148c4831b389dd",
   "cloud_requests": 0,
   "provider_mutations": 0,
   "offline_controls": {
     "command": "PYTHONDONTWRITEBYTECODE=1 python3 tools/acceptance-readback/test_readback.py",
     "exit_code": 0,
-    "tests": 12,
+    "tests": 16,
     "failures": 0,
     "socket_guard": true
   },
   "static_checks": [
     "AST parse of both Python files passed",
-    "all delivered files trailing-whitespace check passed"
+    "all delivered files trailing-whitespace check passed",
+    "git diff --check passed"
   ],
   "files_sha256": {
-    "readback.py": "3541a6b370b55e4836fcdd5f54019be5376c370e758c1af81e36a556ee7b5837",
-    "test_readback.py": "b46d2c889903d3dccff4d4cc724ce1417a04283130722ef4bd0e5c8d067ee2d8",
-    "README.md": "961b6b7c11423629265363480f88ae77eff4db6e4cbb0bc12e26adfa2bcf34fc"
+    "readback.py": "b54679ebfc577b9f6f7e8e83f2e97dd6d21b8df8fb5b99c06a55b95771b631ff",
+    "test_readback.py": "0821b3ae0fe9cbd2137c5afbd0858ba9f9c6854e87ba56151d66c8c06f1023e3",
+    "README.md": "07f9c16850e3e3bfb0a065d79e94c2191d8c9509f7ed99c8ea2194e9400af68c"
   },
   "limitation": "Reviewable collector; human app organization has no approved live read surface and secret_text realm remains unavailable. Overall verdict always HOLD."
 }

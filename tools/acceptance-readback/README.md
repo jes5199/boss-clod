@@ -1,7 +1,8 @@
 # Acceptance reservation readback — review stage
 
-Request: boss-clod #38923; candidate `672cec4af4aab57217b87bd35ace5fc45b30c09f`, tree
-`f5ea56a6a04be92de6e2c037bef3f04e7659e356`. No cloud requests have been executed for this packet.
+Request: boss-clod #38923, review fixes #38949 and source update #38953;
+candidate `282a6ca9bd8d8d5b11474ecafdf59692ef0c3bcf`, tree
+`c447e8351c80f0f9ed4c0e4a49148c4831b389dd`. No cloud requests have been executed for this packet.
 
 This instrument is deliberately incapable of returning overall GREEN. The human application
 organization has no reviewed read-only live endpoint in the available instruments. Cloudflare's
@@ -34,7 +35,9 @@ All URLs are fixed HTTPS Cloudflare API v4 paths in `SPECS`. Every request is GE
 These are required functional capabilities, not a claim that the existing credential has them
 or verified provider permission-label spelling. Missing permission produces HOLD. No permission
 expansion is performed. Only the existing `do-worker.env` API token is read, in memory, after
-owner/mode/symlink checks. No subprocess receives it. Redirects and environment proxies are disabled.
+regular-file/owner/mode checks on the same descriptor used for the bounded read. Opening uses
+O_NOFOLLOW/O_NONBLOCK, and descriptor metadata is checked before/after reading. No subprocess
+receives it. Redirects and environment proxies are disabled.
 API responses may contain unrelated sensitive fields: raw bodies stay in memory and are never
 written. Projection emits counts, fixed known control identifiers, verdicts, and a validated
 public realm UUID only. Exceptions and HTTP error bodies are not emitted. Policy membership,
@@ -42,22 +45,33 @@ client IDs/secrets, credentials, capabilities, cookies, JWTs and arbitrary names
 
 ## Bounds, controls, and limitations
 
-At most 10 pages per list, 100 rows/page, 1,000 total rows, 4 MiB/response, 15s/request and a
-180s whole-run alarm. Missing/inconsistent pagination, duplicate IDs, unsupported match syntax,
+Accounts/Zones request and enforce 50 rows/page; other paginated lists request and enforce 100.
+Worker Routes/Scripts are unpaginated lists: no pagination query or result_info requirement,
+with an enforced 1,000-row bound. Paginated lists allow at most 10 pages and 1,000 total rows.
+All responses have a 4 MiB bound, requests 15s timeout, and the run a 180s alarm.
+Missing/inconsistent pagination on paginated endpoints, duplicate IDs, unsupported match syntax,
 missing controls, invalid schemas and failures all produce HOLD. Empty service-token lists
-cannot provide a known-live positive control. The human-policy observation is application-local,
+cannot provide a known-live positive control. A missing positive control forces HOLD even when
+the returned corpus has a reserved match; the match count is retained without a COLLISION verdict.
+The human-policy observation is application-local,
 not proof about every policy. Wildcard host collisions are conservative; any path on the reserved
 route host counts as collision. This is a point-in-time observation, not a provider lock or
 atomic snapshot. Repeat before any separately authorized provisioning.
 
-The candidate source must be the exact clean branch/commit/tree before and after reads. Output
+The candidate source must be the exact clean branch/commit/tree before and after reads; status
+explicitly requests all untracked files regardless of Git configuration. The entrypoint reads
+the collector bytes once, hashes and compiles that same buffer, then runs that compiled payload.
+The receipt retains this loaded hash and a separate post-run path hash; missing/changed post-run
+bytes add HOLD_INSTRUMENT_DRIFT. Output
 uses exclusive creation and mode 0600, with a fixed HOLD exit code 2. The original reservation
 is never overwritten. The configured 300s verifier limit is **not** a Cloudflare JWT lifetime
 claim. No JWT acquisition or lifetime test is included.
 
 Offline controls cover controlled absence/collision, wildcard paths, empty corpus, pagination
 success/failures, account-control stop, secret/error canaries, public realm projection, secret
-binding refusal, malformed URLs, redirect refusal, and fixed GET/no-body requests. Socket use
+binding refusal, malformed URLs, redirect refusal, actual opener handler wiring, endpoint query
+limits, unpaginated lists, oversize pages, descriptor/path-swap/FIFO/symlink controls, explicit
+untracked status, and loaded-byte/post-drift binding. Socket use
 is blocked during controls.
 
 ```
