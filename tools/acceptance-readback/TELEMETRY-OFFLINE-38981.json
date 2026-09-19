@@ -1,0 +1,63 @@
+{
+  "request": 38981,
+  "observed_at": "2026-09-19T10:10:43.252942+00:00",
+  "state": "HOLD",
+  "live_requests": 0,
+  "credential_reads": 0,
+  "raw_events_emitted": false,
+  "samples": [
+    {
+      "path": "cf-records/live-navigation-service-1/events-merged.json",
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "records": 0,
+      "counts": {
+        "organization_named_fields": 0,
+        "realm_named_fields": 0,
+        "org_route_strings": 0,
+        "realm_route_strings": 0
+      }
+    },
+    {
+      "path": "cf-records/live-typing-acks-1/events-merged.json",
+      "sha256": "3bab3ee41cfac8e911261ea6eee0d9fee2720f7c0a6db94e730e8f64c7ab828c",
+      "records": 2,
+      "counts": {
+        "organization_named_fields": 0,
+        "realm_named_fields": 0,
+        "org_route_strings": 3,
+        "realm_route_strings": 0
+      }
+    },
+    {
+      "path": "cf-records/live-browser-typing-retrieve-1/events-merged.json",
+      "sha256": "deb79e7945fed11a880c3941a2ba9013f60efc7d2315124f035e8f94b2e03e00",
+      "records": 1,
+      "counts": {
+        "organization_named_fields": 0,
+        "realm_named_fields": 0,
+        "org_route_strings": 0,
+        "realm_route_strings": 0
+      }
+    },
+    {
+      "path": "cf-records/live-container-navigation-1/events-merged.json",
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "records": 0,
+      "counts": {
+        "organization_named_fields": 0,
+        "realm_named_fields": 0,
+        "org_route_strings": 0,
+        "realm_route_strings": 0
+      }
+    }
+  ],
+  "inspected_source_sha256": {
+    "/home/jes/commonplace-log/worker/node_modules/wrangler/wrangler-dist/cli.js": "8642ffb286871a94617969aa64d351097a49783361834d8c4aec75adbddfa773",
+    "/home/jes/commonplace-next-acceptance-access-1/worker/src/authentication-diagnostic.js": "ff7d0130f5c143fa41cc1f6f5a070f20f679c2afa06c4cee0bcb4f035cd2941e",
+    "/home/jes/commonplace-next-acceptance-access-1/worker/src/input-client-report.js": "5d93ee2db16a0ad6844bdb7f62fd3bbd808183c5dd407735a580c0d90e1aa3a9",
+    "/home/jes/commonplace-next-acceptance-access-1/assets/src/input-report-schema.js": "93a826e71d62710cc56a1a4582aa9755957a69cc25c36fab3076c8cd50be436d",
+    "/home/jes/commonplace-next-acceptance-access-1/worker/src/outbound.js": "1757d60bbc60b1402c3eee919518d8eff5879bc88aa354bc645d7ae044260536",
+    "/home/jes/commonplace-next-acceptance-access-1/worker/wrangler.jsonc": "23479be5a68dfa61c5428246252e2b9865356050755b4bb846fb8cea3816a695"
+  },
+  "limits": "Four selected historical event artifacts only; zero matches is not universal absence. Route strings are caller-controlled coordinates, not proof of admitted identity or realm association. SDK documentation is installed Cloudflare 5.2.0 bundled source, not a live latest-documentation check."
+}
