@@ -1,0 +1,31 @@
+{
+  "observed_at": "2026-09-19T10:02:51.028775+00:00",
+  "request_message_id": 38969,
+  "hold_message_id": 38957,
+  "source": {
+    "checkout": "/home/jes/commonplace-next-acceptance-access-1",
+    "branch": "work/acceptance-access-1",
+    "commit": "0fdf8a1fe0ba747a491ed7dbd5de5ba2dbc93790",
+    "tree": "e12015d367f5af7fb39e7d8df11287e8b3a9d765",
+    "clean": true,
+    "sha256": {
+      "worker/wrangler.acceptance.jsonc": "85f15d28a67e9f825ed551bf597df0e1b714b4ae5e00faef2fecab371aaf41f0",
+      "lib/commonplace_next/acceptance/config.ex": "87aced98f7062a923152984f034265a386b8b26eb416acef44b79f45ac4d5fec",
+      "lib/commonplace_next/acceptance/bootstrap.ex": "258785175e91a136616ebcec421e9912da0e5d897665fea2c6644f84050c6700",
+      "lib/commonplace_next/acceptance/admission.ex": "c4e4f07b3a7bfb48d67fb55a1a91c7769f54a99ea91b4acb99d669149d8bfe37",
+      "lib/commonplace_next/cloudflare_access/machine_assertion_verifier.ex": "d1c7d90be41ce078eea1ba47f0514657befb45756f049e4d16421a040678bf74",
+      "docs/measurements/acceptance-access-1/OPERATOR-PACKET.md": "9f63fb5e6116a23c8525ff8deb8e41fc0cd899c73afbef55a63728b4e7ca0d28"
+    }
+  },
+  "state": "SOURCE_VERIFIED_CLOUD_READBACK_HELD",
+  "cloud_requests_performed": 0,
+  "provider_mutations_performed": false,
+  "blocker": "Human organization/secret_text realm observation surface unresolved. Live cloud reads and mutations held per 38957/38969; no cloud readback performed.",
+  "lifetime_note": "300s is candidate configured machine assertion lifetime limit, not evidence of Cloudflare JWT lifetime.",
+  "prior_reservation": "cf-records/acceptance-access-1-designation-reservation-20260919T002500Z.json",
+  "supersedes_source_receipt": "cf-records/acceptance-access-source-refresh-38910.json",
+  "reported_local_image": {
+    "digest": "sha256:918d008a0f76bc125c439bc96079af0211758c000455211b3737e029f45eb28f",
+    "basis": "boss-clod message 38969; not independently inspected in this source-only refresh"
+  }
+}

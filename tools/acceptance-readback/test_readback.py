@@ -156,8 +156,8 @@ class Controls(unittest.TestCase):
             with patch.object(r, 'CREDENTIAL', path), self.assertRaises(r.Refusal): r.credential()
 
     def test_source_guard_explicit_untracked_and_updated_pin(self):
-        self.assertEqual(r.COMMIT, '282a6ca9bd8d8d5b11474ecafdf59692ef0c3bcf')
-        self.assertEqual(r.TREE, 'c447e8351c80f0f9ed4c0e4a49148c4831b389dd')
+        self.assertEqual(r.COMMIT, '0fdf8a1fe0ba747a491ed7dbd5de5ba2dbc93790')
+        self.assertEqual(r.TREE, 'e12015d367f5af7fb39e7d8df11287e8b3a9d765')
         for status in ('', '?? hidden-by-config'):
             with patch.object(r.subprocess, 'check_output', side_effect=[r.COMMIT, r.TREE, 'work/acceptance-access-1', status]) as call:
                 if status:

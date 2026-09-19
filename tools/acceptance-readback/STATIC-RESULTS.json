@@ -1,10 +1,10 @@
 {
   "request": 38923,
   "review_findings": 38949,
-  "source_update": 38953,
-  "observed_at": "2026-09-19T09:48:53.513691+00:00",
-  "candidate_commit": "282a6ca9bd8d8d5b11474ecafdf59692ef0c3bcf",
-  "candidate_tree": "c447e8351c80f0f9ed4c0e4a49148c4831b389dd",
+  "source_update": 38969,
+  "observed_at": "2026-09-19T10:02:51.028775+00:00",
+  "candidate_commit": "0fdf8a1fe0ba747a491ed7dbd5de5ba2dbc93790",
+  "candidate_tree": "e12015d367f5af7fb39e7d8df11287e8b3a9d765",
   "cloud_requests": 0,
   "provider_mutations": 0,
   "offline_controls": {
@@ -20,9 +20,9 @@
     "git diff --check passed"
   ],
   "files_sha256": {
-    "readback.py": "b54679ebfc577b9f6f7e8e83f2e97dd6d21b8df8fb5b99c06a55b95771b631ff",
-    "test_readback.py": "0821b3ae0fe9cbd2137c5afbd0858ba9f9c6854e87ba56151d66c8c06f1023e3",
-    "README.md": "07f9c16850e3e3bfb0a065d79e94c2191d8c9509f7ed99c8ea2194e9400af68c"
+    "readback.py": "b8a088223f23084b79a84a7cdf42b3e02be046a2aaf87bfc6c6154c3ae31c5c5",
+    "test_readback.py": "aa26cf0c90fa876ca0ed7ed8331d775f2d985962ddde07b9765a2f8fc6f0ddfd",
+    "README.md": "893dec3e0087900cb8330ea3018255908cda7a9d41ce039a0fe31405f67dbc68"
   },
   "limitation": "Reviewable collector; human app organization has no approved live read surface and secret_text realm remains unavailable. Overall verdict always HOLD."
 }

@@ -1,8 +1,8 @@
 # Acceptance reservation readback — review stage
 
-Request: boss-clod #38923, review fixes #38949 and source update #38953;
-candidate `282a6ca9bd8d8d5b11474ecafdf59692ef0c3bcf`, tree
-`c447e8351c80f0f9ed4c0e4a49148c4831b389dd`. No cloud requests have been executed for this packet.
+Request: boss-clod #38923, review fixes #38949 and source update #38969;
+candidate `0fdf8a1fe0ba747a491ed7dbd5de5ba2dbc93790`, tree
+`e12015d367f5af7fb39e7d8df11287e8b3a9d765`. No cloud requests have been executed for this packet.
 
 This instrument is deliberately incapable of returning overall GREEN. The human application
 organization has no reviewed read-only live endpoint in the available instruments. Cloudflare's
